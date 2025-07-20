@@ -9,7 +9,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 
 - **Project Renamed:** All branding updated to "Open Agent School" in navigation, footer, and title.
 - **Environment Variables for LLM Providers:**
-  - Added `.env.example` to the repository. Use this file to configure API keys for LLM providers (OpenAI, Azure OpenAI, Google Gemini).
+  - Added `.env.example` to the repository. Use this file to configure API keys for LLM providers (OpenAI, Azure OpenAI, Google Gemini, Claude, Hugging Face, Open router).
   - Example keys:
     ```env
     VITE_OPENAI_API_KEY=""
@@ -18,6 +18,12 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
     VITE_AZURE_OPENAI_API_URL=""
     VITE_GEMINI_API_KEY=""
     VITE_GEMINI_API_URL="https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+    VITE_HUGGINGFACE_API_KEY=""
+    VITE_HUGGINGFACE_API_URL="https://api-inference.huggingface.co/models/<your-model>"
+    VITE_OPENROUTER_API_KEY=""
+    VITE_OPENROUTER_API_URL="https://openrouter.ai/api/v1/chat/completions"
+    VITE_ANTHROPIC_API_KEY=""
+    VITE_ANTHROPIC_API_URL="https://api.anthropic.com/v1/messages"
     ```
   - To use LLM features, copy `.env.example` to `.env` and fill in your API keys.
 - **How to Use VITE_API_KEYs:**
@@ -332,6 +338,7 @@ npm run build
 ```
 
 ### Development
+### Make sure you have .env file created by copying from .env.example and LLM API Keys are added
 
 ```bash
 # Run in development mode with hot reload

@@ -5,6 +5,9 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ArrowRight, PuzzlePiece, Wrench, Gear, BracketsCurly, Code } from "@phosphor-icons/react";
+import BusinessUseCaseSection from "./BusinessUseCaseSection";
+import { Clipboard } from "@phosphor-icons/react";
+import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
 const Agent2AgentProtocolExplainer = () => {
   return (
@@ -31,11 +34,12 @@ const Agent2AgentProtocolExplainer = () => {
           <Separator />
           
           <Tabs defaultValue="core-principles">
-            <TabsList className="grid grid-cols-4">
+            <TabsList className="grid grid-cols-5">
               <TabsTrigger value="core-principles">Core Principles</TabsTrigger>
               <TabsTrigger value="building-blocks">Building Blocks</TabsTrigger>
               <TabsTrigger value="a2a-vs-mcp">A2A vs MCP</TabsTrigger>
               <TabsTrigger value="workflow">Complete Workflow</TabsTrigger>
+              <TabsTrigger value="business-use-case">Business Use Case</TabsTrigger>
             </TabsList>
             
             <TabsContent value="core-principles" className="space-y-4 pt-4">
@@ -464,6 +468,81 @@ const Agent2AgentProtocolExplainer = () => {
                         <li>MCP handled the specific function call to get the stock data</li>
                         <li>Both protocols worked together to solve the user's request</li>
                         <li>Each agent maintained its autonomy while collaborating effectively</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="business-use-case" className="space-y-4 pt-4">
+              <h3 className="text-lg font-semibold mb-3">A2A Communication Business Use Case</h3>
+              <BusinessUseCaseSection
+                industry="Retail"
+                scenario="Personalized Shopping Assistant: React agents interact with customer profiles and inventory systems to recommend products, answer queries, and streamline checkout."
+                value="Increases conversion rates, enhances customer satisfaction, and optimizes inventory turnover."
+              />
+              <Card className="mt-6">
+                <CardHeader className="flex items-center justify-between pb-2">
+                  <span className="font-semibold text-base">Business Use Case Deep Dive</span>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      className="p-2 rounded hover:bg-muted"
+                      onClick={() => {
+                        navigator.clipboard.writeText(`React Agent Pattern in Retail\n\nIndustry: Retail\n\nScenario: Personalized Shopping Assistant\n\nReact agents interact with customer profiles and inventory systems to recommend products, answer queries, and streamline checkout.\n\nImplementation Path:\n1. Identify customer pain points (e.g., product discovery, checkout friction).\n2. Integrate React agents with customer data and inventory APIs.\n3. Design agent workflows for product recommendations and real-time support.\n4. Measure success via conversion rates and customer feedback.\n\nExpected Outcomes:\n- Higher sales conversion\n- Improved customer retention\n- Efficient inventory management\n\nKey Metrics:\n- Conversion rate\n- Customer satisfaction score\n- Inventory turnover\n\nNext Steps for Business Users:\n- Map current workflows to agent capabilities\n- Pilot the agent in a specific product category\n- Collect feedback and iterate`);
+                      }}
+                      title="Copy to clipboard"
+                    >
+                      <Clipboard size={20} />
+                    </button>
+                    <EnlightenMeButton
+                      title="React Agent Pattern in Retail"
+                      contextDescription={
+                        "A React agent that acts as a personalized shopping assistant in retail. The agent interacts with customer profiles and inventory systems to recommend products, answer queries, and streamline checkout."
+                      }
+                    />
+                  </div>
+                </CardHeader>
+                <CardContent className="px-2 py-2">
+                  <div className="space-y-4">
+                    <div>
+                      <span className="block text-lg font-semibold mb-1">React Agent Pattern in Retail</span>
+                      <div className="mb-2"><strong>Industry:</strong> Retail</div>
+                      <div className="mb-2"><strong>Scenario:</strong> Personalized Shopping Assistant</div>
+                      <div className="mb-2">React agents interact with customer profiles and inventory systems to recommend products, answer queries, and streamline checkout.</div>
+                    </div>
+                    <div>
+                      <span className="font-semibold">Implementation Path</span>
+                      <ol className="list-decimal list-inside ml-4 mt-1">
+                        <li>Identify customer pain points (e.g., product discovery, checkout friction).</li>
+                        <li>Integrate React agents with customer data and inventory APIs.</li>
+                        <li>Design agent workflows for product recommendations and real-time support.</li>
+                        <li>Measure success via conversion rates and customer feedback.</li>
+                      </ol>
+                    </div>
+                    <div>
+                      <span className="font-semibold">Expected Outcomes</span>
+                      <ul className="list-disc list-inside ml-4 mt-1">
+                        <li>Higher sales conversion</li>
+                        <li>Improved customer retention</li>
+                        <li>Efficient inventory management</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="font-semibold">Key Metrics</span>
+                      <ul className="list-disc list-inside ml-4 mt-1">
+                        <li>Conversion rate</li>
+                        <li>Customer satisfaction score</li>
+                        <li>Inventory turnover</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="font-semibold">Next Steps for Business Users</span>
+                      <ul className="list-disc list-inside ml-4 mt-1">
+                        <li>Map current workflows to agent capabilities</li>
+                        <li>Pilot the agent in a specific product category</li>
+                        <li>Collect feedback and iterate</li>
                       </ul>
                     </div>
                   </div>
