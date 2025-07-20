@@ -318,7 +318,8 @@ Each personality features:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd spark-template
+
+# cd to the repository
 
 # Install dependencies
 npm install
