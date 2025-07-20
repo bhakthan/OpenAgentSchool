@@ -1,0 +1,291 @@
+@import 'tailwindcss';
+@import "tw-animate-css";
+@import "../styles/visualization.css";
+
+@layer base {
+  * {
+    @apply border-border
+  }
+  
+  /* Ensure smooth transitions between themes */
+  :root {
+    --transition-duration: 0.3s;
+  }
+  
+  /* Global transition properties for theme changes */
+  body, 
+  div, 
+  section, 
+  header, 
+  footer, 
+  nav, 
+  main, 
+  article, 
+  aside, 
+  button, 
+  a,
+  span,
+  p,
+  h1, h2, h3, h4, h5, h6,
+  input, 
+  textarea, 
+  select, 
+  table, 
+  .card,
+  .border,
+  .bg-background,
+  .bg-card,
+  .bg-primary,
+  .bg-secondary,
+  .bg-accent,
+  .bg-muted,
+  [class*="bg-"],
+  [class*="text-"],
+  [class*="border-"] {
+    transition: background-color var(--transition-duration) ease, 
+                color var(--transition-duration) ease,
+                border-color var(--transition-duration) ease,
+                box-shadow var(--transition-duration) ease,
+                fill var(--transition-duration) ease,
+                stroke var(--transition-duration) ease;
+  }
+  
+  /* Theme transition blocker - used during theme switching to prevent flashes */
+  .theme-transition,
+  .theme-transition * {
+    transition: none !important;
+  }
+  
+  /* Add smoother sidebar transitions */
+  .sidebar-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  
+  /* Enhance tooltip animations */
+  [role="tooltip"] {
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+  }
+  
+  /* Smooth button hover effects */
+  button:hover {
+    transition: all 0.2s ease !important;
+  }
+  
+  /* ReactFlow dark mode enhancements */
+  .dark .react-flow__edge path {
+    stroke: rgba(255, 255, 255, 0.5);
+  }
+  
+  .dark .react-flow__edge.selected path,
+  .dark .react-flow__edge:focus path,
+  .dark .react-flow__edge:focus-visible path {
+    stroke: var(--primary) !important;
+  }
+  
+  .dark .react-flow__edge-path-selector:hover + .react-flow__edge-path {
+    stroke: var(--primary) !important;
+  }
+  
+  .dark .react-flow__controls {
+    background-color: var(--card);
+    border-color: var(--border);
+  }
+  
+  .dark .react-flow__controls button {
+    background-color: var(--card);
+    border-color: var(--border);
+    color: var(--foreground);
+  }
+  
+  .dark .react-flow__controls button:hover {
+    background-color: var(--muted);
+  }
+  
+  .dark .react-flow__attribution {
+    background-color: rgba(30, 41, 59, 0.8);
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .dark .react-flow__minimap {
+    background-color: var(--card);
+    border-color: var(--border);
+  }
+  
+  /* Fix for flow indicator visibility in dark mode */
+  .dark .flow-indicator {
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.8));
+  }
+}
+
+/* Light Mode */
+.light {
+  /* Base colors */
+  --background: oklch(0.98 0.005 240);
+  --foreground: oklch(0.23 0.02 240); /* #2d333a */
+
+  --card: oklch(0.97 0.005 240); /* #f9fafb */
+  --card-foreground: oklch(0.23 0.02 240); /* #2d333a */
+  --popover: oklch(0.97 0.005 240); /* #f9fafb */
+  --popover-foreground: oklch(0.23 0.02 240); /* #2d333a */
+
+  /* Action colors */
+  --primary: oklch(0.60 0.15 180); /* #10a37f - OpenAI green */
+  --primary-foreground: oklch(0.98 0.005 240); /* white */
+  --secondary: oklch(0.95 0.02 240); /* #f3f4f6 */
+  --secondary-foreground: oklch(0.23 0.02 240); /* #2d333a */
+  --accent: oklch(0.60 0.15 180); /* #10a37f - same as primary */
+  --accent-foreground: oklch(0.98 0.005 240); /* white */
+  --destructive: oklch(0.65 0.3 25); /* red */
+  --destructive-foreground: oklch(0.98 0.005 240); /* white */
+
+  /* Supporting UI colors */
+  --muted: oklch(0.95 0.02 240); /* #f3f4f6 */
+  --muted-foreground: oklch(0.5 0.02 240); /* #71767f */
+  --border: oklch(0.9 0.02 240); /* lighter border */
+  --input: oklch(0.9 0.02 240);
+  --ring: oklch(0.60 0.15 180); /* #10a37f - same as primary */
+}
+
+/* Dark Mode */
+.dark {
+  /* Base colors */
+  --background: oklch(0.15 0.02 240);
+  --foreground: oklch(0.95 0.02 240); /* lighter text for better readability */
+
+  --card: oklch(0.2 0.02 240);
+  --card-foreground: oklch(0.95 0.02 240);
+  --popover: oklch(0.2 0.02 240);
+  --popover-foreground: oklch(0.95 0.02 240);
+
+  /* Action colors */
+  --primary: oklch(0.65 0.15 180); /* #10a37f - slightly brighter in dark mode */
+  --primary-foreground: oklch(0.1 0.02 240);
+  --secondary: oklch(0.25 0.02 240);
+  --secondary-foreground: oklch(0.95 0.02 240);
+  --accent: oklch(0.65 0.15 180); /* same as primary */
+  --accent-foreground: oklch(0.1 0.02 240);
+  --destructive: oklch(0.7 0.3 25);
+  --destructive-foreground: oklch(0.1 0.02 240);
+
+  /* Supporting UI colors */
+  --muted: oklch(0.25 0.02 240);
+  --muted-foreground: oklch(0.7 0.02 240);
+  --border: oklch(0.3 0.02 240);
+  --input: oklch(0.3 0.02 240);
+  --ring: oklch(0.65 0.15 180); /* same as primary */
+}
+
+/* Border radius */
+:root {
+  --radius: 0.5rem;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Map radius variables */
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 1.5);
+  --radius-xl: calc(var(--radius) * 2);
+  --radius-2xl: calc(var(--radius) * 3);
+  --radius-full: 9999px;
+}
+
+body {
+  font-family: 'Source Sans Pro', 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, 
+.heading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+code, pre {
+  font-family: 'Fira Mono', 'Fira Code', monospace;
+}
+
+/* Enhanced draggable nodes styles */
+.react-flow__node {
+  cursor: grab;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.react-flow__node:active {
+  cursor: grabbing;
+  box-shadow: 0 0 0 2px var(--ring), 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+.react-flow__node .drag-handle {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.react-flow__node:hover .drag-handle {
+  opacity: 1;
+}
+
+/* Add pulse animation for step-by-step button */
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 163, 127, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(16, 163, 127, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 163, 127, 0);
+  }
+}
+
+/* Fade-in animation for drag hint */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+/* Drag handle hover animation */
+@keyframes wiggle {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+.react-flow__node:hover .drag-handle {
+  animation: wiggle 1s ease-in-out infinite;
+}
