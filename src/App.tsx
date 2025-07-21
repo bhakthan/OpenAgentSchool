@@ -22,7 +22,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import ConceptsExplorer from './components/concepts/ConceptsExplorer'
 import AzureServicesOverview from './components/azure-services/AzureServicesOverview'
 import CommunitySharing from './components/community/CommunitySharing'
-import ReferencesSection from './components/references/ReferencesSection'
+import ReferenceSection from './components/references/ReferenceSection'
 import QuizSection from './components/quiz/QuizSection'
 import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtils';
 import { setupReactFlowErrorHandling } from './lib/utils/reactFlowUtils';
@@ -282,7 +282,7 @@ function App() {
               <Route path="/patterns" element={<PatternExplorer />} />
               <Route path="/azure-services" element={<AzureServicesOverview />} />
               <Route path="/quiz" element={<QuizSection />} />
-              <Route path="/references" element={<ReferencesSection />} />
+              <Route path="/references" element={<ReferenceSection type="concept" itemId="agents" />} />
               <Route path="/community" element={<CommunitySharing />} />
               {/* Fallback route to redirect to home page */}
               <Route path="*" element={<Navigate to="/" replace />} />

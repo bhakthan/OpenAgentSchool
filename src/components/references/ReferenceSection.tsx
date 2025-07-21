@@ -174,7 +174,7 @@ const ReferenceSection: React.FC<ReferenceSectionProps> = ({ type, itemId }) => 
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[300px] pr-4">
+        <ScrollArea className="h-[500px] pr-4">
           <Accordion type="multiple" className="w-full">
             {allCategories.map((category) => (
               <AccordionItem key={category.id} value={category.id}>

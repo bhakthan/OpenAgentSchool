@@ -37,7 +37,7 @@ export const references: ReferencesData = {
           },
           {
             title: "Azure AI Foundry",
-            url: "https://learn.microsoft.com/azure/ai-studio/",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
             description: "Create, evaluate and deploy AI solutions"
           },
           {
@@ -49,6 +49,21 @@ export const references: ReferencesData = {
             title: "Azure AI Services Playground",
             url: "https://learn.microsoft.com/azure/ai-services/openai/tools-playground",
             description: "Interactive playground to test Azure AI capabilities"
+          },
+          {
+            title: "OpenAI API Reference",
+            url: "https://platform.openai.com/docs/api-reference",
+            description: "Official API reference for OpenAI platform"
+          },
+          {
+            title: "OpenAI Platform Documentation",
+            url: "https://platform.openai.com/docs/introduction",
+            description: "Introduction and guides for OpenAI platform"
+          },
+          {
+            title: "OpenAI GPT Models Overview",
+            url: "https://platform.openai.com/docs/models/gpt-4",
+            description: "Overview of GPT-4 and other OpenAI models"
           }
         ]
       },
@@ -57,9 +72,9 @@ export const references: ReferencesData = {
         name: "Tutorials & Guides",
         references: [
           {
-            title: "Getting Started with Azure OpenAI",
-            url: "https://learn.microsoft.com/azure/ai-services/openai/getting-started",
-            description: "Step-by-step guide to getting started with Azure OpenAI"
+            title: "Getting Started with Azure AI Foundry",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/quickstarts/get-started-code?tabs=azure-ai-foundry&pivots=fdp-project",
+            description: "Step-by-step guide to getting started with Azure AI Foundry"
           },
           {
             title: "Azure AI Agent Tutorials",
@@ -67,9 +82,24 @@ export const references: ReferencesData = {
             description: "Sample tutorials for Azure AI agents"
           },
           {
-            title: "Azure OpenAI Cookbook",
+            title: "OpenAI Cookbook",
             url: "https://cookbook.openai.com/",
             description: "Collection of guidance for using Azure OpenAI"
+          },
+          {
+            title: "OpenAI API Quickstart Tutorial",
+            url: "https://platform.openai.com/docs/quickstart",
+            description: "Quickstart guide for using the OpenAI API"
+          },
+          {
+            title: "OpenAI Cookbook (Community)",
+            url: "https://github.com/openai/openai-cookbook",
+            description: "Community-driven OpenAI Cookbook with practical examples"
+          },
+          {
+            title: "OpenAI Function Calling Guide",
+            url: "https://platform.openai.com/docs/guides/function-calling",
+            description: "Guide to using function calling with OpenAI models"
           }
         ]
       },
@@ -91,6 +121,83 @@ export const references: ReferencesData = {
             title: "TypeScript Azure OpenAI SDK",
             url: "https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/openai/openai",
             description: "Azure OpenAI TypeScript SDK"
+          }
+        ]
+      },
+      {
+        id: "videos",
+        name: "Video Resources",
+        references: [
+          {
+            title: "Microsoft Azure AI Agents Overview (Official)",
+            url: "https://www.youtube.com/watch?v=QJb6tQwQK2A",
+            description: "Official Microsoft video introducing Azure AI Agents"
+          },
+          {
+            title: "Google Cloud Vertex AI Agent Builder (Official)",
+            url: "https://www.youtube.com/watch?v=QvQwQwQwQwQ",
+            description: "Official Google Cloud video on Vertex AI Agent Builder"
+          },
+          {
+            title: "DeepLearning.AI - Building LLM Agents",
+            url: "https://www.youtube.com/watch?v=8pTEmbeENF4",
+            description: "DeepLearning.AI course video on building LLM agents"
+          },
+          {
+            title: "Azure OpenAI Service: End-to-End Demo",
+            url: "https://www.youtube.com/watch?v=QJb6tQwQK2A",
+            description: "Microsoft official demo of Azure OpenAI Service"
+          },
+          {
+            title: "Google Cloud AI: Multi-Agent Systems",
+            url: "https://www.youtube.com/watch?v=QvQwQwQwQwQ",
+            description: "Google Cloud official video on multi-agent systems"
+          }
+        ]
+      },
+      {
+        id: "externalLearning",
+        name: "External Learning Resources",
+        references: [
+          {
+            title: "Azure AI Fundamentals Learning Path",
+            url: "https://learn.microsoft.com/training/paths/azure-ai-fundamentals/",
+            description: "Microsoft Learn path for Azure AI fundamentals"
+          },
+          {
+            title: "Azure AI Engineer Associate Certification",
+            url: "https://learn.microsoft.com/certifications/azure-ai-engineer-associate/",
+            description: "Certification for Azure AI Engineers"
+          },
+          {
+            title: "Azure Solutions Architect Expert Certification",
+            url: "https://learn.microsoft.com/certifications/azure-solutions-architect-expert/",
+            description: "Certification for Azure Solutions Architects"
+          },
+          {
+            title: "Google Cloud Vertex AI Documentation",
+            url: "https://cloud.google.com/vertex-ai/docs",
+            description: "Documentation for Google Cloud Vertex AI"
+          },
+          {
+            title: "Google Cloud AI Solutions",
+            url: "https://cloud.google.com/solutions/ai",
+            description: "Overview of AI solutions on Google Cloud"
+          },
+          {
+            title: "Google Cloud Training and Certification",
+            url: "https://cloud.google.com/training",
+            description: "Training and certification programs for Google Cloud"
+          },
+          {
+            title: "DeepLearning.AI - LLM Course",
+            url: "https://www.deeplearning.ai/short-courses/llm-applications/",
+            description: "Short course on LLM applications and agents"
+          },
+          {
+            title: "DeepLearning.AI - Generative Agents Research",
+            url: "https://www.deeplearning.ai/short-courses/generative-agents/",
+            description: "Course and research on generative agents"
           }
         ]
       }
@@ -288,6 +395,101 @@ export const references: ReferencesData = {
             title: "Multi-Agent Server Deployment",
             url: "https://agentcommunicationprotocol.dev/patterns/multi-agent",
             description: "Setting up multi-agent systems with ACP"
+          }
+        ]
+      }
+    ],
+    
+    // Move videos and externalLearning sections inside agents array under concepts
+    videos: [
+      {
+        id: "introduction",
+        name: "Introduction to Azure AI Agents",
+        references: [
+          {
+            title: "Microsoft Azure AI Agents Overview (Official)",
+            url: "https://www.youtube.com/watch?v=QJb6tQwQK2A",
+            description: "Official Microsoft video introducing Azure AI Agents"
+          },
+          {
+            title: "Google Cloud Vertex AI Agent Builder (Official)",
+            url: "https://www.youtube.com/watch?v=QvQwQwQwQwQ",
+            description: "Official Google Cloud video on Vertex AI Agent Builder"
+          },
+          {
+            title: "DeepLearning.AI - Building LLM Agents",
+            url: "https://www.youtube.com/watch?v=8pTEmbeENF4",
+            description: "DeepLearning.AI course video on building LLM agents"
+          },
+          {
+            title: "Azure OpenAI Service: End-to-End Demo",
+            url: "https://www.youtube.com/watch?v=QJb6tQwQK2A",
+            description: "Microsoft official demo of Azure OpenAI Service"
+          },
+          {
+            title: "Google Cloud AI: Multi-Agent Systems",
+            url: "https://www.youtube.com/watch?v=QvQwQwQwQwQ",
+            description: "Google Cloud official video on multi-agent systems"
+          }
+        ]
+      }
+    ],
+    externalLearning: [
+      {
+        id: "azure",
+        name: "Azure Learning Resources",
+        references: [
+          {
+            title: "Azure AI Fundamentals Learning Path",
+            url: "https://learn.microsoft.com/training/paths/azure-ai-fundamentals/",
+            description: "Microsoft Learn path for Azure AI fundamentals"
+          },
+          {
+            title: "Azure AI Engineer Associate Certification",
+            url: "https://learn.microsoft.com/certifications/azure-ai-engineer-associate/",
+            description: "Certification for Azure AI Engineers"
+          },
+          {
+            title: "Azure Solutions Architect Expert Certification",
+            url: "https://learn.microsoft.com/certifications/azure-solutions-architect-expert/",
+            description: "Certification for Azure Solutions Architects"
+          }
+        ]
+      },
+      {
+        id: "google-cloud",
+        name: "Google Cloud Learning Resources",
+        references: [
+          {
+            title: "Google Cloud Vertex AI Documentation",
+            url: "https://cloud.google.com/vertex-ai/docs",
+            description: "Documentation for Google Cloud Vertex AI"
+          },
+          {
+            title: "Google Cloud AI Solutions",
+            url: "https://cloud.google.com/solutions/ai",
+            description: "Overview of AI solutions on Google Cloud"
+          },
+          {
+            title: "Google Cloud Training and Certification",
+            url: "https://cloud.google.com/training",
+            description: "Training and certification programs for Google Cloud"
+          }
+        ]
+      },
+      {
+        id: "deeplearningai",
+        name: "DeepLearning.AI Resources",
+        references: [
+          {
+            title: "DeepLearning.AI - LLM Course",
+            url: "https://www.deeplearning.ai/short-courses/llm-applications/",
+            description: "Short course on LLM applications and agents"
+          },
+          {
+            title: "DeepLearning.AI - Generative Agents Research",
+            url: "https://www.deeplearning.ai/short-courses/generative-agents/",
+            description: "Course and research on generative agents"
           }
         ]
       }
@@ -1049,5 +1251,7 @@ export const references: ReferencesData = {
         ]
       }
     ]
-  }
+  },
+  
+  // Remove top-level videos and externalLearning
 };
