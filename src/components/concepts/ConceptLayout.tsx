@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { BookOpen, Code, Gear, GraduationCap, ArrowRight, ArrowLeft, CheckCircle } from "@phosphor-icons/react"
-import EnlightenMeButton from "./EnlightenMeButton"
+import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 
 interface ConceptTab {
   id: string

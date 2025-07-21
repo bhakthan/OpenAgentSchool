@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Cloud, TerminalWindow, Lightning, Lock, Cpu, Globe, Code, ArrowSquareOut } from '@phosphor-icons/react';
-import EnlightenMeButton from '../concepts/EnlightenMeButton';
+import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 import CodeBlock from '@/components/ui/CodeBlock';
 
 // Mock environment variables for browser environment

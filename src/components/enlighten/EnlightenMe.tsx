@@ -17,6 +17,7 @@ import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import { LlmProvider, callLlm } from '@/lib/llm';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import jsPDF from 'jspdf';
 
 interface EnlightenMeProps {
   title: string;
@@ -193,14 +194,34 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
               <p className="text-sm font-medium mb-2">Your prompt:</p>
               <p className="text-sm text-muted-foreground">{prompt}</p>
             </div>
-            
             <div className="border rounded-md p-4 min-h-[400px] max-h-[800px] flex flex-col relative">
-              {/* Copy and Export PDF icons */}
-              <div className="absolute right-4 top-4 flex gap-2 z-10">
+              {isLoading ? (
+                <div className="flex items-center justify-center h-[200px]">
+                  <SpinnerGap size={24} className="animate-spin text-primary" />
+                  <span className="ml-2">Generating insights...</span>
+                </div>
+              ) : (
+                <ScrollArea className="max-h-[60vh] overflow-y-auto">
+                  <div className="prose prose-sm dark:prose-invert max-w-none pr-4">
+                    <ReactMarkdown
+                      components={markdownComponents}
+                      remarkPlugins={[remarkGfm]}
+                    >
+                      {response}
+                    </ReactMarkdown>
+                  </div>
+                </ScrollArea>
+              )}
+            </div>
+            <DialogFooter className="flex items-center justify-between flex-row mt-2">
+              <Button variant="ghost" onClick={handleReset}>
+                Ask Something Else
+              </Button>
+              <div className="flex gap-2">
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-8 w-8 p-0 bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white"
+                  className="flex items-center gap-1"
                   onClick={async () => {
                     try {
                       await navigator.clipboard.writeText(response);
@@ -211,55 +232,29 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                   title="Copy response"
                 >
                   <Copy size={16} />
+                  <span>Copy</span>
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 w-8 p-0 bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white"
-                  onClick={async () => {
-                    // Export response to PDF
-                    const pdfContent = response;
-                    const blob = new Blob([pdfContent], { type: 'application/pdf' });
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = 'enlightenme-response.pdf';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(url);
-                  }}
-                  title="Export to PDF"
-                >
-                  <Lightbulb size={16} />
+              <Button
+                variant="ghost"
+                size="sm"
+                className="flex items-center gap-1"
+                onClick={() => {
+                  const doc = new jsPDF();
+                  doc.setFontSize(12);
+                  doc.text(response, 10, 10);
+                  // ...inside your export PDF button handler...
+                const conceptName = title.replace(/\s+/g, '_').toLowerCase(); // e.g., "React Agent Pattern"
+                doc.save(`${conceptName}-enlightenme.pdf`);
+                }}
+                title="Export to PDF"
+              >
+                <Lightbulb size={16} />
+                <span>Export PDF</span>
+              </Button>
+                <Button variant="outline" onClick={() => onOpenChange(false)}>
+                  Close
                 </Button>
               </div>
-              {isLoading ? (
-                <div className="flex items-center justify-center h-[200px]">
-                  <SpinnerGap size={24} className="animate-spin text-primary" />
-                  <span className="ml-2">Generating insights...</span>
-                </div>
-              ) : (
-                  <ScrollArea className="max-h-[60vh] overflow-y-auto">
-                    <div className="prose prose-sm dark:prose-invert max-w-none pr-4">
-                      <ReactMarkdown
-                        components={markdownComponents}
-                        remarkPlugins={[remarkGfm]}
-                      >
-                        {response}
-                      </ReactMarkdown>
-                    </div>
-                  </ScrollArea>
-              )}
-            </div>
-            
-            <DialogFooter className="flex items-center justify-between flex-row">
-              <Button variant="ghost" onClick={handleReset}>
-                Edit Prompt
-              </Button>
-              <Button variant="outline" onClick={() => onOpenChange(false)}>
-                Close
-              </Button>
             </DialogFooter>
           </>
         )}

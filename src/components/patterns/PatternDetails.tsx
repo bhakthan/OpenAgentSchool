@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import ReferenceSection from "../references/ReferenceSection";
 import { PatternDemoSVG } from '../interactive-demos';
-import EnlightenMeButton from '../concepts/EnlightenMeButton';
+import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 
 interface PatternDetailsProps {
   pattern: PatternData;

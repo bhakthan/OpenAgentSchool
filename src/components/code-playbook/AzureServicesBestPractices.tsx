@@ -19,7 +19,7 @@ import {
   Gauge,
   ClockClockwise
 } from '@phosphor-icons/react';
-import EnlightenMeButton from '../concepts/EnlightenMeButton';
+import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 
 // Mock environment variables for browser environment
 const mockEnv = {

@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShieldCheck, Lock, Warning } from '@phosphor-icons/react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import EnlightenMeButton from '../concepts/EnlightenMeButton';
+import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 import CodeBlock from '@/components/ui/CodeBlock';
 
 interface SecurityImplementation {

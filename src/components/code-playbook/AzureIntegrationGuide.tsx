@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Cloud, Stack, Lightning, Database, LineSegments, ShieldCheck, Article } from '@phosphor-icons/react';
 import { AzureAIService, azureAIServices, AzureServicePatternMapping, azureServicePatternMappings } from '@/lib/data/azureAiServices';
-import EnlightenMeButton from '../concepts/EnlightenMeButton';
+import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 
 interface AzureIntegrationGuideProps {
   patternId: string;

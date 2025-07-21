@@ -501,6 +501,7 @@ const Agent2AgentProtocolExplainer = () => {
                       contextDescription={
                         "A React agent that acts as a personalized shopping assistant in retail. The agent interacts with customer profiles and inventory systems to recommend products, answer queries, and streamline checkout."
                       }
+                      className="px-2 h-8 w-8 rounded-full hover:bg-yellow-100 hover:text-yellow-900 dark:hover:bg-yellow-900/20 dark:hover:text-yellow-400 transition-colors"
                     />
                   </div>
                 </CardHeader>

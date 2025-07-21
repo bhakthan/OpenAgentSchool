@@ -14,7 +14,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { ReferenceLinks } from '../references/ReferenceLinks';
 import ReferenceSection from '../references/ReferenceSection';
 import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutorialButton';
-import EnlightenMeButton from '../concepts/EnlightenMeButton';
+import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 
 const AzureServicesOverview = () => {
   const [searchTerm, setSearchTerm] = useState('');

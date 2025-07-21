@@ -7,7 +7,7 @@ import { Pause } from '@phosphor-icons/react/dist/ssr/Pause';
 import { ArrowCounterClockwise } from '@phosphor-icons/react/dist/ssr/ArrowCounterClockwise';
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr/ArrowRight';
 import { ArrowDown } from '@phosphor-icons/react/dist/ssr/ArrowDown';
-import EnlightenMeButton from '../concepts/EnlightenMeButton';
+import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 
 // Animation states for the 5-layer architecture flow
 type AnimationPhase = 'idle' | 'user-interface' | 'agent-management' | 'core-protocol' | 'tool-integration' | 'security' | 'complete';
