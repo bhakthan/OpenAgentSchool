@@ -19,6 +19,7 @@ import AgentDeploymentConcept from "./AgentDeploymentConcept"
 import AgentEthicsConcept from "./AgentEthicsConcept"
 import AgentLearningConcept from "./AgentLearningConcept"
 import AgentIntegrationConcept from "./AgentIntegrationConcept"
+import AgentEvaluationConcept from "./AgentEvaluationConcept"
 
 interface ConceptInfo {
   id: string
@@ -122,6 +123,17 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '30-40 min',
     prerequisites: ['a2a-communication'],
     component: FlowVisualizationConcept
+  },
+  {
+    id: 'agent-evaluation',
+    title: 'Agent Evaluation',
+    description: 'Systematic assessment of agent performance, reliability, safety, and alignment using automated frameworks and benchmarks',
+    level: 'architecture',
+    icon: <CheckCircle className="w-6 h-6 text-green-600" />,
+    color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
+    estimatedTime: '30-40 min',
+    prerequisites: ['agent-architecture'],
+    component: AgentEvaluationConcept
   },
   // Tier 3: Implementation Concepts
   {
