@@ -1,3 +1,5 @@
+import { Description } from "@radix-ui/react-dialog";
+
 export type ReferenceItem = {
   title: string;
   url: string;
@@ -941,7 +943,6 @@ export const references: ReferencesData = {
     ]
   },
   
-  // Azure Services section
   azureServices: {
     "azure-openai": [
       {
@@ -1252,6 +1253,41 @@ export const references: ReferencesData = {
       }
     ]
   },
-  
-  // Remove top-level videos and externalLearning
+  acp: {
+    // Each section follows the ACP structure from the existing code
+    concepts: [
+      {
+        id: "introduction",
+        name: "Introduction to ACP",
+        references: [
+          {
+            title: "What is ACP?",
+            url: "https://agentcommunicationprotocol.dev/introduction/what-is-acp",
+            description: "Overview of the Agent Communication Protocol (ACP)"
+          },
+          {
+            title: "ACP Overview Video",
+            url: "https://www.youtube.com/watch?v=QJb6tQwQK2A",
+            description: "Video introduction to ACP"
+          }
+        ]
+      },
+      {
+        id: "specification",
+        name: "Technical Specification",
+        references: [
+          {
+            title: "ACP Technical Specification",
+            url: "https://agentcommunicationprotocol.dev/specification",
+            description: "Detailed technical specification for ACP"
+          },
+          {
+            title: "ACP GitHub Repository",
+            url: "https://github.com/agentcommunicationprotocol/acp",
+            description: "GitHub repository for ACP"
+          }
+        ]
+      }
+    ]
+  }
 };
