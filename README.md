@@ -30,7 +30,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
   - To use LLM features, copy `.env.example` to `.env` and fill in your API keys.
 - **How to Use VITE_API_KEYs:**
   - The app automatically loads API keys from your `.env` file for LLM integrations.
-  - Supported providers: OpenAI, Azure OpenAI, Google Gemini.
+  - Supported providers are in the `.env.example` file.
   - See `.env.example` for required variable names.
 - **Other Updates:**
   - All references to the old project name have been updated in the UI and documentation.
