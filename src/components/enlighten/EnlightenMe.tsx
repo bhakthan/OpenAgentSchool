@@ -241,10 +241,19 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                 onClick={() => {
                   const doc = new jsPDF();
                   doc.setFontSize(12);
-                  doc.text(response, 10, 10);
-                  // ...inside your export PDF button handler...
-                const conceptName = title.replace(/\s+/g, '_').toLowerCase(); // e.g., "React Agent Pattern"
-                doc.save(`${conceptName}-enlightenme.pdf`);
+                  // Split response into lines and wrap long lines
+                  const lines = doc.splitTextToSize(response, 180); // 180 is page width minus margins
+                  let y = 10;
+                  lines.forEach(line => {
+                    doc.text(line, 10, y);
+                    y += 7; // Move down for next line
+                    if (y > 280) { // If near bottom of page, add new page
+                      doc.addPage();
+                      y = 10;
+                    }
+                  });
+                  const conceptName = title.replace(/\s+/g, '_').toLowerCase();
+                  doc.save(`${conceptName}-enlightenme.pdf`);
                 }}
                 title="Export to PDF"
               >

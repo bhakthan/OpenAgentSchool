@@ -477,11 +477,28 @@ const Agent2AgentProtocolExplainer = () => {
             
             <TabsContent value="business-use-case" className="space-y-4 pt-4">
               <h3 className="text-lg font-semibold mb-3">A2A Communication Business Use Case</h3>
+              <TabsContent value="business-use-case" className="space-y-4 pt-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <h3 className="text-lg font-semibold">A2A Communication Business Use Case</h3>
+                  <EnlightenMeButton
+                    title="Google Agent2Agent Protocol"
+                    contextDescription="The Agent2Agent (A2A) protocol enables secure, scalable, and interoperable communication between autonomous agents. It is designed for multi-agent systems, allowing agents to delegate tasks, exchange messages, and collaborate across domains such as supply chain, finance, and IoT. The protocol focuses on agent discovery, task delegation, status tracking, and privacy-preserving opaque execution."
+                    className="ml-2"
+                  />
+                  {/* Optionally add a label: */}
+                  {/* <span className="text-sm text-muted-foreground">Learn More with AI</span> */}
+                </div>
               <BusinessUseCaseSection
                 industry="Retail"
                 scenario="Personalized Shopping Assistant: React agents interact with customer profiles and inventory systems to recommend products, answer queries, and streamline checkout."
                 value="Increases conversion rates, enhances customer satisfaction, and optimizes inventory turnover."
               />
+              <EnlightenMeButton
+                title="Google Agent2Agent Protocol"
+                contextDescription="The Agent2Agent (A2A) protocol enables secure, scalable, and interoperable communication between autonomous agents. It is designed for multi-agent systems, allowing agents to delegate tasks, exchange messages, and collaborate across domains such as supply chain, finance, and IoT. The protocol focuses on agent discovery, task delegation, status tracking, and privacy-preserving opaque execution."
+                className="mb-4"
+              />
+              </TabsContent>
               <Card className="mt-6">
                 <CardHeader className="flex items-center justify-between pb-2">
                   <span className="font-semibold text-base">Business Use Case Deep Dive</span>
