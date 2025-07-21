@@ -177,7 +177,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                   <SelectItem value="azure">Azure OpenAI</SelectItem>
                   <SelectItem value="openai">OpenAI</SelectItem>
                   <SelectItem value="gemini">Google Gemini</SelectItem>
-                  <SelectItem value="claude">Claude</SelectItem>
+                  <SelectItem value="claude">Anthropic</SelectItem>
                   <SelectItem value="huggingface">Hugging Face</SelectItem>
                   <SelectItem value="openrouter">OpenRouter</SelectItem>
                 </SelectContent>
