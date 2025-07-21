@@ -36,6 +36,14 @@ export interface PatternData {
   implementation: string[]
   whenToUse?: string
   advantages?: string[]
+  limitations?: string[]
+  relatedPatterns?: string[]
+  businessUseCase?: {
+    industry: string;
+    description: string;
+    visualization: React.ComponentType;
+    enlightenMePrompt: string;
+  }
 }
 
 export type PatternType = 

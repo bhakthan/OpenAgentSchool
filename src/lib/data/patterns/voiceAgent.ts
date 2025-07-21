@@ -550,5 +550,22 @@ class VoiceAgent:
     'Add voice activity detection',
     'Create conversation flow management',
     'Implement error handling and recovery'
+  ],
+  advantages: [
+    "Provides a natural and intuitive user interface through speech.",
+    "Enables hands-free operation, which is essential in many contexts (e.g., driving, cooking).",
+    "Improves accessibility for users with visual impairments or motor disabilities.",
+    "Can capture more nuance (e.g., tone of voice) than text-based interfaces."
+  ],
+  limitations: [
+    "Speech recognition can be unreliable in noisy environments.",
+    "Latency in STT and TTS can make the interaction feel slow.",
+    "Handling accents, dialects, and different languages can be challenging.",
+    "Less private than text-based interaction."
+  ],
+  relatedPatterns: [
+    "prompt-chaining",
+    "routing",
+    "agent-to-agent"
   ]
 };

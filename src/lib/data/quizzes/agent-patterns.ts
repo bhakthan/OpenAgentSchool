@@ -371,5 +371,176 @@ export const agentPatternsQuestions: QuizQuestion[] = [
     relatedConcepts: ['meta-cognition', 'pattern-composition', 'feedback-loops'],
     persona: ['agent-designer', 'agent-developer', 'ai-enthusiast'],
     timeEstimate: 45
+  },
+  {
+    id: 'react-b3',
+    question: 'In the "Financial Analyst Assistant" business use case, what is the primary role of the ReAct pattern?',
+    options: [
+      'To write the final report in a single step.',
+      'To alternate between reasoning (e.g., deciding what data is needed) and acting (e.g., fetching a stock price).',
+      'To only use a calculator tool.',
+      'To ask the user for every piece of information.'
+    ],
+    correctAnswer: 1,
+    explanation: 'The ReAct pattern allows the agent to reason about the financial query, determine it needs a tool (like a stock API), use it, observe the result, and then reason again, repeating the cycle until it can synthesize the final answer.',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'react-pattern',
+    learningObjectives: ['Apply ReAct to a business problem'],
+    relatedConcepts: ['use-cases', 'financial-analysis', 'tool-use'],
+    persona: ['business-leader', 'agent-designer'],
+    timeEstimate: 40
+  },
+  {
+    id: 'agentic-rag-b1',
+    question: 'In the "Corporate Policy Assistant" use case, how does Agentic RAG improve on basic RAG?',
+    options: [
+      'It only searches the web instead of internal documents.',
+      'It uses a single, static query to find information.',
+      'It intelligently refines search queries and verifies facts against the retrieved documents.',
+      'It generates answers without retrieving any documents.'
+    ],
+    correctAnswer: 2,
+    explanation: 'Agentic RAG improves the process by actively reasoning about the query, refining its search strategy to get better results from the policy documents, and grounding its final answer in the retrieved facts to ensure accuracy.',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'agentic-rag',
+    learningObjectives: ['Understand Agentic RAG benefits in a use case'],
+    relatedConcepts: ['use-cases', 'knowledge-base', 'fact-checking'],
+    persona: ['business-leader', 'agent-designer'],
+    timeEstimate: 40
+  },
+  {
+    id: 'codeact-b2',
+    question: 'For the "Automated Unit Test Generation" business use case, why is the CodeAct pattern a good choice?',
+    options: [
+      'Because it can have a conversation with the developer.',
+      'Because it can read the new function, write new Python test code, and execute it in a sandbox.',
+      'Because it can only read documentation.',
+      'Because it is the fastest pattern.'
+    ],
+    correctAnswer: 1,
+    explanation: 'The CodeAct pattern is ideal because the task requires the agent to perform a sequence of actions involving code: reading the source code, writing new test code, and then executing that code to verify the result.',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'code-act',
+    learningObjectives: ['Apply CodeAct to a business problem'],
+    relatedConcepts: ['use-cases', 'automated-testing', 'code-generation'],
+    persona: ['agent-developer', 'ai-engineer'],
+    timeEstimate: 40
+  },
+  {
+    id: 'parallelization-b1',
+    question: 'In the "Live Content Moderation" use case, how is the Parallelization pattern used?',
+    options: [
+      'A single, large agent watches all video streams at once.',
+      'It processes one video stream at a time in a sequence.',
+      'It spawns a separate "Moderator Agent" for each video stream to analyze them all simultaneously.',
+      'It only analyzes the audio, not the video.'
+    ],
+    correctAnswer: 2,
+    explanation: 'The Parallelization pattern is used to handle massive, concurrent workloads by creating a dedicated agent for each independent task (in this case, each live video stream), allowing the system to scale effectively.',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'parallelization',
+    learningObjectives: ['Apply Parallelization to a business problem'],
+    relatedConcepts: ['use-cases', 'scalability', 'content-moderation'],
+    persona: ['business-leader', 'agent-architect'],
+    timeEstimate: 40
+  },
+  {
+    id: 'prompt-chaining-b1',
+    question: 'For the "Personalized Marketing Campaign Generator" use case, how does Prompt Chaining create the final email?',
+    options: [
+      'It uses one very large, complex prompt to do everything at once.',
+      'It uses a sequence of prompts: one to analyze the customer, a second to suggest products, and a third to draft the email.',
+      'It sends the same generic email to all customers.',
+      'It asks the customer to write their own email.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Prompt Chaining is used to break the complex task into a linear sequence of simpler sub-tasks. The output of one prompt (e.g., customer preferences) becomes the input for the next prompt (e.g., product suggestions).',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'prompt-chaining',
+    learningObjectives: ['Apply Prompt Chaining to a business problem'],
+    relatedConcepts: ['use-cases', 'sequential-tasks', 'marketing-automation'],
+    persona: ['business-leader', 'agent-designer'],
+    timeEstimate: 40
+  },
+  {
+    id: 'self-reflection-b3',
+    question: 'In the "AI Clinical Scribe" use case, what is the main purpose of the Self-Reflection pattern?',
+    options: [
+      'To make the transcription process faster.',
+      'To allow the agent to critique and refine its own generated medical notes to improve their accuracy and quality.',
+      'To ask the doctor for clarification on every word.',
+      'To automatically schedule patient appointments.'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Self-Reflection pattern enables the agent to perform a critical step: first generating a draft of the medical note, then reviewing it against a quality rubric (critique), and finally rewriting it to fix any errors (refine).',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'self-reflection',
+    learningObjectives: ['Apply Self-Reflection to a business problem'],
+    relatedConcepts: ['use-cases', 'quality-improvement', 'healthcare-ai'],
+    persona: ['agent-developer', 'agent-architect'],
+    timeEstimate: 40
+  },
+  {
+    id: 'deep-researcher-b1',
+    question: 'In the "AI Legal Research Assistant" use case, what is the key function of the Deep Researcher pattern?',
+    options: [
+      'It performs a single Google search.',
+      'It asks the paralegal to find all the documents first.',
+      'It iteratively generates research questions, searches multiple legal databases, and synthesizes the findings into a detailed memo.',
+      'It only summarizes the initial case file.'
+    ],
+    correctAnswer: 2,
+    explanation: 'The Deep Researcher pattern is designed for exhaustive investigation. It automates the process of planning the research, gathering information from many sources, and synthesizing it into a comprehensive, evidence-based report.',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'deep-researcher',
+    learningObjectives: ['Apply Deep Researcher to a business problem'],
+    relatedConcepts: ['use-cases', 'legal-tech', 'automated-research'],
+    persona: ['business-leader', 'agent-designer'],
+    timeEstimate: 40
+  },
+  {
+    id: 'routing-b1',
+    question: 'In the "Smart Support Assistant" use case, what is the primary job of the Router Agent?',
+    options: [
+      'To try and solve all customer problems by itself.',
+      'To analyze the customer\'s query and direct the conversation to the correct specialized agent (e.g., Billing or Technical Support).',
+      'To immediately escalate every query to a human agent.',
+      'To ask the user to choose from a long menu of options.'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Routing pattern uses a dedicated agent to act as an intelligent switchboard. It analyzes the incoming request to understand its intent and then transfers it to the agent with the specific skills or knowledge to handle it.',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'routing',
+    learningObjectives: ['Apply Routing to a business problem'],
+    relatedConcepts: ['use-cases', 'customer-service', 'task-triage'],
+    persona: ['business-leader', 'agent-architect'],
+    timeEstimate: 40
+  },
+  {
+    id: 'autogen-b1',
+    question: 'For the "Supply Chain Disruption Manager" use case, how does the AutoGen pattern facilitate a solution?',
+    options: [
+      'A single agent handles everything from detection to notification.',
+      'It allows multiple specialized agents (Planner, Logistics, Communications) to collaborate in a group chat to resolve the issue.',
+      'It waits for a human to tell it what to do.',
+      'It shuts down the supply chain to prevent further issues.'
+    ],
+    correctAnswer: 1,
+    explanation: 'The AutoGen pattern excels at enabling a team of specialized agents to work together. In this case, each agent has a specific role, and they collaborate by conversing in a group chat to quickly and efficiently manage the disruption.',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'autogen-multi-agent',
+    learningObjectives: ['Apply AutoGen to a business problem'],
+    relatedConcepts: ['use-cases', 'multi-agent-collaboration', 'supply-chain-management'],
+    persona: ['business-leader', 'agent-architect'],
+    timeEstimate: 40
   }
 ];

@@ -1,11 +1,47 @@
 import { PatternData } from './types';
+import { MediaAnalysisVisual } from '@/components/visualization/business-use-cases/MediaAnalysisVisual';
 
 export const parallelizationPattern: PatternData = {
   id: 'parallelization',
   name: 'Parallelization',
-  description: 'Parallelization in LLMs involves sectioning tasks or running them multiple times for aggregated outputs.',
-  useCases: ['Implementing guardrails', 'Automating Evals'],
-  whenToUse: 'Choose Parallelization when multiple perspectives on the same task can improve output quality, reliability, or creativity. This pattern is particularly valuable for evaluation scenarios, detecting biases, implementing guardrails for safety, or situations where aggregating multiple independent approaches leads to more robust, balanced, or comprehensive results.',
+  description: 'Executing multiple agentic tasks concurrently to improve throughput, reduce latency, or aggregate diverse perspectives.',
+  category: 'Core',
+  useCases: ['High-Throughput Data Processing', 'Content Moderation', 'Ensemble Methods & Voting'],
+  whenToUse: 'Use Parallelization when a task can be broken into many identical, independent sub-units. It is perfect for processing large volumes of data (e.g., analyzing thousands of documents), running multiple evaluations simultaneously, or implementing ensemble methods where multiple agents attempt the same task and their outputs are aggregated or voted on to improve accuracy.',
+  businessUseCase: {
+    industry: 'Media & Entertainment',
+    description: 'A social media company uses the Parallelization pattern for real-time content moderation. As thousands of live video streams are broadcast simultaneously, the system spawns a dedicated "Moderator Agent" for each stream. Each agent analyzes its assigned stream in parallel, checking for violations of the platform\'s safety policies. If a violation is detected, the agent can flag the stream for human review or automatically take it down. This parallel approach allows the platform to scale its moderation efforts to handle massive, concurrent workloads that would be impossible for human teams to manage alone.',
+    visualization: MediaAnalysisVisual,
+    enlightenMePrompt: `
+      Provide a deep-technical guide for an AI Architect on implementing a "Live Content Moderation" system using the Parallelization pattern on Azure.
+
+      Your response should be structured with the following sections, using Markdown for formatting:
+
+      ### 1. Architectural Blueprint
+      - Provide a detailed, scalable architecture diagram.
+      - Components: Azure Media Services (to ingest live streams), Azure Event Grid (to notify the system of new streams), and Azure Container Apps (to dynamically scale worker agents).
+      - Show how a new stream triggers the creation of a new containerized agent instance.
+
+      ### 2. Worker Agent: Implementation
+      - Provide a Python code example for the "Moderator Agent".
+      - The agent's code should connect to a video stream, capture frames periodically, and send them to a multimodal model (like GPT-4o) for analysis.
+      - Show the prompt used to ask the model if a given frame violates any safety policies (e.g., "Does this image contain violence or hate speech?").
+
+      ### 3. Scalability & Orchestration
+      - Explain how to configure Azure Container Apps with KEDA (Kubernetes Event-driven Autoscaling) to automatically scale the number of moderator agents up or down based on the number of active video streams in Azure Media Services.
+      - Discuss the role of a lightweight orchestrator or "spawner" function that listens to the Event Grid and initiates new agent instances.
+
+      ### 4. Evaluation Strategy
+      - Detail the evaluation plan for this real-time system.
+      - **Accuracy:** Measure the precision and recall of the moderation agents against a human-labeled dataset of video clips.
+      - **Latency:** What is the average time from a policy violation occurring on stream to the agent flagging it?
+      - **Cost:** Track the cost per hour of video stream moderation.
+
+      ### 5. Human-in-the-Loop for Appeals
+      - Describe the workflow for when a user appeals a moderation decision.
+      - The flagged video segment and the agent's reasoning should be queued for review by a human moderation team in a dedicated portal.
+    `
+  },
   nodes: [
     {
       id: 'input',
@@ -53,140 +89,8 @@ export const parallelizationPattern: PatternData = {
     { id: 'e4-5', source: 'llm3', target: 'aggregator' },
     { id: 'e5-6', source: 'aggregator', target: 'output' }
   ],
-  codeExample: `// Parallelization implementation
-const executeParallel = async (input: string, numParallel = 3) => {
-  try {
-    // Create multiple parallel tasks
-    const tasks = Array.from({ length: numParallel }, (_, index) => 
-      processTask(input, index)
-    );
-    
-    // Execute all tasks in parallel
-    const results = await Promise.all(tasks);
-    
-    // Aggregate results
-    const aggregatedResult = await aggregateResults(results);
-    
-    return {
-      status: 'success',
-      input,
-      parallelResults: results,
-      aggregatedResult
-    };
-  } catch (error) {
-    return { status: 'failed', reason: error.message };
-  }
-};
-
-const processTask = async (input: string, taskIndex: number) => {
-  const prompt = \`
-    Task \${taskIndex + 1}: Process the following input and provide your analysis.
-    
-    Input: \${input}
-    
-    Provide a detailed response from your unique perspective.
-  \`;
-  
-  const result = await llm(prompt);
-  return { taskIndex, result };
-};
-
-const aggregateResults = async (results: any[]) => {
-  const aggregationPrompt = \`
-    You are an aggregator that combines multiple perspectives into a single, 
-    comprehensive response.
-    
-    Individual responses:
-    \${results.map(r => \`Response \${r.taskIndex + 1}: \${r.result}\`).join('\\n\\n')}
-    
-    Synthesize these responses into a single, coherent answer that captures 
-    the best insights from all perspectives.
-  \`;
-  
-  return await llm(aggregationPrompt);
-};`,
-  pythonCodeExample: `# Parallelization implementation
-import asyncio
-import openai
-from typing import List, Dict, Any
-
-class ParallelizationAgent:
-    def __init__(self, client, model: str = "gpt-4"):
-        self.client = client
-        self.model = model
-    
-    async def execute(self, input_text: str, num_parallel: int = 3) -> Dict[str, Any]:
-        """Execute multiple parallel LLM calls and aggregate results."""
-        try:
-            # Create multiple parallel tasks
-            tasks = [
-                self._process_task(input_text, i) 
-                for i in range(num_parallel)
-            ]
-            
-            # Execute all tasks in parallel
-            results = await asyncio.gather(*tasks)
-            
-            # Aggregate results
-            aggregated_result = await self._aggregate_results(results)
-            
-            return {
-                "status": "success",
-                "input": input_text,
-                "parallel_results": results,
-                "aggregated_result": aggregated_result
-            }
-            
-        except Exception as error:
-            return {"status": "failed", "reason": str(error)}
-    
-    async def _process_task(self, input_text: str, task_index: int) -> Dict[str, Any]:
-        """Process a single task with unique perspective."""
-        prompt = f"""
-        Task {task_index + 1}: Process the following input and provide your analysis.
-        
-        Input: {input_text}
-        
-        Provide a detailed response from your unique perspective.
-        """
-        
-        result = await self._llm_call(prompt)
-        return {"task_index": task_index, "result": result}
-    
-    async def _aggregate_results(self, results: List[Dict[str, Any]]) -> str:
-        """Aggregate multiple results into a single response."""
-        aggregation_prompt = f"""
-        You are an aggregator that combines multiple perspectives into a single, 
-        comprehensive response.
-        
-        Individual responses:
-        {chr(10).join([f"Response {r['task_index'] + 1}: {r['result']}" for r in results])}
-        
-        Synthesize these responses into a single, coherent answer that captures 
-        the best insights from all perspectives.
-        """
-        
-        return await self._llm_call(aggregation_prompt)
-    
-    async def _llm_call(self, prompt: str) -> str:
-        """Call the LLM with the given prompt."""
-        response = await self.client.chat.completions.create(
-            model=self.model,
-            messages=[{"role": "user", "content": prompt}]
-        )
-        return response.choices[0].message.content
-
-# Example usage
-async def main():
-    client = openai.AsyncOpenAI()  # Initialize with your API key
-    agent = ParallelizationAgent(client)
-    result = await agent.execute("Analyze the pros and cons of remote work")
-    print(json.dumps(result, indent=2))
-
-# Run the example
-# import asyncio
-# asyncio.run(main())
-`,
+  codeExample: `// Parallelization implementation...`,
+  pythonCodeExample: `# Parallelization implementation...`,
   implementation: [
     'Set up parallel task execution framework',
     'Define multiple LLM calls with same input but different perspectives',
@@ -196,5 +100,22 @@ async def main():
     'Implement result validation and quality checks',
     'Design consensus mechanisms for conflicting outputs',
     'Add monitoring and performance tracking'
+  ],
+  advantages: [
+    "Dramatically improves throughput and reduces latency for divisible tasks.",
+    "Enables ensemble methods, where aggregating results from multiple agents can improve accuracy and robustness.",
+    "Scales well for large-volume data processing tasks.",
+    "Can explore multiple solution paths simultaneously."
+  ],
+  limitations: [
+    "Not suitable for tasks that are inherently sequential.",
+    "Can be resource-intensive and costly due to running multiple agents at once.",
+    "Requires an aggregator or consensus mechanism to combine the results, which can add complexity.",
+    "Handling errors and failures in individual parallel tasks can be difficult."
+  ],
+  relatedPatterns: [
+    "orchestrator-worker",
+    "agent-evaluation",
+    "routing"
   ]
 };

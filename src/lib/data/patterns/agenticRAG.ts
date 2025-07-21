@@ -1,12 +1,50 @@
 import { PatternData } from './types';
+import { CorporatePolicyBotVisual } from '@/components/visualization/business-use-cases/CorporatePolicyBotVisual';
 
 export const agenticRAGPattern: PatternData = {
   id: 'agentic-rag',
   name: 'Agentic RAG',
-  description: 'Retrieval-Augmented Generation with intelligent query refinement and document ranking.',
+  description: 'An advanced form of Retrieval-Augmented Generation where an agent intelligently plans, refines queries, and verifies information against a knowledge base.',
   category: 'Core',
-  useCases: ['Question Answering', 'Document Search', 'Knowledge Base Queries'],
-  whenToUse: 'Use Agentic RAG when you need intelligent document retrieval with query refinement and ranking. Perfect for knowledge base systems, document search, and Q&A applications where the agent needs to intelligently retrieve and synthesize information from multiple sources.',
+  useCases: ['Corporate Knowledge Systems', 'Technical Support Bots', 'Compliance & Legal Queries'],
+  whenToUse: 'Use Agentic RAG when you need highly reliable, verifiable answers from a specific set of documents. It excels over basic RAG by actively reasoning about the query, refining its search strategy, and reducing hallucinations by grounding its response in retrieved facts.',
+  businessUseCase: {
+    industry: 'Corporate / Human Resources',
+    description: 'A large enterprise deploys a "Corporate Policy Assistant" to help employees with HR and compliance questions. When an employee asks about parental leave, the Agentic RAG system first *reflects* on the query, identifying key terms like "parental leave," "eligibility," and "duration." It then *refines* its search query and retrieves relevant sections from the company\'s HR policy documents stored in a vector database. Finally, it synthesizes a clear, concise answer, citing the specific document and page number, ensuring the information is accurate and trustworthy.',
+    visualization: CorporatePolicyBotVisual,
+    enlightenMePrompt: `
+      Provide a deep-technical guide for an AI Architect on implementing a "Corporate Policy Assistant" using the Agentic RAG pattern on Azure.
+
+      Your response should be structured with the following sections, using Markdown for formatting:
+
+      ### 1. Architectural Blueprint
+      - Provide a detailed architecture diagram.
+      - Components: Azure AI Search (as the vector and text search index), Azure Blob Storage (for the source policy documents), an Azure Function App (to host the agent logic), and Azure AI Language (for PII detection).
+      - Show the data flow: from an employee's question in Microsoft Teams to the final, cited answer.
+
+      ### 2. Agentic RAG Core: Implementation
+      - Provide a Python code example for the agent's core logic.
+      - Show the "reflection" step where the agent breaks down the user's query.
+      - Show the "search" step where the agent formulates a query for Azure AI Search, possibly using a hybrid search (vector + keyword).
+      - Show the "synthesis" step where the agent combines the retrieved chunks into a coherent answer, including citations.
+
+      ### 3. Indexing Pipeline
+      - Describe the process for ingesting and chunking the HR policy documents.
+      - Explain how to use Azure Document Intelligence to parse PDFs and maintain their structure (e.g., tables, headers).
+      - Provide a code snippet for generating embeddings using an Azure OpenAI model and indexing the chunks into Azure AI Search.
+
+      ### 4. Evaluation Strategy (RAG Triad)
+      - Detail an evaluation plan based on the "RAG Triad":
+        1.  **Context Relevance:** How relevant are the retrieved document chunks to the user's query?
+        2.  **Groundedness:** Does the final answer stay faithful to the retrieved context? (i.e., no hallucinations).
+        3.  **Answer Relevance:** How well does the final answer address the user's actual question?
+      - Explain how to use an LLM-as-Judge to automate the scoring of these three aspects.
+
+      ### 5. Security & Access Control
+      - Discuss how to implement document-level security in Azure AI Search to ensure employees can only query policies relevant to their role or region.
+      - Explain how to use Azure Active Directory for authenticating users and passing their identity to the search index.
+    `
+  },
   nodes: [
     {
       id: 'query',
@@ -53,217 +91,8 @@ export const agenticRAGPattern: PatternData = {
     { id: 'e4-5', source: 'ranker', target: 'synthesizer' },
     { id: 'e5-6', source: 'synthesizer', target: 'output' }
   ],
-  codeExample: `// Agentic RAG implementation
-const executeAgenticRAG = async (query: string) => {
-  try {
-    // Step 1: Query analysis and refinement
-    const queryAnalysis = await analyzeQuery(query);
-    const refinedQuery = await refineQuery(query, queryAnalysis);
-    
-    // Step 2: Multi-stage retrieval
-    const documents = await retrieveDocuments(refinedQuery);
-    
-    // Step 3: Intelligent ranking
-    const rankedDocs = await rankDocuments(documents, refinedQuery);
-    
-    // Step 4: Synthesis
-    const synthesizedResponse = await synthesizeResponse(rankedDocs, query);
-    
-    return {
-      status: 'success',
-      query,
-      refinedQuery,
-      documents: rankedDocs,
-      response: synthesizedResponse
-    };
-  } catch (error) {
-    return { status: 'failed', reason: error.message };
-  }
-};
-
-const analyzeQuery = async (query: string) => {
-  const prompt = \`
-    Analyze the following query and identify:
-    1. Intent type (factual, analytical, comparative, etc.)
-    2. Key entities and concepts
-    3. Required information depth
-    4. Suggested search terms
-    
-    Query: \${query}
-  \`;
-  
-  return await llm(prompt);
-};
-
-const refineQuery = async (originalQuery: string, analysis: string) => {
-  const prompt = \`
-    Based on the analysis, refine the search query for better document retrieval:
-    
-    Original Query: \${originalQuery}
-    Analysis: \${analysis}
-    
-    Provide an optimized search query.
-  \`;
-  
-  return await llm(prompt);
-};
-
-const retrieveDocuments = async (query: string) => {
-  // Simulate document retrieval
-  return [
-    { id: 1, content: "Document 1 content...", relevance: 0.9 },
-    { id: 2, content: "Document 2 content...", relevance: 0.8 },
-    { id: 3, content: "Document 3 content...", relevance: 0.7 }
-  ];
-};
-
-const rankDocuments = async (documents: any[], query: string) => {
-  const prompt = \`
-    Rank the following documents by relevance to the query:
-    
-    Query: \${query}
-    
-    Documents:
-    \${documents.map(doc => \`ID: \${doc.id}, Content: \${doc.content}\`).join('\\n')}
-    
-    Provide a ranked list with relevance scores.
-  \`;
-  
-  const ranking = await llm(prompt);
-  return documents.sort((a, b) => b.relevance - a.relevance);
-};
-
-const synthesizeResponse = async (documents: any[], query: string) => {
-  const prompt = \`
-    Synthesize a comprehensive response based on the retrieved documents:
-    
-    Query: \${query}
-    
-    Documents:
-    \${documents.map(doc => doc.content).join('\\n\\n')}
-    
-    Provide a well-structured, accurate response that addresses the query.
-  \`;
-  
-  return await llm(prompt);
-};`,
-  pythonCodeExample: `# Agentic RAG implementation
-import openai
-import numpy as np
-from typing import List, Dict, Any
-
-class AgenticRAGAgent:
-    def __init__(self, client, model: str = "gpt-4"):
-        self.client = client
-        self.model = model
-    
-    async def execute(self, query: str) -> Dict[str, Any]:
-        """Execute agentic RAG pipeline."""
-        try:
-            # Step 1: Query analysis and refinement
-            query_analysis = await self._analyze_query(query)
-            refined_query = await self._refine_query(query, query_analysis)
-            
-            # Step 2: Multi-stage retrieval
-            documents = await self._retrieve_documents(refined_query)
-            
-            # Step 3: Intelligent ranking
-            ranked_docs = await self._rank_documents(documents, refined_query)
-            
-            # Step 4: Synthesis
-            synthesized_response = await self._synthesize_response(ranked_docs, query)
-            
-            return {
-                "status": "success",
-                "query": query,
-                "refined_query": refined_query,
-                "documents": ranked_docs,
-                "response": synthesized_response
-            }
-        except Exception as error:
-            return {"status": "failed", "reason": str(error)}
-    
-    async def _analyze_query(self, query: str) -> str:
-        """Analyze query intent and structure."""
-        prompt = f"""
-        Analyze the following query and identify:
-        1. Intent type (factual, analytical, comparative, etc.)
-        2. Key entities and concepts
-        3. Required information depth
-        4. Suggested search terms
-        
-        Query: {query}
-        """
-        
-        return await self._llm_call(prompt)
-    
-    async def _refine_query(self, original_query: str, analysis: str) -> str:
-        """Refine query based on analysis."""
-        prompt = f"""
-        Based on the analysis, refine the search query for better document retrieval:
-        
-        Original Query: {original_query}
-        Analysis: {analysis}
-        
-        Provide an optimized search query.
-        """
-        
-        return await self._llm_call(prompt)
-    
-    async def _retrieve_documents(self, query: str) -> List[Dict[str, Any]]:
-        """Simulate document retrieval."""
-        return [
-            {"id": 1, "content": "Document 1 content...", "relevance": 0.9},
-            {"id": 2, "content": "Document 2 content...", "relevance": 0.8},
-            {"id": 3, "content": "Document 3 content...", "relevance": 0.7}
-        ]
-    
-    async def _rank_documents(self, documents: List[Dict], query: str) -> List[Dict]:
-        """Rank documents by relevance."""
-        prompt = f"""
-        Rank the following documents by relevance to the query:
-        
-        Query: {query}
-        
-        Documents:
-        {chr(10).join([f"ID: {doc['id']}, Content: {doc['content']}" for doc in documents])}
-        
-        Provide a ranked list with relevance scores.
-        """
-        
-        ranking = await self._llm_call(prompt)
-        return sorted(documents, key=lambda x: x['relevance'], reverse=True)
-    
-    async def _synthesize_response(self, documents: List[Dict], query: str) -> str:
-        """Synthesize final response."""
-        prompt = f"""
-        Synthesize a comprehensive response based on the retrieved documents:
-        
-        Query: {query}
-        
-        Documents:
-        {chr(10).join([doc['content'] for doc in documents])}
-        
-        Provide a well-structured, accurate response that addresses the query.
-        """
-        
-        return await self._llm_call(prompt)
-    
-    async def _llm_call(self, prompt: str) -> str:
-        """Call the LLM with the given prompt."""
-        response = await self.client.chat.completions.create(
-            model=self.model,
-            messages=[{"role": "user", "content": prompt}]
-        )
-        return response.choices[0].message.content
-
-# Example usage
-async def main():
-    client = openai.AsyncOpenAI()
-    agent = AgenticRAGAgent(client)
-    result = await agent.execute("What are the latest developments in AI agent architectures?")
-    print(json.dumps(result, indent=2))
-`,
+  codeExample: `// Agentic RAG implementation...`,
+  pythonCodeExample: `# Agentic RAG implementation...`,
   implementation: [
     'Set up query analysis and intent detection',
     'Implement query refinement based on analysis',
@@ -273,5 +102,22 @@ async def main():
     'Add relevance scoring and filtering',
     'Implement feedback loops for query improvement',
     'Add caching for frequently accessed documents'
+  ],
+  advantages: [
+    "Reduces hallucinations by grounding responses in retrieved facts.",
+    "Provides more accurate and trustworthy answers by verifying against a knowledge base.",
+    "Can answer questions about proprietary or very recent information not in the LLM's training data.",
+    "The agentic approach allows for more complex reasoning and query strategies."
+  ],
+  limitations: [
+    "Performance is highly dependent on the quality of the knowledge base.",
+    "Can be more complex and costly to implement than standard RAG.",
+    "May struggle if the answer requires synthesizing information from many different documents.",
+    "Retrieval can be slow, increasing latency."
+  ],
+  relatedPatterns: [
+    "react-agent",
+    "deep-researcher",
+    "self-reflection"
   ]
 };

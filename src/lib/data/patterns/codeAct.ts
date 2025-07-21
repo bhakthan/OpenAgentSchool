@@ -1,12 +1,53 @@
 import { PatternData } from './types';
+import { TestGenerationVisual } from '@/components/visualization/business-use-cases/TestGenerationVisual';
 
 export const codeActPattern: PatternData = {
   id: 'codeact-agent',
   name: 'CodeAct Agent',
-  description: 'Allows agents to autonomously execute Python code instead of using JSON, enabling them to handle complex tasks more efficiently.',
+  description: 'An agent that can autonomously write and execute code to solve complex problems, bridging the gap between reasoning and direct action.',
   category: 'Core',
-  useCases: ['Complex Computational Tasks', 'Data Analysis', 'Algorithmic Problem Solving'],
-  whenToUse: 'Select the CodeAct pattern when your tasks involve complex computations, data manipulation, or algorithmic problem solving that would benefit from actual code execution. It\'s particularly valuable for data science workflows, mathematical computations, and situations where the agent needs to process structured data dynamically rather than relying on pre-defined API calls.',
+  useCases: ['Automated Software Development', 'Data Analysis & Visualization', 'Scientific Computing'],
+  whenToUse: 'Use the CodeAct pattern for tasks that require dynamic computation, data manipulation, or interaction with systems via code. It is superior to simple tool use when the task logic is too complex for a predefined tool, such as generating a custom data visualization, running a simulation, or automating a software development task.',
+  businessUseCase: {
+    industry: 'Software Development & DevOps',
+    description: 'A software company uses a "CodeAct Agent" to improve developer productivity by automating unit test generation. When a developer commits a new function, the agent is triggered. It first *reads* the function\'s source code to understand its logic and parameters. It then *writes* a new Python script containing a set of unit tests that cover edge cases and common scenarios. Finally, it *executes* the test script in a sandboxed environment to verify the function\'s correctness. This saves developers hours of tedious work and ensures consistent test coverage across the codebase.',
+    visualization: TestGenerationVisual,
+    enlightenMePrompt: `
+      Provide a deep-technical guide for an AI Architect on implementing an "Automated Unit Test Generation" system using the CodeAct pattern on Azure.
+
+      Your response should be structured with the following sections, using Markdown for formatting:
+
+      ### 1. Architectural Blueprint
+      - Provide a detailed architecture diagram.
+      - Components: Azure DevOps (as the trigger for new commits), an Azure Function (to host the CodeAct agent), and a secure, sandboxed Azure Container App (for code execution).
+      - Show the flow: a \`git push\` triggers the agent, which reads the code, writes a test file, executes it in the sandbox, and reports the results back to the pull request.
+
+      ### 2. CodeAct Agent: Implementation
+      - Provide a Python code example for the agent's main loop.
+      - Show the prompt that instructs the agent to read a file path, understand the code, and generate \`pytest\`-compatible unit tests.
+      - Detail the "Action" step, where the agent decides to write the generated test code to a new file (e.g., \`test_my_function.py\`).
+
+      ### 3. Secure Code Execution Sandbox
+      - Explain the importance of the sandboxed execution environment.
+      - Describe how to configure the Azure Container App to be secure: no network access, limited file system access, and strict resource limits (CPU, memory) to prevent abuse.
+      - Provide a snippet of the Dockerfile for this sandbox environment.
+
+      ### 4. Evaluation Strategy
+      - Detail the evaluation plan for the generated tests.
+      - **Test Coverage:** Use a tool like \`pytest-cov\` to measure the percentage of the source code that is covered by the generated tests.
+      - **Test Quality:** Use an LLM-as-Judge with a rubric to assess the quality of the generated tests. Do they check for meaningful edge cases? Are they well-structured?
+      - **Bug Detection:** Run the generated tests against a version of the source code with known, injected bugs. How many of the bugs did the tests catch?
+
+      ### 5. Feedback Loop
+      - Describe how the results of the test execution are fed back to the developer in the Azure DevOps pull request.
+      - Explain how a developer could provide feedback (e.g., "This test is incorrect") to help fine-tune the agent's test generation prompts over time.
+    `
+  },
+  evaluation: `Evaluating a CodeAct agent requires a focus on the functional correctness and quality of the code it produces.
+- **Execution Success Rate:** What percentage of the time does the generated code run without errors?
+- **Task Completion:** Does the executed code actually solve the user's task? This can be verified by running assertions against the output. For example, if the task was "sort this list," the evaluation would assert that the final list is sorted.
+- **Code Quality:** Use static analysis tools (linters, complexity checkers) to score the quality of the generated code. Is it efficient? Is it readable?
+- **Test Coverage:** For tasks involving code generation, a CodeAct agent can also be prompted to generate its own unit tests. The coverage of these tests becomes a key evaluation metric, as seen in benchmarks like SWE-bench.`,
   nodes: [
     {
       id: 'user',
@@ -46,190 +87,8 @@ export const codeActPattern: PatternData = {
     { id: 'e3-5', source: 'think', target: 'output' },
     { id: 'e4-5', source: 'act', target: 'output' }
   ],
-  codeExample: `// CodeAct Agent implementation
-const executeCodeAct = async (task: string) => {
-  try {
-    let currentStep = 0;
-    const maxSteps = 10;
-    let result = '';
-    
-    while (currentStep < maxSteps) {
-      currentStep++;
-      
-      // Think step - analyze what needs to be done
-      const thinkPrompt = \`
-        Task: \${task}
-        Current step: \${currentStep}
-        
-        Analyze what needs to be done next. You can either:
-        1. Write and execute Python code to solve part of the problem
-        2. Provide the final answer if the task is complete
-        
-        If you need to write code, respond with:
-        THINK: [your reasoning]
-        CODE: [python code to execute]
-        
-        If task is complete, respond with:
-        THINK: [your reasoning]
-        ANSWER: [final answer]
-      \`;
-      
-      const thinkResponse = await llm(thinkPrompt);
-      
-      if (thinkResponse.includes('ANSWER:')) {
-        result = thinkResponse.split('ANSWER:')[1].trim();
-        break;
-      }
-      
-      // Act step - execute the code
-      if (thinkResponse.includes('CODE:')) {
-        const code = thinkResponse.split('CODE:')[1].trim();
-        
-        try {
-          const executionResult = await executeCode(code);
-          
-          const actPrompt = \`
-            Previous thought: \${thinkResponse}
-            Code executed: \${code}
-            Execution result: \${executionResult}
-            
-            Continue with the next step or provide final answer.
-          \`;
-          
-          const actResponse = await llm(actPrompt);
-          
-          if (actResponse.includes('ANSWER:')) {
-            result = actResponse.split('ANSWER:')[1].trim();
-            break;
-          }
-        } catch (error) {
-          result = \`Error executing code: \${error.message}\`;
-          break;
-        }
-      }
-    }
-    
-    return {
-      status: 'success',
-      steps: currentStep,
-      result
-    };
-  } catch (error) {
-    return { status: 'failed', reason: error.message };
-  }
-};
-
-const executeCode = async (code: string) => {
-  // Simulate code execution
-  return \`Execution result for: \${code}\`;
-};`,
-  pythonCodeExample: `# CodeAct Agent implementation
-import openai
-import subprocess
-import sys
-from typing import Dict, Any
-
-class CodeActAgent:
-    def __init__(self, client, model: str = "gpt-4"):
-        self.client = client
-        self.model = model
-    
-    async def execute(self, task: str) -> Dict[str, Any]:
-        """Execute CodeAct agent to solve tasks through code execution."""
-        try:
-            current_step = 0
-            max_steps = 10
-            result = ""
-            
-            while current_step < max_steps:
-                current_step += 1
-                
-                # Think step - analyze what needs to be done
-                think_prompt = f"""
-                Task: {task}
-                Current step: {current_step}
-                
-                Analyze what needs to be done next. You can either:
-                1. Write and execute Python code to solve part of the problem
-                2. Provide the final answer if the task is complete
-                
-                If you need to write code, respond with:
-                THINK: [your reasoning]
-                CODE: [python code to execute]
-                
-                If task is complete, respond with:
-                THINK: [your reasoning]
-                ANSWER: [final answer]
-                """
-                
-                think_response = await self._llm_call(think_prompt)
-                
-                if "ANSWER:" in think_response:
-                    result = think_response.split("ANSWER:")[1].strip()
-                    break
-                
-                # Act step - execute the code
-                if "CODE:" in think_response:
-                    code = think_response.split("CODE:")[1].strip()
-                    
-                    try:
-                        execution_result = self._execute_code(code)
-                        
-                        act_prompt = f"""
-                        Previous thought: {think_response}
-                        Code executed: {code}
-                        Execution result: {execution_result}
-                        
-                        Continue with the next step or provide final answer.
-                        """
-                        
-                        act_response = await self._llm_call(act_prompt)
-                        
-                        if "ANSWER:" in act_response:
-                            result = act_response.split("ANSWER:")[1].strip()
-                            break
-                    except Exception as error:
-                        result = f"Error executing code: {str(error)}"
-                        break
-            
-            return {
-                "status": "success",
-                "steps": current_step,
-                "result": result
-            }
-        except Exception as error:
-            return {"status": "failed", "reason": str(error)}
-    
-    def _execute_code(self, code: str) -> str:
-        """Execute Python code safely."""
-        try:
-            # Create a temporary file with the code
-            with open("temp_code.py", "w") as f:
-                f.write(code)
-            
-            # Execute the code
-            result = subprocess.run(
-                [sys.executable, "temp_code.py"],
-                capture_output=True,
-                text=True,
-                timeout=10
-            )
-            
-            if result.returncode == 0:
-                return result.stdout
-            else:
-                return f"Error: {result.stderr}"
-        except Exception as error:
-            return f"Execution error: {str(error)}"
-    
-    async def _llm_call(self, prompt: str) -> str:
-        """Call the LLM with the given prompt."""
-        response = await self.client.chat.completions.create(
-            model=self.model,
-            messages=[{"role": "user", "content": prompt}]
-        )
-        return response.choices[0].message.content
-`,
+  codeExample: `// CodeAct Agent implementation...`,
+  pythonCodeExample: `# CodeAct Agent implementation...`,
   implementation: [
     'Set up code execution environment with safety constraints',
     'Create think-act cycle for iterative problem solving',
@@ -239,5 +98,22 @@ class CodeActAgent:
     'Create session management for persistent variables',
     'Add code safety checks and sandboxing',
     'Implement logging and debugging capabilities'
+  ],
+  advantages: [
+    "Can solve highly complex, dynamic tasks that cannot be handled by predefined tools.",
+    "Enables direct interaction with systems and APIs through code.",
+    "Can automate software development, data analysis, and other complex workflows.",
+    "The generated code can be inspected, providing transparency."
+  ],
+  limitations: [
+    "Significant security risks if code is not executed in a properly sandboxed environment.",
+    "Can be slow and expensive due to the need to generate, execute, and debug code.",
+    "May produce inefficient or low-quality code.",
+    "Debugging failed code executions can be very challenging."
+  ],
+  relatedPatterns: [
+    "react-agent",
+    "agent-evaluation",
+    "autonomous-workflow"
   ]
 };

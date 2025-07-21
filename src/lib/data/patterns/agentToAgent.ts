@@ -428,5 +428,22 @@ class AgentCommunicationSystem:
     'Implement peer-to-peer communication',
     'Create response aggregation and consensus',
     'Add fault tolerance and error handling'
+  ],
+  advantages: [
+    "Enables complex, distributed problem-solving by allowing agents to collaborate.",
+    "Allows for the creation of systems with diverse, specialized agents.",
+    "Promotes modularity and reusability of agent skills.",
+    "Can be more robust than monolithic systems, as the failure of one agent may not bring down the entire system."
+  ],
+  limitations: [
+    "The complexity of designing and managing inter-agent communication can be very high.",
+    "Potential for communication bottlenecks or failures.",
+    "Debugging and monitoring the interactions of multiple agents is challenging.",
+    "Ensuring coherent and efficient collaboration requires careful design of protocols and coordination strategies."
+  ],
+  relatedPatterns: [
+    "autogen-multi-agent",
+    "routing",
+    "orchestrator-worker"
   ]
 };

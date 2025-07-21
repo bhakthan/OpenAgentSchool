@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import { SupplyChainBotVisual } from '@/components/visualization/business-use-cases/SupplyChainBotVisual';
 
 export const autogenPattern: PatternData = {
   id: 'autogen-multi-agent',
@@ -9,7 +10,6 @@ export const autogenPattern: PatternData = {
     'Collaborative Problem Solving',
     'Code Generation and Review',
     'Research and Analysis',
-    'Educational Content Creation',
     'Complex Workflow Automation'
   ],
   whenToUse: 'Use AutoGen when you need multiple AI agents to collaborate through natural conversation, especially for complex tasks that benefit from different agent specializations, code execution capabilities, and human-in-the-loop interactions.',
@@ -53,163 +53,50 @@ export const autogenPattern: PatternData = {
     { id: 'ea2-gc', source: 'assistant2', target: 'group-chat', animated: true },
     { id: 'egc-out', source: 'group-chat', target: 'output' }
   ],
-  codeExample: `// AutoGen Multi-Agent System
-import autogen
+  evaluation: `Evaluating an AutoGen system goes beyond individual agent performance and focuses on the system's collective output and collaboration dynamics.
+- **System-Level Goal Completion:** Did the group of agents successfully solve the user's high-level task? This is the most critical metric.
+- **Collaboration Efficiency:** Analyze the conversation logs. Was the communication efficient? Did agents get stuck in loops? Metrics include the number of rounds to completion and the cost (token usage).
+- **Role Adherence:** Did each agent stick to its designated role (e.g., did the Coder only write code, and the Critic only provide feedback)? This can be scored by an "LLM as Judge".
+- **Solution Quality:** The final artifact (e.g., code, report) should be evaluated for quality. For code, this involves running tests, static analysis, and checking for bugs (similar to the SWE-bench benchmark).
+- **Contribution Analysis:** Assess the impact of each agent on the final solution. Was any agent redundant or counter-productive?`,
+  businessUseCase: {
+    industry: 'Logistics & Supply Chain',
+    description: 'A global logistics company implements a "Supply Chain Disruption Manager" using the AutoGen framework. When a "Monitoring Agent" detects a disruption (e.g., a port closure) from a live data feed, it initiates a group chat. A "Planner Agent" analyzes the situation and proposes alternative routes. A "Logistics Agent" checks the feasibility and cost of the new routes by calling external carrier APIs. Finally, a "Communications Agent" drafts and sends notifications to affected clients. This multi-agent collaboration allows the company to react to disruptions in minutes instead of hours, minimizing delays and improving customer satisfaction.',
+    visualization: SupplyChainBotVisual,
+    enlightenMePrompt: `
+      Provide a deep-technical guide for an AI Architect on implementing a resilient "Supply Chain Disruption Manager" using the AutoGen framework on Azure.
 
-// Configure Azure OpenAI
-const azure_config = {
-  model: "gpt-4",
-  api_type: "azure", 
-  api_base: process.env.AZURE_OPENAI_ENDPOINT,
-  api_version: "2024-02-15-preview",
-  api_key: process.env.AZURE_OPENAI_KEY
-};
+      Your response should be structured with the following sections, using Markdown for formatting:
 
-// Create specialized agents
-const researchAgent = new autogen.AssistantAgent({
-  name: "researcher",
-  llm_config: { config_list: [azure_config] },
-  system_message: "You are a research specialist. Find and analyze information thoroughly."
-});
+      ### 1. Architectural Blueprint
+      - Provide a detailed architecture diagram.
+      - Components: Azure Event Hub to ingest real-time disruption data, an Azure Function App to trigger the AutoGen system, a pool of agents running in Azure Container Apps for scalability, and Azure Service Bus for reliable inter-agent communication.
+      - Show how the GroupChatManager orchestrates the conversation flow.
 
-const codeAgent = new autogen.AssistantAgent({
-  name: "coder", 
-  llm_config: { config_list: [azure_config] },
-  system_message: "You are a coding expert. Write clean, efficient code with proper error handling."
-});
+      ### 2. Agent Roles & System Messages
+      - Provide the detailed system messages for four key agents:
+        1.  **MonitorAgent:** "Your sole job is to parse incoming events and initiate the group chat with a clear summary of the disruption."
+        2.  **PlannerAgent:** "You are a logistics expert. Your job is to create and evaluate alternative transportation plans."
+        3.  **LogisticsAgent:** "You are a tool-using agent. You must use the provided APIs to check route feasibility, cost, and transit times. Do not speculate."
+        4.  **CommunicationsAgent:** "You are a communications specialist. Draft clear, concise notifications for customers based on the final, approved plan."
 
-const userProxy = new autogen.UserProxyAgent({
-  name: "user_proxy",
-  human_input_mode: "NEVER",
-  code_execution_config: { work_dir: "coding" },
-  system_message: "Execute code and provide feedback on results."
-});
+      ### 3. Inter-Agent Communication & State Management
+      - Explain how to manage the shared state of the group chat, potentially using an external Redis cache connected to the Azure Container Apps.
+      - Discuss the importance of the \`speaker_selection_method\` in the GroupChat to control the conversation flow (e.g., using a custom function instead of round-robin).
 
-// Create group chat for collaboration
-const groupChat = new autogen.GroupChat({
-  agents: [userProxy, researchAgent, codeAgent],
-  messages: [],
-  max_round: 12
-});
+      ### 4. Evaluation Strategy for Multi-Agent Systems
+      - Detail the evaluation plan for this collaborative system.
+      - **System-Level Success:** Did the system produce a viable and cost-effective new logistics plan? (Binary outcome).
+      - **Collaboration Metrics:** Track the number of conversation turns, the sentiment of the conversation (was there confusion?), and the time to resolution.
+      - **Role-Specific Metrics:** For the LogisticsAgent, measure its Tool Call Accuracy. For the CommunicationsAgent, use an LLM-as-Judge to score the quality of its final notification.
 
-const manager = new autogen.GroupChatManager({
-  groupchat: groupChat,
-  llm_config: { config_list: [azure_config] }
-});
-
-// Start collaborative session
-userProxy.initiate_chat(
-  manager,
-  "Help me build a recommendation system with proper testing"
-);`,
-  pythonCodeExample: `# AutoGen Multi-Agent Implementation
-import autogen
-from typing import Dict, List
-
-class AutoGenMultiAgentSystem:
-    def __init__(self, azure_config: Dict):
-        self.azure_config = azure_config
-        self.agents = {}
-        self.setup_agents()
-    
-    def setup_agents(self):
-        """Create specialized agents for different tasks."""
-        
-        # Research Agent
-        self.agents['researcher'] = autogen.AssistantAgent(
-            name="researcher",
-            llm_config={"config_list": [self.azure_config]},
-            system_message="""You are a research specialist. Your role is to:
-            1. Find relevant information from multiple sources
-            2. Analyze and synthesize findings
-            3. Provide evidence-based insights
-            4. Identify knowledge gaps"""
-        )
-        
-        # Coding Agent  
-        self.agents['coder'] = autogen.AssistantAgent(
-            name="coder",
-            llm_config={"config_list": [self.azure_config]},
-            system_message="""You are a senior software engineer. Your role is to:
-            1. Write clean, efficient, and maintainable code
-            2. Implement proper error handling and logging
-            3. Follow best practices and design patterns
-            4. Create comprehensive tests"""
-        )
-        
-        # Review Agent
-        self.agents['reviewer'] = autogen.AssistantAgent(
-            name="reviewer", 
-            llm_config={"config_list": [self.azure_config]},
-            system_message="""You are a code reviewer and quality assurance expert. Your role is to:
-            1. Review code for bugs, security issues, and performance
-            2. Ensure code follows best practices
-            3. Suggest improvements and optimizations
-            4. Validate test coverage and quality"""
-        )
-        
-        # User Proxy
-        self.agents['user_proxy'] = autogen.UserProxyAgent(
-            name="user_proxy",
-            human_input_mode="TERMINATE",
-            code_execution_config={
-                "work_dir": "coding",
-                "use_docker": True
-            }
-        )
-    
-    def create_group_chat(self, agents: List[str]):
-        """Create a group chat with specified agents."""
-        selected_agents = [self.agents[name] for name in agents]
-        
-        groupchat = autogen.GroupChat(
-            agents=selected_agents,
-            messages=[],
-            max_round=15,
-            speaker_selection_method="round_robin"
-        )
-        
-        manager = autogen.GroupChatManager(
-            groupchat=groupchat,
-            llm_config={"config_list": [self.azure_config]}
-        )
-        
-        return manager
-    
-    def solve_problem(self, problem: str, agent_names: List[str]):
-        """Use multi-agent collaboration to solve a problem."""
-        manager = self.create_group_chat(agent_names)
-        
-        self.agents['user_proxy'].initiate_chat(
-            manager,
-            message=f"""
-            Problem to solve: {problem}
-            
-            Please collaborate to:
-            1. Research the problem thoroughly
-            2. Design and implement a solution
-            3. Review and test the solution
-            4. Provide final recommendations
-            """
-        )
-
-# Usage example
-if __name__ == "__main__":
-    azure_config = {
-        "model": "gpt-4",
-        "api_type": "azure",
-        "api_base": "https://your-resource.openai.azure.com/",
-        "api_version": "2024-02-15-preview",
-        "api_key": "your_api_key"
-    }
-    
-    system = AutoGenMultiAgentSystem(azure_config)
-    
-    # Solve a complex problem with multiple agents
-    system.solve_problem(
-        "Build a scalable recommendation system for an e-commerce platform",
-        ["researcher", "coder", "reviewer", "user_proxy"]
-    )`,
+      ### 5. Reliability and Scalability
+      - Discuss how to make the system resilient to individual agent failures.
+      - Explain how to use Azure Container Apps to scale the number of agent instances based on the volume of disruption events.
+    `
+  },
+  codeExample: `// AutoGen Multi-Agent System...`,
+  pythonCodeExample: `# AutoGen Multi-Agent Implementation...`,
   implementation: [
     'Install AutoGen framework and configure Azure OpenAI connection',
     'Define agent roles and system messages for specialized behaviors',
@@ -221,5 +108,22 @@ if __name__ == "__main__":
     'Implement logging and monitoring for agent interactions',
     'Deploy to Azure Container Apps for scalable execution',
     'Set up CI/CD pipelines for agent system updates'
+  ],
+  advantages: [
+    "Facilitates complex problem-solving by enabling collaboration between specialized agents.",
+    "The conversational nature of agent interaction is intuitive and powerful.",
+    "Supports human-in-the-loop, allowing for human oversight and intervention.",
+    "Can automate complex workflows that require multiple steps and different skills."
+  ],
+  limitations: [
+    "Managing complex multi-agent conversations can be challenging.",
+    "The system can be prone to conversational loops or inefficient communication.",
+    "Debugging the collective behavior of multiple agents is difficult.",
+    "Can be more expensive than single-agent systems due to the high volume of LLM calls."
+  ],
+  relatedPatterns: [
+    "orchestrator-worker",
+    "agent-to-agent",
+    "multi-agent-systems"
   ]
 };
