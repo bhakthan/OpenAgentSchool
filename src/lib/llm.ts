@@ -177,7 +177,8 @@ async function callClaude(prompt: string): Promise<LlmResponse> {
         headers: {
             'x-api-key': apiKey,
             'Content-Type': 'application/json',
-            'anthropic-version': '2023-06-01'
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true'
         },
         body: JSON.stringify({
             model: "claude-sonnet-4-20250514",
@@ -194,6 +195,9 @@ async function callClaude(prompt: string): Promise<LlmResponse> {
         throw new Error(errorData.error?.message || 'Unknown error');
     }
     const data = await response.json();
-    // Claude's response format may differ; adjust as needed
-    return { content: data.content || data.choices?.[0]?.message?.content || '' };
+    let content = data.content || data.choices?.[0]?.message?.content || '';
+    if (typeof content !== 'string') {
+        content = JSON.stringify(content, null, 2);
+    }
+    return { content };
 }

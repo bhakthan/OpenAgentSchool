@@ -89,7 +89,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
   // Custom components for markdown rendering
   const markdownComponents = {
     code: CodeBlock,
-    pre: ({ children }: any) => <div className="my-4">{children}</div>,
+    pre: ({ children }: any) => <>{children}</>, // Use fragment, not <div>
     h1: ({ children }: any) => <h1 className="text-2xl font-bold mt-6 mb-4 text-foreground">{children}</h1>,
     h2: ({ children }: any) => <h2 className="text-xl font-semibold mt-5 mb-3 text-foreground">{children}</h2>,
     h3: ({ children }: any) => <h3 className="text-lg font-medium mt-4 mb-2 text-foreground">{children}</h3>,

@@ -2,6 +2,8 @@
 
 **Where AI Agent Concepts Come to Life**
 
+*Built for AI by AI with lots of human intervention in the loop*
+
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, and hands-on demonstrations of modern AI agent architectures, including the revolutionary **MCP×A2A Integration** patterns.
 ---
 
