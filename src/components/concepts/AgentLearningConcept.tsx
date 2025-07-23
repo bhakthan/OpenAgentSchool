@@ -38,7 +38,7 @@ export default function AgentLearningConcept({ onMarkComplete, onNavigateToNext 
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Reinforcement Learning enables agents to learn optimal behaviors through interaction with their environment,
                 using rewards and penalties to guide learning towards desired outcomes.
               </p>
@@ -46,10 +46,10 @@ export default function AgentLearningConcept({ onMarkComplete, onNavigateToNext 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🎯 Q-Learning</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
+                  <p className="text-lg text-muted-foreground mb-2">
                     Learn action-value functions for optimal decision making
                   </p>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• State-action value estimation</li>
                     <li>• Exploration vs exploitation</li>
                     <li>• Temporal difference learning</li>
@@ -57,10 +57,10 @@ export default function AgentLearningConcept({ onMarkComplete, onNavigateToNext 
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📈 Policy Gradients</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
+                  <p className="text-lg text-muted-foreground mb-2">
                     Directly optimize policy parameters using gradient ascent
                   </p>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Policy parameter optimization</li>
                     <li>• Continuous action spaces</li>
                     <li>• Actor-critic methods</li>
@@ -68,10 +68,10 @@ export default function AgentLearningConcept({ onMarkComplete, onNavigateToNext 
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🏆 Reward Systems</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
+                  <p className="text-lg text-muted-foreground mb-2">
                     Design effective reward structures for desired behaviors
                   </p>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Reward shaping</li>
                     <li>• Intrinsic motivation</li>
                     <li>• Multi-objective rewards</li>
@@ -79,10 +79,10 @@ export default function AgentLearningConcept({ onMarkComplete, onNavigateToNext 
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 Deep RL</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
+                  <p className="text-lg text-muted-foreground mb-2">
                     Combine deep learning with reinforcement learning
                   </p>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Deep Q-Networks (DQN)</li>
                     <li>• Proximal Policy Optimization</li>
                     <li>• Experience replay</li>
@@ -91,7 +91,7 @@ export default function AgentLearningConcept({ onMarkComplete, onNavigateToNext 
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# Reinforcement Learning Agent Implementation
+                <pre className="text-lg">{`# Reinforcement Learning Agent Implementation
 import numpy as np
 import torch
 import torch.nn as nn
@@ -177,7 +177,7 @@ class DQNAgent:
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Online learning enables agents to continuously adapt to changing environments and data distributions,
                 maintaining performance as conditions evolve over time.
               </p>
@@ -185,7 +185,7 @@ class DQNAgent:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 Continuous Learning</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Incremental model updates</li>
                     <li>• Streaming data processing</li>
                     <li>• Real-time adaptation</li>
@@ -194,7 +194,7 @@ class DQNAgent:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📊 Concept Drift Detection</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Statistical drift detection</li>
                     <li>• Performance monitoring</li>
                     <li>• Distribution comparison</li>
@@ -203,7 +203,7 @@ class DQNAgent:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🎯 Adaptive Algorithms</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Stochastic gradient descent</li>
                     <li>• Online ensemble methods</li>
                     <li>• Adaptive learning rates</li>
@@ -212,7 +212,7 @@ class DQNAgent:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">⚡ Real-time Processing</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Stream processing</li>
                     <li>• Mini-batch learning</li>
                     <li>• Sliding window methods</li>
@@ -222,7 +222,7 @@ class DQNAgent:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# Online Learning with Concept Drift Detection
+                <pre className="text-lg">{`# Online Learning with Concept Drift Detection
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.linear_model import SGDClassifier
@@ -323,7 +323,7 @@ class DriftDetector:
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Transfer learning allows agents to leverage knowledge from previously learned tasks to quickly adapt to new domains,
                 reducing training time and improving performance on related tasks.
               </p>
@@ -331,7 +331,7 @@ class DriftDetector:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 Feature Transfer</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Pre-trained embeddings</li>
                     <li>• Shared feature extractors</li>
                     <li>• Domain adaptation</li>
@@ -340,7 +340,7 @@ class DriftDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🧠 Knowledge Distillation</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Teacher-student models</li>
                     <li>• Soft target learning</li>
                     <li>• Model compression</li>
@@ -349,7 +349,7 @@ class DriftDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🌐 Domain Adaptation</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Cross-domain learning</li>
                     <li>• Domain-invariant features</li>
                     <li>• Adversarial adaptation</li>
@@ -358,7 +358,7 @@ class DriftDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🎯 Task Transfer</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Multi-task learning</li>
                     <li>• Task similarity metrics</li>
                     <li>• Progressive learning</li>
@@ -405,7 +405,7 @@ class DriftDetector:
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Meta-learning enables agents to learn how to learn, developing the ability to quickly adapt to new tasks
                 with minimal training data by leveraging experience from previous learning episodes.
               </p>
@@ -413,7 +413,7 @@ class DriftDetector:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🎯 Few-Shot Learning</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Model-Agnostic Meta-Learning (MAML)</li>
                     <li>• Prototypical networks</li>
                     <li>• Matching networks</li>
@@ -422,7 +422,7 @@ class DriftDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 Optimization-Based</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Gradient-based meta-learning</li>
                     <li>• Learning to optimize</li>
                     <li>• Meta-SGD</li>
@@ -431,7 +431,7 @@ class DriftDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🧠 Memory-Based</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Neural Turing Machines</li>
                     <li>• Differentiable memory</li>
                     <li>• External memory systems</li>
@@ -440,7 +440,7 @@ class DriftDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📊 Metric-Based</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Similarity metrics</li>
                     <li>• Embedding spaces</li>
                     <li>• Distance learning</li>
@@ -450,7 +450,7 @@ class DriftDetector:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# MAML (Model-Agnostic Meta-Learning) Implementation
+                <pre className="text-lg">{`# MAML (Model-Agnostic Meta-Learning) Implementation
 import torch
 import torch.nn as nn
 import torch.optim as optim

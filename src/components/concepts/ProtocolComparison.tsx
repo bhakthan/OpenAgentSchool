@@ -148,16 +148,16 @@ const ProtocolComparison: React.FC = () => {
                 </div>
                 <div className="space-y-3">
                   <div>
-                    <span className="text-sm font-medium">Purpose:</span>
-                    <p className="text-sm text-muted-foreground">{comparisonData.overview.mcp.purpose}</p>
+                    <span className="text-lg font-medium">Purpose:</span>
+                    <p className="text-lg text-muted-foreground">{comparisonData.overview.mcp.purpose}</p>
                   </div>
                   <div>
-                    <span className="text-sm font-medium">Focus:</span>
-                    <p className="text-sm text-muted-foreground">{comparisonData.overview.mcp.focus}</p>
+                    <span className="text-lg font-medium">Focus:</span>
+                    <p className="text-lg text-muted-foreground">{comparisonData.overview.mcp.focus}</p>
                   </div>
                   <div>
-                    <span className="text-sm font-medium">Scope:</span>
-                    <p className="text-sm text-muted-foreground">{comparisonData.overview.mcp.scope}</p>
+                    <span className="text-lg font-medium">Scope:</span>
+                    <p className="text-lg text-muted-foreground">{comparisonData.overview.mcp.scope}</p>
                   </div>
                 </div>
               </div>
@@ -170,16 +170,16 @@ const ProtocolComparison: React.FC = () => {
                 </div>
                 <div className="space-y-3">
                   <div>
-                    <span className="text-sm font-medium">Purpose:</span>
-                    <p className="text-sm text-muted-foreground">{comparisonData.overview.acp.purpose}</p>
+                    <span className="text-lg font-medium">Purpose:</span>
+                    <p className="text-lg text-muted-foreground">{comparisonData.overview.acp.purpose}</p>
                   </div>
                   <div>
-                    <span className="text-sm font-medium">Focus:</span>
-                    <p className="text-sm text-muted-foreground">{comparisonData.overview.acp.focus}</p>
+                    <span className="text-lg font-medium">Focus:</span>
+                    <p className="text-lg text-muted-foreground">{comparisonData.overview.acp.focus}</p>
                   </div>
                   <div>
-                    <span className="text-sm font-medium">Scope:</span>
-                    <p className="text-sm text-muted-foreground">{comparisonData.overview.acp.scope}</p>
+                    <span className="text-lg font-medium">Scope:</span>
+                    <p className="text-lg text-muted-foreground">{comparisonData.overview.acp.scope}</p>
                   </div>
                 </div>
               </div>
@@ -258,14 +258,14 @@ const ProtocolComparison: React.FC = () => {
                 <h4 className="font-medium mb-3">{selectedMetric} - Detailed Comparison</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <h5 className="text-sm font-medium mb-2" style={{ color: colors.mcp }}>MCP</h5>
-                    <p className="text-sm text-muted-foreground">
+                    <h5 className="text-lg font-medium mb-2" style={{ color: colors.mcp }}>MCP</h5>
+                    <p className="text-lg text-muted-foreground">
                       {comparisonData.features.find(f => f.feature === selectedMetric)?.mcp.details}
                     </p>
                   </div>
                   <div>
-                    <h5 className="text-sm font-medium mb-2" style={{ color: colors.acp }}>ACP</h5>
-                    <p className="text-sm text-muted-foreground">
+                    <h5 className="text-lg font-medium mb-2" style={{ color: colors.acp }}>ACP</h5>
+                    <p className="text-lg text-muted-foreground">
                       {comparisonData.features.find(f => f.feature === selectedMetric)?.acp.details}
                     </p>
                   </div>
@@ -280,7 +280,7 @@ const ProtocolComparison: React.FC = () => {
                 <h3 className="font-semibold mb-3" style={{ color: colors.mcp }}>MCP Architecture</h3>
                 <div className="space-y-3">
                   <div>
-                    <span className="text-sm font-medium">Components:</span>
+                    <span className="text-lg font-medium">Components:</span>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {comparisonData.architecture.mcp.components.map((comp) => (
                         <Badge key={comp} variant="outline">{comp}</Badge>
@@ -288,12 +288,12 @@ const ProtocolComparison: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <span className="text-sm font-medium">Data Flow:</span>
-                    <p className="text-sm text-muted-foreground">{comparisonData.architecture.mcp.flow}</p>
+                    <span className="text-lg font-medium">Data Flow:</span>
+                    <p className="text-lg text-muted-foreground">{comparisonData.architecture.mcp.flow}</p>
                   </div>
                   <div>
-                    <span className="text-sm font-medium">Pattern:</span>
-                    <p className="text-sm text-muted-foreground">{comparisonData.architecture.mcp.pattern}</p>
+                    <span className="text-lg font-medium">Pattern:</span>
+                    <p className="text-lg text-muted-foreground">{comparisonData.architecture.mcp.pattern}</p>
                   </div>
                 </div>
               </div>
@@ -302,7 +302,7 @@ const ProtocolComparison: React.FC = () => {
                 <h3 className="font-semibold mb-3" style={{ color: colors.acp }}>ACP Architecture</h3>
                 <div className="space-y-3">
                   <div>
-                    <span className="text-sm font-medium">Components:</span>
+                    <span className="text-lg font-medium">Components:</span>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {comparisonData.architecture.acp.components.map((comp) => (
                         <Badge key={comp} variant="outline">{comp}</Badge>
@@ -310,12 +310,12 @@ const ProtocolComparison: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <span className="text-sm font-medium">Data Flow:</span>
-                    <p className="text-sm text-muted-foreground">{comparisonData.architecture.acp.flow}</p>
+                    <span className="text-lg font-medium">Data Flow:</span>
+                    <p className="text-lg text-muted-foreground">{comparisonData.architecture.acp.flow}</p>
                   </div>
                   <div>
-                    <span className="text-sm font-medium">Pattern:</span>
-                    <p className="text-sm text-muted-foreground">{comparisonData.architecture.acp.pattern}</p>
+                    <span className="text-lg font-medium">Pattern:</span>
+                    <p className="text-lg text-muted-foreground">{comparisonData.architecture.acp.pattern}</p>
                   </div>
                 </div>
               </div>
@@ -330,7 +330,7 @@ const ProtocolComparison: React.FC = () => {
                   {comparisonData.useCases.mcp.map((useCase, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <CheckCircle className="text-green-500 mt-0.5" size={16} />
-                      <span className="text-sm">{useCase}</span>
+                      <span className="text-lg">{useCase}</span>
                     </li>
                   ))}
                 </ul>
@@ -342,7 +342,7 @@ const ProtocolComparison: React.FC = () => {
                   {comparisonData.useCases.acp.map((useCase, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <CheckCircle className="text-green-500 mt-0.5" size={16} />
-                      <span className="text-sm">{useCase}</span>
+                      <span className="text-lg">{useCase}</span>
                     </li>
                   ))}
                 </ul>

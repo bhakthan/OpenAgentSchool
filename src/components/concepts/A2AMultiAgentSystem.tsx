@@ -493,23 +493,23 @@ const A2AMultiAgentSystem: React.FC = () => {
                 <Badge variant="outline">Step {currentStep + 1}</Badge>
                 <h3 className="font-semibold">{currentStepData.title}</h3>
               </div>
-              <p className="text-sm text-muted-foreground mb-3">{currentStepData.description}</p>
+              <p className="text-lg text-muted-foreground mb-3">{currentStepData.description}</p>
               
               {currentStepData.message && (
                 <div className="bg-blue-100 dark:bg-blue-900/20 p-3 rounded-md mb-2">
-                  <p className="text-sm"><strong>Message:</strong> {currentStepData.message}</p>
+                  <p className="text-base"><strong>Message:</strong> {currentStepData.message}</p>
                 </div>
               )}
               
               {currentStepData.techStack && (
                 <div className="bg-purple-100 dark:bg-purple-900/20 p-3 rounded-md mb-2">
-                  <p className="text-sm"><strong>Technology:</strong> {currentStepData.techStack}</p>
+                  <p className="text-base"><strong>Technology:</strong> {currentStepData.techStack}</p>
                 </div>
               )}
               
               {currentStepData.securityNote && (
                 <div className="bg-red-100 dark:bg-red-900/20 p-3 rounded-md">
-                  <p className="text-sm flex items-center gap-2">
+                  <p className="text-base flex items-center gap-2">
                     <Shield className="w-4 h-4" />
                     <strong>Security:</strong> {currentStepData.securityNote}
                   </p>
@@ -749,52 +749,52 @@ const A2AMultiAgentSystem: React.FC = () => {
                     <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                       <Card className="border-gray-200 dark:border-gray-700">
                         <CardHeader className="pb-3">
-                          <CardTitle className="text-gray-600 dark:text-gray-400 text-base">
+                          <CardTitle className="text-gray-600 dark:text-gray-400 text-lg">
                             Traditional RAG: "The Then"
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-2">
                           <div className="flex items-start gap-2">
                             <span className="w-2 h-2 rounded-full bg-red-500 mt-2"></span>
-                            <span className="text-sm">Monolithic system with simple lookup</span>
+                            <span className="text-lg">Monolithic system with simple lookup</span>
                           </div>
                           <div className="flex items-start gap-2">
                             <span className="w-2 h-2 rounded-full bg-red-500 mt-2"></span>
-                            <span className="text-sm">Context treated as raw text blocks</span>
+                            <span className="text-lg">Context treated as raw text blocks</span>
                           </div>
                           <div className="flex items-start gap-2">
                             <span className="w-2 h-2 rounded-full bg-red-500 mt-2"></span>
-                            <span className="text-sm">Limited sources and noisy results</span>
+                            <span className="text-lg">Limited sources and noisy results</span>
                           </div>
                           <div className="flex items-start gap-2">
                             <span className="w-2 h-2 rounded-full bg-red-500 mt-2"></span>
-                            <span className="text-sm">Prone to hallucination and imprecision</span>
+                            <span className="text-lg">Prone to hallucination and imprecision</span>
                           </div>
                         </CardContent>
                       </Card>
 
                       <Card className="border-green-200 dark:border-green-700">
                         <CardHeader className="pb-3">
-                          <CardTitle className="text-green-600 dark:text-green-400 text-base">
+                          <CardTitle className="text-green-600 dark:text-green-400 text-lg">
                             Agentic RAG: "The Now"
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-2">
                           <div className="flex items-start gap-2">
                             <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
-                            <span className="text-sm">Distributed intelligent system with Context Engineering</span>
+                            <span className="text-lg">Distributed intelligent system with Context Engineering</span>
                           </div>
                           <div className="flex items-start gap-2">
                             <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
-                            <span className="text-sm">Multiple specialized sources via A2A and MCP</span>
+                            <span className="text-lg">Multiple specialized sources via A2A and MCP</span>
                           </div>
                           <div className="flex items-start gap-2">
                             <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
-                            <span className="text-sm">Active context shaping: re-ranking, summarizing, transforming</span>
+                            <span className="text-lg">Active context shaping: re-ranking, summarizing, transforming</span>
                           </div>
                           <div className="flex items-start gap-2">
                             <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
-                            <span className="text-sm">Negative evidence injection to prevent hallucination</span>
+                            <span className="text-lg">Negative evidence injection to prevent hallucination</span>
                           </div>
                         </CardContent>
                       </Card>
@@ -806,7 +806,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                         <Database className="w-5 h-5 text-amber-600" />
                         Context Engineering: The Game Changer
                       </h3>
-                      <div className="space-y-3 text-sm">
+                      <div className="space-y-3 text-lg">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
                             <h4 className="font-medium text-amber-800 dark:text-amber-200 mb-2">Context Sourcing</h4>
@@ -828,7 +828,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                           </div>
                         </div>
                         <div className="bg-amber-100 dark:bg-amber-800/30 p-3 rounded-md mt-4">
-                          <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                          <p className="text-base font-medium text-amber-800 dark:text-amber-200">
                             Result: A precision-engineered, clean, and potent prompt that generates superior answers
                           </p>
                         </div>
@@ -858,15 +858,15 @@ const A2AMultiAgentSystem: React.FC = () => {
                   <CardContent className="space-y-2">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                      <span className="text-sm">Standardized agent communication</span>
+                      <span className="text-lg">Standardized agent communication</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                      <span className="text-sm">Task lifecycle management</span>
+                      <span className="text-lg">Task lifecycle management</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                      <span className="text-sm">Asynchronous message passing</span>
+                      <span className="text-lg">Asynchronous message passing</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -881,15 +881,15 @@ const A2AMultiAgentSystem: React.FC = () => {
                   <CardContent className="space-y-2">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-                      <span className="text-sm">Modular processing pipelines</span>
+                      <span className="text-lg">Modular processing pipelines</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-                      <span className="text-sm">Async task decomposition</span>
+                      <span className="text-lg">Async task decomposition</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-                      <span className="text-sm">Chainable + parallel execution</span>
+                      <span className="text-lg">Chainable + parallel execution</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -904,15 +904,15 @@ const A2AMultiAgentSystem: React.FC = () => {
                   <CardContent className="space-y-2">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                      <span className="text-sm">Secure tool authentication</span>
+                      <span className="text-lg">Secure tool authentication</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                      <span className="text-sm">OAuth 2.0 PKCE flow</span>
+                      <span className="text-lg">OAuth 2.0 PKCE flow</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                      <span className="text-sm">Encrypted session management</span>
+                      <span className="text-lg">Encrypted session management</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -937,12 +937,12 @@ const A2AMultiAgentSystem: React.FC = () => {
                       <Database className="w-5 h-5 text-purple-600" />
                       GenAI-processors: The Agent's "Brain"
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       A Python library for building the internal logic of an agent. It provides a modular framework where complex tasks are broken down into smaller, reusable, asynchronous components called Processors.
                     </p>
                     <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-md">
-                      <p className="text-sm font-medium">Example Pipeline:</p>
-                      <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                      <p className="text-base font-medium">Example Pipeline:</p>
+                      <code className="text-lg bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
                         TopicGenerator → TopicResearcher → Synthesizer
                       </code>
                     </div>
@@ -953,12 +953,12 @@ const A2AMultiAgentSystem: React.FC = () => {
                       <Users className="w-5 h-5 text-blue-600" />
                       A2A Protocol: The Agent's "Nervous System"
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       The communication and task management layer that allows agents to interact with each other and external systems in a standardized way. It defines protocols centered around task lifecycles.
                     </p>
                     <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-md">
-                      <p className="text-sm font-medium">Task States:</p>
-                      <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                      <p className="text-base font-medium">Task States:</p>
+                      <code className="text-lg bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
                         submitted → working → completed
                       </code>
                     </div>
@@ -969,12 +969,12 @@ const A2AMultiAgentSystem: React.FC = () => {
                       <Shield className="w-5 h-5 text-red-600" />
                       MCP: The Agent's "Hands" for Tools
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       A specialized protocol for AI models to securely discover and use external tools. It standardizes how agents authenticate with and call tools from secure providers.
                     </p>
                     <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-md">
-                      <p className="text-sm font-medium">Security Features:</p>
-                      <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                      <p className="text-base font-medium">Security Features:</p>
+                      <code className="text-lg bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
                         OAuth 2.0 + PKCE + Session Encryption
                       </code>
                     </div>
@@ -985,82 +985,82 @@ const A2AMultiAgentSystem: React.FC = () => {
                 <div className="mt-8">
                   <h3 className="font-semibold text-lg mb-4">Business Scenario: Multi-Faceted Customer Inquiry</h3>
                   <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-4 rounded-lg">
-                    <p className="text-sm italic mb-3">
+                    <p className="text-lg italic mb-3">
                       "What are the eco-friendly features of the 'Aqua-Pure X1' water filter, and can you check the status of my latest order for it?"
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       This complex query requires coordination between multiple specialized agents, each with different capabilities and access permissions.
                     </p>
-                  </div>
+                                                    </div>
                 </div>
 
                 {/* Agent Roles */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                   <Card className="border-blue-200 dark:border-blue-800">
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-blue-600 dark:text-blue-400 text-base">
+                      <CardTitle className="text-blue-600 dark:text-blue-400 text-lg">
                         Customer Service Agent
                       </CardTitle>
-                      <p className="text-sm text-muted-foreground">Azure AI - Primary orchestrator</p>
+                      <p className="text-lg text-muted-foreground">Azure AI - Primary orchestrator</p>
                     </CardHeader>
                     <CardContent className="space-y-2">
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                        <span className="text-sm">Handles customer interaction</span>
+                        <span className="text-lg">Handles customer interaction</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                        <span className="text-sm">Orchestrates task delegation</span>
+                        <span className="text-lg">Orchestrates task delegation</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                        <span className="text-sm">Synthesizes final response</span>
+                        <span className="text-lg">Synthesizes final response</span>
                       </div>
                     </CardContent>
                   </Card>
 
                   <Card className="border-green-200 dark:border-green-800">
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-green-600 dark:text-green-400 text-base">
+                      <CardTitle className="text-green-600 dark:text-green-400 text-lg">
                         Product Research Agent
                       </CardTitle>
-                      <p className="text-sm text-muted-foreground">Google Gemini - Knowledge specialist</p>
+                      <p className="text-lg text-muted-foreground">Google Gemini - Knowledge specialist</p>
                     </CardHeader>
                     <CardContent className="space-y-2">
                       <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                        <span className="text-sm">Deep product knowledge research</span>
+                        <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
+                        <span className="text-lg">Deep product knowledge research</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                        <span className="text-sm">Eco-friendly feature analysis</span>
+                        <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
+                        <span className="text-lg">Eco-friendly feature analysis</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                        <span className="text-sm">External knowledge integration</span>
+                        <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
+                        <span className="text-lg">External knowledge integration</span>
                       </div>
                     </CardContent>
                   </Card>
 
                   <Card className="border-orange-200 dark:border-orange-800">
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-orange-600 dark:text-orange-400 text-base">
+                      <CardTitle className="text-orange-600 dark:text-orange-400 text-lg">
                         OMS Tool Agent
                       </CardTitle>
-                      <p className="text-sm text-muted-foreground">Azure MCP - Secure data access</p>
+                      <p className="text-lg text-muted-foreground">Azure MCP - Secure data access</p>
                     </CardHeader>
                     <CardContent className="space-y-2">
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-orange-500"></span>
-                        <span className="text-sm">Secure order system access</span>
+                        <span className="text-lg">Secure order system access</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-orange-500"></span>
-                        <span className="text-sm">Non-conversational tool provider</span>
+                        <span className="text-lg">Non-conversational tool provider</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-orange-500"></span>
-                        <span className="text-sm">Azure API Management gateway</span>
+                        <span className="text-lg">Azure API Management gateway</span>
                       </div>
                     </CardContent>
                   </Card>
@@ -1069,7 +1069,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                 {/* Integration Summary */}
                 <div className="mt-8 p-4 bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-800 dark:to-gray-800 rounded-lg">
                   <h3 className="font-semibold text-lg mb-3">Integration Summary</h3>
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-2 text-lg">
                     <p>
                       <strong>GenAI-processors</strong> define what your agents do through modular, chainable pipelines
                     </p>

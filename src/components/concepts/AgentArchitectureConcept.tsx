@@ -30,7 +30,7 @@ export default function AgentArchitectureConcept({ onMarkComplete, onNavigateToN
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 AI agents consist of several interconnected components that work together to enable autonomous behavior. 
                 Understanding these components is crucial for designing effective agent systems.
               </p>
@@ -38,25 +38,25 @@ export default function AgentArchitectureConcept({ onMarkComplete, onNavigateToN
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🧠 Reasoning Engine</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     The core LLM that processes information, makes decisions, and generates responses
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📝 Memory System</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Stores context, experiences, and learned patterns for future use
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔧 Tool Interface</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Connects agents to external systems, APIs, and data sources
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🎯 Goal Manager</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Tracks objectives, plans actions, and monitors progress
                   </p>
                 </div>
@@ -88,7 +88,7 @@ export default function AgentArchitectureConcept({ onMarkComplete, onNavigateToN
             </CardHeader>
             <CardContent>
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`// Basic Agent Architecture in Azure AI SDK
+                <pre className="text-lg">{`// Basic Agent Architecture in Azure AI SDK
 class AzureAIAgent {
   constructor(config) {
     this.reasoning = new OpenAIService(config.model)
@@ -260,7 +260,7 @@ class AzureAIAgent {
                         <Play className="w-4 h-4" />
                         Birth & Initialization
                       </h4>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-lg text-muted-foreground mt-1">
                         Agent is created with initial configuration, capabilities, and goals
                       </p>
                       <div className="mt-2">
@@ -279,7 +279,7 @@ class AzureAIAgent {
                         <Gear className="w-4 h-4" />
                         Active Execution
                       </h4>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-lg text-muted-foreground mt-1">
                         Agent processes tasks, learns from interactions, and adapts behavior
                       </p>
                       <div className="mt-2">
@@ -298,7 +298,7 @@ class AzureAIAgent {
                         <Pause className="w-4 h-4" />
                         Hibernation
                       </h4>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-lg text-muted-foreground mt-1">
                         Agent pauses execution while preserving state for future resumption
                       </p>
                       <div className="mt-2">
@@ -317,7 +317,7 @@ class AzureAIAgent {
                         <Stop className="w-4 h-4" />
                         Termination
                       </h4>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-lg text-muted-foreground mt-1">
                         Agent completes final tasks, saves state, and releases resources
                       </p>
                       <div className="mt-2">
@@ -339,13 +339,13 @@ class AzureAIAgent {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <p className="text-base leading-relaxed">
+                  <p className="text-lg leading-relaxed">
                     Proper state management is crucial for agent reliability and performance. 
                     Agents must maintain consistency across lifecycle transitions.
                   </p>
                   
                   <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                    <pre className="text-sm">{`// Agent State Management Example
+                    <pre className="text-lg">{`// Agent State Management Example
 class AgentStateManager {
   async saveState(agentId, state) {
     return await this.storage.save({
@@ -389,7 +389,7 @@ class AgentStateManager {
               <CardTitle>Agent Decision Making Process</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Agent decision making involves perceiving the environment, reasoning about options, 
                 and selecting appropriate actions based on goals and constraints.
               </p>

@@ -37,32 +37,32 @@ export default function MultiAgentSystemsConcept({ onMarkComplete, onNavigateToN
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🎯 Consensus Algorithms</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-base text-muted-foreground">
                     Mechanisms for agents to agree on decisions or shared state
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 Task Allocation</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-base text-muted-foreground">
                     Distributing work among agents based on capabilities and availability
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">⚖️ Load Balancing</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-base text-muted-foreground">
                     Distributing workload evenly across available agents
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔐 Resource Locking</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-base text-muted-foreground">
                     Preventing conflicts when agents access shared resources
                   </p>
                 </div>
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">
+                <pre className="text-base">
 {`// Agent Coordination Example
 class AgentCoordinator {
   async coordinateTask(task, availableAgents) {
@@ -133,7 +133,7 @@ class AgentCoordinator {
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">
+                <pre className="text-base">
 {`// Auction-Based Negotiation
 class AgentAuction {
   async conductAuction(task, participants) {
@@ -185,25 +185,25 @@ class AgentAuction {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🌊 Swarm Intelligence</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-base text-muted-foreground">
                     Collective behavior patterns inspired by biological systems
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 Self-Organization</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-base text-muted-foreground">
                     Agents automatically organize into efficient structures
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🎯 Collective Intelligence</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-base text-muted-foreground">
                     Group problem-solving capabilities exceeding individual agents
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📈 Adaptive Systems</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-base text-muted-foreground">
                     System-wide adaptation to changing conditions
                   </p>
                 </div>
@@ -259,7 +259,7 @@ class AgentAuction {
                   </div>
                   <div>
                     <h4 className="font-semibold">Hierarchical Model</h4>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-base text-muted-foreground mt-1">
                       Clear command structure with supervisor and worker agents
                     </p>
                     <div className="mt-2">
@@ -275,7 +275,7 @@ class AgentAuction {
                   </div>
                   <div>
                     <h4 className="font-semibold">Peer-to-Peer Model</h4>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-base text-muted-foreground mt-1">
                       Agents collaborate as equals without central authority
                     </p>
                     <div className="mt-2">
@@ -291,7 +291,7 @@ class AgentAuction {
                   </div>
                   <div>
                     <h4 className="font-semibold">Market-Based Model</h4>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-base text-muted-foreground mt-1">
                       Agents compete and cooperate based on economic incentives
                     </p>
                     <div className="mt-2">
@@ -332,7 +332,7 @@ class AgentAuction {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <h4 className="font-semibold text-green-600">Key Features</h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-base">
                     <li>• Conversational AI with multiple agents</li>
                     <li>• Customizable agent roles and behaviors</li>
                     <li>• Human-in-the-loop capabilities</li>
@@ -342,7 +342,7 @@ class AgentAuction {
                 </div>
                 <div className="space-y-2">
                   <h4 className="font-semibold text-blue-600">Use Cases</h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-base">
                     <li>• Collaborative problem solving</li>
                     <li>• Code generation and review</li>
                     <li>• Research and analysis tasks</li>
@@ -366,8 +366,8 @@ class AgentAuction {
                     <CardTitle className="text-blue-600 text-lg">Conversable Agents</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm mb-3">Base class for agents that can send and receive messages</p>
-                    <ul className="text-xs space-y-1">
+                    <p className="text-base mb-3">Base class for agents that can send and receive messages</p>
+                    <ul className="text-base space-y-1">
                       <li>• Message handling</li>
                       <li>• Conversation management</li>
                       <li>• Role-based behavior</li>
@@ -380,8 +380,8 @@ class AgentAuction {
                     <CardTitle className="text-green-600 text-lg">Assistant Agents</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm mb-3">AI-powered agents with LLM capabilities</p>
-                    <ul className="text-xs space-y-1">
+                    <p className="text-base mb-3">AI-powered agents with LLM capabilities</p>
+                    <ul className="text-base space-y-1">
                       <li>• LLM integration</li>
                       <li>• Function calling</li>
                       <li>• Code generation</li>
@@ -394,8 +394,8 @@ class AgentAuction {
                     <CardTitle className="text-purple-600 text-lg">User Proxy Agents</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm mb-3">Agents that represent human users in conversations</p>
-                    <ul className="text-xs space-y-1">
+                    <p className="text-base mb-3">Agents that represent human users in conversations</p>
+                    <ul className="text-base space-y-1">
                       <li>• Human input solicitation</li>
                       <li>• Code execution</li>
                       <li>• Approval workflows</li>
@@ -406,7 +406,7 @@ class AgentAuction {
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                 <h4 className="font-semibold mb-3">Basic AutoGen Implementation</h4>
-                <pre className="text-sm overflow-x-auto">{`import autogen
+                <pre className="text-base overflow-x-auto">{`import autogen
 
 # Configure LLM
 config_list = [{
@@ -452,7 +452,7 @@ user_proxy.initiate_chat(
                       <th className="border border-gray-300 p-2 text-center">LangGraph</th>
                     </tr>
                   </thead>
-                  <tbody className="text-sm">
+                  <tbody className="text-base">
                     <tr>
                       <td className="border border-gray-300 p-2 font-medium">Conversation Focus</td>
                       <td className="border border-gray-300 p-2 text-center">✅ High</td>
@@ -495,8 +495,8 @@ user_proxy.initiate_chat(
                     <CardTitle className="text-indigo-600 text-lg">Two-Agent Chat</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm mb-3">Direct conversation between two agents</p>
-                    <ul className="text-xs space-y-1">
+                    <p className="text-base mb-3">Direct conversation between two agents</p>
+                    <ul className="text-base space-y-1">
                       <li>• Question-answer format</li>
                       <li>• Code review scenarios</li>
                       <li>• Problem-solving dialogue</li>
@@ -509,8 +509,8 @@ user_proxy.initiate_chat(
                     <CardTitle className="text-orange-600 text-lg">Group Chat</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm mb-3">Multiple agents collaborating in a group</p>
-                    <ul className="text-xs space-y-1">
+                    <p className="text-base mb-3">Multiple agents collaborating in a group</p>
+                    <ul className="text-base space-y-1">
                       <li>• Moderated discussions</li>
                       <li>• Specialized expert agents</li>
                       <li>• Consensus building</li>
@@ -523,8 +523,8 @@ user_proxy.initiate_chat(
                     <CardTitle className="text-teal-600 text-lg">Sequential Chat</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm mb-3">Agents working in a predefined sequence</p>
-                    <ul className="text-xs space-y-1">
+                    <p className="text-base mb-3">Agents working in a predefined sequence</p>
+                    <ul className="text-base space-y-1">
                       <li>• Pipeline processing</li>
                       <li>• Step-by-step workflows</li>
                       <li>• Quality gates</li>
@@ -537,8 +537,8 @@ user_proxy.initiate_chat(
                     <CardTitle className="text-pink-600 text-lg">Nested Chat</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm mb-3">Hierarchical conversations with sub-groups</p>
-                    <ul className="text-xs space-y-1">
+                    <p className="text-base mb-3">Hierarchical conversations with sub-groups</p>
+                    <ul className="text-base space-y-1">
                       <li>• Complex problem decomposition</li>
                       <li>• Parallel workstreams</li>
                       <li>• Result synthesis</li>

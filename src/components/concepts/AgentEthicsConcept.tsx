@@ -38,7 +38,7 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Ethical AI development requires adherence to fundamental principles that ensure 
                 AI agents benefit society while minimizing harm and respecting human values.
               </p>
@@ -46,10 +46,10 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">⚖️ Fairness</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
+                  <p className="text-lg text-muted-foreground mb-2">
                     Ensuring AI agents treat all users equitably without discrimination
                   </p>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Equal treatment across demographics</li>
                     <li>• Bias detection and mitigation</li>
                     <li>• Inclusive design practices</li>
@@ -57,10 +57,10 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔍 Transparency</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
+                  <p className="text-lg text-muted-foreground mb-2">
                     Making AI decision-making processes understandable and auditable
                   </p>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Explainable AI techniques</li>
                     <li>• Decision audit trails</li>
                     <li>• Clear communication to users</li>
@@ -68,10 +68,10 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📋 Accountability</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
+                  <p className="text-lg text-muted-foreground mb-2">
                     Clear responsibility chains for AI agent decisions and actions
                   </p>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Governance frameworks</li>
                     <li>• Responsibility assignment</li>
                     <li>• Error handling procedures</li>
@@ -79,10 +79,10 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔒 Privacy</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
+                  <p className="text-lg text-muted-foreground mb-2">
                     Protecting user data and maintaining confidentiality
                   </p>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Data minimization</li>
                     <li>• Consent mechanisms</li>
                     <li>• Secure data handling</li>
@@ -128,7 +128,7 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Systematic bias detection and mitigation is essential for building fair and trustworthy AI agents.
                 This involves both technical and procedural approaches to identify and address bias.
               </p>
@@ -136,26 +136,26 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📊 Statistical Parity</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Equal positive prediction rates across groups
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🎯 Equalized Odds</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Equal true/false positive rates across groups
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">⚖️ Calibration</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Prediction probabilities reflect true outcomes
                   </p>
                 </div>
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# Bias detection implementation
+                <pre className="text-lg">{`# Bias detection implementation
 import pandas as pd
 import numpy as np
 from sklearn.metrics import confusion_matrix
@@ -233,7 +233,7 @@ class BiasDetector:
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 AI agents must comply with various regulations depending on their deployment context, 
                 data processing activities, and geographical reach.
               </p>
@@ -241,7 +241,7 @@ class BiasDetector:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🇪🇺 EU AI Act</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Risk-based approach</li>
                     <li>• Prohibited AI practices</li>
                     <li>• High-risk system requirements</li>
@@ -250,7 +250,7 @@ class BiasDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔐 GDPR</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Data protection by design</li>
                     <li>• Right to explanation</li>
                     <li>• Data minimization</li>
@@ -259,7 +259,7 @@ class BiasDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🏥 Healthcare (HIPAA)</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Patient data protection</li>
                     <li>• Access controls</li>
                     <li>• Audit trails</li>
@@ -268,7 +268,7 @@ class BiasDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🏦 Financial (SOX)</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Model governance</li>
                     <li>• Risk management</li>
                     <li>• Audit requirements</li>
@@ -315,7 +315,7 @@ class BiasDetector:
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Responsible AI ensures that AI agents operate safely, transparently, and with appropriate human oversight.
                 This includes technical safeguards, explainability mechanisms, and governance structures.
               </p>
@@ -323,7 +323,7 @@ class BiasDetector:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🛡️ Safety Measures</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Robustness testing</li>
                     <li>• Adversarial defense</li>
                     <li>• Fail-safe mechanisms</li>
@@ -332,7 +332,7 @@ class BiasDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">👥 Human Oversight</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Human-in-the-loop</li>
                     <li>• Meaningful control</li>
                     <li>• Override capabilities</li>
@@ -341,7 +341,7 @@ class BiasDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔍 Explainability</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Model interpretability</li>
                     <li>• Decision explanations</li>
                     <li>• Feature importance</li>
@@ -350,7 +350,7 @@ class BiasDetector:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📊 Governance</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Ethics committees</li>
                     <li>• Review processes</li>
                     <li>• Risk assessment</li>
@@ -360,7 +360,7 @@ class BiasDetector:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# Responsible AI implementation
+                <pre className="text-lg">{`# Responsible AI implementation
 class ResponsibleAIFramework:
     def __init__(self):
         self.safety_constraints = []

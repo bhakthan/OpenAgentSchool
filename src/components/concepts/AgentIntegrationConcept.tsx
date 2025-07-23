@@ -46,7 +46,7 @@ export default function AgentIntegrationConcept({ onMarkComplete, onNavigateToNe
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 REST APIs</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• HTTP methods (GET, POST, PUT, DELETE)</li>
                     <li>• Status code handling</li>
                     <li>• Rate limiting and throttling</li>
@@ -55,7 +55,7 @@ export default function AgentIntegrationConcept({ onMarkComplete, onNavigateToNe
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📊 GraphQL</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Query optimization</li>
                     <li>• Schema introspection</li>
                     <li>• Real-time subscriptions</li>
@@ -64,7 +64,7 @@ export default function AgentIntegrationConcept({ onMarkComplete, onNavigateToNe
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔗 Webhooks</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Event-driven notifications</li>
                     <li>• Payload validation</li>
                     <li>• Retry mechanisms</li>
@@ -73,7 +73,7 @@ export default function AgentIntegrationConcept({ onMarkComplete, onNavigateToNe
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🛡️ Security</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• OAuth 2.0 / OpenID Connect</li>
                     <li>• API key management</li>
                     <li>• TLS/SSL encryption</li>
@@ -83,7 +83,7 @@ export default function AgentIntegrationConcept({ onMarkComplete, onNavigateToNe
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# API Integration for AI Agents
+                <pre className="text-base">{`# API Integration for AI Agents
 import asyncio
 import aiohttp
 import logging
@@ -217,7 +217,7 @@ class RateLimiter:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📡 Event Sourcing</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Immutable event log</li>
                     <li>• State reconstruction</li>
                     <li>• Audit trail</li>
@@ -226,7 +226,7 @@ class RateLimiter:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">⚡ CQRS</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Command-query separation</li>
                     <li>• Read/write optimization</li>
                     <li>• Eventual consistency</li>
@@ -235,7 +235,7 @@ class RateLimiter:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📬 Message Queues</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Asynchronous processing</li>
                     <li>• Reliability guarantees</li>
                     <li>• Load balancing</li>
@@ -244,7 +244,7 @@ class RateLimiter:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 Event Streaming</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Real-time processing</li>
                     <li>• Stream analytics</li>
                     <li>• Event replay</li>
@@ -254,7 +254,7 @@ class RateLimiter:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# Event-Driven Agent Architecture
+                <pre className="text-base">{`# Event-Driven Agent Architecture
 import asyncio
 import json
 from typing import Dict, Any, Callable, List
@@ -407,7 +407,7 @@ class EventDrivenAgent:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🌐 Service Mesh</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Traffic management</li>
                     <li>• Security policies</li>
                     <li>• Observability</li>
@@ -416,7 +416,7 @@ class EventDrivenAgent:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🚪 API Gateway</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Request routing</li>
                     <li>• Authentication</li>
                     <li>• Rate limiting</li>
@@ -425,7 +425,7 @@ class EventDrivenAgent:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔍 Service Discovery</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Dynamic service registration</li>
                     <li>• Health checking</li>
                     <li>• Load balancing</li>
@@ -434,7 +434,7 @@ class EventDrivenAgent:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📊 Distributed Tracing</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Request correlation</li>
                     <li>• Performance monitoring</li>
                     <li>• Error tracking</li>
@@ -489,7 +489,7 @@ class EventDrivenAgent:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔌 Adapter Pattern</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Interface translation</li>
                     <li>• Protocol conversion</li>
                     <li>• Data format transformation</li>
@@ -498,7 +498,7 @@ class EventDrivenAgent:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🌉 Bridge Pattern</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• System interconnection</li>
                     <li>• Message routing</li>
                     <li>• Protocol bridging</li>
@@ -507,7 +507,7 @@ class EventDrivenAgent:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">⚙️ Middleware</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Message transformation</li>
                     <li>• Routing logic</li>
                     <li>• Error handling</li>
@@ -516,7 +516,7 @@ class EventDrivenAgent:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 ETL Processes</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-base text-muted-foreground space-y-1">
                     <li>• Data extraction</li>
                     <li>• Transformation pipelines</li>
                     <li>• Loading strategies</li>
@@ -526,7 +526,7 @@ class EventDrivenAgent:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# Legacy System Integration Adapter
+                <pre className="text-base">{`# Legacy System Integration Adapter
 import asyncio
 import logging
 from typing import Dict, Any, Optional

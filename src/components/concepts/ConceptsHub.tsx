@@ -270,7 +270,7 @@ export default function ConceptsHub() {
             <div className="text-right">
               <div className="text-sm text-muted-foreground mb-2">Overall Progress</div>
               <Progress value={progressPercentage} className="w-32" />
-              <div className="text-xs text-muted-foreground mt-1">
+              <div className="text-base text-muted-foreground mt-1">
                 {completedConcepts.size} of {concepts.length} concepts completed
               </div>
             </div>
@@ -308,7 +308,7 @@ export default function ConceptsHub() {
                         <Badge className={concept.color}>
                           {concept.level}
                         </Badge>
-                        <span className="text-xs text-muted-foreground">
+                        <span className="text-base text-muted-foreground">
                           {concept.estimatedTime}
                         </span>
                       </div>
@@ -320,12 +320,12 @@ export default function ConceptsHub() {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-base text-muted-foreground mb-4">
                   {concept.description}
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-base text-muted-foreground">
                     {isCompleted ? 'Completed' : 'Ready to start'}
                   </div>
                   <Button 
@@ -356,7 +356,7 @@ export default function ConceptsHub() {
               </div>
               <div>
                 <h4 className="font-medium">Follow the Path</h4>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-base text-muted-foreground">
                   Complete concepts in order for the best learning experience
                 </p>
               </div>
@@ -367,7 +367,7 @@ export default function ConceptsHub() {
               </div>
               <div>
                 <h4 className="font-medium">Hands-on Practice</h4>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-base text-muted-foreground">
                   Try the interactive demos and examples in each section
                 </p>
               </div>
@@ -378,7 +378,7 @@ export default function ConceptsHub() {
               </div>
               <div>
                 <h4 className="font-medium">Apply Knowledge</h4>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-base text-muted-foreground">
                   Build your own projects using the patterns you've learned
                 </p>
               </div>

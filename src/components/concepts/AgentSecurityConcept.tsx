@@ -29,7 +29,7 @@ export default function AgentSecurityConcept({ onMarkComplete, onNavigateToNext 
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Agent authentication ensures that only authorized agents can participate in multi-agent systems
                 and access sensitive resources. This forms the foundation of agent security.
               </p>
@@ -37,32 +37,32 @@ export default function AgentSecurityConcept({ onMarkComplete, onNavigateToNext 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔐 Digital Signatures</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Cryptographic signatures to verify agent messages and actions
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🎫 Token-Based Auth</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     JWT tokens and API keys for secure agent-to-service communication
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔗 Certificate Chains</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     X.509 certificates for establishing trusted agent hierarchies
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">⚡ OAuth 2.0</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Standard OAuth flows for third-party agent authorization
                   </p>
                 </div>
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">
+                <pre className="text-lg">
 {`// Agent Authentication Example
 class AgentAuthenticator {
   async authenticateAgent(agentId, credentials) {
@@ -110,7 +110,7 @@ class AgentAuthenticator {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Trust networks enable agents to establish and maintain confidence in other agents' 
                 capabilities, reliability, and behavior patterns over time.
               </p>
@@ -138,7 +138,7 @@ class AgentAuthenticator {
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">
+                <pre className="text-lg">
 {`// Trust Network Implementation
 class TrustNetwork {
   async calculateTrust(agentA, agentB) {
@@ -181,7 +181,7 @@ class TrustNetwork {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Secure communication protocols protect sensitive information exchanged between agents
                 and prevent unauthorized access to agent interactions.
               </p>
@@ -189,25 +189,25 @@ class TrustNetwork {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔐 End-to-End Encryption</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Encrypt messages so only intended recipients can read them
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🛡️ Message Integrity</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Ensure messages haven't been tampered with during transmission
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 Perfect Forward Secrecy</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Protect past communications even if keys are compromised
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📝 Non-Repudiation</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Prevent agents from denying they sent specific messages
                   </p>
                 </div>
@@ -239,7 +239,7 @@ class TrustNetwork {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Privacy protection ensures that sensitive information processed by agents remains 
                 confidential and complies with data protection regulations.
               </p>
@@ -271,7 +271,7 @@ class TrustNetwork {
                   <Warning className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-1" />
                   <div>
                     <h4 className="font-semibold text-yellow-800 dark:text-yellow-200">Compliance Considerations</h4>
-                    <p className="text-sm text-yellow-700 dark:text-yellow-300 mt-1">
+                    <p className="text-lg text-yellow-700 dark:text-yellow-300 mt-1">
                       Agent systems must comply with GDPR, CCPA, HIPAA, and other privacy regulations.
                       Implement proper data governance and user consent mechanisms.
                     </p>

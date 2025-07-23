@@ -32,7 +32,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 An AI Agent is an autonomous AI system that can perceive its environment, make decisions, 
                 and take actions to achieve specific goals. Unlike traditional chatbots that simply respond 
                 to queries, AI agents can plan, execute complex tasks, and adapt their behavior based on outcomes.
@@ -71,7 +71,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="border border-red-200 dark:border-red-800 rounded-lg p-4">
                   <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">Traditional AI/Chatbots</h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Reactive - responds to specific inputs</li>
                     <li>• Limited to predefined workflows</li>
                     <li>• Single-turn interactions</li>
@@ -81,7 +81,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
                 </div>
                 <div className="border border-green-200 dark:border-green-800 rounded-lg p-4">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">AI Agents</h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Proactive - can initiate actions</li>
                     <li>• Flexible planning and execution</li>
                     <li>• Multi-step, persistent workflows</li>
@@ -115,19 +115,19 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="border border-border rounded-md p-3">
                   <h5 className="font-medium text-primary mb-2">Foundation Models</h5>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     The underlying LLMs that provide reasoning, natural language understanding, and generation capabilities
                   </p>
                 </div>
                 <div className="border border-border rounded-md p-3">
                   <h5 className="font-medium text-primary mb-2">Planning System</h5>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Components that break down goals into steps and adapt based on new information
                   </p>
                 </div>
                 <div className="border border-border rounded-md p-3">
                   <h5 className="font-medium text-primary mb-2">Tool Integration</h5>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     APIs and interfaces that allow agents to interact with external systems
                   </p>
                 </div>
@@ -172,7 +172,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
                   <Badge variant="outline" className="mt-1">1</Badge>
                   <div>
                     <h4 className="font-semibold">Define Agent Purpose</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Clearly define what the agent should accomplish and its boundaries
                     </p>
                   </div>
@@ -181,7 +181,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
                   <Badge variant="outline" className="mt-1">2</Badge>
                   <div>
                     <h4 className="font-semibold">Choose Foundation Model</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Select appropriate LLM based on task complexity and performance needs
                     </p>
                   </div>
@@ -190,7 +190,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
                   <Badge variant="outline" className="mt-1">3</Badge>
                   <div>
                     <h4 className="font-semibold">Design Tool Integration</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Determine what external tools and APIs the agent needs access to
                     </p>
                   </div>
@@ -199,7 +199,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
                   <Badge variant="outline" className="mt-1">4</Badge>
                   <div>
                     <h4 className="font-semibold">Implement Safety Measures</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Add guardrails, validation, and monitoring for responsible operation
                     </p>
                   </div>
@@ -215,7 +215,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
             </CardHeader>
             <CardContent>
               <div className="bg-muted p-4 rounded-md">
-                <pre className="text-sm">
+                <pre className="text-lg">
 {`// Example: Simple AI Agent with Azure OpenAI
 import { OpenAI } from 'openai';
 
@@ -266,25 +266,25 @@ class SimpleAgent {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Multi-Agent Systems</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Coordinating multiple specialized agents to solve complex problems
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Hierarchical Agents</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Supervisor agents that coordinate and delegate to worker agents
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Feedback Loops</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Agents that learn and improve from user feedback and outcomes
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Context Management</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Advanced techniques for maintaining long-term memory and context
                   </p>
                 </div>
@@ -303,7 +303,7 @@ class SimpleAgent {
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     ✅ Do's
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Start with simple, well-defined use cases</li>
                     <li>• Implement robust error handling and fallbacks</li>
                     <li>• Use structured outputs for better reliability</li>
@@ -314,7 +314,7 @@ class SimpleAgent {
                   <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
                     ❌ Don'ts
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Don't give agents unrestricted access to critical systems</li>
                     <li>• Don't ignore potential security vulnerabilities</li>
                     <li>• Don't deploy without proper testing and validation</li>

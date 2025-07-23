@@ -37,7 +37,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Agent-to-Agent (A2A) communication is a protocol that enables AI agents to communicate, 
                 coordinate, and collaborate with each other. Instead of working in isolation, agents can 
                 share information, delegate tasks, and combine their capabilities to solve complex problems.
@@ -76,25 +76,25 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Request-Response</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Agent A sends a request to Agent B and waits for a response
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Publish-Subscribe</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Agents publish events and others subscribe to relevant updates
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Delegation</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     A supervisor agent delegates tasks to specialized worker agents
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Collaboration</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Multiple agents work together on a shared task or goal
                   </p>
                 </div>
@@ -124,19 +124,19 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="border border-border rounded-md p-3">
                   <h5 className="font-medium text-primary mb-2">Message Broker</h5>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Handles message routing, queuing, and delivery between agents
                   </p>
                 </div>
                 <div className="border border-border rounded-md p-3">
                   <h5 className="font-medium text-primary mb-2">Agent Registry</h5>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Maintains directory of available agents and their capabilities
                   </p>
                 </div>
                 <div className="border border-border rounded-md p-3">
                   <h5 className="font-medium text-primary mb-2">Protocol Handler</h5>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Manages message format, serialization, and protocol compliance
                   </p>
                 </div>
@@ -158,7 +158,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                   <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
                     Security Challenges
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Agent authentication and authorization</li>
                     <li>• Message encryption and integrity</li>
                     <li>• Preventing malicious agent behavior</li>
@@ -169,7 +169,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Best Practices
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Use secure protocols (TLS/SSL)</li>
                     <li>• Implement agent identity verification</li>
                     <li>• Monitor inter-agent communications</li>
@@ -204,7 +204,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                   <Badge variant="outline" className="mt-1">1</Badge>
                   <div>
                     <h4 className="font-semibold">Design Agent Roles</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Define what each agent will be responsible for and how they'll interact
                     </p>
                   </div>
@@ -213,7 +213,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                   <Badge variant="outline" className="mt-1">2</Badge>
                   <div>
                     <h4 className="font-semibold">Choose Communication Protocol</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Select message format, transport mechanism, and coordination patterns
                     </p>
                   </div>
@@ -222,7 +222,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                   <Badge variant="outline" className="mt-1">3</Badge>
                   <div>
                     <h4 className="font-semibold">Implement Message Handling</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Create message parsers, handlers, and response generators
                     </p>
                   </div>
@@ -231,7 +231,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                   <Badge variant="outline" className="mt-1">4</Badge>
                   <div>
                     <h4 className="font-semibold">Test & Monitor</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Validate communication flows and add monitoring for production
                     </p>
                   </div>
@@ -259,25 +259,25 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Consensus Mechanisms</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Agents reach agreement on decisions through voting or consensus protocols
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Auction-Based Coordination</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Agents bid for tasks based on their capabilities and current workload
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Hierarchical Coordination</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Multi-level agent hierarchies with supervisors and workers
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Emergent Behavior</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Complex behaviors emerge from simple agent interactions
                   </p>
                 </div>
@@ -296,7 +296,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                   <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
                     Scaling Challenges
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Message volume and network congestion</li>
                     <li>• Agent discovery and registration</li>
                     <li>• Fault tolerance and recovery</li>
@@ -307,7 +307,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Optimization Strategies
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Use efficient message serialization</li>
                     <li>• Implement message batching and compression</li>
                     <li>• Add caching and result memoization</li>
@@ -337,7 +337,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 AutoGen can be seamlessly integrated with Azure AI Services to leverage Azure OpenAI, 
                 Azure AI Search, and other Azure cognitive services for enhanced multi-agent capabilities.
               </p>
@@ -347,26 +347,26 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div>
                     <h5 className="font-medium">Azure OpenAI Integration</h5>
-                    <p className="text-sm text-muted-foreground">Direct access to GPT-4, GPT-3.5, and other models</p>
+                    <p className="text-lg text-muted-foreground">Direct access to GPT-4, GPT-3.5, and other models</p>
                   </div>
                   <div>
                     <h5 className="font-medium">Azure AI Search</h5>
-                    <p className="text-sm text-muted-foreground">Enhanced RAG capabilities for agents</p>
+                    <p className="text-lg text-muted-foreground">Enhanced RAG capabilities for agents</p>
                   </div>
                   <div>
                     <h5 className="font-medium">Azure Container Apps</h5>
-                    <p className="text-sm text-muted-foreground">Scalable deployment for multi-agent systems</p>
+                    <p className="text-lg text-muted-foreground">Scalable deployment for multi-agent systems</p>
                   </div>
                   <div>
                     <h5 className="font-medium">Azure Functions</h5>
-                    <p className="text-sm text-muted-foreground">Serverless execution for agent workflows</p>
+                    <p className="text-lg text-muted-foreground">Serverless execution for agent workflows</p>
                   </div>
                 </div>
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                 <h4 className="font-semibold mb-3">AutoGen with Azure OpenAI</h4>
-                <pre className="text-sm overflow-x-auto">{`import autogen
+                <pre className="text-lg overflow-x-auto">{`import autogen
 from azure.identity import DefaultAzureCredential
 
 # Azure OpenAI configuration
@@ -420,7 +420,7 @@ manager = autogen.GroupChatManager(
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div className="space-y-3">
                   <h4 className="font-semibold text-green-600">Deployment Options</h4>
-                  <ul className="space-y-2 text-sm">
+                  <ul className="space-y-2 text-lg">
                     <li className="flex items-start gap-2">
                       <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
                       <span><strong>Azure Container Apps:</strong> Scalable containerized deployment</span>
@@ -441,7 +441,7 @@ manager = autogen.GroupChatManager(
                 </div>
                 <div className="space-y-3">
                   <h4 className="font-semibold text-blue-600">Security & Compliance</h4>
-                  <ul className="space-y-2 text-sm">
+                  <ul className="space-y-2 text-lg">
                     <li className="flex items-start gap-2">
                       <span className="w-2 h-2 rounded-full bg-red-500 mt-2"></span>
                       <span><strong>Azure Key Vault:</strong> Secure credential management</span>
@@ -464,7 +464,7 @@ manager = autogen.GroupChatManager(
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                 <h4 className="font-semibold mb-3">Azure Container Apps Deployment</h4>
-                <pre className="text-sm overflow-x-auto">{`# Azure Container Apps deployment configuration
+                <pre className="text-lg overflow-x-auto">{`# Azure Container Apps deployment configuration
 apiVersion: app/v1
 kind: ContainerApp
 metadata:
@@ -505,7 +505,7 @@ spec:
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="p-4 border rounded-lg border-green-200 bg-green-50 dark:bg-green-900/20">
                   <h4 className="font-semibold text-green-700 mb-2">Performance</h4>
-                  <ul className="text-sm space-y-1">
+                  <ul className="text-lg space-y-1">
                     <li>• Use connection pooling</li>
                     <li>• Implement caching strategies</li>
                     <li>• Monitor token usage</li>
@@ -514,7 +514,7 @@ spec:
                 </div>
                 <div className="p-4 border rounded-lg border-blue-200 bg-blue-50 dark:bg-blue-900/20">
                   <h4 className="font-semibold text-blue-700 mb-2">Security</h4>
-                  <ul className="text-sm space-y-1">
+                  <ul className="text-lg space-y-1">
                     <li>• Use managed identities</li>
                     <li>• Implement rate limiting</li>
                     <li>• Validate all inputs</li>
@@ -523,7 +523,7 @@ spec:
                 </div>
                 <div className="p-4 border rounded-lg border-purple-200 bg-purple-50 dark:bg-purple-900/20">
                   <h4 className="font-semibold text-purple-700 mb-2">Monitoring</h4>
-                  <ul className="text-sm space-y-1">
+                  <ul className="text-lg space-y-1">
                     <li>• Track conversation metrics</li>
                     <li>• Monitor error rates</li>
                     <li>• Log agent interactions</li>

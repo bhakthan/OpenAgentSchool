@@ -37,7 +37,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Model Context Protocol (MCP) is a standardized protocol that enables AI agents to 
                 securely access and interact with external tools, databases, and services. It acts 
                 as a bridge between AI models and the real world, allowing agents to perform actions 
@@ -77,7 +77,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="border border-red-200 dark:border-red-800 rounded-lg p-4">
                   <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">Without MCP</h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Custom integrations for each tool</li>
                     <li>• Inconsistent security practices</li>
                     <li>• No standardized error handling</li>
@@ -87,7 +87,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                 </div>
                 <div className="border border-green-200 dark:border-green-800 rounded-lg p-4">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">With MCP</h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Standardized protocol for all tools</li>
                     <li>• Built-in authentication and authorization</li>
                     <li>• Consistent error handling and validation</li>
@@ -126,19 +126,19 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="border border-border rounded-md p-3">
                   <h5 className="font-medium text-primary mb-2">MCP Client</h5>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     The AI agent that needs to access external tools and services
                   </p>
                 </div>
                 <div className="border border-border rounded-md p-3">
                   <h5 className="font-medium text-primary mb-2">MCP Server</h5>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Provides access to specific tools or services through standardized endpoints
                   </p>
                 </div>
                 <div className="border border-border rounded-md p-3">
                   <h5 className="font-medium text-primary mb-2">Protocol Layer</h5>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Handles message formatting, authentication, and communication between client and server
                   </p>
                 </div>
@@ -160,7 +160,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   <Badge variant="outline" className="mt-1">1</Badge>
                   <div>
                     <h4 className="font-semibold">Discovery</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Client discovers available tools and their capabilities
                     </p>
                   </div>
@@ -169,7 +169,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   <Badge variant="outline" className="mt-1">2</Badge>
                   <div>
                     <h4 className="font-semibold">Authentication</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Client authenticates with the MCP server
                     </p>
                   </div>
@@ -178,7 +178,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   <Badge variant="outline" className="mt-1">3</Badge>
                   <div>
                     <h4 className="font-semibold">Tool Invocation</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Client sends tool requests with structured parameters
                     </p>
                   </div>
@@ -187,7 +187,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   <Badge variant="outline" className="mt-1">4</Badge>
                   <div>
                     <h4 className="font-semibold">Response</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Server processes request and returns structured response
                     </p>
                   </div>
@@ -225,7 +225,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   <Badge variant="outline" className="mt-1">1</Badge>
                   <div>
                     <h4 className="font-semibold">Define Tool Schema</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Create JSON schema defining tool inputs, outputs, and capabilities
                     </p>
                   </div>
@@ -234,7 +234,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   <Badge variant="outline" className="mt-1">2</Badge>
                   <div>
                     <h4 className="font-semibold">Implement MCP Server</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Create server that exposes tools through MCP protocol
                     </p>
                   </div>
@@ -243,7 +243,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   <Badge variant="outline" className="mt-1">3</Badge>
                   <div>
                     <h4 className="font-semibold">Add Authentication</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Implement secure authentication and authorization
                     </p>
                   </div>
@@ -252,7 +252,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   <Badge variant="outline" className="mt-1">4</Badge>
                   <div>
                     <h4 className="font-semibold">Test & Deploy</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg text-muted-foreground">
                       Validate integration and deploy with monitoring
                     </p>
                   </div>
@@ -268,7 +268,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
             </CardHeader>
             <CardContent>
               <div className="bg-muted p-4 rounded-md">
-                <pre className="text-sm">
+                <pre className="text-lg">
 {`{
   "name": "search_database",
   "description": "Search a database for records",
@@ -327,25 +327,25 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Composite Tools</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Tools that orchestrate multiple sub-tools for complex operations
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Streaming Responses</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Handle long-running operations with streaming or chunked responses
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Tool Chaining</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Automatically chain tool outputs as inputs to subsequent tools
                   </p>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h4 className="font-semibold mb-2">Context Preservation</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Maintain state and context across multiple tool invocations
                   </p>
                 </div>
@@ -364,7 +364,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
                     Security Considerations
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Validate all inputs and sanitize outputs</li>
                     <li>• Implement rate limiting and access controls</li>
                     <li>• Use secure communication protocols (HTTPS)</li>
@@ -375,7 +375,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Performance Optimization
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-lg">
                     <li>• Cache frequently accessed data</li>
                     <li>• Use connection pooling for databases</li>
                     <li>• Implement timeout and retry policies</li>

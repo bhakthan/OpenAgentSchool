@@ -38,7 +38,7 @@ export default function AgentDeploymentConcept({ onMarkComplete, onNavigateToNex
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Containerization enables consistent, scalable deployment of AI agents across different environments.
                 Docker and Kubernetes provide the foundation for modern agent deployment strategies.
               </p>
@@ -46,7 +46,7 @@ export default function AgentDeploymentConcept({ onMarkComplete, onNavigateToNex
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🐳 Docker Benefits</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Environment consistency</li>
                     <li>• Dependency isolation</li>
                     <li>• Portable deployments</li>
@@ -55,7 +55,7 @@ export default function AgentDeploymentConcept({ onMarkComplete, onNavigateToNex
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">☸️ Kubernetes Features</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Auto-scaling</li>
                     <li>• Load balancing</li>
                     <li>• Service discovery</li>
@@ -65,7 +65,7 @@ export default function AgentDeploymentConcept({ onMarkComplete, onNavigateToNex
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# Dockerfile for AI Agent
+                <pre className="text-lg">{`# Dockerfile for AI Agent
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -100,7 +100,7 @@ CMD ["python", "main.py"]`}</pre>
             </CardHeader>
             <CardContent>
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# agent-deployment.yaml
+                <pre className="text-lg">{`# agent-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -161,7 +161,7 @@ spec:
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Comprehensive observability is crucial for production AI agents. 
                 The three pillars of observability are metrics, logs, and traces.
               </p>
@@ -169,7 +169,7 @@ spec:
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📊 Metrics</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Response time</li>
                     <li>• Throughput</li>
                     <li>• Error rates</li>
@@ -178,7 +178,7 @@ spec:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📝 Logs</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Structured logging</li>
                     <li>• Log aggregation</li>
                     <li>• Search & filtering</li>
@@ -187,7 +187,7 @@ spec:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔍 Traces</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Request tracing</li>
                     <li>• Performance profiling</li>
                     <li>• Dependency mapping</li>
@@ -197,7 +197,7 @@ spec:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# Agent monitoring configuration
+                <pre className="text-lg">{`# Agent monitoring configuration
 import logging
 from prometheus_client import Counter, Histogram, start_http_server
 from opentelemetry import trace
@@ -264,7 +264,7 @@ class AgentObservability:
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Scaling AI agents requires careful consideration of stateful components, 
                 resource requirements, and load distribution patterns.
               </p>
@@ -272,7 +272,7 @@ class AgentObservability:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">📈 Horizontal Scaling</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Multiple agent instances</li>
                     <li>• Load balancing</li>
                     <li>• Stateless design</li>
@@ -281,7 +281,7 @@ class AgentObservability:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">⬆️ Vertical Scaling</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Increased CPU/Memory</li>
                     <li>• GPU acceleration</li>
                     <li>• Model optimization</li>
@@ -332,7 +332,7 @@ class AgentObservability:
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-base leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 DevOps practices for AI agents include automated testing, model validation, 
                 and deployment strategies that ensure reliability and performance.
               </p>
@@ -340,7 +340,7 @@ class AgentObservability:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🔄 CI Pipeline</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Code quality checks</li>
                     <li>• Unit testing</li>
                     <li>• Integration testing</li>
@@ -349,7 +349,7 @@ class AgentObservability:
                 </div>
                 <div className="p-4 border rounded-lg">
                   <h4 className="font-semibold mb-2">🚀 CD Pipeline</h4>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Automated deployment</li>
                     <li>• Blue-green deployment</li>
                     <li>• Canary releases</li>
@@ -359,7 +359,7 @@ class AgentObservability:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-sm">{`# GitHub Actions workflow for AI Agent
+                <pre className="text-lg">{`# GitHub Actions workflow for AI Agent
 name: Agent CI/CD
 
 on:

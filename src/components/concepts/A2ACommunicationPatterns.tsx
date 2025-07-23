@@ -321,7 +321,7 @@ class AdaptiveHierarchy {
                   y={(fromAgent.y + toAgent.y) / 2 + 20}
                   textAnchor="middle"
                   fill={comm.color}
-                  className="text-xs font-medium animate-pulse"
+                  className="text-lg font-medium animate-pulse"
                 >
                   {comm.message}
                 </text>
@@ -359,7 +359,7 @@ class AdaptiveHierarchy {
               y={agent.y + 65}
               textAnchor="middle"
               fill={colors.text}
-              className="text-xs font-medium"
+              className="text-lg font-medium"
             >
               {agent.name}
             </text>
@@ -382,7 +382,7 @@ class AdaptiveHierarchy {
                   y={agent.y + 15}
                   textAnchor="middle"
                   fill={colors.background}
-                  className="text-xs font-bold pointer-events-none"
+                  className="text-lg font-bold pointer-events-none"
                 >
                   ?
                 </text>
@@ -440,7 +440,7 @@ class AdaptiveHierarchy {
           </TabsList>
           
           <TabsContent value="direct" className="space-y-4">
-            <div className="text-sm text-muted-foreground">
+            <div className="text-lg text-muted-foreground">
               <strong>Direct Communication:</strong> Agents communicate directly with each other as peers, 
               sharing information and coordinating tasks through point-to-point messages.
             </div>
@@ -448,7 +448,7 @@ class AdaptiveHierarchy {
           </TabsContent>
           
           <TabsContent value="broadcast" className="space-y-4">
-            <div className="text-sm text-muted-foreground">
+            <div className="text-lg text-muted-foreground">
               <strong>Broadcast Pattern:</strong> A coordinator agent distributes tasks to multiple specialist agents 
               and collects their results, managing the overall workflow.
             </div>
@@ -456,7 +456,7 @@ class AdaptiveHierarchy {
           </TabsContent>
           
           <TabsContent value="hierarchical" className="space-y-4">
-            <div className="text-sm text-muted-foreground">
+            <div className="text-lg text-muted-foreground">
               <strong>Hierarchical Pattern:</strong> Multi-level organization with master agents delegating to 
               sub-agents, which in turn coordinate worker agents for complex task decomposition.
             </div>
@@ -476,7 +476,7 @@ class AdaptiveHierarchy {
                   <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
                     {microLearningContent[selectedPattern][userKnowledgeLevel].title}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-lg text-gray-600 dark:text-gray-400">
                     {selectedPattern.charAt(0).toUpperCase() + selectedPattern.slice(1)} Communication Pattern
                   </p>
                 </div>
@@ -519,7 +519,7 @@ class AdaptiveHierarchy {
               {/* Description */}
               <div>
                 <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Overview</h4>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   {microLearningContent[selectedPattern][userKnowledgeLevel].content}
                 </p>
               </div>
@@ -528,7 +528,7 @@ class AdaptiveHierarchy {
               <div>
                 <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Code Example</h4>
                 <div className="bg-gray-900 dark:bg-gray-800 rounded-lg p-4 overflow-x-auto">
-                  <pre className="text-sm text-green-400">
+                  <pre className="text-lg text-green-400">
                     <code>{microLearningContent[selectedPattern][userKnowledgeLevel].codeExample}</code>
                   </pre>
                 </div>
@@ -543,7 +543,7 @@ class AdaptiveHierarchy {
                       <div className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-purple-600 dark:text-purple-400 text-xs font-bold">{idx + 1}</span>
                       </div>
-                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{point}</p>
+                      <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{point}</p>
                     </div>
                   ))}
                 </div>
@@ -558,7 +558,7 @@ class AdaptiveHierarchy {
                       <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-green-600 dark:text-green-400 text-xs font-bold">→</span>
                       </div>
-                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{useCase}</p>
+                      <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{useCase}</p>
                     </div>
                   ))}
                 </div>
@@ -585,10 +585,10 @@ class AdaptiveHierarchy {
 
         {isPlaying && (
           <div className="mt-4 p-3 bg-muted rounded-lg">
-            <div className="text-sm font-medium">
+            <div className="text-lg font-medium">
               Current Communication: {communications[selectedPattern][currentMessage]?.message}
             </div>
-            <div className="text-xs text-muted-foreground mt-1">
+            <div className="text-lg text-muted-foreground mt-1">
               From: {communications[selectedPattern][currentMessage]?.from} → 
               To: {communications[selectedPattern][currentMessage]?.to}
             </div>
