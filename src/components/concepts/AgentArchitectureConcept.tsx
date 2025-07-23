@@ -17,7 +17,7 @@ export default function AgentArchitectureConcept({ onMarkComplete, onNavigateToN
     {
       id: 'architecture',
       title: 'Agent Architecture',
-      description: 'Understanding the core components of AI agent systems',
+      description: 'Explore the core components and design principles of AI agent systems, including reasoning, memory, tools, and goals.',
       icon: <Brain className="w-4 h-4" />,
       level: 'fundamentals' as const,
       content: (
@@ -125,7 +125,7 @@ class AzureAIAgent {
     {
       id: 'lifecycle',
       title: 'Agent Lifecycle',
-      description: 'Understanding how agents are created, managed, and terminated',
+      description: 'Understand the stages of an agent’s lifecycle: perception, analysis, selection, execution, and reflection.',
       icon: <Clock className="w-4 h-4" />,
       level: 'architecture' as const,
       content: (() => {
@@ -430,7 +430,7 @@ class AgentStateManager {
     <ConceptLayout
       conceptId="agent-architecture"
       title="Agent Architecture & Lifecycle"
-      description="Understanding the fundamental building blocks and lifecycle of AI agents"
+      description="Understanding the fundamental building blocks and lifecycle of AI agents, including their reasoning, memory, and interaction with tools."
       tabs={tabs}
       onMarkComplete={onMarkComplete}
       onNavigateToNext={onNavigateToNext}

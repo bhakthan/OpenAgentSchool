@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Shield, Lock, Eye, UserCheck, Warning, CheckCircle } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
+import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
 interface AgentSecurityConceptProps {
   onMarkComplete?: () => void
@@ -84,6 +85,11 @@ class AgentAuthenticator {
               </div>
             </CardContent>
           </Card>
+
+          <EnlightenMeButton
+            title="Agent Authentication"
+            contextDescription="Verifying agent identity and establishing trust"
+          />
         </div>
       )
     },
@@ -150,6 +156,11 @@ class TrustNetwork {
               </div>
             </CardContent>
           </Card>
+
+          <EnlightenMeButton
+            title="Trust Networks"
+            contextDescription="Building and maintaining trust relationships between agents"
+          />
         </div>
       )
     },
@@ -203,6 +214,11 @@ class TrustNetwork {
               </div>
             </CardContent>
           </Card>
+
+          <EnlightenMeButton
+            title="Secure Communication"
+            contextDescription="Protecting agent-to-agent communications"
+          />
         </div>
       )
     },
@@ -264,6 +280,11 @@ class TrustNetwork {
               </div>
             </CardContent>
           </Card>
+
+          <EnlightenMeButton
+            title="Privacy Protection"
+            contextDescription="Safeguarding sensitive data in agent systems"
+          />
         </div>
       )
     }

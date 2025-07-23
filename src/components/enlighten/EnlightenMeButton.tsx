@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 
 interface EnlightenMeButtonProps {
   title: string;
-  contextDescription: string;
+  contextDescription?: string;
   className?: string;
 }
 

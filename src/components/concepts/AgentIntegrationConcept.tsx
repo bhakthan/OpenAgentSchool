@@ -13,6 +13,7 @@ import {
   Plug,
   Database
 } from "@phosphor-icons/react"
+import { EnlightenMeButton } from "@/components/enlighten-me-button"
 
 interface AgentIntegrationConceptProps {
   onMarkComplete?: () => void

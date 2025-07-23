@@ -13,6 +13,7 @@ import {
   Lightning,
   Atom
 } from "@phosphor-icons/react"
+import EnlightenMeButton from "@/components/EnlightenMeButton"
 
 interface AgentLearningConceptProps {
   onMarkComplete?: () => void

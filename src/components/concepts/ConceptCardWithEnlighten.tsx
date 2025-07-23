@@ -1,6 +1,7 @@
 import React from 'react';
 import { EnlightenCard } from '@/components/ui/enlighten-card';
 import { Button } from '@/components/ui/button';
+import { EnlightenMeButton } from '@/components/ui/enlighten-me-button';
 
 interface ConceptCardWithEnlightenProps {
   title: string;
@@ -50,6 +51,11 @@ const ConceptCardWithEnlighten: React.FC<ConceptCardWithEnlightenProps> = ({
       }
     >
       {children}
+      <EnlightenMeButton
+        title={title}
+        contextDescription={description}
+        className={className}
+      />
     </EnlightenCard>
   );
 };

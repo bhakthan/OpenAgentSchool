@@ -6,6 +6,7 @@ import A2AMultiAgentSystem from "./A2AMultiAgentSystem"
 import Agent2AgentProtocolExplainer from "./Agent2AgentProtocolExplainer"
 import { ArrowsHorizontal, Network, GitBranch, Sparkle, CloudArrowUp } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
+import { EnlightenMeButton } from "@/components/ui/enlightenMeButton";
 
 interface A2ACommunicationConceptProps {
   onMarkComplete?: () => void

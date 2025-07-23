@@ -27,7 +27,19 @@ interface EnlightenMeProps {
 }
 
 export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: EnlightenMeProps) {
-  const [prompt, setPrompt] = useState(defaultPrompt);
+  // Defensive fallback for title and defaultPrompt
+  const safeTitle = title || 'Unknown Concept';
+  const safeDefaultPrompt = defaultPrompt || `Learn more about ${safeTitle}.`;
+
+  // Log when context is undefined for debugging
+  if (!title) {
+    console.warn('Warning: Title is undefined. Using fallback title.');
+  }
+  if (!defaultPrompt) {
+    console.warn('Warning: Default prompt is undefined. Using fallback prompt.');
+  }
+
+  const [prompt, setPrompt] = useState(safeDefaultPrompt);
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -144,7 +156,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
   const handleReset = () => {
     setSubmitted(false);
     setResponse('');
-    setPrompt(defaultPrompt);
+    setPrompt(safeDefaultPrompt);
   };
 
   return (
@@ -153,7 +165,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Lightbulb className="text-yellow-500" size={20} weight="fill" />
-            Enlighten Me: {title}
+            Enlighten Me: {safeTitle}
           </DialogTitle>
           <DialogDescription>
             Learn more about this concept with AI assistance. Edit the prompt if you'd like to ask something specific.

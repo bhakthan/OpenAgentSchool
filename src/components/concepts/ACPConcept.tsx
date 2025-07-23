@@ -7,6 +7,7 @@ import SimpleACPDemo from "../interactive-demos/SimpleACPDemo"
 import ACPMCPComparison from "../interactive-demos/ACPMCPComparison"
 import { Stack, Lightning, Rocket, Crown } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
+import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
 interface ACPConceptProps {
   onMarkComplete?: () => void
@@ -108,6 +109,11 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
 
           {/* Simple Demo */}
           <SimpleACPDemo />
+
+          <EnlightenMeButton
+            title="ACP Basics"
+            contextDescription="Learn about the Agent Communication Protocol"
+          />
         </div>
       )
     },
@@ -159,6 +165,11 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
 
           {/* Comparison with MCP */}
           <ACPMCPComparison />
+
+          <EnlightenMeButton
+            title="Protocol Stack"
+            contextDescription="Understand the ACP protocol architecture"
+          />
         </div>
       )
     },
@@ -304,6 +315,11 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
               </div>
             </CardContent>
           </Card>
+
+          <EnlightenMeButton
+            title="Enterprise Integration"
+            contextDescription="Implement ACP for enterprise-scale agent systems"
+          />
         </div>
       )
     },
@@ -396,6 +412,11 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
               </div>
             </CardContent>
           </Card>
+
+          <EnlightenMeButton
+            title="Advanced Patterns"
+            contextDescription="Master advanced ACP patterns and enterprise features"
+          />
         </div>
       )
     }

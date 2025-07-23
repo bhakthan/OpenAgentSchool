@@ -6,6 +6,7 @@ import MCPDemo from "../interactive-demos/MCPDemo"
 import MCPVisualDemo from "../interactive-demos/MCPVisualDemo"
 import { Shield, Plug, Lock, Database } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
+import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
 interface MCPConceptProps {
   onMarkComplete?: () => void
@@ -100,6 +101,11 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
 
           {/* Interactive Demo */}
           <MCPDemo />
+
+          <EnlightenMeButton
+            title="MCP Basics"
+            contextDescription="Learn about the Model Context Protocol"
+          />
         </div>
       )
     },
@@ -189,6 +195,11 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
               </div>
             </CardContent>
           </Card>
+
+          <EnlightenMeButton
+            title="MCP Architecture"
+            contextDescription="Understand the technical components of MCP"
+          />
         </div>
       )
     },
@@ -291,6 +302,11 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
               </div>
             </CardContent>
           </Card>
+
+          <EnlightenMeButton
+            title="Tool Integration"
+            contextDescription="Learn how to integrate tools using MCP"
+          />
         </div>
       )
     },
@@ -369,6 +385,11 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
               </div>
             </CardContent>
           </Card>
+
+          <EnlightenMeButton
+            title="Advanced MCP"
+            contextDescription="Explore advanced MCP patterns and best practices"
+          />
         </div>
       )
     }

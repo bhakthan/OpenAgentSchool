@@ -13,6 +13,7 @@ import {
   CloudArrowUp,
   Timer
 } from "@phosphor-icons/react"
+import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton"
 
 interface AgentDeploymentConceptProps {
   onMarkComplete?: () => void

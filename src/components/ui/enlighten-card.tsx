@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { EnlightenMeButton } from '@/components/ui/enlighten-me-button';
+import { EnlightenMeButton } from '@/components/enlighten/EnlightenMeButton';
 
 interface EnlightenCardProps {
   title: string;
@@ -35,8 +35,8 @@ export function EnlightenCard({
           {description && <CardDescription>{description}</CardDescription>}
         </div>
         <EnlightenMeButton 
-          topic={title} 
-          defaultPrompt={enlightenPrompt || `Explain "${title}" in detail, including key concepts, implementation approaches, and best practices for Azure AI and agent development.`}
+          title={title}
+          contextDescription={description || 'No additional context provided.'}
         />
       </CardHeader>
       <CardContent className={contentClassName}>{children}</CardContent>

@@ -147,10 +147,7 @@ export default function ConceptLayout({ conceptId, title, description, tabs, nex
                   </div>
                   <EnlightenMeButton
                     title={tab.title}
-                    conceptId={`${conceptId}-${tab.id}`}
-                    description={tab.description}
-                    variant="floating"
-                    size="sm"
+                    contextDescription={tab.description}
                   />
                 </div>
               </CardHeader>

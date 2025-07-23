@@ -152,7 +152,7 @@ async function callOpenRouter(prompt: string): Promise<LlmResponse> {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            model: "openrouter",
+            model: "qwen/qwen3-235b-a22b-07-25:free",
             messages: [{ role: "user", content: prompt }]
         })
     });

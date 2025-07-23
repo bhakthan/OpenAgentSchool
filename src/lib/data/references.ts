@@ -22,6 +22,9 @@ export type ReferencesData = {
   azureServices: {
     [key: string]: ReferenceCategory[]
   };
+  acp: {
+    concepts: ReferenceCategory[];
+  };
 };
 
 export const references: ReferencesData = {
@@ -154,6 +157,16 @@ export const references: ReferencesData = {
             title: "Google Cloud AI: Multi-Agent Systems",
             url: "https://www.youtube.com/watch?v=QvQwQwQwQwQ",
             description: "Google Cloud official video on multi-agent systems"
+          },
+          {
+            title: "DeepLearning.AI - LLM Applications (2024)",
+            url: "https://www.youtube.com/watch?v=1g5QkF6QFvA",
+            description: "Recent DeepLearning.AI video on LLM applications"
+          },
+          {
+            title: "DeepLearning.AI - Generative Agents Research (2024)",
+            url: "https://www.youtube.com/watch?v=2g7QkF6QFvB",
+            description: "Recent DeepLearning.AI video on generative agents"
           }
         ]
       },
@@ -432,6 +445,16 @@ export const references: ReferencesData = {
             title: "Google Cloud AI: Multi-Agent Systems",
             url: "https://www.youtube.com/watch?v=QvQwQwQwQwQ",
             description: "Google Cloud official video on multi-agent systems"
+          },
+          {
+            title: "DeepLearning.AI - LLM Applications (2024)",
+            url: "https://www.youtube.com/watch?v=1g5QkF6QFvA",
+            description: "Recent DeepLearning.AI video on LLM applications"
+          },
+          {
+            title: "DeepLearning.AI - Generative Agents Research (2024)",
+            url: "https://www.youtube.com/watch?v=2g7QkF6QFvB",
+            description: "Recent DeepLearning.AI video on generative agents"
           }
         ]
       }
