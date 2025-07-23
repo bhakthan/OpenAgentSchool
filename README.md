@@ -435,7 +435,7 @@ src/
 ├── hooks/                   # Custom React hooks
 │   ├── use-mobile.ts        # Mobile device detection hook
 │   ├── use-sidebar-collapse.ts # Sidebar collapse logic
-│   ├── use-sidebar-search.ts   # Sidebar search logic
+│   ├── use-sidebar-search.tsx   # Sidebar search logic
 │   └── useLocalStorage.ts      # LocalStorage utility hook
 ├── lib/                     # Core logic and utilities
 │   ├── data/                # Pattern and quiz data

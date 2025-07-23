@@ -44,6 +44,8 @@ export interface PatternData {
     visualization: React.ComponentType;
     enlightenMePrompt: string;
   }
+  completeCode?: string;
+  codeVisualizer?: React.ComponentType;
 }
 
 export type PatternType = 

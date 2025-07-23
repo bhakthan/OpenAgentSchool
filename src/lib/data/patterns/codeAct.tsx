@@ -1,5 +1,5 @@
 import { PatternData } from './types';
-import { TestGenerationVisual } from '@/components/visualization/business-use-cases/TestGenerationVisual';
+import { CodeVisualizer } from '@/components/visualization/business-use-cases/CodeVisualizer';
 
 export const codeActPattern: PatternData = {
   id: 'codeact-agent',
@@ -11,37 +11,82 @@ export const codeActPattern: PatternData = {
   businessUseCase: {
     industry: 'Software Development & DevOps',
     description: 'A software company uses a "CodeAct Agent" to improve developer productivity by automating unit test generation. When a developer commits a new function, the agent is triggered. It first *reads* the function\'s source code to understand its logic and parameters. It then *writes* a new Python script containing a set of unit tests that cover edge cases and common scenarios. Finally, it *executes* the test script in a sandboxed environment to verify the function\'s correctness. This saves developers hours of tedious work and ensures consistent test coverage across the codebase.',
-    visualization: TestGenerationVisual,
+    visualization: () => (
+      <div className="flex flex-col items-center p-4">
+        <div className="flex flex-row items-center mb-4">
+          <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mr-4">
+            <span className="text-2xl font-bold text-blue-700">👨‍💻</span>
+          </div>
+          <div className="text-lg font-semibold text-gray-800">CodeAct Agent</div>
+        </div>
+        <div className="w-full max-w-xl bg-white rounded-lg shadow p-4 mb-4">
+          <div className="font-bold text-blue-600 mb-2">Workflow:</div>
+          <ol className="list-decimal ml-6 text-gray-700">
+            <li>Developer commits new code</li>
+            <li>Agent reads function source code</li>
+            <li>Agent writes Python unit tests</li>
+            <li>Agent executes tests in sandbox</li>
+            <li>Results reported to pull request</li>
+          </ol>
+        </div>
+        <div className="flex flex-row items-center space-x-6">
+          <div className="flex flex-col items-center">
+            <span className="text-3xl">📥</span>
+            <span className="text-xs text-gray-500">Commit</span>
+          </div>
+          <span className="text-xl text-gray-400">→</span>
+          <div className="flex flex-col items-center">
+            <span className="text-3xl">🤖</span>
+            <span className="text-xs text-gray-500">Agent</span>
+          </div>
+          <span className="text-xl text-gray-400">→</span>
+          <div className="flex flex-col items-center">
+            <span className="text-3xl">🧪</span>
+            <span className="text-xs text-gray-500">Tests</span>
+          </div>
+          <span className="text-xl text-gray-400">→</span>
+          <div className="flex flex-col items-center">
+            <span className="text-3xl">🔒</span>
+            <span className="text-xs text-gray-500">Sandbox</span>
+          </div>
+          <span className="text-xl text-gray-400">→</span>
+          <div className="flex flex-col items-center">
+            <span className="text-3xl">📊</span>
+            <span className="text-xs text-gray-500">Results</span>
+          </div>
+        </div>
+      </div>
+    ),
     enlightenMePrompt: `
       Provide a deep-technical guide for an AI Architect on implementing an "Automated Unit Test Generation" system using the CodeAct pattern on Azure.
-
+      
       Your response should be structured with the following sections, using Markdown for formatting:
-
+      
       ### 1. Architectural Blueprint
       - Provide a detailed architecture diagram.
       - Components: Azure DevOps (as the trigger for new commits), an Azure Function (to host the CodeAct agent), and a secure, sandboxed Azure Container App (for code execution).
       - Show the flow: a \`git push\` triggers the agent, which reads the code, writes a test file, executes it in the sandbox, and reports the results back to the pull request.
-
+      
       ### 2. CodeAct Agent: Implementation
       - Provide a Python code example for the agent's main loop.
       - Show the prompt that instructs the agent to read a file path, understand the code, and generate \`pytest\`-compatible unit tests.
       - Detail the "Action" step, where the agent decides to write the generated test code to a new file (e.g., \`test_my_function.py\`).
-
+      
       ### 3. Secure Code Execution Sandbox
       - Explain the importance of the sandboxed execution environment.
       - Describe how to configure the Azure Container App to be secure: no network access, limited file system access, and strict resource limits (CPU, memory) to prevent abuse.
       - Provide a snippet of the Dockerfile for this sandbox environment.
-
+      
       ### 4. Evaluation Strategy
       - Detail the evaluation plan for the generated tests.
       - **Test Coverage:** Use a tool like \`pytest-cov\` to measure the percentage of the source code that is covered by the generated tests.
       - **Test Quality:** Use an LLM-as-Judge with a rubric to assess the quality of the generated tests. Do they check for meaningful edge cases? Are they well-structured?
       - **Bug Detection:** Run the generated tests against a version of the source code with known, injected bugs. How many of the bugs did the tests catch?
-
+      
       ### 5. Feedback Loop
       - Describe how the results of the test execution are fed back to the developer in the Azure DevOps pull request.
       - Explain how a developer could provide feedback (e.g., "This test is incorrect") to help fine-tune the agent's test generation prompts over time.
-    `
+    `,
   },
   evaluation: `Evaluating a CodeAct agent requires a focus on the functional correctness and quality of the code it produces.
 - **Execution Success Rate:** What percentage of the time does the generated code run without errors?
@@ -87,8 +132,13 @@ export const codeActPattern: PatternData = {
     { id: 'e3-5', source: 'think', target: 'output' },
     { id: 'e4-5', source: 'act', target: 'output' }
   ],
-  codeExample: `// CodeAct Agent implementation...`,
-  pythonCodeExample: `# CodeAct Agent implementation...`,
+  codeExample: `import { SandboxedCodeExecutor } from './sandboxedExecutor';
+// ...existing code...
+`,
+  pythonCodeExample: `import subprocess
+import os
+# ...existing code...
+`,
   implementation: [
     'Set up code execution environment with safety constraints',
     'Create think-act cycle for iterative problem solving',

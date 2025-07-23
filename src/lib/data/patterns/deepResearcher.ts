@@ -112,7 +112,87 @@ export const deepResearcherPattern: PatternData = {
     { id: 'e7-2', source: 'validator', target: 'query-planner', animated: true, label: 'Gaps Found' }
   ],
   codeExample: `// Deep Researcher Pattern implementation...`,
-  pythonCodeExample: `# Deep Researcher Pattern implementation...`,
+  pythonCodeExample: `import asyncio
+from typing import List, Dict
+
+# Assume the existence of these helper functions/classes
+# - llm_call: A function to call a language model
+# - search_tool: A function to search a knowledge base or the web
+# - document_store: A class to manage and retrieve documents
+
+class DeepResearcher:
+    def __init__(self, document_store):
+        self.document_store = document_store
+        self.research_log = []
+
+    async def plan_research(self, initial_query: str) -> List[str]:
+        """Generates a set of research questions based on the initial query."""
+        prompt = f"""
+        Based on the initial query "{initial_query}", generate a list of 5-7 specific research questions 
+        that will lead to a comprehensive answer. Focus on different facets of the topic.
+        Return a Python list of strings.
+        """
+        response = await llm_call(prompt)
+        self.research_log.append({"step": "Planning", "questions": response})
+        return eval(response) # In a real scenario, use a safer parsing method
+
+    async def execute_search(self, question: str) -> List[Dict]:
+        """Executes a search for a given question and retrieves relevant documents."""
+        search_results = await search_tool(question)
+        documents = await self.document_store.retrieve_batch(search_results)
+        self.research_log.append({"step": "Searching", "question": question, "found": len(documents)})
+        return documents
+
+    async def synthesize_findings(self, question: str, documents: List[Dict]) -> str:
+        """Synthesizes a coherent answer from a set of documents."""
+        context = "\n\n".join([doc['content'] for doc in documents])
+        prompt = f"""
+        Based on the following documents, provide a detailed and comprehensive answer to the question: "{question}".
+        Cite your sources using the document IDs provided. If the documents do not contain the answer,
+        state that and identify what information is missing.
+
+        Documents:
+        {context}
+        """
+        synthesis = await llm_call(prompt)
+        self.research_log.append({"step": "Synthesizing", "question": question, "synthesis": synthesis[:100] + "..."})
+        return synthesis
+
+    async def run(self, initial_query: str) -> str:
+        """Runs the entire deep research process."""
+        research_questions = await self.plan_research(initial_query)
+        
+        all_syntheses = []
+        for question in research_questions:
+            documents = await self.execute_search(question)
+            if documents:
+                synthesis = await self.synthesize_findings(question, documents)
+                all_syntheses.append(synthesis)
+
+        # Final synthesis of all findings
+        final_context = "\n\n---\n\n".join(all_syntheses)
+        final_prompt = f"""
+        You are a world-class research analyst. Based on the following research findings, 
+        write a final, comprehensive report that answers the initial query: "{initial_query}".
+        Structure your report with a clear introduction, body, and conclusion.
+
+        Research Findings:
+        {final_context}
+        """
+        final_report = await llm_call(final_prompt)
+        self.research_log.append({"step": "Final Report", "query": initial_query})
+        return final_report
+
+# Example Usage (conceptual)
+# async def main():
+#     doc_store = DocumentStore()
+#     researcher = DeepResearcher(doc_store)
+#     report = await researcher.run("What are the ethical implications of autonomous AI agents?")
+#     print(report)
+#     print("--- Research Log ---")
+#     for entry in researcher.research_log:
+#         print(entry)
+`,
   implementation: [
     'Design multi-source research strategy',
     'Create source discovery and validation system',

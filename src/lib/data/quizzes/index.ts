@@ -11,6 +11,9 @@ import { dataVisualizationQuestions } from './data-visualization';
 import { agentDeploymentQuestions } from './agent-deployment';
 import { agentLearningQuestions } from './agent-learning';
 import { agentIntegrationQuestions } from './agent-integration';
+import { advancedProtocolsQuestions } from './advanced-protocols';
+import { agentEvaluationQuestions } from './agent-evaluation';
+import { businessUseCasesQuestions } from './business-use-cases';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -27,8 +30,32 @@ const allQuestions = [
   ...dataVisualizationQuestions,
   ...agentDeploymentQuestions,
   ...agentLearningQuestions,
-  ...agentIntegrationQuestions
+  ...agentIntegrationQuestions,
+  ...advancedProtocolsQuestions,
+  ...agentEvaluationQuestions,
+  ...businessUseCasesQuestions
 ];
+
+// --- Dynamically calculate estimated time for each category ---
+const calculateTotalTime = (questions: QuizQuestion[]): number => {
+  const totalSeconds = questions.reduce((sum, q) => sum + (q.timeEstimate || 0), 0);
+  return Math.round(totalSeconds / 60);
+};
+
+const coreConceptsTime = calculateTotalTime(coreConceptsQuestions);
+const agentPatternsTime = calculateTotalTime(agentPatternsQuestions);
+const agentSecurityTime = calculateTotalTime(agentSecurityQuestions);
+const agentEthicsTime = calculateTotalTime(agentEthicsQuestions);
+const multiAgentSystemsTime = calculateTotalTime(multiAgentSystemsQuestions);
+const azureServicesTime = calculateTotalTime(azureServicesQuestions);
+const dataVisualizationTime = calculateTotalTime(dataVisualizationQuestions);
+const agentDeploymentTime = calculateTotalTime(agentDeploymentQuestions);
+const agentLearningTime = calculateTotalTime(agentLearningQuestions);
+const agentIntegrationTime = calculateTotalTime(agentIntegrationQuestions);
+const advancedProtocolsTime = calculateTotalTime(advancedProtocolsQuestions);
+const agentEvaluationTime = calculateTotalTime(agentEvaluationQuestions);
+const businessUseCasesTime = calculateTotalTime(businessUseCasesQuestions);
+// ----------------------------------------------------------------
 
 // Quiz categories configuration
 export const quizCategories: QuizCategory[] = [
@@ -38,7 +65,7 @@ export const quizCategories: QuizCategory[] = [
     description: 'Fundamental AI agent concepts and principles',
     icon: 'Brain',
     totalQuestions: coreConceptsQuestions.length,
-    estimatedTime: 25,
+    estimatedTime: coreConceptsTime,
     subCategories: [
       {
         id: 'agents',
@@ -55,7 +82,7 @@ export const quizCategories: QuizCategory[] = [
     description: 'Common patterns and approaches for AI agent implementation',
     icon: 'Cog',
     totalQuestions: agentPatternsQuestions.length,
-    estimatedTime: 30,
+    estimatedTime: agentPatternsTime,
     subCategories: [
       {
         id: 'voice-agent',
@@ -100,7 +127,7 @@ export const quizCategories: QuizCategory[] = [
     description: 'Security considerations for AI agent systems',
     icon: 'Shield',
     totalQuestions: agentSecurityQuestions.length,
-    estimatedTime: 35,
+    estimatedTime: agentSecurityTime,
     subCategories: [
       {
         id: 'security-fundamentals',
@@ -145,7 +172,7 @@ export const quizCategories: QuizCategory[] = [
     description: 'Ethical considerations for AI agent development',
     icon: 'Heart',
     totalQuestions: agentEthicsQuestions.length,
-    estimatedTime: 40,
+    estimatedTime: agentEthicsTime,
     subCategories: [
       {
         id: 'ethical-principles',
@@ -176,7 +203,7 @@ export const quizCategories: QuizCategory[] = [
     description: 'Systems with multiple collaborating AI agents',
     icon: 'Users',
     totalQuestions: multiAgentSystemsQuestions.length,
-    estimatedTime: 45,
+    estimatedTime: multiAgentSystemsTime,
     subCategories: [
       {
         id: 'fundamentals',
@@ -221,7 +248,7 @@ export const quizCategories: QuizCategory[] = [
     description: 'Azure services for AI agent development',
     icon: 'CloudArrowUp',
     totalQuestions: azureServicesQuestions.length,
-    estimatedTime: 20,
+    estimatedTime: azureServicesTime,
     subCategories: [
       {
         id: 'azure-openai',
@@ -238,7 +265,7 @@ export const quizCategories: QuizCategory[] = [
     description: 'Visualizing AI agent data and performance',
     icon: 'ChartBar',
     totalQuestions: dataVisualizationQuestions.length,
-    estimatedTime: 35,
+    estimatedTime: dataVisualizationTime,
     subCategories: [
       {
         id: 'fundamentals',
@@ -269,7 +296,7 @@ export const quizCategories: QuizCategory[] = [
     description: 'Deploying AI agents to production environments',
     icon: 'CloudUpload',
     totalQuestions: agentDeploymentQuestions.length,
-    estimatedTime: 40,
+    estimatedTime: agentDeploymentTime,
     subCategories: [
       {
         id: 'deployment-fundamentals',
@@ -300,7 +327,7 @@ export const quizCategories: QuizCategory[] = [
     description: 'Learning and adaptation mechanisms for AI agents',
     icon: 'AcademicCap',
     totalQuestions: agentLearningQuestions.length,
-    estimatedTime: 45,
+    estimatedTime: agentLearningTime,
     subCategories: [
       {
         id: 'learning-fundamentals',
@@ -331,7 +358,7 @@ export const quizCategories: QuizCategory[] = [
     description: 'Integrating AI agents with existing systems',
     icon: 'Link',
     totalQuestions: agentIntegrationQuestions.length,
-    estimatedTime: 35,
+    estimatedTime: agentIntegrationTime,
     subCategories: [
       {
         id: 'integration-fundamentals',
@@ -353,6 +380,92 @@ export const quizCategories: QuizCategory[] = [
         description: 'Building resilient agent integrations',
         prerequisites: ['integration-patterns'],
         questions: agentIntegrationQuestions.filter(q => q.subCategory === 'high-availability')
+      }
+    ]
+  },
+  {
+    id: 'advanced-protocols',
+    name: 'Advanced Protocols',
+    description: 'Advanced communication and context protocols for agents',
+    icon: 'ShareNetwork',
+    totalQuestions: advancedProtocolsQuestions.length,
+    estimatedTime: advancedProtocolsTime,
+    subCategories: [
+      {
+        id: 'a2a',
+        name: 'A2A Protocol',
+        description: 'Agent-to-Agent communication patterns',
+        prerequisites: ['multi-agent-systems'],
+        questions: advancedProtocolsQuestions.filter(q => q.subCategory === 'a2a')
+      },
+      {
+        id: 'mcp',
+        name: 'Model Context Protocol',
+        description: 'Managing and sharing contextual information with LLMs',
+        prerequisites: ['core-concepts'],
+        questions: advancedProtocolsQuestions.filter(q => q.subCategory === 'mcp')
+      }
+    ]
+  },
+  {
+    id: 'agent-evaluation',
+    name: 'Agent Evaluation',
+    description: 'Methods and metrics for evaluating agent performance.',
+    icon: 'ClipboardCheck',
+    totalQuestions: agentEvaluationQuestions.length,
+    estimatedTime: agentEvaluationTime,
+    subCategories: [
+      {
+        id: 'fundamentals',
+        name: 'Fundamentals',
+        description: 'Core concepts in agent evaluation.',
+        prerequisites: ['core-concepts'],
+        questions: agentEvaluationQuestions.filter(q => q.subCategory === 'fundamentals')
+      },
+      {
+        id: 'metrics',
+        name: 'Metrics',
+        description: 'Key metrics for assessing agent performance.',
+        prerequisites: ['fundamentals'],
+        questions: agentEvaluationQuestions.filter(q => q.subCategory === 'metrics')
+      },
+      {
+        id: 'techniques',
+        name: 'Techniques',
+        description: 'Automated and manual evaluation techniques.',
+        prerequisites: ['metrics'],
+        questions: agentEvaluationQuestions.filter(q => q.subCategory === 'techniques')
+      }
+    ]
+  },
+  {
+    id: 'business-use-cases',
+    name: 'Business Use Cases',
+    description: 'Practical applications of AI agents in business.',
+    icon: 'Briefcase',
+    totalQuestions: businessUseCasesQuestions.length,
+    estimatedTime: businessUseCasesTime,
+    subCategories: [
+      {
+        id: 'single-agent',
+        name: 'Single-Agent Scenarios',
+        description: 'Use cases solved by a single, autonomous agent.',
+        prerequisites: ['agent-patterns'],
+        questions: businessUseCasesQuestions.filter(q => q.subCategory === 'single-agent')
+      },
+      {
+        id: 'multi-agent',
+        name: 'Multi-Agent Scenarios',
+        description: 'Complex problems solved by collaborating agents.',
+        prerequisites: ['multi-agent-systems'],
+        questions: businessUseCasesQuestions.filter(q => q.subCategory === 'multi-agent')
+      },
+      {
+        id: 'integration',
+        name: 'Integration Use Cases',
+        description: 'Examples of agents integrated with enterprise systems.',
+        prerequisites: ['agent-integration'],
+        questions: businessUseCasesQuestions.filter(q => q.subCategory === 'integration')
       }
     ]
   }

@@ -25,6 +25,7 @@ import { cn } from '@/lib/utils'
 import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutorialButton'
 import { useTutorialContext } from '../tutorial/TutorialProvider'
 import { codePlaybookTutorial } from '@/lib/tutorial'
+import type { NodeJS } from 'node';
 
 interface CodePlaybookProps {
   patternData: PatternData
@@ -45,7 +46,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
   
   // Listen to sidebar state changes to trigger resize/layout adjustments
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
     let rafId: number;
     
     // Only run this after the component has fully rendered
@@ -82,9 +83,18 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
   
   const getCodeExample = () => {
     if (language === 'python') {
-      return (pythonPatterns[patternData.id] || patternData.pythonCodeExample || "# Python implementation not available for this pattern")
+      return (
+        pythonPatterns[patternData.id] || 
+        patternData.pythonCodeExample || 
+        patternData.completeCode || 
+        "# Python implementation not available for this pattern"
+      );
     }
-    return patternData.codeExample || "// TypeScript implementation not available for this pattern"
+    return (
+      patternData.codeExample || 
+      patternData.completeCode || 
+      "// TypeScript implementation not available for this pattern"
+    );
   }
   
   // Get execution steps for the current pattern and language if available

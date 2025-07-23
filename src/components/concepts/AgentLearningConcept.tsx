@@ -14,6 +14,7 @@ import {
   Atom
 } from "@phosphor-icons/react"
 import EnlightenMeButton from "@/components/EnlightenMeButton"
+import CodeBlock from "@/components/ui/CodeBlock"
 
 interface AgentLearningConceptProps {
   onMarkComplete?: () => void
@@ -90,8 +91,7 @@ export default function AgentLearningConcept({ onMarkComplete, onNavigateToNext 
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">{`# Reinforcement Learning Agent Implementation
+              <CodeBlock language="python">{`# Reinforcement Learning Agent Implementation
 import numpy as np
 import torch
 import torch.nn as nn
@@ -154,8 +154,7 @@ class DQNAgent:
         self.optimizer.step()
         
         if self.epsilon > self.epsilon_min:
-            self.epsilon *= self.epsilon_decay`}</pre>
-              </div>
+            self.epsilon *= self.epsilon_decay`}</CodeBlock>
             </CardContent>
           </Card>
         </div>
@@ -221,8 +220,7 @@ class DQNAgent:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">{`# Online Learning with Concept Drift Detection
+              <CodeBlock language="python">{`# Online Learning with Concept Drift Detection
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.linear_model import SGDClassifier
@@ -300,8 +298,7 @@ class DriftDetector:
             self.baseline_performance = current_performance
             return True
         
-        return False`}</pre>
-              </div>
+        return False`}</CodeBlock>
             </CardContent>
           </Card>
         </div>
@@ -449,8 +446,7 @@ class DriftDetector:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">{`# MAML (Model-Agnostic Meta-Learning) Implementation
+              <CodeBlock language="python">{`# MAML (Model-Agnostic Meta-Learning) Implementation
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -527,8 +523,7 @@ class MAMLAgent(nn.Module):
     def fast_adapt(self, support_x, support_y, num_steps=5):
         """Quick adaptation to new task"""
         adapted_params = self.inner_loop_adaptation(support_x, support_y, num_steps)
-        return adapted_params`}</pre>
-              </div>
+        return adapted_params`}</CodeBlock>
             </CardContent>
           </Card>
         </div>

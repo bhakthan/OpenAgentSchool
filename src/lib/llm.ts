@@ -27,11 +27,10 @@ export async function callLlm(prompt: string, provider: LlmProvider): Promise<Ll
 async function callOpenAI(prompt: string): Promise<LlmResponse> {
     const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
     const apiUrl = import.meta.env.VITE_OPENAI_API_URL;
-
-    if (!apiKey || !apiUrl) {
-        throw new Error("VITE_OPENAI_API_KEY and VITE_OPENAI_API_URL must be set in your .env file.");
+    const model = import.meta.env.VITE_OPENAI_MODEL;
+    if (!apiKey || !apiUrl || !model) {
+        throw new Error("VITE_OPENAI_API_KEY, VITE_OPENAI_API_URL, and VITE_OPENAI_MODEL must be set in your .env file.");
     }
-
     const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -39,7 +38,7 @@ async function callOpenAI(prompt: string): Promise<LlmResponse> {
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            model: "gpt-4o",
+            model,
             messages: [{ role: "user", content: prompt }],
             temperature: 0.7
         })
@@ -58,8 +57,9 @@ async function callOpenAI(prompt: string): Promise<LlmResponse> {
 async function callAzureOpenAI(prompt: string): Promise<LlmResponse> {
     const apiKey = import.meta.env.VITE_AZURE_OPENAI_API_KEY;
     const apiUrl = import.meta.env.VITE_AZURE_OPENAI_API_URL;
-    if (!apiKey || !apiUrl) {
-        throw new Error("VITE_AZURE_OPENAI_API_KEY and VITE_AZURE_OPENAI_API_URL must be set in your .env file.");
+    const model = import.meta.env.VITE_AZURE_OPENAI_MODEL;
+    if (!apiKey || !apiUrl || !model) {
+        throw new Error("VITE_AZURE_OPENAI_API_KEY, VITE_AZURE_OPENAI_API_URL, and VITE_AZURE_OPENAI_MODEL must be set in your .env file.");
     }
     const response = await fetch(apiUrl, {
         method: 'POST',
@@ -68,7 +68,7 @@ async function callAzureOpenAI(prompt: string): Promise<LlmResponse> {
             'api-key': apiKey
         },
         body: JSON.stringify({
-            model: "gpt-4o",
+            model,
             messages: [{ role: "user", content: prompt }],
             temperature: 0.7
         })
@@ -85,8 +85,9 @@ async function callAzureOpenAI(prompt: string): Promise<LlmResponse> {
 async function callGemini(prompt: string): Promise<LlmResponse> {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     let apiUrl = import.meta.env.VITE_GEMINI_API_URL;
-    if (!apiKey || !apiUrl) {
-        throw new Error("VITE_GEMINI_API_KEY and VITE_GEMINI_API_URL must be set in your .env file.");
+    const model = import.meta.env.VITE_GEMINI_MODEL;
+    if (!apiKey || !apiUrl || !model) {
+        throw new Error("VITE_GEMINI_API_KEY, VITE_GEMINI_API_URL, and VITE_GEMINI_MODEL must be set in your .env file.");
     }
     apiUrl = `${apiUrl}?key=${apiKey}`;
     const response = await fetch(apiUrl, {
@@ -95,11 +96,9 @@ async function callGemini(prompt: string): Promise<LlmResponse> {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            model: "gemini-2.0-flash",
+            model,
             contents: [{
-                parts: [{
-                    text: prompt
-                }]
+                parts: [{ text: prompt }]
             }]
         })
     });
@@ -116,8 +115,9 @@ async function callGemini(prompt: string): Promise<LlmResponse> {
 async function callHuggingFace(prompt: string): Promise<LlmResponse> {
     const apiKey = import.meta.env.VITE_HUGGINGFACE_API_KEY;
     const apiUrl = import.meta.env.VITE_HUGGINGFACE_API_URL;
-    if (!apiKey || !apiUrl) {
-        throw new Error("VITE_HUGGINGFACE_API_KEY and VITE_HUGGINGFACE_API_URL must be set in your .env file.");
+    const model = import.meta.env.VITE_HUGGINGFACE_MODEL;
+    if (!apiKey || !apiUrl || !model) {
+        throw new Error("VITE_HUGGINGFACE_API_KEY, VITE_HUGGINGFACE_API_URL, and VITE_HUGGINGFACE_MODEL must be set in your .env file.");
     }
     const response = await fetch(apiUrl, {
         method: 'POST',
@@ -126,7 +126,8 @@ async function callHuggingFace(prompt: string): Promise<LlmResponse> {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            inputs: prompt
+            inputs: prompt,
+            model
         })
     });
     if (!response.ok) {
@@ -142,8 +143,9 @@ async function callHuggingFace(prompt: string): Promise<LlmResponse> {
 async function callOpenRouter(prompt: string): Promise<LlmResponse> {
     const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
     const apiUrl = import.meta.env.VITE_OPENROUTER_API_URL;
-    if (!apiKey || !apiUrl) {
-        throw new Error("VITE_OPENROUTER_API_KEY and VITE_OPENROUTER_API_URL must be set in your .env file.");
+    const model = import.meta.env.VITE_OPENROUTER_MODEL;
+    if (!apiKey || !apiUrl || !model) {
+        throw new Error("VITE_OPENROUTER_API_KEY, VITE_OPENROUTER_API_URL, and VITE_OPENROUTER_MODEL must be set in your .env file.");
     }
     const response = await fetch(apiUrl, {
         method: 'POST',
@@ -152,7 +154,7 @@ async function callOpenRouter(prompt: string): Promise<LlmResponse> {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            model: "qwen/qwen3-235b-a22b-07-25:free",
+            model,
             messages: [{ role: "user", content: prompt }]
         })
     });
@@ -169,8 +171,9 @@ async function callOpenRouter(prompt: string): Promise<LlmResponse> {
 async function callClaude(prompt: string): Promise<LlmResponse> {
     const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
     const apiUrl = import.meta.env.VITE_ANTHROPIC_API_URL;
-    if (!apiKey || !apiUrl) {
-        throw new Error("VITE_ANTHROPIC_API_KEY and VITE_ANTHROPIC_API_URL must be set in your .env file.");
+    const model = import.meta.env.VITE_ANTHROPIC_MODEL;
+    if (!apiKey || !apiUrl || !model) {
+        throw new Error("VITE_ANTHROPIC_API_KEY, VITE_ANTHROPIC_API_URL, and VITE_ANTHROPIC_MODEL must be set in your .env file.");
     }
     const response = await fetch(apiUrl, {
         method: 'POST',
@@ -181,7 +184,7 @@ async function callClaude(prompt: string): Promise<LlmResponse> {
             'anthropic-dangerous-direct-browser-access': 'true'
         },
         body: JSON.stringify({
-            model: "claude-sonnet-4-20250514",
+            model,
             max_tokens: 1024,
             temperature: 0.7,
             messages: [

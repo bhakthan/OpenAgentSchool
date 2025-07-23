@@ -33,7 +33,7 @@ export const userPersonas: UserPersona[] = [
     id: 'agent-developer',
     name: 'Agent Developer',
     description: 'Software developers building AI agent applications',
-    focusAreas: ['agent-patterns', 'agent-integration', 'agent-deployment'],
+    focusAreas: ['agent-patterns', 'agent-integration', 'agent-deployment', 'agent-security', 'advanced-protocols'],
     timeAvailable: 75,
     targetDifficulty: 'intermediate',
     learningStyle: 'hands-on'
@@ -42,7 +42,7 @@ export const userPersonas: UserPersona[] = [
     id: 'ai-engineer',
     name: 'AI Engineer',
     description: 'Engineers focused on AI/ML implementation and optimization',
-    focusAreas: ['machine-learning', 'model-optimization', 'ai-systems'],
+    focusAreas: ['machine-learning', 'model-optimization', 'ai-systems', 'advanced-protocols'],
     timeAvailable: 90,
     targetDifficulty: 'advanced',
     learningStyle: 'technical'
@@ -60,7 +60,7 @@ export const userPersonas: UserPersona[] = [
     id: 'agent-architect',
     name: 'Agent Architect',
     description: 'System architects designing large-scale agent solutions',
-    focusAreas: ['architecture', 'scalability', 'system-design'],
+    focusAreas: ['architecture', 'scalability', 'system-design', 'agent-security', 'advanced-protocols'],
     timeAvailable: 90,
     targetDifficulty: 'advanced',
     learningStyle: 'architectural'

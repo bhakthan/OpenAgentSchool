@@ -502,7 +502,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               </div>
             </div>
 
-            <h3 className="text-lg font-semibold leading-relaxed">
+            <h3 className="text-xl font-semibold leading-relaxed">
               {currentQuestion.question}
             </h3>
 
@@ -526,7 +526,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                   <RadioGroupItem value={index.toString()} id={`option-${index}`} />
                   <Label 
                     htmlFor={`option-${index}`} 
-                    className="flex-1 cursor-pointer text-sm leading-relaxed"
+                    className="flex-1 cursor-pointer text-base leading-relaxed"
                   >
                     {option}
                   </Label>
@@ -824,12 +824,12 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                       </div>
                       <div className="flex-1">
                         <h4 className="font-medium mb-1">{persona.name}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{persona.description}</p>
+                        <p className="text-base text-muted-foreground mb-2">{persona.description}</p>
                         <div className="flex items-center gap-2">
-                          <Badge className={cn("text-xs", getDifficultyColor(persona.targetDifficulty))}>
+                          <Badge className={cn("text-sm", getDifficultyColor(persona.targetDifficulty))}>
                             {persona.targetDifficulty}
                           </Badge>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-sm">
                             {persona.learningStyle}
                           </Badge>
                         </div>
@@ -905,12 +905,12 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                       </div>
                       <div className="flex-1">
                         <h4 className="font-medium mb-1">{category.name}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{category.description}</p>
+                        <p className="text-base text-muted-foreground mb-2">{category.description}</p>
                         <div className="flex items-center gap-2">
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-sm">
                             {category.totalQuestions} questions
                           </Badge>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-sm">
                             ~{category.estimatedTime} min
                           </Badge>
                         </div>
@@ -930,7 +930,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                   <h4 className="font-medium mb-3">Topics Covered:</h4>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {selectedCategory.subCategories.map((subCategory) => (
-                      <Badge key={subCategory.id} variant="outline" className="text-xs p-2">
+                      <Badge key={subCategory.id} variant="outline" className="text-sm p-2">
                         {subCategory.name}
                       </Badge>
                     ))}

@@ -7,6 +7,7 @@ import Agent2AgentProtocolExplainer from "./Agent2AgentProtocolExplainer"
 import { ArrowsHorizontal, Network, GitBranch, Sparkle, CloudArrowUp } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/ui/enlightenMeButton";
+import CodeBlock from "@/components/ui/CodeBlock";
 
 interface A2ACommunicationConceptProps {
   onMarkComplete?: () => void
@@ -364,9 +365,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <h4 className="font-semibold mb-3">AutoGen with Azure OpenAI</h4>
-                <pre className="text-lg overflow-x-auto">{`import autogen
+              <CodeBlock language="python">{`import autogen
 from azure.identity import DefaultAzureCredential
 
 # Azure OpenAI configuration
@@ -406,8 +405,7 @@ groupchat = autogen.GroupChat(
 manager = autogen.GroupChatManager(
     groupchat=groupchat,
     llm_config={"config_list": [azure_config]}
-)`}</pre>
-              </div>
+)`}</CodeBlock>
             </CardContent>
           </Card>
 
@@ -462,9 +460,7 @@ manager = autogen.GroupChatManager(
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <h4 className="font-semibold mb-3">Azure Container Apps Deployment</h4>
-                <pre className="text-lg overflow-x-auto">{`# Azure Container Apps deployment configuration
+              <CodeBlock language="yaml">{`# Azure Container Apps deployment configuration
 apiVersion: app/v1
 kind: ContainerApp
 metadata:
@@ -491,8 +487,7 @@ spec:
         memory: 2Gi
     scale:
       minReplicas: 1
-      maxReplicas: 10`}</pre>
-              </div>
+      maxReplicas: 10`}</CodeBlock>
             </CardContent>
           </Card>
 

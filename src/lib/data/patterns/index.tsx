@@ -6,7 +6,7 @@ export { reactAgentPattern } from './reactAgent';
 export { parallelizationPattern } from './parallelization';
 export { promptChainingPattern } from './promptChaining';
 export { agenticRAGPattern } from './agenticRAG';
-export { codeActPattern } from './codeAct';
+export { codeActPattern } from './codeAct.tsx';
 export { selfReflectionPattern } from './selfReflection';
 export { modernToolUsePattern } from './modernToolUse';
 export { mcpPattern } from './mcp';
@@ -20,13 +20,14 @@ export { autonomousWorkflowPattern } from './autonomousWorkflow';
 export { deepResearcherPattern } from './deepResearcher';
 export { agentEvaluationPattern } from './agentEvaluation';
 export { autogenPattern } from './autogen';
+export { autogenMultiAgentPattern } from './autogenMultiAgent';
 
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
 import { parallelizationPattern } from './parallelization';
 import { promptChainingPattern } from './promptChaining';
 import { agenticRAGPattern } from './agenticRAG';
-import { codeActPattern } from './codeAct';
+import { codeActPattern } from './codeAct.tsx';
 import { selfReflectionPattern } from './selfReflection';
 import { modernToolUsePattern } from './modernToolUse';
 import { mcpPattern } from './mcp';
@@ -40,6 +41,7 @@ import { autonomousWorkflowPattern } from './autonomousWorkflow';
 import { deepResearcherPattern } from './deepResearcher';
 import { agentEvaluationPattern } from './agentEvaluation';
 import { autogenPattern } from './autogen';
+import { autogenMultiAgentPattern } from './autogenMultiAgent';
 
 export const agentPatterns = [
   reactAgentPattern,
@@ -59,7 +61,8 @@ export const agentPatterns = [
   autonomousWorkflowPattern,
   deepResearcherPattern,
   agentEvaluationPattern,
-  autogenPattern
+  autogenPattern,
+  // autogenMultiAgentPattern,
 ];
 
 // Export specific patterns for easy access

@@ -1,5 +1,6 @@
 import { PatternData } from './types';
 import { SupplyChainBotVisual } from '@/components/visualization/business-use-cases/SupplyChainBotVisual';
+import { autogenMultiAgentPattern } from './autogenMultiAgent';
 
 export const autogenPattern: PatternData = {
   id: 'autogen-multi-agent',
@@ -14,36 +15,11 @@ export const autogenPattern: PatternData = {
   ],
   whenToUse: 'Use AutoGen when you need multiple AI agents to collaborate through natural conversation, especially for complex tasks that benefit from different agent specializations, code execution capabilities, and human-in-the-loop interactions.',
   nodes: [
-    {
-      id: 'user-proxy',
-      type: 'input',
-      data: { label: 'User Proxy Agent', nodeType: 'input' },
-      position: { x: 100, y: 150 }
-    },
-    {
-      id: 'assistant1',
-      type: 'default',
-      data: { label: 'Assistant Agent 1', nodeType: 'llm' },
-      position: { x: 300, y: 100 }
-    },
-    {
-      id: 'assistant2',
-      type: 'default',
-      data: { label: 'Assistant Agent 2', nodeType: 'llm' },
-      position: { x: 300, y: 200 }
-    },
-    {
-      id: 'group-chat',
-      type: 'default',
-      data: { label: 'Group Chat Manager', nodeType: 'planner' },
-      position: { x: 500, y: 150 }
-    },
-    {
-      id: 'output',
-      type: 'output',
-      data: { label: 'Solution', nodeType: 'output' },
-      position: { x: 700, y: 150 }
-    }
+    { id: 'user-proxy', type: 'input', data: { label: 'User Proxy Agent', nodeType: 'input' }, position: { x: 100, y: 150 } },
+    { id: 'assistant1', type: 'default', data: { label: 'Assistant Agent 1', nodeType: 'llm' }, position: { x: 300, y: 100 } },
+    { id: 'assistant2', type: 'default', data: { label: 'Assistant Agent 2', nodeType: 'llm' }, position: { x: 300, y: 200 } },
+    { id: 'group-chat', type: 'default', data: { label: 'Group Chat Manager', nodeType: 'planner' }, position: { x: 500, y: 150 } },
+    { id: 'output', type: 'output', data: { label: 'Solution', nodeType: 'output' }, position: { x: 700, y: 150 } }
   ],
   edges: [
     { id: 'e1-gc', source: 'user-proxy', target: 'group-chat', animated: true },
@@ -95,7 +71,7 @@ export const autogenPattern: PatternData = {
       - Explain how to use Azure Container Apps to scale the number of agent instances based on the volume of disruption events.
     `
   },
-  codeExample: `// AutoGen Multi-Agent System...`,
+  codeExample: autogenMultiAgentPattern.pythonCodeExample,
   pythonCodeExample: `# AutoGen Multi-Agent Implementation...`,
   implementation: [
     'Install AutoGen framework and configure Azure OpenAI connection',
@@ -125,5 +101,7 @@ export const autogenPattern: PatternData = {
     "orchestrator-worker",
     "agent-to-agent",
     "multi-agent-systems"
-  ]
+  ],
+  completeCode: `# Complete Code Example\n\n# This is a placeholder for the complete code example.`,
+  codeVisualizer: SupplyChainBotVisual,
 };

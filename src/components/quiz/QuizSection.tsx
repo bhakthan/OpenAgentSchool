@@ -96,7 +96,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
             <GraduationCap size={32} className="text-primary" />
             Knowledge Assessment
           </h1>
-          <p className="text-muted-foreground mt-2">
+          <p className="text-lg text-muted-foreground mt-2">
             Test your understanding of AI agent concepts with adaptive quizzes tailored to your role and experience level
           </p>
         </div>
@@ -128,15 +128,15 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                     <Users size={20} className="text-primary" />
                     <h3 className="font-semibold">Role-Based Assessment</h3>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <p className="text-base text-muted-foreground mb-4">
                     Take a personalized quiz adapted to your professional role and experience level
                   </p>
                   <div className="space-y-2 mb-4">
-                    <div className="text-xs text-muted-foreground">Popular roles:</div>
+                    <div className="text-sm text-muted-foreground">Popular roles:</div>
                     <div className="flex flex-wrap gap-1">
-                      <Badge variant="outline" className="text-xs">Business Leader</Badge>
-                      <Badge variant="outline" className="text-xs">Agent Developer</Badge>
-                      <Badge variant="outline" className="text-xs">AI Engineer</Badge>
+                      <Badge variant="outline" className="text-sm">Business Leader</Badge>
+                      <Badge variant="outline" className="text-sm">Agent Developer</Badge>
+                      <Badge variant="outline" className="text-sm">AI Engineer</Badge>
                     </div>
                   </div>
                   <Button onClick={() => setShowQuiz(true)} className="w-full">
@@ -149,15 +149,15 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                     <Brain size={20} className="text-primary" />
                     <h3 className="font-semibold">Topic-Focused Assessment</h3>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <p className="text-base text-muted-foreground mb-4">
                     Focus on specific areas like Core Concepts, Agent Patterns, or Azure Services
                   </p>
                   <div className="space-y-2 mb-4">
-                    <div className="text-xs text-muted-foreground">Available topics:</div>
+                    <div className="text-sm text-muted-foreground">Available topics:</div>
                     <div className="flex flex-wrap gap-1">
-                      <Badge variant="outline" className="text-xs">Core Concepts</Badge>
-                      <Badge variant="outline" className="text-xs">Agent Patterns</Badge>
-                      <Badge variant="outline" className="text-xs">Azure Services</Badge>
+                      <Badge variant="outline" className="text-sm">Core Concepts</Badge>
+                      <Badge variant="outline" className="text-sm">Agent Patterns</Badge>
+                      <Badge variant="outline" className="text-sm">Azure Services</Badge>
                     </div>
                   </div>
                   <Button onClick={() => setShowQuiz(true)} variant="outline" className="w-full">
@@ -177,7 +177,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                 </div>
               </div>
               <h3 className="font-semibold mb-2">Adaptive Difficulty</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 Questions adapt to your role and experience level for optimal learning
               </p>
             </Card>
@@ -189,7 +189,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                 </div>
               </div>
               <h3 className="font-semibold mb-2">Timed Challenges</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 Realistic time constraints to simulate real-world decision making
               </p>
             </Card>
@@ -201,7 +201,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                 </div>
               </div>
               <h3 className="font-semibold mb-2">Detailed Feedback</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 Comprehensive explanations and personalized learning recommendations
               </p>
             </Card>
@@ -220,48 +220,48 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <Badge className="bg-green-100 text-green-800 border-green-200">Beginner</Badge>
-                    <span className="text-sm font-medium">Foundation Level</span>
+                    <span className="text-base font-medium">Foundation Level</span>
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-base text-muted-foreground">
                     <p className="mb-2"><strong>Target Audience:</strong></p>
-                    <ul className="list-disc list-inside space-y-1 text-xs">
+                    <ul className="list-disc list-inside space-y-1 text-base">
                       <li>Business Leaders</li>
                       <li>No-Code/Low-Code Engineers</li>
                       <li>New to AI Agents</li>
                     </ul>
-                    <p className="mt-2 text-xs">Focus on concepts, business value, and basic understanding.</p>
+                    <p className="mt-2 text-base">Focus on concepts, business value, and basic understanding.</p>
                   </div>
                 </div>
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">Intermediate</Badge>
-                    <span className="text-sm font-medium">Applied Level</span>
+                    <span className="text-base font-medium">Applied Level</span>
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-base text-muted-foreground">
                     <p className="mb-2"><strong>Target Audience:</strong></p>
-                    <ul className="list-disc list-inside space-y-1 text-xs">
+                    <ul className="list-disc list-inside space-y-1 text-base">
                       <li>Agent Designers</li>
                       <li>Agent Developers</li>
                       <li>AI Enthusiasts</li>
                     </ul>
-                    <p className="mt-2 text-xs">Focus on implementation, patterns, and practical application.</p>
+                    <p className="mt-2 text-base">Focus on implementation, patterns, and practical application.</p>
                   </div>
                 </div>
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <Badge className="bg-red-100 text-red-800 border-red-200">Advanced</Badge>
-                    <span className="text-sm font-medium">Expert Level</span>
+                    <span className="text-base font-medium">Expert Level</span>
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-base text-muted-foreground">
                     <p className="mb-2"><strong>Target Audience:</strong></p>
-                    <ul className="list-disc list-inside space-y-1 text-xs">
+                    <ul className="list-disc list-inside space-y-1 text-base">
                       <li>AI Engineers</li>
                       <li>Agent Architects</li>
                       <li>AI Ops Engineers</li>
                     </ul>
-                    <p className="mt-2 text-xs">Focus on architecture, optimization, and system design.</p>
+                    <p className="mt-2 text-base">Focus on architecture, optimization, and system design.</p>
                   </div>
                 </div>
               </div>
@@ -276,21 +276,21 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <Card className="p-6 text-center">
                   <div className="text-2xl font-bold text-primary mb-2">{stats.totalQuizzes}</div>
-                  <div className="text-sm text-muted-foreground">Quizzes Completed</div>
+                  <div className="text-base text-muted-foreground">Quizzes Completed</div>
                 </Card>
                 <Card className="p-6 text-center">
                   <div className="text-2xl font-bold text-primary mb-2">{stats.averageScore}%</div>
-                  <div className="text-sm text-muted-foreground">Average Score</div>
+                  <div className="text-base text-muted-foreground">Average Score</div>
                 </Card>
                 <Card className="p-6 text-center">
                   <div className="text-2xl font-bold text-primary mb-2">{Math.floor(stats.averageTime / 60)}m</div>
-                  <div className="text-sm text-muted-foreground">Average Time</div>
+                  <div className="text-base text-muted-foreground">Average Time</div>
                 </Card>
                 <Card className="p-6 text-center">
                   <div className="text-2xl font-bold text-primary mb-2">
                     {getPerformanceLevel(stats.averageScore).level}
                   </div>
-                  <div className="text-sm text-muted-foreground">Performance Level</div>
+                  <div className="text-base text-muted-foreground">Performance Level</div>
                 </Card>
               </div>
 
@@ -317,12 +317,12 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                               <div className="font-medium">
                                 {quiz.categoryId === 'adaptive' ? 'Adaptive Quiz' : quiz.categoryId}
                               </div>
-                              <div className="text-sm text-muted-foreground">
+                              <div className="text-base text-muted-foreground">
                                 {quiz.difficulty} • {Math.floor(quiz.timeSpent / 60)}m {quiz.timeSpent % 60}s
                               </div>
                             </div>
                           </div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-base text-muted-foreground">
                             {quiz.startTime.toLocaleDateString()}
                           </div>
                         </div>
@@ -346,7 +346,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                       <Badge className="bg-green-100 text-green-800 border-green-200 mb-2">
                         Beginner
                       </Badge>
-                      <div className="text-sm text-muted-foreground">Completed</div>
+                      <div className="text-base text-muted-foreground">Completed</div>
                     </div>
                     <div className="text-center p-4 border rounded-lg">
                       <div className="text-2xl font-bold text-yellow-600 mb-2">
@@ -355,7 +355,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                       <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200 mb-2">
                         Intermediate
                       </Badge>
-                      <div className="text-sm text-muted-foreground">Completed</div>
+                      <div className="text-base text-muted-foreground">Completed</div>
                     </div>
                     <div className="text-center p-4 border rounded-lg">
                       <div className="text-2xl font-bold text-red-600 mb-2">
@@ -364,7 +364,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                       <Badge className="bg-red-100 text-red-800 border-red-200 mb-2">
                         Advanced
                       </Badge>
-                      <div className="text-sm text-muted-foreground">Completed</div>
+                      <div className="text-base text-muted-foreground">Completed</div>
                     </div>
                   </div>
                 </CardContent>
@@ -403,21 +403,21 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                     <div className="flex items-center justify-between p-3 border rounded-lg">
                       <div>
                         <div className="font-medium">Agent Communication Protocols</div>
-                        <div className="text-sm text-muted-foreground">Based on your recent performance</div>
+                        <div className="text-base text-muted-foreground">Based on your recent performance</div>
                       </div>
                       <Badge variant="outline">Intermediate</Badge>
                     </div>
                     <div className="flex items-center justify-between p-3 border rounded-lg">
                       <div>
                         <div className="font-medium">Azure AI Services Integration</div>
-                        <div className="text-sm text-muted-foreground">Popular among similar roles</div>
+                        <div className="text-base text-muted-foreground">Popular among similar roles</div>
                       </div>
                       <Badge variant="outline">Beginner</Badge>
                     </div>
                     <div className="flex items-center justify-between p-3 border rounded-lg">
                       <div>
                         <div className="font-medium">Advanced Agent Patterns</div>
-                        <div className="text-sm text-muted-foreground">Next level challenge</div>
+                        <div className="text-base text-muted-foreground">Next level challenge</div>
                       </div>
                       <Badge variant="outline">Advanced</Badge>
                     </div>
@@ -428,19 +428,19 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                   <h3 className="font-semibold">Learning Statistics</h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">Most challenging topic</span>
+                      <span className="text-base">Most challenging topic</span>
                       <Badge variant="outline">Self-Reflection Patterns</Badge>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">Strongest area</span>
+                      <span className="text-base">Strongest area</span>
                       <Badge variant="outline">Core Concepts</Badge>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">Average completion time</span>
-                      <span className="text-sm font-medium">{stats ? `${Math.floor(stats.averageTime / 60)}m ${stats.averageTime % 60}s` : 'N/A'}</span>
+                      <span className="text-base">Average completion time</span>
+                      <span className="text-base font-medium">{stats ? `${Math.floor(stats.averageTime / 60)}m ${stats.averageTime % 60}s` : 'N/A'}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">Preferred difficulty</span>
+                      <span className="text-base">Preferred difficulty</span>
                       <Badge variant="outline">
                         {stats ? Object.entries(stats.difficultyStats).reduce((a, b) => stats.difficultyStats[a[0] as keyof typeof stats.difficultyStats] > stats.difficultyStats[b[0] as keyof typeof stats.difficultyStats] ? a : b)[0] : 'N/A'}
                       </Badge>
@@ -452,7 +452,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
               <div className="pt-4 border-t">
                 <div className="text-center">
                   <h3 className="font-semibold mb-2">Ready for the Next Challenge?</h3>
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <p className="text-base text-muted-foreground mb-4">
                     Continue your learning journey with targeted assessments
                   </p>
                   <Button onClick={() => setShowQuiz(true)}>

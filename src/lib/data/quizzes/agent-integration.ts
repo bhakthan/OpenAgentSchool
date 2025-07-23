@@ -58,5 +58,43 @@ export const agentIntegrationQuestions: QuizQuestion[] = [
     relatedConcepts: ['connection-pooling', 'circuit-breakers', 'retry-logic', 'health-monitoring'],
     persona: ['ai-engineer', 'agent-architect', 'ai-ops-engineer'],
     timeEstimate: 65
+  },
+  {
+    id: 'integration-a2',
+    text: 'An agent needs to process a high volume of incoming requests asynchronously. Which integration pattern is most suitable, and why?',
+    question: 'Which integration pattern is best for handling a high volume of asynchronous requests?',
+    codeExample: "// Example of an agent processing messages from a queue\nconst { consumer } = setupMessageQueue('user-requests');\n\nconsumer.on('message', async (message) => {\n  const request = JSON.parse(message.body);\n  await processRequest(request);\n});",
+    options: [
+      'Synchronous API calls, because they are simpler to implement.',
+      'A message queue, because it decouples the agent from the request source and allows for load balancing and retries.',
+      'Direct database connections, to write requests straight to a table.',
+      'File-based integration, where the agent polls a directory for new files.'
+    ],
+    correctAnswer: 1,
+    explanation: 'A message queue is the ideal pattern for asynchronous, high-volume workloads. It decouples the message producer from the consumer (the agent), allowing the agent to process requests at its own pace and providing resilience against failures.',
+    difficulty: 'advanced',
+    category: 'agent-integration',
+    subCategory: 'integration-patterns',
+    relatedTopics: ['message-queues', 'rabbitmq', 'kafka', 'asynchronous-processing'],
+    persona: ['agent-developer', 'ai-engineer', 'agent-architect']
+  },
+  {
+    id: 'integration-a3',
+    text: 'What is the purpose of a "circuit breaker" in agent integration?',
+    question: 'What is the purpose of a "circuit breaker" in agent integration?',
+    codeExample: "// Simplified circuit breaker logic\nfunction callApiWithCircuitBreaker(request) {\n  if (circuitBreaker.isOpen()) {\n    throw new Error('Circuit is open. Service is unavailable.');\n  }\n\n  try {\n    const response = await makeApiCall(request);\n    circuitBreaker.recordSuccess();\n    return response;\n  } catch (error) {\n    circuitBreaker.recordFailure();\n    throw error;\n  }\n}",
+    options: [
+      'To secure the agent against prompt injection attacks.',
+      'To automatically translate messages between different data formats.',
+      'To prevent an agent from repeatedly calling a service that is failing, thus preventing cascading failures.',
+      'To enforce a strict budget on API calls to reduce cost.'
+    ],
+    correctAnswer: 2,
+    explanation: 'A circuit breaker is a resilience pattern. When a downstream service (like an API) starts to fail, the circuit breaker "opens" and stops the agent from making further calls. This prevents the agent from wasting resources and overwhelming the failing service, which avoids cascading failures in the system.',
+    difficulty: 'advanced',
+    category: 'agent-integration',
+    subCategory: 'high-availability',
+    relatedTopics: ['circuit-breaker-pattern', 'resilience', 'fault-tolerance'],
+    persona: ['agent-developer', 'ai-engineer', 'agent-architect']
   }
 ];

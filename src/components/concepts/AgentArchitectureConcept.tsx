@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { Brain, Gear, Clock, Memory, ArrowsClockwise, Play, Pause, Stop, Archive } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
+import CodeBlock from "@/components/ui/CodeBlock";
 
 interface AgentArchitectureConceptProps {
   onMarkComplete?: () => void
@@ -87,8 +88,7 @@ export default function AgentArchitectureConcept({ onMarkComplete, onNavigateToN
               <CardTitle>Azure AI Agent Architecture</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">{`// Basic Agent Architecture in Azure AI SDK
+              <CodeBlock language="typescript">{`// Basic Agent Architecture in Azure AI SDK
 class AzureAIAgent {
   constructor(config) {
     this.reasoning = new OpenAIService(config.model)
@@ -115,8 +115,7 @@ class AzureAIAgent {
     
     return results
   }
-}`}</pre>
-              </div>
+}`}</CodeBlock>
             </CardContent>
           </Card>
         </div>
@@ -344,8 +343,7 @@ class AzureAIAgent {
                     Agents must maintain consistency across lifecycle transitions.
                   </p>
                   
-                  <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                    <pre className="text-lg">{`// Agent State Management Example
+                  <CodeBlock language="typescript">{`// Agent State Management Example
 class AgentStateManager {
   async saveState(agentId, state) {
     return await this.storage.save({
@@ -367,8 +365,7 @@ class AgentStateManager {
       metrics: new MetricsCollector(state.metrics)
     }
   }
-}`}</pre>
-                  </div>
+}`}</CodeBlock>
                 </div>
               </CardContent>
             </Card>

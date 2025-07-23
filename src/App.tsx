@@ -264,7 +264,7 @@ function App() {
             {/* Navigation tabs */}
             <div className="container mx-auto px-4 pb-1">
               <ScrollArea className="w-full">
-                <div className="flex space-x-1">
+                <div className="flex space-x-4">
                   <TabLink to="/" icon={<Brain size={16} weight="duotone" />} label="Core Concepts" />
                   <TabLink to="/patterns" icon={<PuzzlePiece size={16} weight="duotone" />} label="Agent Patterns" />
                   <TabLink to="/azure-services" icon={<StackSimple size={16} weight="duotone" />} label="Azure Services" />
@@ -320,12 +320,12 @@ const TabLink = React.memo(function TabLink({ to, icon, label }: { to: string, i
     <Button
       asChild
       variant={isActive ? "default" : "ghost"}
-      size="sm"
-      className="h-9"
+      size="md"
+      className="h-10 px-4"
     >
       <Link to={to} className="flex items-center gap-1">
         {icon}
-        <span>{label}</span>
+        <span className="text-base">{label}</span>
       </Link>
     </Button>
   );
