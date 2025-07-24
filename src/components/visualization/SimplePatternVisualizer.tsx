@@ -517,7 +517,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
                 <h4 className="font-medium text-green-600 dark:text-green-400 mb-2 flex items-center gap-1">
                   <Play size={14} /> Key Advantages
                 </h4>
-                <ul className="text-xl space-y-1">
+                <ul className="text-base space-y-1">
                   {patternContents.find(p => p.id === patternData.id)?.advantages.slice(0, 3).map((advantage, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <span className="text-green-500 mt-1">•</span>
@@ -530,7 +530,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
                 <h4 className="font-medium text-amber-600 dark:text-amber-400 mb-2 flex items-center gap-1">
                   <Info size={14} /> Limitations
                 </h4>
-                <ul className="text-xl space-y-1">
+                <ul className="text-base space-y-1">
                   {patternContents.find(p => p.id === patternData.id)?.limitations.slice(0, 3).map((limitation, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <span className="text-amber-500 mt-1">•</span>

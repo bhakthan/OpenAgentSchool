@@ -64,7 +64,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 </CardHeader>
                 <CardContent className="grid md:grid-cols-2 gap-6">
                   <div className="prose max-w-none">
-                    <p className="text-xl">{pattern.businessUseCase.description}</p>
+                    <p className="text-base">{pattern.businessUseCase.description}</p>
                   </div>
                   <div>
                     {React.createElement(pattern.businessUseCase.visualization)}
@@ -84,7 +84,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             <div className="space-y-4">
                 <div>
                     <h3 className="font-semibold mb-2">When to Use</h3>
-                    <p className="text-xl text-muted-foreground">{pattern.whenToUse}</p>
+                    <p className="text-base text-muted-foreground">{pattern.whenToUse}</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -104,7 +104,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                     <h3 className="font-semibold mb-2 flex items-center gap-1"><PuzzlePiece size={16} /> Related Patterns</h3>
                     <div className="flex flex-wrap gap-2">
                         {pattern.relatedPatterns?.map((p, i) => (
-                          <Badge key={i} variant="secondary" className="text-xl">
+                          <Badge key={i} variant="secondary" className="text-base">
                             {p}
                           </Badge>
                         ))}
@@ -118,7 +118,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
               <AccordionItem value="steps">
                 <AccordionTrigger>Implementation Steps</AccordionTrigger>
                 <AccordionContent>
-                  <ol className="list-decimal list-inside space-y-2 text-xl">
+                  <ol className="list-decimal list-inside space-y-2 text-base">
                     {pattern.implementation.map((step, index) => (
                       <li key={index}>{step}</li>
                     ))}

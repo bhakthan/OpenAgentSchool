@@ -150,7 +150,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
       <Card className={cn("w-full transition-all duration-300", isCollapsed ? "ml-0 max-w-full" : "")}>
         <CardHeader className="p-4 sm:p-6">
           <CardTitle>{patternData.name} Implementation</CardTitle>
-          <CardDescription className="text-xl">
+          <CardDescription className="text-base">
             Step-by-step guide to implementing the {patternData.name} pattern
           </CardDescription>
         </CardHeader>
@@ -192,12 +192,12 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
               <div className="space-y-4">
                 <div className="p-4 border rounded-lg bg-card w-full transition-all duration-300">
                   <h3 className="text-lg font-medium mb-2">About {patternData.name}</h3>
-                  <p className="text-muted-foreground mb-4 text-xl">{patternData.description}</p>
+                  <p className="text-muted-foreground mb-4 text-base">{patternData.description}</p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 w-full">
                     <div>
                       <h4 className="text-sm font-medium mb-2">Key Use Cases</h4>
-                      <ul className="list-disc pl-5 space-y-1 text-xl text-muted-foreground">
+                      <ul className="list-disc pl-5 space-y-1 text-base text-muted-foreground">
                         {patternData.useCases && patternData.useCases.length > 0 ? patternData.useCases.map((useCase, i) => (
                           <li key={i}>{useCase}</li>
                         )) : (
@@ -207,7 +207,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                     </div>
                     <div>
                       <h4 className="text-sm font-medium mb-2">When To Use</h4>
-                      <p className="text-xl text-muted-foreground">{patternData.whenToUse || 'Information not available'}</p>
+                      <p className="text-base text-muted-foreground">{patternData.whenToUse || 'Information not available'}</p>
                     </div>
                   </div>
                 </div>
@@ -219,10 +219,10 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                   <div className="space-y-2" data-section="steps">
                     {patternData.implementation && patternData.implementation.length > 0 ? patternData.implementation.map((step, index) => (
                       <div key={index} className="flex items-start">
-                        <span className="flex items-center justify-center bg-primary/10 text-primary rounded-full w-5 h-5 text-xl font-medium mr-2 mt-0.5">
+                        <span className="flex items-center justify-center bg-primary/10 text-primary rounded-full w-5 h-5 text-base font-medium mr-2 mt-0.5">
                           {index + 1}
                         </span>
-                        <span className="text-xl">{step}</span>
+                        <span className="text-base">{step}</span>
                       </div>
                     )) : (
                       <div className="text-sm text-muted-foreground">Implementation steps not available</div>
@@ -234,7 +234,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                   <Card className="h-full">
                     <CardContent className="p-4">
                       <h4 className="text-sm font-medium mb-2">Choose this pattern when:</h4>
-                      <ul className="list-disc pl-5 space-y-1 text-xl text-muted-foreground">
+                      <ul className="list-disc pl-5 space-y-1 text-base text-muted-foreground">
                         <li>You need {patternData.advantages && Array.isArray(patternData.advantages) && patternData.advantages.length > 0 ? patternData.advantages[0].toLowerCase() : 'improved agent capabilities'}</li>
                         <li>Your application requires {patternData.advantages && Array.isArray(patternData.advantages) && patternData.advantages.length > 1 ? patternData.advantages[1].toLowerCase() : 'advanced pattern implementation'}</li>
                         <li>You want to {patternData.description ? patternData.description.split(' ').slice(0, 5).join(' ').toLowerCase() : 'implement this pattern'}...</li>
@@ -244,7 +244,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                   <Card className="h-full">
                     <CardContent className="p-4">
                       <h4 className="text-sm font-medium mb-2">Consider alternatives when:</h4>
-                      <ul className="list-disc pl-5 space-y-1 text-xl text-muted-foreground">
+                      <ul className="list-disc pl-5 space-y-1 text-base text-muted-foreground">
                         <li>You need simpler implementation with fewer components</li>
                         <li>Direct API calls would be more efficient</li>
                         <li>You have limited computational resources</li>
