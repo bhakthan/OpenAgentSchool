@@ -50,14 +50,15 @@ export const CriticalThinkingModal: React.FC<CriticalThinkingModalProps> = ({ is
         </DialogHeader>
         <div className="py-4">
           <div className="mb-4">
-            <p className="font-semibold">Question:</p>
-            <p className="text-sm text-muted-foreground">{question}</p>
+            <p className="font-semibold text-xl">Question:</p> {/* Further increased font size */}
+            <p className="text-xl text-muted-foreground">{question}</p> {/* Further increased font size */}
           </div>
           <Textarea
+            className="w-full h-40" /* Adjusted width and height */
             placeholder="Type your response here..."
             value={response}
             onChange={(e) => setResponse(e.target.value)}
-            rows={8}
+            rows={10} /* Increased rows */
           />
         </div>
         <DialogFooter className="sm:justify-between">

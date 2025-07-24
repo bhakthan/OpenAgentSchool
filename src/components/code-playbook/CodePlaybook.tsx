@@ -150,7 +150,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
       <Card className={cn("w-full transition-all duration-300", isCollapsed ? "ml-0 max-w-full" : "")}>
         <CardHeader className="p-4 sm:p-6">
           <CardTitle>{patternData.name} Implementation</CardTitle>
-          <CardDescription>
+          <CardDescription className="text-xl">
             Step-by-step guide to implementing the {patternData.name} pattern
           </CardDescription>
         </CardHeader>
@@ -158,31 +158,31 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
           <Tabs defaultValue="general" className="w-full" data-section="code-playbook">
             <div className="overflow-x-auto pb-2 w-full">
               <TabsList className="flex w-full flex-nowrap gap-0.5" role="tablist">
-                <TabsTrigger value="general" className="flex items-center gap-1 h-10 px-3 py-2 text-sm">
+                <TabsTrigger value="general" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <ListChecks size={14} /> <span className="hidden sm:inline">General Guide</span><span className="sm:hidden">Guide</span>
                 </TabsTrigger>
-                <TabsTrigger value="steps" className="flex items-center gap-1 h-10 px-3 py-2 text-sm">
+                <TabsTrigger value="steps" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <ListChecks size={14} /> <span className="hidden sm:inline">Implementation Steps</span><span className="sm:hidden">Steps</span>
                 </TabsTrigger>
-                <TabsTrigger value="code" className="flex items-center gap-1 h-10 px-3 py-2 text-sm">
+                <TabsTrigger value="code" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <Code size={14} /> <span className="hidden sm:inline">Complete Code</span><span className="sm:hidden">Code</span>
                 </TabsTrigger>
-                <TabsTrigger value="visualizer" className="flex items-center gap-1 h-10 px-3 py-2 text-sm" data-tab="code-visualizer">
+                <TabsTrigger value="visualizer" className="flex items-center gap-1 h-10 px-3 py-2 text-base" data-tab="code-visualizer">
                   <FileCode size={14} /> <span className="hidden sm:inline">Code Visualizer</span><span className="sm:hidden">Visualizer</span>
                 </TabsTrigger>
-                <TabsTrigger value="interactive" className="flex items-center gap-1 h-10 px-3 py-2 text-sm">
+                <TabsTrigger value="interactive" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <Play size={14} /> <span className="hidden sm:inline">Interactive Example</span><span className="sm:hidden">Example</span>
                 </TabsTrigger>
-                <TabsTrigger value="debugger" className="flex items-center gap-1 h-10 px-3 py-2 text-sm">
+                <TabsTrigger value="debugger" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <Bug size={14} /> <span className="hidden sm:inline">Debugger</span><span className="sm:hidden">Debug</span>
                 </TabsTrigger>
-                <TabsTrigger value="algorithm" className="flex items-center gap-1 h-10 px-3 py-2 text-sm">
+                <TabsTrigger value="algorithm" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <Graph size={14} /> <span className="hidden sm:inline">Algorithm Steps</span><span className="sm:hidden">Algorithm</span>
                 </TabsTrigger>
-                <TabsTrigger value="security" className="flex items-center gap-1 h-10 px-3 py-2 text-sm">
+                <TabsTrigger value="security" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <ShieldCheck size={14} /> <span className="hidden sm:inline">Security Controls</span><span className="sm:hidden">Security</span>
                 </TabsTrigger>
-                <TabsTrigger value="practices" className="flex items-center gap-1 h-10 px-3 py-2 text-sm" data-tab="best-practices">
+                <TabsTrigger value="practices" className="flex items-center gap-1 h-10 px-3 py-2 text-base" data-tab="best-practices">
                   <Check size={14} /> <span className="hidden sm:inline">Best Practices</span><span className="sm:hidden">Practices</span>
                 </TabsTrigger>
               </TabsList>
@@ -192,12 +192,12 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
               <div className="space-y-4">
                 <div className="p-4 border rounded-lg bg-card w-full transition-all duration-300">
                   <h3 className="text-lg font-medium mb-2">About {patternData.name}</h3>
-                  <p className="text-muted-foreground mb-4">{patternData.description}</p>
+                  <p className="text-muted-foreground mb-4 text-xl">{patternData.description}</p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 w-full">
                     <div>
                       <h4 className="text-sm font-medium mb-2">Key Use Cases</h4>
-                      <ul className="list-disc pl-5 space-y-1 text-sm text-muted-foreground">
+                      <ul className="list-disc pl-5 space-y-1 text-xl text-muted-foreground">
                         {patternData.useCases && patternData.useCases.length > 0 ? patternData.useCases.map((useCase, i) => (
                           <li key={i}>{useCase}</li>
                         )) : (
@@ -207,22 +207,22 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                     </div>
                     <div>
                       <h4 className="text-sm font-medium mb-2">When To Use</h4>
-                      <p className="text-sm text-muted-foreground">{patternData.whenToUse || 'Information not available'}</p>
+                      <p className="text-xl text-muted-foreground">{patternData.whenToUse || 'Information not available'}</p>
                     </div>
                   </div>
                 </div>
                 
                 <div className="p-4 border rounded-lg bg-muted/20 w-full transition-all duration-300">
                   <h3 className="text-base font-medium mb-2">Implementation Overview</h3>
-                  <p className="text-sm text-muted-foreground mb-3">This pattern can be implemented using the following components:</p>
+                  <p className="text-xl text-muted-foreground mb-3">This pattern can be implemented using the following components:</p>
                   
                   <div className="space-y-2" data-section="steps">
                     {patternData.implementation && patternData.implementation.length > 0 ? patternData.implementation.map((step, index) => (
                       <div key={index} className="flex items-start">
-                        <span className="flex items-center justify-center bg-primary/10 text-primary rounded-full w-5 h-5 text-xs font-medium mr-2 mt-0.5">
+                        <span className="flex items-center justify-center bg-primary/10 text-primary rounded-full w-5 h-5 text-xl font-medium mr-2 mt-0.5">
                           {index + 1}
                         </span>
-                        <span className="text-sm">{step}</span>
+                        <span className="text-xl">{step}</span>
                       </div>
                     )) : (
                       <div className="text-sm text-muted-foreground">Implementation steps not available</div>
@@ -234,7 +234,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                   <Card className="h-full">
                     <CardContent className="p-4">
                       <h4 className="text-sm font-medium mb-2">Choose this pattern when:</h4>
-                      <ul className="list-disc pl-5 space-y-1 text-xs text-muted-foreground">
+                      <ul className="list-disc pl-5 space-y-1 text-xl text-muted-foreground">
                         <li>You need {patternData.advantages && Array.isArray(patternData.advantages) && patternData.advantages.length > 0 ? patternData.advantages[0].toLowerCase() : 'improved agent capabilities'}</li>
                         <li>Your application requires {patternData.advantages && Array.isArray(patternData.advantages) && patternData.advantages.length > 1 ? patternData.advantages[1].toLowerCase() : 'advanced pattern implementation'}</li>
                         <li>You want to {patternData.description ? patternData.description.split(' ').slice(0, 5).join(' ').toLowerCase() : 'implement this pattern'}...</li>
@@ -244,7 +244,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                   <Card className="h-full">
                     <CardContent className="p-4">
                       <h4 className="text-sm font-medium mb-2">Consider alternatives when:</h4>
-                      <ul className="list-disc pl-5 space-y-1 text-xs text-muted-foreground">
+                      <ul className="list-disc pl-5 space-y-1 text-xl text-muted-foreground">
                         <li>You need simpler implementation with fewer components</li>
                         <li>Direct API calls would be more efficient</li>
                         <li>You have limited computational resources</li>

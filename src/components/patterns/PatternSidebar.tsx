@@ -185,7 +185,7 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
                 {Object.entries(filteredCategories).length > 0 ? (
                   Object.entries(filteredCategories).map(([categoryName, patterns]) => (
                   <div key={categoryName} className="mb-4">
-                    <div className="flex items-center gap-2 px-2 py-1 text-sm font-medium text-muted-foreground">
+                    <div className="flex items-center gap-2 px-2 py-1 text-base font-medium text-muted-foreground">
                       {getCategoryIcon(categoryName)}
                       <span>{categoryName}</span>
                     </div>
@@ -196,7 +196,7 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
                             <TooltipTrigger asChild>
                               <div 
                                 className={cn(
-                                  "px-2 py-1.5 rounded-md cursor-pointer transition-all duration-150 text-sm relative group hover:pr-10",
+                                  "px-2 py-1.5 rounded-md cursor-pointer transition-all duration-150 text-base relative group hover:pr-10",
                                   activePatternId === pattern.id 
                                     ? "bg-primary/10 text-primary border-l-2 border-primary" 
                                     : "hover:bg-muted"
