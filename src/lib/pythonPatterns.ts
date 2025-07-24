@@ -1,3 +1,6 @@
+import { CriticalThinkingModal } from "../components/common/CriticalThinkingModal";
+import { useState } from "react";
+
 // Python patterns implementation
 export const pythonPatterns = {
   'react': `# ReAct Agent implementation
@@ -58,11 +61,6 @@ First, think about how to approach this problem. Then, if needed, select a tool 
 Format your response as:
 Thought: <your reasoning>
 Action: <tool_name>
-Action Input: <input for the tool>
-
-Or if you can provide the final answer:
-Thought: <your reasoning>
-Final Answer: <your answer>
 """
 
                 # Simulate LLM call

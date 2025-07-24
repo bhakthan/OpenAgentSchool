@@ -14,11 +14,14 @@ import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutor
 import { useTutorialContext } from '../tutorial/TutorialProvider'
 import { agentPatternsTutorial } from '@/lib/tutorial'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
+import { CriticalThinkingModal } from '@/components/common/CriticalThinkingModal';
 
 const PatternExplorer = () => {
-  const [selectedPattern, setSelectedPattern] = useState(agentPatterns[0] || null)
-  const [viewMode, setViewMode] = useState<'single' | 'compare'>('single')
-  
+  const [selectedPattern, setSelectedPattern] = useState(agentPatterns[0] || null);
+  const [viewMode, setViewMode] = useState<'single' | 'compare'>('single');
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('visualization'); // Track the active tab
+
   const { startTutorial, registerTutorial, hasCompletedTutorial } = useTutorialContext();
   
   // Register the agent patterns tutorial
@@ -51,6 +54,17 @@ const PatternExplorer = () => {
     setViewMode(current => current === 'single' ? 'compare' : 'single');
   };
   
+  // Determine the question based on the active tab and selected pattern
+  const getCriticalThinkingQuestion = () => {
+    if (!selectedPattern) return "What are the key challenges in designing agent patterns?";
+
+    if (activeTab === 'business-use-case') {
+      return `How would you apply the ${selectedPattern.name} pattern to solve a real-world business problem?`;
+    }
+
+    return `How does the ${selectedPattern.name} pattern address challenges in AI agent design?`;
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center mb-4">
@@ -72,9 +86,23 @@ const PatternExplorer = () => {
             <Swap size={16} />
             {viewMode === 'single' ? 'Compare Patterns' : 'Single Pattern View'}
           </Button>
+
+          <Button
+            variant="outline"
+            onClick={() => setModalOpen(true)}
+          >
+            Critical Thinking Challenge
+          </Button>
         </div>
       </div>
       
+      <CriticalThinkingModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        question={getCriticalThinkingQuestion()}
+        contextTitle={selectedPattern ? selectedPattern.name : "Agent Patterns"}
+      />
+
       {viewMode === 'single' ? (
         <div className="flex relative">
           {/* Sidebar */}
@@ -115,8 +143,8 @@ const PatternExplorer = () => {
               
               {/* Main Content Area */}
               <div className="flex-1 md:pl-[260px]">
-                <Tabs defaultValue="visualization" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3" data-tab-list>
+                <Tabs defaultValue="visualization" className="w-full" onValueChange={setActiveTab}>
+                  <TabsList className="grid w-full grid-cols-4" data-tab-list>
                     <TabsTrigger value="visualization" className="flex items-center gap-2" data-tab="visualization">
                       <ChartLine size={16} /> Visualization
                     </TabsTrigger>
@@ -125,6 +153,9 @@ const PatternExplorer = () => {
                     </TabsTrigger>
                     <TabsTrigger value="implementation" className="flex items-center gap-2" data-tab="implementation">
                       <Code size={16} /> Implementation
+                    </TabsTrigger>
+                    <TabsTrigger value="business-use-case" className="flex items-center gap-2" data-tab="business-use-case">
+                      <Info size={16} /> Business Use Case
                     </TabsTrigger>
                   </TabsList>
                   
@@ -144,6 +175,12 @@ const PatternExplorer = () => {
                   
                   <TabsContent value="implementation">
                     <CodePlaybook patternData={selectedPattern} />
+                  </TabsContent>
+
+                  <TabsContent value="business-use-case">
+                    <div className="p-4">
+                      <p>Explore how this pattern can be applied to real-world business scenarios.</p>
+                    </div>
                   </TabsContent>
                 </Tabs>
               </div>

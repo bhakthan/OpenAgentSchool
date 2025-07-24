@@ -1,3 +1,4 @@
+import FlowArchitectureVisualizer from '@/components/concepts/FlowVisualizationConcept';
 import { PatternData } from './types';
 
 export const promptChainingPattern: PatternData = {
@@ -11,9 +12,17 @@ export const promptChainingPattern: PatternData = {
     industry: 'Marketing',
     description: 'A marketing team wants to generate a complete ad campaign for a new product. Using Prompt Chaining, they first generate a list of target audience personas. Then, they feed those personas into a second prompt to generate key marketing messages. Finally, they use those messages in a third prompt to write the ad copy for different platforms.',
     enlightenMePrompt: 'Provide a technical guide on implementing prompt chaining for AI agents using Python.',
+    visualization: FlowArchitectureVisualizer,
   },
-  nodes: [],
-  edges: [],
+  nodes: [
+    { id: 'step1', type: 'input', data: { label: 'Generate Personas' }, position: { x: 100, y: 100 } },
+    { id: 'step2', type: 'default', data: { label: 'Generate Marketing Messages' }, position: { x: 300, y: 100 } },
+    { id: 'step3', type: 'output', data: { label: 'Generate Ad Copy' }, position: { x: 500, y: 100 } }
+  ],
+  edges: [
+    { id: 'e1-2', source: 'step1', target: 'step2', animated: true },
+    { id: 'e2-3', source: 'step2', target: 'step3', animated: true }
+  ],
   codeExample: `// Prompt Chaining Pattern implementation...`,
   pythonCodeExample: `import asyncio
 
@@ -58,8 +67,26 @@ async def generate_ad_copy(messages: str, product_description: str) -> str:
 #     ad_copy = await generate_ad_copy(messages, product)
 #     print(f"--- Ad Copy ---\n{ad_copy}")
 `,
-  implementation: [],
-  advantages: [],
-  limitations: [],
-  relatedPatterns: []
+  implementation: [
+    'Define the sequence of prompts required to achieve the task.',
+    'Design each prompt to produce outputs that serve as inputs for the next step.',
+    'Implement the chaining logic using a programming language like Python.',
+    'Test the prompt chain with various inputs to ensure robustness.',
+    'Optimize prompts for clarity and efficiency to improve results.'
+  ],
+  advantages: [
+    'Breaks down complex tasks into manageable steps.',
+    'Improves reasoning and creativity by structuring prompts.',
+    'Allows for iterative refinement of outputs.'
+  ],
+  limitations: [
+    'Requires careful design of intermediate prompts.',
+    'Can be time-consuming for tasks with many steps.',
+    'Dependent on the quality of outputs at each step.'
+  ],
+  relatedPatterns: [
+    'Parallelization',
+    'Autonomous Agents',
+    'Task Decomposition'
+  ]
 };

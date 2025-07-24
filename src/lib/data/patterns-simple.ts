@@ -36,6 +36,7 @@ export const agentPatterns: PatternData[] = [
     edges: [],
     codeExample: '// Parallelization implementation\nconst results = await Promise.all(tasks);',
     implementation: ['Divide tasks', 'Execute in parallel', 'Aggregate results'],
+    whenToUse: 'Use this pattern when you have multiple tasks that do not depend on each other and can be executed at the same time. It is ideal for I/O-bound or computationally intensive tasks that can be run in parallel.',
     advantages: ['Improved performance', 'Better reliability', 'Scalability']
   },
   {

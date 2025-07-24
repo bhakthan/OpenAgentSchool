@@ -15,6 +15,13 @@ export const autogenMultiAgentPattern: PatternData = {
   nodes: [],
   edges: [],
   codeExample: `// AutoGen Multi-Agent Pattern implementation...`,
+  implementation: [
+    'Install AutoGen framework and configure Azure OpenAI connection.',
+    'Define agent roles and system messages for specialized behaviors.',
+    'Create conversable agents with appropriate LLM configurations.',
+    'Set up group chat or sequential conversation patterns.',
+    'Evaluate system performance using collaboration and role-specific metrics.'
+  ],
   pythonCodeExample: `import autogen
 
 # Assume config_list is defined with your LLM provider details
@@ -54,9 +61,7 @@ manager = autogen.GroupChatManager(groupchat=groupchat, llm_config={"config_list
 # user_proxy.initiate_chat(
 #     manager,
 #     message="Create a simple Python function to calculate the factorial of a number and write a test for it.",
-# )
-`,
-  implementation: [],
+# )`,
   advantages: [],
   limitations: [],
   relatedPatterns: []

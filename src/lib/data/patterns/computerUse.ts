@@ -7,6 +7,21 @@ export const computerUsePattern: PatternData = {
   category: 'Advanced',
   useCases: ['UI Automation', 'Software Testing', 'Desktop Applications', 'Web Scraping'],
   whenToUse: 'Use Computer Use when agents need to interact with graphical user interfaces, automate desktop applications, or perform tasks that require visual interface navigation. This pattern is ideal for testing, automation, and scenarios where API access is not available.',
+  advantages: [
+    'Enhances productivity by leveraging computational tools.',
+    'Reduces manual effort and increases accuracy.',
+    'Facilitates complex calculations and data processing.'
+  ],
+  limitations: [
+    'Requires familiarity with computational tools.',
+    'Dependent on the availability of appropriate software.',
+    'May involve a steep learning curve for advanced tools.'
+  ],
+  relatedPatterns: [
+    'Modern Tool Use',
+    'Task Automation',
+    'Data Processing'
+  ],
   nodes: [
     {
       id: 'input',

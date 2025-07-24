@@ -67,7 +67,7 @@ export const mainAppTutorial: TutorialConfig = {
 // Agent Patterns tutorial
 export const agentPatternsTutorial: TutorialConfig = {
   id: "agent-patterns",
-  name: "Agent Patterns Tutorial",
+  name: "Agent Patterns",
   steps: [
     {
       id: "patterns-welcome",
@@ -110,6 +110,13 @@ export const agentPatternsTutorial: TutorialConfig = {
       content: "Browse through code examples in different languages. You can copy the code and adapt it for your own projects.",
       target: "pre, code",
       placement: "top"
+    },
+    {
+      id: "critical-thinking",
+      title: "Critical Thinking Challenge",
+      content: "Apply your knowledge of agent patterns to solve real-world problems.",
+      target: "a[href='/patterns']",
+      placement: "bottom"
     }
   ]
 };

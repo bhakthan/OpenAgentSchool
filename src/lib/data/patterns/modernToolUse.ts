@@ -7,6 +7,21 @@ export const modernToolUsePattern: PatternData = {
   category: 'Advanced',
   useCases: ['API Integration', 'Multi-Step Workflows', 'Error Recovery', 'Dynamic Tool Selection'],
   whenToUse: 'Use Modern Tool Use when agents need to interact with external APIs, perform complex multi-step operations, or when robust error handling and recovery is required. This pattern is ideal for production systems that require reliable tool integration.',
+  advantages: [
+    'Enables dynamic and flexible tool integration.',
+    'Improves error handling and recovery in workflows.',
+    'Facilitates complex multi-step operations with ease.'
+  ],
+  limitations: [
+    'Requires robust planning and execution logic.',
+    'Dependent on the availability and reliability of tools.',
+    'Increased complexity in managing tool dependencies.'
+  ],
+  relatedPatterns: [
+    'Task Automation',
+    'Error Recovery',
+    'Dynamic Tool Selection'
+  ],
   nodes: [
     {
       id: 'input',
@@ -191,31 +206,31 @@ class ModernToolUseAgent:
                 Return as JSON: {{"steps": [{{"tool": "tool_name", "params": {{}}, "rationale": "why"}}]}}
                 """
                 
-                plan = await self._llm_call(plan_prompt)
-                parsed_plan = json.loads(plan)
+                plan = await self._llm_call(plan_prompt);
+                parsed_plan = json.loads(plan);
                 
                 # Execute tools sequentially
-                results = []
+                results = [];
                 for step in parsed_plan["steps"]:
                     try:
-                        tool = next((t for t in tools if t.name == step["tool"]), None)
+                        tool = next((t for t in tools if t.name == step["tool"]), None);
                         if not tool:
-                            raise ValueError(f"Tool {step['tool']} not found")
+                            raise ValueError(f"Tool {step['tool']} not found");
                         
-                        result = await tool.execute(step["params"])
+                        result = await tool.execute(step["params"]);
                         results.append({
                             "tool": step["tool"],
                             "params": step["params"],
                             "result": result,
                             "status": "success"
-                        })
+                        });
                     except Exception as error:
                         results.append({
                             "tool": step["tool"],
                             "params": step["params"],
                             "error": str(error),
                             "status": "failed"
-                        })
+                        });
                         
                         # Error recovery
                         recovery_prompt = f"""
@@ -225,7 +240,7 @@ class ModernToolUseAgent:
                         Suggest an alternative approach or different tool to achieve the goal.
                         """
                         
-                        recovery = await self._llm_call(recovery_prompt)
+                        recovery = await self._llm_call(recovery_prompt);
                         # Implement recovery logic...
                 
                 # Validate results
@@ -237,29 +252,29 @@ class ModernToolUseAgent:
                 Return: {{"success": true/false, "reasoning": "explanation"}}
                 """
                 
-                validation = await self._llm_call(validation_prompt)
-                validation_result = json.loads(validation)
+                validation = await self._llm_call(validation_prompt);
+                validation_result = json.loads(validation);
                 
                 if validation_result["success"]:
                     return {
                         "status": "success",
                         "results": results,
                         "attempts": attempt
-                    }
+                    };
             
             return {
                 "status": "max_attempts_reached",
                 "attempts": attempt
-            }
+            };
         except Exception as error:
-            return {"status": "failed", "reason": str(error)}
+            return {"status": "failed", "reason": str(error)};
     
     async def _llm_call(self, prompt: str) -> str:
         """Call the LLM with the given prompt."""
         response = await self.client.chat.completions.create(
             model=self.model,
             messages=[{"role": "user", "content": prompt}]
-        )
+        );
         return response.choices[0].message.content
 `,
   implementation: [

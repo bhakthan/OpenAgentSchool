@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import FlowArchitectureVisualizer from '@/components/concepts/FlowVisualizationConcept';
 
 export const orchestratorWorkerPattern: PatternData = {
   id: 'orchestrator-worker',
@@ -10,10 +11,21 @@ export const orchestratorWorkerPattern: PatternData = {
   businessUseCase: {
     industry: 'Customer Support',
     description: 'A customer support center uses an Orchestrator-Worker system. The Orchestrator agent receives all incoming customer queries. It then routes the query to the appropriate worker agent: a "Billing" agent for payment issues, a "Technical" agent for product problems, or a "General" agent for other questions. This ensures that each query is handled by the most qualified agent.',
+    visualization: FlowArchitectureVisualizer,
     enlightenMePrompt: 'Provide a technical guide on implementing the Orchestrator-Worker pattern for AI agents.',
   },
-  nodes: [],
-  edges: [],
+  nodes: [
+    { id: 'orchestrator', type: 'input', data: { label: 'Orchestrator' }, position: { x: 100, y: 200 } },
+    { id: 'worker1', type: 'default', data: { label: 'Worker 1' }, position: { x: 300, y: 150 } },
+    { id: 'worker2', type: 'default', data: { label: 'Worker 2' }, position: { x: 300, y: 250 } },
+    { id: 'output', type: 'output', data: { label: 'Task Result' }, position: { x: 500, y: 200 } }
+  ],
+  edges: [
+    { id: 'e1-2', source: 'orchestrator', target: 'worker1', animated: true, label: 'Task A' },
+    { id: 'e1-3', source: 'orchestrator', target: 'worker2', animated: true, label: 'Task B' },
+    { id: 'e2-4', source: 'worker1', target: 'output', animated: true },
+    { id: 'e3-4', source: 'worker2', target: 'output', animated: true }
+  ],
   codeExample: `// Orchestrator-Worker Pattern implementation...`,
   pythonCodeExample: `import asyncio
 
@@ -74,7 +86,19 @@ class WorkerAgent:
 #     print(f"Task: {task2}\nResponse: {response2}\n---")
 `,
   implementation: [],
-  advantages: [],
-  limitations: [],
-  relatedPatterns: []
+  advantages: [
+    'Facilitates clear separation of concerns between orchestration and execution.',
+    'Improves scalability by distributing tasks to workers.',
+    'Enhances fault tolerance through isolated task execution.'
+  ],
+  limitations: [
+    'Requires robust communication and coordination mechanisms.',
+    'Increased complexity in managing worker states and dependencies.',
+    'Potential bottlenecks at the orchestrator level.'
+  ],
+  relatedPatterns: [
+    'Task Decomposition',
+    'Parallelization',
+    'Feedback Loops'
+  ],
 };

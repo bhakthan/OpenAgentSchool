@@ -5,7 +5,7 @@ export const evaluatorOptimizerPattern: PatternData = {
   name: 'Evaluator-Optimizer',
   description: 'Continuous improvement pattern that evaluates outputs against criteria and iteratively optimizes them through feedback loops.',
   category: 'Advanced',
-  useCases: ['Quality Improvement', 'Iterative Refinement', 'Performance Optimization', 'Content Enhancement'],
+  useCases: ['Quality Improvement', 'Iterative Refininement', 'Performance Optimization', 'Content Enhancement'],
   whenToUse: 'Use Evaluator-Optimizer when output quality is critical and can be improved through iterative refinement. This pattern is ideal for content creation, code optimization, research analysis, or any scenario where initial outputs need systematic improvement.',
   nodes: [
     {
@@ -650,6 +650,21 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 `,
+  advantages: [
+    'Improves decision-making by optimizing evaluation processes.',
+    'Reduces resource consumption through efficient evaluations.',
+    'Enhances accuracy and reliability of results.'
+  ],
+  limitations: [
+    'May require significant computational resources.',
+    'Complexity in designing optimization algorithms.',
+    'Dependent on the quality of input data.'
+  ],
+  relatedPatterns: [
+    'Feedback Loops',
+    'Modern Tool Use',
+    'Data Validation'
+  ],
   implementation: [
     'Define evaluation criteria and scoring system',
     'Create iterative optimization loop',
