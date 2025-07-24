@@ -6,11 +6,12 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig, PluginOption } from "vite";
 import { resolve } from 'path'
+import path from 'path';
 
 const extraPlugins: PluginOption[] = [];
 
 const GITHUB_RUNTIME_PERMANENT_NAME = process.env.GITHUB_RUNTIME_PERMANENT_NAME || process.env.CODESPACE_NAME?.substring(0, 20);
-const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname
+const projectRoot = process.env.PROJECT_ROOT || path.resolve()
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -34,8 +35,6 @@ export default defineConfig({
     cors: {
       origin: /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\]|(?:.*\.)?github\.com)(?::\d+)?$/
     },
-    // Enable history fallback for SPA routing
-    historyApiFallback: true,
     watch: {
       ignored: [
         "**/prd.md", 
