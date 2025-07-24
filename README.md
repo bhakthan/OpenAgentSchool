@@ -7,6 +7,12 @@
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, and hands-on demonstrations of modern AI agent architectures, including the revolutionary **MCP×A2A Integration** patterns.
 ---
 
+## 🆕 Latest Features (July 24, 2025)
+
+- **Critical Thinking Modal**: Engage with critical thinking challenges directly in the app, featuring improved readability and a larger input area.
+- **Dynamic Multi-Agent Diagram Generator**: In the AutoGen Multi-Agent business use case, users can now enter agent interactions and instantly visualize the agent network with a colorful, interactive diagram.
+- **UI/UX Improvements**: Enhanced font sizes, badge displays, and tab layouts for a more accessible and visually appealing experience.
+
 ## 🆕 Latest Changes (July 20, 2025)
 
 - **Project Renamed:** All branding updated to "Open Agent School" in navigation, footer, and title.
