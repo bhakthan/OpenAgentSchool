@@ -779,7 +779,7 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
                 <h4 className="font-medium text-primary mb-2 flex items-center gap-1">
                   <Play size={14} className="text-primary" /> Key Advantages
                 </h4>
-                <ul className="text-sm space-y-1">
+                <ul className="text-xl space-y-1">
                   {patternContents.find(p => p.id === patternData.id)?.advantages.slice(0, 3).map((advantage, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
@@ -792,7 +792,7 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
                 <h4 className="font-medium text-secondary mb-2 flex items-center gap-1">
                   <Info className="h-4 w-4" /> Limitations to Consider
                 </h4>
-                <ul className="text-sm space-y-1">
+                <ul className="text-xl space-y-1">
                   {patternContents.find(p => p.id === patternData.id)?.limitations.slice(0, 3).map((limitation, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <span className="text-secondary mt-1">•</span>
