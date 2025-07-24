@@ -420,7 +420,11 @@ src/
 ├── vite-end.d.ts            # Vite type definitions
 ├── components/              # All UI and visualization components
 │   ├── azure-services/      # Azure AI service cards and guides
-│   ├── code-playbook/       # Code playbook and debugging tools
+│   ├── code-playbook/       # Code playbook, debugging tools, and dynamic diagram generator
+│   │   ├── AutoGenPatternVisualizer.tsx   # Dynamic, user-driven agent network visualizer (react-force-graph-2d)
+│   │   ├── PatternDetails.tsx             # Hosts business use case tab, dynamic diagram, and critical thinking modal
+│   │   ├── CriticalThinkingModal.tsx      # Critical thinking challenge modal (in common/)
+│   │   └── ...existing code...
 │   ├── community/           # Community sharing and pattern hub
 │   ├── concepts/            # Core concept visualizations
 │   ├── enlighten/           # EnlightenMe AI learning assistant
@@ -458,10 +462,24 @@ src/
 ├── tests/                   # Test files and helpers
 │   └── testImports.ts       # Test import utilities
 ├── types/                   # TypeScript type definitions
+│   ├── react-force-graph-2d.d.ts # Type declarations for dynamic diagram visualizer
 │   ├── spark.d.ts           # Spark protocol types
 │   └── visualization.ts     # Visualization types
 ```
 
+**Feature Highlights:**
+- **Dynamic Diagram Generator**: `src/components/code-playbook/AutoGenPatternVisualizer.tsx` (visualizes user-defined agent networks; uses `react-force-graph-2d`)
+- **Business Use Case Tab & Integration**: `src/components/code-playbook/PatternDetails.tsx` (hosts the dynamic diagram and critical thinking modal)
+- **Critical Thinking Modal**: `src/components/common/CriticalThinkingModal.tsx` (modal for critical thinking challenges)
+- **Type Declarations for Visualization**: `src/types/react-force-graph-2d.d.ts`
+
+**To extend or add new features:**
+- Add new visualizations to `src/components/code-playbook/` or `src/components/visualization/`
+- Update or create new modals in `src/components/common/`
+- Add new pattern examples in `src/components/patterns/`
+- For new types, add to `src/types/`
+
+See inline comments in each file for further extension guidance.
 ## 🧠 Key Concepts Explained
 
 ### 1. AI Agent Lifecycle
