@@ -144,7 +144,7 @@ const PatternExplorer = () => {
               {/* Main Content Area */}
               <div className="flex-1 md:pl-[260px]">
                 <Tabs defaultValue="visualization" className="w-full" onValueChange={setActiveTab}>
-                  <TabsList className="grid w-full grid-cols-4" data-tab-list>
+                  <TabsList className="grid w-full grid-cols-3" data-tab-list>
                     <TabsTrigger value="visualization" className="flex items-center gap-2" data-tab="visualization">
                       <ChartLine size={16} /> Visualization
                     </TabsTrigger>
@@ -153,9 +153,6 @@ const PatternExplorer = () => {
                     </TabsTrigger>
                     <TabsTrigger value="implementation" className="flex items-center gap-2" data-tab="implementation">
                       <Code size={16} /> Implementation
-                    </TabsTrigger>
-                    <TabsTrigger value="business-use-case" className="flex items-center gap-2" data-tab="business-use-case">
-                      <Info size={16} /> Business Use Case
                     </TabsTrigger>
                   </TabsList>
                   
@@ -175,12 +172,6 @@ const PatternExplorer = () => {
                   
                   <TabsContent value="implementation">
                     <CodePlaybook patternData={selectedPattern} />
-                  </TabsContent>
-
-                  <TabsContent value="business-use-case">
-                    <div className="p-4">
-                      <p>Explore how this pattern can be applied to real-world business scenarios.</p>
-                    </div>
                   </TabsContent>
                 </Tabs>
               </div>
