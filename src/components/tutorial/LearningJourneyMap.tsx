@@ -394,7 +394,13 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     ['agent-deployment', 'agent-learning', 'agent-integration'],
     ['azure-services', 'references', 'community', 'patterns', 'quiz']
   ];
-  const tierNodes = selectedPath.nodes.filter(node => tiers[activeTier].includes(node.id));
+  const tierNodes = selectedPath.nodes.filter(node => tiers[activeTier].includes(node.id))
+    .sort((a, b) => {
+      // Sort by the recommended order within each tier
+      const aIndex = selectedPath.recommendedOrder.indexOf(a.id);
+      const bIndex = selectedPath.recommendedOrder.indexOf(b.id);
+      return aIndex - bIndex;
+    });
 
   // Load user progress from localStorage
   useEffect(() => {
@@ -545,19 +551,50 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
   };
 
   const getNodePosition = (index: number, total: number) => {
-    // Improved elliptical layout for max area usage
-    const containerWidth = 800;
-    const containerHeight = 400;
-    const nodeRadius = 56;
-    const centerX = containerWidth / 2;
-    const centerY = containerHeight / 2;
-    // Use almost all horizontal space, less vertical
-    const rx = (containerWidth / 2) - nodeRadius - 8;
-    const ry = (containerHeight / 2) - nodeRadius - 8;
-    const angle = (2 * Math.PI * index) / total;
-    const x = centerX + rx * Math.cos(angle);
-    const y = centerY + ry * Math.sin(angle);
-    return { x, y };
+    const containerWidth = 1000;
+    const containerHeight = 500;
+    const padding = 80; // Increased padding for better spacing
+    
+    if (total === 1) {
+      // Single node - center it
+      return { x: containerWidth / 2, y: containerHeight / 2 };
+    }
+    
+    if (total <= 3) {
+      // Linear horizontal layout for small tiers
+      const spacing = (containerWidth - 2 * padding) / Math.max(1, total - 1);
+      const x = padding + (index * spacing);
+      const y = containerHeight / 2;
+      return { x, y };
+    } 
+    
+    if (total === 5) {
+      // Special layout for 5 nodes (Tier 1) - create a clear learning path with proper spacing
+      const availableWidth = containerWidth - 2 * padding; // 840px available
+      const spacing = availableWidth / 4; // 210px between nodes
+      const positions = [
+        { x: padding, y: containerHeight / 2 - 80 },                    // 1. agent-architecture
+        { x: padding + spacing, y: containerHeight / 2 - 40 },         // 2. agent-security  
+        { x: padding + spacing * 2, y: containerHeight / 2 },          // 3. multi-agent-systems
+        { x: padding + spacing * 3, y: containerHeight / 2 + 40 },     // 4. agent-ethics
+        { x: padding + spacing * 4, y: containerHeight / 2 + 80 }      // 5. ai-agents
+      ];
+      return positions[index] || { x: containerWidth / 2, y: containerHeight / 2 };
+    } else {
+      // Grid layout for other sizes with clear flow direction
+      const cols = Math.min(total, 3); // Max 3 columns for readability
+      const rows = Math.ceil(total / cols);
+      const colSpacing = (containerWidth - 2 * padding) / Math.max(1, cols - 1);
+      const rowSpacing = (containerHeight - 2 * padding) / Math.max(1, rows - 1);
+      
+      const row = Math.floor(index / cols);
+      const col = index % cols;
+      
+      const x = padding + (col * colSpacing);
+      const y = padding + (row * rowSpacing);
+      
+      return { x, y };
+    }
   };
 
   const getNextRecommendedNode = () => {
@@ -662,59 +699,145 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
           {/* Journey Map Section for selected tier */}
           <div className="flex-1 flex flex-col items-center justify-center p-4 mb-2">
             <div className="relative w-full h-[500px] flex items-center justify-center">
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
+              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid meet">
                 <defs>
-                  <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
-                    <path d="M2,2 L10,6 L2,10" fill="#22c55e" />
+                  <style>
+                    {`
+                      /* Animated arrow paths with smooth transitions */
+                      .arrow-path {
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        transition: all 0.5s ease;
+                      }
+                      .arrow-path-animated {
+                        stroke-dasharray: 20 10;
+                        animation: flowPath 3s ease-in-out infinite;
+                        filter: drop-shadow(0 2px 4px rgba(34, 197, 94, 0.3));
+                      }
+                      .arrow-path-muted {
+                        stroke-dasharray: 10 5;
+                        animation: flowPathMuted 2s ease-in-out infinite;
+                        opacity: 0.6;
+                      }
+                      
+                      @keyframes flowPath {
+                        0% { stroke-dashoffset: 0; opacity: 0.8; }
+                        50% { opacity: 1; stroke-width: 6; }
+                        100% { stroke-dashoffset: -30; opacity: 0.8; }
+                      }
+                      
+                      @keyframes flowPathMuted {
+                        0% { stroke-dashoffset: 0; opacity: 0.4; }
+                        50% { opacity: 0.7; }
+                        100% { stroke-dashoffset: -15; opacity: 0.4; }
+                      }
+                      
+                      /* Flowing data particles */
+                      .flow-particle {
+                        fill: #22c55e;
+                        opacity: 0.8;
+                        filter: drop-shadow(0 1px 2px rgba(34, 197, 94, 0.4));
+                      }
+                    `}
+                  </style>
+                  <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+                    <polygon points="0 0, 10 4, 0 8" fill="#22c55e" />
                   </marker>
-                  <marker id="arrow-grey" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
-                    <path d="M2,2 L10,6 L2,10" fill="#cbd5e1" />
+                  <marker id="arrow-grey" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+                    <polygon points="0 0, 10 4, 0 8" fill="#cbd5e1" />
+                  </marker>
+                  <marker id="arrow-animated" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+                    <polygon points="0 0, 10 4, 0 8" fill="#22c55e">
+                      <animate attributeName="fill" values="#22c55e;#16a34a;#22c55e" dur="2s" repeatCount="indefinite"/>
+                    </polygon>
                   </marker>
                 </defs>
-                {/* Connections for tier nodes - use circular positions */}
+                
+                {/* Clear directional learning path connections */}
                 {tierNodes.map((node, index) => {
                   if (index === tierNodes.length - 1) return null;
                   const current = getNodePosition(index, tierNodes.length);
                   const next = getNodePosition(index + 1, tierNodes.length);
                   const isCompleted = node.isCompleted;
+                  const nextNode = tierNodes[index + 1];
+                  const isNextUnlocked = nextNode?.isUnlocked;
+                  
+                  // Use straight lines for clear direction - simpler and more reliable
+                  const pathData = `M ${current.x} ${current.y} L ${next.x} ${next.y}`;
+                  
                   return (
-                    <line
-                      key={`connection-${node.id}`}
-                      x1={current.x}
-                      y1={current.y}
-                      x2={next.x}
-                      y2={next.y}
-                      stroke={isCompleted ? '#22c55e' : '#cbd5e1'}
-                      strokeWidth="4"
-                      strokeDasharray={isCompleted ? '0' : '8,8'}
-                      opacity={0.7}
-                      markerEnd={isCompleted ? 'url(#arrow)' : 'url(#arrow-grey)'}
-                    />
+                    <g key={`connection-${node.id}-${nextNode.id}`}>
+                      <line
+                        x1={current.x}
+                        y1={current.y}
+                        x2={next.x}
+                        y2={next.y}
+                        stroke={isCompleted && isNextUnlocked ? '#22c55e' : isCompleted ? '#fbbf24' : '#cbd5e1'}
+                        strokeWidth={isCompleted ? '4' : '3'}
+                        className={isCompleted ? 'arrow-path arrow-path-animated' : 'arrow-path arrow-path-muted'}
+                        markerEnd={isCompleted ? 'url(#arrow-animated)' : 'url(#arrow-grey)'}
+                      />
+                      
+                      {/* Step indicator along path */}
+                      <text 
+                        x={(current.x + next.x) / 2} 
+                        y={(current.y + next.y) / 2 - 10} 
+                        textAnchor="middle" 
+                        className="text-xs fill-muted-foreground font-medium"
+                        style={{ fontSize: '11px' }}
+                      >
+                        {isCompleted ? '✓' : `${index + 1} → ${index + 2}`}
+                      </text>
+                      
+                      {/* Animated flow particles for completed connections */}
+                      {isCompleted && (
+                        <circle r="3" className="flow-particle">
+                          <animateMotion dur="2s" repeatCount="indefinite">
+                            <path d={pathData}/>
+                          </animateMotion>
+                          <animate attributeName="r" values="3;5;3" dur="1.5s" repeatCount="indefinite"/>
+                        </circle>
+                      )}
+                    </g>
                   );
                 })}
               </svg>
-              {/* Nodes for selected tier */}
+              {/* All learning path nodes in recommended order */}
               {tierNodes.map((node, index) => {
                 const position = getNodePosition(index, tierNodes.length);
+                const isCurrentNext = getNextRecommendedNode()?.id === node.id;
+                const globalIndex = selectedPath.recommendedOrder.indexOf(node.id) + 1;
                 return (
                   <div
                     key={node.id}
                     className={cn(
-                      "absolute w-24 h-24 rounded-full border-4 flex flex-col items-center justify-center cursor-pointer transition-transform transition-shadow duration-300 shadow-xl",
-                      node.isCompleted ? "bg-green-500 border-green-600 text-white" :
-                      node.isUnlocked ? "bg-primary border-primary text-white" :
-                      "bg-muted border-muted-foreground text-muted-foreground dark:bg-muted dark:text-muted-foreground"
+                      "absolute w-16 h-16 rounded-full border-3 flex flex-col items-center justify-center cursor-pointer transition-all duration-500 shadow-lg hover:scale-110",
+                      node.isCompleted ? "bg-green-500 border-green-600 text-white shadow-green-200" :
+                      node.isUnlocked ? "bg-primary border-primary text-white shadow-primary/20" :
+                      "bg-muted border-muted-foreground text-muted-foreground dark:bg-muted dark:text-muted-foreground",
+                      isCurrentNext ? "ring-4 ring-yellow-400 ring-opacity-75 animate-pulse" : ""
                     )}
-                    style={{ left: position.x - 64, top: position.y - 64, zIndex: 10 }}
+                    style={{ left: position.x - 32, top: position.y - 32, zIndex: 10 }}
                     onClick={() => { if (node.isUnlocked) { onNavigate(node.path); } }}
                   >
-                    <div className="text-4xl">{node.icon}</div>
-                    <div className="absolute top-full mt-3 left-1/2 transform -translate-x-1/2 text-center pointer-events-none max-w-[180px]">
-                      <div className="text-lg font-bold text-center leading-tight mb-1 text-foreground">{node.title}</div>
-                      <div className="flex items-center justify-center gap-2 flex-wrap">
-                        <Badge className={cn("text-xs px-3 py-1", getTierColor(node.id))}>T{getTierNumber(node.id)}</Badge>
-                        <span className="text-xs text-muted-foreground bg-background/80 dark:bg-background/40 px-3 py-1 rounded">{node.estimatedTime}</span>
+                    <div className="text-lg">{node.icon}</div>
+                    <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-background border-2 border-current flex items-center justify-center text-xs font-bold">
+                      {globalIndex > 0 ? globalIndex : index + 1}
+                    </div>
+                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 text-center pointer-events-none max-w-[180px]">
+                      <div className="text-xs font-bold text-center leading-tight mb-1 text-foreground">{node.title}</div>
+                      <div className="flex items-center justify-center gap-1 flex-wrap">
+                        <Badge className={cn("text-xs px-1 py-0.5", getTierColor(node.id))}>T{getTierNumber(node.id)}</Badge>
+                        <span className="text-xs text-muted-foreground bg-background/80 dark:bg-background/40 px-1 py-0.5 rounded">{node.estimatedTime}</span>
                       </div>
+                      {node.completionRate > 0 && !node.isCompleted && (
+                        <div className="mt-1 w-full bg-muted rounded-full h-1">
+                          <div 
+                            className="bg-primary h-1 rounded-full transition-all duration-300"
+                            style={{ width: `${node.completionRate}%` }}
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 );
