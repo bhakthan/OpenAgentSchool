@@ -34,7 +34,7 @@ const ACPProtocolStack: React.FC = () => {
       id: 'acp',
       name: 'Agent Communication Protocol (ACP)',
       color: colors.protocol,
-      height: 100,
+      height: 80,
       components: ['Message Format', 'Agent Discovery', 'Capability Exchange'],
       description: 'Standardized protocol for agent-to-agent communication and coordination',
       protocols: ['ACP Messages', 'Agent Registry', 'Capability Negotiation']
@@ -43,7 +43,7 @@ const ACPProtocolStack: React.FC = () => {
       id: 'transport',
       name: 'Transport Layer',
       color: colors.transport,
-      height: 100,
+      height: 80,
       components: ['HTTP/HTTPS', 'WebSocket', 'gRPC'],
       description: 'Reliable data transmission between agents across networks',
       protocols: ['TCP', 'TLS', 'HTTP/2']
@@ -52,7 +52,7 @@ const ACPProtocolStack: React.FC = () => {
       id: 'network',
       name: 'Network Layer',
       color: colors.network,
-      height: 100,
+      height: 80,
       components: ['IP Routing', 'Load Balancing', 'Service Discovery'],
       description: 'Routing and addressing for agent communications',
       protocols: ['IPv4/IPv6', 'DNS', 'Service Mesh']
@@ -61,7 +61,7 @@ const ACPProtocolStack: React.FC = () => {
       id: 'physical',
       name: 'Physical/Infrastructure',
       color: colors.physical,
-      height: 100,
+      height: 80,
       components: ['Cloud Providers', 'Data Centers', 'Edge Devices'],
       description: 'Physical infrastructure where agents are deployed',
       protocols: ['Ethernet', 'WiFi', 'Cellular']
@@ -137,7 +137,7 @@ const ACPProtocolStack: React.FC = () => {
                       x="70"
                       y={y + 25}
                       fill={colors.background}
-                      className="text-sm font-bold"
+                      className="text-base font-bold"
                       style={{ 
                         transition: 'all 0.3s ease-in-out',
                         transform: isHovered ? 'scale(1.05)' : 'scale(1)',
@@ -152,7 +152,7 @@ const ACPProtocolStack: React.FC = () => {
                       x="70"
                       y={y + 45}
                       fill={colors.background}
-                      className="text-xs"
+                      className="text-base"
                       style={{ 
                         transition: 'opacity 0.3s ease-in-out',
                         opacity: isHovered ? '1' : '0.9'
@@ -166,7 +166,7 @@ const ACPProtocolStack: React.FC = () => {
                       x="70"
                       y={y + layer.height - 15}
                       fill={colors.background}
-                      className="text-xs opacity-80"
+                      className="text-sm opacity-80"
                       style={{ 
                         transition: 'opacity 0.3s ease-in-out',
                         opacity: isHovered ? '1' : '0.7'
@@ -175,9 +175,10 @@ const ACPProtocolStack: React.FC = () => {
                       Protocols: {layer.protocols.join(', ')}
                     </text>
                     
-                    {/* Layer connection indicators */}
+                    {/* Layer connection indicators with animation */}
                     {index < layers.length - 1 && (
                       <g>
+                        {/* Main connection line */}
                         <line
                           x1="300"
                           y1={y + layer.height}
@@ -187,13 +188,68 @@ const ACPProtocolStack: React.FC = () => {
                           strokeWidth="2"
                           opacity="0.5"
                         />
+                        
+                        {/* Animated data flow arrows between layers */}
+                        <line
+                          x1="280"
+                          y1={y + layer.height + 2}
+                          x2="280"
+                          y2={y + layer.height + 18}
+                          stroke={colors.protocol}
+                          strokeWidth="2"
+                          opacity="0.8"
+                          markerEnd="url(#layer-arrow-down)"
+                          strokeDasharray="4,2"
+                        >
+                          <animate 
+                            attributeName="stroke-dashoffset" 
+                            values="0;-6;0" 
+                            dur="1.5s" 
+                            repeatCount="indefinite"
+                          />
+                        </line>
+                        
+                        {/* Return flow arrow */}
+                        <line
+                          x1="320"
+                          y1={y + layer.height + 18}
+                          x2="320"
+                          y2={y + layer.height + 2}
+                          stroke={colors.transport}
+                          strokeWidth="1.5"
+                          opacity="0.6"
+                          markerEnd="url(#layer-arrow-up)"
+                          strokeDasharray="3,2"
+                        >
+                          <animate 
+                            attributeName="stroke-dashoffset" 
+                            values="0;-5;0" 
+                            dur="2s" 
+                            repeatCount="indefinite"
+                          />
+                        </line>
+                        
+                        {/* Central indicator circle */}
                         <circle
                           cx="300"
                           cy={y + layer.height + 10}
                           r="3"
                           fill={colors.protocol}
                           opacity="0.7"
-                        />
+                        >
+                          <animate
+                            attributeName="r"
+                            values="3;5;3"
+                            dur="2s"
+                            repeatCount="indefinite"
+                          />
+                          <animate
+                            attributeName="opacity"
+                            values="0.7;1;0.7"
+                            dur="2s"
+                            repeatCount="indefinite"
+                          />
+                        </circle>
                       </g>
                     )}
                   </g>
@@ -216,8 +272,8 @@ const ACPProtocolStack: React.FC = () => {
                     filter: hoveredLayer === 'application' ? 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' : 'none'
                   }}
                 />
-                <text x="640" y="95" textAnchor="middle" fill={colors.background} className="text-sm font-medium">Agent A</text>
-                <text x="640" y="110" textAnchor="middle" fill={colors.background} className="text-xs">Research Bot</text>
+                <text x="640" y="95" textAnchor="middle" fill={colors.background} className="text-base font-medium">Agent A</text>
+                <text x="640" y="110" textAnchor="middle" fill={colors.background} className="text-sm">Research Bot</text>
               </g>
               
               {/* Agent B - positioned near bottom */}
@@ -236,8 +292,8 @@ const ACPProtocolStack: React.FC = () => {
                     filter: hoveredLayer === 'application' ? 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' : 'none'
                   }}
                 />
-                <text x="640" y="505" textAnchor="middle" fill={colors.background} className="text-sm font-medium">Agent B</text>
-                <text x="640" y="520" textAnchor="middle" fill={colors.background} className="text-xs">Writing Bot</text>
+                <text x="640" y="505" textAnchor="middle" fill={colors.background} className="text-base font-medium">Agent B</text>
+                <text x="640" y="520" textAnchor="middle" fill={colors.background} className="text-sm">Writing Bot</text>
               </g>
               
               {/* Communication flow arrows with animation */}
@@ -248,52 +304,112 @@ const ACPProtocolStack: React.FC = () => {
                 <marker id="response-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                   <polygon points="0 0, 10 3.5, 0 7" fill={colors.transport} />
                 </marker>
+                <marker id="layer-arrow-down" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill={colors.protocol} />
+                </marker>
+                <marker id="layer-arrow-up" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill={colors.transport} />
+                </marker>
               </defs>
               
-              {/* Main communication flow */}
+              {/* Main communication flow with enhanced animation */}
               <path
                 d="M 600 130 Q 575 325 600 480"
                 stroke={colors.protocol}
-                strokeWidth="3"
+                strokeWidth="4"
                 fill="none"
                 markerEnd="url(#acp-arrow)"
-                strokeDasharray="8,4"
+                strokeDasharray="12,6"
                 style={{ 
                   transition: 'all 0.3s ease-in-out',
                   opacity: hoveredLayer === 'acp' ? '1' : '0.8'
                 }}
               >
-                <animate attributeName="stroke-dashoffset" values="0;-12;0" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="stroke-dashoffset" values="0;-18;0" dur="2s" repeatCount="indefinite"/>
+                <animate 
+                  attributeName="stroke-width" 
+                  values="4;6;4" 
+                  dur="2s" 
+                  repeatCount="indefinite"
+                />
               </path>
               
-              <text x="570" y="295" textAnchor="middle" fill={colors.protocol} className="text-xs font-medium">
+              {/* Data packet animation moving along the path */}
+              <circle r="4" fill={colors.protocol}>
+                <animateMotion dur="3s" repeatCount="indefinite">
+                  <mpath href="#message-path"/>
+                </animateMotion>
+                <animate
+                  attributeName="r"
+                  values="4;6;4"
+                  dur="0.5s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              
+              {/* Hidden path for data packet animation */}
+              <path
+                id="message-path"
+                d="M 600 130 Q 575 325 600 480"
+                stroke="none"
+                fill="none"
+              />
+              
+              <text x="570" y="295" textAnchor="middle" fill={colors.protocol} className="text-sm font-medium">
                 ACP Message
               </text>
-              <text x="570" y="310" textAnchor="middle" fill={colors.protocol} className="text-xs">
+              <text x="570" y="310" textAnchor="middle" fill={colors.protocol} className="text-sm">
                 "Find research on AI"
               </text>
               
-              {/* Response arrow */}
+              {/* Response arrow with enhanced animation */}
               <path
                 d="M 680 480 Q 705 325 680 130"
                 stroke={colors.transport}
-                strokeWidth="2"
+                strokeWidth="3"
                 fill="none"
                 markerEnd="url(#response-arrow)"
-                strokeDasharray="10,5"
+                strokeDasharray="15,8"
                 style={{ 
                   transition: 'all 0.3s ease-in-out',
                   opacity: hoveredLayer === 'transport' ? '1' : '0.7'
                 }}
               >
-                <animate attributeName="stroke-dashoffset" values="0;-15;0" dur="2.5s" repeatCount="indefinite"/>
+                <animate attributeName="stroke-dashoffset" values="0;-23;0" dur="2.5s" repeatCount="indefinite"/>
+                <animate 
+                  attributeName="opacity" 
+                  values="0.7;1;0.7" 
+                  dur="2.5s" 
+                  repeatCount="indefinite"
+                />
               </path>
               
-              <text x="710" y="300" textAnchor="middle" fill={colors.transport} className="text-xs font-medium">
-                Response
-              </text>
+              {/* Response data packet */}
+              <circle r="3" fill={colors.transport}>
+                <animateMotion dur="3.5s" repeatCount="indefinite" begin="1s">
+                  <mpath href="#response-path"/>
+                </animateMotion>
+                <animate
+                  attributeName="r"
+                  values="3;5;3"
+                  dur="0.7s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              
+              {/* Hidden path for response packet animation */}
+              <path
+                id="response-path"
+                d="M 680 480 Q 705 325 680 130"
+                stroke="none"
+                fill="none"
+              />
+              
               <text x="710" y="270" textAnchor="middle" fill={colors.transport} className="text-xs">
                 "Research complete"
+              </text>
+              <text x="710" y="300" textAnchor="middle" fill={colors.transport} className="text-xs font-medium">
+                Response
               </text>
             </svg>
           </div>

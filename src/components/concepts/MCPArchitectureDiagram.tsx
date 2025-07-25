@@ -425,8 +425,8 @@ class EnterpriseDataFederation {
         <div className="w-full overflow-x-auto">
           <svg
             width="800"
-            height="500"
-            viewBox="0 0 800 500"
+            height="400"
+            viewBox="0 0 800 400"
             className="w-full h-auto border rounded-lg"
             style={{ backgroundColor: colors.background }}
           >
@@ -718,12 +718,10 @@ class EnterpriseDataFederation {
 
             {/* Protocol Labels */}
             <text x="400" y="320" fill={colors.text} className="text-sm font-semibold">Key Benefits:</text>
-            <text x="400" y="340" fill={colors.text} className="text-xs">• Standardized communication between AI tools and data sources</text>
-            <text x="400" y="355" fill={colors.text} className="text-xs">• Context preservation across interactions</text>
-            <text x="400" y="370" fill={colors.text} className="text-xs">• Secure access to local and remote resources</text>
-            <text x="400" y="385" fill={colors.text} className="text-xs">• Easy integration with existing infrastructure</text>
-            
-
+            <text x="400" y="340" fill={colors.text} className="text-sm">• Standardized communication between AI tools and data sources</text>
+            <text x="400" y="355" fill={colors.text} className="text-sm">• Context preservation across interactions</text>
+            <text x="400" y="370" fill={colors.text} className="text-sm">• Secure access to local and remote resources</text>
+            <text x="400" y="385" fill={colors.text} className="text-sm">• Easy integration with existing infrastructure</text>
           </svg>
         </div>
         
@@ -735,7 +733,7 @@ class EnterpriseDataFederation {
           <p className="text-muted-foreground text-sm">
             {dataFlowSteps[currentFlow].description}
           </p>
-          <div className="mt-2 text-xs text-muted-foreground">
+          <div className="mt-2 text-sm text-muted-foreground">
             Step {currentFlow + 1} of {dataFlowSteps.length}
           </div>
         </div>
