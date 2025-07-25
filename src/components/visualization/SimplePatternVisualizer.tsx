@@ -352,7 +352,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
             />
           </div>
           
-          <div className="relative border rounded-lg p-4 bg-gray-50/50 dark:bg-gray-800/50 backdrop-blur-sm" style={{ height: '700px' }}>
+          <div className="relative border rounded-lg p-4 bg-gray-50/50 dark:bg-gray-800/50 backdrop-blur-sm" style={{ height: '590px' }}>
             <svg width="100%" height="100%" className="absolute inset-0 pointer-events-none">
               {/* Render edges */}
               {patternData.edges?.map(edge => {
