@@ -37,4 +37,22 @@ future.md
 gemini.md
 BRANDING.md
 llmasjudge.md
-**/prd.md\"criticalthinking.md\" 
+**/prd.md\"criticalthinking.md\"
+
+# Ignore backend implementation documentation
+backend/implementation.md
+
+# Ignore compiled Python files and cache
+backend/**/*.pyc
+backend/**/__pycache__/
+
+# Ignore logs
+backend/logs/
+backend/*.log
+
+# Ignore temporary or debug files
+backend/tmp/
+backend/debug/
+
+# Ignore test files (if not needed in version control)
+backend/test_*.py
