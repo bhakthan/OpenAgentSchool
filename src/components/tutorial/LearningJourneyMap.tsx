@@ -150,6 +150,20 @@ const learningPaths: LearningPath[] = [
         isUnlocked: true,
         path: '/concepts'
       },
+      {
+        id: 'ai-safety-governance',
+        title: 'AI Safety and Governance',
+        description: 'Safety measures and governance frameworks for AI agents',
+        icon: <Shield size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '30-40 min',
+        prerequisites: ['agent-architecture'],
+        skills: ['Safety Protocols', 'Governance Frameworks', 'Risk Management'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
       
       // Tier 2: Architecture Concepts
       {
@@ -606,7 +620,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-6xl min-h-[85vh] flex flex-col shadow-2xl border-2 border-primary/10 bg-background/80 dark:bg-background/60">
+      <Card className="w-full max-w-4xl max-h-screen h-auto flex flex-col shadow-2xl border-2 border-primary/10 bg-background/80 dark:bg-background/60">
         <CardHeader className="pb-2 flex-shrink-0 bg-background/80 dark:bg-background/60 rounded-t-lg shadow">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-2xl font-bold text-primary">
@@ -646,8 +660,8 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
             </div>
           </div>
           {/* Journey Map Section for selected tier */}
-          <div className="flex-1 flex flex-col items-center justify-center p-4">
-            <div className="relative w-full h-[600px] flex items-center justify-center">
+          <div className="flex-1 flex flex-col items-center justify-center p-4 mb-2">
+            <div className="relative w-full h-[500px] flex items-center justify-center">
               <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
                 <defs>
                   <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
@@ -686,7 +700,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
                   <div
                     key={node.id}
                     className={cn(
-                      "absolute w-32 h-32 rounded-full border-4 flex flex-col items-center justify-center cursor-pointer transition-transform transition-shadow duration-300 shadow-xl",
+                      "absolute w-24 h-24 rounded-full border-4 flex flex-col items-center justify-center cursor-pointer transition-transform transition-shadow duration-300 shadow-xl",
                       node.isCompleted ? "bg-green-500 border-green-600 text-white" :
                       node.isUnlocked ? "bg-primary border-primary text-white" :
                       "bg-muted border-muted-foreground text-muted-foreground dark:bg-muted dark:text-muted-foreground"
@@ -707,7 +721,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
               })}
             </div>
             {/* Bottom Row: Next Step & Achievements */}
-            <div className="flex flex-row gap-6 justify-between items-stretch mt-8">
+            <div className="flex flex-row gap-6 justify-between items-stretch mt-4">
               {nextNode && (
                 <Card className="flex-1 border-primary/20 shadow bg-background dark:bg-background">
                   <CardHeader className="pb-3">
