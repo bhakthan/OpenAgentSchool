@@ -1,4 +1,4 @@
-import FlowArchitectureVisualizer from '@/components/concepts/FlowVisualizationConcept';
+import { MediaAnalysisVisual } from '@/components/visualization/business-use-cases/MediaAnalysisVisual';
 import { PatternData } from './types';
 
 export const parallelizationPattern: PatternData = {
@@ -12,7 +12,7 @@ export const parallelizationPattern: PatternData = {
     industry: 'Data Analytics',
     description: 'A data analytics company needs to process thousands of customer reviews daily to extract sentiment, identify key topics, and check for compliance violations. A single sequential process is too slow. By using the Parallelization pattern, they can process hundreds of reviews simultaneously, reducing the total processing time from hours to minutes.',
     enlightenMePrompt: 'Provide a technical guide on implementing parallel processing for AI agents using Python.',
-    visualization: FlowArchitectureVisualizer,
+    visualization: MediaAnalysisVisual,
   },
   nodes: [
     { id: 'task1', type: 'input', data: { label: 'Analyze Review 1' }, position: { x: 100, y: 100 } },

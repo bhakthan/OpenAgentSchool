@@ -1,5 +1,5 @@
 import { PatternData } from './types';
-import FlowArchitectureVisualizer from '@/components/concepts/FlowVisualizationConcept';
+import { SupportRouterVisual } from '@/components/visualization/business-use-cases/SupportRouterVisual';
 
 export const orchestratorWorkerPattern: PatternData = {
   id: 'orchestrator-worker',
@@ -11,7 +11,7 @@ export const orchestratorWorkerPattern: PatternData = {
   businessUseCase: {
     industry: 'Customer Support',
     description: 'A customer support center uses an Orchestrator-Worker system. The Orchestrator agent receives all incoming customer queries. It then routes the query to the appropriate worker agent: a "Billing" agent for payment issues, a "Technical" agent for product problems, or a "General" agent for other questions. This ensures that each query is handled by the most qualified agent.',
-    visualization: FlowArchitectureVisualizer,
+    visualization: SupportRouterVisual,
     enlightenMePrompt: 'Provide a technical guide on implementing the Orchestrator-Worker pattern for AI agents.',
   },
   nodes: [

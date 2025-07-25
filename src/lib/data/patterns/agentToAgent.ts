@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import { MarketingCampaignVisual } from '@/components/visualization/business-use-cases/MarketingCampaignVisual';
 
 export const agentToAgentPattern: PatternData = {
   id: 'agent-to-agent',
@@ -419,6 +420,12 @@ class AgentCommunicationSystem:
             "summary": f"Task completed with {len(responses)} responses"
         }
 `,
+  businessUseCase: {
+    industry: 'Marketing & Advertising',
+    description: 'A marketing agency uses Agent-to-Agent communication for campaign development. A coordinator agent assigns tasks to specialist agents: a market research agent analyzes target demographics, a content creation agent develops messaging, and a media planning agent optimizes channel selection. All agents collaborate to create comprehensive marketing campaigns.',
+    enlightenMePrompt: 'Explain how to implement Agent-to-Agent communication for collaborative marketing campaign development.',
+    visualization: MarketingCampaignVisual
+  },
   implementation: [
     'Design message protocol and data structures',
     'Implement message routing and delivery system',

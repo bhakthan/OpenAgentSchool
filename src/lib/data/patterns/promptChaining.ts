@@ -1,4 +1,4 @@
-import FlowArchitectureVisualizer from '@/components/concepts/FlowVisualizationConcept';
+import { MarketingCampaignVisual } from '@/components/visualization/business-use-cases/MarketingCampaignVisual';
 import { PatternData } from './types';
 
 export const promptChainingPattern: PatternData = {
@@ -12,7 +12,7 @@ export const promptChainingPattern: PatternData = {
     industry: 'Marketing',
     description: 'A marketing team wants to generate a complete ad campaign for a new product. Using Prompt Chaining, they first generate a list of target audience personas. Then, they feed those personas into a second prompt to generate key marketing messages. Finally, they use those messages in a third prompt to write the ad copy for different platforms.',
     enlightenMePrompt: 'Provide a technical guide on implementing prompt chaining for AI agents using Python.',
-    visualization: FlowArchitectureVisualizer,
+    visualization: MarketingCampaignVisual,
   },
   nodes: [
     { id: 'step1', type: 'input', data: { label: 'Generate Personas' }, position: { x: 100, y: 100 } },

@@ -1,5 +1,5 @@
 import { PatternData } from './types';
-import FlowArchitectureVisualizer from '@/components/concepts/FlowVisualizationConcept';
+import { SupplyChainBotVisual } from '@/components/visualization/business-use-cases/SupplyChainBotVisual';
 
 export const autonomousWorkflowPattern: PatternData = {
   id: 'autonomous-workflow',
@@ -792,7 +792,7 @@ class AutonomousWorkflowSystem:
     industry: 'Manufacturing',
     description: 'A manufacturing company uses an Autonomous Workflow system to manage its production line. The system autonomously plans, executes, and adapts tasks such as inventory management, quality control, and equipment maintenance, ensuring seamless operations.',
     enlightenMePrompt: 'Explain how to implement an Autonomous Workflow system for manufacturing operations.',
-    visualization: FlowArchitectureVisualizer
+    visualization: SupplyChainBotVisual
   },
   implementation: [
     'Define workflow steps and their dependencies.',

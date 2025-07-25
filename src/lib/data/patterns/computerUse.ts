@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import { TestGenerationVisual } from '@/components/visualization/business-use-cases/TestGenerationVisual';
 
 export const computerUsePattern: PatternData = {
   id: 'computer-use',
@@ -468,6 +469,12 @@ class ComputerUseAgent:
         
         return None
 `,
+  businessUseCase: {
+    industry: 'Software QA',
+    description: 'A software company uses Computer Use agents to automate UI testing for their web and desktop applications. The agents can capture screenshots, navigate interfaces, fill forms, and validate functionality automatically, reducing manual testing time by 80%.',
+    enlightenMePrompt: 'Explain how to implement a Computer Use agent for automated UI testing and application automation.',
+    visualization: TestGenerationVisual
+  },
   implementation: [
     'Set up cross-platform screen capture',
     'Implement vision model integration for screen analysis',

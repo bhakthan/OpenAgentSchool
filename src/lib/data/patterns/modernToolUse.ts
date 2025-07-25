@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import { FinancialAnalystVisual } from '@/components/visualization/business-use-cases/FinancialAnalystVisual';
 
 export const modernToolUsePattern: PatternData = {
   id: 'modern-tool-use',
@@ -277,6 +278,12 @@ class ModernToolUseAgent:
         );
         return response.choices[0].message.content
 `,
+  businessUseCase: {
+    industry: 'Financial Services',
+    description: 'A financial advisory firm uses Modern Tool Use agents to analyze market data, access real-time stock prices, calculate portfolio metrics, and generate comprehensive investment reports by seamlessly integrating multiple financial APIs and tools.',
+    enlightenMePrompt: 'Explain how to implement a Modern Tool Use agent for financial analysis with API integration and error handling.',
+    visualization: FinancialAnalystVisual
+  },
   implementation: [
     'Define tool interface with parameters and execution',
     'Create tool planning and selection logic',

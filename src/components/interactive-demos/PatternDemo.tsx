@@ -85,11 +85,11 @@ const getBusinessScenarios = (patternId: string) => {
       ]
     },
     'model-context-protocol': {
-      placeholder: 'Analyze our employee handbook for policy updates needed for remote work',
+      placeholder: 'Coordinate legal research, document drafting, and compliance review for a software licensing agreement',
       examples: [
         'Review our legal contracts for compliance with new data protection laws',
-        'Assess our technical documentation for security best practices',
-        'Evaluate our customer service protocols against industry standards'
+        'Coordinate patent research, application drafting, and regulatory filing',
+        'Manage multi-specialist legal analysis for merger and acquisition due diligence'
       ]
     },
     'agent-to-agent': {
@@ -140,7 +140,7 @@ const getBusinessScenarios = (patternId: string) => {
         'Plan and execute a merger integration across all business functions'
       ]
     },
-    'computer-using-agent': {
+    'computer-use': {
       placeholder: 'Automate our monthly invoice processing workflow across multiple systems',
       examples: [
         'Set up automated customer onboarding process using our CRM and email systems',
@@ -212,14 +212,14 @@ const generateMockResponse = (text: string, patternId: string) => {
         'self-reflection': `I've drafted a comprehensive business proposal for AI consulting services. After self-review, I've identified areas for improvement in market positioning and competitive analysis. The refined proposal now includes stronger value propositions and clearer service differentiation.`,
         'agentic-rag': `Based on our enterprise security knowledge base, I've compiled best practices for zero-trust implementation including identity verification, least-privilege access, and continuous monitoring. I've also identified specific Azure security services that align with your requirements.`,
         'modern-tool-use': `I've generated a comprehensive market analysis by integrating data from multiple sources: web search for industry trends, financial APIs for market data, and social media analytics for sentiment. The report shows promising growth opportunities in the enterprise AI sector.`,
-        'model-context-protocol': `I've analyzed your employee handbook using our secure document processing system. The analysis identifies 8 policy areas requiring updates for remote work compliance, including data security, communication protocols, and performance management frameworks.`,
+        'model-context-protocol': `I've coordinated our specialized legal agents using Model Context Protocol to analyze your software licensing agreement. Our research agent found relevant GDPR precedents, our drafting agent created compliant contract clauses, and our compliance agent verified regulatory adherence. The MCP framework preserved context across all agent interactions, ensuring comprehensive legal coverage.`,
         'agent-to-agent': `Our marketing team has developed creative concepts, the analytics team has identified target segments, and the sales team has created conversion strategies. Together, we've created a comprehensive campaign projected to increase product awareness by 40% and drive 25% more qualified leads.`,
         'prompt-chaining': `I've transformed your technical documentation through a structured process: simplified complex terminology, reorganized content for user flow, added visual examples, and created quick reference guides. The result is customer-friendly documentation that reduces support tickets by an estimated 30%.`,
         'parallelization': `I've evaluated three cloud providers simultaneously: AWS offers best enterprise features, Azure provides seamless integration with your existing Microsoft stack, and Google Cloud delivers competitive pricing. Based on parallel analysis, Azure appears to be the optimal choice for your infrastructure needs.`,
         'routing': `I've analyzed your inquiry and determined it requires both billing support and technical assistance. I'm routing your billing questions to our accounts team and your technical issues to our engineering support. You'll receive responses from both teams within 2 business hours.`,
         'orchestrator-worker': `I've coordinated your quarterly business review across all departments. Finance provided budget analysis, Sales shared pipeline updates, Operations reported on efficiency metrics, and Marketing delivered campaign performance. The consolidated report shows 18% growth with strong performance indicators across all areas.`,
         'plan-and-execute': `I've developed a comprehensive digital transformation plan with 4 phases: assessment, infrastructure upgrade, staff training, and system integration. The plan includes specific timelines, resource requirements, and success metrics. Implementation begins with cloud migration and proceeds through process digitization.`,
-        'computer-using-agent': `I've automated your monthly invoice processing workflow by integrating your accounting system with email processing and approval workflows. The automation reduces processing time by 70% and eliminates manual data entry errors. Monthly invoices will now be processed automatically with exception handling for unusual cases.`,
+        'computer-use': `I've automated your monthly invoice processing workflow by integrating your accounting system with email processing and approval workflows. The automation reduces processing time by 70% and eliminates manual data entry errors. Monthly invoices will now be processed automatically with exception handling for unusual cases.`,
         'deep-researcher': `I've conducted extensive research on emerging AI regulations across multiple jurisdictions. The research reveals significant compliance requirements for data handling, algorithm transparency, and bias mitigation. I've compiled a comprehensive impact assessment with recommended action items for your business operations.`,
         'voice-agent': `I've configured your customer service voice assistant to handle common inquiries including billing questions, technical support, and account management. The system recognizes natural speech patterns and can escalate complex issues to human agents. Initial testing shows 85% success rate for routine inquiries.`,
         'evaluator-optimizer': `I've analyzed your customer service metrics and identified optimization opportunities. Current response quality scores averaging 3.2/5 can be improved through enhanced training protocols and automated response suggestions. Implementing these changes should increase satisfaction scores to 4.2/5 within 90 days.`,
@@ -378,28 +378,11 @@ const CustomDemoNode = React.memo(({ data, id }: { data: any, id: string }) => {
 });
 
 const PatternDemo = React.memo(({ patternData }: PatternDemoProps) => {
-  // Ensure patternData exists to prevent errors
   if (!patternData) {
-    return (
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>Demo Unavailable</CardTitle>
-          <CardDescription>Pattern data is missing or invalid</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Alert>
-            <AlertDescription>
-              The pattern demo cannot be loaded due to missing data. Please try a different pattern.
-            </AlertDescription>
-          </Alert>
-        </CardContent>
-      </Card>
-    );
+    return <div>No pattern data available</div>;
   }
 
   const { theme } = useTheme();
-  
-  // Get business scenarios for the current pattern and set default input
   const currentScenarios = getBusinessScenarios(patternData.id);
   const [userInput, setUserInput] = useState(currentScenarios.placeholder);
   
@@ -707,16 +690,22 @@ const PatternDemo = React.memo(({ patternData }: PatternDemoProps) => {
           <div className="p-4 bg-muted/30 border border-border rounded-md">
             <h4 className="text-sm font-medium mb-2">Try these business scenarios:</h4>
             <div className="grid grid-cols-1 gap-2">
-              {currentScenarios.examples.map((example, index) => (
-                <button
-                  key={index}
-                  onClick={() => setUserInput(example)}
-                  disabled={isRunning}
-                  className="text-left text-xs p-2 rounded border border-border/50 bg-background hover:bg-muted/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {example}
-                </button>
-              ))}
+              {currentScenarios.examples.length > 0 ? (
+                currentScenarios.examples.map((example, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setUserInput(example)}
+                    disabled={isRunning}
+                    className="text-left text-xs p-2 rounded border border-border/50 bg-background hover:bg-muted/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {example}
+                  </button>
+                ))
+              ) : (
+                <div className="text-sm text-muted-foreground p-2">
+                  No business scenarios available for pattern: {patternData.id}
+                </div>
+              )}
             </div>
           </div>
           

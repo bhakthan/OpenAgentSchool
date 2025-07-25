@@ -1,5 +1,5 @@
 import { PatternData } from './types';
-import { CodeVisualizer } from '@/components/visualization/business-use-cases/CodeVisualizer';
+import { TestGenerationVisual } from '@/components/visualization/business-use-cases/TestGenerationVisual';
 
 export const agentEvaluationPattern: PatternData = {
   id: 'agent-evaluation',
@@ -11,7 +11,7 @@ export const agentEvaluationPattern: PatternData = {
   businessUseCase: {
     industry: 'AI Development',
     description: 'An AI development team uses the Agent Evaluation pattern to create a robust testing framework for their new customer service agent. The framework includes tests for capability (can it answer questions correctly?), performance (how quickly does it respond?), and safety (does it refuse to answer harmful questions?). This allows the team to systematically measure and improve the agent before deployment.',
-    visualization: () => <CodeVisualizer title="Agent Evaluation Framework" patternName="Agent Evaluation" />,
+    visualization: TestGenerationVisual,
     enlightenMePrompt: 'Provide a technical guide on implementing an agent evaluation framework.',
   },
   nodes: [

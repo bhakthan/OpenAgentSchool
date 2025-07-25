@@ -9,7 +9,7 @@ export { agenticRAGPattern } from './agenticRAG';
 export { codeActPattern } from './codeAct.tsx';
 export { selfReflectionPattern } from './selfReflection';
 export { modernToolUsePattern } from './modernToolUse';
-export { mcpPattern } from './mcp';
+export { modelContextProtocolPattern } from './modelContextProtocol';
 export { agentToAgentPattern } from './agentToAgent';
 export { computerUsePattern } from './computerUse';
 export { voiceAgentPattern } from './voiceAgent';
@@ -30,7 +30,7 @@ import { agenticRAGPattern } from './agenticRAG';
 import { codeActPattern } from './codeAct.tsx';
 import { selfReflectionPattern } from './selfReflection';
 import { modernToolUsePattern } from './modernToolUse';
-import { mcpPattern } from './mcp';
+import { modelContextProtocolPattern } from './modelContextProtocol';
 import { agentToAgentPattern } from './agentToAgent';
 import { computerUsePattern } from './computerUse';
 import { voiceAgentPattern } from './voiceAgent';
@@ -51,7 +51,7 @@ export const agentPatterns = [
   codeActPattern,
   selfReflectionPattern,
   modernToolUsePattern,
-  mcpPattern,
+  modelContextProtocolPattern,
   agentToAgentPattern,
   computerUsePattern,
   voiceAgentPattern,

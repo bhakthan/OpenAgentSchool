@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import { SupportRouterVisual } from '@/components/visualization/business-use-cases/SupportRouterVisual';
 
 export const voiceAgentPattern: PatternData = {
   id: 'voice-agent',
@@ -541,6 +542,12 @@ class VoiceAgent:
         # Implement audio playback based on your system
         pass
 `,
+  businessUseCase: {
+    industry: 'Customer Service',
+    description: 'A telecommunications company uses Voice Agents to handle customer support calls. The voice assistant can understand natural speech, access customer accounts, troubleshoot technical issues, and escalate complex problems to human agents. The system reduces wait times by 60% and handles 80% of routine inquiries automatically.',
+    enlightenMePrompt: 'Explain how to implement a Voice Agent system for automated customer service with speech recognition and natural language processing.',
+    visualization: SupportRouterVisual
+  },
   implementation: [
     'Set up speech recognition (STT) integration',
     'Implement natural language processing pipeline',
