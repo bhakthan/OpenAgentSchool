@@ -62,7 +62,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 <CardHeader>
                   <CardTitle className="text-lg text-primary">{pattern.businessUseCase.industry}</CardTitle>
                 </CardHeader>
-                <CardContent className="grid md:grid-cols-2 gap-6">
+                <CardContent className="space-y-6">
                   <div className="prose max-w-none">
                     <p className="text-base">{pattern.businessUseCase.description}</p>
                   </div>
