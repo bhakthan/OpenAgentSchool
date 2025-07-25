@@ -118,7 +118,7 @@ const ChatbotToAgentTransition: React.FC = () => {
   const currentStepData = animationSteps[currentStep];
 
   return (
-    <Card className="w-full max-w-6xl mx-auto">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <span>From Chatbot to Azure AI Agent</span>
@@ -153,7 +153,7 @@ const ChatbotToAgentTransition: React.FC = () => {
           {/* Main Animation Area */}
           <div className="relative">
             <svg
-              viewBox="0 0 1200 900"
+              viewBox="0 0 1200 620"
               className="w-full h-auto border rounded-lg bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-800 dark:to-slate-900"
             >
               {/* Define styles for dark mode compatibility */}
@@ -178,25 +178,28 @@ const ChatbotToAgentTransition: React.FC = () => {
                       opacity: 0.6;
                     }
                     
-                    /* Animated flow lines */
+                    /* Animated flow lines with enhanced smoothness */
                     .svg-line-animated {
                       stroke: rgb(59 130 246);
                       stroke-width: 3;
                       opacity: 0.9;
-                      stroke-dasharray: 8 4;
-                      animation: flowAnimation 2s linear infinite;
+                      stroke-dasharray: 12 6;
+                      animation: flowAnimation 2s ease-in-out infinite;
+                      filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.2));
                     }
                     .svg-line-muted-animated {
                       stroke: rgb(100 116 139);
                       stroke-width: 2;
                       opacity: 0.8;
-                      stroke-dasharray: 6 3;
-                      animation: flowAnimation 1.5s linear infinite;
+                      stroke-dasharray: 8 4;
+                      animation: flowAnimation 1.5s ease-in-out infinite;
+                      filter: drop-shadow(0 1px 2px rgba(100, 116, 139, 0.2));
                     }
                     
                     @keyframes flowAnimation {
-                      0% { stroke-dashoffset: 0; }
-                      100% { stroke-dashoffset: 12; }
+                      0% { stroke-dashoffset: 0; opacity: 0.8; }
+                      50% { opacity: 1; }
+                      100% { stroke-dashoffset: -18; opacity: 0.8; }
                     }
                     
                     @media (prefers-color-scheme: dark) {
@@ -219,11 +222,13 @@ const ChatbotToAgentTransition: React.FC = () => {
                         stroke: rgb(147 197 253);
                         stroke-width: 3;
                         opacity: 1;
+                        filter: drop-shadow(0 2px 4px rgba(147, 197, 253, 0.3));
                       }
                       .svg-line-muted-animated {
                         stroke: rgb(148 163 184);
                         stroke-width: 2;
                         opacity: 0.9;
+                        filter: drop-shadow(0 1px 2px rgba(148, 163, 184, 0.3));
                       }
                     }
                     
@@ -400,11 +405,16 @@ const ChatbotToAgentTransition: React.FC = () => {
                     }
                   `}
                 </style>
-                <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
-                  <polygon points="0 0, 10 4, 0 8" fill="rgb(59 130 246)" />
+                <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="rgb(59 130 246)" />
                 </marker>
-                <marker id="arrowhead-dark" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
-                  <polygon points="0 0, 10 4, 0 8" fill="rgb(147 197 253)" />
+                <marker id="arrowhead-dark" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="rgb(147 197 253)" />
+                </marker>
+                <marker id="arrowhead-animated" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="rgb(59 130 246)">
+                    <animate attributeName="fill" values="rgb(59 130 246);rgb(34 197 94);rgb(59 130 246)" dur="2s" repeatCount="indefinite"/>
+                  </polygon>
                 </marker>
               </defs>
 
@@ -655,25 +665,61 @@ const ChatbotToAgentTransition: React.FC = () => {
                   Action
                 </text>
 
-                {/* Connection lines with animation during active states */}
-                <line x1="570" y1="240" x2="580" y2="300" className={currentStepData.highlight.includes('memory') || currentStepData.highlight.includes('agent-planning') ? 'svg-line-muted-animated' : 'svg-line-muted'} />
-                <line x1="630" y1="240" x2="620" y2="300" className={currentStepData.highlight.includes('memory') || currentStepData.highlight.includes('agent-planning') ? 'svg-line-muted-animated' : 'svg-line-muted'} />
-                <line x1="430" y1="360" x2="470" y2="360" className={currentStepData.highlight.includes('tools') || currentStepData.highlight.includes('calendar-tool') || currentStepData.highlight.includes('calculator-tool') ? 'svg-line-muted-animated' : 'svg-line-muted'} />
-                <line x1="730" y1="360" x2="770" y2="360" className={currentStepData.highlight.includes('planning') || currentStepData.highlight.includes('action') ? 'svg-line-muted-animated' : 'svg-line-muted'} />
-                <line x1="730" y1="360" x2="770" y2="460" className={currentStepData.highlight.includes('planning') || currentStepData.highlight.includes('action') ? 'svg-line-muted-animated' : 'svg-line-muted'} />
-                <line x1="920" y1="360" x2="950" y2="360" className={currentStepData.highlight.includes('reflection') ? 'svg-line-muted-animated' : 'svg-line-muted'} />
+                {/* Connection lines with smooth curves and enhanced animation */}
+                <path 
+                  d="M 570 240 Q 575 270 580 300" 
+                  fill="none"
+                  className={currentStepData.highlight.includes('memory') || currentStepData.highlight.includes('agent-planning') ? 'svg-line-muted-animated' : 'svg-line-muted'} 
+                  markerEnd="url(#arrowhead)"
+                  style={{ strokeLinecap: 'round', strokeLinejoin: 'round' }}
+                />
+                <path 
+                  d="M 630 240 Q 625 270 620 300" 
+                  fill="none"
+                  className={currentStepData.highlight.includes('memory') || currentStepData.highlight.includes('agent-planning') ? 'svg-line-muted-animated' : 'svg-line-muted'} 
+                  markerEnd="url(#arrowhead)"
+                  style={{ strokeLinecap: 'round', strokeLinejoin: 'round' }}
+                />
+                <path 
+                  d="M 430 360 Q 450 360 470 360" 
+                  fill="none"
+                  className={currentStepData.highlight.includes('tools') || currentStepData.highlight.includes('calendar-tool') || currentStepData.highlight.includes('calculator-tool') ? 'svg-line-muted-animated' : 'svg-line-muted'} 
+                  markerEnd="url(#arrowhead)"
+                  style={{ strokeLinecap: 'round', strokeLinejoin: 'round' }}
+                />
+                <path 
+                  d="M 730 360 Q 750 360 770 360" 
+                  fill="none"
+                  className={currentStepData.highlight.includes('planning') || currentStepData.highlight.includes('action') ? 'svg-line-muted-animated' : 'svg-line-muted'} 
+                  markerEnd="url(#arrowhead)"
+                  style={{ strokeLinecap: 'round', strokeLinejoin: 'round' }}
+                />
+                <path 
+                  d="M 730 360 Q 750 410 770 460" 
+                  fill="none"
+                  className={currentStepData.highlight.includes('planning') || currentStepData.highlight.includes('action') ? 'svg-line-muted-animated' : 'svg-line-muted'} 
+                  markerEnd="url(#arrowhead)"
+                  style={{ strokeLinecap: 'round', strokeLinejoin: 'round' }}
+                />
+                <path 
+                  d="M 920 360 Q 935 360 950 360" 
+                  fill="none"
+                  className={currentStepData.highlight.includes('reflection') ? 'svg-line-muted-animated' : 'svg-line-muted'} 
+                  markerEnd="url(#arrowhead)"
+                  style={{ strokeLinecap: 'round', strokeLinejoin: 'round' }}
+                />
 
-                {/* Agent Response with larger size for better text display */}
+                {/* Agent Response - positioned in top right corner for better aesthetics */}
                 <rect
-                  x="450"
-                  y="680"
+                  x="850"
+                  y="50"
                   width="300"
                   height="180"
                   rx="12"
                   className={currentStepData.highlight.includes('agent-response') ? 'svg-bg-response-active' : 'svg-bg-response'}
                   style={{ transition: 'all 0.5s ease' }}
                 />
-                <text x="600" y="715" textAnchor="middle" className="svg-text-primary" fontSize="16" fontWeight="700">
+                <text x="1000" y="85" textAnchor="middle" className="svg-text-primary" fontSize="16" fontWeight="700">
                   Comprehensive Response
                 </text>
                 {currentStepData.agentResponse && (
@@ -683,24 +729,86 @@ const ChatbotToAgentTransition: React.FC = () => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      <text x="470" y="745" className="svg-text-secondary" fontSize="14">
-                        <tspan x="470" dy="0">{currentStepData.agentResponse.slice(0, 35)}</tspan>
-                        <tspan x="470" dy="20">{currentStepData.agentResponse.slice(35, 70)}</tspan>
-                        <tspan x="470" dy="20">{currentStepData.agentResponse.slice(70, 105)}</tspan>
-                        <tspan x="470" dy="20">{currentStepData.agentResponse.slice(105, 140)}</tspan>
-                        <tspan x="470" dy="20">{currentStepData.agentResponse.slice(140, 175)}</tspan>
-                        <tspan x="470" dy="20">{currentStepData.agentResponse.slice(175, 210)}</tspan>
-                        <tspan x="470" dy="20">{currentStepData.agentResponse.slice(210)}</tspan>
+                      <text x="870" y="115" className="svg-text-secondary" fontSize="14">
+                        <tspan x="870" dy="0">{currentStepData.agentResponse.slice(0, 35)}</tspan>
+                        <tspan x="870" dy="20">{currentStepData.agentResponse.slice(35, 70)}</tspan>
+                        <tspan x="870" dy="20">{currentStepData.agentResponse.slice(70, 105)}</tspan>
+                        <tspan x="870" dy="20">{currentStepData.agentResponse.slice(105, 140)}</tspan>
+                        <tspan x="870" dy="20">{currentStepData.agentResponse.slice(140, 175)}</tspan>
+                        <tspan x="870" dy="20">{currentStepData.agentResponse.slice(175, 210)}</tspan>
+                        <tspan x="870" dy="20">{currentStepData.agentResponse.slice(210)}</tspan>
                       </text>
                     </motion.g>
                   </AnimatePresence>
                 )}
               </g>
 
-              {/* Flow arrows with animation during simulation */}
-              <line x1="170" y1="150" x2="170" y2="180" className={currentStepData.highlight.includes('user-input') || currentStepData.highlight.includes('chatbot-response') ? 'svg-line-animated' : 'svg-line'} markerEnd="url(#arrowhead)" />
-              <line x1="320" y1="100" x2="460" y2="100" className={currentStep >= 2 ? 'svg-line-animated' : 'svg-line'} markerEnd="url(#arrowhead)" />
-              <line x1="480" y1="100" x2="480" y2="200" className={currentStep >= 2 ? 'svg-line-animated' : 'svg-line'} markerEnd="url(#arrowhead)" />
+              {/* Enhanced flow arrows with smooth curves and animations */}
+              <path 
+                d="M 170 150 Q 170 165 170 180" 
+                fill="none"
+                stroke="rgb(59 130 246)"
+                strokeWidth="4"
+                className={currentStepData.highlight.includes('user-input') || currentStepData.highlight.includes('chatbot-response') ? 'svg-line-animated' : 'svg-line'} 
+                markerEnd={currentStepData.highlight.includes('user-input') || currentStepData.highlight.includes('chatbot-response') ? 'url(#arrowhead-animated)' : 'url(#arrowhead)'}
+                style={{ strokeLinecap: 'round', strokeLinejoin: 'round', filter: 'drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3))' }}
+              />
+              
+              <path 
+                d="M 320 100 Q 390 100 460 100" 
+                fill="none"
+                stroke="rgb(59 130 246)"
+                strokeWidth="4"
+                className={currentStep >= 2 ? 'svg-line-animated' : 'svg-line'} 
+                markerEnd={currentStep >= 2 ? 'url(#arrowhead-animated)' : 'url(#arrowhead)'}
+                style={{ strokeLinecap: 'round', strokeLinejoin: 'round', filter: 'drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3))' }}
+              >
+                {currentStep >= 2 && (
+                  <animate attributeName="stroke-width" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+                )}
+              </path>
+              
+              <path 
+                d="M 480 100 Q 480 150 480 200" 
+                fill="none"
+                stroke="rgb(59 130 246)"
+                strokeWidth="4"
+                className={currentStep >= 2 ? 'svg-line-animated' : 'svg-line'} 
+                markerEnd={currentStep >= 2 ? 'url(#arrowhead-animated)' : 'url(#arrowhead)'}
+                style={{ strokeLinecap: 'round', strokeLinejoin: 'round', filter: 'drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3))' }}
+              >
+                {currentStep >= 2 && (
+                  <animate attributeName="stroke-width" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+                )}
+              </path>
+
+              {/* Flowing data particles along the main paths */}
+              {(currentStepData.highlight.includes('user-input') || currentStepData.highlight.includes('chatbot-response')) && (
+                <circle r="3" fill="rgb(34 197 94)" opacity="0.8">
+                  <animateMotion dur="1.5s" repeatCount="indefinite">
+                    <path d="M 170 150 Q 170 165 170 180"/>
+                  </animateMotion>
+                  <animate attributeName="r" values="3;5;3" dur="1s" repeatCount="indefinite"/>
+                </circle>
+              )}
+              
+              {currentStep >= 2 && (
+                <>
+                  <circle r="3" fill="rgb(34 197 94)" opacity="0.8">
+                    <animateMotion dur="2s" repeatCount="indefinite">
+                      <path d="M 320 100 Q 390 100 460 100"/>
+                    </animateMotion>
+                    <animate attributeName="r" values="3;5;3" dur="1s" repeatCount="indefinite"/>
+                  </circle>
+                  
+                  <circle r="3" fill="rgb(34 197 94)" opacity="0.8">
+                    <animateMotion dur="2s" repeatCount="indefinite" begin="0.5s">
+                      <path d="M 480 100 Q 480 150 480 200"/>
+                    </animateMotion>
+                    <animate attributeName="r" values="3;5;3" dur="1s" repeatCount="indefinite"/>
+                  </circle>
+                </>
+              )}
 
             </svg>
           </div>
