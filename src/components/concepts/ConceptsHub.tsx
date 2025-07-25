@@ -21,6 +21,7 @@ import AgentLearningConcept from "./AgentLearningConcept"
 import AgentIntegrationConcept from "./AgentIntegrationConcept"
 import AgentEvaluationConcept from "./AgentEvaluationConcept"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
+import AzureAISafetyAndGovernance from "./AzureAISafetyAndGovernance"
 
 interface ConceptInfo {
   id: string
@@ -111,6 +112,17 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '20-30 min',
     prerequisites: [],
     component: AIAgentsConcept
+  },
+  {
+    id: 'ai-safety-governance',
+    title: 'AI Safety and Governance',
+    description: 'Responsible AI pillars, safety, risk monitoring, guardrails, tracing, and governance with Azure Foundry',
+    level: 'fundamentals',
+    icon: <Shield className="w-6 h-6" />,
+    color: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/20 dark:text-cyan-400',
+    estimatedTime: '40-60 min',
+    prerequisites: [],
+    component: AzureAISafetyAndGovernance
   },
   // Tier 2: Architecture Concepts
   {
@@ -355,6 +367,9 @@ export default function ConceptsHub({ onSelectConcept }: ConceptsHubProps) {
                 )}
                 {selectedConcept === "agent-integration" && (
                   <p>Agent Integration Patterns provide strategies for incorporating AI agents into existing systems, ensuring seamless operation and compatibility.</p>
+                )}
+                {selectedConcept === "ai-safety-governance" && (
+                  <p>AI Safety & Governance covers the responsible AI pillars, safety, risk monitoring, guardrails, tracing, and governance using Azure Foundry.</p>
                 )}
               </div>
             </TabsContent>

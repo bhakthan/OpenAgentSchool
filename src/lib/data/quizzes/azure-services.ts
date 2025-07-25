@@ -121,7 +121,7 @@ export const azureServicesQuestions: QuizQuestion[] = [
     relatedConcepts: ['token-optimization', 'model-selection', 'caching', 'cost-monitoring'],
     persona: ['ai-engineer', 'agent-architect', 'ai-ops-engineer'],
     timeEstimate: 60
-  },,
+  },
   {
     id: 'azure-openai-i2',
     question: 'What are the key considerations for scaling Azure OpenAI in production agent systems?',
@@ -240,5 +240,85 @@ export const azureServicesQuestions: QuizQuestion[] = [
     relatedConcepts: ['azure-key-vault', 'managed-identities', 'private-endpoints', 'azure-monitor'],
     persona: ['agent-architect', 'ai-engineer', 'ai-ops-engineer'],
     timeEstimate: 60
+  },
+  {
+    id: 'azure-governance-b1',
+    text: 'What is the purpose of Microsoft Purview in Azure AI governance?',
+    question: 'What is the purpose of Microsoft Purview in Azure AI governance?',
+    options: [
+      'To provide storage solutions',
+      'To ensure unified data governance, compliance, and access control',
+      'To monitor application performance',
+      'To deploy AI models'
+    ],
+    correctAnswer: 1,
+    explanation: 'Microsoft Purview ensures unified data governance, compliance, and access control for AI resources.',
+    difficulty: 'beginner',
+    category: 'azure-services',
+    subCategory: 'azure-governance',
+    relatedTopics: ['data-governance', 'compliance', 'access-control'],
+    relatedConcepts: ['data-governance', 'compliance', 'access-control'],
+    persona: ['data-governance-officer', 'compliance-manager'],
+    timeEstimate: 30
+  },
+  {
+    id: 'azure-monitoring-b1',
+    text: 'What is the role of Azure Application Insights in monitoring AI systems?',
+    question: 'What is the role of Azure Application Insights in monitoring AI systems?',
+    options: [
+      'To provide governance policies',
+      'To monitor resource usage, performance, and detect anomalies',
+      'To manage user access',
+      'To deploy AI models'
+    ],
+    correctAnswer: 1,
+    explanation: 'Azure Application Insights monitors resource usage, performance, and detects anomalies in AI systems.',
+    difficulty: 'beginner',
+    category: 'azure-services',
+    subCategory: 'azure-monitoring',
+    relatedTopics: ['resource-monitoring', 'performance', 'anomaly-detection'],
+    relatedConcepts: ['resource-monitoring', 'performance', 'anomaly-detection'],
+    persona: ['ai-operations-manager', 'system-analyst'],
+    timeEstimate: 30
+  },
+  {
+    id: 'azure-tracing-i1',
+    text: 'How does distributed tracing help in debugging AI systems?',
+    question: 'How does distributed tracing help in debugging AI systems?',
+    options: [
+      'By providing storage solutions',
+      'By tracking requests, dependencies, and performance across services',
+      'By managing user access',
+      'By deploying AI models'
+    ],
+    correctAnswer: 1,
+    explanation: 'Distributed tracing tracks requests, dependencies, and performance across services, aiding in debugging and optimization.',
+    difficulty: 'intermediate',
+    category: 'azure-services',
+    subCategory: 'azure-tracing',
+    relatedTopics: ['distributed-tracing', 'debugging', 'performance-optimization'],
+    relatedConcepts: ['distributed-tracing', 'debugging', 'performance-optimization'],
+    persona: ['ai-operations-manager', 'system-analyst'],
+    timeEstimate: 45
+  },
+  {
+    id: 'responsible-ai-pillars-b1',
+    text: 'Which of the following is NOT one of Microsoft Responsible AI pillars?',
+    question: 'Which of the following is NOT one of Microsoft Responsible AI pillars?',
+    options: [
+      'Fairness',
+      'Reliability & Safety',
+      'Cost Optimization',
+      'Transparency'
+    ],
+    correctAnswer: 2,
+    explanation: 'Cost Optimization is not one of the six Responsible AI pillars. The pillars include Fairness, Reliability & Safety, Privacy & Security, Inclusiveness, Transparency, and Accountability.',
+    difficulty: 'beginner',
+    category: 'responsible-ai',
+    subCategory: 'responsible-ai-pillars',
+    relatedTopics: ['responsible-ai', 'ai-ethics'],
+    relatedConcepts: ['responsible-ai', 'ai-ethics'],
+    persona: ['ai-ethics-researcher', 'policy-maker'],
+    timeEstimate: 30
   }
 ];
