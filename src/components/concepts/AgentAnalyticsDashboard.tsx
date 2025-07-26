@@ -4,10 +4,7 @@ import { ChartContainer } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { TrendUp } from "@phosphor-icons/react/dist/ssr/TrendUp";
-import { Activity as ActivityIcon } from "@phosphor-icons/react/dist/ssr/Activity";
-import { Users as UsersIcon } from "@phosphor-icons/react/dist/ssr/Users";
-import { TrendDown } from "@phosphor-icons/react/dist/ssr/TrendDown";
+import { TrendUp, Clock, Users, TrendDown, ChartBar } from "@phosphor-icons/react";
 
 
 // Sample data for different chart types
@@ -110,7 +107,7 @@ export default function AgentAnalyticsDashboard() {
                 <p className="text-sm text-muted-foreground">Avg Response Time</p>
                 <p className="text-2xl font-bold">156ms</p>
               </div>
-              <Activity className="h-8 w-8 text-green-500" />
+              <Clock className="h-8 w-8 text-green-500" />
             </div>
             <div className="flex items-center mt-2">
               <TrendDown className="h-4 w-4 text-green-500 mr-1" />
@@ -142,7 +139,7 @@ export default function AgentAnalyticsDashboard() {
                 <p className="text-sm text-muted-foreground">Total Requests</p>
                 <p className="text-2xl font-bold">1,247</p>
               </div>
-              <Activity className="h-8 w-8 text-blue-500" />
+              <ChartBar className="h-8 w-8 text-blue-500" />
             </div>
             <div className="flex items-center mt-2">
               <TrendUp className="h-4 w-4 text-green-500 mr-1" />
