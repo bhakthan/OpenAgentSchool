@@ -1,13 +1,15 @@
 import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import A2ACommunicationPatterns from "./A2ACommunicationPatterns"
 import A2AMultiAgentSystem from "./A2AMultiAgentSystem"
 import Agent2AgentProtocolExplainer from "./Agent2AgentProtocolExplainer"
-import { ArrowsHorizontal, Network, GitBranch, Sparkle, CloudArrowUp } from "@phosphor-icons/react"
+import { ArrowsHorizontal, Network, GitBranch, Sparkle, CloudArrowUp, MagnifyingGlassPlus, MagnifyingGlassMinus, ArrowSquareOut } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/ui/enlightenMeButton";
 import CodeBlock from "@/components/ui/CodeBlock";
+import { useState } from "react";
 
 interface A2ACommunicationConceptProps {
   onMarkComplete?: () => void
@@ -15,10 +17,17 @@ interface A2ACommunicationConceptProps {
 }
 
 export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNext }: A2ACommunicationConceptProps) {
+  const [imageZoom, setImageZoom] = useState(1);
+  const [showFullImage, setShowFullImage] = useState(false);
+
   const handleMarkComplete = () => {
     markNodeComplete('a2a-communication');
     if (onMarkComplete) onMarkComplete();
   };
+
+  const handleZoomIn = () => setImageZoom(prev => Math.min(prev + 0.25, 3));
+  const handleZoomOut = () => setImageZoom(prev => Math.max(prev - 0.25, 0.5));
+  const resetZoom = () => setImageZoom(1);
 
   const tabs = [
     {
@@ -67,6 +76,109 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
               </div>
             </CardContent>
           </Card>
+
+          {/* A2A Protocol Mindmap */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Network className="w-5 h-5" />
+                Agent2Agent Protocol Mindmap
+              </CardTitle>
+              <CardDescription>
+                Comprehensive visual overview of the A2A communication protocol and its components
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="relative border border-border rounded-lg overflow-hidden bg-muted/20">
+                <div className="absolute top-2 right-2 z-10 flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleZoomOut}
+                    disabled={imageZoom <= 0.5}
+                    className="bg-background/80 backdrop-blur-sm"
+                  >
+                    <MagnifyingGlassMinus className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={resetZoom}
+                    className="bg-background/80 backdrop-blur-sm"
+                  >
+                    Reset
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleZoomIn}
+                    disabled={imageZoom >= 3}
+                    className="bg-background/80 backdrop-blur-sm"
+                  >
+                    <MagnifyingGlassPlus className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowFullImage(true)}
+                    className="bg-background/80 backdrop-blur-sm"
+                  >
+                    <ArrowSquareOut className="w-4 h-4" />
+                  </Button>
+                </div>
+                
+                <div className="overflow-auto max-h-96 p-4">
+                  <img
+                    src="/images/screenshots/Agent2Agent_mindmap.jpg"
+                    alt="Agent2Agent Protocol Mindmap - Comprehensive overview of A2A communication architecture, protocols, and patterns"
+                    className="w-full transition-transform duration-300 cursor-zoom-in"
+                    style={{ transform: `scale(${imageZoom})`, transformOrigin: 'top left' }}
+                    onClick={() => setShowFullImage(true)}
+                  />
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-muted-foreground">
+                  Click and drag to pan • Use zoom controls for detail view • Click expand for full size
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open('https://bhakthan.substack.com/p/agent2agent-protocol-a2a', '_blank')}
+                  className="flex items-center gap-2"
+                >
+                  <ArrowSquareOut className="w-4 h-4" />
+                  Read Full Article
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Full Image Modal */}
+          {showFullImage && (
+            <div 
+              className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+              onClick={() => setShowFullImage(false)}
+            >
+              <div className="relative max-w-7xl max-h-full">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowFullImage(false)}
+                  className="absolute top-4 right-4 z-10 bg-background/90 backdrop-blur-sm"
+                >
+                  ✕ Close
+                </Button>
+                <img
+                  src="/images/screenshots/Agent2Agent_mindmap.jpg"
+                  alt="Agent2Agent Protocol Mindmap - Full Size View"
+                  className="max-w-full max-h-full object-contain rounded-lg"
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Communication Patterns */}
           <Card>
