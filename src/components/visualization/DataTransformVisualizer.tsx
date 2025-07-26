@@ -393,6 +393,7 @@ const DataTransformVisualizer = React.memo(({
               style={{ 
                 textShadow: isDarkMode ? '0 1px 2px rgba(0, 0, 0, 0.8)' : 'none',
               }}
+              initial={{ opacity: 1 }}
               animate={{ 
                 opacity: flow.transformStage === 'processing' ? [0.5, 0.9, 0.5] : 1,
                 scale: flow.transformStage === 'transformed' ? [1, 1.1, 1] : 1,

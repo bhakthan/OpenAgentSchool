@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import ReactFlow, {
   ReactFlowProvider,
   Controls,
@@ -36,7 +36,7 @@ import { DataFlowType } from '@/lib/utils/dataFlowUtils';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/components/theme/ThemeProvider';
 
-// Custom node types for the flow
+// Custom node types for the flow - defined outside component to prevent recreation
 const nodeTypes = {
   agent: AgentNode,
 };
@@ -631,7 +631,7 @@ const FlowWithDataTransform = ({ scenario }: { scenario: DemoScenario }) => {
   const [showTransformations, setShowTransformations] = useState(true);
   
   // References for animation control
-  const timeoutsRef = useRef<number[]>([]);
+  const timeoutsRef = useRef<(NodeJS.Timeout | number)[]>([]);
   const isInitializedRef = useRef(false);
 
   // Get edge points for data flow visualization
