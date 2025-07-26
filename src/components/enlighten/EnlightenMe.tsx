@@ -43,7 +43,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [llmProvider, setLlmProvider] = useState<LlmProvider>('azure');
+  const [llmProvider, setLlmProvider] = useState<LlmProvider>('openrouter');
   
   // State for tracking copied code blocks
   const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({});

@@ -1,12 +1,21 @@
 import { Separator } from "@/components/ui/separator"
-import ConceptsHub from "./ConceptsHub"
-import ReferenceSection from "../references/ReferenceSection"
 import { SmartPageAnalytics } from "../tutorial/SmartPageAnalytics"
 import { FloatingContextualHelp, useFloatingContextualHelp } from "../tutorial/FloatingContextualHelp"
 import { PageSynopsis } from "../tutorial/EnhancedTutorialButton"
 import { Brain, ArrowsHorizontal, Shield, Stack } from "@phosphor-icons/react"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
-import { useState } from "react"
+import { useState, Suspense, lazy } from "react"
+
+// Lazy load heavy components
+const ConceptsHub = lazy(() => import("./ConceptsHub"))
+const ReferenceSection = lazy(() => import("../references/ReferenceSection"))
+
+// Loading component
+const ConceptsLoader = () => (
+  <div className="flex items-center justify-center h-64">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+  </div>
+);
 
 // Define the page synopsis for Core Concepts
 const coreConceptsSynopsis: PageSynopsis = {
@@ -87,11 +96,15 @@ export default function ConceptsExplorer() {
       <Separator />
 
       {/* Main Content */}
-      <ConceptsHub onSelectConcept={setSelectedConcept} />
+      <Suspense fallback={<ConceptsLoader />}>
+        <ConceptsHub onSelectConcept={setSelectedConcept} />
+      </Suspense>
 
       {/* References */}
       <div className="mt-12">
-        <ReferenceSection type="concept" itemId="core-concepts" />
+        <Suspense fallback={<ConceptsLoader />}>
+          <ReferenceSection type="concept" itemId="core-concepts" />
+        </Suspense>
       </div>
 
       {/* SmartPageAnalytics - Bottom Left */}

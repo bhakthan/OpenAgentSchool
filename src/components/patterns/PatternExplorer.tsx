@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense, lazy } from 'react'
 import { agentPatterns } from '@/lib/data/patterns/index'
-import SimplePatternVisualizer from '@/components/visualization/SimplePatternVisualizer'
-import CodePlaybook from '@/components/code-playbook/CodePlaybook'
 import PatternDetails from './PatternDetails'
-import SimpleMultiPatternVisualizer from './SimpleMultiPatternVisualizer'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -15,6 +12,18 @@ import { useTutorialContext } from '../tutorial/TutorialProvider'
 import { agentPatternsTutorial } from '@/lib/tutorial'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { CriticalThinkingModal } from '@/components/common/CriticalThinkingModal';
+
+// Lazy load heavy visualization components
+const SimplePatternVisualizer = lazy(() => import('@/components/visualization/SimplePatternVisualizer'))
+const CodePlaybook = lazy(() => import('@/components/code-playbook/CodePlaybook'))
+const SimpleMultiPatternVisualizer = lazy(() => import('./SimpleMultiPatternVisualizer'))
+
+// Loading component for lazy-loaded visualizations
+const VisualizationLoader = () => (
+  <div className="flex items-center justify-center h-64">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+  </div>
+);
 
 const PatternExplorer = () => {
   const [selectedPattern, setSelectedPattern] = useState(agentPatterns[0] || null);
@@ -159,7 +168,9 @@ const PatternExplorer = () => {
                   <TabsContent value="visualization">
                     <div className="flow-container" data-flow>
                       <ErrorBoundary>
-                        <SimplePatternVisualizer patternData={selectedPattern} />
+                        <Suspense fallback={<VisualizationLoader />}>
+                          <SimplePatternVisualizer patternData={selectedPattern} />
+                        </Suspense>
                       </ErrorBoundary>
                     </div>
                   </TabsContent>
@@ -171,7 +182,9 @@ const PatternExplorer = () => {
                   </TabsContent>
                   
                   <TabsContent value="implementation">
-                    <CodePlaybook patternData={selectedPattern} />
+                    <Suspense fallback={<VisualizationLoader />}>
+                      <CodePlaybook patternData={selectedPattern} />
+                    </Suspense>
                   </TabsContent>
                 </Tabs>
               </div>
@@ -186,7 +199,9 @@ const PatternExplorer = () => {
         <Tabs defaultValue="comparison">
           <TabsContent value="comparison">
             {selectedPattern ? (
-              <SimpleMultiPatternVisualizer initialPatterns={[selectedPattern.id]} />
+              <Suspense fallback={<VisualizationLoader />}>
+                <SimpleMultiPatternVisualizer initialPatterns={[selectedPattern.id]} />
+              </Suspense>
             ) : (
               <div className="w-full p-8 text-center border border-dashed rounded-lg">
                 <p className="text-muted-foreground">No patterns available to compare</p>

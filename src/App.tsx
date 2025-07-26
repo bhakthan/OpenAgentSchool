@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense, lazy } from 'react'
 import { Outlet, Route, Routes, Link, useLocation, Navigate } from 'react-router-dom'
 import { ThemeProvider } from './components/theme/ThemeProvider'
 import { ThemeToggle } from './components/theme/ThemeToggle'
@@ -17,17 +17,26 @@ import { Users } from '@phosphor-icons/react/dist/ssr/Users';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
 import { Path } from '@phosphor-icons/react/dist/ssr/Path';
 import { GraduationCap } from '@phosphor-icons/react/dist/ssr/GraduationCap';
-import PatternExplorer from './components/patterns/PatternExplorer'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import ConceptsExplorer from './components/concepts/ConceptsExplorer'
-import AzureServicesOverview from './components/azure-services/AzureServicesOverview'
-import CommunitySharing from './components/community/CommunitySharing'
-import ReferenceSection from './components/references/ReferenceSection'
-import QuizSection from './components/quiz/QuizSection'
 import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtils';
 import { setupReactFlowErrorHandling } from './lib/utils/reactFlowUtils';
 import { disableResizeObserverIfProblematic } from './lib/utils/resizeObserverUtils';
 import { setupGlobalFlowHandlers } from './lib/utils/flows/globalFlowHandlers';
+
+// Lazy load major components for better code splitting
+const PatternExplorer = lazy(() => import('./components/patterns/PatternExplorer'))
+const ConceptsExplorer = lazy(() => import('./components/concepts/ConceptsExplorer'))
+const AzureServicesOverview = lazy(() => import('./components/azure-services/AzureServicesOverview'))
+const CommunitySharing = lazy(() => import('./components/community/CommunitySharing'))
+const ReferenceSection = lazy(() => import('./components/references/ReferenceSection'))
+const QuizSection = lazy(() => import('./components/quiz/QuizSection'))
+
+// Loading component for lazy-loaded routes
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center min-h-[400px]">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+  </div>
+);
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -277,16 +286,18 @@ function App() {
           </header>
           
           <main className="flex-1 container mx-auto px-4 py-6">
-            <Routes>
-              <Route path="/" element={<ConceptsExplorer />} />
-              <Route path="/patterns" element={<PatternExplorer />} />
-              <Route path="/azure-services" element={<AzureServicesOverview />} />
-              <Route path="/quiz" element={<QuizSection />} />
-              <Route path="/references" element={<ReferenceSection type="concept" itemId="agents" />} />
-              <Route path="/community" element={<CommunitySharing />} />
-              {/* Fallback route to redirect to home page */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Routes>
+                <Route path="/" element={<ConceptsExplorer />} />
+                <Route path="/patterns" element={<PatternExplorer />} />
+                <Route path="/azure-services" element={<AzureServicesOverview />} />
+                <Route path="/quiz" element={<QuizSection />} />
+                <Route path="/references" element={<ReferenceSection type="concept" itemId="agents" />} />
+                <Route path="/community" element={<CommunitySharing />} />
+                {/* Fallback route to redirect to home page */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </Suspense>
             <Outlet />
           </main>
           
@@ -320,7 +331,7 @@ const TabLink = React.memo(function TabLink({ to, icon, label }: { to: string, i
     <Button
       asChild
       variant={isActive ? "default" : "ghost"}
-      size="md"
+      size="default"
       className="h-10 px-4"
     >
       <Link to={to} className="flex items-center gap-1">
