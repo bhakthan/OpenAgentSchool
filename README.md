@@ -748,3 +748,26 @@ Start with the Agent Lifecycle Visual, test your knowledge with our comprehensiv
 🎯 **New to AI Agents?** Take our beginner quiz to identify your starting point!  
 💻 **Experienced Developer?** Challenge yourself with our advanced assessments!  
 🏢 **Business Leader?** Explore role-specific quizzes tailored to your needs!
+
+---
+
+## 🌐 Azure Static Web Apps Deployment
+
+This application is fully configured for deployment to Azure Static Web Apps with seamless environment variable management.
+
+### 📋 Quick Setup
+
+1. **Local Development**: Copy `.env.example` to `.env` and configure your API keys
+2. **Azure Deployment**: Configure app settings in your Azure Static Web Apps instance
+3. **Automatic Detection**: The app automatically uses the correct configuration source
+
+### 🔧 Environment Configuration
+
+The application supports multiple environment sources:
+- **Local**: `.env` files (Vite import.meta.env)
+- **Azure Static Web Apps**: App settings (process.env)
+- **Runtime**: Dynamic configuration injection
+
+See `docs/AZURE_DEPLOYMENT.md` for detailed deployment instructions.
+
+---

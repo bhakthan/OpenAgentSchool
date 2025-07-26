@@ -1,0 +1,21 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "VITE_OPENAI_API_KEY": "sk-your-openai-api-key-here",
+    "VITE_AZURE_OPENAI_API_KEY": "your-azure-openai-api-key-here",
+    "VITE_AZURE_OPENAI_API_URL": "https://your-resource.openai.azure.com/openai/deployments/your-deployment/chat/completions",
+    "VITE_AZURE_OPENAI_MODEL": "gpt-3.5-turbo",
+    "VITE_GEMINI_API_KEY": "your-gemini-api-key-here",
+    "VITE_GEMINI_API_URL": "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
+    "VITE_GEMINI_MODEL": "gemini-pro",
+    "VITE_HUGGINGFACE_API_KEY": "your-huggingface-api-key-here",
+    "VITE_HUGGINGFACE_API_URL": "https://api-inference.huggingface.co/models/your-model",
+    "VITE_HUGGINGFACE_MODEL": "microsoft/DialoGPT-medium",
+    "VITE_OPENROUTER_API_KEY": "your-openrouter-api-key-here",
+    "VITE_OPENROUTER_API_URL": "https://openrouter.ai/api/v1/chat/completions",
+    "VITE_OPENROUTER_MODEL": "openai/gpt-3.5-turbo",
+    "VITE_ANTHROPIC_API_KEY": "your-anthropic-api-key-here",
+    "VITE_ANTHROPIC_API_URL": "https://api.anthropic.com/v1/messages",
+    "VITE_ANTHROPIC_MODEL": "claude-3-sonnet-20240229"
+  }
+}

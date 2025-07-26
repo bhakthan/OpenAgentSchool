@@ -1,14 +1,16 @@
 // src/lib/llm.ts
+import { getEnvVar } from './config';
+
 export type LlmProvider = 'openai' | 'azure' | 'gemini' | 'huggingface' | 'openrouter' | 'claude';
 
 interface LlmResponse {
     content: string;
 }
 
-export async function callLlm(prompt: string, provider: LlmProvider): Promise<LlmResponse> {
+export async function callLlm(prompt: string, provider: LlmProvider = 'openai'): Promise<LlmResponse> {
     switch (provider) {
         case 'openai':
-            return callOpenAI(prompt);
+            return callOpenAIDirectly(prompt);
         case 'azure':
             return callAzureOpenAI(prompt);
         case 'gemini':
@@ -24,42 +26,53 @@ export async function callLlm(prompt: string, provider: LlmProvider): Promise<Ll
     }
 }
 
-async function callOpenAI(prompt: string): Promise<LlmResponse> {
-    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-    const apiUrl = import.meta.env.VITE_OPENAI_API_URL;
-    const model = import.meta.env.VITE_OPENAI_MODEL;
-    if (!apiKey || !apiUrl || !model) {
-        throw new Error("VITE_OPENAI_API_KEY, VITE_OPENAI_API_URL, and VITE_OPENAI_MODEL must be set in your .env file.");
-    }
-    const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-            model,
-            messages: [{ role: "user", content: prompt }],
-            temperature: 0.7
-        })
-    });
+// Helper function to format messages for OpenAI API
+async function callOpenAIDirectly(prompt: string): Promise<LlmResponse> {
+    const response = await callOpenAI([{ role: 'user', content: prompt }]);
+    return { content: response };
+}
 
-    if (!response.ok) {
-        const errorData = await response.json();
-        console.error('OpenAI API Error:', errorData);
-        throw new Error(errorData.error.message);
-    }
 
-    const data = await response.json();
-    return { content: data.choices[0].message.content };
+
+export async function callOpenAI(
+  messages: { role: string; content: string }[],
+  model: string = 'gpt-3.5-turbo'
+): Promise<string> {
+  const apiKey = getEnvVar('VITE_OPENAI_API_KEY');
+  
+  if (!apiKey) {
+    throw new Error('OpenAI API key not found. Please set VITE_OPENAI_API_KEY in your environment variables.');
+  }
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model,
+      messages,
+      max_tokens: 1000,
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`OpenAI API error: ${response.status} - ${errorText}`);
+  }
+
+  const data = await response.json();
+  return data.choices[0]?.message?.content || 'No response generated';
 }
 
 async function callAzureOpenAI(prompt: string): Promise<LlmResponse> {
-    const apiKey = import.meta.env.VITE_AZURE_OPENAI_API_KEY;
-    const apiUrl = import.meta.env.VITE_AZURE_OPENAI_API_URL;
-    const model = import.meta.env.VITE_AZURE_OPENAI_MODEL;
+    const apiKey = getEnvVar('VITE_AZURE_OPENAI_API_KEY');
+    const apiUrl = getEnvVar('VITE_AZURE_OPENAI_API_URL');
+    const model = getEnvVar('VITE_AZURE_OPENAI_MODEL');
     if (!apiKey || !apiUrl || !model) {
-        throw new Error("VITE_AZURE_OPENAI_API_KEY, VITE_AZURE_OPENAI_API_URL, and VITE_AZURE_OPENAI_MODEL must be set in your .env file.");
+        throw new Error("VITE_AZURE_OPENAI_API_KEY, VITE_AZURE_OPENAI_API_URL, and VITE_AZURE_OPENAI_MODEL must be set in your environment variables.");
     }
     const response = await fetch(apiUrl, {
         method: 'POST',
@@ -83,11 +96,11 @@ async function callAzureOpenAI(prompt: string): Promise<LlmResponse> {
 }
 
 async function callGemini(prompt: string): Promise<LlmResponse> {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    let apiUrl = import.meta.env.VITE_GEMINI_API_URL;
-    const model = import.meta.env.VITE_GEMINI_MODEL;
+    const apiKey = getEnvVar('VITE_GEMINI_API_KEY');
+    let apiUrl = getEnvVar('VITE_GEMINI_API_URL');
+    const model = getEnvVar('VITE_GEMINI_MODEL');
     if (!apiKey || !apiUrl || !model) {
-        throw new Error("VITE_GEMINI_API_KEY, VITE_GEMINI_API_URL, and VITE_GEMINI_MODEL must be set in your .env file.");
+        throw new Error("VITE_GEMINI_API_KEY, VITE_GEMINI_API_URL, and VITE_GEMINI_MODEL must be set in your environment variables.");
     }
     apiUrl = `${apiUrl}?key=${apiKey}`;
     const response = await fetch(apiUrl, {
@@ -113,11 +126,11 @@ async function callGemini(prompt: string): Promise<LlmResponse> {
 
 // HuggingFace Inference API
 async function callHuggingFace(prompt: string): Promise<LlmResponse> {
-    const apiKey = import.meta.env.VITE_HUGGINGFACE_API_KEY;
-    const apiUrl = import.meta.env.VITE_HUGGINGFACE_API_URL;
-    const model = import.meta.env.VITE_HUGGINGFACE_MODEL;
+    const apiKey = getEnvVar('VITE_HUGGINGFACE_API_KEY');
+    const apiUrl = getEnvVar('VITE_HUGGINGFACE_API_URL');
+    const model = getEnvVar('VITE_HUGGINGFACE_MODEL');
     if (!apiKey || !apiUrl || !model) {
-        throw new Error("VITE_HUGGINGFACE_API_KEY, VITE_HUGGINGFACE_API_URL, and VITE_HUGGINGFACE_MODEL must be set in your .env file.");
+        throw new Error("VITE_HUGGINGFACE_API_KEY, VITE_HUGGINGFACE_API_URL, and VITE_HUGGINGFACE_MODEL must be set in your environment variables.");
     }
     const response = await fetch(apiUrl, {
         method: 'POST',
@@ -141,11 +154,11 @@ async function callHuggingFace(prompt: string): Promise<LlmResponse> {
 
 // OpenRouter API
 async function callOpenRouter(prompt: string): Promise<LlmResponse> {
-    const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
-    const apiUrl = import.meta.env.VITE_OPENROUTER_API_URL;
-    const model = import.meta.env.VITE_OPENROUTER_MODEL;
+    const apiKey = getEnvVar('VITE_OPENROUTER_API_KEY');
+    const apiUrl = getEnvVar('VITE_OPENROUTER_API_URL');
+    const model = getEnvVar('VITE_OPENROUTER_MODEL');
     if (!apiKey || !apiUrl || !model) {
-        throw new Error("VITE_OPENROUTER_API_KEY, VITE_OPENROUTER_API_URL, and VITE_OPENROUTER_MODEL must be set in your .env file.");
+        throw new Error("VITE_OPENROUTER_API_KEY, VITE_OPENROUTER_API_URL, and VITE_OPENROUTER_MODEL must be set in your environment variables.");
     }
     const response = await fetch(apiUrl, {
         method: 'POST',
@@ -169,11 +182,11 @@ async function callOpenRouter(prompt: string): Promise<LlmResponse> {
 
 // Anthropic Claude API
 async function callClaude(prompt: string): Promise<LlmResponse> {
-    const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
-    const apiUrl = import.meta.env.VITE_ANTHROPIC_API_URL;
-    const model = import.meta.env.VITE_ANTHROPIC_MODEL;
+    const apiKey = getEnvVar('VITE_ANTHROPIC_API_KEY');
+    const apiUrl = getEnvVar('VITE_ANTHROPIC_API_URL');
+    const model = getEnvVar('VITE_ANTHROPIC_MODEL');
     if (!apiKey || !apiUrl || !model) {
-        throw new Error("VITE_ANTHROPIC_API_KEY, VITE_ANTHROPIC_API_URL, and VITE_ANTHROPIC_MODEL must be set in your .env file.");
+        throw new Error("VITE_ANTHROPIC_API_KEY, VITE_ANTHROPIC_API_URL, and VITE_ANTHROPIC_MODEL must be set in your environment variables.");
     }
     const response = await fetch(apiUrl, {
         method: 'POST',

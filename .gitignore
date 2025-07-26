@@ -38,6 +38,7 @@ gemini.md
 BRANDING.md
 llmasjudge.md
 **/prd.md\"criticalthinking.md\"
+docs/AZURE_DEPLOYMENT.md
 
 # Ignore backend implementation documentation
 backend/implementation.md
