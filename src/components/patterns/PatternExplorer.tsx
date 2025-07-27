@@ -11,7 +11,9 @@ import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutor
 import { useTutorialContext } from '../tutorial/TutorialProvider'
 import { agentPatternsTutorial } from '@/lib/tutorial'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
-import { CriticalThinkingModal } from '@/components/common/CriticalThinkingModal';
+import { CriticalThinkingModal } from '@/components/common/CriticalThinkingModal'
+import { useSidebarCollapse } from '@/hooks/use-sidebar-collapse'
+import { cn } from '@/lib/utils'
 
 // Lazy load heavy visualization components
 const SimplePatternVisualizer = lazy(() => import('@/components/visualization/SimplePatternVisualizer'))
@@ -30,6 +32,7 @@ const PatternExplorer = () => {
   const [viewMode, setViewMode] = useState<'single' | 'compare'>('single');
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('visualization'); // Track the active tab
+  const { isCollapsed } = useSidebarCollapse(); // Get sidebar collapse state
 
   const { startTutorial, registerTutorial, hasCompletedTutorial } = useTutorialContext();
   
@@ -151,7 +154,13 @@ const PatternExplorer = () => {
               </Card>
               
               {/* Main Content Area */}
-              <div className="flex-1 md:pl-[260px]">
+              <div className={cn(
+                "flex-1 transition-all duration-300 ease-in-out",
+                // Responsive padding based on sidebar state
+                isCollapsed 
+                  ? "md:pl-[70px]" // Collapsed sidebar width + some padding
+                  : "md:pl-[260px]" // Full sidebar width + padding
+              )}>
                 <Tabs defaultValue="visualization" className="w-full" onValueChange={setActiveTab}>
                   <TabsList className="grid w-full grid-cols-3" data-tab-list>
                     <TabsTrigger value="visualization" className="flex items-center gap-2" data-tab="visualization">

@@ -88,11 +88,6 @@ export const codeActPattern: PatternData = {
       - Explain how a developer could provide feedback (e.g., "This test is incorrect") to help fine-tune the agent's test generation prompts over time.
     `,
   },
-  evaluation: `Evaluating a CodeAct agent requires a focus on the functional correctness and quality of the code it produces.
-- **Execution Success Rate:** What percentage of the time does the generated code run without errors?
-- **Task Completion:** Does the executed code actually solve the user's task? This can be verified by running assertions against the output. For example, if the task was "sort this list," the evaluation would assert that the final list is sorted.
-- **Code Quality:** Use static analysis tools (linters, complexity checkers) to score the quality of the generated code. Is it efficient? Is it readable?
-- **Test Coverage:** For tasks involving code generation, a CodeAct agent can also be prompted to generate its own unit tests. The coverage of these tests becomes a key evaluation metric, as seen in benchmarks like SWE-bench.`,
   nodes: [
     {
       id: 'user',
@@ -132,13 +127,469 @@ export const codeActPattern: PatternData = {
     { id: 'e3-5', source: 'think', target: 'output' },
     { id: 'e4-5', source: 'act', target: 'output' }
   ],
-  codeExample: `import { SandboxedCodeExecutor } from './sandboxedExecutor';
-// ...existing code...
-`,
-  pythonCodeExample: `import subprocess
+  codeExample: `# CodeAct Agent Implementation - Complete TypeScript/JavaScript Version
+import { SandboxedCodeExecutor } from './sandboxedExecutor';
+import { OpenAI } from 'openai';
+
+interface CodeActRequest {
+  task: string;
+  context?: string;
+  maxIterations?: number;
+}
+
+interface ExecutionResult {
+  success: boolean;
+  output: string;
+  error?: string;
+  code: string;
+}
+
+class CodeActAgent {
+  private client: OpenAI;
+  private executor: SandboxedCodeExecutor;
+  private maxIterations: number;
+
+  constructor(apiKey: string, maxIterations = 5) {
+    this.client = new OpenAI({ apiKey });
+    this.executor = new SandboxedCodeExecutor({
+      timeout: 30000,
+      memoryLimit: '512MB',
+      networkAccess: false
+    });
+    this.maxIterations = maxIterations;
+  }
+
+  async solve(request: CodeActRequest): Promise<ExecutionResult> {
+    const { task, context = '', maxIterations = this.maxIterations } = request;
+    
+    let currentContext = context;
+    let lastOutput = '';
+    let iteration = 0;
+
+    while (iteration < maxIterations) {
+      try {
+        // Generate code based on task and current context
+        const codePrompt = this.buildCodePrompt(task, currentContext, lastOutput);
+        const response = await this.client.chat.completions.create({
+          model: 'gpt-4',
+          messages: [
+            {
+              role: 'system',
+              content: \`You are a CodeAct agent. Your job is to solve tasks by writing and executing Python code.
+              
+              Rules:
+              1. Always write complete, executable Python code
+              2. Include error handling and validation
+              3. Provide clear comments explaining your approach
+              4. If previous attempts failed, analyze the error and adjust
+              5. Use only standard libraries unless specified otherwise
+              6. Return ONLY the Python code, no explanations outside comments\`
+            },
+            {
+              role: 'user',
+              content: codePrompt
+            }
+          ],
+          temperature: 0.1
+        });
+
+        const generatedCode = response.choices[0]?.message?.content?.trim() || '';
+        
+        if (!generatedCode) {
+          throw new Error('No code generated');
+        }
+
+        // Execute the generated code
+        const result = await this.executor.execute(generatedCode);
+        
+        if (result.success) {
+          return {
+            success: true,
+            output: result.output,
+            code: generatedCode
+          };
+        } else {
+          // If execution failed, add error context for next iteration
+          lastOutput = result.error || 'Unknown execution error';
+          currentContext += \`\\n\\nPrevious attempt failed with error: \${lastOutput}\`;
+          iteration++;
+        }
+      } catch (error) {
+        lastOutput = error instanceof Error ? error.message : 'Unknown error';
+        currentContext += \`\\n\\nPrevious attempt failed with error: \${lastOutput}\`;
+        iteration++;
+      }
+    }
+
+    return {
+      success: false,
+      output: '',
+      error: \`Failed to solve task after \${maxIterations} iterations. Last error: \${lastOutput}\`,
+      code: ''
+    };
+  }
+
+  private buildCodePrompt(task: string, context: string, lastOutput: string): string {
+    let prompt = \`Task: \${task}\`;
+    
+    if (context) {
+      prompt += \`\\n\\nContext: \${context}\`;
+    }
+    
+    if (lastOutput) {
+      prompt += \`\\n\\nPrevious execution failed with error: \${lastOutput}\`;
+      prompt += \`\\nPlease analyze the error and write corrected code.\`;
+    }
+    
+    prompt += \`\\n\\nWrite Python code to solve this task. The code should be complete and executable.\`;
+    
+    return prompt;
+  }
+}
+
+// Example usage
+async function example() {
+  const agent = new CodeActAgent(process.env.OPENAI_API_KEY!);
+  
+  const result = await agent.solve({
+    task: "Create a function that finds all prime numbers up to n using the Sieve of Eratosthenes algorithm. Then use it to find all primes up to 100 and calculate their sum.",
+    maxIterations: 3
+  });
+  
+  if (result.success) {
+    console.log('Task completed successfully!');
+    console.log('Generated Code:', result.code);
+    console.log('Output:', result.output);
+  } else {
+    console.error('Task failed:', result.error);
+  }
+}
+
+// Sandboxed executor implementation
+class SandboxedCodeExecutor {
+  private config: {
+    timeout: number;
+    memoryLimit: string;
+    networkAccess: boolean;
+  };
+
+  constructor(config: any) {
+    this.config = config;
+  }
+
+  async execute(code: string): Promise<{ success: boolean; output: string; error?: string }> {
+    try {
+      // In production, this would use Docker or similar sandboxing
+      // For demo purposes, we'll simulate execution
+      console.log('Executing code in sandbox:', code);
+      
+      // Simulate successful execution
+      return {
+        success: true,
+        output: 'Code executed successfully with expected results'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+}`,
+  pythonCodeExample: `# CodeAct Agent Implementation - Complete Python Version
+import subprocess
 import os
-# ...existing code...
-`,
+import tempfile
+import json
+import time
+from typing import Dict, List, Optional, Tuple
+from dataclasses import dataclass
+import openai
+from openai import OpenAI
+
+@dataclass
+class ExecutionResult:
+    success: bool
+    output: str
+    error: Optional[str] = None
+    execution_time: float = 0.0
+    code: str = ""
+
+class SecureCodeExecutor:
+    """Secure sandboxed code execution environment."""
+    
+    def __init__(self, timeout: int = 30, memory_limit: str = "512M"):
+        self.timeout = timeout
+        self.memory_limit = memory_limit
+        self.allowed_imports = {
+            'math', 'random', 'datetime', 'json', 'collections', 
+            'itertools', 'functools', 'operator', 're', 'string',
+            'numpy', 'pandas', 'matplotlib', 'seaborn', 'scipy'
+        }
+    
+    def execute(self, code: str) -> ExecutionResult:
+        """Execute Python code in a secure sandbox."""
+        start_time = time.time()
+        
+        try:
+            # Validate code safety
+            if not self._is_code_safe(code):
+                return ExecutionResult(
+                    success=False,
+                    output="",
+                    error="Code contains potentially unsafe operations",
+                    execution_time=0.0,
+                    code=code
+                )
+            
+            # Create temporary file for code execution
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+                f.write(code)
+                temp_file = f.name
+            
+            try:
+                # Execute code with resource limits
+                result = subprocess.run(
+                    ['python', temp_file],
+                    capture_output=True,
+                    text=True,
+                    timeout=self.timeout,
+                    cwd=tempfile.gettempdir()
+                )
+                
+                execution_time = time.time() - start_time
+                
+                if result.returncode == 0:
+                    return ExecutionResult(
+                        success=True,
+                        output=result.stdout,
+                        execution_time=execution_time,
+                        code=code
+                    )
+                else:
+                    return ExecutionResult(
+                        success=False,
+                        output=result.stdout,
+                        error=result.stderr,
+                        execution_time=execution_time,
+                        code=code
+                    )
+                    
+            finally:
+                # Clean up temporary file
+                os.unlink(temp_file)
+                
+        except subprocess.TimeoutExpired:
+            return ExecutionResult(
+                success=False,
+                output="",
+                error=f"Code execution timed out after {self.timeout} seconds",
+                execution_time=self.timeout,
+                code=code
+            )
+        except Exception as e:
+            return ExecutionResult(
+                success=False,
+                output="",
+                error=f"Execution error: {str(e)}",
+                execution_time=time.time() - start_time,
+                code=code
+            )
+    
+    def _is_code_safe(self, code: str) -> bool:
+        """Basic safety checks for code execution."""
+        dangerous_patterns = [
+            'import os', 'import sys', 'import subprocess', 'import socket',
+            'open(', 'file(', 'eval(', 'exec(', '__import__',
+            'globals()', 'locals()', 'vars()', 'dir()',
+            'getattr', 'setattr', 'delattr', 'hasattr'
+        ]
+        
+        code_lower = code.lower()
+        return not any(pattern in code_lower for pattern in dangerous_patterns)
+
+class CodeActAgent:
+    """
+    CodeAct Agent: An AI agent that solves problems by iteratively 
+    generating and executing code.
+    """
+    
+    def __init__(self, api_key: str, model: str = "gpt-4", max_iterations: int = 5):
+        self.client = OpenAI(api_key=api_key)
+        self.model = model
+        self.max_iterations = max_iterations
+        self.executor = SecureCodeExecutor()
+        self.conversation_history = []
+    
+    def solve(self, task: str, context: str = "") -> ExecutionResult:
+        """
+        Solve a task using the CodeAct pattern: think, generate code, execute, repeat.
+        """
+        print(f"🎯 Task: {task}")
+        print("=" * 60)
+        
+        current_context = context
+        last_error = ""
+        iteration = 0
+        
+        while iteration < self.max_iterations:
+            iteration += 1
+            print(f"\\n🔄 Iteration {iteration}/{self.max_iterations}")
+            
+            try:
+                # Generate code using the LLM
+                generated_code = self._generate_code(task, current_context, last_error)
+                print(f"\\n📝 Generated Code:\\n{generated_code}")
+                
+                # Execute the generated code
+                result = self.executor.execute(generated_code)
+                
+                if result.success:
+                    print(f"\\n✅ Success! Output:\\n{result.output}")
+                    return result
+                else:
+                    print(f"\\n❌ Execution failed: {result.error}")
+                    last_error = result.error or "Unknown error"
+                    current_context += f"\\n\\nAttempt {iteration} failed with error: {last_error}"
+                    
+            except Exception as e:
+                error_msg = str(e)
+                print(f"\\n💥 Exception in iteration {iteration}: {error_msg}")
+                last_error = error_msg
+                current_context += f"\\n\\nAttempt {iteration} failed with exception: {error_msg}"
+        
+        # If we reach here, all iterations failed
+        return ExecutionResult(
+            success=False,
+            output="",
+            error=f"Failed to solve task after {self.max_iterations} iterations. Last error: {last_error}",
+            code=""
+        )
+    
+    def _generate_code(self, task: str, context: str, last_error: str) -> str:
+        """Generate Python code to solve the given task."""
+        
+        system_prompt = '''You are a CodeAct agent - an AI that solves problems by writing and executing Python code.
+
+Your capabilities:
+- Write complete, executable Python code
+- Handle errors and iterate on solutions  
+- Use standard libraries (math, random, datetime, json, collections, itertools, etc.)
+- Create visualizations with matplotlib/seaborn
+- Process data with pandas/numpy
+
+Security constraints:
+- No file system access (no open(), file operations)
+- No network operations (no requests, urllib)
+- No system operations (no os, sys, subprocess)
+- No dynamic code execution (no eval, exec)
+
+Response format:
+- Return ONLY executable Python code
+- Include clear comments explaining your approach
+- Handle edge cases and add error checking
+- Print results clearly for verification'''
+
+        user_prompt = f"Task: {task}"
+        
+        if context:
+            user_prompt += f"\\n\\nContext: {context}"
+            
+        if last_error:
+            user_prompt += f"\\n\\nPrevious attempt failed with error: {last_error}"
+            user_prompt += "\\nAnalyze the error and write corrected code."
+            
+        user_prompt += "\\n\\nWrite Python code to solve this task:"
+        
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ],
+                temperature=0.1,
+                max_tokens=1500
+            )
+            
+            generated_code = response.choices[0].message.content.strip()
+            
+            # Clean up the code (remove markdown formatting if present)
+            if generated_code.startswith('\\u0060\\u0060\\u0060python'):
+                generated_code = generated_code[9:]
+            if generated_code.startswith('\\u0060\\u0060\\u0060'):
+                generated_code = generated_code[3:]
+            if generated_code.endswith('\\u0060\\u0060\\u0060'):
+                generated_code = generated_code[:-3]
+                
+            return generated_code.strip()
+            
+        except Exception as e:
+            raise Exception(f"Failed to generate code: {str(e)}")
+
+# Example working implementation
+def sieve_of_eratosthenes(n):
+    """Find all prime numbers up to n using Sieve of Eratosthenes."""
+    if n < 2:
+        return []
+    
+    # Initialize boolean array
+    is_prime = [True] * (n + 1)
+    is_prime[0] = is_prime[1] = False
+    
+    # Sieve algorithm
+    for i in range(2, int(n**0.5) + 1):
+        if is_prime[i]:
+            for j in range(i*i, n + 1, i):
+                is_prime[j] = False
+    
+    # Collect primes
+    primes = [i for i in range(2, n + 1) if is_prime[i]]
+    return primes
+
+# Find primes up to 100
+primes = sieve_of_eratosthenes(100)
+prime_sum = sum(primes)
+
+print(f"Prime numbers up to 100: {primes}")
+print(f"Count of primes: {len(primes)}")
+print(f"Sum of primes: {prime_sum}")
+print(f"Largest prime: {max(primes)}")
+
+# Sample Transcript Output:
+# 🎯 Task: Create a function to calculate compound interest and show growth over 10 years
+# 
+# 🔄 Iteration 1/3
+# 
+# 📝 Generated Code:
+# def compound_interest(principal, rate, time, compound_frequency=1):
+#     amount = principal * (1 + rate/compound_frequency)**(compound_frequency * time)
+#     return amount
+# 
+# principal = 1000
+# rate = 0.05
+# time = 10
+# 
+# for year in range(1, time + 1):
+#     amount = compound_interest(principal, rate, year)
+#     growth = amount - principal
+#     print(f"Year {year}: $\{amount:.2f\} (Growth: $\{growth:.2f\})")
+# 
+# ✅ Success! Output:
+# Year 1: $1050.00 (Growth: $50.00)
+# Year 2: $1102.50 (Growth: $102.50)
+# ...
+# Year 10: $1628.89 (Growth: $628.89)
+
+if __name__ == "__main__":
+    print("🚀 CodeAct Agent Demo")
+    print("=" * 50)
+    
+    # Demonstrate prime calculation
+    print("Prime numbers up to 100:")
+    result = sieve_of_eratosthenes(100)
+    print(f"Found {len(result)} primes, sum = {sum(result)}")`,
   implementation: [
     'Set up code execution environment with safety constraints',
     'Create think-act cycle for iterative problem solving',

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Check, Code, Play, ListChecks, FileCode, FlowArrow, Graph, Bug, ShieldCheck } from "@phosphor-icons/react"
+import { Check, Code, Play, ListChecks, FileCode, FlowArrow, Graph, Bug, ShieldCheck, Stack } from "@phosphor-icons/react"
 import { Steps } from './Steps'
 import { PatternData } from '@/lib/data/patterns/index'
 import SimplePatternFlow from '../interactive-demos/SimplePatternFlow'
@@ -14,18 +14,17 @@ import { pythonPatterns } from '@/lib/pythonPatterns'
 import CodeStepVisualizer from './CodeStepVisualizer'
 import EnhancedCodeVisualizer from './EnhancedCodeVisualizer'
 import AlgorithmVisualizer from './AlgorithmVisualizer'
-import CodeDebugger from './CodeDebugger'
+import SystemDesignVisualizer from './SystemDesignVisualizer'
 import { getCodeExecutionSteps } from '@/lib/utils/codeExecutionSteps'
 import InteractiveCodeExecution from './InteractiveCodeExecution'
 import { getCodeExecutionExample } from '@/lib/data/codeExamples'
 import { getAlgorithmVisualization, AlgorithmVisualizationData } from '@/lib/utils/algorithmVisualization'
-import { getDebugExample } from '@/lib/utils/codeDebugExamples'
+import { getSystemDesignPattern } from '@/lib/data/systemDesign'
 import { useSidebarCollapse } from '@/hooks/use-sidebar-collapse'
 import { cn } from '@/lib/utils'
 import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutorialButton'
 import { useTutorialContext } from '../tutorial/TutorialProvider'
 import { codePlaybookTutorial } from '@/lib/tutorial'
-import type { NodeJS } from 'node';
 
 interface CodePlaybookProps {
   patternData: PatternData
@@ -106,8 +105,11 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
   // Get algorithm visualization steps if available
   const algorithmVisData: AlgorithmVisualizationData | null = getAlgorithmVisualization(patternData.id, patternData.id)
   
+  // Get system design pattern if available
+  const systemDesignPattern = getSystemDesignPattern(patternData.id)
+  
   // Get debug example if available
-  const debugExample = getDebugExample(patternData.id, language)
+  const debugExample = null // Removed debug examples in favor of system design
   
   // Language selector component for reuse
   const LanguageSelector = () => (
@@ -147,7 +149,11 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
         />
       </div>
       
-      <Card className={cn("w-full transition-all duration-300", isCollapsed ? "ml-0 max-w-full" : "")}>
+      <Card className={cn(
+        "w-full transition-all duration-300 ease-in-out", 
+        // Ensure the card smoothly adapts to sidebar changes
+        isCollapsed ? "ml-0 max-w-full" : ""
+      )}>
         <CardHeader className="p-4 sm:p-6">
           <CardTitle>{patternData.name} Implementation</CardTitle>
           <CardDescription className="text-base">
@@ -157,9 +163,16 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
         <CardContent className="p-4 sm:p-6">
           <Tabs defaultValue="general" className="w-full" data-section="code-playbook">
             <div className="overflow-x-auto pb-2 w-full">
-              <TabsList className="flex w-full flex-nowrap gap-0.5" role="tablist">
+              <TabsList className={cn(
+                "flex w-full flex-nowrap gap-0.5 transition-all duration-300", 
+                // Provide more space when sidebar is collapsed
+                isCollapsed ? "min-w-0" : ""
+              )} role="tablist">
                 <TabsTrigger value="general" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <ListChecks size={14} /> <span className="hidden sm:inline">General Guide</span><span className="sm:hidden">Guide</span>
+                </TabsTrigger>
+                <TabsTrigger value="debugger" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
+                  <Stack size={14} /> <span className="hidden sm:inline">System Design</span><span className="sm:hidden">Design</span>
                 </TabsTrigger>
                 <TabsTrigger value="steps" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <ListChecks size={14} /> <span className="hidden sm:inline">Implementation Steps</span><span className="sm:hidden">Steps</span>
@@ -172,9 +185,6 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                 </TabsTrigger>
                 <TabsTrigger value="interactive" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <Play size={14} /> <span className="hidden sm:inline">Interactive Example</span><span className="sm:hidden">Example</span>
-                </TabsTrigger>
-                <TabsTrigger value="debugger" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
-                  <Bug size={14} /> <span className="hidden sm:inline">Debugger</span><span className="sm:hidden">Debug</span>
                 </TabsTrigger>
                 <TabsTrigger value="algorithm" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <Graph size={14} /> <span className="hidden sm:inline">Algorithm Steps</span><span className="sm:hidden">Algorithm</span>
@@ -381,47 +391,24 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
             </TabsContent>
             
             <TabsContent value="debugger" className="py-4">
-              <LanguageSelector />
-              
               {(() => {
-                const debugExample = getDebugExample(patternData.id, language);
-                return debugExample ? (
-                  <CodeDebugger
-                    code={debugExample.code}
-                    language={language}
-                    steps={debugExample.steps}
-                    title={`${patternData.name} Pattern Debug Mode`}
+                return systemDesignPattern ? (
+                  <SystemDesignVisualizer
+                    pattern={systemDesignPattern}
+                    title={`${patternData.name} System Design`}
                   />
                 ) : (
                   <div className="border rounded-md p-6 text-center text-muted-foreground">
-                    <Bug size={32} className="mx-auto mb-2" />
-                    <p>Interactive debugger not available for this pattern in {language}.</p>
-                    {language === 'python' ? (
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        onClick={() => setLanguage('typescript')}
-                        className="mt-2"
-                      >
-                        Try TypeScript Version
-                      </Button>
-                    ) : (
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        onClick={() => setLanguage('python')}
-                        className="mt-2"
-                      >
-                        Try Python Version
-                      </Button>
-                    )}
+                    <Stack size={32} className="mx-auto mb-2" />
+                    <p>System design pattern not available for this agent pattern.</p>
+                    <p className="text-sm mt-2">This feature focuses on system design thinking approaches for AI agents including prompt engineering, context management, knowledge retrieval, and evaluation frameworks.</p>
                   </div>
                 );
               })()}
               
               <Alert className="mt-6">
                 <AlertDescription>
-                  Step through code execution line-by-line to understand how the {patternData.name} pattern works, with variable state tracking and console output.
+                  Explore system design thinking approaches for building robust AI agent systems, including prompt engineering strategies, context management, knowledge retrieval, and evaluation frameworks.
                 </AlertDescription>
               </Alert>
             </TabsContent>

@@ -201,7 +201,16 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
                                     ? "bg-primary/10 text-primary border-l-2 border-primary" 
                                     : "hover:bg-muted"
                                 )}
-                                onClick={() => onPatternSelect(pattern.id)}
+                                onClick={() => {
+                                  onPatternSelect(pattern.id);
+                                  // Auto-collapse sidebar after pattern selection for better viewing experience
+                                  if (!isCollapsed) {
+                                    // Small delay to allow the pattern selection to register first
+                                    setTimeout(() => {
+                                      toggleSidebar();
+                                    }, 150);
+                                  }
+                                }}
                               >
                                 <span className="block truncate">{pattern.name}</span>
                                 {/* EnlightenMeButton with improved hover area and alignment */}
