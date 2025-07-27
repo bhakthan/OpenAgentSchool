@@ -8,7 +8,8 @@ import { Button } from '@/components/ui/button';
 import { 
   Cloud, Database, ShieldCheck, Lightning, Calculator, 
   Robot, Translate, MagnifyingGlass as Search, FileText, MagnifyingGlass,
-  BookmarkSimple
+  BookmarkSimple, Code, Package, Globe, GitBranch, Queue, Broadcast,
+  Lock, ChartBar, Archive, HardDrives, Monitor
 } from "@phosphor-icons/react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ReferenceLinks } from '../references/ReferenceLinks';
@@ -21,6 +22,42 @@ const AzureServicesOverview = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [filter, setFilter] = useState<string | null>(null);
   
+  // Helper function to get service category
+  const getServiceCategory = (serviceId: string): string => {
+    switch (serviceId) {
+      case 'azure-openai':
+      case 'azure-ai-search':
+      case 'azure-content-safety':
+      case 'azure-ai-content-safety':
+      case 'azure-ai-inference':
+      case 'azure-ai-evaluation':
+      case 'azure-ai-agent-service':
+      case 'azure-language-service':
+      case 'azure-document-intelligence':
+      case 'azure-ai-foundry':
+      case 'azure-ai-studio':
+        return 'ai';
+      case 'azure-functions':
+      case 'azure-kubernetes-service':
+      case 'azure-container-apps':
+      case 'azure-app-service':
+        return 'compute';
+      case 'azure-cosmos-db':
+      case 'azure-storage':
+        return 'storage';
+      case 'azure-logic-apps':
+      case 'azure-service-bus':
+      case 'azure-event-grid':
+        return 'integration';
+      case 'azure-key-vault':
+        return 'security';
+      case 'azure-monitor':
+        return 'monitoring';
+      default:
+        return 'ai';
+    }
+  };
+
   // Filter services based on search term
   const filteredServices = azureAIServices.filter(service => {
     const matchesSearch = searchTerm === '' || 
@@ -28,8 +65,7 @@ const AzureServicesOverview = () => {
       service.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       service.capabilities.some(cap => cap.toLowerCase().includes(searchTerm.toLowerCase()));
       
-    const matchesFilter = !filter || 
-      service.capabilities.some(cap => cap.toLowerCase().includes(filter.toLowerCase()));
+    const matchesFilter = !filter || getServiceCategory(service.id) === filter;
       
     return matchesSearch && matchesFilter;
   });
@@ -57,6 +93,28 @@ const AzureServicesOverview = () => {
       case 'azure-ai-foundry':
       case 'azure-ai-studio':
         return <Cloud size={24} />;
+      case 'azure-functions':
+        return <Code size={24} />;
+      case 'azure-kubernetes-service':
+        return <Package size={24} />;
+      case 'azure-container-apps':
+        return <Package size={24} />;
+      case 'azure-app-service':
+        return <Globe size={24} />;
+      case 'azure-logic-apps':
+        return <GitBranch size={24} />;
+      case 'azure-service-bus':
+        return <Queue size={24} />;
+      case 'azure-event-grid':
+        return <Broadcast size={24} />;
+      case 'azure-cosmos-db':
+        return <Database size={24} />;
+      case 'azure-storage':
+        return <Archive size={24} />;
+      case 'azure-key-vault':
+        return <Lock size={24} />;
+      case 'azure-monitor':
+        return <Monitor size={24} />;
       default:
         return <Cloud size={24} />;
     }
@@ -64,11 +122,12 @@ const AzureServicesOverview = () => {
   
   const filterOptions = [
     { label: 'All Services', value: null },
-    { label: 'NLP & Text', value: 'text' },
-    { label: 'Search & Retrieval', value: 'search' },
-    { label: 'Safety & Security', value: 'safety' },
-    { label: 'Evaluation', value: 'evaluation' },
-    { label: 'Document Processing', value: 'document' }
+    { label: 'AI & ML', value: 'ai' },
+    { label: 'Compute', value: 'compute' },
+    { label: 'Storage & Data', value: 'storage' },
+    { label: 'Integration', value: 'integration' },
+    { label: 'Security', value: 'security' },
+    { label: 'Monitoring', value: 'monitoring' }
   ];
 
   return (
@@ -135,9 +194,7 @@ const AzureServicesOverview = () => {
             <Card key={service.id} className="overflow-hidden h-full flex flex-col relative">
               <EnlightenMeButton 
                 title={service.name}
-                conceptId={`azure-service-${service.id}`}
-                description={service.description}
-                customPrompt={`Explain ${service.name} in comprehensive detail for AI agent development. Cover: 1) What ${service.name} is and its core capabilities within the Azure AI ecosystem, including how it integrates with other Azure AI services, 2) Specific use cases for AI agent development, with detailed examples of how agents can leverage this service's capabilities, 3) Implementation details including Azure SDKs, REST APIs, authentication methods (Azure Active Directory, managed identity), and best practices for secure deployment, 4) Integration patterns with Azure OpenAI Service, Azure AI Agent Service, and other Azure AI services to create comprehensive agent solutions, 5) Performance optimization, cost management, and scaling strategies specific to this service, 6) Real-world enterprise examples and case studies showing successful implementations, 7) Monitoring and observability using Azure Application Insights and Azure Monitor, including key metrics to track, 8) Security best practices including data encryption, network isolation, compliance considerations (GDPR, HIPAA, SOC), and Azure Policy integration, 9) Troubleshooting common issues, error handling patterns, and debugging techniques, 10) Comparison with alternative Azure services and guidance on when to choose this service for specific agent patterns and use cases.`}
+                contextDescription={service.description}
               />
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
@@ -206,9 +263,7 @@ const AzureServicesOverview = () => {
               <AccordionItem key={service.id} value={service.id} className="relative">
                 <EnlightenMeButton 
                   title={service.name}
-                  conceptId={`azure-service-${service.id}`}
-                  description={service.description}
-                  customPrompt={`Explain ${service.name} in comprehensive detail for AI agent development. Cover: 1) What ${service.name} is and its core capabilities within the Azure AI ecosystem, including how it integrates with other Azure AI services, 2) Specific use cases for AI agent development, with detailed examples of how agents can leverage this service's capabilities, 3) Implementation details including Azure SDKs, REST APIs, authentication methods (Azure Active Directory, managed identity), and best practices for secure deployment, 4) Integration patterns with Azure OpenAI Service, Azure AI Agent Service, and other Azure AI services to create comprehensive agent solutions, 5) Performance optimization, cost management, and scaling strategies specific to this service, 6) Real-world enterprise examples and case studies showing successful implementations, 7) Monitoring and observability using Azure Application Insights and Azure Monitor, including key metrics to track, 8) Security best practices including data encryption, network isolation, compliance considerations (GDPR, HIPAA, SOC), and Azure Policy integration, 9) Troubleshooting common issues, error handling patterns, and debugging techniques, 10) Comparison with alternative Azure services and guidance on when to choose this service for specific agent patterns and use cases.`}
+                  contextDescription={service.description}
                 />
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-center gap-3 text-left">

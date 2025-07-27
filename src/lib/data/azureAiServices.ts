@@ -296,6 +296,402 @@ export const azureAIServices: AzureAIService[] = [
       "Design fallback paths for when automated extraction fails"
     ],
     documentation: "https://learn.microsoft.com/azure/ai-services/document-intelligence/"
+  },
+  {
+    id: "azure-functions",
+    name: "Azure Functions",
+    description: "Serverless compute service for building and deploying event-driven applications that can host AI agent microservices and tools.",
+    capabilities: [
+      "Serverless execution environment",
+      "Event-driven triggers (HTTP, Timer, Queue, Event Grid)",
+      "Auto-scaling based on demand",
+      "Multiple language support (Python, JavaScript, C#, Java)",
+      "Integration with Azure AI services",
+      "Durable Functions for stateful workflows",
+      "Consumption and Premium hosting plans",
+      "Built-in authentication and authorization"
+    ],
+    useCases: [
+      "AI agent tool hosting and execution",
+      "Event-driven agent workflows",
+      "Microservices for agent capabilities",
+      "Real-time data processing for agents",
+      "Integration APIs for external systems",
+      "Scheduled agent tasks and maintenance",
+      "Webhook handlers for agent notifications",
+      "Model inference endpoints"
+    ],
+    bestPractices: [
+      "Design functions as stateless, single-purpose tools for agents",
+      "Implement proper error handling and retry logic",
+      "Use Durable Functions for complex agent workflows requiring state",
+      "Optimize cold start performance with warm-up strategies",
+      "Implement proper security with function-level authentication",
+      "Use Application Insights for monitoring and debugging",
+      "Design for idempotency to handle retries safely",
+      "Implement proper resource cleanup and connection pooling"
+    ],
+    documentation: "https://learn.microsoft.com/azure/azure-functions/"
+  },
+  {
+    id: "azure-kubernetes-service",
+    name: "Azure Kubernetes Service (AKS)",
+    description: "Managed Kubernetes service for deploying, managing, and scaling containerized AI agent applications with enterprise-grade security and monitoring.",
+    capabilities: [
+      "Managed Kubernetes control plane",
+      "Auto-scaling of nodes and pods",
+      "Built-in security and compliance features",
+      "Azure Active Directory integration",
+      "GPU node pools for AI workloads",
+      "Azure Monitor and Container Insights integration",
+      "Azure Policy and governance controls",
+      "Virtual node serverless scaling"
+    ],
+    useCases: [
+      "Large-scale multi-agent system deployments",
+      "Containerized AI agent microservices",
+      "GPU-accelerated model inference services",
+      "High-availability agent orchestration",
+      "Multi-tenant agent environments",
+      "DevOps pipelines for agent deployment",
+      "Edge computing for distributed agents",
+      "Hybrid and multi-cloud agent deployments"
+    ],
+    bestPractices: [
+      "Use namespaces to isolate different agent environments",
+      "Implement proper resource quotas and limits for agent pods",
+      "Use Azure Key Vault CSI driver for secure credential management",
+      "Configure horizontal pod autoscaling for agent workloads",
+      "Implement proper network policies for agent communication",
+      "Use Azure Monitor and Application Insights for observability",
+      "Design stateless agent services with external state storage",
+      "Implement proper health checks and readiness probes"
+    ],
+    documentation: "https://learn.microsoft.com/azure/aks/"
+  },
+  {
+    id: "azure-container-apps",
+    name: "Azure Container Apps",
+    description: "Fully managed serverless container service optimized for running microservices and containerized AI agents with built-in scaling and networking.",
+    capabilities: [
+      "Serverless container hosting",
+      "Built-in autoscaling (scale-to-zero)",
+      "Managed ingress and load balancing",
+      "Service discovery and communication",
+      "Integrated monitoring and logging",
+      "Blue-green and canary deployments",
+      "KEDA-based event-driven scaling",
+      "Dapr integration for microservices"
+    ],
+    useCases: [
+      "Serverless AI agent microservices",
+      "Event-driven agent processing",
+      "API endpoints for agent interactions",
+      "Background processing for agents",
+      "Multi-container agent applications",
+      "Microservices-based agent architectures",
+      "Cost-effective agent hosting",
+      "Development and testing environments"
+    ],
+    bestPractices: [
+      "Use scale rules based on agent workload patterns",
+      "Implement proper health checks for container reliability",
+      "Use managed identities for secure Azure service access",
+      "Configure ingress rules for secure agent communication",
+      "Use Dapr for service-to-service communication",
+      "Implement proper logging and monitoring strategies",
+      "Design containers for stateless operation",
+      "Use secrets management for sensitive configuration"
+    ],
+    documentation: "https://learn.microsoft.com/azure/container-apps/"
+  },
+  {
+    id: "azure-app-service",
+    name: "Azure App Service",
+    description: "Platform-as-a-Service (PaaS) for hosting web applications, REST APIs, and mobile backends that can serve as agent interfaces and management platforms.",
+    capabilities: [
+      "Support for multiple programming languages",
+      "Built-in CI/CD and deployment slots",
+      "Auto-scaling and load balancing",
+      "Custom domains and SSL certificates",
+      "Application monitoring and diagnostics",
+      "Authentication and authorization",
+      "Virtual network integration",
+      "Backup and disaster recovery"
+    ],
+    useCases: [
+      "Agent management dashboards and interfaces",
+      "REST APIs for agent communication",
+      "Web-based agent configuration tools",
+      "Agent monitoring and analytics platforms",
+      "User interfaces for agent interactions",
+      "Admin portals for agent management",
+      "Documentation and help systems",
+      "Integration endpoints for external systems"
+    ],
+    bestPractices: [
+      "Use deployment slots for safe agent system updates",
+      "Implement proper authentication for agent management",
+      "Use Application Insights for monitoring agent interactions",
+      "Configure auto-scaling based on agent usage patterns",
+      "Implement proper error handling and logging",
+      "Use managed identities for Azure service integration",
+      "Design APIs with proper versioning and documentation",
+      "Implement rate limiting and security controls"
+    ],
+    documentation: "https://learn.microsoft.com/azure/app-service/"
+  },
+  {
+    id: "azure-logic-apps",
+    name: "Azure Logic Apps",
+    description: "Cloud-based platform for creating and running automated workflows that integrate apps, data, systems, and services across enterprises and organizations.",
+    capabilities: [
+      "Visual workflow designer",
+      "200+ connectors for integration",
+      "Event-driven and scheduled triggers",
+      "Built-in error handling and retry logic",
+      "Monitoring and alerting",
+      "Stateful and stateless workflows",
+      "Enterprise integration patterns",
+      "B2B messaging and EDI support"
+    ],
+    useCases: [
+      "Agent workflow orchestration",
+      "Multi-system integration for agents",
+      "Event-driven agent triggering",
+      "Data transformation for agent inputs",
+      "Notification and alerting systems",
+      "Business process automation with agents",
+      "Legacy system integration",
+      "API composition and aggregation"
+    ],
+    bestPractices: [
+      "Design workflows for modularity and reusability",
+      "Implement proper error handling and compensation logic",
+      "Use managed identities for secure connections",
+      "Monitor workflow performance and costs",
+      "Implement proper retry and timeout policies",
+      "Use variables and expressions for dynamic behavior",
+      "Design for scalability and throttling",
+      "Document workflow logic and dependencies"
+    ],
+    documentation: "https://learn.microsoft.com/azure/logic-apps/"
+  },
+  {
+    id: "azure-service-bus",
+    name: "Azure Service Bus",
+    description: "Fully managed enterprise message broker with message queues and publish-subscribe topics for reliable communication between distributed applications and services.",
+    capabilities: [
+      "Message queues and topics",
+      "At-least-once and exactly-once delivery",
+      "Message sessions and correlation",
+      "Dead letter queues",
+      "Scheduled message delivery",
+      "Auto-forwarding and duplicate detection",
+      "Virtual network integration",
+      "Geo-disaster recovery"
+    ],
+    useCases: [
+      "Reliable messaging between agent components",
+      "Event-driven agent communication",
+      "Decoupling agent services",
+      "Message ordering and session management",
+      "Load leveling for agent workloads",
+      "Integration with external systems",
+      "Asynchronous processing patterns",
+      "Publish-subscribe for agent events"
+    ],
+    bestPractices: [
+      "Design message schemas for forward compatibility",
+      "Implement proper message handling and acknowledgment",
+      "Use sessions for ordered message processing",
+      "Configure appropriate message TTL and dead letter handling",
+      "Monitor queue depths and processing metrics",
+      "Implement idempotent message processing",
+      "Use managed identities for authentication",
+      "Design for high availability and disaster recovery"
+    ],
+    documentation: "https://learn.microsoft.com/azure/service-bus-messaging/"
+  },
+  {
+    id: "azure-event-grid",
+    name: "Azure Event Grid",
+    description: "Fully managed event routing service that enables event-driven programming using publish-subscribe semantics for building reactive applications.",
+    capabilities: [
+      "Event-driven architecture support",
+      "Built-in Azure service integration",
+      "Custom topics and event schemas",
+      "Event filtering and routing",
+      "Webhook and queue delivery",
+      "Dead letter and retry handling",
+      "Cloud Events schema support",
+      "High throughput and low latency"
+    ],
+    useCases: [
+      "Event-driven agent triggering",
+      "Real-time agent notifications",
+      "State change propagation",
+      "Integration event routing",
+      "Serverless event processing",
+      "IoT device event handling",
+      "Media processing workflows",
+      "Application lifecycle events"
+    ],
+    bestPractices: [
+      "Design event schemas for consistency and evolution",
+      "Implement proper event filtering to reduce noise",
+      "Use dead letter queues for failed event handling",
+      "Monitor event delivery and processing metrics",
+      "Implement idempotent event handlers",
+      "Use managed identities for secure event delivery",
+      "Design for event ordering and deduplication",
+      "Test event handling failure scenarios"
+    ],
+    documentation: "https://learn.microsoft.com/azure/event-grid/"
+  },
+  {
+    id: "azure-cosmos-db",
+    name: "Azure Cosmos DB",
+    description: "Globally distributed, multi-model database service designed for elastic scale, multi-region writes, and comprehensive SLAs for throughput, latency, availability, and consistency.",
+    capabilities: [
+      "Global distribution and multi-region writes",
+      "Multiple data models (SQL, MongoDB, Cassandra, Gremlin)",
+      "Elastic scale and automatic indexing",
+      "Multiple consistency levels",
+      "Built-in analytics and change feed",
+      "Serverless and provisioned throughput options",
+      "Enterprise security and compliance",
+      "Native vector search capabilities"
+    ],
+    useCases: [
+      "Agent state and memory storage",
+      "Conversation history management",
+      "Real-time agent analytics",
+      "Global agent deployments",
+      "Vector embeddings storage",
+      "Session and context management",
+      "Configuration and metadata storage",
+      "Audit logs and compliance data"
+    ],
+    bestPractices: [
+      "Design partition keys for even data distribution",
+      "Choose appropriate consistency levels for agent use cases",
+      "Use change feed for real-time data processing",
+      "Implement proper indexing strategies",
+      "Monitor request units and optimize costs",
+      "Use managed identities for secure access",
+      "Design for multi-region scenarios",
+      "Implement proper backup and disaster recovery"
+    ],
+    documentation: "https://learn.microsoft.com/azure/cosmos-db/"
+  },
+  {
+    id: "azure-storage",
+    name: "Azure Storage",
+    description: "Scalable cloud storage solution offering blob, file, queue, and table storage services with high availability, security, and performance.",
+    capabilities: [
+      "Blob storage for unstructured data",
+      "File shares and directory services",
+      "Message queues for asynchronous processing",
+      "Table storage for NoSQL data",
+      "Data Lake Storage for analytics",
+      "Hot, cool, and archive access tiers",
+      "Encryption and access control",
+      "Geo-redundancy and backup"
+    ],
+    useCases: [
+      "Agent file and document storage",
+      "Training data and model storage",
+      "Log files and audit trails",
+      "Static content and media files",
+      "Backup and archival storage",
+      "Data lake for agent analytics",
+      "Queue storage for agent messaging",
+      "Configuration and template storage"
+    ],
+    bestPractices: [
+      "Choose appropriate access tiers for cost optimization",
+      "Implement proper access controls and security",
+      "Use lifecycle management for automated archiving",
+      "Monitor storage metrics and costs",
+      "Implement data encryption for sensitive content",
+      "Use managed identities for secure access",
+      "Design for data redundancy and availability",
+      "Optimize blob naming and organization"
+    ],
+    documentation: "https://learn.microsoft.com/azure/storage/"
+  },
+  {
+    id: "azure-key-vault",
+    name: "Azure Key Vault",
+    description: "Cloud service for securely storing and accessing secrets, keys, and certificates used by cloud applications and services.",
+    capabilities: [
+      "Secrets management and encryption",
+      "Hardware security module (HSM) support",
+      "Certificate lifecycle management",
+      "Access policies and RBAC",
+      "Audit logging and monitoring",
+      "Integration with Azure services",
+      "Soft delete and purge protection",
+      "Network access controls"
+    ],
+    useCases: [
+      "Agent API keys and credentials storage",
+      "Database connection strings",
+      "Certificate management for HTTPS",
+      "Encryption keys for data protection",
+      "Integration secrets for external services",
+      "Configuration secrets management",
+      "Token and password storage",
+      "Compliance and audit requirements"
+    ],
+    bestPractices: [
+      "Use managed identities instead of storing credentials",
+      "Implement proper access policies and RBAC",
+      "Enable audit logging for compliance",
+      "Use separate Key Vaults for different environments",
+      "Implement secret rotation strategies",
+      "Monitor access patterns and anomalies",
+      "Use network access controls for security",
+      "Implement backup and recovery procedures"
+    ],
+    documentation: "https://learn.microsoft.com/azure/key-vault/"
+  },
+  {
+    id: "azure-monitor",
+    name: "Azure Monitor",
+    description: "Comprehensive monitoring solution for collecting, analyzing, and responding to telemetry from cloud and on-premises environments.",
+    capabilities: [
+      "Metrics and logs collection",
+      "Application performance monitoring",
+      "Infrastructure monitoring",
+      "Custom dashboards and workbooks",
+      "Alerting and notifications",
+      "Log queries with KQL",
+      "Integration with Azure services",
+      "Machine learning-based insights"
+    ],
+    useCases: [
+      "Agent performance monitoring",
+      "Error tracking and diagnostics",
+      "Usage analytics and insights",
+      "Resource utilization monitoring",
+      "Custom metrics and KPIs",
+      "Alerting on agent issues",
+      "Compliance and audit logging",
+      "Capacity planning and optimization"
+    ],
+    bestPractices: [
+      "Implement structured logging for better analysis",
+      "Use custom metrics for agent-specific KPIs",
+      "Set up proactive alerting for critical issues",
+      "Create dashboards for operational visibility",
+      "Use log queries for troubleshooting and analysis",
+      "Implement proper data retention policies",
+      "Monitor costs and optimize data collection",
+      "Integrate with incident management systems"
+    ],
+    documentation: "https://learn.microsoft.com/azure/azure-monitor/"
   }
 ];
 
@@ -714,6 +1110,144 @@ export const azureServicePatternMappings: AzureServicePatternMapping[] = [
       "Use version control for code examples and test cases",
       "Set up monitoring for code generation quality metrics",
       "Document code pattern libraries and implementation guidelines"
+    ]
+  },
+  // Azure Functions mappings
+  {
+    patternId: "react-agent",
+    serviceId: "azure-functions",
+    integration: "Host agent tools and microservices",
+    bestPractices: [
+      "Deploy individual agent tools as separate functions",
+      "Use durable functions for stateful agent workflows",
+      "Implement proper error handling and retry logic",
+      "Monitor function performance and costs"
+    ]
+  },
+  {
+    patternId: "codeact-agent",
+    serviceId: "azure-functions",
+    integration: "Execute generated code in secure sandboxes",
+    bestPractices: [
+      "Implement strict input validation for code execution",
+      "Use consumption plan for variable workloads",
+      "Set up appropriate timeout and memory limits",
+      "Monitor execution logs for security issues"
+    ]
+  },
+  // Azure Kubernetes Service mappings
+  {
+    patternId: "multiagent-orchestration",
+    serviceId: "azure-kubernetes-service",
+    integration: "Orchestrate large-scale multi-agent deployments",
+    bestPractices: [
+      "Use namespaces to isolate different agent teams",
+      "Implement proper resource quotas and limits",
+      "Use horizontal pod autoscaling for agent workloads",
+      "Monitor cluster health and agent performance"
+    ]
+  },
+  {
+    patternId: "react-agent",
+    serviceId: "azure-kubernetes-service",
+    integration: "Scale agent deployments for high availability",
+    bestPractices: [
+      "Deploy agents as stateless pods with external state storage",
+      "Use load balancers for distributing agent requests",
+      "Implement proper health checks and readiness probes",
+      "Monitor resource utilization and optimize costs"
+    ]
+  },
+  // Azure Container Apps mappings
+  {
+    patternId: "react-agent",
+    serviceId: "azure-container-apps",
+    integration: "Host lightweight agent microservices",
+    bestPractices: [
+      "Use scale-to-zero for cost optimization",
+      "Implement event-driven scaling rules",
+      "Use managed identities for secure Azure service access",
+      "Monitor container performance and scaling events"
+    ]
+  },
+  {
+    patternId: "codeact-agent",
+    serviceId: "azure-container-apps",
+    integration: "Deploy code execution environments",
+    bestPractices: [
+      "Configure appropriate resource limits for code execution",
+      "Use ingress controls for secure API access",
+      "Implement proper logging and monitoring",
+      "Design containers for stateless operation"
+    ]
+  },
+  // Azure Cosmos DB mappings
+  {
+    patternId: "react-agent",
+    serviceId: "azure-cosmos-db",
+    integration: "Store agent memory and conversation history",
+    bestPractices: [
+      "Design partition keys for efficient agent data access",
+      "Use change feed for real-time agent state updates",
+      "Implement proper indexing for agent queries",
+      "Monitor request units and optimize costs"
+    ]
+  },
+  {
+    patternId: "multiagent-orchestration",
+    serviceId: "azure-cosmos-db",
+    integration: "Manage shared state across multiple agents",
+    bestPractices: [
+      "Use multiple containers for different data types",
+      "Implement consistent read/write patterns",
+      "Use TTL for automatic cleanup of temporary data",
+      "Design for global distribution if needed"
+    ]
+  },
+  // Azure Service Bus mappings
+  {
+    patternId: "multiagent-orchestration",
+    serviceId: "azure-service-bus",
+    integration: "Enable reliable messaging between agents",
+    bestPractices: [
+      "Use topics for broadcast communication patterns",
+      "Implement message correlation for request-response",
+      "Configure dead letter queues for error handling",
+      "Monitor queue depths and processing metrics"
+    ]
+  },
+  {
+    patternId: "react-agent",
+    serviceId: "azure-service-bus",
+    integration: "Queue tool execution requests and responses",
+    bestPractices: [
+      "Use sessions for ordered message processing",
+      "Implement idempotent message processing",
+      "Configure appropriate message TTL",
+      "Use duplicate detection for reliability"
+    ]
+  },
+  // Azure Monitor mappings
+  {
+    patternId: "react-agent",
+    serviceId: "azure-monitor",
+    integration: "Monitor agent performance and behavior",
+    bestPractices: [
+      "Set up custom metrics for agent-specific KPIs",
+      "Implement structured logging for better analysis",
+      "Create dashboards for operational visibility",
+      "Set up proactive alerting for critical issues"
+    ]
+  },
+  {
+    patternId: "multiagent-orchestration",
+    serviceId: "azure-monitor",
+    integration: "Monitor multi-agent system health",
+    bestPractices: [
+      "Track inter-agent communication patterns",
+      "Monitor resource utilization across agents",
+      "Implement distributed tracing for complex workflows",
+      "Create composite dashboards for system overview"
     ]
   }
 ];
