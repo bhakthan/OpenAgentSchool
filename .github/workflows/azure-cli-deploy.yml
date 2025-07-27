@@ -1,0 +1,51 @@
+name: Azure CLI Deployment
+
+on:
+  workflow_dispatch: # Manual trigger for testing
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Azure CLI Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Static Web App via CLI
+        run: |
+          # First, try to get existing Static Web App info
+          echo "Checking for existing Static Web Apps..."
+          az staticwebapp list --query "[].{name:name, location:location, resourceGroup:resourceGroup}" -o table
+          
+          # Create or update Static Web App
+          az staticwebapp create \
+            --name openagentschool \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --source https://github.com/bhakthan/OpenAgentSchool \
+            --location "Central US" \
+            --branch main \
+            --app-location "/" \
+            --output-location "dist" \
+            --login-with-github \
+            || echo "Static Web App might already exist"
+          
+          # Get the deployment token for future use
+          echo "Getting deployment token..."
+          az staticwebapp secrets list --name openagentschool --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --query "properties.apiKey" -o tsv
