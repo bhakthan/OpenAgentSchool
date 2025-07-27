@@ -33,39 +33,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Application
-        run: npm run build
-        env:
-          NODE_ENV: production
-
-      - name: Debug - List dist directory
-        run: |
-          echo "Checking build output..."
-          ls -la dist/
-          echo "Checking dist size..."
-          du -sh dist/
-          echo "Checking if index.html exists..."
-          test -f dist/index.html && echo "✓ index.html exists" || echo "✗ index.html missing"
-          
-      - name: Debug - Check token format
-        run: |
-          echo "Token length: ${#AZURE_TOKEN}"
-          echo "Token starts with: ${AZURE_TOKEN:0:20}..."
-          echo "Token ends with: ...${AZURE_TOKEN: -10}"
-        env:
-          AZURE_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_BAY_0D687B710 }}
-
       - name: Build And Deploy
-        id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_BAY_0D687B710 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "dist" # Built app content directory - optional
-          skip_app_build: true # We already built the app
+          app_location: "/"
+          output_location: "dist"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
