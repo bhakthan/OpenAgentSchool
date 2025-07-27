@@ -292,21 +292,24 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 
 ### 🎯 Comprehensive Quiz System
 **Advanced Assessment & Learning Analytics** - A robust quiz system that adapts to your role and expertise:
+
 - **Multi-Level Assessment**: Beginner, Intermediate, and Advanced questions with progressive complexity
 - **Role-Based Adaptation**: Personalized quizzes for Business Leaders, Developers, AI Engineers, and more
 - **Comprehensive Scoring**: Accurate answer validation with detailed feedback and improvement suggestions
 - **Progress Tracking**: LocalStorage-based progress saving with performance analytics
 - **Print-Ready Results**: Complete quiz results with all questions, answers, and explanations for offline review
 - **Real-Time Feedback**: Instant scoring with explanations for both correct and incorrect answers
-- **Category-Specific Quizzes**: Focused assessments on Core Concepts, Agent Patterns, Azure Services, and more
+- **Category-Specific Quizzes**: Focused assessments on Core Concepts, Agent Patterns, Azure Services, System Design, and more
 
 **Quiz Features**:
-- **8 Professional Personas**: From No-Code Engineers to AI Architects with targeted content
-- **5 Major Categories**: Core Concepts, Agent Patterns, Azure Services, Communication Protocols, and Advanced Topics
-- **50+ Questions**: Comprehensive question bank with code examples and practical scenarios
+
+- **5 Professional Personas**: From Business Leaders to AI Engineers with targeted content
+- **15+ Major Categories**: Core Concepts, Agent Patterns, Azure Services, System Design, Multi-Agent Systems, Security, Ethics, and Advanced Topics
+- **100+ Questions**: Comprehensive question bank with code examples and practical scenarios
 - **Adaptive Timing**: Question-specific time limits with auto-progression
 - **Smart Feedback**: Personalized improvement suggestions based on answer patterns
 - **Export Functionality**: Save or print detailed quiz results with complete explanations
+- **🆕 System Design Quiz**: Comprehensive assessment of architectural patterns, prompt engineering, context management, and security design
 
 ## 🎨 Creative & Educational Innovations
 
@@ -462,9 +465,10 @@ src/
 ├── vite-end.d.ts            # Vite type definitions
 ├── components/              # All UI and visualization components
 │   ├── azure-services/      # Azure AI service cards and guides
-│   ├── code-playbook/       # Code playbook, debugging tools, and dynamic diagram generator
+│   ├── code-playbook/       # Code playbook, system design, and dynamic diagram generator
 │   │   ├── AutoGenPatternVisualizer.tsx   # Dynamic, user-driven agent network visualizer (react-force-graph-2d)
 │   │   ├── PatternDetails.tsx             # Hosts business use case tab, dynamic diagram, and critical thinking modal
+│   │   ├── SystemDesignVisualizer.tsx     # Interactive system design pattern visualizer with 7-step architecture flows
 │   │   ├── CriticalThinkingModal.tsx      # Critical thinking challenge modal (in common/)
 │   │   └── ...existing code...
 │   ├── community/           # Community sharing and pattern hub
@@ -472,7 +476,7 @@ src/
 │   ├── enlighten/           # EnlightenMe AI learning assistant
 │   ├── interactive-demos/   # Interactive protocol and pattern demos
 │   ├── patterns/            # Agent pattern examples and visualizations
-│   ├── quiz/                # Quiz system components
+│   ├── quiz/                # Comprehensive quiz system components with role-based assessments
 │   ├── references/          # Reference materials and docs
 │   ├── security/            # Security and compliance components
 │   ├── test/                # Test UI components
@@ -490,7 +494,40 @@ src/
 │   ├── use-sidebar-search.tsx   # Sidebar search logic
 │   └── useLocalStorage.ts      # LocalStorage utility hook
 ├── lib/                     # Core logic and utilities
-│   ├── data/                # Pattern and quiz data
+│   ├── data/                # Pattern, quiz, and system design data
+│   │   ├── systemDesign/    # 18 comprehensive system design patterns
+│   │   │   ├── agentEvaluation.ts      # Agent evaluation system design
+│   │   │   ├── autonomousWorkflow.ts   # Autonomous workflow patterns
+│   │   │   ├── computerUse.ts          # Computer use agent design
+│   │   │   ├── deepResearcher.ts       # Deep research agent patterns
+│   │   │   ├── evaluatorOptimizer.ts   # Evaluator-optimizer design
+│   │   │   ├── modernToolUse.ts        # Modern tool integration patterns
+│   │   │   ├── selfReflection.ts       # Self-reflection agent design
+│   │   │   ├── voiceAgent.ts           # Voice agent system design
+│   │   │   ├── agentToAgent.ts         # Agent-to-agent communication
+│   │   │   ├── autoGenMultiAgent.ts    # AutoGen multi-agent systems
+│   │   │   ├── orchestratorWorker.ts   # Orchestrator-worker patterns
+│   │   │   ├── routing.ts              # Agent routing and coordination
+│   │   │   ├── modelContextProtocol.ts # MCP system design
+│   │   │   ├── codeAct.ts              # CodeAct pattern design
+│   │   │   ├── agenticRAG.ts           # Agentic RAG system design
+│   │   │   ├── parallelization.ts      # Parallel processing patterns
+│   │   │   ├── promptChaining.ts       # Prompt chaining design
+│   │   │   ├── pythonReActAgent.ts     # Python ReAct agent patterns
+│   │   │   ├── index.ts                # System design pattern registry
+│   │   │   ├── types.ts                # System design type definitions
+│   │   │   └── README.md               # System design documentation
+│   │   ├── quizzes/         # Comprehensive quiz system with 15+ categories
+│   │   │   ├── system-design.ts        # System design knowledge quiz (NEW)
+│   │   │   ├── agent-patterns.ts       # Agent pattern assessments
+│   │   │   ├── multi-agent-systems.ts  # Multi-agent quiz questions
+│   │   │   ├── agent-security.ts       # Security-focused assessments
+│   │   │   ├── azure-services.ts       # Azure AI services quiz
+│   │   │   ├── core-concepts.ts        # Fundamental concept tests
+│   │   │   ├── personas.ts             # 5 role-based user personas
+│   │   │   ├── types.ts                # Quiz system type definitions
+│   │   │   └── index.ts                # Quiz category registry and utilities
+│   │   └── patterns/        # Agent pattern implementations
 │   ├── hooks/               # Shared hooks for lib
 │   ├── llm.ts               # LLM provider integration
 │   ├── pythonPatterns.ts    # Python pattern definitions
@@ -510,12 +547,19 @@ src/
 ```
 
 **Feature Highlights:**
+
+- **System Design Visualizer**: `src/components/code-playbook/SystemDesignVisualizer.tsx` (interactive 7-step system design pattern explorer with architectural flow visualization)
+- **Comprehensive System Design Library**: `src/lib/data/systemDesign/` (18 production-ready system design patterns covering evaluation, workflow, multi-agent coordination, and specialized patterns)
 - **Dynamic Diagram Generator**: `src/components/code-playbook/AutoGenPatternVisualizer.tsx` (visualizes user-defined agent networks; uses `react-force-graph-2d`)
 - **Business Use Case Tab & Integration**: `src/components/code-playbook/PatternDetails.tsx` (hosts the dynamic diagram and critical thinking modal)
 - **Critical Thinking Modal**: `src/components/common/CriticalThinkingModal.tsx` (modal for critical thinking challenges)
+- **Advanced Quiz System**: `src/lib/data/quizzes/` (15+ quiz categories with role-based assessments including new system design knowledge quiz)
 - **Type Declarations for Visualization**: `src/types/react-force-graph-2d.d.ts`
 
 **To extend or add new features:**
+
+- Add new system design patterns to `src/lib/data/systemDesign/` following the 7-step architecture pattern
+- Add new quiz categories to `src/lib/data/quizzes/` and register them in the index
 - Add new visualizations to `src/components/code-playbook/` or `src/components/visualization/`
 - Update or create new modals in `src/components/common/`
 - Add new pattern examples in `src/components/patterns/`

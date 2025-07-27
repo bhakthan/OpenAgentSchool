@@ -17,6 +17,7 @@ import { Users } from '@phosphor-icons/react/dist/ssr/Users';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
 import { Path } from '@phosphor-icons/react/dist/ssr/Path';
 import { GraduationCap } from '@phosphor-icons/react/dist/ssr/GraduationCap';
+import { Tree } from '@phosphor-icons/react/dist/ssr/Tree';
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtils';
 import { setupReactFlowErrorHandling } from './lib/utils/reactFlowUtils';
@@ -30,6 +31,7 @@ const AzureServicesOverview = lazy(() => import('./components/azure-services/Azu
 const CommunitySharing = lazy(() => import('./components/community/CommunitySharing'))
 const ReferenceSection = lazy(() => import('./components/references/ReferenceSection'))
 const QuizSection = lazy(() => import('./components/quiz/QuizSection'))
+const TreeVisualizationPage = lazy(() => import('./components/pages/TreeVisualizationPage'))
 
 // Loading component for lazy-loaded routes
 const LoadingSpinner = () => (
@@ -277,6 +279,7 @@ function App() {
                   <TabLink to="/" icon={<Brain size={16} weight="duotone" />} label="Core Concepts" />
                   <TabLink to="/patterns" icon={<PuzzlePiece size={16} weight="duotone" />} label="Agent Patterns" />
                   <TabLink to="/azure-services" icon={<StackSimple size={16} weight="duotone" />} label="Azure Services" />
+                  <TabLink to="/tree-view" icon={<Tree size={16} weight="duotone" />} label="Tree View" />
                   <TabLink to="/quiz" icon={<GraduationCap size={16} weight="duotone" />} label="Knowledge Quiz" />
                   <TabLink to="/references" icon={<Books size={16} weight="duotone" />} label="References" />
                   <TabLink to="/community" icon={<Users size={16} weight="duotone" />} label="Community" />
@@ -292,6 +295,7 @@ function App() {
                 <Route path="/patterns" element={<PatternExplorer />} />
                 <Route path="/azure-services" element={<AzureServicesOverview />} />
                 <Route path="/quiz" element={<QuizSection />} />
+                <Route path="/tree-view" element={<TreeVisualizationPage />} />
                 <Route path="/references" element={<ReferenceSection type="concept" itemId="agents" />} />
                 <Route path="/community" element={<CommunitySharing />} />
                 {/* Fallback route to redirect to home page */}
