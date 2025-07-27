@@ -14,6 +14,7 @@ import { agentIntegrationQuestions } from './agent-integration';
 import { advancedProtocolsQuestions } from './advanced-protocols';
 import { agentEvaluationQuestions } from './agent-evaluation';
 import { businessUseCasesQuestions } from './business-use-cases';
+import { systemDesignQuestions } from './system-design';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -33,7 +34,8 @@ const allQuestions = [
   ...agentIntegrationQuestions,
   ...advancedProtocolsQuestions,
   ...agentEvaluationQuestions,
-  ...businessUseCasesQuestions
+  ...businessUseCasesQuestions,
+  ...systemDesignQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -55,6 +57,7 @@ const agentIntegrationTime = calculateTotalTime(agentIntegrationQuestions);
 const advancedProtocolsTime = calculateTotalTime(advancedProtocolsQuestions);
 const agentEvaluationTime = calculateTotalTime(agentEvaluationQuestions);
 const businessUseCasesTime = calculateTotalTime(businessUseCasesQuestions);
+const systemDesignTime = calculateTotalTime(systemDesignQuestions);
 // ----------------------------------------------------------------
 
 // Quiz categories configuration
@@ -466,6 +469,93 @@ export const quizCategories: QuizCategory[] = [
         description: 'Examples of agents integrated with enterprise systems.',
         prerequisites: ['agent-integration'],
         questions: businessUseCasesQuestions.filter(q => q.subCategory === 'integration')
+      }
+    ]
+  },
+  {
+    id: 'system-design',
+    name: 'System Design',
+    description: 'Architectural patterns and design principles for agent systems.',
+    icon: 'Blueprint',
+    totalQuestions: systemDesignQuestions.length,
+    estimatedTime: systemDesignTime,
+    subCategories: [
+      {
+        id: 'prompt-engineering',
+        name: 'Prompt Engineering',
+        description: 'Designing effective prompts for agent systems.',
+        prerequisites: ['core-concepts'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'prompt-engineering')
+      },
+      {
+        id: 'context-management',
+        name: 'Context Management',
+        description: 'Managing memory and conversation state in agents.',
+        prerequisites: ['prompt-engineering'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'context-management')
+      },
+      {
+        id: 'architecture',
+        name: 'Architecture',
+        description: 'System architecture patterns for agent systems.',
+        prerequisites: ['context-management'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'architecture')
+      },
+      {
+        id: 'evaluation',
+        name: 'Evaluation',
+        description: 'Evaluation frameworks and metrics for agent systems.',
+        prerequisites: ['architecture'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'evaluation')
+      },
+      {
+        id: 'tools',
+        name: 'Tool Integration',
+        description: 'Integrating external tools with agent systems.',
+        prerequisites: ['architecture'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'tools')
+      },
+      {
+        id: 'security',
+        name: 'Security Design',
+        description: 'Security considerations in agent system design.',
+        prerequisites: ['tools'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'security')
+      },
+      {
+        id: 'business-alignment',
+        name: 'Business Alignment',
+        description: 'Aligning agent systems with business objectives.',
+        prerequisites: ['core-concepts'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'business-alignment')
+      },
+      {
+        id: 'user-experience',
+        name: 'User Experience',
+        description: 'Designing intuitive user experiences for agent systems.',
+        prerequisites: ['business-alignment'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'user-experience')
+      },
+      {
+        id: 'codeact-pattern',
+        name: 'CodeAct Pattern',
+        description: 'System design for code-generating agents.',
+        prerequisites: ['architecture'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'codeact-pattern')
+      },
+      {
+        id: 'multi-agent',
+        name: 'Multi-Agent Design',
+        description: 'System design for multi-agent coordination.',
+        prerequisites: ['architecture'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'multi-agent')
+      },
+      {
+        id: 'voice-agent',
+        name: 'Voice Agent Design',
+        description: 'System design for voice-enabled agents.',
+        prerequisites: ['architecture'],
+        questions: systemDesignQuestions.filter(q => q.subCategory === 'voice-agent')
       }
     ]
   }
