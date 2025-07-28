@@ -17,7 +17,7 @@ const projectRoot = process.env.PROJECT_ROOT || path.resolve()
 export default defineConfig({
   plugins: [
     react({
-      // Enable React 19 features
+      // Standard React 18 configuration
       jsxRuntime: 'automatic',
       jsxImportSource: 'react',
     }),
@@ -27,142 +27,17 @@ export default defineConfig({
     // ensure that you give these types in `src/vite-end.d.ts`
     GITHUB_RUNTIME_PERMANENT_NAME: JSON.stringify(GITHUB_RUNTIME_PERMANENT_NAME),
     BASE_KV_SERVICE_URL: JSON.stringify("/_spark/kv"),
-    // Add scheduler polyfill flag for React 19 compatibility
-    __SCHEDULER_POLYFILL__: JSON.stringify(true),
   },
   build: {
     outDir: process.env.OUTPUT_DIR || 'dist',
     // Optimize for Azure Static Web Apps
     chunkSizeWarningLimit: 500, // Force smaller chunks
     rollupOptions: {
+      // Ensure React loads before other modules
+      external: [],
       output: {
-        manualChunks: (id) => {
-          // Vendor chunks for major libraries - more granular splitting
-          if (id.includes('node_modules')) {
-            // React ecosystem - keep separate and small
-            if (id.includes('react-dom')) {
-              return 'vendor-react-dom';
-            }
-            if (id.includes('react/') && !id.includes('react-dom')) {
-              return 'vendor-react';
-            }
-            if (id.includes('react-router')) {
-              return 'vendor-router';
-            }
-            
-            // Split Radix UI into very small chunks
-            if (id.includes('@radix-ui/react-tabs') || id.includes('@radix-ui/react-accordion')) {
-              return 'vendor-ui-tabs';
-            }
-            if (id.includes('@radix-ui/react-dialog') || id.includes('@radix-ui/react-alert-dialog')) {
-              return 'vendor-ui-dialog';
-            }
-            if (id.includes('@radix-ui/react-dropdown') || id.includes('@radix-ui/react-select')) {
-              return 'vendor-ui-dropdown';
-            }
-            if (id.includes('@radix-ui/react-scroll') || id.includes('@radix-ui/react-separator')) {
-              return 'vendor-ui-layout';
-            }
-            if (id.includes('@radix-ui')) {
-              return 'vendor-ui-misc';
-            }
-            
-            // Split icon libraries by usage
-            if (id.includes('@phosphor-icons/react/dist/ssr')) {
-              return 'vendor-phosphor-ssr';
-            }
-            if (id.includes('@phosphor-icons')) {
-              return 'vendor-phosphor';
-            }
-            if (id.includes('lucide-react') || id.includes('@heroicons')) {
-              return 'vendor-icons-other';
-            }
-            
-            // Large libraries get their own chunks
-            if (id.includes('framer-motion')) {
-              return 'vendor-animation';
-            }
-            if (id.includes('recharts')) {
-              return 'vendor-charts';
-            }
-            if (id.includes('@xyflow/react')) {
-              return 'vendor-flow';
-            }
-            
-            // Utility libraries
-            if (id.includes('clsx') || id.includes('tailwind-merge')) {
-              return 'vendor-utils-css';
-            }
-            if (id.includes('class-variance-authority') || id.includes('@hookform')) {
-              return 'vendor-utils-form';
-            }
-            
-            // Split other vendor libraries by size/function
-            if (id.includes('axios') || id.includes('fetch')) {
-              return 'vendor-http';
-            }
-            if (id.includes('date') || id.includes('moment')) {
-              return 'vendor-date';
-            }
-            
-            // Catch-all for remaining vendor code - split by first letter to distribute
-            const packageName = id.split('node_modules/')[1]?.split('/')[0] || '';
-            const firstChar = packageName.charAt(0);
-            if (firstChar >= 'a' && firstChar <= 'h') {
-              return 'vendor-a-h';
-            } else if (firstChar >= 'i' && firstChar <= 'p') {
-              return 'vendor-i-p';
-            } else {
-              return 'vendor-q-z';
-            }
-          }
-          
-          // App chunks for major feature areas - more granular
-          if (id.includes('/patterns/PatternExplorer') || id.includes('/patterns/PatternDetails')) {
-            return 'app-patterns-core';
-          }
-          if (id.includes('/patterns/')) {
-            return 'app-patterns-extra';
-          }
-          
-          if (id.includes('/concepts/ConceptsExplorer') || id.includes('/concepts/ConceptsHub')) {
-            return 'app-concepts-core';
-          }
-          if (id.includes('/concepts/')) {
-            return 'app-concepts-extra';
-          }
-          
-          if (id.includes('/visualization/SimplePatternVisualizer')) {
-            return 'app-viz-patterns';
-          }
-          if (id.includes('/visualization/') || id.includes('/interactive-demos/')) {
-            return 'app-viz-other';
-          }
-          
-          if (id.includes('/tutorial/') || id.includes('/quiz/')) {
-            return 'app-tutorial';
-          }
-          if (id.includes('/azure-services/')) {
-            return 'app-azure';
-          }
-          if (id.includes('/community/') || id.includes('/references/')) {
-            return 'app-content';
-          }
-          if (id.includes('/code-playbook/')) {
-            return 'app-code-playbook';
-          }
-          
-          // Data and configuration
-          if (id.includes('/lib/data/patterns/')) {
-            return 'app-data-patterns';
-          }
-          if (id.includes('/lib/data/') || id.includes('/lib/tutorial/')) {
-            return 'app-data-other';
-          }
-          if (id.includes('/lib/utils/')) {
-            return 'app-utils';
-          }
-        },
+        // Configure module loading order - React core loads first
+        manualChunks: undefined,
         // Optimize chunk naming for better caching
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
@@ -222,7 +97,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': resolve(projectRoot, 'src')
+      // Path alias for TypeScript imports
+      '@': path.resolve(projectRoot, './src'),
+      // Ensure consistent React imports to prevent Children property errors
+      'react': path.resolve(projectRoot, './node_modules/react'),
+      'react-dom': path.resolve(projectRoot, './node_modules/react-dom')
     }
   },
 });

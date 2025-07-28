@@ -27,7 +27,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
-import { EyeSlash } from '@phosphor-icons/react';
 
 interface PatternSidebarProps {
   activePatternId: string;
@@ -140,7 +139,17 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
                 onClick={toggleSidebar}
                 aria-label="Close sidebar"
               >
-                <EyeSlash size={16} />
+                <svg 
+                  viewBox="0 0 256 256" 
+                  width="16" 
+                  height="16"
+                  className="transition-colors duration-200"
+                >
+                  <path 
+                    fill="currentColor" 
+                    d="M224 128a8 8 0 0 1-8 8H40a8 8 0 0 1 0-16h176a8 8 0 0 1 8 8M40 72h176a8 8 0 0 0 0-16H40a8 8 0 0 0 0 16m176 112H40a8 8 0 0 0 0 16h176a8 8 0 0 0 0-16"
+                  />
+                </svg>
               </Button>
             </div>
             
