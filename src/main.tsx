@@ -1,7 +1,4 @@
-// Scheduler polyfill must run first to prevent vendor chunk errors
-import './lib/scheduler-polyfill.ts'
-import './lib/react19-compat.ts'
-
+import './lib/react19-compat'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, HashRouter } from 'react-router-dom'
