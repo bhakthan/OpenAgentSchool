@@ -13,7 +13,8 @@ import {
   Plug,
   Database
 } from "@phosphor-icons/react"
-import { EnlightenMeButton } from "@/components/enlighten-me-button"
+import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton"
+import { IntegrationVisualization } from "@/components/visualization/IntegrationVisualization";
 
 interface AgentIntegrationConceptProps {
   onMarkComplete?: () => void
@@ -30,6 +31,9 @@ export default function AgentIntegrationConcept({ onMarkComplete, onNavigateToNe
       level: 'implementation' as const,
       content: (
         <div className="space-y-6">
+          {/* Integration Visualization */}
+          <IntegrationVisualization className="mb-6" />
+          
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

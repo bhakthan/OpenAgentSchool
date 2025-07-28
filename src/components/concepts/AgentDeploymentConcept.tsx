@@ -14,6 +14,7 @@ import {
   Timer
 } from "@phosphor-icons/react"
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton"
+import { DeploymentVisualization } from "@/components/visualization/DeploymentVisualization";
 
 interface AgentDeploymentConceptProps {
   onMarkComplete?: () => void
@@ -30,6 +31,9 @@ export default function AgentDeploymentConcept({ onMarkComplete, onNavigateToNex
       level: 'implementation' as const,
       content: (
         <div className="space-y-6">
+          {/* Deployment Visualization */}
+          <DeploymentVisualization className="mb-6" />
+          
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

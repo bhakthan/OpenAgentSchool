@@ -13,8 +13,9 @@ import {
   Lightning,
   Atom
 } from "@phosphor-icons/react"
-import EnlightenMeButton from "@/components/EnlightenMeButton"
+import EnlightenMeButton from "@/components/enlighten/EnlightenMeButton"
 import CodeBlock from "@/components/ui/CodeBlock"
+import { LearningVisualization } from "@/components/visualization/LearningVisualization";
 
 interface AgentLearningConceptProps {
   onMarkComplete?: () => void
@@ -31,6 +32,9 @@ export default function AgentLearningConcept({ onMarkComplete, onNavigateToNext 
       level: 'implementation' as const,
       content: (
         <div className="space-y-6">
+          {/* Learning Visualization */}
+          <LearningVisualization className="mb-6" />
+          
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Shield, Lock, Eye, UserCheck, Warning, CheckCircle } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
+import { SecurityVisualization } from "@/components/visualization/SecurityVisualization";
 
 interface AgentSecurityConceptProps {
   onMarkComplete?: () => void
@@ -20,6 +21,9 @@ export default function AgentSecurityConcept({ onMarkComplete, onNavigateToNext 
       level: 'fundamentals' as const,
       content: (
         <div className="space-y-6">
+          {/* Security Visualization */}
+          <SecurityVisualization className="mb-6" />
+          
           {/* Authentication Overview */}
           <Card>
             <CardHeader>

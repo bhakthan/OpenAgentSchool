@@ -14,6 +14,7 @@ import {
   BookOpen
 } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
+import { EthicsVisualization } from "@/components/visualization/EthicsVisualization";
 
 interface AgentEthicsConceptProps {
   onMarkComplete?: () => void
@@ -30,6 +31,9 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
       level: 'fundamentals' as const,
       content: (
         <div className="space-y-6">
+          {/* Ethics Visualization */}
+          <EthicsVisualization className="mb-6" />
+          
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
