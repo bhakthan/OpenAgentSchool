@@ -206,10 +206,14 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
                                   onPatternSelect(pattern.id);
                                   // Auto-collapse sidebar after pattern selection for better viewing experience
                                   if (!isCollapsed) {
-                                    // Small delay to allow the pattern selection to register first
-                                    setTimeout(() => {
-                                      toggleSidebar();
-                                    }, 150);
+                                    // Use requestAnimationFrame to ensure DOM has updated before collapsing
+                                    requestAnimationFrame(() => {
+                                      setTimeout(() => {
+                                        toggleSidebar();
+                                        // Trigger a window resize event to force layout recalculation
+                                        window.dispatchEvent(new Event('resize'));
+                                      }, 150);
+                                    });
                                   }
                                 }}
                               >
@@ -223,11 +227,7 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
                                   <div className="p-1 rounded-full hover:bg-yellow-100/80 dark:hover:bg-yellow-900/30 transition-colors duration-150 shadow-sm">
                                     <EnlightenMeButton 
                                       title={`${pattern.name} Agent Pattern`}
-                                      conceptId={pattern.id}
-                                      description={`The ${pattern.name} agent pattern: ${pattern.description}`}
-                                      variant="inline"
-                                      size="sm"
-                                      customPrompt={`Explain the ${pattern.name} agent pattern in comprehensive detail. Cover: 1) What this pattern is and when to use it in Azure AI environments, including specific scenarios where it outperforms other patterns, 2) Detailed architecture and implementation using Azure OpenAI Service, Azure AI Agent Service, and relevant Azure AI SDK components, 3) Step-by-step implementation guide with Azure-specific code examples, authentication, and best practices, 4) Real-world use cases and success stories, particularly in enterprise Azure environments, 5) Performance considerations, cost optimization, and scaling strategies on Azure infrastructure, 6) Integration patterns with other Azure services like Azure AI Search, Azure Cognitive Services, and Azure Functions, 7) Monitoring, debugging, and observability using Azure Application Insights and Azure Monitor, 8) Security best practices including Azure Key Vault integration, Azure Active Directory authentication, and compliance considerations, 9) Common pitfalls and troubleshooting guidance specific to Azure deployments, 10) Comparison with related patterns and guidance on when to choose this pattern over alternatives.`}
+                                      contextDescription={`The ${pattern.name} agent pattern: ${pattern.description}. Learn about its architecture, implementation using Azure OpenAI Service, Azure AI Agent Service, best practices, real-world use cases, performance considerations, and integration patterns with other Azure services.`}
                                     />
                                   </div>
                                 </div>

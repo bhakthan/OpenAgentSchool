@@ -33,6 +33,7 @@ const PatternExplorer = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('visualization'); // Track the active tab
   const { isCollapsed } = useSidebarCollapse(); // Get sidebar collapse state
+  const [forceUpdate, setForceUpdate] = useState(0); // Force re-render when needed
 
   const { startTutorial, registerTutorial, hasCompletedTutorial } = useTutorialContext();
   
@@ -41,6 +42,25 @@ const PatternExplorer = () => {
     registerTutorial(agentPatternsTutorial.id, agentPatternsTutorial);
   }, [registerTutorial]);
   
+  // Force layout update when sidebar state changes
+  useEffect(() => {
+    // Add a small delay to ensure smooth transition
+    const timeoutId = setTimeout(() => {
+      setForceUpdate(prev => prev + 1);
+      // Trigger resize event to force any responsive components to recalculate
+      window.dispatchEvent(new Event('resize'));
+      
+      // Debug: Log the current state
+      console.log('PatternExplorer layout update:', { 
+        isCollapsed, 
+        forceUpdate, 
+        timestamp: new Date().toISOString() 
+      });
+    }, 350); // Wait for transition to complete
+
+    return () => clearTimeout(timeoutId);
+  }, [isCollapsed]);
+
   // Ensure agentPatterns is loaded with the new patterns
   useEffect(() => {
     // Force a re-render if patterns were updated
@@ -59,6 +79,10 @@ const PatternExplorer = () => {
     const pattern = agentPatterns.find(p => p.id === patternId);
     if (pattern) {
       setSelectedPattern(pattern);
+      // Force a layout update after pattern selection to ensure width adjusts properly
+      setTimeout(() => {
+        setForceUpdate(prev => prev + 1);
+      }, 200); // Slightly longer than the sidebar auto-collapse delay
     }
   };
   
@@ -154,13 +178,20 @@ const PatternExplorer = () => {
               </Card>
               
               {/* Main Content Area */}
-              <div className={cn(
-                "flex-1 transition-all duration-300 ease-in-out",
-                // Responsive padding based on sidebar state
-                isCollapsed 
-                  ? "md:pl-[70px]" // Collapsed sidebar width + some padding
-                  : "md:pl-[260px]" // Full sidebar width + padding
-              )}>
+              <div 
+                key={forceUpdate} // Force re-render when layout should update
+                className={cn(
+                  "flex-1 pattern-content-area",
+                  // Responsive padding based on sidebar state
+                  isCollapsed 
+                    ? "md:pl-[70px]" // Collapsed sidebar width + some padding
+                    : "md:pl-[260px]" // Full sidebar width + padding
+                )}
+                style={{
+                  // Force layout recalculation to ensure proper width
+                  transform: `translateZ(0)`,
+                }}
+              >
                 <Tabs defaultValue="visualization" className="w-full" onValueChange={setActiveTab}>
                   <TabsList className="grid w-full grid-cols-3" data-tab-list>
                     <TabsTrigger value="visualization" className="flex items-center gap-2" data-tab="visualization">

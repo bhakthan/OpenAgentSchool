@@ -16,7 +16,11 @@ const projectRoot = process.env.PROJECT_ROOT || path.resolve()
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      // Enable React 19 features
+      jsxRuntime: 'automatic',
+      jsxImportSource: 'react',
+    }),
     tailwindcss(),
   ],
   build: {

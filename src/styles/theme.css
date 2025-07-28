@@ -260,3 +260,17 @@
     --color-bg-overlay: var(--color-neutral-3);
   }
 }
+
+/* Sidebar transition classes for smooth animations */
+.sidebar-transition {
+  transition: transform 300ms cubic-bezier(0.4, 0.0, 0.2, 1),
+              opacity 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+.pattern-content-area {
+  transition: padding-left 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  will-change: padding-left;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
