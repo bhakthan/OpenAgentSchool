@@ -23,6 +23,13 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  define: {
+    // ensure that you give these types in `src/vite-end.d.ts`
+    GITHUB_RUNTIME_PERMANENT_NAME: JSON.stringify(GITHUB_RUNTIME_PERMANENT_NAME),
+    BASE_KV_SERVICE_URL: JSON.stringify("/_spark/kv"),
+    // Add scheduler polyfill flag for React 19 compatibility
+    __SCHEDULER_POLYFILL__: JSON.stringify(true),
+  },
   build: {
     outDir: process.env.OUTPUT_DIR || 'dist',
     // Optimize for Azure Static Web Apps
@@ -171,11 +178,6 @@ export default defineConfig({
         drop_debugger: true
       }
     }
-  },
-  define: {
-    // ensure that you give these types in `src/vite-end.d.ts`
-    GITHUB_RUNTIME_PERMANENT_NAME: JSON.stringify(GITHUB_RUNTIME_PERMANENT_NAME),
-    BASE_KV_SERVICE_URL: JSON.stringify("/_spark/kv"),
   },
   server: {
     port: 5000,

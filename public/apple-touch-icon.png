@@ -1,0 +1,34 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="90" cy="90" r="90" fill="#3B82F6"/>
+  
+  <!-- Robot head -->
+  <rect x="40" y="50" width="100" height="80" rx="15" fill="#1E40AF"/>
+  
+  <!-- Eyes -->
+  <circle cx="65" cy="80" r="8" fill="#EFF6FF"/>
+  <circle cx="115" cy="80" r="8" fill="#EFF6FF"/>
+  <circle cx="65" cy="80" r="4" fill="#3B82F6"/>
+  <circle cx="115" cy="80" r="4" fill="#3B82F6"/>
+  
+  <!-- Neural network connections -->
+  <line x1="50" y1="110" x2="70" y2="120" stroke="#60A5FA" stroke-width="2"/>
+  <line x1="90" y1="110" x2="110" y2="120" stroke="#60A5FA" stroke-width="2"/>
+  <line x1="70" y1="120" x2="110" y2="120" stroke="#60A5FA" stroke-width="2"/>
+  <line x1="110" y1="120" x2="130" y2="110" stroke="#60A5FA" stroke-width="2"/>
+  
+  <!-- Nodes -->
+  <circle cx="50" cy="110" r="3" fill="#60A5FA"/>
+  <circle cx="70" cy="120" r="3" fill="#60A5FA"/>
+  <circle cx="90" cy="110" r="3" fill="#60A5FA"/>
+  <circle cx="110" cy="120" r="3" fill="#60A5FA"/>
+  <circle cx="130" cy="110" r="3" fill="#60A5FA"/>
+  
+  <!-- Antenna -->
+  <line x1="90" y1="50" x2="90" y2="25" stroke="#1E40AF" stroke-width="4"/>
+  <circle cx="90" cy="25" r="6" fill="#EF4444"/>
+  
+  <!-- School/learning symbol -->
+  <path d="M60 140 L90 155 L120 140 L120 165 L90 175 L60 165 Z" fill="#FCD34D" stroke="#F59E0B" stroke-width="2"/>
+  <text x="90" y="160" text-anchor="middle" fill="#92400E" font-family="Arial" font-size="16" font-weight="bold">AI</text>
+</svg>

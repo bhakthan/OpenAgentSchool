@@ -7,7 +7,34 @@
     <meta name="description" content="Open Agent School - Interactive educational platform where AI agent concepts come to life through visualizations, hands-on learning, and comprehensive tutorials." />
     <base href="/" />
     <title>Open Agent School - Where AI Agent Concepts Come to Life</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Meta theme color -->
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="msapplication-TileColor" content="#3B82F6" />
+    
+    <!-- React 19 Scheduler Polyfill - Must load before any React code -->
+    <script>
+        // Early scheduler polyfill to prevent vendor chunk errors
+        (function() {
+            if (typeof window === 'undefined') return;
+            if (!window.scheduler) window.scheduler = {};
+            var scheduler = window.scheduler;
+            if (!scheduler.unstable_now) {
+                scheduler.unstable_now = (typeof performance !== 'undefined' && performance.now) 
+                    ? performance.now.bind(performance) 
+                    : Date.now;
+            }
+        })();
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
