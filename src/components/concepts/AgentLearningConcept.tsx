@@ -34,7 +34,7 @@ export default function AgentLearningConcept({ onMarkComplete, onNavigateToNext 
         <div className="space-y-6">
           {/* Learning Visualization */}
           <LearningVisualization className="mb-6" />
-          
+
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
