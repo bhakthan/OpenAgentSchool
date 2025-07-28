@@ -479,7 +479,7 @@ export default function ConceptsHub({ onSelectConcept }: ConceptsHubProps) {
                 Core Concepts Learning Path
               </CardTitle>
               <CardDescription className="text-base mt-2">
-                Master AI agent concepts through a structured, progressive learning experience
+                Master the fundamental concepts of AI agents through a structured, progressive learning experience
               </CardDescription>
             </div>
             <div className="text-right">

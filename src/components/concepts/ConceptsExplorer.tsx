@@ -80,14 +80,6 @@ export default function ConceptsExplorer() {
   return (
     <div className="max-w-7xl mx-auto space-y-8 relative">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-2xl font-bold tracking-tight">Core Concepts</h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Master the fundamental concepts of AI agents through interactive learning experiences
-        </p>
-      </div>
-
-      <Separator />
 
       {/* Main Content */}
       <Suspense fallback={<ConceptsLoader />}>
