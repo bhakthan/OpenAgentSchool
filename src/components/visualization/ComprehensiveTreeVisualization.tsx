@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -188,9 +189,34 @@ const azureServicesData = [
 ];
 
 export default function ComprehensiveTreeVisualization() {
+  const navigate = useNavigate();
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
   const [viewMode, setViewMode] = useState<'full' | 'concepts' | 'patterns' | 'azure' | 'quiz'>('full');
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Handle navigation for leaf nodes
+  const handleNodeSelect = (node: TreeNode) => {
+    // For leaf nodes (concept, pattern, service, quiz), navigate to appropriate page
+    if (['concept', 'pattern', 'service', 'quiz'].includes(node.type)) {
+      switch (node.type) {
+        case 'concept':
+          navigate('/'); // ConceptsExplorer page
+          break;
+        case 'pattern':
+          navigate('/patterns'); // PatternExplorer page
+          break;
+        case 'service':
+          navigate('/azure-services'); // AzureServicesOverview page
+          break;
+        case 'quiz':
+          navigate('/quiz'); // QuizSection page
+          break;
+      }
+    } else {
+      // For non-leaf nodes, just select them (expand/collapse behavior)
+      setSelectedNode(node);
+    }
+  };
 
   // Generate comprehensive tree data
   const generateTreeData = (): TreeNode => {
@@ -487,38 +513,11 @@ export default function ComprehensiveTreeVisualization() {
         <D3TreeVisualization
           data={filteredTreeData}
           selectedNode={selectedNode}
-          onNodeSelect={setSelectedNode}
+          onNodeSelect={handleNodeSelect}
           className="h-full"
         />
       </div>
 
-      {/* Selected Node Details */}
-      {selectedNode && ['pattern', 'concept', 'service', 'quiz'].includes(selectedNode.type) && (
-        <div className="absolute bottom-4 left-4 right-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4 max-h-48 overflow-auto">
-          <div className="flex items-start justify-between">
-            <div className="flex items-center gap-3">
-              {selectedNode.icon && <span className="text-xl">{selectedNode.icon}</span>}
-              <div>
-                <h3 className="font-semibold text-lg">{selectedNode.name}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{selectedNode.description}</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              {selectedNode.difficulty && (
-                <Badge variant="outline">{selectedNode.difficulty}</Badge>
-              )}
-              {selectedNode.estimatedTime && (
-                <Badge variant="outline">{selectedNode.estimatedTime}min</Badge>
-              )}
-              {selectedNode.progress !== undefined && (
-                <Badge variant="outline">{selectedNode.progress}% complete</Badge>
-              )}
-              <Button size="sm" onClick={() => setSelectedNode(null)}>×</Button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
