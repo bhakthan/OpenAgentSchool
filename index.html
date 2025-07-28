@@ -22,15 +22,126 @@
     
     <!-- React 19 Scheduler Polyfill - Must load before any React code -->
     <script>
-        // Early scheduler polyfill to prevent vendor chunk errors
+        // Comprehensive scheduler polyfill to prevent vendor chunk errors
+        (function() {
+            'use strict';
+            
+            if (typeof window === 'undefined') return;
+            
+            // Defensive programming - ensure the global objects exist
+            if (!window.React) window.React = {};
+            if (!window.ReactDOM) window.ReactDOM = {};
+            
+            // Create scheduler object if it doesn't exist
+            if (!window.scheduler) {
+                window.scheduler = {};
+            }
+            
+            var scheduler = window.scheduler;
+            
+            // Polyfill unstable_now - this is the main source of the error
+            if (!scheduler.unstable_now) {
+                if (typeof performance !== 'undefined' && performance.now) {
+                    scheduler.unstable_now = function() { return performance.now(); };
+                } else {
+                    scheduler.unstable_now = function() { return Date.now(); };
+                }
+            }
+            
+            // Polyfill other scheduler methods that React might expect
+            if (!scheduler.unstable_scheduleCallback) {
+                scheduler.unstable_scheduleCallback = function(priority, callback) {
+                    return setTimeout(callback, 0);
+                };
+            }
+            
+            if (!scheduler.unstable_cancelCallback) {
+                scheduler.unstable_cancelCallback = function(id) {
+                    clearTimeout(id);
+                };
+            }
+            
+            if (!scheduler.unstable_shouldYield) {
+                scheduler.unstable_shouldYield = function() {
+                    return false;
+                };
+            }
+            
+            if (!scheduler.unstable_requestPaint) {
+                scheduler.unstable_requestPaint = function() {};
+            }
+            
+            // Priority constants that React scheduler expects
+            scheduler.unstable_ImmediatePriority = 1;
+            scheduler.unstable_UserBlockingPriority = 2;
+            scheduler.unstable_NormalPriority = 3;
+            scheduler.unstable_LowPriority = 4;
+            scheduler.unstable_IdlePriority = 5;
+            
+            // Also set on window for legacy compatibility
+            window.unstable_now = scheduler.unstable_now;
+            
+            // Create a proxy to catch any undefined property access
+            if (typeof Proxy !== 'undefined') {
+                try {
+                    window.scheduler = new Proxy(scheduler, {
+                        set: function(target, property, value) {
+                            console.log('Scheduler property set:', property, value);
+                            target[property] = value;
+                            return true;
+                        },
+                        get: function(target, property) {
+                            if (property in target) {
+                                return target[property];
+                            }
+                            console.warn('Scheduler property accessed but not defined:', property);
+                            return function() {}; // Return empty function for undefined methods
+                        }
+                    });
+                } catch (e) {
+                    console.warn('Proxy not supported, using basic scheduler object');
+                }
+            }
+            
+            console.log('React 19 scheduler polyfill initialized successfully');
+        })();
+    </script>
+    
+    <!-- Additional React 19 compatibility fixes -->
+    <script>
+        // Fix for React 19 fiber and scheduler integration
         (function() {
             if (typeof window === 'undefined') return;
-            if (!window.scheduler) window.scheduler = {};
-            var scheduler = window.scheduler;
-            if (!scheduler.unstable_now) {
-                scheduler.unstable_now = (typeof performance !== 'undefined' && performance.now) 
-                    ? performance.now.bind(performance) 
-                    : Date.now;
+            
+            // Ensure React DevTools hook exists
+            if (!window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+                window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+                    isDisabled: false,
+                    supportsFiber: true,
+                    renderers: new Map(),
+                    onScheduleFiberRoot: function() {},
+                    onCommitFiberRoot: function() {},
+                    onCommitFiberUnmount: function() {}
+                };
+            }
+            
+            // Polyfill requestIdleCallback for React 19 concurrent features
+            if (!window.requestIdleCallback) {
+                window.requestIdleCallback = function(cb) {
+                    var start = Date.now();
+                    return setTimeout(function() {
+                        cb({
+                            didTimeout: false,
+                            timeRemaining: function() {
+                                return Math.max(0, 50 - (Date.now() - start));
+                            }
+                        });
+                    }, 1);
+                };
+                
+                window.cancelIdleCallback = function(id) {
+                    clearTimeout(id);
+                };
             }
         })();
     </script>
