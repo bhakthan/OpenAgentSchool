@@ -13,6 +13,7 @@ import { agentPatternsTutorial } from '@/lib/tutorial'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { CriticalThinkingModal } from '@/components/common/CriticalThinkingModal'
 import { useSidebarCollapse } from '@/hooks/use-sidebar-collapse'
+import { getPatternCue } from '@/lib/data/patternCues'
 import { cn } from '@/lib/utils'
 
 // Lazy load heavy visualization components
@@ -94,6 +95,13 @@ const PatternExplorer = () => {
   const getCriticalThinkingQuestion = () => {
     if (!selectedPattern) return "What are the key challenges in designing agent patterns?";
 
+    // Use centralized pattern cue for critical thinking question
+    const patternCue = getPatternCue(selectedPattern.id);
+    if (patternCue) {
+      return patternCue.criticalThinkingQuestion;
+    }
+
+    // Fallback for patterns without defined cues
     if (activeTab === 'business-use-case') {
       return `How would you apply the ${selectedPattern.name} pattern to solve a real-world business problem?`;
     }
@@ -124,10 +132,11 @@ const PatternExplorer = () => {
           </Button>
 
           <Button
-            variant="outline"
+            size="lg"
             onClick={() => setModalOpen(true)}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
           >
-            Critical Thinking Challenge
+            🧠 Critical Thinking Challenge
           </Button>
         </div>
       </div>
@@ -137,6 +146,7 @@ const PatternExplorer = () => {
         onClose={() => setModalOpen(false)}
         question={getCriticalThinkingQuestion()}
         contextTitle={selectedPattern ? selectedPattern.name : "Agent Patterns"}
+        contextCue={selectedPattern ? getPatternCue(selectedPattern.id)?.cue : undefined}
       />
 
       {viewMode === 'single' ? (

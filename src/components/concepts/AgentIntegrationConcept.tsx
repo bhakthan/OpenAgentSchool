@@ -83,7 +83,7 @@ export default function AgentIntegrationConcept({ onMarkComplete, onNavigateToNe
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-base">{`# API Integration for AI Agents
+                <pre className="text-base text-gray-900 dark:text-gray-100">{`# API Integration for AI Agents
 import asyncio
 import aiohttp
 import logging
@@ -254,7 +254,7 @@ class RateLimiter:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-base">{`# Event-Driven Agent Architecture
+                <pre className="text-base text-gray-900 dark:text-gray-100">{`# Event-Driven Agent Architecture
 import asyncio
 import json
 from typing import Dict, Any, Callable, List
@@ -526,7 +526,7 @@ class EventDrivenAgent:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-base">{`# Legacy System Integration Adapter
+                <pre className="text-base text-gray-900 dark:text-gray-100">{`# Legacy System Integration Adapter
 import asyncio
 import logging
 from typing import Dict, Any, Optional

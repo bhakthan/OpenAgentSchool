@@ -65,7 +65,7 @@ export default function AgentDeploymentConcept({ onMarkComplete, onNavigateToNex
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">{`# Dockerfile for AI Agent
+                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Dockerfile for AI Agent
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -100,7 +100,7 @@ CMD ["python", "main.py"]`}</pre>
             </CardHeader>
             <CardContent>
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">{`# agent-deployment.yaml
+                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# agent-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -197,7 +197,7 @@ spec:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">{`# Agent monitoring configuration
+                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Agent monitoring configuration
 import logging
 from prometheus_client import Counter, Histogram, start_http_server
 from opentelemetry import trace
@@ -359,7 +359,7 @@ class AgentObservability:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">{`# GitHub Actions workflow for AI Agent
+                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# GitHub Actions workflow for AI Agent
 name: Agent CI/CD
 
 on:

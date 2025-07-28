@@ -14,14 +14,14 @@ export const codeActPattern: PatternData = {
     visualization: () => (
       <div className="flex flex-col items-center p-4">
         <div className="flex flex-row items-center mb-4">
-          <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mr-4">
-            <span className="text-2xl font-bold text-blue-700">👨‍💻</span>
+          <div className="bg-blue-100 dark:bg-blue-900 rounded-full w-16 h-16 flex items-center justify-center mr-4">
+            <span className="text-2xl font-bold text-blue-700 dark:text-blue-300">👨‍💻</span>
           </div>
-          <div className="text-lg font-semibold text-gray-800">CodeAct Agent</div>
+          <div className="text-lg font-semibold text-gray-800 dark:text-gray-200">CodeAct Agent</div>
         </div>
-        <div className="w-full max-w-xl bg-white rounded-lg shadow p-4 mb-4">
-          <div className="font-bold text-blue-600 mb-2">Workflow:</div>
-          <ol className="list-decimal ml-6 text-gray-700">
+        <div className="w-full max-w-xl bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-4">
+          <div className="font-bold text-blue-600 dark:text-blue-400 mb-2">Workflow:</div>
+          <ol className="list-decimal ml-6 text-gray-700 dark:text-gray-300">
             <li>Developer commits new code</li>
             <li>Agent reads function source code</li>
             <li>Agent writes Python unit tests</li>
@@ -32,27 +32,27 @@ export const codeActPattern: PatternData = {
         <div className="flex flex-row items-center space-x-6">
           <div className="flex flex-col items-center">
             <span className="text-3xl">📥</span>
-            <span className="text-xs text-gray-500">Commit</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Commit</span>
           </div>
-          <span className="text-xl text-gray-400">→</span>
+          <span className="text-xl text-gray-400 dark:text-gray-500">→</span>
           <div className="flex flex-col items-center">
             <span className="text-3xl">🤖</span>
-            <span className="text-xs text-gray-500">Agent</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Agent</span>
           </div>
-          <span className="text-xl text-gray-400">→</span>
+          <span className="text-xl text-gray-400 dark:text-gray-500">→</span>
           <div className="flex flex-col items-center">
             <span className="text-3xl">🧪</span>
-            <span className="text-xs text-gray-500">Tests</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Tests</span>
           </div>
-          <span className="text-xl text-gray-400">→</span>
+          <span className="text-xl text-gray-400 dark:text-gray-500">→</span>
           <div className="flex flex-col items-center">
             <span className="text-3xl">🔒</span>
-            <span className="text-xs text-gray-500">Sandbox</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Sandbox</span>
           </div>
-          <span className="text-xl text-gray-400">→</span>
+          <span className="text-xl text-gray-400 dark:text-gray-500">→</span>
           <div className="flex flex-col items-center">
             <span className="text-3xl">📊</span>
-            <span className="text-xs text-gray-500">Results</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Results</span>
           </div>
         </div>
       </div>

@@ -62,7 +62,7 @@ export default function MultiAgentSystemsConcept({ onMarkComplete, onNavigateToN
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-base">
+                <pre className="text-base text-gray-900 dark:text-gray-100">
 {`// Agent Coordination Example
 class AgentCoordinator {
   async coordinateTask(task, availableAgents) {
@@ -133,7 +133,7 @@ class AgentCoordinator {
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-base">
+                <pre className="text-base text-gray-900 dark:text-gray-100">
 {`// Auction-Based Negotiation
 class AgentAuction {
   async conductAuction(task, participants) {
@@ -406,7 +406,7 @@ class AgentAuction {
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                 <h4 className="font-semibold mb-3">Basic AutoGen Implementation</h4>
-                <pre className="text-base overflow-x-auto">{`import autogen
+                <pre className="text-base text-gray-900 dark:text-gray-100 overflow-x-auto">{`import autogen
 
 # Configure LLM
 config_list = [{

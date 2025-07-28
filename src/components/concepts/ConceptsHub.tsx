@@ -21,6 +21,7 @@ import AgentLearningConcept from "./AgentLearningConcept"
 import AgentIntegrationConcept from "./AgentIntegrationConcept"
 import AgentEvaluationConcept from "./AgentEvaluationConcept"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
+import { getConceptCue } from "@/lib/data/conceptCues"
 import AzureAISafetyAndGovernance from "./AzureAISafetyAndGovernance"
 
 interface ConceptInfo {
@@ -52,19 +53,6 @@ const concepts: ConceptInfo[] = [
       return (
         <>
           <AgentArchitectureConcept {...props} />
-          <Button
-            variant="outline"
-            onClick={() => setModalOpen(true)}
-            className="mt-4"
-          >
-            Critical Thinking Challenge
-          </Button>
-          <CriticalThinkingModal
-            isOpen={isModalOpen}
-            onClose={() => setModalOpen(false)}
-            question="What are the fundamental principles of agent architecture?"
-            contextTitle="Agent Architecture & Lifecycle"
-          />
         </>
       )
     }
@@ -300,25 +288,25 @@ export default function ConceptsHub({ onSelectConcept }: ConceptsHubProps) {
                 onNavigateToNext={handleNextConcept}
               />
               <Button
-                variant="outline"
+                size="lg"
                 onClick={() => setModalOpen(true)}
-                className="mt-4"
+                className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
               >
-                Critical Thinking Challenge
+                🧠 Critical Thinking Challenge
               </Button>
               <CriticalThinkingModal
                 isOpen={isModalOpen}
                 onClose={() => setModalOpen(false)}
-                question={
-                  activeTab === "lifecycle"
+                question={getConceptCue(selectedConcept)?.criticalThinkingQuestion || 
+                  (activeTab === "lifecycle"
                     ? "What are the fundamental principles of agent lifecycle?"
                     : activeTab === "details"
                     ? "What are the key details of this concept?"
                     : activeTab === "implementation"
                     ? "How can this concept be implemented effectively?"
-                    : "What are the business use cases for this concept?"
-                }
+                    : "What are the business use cases for this concept?")}
                 contextTitle={concept.title}
+                contextCue={getConceptCue(selectedConcept)?.cue}
               />
             </TabsContent>
             <TabsContent value="details">

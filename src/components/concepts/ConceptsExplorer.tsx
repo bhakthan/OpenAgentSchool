@@ -81,16 +81,10 @@ export default function ConceptsExplorer() {
     <div className="max-w-7xl mx-auto space-y-8 relative">
       {/* Header */}
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Core Concepts</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Core Concepts</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
           Master the fundamental concepts of AI agents through interactive learning experiences
         </p>
-        <button
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          onClick={() => setModalOpen(true)}
-        >
-          Critical Thinking Challenge
-        </button>
       </div>
 
       <Separator />

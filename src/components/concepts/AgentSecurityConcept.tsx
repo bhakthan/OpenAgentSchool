@@ -62,7 +62,7 @@ export default function AgentSecurityConcept({ onMarkComplete, onNavigateToNext 
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">
+                <pre className="text-lg text-gray-900 dark:text-gray-100">
 {`// Agent Authentication Example
 class AgentAuthenticator {
   async authenticateAgent(agentId, credentials) {
@@ -138,7 +138,7 @@ class AgentAuthenticator {
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">
+                <pre className="text-lg text-gray-900 dark:text-gray-100">
 {`// Trust Network Implementation
 class TrustNetwork {
   async calculateTrust(agentA, agentB) {

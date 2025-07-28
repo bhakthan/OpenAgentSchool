@@ -155,7 +155,7 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">{`# Bias detection implementation
+                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Bias detection implementation
 import pandas as pd
 import numpy as np
 from sklearn.metrics import confusion_matrix
@@ -360,7 +360,7 @@ class BiasDetector:
               </div>
 
               <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                <pre className="text-lg">{`# Responsible AI implementation
+                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Responsible AI implementation
 class ResponsibleAIFramework:
     def __init__(self):
         self.safety_constraints = []
