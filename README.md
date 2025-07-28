@@ -7,32 +7,44 @@
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, and hands-on demonstrations of modern AI agent architectures, including the revolutionary **MCP×A2A Integration** patterns.
 ---
 
-## 🆕 Latest Features (July 24, 2025)
+## 🆕 Latest Updates (July 28, 2025)
 
-- **Critical Thinking Modal**: Engage with critical thinking challenges directly in the app, featuring improved readability and a larger input area.
-- **Dynamic Multi-Agent Diagram Generator**: In the AutoGen Multi-Agent business use case, users can now enter agent interactions and instantly visualize the agent network with a colorful, interactive diagram.
-- **UI/UX Improvements**: Enhanced font sizes, badge displays, and tab layouts for a more accessible and visually appealing experience.
+### 🔧 **Performance & Stability Improvements**
 
-## 🆕 Latest Changes (July 20, 2025)
+- **React 18.3.1 Stable**: Downgraded from React 19 to ensure maximum compatibility and stability
+- **Optimized Build System**: Removed manual chunking for better automated optimization via Vite
+- **Enhanced Bundle Performance**: Improved loading times and reduced JavaScript bundle size
+- **Sidebar Enhancements**: Implemented hardware-accelerated CSS transitions with custom hamburger menu icon
+- **Complete Favicon System**: Added comprehensive favicon set with PWA manifest support
+
+### 🎨 **UI/UX Enhancements**
+
+- **Critical Thinking Modal**: Engage with critical thinking challenges directly in the app, featuring improved readability and a larger input area
+- **Dynamic Multi-Agent Diagram Generator**: In the AutoGen Multi-Agent business use case, users can now enter agent interactions and instantly visualize the agent network with a colorful, interactive diagram
+- **Enhanced Navigation**: Custom hamburger menu icon with dark/light mode support and responsive design
+- **Improved Accessibility**: Better font sizes, badge displays, and tab layouts for enhanced user experience
+
+## 🆕 Previous Updates (July 20, 2025)
 
 - **Project Renamed:** All branding updated to "Open Agent School" in navigation, footer, and title.
 - **Environment Variables for LLM Providers:**
   - Added `.env.example` to the repository. Use this file to configure API keys for LLM providers (OpenAI, Azure OpenAI, Google Gemini, Claude, Hugging Face, Open router).
   - Example keys:
+
     ```env
     VITE_OPENAI_API_KEY=""
     VITE_OPENAI_API_URL="https://api.openai.com/v1/chat/completions"
+    VITE_OPENAI_MODEL="gpt-4o"
     VITE_AZURE_OPENAI_API_KEY=""
     VITE_AZURE_OPENAI_API_URL=""
     VITE_GEMINI_API_KEY=""
-    VITE_GEMINI_API_URL="https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
-    VITE_HUGGINGFACE_API_KEY=""
-    VITE_HUGGINGFACE_API_URL="https://api-inference.huggingface.co/models/<your-model>"
-    VITE_OPENROUTER_API_KEY=""
-    VITE_OPENROUTER_API_URL="https://openrouter.ai/api/v1/chat/completions"
+    VITE_GEMINI_API_URL="https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
     VITE_ANTHROPIC_API_KEY=""
     VITE_ANTHROPIC_API_URL="https://api.anthropic.com/v1/messages"
+    VITE_HUGGINGFACE_API_KEY=""
+    VITE_OPENROUTER_API_KEY=""
     ```
+
   - To use LLM features, copy `.env.example` to `.env` and fill in your API keys.
 - **How to Use VITE_API_KEYs:**
   - The app automatically loads API keys from your `.env` file for LLM integrations.
@@ -369,8 +381,10 @@ Each personality features:
 > **From Spark Template to AI Agent School**: This project began as a Spark template and has been completely transformed into a specialized educational platform for AI agent concepts, featuring custom SVG visualizations, interactive learning components, and comprehensive protocol demonstrations.
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
+- (Optional) API keys for LLM providers to enable AI-powered features
 
 ### Installation
 
@@ -378,10 +392,15 @@ Each personality features:
 # Clone the repository
 git clone <repository-url>
 
-# cd to the repository
+# Navigate to the repository
+cd OpenAgentSchool
 
 # Install dependencies
 npm install
+
+# Copy environment template and configure API keys (optional)
+cp .env.example .env
+# Edit .env file with your API keys for LLM features
 
 # Start development server
 npm run dev
@@ -391,7 +410,8 @@ npm run build
 ```
 
 ### Development
-### Make sure you have .env file created by copying from .env.example and LLM API Keys are added
+
+**Environment Setup**: Copy `.env.example` to `.env` and add your LLM API keys to enable AI-powered features:
 
 ```bash
 # Run in development mode with hot reload
@@ -403,9 +423,25 @@ npm run type-check
 # Lint code
 npm run lint
 
-# Run tests
-npm test
+# Build with optimized chunking (Vite handles automatically)
+npm run build
+
+# Preview production build
+npm run preview
+
+# Analyze bundle size (optional)
+npm run build:analyze
 ```
+
+### ⚡ Performance Optimizations
+
+**Latest Build Improvements (July 28, 2025)**:
+
+- **Automatic Chunking**: Removed manual chunk configuration for better Vite optimization
+- **React 18.3.1 Stability**: Ensures maximum compatibility across all browsers and environments
+- **Optimized Bundle Sizes**: Intelligent code splitting and lazy loading for faster initial load times
+- **Hardware-Accelerated UI**: CSS transitions use GPU acceleration for smooth animations
+- **Efficient Asset Loading**: Complete favicon system with proper caching and PWA support
 
 ### 🗺️ Learning Journey Map
 **Visual Progress Tracking** - Comprehensive visualization of your AI agent mastery path:
@@ -440,17 +476,19 @@ npm test
 - **Local Storage**: Persistent learning progress and cached AI responses for offline access
 
 ### Tech Stack
-- **Frontend**: React 18 with TypeScript for type-safe development
+
+- **Frontend**: React 18.3.1 with TypeScript for type-safe development and maximum stability
 - **Styling**: Tailwind CSS with custom design system and theme support
 - **Components**: Custom UI components with Radix UI primitives for accessibility
 - **Icons**: Phosphor Icons for consistent visual language
-- **Build**: Vite with optimized bundling and hot module replacement
+- **Build**: Vite 6+ with optimized bundling and hot module replacement
 - **Animations**: Pure CSS animations with hand-crafted SVG-based visualizations
 - **State Management**: React Context for theme and sidebar state management
 - **Code Highlighting**: Prism.js with react-syntax-highlighter for beautiful code displays
 - **Markdown Rendering**: ReactMarkdown with remark-gfm for rich text formatting
-- **AI Integration**: LLM integration for personalized learning experiences
+- **AI Integration**: LLM integration for personalized learning experiences with multiple providers
 - **Copy-to-Clipboard**: Native Clipboard API for seamless code copying
+- **Performance**: Optimized with automatic chunking and lazy loading for fast initial load times
 
 ### Project Structure
 
@@ -839,17 +877,33 @@ Start with the Agent Lifecycle Visual, test your knowledge with our comprehensiv
 
 ## 🌐 Azure Static Web Apps Deployment
 
-This application is fully configured for deployment to Azure Static Web Apps with seamless environment variable management.
+This application is fully configured for deployment to Azure Static Web Apps with optimized build performance and seamless environment variable management.
 
 ### 📋 Quick Setup
 
 1. **Local Development**: Copy `.env.example` to `.env` and configure your API keys
-2. **Azure Deployment**: Configure app settings in your Azure Static Web Apps instance
+2. **Azure Deployment**: Configure app settings in your Azure Static Web Apps instance  
 3. **Automatic Detection**: The app automatically uses the correct configuration source
+4. **Optimized Builds**: Vite automatically handles chunking and optimization for production
 
 ### 🔧 Environment Configuration
 
 The application supports multiple environment sources:
+
+- **Local**: `.env` files (Vite import.meta.env)
+- **Azure Static Web Apps**: App settings (process.env)
+- **Runtime**: Dynamic configuration injection
+
+### ⚡ Build Performance
+
+**Latest Optimizations**:
+
+- **React 18.3.1**: Maximum stability and compatibility
+- **Automatic Chunking**: Vite handles optimal code splitting
+- **Efficient Asset Loading**: Optimized favicon and resource management
+- **Hardware-Accelerated UI**: Smooth animations and transitions
+
+See `docs/AZURE_DEPLOYMENT.md` for detailed deployment instructions.
 - **Local**: `.env` files (Vite import.meta.env)
 - **Azure Static Web Apps**: App settings (process.env)
 - **Runtime**: Dynamic configuration injection
