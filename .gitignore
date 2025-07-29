@@ -25,6 +25,7 @@ dist-ssr
 *.sw?
 
 .env
+**/.env
 **/agent-eval-report*
 packages
 .file-manifest

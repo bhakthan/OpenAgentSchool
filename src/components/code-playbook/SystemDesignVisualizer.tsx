@@ -55,6 +55,10 @@ const SystemDesignVisualizer = ({ pattern, title = "System Design Pattern" }: Sy
   // Toggle play/pause
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
+    // When starting exploration, switch to Design Steps tab to show progress
+    if (!isPlaying) {
+      setActiveTab('steps');
+    }
   };
 
   // Move to next step
