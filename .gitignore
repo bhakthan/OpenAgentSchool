@@ -40,6 +40,19 @@ llmasjudge.md
 **/prd.md\"criticalthinking.md\"
 docs/AZURE_DEPLOYMENT.md
 
+# Backend migration planning files (temporary)
+backend-migration-plan.md
+BACKENDS_README.md
+MIGRATION_CHECKLIST.md
+MIGRATION_START.md
+setup-backends.sh
+setup-backends.ps1
+migrate-phase1.ps1
+docker-compose.yml
+
+# Ignore backend migration directory structure
+openagent-backends/
+
 # Ignore backend implementation documentation
 backend/implementation.md
 
