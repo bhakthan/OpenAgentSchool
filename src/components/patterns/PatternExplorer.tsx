@@ -43,23 +43,46 @@ const PatternExplorer = () => {
     registerTutorial(agentPatternsTutorial.id, agentPatternsTutorial);
   }, [registerTutorial]);
   
-  // Force layout update when sidebar state changes
+  // Edge browser-optimized layout adjustment when sidebar state changes
   useEffect(() => {
-    // Add a small delay to ensure smooth transition
-    const timeoutId = setTimeout(() => {
-      setForceUpdate(prev => prev + 1);
-      // Trigger resize event to force any responsive components to recalculate
-      window.dispatchEvent(new Event('resize'));
+    let timer: ReturnType<typeof setTimeout>;
+    let stabilizationTimer: ReturnType<typeof setTimeout>;
+    
+    // Edge browser-optimized layout stabilization for PatternExplorer
+    const stabilizeLayout = () => {
+      // Add temporary CSS to prevent layout jumping during transitions
+      const bodyElement = document.body;
+      const htmlElement = document.documentElement;
       
-      // Debug: Log the current state
-      console.log('PatternExplorer layout update:', { 
-        isCollapsed, 
-        forceUpdate, 
-        timestamp: new Date().toISOString() 
-      });
-    }, 350); // Wait for transition to complete
+      // Temporarily stabilize layout during sidebar transitions
+      bodyElement.style.setProperty('overflow-anchor', 'none');
+      htmlElement.style.setProperty('overflow-anchor', 'none');
+      
+      // Force layout update for responsive components
+      setForceUpdate(prev => prev + 1);
+      
+      // Remove stabilization after transition completes
+      stabilizationTimer = setTimeout(() => {
+        bodyElement.style.removeProperty('overflow-anchor');
+        htmlElement.style.removeProperty('overflow-anchor');
+        
+        // Dispatch a gentle layout update after stabilization
+        window.dispatchEvent(new CustomEvent('layout-stabilized', { 
+          detail: { source: 'sidebar-toggle-patterns', timestamp: Date.now() } 
+        }));
+      }, 300);
+    };
+    
+    // Delay the stabilization to allow initial transition to start
+    timer = setTimeout(stabilizeLayout, 50);
 
-    return () => clearTimeout(timeoutId);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(stabilizationTimer);
+      // Clean up any remaining overflow-anchor styles
+      document.body.style.removeProperty('overflow-anchor');
+      document.documentElement.style.removeProperty('overflow-anchor');
+    };
   }, [isCollapsed]);
 
   // Ensure agentPatterns is loaded with the new patterns
@@ -110,7 +133,7 @@ const PatternExplorer = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 layout-stable scrollbar-stable">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Agent Patterns</h2>
         <div className="flex items-center gap-2">
@@ -191,7 +214,9 @@ const PatternExplorer = () => {
               <div 
                 key={forceUpdate} // Force re-render when layout should update
                 className={cn(
-                  "flex-1 pattern-content-area",
+                  "flex-1 pattern-content-area layout-stable",
+                  // Edge browser scrollbar stability during transitions
+                  "will-change-auto overflow-anchor-none transition-all duration-300 ease-in-out",
                   // Responsive padding based on sidebar state
                   isCollapsed 
                     ? "md:pl-[70px]" // Collapsed sidebar width + some padding
@@ -202,8 +227,8 @@ const PatternExplorer = () => {
                   transform: `translateZ(0)`,
                 }}
               >
-                <Tabs defaultValue="visualization" className="w-full" onValueChange={setActiveTab}>
-                  <TabsList className="grid w-full grid-cols-3" data-tab-list>
+                <Tabs defaultValue="visualization" className="w-full scrollbar-stable" onValueChange={setActiveTab}>
+                  <TabsList className="grid w-full grid-cols-3 layout-stable" data-tab-list>
                     <TabsTrigger value="visualization" className="flex items-center gap-2" data-tab="visualization">
                       <ChartLine size={16} /> Visualization
                     </TabsTrigger>

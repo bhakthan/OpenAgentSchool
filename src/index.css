@@ -289,3 +289,20 @@ code, pre {
 .react-flow__node:hover .drag-handle {
   animation: wiggle 1s ease-in-out infinite;
 }
+
+/* Edge browser scrollbar stability utilities */
+.overflow-anchor-none {
+  overflow-anchor: none;
+}
+
+.scrollbar-stable {
+  scrollbar-gutter: stable;
+  overflow-anchor: none;
+}
+
+/* Layout transition stability for Edge browser */
+.layout-stable {
+  will-change: auto;
+  contain: layout;
+  overflow-anchor: none;
+}

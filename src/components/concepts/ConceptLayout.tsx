@@ -32,10 +32,10 @@ interface ConceptLayoutProps {
 }
 
 const levelColors = {
-  fundamentals: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
-  architecture: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400',
-  implementation: 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-400',
-  advanced: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400'
+  fundamentals: 'text-green-600 dark:text-green-400',
+  architecture: 'text-blue-600 dark:text-blue-400',
+  implementation: 'text-orange-600 dark:text-orange-400',
+  advanced: 'text-purple-600 dark:text-purple-400'
 }
 
 const levelIcons = {
@@ -116,12 +116,9 @@ export default function ConceptLayout({ conceptId, title, description, tabs, nex
               </div>
               <div className="text-center">
                 <div className="font-medium text-sm">{tab.title}</div>
-                <Badge 
-                  variant="outline" 
-                  className={`text-xs mt-1 ${levelColors[tab.level]}`}
-                >
+                <span className={`text-sm font-medium mt-1 ${levelColors[tab.level]}`}>
                   {tab.level}
-                </Badge>
+                </span>
               </div>
             </TabsTrigger>
           ))}
@@ -138,9 +135,9 @@ export default function ConceptLayout({ conceptId, title, description, tabs, nex
                     <div>
                       <CardTitle className="flex items-center gap-2">
                         {tab.title}
-                        <Badge className={levelColors[tab.level]}>
+                        <span className={`text-sm font-medium ${levelColors[tab.level]}`}>
                           {tab.level}
-                        </Badge>
+                        </span>
                       </CardTitle>
                       <CardDescription className="mt-1">{tab.description}</CardDescription>
                     </div>
