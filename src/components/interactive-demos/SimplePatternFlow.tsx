@@ -382,8 +382,8 @@ const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) =>
 
             {/* Execution Log side panel */}
             {flowSteps.length > 0 && (
-              <div className="w-full lg:w-80 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50/80 dark:bg-gray-800 backdrop-blur-sm flex flex-col shadow-sm" style={{ minHeight: '500px' }}>
-                <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm">
+              <div className="w-full lg:w-80 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 flex flex-col shadow-sm overflow-hidden" style={{ minHeight: '500px', maxHeight: '500px' }}>
+                <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex-shrink-0">
                   <h4 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
                     <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
                     Execution Log
@@ -392,15 +392,15 @@ const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) =>
                     Real-time pattern execution steps
                   </p>
                 </div>
-                <div className="flex-1 overflow-y-auto p-4 bg-gradient-to-b from-white/40 to-gray-50/80 dark:from-gray-800/40 dark:to-gray-800/80">
+                <div className="flex-1 overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
                   <div className="space-y-2">
                     {flowSteps.slice(0, currentStep + 1).map((step, index) => (
                       <div 
                         key={step.id}
-                        className={`p-3 rounded-lg border transition-all duration-300 backdrop-blur-sm ${
+                        className={`p-3 rounded-lg border transition-colors duration-200 ${
                           index === currentStep 
-                            ? 'bg-blue-100/90 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700 shadow-md ring-1 ring-blue-200 dark:ring-blue-800' 
-                            : 'bg-white/80 dark:bg-gray-700/60 border-gray-200 dark:border-gray-600 hover:bg-white/90 dark:hover:bg-gray-700/80'
+                            ? 'bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700 shadow-sm' 
+                            : 'bg-white dark:bg-gray-700/60 border-gray-200 dark:border-gray-600'
                         }`}
                       >
                         <div className="flex items-center gap-2 mb-2">
@@ -429,16 +429,16 @@ const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) =>
                   </div>
                 </div>
                 {/* Progress indicator */}
-                <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm">
+                <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex-shrink-0">
                   <div className="flex items-center justify-between text-sm mb-2">
                     <span className="text-gray-600 dark:text-gray-400 font-medium">Progress</span>
                     <span className="font-semibold text-gray-900 dark:text-gray-100">
                       {Math.round(((currentStep + 1) / flowSteps.length) * 100)}%
                     </span>
                   </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 shadow-inner">
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div 
-                      className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300 shadow-sm"
+                      className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${((currentStep + 1) / flowSteps.length) * 100}%` }}
                     />
                   </div>
