@@ -56,6 +56,7 @@ openagent-backends/
 
 # Ignore backend implementation documentation
 backend/implementation.md
+backend/DOCKER_INFRASTRUCTURE_OVERVIEW.md
 
 # Ignore compiled Python files and cache
 backend/**/*.pyc

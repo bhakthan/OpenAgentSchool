@@ -295,109 +295,148 @@ const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) =>
             />
           </div>
           
-          <div className="relative border rounded-lg p-4" style={{ height: '500px' }}>
-            <svg width="100%" height="100%" className="absolute inset-0">
-              {/* Render edges */}
-              {patternData.edges?.map(edge => {
-                const animatedEdge = animatedEdges.find(ae => ae.id === edge.id);
-                const path = createEdgePath(edge.source, edge.target);
-                
-                return (
-                  <g key={edge.id}>
-                    {/* Base edge */}
-                    <path
-                      d={path}
-                      fill="none"
-                      stroke={theme === 'dark' ? '#374151' : '#d1d5db'}
-                      strokeWidth="2"
-                      markerEnd="url(#arrowhead)"
-                    />
-                    {/* Animated edge */}
-                    {animatedEdge?.active && (
+          {/* Main visualization area with side-by-side layout */}
+          <div className="flex flex-col lg:flex-row gap-4" style={{ minHeight: '500px' }}>
+            {/* Visualization container */}
+            <div className={`relative border rounded-lg p-4 transition-all duration-300 ${
+              flowSteps.length > 0 ? 'flex-1' : 'w-full'
+            }`} style={{ height: '500px' }}>
+              <svg width="100%" height="100%" className="absolute inset-0">
+                {/* Render edges */}
+                {patternData.edges?.map(edge => {
+                  const animatedEdge = animatedEdges.find(ae => ae.id === edge.id);
+                  const path = createEdgePath(edge.source, edge.target);
+                  
+                  return (
+                    <g key={edge.id}>
+                      {/* Base edge */}
                       <path
                         d={path}
                         fill="none"
-                        stroke="#3b82f6"
-                        strokeWidth="3"
-                        strokeDasharray="10,5"
-                        strokeDashoffset={-animatedEdge.progress * 50}
-                        opacity={0.8}
-                        markerEnd="url(#arrowhead-active)"
+                        stroke={theme === 'dark' ? '#374151' : '#d1d5db'}
+                        strokeWidth="2"
+                        markerEnd="url(#arrowhead)"
                       />
+                      {/* Animated edge */}
+                      {animatedEdge?.active && (
+                        <path
+                          d={path}
+                          fill="none"
+                          stroke="#3b82f6"
+                          strokeWidth="3"
+                          strokeDasharray="10,5"
+                          strokeDashoffset={-animatedEdge.progress * 50}
+                          opacity={0.8}
+                          markerEnd="url(#arrowhead-active)"
+                        />
+                      )}
+                    </g>
+                  );
+                })}
+                
+                {/* Arrow markers */}
+                <defs>
+                  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill={theme === 'dark' ? '#374151' : '#d1d5db'} />
+                  </marker>
+                  <marker id="arrowhead-active" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6" />
+                  </marker>
+                </defs>
+              </svg>
+              
+              {/* Render nodes */}
+              {patternData.nodes?.map(node => {
+                const layout = nodeLayout[node.id];
+                const isActive = activeNodes.has(node.id);
+                const nodeType = node.data?.nodeType || 'agent';
+                const colors = getNodeColor(nodeType, isActive);
+                
+                return (
+                  <div
+                    key={node.id}
+                    className={`absolute rounded-lg border-2 p-3 transition-all duration-300 ${colors.bg}`}
+                    style={{
+                      left: layout.x,
+                      top: layout.y,
+                      width: layout.width,
+                      height: layout.height,
+                      transform: isActive ? 'scale(1.05)' : 'scale(1)'
+                    }}
+                  >
+                    <div className="text-sm font-medium truncate">
+                      {node.data?.label || node.id}
+                    </div>
+                    <div className={`text-xs mt-1 ${colors.text}`}>
+                      {node.data?.nodeType || 'agent'}
+                    </div>
+                    {isActive && (
+                      <div className="absolute top-1 right-1">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                      </div>
                     )}
-                  </g>
+                  </div>
                 );
               })}
-              
-              {/* Arrow markers */}
-              <defs>
-                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                  <polygon points="0 0, 10 3.5, 0 7" fill={theme === 'dark' ? '#374151' : '#d1d5db'} />
-                </marker>
-                <marker id="arrowhead-active" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                  <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6" />
-                </marker>
-              </defs>
-            </svg>
-            
-            {/* Render nodes */}
-            {patternData.nodes?.map(node => {
-              const layout = nodeLayout[node.id];
-              const isActive = activeNodes.has(node.id);
-              const nodeType = node.data?.nodeType || 'agent';
-              const colors = getNodeColor(nodeType, isActive);
-              
-              return (
-                <div
-                  key={node.id}
-                  className={`absolute rounded-lg border-2 p-3 transition-all duration-300 ${colors.bg}`}
-                  style={{
-                    left: layout.x,
-                    top: layout.y,
-                    width: layout.width,
-                    height: layout.height,
-                    transform: isActive ? 'scale(1.05)' : 'scale(1)'
-                  }}
-                >
-                  <div className="text-sm font-medium truncate">
-                    {node.data?.label || node.id}
-                  </div>
-                  <div className={`text-xs mt-1 ${colors.text}`}>
-                    {node.data?.nodeType || 'agent'}
-                  </div>
-                  {isActive && (
-                    <div className="absolute top-1 right-1">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          
-          {/* Flow steps log */}
-          {flowSteps.length > 0 && (
-            <div className="space-y-2">
-              <h4 className="font-medium">Execution Log:</h4>
-              <div className="max-h-32 overflow-y-auto space-y-1">
-                {flowSteps.slice(0, currentStep + 1).map((step, index) => (
-                  <div 
-                    key={step.id}
-                    className={`text-sm p-2 rounded flex items-center gap-2 ${
-                      index === currentStep 
-                        ? (theme === 'dark' ? 'bg-blue-900/30 border border-blue-500/30' : 'bg-blue-50 border border-blue-200')
-                        : (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100')
-                    }`}
-                  >
-                    <Badge variant="outline" className="text-xs">
-                      {step.type}
-                    </Badge>
-                    <span>{step.message}</span>
-                  </div>
-                ))}
-              </div>
             </div>
-          )}
+
+            {/* Execution Log side panel */}
+            {flowSteps.length > 0 && (
+              <div className="w-full lg:w-80 border rounded-lg bg-white dark:bg-gray-800 flex flex-col" style={{ minHeight: '500px' }}>
+                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                  <h4 className="font-medium flex items-center gap-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                    Execution Log
+                  </h4>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Real-time pattern execution steps
+                  </p>
+                </div>
+                <div className="flex-1 overflow-y-auto p-4">
+                  <div className="space-y-2">
+                    {flowSteps.slice(0, currentStep + 1).map((step, index) => (
+                      <div 
+                        key={step.id}
+                        className={`p-3 rounded-lg border transition-all duration-300 ${
+                          index === currentStep 
+                            ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 shadow-sm' 
+                            : 'bg-gray-50 dark:bg-gray-700/50 border-gray-200 dark:border-gray-600'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge variant={index === currentStep ? "default" : "outline"} className="text-xs">
+                            {step.type}
+                          </Badge>
+                          {index === currentStep && (
+                            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                          )}
+                        </div>
+                        <p className="text-sm leading-relaxed">{step.message}</p>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          Step {index + 1} of {flowSteps.length}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Progress indicator */}
+                <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between text-sm mb-2">
+                    <span className="text-muted-foreground">Progress</span>
+                    <span className="font-medium">
+                      {Math.round(((currentStep + 1) / flowSteps.length) * 100)}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div 
+                      className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${((currentStep + 1) / flowSteps.length) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>

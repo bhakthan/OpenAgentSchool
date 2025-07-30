@@ -450,6 +450,113 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 3. **Phase 3**: Microservices architecture for scale
 4. **Phase 4**: Event-driven architecture with Azure Service Bus
 
+## Architecture Comparison: backend/ vs openagent-backends/
+
+### **📁 Two Different Backend Architectures**
+
+This project contains **two parallel backend systems** representing different architectural approaches:
+
+---
+
+### **📂 `backend/` Folder - Monolithic Knowledge Service**
+
+**Purpose**: Single-service backend focused on knowledge management and community features
+
+**Architecture**: Monolithic FastAPI application with integrated services
+```
+backend/
+├── app/                     # Single FastAPI application
+│   ├── api/v1/             # API routes
+│   ├── database/           # Database layer (DuckDB/CosmosDB)
+│   └── models/             # Data models
+├── docker-compose.yml      # Knowledge stack deployment
+├── main.py                 # Single entry point
+└── requirements.txt        # Unified dependencies
+```
+
+**Current Running Services** (Port 8001-8003, 5434, 6380):
+- `knowledge-service` (8003) - Main FastAPI app
+- `postgres` (5434) - Database
+- `redis` (6380) - Caching
+- `chromadb` (8001) - Vector database
+
+**Focus**: Community features, quiz assessment, knowledge progress tracking
+
+---
+
+### **📂 `openagent-backends/` Folder - Microservices Architecture**
+
+**Purpose**: Multi-service microservices architecture for scalable agent orchestration
+
+**Architecture**: Distributed microservices with service separation
+```
+openagent-backends/
+├── core-api/               # Main API gateway service
+├── agent-orchestrator/     # Agent coordination service  
+└── knowledge-service/      # Knowledge management service
+```
+
+**Current Running Services** (Port 8000, 8002, 6379):
+- `core-api` (8000) - API gateway
+- `agent-orchestrator` (8002) - Agent coordination
+- `redis` (6379) - Shared cache
+
+**Focus**: Agent orchestration, distributed processing, microservices patterns
+
+---
+
+### **🔄 Key Differences**
+
+| Aspect | `backend/` | `openagent-backends/` |
+|--------|------------|----------------------|
+| **Architecture** | Monolithic | Microservices |
+| **Services** | 1 main app + databases | 3 separate services |
+| **Port Range** | 8001-8003, 5434, 6380 | 8000, 8002, 6379 |
+| **Database** | PostgreSQL + ChromaDB | Distributed databases |
+| **Complexity** | Simple, unified | Complex, distributed |
+| **Deployment** | Single container | Multiple containers |
+| **Development** | Easier debugging | Service coordination |
+
+### **🚀 Current Status**
+
+**Both systems are running simultaneously**:
+
+```bash
+# backend/ services (Knowledge Stack)
+✅ knowledge-service:8003 (unhealthy - needs investigation)
+✅ postgres:5434 
+✅ redis:6380
+✅ chromadb:8001
+
+# openagent-backends/ services (Microservices Stack)  
+✅ core-api:8000 (unhealthy - needs investigation)
+✅ agent-orchestrator:8002 (unhealthy - needs investigation)
+✅ redis:6379
+```
+
+### **🤔 Which One Should You Use?**
+
+**For Development/Learning**: `backend/` folder
+- Simpler to understand and debug
+- Unified codebase
+- Better for rapid prototyping
+
+**For Production/Scale**: `openagent-backends/` folder
+- Better separation of concerns
+- Independent scaling
+- Microservices best practices
+- Container orchestration ready
+
+### **📋 Recommendation**
+
+Consider **consolidating to one approach**:
+
+1. **Option A**: Focus on `openagent-backends/` microservices and deprecate `backend/`
+2. **Option B**: Migrate useful features from `openagent-backends/` into `backend/` monolith
+3. **Option C**: Keep both but define clear responsibilities
+
+---
+
 ## Conclusion
 
 This backend implementation provides a solid foundation for the Open Agent School platform with:
