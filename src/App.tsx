@@ -32,6 +32,7 @@ const CommunitySharing = lazy(() => import('./components/community/CommunityShar
 const ReferenceSection = lazy(() => import('./components/references/ReferenceSection'))
 const QuizSection = lazy(() => import('./components/quiz/QuizSection'))
 const TreeVisualizationPage = lazy(() => import('./components/pages/TreeVisualizationPage'))
+const StudyMode = lazy(() => import('./components/study-mode/StudyMode'))
 
 // Loading component for lazy-loaded routes
 const LoadingSpinner = () => (
@@ -56,6 +57,7 @@ function App() {
   const getCurrentPage = () => {
     switch (location.pathname) {
       case '/': return 'core-concepts';
+      case '/study-mode': return 'study-mode';
       case '/patterns': return 'agent-patterns';
       case '/azure-services': return 'azure-services';
       case '/references': return 'references';
@@ -277,10 +279,11 @@ function App() {
               <ScrollArea className="w-full">
                 <div className="flex space-x-4">
                   <TabLink to="/" icon={<Brain size={16} weight="duotone" />} label="Core Concepts" />
+                  <TabLink to="/study-mode" icon={<GraduationCap size={16} weight="duotone" />} label="Study Mode" />
                   <TabLink to="/patterns" icon={<PuzzlePiece size={16} weight="duotone" />} label="Agent Patterns" />
                   <TabLink to="/azure-services" icon={<StackSimple size={16} weight="duotone" />} label="Azure Services" />
                   <TabLink to="/tree-view" icon={<Tree size={16} weight="duotone" />} label="Tree View" />
-                  <TabLink to="/quiz" icon={<GraduationCap size={16} weight="duotone" />} label="Knowledge Quiz" />
+                  <TabLink to="/quiz" icon={<Brain size={16} weight="duotone" />} label="Knowledge Quiz" />
                   <TabLink to="/references" icon={<Books size={16} weight="duotone" />} label="References" />
                   <TabLink to="/community" icon={<Users size={16} weight="duotone" />} label="Community" />
                 </div>
@@ -292,6 +295,7 @@ function App() {
             <Suspense fallback={<LoadingSpinner />}>
               <Routes>
                 <Route path="/" element={<ConceptsExplorer />} />
+                <Route path="/study-mode" element={<StudyMode />} />
                 <Route path="/patterns" element={<PatternExplorer />} />
                 <Route path="/azure-services" element={<AzureServicesOverview />} />
                 <Route path="/quiz" element={<QuizSection />} />

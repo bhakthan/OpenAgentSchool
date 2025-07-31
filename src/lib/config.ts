@@ -102,3 +102,43 @@ export function getConfigSource(): string {
   }
   return 'Production Build (compiled environment)';
 }
+
+/**
+ * Check if any LLM provider is configured
+ */
+export function isLlmProviderConfigured(): boolean {
+  const providers = [
+    'VITE_OPENAI_API_KEY',
+    'VITE_AZURE_OPENAI_API_KEY', 
+    'VITE_GEMINI_API_KEY',
+    'VITE_HUGGINGFACE_API_KEY',
+    'VITE_OPENROUTER_API_KEY',
+    'VITE_ANTHROPIC_API_KEY'
+  ] as const;
+
+  return providers.some(provider => {
+    const value = getEnvVar(provider);
+    return value && value.trim() !== '' && !value.includes('your-') && !value.includes('-here');
+  });
+}
+
+/**
+ * Get configured LLM providers
+ */
+export function getConfiguredProviders(): string[] {
+  const providerChecks = [
+    { name: 'OpenAI', key: 'VITE_OPENAI_API_KEY' as const },
+    { name: 'Azure OpenAI', key: 'VITE_AZURE_OPENAI_API_KEY' as const },
+    { name: 'Gemini', key: 'VITE_GEMINI_API_KEY' as const },
+    { name: 'HuggingFace', key: 'VITE_HUGGINGFACE_API_KEY' as const },
+    { name: 'OpenRouter', key: 'VITE_OPENROUTER_API_KEY' as const },
+    { name: 'Claude', key: 'VITE_ANTHROPIC_API_KEY' as const }
+  ];
+
+  return providerChecks
+    .filter(provider => {
+      const value = getEnvVar(provider.key);
+      return value && value.trim() !== '' && !value.includes('your-') && !value.includes('-here');
+    })
+    .map(provider => provider.name);
+}

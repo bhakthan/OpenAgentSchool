@@ -4,10 +4,21 @@
 
 *Built for AI by AI with lots of human intervention in the loop*
 
-An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, and hands-on demonstrations of modern AI agent architectures, including the revolutionary **MCP×A2A Integration** patterns.
+An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, and revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges.
 ---
 
-## 🆕 Latest Updates (July 28, 2025)
+## 🆕 Latest Updates (July 30, 2025)
+
+### 🧠 **NEW: Study Mode - Interactive Learning System**
+
+**Revolutionary Discovery-Based Education** - Transform passive learning into active exploration:
+- **Socratic Questioning**: Learn through guided discovery instead of traditional explanations (*"Imagine two AI agents need to work together. What is the most fundamental thing they would need to do first?"*)
+- **Interactive Scenarios**: Real-world business challenges with code implementation, system design, and decision-making
+- **Debug Challenges**: Systematic three-phase debugging (Analysis → Diagnosis → Solution) with realistic multi-agent system issues
+- **Progress Analytics**: Comprehensive session tracking, insight recognition, and learning effectiveness measurement
+- **Cross-Concept Integration**: Works across all 15 core concepts and agent patterns with adaptive difficulty
+
+## 🆕 Previous Updates (July 28, 2025)
 
 ### 🔧 **Performance & Stability Improvements**
 
@@ -218,6 +229,45 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Architecture Insights**: Detailed breakdowns of how concepts fit into larger Azure ecosystems
 - **Production Guidance**: Security, monitoring, and deployment considerations for enterprise use
 - **Cross-Reference Links**: Connections to related concepts and complementary technologies
+
+### 🧠 Study Mode: Interactive Learning System
+**Revolutionary Discovery-Based Education** - Transform passive learning into active exploration with three specialized learning approaches:
+
+#### 🤔 **Socratic Questioning Mode**
+**Guided Discovery Through Strategic Questions** - Learn through inquiry rather than instruction:
+- **Discovery-Based Learning**: Transform traditional explanations into thought-provoking questions
+  - *Instead of*: "A2A communication allows agents to exchange information"
+  - *Study Mode*: "Imagine two AI agents need to work together on a task. What is the most fundamental thing they would need to do first?"
+- **Dynamic Follow-up Questions**: Adaptive questioning based on your responses
+- **Insight Recognition**: Automatic detection and recording of key learning insights
+- **Thinking Process Visualization**: Track your reasoning journey through complex concepts
+- **Hint System**: Optional guidance without giving away answers
+
+#### 🎮 **Interactive Scenario Mode**
+**Real-World Business Challenges** - Apply learning through practical scenarios:
+- **Business Case Studies**: Customer service automation, code review workflows, financial analysis
+- **Multi-Challenge Progression**: Code implementation → System design → Multiple choice decisions
+- **Live Code Execution**: See your solutions run in simulated environments with realistic outputs
+- **Decision Tree Learning**: Critical choices that affect scenario outcomes and learning paths
+- **Performance Analytics**: Track success rates, time spent, and learning effectiveness
+- **Enterprise Context**: Real-world scenarios using AutoGen, Azure AI, and multi-agent systems
+
+#### 🐛 **Debug Challenge Mode**
+**Systematic Problem-Solving** - Master debugging through structured analysis:
+- **Three-Phase Process**: Analysis → Diagnosis → Solution for thorough understanding
+- **Realistic System Issues**: Infinite loops, message routing failures, memory leaks in agent systems
+- **Complete System Context**: Full access to logs, code, configuration, and agent interactions
+- **Interactive Debugging Tools**: Step through system states, examine variables, trace execution flows
+- **Solution Testing**: Automated validation of your debugging solutions with simulated test results
+- **Common Patterns**: Learn to recognize and fix recurring issues in multi-agent systems
+
+**Study Mode Features**:
+- **Progress Tracking**: Comprehensive session management with localStorage persistence
+- **Adaptive Difficulty**: Questions and challenges scale with your demonstrated understanding
+- **Insight Collection**: Automatic capture of learning breakthroughs and "aha moments"
+- **Performance Analytics**: Detailed tracking of learning effectiveness and knowledge retention
+- **Modern UI**: Beautiful interface using shadcn/ui components with smooth animations
+- **Cross-Concept Integration**: Study modes work across all 15 core concepts and agent patterns
 
 ### 🏢 Azure AI Services Integration
 **Enterprise-Ready Azure Components** - Comprehensive coverage of Microsoft Azure AI ecosystem:
