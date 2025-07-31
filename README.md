@@ -208,11 +208,115 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Security Patterns**: Comprehensive security guidance for enterprise implementations
 - **Code Examples**: Detailed breakdowns of code snippets with line-by-line explanations
 
-### 🎓 Adaptive Learning Quiz Systemonstrations of modern AI agent architectures.
+### � Business Context Mappings: Real-World Pattern Applications
+**Industry-Focused Learning** - Experience AI agent patterns through authentic business scenarios across multiple industries:
+
+#### 📊 **Comprehensive Pattern Coverage**
+**16 Agent Patterns with Business Context** - Each pattern demonstrates real-world applications:
+
+- **Parallelization → Sales Data Processing**
+  - *Scenario*: Q4 global sales analysis across regions (North America, Europe, Asia-Pacific)
+  - *Context*: Executive dashboard generation with regional insights
+
+- **Prompt Chaining → Business Intelligence Reporting**
+  - *Scenario*: Quarterly performance analysis with staged data processing
+  - *Context*: Financial metrics, trend analysis, and strategic insights
+
+- **Self-Reflection → Quality Assurance**
+  - *Scenario*: Product quality control with iterative process improvement
+  - *Context*: Manufacturing quality assessment with continuous optimization
+
+- **Agent-to-Agent → Marketing Campaign Coordination**
+  - *Scenario*: Multi-channel product launch campaign
+  - *Context*: Content creation, social media, and analytics coordination
+
+- **Orchestrator-Worker → Manufacturing Operations**
+  - *Scenario*: Daily production scheduling and coordination
+  - *Context*: Assembly lines, quality control, and packaging operations
+
+- **Evaluator-Optimizer → System Performance Monitoring**
+  - *Scenario*: Application performance optimization
+  - *Context*: Performance metrics analysis and system optimization
+
+- **Autonomous Workflow → Document Processing**
+  - *Scenario*: Automated invoice processing
+  - *Context*: Document classification, data extraction, and approval workflow
+
+- **Deep Researcher → Due Diligence Research**
+  - *Scenario*: M&A acquisition research for TechCorp
+  - *Context*: Comprehensive research, fact-checking, and risk assessment
+
+- **Agent Evaluation → Compliance Auditing**
+  - *Scenario*: Annual AI system compliance audit
+  - *Context*: Performance testing, bias detection, and regulatory compliance
+
+- **Modern Tool Use → IT Operations Automation**
+  - *Scenario*: Critical system outage response
+  - *Context*: Incident management with automated recovery tools
+
+- **Model Context Protocol → Legal Case Management**
+  - *Scenario*: Intellectual property dispute case
+  - *Context*: Legal research, document drafting, and case coordination
+
+- **Voice Agent → Call Center Operations**
+  - *Scenario*: Customer service billing inquiry
+  - *Context*: Speech processing and customer support resolution
+
+- **CodeAct Agent → Software Development**
+  - *Scenario*: Analytics dashboard development
+  - *Context*: Code generation, testing, and deployment
+
+- **ReAct Agent → Financial Analysis** *(Enhanced existing)*
+  - *Scenario*: Investment portfolio analysis
+  - *Context*: Market research and financial recommendations
+
+- **Computer Use → UI Testing Automation** *(Enhanced existing)*
+  - *Scenario*: E-commerce checkout flow testing
+  - *Context*: Automated UI interaction and validation
+
+- **Agentic RAG → Corporate Policy Queries** *(Enhanced existing)*
+  - *Scenario*: Employee HR policy questions
+  - *Context*: Document search and policy verification
+
+#### 🏢 **Industry Coverage**
+**Complete Enterprise Application Spectrum** - Real business scenarios across major industries:
+
+- **Manufacturing & Operations**: Quality control, production scheduling
+- **Finance & Investment**: Portfolio analysis, performance optimization  
+- **Technology & Development**: Software development, IT operations, UI testing
+- **Legal & Compliance**: Case management, compliance auditing
+- **Marketing & Sales**: Campaign coordination, sales analysis
+- **Customer Service**: Call center operations, support routing
+- **Human Resources**: Policy management, employee services
+
+#### ✨ **Enhanced Learning Experience**
+**Business-Context-Aware Visualizations** - Seamless integration between learning and application:
+
+- **Contextual Node Names**: Technical patterns show business-relevant component names
+- **Business Action Steps**: Each execution step includes realistic business actions and outcomes
+- **Industry-Specific Results**: Final outputs reflect actual business value and metrics
+- **Coherent Learning Flow**: Perfect alignment between Business Use Case and Implementation tabs
+- **Real-World Scenarios**: Authentic business challenges with measurable outcomes
+
+### �🎓 Adaptive Learning Quiz System of modern AI agent architectures.
 
 ## 🌟 Features
 
-### 💡 EnlightenMe: AI-Powered Learning Assistant
+### �️ Learning Journey Navigation
+**Structured Learning Path** - Follow a logical progression through AI agent concepts:
+
+- **Core Concepts** - Start with foundational learning
+- **Agent Patterns** - Apply concepts through practical patterns  
+- **Azure Services** - Learn cloud implementation
+- **Tree View** - Get visual overview of everything learned
+- **Study Mode** - Interactive practice and reinforcement
+- **Knowledge Quiz** - Test and assess knowledge
+- **References** - Additional resources
+- **Community** - Share and collaborate
+
+This navigation creates a natural learning flow: **Learn → Apply → Visualize → Practice → Test → Explore → Share**
+
+### �💡 EnlightenMe: AI-Powered Learning Assistant
 **Context-Aware AI Explanations** - Revolutionary learning feature that provides personalized AI insights:
 - **Smart Context Detection**: Automatically generates detailed prompts based on the current concept or pattern
 - **Customizable Queries**: Edit AI prompts or use intelligent defaults for optimal learning

@@ -142,3 +142,26 @@ export function getConfiguredProviders(): string[] {
     })
     .map(provider => provider.name);
 }
+
+/**
+ * Get the first available configured LLM provider for Study Mode
+ */
+export function getFirstAvailableProvider(): string {
+  const providerMappings = [
+    { name: 'openai', key: 'VITE_OPENAI_API_KEY' as const },
+    { name: 'azure', key: 'VITE_AZURE_OPENAI_API_KEY' as const },
+    { name: 'gemini', key: 'VITE_GEMINI_API_KEY' as const },
+    { name: 'openrouter', key: 'VITE_OPENROUTER_API_KEY' as const },
+    { name: 'claude', key: 'VITE_ANTHROPIC_API_KEY' as const },
+    { name: 'huggingface', key: 'VITE_HUGGINGFACE_API_KEY' as const }
+  ];
+
+  for (const provider of providerMappings) {
+    const value = getEnvVar(provider.key);
+    if (value && value.trim() !== '' && !value.includes('your-') && !value.includes('-here')) {
+      return provider.name;
+    }
+  }
+  
+  return 'openai'; // Fallback to openai (will fail gracefully if not configured)
+}

@@ -45,6 +45,8 @@ docs/AZURE_DEPLOYMENT.md
 backend-migration-plan.md
 BACKENDS_README.md
 MIGRATION_CHECKLIST.md
+STUDY_MODE_CONTENT_EXPANSION.md
+GITHUB_SECRETS_SETUP.md
 MIGRATION_START.md
 setup-backends.sh
 setup-backends.ps1

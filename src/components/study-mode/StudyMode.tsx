@@ -23,17 +23,16 @@ import {
   calculateStudyModeProgress,
   getRecommendedNextQuestion,
   hasUnlockedStudyModeType,
-  getStudyModeQuestionsByConceptId,
+  getAllStudyModeQuestions,
   clearTypeProgress
 } from '@/lib/data/studyMode';
 import { StudyModeType, StudyModeQuestion, StudyModeSession } from '@/lib/data/studyMode/types';
-
 interface StudyModeProps {
   conceptId?: string;
   onComplete?: (session: StudyModeSession) => void;
 }
 
-const StudyMode: React.FC<StudyModeProps> = ({ conceptId = 'multi-agent-systems', onComplete }) => {
+const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [activeTab, setActiveTab] = useState<'overview' | StudyModeType>('overview');
   const [selectedQuestion, setSelectedQuestion] = useState<StudyModeQuestion | null>(null);
   const [sessions, setSessions] = useState<StudyModeSession[]>([]);
@@ -46,14 +45,14 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId = 'multi-agent-systems'
     setProgress(calculateStudyModeProgress(loadedSessions));
   }, []);
 
-  // Get questions for current concept
-  const conceptQuestions = getStudyModeQuestionsByConceptId(conceptId);
+  // Get all questions from all concepts
+  const allQuestions = getAllStudyModeQuestions();
   const completedQuestionIds = sessions
-    .filter(s => s.conceptId === conceptId && s.isComplete)
+    .filter(s => s.isComplete)
     .map(s => s.questionId);
 
-  // Get recommended next question
-  const recommendedQuestion = getRecommendedNextQuestion(conceptId, completedQuestionIds);
+  // Get recommended next question (from any concept)
+  const recommendedQuestion = allQuestions.find(q => !completedQuestionIds.includes(q.id));
 
   // Helper functions
   const getTypeIcon = (type: StudyModeType) => {
@@ -329,7 +328,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId = 'multi-agent-systems'
           {/* Study Mode Categories */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {studyModeCategories.map((category) => {
-              const categoryQuestions = conceptQuestions.filter(q => q.type === category.id as StudyModeType);
+              const categoryQuestions = allQuestions.filter(q => q.type === category.id as StudyModeType);
               const completedCount = categoryQuestions.filter(q => 
                 completedQuestionIds.includes(q.id)
               ).length;
@@ -385,7 +384,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId = 'multi-agent-systems'
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {conceptQuestions
+                {allQuestions
                   .filter(q => q.type === 'socratic')
                   .map(question => renderQuestionCard(
                     question, 
@@ -417,7 +416,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId = 'multi-agent-systems'
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {conceptQuestions
+                {allQuestions
                   .filter(q => q.type === 'scenario')
                   .map(question => renderQuestionCard(
                     question, 
@@ -449,7 +448,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId = 'multi-agent-systems'
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {conceptQuestions
+                {allQuestions
                   .filter(q => q.type === 'debug')
                   .map(question => renderQuestionCard(
                     question, 

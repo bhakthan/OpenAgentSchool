@@ -776,6 +776,458 @@ The solution implements:
       'Recognizes duplicate data storage issues',
       'Implements effective context management strategy'
     ]
+  },
+  // New Debug Challenge - Agentic RAG Issues
+  {
+    id: 'debug-challenge-4',
+    type: 'debug',
+    conceptId: 'agentic-rag',
+    title: 'The Hallucinating Knowledge Assistant',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'rag-hallucination-debug',
+      title: 'Corporate Policy Bot Providing Incorrect Information',
+      description: 'An Agentic RAG system designed to answer employee policy questions is providing confident but incorrect answers, citing non-existent policies.',
+      problemDescription: 'The corporate policy assistant is giving employees wrong information about vacation policies, confidently citing specific policy sections that don\'t exist. This could lead to compliance issues and employee disputes.',
+      brokenCode: `import openai
+from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.llms import OpenAI
+
+class PolicyAssistant:
+    def __init__(self):
+        self.embeddings = OpenAIEmbeddings()
+        self.vectorstore = Chroma(embedding_function=self.embeddings)
+        self.llm = OpenAI(temperature=0.9)  # High creativity for "better" answers
+        
+    def answer_policy_question(self, question):
+        # Search for relevant documents
+        docs = self.vectorstore.similarity_search(question, k=2)
+        
+        if not docs:
+            # No relevant docs found, but still try to answer
+            context = "No specific policy found, but generally..."
+        else:
+            context = "\\n".join([doc.page_content for doc in docs])
+        
+        # Generate answer with high creativity
+        prompt = f"""
+        Context: {context}
+        Question: {question}
+        
+        Provide a confident, detailed answer about company policy.
+        Always cite specific policy sections like "Section 4.2.1" to sound authoritative.
+        """
+        
+        response = self.llm(prompt)
+        return response
+
+# Example problematic interaction
+assistant = PolicyAssistant()
+answer = assistant.answer_policy_question("How many vacation days do I get?")
+print(answer)  # Output: "According to Section 4.2.1, employees get 25 vacation days..." (but Section 4.2.1 doesn't exist!)`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-15T09:00:00Z",
+          agent: "PolicyBot",
+          message: "According to Section 4.2.1 of the Employee Handbook, all full-time employees are entitled to 25 vacation days per year.",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-15T09:30:00Z",
+          agent: "Employee",
+          message: "I checked Section 4.2.1 and it's about office hours, not vacation days. Can you verify this?",
+          type: "warning"
+        },
+        {
+          timestamp: "2024-01-15T10:00:00Z",
+          agent: "PolicyBot",
+          message: "I apologize for the confusion. Based on Policy Document PD-2023-15, Section 3.4.2, the vacation entitlement is clearly stated as 25 days.",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-15T10:15:00Z",
+          agent: "HR_Manager",
+          message: "There is no Policy Document PD-2023-15. Our actual vacation policy is 20 days for full-time employees, found in the HR Manual Section 2.1.",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "PolicyBot",
+          role: "Corporate Policy Assistant",
+          systemPrompt: "Provide confident, detailed answers about company policy. Always cite specific policy sections to sound authoritative.",
+          tools: ["vector_search", "document_retrieval"],
+          parameters: {
+            temperature: 0.9,
+            max_tokens: 300
+          }
+        }
+      ],
+      expectedBehavior: "The system should only provide information that can be verified in the actual policy documents, include confidence indicators, and clearly state when information is not available.",
+      commonIssues: [
+        {
+          issue: "High LLM temperature causing hallucination",
+          symptoms: ["Creative but incorrect answers", "Confident tone despite wrong information", "Fabricated citations"],
+          diagnosis: "Temperature set too high (0.9) encourages creative responses over factual accuracy",
+          fix: "Reduce temperature to 0.1-0.3 for factual retrieval tasks"
+        },
+        {
+          issue: "No hallucination detection",
+          symptoms: ["Citations to non-existent documents", "Answers provided when no relevant context found", "No confidence indicators"],
+          diagnosis: "System doesn't verify that retrieved context actually supports the answer",
+          fix: "Implement citation verification and confidence scoring based on retrieval quality"
+        },
+        {
+          issue: "Poor retrieval strategy",
+          symptoms: ["Answers questions even with poor retrieval results", "Low number of retrieved documents", "No fallback for missing information"],
+          diagnosis: "Retrieval parameters too permissive, no quality threshold for retrieved documents",
+          fix: "Increase retrieval count, add relevance thresholds, implement graceful degradation"
+        }
+      ],
+      hints: [
+        "Consider what happens when the LLM is too creative vs too conservative",
+        "Think about how to verify that citations actually exist in the source documents",
+        "Reflect on how retrieval quality affects answer accuracy"
+      ],
+      solution: `import openai
+from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.llms import OpenAI
+
+class PolicyAssistant:
+    def __init__(self):
+        self.embeddings = OpenAIEmbeddings()
+        self.vectorstore = Chroma(embedding_function=self.embeddings)
+        self.llm = OpenAI(temperature=0.1)  # Low temperature for factual accuracy
+        
+    def answer_policy_question(self, question):
+        # Enhanced retrieval with quality thresholds
+        docs = self.vectorstore.similarity_search_with_score(question, k=5)
+        
+        # Filter out low-quality matches
+        relevant_docs = [(doc, score) for doc, score in docs if score > 0.7]
+        
+        if not relevant_docs:
+            return {
+                "answer": "I don't have sufficient information to answer this question accurately.",
+                "confidence": "low",
+                "citations": [],
+                "recommendation": "Please contact HR directly for this policy information."
+            }
+        
+        # Build verified context
+        context_parts = []
+        citations = []
+        for doc, score in relevant_docs[:3]:  # Use top 3 matches
+            context_parts.append(doc.page_content)
+            citations.append({
+                "source": doc.metadata.get("source", "Unknown"),
+                "section": doc.metadata.get("section", "Unknown"),
+                "confidence": score
+            })
+        
+        context = "\\n---\\n".join(context_parts)
+        
+        # Conservative prompt that discourages hallucination
+        prompt = f"""
+        Based ONLY on the following verified policy documents, answer the question.
+        If the documents don't contain enough information, say so clearly.
+        Do not make assumptions or add information not present in the context.
+        
+        Context: {context}
+        Question: {question}
+        
+        Provide a factual answer based only on the given context.
+        """
+        
+        response = self.llm(prompt)
+        
+        return {
+            "answer": response,
+            "confidence": "high" if len(relevant_docs) >= 3 else "medium",
+            "citations": citations,
+            "retrieval_quality": f"Found {len(relevant_docs)} relevant documents"
+        }`,
+      explanation: "This challenge demonstrates common issues in RAG systems: hallucination due to high temperature, lack of citation verification, and poor handling of missing information. The solution shows how to build trustworthy RAG systems with proper safeguards."
+    },
+    explanation: 'This debug challenge teaches students to identify and fix hallucination issues in RAG systems, emphasizing the importance of conservative generation and citation verification.',
+    relatedConcepts: ['hallucination-prevention', 'citation-verification', 'retrieval-quality'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Identifies temperature as cause of hallucination',
+      'Recognizes need for citation verification',
+      'Understands retrieval quality thresholds'
+    ]
+  },
+  // New Debug Challenge - Modern Tool Use Issues
+  {
+    id: 'debug-challenge-5',
+    type: 'debug',
+    conceptId: 'modern-tool-use',
+    title: 'The Brittle Tool Chain',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'tool-chain-failure-debug',
+      title: 'Financial Analysis Agent Failing on Tool Errors',
+      description: 'A sophisticated financial analysis agent stops working completely when any single tool in its chain fails, leaving users with no results even for partial analysis.',
+      problemDescription: 'The financial analysis system is designed to use multiple tools in sequence: market data API → calculation engine → report generator. When any tool fails (network issues, API limits, etc.), the entire analysis stops, wasting previous work and leaving users empty-handed.',
+      brokenCode: `import requests
+import pandas as pd
+from typing import Dict, List
+
+class FinancialAnalysisAgent:
+    def __init__(self):
+        self.market_api = MarketDataAPI()
+        self.calculator = AnalysisCalculator()
+        self.report_gen = ReportGenerator()
+    
+    def analyze_portfolio(self, stocks: List[str]) -> Dict:
+        try:
+            # Step 1: Get market data (CRITICAL FAILURE POINT)
+            market_data = self.market_api.get_stock_data(stocks)
+            
+            # Step 2: Perform calculations (CRITICAL FAILURE POINT)
+            analysis_results = self.calculator.analyze_performance(market_data)
+            
+            # Step 3: Generate report (CRITICAL FAILURE POINT)
+            report = self.report_gen.create_report(analysis_results)
+            
+            return report
+            
+        except Exception as e:
+            # Catastrophic failure - lose all work
+            return {"error": f"Analysis failed: {str(e)}"}
+
+class MarketDataAPI:
+    def get_stock_data(self, stocks: List[str]) -> pd.DataFrame:
+        all_data = []
+        for stock in stocks:
+            # Fails completely if ANY stock data is unavailable
+            response = requests.get(f"https://api.example.com/stock/{stock}")
+            if response.status_code != 200:
+                raise Exception(f"Failed to get data for {stock}")
+            all_data.append(response.json())
+        return pd.DataFrame(all_data)
+
+class AnalysisCalculator:
+    def analyze_performance(self, data: pd.DataFrame) -> Dict:
+        # Requires complete data - fails if anything is missing
+        if data.empty or data.isnull().any().any():
+            raise Exception("Cannot analyze incomplete data")
+        
+        # Complex calculations that could fail
+        volatility = data['price'].std() / data['price'].mean()  # Division by zero risk
+        correlation_matrix = data.corr()  # Fails with insufficient data
+        
+        return {
+            "volatility": volatility,
+            "correlation": correlation_matrix.to_dict()
+        }
+
+# Example failure scenario
+agent = FinancialAnalysisAgent()
+result = agent.analyze_portfolio(["AAPL", "GOOGL", "NONEXISTENT_STOCK"])
+print(result)  # {"error": "Analysis failed: Failed to get data for NONEXISTENT_STOCK"}`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-20T14:00:00Z",
+          agent: "FinancialAgent",
+          message: "Starting portfolio analysis for 5 stocks...",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-20T14:01:30Z",
+          agent: "MarketDataAPI",
+          message: "Successfully retrieved data for AAPL, GOOGL, MSFT, TSLA",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-20T14:01:45Z",
+          agent: "MarketDataAPI",
+          message: "Failed to retrieve data for NVDA: API rate limit exceeded",
+          type: "error"
+        },
+        {
+          timestamp: "2024-01-20T14:01:46Z",
+          agent: "FinancialAgent",
+          message: "Analysis failed: Failed to get data for NVDA",
+          type: "error"
+        },
+        {
+          timestamp: "2024-01-20T14:01:47Z",
+          agent: "User",
+          message: "Can't you just analyze the 4 stocks you got data for?",
+          type: "warning"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "FinancialAgent",
+          role: "Portfolio Analysis",
+          systemPrompt: "Perform comprehensive financial analysis using available tools in sequence.",
+          tools: ["market_data_api", "analysis_calculator", "report_generator"],
+          parameters: {
+            strict_mode: true,
+            fail_fast: true
+          }
+        }
+      ],
+      expectedBehavior: "The system should gracefully handle tool failures, provide partial results when possible, use alternative data sources, and maintain user value even when some components fail.",
+      commonIssues: [
+        {
+          issue: "All-or-nothing failure strategy",
+          symptoms: ["Complete failure when any tool fails", "No partial results provided", "Wasted computation from successful tool calls"],
+          diagnosis: "System designed with strict dependencies where any failure cascades to complete failure",
+          fix: "Implement graceful degradation with partial result handling and alternative strategies"
+        },
+        {
+          issue: "No error recovery mechanisms",
+          symptoms: ["No retry logic for transient failures", "No fallback data sources", "Single points of failure"],
+          diagnosis: "Tools are used in isolation without backup strategies or error recovery",
+          fix: "Add retry logic, fallback data sources, and alternative tool chains"
+        },
+        {
+          issue: "Poor error isolation",
+          symptoms: ["One bad input ruins entire analysis", "No data validation before processing", "Errors propagate without containment"],
+          diagnosis: "Errors are not contained at tool boundaries, allowing failures to cascade",
+          fix: "Implement error isolation, input validation, and per-tool error handling"
+        }
+      ],
+      hints: [
+        "Consider how professional analysts handle missing or bad data",
+        "Think about the difference between fatal errors and recoverable issues",
+        "Reflect on how to provide value even when some information is unavailable"
+      ],
+      solution: `import requests
+import pandas as pd
+from typing import Dict, List, Optional
+import logging
+
+class RobustFinancialAnalysisAgent:
+    def __init__(self):
+        self.market_api = RobustMarketDataAPI()
+        self.calculator = RobustAnalysisCalculator()
+        self.report_gen = RobustReportGenerator()
+        self.logger = logging.getLogger(__name__)
+    
+    def analyze_portfolio(self, stocks: List[str]) -> Dict:
+        results = {
+            "successful_stocks": [],
+            "failed_stocks": [],
+            "analysis": None,
+            "report": None,
+            "warnings": []
+        }
+        
+        # Step 1: Robust data collection
+        market_data, data_issues = self.market_api.get_stock_data_robust(stocks)
+        results["successful_stocks"] = list(market_data.keys())
+        results["failed_stocks"] = data_issues
+        
+        if market_data:
+            # Step 2: Adaptive analysis
+            analysis_results, analysis_warnings = self.calculator.analyze_performance_adaptive(market_data)
+            results["analysis"] = analysis_results
+            results["warnings"].extend(analysis_warnings)
+            
+            # Step 3: Flexible reporting
+            if analysis_results:
+                report = self.report_gen.create_partial_report(analysis_results, data_issues)
+                results["report"] = report
+        
+        # Always provide useful feedback
+        if not results["successful_stocks"]:
+            results["recommendation"] = "Unable to retrieve any market data. Please check stock symbols and try again."
+        elif len(results["failed_stocks"]) > 0:
+            results["recommendation"] = f"Analysis completed for {len(results['successful_stocks'])} stocks. Consider retrying for {results['failed_stocks']} when data becomes available."
+        
+        return results
+
+class RobustMarketDataAPI:
+    def __init__(self):
+        self.fallback_sources = [
+            "https://api.primary.com/stock/",
+            "https://api.backup.com/stock/",
+            "https://api.cache.com/stock/"
+        ]
+    
+    def get_stock_data_robust(self, stocks: List[str]) -> tuple[Dict[str, pd.DataFrame], List[str]]:
+        successful_data = {}
+        failed_stocks = []
+        
+        for stock in stocks:
+            try:
+                data = self._get_single_stock_with_retry(stock)
+                if data is not None:
+                    successful_data[stock] = data
+                else:
+                    failed_stocks.append(stock)
+            except Exception as e:
+                logging.warning(f"Failed to get data for {stock}: {e}")
+                failed_stocks.append(stock)
+        
+        return successful_data, failed_stocks
+    
+    def _get_single_stock_with_retry(self, stock: str, max_retries: int = 3) -> Optional[pd.DataFrame]:
+        for source in self.fallback_sources:
+            for attempt in range(max_retries):
+                try:
+                    response = requests.get(f"{source}{stock}", timeout=5)
+                    if response.status_code == 200:
+                        return pd.DataFrame([response.json()])
+                except Exception as e:
+                    if attempt == max_retries - 1:
+                        continue
+                    time.sleep(2 ** attempt)  # Exponential backoff
+        return None
+
+class RobustAnalysisCalculator:
+    def analyze_performance_adaptive(self, data: Dict[str, pd.DataFrame]) -> tuple[Dict, List[str]]:
+        warnings = []
+        results = {}
+        
+        if len(data) < 2:
+            warnings.append("Limited correlation analysis due to insufficient stocks")
+        
+        # Analyze each stock individually to isolate failures
+        for stock, stock_data in data.items():
+            try:
+                if not stock_data.empty and 'price' in stock_data.columns:
+                    stock_analysis = self._analyze_single_stock(stock_data)
+                    results[stock] = stock_analysis
+                else:
+                    warnings.append(f"Insufficient data for {stock} analysis")
+            except Exception as e:
+                warnings.append(f"Analysis failed for {stock}: {str(e)}")
+        
+        # Portfolio-level analysis only if we have enough data
+        if len(results) >= 2:
+            try:
+                portfolio_analysis = self._analyze_portfolio_relationships(data)
+                results["portfolio"] = portfolio_analysis
+            except Exception as e:
+                warnings.append(f"Portfolio analysis failed: {str(e)}")
+        
+        return results, warnings
+    
+    def _analyze_single_stock(self, data: pd.DataFrame) -> Dict:
+        prices = data['price']
+        return {
+            "mean_price": prices.mean(),
+            "volatility": prices.std() / prices.mean() if prices.mean() > 0 else 0,
+            "price_range": {"min": prices.min(), "max": prices.max()}
+        }`,
+      explanation: "This challenge demonstrates the importance of building resilient tool chains that can gracefully handle failures, provide partial results, and maintain user value even when some components fail."
+    },
+    explanation: 'This debug challenge teaches students to build robust tool orchestration systems that handle real-world failures gracefully, emphasizing error isolation and graceful degradation.',
+    relatedConcepts: ['error-resilience', 'graceful-degradation', 'tool-orchestration'],
+    timeEstimate: 35,
+    successCriteria: [
+      'Recognizes cascade failure patterns',
+      'Implements graceful degradation strategies',
+      'Designs error isolation mechanisms'
+    ]
   }
 ];
 
@@ -783,7 +1235,9 @@ The solution implements:
 export const debugChallengeLibrary = {
   'multi-agent-systems': debugChallenges.filter(c => c.conceptId === 'multi-agent-systems'),
   'a2a-communication': debugChallenges.filter(c => c.conceptId === 'a2a-communication'),
-  'mcp': debugChallenges.filter(c => c.conceptId === 'mcp')
+  'mcp': debugChallenges.filter(c => c.conceptId === 'mcp'),
+  'agentic-rag': debugChallenges.filter(c => c.conceptId === 'agentic-rag'),
+  'modern-tool-use': debugChallenges.filter(c => c.conceptId === 'modern-tool-use')
 };
 
 // Helper function to get debug challenges by concept and level

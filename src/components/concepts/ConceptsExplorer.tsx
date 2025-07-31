@@ -4,7 +4,8 @@ import { FloatingContextualHelp, useFloatingContextualHelp } from "../tutorial/F
 import { PageSynopsis } from "../tutorial/EnhancedTutorialButton"
 import { Brain, ArrowsHorizontal, Shield, Stack } from "@phosphor-icons/react"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
-import { useState, Suspense, lazy } from "react"
+import { useState, Suspense, lazy, useEffect } from "react"
+import { useParams } from "react-router-dom"
 
 // Lazy load heavy components
 const ConceptsHub = lazy(() => import("./ConceptsHub"))
@@ -57,9 +58,17 @@ const coreConceptsSynopsis: PageSynopsis = {
 }
 
 export default function ConceptsExplorer() {
+  const { conceptId } = useParams();
   const { isVisible, hideHelp, showHelp, toggleHelp } = useFloatingContextualHelp("core-concepts", 5000)
   const [isModalOpen, setModalOpen] = useState(false)
-  const [selectedConcept, setSelectedConcept] = useState<string | null>(null) // Track selected concept
+  const [selectedConcept, setSelectedConcept] = useState<string | null>(conceptId || null) // Track selected concept
+
+  // Update selected concept when URL parameter changes
+  useEffect(() => {
+    if (conceptId) {
+      setSelectedConcept(conceptId);
+    }
+  }, [conceptId]);
 
   // Determine the question based on the selected concept
   const getCriticalThinkingQuestion = () => {
@@ -83,7 +92,7 @@ export default function ConceptsExplorer() {
 
       {/* Main Content */}
       <Suspense fallback={<ConceptsLoader />}>
-        <ConceptsHub onSelectConcept={setSelectedConcept} />
+        <ConceptsHub onSelectConcept={setSelectedConcept} initialConcept={selectedConcept} />
       </Suspense>
 
       {/* References */}

@@ -14,6 +14,7 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+    environment: production
     steps:
       - name: Checkout repository
         run: |
@@ -30,6 +31,31 @@ jobs:
           npm ci
       
       - name: Build application
+        env:
+          # # OpenAI
+          # VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
+          # VITE_OPENAI_API_URL: ${{ secrets.VITE_OPENAI_API_URL }}
+          # VITE_OPENAI_MODEL: ${{ secrets.VITE_OPENAI_MODEL }}
+          # # Azure OpenAI
+          # VITE_AZURE_OPENAI_API_KEY: ${{ secrets.VITE_AZURE_OPENAI_API_KEY }}
+          # VITE_AZURE_OPENAI_API_URL: ${{ secrets.VITE_AZURE_OPENAI_API_URL }}
+          # VITE_AZURE_OPENAI_MODEL: ${{ secrets.VITE_AZURE_OPENAI_MODEL }}
+          # # Google Gemini
+          # VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+          # VITE_GEMINI_API_URL: ${{ secrets.VITE_GEMINI_API_URL }}
+          # VITE_GEMINI_MODEL: ${{ secrets.VITE_GEMINI_MODEL }}
+          # # HuggingFace
+          # VITE_HUGGINGFACE_API_KEY: ${{ secrets.VITE_HUGGINGFACE_API_KEY }}
+          # VITE_HUGGINGFACE_API_URL: ${{ secrets.VITE_HUGGINGFACE_API_URL }}
+          # VITE_HUGGINGFACE_MODEL: ${{ secrets.VITE_HUGGINGFACE_MODEL }}
+          # OpenRouter (this is what you specifically need!)
+          VITE_OPENROUTER_API_KEY: ${{ secrets.VITE_OPENROUTER_API_KEY }}
+          VITE_OPENROUTER_API_URL: ${{ secrets.VITE_OPENROUTER_API_URL }}
+          VITE_OPENROUTER_MODEL: ${{ secrets.VITE_OPENROUTER_MODEL }}
+          # # Anthropic Claude
+          # VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
+          # VITE_ANTHROPIC_API_URL: ${{ secrets.VITE_ANTHROPIC_API_URL }}
+          # VITE_ANTHROPIC_MODEL: ${{ secrets.VITE_ANTHROPIC_MODEL }}
         run: |
           npm run build
       

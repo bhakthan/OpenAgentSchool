@@ -227,10 +227,11 @@ const concepts: ConceptInfo[] = [
 
 interface ConceptsHubProps {
   onSelectConcept: (conceptId: string) => void;
+  initialConcept?: string | null;
 }
 
-export default function ConceptsHub({ onSelectConcept }: ConceptsHubProps) {
-  const [selectedConcept, setSelectedConcept] = useState<string | null>(null)
+export default function ConceptsHub({ onSelectConcept, initialConcept }: ConceptsHubProps) {
+  const [selectedConcept, setSelectedConcept] = useState<string | null>(initialConcept || null)
   const [completedConcepts, setCompletedConcepts] = useState<Set<string>>(new Set())
   const [isModalOpen, setModalOpen] = useState(false);
 

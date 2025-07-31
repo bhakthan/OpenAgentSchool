@@ -1,4 +1,5 @@
 import { useState, useEffect, Suspense, lazy } from 'react'
+import { useParams } from 'react-router-dom'
 import { agentPatterns } from '@/lib/data/patterns/index'
 import PatternDetails from './PatternDetails'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -29,7 +30,18 @@ const VisualizationLoader = () => (
 );
 
 const PatternExplorer = () => {
-  const [selectedPattern, setSelectedPattern] = useState(agentPatterns[0] || null);
+  const { patternId } = useParams();
+  
+  // Find initial pattern based on URL parameter
+  const getInitialPattern = () => {
+    if (patternId) {
+      const foundPattern = agentPatterns.find(pattern => pattern.id === patternId);
+      return foundPattern || agentPatterns[0] || null;
+    }
+    return agentPatterns[0] || null;
+  };
+  
+  const [selectedPattern, setSelectedPattern] = useState(getInitialPattern());
   const [viewMode, setViewMode] = useState<'single' | 'compare'>('single');
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('visualization'); // Track the active tab
@@ -38,6 +50,16 @@ const PatternExplorer = () => {
 
   const { startTutorial, registerTutorial, hasCompletedTutorial } = useTutorialContext();
   
+  // Update selected pattern when URL parameter changes
+  useEffect(() => {
+    if (patternId) {
+      const foundPattern = agentPatterns.find(pattern => pattern.id === patternId);
+      if (foundPattern) {
+        setSelectedPattern(foundPattern);
+      }
+    }
+  }, [patternId]);
+
   // Register the agent patterns tutorial
   useEffect(() => {
     registerTutorial(agentPatternsTutorial.id, agentPatternsTutorial);

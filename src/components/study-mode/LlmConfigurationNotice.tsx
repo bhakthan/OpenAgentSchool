@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Lightbulb, Sparkle } from "@phosphor-icons/react";
+import { Sparkle } from "@phosphor-icons/react";
 import { isLlmProviderConfigured } from '@/lib/config';
 
 interface LlmConfigurationNoticeProps {
@@ -37,16 +37,13 @@ const LlmConfigurationNotice: React.FC<LlmConfigurationNoticeProps> = ({
   return (
     <Alert className={`border-amber-200 dark:border-amber-800 bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30 ${className}`}>
       <div className="flex items-start gap-3">
-        <div className="flex items-center gap-1">
-          <Sparkle size={16} className="text-amber-600 dark:text-amber-400" />
-          <Lightbulb size={16} className="text-amber-600 dark:text-amber-400" />
-        </div>
-        <div>
-          <h4 className="font-semibold text-amber-800 dark:text-amber-200 mb-1">{message.title}</h4>
-          <AlertDescription className="text-amber-700 dark:text-amber-300 text-sm">
+        <Sparkle size={16} className="text-amber-600 dark:text-amber-400 flex-shrink-0" />
+        <div className="flex-1 space-y-1">
+          <h4 className="font-semibold text-amber-800 dark:text-amber-200">{message.title}</h4>
+          <AlertDescription className="text-amber-700 dark:text-amber-300">
             {message.description}
           </AlertDescription>
-          <div className="mt-2 text-xs text-amber-600 dark:text-amber-400">
+          <div className="text-xs text-amber-600 dark:text-amber-400">
             <strong>Tip:</strong> Add your API key to environment variables to enable "LLM as Judge" features for enhanced learning!
           </div>
         </div>

@@ -9,9 +9,10 @@ import { Separator } from "@/components/ui/separator";
 import { 
   Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger
 } from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { 
   Brain, ArrowLeft, Lightbulb, CheckCircle, ArrowRight,
-  Clock, Target, TrendUp
+  Clock, Target, TrendUp, Copy, Printer
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { StudyModeQuestion, StudyModeSession, StudyModeResponse } from '@/lib/data/studyMode/types';
@@ -43,13 +44,18 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
   const [llmJudgeResponse, setLlmJudgeResponse] = useState<LlmJudgeResponse | null>(null);
   const [isGettingJudgment, setIsGettingJudgment] = useState(false);
   const [showLlmFeedbackModal, setShowLlmFeedbackModal] = useState(false);
+  const [showCopyTooltip, setShowCopyTooltip] = useState(false);
+  const [showPrintTooltip, setShowPrintTooltip] = useState(false);
 
   // Reset function to allow retaking the same question
   const resetToStart = () => {
     // Show confirmation if user has made progress
     if (responses.length > 0 || userResponse.trim()) {
       const confirmed = window.confirm(
-        'Are you sure you want to start over? This will clear all your current responses and progress.'
+        'Are you sure you want to retake this question?\n\n' +
+        '• This will clear all your current responses and progress\n' +
+        '• For the best experience, refresh the page after retaking to fully reset all modules\n' +
+        '• You can continue without refreshing, but some features may not reset completely'
       );
       if (!confirmed) return;
     }
@@ -67,6 +73,19 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
     
     // Clear progress from storage using utility function
     clearQuestionProgress(question.id, 'socratic');
+    
+    // Inform user about page refresh for optimal experience
+    setTimeout(() => {
+      const shouldRefresh = window.confirm(
+        'Retake initiated! 🎓\n\n' +
+        'For the optimal retake experience, would you like to refresh the page now?\n\n' +
+        '✅ Refresh: Ensures all modules are fully reset\n' +
+        '⏩ Continue: Proceed without refresh (some features may retain state)'
+      );
+      if (shouldRefresh) {
+        window.location.reload();
+      }
+    }, 100);
   };
 
   // All questions for this Socratic sequence
@@ -77,6 +96,165 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
 
   const currentQuestion = allQuestions[currentStep];
   const isLastQuestion = currentStep >= allQuestions.length - 1;
+
+  // Copy LLM feedback to clipboard
+  const handleCopyFeedback = () => {
+    if (!llmJudgeResponse) return;
+
+    const formattedFeedback = `🎓 Comprehensive AI Assessment - Socratic Journey Complete
+Score: ${llmJudgeResponse.score}%
+
+� Learning Journey - Questions & Answers:
+${responses.map((response, index) => `
+Q${index + 1}: ${allQuestions[index]}
+Your Answer: ${response.userAnswer}
+${response.insight ? `💡 Insight Gained: ${response.insight}` : ''}
+`).join('\n')}
+
+�📝 Complete Journey Assessment:
+${llmJudgeResponse.feedback}
+
+${llmJudgeResponse.strengths.length > 0 ? `✅ Strengths:
+${llmJudgeResponse.strengths.map(strength => `• ${strength}`).join('\n')}
+
+` : ''}${llmJudgeResponse.suggestions.length > 0 ? `💡 Suggestions for Improvement:
+${llmJudgeResponse.suggestions.map(suggestion => `• ${suggestion}`).join('\n')}
+
+` : ''}${llmJudgeResponse.insights && llmJudgeResponse.insights.length > 0 ? `🧠 Key Insights:
+${llmJudgeResponse.insights.map(insight => `• ${insight}`).join('\n')}
+
+` : ''}${llmJudgeResponse.improvements.length > 0 ? `📈 Areas for Improvement:
+${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\n')}` : ''}
+
+📖 Study Session Summary:
+• Topic: ${question.title}
+• Questions Completed: ${responses.length}
+• Total Insights Discovered: ${insights.length}
+• Session Duration: ${question.timeEstimate || 15} minutes (estimated)
+• Generated on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`;
+
+    navigator.clipboard.writeText(formattedFeedback);
+    
+    // Show "Copied!" tooltip for 2 seconds
+    setShowCopyTooltip(true);
+    setTimeout(() => {
+      setShowCopyTooltip(false);
+    }, 2000);
+  };
+
+  // Print LLM feedback
+  const handlePrintFeedback = () => {
+    if (!llmJudgeResponse) return;
+
+    const printContent = `
+      <html>
+        <head>
+          <title>Comprehensive AI Assessment - Socratic Journey</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+            .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #3b82f6; padding-bottom: 15px; }
+            .score { font-size: 24px; color: #3b82f6; font-weight: bold; }
+            .section { margin: 20px 0; }
+            .section-title { font-weight: bold; color: #1f2937; margin-bottom: 10px; font-size: 16px; }
+            .feedback { background: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6; margin: 10px 0; }
+            .list-item { margin: 5px 0; padding-left: 15px; }
+            .qa-item { margin: 15px 0; padding: 15px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; }
+            .question { font-weight: bold; color: #374151; margin-bottom: 8px; }
+            .answer { color: #4b5563; margin-bottom: 8px; }
+            .qa-insight { color: #7c3aed; font-style: italic; font-size: 14px; }
+            .strength { color: #059669; }
+            .suggestion { color: #d97706; }
+            .insight { color: #7c3aed; }
+            .improvement { color: #dc2626; }
+            .summary { background: #f0f9ff; padding: 15px; border: 1px solid #bae6fd; border-radius: 8px; margin: 20px 0; }
+            @media print {
+              body { margin: 0; }
+              .no-print { display: none; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>🎓 Comprehensive AI Assessment - Socratic Journey</h1>
+            <div class="score">Score: ${llmJudgeResponse.score}%</div>
+            <div>Complete Learning Journey Assessment</div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">📚 Learning Journey - Questions & Answers</div>
+            ${responses.map((response, index) => `
+              <div class="qa-item">
+                <div class="question">Q${index + 1}: ${allQuestions[index]}</div>
+                <div class="answer"><strong>Your Answer:</strong> ${response.userAnswer}</div>
+                ${response.insight ? `<div class="qa-insight">💡 Insight Gained: ${response.insight}</div>` : ''}
+              </div>
+            `).join('')}
+          </div>
+          
+          <div class="section">
+            <div class="section-title">📝 AI Assessment Feedback</div>
+            <div class="feedback">${llmJudgeResponse.feedback}</div>
+          </div>
+
+          ${llmJudgeResponse.strengths.length > 0 ? `
+          <div class="section">
+            <div class="section-title strength">✅ Strengths</div>
+            ${llmJudgeResponse.strengths.map(strength => `<div class="list-item strength">• ${strength}</div>`).join('')}
+          </div>
+          ` : ''}
+
+          ${llmJudgeResponse.suggestions.length > 0 ? `
+          <div class="section">
+            <div class="section-title suggestion">💡 Suggestions for Improvement</div>
+            ${llmJudgeResponse.suggestions.map(suggestion => `<div class="list-item suggestion">• ${suggestion}</div>`).join('')}
+          </div>
+          ` : ''}
+
+          ${llmJudgeResponse.insights && llmJudgeResponse.insights.length > 0 ? `
+          <div class="section">
+            <div class="section-title insight">🧠 Key Insights</div>
+            ${llmJudgeResponse.insights.map(insight => `<div class="list-item insight">• ${insight}</div>`).join('')}
+          </div>
+          ` : ''}
+
+          ${llmJudgeResponse.improvements.length > 0 ? `
+          <div class="section">
+            <div class="section-title improvement">📈 Areas for Improvement</div>
+            ${llmJudgeResponse.improvements.map(improvement => `<div class="list-item improvement">• ${improvement}</div>`).join('')}
+          </div>
+          ` : ''}
+
+          <div class="summary">
+            <div class="section-title">📖 Study Session Summary</div>
+            <div><strong>Topic:</strong> ${question.title}</div>
+            <div><strong>Questions Completed:</strong> ${responses.length}</div>
+            <div><strong>Total Insights Discovered:</strong> ${insights.length}</div>
+            <div><strong>Session Duration:</strong> ${question.timeEstimate || 15} minutes (estimated)</div>
+          </div>
+
+          <div style="margin-top: 30px; text-align: center; color: #6b7280; font-size: 12px;">
+            Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
+          </div>
+        </body>
+      </html>
+    `;
+
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+      }, 250);
+    }
+
+    // Show "Printed!" tooltip for 2 seconds
+    setShowPrintTooltip(true);
+    setTimeout(() => {
+      setShowPrintTooltip(false);
+    }, 2000);
+  };
 
   // Handle response submission
   const handleResponseSubmit = async () => {
@@ -99,14 +277,104 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
       setInsights(prev => [...prev, newResponse.insight!]);
     }
 
-    // Move to next question or complete
+    // Move to next question or complete the entire journey
     if (isLastQuestion) {
-      await completeSessionWithJudgment(updatedResponses);
+      // Complete the Socratic journey - get comprehensive LLM feedback for ALL questions
+      await completeEntireSocraticJourney(updatedResponses);
     } else {
       setCurrentStep(prev => prev + 1);
       setUserResponse('');
       setShowHint(false);
     }
+  };
+
+  // Complete the entire Socratic journey with comprehensive assessment
+  const completeEntireSocraticJourney = async (finalResponses: StudyModeResponse[]) => {
+    setIsGettingJudgment(true);
+    
+    try {
+      // Prepare comprehensive data for LLM judge with ALL questions and responses
+      const comprehensiveJudgeRequest = {
+        question: question.socratiQuestion!,
+        userResponses: finalResponses.map((response, index) => ({
+          question: allQuestions[index],
+          answer: response.userAnswer
+        })),
+        conceptArea: question.title,
+        learningObjectives: [
+          "Understand core concepts through guided discovery",
+          "Develop critical thinking skills through sequential questioning",
+          "Apply Socratic reasoning methods across the entire learning journey",
+          "Build insights progressively through guided exploration"
+        ],
+        // Enhanced context for comprehensive feedback
+        followUpQuestions: question.followUpQuestions,
+        expectedInsights: question.expectedInsights,
+        difficulty: question.level,
+        relatedConcepts: question.relatedConcepts,
+        fullQuestionContext: {
+          title: question.title,
+          description: `Complete Socratic journey with ${finalResponses.length} questions`,
+          hints: question.hints
+        }
+      };
+
+      console.log('🎓 Calling comprehensive socraticJudge for entire journey:', comprehensiveJudgeRequest);
+      // Get comprehensive LLM judgment for the entire journey
+      const judgment = await socraticJudge(comprehensiveJudgeRequest);
+      console.log('🎓 Received comprehensive judgment:', judgment);
+      
+      setLlmJudgeResponse(judgment);
+      setShowLlmFeedbackModal(true);
+
+      // Create session with enhanced score and insights
+      const session: StudyModeSession = {
+        id: `session-${Date.now()}`,
+        userId: 'anonymous',
+        conceptId: question.conceptId,
+        questionId: question.id,
+        type: 'socratic',
+        startTime,
+        endTime: new Date(),
+        responses: finalResponses,
+        progress: 100,
+        score: judgment.score,
+        insights: [...insights, ...(judgment.insights || [])],
+        isComplete: true
+      };
+
+      saveStudyModeProgress(session);
+      setIsComplete(true);
+
+    } catch (error) {
+      console.error('Error getting comprehensive LLM judgment:', error);
+      // Fallback to completion without LLM feedback
+      completeSessionWithoutLlm(finalResponses);
+    } finally {
+      setIsGettingJudgment(false);
+    }
+  };
+
+  // Fallback completion without LLM feedback
+  const completeSessionWithoutLlm = (finalResponses: StudyModeResponse[]) => {
+    const session: StudyModeSession = {
+      id: `session-${Date.now()}`,
+      userId: 'anonymous',
+      conceptId: question.conceptId,
+      questionId: question.id,
+      type: 'socratic',
+      startTime,
+      endTime: new Date(),
+      responses: finalResponses,
+      progress: 100,
+      score: Math.round((finalResponses.reduce((acc, r) => acc + (r.insight ? 20 : 10), 0) / finalResponses.length) * 5),
+      insights,
+      isComplete: true
+    };
+
+    saveStudyModeProgress(session);
+    setIsComplete(true);
+    onComplete(session);
   };
 
   // Generate contextual feedback
@@ -155,6 +423,7 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
 
   // Complete the session with LLM judgment
   const completeSessionWithJudgment = async (finalResponses: StudyModeResponse[]) => {
+    console.log('🎓 completeSessionWithJudgment called with responses:', finalResponses);
     setIsGettingJudgment(true);
     
     try {
@@ -182,8 +451,10 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
         }
       };
 
+      console.log('🎓 Calling socraticJudge with request:', judgeRequest);
       // Get LLM judgment
       const judgment = await socraticJudge(judgeRequest);
+      console.log('🎓 Received judgment:', judgment);
       setLlmJudgeResponse(judgment);
       setShowLlmFeedbackModal(true);
 
@@ -278,9 +549,39 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
           {llmJudgeResponse ? (
             <div className="space-y-4">
               <div>
-                <h3 className="font-semibold mb-3 flex items-center gap-2">
-                  <Target size={20} className="text-blue-500" />
-                  AI Learning Assessment
+                <h3 className="font-semibold mb-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Target size={20} className="text-blue-500" />
+                    AI Learning Assessment
+                  </div>
+                  <div className="flex gap-2">
+                    <TooltipProvider>
+                      <Tooltip open={showPrintTooltip} onOpenChange={setShowPrintTooltip}>
+                        <TooltipTrigger asChild>
+                          <Button variant="outline" size="sm" onClick={handlePrintFeedback}>
+                            <Printer className="h-4 w-4 mr-1" />
+                            Print
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{showPrintTooltip ? "Opening print dialog..." : "Print feedback"}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    <TooltipProvider>
+                      <Tooltip open={showCopyTooltip} onOpenChange={setShowCopyTooltip}>
+                        <TooltipTrigger asChild>
+                          <Button variant="outline" size="sm" onClick={handleCopyFeedback}>
+                            <Copy className="h-4 w-4 mr-1" />
+                            Copy
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{showCopyTooltip ? "Copied!" : "Copy feedback"}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
                 </h3>
                 {/* Score */}
                 <div className="text-center mb-4">
@@ -372,6 +673,16 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
               <ArrowLeft size={16} />
               Back to Study Mode
             </Button>
+            {llmJudgeResponse && (
+              <Button 
+                variant="outline"
+                onClick={() => setShowLlmFeedbackModal(true)} 
+                className="flex items-center gap-2 border-blue-200 text-blue-700 hover:bg-blue-50"
+              >
+                <Target size={16} />
+                View AI Assessment
+              </Button>
+            )}
             <Button 
               onClick={resetToStart} 
               className="bg-primary hover:bg-primary/90 flex items-center gap-2"
@@ -423,6 +734,15 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
               </div>
             </div>
             <Progress value={progress} className="h-2" />
+            {/* Insight Progress Indicator */}
+            {insights.length > 0 && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground bg-yellow-50 dark:bg-yellow-950/30 p-2 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                <Lightbulb size={14} className="text-yellow-600" />
+                <span className="text-yellow-700 dark:text-yellow-300">
+                  {insights.length} insight{insights.length !== 1 ? 's' : ''} discovered • Building understanding...
+                </span>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -555,6 +875,210 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
             </ScrollArea>
           </CardContent>
         </Card>
+      )}
+
+      {/* LLM Feedback Modal */}
+      {llmJudgeResponse && (
+        <Dialog open={showLlmFeedbackModal} onOpenChange={(open) => {
+          // Prevent accidental closing - require explicit action
+          if (!open) {
+            const confirmed = window.confirm(
+              "Are you sure you want to close your comprehensive AI assessment? You can review this feedback again from the completion screen."
+            );
+            if (!confirmed) return;
+          }
+          setShowLlmFeedbackModal(open);
+        }}>
+          <DialogContent className="max-w-6xl max-h-[85vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="flex items-center justify-between text-blue-700">
+                <div className="flex items-center gap-2">
+                  <Target size={20} />
+                  Comprehensive AI Assessment - Socratic Journey Complete
+                </div>
+                <div className="flex gap-2">
+                  <TooltipProvider>
+                    <Tooltip open={showPrintTooltip} onOpenChange={setShowPrintTooltip}>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" onClick={handlePrintFeedback}>
+                          <Printer className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{showPrintTooltip ? "Opening print dialog..." : "Print feedback"}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <TooltipProvider>
+                    <Tooltip open={showCopyTooltip} onOpenChange={setShowCopyTooltip}>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" onClick={handleCopyFeedback}>
+                          <Copy className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{showCopyTooltip ? "Copied!" : "Copy feedback"}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </DialogTitle>
+              <DialogDescription>
+                Comprehensive feedback and analysis for your complete Socratic learning journey
+              </DialogDescription>
+            </DialogHeader>
+            
+            <div className="space-y-6">
+              {/* Score Display */}
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">
+                  {llmJudgeResponse.score}%
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Learning Effectiveness Score
+                </div>
+              </div>
+
+              {/* Main Feedback */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-lg">Assessment Feedback</h3>
+                <div className="prose prose-sm dark:prose-invert max-w-none p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
+                  <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
+                    {llmJudgeResponse.feedback}
+                  </ReactMarkdown>
+                </div>
+              </div>
+
+              {/* Strengths */}
+              {llmJudgeResponse.strengths.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-lg flex items-center gap-2 text-green-700">
+                    <CheckCircle size={18} />
+                    Your Strengths
+                  </h3>
+                  <div className="space-y-3">
+                    {llmJudgeResponse.strengths.map((strength, index) => (
+                      <div key={index} className="p-3 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
+                        <div className="prose prose-sm dark:prose-invert max-w-none">
+                          <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
+                            {strength}
+                          </ReactMarkdown>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Suggestions */}
+              {llmJudgeResponse.suggestions.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-lg flex items-center gap-2 text-amber-700">
+                    <Lightbulb size={18} />
+                    Suggestions for Improvement
+                  </h3>
+                  <div className="space-y-3">
+                    {llmJudgeResponse.suggestions.map((suggestion, index) => (
+                      <div key={index} className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
+                        <div className="prose prose-sm dark:prose-invert max-w-none">
+                          <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
+                            {suggestion}
+                          </ReactMarkdown>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Additional Insights */}
+              {llmJudgeResponse.insights && llmJudgeResponse.insights.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-lg flex items-center gap-2 text-purple-700">
+                    <Target size={18} />
+                    Key Learning Insights
+                  </h3>
+                  <div className="space-y-3">
+                    {llmJudgeResponse.insights.map((insight, index) => (
+                      <div key={index} className="p-3 bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 rounded-lg">
+                        <div className="prose prose-sm dark:prose-invert max-w-none">
+                          <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
+                            {insight}
+                          </ReactMarkdown>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Areas for Improvement */}
+              {llmJudgeResponse.improvements.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-lg flex items-center gap-2 text-orange-700">
+                    <TrendUp size={18} />
+                    Areas for Growth
+                  </h3>
+                  <div className="space-y-3">
+                    {llmJudgeResponse.improvements.map((improvement, index) => (
+                      <div key={index} className="p-3 bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 rounded-lg">
+                        <div className="prose prose-sm dark:prose-invert max-w-none">
+                          <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
+                            {improvement}
+                          </ReactMarkdown>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="border-t pt-6 mt-6">
+              <div className="flex flex-col sm:flex-row justify-center gap-3">
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    setShowLlmFeedbackModal(false);
+                    // Don't navigate yet - user can review this again
+                  }}
+                  className="flex items-center gap-2"
+                >
+                  <ArrowLeft size={16} />
+                  Review Later
+                </Button>
+                <Button 
+                  onClick={() => {
+                    setShowLlmFeedbackModal(false);
+                    // Complete the session and navigate
+                    onComplete({
+                      id: `session-${Date.now()}`,
+                      userId: 'anonymous',
+                      conceptId: question.conceptId,
+                      questionId: question.id,
+                      type: 'socratic',
+                      startTime,
+                      endTime: new Date(),
+                      responses,
+                      progress: 100,
+                      score: llmJudgeResponse?.score || 75,
+                      insights: [...insights, ...(llmJudgeResponse?.insights || [])],
+                      isComplete: true
+                    });
+                  }}
+                  className="bg-primary hover:bg-primary/90 flex items-center gap-2"
+                >
+                  <CheckCircle size={16} />
+                  Continue to Study Mode
+                </Button>
+              </div>
+              <div className="text-center text-sm text-muted-foreground mt-3">
+                Take your time to review this feedback. You can access it again from the completion screen.
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       )}
     </div>
   );

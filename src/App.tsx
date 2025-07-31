@@ -279,10 +279,10 @@ function App() {
               <ScrollArea className="w-full">
                 <div className="flex space-x-4">
                   <TabLink to="/" icon={<Brain size={16} weight="duotone" />} label="Core Concepts" />
-                  <TabLink to="/study-mode" icon={<GraduationCap size={16} weight="duotone" />} label="Study Mode" />
                   <TabLink to="/patterns" icon={<PuzzlePiece size={16} weight="duotone" />} label="Agent Patterns" />
                   <TabLink to="/azure-services" icon={<StackSimple size={16} weight="duotone" />} label="Azure Services" />
                   <TabLink to="/tree-view" icon={<Tree size={16} weight="duotone" />} label="Tree View" />
+                  <TabLink to="/study-mode" icon={<GraduationCap size={16} weight="duotone" />} label="Study Mode" />
                   <TabLink to="/quiz" icon={<Brain size={16} weight="duotone" />} label="Knowledge Quiz" />
                   <TabLink to="/references" icon={<Books size={16} weight="duotone" />} label="References" />
                   <TabLink to="/community" icon={<Users size={16} weight="duotone" />} label="Community" />
@@ -295,10 +295,11 @@ function App() {
             <Suspense fallback={<LoadingSpinner />}>
               <Routes>
                 <Route path="/" element={<ConceptsExplorer />} />
+                <Route path="/concepts/:conceptId?" element={<ConceptsExplorer />} />
                 <Route path="/study-mode" element={<StudyMode />} />
-                <Route path="/patterns" element={<PatternExplorer />} />
-                <Route path="/azure-services" element={<AzureServicesOverview />} />
-                <Route path="/quiz" element={<QuizSection />} />
+                <Route path="/patterns/:patternId?" element={<PatternExplorer />} />
+                <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
+                <Route path="/quiz/:quizId?" element={<QuizSection />} />
                 <Route path="/tree-view" element={<TreeVisualizationPage />} />
                 <Route path="/references" element={<ReferenceSection type="concept" itemId="agents" />} />
                 <Route path="/community" element={<CommunitySharing />} />

@@ -14,8 +14,9 @@ import {
 import { 
   Bug, ArrowLeft, CheckCircle, ArrowRight, X, Warning,
   Clock, Target, TrendUp, Code, Terminal, FileText, Lightbulb,
-  Play, Eye
+  Play, Eye, Copy, Printer
 } from "@phosphor-icons/react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { DebugChallenge, StudyModeSession, StudyModeResponse, DebugLog, DebugIssue } from '@/lib/data/studyMode/types';
 import { saveStudyModeProgress, clearQuestionProgress } from '@/lib/data/studyMode';
@@ -49,6 +50,8 @@ const DebugChallengeMode: React.FC<DebugChallengeModeProps> = ({
   const [llmJudgeResponse, setLlmJudgeResponse] = useState<LlmJudgeResponse | null>(null);
   const [isGettingJudgment, setIsGettingJudgment] = useState(false);
   const [showLlmFeedbackModal, setShowLlmFeedbackModal] = useState(false);
+  const [showCopyTooltip, setShowCopyTooltip] = useState(false);
+  const [showPrintTooltip, setShowPrintTooltip] = useState(false);
 
   // Enhanced markdown components following EnlightenMe approach
   const markdownComponents = {
@@ -102,7 +105,14 @@ const DebugChallengeMode: React.FC<DebugChallengeModeProps> = ({
 
   // Reset function to allow retaking the same challenge
   const resetToStart = () => {
-    if (confirm("Are you sure you want to restart? This will reset all your progress for this debug challenge.")) {
+    const confirmed = window.confirm(
+      'Are you sure you want to retake this debug challenge?\n\n' +
+      '• This will reset all your progress for this challenge\n' +
+      '• For the best experience, refresh the page after retaking to fully reset all modules\n' +
+      '• You can continue without refreshing, but some features may not reset completely'
+    );
+    
+    if (confirmed) {
       // Clear progress from localStorage
       clearQuestionProgress(challenge.id, 'debug');
       
@@ -120,7 +130,143 @@ const DebugChallengeMode: React.FC<DebugChallengeModeProps> = ({
       setLlmJudgeResponse(null);
       setIsGettingJudgment(false);
       setShowLlmFeedbackModal(false);
+      
+      // Inform user about page refresh for optimal experience
+      setTimeout(() => {
+        const shouldRefresh = window.confirm(
+          'Retake initiated! 🐛\n\n' +
+          'For the optimal retake experience, would you like to refresh the page now?\n\n' +
+          '✅ Refresh: Ensures all modules are fully reset\n' +
+          '⏩ Continue: Proceed without refresh (some features may retain state)'
+        );
+        if (shouldRefresh) {
+          window.location.reload();
+        }
+      }, 100);
     }
+  };
+
+  // Copy LLM feedback to clipboard
+  const handleCopyFeedback = () => {
+    if (!llmJudgeResponse) return;
+
+    const formattedFeedback = `🐛 AI Assessment - Debug Challenge
+Phase: ${currentPhase.charAt(0).toUpperCase() + currentPhase.slice(1)}
+Score: ${llmJudgeResponse.score}%
+
+📝 Assessment Feedback:
+${llmJudgeResponse.feedback}
+
+${llmJudgeResponse.strengths.length > 0 ? `✅ Strengths:
+${llmJudgeResponse.strengths.map(strength => `• ${strength}`).join('\n')}
+
+` : ''}${llmJudgeResponse.suggestions.length > 0 ? `💡 Suggestions for Improvement:
+${llmJudgeResponse.suggestions.map(suggestion => `• ${suggestion}`).join('\n')}
+
+` : ''}${llmJudgeResponse.insights && llmJudgeResponse.insights.length > 0 ? `🧠 Key Insights:
+${llmJudgeResponse.insights.map(insight => `• ${insight}`).join('\n')}
+
+` : ''}${llmJudgeResponse.improvements.length > 0 ? `📈 Areas for Improvement:
+${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\n')}` : ''}`;
+
+    navigator.clipboard.writeText(formattedFeedback);
+    
+    // Show "Copied!" tooltip for 2 seconds
+    setShowCopyTooltip(true);
+    setTimeout(() => {
+      setShowCopyTooltip(false);
+    }, 2000);
+  };
+
+  // Print LLM feedback
+  const handlePrintFeedback = () => {
+    if (!llmJudgeResponse) return;
+
+    const printContent = `
+      <html>
+        <head>
+          <title>AI Assessment - Debug Challenge</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+            .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #3b82f6; padding-bottom: 15px; }
+            .score { font-size: 24px; color: #3b82f6; font-weight: bold; }
+            .section { margin: 20px 0; }
+            .section-title { font-weight: bold; color: #1f2937; margin-bottom: 10px; font-size: 16px; }
+            .feedback { background: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6; margin: 10px 0; }
+            .list-item { margin: 5px 0; padding-left: 15px; }
+            .strength { color: #059669; }
+            .suggestion { color: #d97706; }
+            .insight { color: #7c3aed; }
+            .improvement { color: #dc2626; }
+            @media print {
+              body { margin: 0; }
+              .no-print { display: none; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>🐛 AI Assessment - Debug Challenge</h1>
+            <div>Phase: ${currentPhase.charAt(0).toUpperCase() + currentPhase.slice(1)}</div>
+            <div class="score">Score: ${llmJudgeResponse.score}%</div>
+            <div>Debugging Assessment</div>
+          </div>
+          
+          <div class="section">
+            <div class="section-title">📝 Assessment Feedback</div>
+            <div class="feedback">${llmJudgeResponse.feedback}</div>
+          </div>
+
+          ${llmJudgeResponse.strengths.length > 0 ? `
+          <div class="section">
+            <div class="section-title strength">✅ Strengths</div>
+            ${llmJudgeResponse.strengths.map(strength => `<div class="list-item strength">• ${strength}</div>`).join('')}
+          </div>
+          ` : ''}
+
+          ${llmJudgeResponse.suggestions.length > 0 ? `
+          <div class="section">
+            <div class="section-title suggestion">💡 Suggestions for Improvement</div>
+            ${llmJudgeResponse.suggestions.map(suggestion => `<div class="list-item suggestion">• ${suggestion}</div>`).join('')}
+          </div>
+          ` : ''}
+
+          ${llmJudgeResponse.insights && llmJudgeResponse.insights.length > 0 ? `
+          <div class="section">
+            <div class="section-title insight">🧠 Key Insights</div>
+            ${llmJudgeResponse.insights.map(insight => `<div class="list-item insight">• ${insight}</div>`).join('')}
+          </div>
+          ` : ''}
+
+          ${llmJudgeResponse.improvements.length > 0 ? `
+          <div class="section">
+            <div class="section-title improvement">📈 Areas for Improvement</div>
+            ${llmJudgeResponse.improvements.map(improvement => `<div class="list-item improvement">• ${improvement}</div>`).join('')}
+          </div>
+          ` : ''}
+
+          <div style="margin-top: 30px; text-align: center; color: #6b7280; font-size: 12px;">
+            Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
+          </div>
+        </body>
+      </html>
+    `;
+
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+      }, 250);
+    }
+
+    // Show "Printed!" tooltip for 2 seconds
+    setShowPrintTooltip(true);
+    setTimeout(() => {
+      setShowPrintTooltip(false);
+    }, 2000);
   };
 
   // Handle phase completion
@@ -669,11 +815,39 @@ const DebugChallengeMode: React.FC<DebugChallengeModeProps> = ({
                         View AI Feedback ({llmJudgeResponse.score}%)
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                    <DialogContent className="max-w-6xl max-h-[85vh] overflow-y-auto">
                       <DialogHeader>
-                        <DialogTitle className="flex items-center gap-2 text-blue-700">
-                          <Target size={20} />
-                          AI Assessment - {currentPhase.charAt(0).toUpperCase() + currentPhase.slice(1)} Phase
+                        <DialogTitle className="flex items-center justify-between text-blue-700">
+                          <div className="flex items-center gap-2">
+                            <Target size={20} />
+                            AI Assessment - {currentPhase.charAt(0).toUpperCase() + currentPhase.slice(1)} Phase
+                          </div>
+                          <div className="flex gap-2">
+                            <TooltipProvider>
+                              <Tooltip open={showPrintTooltip} onOpenChange={setShowPrintTooltip}>
+                                <TooltipTrigger asChild>
+                                  <Button variant="outline" size="icon" onClick={handlePrintFeedback}>
+                                    <Printer className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>{showPrintTooltip ? "Opening print dialog..." : "Print feedback"}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                            <TooltipProvider>
+                              <Tooltip open={showCopyTooltip} onOpenChange={setShowCopyTooltip}>
+                                <TooltipTrigger asChild>
+                                  <Button variant="outline" size="icon" onClick={handleCopyFeedback}>
+                                    <Copy className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>{showCopyTooltip ? "Copied!" : "Copy feedback"}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
                         </DialogTitle>
                         <DialogDescription>
                           Comprehensive feedback and analysis for your debugging approach

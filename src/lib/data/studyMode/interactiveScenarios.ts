@@ -410,10 +410,377 @@ class OrderProcessingSystem:
   }
 ];
 
+// Interactive Scenarios for Agentic RAG
+export const agenticRAGScenarios: StudyModeQuestion[] = [
+  {
+    id: 'agentic-rag-scenario-1',
+    type: 'scenario',
+    conceptId: 'agentic-rag',
+    title: 'Building a Corporate Policy Assistant',
+    level: 'intermediate',
+    scenario: {
+      id: 'corporate-policy-assistant',
+      title: 'HR Policy Q&A System Implementation',
+      description: 'Design an Agentic RAG system to help employees quickly find accurate answers to HR policy questions from a large document repository.',
+      context: 'Your company has 500+ HR policy documents that employees frequently need to reference. Current manual search is time-consuming and often yields outdated or incorrect information.',
+      stakeholders: ['HR Team', 'Employees', 'IT Security', 'Legal Compliance'],
+      challenges: [
+        {
+          id: 'query-understanding',
+          title: 'Design Query Intelligence',
+          description: 'An employee asks: "Can I take time off for my sister\'s wedding?" How should the system interpret this?',
+          question: 'What key information should the Agentic RAG system extract from this query?',
+          type: 'multiple-choice',
+          options: [
+            'Just search for "time off" in all documents',
+            'Identify: leave type (personal/family), relationship (sister), event type (wedding), and duration needs',
+            'Ask the employee to rephrase the question more specifically',
+            'Search for all wedding-related policies'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Agentic RAG should decompose queries to understand intent, context, and required information types.',
+          hints: [
+            'Think about what specific policy areas this question touches',
+            'Consider what additional context might be needed'
+          ]
+        },
+        {
+          id: 'retrieval-strategy',
+          title: 'Plan Retrieval Strategy',
+          description: 'The system needs to search through policies',
+          question: 'What retrieval approach would be most effective for this employee question?',
+          type: 'multiple-choice',
+          options: [
+            'Single vector search for "sister wedding time off"',
+            'Multi-stage search: 1) Personal leave policies 2) Family event definitions 3) Time-off procedures',
+            'Keyword search only for faster results',
+            'Search all documents and let the LLM filter results'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Multi-stage retrieval allows the agent to build comprehensive understanding by gathering related policy information systematically.',
+          hints: [
+            'Consider how different policy areas might interact',
+            'Think about building complete context for accurate answers'
+          ]
+        },
+        {
+          id: 'answer-synthesis',
+          title: 'Synthesize Trustworthy Response',
+          description: 'How should the system present the final answer?',
+          question: 'What elements should the response include for maximum trustworthiness?',
+          type: 'code',
+          codeContext: 'Design the response structure for the employee query about time off for sister\'s wedding. Include structured response with policy citations, eligibility criteria, and next steps.',
+          feedback: 'Good approach! Effective Agentic RAG responses should include: 1) Clear answer to the question, 2) Specific policy citations with document names/sections, 3) Eligibility criteria that apply to the employee, 4) Clear next steps for taking action, 5) Confidence indicators and limitations.',
+          hints: [
+            'Think about what employees need to take action',
+            'Consider how to build trust in automated responses'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'robust-implementation',
+          condition: 'All challenges completed effectively',
+          result: 'You\'ve designed a sophisticated Agentic RAG system that provides reliable, cited policy guidance',
+          explanation: 'Your design uses intelligent query decomposition, strategic retrieval, and trustworthy response synthesis.',
+          nextSteps: [
+            'Implement feedback loops for answer quality',
+            'Add policy update notification system',
+            'Include escalation to HR for complex cases'
+          ]
+        }
+      ],
+      codeExample: `# Agentic RAG Corporate Policy Assistant
+class PolicyAssistant:
+    def __init__(self, vector_store, policy_docs):
+        self.vector_store = vector_store
+        self.policy_docs = policy_docs
+        self.query_planner = QueryPlanner()
+        
+    def answer_query(self, employee_question):
+        # Agent planning phase
+        query_plan = self.query_planner.decompose(employee_question)
+        
+        # Multi-stage retrieval
+        relevant_docs = []
+        for subquery in query_plan.subqueries:
+            docs = self.vector_store.similarity_search(subquery)
+            relevant_docs.extend(docs)
+        
+        # Synthesis with citations
+        answer = self.synthesize_answer(relevant_docs, employee_question)
+        return answer`,
+      resources: ['HR Policy Database', 'Vector Store', 'Citation System'],
+      conceptId: 'agentic-rag',
+      difficulty: 'intermediate',
+      estimatedTime: '25 minutes',
+      learningOutcomes: [
+        'Understanding query decomposition in RAG systems',
+        'Designing multi-stage retrieval strategies',
+        'Building trustworthy AI responses with citations'
+      ]
+    },
+    explanation: 'This scenario demonstrates how Agentic RAG goes beyond simple retrieval to provide intelligent, contextual, and trustworthy information access.',
+    relatedConcepts: ['information-retrieval', 'query-planning', 'response-synthesis'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Designs intelligent query interpretation',
+      'Implements strategic retrieval approach',
+      'Creates trustworthy response structure'
+    ]
+  }
+];
+
+// Interactive Scenarios for Modern Tool Use
+export const modernToolUseScenarios: StudyModeQuestion[] = [
+  {
+    id: 'tool-use-scenario-1',
+    type: 'scenario',
+    conceptId: 'modern-tool-use',
+    title: 'Financial Analysis Automation',
+    level: 'advanced',
+    scenario: {
+      id: 'financial-analysis-automation',
+      title: 'Multi-Tool Financial Report Generator',
+      description: 'Build an agent that automates financial analysis by intelligently using multiple tools: data APIs, calculation engines, and reporting systems.',
+      context: 'A financial services company needs to generate daily market analysis reports that combine data from multiple sources, perform complex calculations, and create formatted reports.',
+      stakeholders: ['Financial Analysts', 'Portfolio Managers', 'Compliance Team', 'Clients'],
+      challenges: [
+        {
+          id: 'tool-selection',
+          title: 'Dynamic Tool Selection',
+          description: 'The agent needs to analyze: "Compare tech sector performance vs market average for Q3"',
+          question: 'What sequence of tools should the agent use for this analysis?',
+          type: 'multiple-choice',
+          options: [
+            'Just use a single financial data API to get all information',
+            'Market Data API → Sector Filter Tool → Statistical Calculator → Comparison Tool → Report Generator',
+            'Ask the user to specify exactly which tools to use',
+            'Use all available tools simultaneously for faster results'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Modern tool use requires intelligent sequencing where each tool\'s output informs the next tool selection.',
+          hints: [
+            'Think about the logical flow of financial analysis',
+            'Consider how each tool\'s output enables the next step'
+          ]
+        },
+        {
+          id: 'error-handling',
+          title: 'Handle Tool Failures',
+          description: 'The primary market data API returns an error during analysis',
+          question: 'How should the agent handle this failure?',
+          type: 'multiple-choice',
+          options: [
+            'Stop the entire analysis and report failure',
+            'Switch to backup data source, adjust analysis methodology, and note limitations in report',
+            'Skip the failed data and continue with incomplete analysis',
+            'Retry the same API call multiple times until it works'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Robust tool use includes graceful degradation and transparent limitation reporting.',
+          hints: [
+            'Consider how professional analysts handle data source failures',
+            'Think about maintaining analysis quality with alternative approaches'
+          ]
+        },
+        {
+          id: 'quality-verification',
+          title: 'Verify Tool Output Quality',
+          description: 'How should the agent ensure the analysis results are accurate?',
+          question: 'What quality verification steps should be implemented?',
+          type: 'code',
+          codeContext: 'Design quality checks for financial analysis tool outputs. Include data validation, cross-source verification, and sanity checks.',
+          feedback: 'Excellent quality verification approach! Essential checks include: 1) Data validation (null checks, range validation, format verification), 2) Cross-source verification (comparing results from multiple data sources), 3) Sanity checks (logical consistency, expected ranges), 4) Historical comparison (trend analysis), 5) Statistical outlier detection.',
+          hints: [
+            'Think about common data quality issues in financial analysis',
+            'Consider how to validate calculations and comparisons'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'production-ready-system',
+          condition: 'All challenges completed successfully',
+          result: 'You\'ve designed a robust financial analysis agent with intelligent tool orchestration',
+          explanation: 'Your system can handle real-world complexity with proper error handling and quality verification.',
+          nextSteps: [
+            'Implement monitoring and alerting for tool performance',
+            'Add learning mechanisms to improve tool selection',
+            'Create audit trails for compliance requirements'
+          ]
+        }
+      ],
+      codeExample: `# Modern Tool Use Financial Agent
+class FinancialAnalysisAgent:
+    def __init__(self):
+        self.tools = {
+            'market_data': MarketDataAPI(),
+            'calculator': AnalysisCalculator(),
+            'report_gen': ReportGenerator()
+        }
+        self.fallback_tools = {
+            'market_data': [BackupDataAPI(), CachedDataStore()]
+        }
+    
+    def analyze_sector_performance(self, query):
+        try:
+            # Tool orchestration with error handling
+            data = self.tools['market_data'].get_sector_data(query.sector)
+            analysis = self.tools['calculator'].compare_performance(data)
+            report = self.tools['report_gen'].create_report(analysis)
+            return report
+        except ToolError as e:
+            return self.handle_tool_failure(e, query)`,
+      resources: ['Financial APIs', 'Calculation Libraries', 'Report Templates'],
+      conceptId: 'modern-tool-use',
+      difficulty: 'advanced',
+      estimatedTime: '35 minutes',
+      learningOutcomes: [
+        'Designing intelligent tool orchestration',
+        'Implementing robust error handling strategies',
+        'Building quality verification systems'
+      ]
+    },
+    explanation: 'This scenario demonstrates advanced tool use patterns for production systems requiring reliability and quality assurance.',
+    relatedConcepts: ['tool-orchestration', 'error-recovery', 'quality-assurance'],
+    timeEstimate: 35,
+    successCriteria: [
+      'Designs logical tool sequencing',
+      'Implements comprehensive error handling',
+      'Creates effective quality verification'
+    ]
+  }
+];
+
+// Interactive Scenarios for Computer Use
+export const computerUseScenarios: StudyModeQuestion[] = [
+  {
+    id: 'computer-use-scenario-1',
+    type: 'scenario',
+    conceptId: 'computer-use',
+    title: 'Automated Testing System',
+    level: 'advanced',
+    scenario: {
+      id: 'automated-testing-system',
+      title: 'AI Agent Web Application Testing',
+      description: 'Design an agent that can autonomously test web applications by interacting with user interfaces like a human tester.',
+      context: 'A software company needs to automate regression testing for their web applications. The agent must navigate interfaces, fill forms, and verify functionality.',
+      stakeholders: ['QA Team', 'Development Team', 'Product Managers', 'End Users'],
+      challenges: [
+        {
+          id: 'interface-interpretation',
+          title: 'Visual Interface Understanding',
+          description: 'The agent encounters a login form with username/password fields',
+          question: 'How should the agent identify and interact with form elements?',
+          type: 'multiple-choice',
+          options: [
+            'Use hardcoded coordinates for clicking specific screen positions',
+            'Computer vision to identify form elements + DOM analysis for precise interaction',
+            'Only rely on accessibility labels and ignore visual layout',
+            'Take screenshots and ask human operators what to click'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Combining computer vision with DOM analysis provides robust, adaptable interface interaction.',
+          hints: [
+            'Consider how to make the system adaptable to UI changes',
+            'Think about precision vs flexibility in element identification'
+          ]
+        },
+        {
+          id: 'dynamic-adaptation',
+          title: 'Handle Dynamic Content',
+          description: 'The web page loads content dynamically and layout changes',
+          question: 'How should the agent adapt to changing interfaces?',
+          type: 'multiple-choice',
+          options: [
+            'Wait for fixed time periods before interacting',
+            'Monitor page state changes and adapt interaction strategy dynamically',
+            'Refresh the page and start over when changes occur',
+            'Only test static pages to avoid complexity'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Modern web applications require agents that can understand and adapt to dynamic content changes.',
+          hints: [
+            'Think about how human testers handle dynamic content',
+            'Consider what signals indicate when a page is ready for interaction'
+          ]
+        },
+        {
+          id: 'test-verification',
+          title: 'Verify Test Results',
+          description: 'How should the agent determine if a test passed or failed?',
+          question: 'What verification strategy would be most reliable?',
+          type: 'code',
+          codeContext: 'Design verification logic for web application testing. Include multi-modal verification including visual, text, and behavioral checks.',
+          feedback: 'Outstanding verification strategy! Comprehensive testing verification should include: 1) Visual verification (screenshot comparison, UI element presence), 2) Text content verification (expected messages, data accuracy), 3) Behavioral verification (correct navigation, state changes), 4) Performance verification (load times, responsiveness), 5) Error condition testing (graceful failure handling).',
+          hints: [
+            'Consider different types of test failures',
+            'Think about how to capture evidence of test results'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'autonomous-testing-system',
+          condition: 'All challenges completed effectively',
+          result: 'You\'ve designed an intelligent testing agent that can autonomously validate web applications',
+          explanation: 'Your system combines computer vision, adaptive interaction, and comprehensive verification.',
+          nextSteps: [
+            'Implement test case learning from human demonstrations',
+            'Add parallel testing across different browsers',
+            'Create detailed failure analysis and reporting'
+          ]
+        }
+      ],
+      codeExample: `# Computer Use Testing Agent
+class WebTestingAgent:
+    def __init__(self):
+        self.vision_system = ComputerVision()
+        self.dom_analyzer = DOMAnalyzer()
+        self.interaction_engine = InteractionEngine()
+    
+    def test_login_flow(self, test_case):
+        # Visual + DOM analysis for robust element identification
+        username_field = self.find_element("username input field")
+        password_field = self.find_element("password input field")
+        login_button = self.find_element("login button")
+        
+        # Adaptive interaction
+        self.interaction_engine.type(username_field, test_case.username)
+        self.interaction_engine.type(password_field, test_case.password)
+        self.interaction_engine.click(login_button)
+        
+        # Multi-modal verification
+        return self.verify_login_success()`,
+      resources: ['Computer Vision APIs', 'Browser Automation', 'DOM Analysis Tools'],
+      conceptId: 'computer-use',
+      difficulty: 'advanced',
+      estimatedTime: '40 minutes',
+      learningOutcomes: [
+        'Understanding visual interface interpretation',
+        'Designing adaptive interaction systems',
+        'Building comprehensive test verification'
+      ]
+    },
+    explanation: 'This scenario demonstrates how computer use agents can automate complex human-computer interactions while maintaining reliability and adaptability.',
+    relatedConcepts: ['computer-vision', 'interface-automation', 'adaptive-systems'],
+    timeEstimate: 40,
+    successCriteria: [
+      'Designs robust interface interpretation',
+      'Implements adaptive interaction strategies',
+      'Creates comprehensive verification systems'
+    ]
+  }
+];
+
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
-  'a2a-communication': a2aScenarios
+  'a2a-communication': a2aScenarios,
+  'agentic-rag': agenticRAGScenarios,
+  'modern-tool-use': modernToolUseScenarios,
+  'computer-use': computerUseScenarios
 };
 
 // Helper function to get scenarios by concept and level

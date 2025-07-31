@@ -11,12 +11,12 @@ import {
   CloudArrowUp, 
   Target,
   Tree,
-  MagnifyingGlassPlus,
   ChartLineUp,
   Lightbulb
 } from '@phosphor-icons/react';
 import { systemDesignPatterns } from '@/lib/data/systemDesign';
 import { quizCategories } from '@/lib/data/quizzes';
+import { getAllStudyModeQuestions, studyModeCategories } from '@/lib/data/studyMode';
 
 // Types
 interface TreeNode {
@@ -191,8 +191,6 @@ const azureServicesData = [
 export default function ComprehensiveTreeVisualization() {
   const navigate = useNavigate();
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
-  const [viewMode, setViewMode] = useState<'full' | 'concepts' | 'patterns' | 'azure' | 'quiz'>('full');
-  const [searchTerm, setSearchTerm] = useState('');
 
   // Handle navigation for leaf nodes
   const handleNodeSelect = (node: TreeNode) => {
@@ -200,16 +198,21 @@ export default function ComprehensiveTreeVisualization() {
     if (['concept', 'pattern', 'service', 'quiz'].includes(node.type)) {
       switch (node.type) {
         case 'concept':
-          navigate('/'); // ConceptsExplorer page
+          navigate(`/concepts/${node.id}`); // Navigate to specific concept
           break;
         case 'pattern':
-          navigate('/patterns'); // PatternExplorer page
+          navigate(`/patterns/${node.id}`); // Navigate to specific pattern
           break;
         case 'service':
-          navigate('/azure-services'); // AzureServicesOverview page
+          navigate(`/azure-services/${node.id}`); // Navigate to specific service
           break;
         case 'quiz':
-          navigate('/quiz'); // QuizSection page
+          // Check if it's a study mode question
+          if (node.id.startsWith('study-')) {
+            navigate('/study-mode'); // Study Mode page
+          } else {
+            navigate(`/quiz/${node.id}`); // Navigate to specific quiz
+          }
           break;
       }
     } else {
@@ -237,7 +240,7 @@ export default function ComprehensiveTreeVisualization() {
       id: 'root',
       name: 'Open Agent School',
       type: 'root',
-      description: 'Comprehensive AI Agent Learning Platform with 15 concepts, 18 patterns, Azure services, and knowledge quizzes',
+      description: 'Comprehensive AI Agent Learning Platform with 15 concepts, 18 patterns, Azure services, knowledge quizzes, and interactive study modes',
       icon: <Brain className="w-5 h-5" />,
       children: [
         // Core Concepts Category
@@ -346,6 +349,37 @@ export default function ComprehensiveTreeVisualization() {
               description: tab.description
             }))
           }))
+        },
+
+        // Study Mode Category
+        {
+          id: 'study-mode',
+          name: 'Study Mode',
+          type: 'category',
+          description: 'Interactive learning through Socratic questioning, scenarios, and debugging challenges',
+          icon: <Lightbulb className="w-4 h-4" />,
+          progress: Math.floor(Math.random() * 40 + 30), // Random progress 30-70%
+          metadata: { totalQuestions: getAllStudyModeQuestions().length },
+          children: studyModeCategories.map(category => ({
+            id: `study-${category.id}`,
+            name: category.name,
+            type: 'quiz' as const, // Using quiz type for study questions
+            description: category.description,
+            difficulty: category.id === 'socratic-thinking' ? 'beginner' as const : 
+                       category.id === 'interactive-scenarios' ? 'intermediate' as const : 'advanced' as const,
+            estimatedTime: 45, // Average time for study mode sessions
+            progress: Math.floor(Math.random() * 60 + 20), // Random progress 20-80%
+            metadata: { 
+              totalQuestions: category.questions.length,
+              completedQuestions: Math.floor(Math.random() * category.questions.length * 0.5)
+            },
+            children: [
+              { id: `${category.id}-overview`, name: 'Mode Overview', type: 'tab' as const, description: 'Introduction to this study mode' },
+              { id: `${category.id}-questions`, name: 'Question Library', type: 'tab' as const, description: 'Browse available questions' },
+              { id: `${category.id}-progress`, name: 'Progress Tracking', type: 'tab' as const, description: 'Track your learning progress' },
+              { id: `${category.id}-insights`, name: 'Learning Insights', type: 'tab' as const, description: 'Personalized learning insights' }
+            ]
+          }))
         }
       ]
     };
@@ -353,111 +387,23 @@ export default function ComprehensiveTreeVisualization() {
 
   const treeData = generateTreeData();
 
-  // Filter tree data based on view mode and search
-  const filteredTreeData = React.useMemo(() => {
-    let filtered = { ...treeData };
-    
-    if (viewMode !== 'full') {
-      const categoryMap = {
-        'concepts': 'core-concepts',
-        'patterns': 'agent-patterns', 
-        'azure': 'azure-services',
-        'quiz': 'knowledge-quiz'
-      };
-      
-      const targetCategory = categoryMap[viewMode];
-      filtered.children = filtered.children?.filter(child => child.id === targetCategory) || [];
-    }
-
-    if (searchTerm) {
-      // Implement search filtering here
-      const searchLower = searchTerm.toLowerCase();
-      const filterNode = (node: TreeNode): TreeNode | null => {
-        const matchesSearch = node.name.toLowerCase().includes(searchLower) ||
-                             node.description?.toLowerCase().includes(searchLower);
-        
-        const filteredChildren = node.children?.map(filterNode).filter(Boolean) as TreeNode[];
-        
-        if (matchesSearch || (filteredChildren && filteredChildren.length > 0)) {
-          return {
-            ...node,
-            children: filteredChildren
-          };
-        }
-        
-        return null;
-      };
-
-      const filteredRoot = filterNode(filtered);
-      return filteredRoot || filtered;
-    }
-
-    return filtered;
-  }, [treeData, viewMode, searchTerm]);
-
   return (
-    <div className="w-full h-screen bg-white dark:bg-gray-900">
+    <div className="w-full min-h-screen bg-white dark:bg-gray-900">
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <Tree className="w-8 h-8 text-indigo-600" />
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                AI Agent Learning Tree
-              </h1>
-              <p className="text-gray-600 dark:text-gray-400">
-                Interactive D3.js visualization of comprehensive AI agent education platform
-              </p>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={() => setSelectedNode(null)}
-            >
-              Reset Selection
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-4 mb-4">
-          <div className="flex-1 relative">
-            <MagnifyingGlassPlus className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search concepts, patterns, services, or quizzes..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white"
-            />
-          </div>
-          
-          <div className="flex gap-2">
-            {[
-              { id: 'full', label: 'All', icon: <Tree className="w-4 h-4" /> },
-              { id: 'concepts', label: 'Concepts', icon: <Brain className="w-4 h-4" /> },
-              { id: 'patterns', label: 'Patterns', icon: <Cog className="w-4 h-4" /> },
-              { id: 'azure', label: 'Azure', icon: <CloudArrowUp className="w-4 h-4" /> },
-              { id: 'quiz', label: 'Quiz', icon: <Target className="w-4 h-4" /> }
-            ].map(mode => (
-              <Button
-                key={mode.id}
-                variant={viewMode === mode.id ? "default" : "outline"}
-                size="sm"
-                onClick={() => setViewMode(mode.id as any)}
-                className="flex items-center gap-2"
-              >
-                {mode.icon}
-                {mode.label}
-              </Button>
-            ))}
+        <div className="flex items-center gap-3 mb-4">
+          <Tree className="w-8 h-8 text-indigo-600" />
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              AI Agent Learning Tree
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Interactive D3.js visualization of comprehensive AI agent education platform
+            </p>
           </div>
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-5 gap-4">
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
@@ -505,16 +451,28 @@ export default function ComprehensiveTreeVisualization() {
               </div>
             </CardContent>
           </Card>
+          
+          <Card>
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <Lightbulb className="w-8 h-8 text-indigo-600" />
+                <div>
+                  <div className="text-2xl font-bold">{getAllStudyModeQuestions().length}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Study Questions</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
       {/* Tree Visualization */}
-      <div className="flex-1" style={{ height: 'calc(100vh - 280px)' }}>
+      <div className="flex-1" style={{ minHeight: '1000px' }}>
         <D3TreeVisualization
-          data={filteredTreeData}
+          data={treeData}
           selectedNode={selectedNode}
           onNodeSelect={handleNodeSelect}
-          className="h-full"
+          className="h-auto"
         />
       </div>
 

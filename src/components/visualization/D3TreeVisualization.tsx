@@ -301,13 +301,14 @@ export default function D3TreeVisualization({
 
   return (
     <div className={`w-full h-full ${className}`} style={{ 
-      maxHeight: '600px', 
-      overflow: 'auto',
+      overflow: 'hidden',
       border: '1px solid hsl(var(--border))',
       borderRadius: '8px',
-      padding: '16px'
+      padding: '16px',
+      height: 'fit-content',
+      minHeight: '600px'
     }}>
-      <svg ref={svgRef} style={{ width: '1200px', height: '1000px' }} />
+      <svg ref={svgRef} style={{ width: '100%', height: '1000px', minWidth: '1200px' }} />
     </div>
   );
 }
