@@ -133,6 +133,17 @@ export default function ConceptsExplorer() {
         onClose={() => setModalOpen(false)}
         question={getCriticalThinkingQuestion()}
         contextTitle={selectedConcept ? selectedConcept : "Core Concepts"}
+        conceptArea={selectedConcept || "Core Concepts"}
+        source="core-concepts"
+        context={{
+          difficulty: "intermediate",
+          evaluationCriteria: [
+            "Understanding of fundamental concepts",
+            "Application to real-world scenarios",
+            "Recognition of potential challenges",
+            "Integration with other AI agent concepts"
+          ]
+        }}
       />
     </div>
   )

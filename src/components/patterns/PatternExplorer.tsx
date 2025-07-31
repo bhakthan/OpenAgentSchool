@@ -192,6 +192,19 @@ const PatternExplorer = () => {
         question={getCriticalThinkingQuestion()}
         contextTitle={selectedPattern ? selectedPattern.name : "Agent Patterns"}
         contextCue={selectedPattern ? getPatternCue(selectedPattern.id)?.cue : undefined}
+        conceptArea={selectedPattern?.name || "Agent Patterns"}
+        source="agent-patterns"
+        context={{
+          difficulty: "intermediate",
+          expectedApproaches: selectedPattern?.advantages ? selectedPattern.advantages.slice(0, 3) : undefined,
+          keyConsiderations: selectedPattern?.limitations ? selectedPattern.limitations.slice(0, 3) : undefined,
+          evaluationCriteria: [
+            "Practical application understanding",
+            "Recognition of pattern benefits and limitations", 
+            "Creative problem-solving approach",
+            "Real-world implementation considerations"
+          ]
+        }}
       />
 
       {viewMode === 'single' ? (

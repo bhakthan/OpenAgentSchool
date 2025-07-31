@@ -84,6 +84,23 @@ export interface ScenarioJudgeRequest {
   }>;
 }
 
+export interface CriticalThinkingJudgeRequest {
+  challengeTitle: string;
+  challengeDescription: string;
+  question: string;
+  userResponse: string;
+  conceptArea: string; // e.g., "Agent Architecture", "Multi-Agent Systems"
+  source: 'core-concepts' | 'agent-patterns';
+  context?: {
+    difficulty?: string;
+    expectedApproaches?: string[];
+    keyConsiderations?: string[];
+    realWorldApplications?: string[];
+    commonMisconceptions?: string[];
+    evaluationCriteria?: string[];
+  };
+}
+
 // Change: Always use OpenRouter for Study Mode
 export async function socraticJudge(request: SocraticJudgeRequest): Promise<LlmJudgeResponse> {
   // Check if LLM provider is configured
@@ -446,6 +463,117 @@ Provide constructive, educational feedback that encourages learning and improvem
       insights: ["Hands-on scenario practice builds practical problem-solving confidence"],
       strengths: ["Engaged thoughtfully with real-world challenges", "Demonstrated willingness to tackle complex scenarios"],
       improvements: ["Continue building confidence through scenario-based practice"]
+    };
+  }
+}
+
+export async function criticalThinkingJudge(request: CriticalThinkingJudgeRequest): Promise<LlmJudgeResponse> {
+  // Check if LLM provider is configured
+  if (!isLlmProviderConfigured()) {
+    return {
+      score: 80, // Encouraging default score for critical thinking
+      feedback: "Excellent critical thinking engagement! Your thoughtful approach to this complex challenge demonstrates you're developing the analytical mindset essential for understanding AI agent systems. When an LLM provider is configured, you'll receive detailed feedback on your reasoning process and insights for deeper exploration.",
+      suggestions: [
+        "Continue questioning assumptions and exploring multiple perspectives",
+        "Connect your insights to practical applications in AI agent systems",
+        "Consider both benefits and potential challenges of your proposed approaches"
+      ],
+      insights: ["Critical thinking is the foundation of innovative AI agent design"],
+      strengths: ["Engaged deeply with complex conceptual challenges", "Demonstrated analytical thinking approach"],
+      improvements: ["Continue developing systematic critical analysis skills"]
+    };
+  }
+
+  const prompt = `You are an expert critical thinking assessor evaluating a student's response to a challenging question about AI agent concepts.
+
+**Challenge Context:**
+- Title: ${request.challengeTitle}
+- Description: ${request.challengeDescription}
+- Question: ${request.question}
+- Concept Area: ${request.conceptArea}
+- Source: ${request.source === 'core-concepts' ? 'Core Concepts' : 'Agent Patterns'}
+
+**Additional Context:**
+${request.context?.difficulty ? `- Difficulty Level: ${request.context.difficulty}` : ''}
+${request.context?.expectedApproaches?.length ? `- Expected Approaches: ${request.context.expectedApproaches.join('; ')}` : ''}
+${request.context?.keyConsiderations?.length ? `- Key Considerations: ${request.context.keyConsiderations.join('; ')}` : ''}
+${request.context?.realWorldApplications?.length ? `- Real-World Applications: ${request.context.realWorldApplications.join('; ')}` : ''}
+${request.context?.commonMisconceptions?.length ? `- Common Misconceptions to Avoid: ${request.context.commonMisconceptions.join('; ')}` : ''}
+${request.context?.evaluationCriteria?.length ? `- Evaluation Criteria: ${request.context.evaluationCriteria.join('; ')}` : ''}
+
+**Student's Response:**
+${request.userResponse}
+
+**Critical Thinking Assessment Focus:**
+1. **Depth of Analysis**: How thoroughly did they explore the question?
+2. **Multiple Perspectives**: Did they consider different viewpoints or approaches?
+3. **Evidence & Reasoning**: How well did they support their ideas with logical reasoning?
+4. **Connection to Concepts**: How effectively did they relate to ${request.conceptArea} principles?
+5. **Innovation & Creativity**: Did they demonstrate original thinking or creative problem-solving?
+6. **Practical Application**: How well did they connect abstract concepts to real-world scenarios?
+7. **Assumption Questioning**: Did they identify and challenge underlying assumptions?
+8. **Synthesis**: How well did they integrate multiple ideas into a coherent response?
+
+**Response Format (JSON):**
+{
+  "score": <0-100 based on critical thinking depth and quality>,
+  "feedback": "<detailed assessment focusing on their critical thinking process, reasoning quality, and depth of analysis>",
+  "suggestions": ["<specific suggestion to enhance critical thinking>", "<another thinking skill suggestion>", "<third analytical improvement>"],
+  "insights": ["<key critical thinking insight they demonstrated>", "<another analytical strength shown>"],
+  "strengths": ["<specific critical thinking strength>", "<another analytical ability>"],
+  "improvements": ["<specific critical thinking skill to develop>", "<another analytical area for growth>"]
+}
+
+**Critical Guidelines for Encouraging Assessment:**
+- CELEBRATE intellectual curiosity and willingness to engage with complex questions
+- For developing thinkers: Highlight ANY evidence of analytical thinking, even in partial answers
+- Frame thinking gaps as exciting opportunities for intellectual growth
+- Use empowering language: "Your thinking demonstrates...", "You're developing the mindset of...", "This shows promising analytical skills..."
+- Value the thinking process over "perfect" answers - critical thinking is a skill that grows with practice
+- Encourage risk-taking in thinking: "Great thinking often comes from exploring bold ideas..."
+- Connect their thinking to professional/academic success: "This kind of analysis is exactly what [field professionals] do..."
+- End with confidence-building: "You're building the critical thinking skills that drive innovation..."
+
+**Important Assessment Principles:**
+- Focus on the QUALITY of thinking, not just knowledge recall
+- Recognize creative and unconventional approaches that show genuine thinking
+- Assess how well they break down complex problems into manageable parts
+- Evaluate their ability to see connections between different concepts
+- Consider how they handle uncertainty and ambiguity
+- Look for evidence of metacognition - thinking about their own thinking process
+
+Your role is to inspire continued intellectual growth while providing specific guidance for developing stronger critical thinking skills.${request.context?.expectedApproaches?.length ? ` Reference expected approaches: ${request.context.expectedApproaches.join(', ')}.` : ''}${request.context?.commonMisconceptions?.length ? ` Check if they avoided common misconceptions: ${request.context.commonMisconceptions.join(', ')}.` : ''}`;
+
+  try {
+    const response = await callLlm(prompt, STUDY_MODE_PROVIDER);
+    
+    // Extract JSON from response, handling both plain JSON and markdown-wrapped JSON
+    let jsonContent = response.content.trim();
+    
+    // Remove markdown code block wrapping if present
+    const jsonBlockMatch = jsonContent.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+    if (jsonBlockMatch) {
+      jsonContent = jsonBlockMatch[1].trim();
+    }
+    
+    const parsed = JSON.parse(jsonContent);
+    return {
+      score: Math.max(0, Math.min(100, parsed.score || 50)),
+      feedback: parsed.feedback || "Great critical thinking effort!",
+      suggestions: Array.isArray(parsed.suggestions) ? parsed.suggestions : [],
+      insights: Array.isArray(parsed.insights) ? parsed.insights : [],
+      strengths: Array.isArray(parsed.strengths) ? parsed.strengths : [],
+      improvements: Array.isArray(parsed.improvements) ? parsed.improvements : []
+    };
+  } catch (error) {
+    console.error('Critical Thinking Judge Error:', error);
+    return {
+      score: 75, // Encouraging default score
+      feedback: "Outstanding engagement with this critical thinking challenge! Your willingness to grapple with complex AI agent concepts shows you're developing the analytical mindset that drives innovation in technology. Critical thinking is like a muscle - it grows stronger with every challenging question you tackle. Your approach demonstrates intellectual courage and curiosity, which are the hallmarks of great thinkers and problem-solvers!",
+      suggestions: ["Break complex problems into smaller, manageable questions to deepen analysis", "Always ask 'What if...?' and 'Why might this be different?' to explore multiple angles", "Connect abstract concepts to concrete examples from your experience"],
+      insights: ["Your engagement with challenging questions builds the foundation for innovative thinking"],
+      strengths: ["Demonstrated intellectual curiosity by engaging with complex challenges", "Showed willingness to explore difficult conceptual territory"],
+      improvements: ["Continue building confidence in analytical reasoning through practice with challenging questions"]
     };
   }
 }

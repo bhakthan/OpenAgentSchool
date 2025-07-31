@@ -338,6 +338,19 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
                 "What are the fundamental principles and real-world applications of this concept?"}
               contextTitle={concept.title}
               contextCue={getConceptCue(selectedConcept)?.cue}
+              conceptArea={concept.title}
+              source="core-concepts"
+              context={{
+                difficulty: concept.level === 'fundamentals' ? 'beginner' : 
+                          concept.level === 'architecture' ? 'intermediate' : 
+                          concept.level === 'implementation' ? 'advanced' : 'expert',
+                evaluationCriteria: [
+                  "Understanding of fundamental concepts",
+                  "Ability to apply knowledge in practical scenarios",
+                  "Recognition of real-world implications",
+                  "Demonstration of critical thinking skills"
+                ]
+              }}
             />
           </div>
         </div>

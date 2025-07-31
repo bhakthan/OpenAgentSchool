@@ -4,7 +4,7 @@
 
 *Built for AI by AI with lots of human intervention in the loop*
 
-An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, and revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges.
+An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges, plus **Critical Thinking Challenges** with LLM-powered assessment and feedback.
 ---
 
 ## 🆕 Latest Updates (July 30, 2025)
@@ -310,11 +310,12 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Azure Services** - Learn cloud implementation
 - **Tree View** - Get visual overview of everything learned
 - **Study Mode** - Interactive practice and reinforcement
+- **Critical Thinking** - LLM-powered assessment and reflection
 - **Knowledge Quiz** - Test and assess knowledge
 - **References** - Additional resources
 - **Community** - Share and collaborate
 
-This navigation creates a natural learning flow: **Learn → Apply → Visualize → Practice → Test → Explore → Share**
+This navigation creates a natural learning flow: **Learn → Apply → Visualize → Practice → Assess → Test → Explore → Share**
 
 ### �💡 EnlightenMe: AI-Powered Learning Assistant
 **Context-Aware AI Explanations** - Revolutionary learning feature that provides personalized AI insights:
@@ -372,6 +373,61 @@ This navigation creates a natural learning flow: **Learn → Apply → Visualize
 - **Performance Analytics**: Detailed tracking of learning effectiveness and knowledge retention
 - **Modern UI**: Beautiful interface using shadcn/ui components with smooth animations
 - **Cross-Concept Integration**: Study modes work across all 15 core concepts and agent patterns
+
+### 🧠 Critical Thinking Challenge: LLM-Powered Assessment
+**AI-Enhanced Learning Evaluation** - Intelligent feedback system that provides comprehensive assessment and encouragement:
+
+#### 🎯 **Intelligent Assessment Engine**
+**LLM-Powered Critical Analysis** - Advanced evaluation using the same encouraging approach as Study Mode:
+- **Context-Aware Questions**: Dynamic critical thinking questions tailored to each Core Concept and Agent Pattern
+- **Comprehensive LLM Feedback**: Detailed analysis including scores, specific suggestions, and additional insights
+- **Encouraging Learning Tone**: Positive, growth-oriented feedback that promotes continued learning and exploration
+- **Multi-Dimensional Assessment**: Evaluation across understanding, application, creativity, and implementation considerations
+- **Adaptive Difficulty**: Assessment complexity scales based on concept level (fundamentals to advanced)
+
+#### 📝 **Enhanced User Experience**
+**Seamless Integration Across Platform** - Critical thinking challenges available throughout the learning journey:
+- **Universal Availability**: Critical Thinking Challenge buttons on every Core Concept and Agent Pattern
+- **Smart Context Integration**: Questions and feedback adapt to specific concepts being explored
+- **Rich Feedback Display**: Beautifully formatted assessment results with actionable insights
+- **PDF Export with LLM Analysis**: Export critical thinking responses including comprehensive LLM feedback
+- **Immediate Assessment**: Get instant, detailed feedback on your thinking and responses
+
+#### 🎨 **Comprehensive Platform Integration**
+**Three-Component Implementation** - Fully integrated across all learning pathways:
+
+**Core Concepts Integration** (ConceptsHub & ConceptsExplorer):
+- **15 Concept-Specific Questions**: Tailored critical thinking challenges for each core concept
+- **Progressive Difficulty**: Questions scale from fundamentals to advanced levels
+- **Concept-Aware Context**: LLM feedback considers specific concept complexity and learning objectives
+- **Cross-Tier Learning**: Challenges span all 4 tiers of the learning progression
+
+**Agent Patterns Integration** (PatternExplorer):
+- **16 Pattern-Specific Challenges**: Critical thinking questions designed for each agent pattern
+- **Pattern-Aware Assessment**: Feedback includes pattern advantages, limitations, and implementation considerations
+- **Real-World Application Focus**: Questions emphasize practical implementation and business applications
+- **Business Context Integration**: Assessment aligns with business use cases for each pattern
+
+**Advanced Assessment Features**:
+- **Contextual Cues**: Each challenge includes inspirational cues that frame the thinking process
+- **Evaluation Criteria**: Clear, specific criteria for assessment aligned with learning objectives
+- **Source-Aware Feedback**: LLM responses adapt based on whether exploring core concepts or agent patterns
+- **Encouraging Pedagogy**: Assessment approach mirrors Study Mode's positive, growth-oriented methodology
+
+#### ⚡ **Technical Implementation**
+**Production-Ready LLM Integration** - Robust, scalable assessment infrastructure:
+- **LLM Judge Integration**: Powered by `criticalThinkingJudge` function with comprehensive prompt engineering
+- **Type-Safe Implementation**: Full TypeScript integration with proper interface definitions
+- **Error-Free Build**: Thoroughly tested and validated across all components
+- **Performance Optimized**: Efficient LLM calls with structured response parsing
+- **Modal-Based UI**: Clean, focused interface for distraction-free critical thinking
+
+**Critical Thinking Challenge Features**:
+- **Smart Question Generation**: Context-sensitive questions that challenge understanding and application
+- **Comprehensive Feedback**: Detailed analysis covering multiple dimensions of learning
+- **Export Functionality**: Save critical thinking exercises and feedback for future reference
+- **Seamless Integration**: Works perfectly with existing Core Concepts and Agent Patterns systems
+- **Learning Reinforcement**: Complements Study Mode by providing assessment and reflection opportunities
 
 ### 🏢 Azure AI Services Integration
 **Enterprise-Ready Azure Components** - Comprehensive coverage of Microsoft Azure AI ecosystem:
