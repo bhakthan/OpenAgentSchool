@@ -433,14 +433,16 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
       {/* Main Question */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl leading-relaxed flex items-center gap-2">
-            {currentQuestion}
+          <div className="flex items-start justify-between gap-4">
+            <CardTitle className="text-xl leading-relaxed flex-1">
+              {currentQuestion}
+            </CardTitle>
             {/* Show Retake button next to the question title if not complete */}
             {!isComplete && currentStep > 0 && (
               <Button
                 variant="ghost"
                 size="sm"
-                className="ml-2 text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground flex-shrink-0"
                 onClick={resetToStart}
                 title="Start over from the beginning"
               >
@@ -448,7 +450,7 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
                 Start Over
               </Button>
             )}
-          </CardTitle>
+          </div>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Response Area */}
@@ -459,7 +461,7 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
             <Textarea
               value={userResponse}
               onChange={(e) => setUserResponse(e.target.value)}
-              placeholder="Take your time to think through this question. There's no single right answer - we're exploring ideas together."
+              placeholder="Share your thoughts and reasoning. There's no single right answer - we're exploring ideas together."
               className="min-h-[120px] resize-none"
             />
           </div>
