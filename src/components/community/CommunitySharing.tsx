@@ -50,12 +50,11 @@ const CommunitySharing = () => {
         
         <TabsContent value="contribute">
           <div className="grid gap-6">
-            <Alert className="bg-muted">
+            <Alert className="bg-muted [&>div:last-child]:col-start-2 [&>div:last-child]:w-full">
               <Info size={20} className="h-5 w-5" />
               <AlertTitle>Sharing Guidelines</AlertTitle>
-              <AlertDescription>
-                Share your agent pattern implementations, experiences, and best practices to help others.
-                Please provide clear descriptions and implementation details.
+              <AlertDescription className="whitespace-normal break-words text-wrap leading-relaxed w-full overflow-hidden">
+                Share your agent pattern implementations, experiences, and best practices to help others. Please provide clear descriptions and implementation details.
               </AlertDescription>
             </Alert>
             
@@ -109,12 +108,11 @@ const CommunitySharing = () => {
         
         <TabsContent value="browse">
           <div className="grid gap-6">
-            <Alert className="bg-muted">
+            <Alert className="bg-muted [&>div:last-child]:col-start-2 [&>div:last-child]:w-full">
               <Info size={20} className="h-5 w-5" />
               <AlertTitle>Community Contributions</AlertTitle>
-              <AlertDescription>
-                Browse agent pattern implementations shared by the community. 
-                These are user-contributed and not officially verified.
+              <AlertDescription className="whitespace-normal break-words text-wrap leading-relaxed w-full overflow-hidden">
+                Browse agent pattern implementations shared by the community. These are user-contributed and not officially verified.
               </AlertDescription>
             </Alert>
             

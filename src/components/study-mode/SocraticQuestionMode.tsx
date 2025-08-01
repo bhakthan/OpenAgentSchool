@@ -12,13 +12,15 @@ import {
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { 
   Brain, ArrowLeft, Lightbulb, CheckCircle, ArrowRight,
-  Clock, Target, TrendUp, Copy, Printer
+  Clock, Target, TrendUp, Copy, Printer, Users
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { StudyModeQuestion, StudyModeSession, StudyModeResponse } from '@/lib/data/studyMode/types';
 import { saveStudyModeProgress, clearQuestionProgress } from '@/lib/data/studyMode';
 import { socraticJudge, LlmJudgeResponse } from '@/lib/llmJudge';
 import LlmConfigurationNotice from './LlmConfigurationNotice';
+import EnhancedSocraticElicitation from './EnhancedSocraticElicitation';
+import { generateDynamicFollowUps, extractEnhancedInsights, detectMisconceptions, UserContext } from '@/lib/socraticElicitation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -33,6 +35,13 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
   onComplete, 
   onBack 
 }) => {
+  // Elicitation phase state
+  const [showElicitation, setShowElicitation] = useState(true);
+  const [userContext, setUserContext] = useState<UserContext | null>(null);
+  const [adaptiveQuestions, setAdaptiveQuestions] = useState<string[]>([]);
+  const [isAdaptive, setIsAdaptive] = useState(false);
+  
+  // Original state
   const [currentStep, setCurrentStep] = useState(0);
   const [userResponse, setUserResponse] = useState('');
   const [responses, setResponses] = useState<StudyModeResponse[]>([]);
@@ -46,6 +55,114 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
   const [showLlmFeedbackModal, setShowLlmFeedbackModal] = useState(false);
   const [showCopyTooltip, setShowCopyTooltip] = useState(false);
   const [showPrintTooltip, setShowPrintTooltip] = useState(false);
+  
+  // Real-time adaptation state
+  const [currentDynamicFollowUps, setCurrentDynamicFollowUps] = useState<string[]>([]);
+  const [isGeneratingFollowUp, setIsGeneratingFollowUp] = useState(false);
+  const [hasLlmProvider, setHasLlmProvider] = useState(false);
+
+  // Check for LLM provider on mount
+  useEffect(() => {
+    const checkLlmProvider = () => {
+      const providers = [
+        'VITE_OPENAI_API_KEY',
+        'VITE_AZURE_OPENAI_API_KEY', 
+        'VITE_GEMINI_API_KEY',
+        'VITE_HUGGINGFACE_API_KEY',
+        'VITE_OPENROUTER_API_KEY',
+        'VITE_CLAUDE_API_KEY'
+      ];
+      
+      const hasProvider = providers.some(key => 
+        import.meta.env[key] && import.meta.env[key].trim() !== ''
+      );
+      
+      setHasLlmProvider(hasProvider);
+    };
+    
+    checkLlmProvider();
+  }, []);
+
+  // Handle context gathering from elicitation
+  const handleContextGathered = (context: UserContext) => {
+    setUserContext(context);
+    setShowElicitation(false);
+    
+    // Generate adaptive questions if LLM is available
+    if (hasLlmProvider) {
+      generateAdaptiveQuestions(context);
+    }
+  };
+
+  // Skip elicitation and use default experience
+  const handleSkipElicitation = () => {
+    setUserContext({
+      experience: 'beginner',
+      background: '',
+      motivation: '',
+      priorKnowledge: '',
+      confidenceLevel: 3,
+      learningStyle: 'verbal',
+      goals: '',
+      timeAvailable: 15
+    });
+    setShowElicitation(false);
+  };
+
+  // Generate adaptive questions based on user context
+  const generateAdaptiveQuestions = async (context: UserContext) => {
+    if (!hasLlmProvider) return;
+    
+    try {
+      setIsAdaptive(true);
+      // Here we could call an LLM to generate personalized questions
+      // For now, we'll adapt the existing questions based on context
+      const adaptedQuestions = adaptQuestionsToContext(question, context);
+      setAdaptiveQuestions(adaptedQuestions);
+    } catch (error) {
+      console.log('Could not generate adaptive questions, using defaults');
+      setIsAdaptive(false);
+    }
+  };
+
+  // Adapt questions based on user context (graceful fallback)
+  const adaptQuestionsToContext = (originalQuestion: StudyModeQuestion, context: UserContext): string[] => {
+    const baseQuestions = [originalQuestion.socratiQuestion!, ...(originalQuestion.followUpQuestions || [])];
+    
+    // Adapt based on experience level
+    if (context.experience === 'beginner') {
+      return baseQuestions.map(q => {
+        if (context.background) {
+          return q.replace(/\bthink about\b/gi, `think about this from your ${context.background} perspective`);
+        }
+        return q;
+      });
+    } else if (context.experience === 'advanced') {
+      return baseQuestions.map(q => 
+        q + " Consider the technical implementation challenges and edge cases."
+      );
+    }
+    
+    return baseQuestions;
+  };
+
+  // Generate real-time follow-up questions
+  const generateRealTimeFollowUp = async (response: string) => {
+    if (!hasLlmProvider || !userContext) return [];
+    
+    try {
+      setIsGeneratingFollowUp(true);
+      const followUps = generateDynamicFollowUps(response, userContext, question.conceptId);
+      const questionTexts = followUps.map(f => f.question);
+      setCurrentDynamicFollowUps(questionTexts);
+      return questionTexts;
+    } catch (error) {
+      console.log('Could not generate follow-up questions:', error);
+      return [];
+    } finally {
+      setIsGeneratingFollowUp(false);
+    }
+  };
 
   // Reset function to allow retaking the same question
   const resetToStart = () => {
@@ -88,11 +205,10 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
     }, 100);
   };
 
-  // All questions for this Socratic sequence
-  const allQuestions = [
-    question.socratiQuestion!,
-    ...(question.followUpQuestions || [])
-  ];
+  // All questions for this Socratic sequence (adaptive or original)
+  const allQuestions = isAdaptive && adaptiveQuestions.length > 0 
+    ? adaptiveQuestions
+    : [question.socratiQuestion!, ...(question.followUpQuestions || [])];
 
   const currentQuestion = allQuestions[currentStep];
   const isLastQuestion = currentStep >= allQuestions.length - 1;
@@ -256,9 +372,17 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
     }, 2000);
   };
 
-  // Handle response submission
+  // Handle response submission with real-time adaptation
   const handleResponseSubmit = async () => {
     if (!userResponse.trim()) return;
+
+    // Enhanced insight extraction with user context
+    const enhancedInsights = userContext 
+      ? extractEnhancedInsights(userResponse, userContext, question.conceptId, currentStep)
+      : [];
+
+    // Detect misconceptions with gentle correction
+    const misconceptions = detectMisconceptions(userResponse, question.conceptId);
 
     const newResponse: StudyModeResponse = {
       stepId: `step-${currentStep}`,
@@ -272,9 +396,19 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
     const updatedResponses = [...responses, newResponse];
     setResponses(updatedResponses);
 
-    // Add insight if found
+    // Add enhanced insights if found
+    if (enhancedInsights.length > 0) {
+      setInsights(prev => [...prev, ...enhancedInsights]);
+    }
+
+    // Add original insight if found
     if (newResponse.insight) {
       setInsights(prev => [...prev, newResponse.insight!]);
+    }
+
+    // Generate real-time follow-up questions if not the last question
+    if (!isLastQuestion && hasLlmProvider) {
+      await generateRealTimeFollowUp(userResponse);
     }
 
     // Move to next question or complete the entire journey
@@ -285,6 +419,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
       setCurrentStep(prev => prev + 1);
       setUserResponse('');
       setShowHint(false);
+      setCurrentDynamicFollowUps([]); // Reset follow-ups for next question
     }
   };
 
@@ -701,8 +836,77 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
     );
   }
 
+  // Show elicitation phase first
+  if (showElicitation) {
+    return (
+      <div className="w-full max-w-4xl mx-auto space-y-6">
+        {/* Header */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Button variant="outline" size="sm" onClick={onBack}>
+                  <ArrowLeft size={16} />
+                </Button>
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users size={24} className="text-primary" />
+                    Personalize Your Learning
+                  </CardTitle>
+                  <CardDescription>Help us create the best Socratic experience for you</CardDescription>
+                </div>
+              </div>
+              <Badge className="bg-purple-100 text-purple-800 border-purple-200">
+                Setup
+              </Badge>
+            </div>
+          </CardHeader>
+        </Card>
+
+        {/* Elicitation Component */}
+        <EnhancedSocraticElicitation
+          conceptId={question.conceptId}
+          onContextGathered={handleContextGathered}
+          onSkip={handleSkipElicitation}
+        />
+
+        {/* LLM Configuration Notice */}
+        <LlmConfigurationNotice mode="socratic" />
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
+      {/* User Context Display */}
+      {userContext && (
+        <Card className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30 border-purple-200 dark:border-purple-800">
+          <CardContent className="pt-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-sm">
+                <Users size={16} className="text-purple-600" />
+                <span className="font-medium text-purple-800 dark:text-purple-200">
+                  Personalized for {userContext.experience} level
+                </span>
+                {userContext.background && (
+                  <span className="text-purple-600 dark:text-purple-300">
+                    • {userContext.background}
+                  </span>
+                )}
+                {isAdaptive && (
+                  <Badge variant="secondary" className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 ml-2">
+                    AI-Adapted
+                  </Badge>
+                )}
+              </div>
+              <div className="text-xs text-purple-600 dark:text-purple-300">
+                {userContext.timeAvailable} min session • {userContext.learningStyle} learner
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Header */}
       <Card>
         <CardHeader>
@@ -716,7 +920,9 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                   <Brain size={24} className="text-primary" />
                   {question.title}
                 </CardTitle>
-                <CardDescription>Socratic Discovery Mode</CardDescription>
+                <CardDescription>
+                  {userContext ? 'Personalized ' : ''}Socratic Discovery Mode
+                </CardDescription>
               </div>
             </div>
             <Badge className="bg-blue-100 text-blue-800 border-blue-200">
@@ -785,6 +991,45 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
               className="min-h-[120px] resize-none"
             />
           </div>
+
+          {/* Real-time Follow-up Questions */}
+          {hasLlmProvider && currentDynamicFollowUps.length > 0 && userResponse.length > 20 && (
+            <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
+              <div className="flex items-start gap-2 mb-3">
+                <Brain size={16} className="text-amber-600 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                    Interesting response! Consider these follow-up questions:
+                  </p>
+                </div>
+              </div>
+              <div className="space-y-2">
+                {currentDynamicFollowUps.slice(0, 2).map((followUp, index) => (
+                  <div key={index} className="text-sm text-amber-700 dark:text-amber-300 pl-4 border-l-2 border-amber-300 dark:border-amber-600">
+                    {followUp}
+                  </div>
+                ))}
+              </div>
+              {isGeneratingFollowUp && (
+                <div className="flex items-center gap-2 mt-3 text-xs text-amber-600 dark:text-amber-400">
+                  <div className="animate-spin rounded-full h-3 w-3 border-b border-amber-600" />
+                  Generating follow-up questions...
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Graceful degradation notice */}
+          {!hasLlmProvider && userResponse.length > 50 && (
+            <div className="p-3 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
+              <div className="flex items-start gap-2">
+                <Lightbulb size={14} className="text-blue-600 mt-0.5" />
+                <p className="text-sm text-blue-700 dark:text-blue-300">
+                  <span className="font-medium">💡 Enhancement available:</span> Configure an LLM provider to unlock personalized follow-up questions and deeper exploration based on your responses.
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Hint Section */}
           {question.hints && question.hints[currentStep] && (
