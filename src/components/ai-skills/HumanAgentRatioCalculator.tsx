@@ -130,6 +130,35 @@ export default function HumanAgentRatioCalculator({ onNavigate }: Props) {
 
   return (
     <div className="space-y-6">
+      {/* Legal Disclaimer */}
+      <Card className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border-amber-200 dark:border-amber-800">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-amber-700 dark:text-amber-300">
+            <span className="text-xl">⚠️</span>
+            Important Disclaimer
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3 text-sm">
+            <p className="font-medium text-amber-800 dark:text-amber-200">
+              <strong>Educational Tool Only:</strong> This calculator is designed for educational and exploratory purposes to help understand potential human-agent collaboration patterns.
+            </p>
+            <div className="bg-white/60 dark:bg-gray-900/60 p-3 rounded-lg border border-amber-200/50">
+              <ul className="space-y-2 text-amber-700 dark:text-amber-300">
+                <li>• <strong>Directional Guidance:</strong> All calculations and suggestions are theoretical and directional, not definitive recommendations</li>
+                <li>• <strong>No Guarantee:</strong> Results do not guarantee actual performance improvements or cost savings</li>
+                <li>• <strong>Context Matters:</strong> Actual implementation depends on your specific organizational context, industry regulations, and business requirements</li>
+                <li>• <strong>Professional Consultation:</strong> Consult with HR, legal, and business strategy professionals before making workforce decisions</li>
+                <li>• <strong>Human Dignity:</strong> Any workforce changes should prioritize human dignity, retraining opportunities, and ethical considerations</li>
+              </ul>
+            </div>
+            <p className="text-xs text-amber-600 dark:text-amber-400 italic">
+              This tool is based on research from Microsoft's 2025 Work Trend Index and is intended to promote thoughtful human-agent collaboration, not workforce reduction.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Instructions Header */}
       <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 border-blue-200 dark:border-blue-800">
         <CardHeader>
