@@ -309,8 +309,8 @@ export default function HumanAgentRatioCalculator({ onNavigate }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
               <div className="text-2xl font-bold text-blue-600">{totalCurrentHumans + totalSuggestedAgents}</div>
-              <div className="text-sm text-muted-foreground">Total Team Members</div>
-              <div className="text-xs text-blue-600 mt-1">{totalCurrentHumans} humans + {totalSuggestedAgents} agents</div>
+              <div className="text-sm text-muted-foreground">Collaborative Workforce</div>
+              <div className="text-xs text-blue-600 mt-1">{totalCurrentHumans} humans working with {totalSuggestedAgents} AI agents</div>
             </div>
             <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-lg border border-green-200 dark:border-green-800">
               <div className="text-2xl font-bold text-green-600">+{Math.round(totalEfficiencyGain)}%</div>

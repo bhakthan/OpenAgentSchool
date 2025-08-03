@@ -26,8 +26,8 @@ export default function InteractiveVisualizations({ onNavigate }: Props) {
         <CardContent>
           <p className="text-lg leading-relaxed mb-6">
             These interactive visualizations let you explore how industry-leading organizations 
-            structure their AI-native workflows. Click on nodes to expand sections and discover 
-            the specific practices that are revolutionizing software development.
+            structure their human-AI collaborative workflows. Click on nodes to expand sections and discover 
+            the specific practices that are revolutionizing software development through partnership.
           </p>
         </CardContent>
       </Card>
@@ -42,7 +42,7 @@ export default function InteractiveVisualizations({ onNavigate }: Props) {
               </div>
               <div>
                 <CardTitle>OpenAI Codex Team Practices</CardTitle>
-                <CardDescription>Revolutionary development workflows from the Codex team</CardDescription>
+                <CardDescription>Collaborative development workflows pioneered by the Codex team</CardDescription>
               </div>
             </div>
             <div className="flex gap-2">
@@ -101,7 +101,7 @@ export default function InteractiveVisualizations({ onNavigate }: Props) {
               </div>
               <div>
                 <CardTitle>Anthropic Claude Code Team Practices</CardTitle>
-                <CardDescription>Cross-functional AI workflows revolutionizing entire organizations</CardDescription>
+                <CardDescription>Human-AI collaborative workflows transforming organizations together</CardDescription>
               </div>
             </div>
             <div className="flex gap-2">
@@ -169,7 +169,7 @@ export default function InteractiveVisualizations({ onNavigate }: Props) {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 mt-2"></span>
-                  <span><strong>Async Workflows:</strong> AI continues work during meetings and downtime</span>
+                  <span><strong>Async Workflows:</strong> Human-AI collaboration continues during meetings and downtime</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 mt-2"></span>
@@ -191,11 +191,11 @@ export default function InteractiveVisualizations({ onNavigate }: Props) {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
-                  <span><strong>Autonomous AI:</strong> AI agents working independently with minimal oversight</span>
+                  <span><strong>Collaborative AI:</strong> Human-guided AI agents enhancing team capabilities</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
-                  <span><strong>Organizational Scale:</strong> Transforming entire departments and workflows</span>
+                  <span><strong>Organizational Scale:</strong> Human-led teams transforming departments with AI partners</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
