@@ -18,6 +18,7 @@ import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
 import { Path } from '@phosphor-icons/react/dist/ssr/Path';
 import { GraduationCap } from '@phosphor-icons/react/dist/ssr/GraduationCap';
 import { Tree } from '@phosphor-icons/react/dist/ssr/Tree';
+import { Lightning } from '@phosphor-icons/react/dist/ssr/Lightning';
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtils';
 import { setupReactFlowErrorHandling } from './lib/utils/reactFlowUtils';
@@ -33,6 +34,7 @@ const ReferenceSection = lazy(() => import('./components/references/ReferenceSec
 const QuizSection = lazy(() => import('./components/quiz/QuizSection'))
 const TreeVisualizationPage = lazy(() => import('./components/pages/TreeVisualizationPage'))
 const StudyMode = lazy(() => import('./components/study-mode/StudyMode'))
+const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'))
 
 // Loading component for lazy-loaded routes
 const LoadingSpinner = () => (
@@ -53,10 +55,11 @@ function App() {
   const [showJourneyMap, setShowJourneyMap] = useState(false)
   const location = useLocation()
   
-  // Get current page for journey map
+    // Get current page for journey map
   const getCurrentPage = () => {
     switch (location.pathname) {
       case '/': return 'core-concepts';
+      case '/ai-skills': return 'ai-skills';
       case '/study-mode': return 'study-mode';
       case '/patterns': return 'agent-patterns';
       case '/azure-services': return 'azure-services';
@@ -217,7 +220,10 @@ function App() {
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Brain size={28} weight="duotone" className="text-primary" />
-                <h1 className="text-2xl font-bold">Open Agent School</h1>
+                <div>
+                  <h1 className="text-2xl font-bold">Open Agent School</h1>
+                  <p className="text-sm text-muted-foreground">Agentic Learning for everyone</p>
+                </div>
               </div>
               
               <div className="flex items-center space-x-4">
@@ -280,6 +286,7 @@ function App() {
                 <div className="flex space-x-4">
                   <TabLink to="/" icon={<Brain size={16} weight="duotone" />} label="Core Concepts" />
                   <TabLink to="/patterns" icon={<PuzzlePiece size={16} weight="duotone" />} label="Agent Patterns" />
+                  <TabLink to="/ai-skills" icon={<Lightning size={16} weight="duotone" />} label="AI-Native Skills" />
                   <TabLink to="/azure-services" icon={<StackSimple size={16} weight="duotone" />} label="Azure Services" />
                   <TabLink to="/tree-view" icon={<Tree size={16} weight="duotone" />} label="Tree View" />
                   <TabLink to="/study-mode" icon={<GraduationCap size={16} weight="duotone" />} label="Study Mode" />
@@ -296,6 +303,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<ConceptsExplorer />} />
                 <Route path="/concepts/:conceptId?" element={<ConceptsExplorer />} />
+                <Route path="/ai-skills" element={<AISkillsExplorer />} />
                 <Route path="/study-mode" element={<StudyMode />} />
                 <Route path="/patterns/:patternId?" element={<PatternExplorer />} />
                 <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />

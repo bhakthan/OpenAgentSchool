@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Claude Code Mind Map (Vertical Tree)</title>
+  <style>
+    body { background: #181a1b; color: #eee; margin: 0; font-family: "Segoe UI", sans-serif; }
+    .node circle { fill: #23272a; stroke: #aaa; stroke-width: 1.5px; }
+    .node text { font-size: 15px; fill: #eee; }
+    .novel { font-weight: bold; fill: #ff4b4b; }
+    .link { fill: none; stroke: #555; stroke-opacity: 0.7; stroke-width: 1.5px; }
+  </style>
+</head>
+<body>
+  <svg width="100%" height="1000"></svg>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    const data = {
+      name: "Claude Code @ Anthropic",
+      children: [
+        {
+          name: "Data Infrastructure",
+          team: "Infrastructure",
+          children: [
+            { name: "* Screenshot-based Kubernetes diagnosis", novel: true },
+            { name: "* Plain Text Workflow Execution for Finance", novel: true },
+            { name: "Codebase Navigation for New Hires" },
+            { name: "* Automated Documentation Summaries", novel: true },
+            { name: "* Parallel Workflow Sessions", novel: true }
+          ]
+        },
+        {
+          name: "Product Development",
+          team: "Product",
+          children: [
+            { name: "* Auto-Accept Mode for Prototyping", novel: true },
+            { name: "* Autonomous Feature Building", novel: true },
+            { name: "Synchronous Co-Coding for Core Logic" },
+            { name: "Claude-Driven Test Generation" },
+            { name: "Async Codebase Exploration" }
+          ]
+        },
+        {
+          name: "Security Engineering",
+          team: "Security",
+          children: [
+            { name: "Incident Debugging via Stack Traces" },
+            { name: "* Terraform Infra Review + Security Questions", novel: true },
+            { name: "* Markdown Runbook Synthesis", novel: true },
+            { name: "* Test-First Pseudocode Workflow", novel: true },
+            { name: "* Custom Slash Commands", novel: true }
+          ]
+        },
+        {
+          name: "Inference",
+          team: "Inference",
+          children: [
+            { name: "Codebase Comprehension for ML" },
+            { name: "* Cross-language Translation (Rust)", novel: true },
+            { name: "ML Concept Explanation for Non-Experts" },
+            { name: "Command Recall (Kubernetes)" }
+          ]
+        },
+        {
+          name: "Data Science & ML Engineering",
+          team: "ML",
+          children: [
+            { name: "* React Dashboards Without JS", novel: true },
+            { name: "* Claude-as-Slot-Machine Refactor", novel: true },
+            { name: "Reusable Dashboards vs Notebooks" },
+            { name: "* Zero-Dependency Task Delegation", novel: true }
+          ]
+        },
+        {
+          name: "Product Engineering",
+          team: "Engineering",
+          children: [
+            { name: "Claude as First-Stop Debug Guide" },
+            { name: "* Bug Fixing in Unknown Systems", novel: true },
+            { name: "Model Iteration via Dogfooding" },
+            { name: "Embedded Claude (No Context Switch)" }
+          ]
+        },
+        {
+          name: "Growth Marketing",
+          team: "Marketing",
+          children: [
+            { name: "* Google Ads Copy Generation", novel: true },
+            { name: "* Figma Plugin for Visuals", novel: true },
+            { name: "* MCP Campaign Analytics", novel: true },
+            { name: "* Iterative Ad Testing with Memory", novel: true }
+          ]
+        },
+        {
+          name: "Product Design",
+          team: "Design",
+          children: [
+            { name: "* Direct Design Tweaks to Code", novel: true },
+            { name: "* Auto GitHub Fixes via Issues", novel: true },
+            { name: "* Pasted Images → Prototypes", novel: true },
+            { name: "* Designers Writing Functional Code", novel: true }
+          ]
+        },
+        {
+          name: "RL Engineering",
+          team: "RL",
+          children: [
+            { name: "* Try & Rollback with Checkpoints", novel: true },
+            { name: "* Autonomous Feature Attempts", novel: true },
+            { name: "Automated Commenting & Code Review" },
+            { name: "Kubernetes Support via Claude" }
+          ]
+        },
+        {
+          name: "Legal",
+          team: "Legal",
+          children: [
+            { name: "* Predictive Speech Accessibility", novel: true },
+            { name: "Lawyer Routing Tools" },
+            { name: "Prototype Reviews by Experts" },
+            { name: "G Suite Legal Automation" }
+          ]
+        }
+      ]
+    };
+
+   const width = 1200, dx = 24, dy = 300;
+    const tree = d3.tree().nodeSize([dx, dy]);
+    const diagonal = d3.linkHorizontal().x(d => d.y).y(d => d.x);
+
+    const root = d3.hierarchy(data);
+    root.x0 = dy / 2;
+    root.y0 = 0;
+    root.descendants().forEach((d, i) => { d.id = i; d._children = d.children; if (d.depth && d.children) d.children = null; });
+
+    const svg = d3.select("svg")
+      .attr("viewBox", [-dy / 3, -dx, width, dx * (root.height + 3)])
+      .style("font", "15px Segoe UI");
+
+    const gLink = svg.append("g").attr("fill", "none").attr("stroke", "#555").attr("stroke-opacity", 0.7).attr("stroke-width", 1.5);
+    const gNode = svg.append("g").attr("cursor", "pointer");
+
+    function update(source) {
+      const nodes = root.descendants().reverse();
+      const links = root.links();
+
+      tree(root);
+
+      let left = root;
+      let right = root;
+      root.eachBefore(node => {
+        if (node.x < left.x) left = node;
+        if (node.x > right.x) right = node;
+      });
+
+      svg.transition().duration(500)
+        .attr("viewBox", [-dy / 3, left.x - dx, width, right.x - left.x + 2 * dx]);
+
+      // Nodes
+      const node = gNode.selectAll("g")
+        .data(nodes, d => d.id);
+
+      const nodeEnter = node.enter().append("g")
+        .attr("class", "node")
+        .attr("transform", d => `translate(${d.y},${d.x})`)
+        .on("click", (event, d) => {
+          d.children = d.children ? null : d._children;
+          update(d);
+        });
+
+      nodeEnter.append("circle")
+        .attr("r", 6)
+        .attr("fill", d => d._children ? "#4f8cff" : "#23272a")
+        .attr("stroke", "#aaa");
+
+      nodeEnter.append("text")
+        .attr("dy", "0.31em")
+        .attr("x", d => d._children ? -12 : 12)
+        .attr("text-anchor", d => d._children ? "end" : "start")
+        .attr("class", d => d.data.novel ? "novel" : "")
+        .text(d => d.data.name);
+
+      node.merge(nodeEnter).transition().duration(500)
+        .attr("transform", d => `translate(${d.y},${d.x})`);
+
+      node.exit().transition().duration(500).remove();
+
+      // Links
+      const link = gLink.selectAll("path")
+        .data(links, d => d.target.id);
+
+      link.enter().append("path")
+        .attr("class", "link")
+        .attr("d", d => diagonal({source: d.source, target: d.target}));
+
+      link.merge(link).transition().duration(500)
+        .attr("d", d => diagonal({source: d.source, target: d.target}));
+
+      link.exit().transition().duration(500).remove();
+    }
+
+    update(root);
+  </script>
+</body>
+</html>

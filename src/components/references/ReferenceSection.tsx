@@ -76,10 +76,6 @@ const ReferenceSection: React.FC<ReferenceSectionProps> = ({ type, itemId }) => 
   // Navigation to Community GitHub Resources
   const [showCommunityGithub, setShowCommunityGithub] = React.useState(type === 'communityGithub');
 
-  console.log('itemId:', itemId);
-  console.log('referenceData:', referenceData);
-  console.log('customReferences:', customReferences);
-
   // Defensive normalization for referenceData
   let normalizedReferences = [];
   if (Array.isArray(referenceData)) {

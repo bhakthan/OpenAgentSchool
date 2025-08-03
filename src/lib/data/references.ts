@@ -29,6 +29,57 @@ export type ReferencesData = {
 
 export const references: ReferencesData = {
   concepts: {
+    // General Core Concepts references
+    "core-concepts": [
+      {
+        id: "overview",
+        name: "AI Agent Fundamentals",
+        references: [
+          {
+            title: "What are AI Agents?",
+            url: "https://learn.microsoft.com/azure/ai-services/",
+            description: "Introduction to AI agents and their capabilities"
+          },
+          {
+            title: "Azure AI Overview",
+            url: "https://learn.microsoft.com/azure/ai-services/",
+            description: "Official Microsoft documentation on Azure AI Services"
+          },
+          {
+            title: "AI Agent Architecture Patterns",
+            url: "https://learn.microsoft.com/azure/architecture/ai-ml/",
+            description: "Architectural patterns for AI agent systems"
+          },
+          {
+            title: "Building Intelligent Agents",
+            url: "https://learn.microsoft.com/training/paths/develop-ai-agents-on-azure/",
+            description: "Microsoft Learn training path for developing AI agents"
+          }
+        ]
+      },
+      {
+        id: "learning-paths",
+        name: "Learning Paths",
+        references: [
+          {
+            title: "AI Fundamentals Learning Path",
+            url: "https://learn.microsoft.com/training/paths/azure-ai-fundamentals/",
+            description: "Foundational concepts in AI and machine learning"
+          },
+          {
+            title: "Azure AI Engineer Associate",
+            url: "https://learn.microsoft.com/certifications/azure-ai-engineer-associate/",
+            description: "Professional certification for Azure AI Engineers"
+          },
+          {
+            title: "Generative AI for Beginners",
+            url: "https://github.com/microsoft/generative-ai-for-beginners/",
+            description: "Comprehensive course for learning generative AI"
+          }
+        ]
+      }
+    ],
+    
     // Core AI agents concept
     agents: [
       {

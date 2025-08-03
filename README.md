@@ -18,6 +18,29 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Progress Analytics**: Comprehensive session tracking, insight recognition, and learning effectiveness measurement
 - **Cross-Concept Integration**: Works across all 15 core concepts and agent patterns with adaptive difficulty
 
+### ⚡ **NEW: AI-Native Skills - Revolutionary Organizational Practices**
+
+**Industry-Leading AI-Native Practices** - Learn how OpenAI and Anthropic are revolutionizing software development with comprehensive 8-tab learning system:
+- **Interactive D3.js Visualizations**: Explore real-world AI-native practices from industry leaders with fully interactive mindmaps
+- **OpenAI Codex Team Practices**: 7 core practices including Ask Mode Bug Detection, Async AI Work, and 5-minute Performance Audits
+- **Anthropic Claude Code Workflows**: 10 team-specific practices including Screenshot-based Debugging, 70% AI Feature Development, and Cross-functional AI Empowerment
+- **Frontier Firm Assessment**: Interactive evaluation tool based on Microsoft's 2025 Work Trend Index research with 6-question assessment and personalized recommendations
+- **Human-Agent Ratio Calculator**: Strategic collaboration calculator emphasizing "Human + Agent" partnerships with capacity-focused metrics and comprehensive implementation guidance
+- **Progressive Skill Development**: 8-tab learning path from fundamentals to expert-level organizational transformation
+- **Novel Practice Identification**: Color-coded highlighting of revolutionary practices that didn't exist before AI collaboration
+- **Cross-Team Implementation**: Learn how legal, design, marketing, and engineering teams use AI-native workflows
+- **Organizational Transformation**: Expert-level patterns for reshaping entire company operations around AI capabilities
+
+**Key Features**:
+- **Full-Screen Interactive Visualizations**: Dedicated tab with 800px height visualizations for proper exploration
+- **Click-to-Expand Nodes**: Drill down into specific practices and implementation details
+- **Industry Comparison**: Side-by-side analysis of OpenAI's developer-centric vs Anthropic's cross-functional approaches
+- **Implementation Guidance**: Practical steps for adopting AI-native practices in your organization
+- **Learning Progression**: Structured path from AI-native mindset to revolutionary organizational patterns
+- **Microsoft Research Integration**: Direct integration with Microsoft Work Trend Index 2025 findings and frontier firm characteristics
+- **Collaborative Messaging**: Strategic emphasis on human-agent collaboration rather than workforce replacement
+- **Capacity-Focused Analytics**: Tools for calculating productivity gains through strategic human-agent partnerships
+
 ## 🆕 Previous Updates (July 28, 2025)
 
 ### 🔧 **Performance & Stability Improvements**
@@ -312,6 +335,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 
 - **Core Concepts** - Start with foundational learning
 - **Agent Patterns** - Apply concepts through practical patterns  
+- **AI-Native Skills** - Learn revolutionary organizational practices from industry leaders
 - **Azure Services** - Learn cloud implementation
 - **Tree View** - Get visual overview of everything learned
 - **Study Mode** - Interactive practice and reinforcement
@@ -320,7 +344,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **References** - Additional resources
 - **Community** - Share and collaborate
 
-This navigation creates a natural learning flow: **Learn → Apply → Visualize → Practice → Assess → Test → Explore → Share**
+This navigation creates a natural learning flow: **Learn → Apply → Transform → Visualize → Practice → Assess → Test → Explore → Share**
 
 ### �💡 EnlightenMe: AI-Powered Learning Assistant
 **Context-Aware AI Explanations** - Revolutionary learning feature that provides personalized AI insights:
