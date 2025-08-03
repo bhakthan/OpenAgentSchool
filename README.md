@@ -24,6 +24,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Interactive D3.js Visualizations**: Explore real-world AI-native practices from industry leaders with fully interactive mindmaps
 - **OpenAI Codex Team Practices**: 7 core practices including Ask Mode Bug Detection, Async AI Work, and 5-minute Performance Audits
 - **Anthropic Claude Code Workflows**: 10 team-specific practices including Screenshot-based Debugging, 70% AI Feature Development, and Cross-functional AI Empowerment
+- **GitHub Copilot Agent Mode**: Revolutionary autonomous coding with multi-step task orchestration, contextual workspace analysis, and automatic error correction loops
 - **Frontier Firm Assessment**: Interactive evaluation tool based on Microsoft's 2025 Work Trend Index research with 6-question assessment, comprehensive legal disclaimer for educational use, and personalized recommendations
 - **Human-Agent Ratio Calculator**: Strategic collaboration calculator with comprehensive legal disclaimer, emphasizing "Human + Agent" partnerships with capacity-focused metrics and directional guidance for educational exploration
 - **Progressive Skill Development**: 8-tab learning path from fundamentals to expert-level organizational transformation

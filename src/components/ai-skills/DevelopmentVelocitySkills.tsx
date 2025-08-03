@@ -189,6 +189,230 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
         </CardContent>
       </Card>
 
+      {/* GitHub Copilot Agentic Workflows */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
+              <span className="text-white font-bold">G</span>
+            </div>
+            <div>
+              <CardTitle>GitHub Copilot: Agentic Workflows</CardTitle>
+              <CardDescription>Complete idea-to-PR automation with coding agent, custom chat modes, and MCP integration</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Coding Agent: Issue to PR */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Coding Agent: Issue to PR Automation</h3>
+              <Badge variant="secondary">Agentic Workflow</Badge>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-medium text-red-600 dark:text-red-400 mb-2">Traditional Method</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>• Manual issue analysis and scoping</li>
+                  <li>• Developer creates branch and implementation</li>
+                  <li>• Manual testing and debugging</li>
+                  <li>• Step-by-step PR creation</li>
+                  <li>• Multiple back-and-forth review cycles</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-green-600 dark:text-green-400 mb-2">Agentic Workflow</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>• AI creates well-structured issues from prompts</li>
+                  <li>• Coding agent autonomously develops solution</li>
+                  <li>• Automatic testing and environment setup</li>
+                  <li>• Draft PR with complete implementation</li>
+                  <li>• Responds to PR feedback iteratively</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-purple-50 dark:bg-purple-950/30 p-4 rounded-lg">
+              <h4 className="font-semibold mb-2">Real-World Example: Internationalization</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Prompt: "Create i18n capability supporting English, French, and Spanish with user language selection"
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span>Creates detailed GitHub issue with acceptance criteria</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span>Coding agent implements complete solution asynchronously</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span>Runs tests and ensures lint checks pass</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span>Opens draft PR ready for review</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Custom Chat Modes */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Custom Chat Modes for Repeatable Workflows</h3>
+              <Badge variant="secondary">VS Code 1.101+</Badge>
+            </div>
+            
+            <p className="text-sm text-muted-foreground">
+              Script repeatable AI workflows that appear alongside Ask/Edit/Agent modes, 
+              enabling consistent team conventions and specialized tooling.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold mb-2">Planning Mode</h4>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Generates implementation plans with requirements, steps, and testing strategies
+                </p>
+                <div className="text-xs bg-muted p-2 rounded">
+                  Tools: codebase, search, github, create_issue
+                </div>
+              </div>
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold mb-2">Refactor Mode</h4>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Specialized for cross-cutting refactoring tasks
+                </p>
+                <div className="text-xs bg-muted p-2 rounded">
+                  Tools: usages, findTestFiles, codebase
+                </div>
+              </div>
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold mb-2">Test-Writer Mode</h4>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Focused on test generation and coverage
+                </p>
+                <div className="text-xs bg-muted p-2 rounded">
+                  Tools: findTestFiles, search, codebase
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Remote MCP Integration */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Remote MCP Server Integration</h3>
+              <Badge variant="secondary">No Local Setup</Badge>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-medium text-red-600 dark:text-red-400 mb-2">Traditional MCP</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>• Local npm packages or Docker containers</li>
+                  <li>• Manual server management</li>
+                  <li>• Personal Access Token authentication</li>
+                  <li>• Environment setup overhead</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-green-600 dark:text-green-400 mb-2">Remote MCP Server</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>• Hosted GitHub MCP server</li>
+                  <li>• Zero local management overhead</li>
+                  <li>• OAuth 2.0 authentication</li>
+                  <li>• Instant access to GitHub context</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg">
+              <h4 className="font-semibold mb-2">GitHub MCP Capabilities</h4>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <ul className="space-y-1">
+                    <li>• Live issue and PR access</li>
+                    <li>• Repository code reading</li>
+                    <li>• Workflow automation</li>
+                  </ul>
+                </div>
+                <div>
+                  <ul className="space-y-1">
+                    <li>• Security triage assistance</li>
+                    <li>• CI/CD integration</li>
+                    <li>• Cross-repo workflows</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* End-to-End Workflow */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <h3 className="text-lg font-semibold">Complete Agentic Workflow</h3>
+            
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="text-center">
+                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                    <span className="text-purple-600 dark:text-purple-400 font-bold">1</span>
+                  </div>
+                  <h4 className="font-medium text-sm">Natural Language Request</h4>
+                  <p className="text-xs text-muted-foreground mt-1">Describe feature or fix needed</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                    <span className="text-blue-600 dark:text-blue-400 font-bold">2</span>
+                  </div>
+                  <h4 className="font-medium text-sm">Issue Creation</h4>
+                  <p className="text-xs text-muted-foreground mt-1">AI generates structured issue</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                    <span className="text-green-600 dark:text-green-400 font-bold">3</span>
+                  </div>
+                  <h4 className="font-medium text-sm">Autonomous Development</h4>
+                  <p className="text-xs text-muted-foreground mt-1">Coding agent implements solution</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <span className="text-orange-600 dark:text-orange-400 font-bold">4</span>
+                  </div>
+                  <h4 className="font-medium text-sm">Review & Iterate</h4>
+                  <p className="text-xs text-muted-foreground mt-1">Human review with AI refinements</p>
+                </div>
+              </div>
+              
+              <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950/30 dark:to-indigo-950/30 rounded-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <Timer className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                  <span className="font-semibold">Development Time Impact</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <p className="font-medium text-red-600 dark:text-red-400">Traditional: Days to Weeks</p>
+                    <p className="text-muted-foreground">Manual issue creation, development, testing, PR</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-green-600 dark:text-green-400">Agentic: Hours with Background Work</p>
+                    <p className="text-muted-foreground">AI handles boilerplate while you focus on review</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Anthropic Velocity Practices */}
       <Card>
         <CardHeader>
