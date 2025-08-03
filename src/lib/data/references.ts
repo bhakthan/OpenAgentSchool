@@ -77,6 +77,21 @@ export const references: ReferencesData = {
         name: "Tutorials & Guides",
         references: [
           {
+            title: "Getting Started with Agents - Training Microsoft",
+            url: "https://learn.microsoft.com/en-us/training/paths/develop-ai-agents-on-azure/",
+            description: "Microsoft Learn training path for developing AI agents on Azure"
+          },
+          {
+            title: "Generative AI for beginners",
+            url: "https://github.com/microsoft/generative-ai-for-beginners/",
+            description: "Microsoft's comprehensive course for beginners learning generative AI concepts and applications"
+          },
+          {
+            title: "Azure AI Foundry",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/what-is-azure-ai-foundry",
+            description: "Learn about Azure AI Foundry and how to build AI solutions with it"
+          },
+          {
             title: "Getting Started with Azure AI Foundry",
             url: "https://learn.microsoft.com/en-us/azure/ai-foundry/quickstarts/get-started-code?tabs=azure-ai-foundry&pivots=fdp-project",
             description: "Step-by-step guide to getting started with Azure AI Foundry"
@@ -225,9 +240,14 @@ export const references: ReferencesData = {
         name: "Official Documentation",
         references: [
           {
-            title: "A2A SDK documentation",
+            title: "Agent to Agent Protocol",
+            url: "https://a2a-protocol.org/",
+            description: "Official Agent to Agent Protocol specification and documentation"
+          },
+          {
+            title: "A2A Python SDK",
             url: "https://github.com/a2aproject/a2a-python",
-            description: "Official documentation for the A2A SDK"
+            description: "Python SDK for implementing Agent to Agent communication protocols"
           },
           {
             title: "Azure AI Agent Framework Documentation",
@@ -353,6 +373,16 @@ export const references: ReferencesData = {
             title: "Context Management Best Practices",
             url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/context-management",
             description: "Guide to managing context in Azure AI applications"
+          },
+          {
+            title: "MCP for Beginners - Open Source Curriculum",
+            url: "https://github.com/microsoft/mcp-for-beginners/",
+            description: "Open sourced curriculum that introduces the Model Context Protocol for beginners"
+          },
+          {
+            title: "Microsoft Developers MCP Playlist",
+            url: "https://www.youtube.com/playlist?list=PLlrxD0HtieHjYfVUpGl_-ai7D6FRBjV-d",
+            description: "Microsoft Developers YouTube playlist covering Model Context Protocol concepts and implementation"
           }
         ]
       }
@@ -365,9 +395,19 @@ export const references: ReferencesData = {
         name: "Official Documentation",
         references: [
           {
-            title: "ACP Official Documentation",
+            title: "ACP Protocol",
             url: "https://agentcommunicationprotocol.dev/",
-            description: "Official documentation for the Agent Communication Protocol"
+            description: "Official Agent Communication Protocol specification and documentation"
+          },
+          {
+            title: "ACP SDK",
+            url: "https://github.com/i-am-bee/acp/tree/main",
+            description: "Official ACP SDK implementation and development toolkit"
+          },
+          {
+            title: "Deeplearning.ai learning",
+            url: "https://www.deeplearning.ai/short-courses/acp-agent-communication-protocol/",
+            description: "DeepLearning.AI short course on Agent Communication Protocol implementation and best practices"
           },
           {
             title: "ACP Introduction",
@@ -410,6 +450,41 @@ export const references: ReferencesData = {
             title: "Multi-Agent Server Deployment",
             url: "https://agentcommunicationprotocol.dev/patterns/multi-agent",
             description: "Setting up multi-agent systems with ACP"
+          }
+        ]
+      }
+    ],
+    
+    multiagents: [
+      {
+        id: "documentation",
+        name: "Official Documentation",
+        references: [
+          {
+            title: "Autogen",
+            url: "https://microsoft.github.io/autogen/stable/",
+            description: "Microsoft AutoGen framework for building multi-agent conversational AI systems"
+          },
+          {
+            title: "Semantic Kernel Quick start",
+            url: "https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-python",
+            description: "Quick start guide for Microsoft Semantic Kernel with Python"
+          },
+          {
+            title: "Semantic Kernel Agent Framework",
+            url: "https://learn.microsoft.com/en-us/semantic-kernel/frameworks/agent/?pivots=programming-language-python",
+            description: "Learn about building agents with Semantic Kernel framework"
+          }
+        ]
+      },
+      {
+        id: "samples",
+        name: "Code Samples",
+        references: [
+          {
+            title: "Autogen Framework Examples",
+            url: "https://github.com/microsoft/autogen/",
+            description: "Official GitHub repository with AutoGen framework examples and samples"
           }
         ]
       }

@@ -88,6 +88,11 @@ const ReferenceSection: React.FC<ReferenceSectionProps> = ({ type, itemId }) => 
     normalizedReferences = [referenceData];
   }
 
+  // Don't render anything if there are no references and no custom references
+  if (!showCommunityGithub && normalizedReferences.length === 0 && (!customReferences || customReferences.length === 0)) {
+    return null;
+  }
+
   if (!showCommunityGithub) {
     return (
       <Card className="mb-6 mt-6">

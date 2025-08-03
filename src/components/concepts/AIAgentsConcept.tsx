@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import AgentLifecycleVisual from "./AgentLifecycleVisual"
 import AgentPersonalityShowcase from "./AgentPersonalityShowcase"
 import ChatbotToAgentTransition from "./ChatbotToAgentTransition"
+import ReferenceSection from "@/components/references/ReferenceSection"
 import { Brain, Users, Code, Lightbulb } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 
@@ -95,6 +96,8 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
 
           {/* Interactive Demo */}
           <ChatbotToAgentTransition />
+
+          <ReferenceSection type="concept" itemId="agents" />
         </div>
       )
     },

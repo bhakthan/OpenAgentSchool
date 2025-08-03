@@ -5,6 +5,7 @@ import ACPProtocolStack from "./ACPProtocolStack"
 import ProtocolComparison from "./ProtocolComparison"
 import SimpleACPDemo from "../interactive-demos/SimpleACPDemo"
 import ACPMCPComparison from "../interactive-demos/ACPMCPComparison"
+import ReferenceSection from "../references/ReferenceSection"
 import { Stack, Lightning, Rocket, Crown } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
@@ -114,6 +115,9 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
             title="ACP Basics"
             contextDescription="Learn about the Agent Communication Protocol"
           />
+
+          {/* References */}
+          <ReferenceSection type="concept" itemId="acp" />
         </div>
       )
     },

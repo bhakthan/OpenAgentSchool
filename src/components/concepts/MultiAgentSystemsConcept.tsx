@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Users, ArrowsIn, Handshake, Crown, Target, Network } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
-import EnlightenMeButton from "@/components/EnlightenMeButton";
+import ReferenceSection from "@/components/references/ReferenceSection";
 
 interface MultiAgentSystemsConceptProps {
   onMarkComplete?: () => void
@@ -85,6 +85,8 @@ class AgentCoordinator {
               </div>
             </CardContent>
           </Card>
+
+          <ReferenceSection type="concept" itemId="multiagents" />
         </div>
       )
     },

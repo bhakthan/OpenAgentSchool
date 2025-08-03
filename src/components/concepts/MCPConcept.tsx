@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import MCPArchitectureDiagram from "./MCPArchitectureDiagram"
 import MCPDemo from "../interactive-demos/MCPDemo"
 import MCPVisualDemo from "../interactive-demos/MCPVisualDemo"
+import ReferenceSection from "../references/ReferenceSection"
 import { Shield, Plug, Lock, Database } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
@@ -101,6 +102,9 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
 
           {/* Interactive Demo */}
           <MCPDemo />
+
+          {/* References */}
+          <ReferenceSection type="concept" itemId="mcp" />
 
           <EnlightenMeButton
             title="MCP Basics"

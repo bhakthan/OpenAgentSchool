@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import A2ACommunicationPatterns from "./A2ACommunicationPatterns"
 import A2AMultiAgentSystem from "./A2AMultiAgentSystem"
 import Agent2AgentProtocolExplainer from "./Agent2AgentProtocolExplainer"
+import ReferenceSection from "../references/ReferenceSection"
 import { ArrowsHorizontal, Network, GitBranch, Sparkle, CloudArrowUp, MagnifyingGlassPlus, MagnifyingGlassMinus, ArrowSquareOut } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/ui/enlightenMeButton";
@@ -217,6 +218,9 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
 
           {/* Protocol Explainer */}
           <Agent2AgentProtocolExplainer />
+
+          {/* References */}
+          <ReferenceSection type="concept" itemId="a2a" />
         </div>
       )
     },
