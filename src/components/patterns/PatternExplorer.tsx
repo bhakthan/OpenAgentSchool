@@ -44,7 +44,7 @@ const PatternExplorer = () => {
   const [selectedPattern, setSelectedPattern] = useState(getInitialPattern());
   const [viewMode, setViewMode] = useState<'single' | 'compare'>('single');
   const [isModalOpen, setModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('visualization'); // Track the active tab
+  const [activeTab, setActiveTab] = useState('flow-diagram'); // Track the active tab
   const { isCollapsed } = useSidebarCollapse(); // Get sidebar collapse state
   const [forceUpdate, setForceUpdate] = useState(0); // Force re-render when needed
 
@@ -262,20 +262,20 @@ const PatternExplorer = () => {
                   transform: `translateZ(0)`,
                 }}
               >
-                <Tabs defaultValue="visualization" className="w-full scrollbar-stable" onValueChange={setActiveTab}>
+                <Tabs defaultValue="flow-diagram" className="w-full scrollbar-stable" onValueChange={setActiveTab}>
                   <TabsList className="grid w-full grid-cols-3 layout-stable" data-tab-list>
-                    <TabsTrigger value="visualization" className="flex items-center gap-2" data-tab="visualization">
-                      <ChartLine size={16} /> Visualization
+                    <TabsTrigger value="flow-diagram" className="flex items-center gap-2" data-tab="flow-diagram">
+                      <ChartLine size={16} /> Flow Diagram
                     </TabsTrigger>
                     <TabsTrigger value="details" className="flex items-center gap-2" data-tab="details">
-                      <Info size={16} /> Educational Content
+                      <Info size={16} /> Pattern Guide
                     </TabsTrigger>
                     <TabsTrigger value="implementation" className="flex items-center gap-2" data-tab="implementation">
-                      <Code size={16} /> Implementation
+                      <Code size={16} /> Code & Practice
                     </TabsTrigger>
                   </TabsList>
                   
-                  <TabsContent value="visualization">
+                  <TabsContent value="flow-diagram">
                     <div className="flow-container" data-flow>
                       <ErrorBoundary>
                         <Suspense fallback={<VisualizationLoader />}>

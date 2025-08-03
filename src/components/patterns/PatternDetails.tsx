@@ -114,7 +114,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
           </TabsContent>
 
           <TabsContent value="implementation" className="pt-4">
-             <Accordion type="single" collapsible className="w-full" defaultValue="steps">
+             <Accordion type="multiple" className="w-full" defaultValue={["steps", "diagram"]}>
               <AccordionItem value="steps">
                 <AccordionTrigger>Implementation Steps</AccordionTrigger>
                 <AccordionContent>

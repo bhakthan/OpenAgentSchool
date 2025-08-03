@@ -20,6 +20,7 @@ import { autoGenMultiAgentSystemDesign } from './autoGenMultiAgent';
 import { orchestratorWorkerSystemDesign } from './orchestratorWorker';
 import { routingSystemDesign } from './routing';
 import { modelContextProtocolSystemDesign } from './modelContextProtocol';
+import { deepAgentsSystemDesign } from './deep-agents';
 
 // Export individual patterns
 export { pythonReActAgentSystemDesign } from './pythonReActAgent';
@@ -40,6 +41,7 @@ export { autoGenMultiAgentSystemDesign } from './autoGenMultiAgent';
 export { orchestratorWorkerSystemDesign } from './orchestratorWorker';
 export { routingSystemDesign } from './routing';
 export { modelContextProtocolSystemDesign } from './modelContextProtocol';
+export { deepAgentsSystemDesign } from './deep-agents';
 
 // Create a registry of all system design patterns
 export const systemDesignPatterns = {
@@ -62,6 +64,7 @@ export const systemDesignPatterns = {
   'orchestrator-worker': orchestratorWorkerSystemDesign,
   'routing': routingSystemDesign,
   'model-context-protocol': modelContextProtocolSystemDesign,
+  'deep-agents': deepAgentsSystemDesign,
 };
 
 /**

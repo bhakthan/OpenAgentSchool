@@ -112,6 +112,7 @@ export default function D3TreeVisualization({
           children: collapsedNodes.has('multi-agent-patterns') ? [] : [
             { id: 'agent-to-agent', name: 'Agent to Agent', type: 'pattern' as const, novel: true },
             { id: 'autogen', name: 'AutoGen Multi-Agent', type: 'pattern' as const, novel: true },
+            { id: 'deep-agents', name: 'Deep Agents', type: 'pattern' as const, novel: true },
             { id: 'orchestrator-worker', name: 'Orchestrator Worker', type: 'pattern' as const },
             { id: 'routing', name: 'Routing', type: 'pattern' as const }
           ]

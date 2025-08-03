@@ -18,6 +18,7 @@ export { orchestratorWorkerPattern } from './orchestratorWorker';
 export { evaluatorOptimizerPattern } from './evaluatorOptimizer';
 export { autonomousWorkflowPattern } from './autonomousWorkflow';
 export { deepResearcherPattern } from './deepResearcher';
+export { deepAgentsPattern } from './deep-agents';
 export { agentEvaluationPattern } from './agentEvaluation';
 export { autogenPattern } from './autogen';
 export { autogenMultiAgentPattern } from './autogenMultiAgent';
@@ -39,6 +40,7 @@ import { orchestratorWorkerPattern } from './orchestratorWorker';
 import { evaluatorOptimizerPattern } from './evaluatorOptimizer';
 import { autonomousWorkflowPattern } from './autonomousWorkflow';
 import { deepResearcherPattern } from './deepResearcher';
+import { deepAgentsPattern } from './deep-agents';
 import { agentEvaluationPattern } from './agentEvaluation';
 import { autogenPattern } from './autogen';
 import { autogenMultiAgentPattern } from './autogenMultiAgent';
@@ -60,6 +62,7 @@ export const agentPatterns = [
   evaluatorOptimizerPattern,
   autonomousWorkflowPattern,
   deepResearcherPattern,
+  deepAgentsPattern,
   agentEvaluationPattern,
   autogenPattern,
   // autogenMultiAgentPattern,

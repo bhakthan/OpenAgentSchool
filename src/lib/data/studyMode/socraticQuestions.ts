@@ -313,6 +313,106 @@ export const voiceAgentSocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Socratic Questions for Deep Agents
+export const deepAgentsSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'deep-agents-socratic-1',
+    type: 'socratic',
+    conceptId: 'deep-agents',
+    title: 'Understanding Complex Task Complexity',
+    level: 'beginner',
+    socratiQuestion: "Think about a complex project you've worked on that took several days or weeks. What made it complex? How did you organize your approach?",
+    followUpQuestions: [
+      "How did you know if your initial approach was working?",
+      "What did you do when you discovered gaps or errors in your work?",
+      "How did you coordinate if others were helping you?"
+    ],
+    expectedInsights: [
+      "Complex tasks require planning and organization",
+      "Multiple revision cycles are often necessary",
+      "Quality checks prevent compounding errors",
+      "Coordination becomes critical with multiple contributors"
+    ],
+    hints: [
+      "Consider research projects, business proposals, or software development",
+      "Think about how you break down large tasks into smaller pieces",
+      "Reflect on the importance of review and feedback cycles"
+    ],
+    explanation: "This exploration helps students understand why simple AI agents aren't sufficient for complex tasks and introduces the need for sophisticated orchestration, planning, and quality assurance mechanisms.",
+    relatedConcepts: ['complex-reasoning', 'task-planning', 'quality-assurance'],
+    timeEstimate: 15,
+    successCriteria: [
+      "Recognizes the multi-faceted nature of complex tasks",
+      "Understands the need for iterative refinement",
+      "Sees the value of systematic organization and review"
+    ]
+  },
+  {
+    id: 'deep-agents-socratic-2',
+    type: 'socratic',
+    conceptId: 'deep-agents',
+    title: 'The Virtual File System Insight',
+    level: 'intermediate',
+    socratiQuestion: "Imagine you're working on a complex research report with a team, but you can only communicate through notes left in a shared folder. How would you organize this folder to ensure smooth collaboration?",
+    followUpQuestions: [
+      "How would you avoid team members overwriting each other's work?",
+      "What happens if someone needs to reference earlier versions of work?",
+      "How would you track what's been completed versus what still needs work?"
+    ],
+    expectedInsights: [
+      "Persistent state storage enables continuation across sessions",
+      "Version control prevents loss of work and enables iteration",
+      "Clear organization prevents confusion and conflicts",
+      "Status tracking ensures nothing falls through the cracks"
+    ],
+    hints: [
+      "Think about collaborative document editing tools",
+      "Consider how software developers manage code versions",
+      "Reflect on project management and work tracking systems"
+    ],
+    explanation: "This thought experiment reveals why the Virtual File System is crucial for Deep Agents - it provides the persistent memory and organization needed for complex, multi-session workflows.",
+    relatedConcepts: ['state-management', 'version-control', 'collaborative-systems'],
+    timeEstimate: 18,
+    successCriteria: [
+      "Understands the need for persistent state management",
+      "Recognizes version control and conflict resolution challenges",
+      "Sees the importance of systematic organization"
+    ]
+  },
+  {
+    id: 'deep-agents-socratic-3',
+    type: 'socratic',
+    conceptId: 'deep-agents',
+    title: 'The Power of Specialized Expertise',
+    level: 'advanced',
+    socratiQuestion: "Why do successful companies have specialized departments (HR, Finance, Marketing) rather than having everyone do everything? How does this principle apply to AI agent design?",
+    followUpQuestions: [
+      "What are the advantages and disadvantages of specialization?",
+      "How do you ensure specialized teams work together effectively?",
+      "When might having generalists be better than specialists?"
+    ],
+    expectedInsights: [
+      "Specialization enables deeper expertise and efficiency",
+      "Context isolation prevents contamination between different types of work",
+      "Coordination mechanisms are essential for specialized teams",
+      "Different tasks require different skills and approaches"
+    ],
+    hints: [
+      "Consider why lawyers don't typically do accounting",
+      "Think about how specialized medical teams work in hospitals",
+      "Reflect on the coordination challenges in large organizations"
+    ],
+    explanation: "This exploration reveals the architectural principle behind sub-agents in Deep Agents systems - specialization enables better quality and efficiency, but requires sophisticated coordination.",
+    relatedConcepts: ['specialization', 'agent-coordination', 'system-architecture'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Understands the benefits of specialized sub-agents",
+      "Recognizes the need for coordination mechanisms",
+      "Sees the parallel between organizational and agent design"
+    ]
+  }
+];
+
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
@@ -321,7 +421,8 @@ export const socraticQuestionLibrary = {
   'agentic-rag': agenticRAGSocraticQuestions,
   'modern-tool-use': modernToolUseSocraticQuestions,
   'computer-use': computerUseSocraticQuestions,
-  'voice-agent': voiceAgentSocraticQuestions
+  'voice-agent': voiceAgentSocraticQuestions,
+  'deep-agents': deepAgentsSocraticQuestions
 };
 
 // Helper function to get socratic questions by concept and level

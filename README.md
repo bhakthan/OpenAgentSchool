@@ -212,7 +212,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 **Industry-Focused Learning** - Experience AI agent patterns through authentic business scenarios across multiple industries:
 
 #### 📊 **Comprehensive Pattern Coverage**
-**16 Agent Patterns with Business Context** - Each pattern demonstrates real-world applications:
+**19 Agent Patterns with Business Context** - Each pattern demonstrates real-world applications:
 
 - **Parallelization → Sales Data Processing**
   - *Scenario*: Q4 global sales analysis across regions (North America, Europe, Asia-Pacific)
@@ -245,6 +245,10 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Deep Researcher → Due Diligence Research**
   - *Scenario*: M&A acquisition research for TechCorp
   - *Context*: Comprehensive research, fact-checking, and risk assessment
+
+- **Deep Agents → Management Consulting**
+  - *Scenario*: Comprehensive market research automation for strategic consulting
+  - *Context*: Multi-phase research, analysis, synthesis, and quality assurance workflow
 
 - **Agent Evaluation → Compliance Auditing**
   - *Scenario*: Annual AI system compliance audit
@@ -288,6 +292,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Marketing & Sales**: Campaign coordination, sales analysis
 - **Customer Service**: Call center operations, support routing
 - **Human Resources**: Policy management, employee services
+- **Management Consulting**: Market research automation, strategic analysis
 
 #### ✨ **Enhanced Learning Experience**
 **Business-Context-Aware Visualizations** - Seamless integration between learning and application:
@@ -743,7 +748,7 @@ src/
 │   └── useLocalStorage.ts      # LocalStorage utility hook
 ├── lib/                     # Core logic and utilities
 │   ├── data/                # Pattern, quiz, and system design data
-│   │   ├── systemDesign/    # 18 comprehensive system design patterns
+│   │   ├── systemDesign/    # 19 comprehensive system design patterns
 │   │   │   ├── agentEvaluation.ts      # Agent evaluation system design
 │   │   │   ├── autonomousWorkflow.ts   # Autonomous workflow patterns
 │   │   │   ├── computerUse.ts          # Computer use agent design
@@ -797,7 +802,7 @@ src/
 **Feature Highlights:**
 
 - **System Design Visualizer**: `src/components/code-playbook/SystemDesignVisualizer.tsx` (interactive 7-step system design pattern explorer with architectural flow visualization)
-- **Comprehensive System Design Library**: `src/lib/data/systemDesign/` (18 production-ready system design patterns covering evaluation, workflow, multi-agent coordination, and specialized patterns)
+- **Comprehensive System Design Library**: `src/lib/data/systemDesign/` (19 production-ready system design patterns covering evaluation, workflow, multi-agent coordination, and specialized patterns)
 - **Dynamic Diagram Generator**: `src/components/code-playbook/AutoGenPatternVisualizer.tsx` (visualizes user-defined agent networks; uses `react-force-graph-2d`)
 - **Business Use Case Tab & Integration**: `src/components/code-playbook/PatternDetails.tsx` (hosts the dynamic diagram and critical thinking modal)
 - **Critical Thinking Modal**: `src/components/common/CriticalThinkingModal.tsx` (modal for critical thinking challenges)

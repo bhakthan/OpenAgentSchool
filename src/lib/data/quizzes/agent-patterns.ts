@@ -542,5 +542,121 @@ export const agentPatternsQuestions: QuizQuestion[] = [
     relatedConcepts: ['use-cases', 'multi-agent-collaboration', 'supply-chain-management'],
     persona: ['business-leader', 'agent-architect'],
     timeEstimate: 40
+  },
+
+  // Deep Agents Pattern
+  {
+    id: 'patterns-deep-agents-b1',
+    text: 'What is the primary purpose of the Deep Agents pattern?',
+    question: 'What is the primary purpose of the Deep Agents pattern?',
+    options: [
+      'To create simple, single-step agents',
+      'To handle complex, multi-step tasks requiring deep reasoning, research, and iterative refinement',
+      'To replace all human workers',
+      'To create agents that only work with databases'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Deep Agents pattern is designed to handle complex, multi-step tasks that require deep reasoning, comprehensive research, iterative refinement, and quality assurance through specialized sub-agents and persistent state management.',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'deep-agents',
+    relatedConcepts: ['multi-agent-systems', 'complex-reasoning', 'iterative-refinement'],
+    persona: ['business-leader', 'agent-designer', 'no-code-engineer'],
+    timeEstimate: 30
+  },
+  {
+    id: 'patterns-deep-agents-i1',
+    text: 'Which components are essential to the Deep Agents architecture?',
+    question: 'Which components are essential to the Deep Agents architecture?',
+    options: [
+      'Only a main agent and database',
+      'Main Deep Agent, Planning Tools, Research Sub-Agent, Critique Sub-Agent, and Virtual File System',
+      'Just external APIs and storage',
+      'Only machine learning models'
+    ],
+    correctAnswer: 1,
+    explanation: 'Deep Agents architecture requires a Main Deep Agent (orchestrator), Planning Tools (strategy organization), specialized sub-agents (Research and Critique), and a Virtual File System for persistent state management across complex workflows.',
+    difficulty: 'intermediate',
+    category: 'agent-patterns',
+    subCategory: 'deep-agents',
+    relatedConcepts: ['system-architecture', 'agent-orchestration', 'state-management'],
+    persona: ['agent-developer', 'ai-engineer', 'agent-architect'],
+    timeEstimate: 45
+  },
+  {
+    id: 'patterns-deep-agents-a1',
+    text: 'What is the role of the Virtual File System in Deep Agents?',
+    question: 'What is the role of the Virtual File System in Deep Agents?',
+    options: [
+      'To store only final outputs',
+      'To provide persistent state management, enable collaboration between agents, and maintain context across interactions',
+      'To replace cloud storage entirely',
+      'To only cache API responses'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Virtual File System serves as a critical component for persistent state management, enabling agents to store and retrieve work products, maintain context across multiple interactions, and facilitate collaboration between different specialized agents.',
+    difficulty: 'advanced',
+    category: 'agent-patterns',
+    subCategory: 'deep-agents',
+    relatedConcepts: ['state-management', 'context-preservation', 'agent-collaboration'],
+    persona: ['ai-engineer', 'agent-architect', 'agent-developer'],
+    timeEstimate: 50
+  },
+  {
+    id: 'patterns-deep-agents-i2',
+    text: 'How does the Critique Sub-Agent improve output quality in Deep Agents?',
+    question: 'How does the Critique Sub-Agent improve output quality in Deep Agents?',
+    options: [
+      'By replacing the main agent entirely',
+      'By providing systematic quality review, detailed feedback, and guiding iterative improvement cycles',
+      'By only checking spelling and grammar',
+      'By generating new content from scratch'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Critique Sub-Agent specializes in quality assurance by systematically reviewing work products against established criteria, providing specific improvement feedback, and guiding iterative refinement cycles until quality standards are met.',
+    difficulty: 'intermediate',
+    category: 'agent-patterns',
+    subCategory: 'deep-agents',
+    relatedConcepts: ['quality-assurance', 'feedback-loops', 'iterative-improvement'],
+    persona: ['agent-developer', 'agent-designer', 'ai-engineer'],
+    timeEstimate: 40
+  },
+  {
+    id: 'patterns-deep-agents-a2',
+    text: 'In what business scenarios would Deep Agents be most appropriate?',
+    question: 'In what business scenarios would Deep Agents be most appropriate?',
+    options: [
+      'Simple data entry tasks only',
+      'Complex research projects, comprehensive analysis, strategic planning, and multi-step content creation',
+      'Basic customer service inquiries',
+      'Single-step calculations only'
+    ],
+    correctAnswer: 1,
+    explanation: 'Deep Agents excel in complex business scenarios requiring comprehensive research, detailed analysis, strategic planning, multi-step workflows, and high-quality deliverables where iterative refinement and quality assurance are critical.',
+    difficulty: 'advanced',
+    category: 'agent-patterns',
+    subCategory: 'deep-agents',
+    relatedConcepts: ['business-applications', 'complex-workflows', 'strategic-analysis'],
+    persona: ['business-leader', 'agent-architect', 'strategic-planner'],
+    timeEstimate: 45
+  },
+  {
+    id: 'patterns-deep-agents-i3',
+    text: 'What Azure services would typically be used to implement Deep Agents?',
+    question: 'What Azure services would typically be used to implement Deep Agents?',
+    options: [
+      'Only Azure Storage',
+      'Azure OpenAI, Azure Cognitive Search, Azure App Service, Azure Storage, and Azure Key Vault',
+      'Only Azure Functions',
+      'Only Azure SQL Database'
+    ],
+    correctAnswer: 1,
+    explanation: 'Deep Agents implementations typically leverage Azure OpenAI for language processing, Azure Cognitive Search for information retrieval, Azure App Service for orchestration, Azure Storage for the virtual file system, and Azure Key Vault for secure configuration management.',
+    difficulty: 'intermediate',
+    category: 'agent-patterns',
+    subCategory: 'deep-agents',
+    relatedConcepts: ['azure-integration', 'service-architecture', 'cloud-deployment'],
+    persona: ['ai-engineer', 'agent-developer', 'cloud-architect'],
+    timeEstimate: 50
   }
 ];

@@ -120,16 +120,22 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
       
       <div 
         className={cn(
-          "border-r border-border bg-background shadow-md sidebar-transition fixed z-30 top-[142px] flex flex-col",
+          "border-r border-border bg-background shadow-md sidebar-transition fixed z-30 flex flex-col",
           isCollapsed 
             ? "-translate-x-full opacity-0 pointer-events-none" 
             : "translate-x-0 opacity-100"
         )}
-        style={{ width: '250px', height: 'calc(100vh - 142px)' }}
+        style={{ 
+          width: '250px', 
+          height: 'calc(100vh - 142px)',
+          top: '142px',
+          left: '0',
+          maxHeight: 'calc(100vh - 142px)'
+        }}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full overflow-hidden">
           {/* Header */}
-          <div className="p-3 flex flex-col gap-2 border-b border-border">
+          <div className="p-3 flex flex-col gap-2 border-b border-border flex-shrink-0">
             <div className="flex justify-between items-center">
               <h3 className="font-semibold text-sm">Agent Patterns</h3>
               <Button
@@ -189,9 +195,19 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
           </div>
           
           {/* Pattern List */}
-          <div className="flex-1 min-h-0 overflow-hidden">
-            <div className="h-full overflow-y-auto overflow-x-hidden p-2">
-              <div className="space-y-2">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden">
+            <div 
+              className="p-2" 
+              style={{ 
+                scrollbarWidth: 'thin',
+                scrollbarColor: 'var(--border) transparent'
+              }}
+            >
+              <div className="space-y-2 pb-6">
+                {/* Debug info */}
+                <div className="text-xs text-muted-foreground px-2 py-1 bg-muted/50 rounded">
+                  {Object.entries(filteredCategories).reduce((total, [_, patterns]) => total + patterns.length, 0)} patterns loaded
+                </div>
                 {Object.entries(filteredCategories).length > 0 ? (
                   Object.entries(filteredCategories).map(([categoryName, patterns]) => (
                   <div key={categoryName} className="mb-4">

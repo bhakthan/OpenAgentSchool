@@ -577,6 +577,173 @@ export const codeExecutionSteps: StepData = {
         }
       }
     ]
+  },
+  
+  'deep-agents': {
+    python: [
+      {
+        lineStart: 1,
+        lineEnd: 8,
+        description: 'Import required libraries for deep agents including deepagents package and Azure search',
+        variableState: {
+          'os': 'OS module for environment variables',
+          'deepagents': 'Deep agents framework imported',
+          'SearchClient': 'Azure search client class'
+        }
+      },
+      {
+        lineStart: 10,
+        lineEnd: 25,
+        description: 'Define internet search tool using Azure Cognitive Search for research capabilities',
+        variableState: {
+          'search_client': 'Azure SearchClient instance',
+          'internet_search': 'Function defined for web research'
+        }
+      },
+      {
+        lineStart: 27,
+        lineEnd: 40,
+        description: 'Configure research sub-agent with specialized instructions and tools',
+        variableState: {
+          'research_sub_agent': 'Sub-agent configuration for research tasks',
+          'name': '"research-agent"',
+          'tools': '["internet_search"]'
+        }
+      },
+      {
+        lineStart: 42,
+        lineEnd: 55,
+        description: 'Configure critique sub-agent for quality assurance and review processes',
+        variableState: {
+          'critique_sub_agent': 'Sub-agent configuration for critique tasks',
+          'name': '"critique-agent"',
+          'prompt': 'Quality review instructions'
+        }
+      },
+      {
+        lineStart: 57,
+        lineEnd: 85,
+        description: 'Define comprehensive main agent instructions with workflow steps and report requirements',
+        variableState: {
+          'research_instructions': 'Main agent prompt with detailed workflow',
+          'workflow_steps': '["save question", "create plan", "research", "draft", "critique", "finalize"]'
+        }
+      },
+      {
+        lineStart: 87,
+        lineEnd: 95,
+        description: 'Create the deep agent with tools, instructions, and sub-agents configuration',
+        variableState: {
+          'agent': 'Deep agent instance with full configuration',
+          'tools': '[internet_search]',
+          'subagents': '[research_sub_agent, critique_sub_agent]',
+          'recursion_limit': '1000'
+        }
+      },
+      {
+        lineStart: 97,
+        lineEnd: 110,
+        description: 'Execute the agent with a complex research task and retrieve results',
+        variableState: {
+          'result': 'Agent execution result with generated files',
+          'messages': 'User query about AI agent frameworks',
+          'files': 'Dictionary of generated files'
+        }
+      },
+      {
+        lineStart: 112,
+        lineEnd: 120,
+        description: 'Access and display the generated files and final report',
+        variableState: {
+          'files_created': 'List of file names created during execution',
+          'final_report': 'Complete research report content',
+          'workflow_complete': 'true'
+        }
+      }
+    ],
+    
+    typescript: [
+      {
+        lineStart: 1,
+        lineEnd: 10,
+        description: 'Import necessary libraries including LangChain ChatOpenAI and Azure search client',
+        variableState: {
+          'ChatOpenAI': 'LangChain OpenAI model class',
+          'createDeepAgent': 'Deep agent factory function',
+          'SearchClient': 'Azure search client'
+        }
+      },
+      {
+        lineStart: 12,
+        lineEnd: 28,
+        description: 'Implement internet search function using Azure Cognitive Search API',
+        variableState: {
+          'internetSearch': 'Async function for web research',
+          'searchClient': 'Azure SearchClient instance',
+          'results': 'Array of search results'
+        }
+      },
+      {
+        lineStart: 30,
+        lineEnd: 45,
+        description: 'Define research sub-agent configuration with specialized tools and prompt',
+        variableState: {
+          'researchSubAgent': 'SubAgent configuration object',
+          'name': '"research-agent"',
+          'tools': '["internetSearch"]'
+        }
+      },
+      {
+        lineStart: 47,
+        lineEnd: 60,
+        description: 'Configure critique sub-agent for quality assurance and feedback cycles',
+        variableState: {
+          'critiqueSubAgent': 'SubAgent configuration for review',
+          'name': '"critique-agent"',
+          'description': 'Quality review and feedback'
+        }
+      },
+      {
+        lineStart: 62,
+        lineEnd: 95,
+        description: 'Define comprehensive research instructions with detailed workflow and report standards',
+        variableState: {
+          'researchInstructions': 'Main agent instruction string',
+          'workflow': 'Detailed step-by-step process',
+          'report_requirements': 'Quality and formatting standards'
+        }
+      },
+      {
+        lineStart: 97,
+        lineEnd: 115,
+        description: 'Create deep agent with Azure OpenAI model and sub-agent configuration',
+        variableState: {
+          'agent': 'Configured deep agent instance',
+          'model': 'ChatOpenAI with Azure configuration',
+          'subagents': '[researchSubAgent, critiqueSubAgent]'
+        }
+      },
+      {
+        lineStart: 117,
+        lineEnd: 125,
+        description: 'Execute the agent with complex research task and await completion',
+        variableState: {
+          'result': 'Agent execution result object',
+          'messages': 'User query about AI frameworks',
+          'execution_status': 'completed'
+        }
+      },
+      {
+        lineStart: 127,
+        lineEnd: 135,
+        description: 'Access generated files and display final research report',
+        variableState: {
+          'files': 'Generated files dictionary',
+          'final_report': 'Complete research report content',
+          'file_count': 'Number of files created'
+        }
+      }
+    ]
   }
 };
 

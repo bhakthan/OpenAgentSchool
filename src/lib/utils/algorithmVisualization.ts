@@ -248,6 +248,212 @@ print(result)`,
         }
       ];
       
+    case 'deep-agents':
+      return [
+        {
+          id: 'step1',
+          name: 'Task Initialization',
+          description: 'Deep agent receives complex multi-step task and initializes planning phase',
+          code: `// Initialize deep agent workflow
+const mainAgent = createDeepAgent(tools, instructions, { subagents });
+const task = { messages: [{ role: "user", content: userQuery }] };`,
+          data: {
+            task_type: 'research_project',
+            complexity: 'high',
+            estimated_steps: 12
+          },
+          timing: 1000
+        },
+        {
+          id: 'step2',
+          name: 'Planning Phase',
+          description: 'Agent creates detailed plan using built-in planning tool',
+          code: `// Use planning tool to create strategy
+const plan = await planningTool.createPlan({
+  objective: task.content,
+  timeframe: "comprehensive",
+  quality: "high"
+});
+await fileSystem.write("research_plan.md", plan);`,
+          data: {
+            plan_steps: ['Define scope', 'Research phase', 'Analysis', 'Draft creation', 'Review cycle'],
+            planning_tool: 'TodoWrite',
+            files_created: ['research_plan.md']
+          },
+          timing: 2000
+        },
+        {
+          id: 'step3',
+          name: 'Question Recording',
+          description: 'Store original question for reference throughout workflow',
+          code: `// Save question for context maintenance
+await fileSystem.write("question.txt", originalQuery);
+console.log("Question saved for future reference");`,
+          data: {
+            original_question: 'Research the current state of AI agent frameworks...',
+            file_location: 'question.txt'
+          },
+          timing: 800
+        },
+        {
+          id: 'step4',
+          name: 'Research Sub-Agent Activation',
+          description: 'Delegate specialized research tasks to research sub-agent',
+          code: `// Activate research sub-agent for in-depth investigation
+const researchResult = await subAgents.research({
+  query: "AI agent frameworks market analysis",
+  depth: "comprehensive",
+  sources: "academic_and_industry"
+});`,
+          data: {
+            subagent: 'research-agent',
+            task_type: 'market_analysis',
+            context_quarantine: true
+          },
+          timing: 3000
+        },
+        {
+          id: 'step5',
+          name: 'Data Gathering',
+          description: 'Research agent uses external tools to gather information',
+          code: `// Research agent gathers data using available tools
+const searchResults = await internetSearch({
+  query: "enterprise AI agent adoption 2024",
+  maxResults: 10,
+  topic: "general"
+});`,
+          data: {
+            tools_used: ['internet_search', 'academic_database'],
+            sources_found: 25,
+            data_quality: 'high'
+          },
+          timing: 4000
+        },
+        {
+          id: 'step6',
+          name: 'Information Synthesis',
+          description: 'Research agent synthesizes findings into comprehensive analysis',
+          code: `// Synthesize research findings
+const synthesis = await researchAgent.synthesize({
+  data: gatheredData,
+  format: "structured_analysis",
+  citations: true
+});`,
+          data: {
+            findings_count: 45,
+            key_insights: 8,
+            citations: 25
+          },
+          timing: 2500
+        },
+        {
+          id: 'step7',
+          name: 'Draft Creation',
+          description: 'Main agent creates initial draft using research findings',
+          code: `// Create initial draft report
+const draftContent = await mainAgent.createDraft({
+  research: synthesizedData,
+  structure: "executive_summary_detailed_analysis",
+  length: "comprehensive"
+});
+await fileSystem.write("draft_report.md", draftContent);`,
+          data: {
+            draft_length: '15 pages',
+            sections: 7,
+            files_updated: ['draft_report.md']
+          },
+          timing: 3500
+        },
+        {
+          id: 'step8',
+          name: 'Critique Sub-Agent Review',
+          description: 'Critique agent reviews draft for quality and completeness',
+          code: `// Activate critique sub-agent for quality assurance
+const critique = await subAgents.critique({
+  document: "draft_report.md",
+  criteria: ["completeness", "accuracy", "structure", "citations"],
+  standards: "professional_research"
+});`,
+          data: {
+            subagent: 'critique-agent',
+            review_areas: ['content', 'structure', 'citations', 'clarity'],
+            feedback_points: 12
+          },
+          timing: 2000
+        },
+        {
+          id: 'step9',
+          name: 'Iterative Refinement',
+          description: 'Main agent incorporates feedback and refines the draft',
+          code: `// Refine draft based on critique feedback
+const refinedDraft = await mainAgent.refine({
+  original: draftContent,
+  feedback: critique,
+  improvements: ["add_missing_sections", "strengthen_citations", "improve_clarity"]
+});`,
+          data: {
+            improvements_made: 8,
+            quality_score: 'improved',
+            iteration: 1
+          },
+          timing: 2800
+        },
+        {
+          id: 'step10',
+          name: 'Final Quality Check',
+          description: 'Additional critique cycle for final validation',
+          code: `// Final quality assurance check
+const finalCritique = await subAgents.critique({
+  document: "refined_draft.md",
+  final_review: true,
+  approval_criteria: "publication_ready"
+});`,
+          data: {
+            final_score: 'approved',
+            remaining_issues: 2,
+            ready_for_finalization: true
+          },
+          timing: 1500
+        },
+        {
+          id: 'step11',
+          name: 'Final Report Generation',
+          description: 'Generate final polished report with all improvements',
+          code: `// Create final report
+const finalReport = await mainAgent.finalize({
+  content: refinedDraft,
+  format: "professional_report",
+  include: ["executive_summary", "sources", "appendices"]
+});
+await fileSystem.write("final_report.md", finalReport);`,
+          data: {
+            final_length: '18 pages',
+            total_sources: 28,
+            files_created: ['final_report.md']
+          },
+          timing: 2000
+        },
+        {
+          id: 'step12',
+          name: 'Workflow Completion',
+          description: 'Return comprehensive results with all generated files',
+          code: `// Return complete workflow results
+return {
+  status: "completed",
+  files: fileSystem.getAllFiles(),
+  main_output: "final_report.md",
+  metadata: workflowMetadata
+};`,
+          data: {
+            total_files: 5,
+            execution_time: '24 minutes',
+            quality_rating: 'excellent',
+            task_completion: '100%'
+          },
+          timing: 1000
+        }
+      ];
+      
     // Add more algorithm types as needed
     
     default:

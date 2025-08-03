@@ -1228,6 +1228,194 @@ class RobustAnalysisCalculator:
       'Implements graceful degradation strategies',
       'Designs error isolation mechanisms'
     ]
+  },
+  
+  // Deep Agents Debug Challenges
+  {
+    id: 'debug-deep-agents-1',
+    type: 'debug',
+    conceptId: 'deep-agents',
+    title: 'File System Context Corruption',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'fs-corruption-deep-agents',
+      title: 'Virtual File System State Corruption',
+      description: 'A Deep Agents system is experiencing context corruption where agents are reading outdated or conflicting information from the virtual file system.',
+      problemDescription: 'The research and critique sub-agents are working with different versions of the same document, leading to contradictory feedback and infinite revision loops.',
+      brokenCode: `import { createDeepAgent } from './deep-agents';
+import { VirtualFileSystem } from './virtual-fs';
+
+const fileSystem = new VirtualFileSystem();
+const agent = createDeepAgent([internetSearch], researchInstructions, {
+  subagents: [researchAgent, critiqueAgent],
+  fileSystem: fileSystem
+});
+
+// This causes the issue
+async function processComplexTask(task: string) {
+  // Research phase - writes to file system
+  const researchResult = await agent.subAgents.research.invoke({
+    messages: [{ role: "user", content: task }]
+  });
+  
+  // Writing phase - also writes to file system
+  await fileSystem.write("draft.md", researchResult.content);
+  
+  // Critique phase - but reads stale data
+  const critique = await agent.subAgents.critique.invoke({
+    messages: [{ role: "user", content: "Review the draft document" }]
+  });
+  
+  // This creates inconsistency
+  await fileSystem.write("feedback.md", critique.feedback);
+  
+  return critique;
+}`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "ResearchAgent",
+          message: "Research completed and stored in draft.md",
+          type: "info",
+          metadata: { fileVersion: "v1" }
+        },
+        {
+          timestamp: "2024-01-01T10:01:00Z", 
+          agent: "CritiqueAgent",
+          message: "Reading draft for review...",
+          type: "debug",
+          metadata: { fileVersion: "v0" }
+        },
+        {
+          timestamp: "2024-01-01T10:02:00Z",
+          agent: "CritiqueAgent", 
+          message: "This draft appears incomplete - missing research data",
+          type: "warning",
+          metadata: { issue: "stale_read" }
+        }
+      ],
+      expectedBehavior: "Agents should work with consistent file system state and proper version coordination",
+      commonIssues: [
+        {
+          issue: "File System State Corruption",
+          symptoms: ["Agents report conflicting information about document state", "Context appears inconsistent"],
+          diagnosis: "Multiple agents accessing file system without proper coordination",
+          fix: "Implement atomic operations and version control"
+        },
+        {
+          issue: "Infinite Revision Loops",
+          symptoms: ["Endless back-and-forth between research and critique agents", "No convergence criteria"],
+          diagnosis: "Agents working with different document versions",
+          fix: "Add proper file locking and version synchronization"
+        },
+        {
+          issue: "Version Conflicts",
+          symptoms: ["Multiple versions of same document exist", "Random context resets"],
+          diagnosis: "Race conditions in file system access",
+          fix: "Implement proper concurrency control mechanisms"
+        }
+      ],
+      solution: "Implement proper file system versioning and locking mechanisms",
+      explanation: "File system state consistency requires atomic operations, version control, and proper read/write coordination between agents"
+    },
+    explanation: "This challenge teaches the importance of state consistency in multi-agent systems and proper file system management for persistent context.",
+    relatedConcepts: ['state-management', 'concurrency-control', 'version-control'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Identifies the file system versioning issue',
+      'Implements proper read/write coordination',
+      'Prevents state corruption in multi-agent workflows'
+    ]
+  },
+  {
+    id: 'debug-deep-agents-2', 
+    type: 'debug',
+    conceptId: 'deep-agents',
+    title: 'Sub-Agent Context Leakage',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'context-leakage-deep-agents',
+      title: 'Research Context Contaminating Critique Process',
+      description: 'The critique sub-agent is being influenced by research context that should be isolated, leading to biased quality assessments.',
+      problemDescription: 'The critique agent seems to know too much about the research process and is giving feedback based on research methodology rather than final output quality.',
+      brokenCode: `class DeepAgentOrchestrator {
+  constructor(private researchAgent: Agent, private critiqueAgent: Agent) {}
+  
+  async executeComplexTask(task: string): Promise<string> {
+    // Step 1: Research phase
+    const researchContext = await this.buildResearchContext(task);
+    const researchResult = await this.researchAgent.invoke({
+      messages: [{ role: "user", content: task }],
+      context: researchContext // This context gets shared
+    });
+    
+    // Step 2: Critique phase - PROBLEM: Uses same context
+    const critiqueResult = await this.critiqueAgent.invoke({
+      messages: [{ role: "user", content: "Review this work: " + researchResult }],
+      context: researchContext // Should be isolated!
+    });
+    
+    return critiqueResult.feedback;
+  }
+  
+  private async buildResearchContext(task: string) {
+    return {
+      searchHistory: this.getSearchHistory(),
+      researchMethod: "comprehensive_analysis",
+      sources: await this.identifySources(task),
+      previousWork: this.getPreviousResearch()
+    };
+  }
+}`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T14:00:00Z",
+          agent: "CritiqueAgent",
+          message: "I see you used Wikipedia and IEEE papers - good source diversity",
+          type: "warning",
+          metadata: { issue: "knows_research_sources" }
+        },
+        {
+          timestamp: "2024-01-01T14:01:00Z",
+          agent: "CritiqueAgent", 
+          message: "Your search methodology was thorough but you might have missed industry reports",
+          type: "warning",
+          metadata: { issue: "commenting_on_research_process" }
+        },
+        {
+          timestamp: "2024-01-01T14:02:00Z",
+          agent: "CritiqueAgent",
+          message: "The 15 sources you consulted provide good coverage",
+          type: "error",
+          metadata: { issue: "knows_source_count" }
+        }
+      ],
+      expectedBehavior: "Critique agent should evaluate output quality objectively without knowledge of research process",
+      commonIssues: [
+        {
+          issue: "Context Contamination",
+          symptoms: ["Critique agent references research methodology", "Quality feedback includes process comments"],
+          diagnosis: "Shared context between specialized agents",
+          fix: "Implement proper context isolation boundaries"
+        },
+        {
+          issue: "Biased Evaluation", 
+          symptoms: ["Critique seems biased by source knowledge", "Lacks objectivity in assessment"],
+          diagnosis: "Context leakage violating separation of concerns",
+          fix: "Create independent evaluation contexts for each sub-agent"
+        }
+      ],
+      solution: "Implement proper context isolation between specialized sub-agents",
+      explanation: "Context quarantine ensures that each sub-agent operates within its designated domain without contamination from other agents' specialized knowledge"
+    },
+    explanation: "This challenge demonstrates the importance of context quarantine in multi-agent systems to ensure unbiased evaluation and proper separation of concerns.",
+    relatedConcepts: ['context-isolation', 'agent-specialization', 'unbiased-evaluation'],
+    timeEstimate: 30,
+    successCriteria: [
+      'Recognizes the context contamination problem',
+      'Implements proper context isolation mechanisms', 
+      'Ensures objective quality assessment'
+    ]
   }
 ];
 
@@ -1237,7 +1425,8 @@ export const debugChallengeLibrary = {
   'a2a-communication': debugChallenges.filter(c => c.conceptId === 'a2a-communication'),
   'mcp': debugChallenges.filter(c => c.conceptId === 'mcp'),
   'agentic-rag': debugChallenges.filter(c => c.conceptId === 'agentic-rag'),
-  'modern-tool-use': debugChallenges.filter(c => c.conceptId === 'modern-tool-use')
+  'modern-tool-use': debugChallenges.filter(c => c.conceptId === 'modern-tool-use'),
+  'deep-agents': debugChallenges.filter(c => c.conceptId === 'deep-agents')
 };
 
 // Helper function to get debug challenges by concept and level

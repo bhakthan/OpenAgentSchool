@@ -57,6 +57,7 @@ export type PatternType =
   | 'routing'
   | 'autonomous-workflow'
   | 'deep-researcher'
+  | 'deep-agents'
   | 'voice-agent'
   | 'agent-evaluation'
   | 'codeact-agent'

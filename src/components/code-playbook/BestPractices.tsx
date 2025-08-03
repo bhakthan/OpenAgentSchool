@@ -519,6 +519,44 @@ function getGeneralBestPracticesForPattern(patternId: string): PracticeItem[] {
         icon: <Info size={18} className="text-primary" />,
         tags: ["coordination", "roles", "organization"]
       }
+    ],
+    "deep-agents": [
+      {
+        title: "Sub-agent Specialization",
+        description: 
+          "Design each sub-agent with a clear, specific role and expertise area. Avoid overlapping responsibilities " +
+          "between agents to prevent confusion and ensure efficient task allocation. Use context quarantine to " +
+          "prevent information pollution between specialized tasks.",
+        icon: <Code size={18} className="text-primary" />,
+        tags: ["specialization", "architecture", "efficiency"]
+      },
+      {
+        title: "File System State Management",
+        description: 
+          "Implement robust virtual file system management to maintain consistency across multi-step workflows. " +
+          "Use structured file naming conventions and clear organization patterns. Regularly save progress to " +
+          "enable recovery from interruptions.",
+        icon: <Database size={18} className="text-secondary" />,
+        tags: ["state-management", "persistence", "reliability"]
+      },
+      {
+        title: "Planning and Workflow Organization", 
+        description: 
+          "Leverage planning tools effectively to break down complex tasks into manageable sub-tasks. Create " +
+          "detailed project plans and use todo lists to track progress. Implement clear success criteria for " +
+          "each workflow stage.",
+        icon: <Lightbulb size={18} className="text-accent" />,
+        tags: ["planning", "workflow", "organization"]
+      },
+      {
+        title: "Quality Assurance Through Critique",
+        description: 
+          "Implement systematic critique and refinement cycles using dedicated quality assurance agents. Design " +
+          "specific evaluation criteria for different types of output. Use iterative improvement to achieve " +
+          "publication-quality results.",
+        icon: <ShieldCheck size={18} className="text-primary" />,
+        tags: ["quality", "critique", "refinement"]
+      }
     ]
   };
 

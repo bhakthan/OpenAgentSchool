@@ -950,5 +950,64 @@ export const patternContents: PatternContent[] = [
       "Create comprehensive logging for debugging and improvement purposes"
     ],
     relatedPatterns: ["Modern Tool Use", "Autonomous Workflow", "ReAct Agent"]
+  },
+  {
+    id: 'deep-agents',
+    name: 'Deep Agents',
+    longDescription: `
+      Deep Agents represent a sophisticated agent architecture that combines four key components to handle complex, 
+      multi-step tasks requiring extended reasoning and execution: planning tools, specialized sub-agents, virtual 
+      file systems, and detailed system prompts. This pattern addresses the limitations of simple tool-calling 
+      agents that often struggle with long-form, complex tasks requiring deep thinking and execution.
+      
+      The architecture is inspired by advanced AI applications like Claude Code, Deep Research systems, and Manus, 
+      which demonstrate how combining these four elements creates agents capable of handling tasks that would 
+      overwhelm simpler agent architectures. Deep Agents can maintain context over extended interactions, break 
+      down complex problems into manageable sub-tasks, and iteratively refine their outputs through critique and 
+      improvement cycles.
+      
+      At its core, a Deep Agent orchestrates specialized sub-agents, each with their own instructions and tools, 
+      while maintaining persistent state through a virtual file system. The planning tool helps organize complex 
+      workflows, while detailed prompts guide the agent through sophisticated reasoning processes. This creates 
+      an agent system capable of handling research projects, content creation, business analysis, and other 
+      complex knowledge work that requires both breadth and depth.
+    `,
+    advantages: [
+      "Handles complex, multi-step tasks that simple agents cannot complete effectively",
+      "Built-in planning capabilities keep agents organized and focused on long-term objectives",
+      "Sub-agent architecture enables specialization and context quarantine for different tasks",
+      "Virtual file system maintains persistent state and enables iterative refinement",
+      "Supports critique and improvement cycles for high-quality output generation",
+      "Scalable architecture that can adapt to increasingly complex workflows and requirements"
+    ],
+    limitations: [
+      "Higher computational costs due to multiple agent interactions and complex workflows",
+      "Requires more sophisticated prompt engineering and system design",
+      "Potential for increased latency in task completion due to multi-step processes",
+      "May be over-engineered for simple tasks that could be handled by basic agents",
+      "Debugging and troubleshooting can be complex due to multiple interacting components",
+      "Requires careful management of context and state to prevent information loss"
+    ],
+    realWorldApplications: [
+      "Comprehensive market research with data gathering, analysis, and report generation",
+      "Technical documentation creation with code examples, explanations, and validation",
+      "Business intelligence projects requiring data analysis and strategic recommendations",
+      "Content marketing campaigns with research, writing, editing, and optimization phases",
+      "Due diligence research for investment decisions with multi-source information synthesis",
+      "Academic research assistance with literature review, analysis, and synthesis",
+      "Legal research and case analysis with comprehensive document review and summarization",
+      "Product requirements documentation with stakeholder input integration and technical specifications"
+    ],
+    bestPractices: [
+      "Design clear, specialized roles for each sub-agent to avoid overlap and confusion",
+      "Implement robust file system management to maintain consistency across interactions",
+      "Use planning tools effectively to break down complex tasks into manageable sub-tasks",
+      "Create detailed, specific prompts that guide agents through complex reasoning processes",
+      "Implement quality assurance through critique and refinement cycles",
+      "Monitor and optimize token usage to manage computational costs effectively",
+      "Design error handling and recovery mechanisms for complex multi-step workflows",
+      "Use context quarantine strategically to prevent information pollution between sub-tasks"
+    ],
+    relatedPatterns: ["Orchestrator-Worker", "ReAct Agent", "Self-Reflection", "Autonomous Workflow"]
   }
 ];

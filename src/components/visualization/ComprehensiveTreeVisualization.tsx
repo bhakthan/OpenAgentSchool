@@ -240,7 +240,7 @@ export default function ComprehensiveTreeVisualization() {
       id: 'root',
       name: 'Open Agent School',
       type: 'root',
-      description: 'Comprehensive AI Agent Learning Platform with 15 concepts, 18 patterns, Azure services, knowledge quizzes, and interactive study modes',
+      description: 'Comprehensive AI Agent Learning Platform with 15 concepts, 19 patterns, Azure services, knowledge quizzes, and interactive study modes',
       icon: <Brain className="w-5 h-5" />,
       children: [
         // Core Concepts Category
@@ -275,7 +275,7 @@ export default function ComprehensiveTreeVisualization() {
           id: 'agent-patterns',
           name: 'Agent Patterns',
           type: 'category',
-          description: '18 comprehensive system design patterns covering evaluation, workflow, multi-agent coordination',
+          description: '19 comprehensive system design patterns covering evaluation, workflow, multi-agent coordination',
           icon: <Cog className="w-4 h-4" />,
           progress: Math.floor(Math.random() * 30 + 70), // Random progress 70-100%
           children: Object.entries(systemDesignPatterns).slice(0, 8).map(([key, pattern]) => ({

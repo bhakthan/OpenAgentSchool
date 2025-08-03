@@ -774,13 +774,167 @@ class WebTestingAgent:
   }
 ];
 
+// Interactive Scenarios for Deep Agents
+export const deepAgentsScenarios: StudyModeQuestion[] = [
+  {
+    id: 'deep-agents-scenario-1',
+    type: 'scenario',
+    conceptId: 'deep-agents',
+    title: 'Enterprise Market Research Report Generation',
+    level: 'advanced',
+    scenario: {
+      id: 'market-research-deep-agents',
+      title: 'Comprehensive Market Analysis Using Deep Agents',
+      description: 'Your consulting firm needs to generate a comprehensive market research report about the enterprise AI adoption landscape. This requires coordinated research, analysis, and quality assurance.',
+      context: 'A Fortune 500 client has requested a 50-page market research report covering AI adoption trends, competitive landscape, technology recommendations, and ROI analysis. The report must be completed in 5 days with publication-quality standards.',
+      stakeholders: ['Client Executives', 'Consulting Team', 'Research Department', 'Quality Assurance'],
+      challenges: [
+        {
+          id: 'workflow-planning',
+          title: 'Design the Deep Agents Workflow',
+          description: 'How would you structure the agent workflow for this complex task?',
+          question: 'What is the most effective sequence for the Deep Agents workflow?',
+          type: 'multiple-choice',
+          options: [
+            'Planning → Research → Writing → Review → Finalization',
+            'Research → Writing → Planning → Review → Finalization', 
+            'Writing → Research → Planning → Review → Finalization',
+            'All phases should happen simultaneously for efficiency'
+          ],
+          correctAnswer: 0,
+          feedback: 'Correct! Planning first ensures strategic organization, research gathers comprehensive data, writing synthesizes findings, review ensures quality, and finalization produces the deliverable.',
+          hints: [
+            'Consider which activities depend on outputs from previous phases',
+            'Think about quality control placement in the workflow'
+          ]
+        },
+        {
+          id: 'file-system-organization',
+          title: 'Virtual File System Structure',
+          description: 'How should you organize the virtual file system for this project?',
+          question: 'What file organization strategy would best support the multi-agent workflow?',
+          type: 'multiple-choice',
+          options: [
+            'Single shared document that all agents edit',
+            'Separate folders for research, drafts, feedback, and final outputs with version control',
+            'One file per agent with no shared storage',
+            'Cloud storage with manual file management'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Organized folder structure with version control enables clean handoffs, prevents conflicts, and maintains audit trails.',
+          hints: [
+            'Consider how agents need to hand off work products',
+            'Think about version tracking and conflict prevention'
+          ]
+        },
+        {
+          id: 'quality-assurance',
+          title: 'Implement Quality Assurance',
+          description: 'How should the Critique Sub-Agent ensure report quality?',
+          question: 'What evaluation criteria should the Critique Sub-Agent use?',
+          type: 'multiple-choice',
+          options: [
+            'Only check grammar and spelling',
+            'Comprehensive evaluation: completeness, accuracy, structure, citations, business relevance, and actionability',
+            'Just verify that all sections are present',
+            'Compare against competitor reports only'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Comprehensive evaluation ensures the report meets all stakeholder needs and professional standards.',
+          hints: [
+            'Consider what makes a report valuable to enterprise clients',
+            'Think about both content quality and business utility'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'successful-report',
+          condition: 'All agents coordinate effectively with proper quality assurance',
+          result: 'High-quality 50-page market research report delivered on time',
+          explanation: 'Comprehensive report with executive summary, detailed analysis, data visualizations, and actionable recommendations that inform strategic decisions',
+          nextSteps: ['Present findings to client', 'Implement recommendations', 'Monitor market changes']
+        },
+        {
+          id: 'process-optimization', 
+          condition: 'Deep Agents workflow is properly documented and optimized',
+          result: 'Repeatable process for complex research projects established',
+          explanation: 'Consulting firm gains competitive advantage through efficient AI-powered research capabilities',
+          nextSteps: ['Apply process to other research projects', 'Train team on Deep Agents methodology', 'Expand to other business domains']
+        }
+      ],
+      codeExample: `// Deep Agents market research implementation
+const marketResearchAgent = createDeepAgent(
+  [internetSearch, industryDatabase, competitorAnalysis],
+  {
+    role: "senior_market_research_analyst",
+    specialization: "enterprise_technology_adoption",
+    qualityStandards: "publication_ready"
+  },
+  {
+    subagents: {
+      research: createResearchAgent([
+        "academic_papers", "industry_reports", "survey_data", "expert_interviews"
+      ]),
+      critique: createCritiqueAgent([
+        "completeness", "accuracy", "business_relevance", "actionability"
+      ])
+    },
+    fileSystem: new VirtualFileSystem({
+      structure: {
+        "research/": ["sources/", "analysis/", "data/"],
+        "drafts/": ["sections/", "revisions/", "feedback/"],
+        "final/": ["report.pdf", "executive_summary.pdf", "appendices.pdf"]
+      }
+    })
+  }
+);
+
+const result = await marketResearchAgent.invoke({
+  task: "Generate comprehensive enterprise AI adoption market research report",
+  requirements: {
+    length: "50 pages",
+    sections: ["executive_summary", "market_overview", "competitive_landscape", "technology_analysis", "roi_assessment", "recommendations"],
+    deadline: "5 days",
+    quality: "publication_ready"
+  }
+});`,
+      resources: [
+        'Deep Agents Architecture Documentation',
+        'Virtual File System Best Practices',
+        'Quality Assurance Frameworks',
+        'Market Research Methodologies'
+      ],
+      conceptId: 'deep-agents',
+      difficulty: 'advanced',
+      estimatedTime: '45 minutes',
+      learningOutcomes: [
+        'Designs complex multi-agent workflows',
+        'Implements proper file system organization',
+        'Creates comprehensive quality assurance processes',
+        'Understands iterative refinement cycles'
+      ]
+    },
+    explanation: "This scenario demonstrates the full power of Deep Agents for complex, multi-step business deliverables requiring coordination, quality assurance, and professional standards.",
+    relatedConcepts: ['complex-workflows', 'quality-assurance', 'business-applications'],
+    timeEstimate: 45,
+    successCriteria: [
+      'Designs effective agent workflow sequences',
+      'Implements proper file system organization',
+      'Creates comprehensive quality evaluation frameworks',
+      'Understands the business value of Deep Agents'
+    ]
+  }
+];
+
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
   'a2a-communication': a2aScenarios,
   'agentic-rag': agenticRAGScenarios,
   'modern-tool-use': modernToolUseScenarios,
-  'computer-use': computerUseScenarios
+  'computer-use': computerUseScenarios,
+  'deep-agents': deepAgentsScenarios
 };
 
 // Helper function to get scenarios by concept and level

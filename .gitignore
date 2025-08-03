@@ -40,6 +40,7 @@ BRANDING.md
 llmasjudge.md
 **/prd.md\"criticalthinking.md\"
 docs/AZURE_DEPLOYMENT.md
+docs/AGENT_PATTERN_TEMPLATE.md
 
 # Backend migration planning files (temporary)
 backend-migration-plan.md
