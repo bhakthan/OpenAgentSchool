@@ -14,7 +14,129 @@ export const autogenMultiAgentPattern: PatternData = {
   },
   nodes: [],
   edges: [],
-  codeExample: `// AutoGen Multi-Agent Pattern implementation...`,
+  codeExample: `// AutoGen Multi-Agent Pattern (TypeScript)
+// Simplified illustrative multi-agent collaboration using an AutoGen-like abstraction.
+// Focus: role definition, agent wrappers, group chat orchestration, termination & transcript assembly.
+
+// ---- Types & Utility Stubs -------------------------------------------------
+interface AgentMessage { role: string; content: string; from?: string; }
+
+// Pretend LLM call (stub) – replace with real provider integration
+async function llm(prompt: string): Promise<string> {
+  return Promise.resolve(
+    prompt.includes('TERMINATE')
+      ? 'TERMINATE ACK'
+      : 'Acknowledged. Continuing plan.'
+  );
+}
+
+// ---- Base Agent -------------------------------------------------------------
+abstract class BaseAgent {
+  public name: string;
+  public systemMessage: string;
+  constructor(name: string, systemMessage: string) {
+    this.name = name;
+    this.systemMessage = systemMessage;
+  }
+  abstract generateResponse(history: AgentMessage[]): Promise<AgentMessage | null>;
+  protected buildPrompt(history: AgentMessage[]): string {
+    const last = history.slice(-4).map(m => `${m.from||m.role}: ${m.content}`).join('\\n');
+    return \`\${this.systemMessage}\\nRecent:\\n\${last}\`;
+  }
+}
+
+// ---- Assistant Agents -------------------------------------------------------
+class AssistantAgent extends BaseAgent {
+  async generateResponse(history: AgentMessage[]): Promise<AgentMessage | null> {
+    const prompt = this.buildPrompt(history);
+    const raw = await llm(prompt);
+    if (raw.trim().toUpperCase().startsWith('TERMINATE')) {
+      return { role: 'assistant', from: this.name, content: 'TERMINATE' };
+    }
+    return { role: 'assistant', from: this.name, content: raw };
+  }
+}
+
+class UserProxyAgent extends BaseAgent {
+  private initialTask: string;
+  private injected = false;
+  constructor(task: string) {
+    super('UserProxy', 'You represent the end user. Provide initial requirement then observe.');
+    this.initialTask = task;
+  }
+  async generateResponse(): Promise<AgentMessage | null> {
+    if (this.injected) return null; // only speak once
+    this.injected = true;
+    return { role: 'user', from: this.name, content: this.initialTask };
+  }
+}
+
+// ---- Group Chat Container ---------------------------------------------------
+class GroupChat {
+  public agents: BaseAgent[];
+  public messages: AgentMessage[] = [];
+  public maxRounds: number;
+  constructor(agents: BaseAgent[], maxRounds = 12) {
+    this.agents = agents;
+    this.maxRounds = maxRounds;
+  }
+  addMessage(msg: AgentMessage) { this.messages.push(msg); }
+  terminated(): boolean {
+    return this.messages.some(m => m.content.trim().toUpperCase() === 'TERMINATE');
+  }
+}
+
+// ---- Manager / Orchestrator -------------------------------------------------
+class GroupChatManager {
+  private chat: GroupChat;
+  constructor(chat: GroupChat) { this.chat = chat; }
+
+  async run(): Promise<{ transcript: AgentMessage[]; rounds: number; terminated: boolean; }> {
+    let round = 0;
+    while (round < this.chat.maxRounds && !this.chat.terminated()) {
+      round++;
+      for (const agent of this.chat.agents) {
+        if (this.chat.terminated()) break;
+        const msg = await agent.generateResponse(this.chat.messages);
+        if (msg) {
+          this.chat.addMessage(msg);
+        }
+      }
+    }
+    return { transcript: this.chat.messages, rounds: round, terminated: this.chat.terminated() };
+  }
+}
+
+// ---- Example Usage (Commented for Runner) -----------------------------------
+// const userTask = 'Design a factorial function and a quick unit test. If done, reply TERMINATE.';
+// const user = new UserProxyAgent(userTask);
+// const productMgr = new AssistantAgent('ProductManager', 'Role: Product Manager. Break requirements into dev-ready tasks.');
+// const dev = new AssistantAgent('Developer', 'Role: Developer. Provide implementation details succinctly.');
+// const qa = new AssistantAgent('QAAgent', 'Role: QA. Propose minimal yet effective test coverage.');
+// const chat = new GroupChat([user, productMgr, dev, qa], 8);
+// const manager = new GroupChatManager(chat);
+// manager.run().then(result => {
+//   console.log('Rounds:', result.rounds, 'Terminated:', result.terminated);
+//   console.log('\\nTranscript:\\n');
+//   for (const m of result.transcript) {
+//     console.log(\`[\${m.from}] \${m.content}\`);
+//   }
+// });
+
+// ---- Transcript Formatting Helper (Optional) --------------------------------
+function formatTranscript(messages: AgentMessage[]): string {
+  return messages.map(m => \`[\${m.from}] \${m.content}\`).join('\\n');
+}
+
+// Export selected entities (if this were a real module)
+export {
+  AssistantAgent,
+  UserProxyAgent,
+  GroupChat,
+  GroupChatManager,
+  formatTranscript
+};
+`,
   implementation: [
     'Install AutoGen framework and configure Azure OpenAI connection.',
     'Define agent roles and system messages for specialized behaviors.',

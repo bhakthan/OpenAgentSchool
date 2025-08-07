@@ -25,36 +25,90 @@ export const parallelizationPattern: PatternData = {
     { id: 'e2-out', source: 'task2', target: 'output', animated: true },
     { id: 'e3-out', source: 'task3', target: 'output', animated: true }
   ],
-  codeExample: `// Parallelization Pattern implementation...`,
-  pythonCodeExample: `import asyncio
+  codeExample: `// Parallelization Pattern (TypeScript)
+// Business Use Case: Analyze large batches of customer reviews concurrently to extract
+// sentiment, topics, and compliance issues, dramatically reducing end-to-end latency.
 
-# Assume llm_call is an async function that calls a language model
-async def analyze_review(review: str) -> dict:
-    """Analyzes a single customer review for sentiment, topics, and compliance."""
-    prompt = f"""
-    Analyze the following review and return a JSON object with 'sentiment', 'topics', and 'compliance_issues'.
-    Review: "{review}"
-    """
-    analysis = await llm_call(prompt)
-    return analysis
+interface ReviewAnalysis {
+  sentiment: string;
+  topics: string[];
+  compliance_issues: string[];
+  raw?: any;
+}
 
-async def process_reviews_in_parallel(reviews: list[str]) -> list[dict]:
-    """Processes a batch of reviews in parallel using asyncio."""
-    tasks = [analyze_review(review) for review in reviews]
-    results = await asyncio.gather(*tasks)
-    return results
+// Stubbed LLM/tool call. Replace with real provider or vector service.
+async function llmAnalyze(review: string): Promise<ReviewAnalysis> {
+  // In real implementation, craft structured prompt & parse JSON.
+  return Promise.resolve({
+    sentiment: review.includes('love') ? 'positive' : review.includes('late') ? 'negative' : 'neutral',
+    topics: ['shipping', 'value'].filter(t => review.toLowerCase().includes(t)),
+    compliance_issues: [],
+    raw: 'stub'
+  });
+}
 
-# Example Usage
-# async def main():
-#     customer_reviews = [
-#         "The product is amazing, I love it!",
-#         "The shipping was late and the box was damaged.",
-#         "This is a great value for the price, highly recommend.",
-#         # ... thousands more reviews
-#     ]
-#     analyzed_reviews = await process_reviews_in_parallel(customer_reviews)
-#     for review, analysis in zip(customer_reviews, analyzed_reviews):
-#         print(f"Review: {review}\nAnalysis: {analysis}\n---")
+// Analyze a single review.
+async function analyzeReview(review: string): Promise<ReviewAnalysis> {
+  return llmAnalyze(review);
+}
+
+// Concurrency controller (simple pool) to avoid overloading upstream APIs.
+async function processReviewsInParallel(
+  reviews: string[],
+  maxConcurrency = 10
+): Promise<ReviewAnalysis[]> {
+  const results: ReviewAnalysis[] = [];
+  let index = 0;
+  let active = 0;
+
+  return new Promise((resolve, reject) => {
+    const launchNext = () => {
+      if (index >= reviews.length && active === 0) {
+        resolve(results);
+        return;
+      }
+      while (active < maxConcurrency && index < reviews.length) {
+        const current = reviews[index++];
+        active++;
+        analyzeReview(current)
+          .then(r => results.push(r))
+          .catch(err => results.push({ sentiment: 'unknown', topics: [], compliance_issues: ['analysis_error'], raw: err }))
+          .finally(() => {
+            active--;
+            launchNext();
+          });
+      }
+    };
+    launchNext();
+  });
+}
+
+// Aggregate sentiment & topic distribution across all analyses.
+function aggregateAnalytics(analyses: ReviewAnalysis[]) {
+  const sentimentCounts: Record<string, number> = {};
+  const topicCounts: Record<string, number> = {};
+  for (const a of analyses) {
+    sentimentCounts[a.sentiment] = (sentimentCounts[a.sentiment] || 0) + 1;
+    for (const t of a.topics) {
+      topicCounts[t] = (topicCounts[t] || 0) + 1;
+    }
+  }
+  return { sentimentCounts, topicCounts, total: analyses.length };
+}
+
+// Example (commented) showing how batch processing integrates with business workflow.
+// async function runBatch() {
+//   const customerReviews = [
+//     'The product is amazing, I love it!',
+//     'The shipping was late and the box was damaged.',
+//     'Great value for the price, highly recommend.',
+//     // ... thousands more
+//   ];
+//   const analyses = await processReviewsInParallel(customerReviews, 25);
+//   const summary = aggregateAnalytics(analyses);
+//   console.log('Summary:', summary);
+// }
+// runBatch();
 `,
   implementation: [
     'Identify tasks that can be executed independently.',

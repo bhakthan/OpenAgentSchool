@@ -13,6 +13,16 @@ import AutoGenPatternVisualizer from '../visualization/AutoGenPatternVisualizer'
 import LivePatternRunner from './LivePatternRunner';
 import { reactAgentExecutionSteps } from '@/lib/data/execution/reactAgentExecutionSteps';
 import { agenticRAGExecutionSteps } from '@/lib/data/execution/agenticRAGExecutionSteps';
+import { selfReflectionExecutionSteps } from '@/lib/data/execution/selfReflectionExecutionSteps';
+import { agentEvaluationExecutionSteps } from '@/lib/data/execution/agentEvaluationExecutionSteps';
+import { deepResearcherExecutionSteps } from '@/lib/data/execution/deepResearcherExecutionSteps';
+import { modernToolUseExecutionSteps } from '@/lib/data/execution/modernToolUseExecutionSteps';
+import { autogenMultiAgentExecutionSteps } from '@/lib/data/execution/autogenMultiAgentExecutionSteps';
+import { parallelizationExecutionSteps } from '@/lib/data/execution/parallelizationExecutionSteps';
+import { deepAgentsExecutionSteps } from '@/lib/data/execution/deepAgentsExecutionSteps';
+import { modelContextProtocolExecutionSteps } from '@/lib/data/execution/modelContextProtocolExecutionSteps';
+import { modelContextProtocolPythonExecutionSteps } from '@/lib/data/execution/modelContextProtocolPythonExecutionSteps';
+import { agentEvaluationPythonExecutionSteps } from '@/lib/data/execution/agentEvaluationPythonExecutionSteps';
 
 interface PatternDetailsProps {
   pattern: PatternData;
@@ -62,6 +72,46 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             )}
             {pattern.id === 'agentic-rag' && (
               <TabsTrigger value="live-runner-rag" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'self-reflection' && (
+              <TabsTrigger value="live-runner-self" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'agent-evaluation' && (
+              <TabsTrigger value="live-runner-eval" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'deep-researcher' && (
+              <TabsTrigger value="live-runner-deep" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'modern-tool-use' && (
+              <TabsTrigger value="live-runner-modern" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'autogen-multi-agent' && (
+              <TabsTrigger value="live-runner-autogen-multi" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'parallelization' && (
+              <TabsTrigger value="live-runner-parallelization" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'deep-agents' && (
+              <TabsTrigger value="live-runner-deep-agents" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'model-context-protocol' && (
+              <TabsTrigger value="live-runner-mcp" className="flex items-center gap-2">
                 <Code size={16} /> Live Runner
               </TabsTrigger>
             )}
@@ -164,6 +214,96 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 patternId={pattern.id}
                 patternName={pattern.name}
                 steps={agenticRAGExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'self-reflection' && (
+            <TabsContent value="live-runner-self" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={selfReflectionExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'agent-evaluation' && (
+            <TabsContent value="live-runner-eval" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={agentEvaluationExecutionSteps as any}
+                pythonSteps={agentEvaluationPythonExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'deep-researcher' && (
+            <TabsContent value="live-runner-deep" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={deepResearcherExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'modern-tool-use' && (
+            <TabsContent value="live-runner-modern" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={modernToolUseExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'autogen-multi-agent' && (
+            <TabsContent value="live-runner-autogen-multi" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={autogenMultiAgentExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'parallelization' && (
+            <TabsContent value="live-runner-parallelization" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={parallelizationExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'deep-agents' && (
+            <TabsContent value="live-runner-deep-agents" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={deepAgentsExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'model-context-protocol' && (
+            <TabsContent value="live-runner-mcp" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={modelContextProtocolExecutionSteps as any}
+                pythonSteps={modelContextProtocolPythonExecutionSteps as any}
               />
             </TabsContent>
           )}

@@ -10,57 +10,57 @@ export const reactAgentExecutionSteps: ExecutionStep[] = [
   {
     id: 'init',
     title: 'Initialize State',
-    description: 'Set counters, termination flags, context history and final answer placeholders.',
+    description: 'Set counters, termination flags, context history and final answer placeholders; seed analyst request.',
     startLine: 1,
-    endLine: 13
+    endLine: 11
   },
   {
     id: 'tools',
-    title: 'Define Tools',
-    description: 'Declare the available tool functions (search, calculate, lookup).',
-    startLine: 14,
-    endLine: 27
+    title: 'Define Domain Tools',
+    description: 'Declare earnings report, stock performance, KPI extraction and summarization tools.',
+    startLine: 12,
+    endLine: 26
   },
   {
     id: 'loop-start',
     title: 'Enter Reasoning Loop',
-    description: 'Increment cycle counter and begin a new reasoning phase.',
-    startLine: 29,
-    endLine: 33
+    description: 'Check termination, increment cycle counter.',
+    startLine: 28,
+    endLine: 30
   },
   {
     id: 'prompt',
     title: 'Build Reasoning Prompt',
-    description: 'Construct structured prompt instructing the agent to either act with a tool or produce a final answer.',
-    startLine: 35,
-    endLine: 52
+    description: 'Construct structured ReAct prompt with tools list, instructions, and previous steps scratchpad.',
+    startLine: 31,
+    endLine: 53
   },
   {
     id: 'llm-call',
     title: 'LLM Call & Scratchpad Update',
-    description: 'Call the LLM with the reasoning prompt and append its raw response to the context history.',
-    startLine: 54,
+    description: 'Invoke LLM with reasoning prompt and append raw response to context history.',
+    startLine: 55,
     endLine: 56
   },
   {
     id: 'parse-final-check',
     title: 'Parse For Final Answer',
-    description: 'Check if the reasoning response contains a Final Answer block.',
-    startLine: 57,
-    endLine: 65
+    description: 'Detect a Final Answer block; capture and terminate if present.',
+    startLine: 58,
+    endLine: 63
   },
   {
     id: 'parse-action',
     title: 'Parse Action & Execute Tool',
-    description: 'If no final answer, extract Action / Action Input, invoke tool, and record Observation.',
-    startLine: 66,
-    endLine: 83
+    description: 'Extract Action and Action Input; dispatch tool; push Observation or error.',
+    startLine: 65,
+    endLine: 79
   },
   {
     id: 'return',
     title: 'Return Result',
-    description: 'Provide status, cycles executed, final answer (if any), and full history.',
-    startLine: 87,
-    endLine: 95
+    description: 'Assemble status, cycles executed, final answer (or fallback) and full history.',
+    startLine: 83,
+    endLine: 91
   }
 ];

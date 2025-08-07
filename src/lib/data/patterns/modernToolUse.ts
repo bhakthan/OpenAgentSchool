@@ -77,100 +77,193 @@ export const modernToolUsePattern: PatternData = {
     { id: 'e6-3', source: 'error-handler', target: 'selector', animated: true, label: 'Retry' },
     { id: 'e5-3', source: 'validator', target: 'selector', animated: true, label: 'Invalid' }
   ],
-  codeExample: `// Modern Tool Use implementation
+  codeExample: `// Modern Tool Use (TypeScript) – Financial Advisory Workflow
+// Business Context: Integrate multiple market / portfolio tools to generate an investment report
+// with pricing, performance metrics, risk assessment, and narrative outlook. Includes planning,
+// dynamic tool selection, error recovery, validation, and report synthesis.
+
+// --- Tool Interfaces & Domain Tool Implementations -------------------------------------------
 interface Tool {
   name: string;
   description: string;
-  parameters: any;
+  parameters: any; // JSON schema-ish descriptor (simplified here)
   execute: (params: any) => Promise<any>;
 }
 
-const executeModernToolUse = async (task: string, tools: Tool[]) => {
-  try {
-    const maxRetries = 3;
-    let attempt = 0;
-    
-    while (attempt < maxRetries) {
-      attempt++;
-      
-      // Plan tool usage
-      const planPrompt = \`
-        Task: \${task}
-        Available tools: \${tools.map(t => \`\${t.name}: \${t.description}\`).join(', ')}
-        
-        Create a step-by-step plan for using tools to complete this task.
-        Return as JSON: {"steps": [{"tool": "tool_name", "params": {...}, "rationale": "why"}]}
-      \`;
-      
-      const plan = await llm(planPrompt);
-      const parsedPlan = JSON.parse(plan);
-      
-      // Execute tools sequentially
-      const results = [];
-      for (const step of parsedPlan.steps) {
-        try {
-          const tool = tools.find(t => t.name === step.tool);
-          if (!tool) {
-            throw new Error(\`Tool \${step.tool} not found\`);
-          }
-          
-          const result = await tool.execute(step.params);
-          results.push({
-            tool: step.tool,
-            params: step.params,
-            result,
-            status: 'success'
-          });
-        } catch (error) {
-          results.push({
-            tool: step.tool,
-            params: step.params,
-            error: error.message,
-            status: 'failed'
-          });
-          
-          // Error recovery
-          const recoveryPrompt = \`
-            Tool \${step.tool} failed with error: \${error.message}
-            Previous results: \${JSON.stringify(results)}
-            
-            Suggest an alternative approach or different tool to achieve the goal.
-          \`;
-          
-          const recovery = await llm(recoveryPrompt);
-          // Implement recovery logic...
-        }
+// Real‑time price fetch (stub)
+const getRealTimeQuote: Tool = {
+  name: 'get_quote',
+  description: 'Fetch latest price & daily change for a ticker.',
+  parameters: { ticker: 'string' },
+  async execute({ ticker }) {
+    // Replace with live market data API call
+    return { ticker, price: 123.45, changePct: -0.42 };
+  }
+};
+
+// Portfolio holdings (stub)
+const fetchPortfolioHoldings: Tool = {
+  name: 'get_portfolio',
+  description: 'Return normalized holdings with weights for a client portfolio.',
+  parameters: { portfolioId: 'string' },
+  async execute({ portfolioId }) {
+    return {
+      portfolioId,
+      holdings: [
+        { ticker: 'AAPL', weight: 0.25 },
+        { ticker: 'MSFT', weight: 0.20 },
+        { ticker: 'NVDA', weight: 0.15 },
+        { ticker: 'TLT', weight: 0.10 },
+        { ticker: 'VXUS', weight: 0.30 }
+      ]
+    };
+  }
+};
+
+// Risk metrics (stub)
+const computeRiskMetrics: Tool = {
+  name: 'compute_risk',
+  description: 'Compute basic risk / diversification metrics for holdings list.',
+  parameters: { holdings: 'array' },
+  async execute({ holdings }) {
+    return { volatilityAnnual: 0.18, sharpe: 0.92, concentrationTop3: 0.60 };
+  }
+};
+
+// News & macro summary (stub)
+const summarizeMarketOutlook: Tool = {
+  name: 'summarize_outlook',
+  description: 'Summarize macro & sector themes relevant to given tickers.',
+  parameters: { tickers: 'array' },
+  async execute({ tickers }) {
+    return {
+      narrative: 'Macro stable; tech consolidation; fixed income stabilizing; global diversification supportive.'
+    };
+  }
+};
+
+const defaultTools: Tool[] = [
+  getRealTimeQuote,
+  fetchPortfolioHoldings,
+  computeRiskMetrics,
+  summarizeMarketOutlook
+];
+
+// --- LLM Stub -------------------------------------------------------------------------------
+async function llm(prompt: string): Promise<string> {
+  // In production: call model w/ JSON mode or strong schema enforcement.
+  if (prompt.includes('VALIDATE_RESULTS')) {
+    return JSON.stringify({ success: true, reasoning: 'All mandatory sections present and coherent.' });
+  }
+  if (prompt.includes('RECOVERY')) {
+    return 'Try re-fetching holdings then recompute risk with adjusted weights.';
+  }
+  // Planning response (simplified deterministic plan)
+  return JSON.stringify({
+    steps: [
+      { tool: 'get_portfolio', params: { portfolioId: 'CLIENT123' }, rationale: 'Need base holdings' },
+      { tool: 'get_quote', params: { ticker: 'AAPL' }, rationale: 'High weight constituent pricing' },
+      { tool: 'get_quote', params: { ticker: 'MSFT' }, rationale: 'Second largest holding pricing' },
+      { tool: 'compute_risk', params: { holdings: '__PREV_HOLDINGS__' }, rationale: 'Compute risk metrics' },
+      { tool: 'summarize_outlook', params: { tickers: ['AAPL','MSFT'] }, rationale: 'Market narrative for key weights' }
+    ]
+  });
+}
+
+// --- Core Execution Orchestrator ------------------------------------------------------------
+interface ExecutionRecord {
+  tool: string;
+  params: any;
+  status: 'success' | 'failed';
+  result?: any;
+  error?: string;
+}
+
+interface FinancialReportResult {
+  status: string;
+  attempts: number;
+  steps: ExecutionRecord[];
+  report?: string;
+  validation?: any;
+  recoveryNotes?: string[];
+}
+
+export async function executeFinancialAdvisoryWorkflow(task: string, tools: Tool[] = defaultTools): Promise<FinancialReportResult> {
+  const maxRetries = 2;
+  let attempt = 0;
+  const recoveryNotes: string[] = [];
+
+  while (attempt < maxRetries) {
+    attempt++;
+    const planPrompt = \`Task: \${task}\nAvailable tools: \${tools.map(t => t.name).join(', ')}\nReturn JSON plan with ordered steps.\`;
+    const rawPlan = await llm(planPrompt);
+    let parsedPlan: any;
+    try { parsedPlan = JSON.parse(rawPlan); } catch { return { status: 'plan_parse_failed', attempts: attempt, steps: [], recoveryNotes }; }
+
+    const steps: ExecutionRecord[] = [];
+    let holdingsCache: any = null;
+
+    for (const step of parsedPlan.steps) {
+      const tool = tools.find(t => t.name === step.tool);
+      if (!tool) {
+        steps.push({ tool: step.tool, params: step.params, status: 'failed', error: 'tool_not_found' });
+        continue;
       }
-      
-      // Validate results
-      const validationPrompt = \`
-        Task: \${task}
-        Results: \${JSON.stringify(results)}
-        
-        Evaluate if these results successfully complete the task.
-        Return: {"success": true/false, "reasoning": "explanation"}
-      \`;
-      
-      const validation = await llm(validationPrompt);
-      const validationResult = JSON.parse(validation);
-      
-      if (validationResult.success) {
-        return {
-          status: 'success',
-          results,
-          attempts: attempt
-        };
+      // Parameter substitution for dependency placeholder
+      if (step.tool === 'compute_risk' && step.params.holdings === '__PREV_HOLDINGS__') {
+        step.params.holdings = holdingsCache?.holdings || [];
+      }
+      try {
+        const result = await tool.execute(step.params);
+        if (step.tool === 'get_portfolio') holdingsCache = result;
+        steps.push({ tool: step.tool, params: step.params, status: 'success', result });
+      } catch (err: any) {
+        steps.push({ tool: step.tool, params: step.params, status: 'failed', error: err.message });
+        const recoveryPrompt = \`RECOVERY\nTool \${step.tool} failed with \${err.message}. Prior: \${JSON.stringify(steps)}\`;
+        const recovery = await llm(recoveryPrompt);
+        recoveryNotes.push(recovery);
       }
     }
-    
-    return {
-      status: 'max_attempts_reached',
-      attempts: attempt
-    };
-  } catch (error) {
-    return { status: 'failed', reason: error.message };
+
+    // Validation Phase
+    const validationPrompt = \`VALIDATE_RESULTS\nTask: \${task}\nSteps: \${JSON.stringify(steps.map(s => ({ tool: s.tool, status: s.status })))}\nCriteria: report coherence, mandatory sections.\`;
+    const rawValidation = await llm(validationPrompt);
+    let validation: any = {};
+    try { validation = JSON.parse(rawValidation); } catch { validation = { success: false, reasoning: 'Unparseable validation JSON' }; }
+
+    if (validation.success) {
+      // Report synthesis
+      const reportLines: string[] = [];
+      const priceLines = steps.filter(s => s.tool === 'get_quote' && s.status === 'success');
+      const risk = steps.find(s => s.tool === 'compute_risk' && s.status === 'success')?.result;
+      const outlook = steps.find(s => s.tool === 'summarize_outlook' && s.status === 'success')?.result?.narrative;
+      reportLines.push('# Investment Report');
+      reportLines.push(\`Task: \${task}\`);
+      reportLines.push('## Holdings');
+      reportLines.push(JSON.stringify(holdingsCache, null, 2));
+      reportLines.push('## Prices');
+      priceLines.forEach(p => reportLines.push(\`\${p.params.ticker}: $\${p.result.price} (\$\${p.result.changePct}%)\`));
+      if (risk) {
+        reportLines.push('## Risk Metrics');
+        reportLines.push(JSON.stringify(risk));
+      }
+      if (outlook) {
+        reportLines.push('## Market Outlook');
+        reportLines.push(outlook);
+      }
+      reportLines.push('## Validation');
+      reportLines.push(validation.reasoning);
+      if (recoveryNotes.length) {
+        reportLines.push('## Recovery Notes');
+        recoveryNotes.forEach(r => reportLines.push('- ' + r));
+      }
+      return { status: 'success', attempts: attempt, steps, validation, report: reportLines.join('\n'), recoveryNotes };
+    }
   }
-};`,
+
+  return { status: 'max_attempts_exhausted', attempts: attempt, steps: [], recoveryNotes };
+}
+// ---------------------------------------------------------------------------------------------`,
   pythonCodeExample: `# Modern Tool Use Agent implementation
 import json
 import asyncio

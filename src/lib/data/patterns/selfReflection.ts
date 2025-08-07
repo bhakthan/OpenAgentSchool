@@ -87,8 +87,60 @@ export const selfReflectionPattern: PatternData = {
       - Explain the importance of using a private Azure OpenAI endpoint for this process.
     `
   },
-  codeExample: `// Self-Reflection implementation...`,
-  pythonCodeExample: `# Self-Reflection implementation...`,
+  codeExample: `// Clinical Scribe Self-Reflection implementation (TypeScript)
+// Goal: Generate -> Critique -> Refine loop with convergence on quality.
+
+interface ReflectionIteration { draft: string; critique: string; score: number; refined: string; }
+interface CritiqueResult { issues: string[]; suggestions: string[]; score: number; approved: boolean; }
+
+async function llm(prompt: string): Promise<string> {
+  if (prompt.includes('CRITIQUE')) return 'ISSUES: missing allergy section; suggestions: add vitals summary; SCORE:0.72';
+  if (prompt.includes('REFINE')) return 'Refined clinical note with allergy section and vitals.';
+  return 'Initial draft clinical note capturing chief complaint and assessment.';
+}
+
+async function generateDraft(transcript: string): Promise<string> {
+  const prompt = 'Draft a concise, structured clinical note from the transcript. Focus on Chief Complaint, HPI, Assessment.\nTRANSCRIPT:\n' + transcript;
+  return llm(prompt);
+}
+
+function buildCritiquePrompt(draft: string): string {
+  return 'CRITIQUE MODE\nEvaluate the draft clinical note against: correctness, completeness, terminology, structure.\nReturn format: ISSUES:<comma list>; suggestions:<semicolon separated>; SCORE:<0-1 float>.\nDRAFT:\n' + draft;
+}
+
+function parseCritique(raw: string): CritiqueResult {
+  const issuesMatch = raw.match(/ISSUES:(.*?)(?:suggestions:|SCORE:|$)/i);
+  const suggestionsMatch = raw.match(/suggestions:(.*?)(?:SCORE:|$)/i);
+  const scoreMatch = raw.match(/SCORE:(0?\.\d+|1\.0+)/i);
+  const issues = issuesMatch ? issuesMatch[1].split(/[,;]+/).map(s => s.trim()).filter(Boolean) : [];
+  const suggestions = suggestionsMatch ? suggestionsMatch[1].split(/[,;]+/).map(s => s.trim()).filter(Boolean) : [];
+  const score = scoreMatch ? parseFloat(scoreMatch[1]) : 0;
+  return { issues, suggestions, score, approved: score >= 0.9 };
+}
+
+function buildRefinementPrompt(draft: string, critique: CritiqueResult): string {
+  return 'REFINE MODE\nYou are improving a clinical note. Address issues and suggestions precisely. Preserve factual content.\nISSUES:' + critique.issues.join('; ') + '\nSUGGESTIONS:' + critique.suggestions.join('; ') + '\nCURRENT DRAFT:\n' + draft + '\nReturn only the improved draft.';
+}
+
+export async function runSelfReflectingClinicalScribe(transcript: string, maxIterations = 5, targetScore = 0.9) {
+  const history: ReflectionIteration[] = [];
+  let currentDraft = await generateDraft(transcript);
+  for (let i = 1; i <= maxIterations; i++) {
+    const critiquePrompt = buildCritiquePrompt(currentDraft);
+    const rawCritique = await llm(critiquePrompt);
+    const critique = parseCritique(rawCritique);
+    const refinementPrompt = buildRefinementPrompt(currentDraft, critique);
+    const refined = await llm(refinementPrompt);
+    history.push({ draft: currentDraft, critique: rawCritique, score: critique.score, refined });
+    currentDraft = refined;
+    if (critique.approved || critique.score >= targetScore) {
+      return { status: 'approved', iterations: i, finalNote: currentDraft, history };
+    }
+  }
+  return { status: 'max_iterations', iterations: maxIterations, finalNote: currentDraft, history };
+}
+`,
+  pythonCodeExample: `# Clinical Scribe Self-Reflection implementation (Python)\nfrom typing import List, Dict, Any\nimport re\n\nasync def llm(prompt: str) -> str:\n    if 'CRITIQUE' in prompt: return 'ISSUES: missing allergy section; suggestions: add vitals summary; SCORE:0.72'\n    if 'REFINE' in prompt: return 'Refined clinical note with allergy section and vitals.'\n    return 'Initial draft clinical note capturing chief complaint and assessment.'\n\nasync def generate_draft(transcript: str) -> str:\n    prompt = 'Draft a concise, structured clinical note from the transcript. Focus on Chief Complaint, HPI, Assessment.\nTRANSCRIPT:\n' + transcript\n    return await llm(prompt)\n\ndef build_critique_prompt(draft: str) -> str:\n    return ('CRITIQUE MODE\nEvaluate the draft clinical note against: correctness, completeness, terminology, structure.\n'\n            'Return format: ISSUES:<comma list>; suggestions:<semicolon separated>; SCORE:<0-1 float>.\nDRAFT:\n' + draft)\n\ndef parse_critique(raw: str) -> Dict[str, Any]:\n    issues_match = re.search(r'ISSUES:(.*?)(suggestions:|SCORE:|$)', raw, re.I)\n    suggestions_match = re.search(r'suggestions:(.*?)(SCORE:|$)', raw, re.I)\n    score_match = re.search(r'SCORE:(0?\\.\\d+|1\\.0+)', raw)\n    issues = [s.strip() for s in re.split(r'[,;]+', issues_match.group(1)) if s.strip()] if issues_match else []\n    suggestions = [s.strip() for s in re.split(r'[,;]+', suggestions_match.group(1)) if s.strip()] if suggestions_match else []\n    score = float(score_match.group(1)) if score_match else 0.0\n    return { 'issues': issues, 'suggestions': suggestions, 'score': score, 'approved': score >= 0.9 }\n\ndef build_refinement_prompt(draft: str, critique: Dict[str, Any]) -> str:\n    return ('REFINE MODE\nYou are improving a clinical note. Address issues and suggestions precisely. Preserve factual content.\n'\n            + 'ISSUES:' + '; '.join(critique['issues']) + '\nSUGGESTIONS:' + '; '.join(critique['suggestions']) + '\nCURRENT DRAFT:\n' + draft + '\nReturn only the improved draft.')\n\nasync def run_self_reflecting_clinical_scribe(transcript: str, max_iterations: int = 5, target_score: float = 0.9):\n    history: List[Dict[str, Any]] = []\n    current_draft = await generate_draft(transcript)\n    for i in range(1, max_iterations + 1):\n        critique_prompt = build_critique_prompt(current_draft)\n        raw_critique = await llm(critique_prompt)\n        critique = parse_critique(raw_critique)\n        refinement_prompt = build_refinement_prompt(current_draft, critique)\n        refined = await llm(refinement_prompt)\n        history.append({'draft': current_draft, 'critique': raw_critique, 'score': critique['score'], 'refined': refined})\n        current_draft = refined\n        if critique['approved'] or critique['score'] >= target_score:\n            return { 'status': 'approved', 'iterations': i, 'finalNote': current_draft, 'history': history }\n    return { 'status': 'max_iterations', 'iterations': max_iterations, 'finalNote': current_draft, 'history': history }\n`,
   implementation: [
     'Create generation-critique-refinement cycle',
     'Implement quality scoring and approval criteria',
@@ -100,20 +152,20 @@ export const selfReflectionPattern: PatternData = {
     'Build learning from previous iterations'
   ],
   advantages: [
-    "Significantly improves the quality and accuracy of the final output.",
-    "Can correct its own errors without human intervention.",
-    "The critique process provides transparency into how the agent is improving its work.",
-    "Can be adapted to meet very high or specific quality standards."
+    'Significantly improves the quality and accuracy of the final output.',
+    'Can correct its own errors without human intervention.',
+    'The critique process provides transparency into how the agent is improving its work.',
+    'Can be adapted to meet very high or specific quality standards.'
   ],
   limitations: [
-    "Increases latency and cost due to the iterative, multi-step process.",
-    "The quality of the self-critique is crucial; a poor critic cannot lead to good refinement.",
-    "May get stuck in refinement loops if the criteria for completion are not well-defined.",
-    "Requires sophisticated prompt engineering to create effective generator and critic personas."
+    'Increases latency and cost due to the iterative, multi-step process.',
+    'The quality of the self-critique is crucial; a poor critic cannot lead to good refinement.',
+    'May get stuck in refinement loops if the criteria for completion are not well-defined.',
+    'Requires sophisticated prompt engineering to create effective generator and critic personas.'
   ],
   relatedPatterns: [
-    "react-agent",
-    "agent-evaluation",
-    "prompt-chaining"
+    'react-agent',
+    'agent-evaluation',
+    'prompt-chaining'
   ]
 };

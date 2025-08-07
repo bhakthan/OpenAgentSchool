@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Play, ArrowClockwise, FastForward } from '@phosphor-icons/react';
 
-interface ExecutionStepGeneric { id: string; title: string; description: string; startLine: number; endLine: number; }
+interface ExecutionStepGeneric { id: string; title: string; description: string; startLine?: number; endLine?: number; }
 
 interface LivePatternRunnerProps {
   code: string; // full JS/TS example code
@@ -12,11 +12,12 @@ interface LivePatternRunnerProps {
   patternId: string;
   patternName: string;
   steps: ExecutionStepGeneric[];
+  pythonSteps?: ExecutionStepGeneric[]; // optional separate mapping for python code
 }
 
 const codeToLines = (code: string) => code.replace(/\r\n/g, '\n').split('\n');
 
-const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode, patternId, patternName, steps }) => {
+const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode, patternId, patternName, steps, pythonSteps }) => {
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
   const [log, setLog] = useState<string[]>([]);
   const [autoPlay, setAutoPlay] = useState<boolean>(false);
@@ -25,6 +26,7 @@ const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode,
   const codeLines = useMemo(() => codeToLines(code), [code]);
   const pyLines = useMemo(() => pythonCode ? codeToLines(pythonCode) : [], [pythonCode]);
   const highlight = steps[activeStepIndex];
+  const pyHighlight = pythonSteps ? pythonSteps[activeStepIndex] : highlight;
   const lineRefs = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
@@ -66,11 +68,11 @@ const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode,
     setAutoPlay(true);
   };
 
-  const renderCode = (lines: string[]) => (
+  const renderCode = (lines: string[], currentHighlight: ExecutionStepGeneric = highlight) => (
     <pre className="text-xs md:text-sm leading-snug p-3 rounded bg-muted/60 border overflow-auto" style={{ maxHeight: 400 }}>
       {lines.map((line, idx) => {
         const lineNumber = idx + 1;
-        const isHighlighted = highlight && lineNumber >= highlight.startLine && lineNumber <= highlight.endLine;
+        const isHighlighted = currentHighlight && currentHighlight.startLine && currentHighlight.endLine && lineNumber >= currentHighlight.startLine && lineNumber <= currentHighlight.endLine;
         return (
           <div ref={el => { if (el) lineRefs.current[lineNumber - 1] = el; }} key={idx} className={isHighlighted ? 'bg-yellow-200/70 dark:bg-yellow-600/30 rounded px-1 -mx-1' : ''}>
             <span className="opacity-40 select-none w-10 inline-block text-right pr-2">{lineNumber}</span>
@@ -110,7 +112,7 @@ const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode,
             <div>
               <h4 className="font-semibold mb-2 text-sm tracking-wide">Python</h4>
               <ScrollArea className="h-[420px]">
-                {renderCode(pyLines)}
+                {renderCode(pyLines, pyHighlight)}
               </ScrollArea>
             </div>
           )}
@@ -118,7 +120,7 @@ const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode,
         <div className="border rounded p-3 bg-muted/40">
           <h4 className="font-semibold mb-1 text-sm">Current Step</h4>
           <div className="text-sm"><span className="font-medium">{highlight.title}:</span> {highlight.description}</div>
-          <div className="text-xs mt-1 text-muted-foreground">Lines {highlight.startLine}-{highlight.endLine}</div>
+          <div className="text-xs mt-1 text-muted-foreground">{highlight.startLine ? `Lines ${highlight.startLine}-${highlight.endLine}` : 'Lines: (mapping pending)'}</div>
         </div>
         <div className="border rounded p-3 bg-muted/30">
           <h4 className="font-semibold mb-1 text-sm">Execution Log</h4>
