@@ -91,8 +91,156 @@ export const agenticRAGPattern: PatternData = {
     { id: 'e4-5', source: 'ranker', target: 'synthesizer' },
     { id: 'e5-6', source: 'synthesizer', target: 'output' }
   ],
-  codeExample: `// Agentic RAG implementation...`,
-  pythonCodeExample: `# Agentic RAG implementation...`,
+  codeExample: `// Corporate Policy Assistant - Agentic RAG (TypeScript)
+// Simulated implementation for live runner (no real services)
+export interface RetrievedChunk { id: string; content: string; score: number; source: string; page?: number; }
+
+export const executeAgenticRAG = async (query: string, maxCycles = 3) => {
+  let cycle = 0;
+  let done = false;
+  let finalAnswer = '';
+  const trace: string[] = [];
+  const refinedQueries: string[] = [];
+  const supportingChunks: RetrievedChunk[] = [];
+
+  // Tools (simulated)
+  const tools = {
+    reflect: async (q: string) => {
+      return \`Reflection: Core intent='parental leave policy length'; Entities=['parental leave','duration']; Refined='parental leave duration eligibility'\`;
+    },
+    hybridSearch: async (q: string): Promise<RetrievedChunk[]> => {
+      return [
+        { id: 'p1', content: 'Parental leave: Full-time employees receive 16 weeks paid.', score: 0.89, source: 'HR_Policy.pdf', page: 12 },
+        { id: 'p2', content: 'Eligibility: Employees > 1 year tenure qualify for full benefit.', score: 0.82, source: 'HR_Policy.pdf', page: 13 },
+        { id: 'p3', content: 'Regional variation: EU adds 2 transition weeks.', score: 0.55, source: 'Regional_Supplement.pdf', page: 4 }
+      ];
+    },
+    rankAndFilter: async (chunks: RetrievedChunk[]) => {
+      return chunks.filter(c => c.score > 0.6).sort((a,b)=> b.score - a.score).slice(0,2);
+    },
+    synthesizeWithCitations: async (q: string, chunks: RetrievedChunk[]) => {
+      const base = 'Employees with >1 year tenure receive 16 weeks paid parental leave';
+      const citation = chunks.map(c => \`[\${c.source} p.\${c.page}]\`).join(' ');
+      return base + ' ' + citation;
+    }
+  } as const;
+
+  while (!done && cycle < maxCycles) {
+    cycle++;
+    trace.push(\`--- Cycle \${cycle} ---\`);
+
+    // Reflection
+    trace.push('Reflecting on query...');
+    const reflection = await tools.reflect(query);
+    trace.push(reflection);
+    const refined = reflection.match(/Refined='(.*?)'/)?.[1] || query;
+    refinedQueries.push(refined);
+
+    // Retrieval
+    trace.push(\`Hybrid search with: \${refined}\`);
+    const rawChunks = await tools.hybridSearch(refined);
+    trace.push(\`Retrieved \${rawChunks.length} chunks.\`);
+
+    // Ranking
+    const ranked = await tools.rankAndFilter(rawChunks);
+    trace.push(\`Ranked+Filtered => \${ranked.length} chunks retained.\`);
+    supportingChunks.push(...ranked);
+
+    // Synthesis
+    const draft = await tools.synthesizeWithCitations(query, ranked);
+    trace.push('Draft answer: ' + draft);
+
+    // Simple completion heuristic
+    if (draft.toLowerCase().includes('weeks')) {
+      finalAnswer = draft;
+      done = true;
+      trace.push('Completion condition met.');
+    } else {
+      trace.push('Continuing to next cycle for refinement.');
+    }
+  }
+
+  return {
+    status: done ? 'success' : 'incomplete',
+    cycles: cycle,
+    answer: finalAnswer,
+    refinedQueries,
+    supportingChunks,
+    trace
+  };
+};`,
+  pythonCodeExample: `# Corporate Policy Assistant - Agentic RAG (Python, simulated)
+from typing import List, Dict, Any
+
+class AgenticRAGPolicyAssistant:
+    def __init__(self, client=None, model: str = "gpt-4"):
+        self.client = client
+        self.model = model
+
+    async def execute(self, query: str, max_cycles: int = 3) -> Dict[str, Any]:
+        cycle = 0
+        done = False
+        final_answer = ""
+        trace: List[str] = []
+        refined_queries: List[str] = []
+        supporting_chunks: List[Dict[str, Any]] = []
+
+        async def reflect(q: str) -> str:
+            return "Reflection: Core intent='parental leave policy length'; Entities=['parental leave','duration']; Refined='parental leave duration eligibility'"
+
+        async def hybrid_search(q: str) -> List[Dict[str, Any]]:
+            return [
+                {"id": "p1", "content": "Parental leave: Full-time employees receive 16 weeks paid.", "score": 0.89, "source": "HR_Policy.pdf", "page": 12},
+                {"id": "p2", "content": "Eligibility: Employees > 1 year tenure qualify for full benefit.", "score": 0.82, "source": "HR_Policy.pdf", "page": 13},
+                {"id": "p3", "content": "Regional variation: EU adds 2 transition weeks.", "score": 0.55, "source": "Regional_Supplement.pdf", "page": 4}
+            ]
+
+        async def rank_and_filter(chunks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+            kept = [c for c in chunks if c["score"] > 0.6]
+            return sorted(kept, key=lambda c: c["score"], reverse=True)[:2]
+
+        async def synthesize_with_citations(q: str, chunks: List[Dict[str, Any]]) -> str:
+            base = "Employees with >1 year tenure receive 16 weeks paid parental leave"
+            citation = " ".join([f"[{c['source']} p.{c['page']}]" for c in chunks])
+            return base + " " + citation
+
+        while not done and cycle < max_cycles:
+            cycle += 1
+            trace.append(f"--- Cycle {cycle} ---")
+
+            trace.append("Reflecting on query...")
+            reflection = await reflect(query)
+            trace.append(reflection)
+            refined = "parental leave duration eligibility"
+            refined_queries.append(refined)
+
+            trace.append(f"Hybrid search with: {refined}")
+            raw_chunks = await hybrid_search(refined)
+            trace.append(f"Retrieved {len(raw_chunks)} chunks.")
+
+            ranked = await rank_and_filter(raw_chunks)
+            trace.append(f"Ranked+Filtered => {len(ranked)} chunks retained.")
+            supporting_chunks.extend(ranked)
+
+            draft = await synthesize_with_citations(query, ranked)
+            trace.append("Draft answer: " + draft)
+
+            if "weeks" in draft.lower():
+                final_answer = draft
+                done = True
+                trace.append("Completion condition met.")
+            else:
+                trace.append("Continuing refinement.")
+
+        return {
+            "status": "success" if done else "incomplete",
+            "cycles": cycle,
+            "answer": final_answer,
+            "refinedQueries": refined_queries,
+            "supportingChunks": supporting_chunks,
+            "trace": trace
+        }
+`,
   implementation: [
     'Set up query analysis and intent detection',
     'Implement query refinement based on analysis',

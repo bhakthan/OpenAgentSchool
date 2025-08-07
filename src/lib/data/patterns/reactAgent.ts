@@ -87,233 +87,195 @@ export const reactAgentPattern: PatternData = {
       - Mention the importance of audit trails for regulatory compliance.
     `
   },
-  codeExample: `// ReAct Agent implementation
-const executeReAct = async (query: string, maxCycles = 5) => {
+  codeExample: `// Financial Analyst Assistant ReAct implementation
+const executeFinancialAnalystReAct = async (query: string, maxCycles = 5) => {
   try {
     let currentCycle = 0;
     let done = false;
-    let contextHistory = [];
+    let contextHistory: string[] = [];
     let finalAnswer = '';
 
-    // Add initial query to context
-    contextHistory.push(\`User query: \${query}\`);
+    // Seed initial request
+    contextHistory.push(\`Analyst request: \${query}\`);
 
-    // Available tools
+    // Domain tools
     const tools = {
-      search: async (query) => {
-        return "Search results for \\"" + query + "\\": [simulated search results]";
+      get_earnings_report: async (ticker: string) => {
+        return \`Earnings report for \${ticker}: Revenue up 12%, EPS beat by 3%.\`;
       },
-      calculate: (expression) => {
-        try {
-          return "Calculation result: " + eval(expression);
-        } catch (error) {
-          return "Error in calculation: " + error.message;
-        }
+      get_stock_performance: async (ticker: string) => {
+        return \`Stock performance for \${ticker}: +4.2% today, +18% YTD.\`;
       },
-      lookup: (entity) => {
-        return "Information about " + entity + ": [simulated encyclopedia entry]";
+      extract_kpis: (report: string) => {
+        return 'KPIs => Revenue Growth: 12%, EPS Surprise: +3%, Margin: 28%';
+      },
+      summarize: (text: string) => {
+        return 'Summary: ' + text.slice(0, 80) + '...';
       }
-    };
+    } as const;
 
     while (!done && currentCycle < maxCycles) {
       currentCycle++;
-      
-      // Step 1: Reasoning phase
-      console.log(\`Cycle \${currentCycle}: Reasoning...\`);
-      
+
+      // Build reasoning prompt with financial analysis context
       const reasoningPrompt = \`
-        You are a ReAct agent that solves problems through cycles of reasoning and action.
-        
-        Task: \${query}
-        
-        Previous steps:
-        \${contextHistory.join('\\n')}
-        
-        Think step by step about the problem. Either:
-        1. Use a tool to gather more information by responding with:
-           Thought: <your reasoning>
-           Action: <tool_name>
-           Action Input: <tool input>
-           
-        2. Or provide the final answer if you have enough information:
-           Thought: <your reasoning>
-           Final Answer: <your answer>
-      \`;
-      
+You are a ReAct financial analyst assistant.
+Goal: Synthesize a concise earnings insight for the analyst request: \${query}
+
+Tools:
+- get_earnings_report(ticker)
+- get_stock_performance(ticker)
+- extract_kpis(reportText)
+- summarize(text)
+
+Provide either:
+Thought: <reasoning>
+Action: <tool_name>
+Action Input: <input>
+
+OR final answer:
+Thought: <reasoning>
+Final Answer: <your concise insight>
+
+Previous steps:
+\${contextHistory.join('\\n')}
+\`;
+
       const reasoningResponse = await llm(reasoningPrompt);
       contextHistory.push(reasoningResponse);
-      
-      // Parse the reasoning response
+
       if (reasoningResponse.includes('Final Answer:')) {
-        // Extract the final answer
         const answerMatch = reasoningResponse.match(/Final Answer:(.*?)$/s);
         if (answerMatch) {
           finalAnswer = answerMatch[1].trim();
           done = true;
         }
       } else {
-        // Extract tool call
-        const actionMatch = reasoningResponse.match(/Action:(.*?)\\n/);
-        const actionInputMatch = reasoningResponse.match(/Action Input:(.*?)(?:\\n|$)/s);
-        
+        const actionMatch = reasoningResponse.match(/Action:(.*?)\n/);
+        const actionInputMatch = reasoningResponse.match(/Action Input:(.*?)(?:\n|$)/s);
+
         if (actionMatch && actionInputMatch) {
           const toolName = actionMatch[1].trim();
           const toolInput = actionInputMatch[1].trim();
-          
-          // Step 2: Action phase - call the appropriate tool
-          console.log("Cycle " + currentCycle + ": Taking action with tool \\"" + toolName + "\\"...");
-          
-          if (tools[toolName]) {
-            const toolResult = await tools[toolName](toolInput);
+
+          if ((tools as any)[toolName]) {
+            // Execute tool
+            const toolResult = await (tools as any)[toolName](toolInput);
             contextHistory.push(\`Observation: \${toolResult}\`);
           } else {
-            contextHistory.push(\`Observation: Error - Tool "\${toolName}" not found.\`);
+            contextHistory.push(\`Observation: Error - Unknown tool "\${toolName}"\`);
           }
         }
       }
     }
-    
+
     return {
       status: done ? 'success' : 'max_cycles_reached',
       cycles: currentCycle,
       result: finalAnswer || 'No final answer reached.',
       history: contextHistory
     };
-  } catch (error) {
+  } catch (error: any) {
     return { status: 'failed', reason: error.message };
   }
 };`,
-  pythonCodeExample: `# ReAct Agent implementation
-import openai
+  pythonCodeExample: `# Financial Analyst Assistant ReAct implementation (Python)
 import json
-from typing import Dict, List, Any, Optional, Union
+from typing import Any, Dict, List
 
-class ReActAgent:
+class FinancialAnalystReActAgent:
     def __init__(self, client, model: str = "gpt-4"):
         self.client = client
         self.model = model
-        
+
     async def execute(self, query: str, max_cycles: int = 5) -> Dict[str, Any]:
-        """Execute the ReAct agent to solve a problem through reasoning and action cycles."""
-        try:
-            current_cycle = 0
-            done = False
-            context_history = []
-            final_answer = ""
-            
-            # Add initial query to context
-            context_history.append(f"User query: {query}")
-            
-            # Available tools
-            tools = {
-                "search": self._search_tool,
-                "calculate": self._calculate_tool,
-                "lookup": self._lookup_tool
-            }
-            
-            while not done and current_cycle < max_cycles:
-                current_cycle += 1
-                
-                # Step 1: Reasoning phase
-                print(f"Cycle {current_cycle}: Reasoning...")
-                
-                reasoning_prompt = f"""
-                You are a ReAct agent that solves problems through cycles of reasoning and action.
-                
-                Task: {query}
-                
-                Previous steps:
-                {chr(10).join(context_history)}
-                
-                Think step by step about the problem. Either:
-                1. Use a tool to gather more information by responding with:
-                   Thought: <your reasoning>
-                   Action: <tool_name>
-                   Action Input: <tool input>
-                   
-                2. Or provide the final answer if you have enough information:
-                   Thought: <your reasoning>
-                   Final Answer: <your answer>
-                """
-                
-                reasoning_response = await self._llm_call(reasoning_prompt)
-                context_history.append(reasoning_response)
-                
-                # Parse the reasoning response
-                if "Final Answer:" in reasoning_response:
-                    # Extract the final answer
-                    answer_parts = reasoning_response.split("Final Answer:")
-                    if len(answer_parts) > 1:
-                        final_answer = answer_parts[1].strip()
-                        done = True
-                else:
-                    # Extract tool call
-                    action_match = None
-                    action_input_match = None
-                    
-                    for line in reasoning_response.split('\\n'):
-                        if line.startswith("Action:"):
-                            action_match = line.replace("Action:", "").strip()
-                        elif line.startswith("Action Input:"):
-                            action_input_match = line.replace("Action Input:", "").strip()
-                    
-                    if action_match and action_input_match:
-                        tool_name = action_match
-                        tool_input = action_input_match
-                        
-                        # Step 2: Action phase - call the appropriate tool
-                        print(f'Cycle {current_cycle}: Taking action with tool "{tool_name}"...')
-                        
-                        if tool_name in tools:
-                            tool_result = await tools[tool_name](tool_input)
-                            context_history.append(f"Observation: {tool_result}")
-                        else:
-                            context_history.append(f'Observation: Error - Tool "{tool_name}" not found.')
-            
-            return {
-                "status": "success" if done else "max_cycles_reached",
-                "cycles": current_cycle,
-                "result": final_answer if final_answer else "No final answer reached.",
-                "history": context_history
-            }
-            
-        except Exception as error:
-            return {"status": "failed", "reason": str(error)}
-    
+        current_cycle = 0
+        done = False
+        context_history: List[str] = []
+        final_answer = ""
+
+        context_history.append(f"Analyst request: {query}")
+
+        async def get_earnings_report(ticker: str) -> str:
+            return f"Earnings report for {ticker}: Revenue up 12%, EPS beat by 3%."
+
+        async def get_stock_performance(ticker: str) -> str:
+            return f"Stock performance for {ticker}: +4.2% today, +18% YTD."
+
+        async def extract_kpis(report: str) -> str:
+            return "KPIs => Revenue Growth: 12%, EPS Surprise: +3%, Margin: 28%"
+
+        async def summarize(text: str) -> str:
+            return "Summary: " + text[:80] + "..."
+
+        tools = {
+            "get_earnings_report": get_earnings_report,
+            "get_stock_performance": get_stock_performance,
+            "extract_kpis": extract_kpis,
+            "summarize": summarize,
+        }
+
+        while not done and current_cycle < max_cycles:
+            current_cycle += 1
+            reasoning_prompt = f"""
+You are a ReAct financial analyst assistant.
+Goal: Synthesize a concise earnings insight for the analyst request: {query}
+
+Tools:
+- get_earnings_report(ticker)
+- get_stock_performance(ticker)
+- extract_kpis(reportText)
+- summarize(text)
+
+Provide either:
+Thought: <reasoning>
+Action: <tool_name>
+Action Input: <input>
+
+OR final answer:
+Thought: <reasoning>
+Final Answer: <your concise insight>
+
+Previous steps:
+{chr(10).join(context_history)}
+"""
+            reasoning_response = await self._llm_call(reasoning_prompt)
+            context_history.append(reasoning_response)
+
+            if "Final Answer:" in reasoning_response:
+                parts = reasoning_response.split("Final Answer:")
+                if len(parts) > 1:
+                    final_answer = parts[1].strip()
+                    done = True
+            else:
+                action_line = None
+                action_input_line = None
+                for line in reasoning_response.split('\n'):
+                    if line.startswith("Action:"):
+                        action_line = line.replace("Action:", "").strip()
+                    elif line.startswith("Action Input:"):
+                        action_input_line = line.replace("Action Input:", "").strip()
+                if action_line and action_input_line:
+                    tool_name = action_line
+                    tool_input = action_input_line
+                    if tool_name in tools:
+                        tool_result = await tools[tool_name](tool_input)
+                        context_history.append(f"Observation: {tool_result}")
+                    else:
+                        context_history.append(f"Observation: Error - Unknown tool '{tool_name}'")
+        return {
+            "status": "success" if done else "max_cycles_reached",
+            "cycles": current_cycle,
+            "result": final_answer if final_answer else "No final answer reached.",
+            "history": context_history
+        }
+
     async def _llm_call(self, prompt: str) -> str:
-        """Call the LLM with the given prompt."""
         response = await self.client.chat.completions.create(
             model=self.model,
             messages=[{"role": "user", "content": prompt}]
         )
         return response.choices[0].message.content
-    
-    async def _search_tool(self, query: str) -> str:
-        """Simulate web search results."""
-        return f'Search results for "{query}": [simulated search results]'
-    
-    async def _calculate_tool(self, expression: str) -> str:
-        """Calculate mathematical expressions."""
-        try:
-            result = eval(expression)
-            return "Calculation result: " + str(result)
-        except Exception as error:
-            return "Error in calculation: " + str(error)
-    
-    async def _lookup_tool(self, entity: str) -> str:
-        """Look up information about an entity."""
-        return f"Information about {entity}: [simulated encyclopedia entry]"
-
-# Example usage
-async def main():
-    client = openai.AsyncOpenAI()  # Initialize with your API key
-    agent = ReActAgent(client)
-    result = await agent.execute("What is the capital of France and what is its population?")
-    print(json.dumps(result, indent=2))
-
-# Run the example
-# import asyncio
-# asyncio.run(main())
 `,
   implementation: [
     'Import necessary libraries and set up environment',

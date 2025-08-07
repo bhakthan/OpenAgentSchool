@@ -10,6 +10,9 @@ import { Separator } from "@/components/ui/separator";
 import { PatternDemoSVG } from '../interactive-demos';
 import { EnlightenMeButton } from '@/components/enlighten/EnlightenMeButton';
 import AutoGenPatternVisualizer from '../visualization/AutoGenPatternVisualizer';
+import LivePatternRunner from './LivePatternRunner';
+import { reactAgentExecutionSteps } from '@/lib/data/execution/reactAgentExecutionSteps';
+import { agenticRAGExecutionSteps } from '@/lib/data/execution/agenticRAGExecutionSteps';
 
 interface PatternDetailsProps {
   pattern: PatternData;
@@ -27,9 +30,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
     <Card className="mb-6 border-primary/20 relative">
       <EnlightenMeButton
         title={`${pattern.name} Pattern`}
-        conceptId={`pattern-${pattern.id}`}
-        description={pattern.description}
-        customPrompt={enlightenMePrompt}
+        contextDescription={pattern.description}
       />
       <CardHeader className="bg-muted/30">
         <CardTitle className="flex items-center gap-2">
@@ -42,7 +43,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
       </CardHeader>
       <CardContent className="pt-6">
         <Tabs defaultValue={hasBusinessUseCase ? "business-use-case" : "details"} className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-5">
             {hasBusinessUseCase && (
               <TabsTrigger value="business-use-case" className="flex items-center gap-2">
                 <Briefcase size={16} /> Business Use Case
@@ -54,6 +55,16 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             <TabsTrigger value="implementation" className="flex items-center gap-2">
               <Code size={16} /> Implementation
             </TabsTrigger>
+            {pattern.id === 'react-agent' && (
+              <TabsTrigger value="live-runner" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'agentic-rag' && (
+              <TabsTrigger value="live-runner-rag" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
           </TabsList>
 
           {hasBusinessUseCase && (
@@ -133,6 +144,29 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
               </AccordionItem>
             </Accordion>
           </TabsContent>
+
+          {pattern.id === 'react-agent' && (
+            <TabsContent value="live-runner" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={reactAgentExecutionSteps}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'agentic-rag' && (
+            <TabsContent value="live-runner-rag" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={agenticRAGExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
         </Tabs>
       </CardContent>
     </Card>
