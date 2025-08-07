@@ -1,5 +1,7 @@
 import { PatternData } from './types';
 
+const StubVisual = () => null;
+
 export const autogenMultiAgentPattern: PatternData = {
   id: 'autogen-multi-agent',
   name: 'AutoGen Multi-Agent',
@@ -11,6 +13,7 @@ export const autogenMultiAgentPattern: PatternData = {
     industry: 'Software Development',
     description: 'A software company uses an AutoGen multi-agent system to automate parts of their development workflow. A "Product Manager" agent writes the user stories, a "Developer" agent writes the code, a "QA" agent writes the tests, and a "DevOps" agent deploys the application. The agents collaborate in a group chat to ensure the final product meets the requirements.',
     enlightenMePrompt: 'Provide a technical guide on implementing a multi-agent system with AutoGen.',
+    visualization: StubVisual
   },
   nodes: [],
   edges: [],
@@ -40,7 +43,7 @@ abstract class BaseAgent {
   }
   abstract generateResponse(history: AgentMessage[]): Promise<AgentMessage | null>;
   protected buildPrompt(history: AgentMessage[]): string {
-    const last = history.slice(-4).map(m => `${m.from||m.role}: ${m.content}`).join('\\n');
+    const last = history.slice(-4).map(m => \`\${m.from||m.role}: \${m.content}\`).join('\\n');
     return \`\${this.systemMessage}\\nRecent:\\n\${last}\`;
   }
 }
