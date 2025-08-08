@@ -213,7 +213,7 @@ function App() {
   }
 
   return (
-    <ThemeProvider defaultTheme="light" storageKey="azure-ai-agent-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="azure-ai-agent-theme">
       <EnlightenMeProvider>
         <div className="min-h-screen bg-background text-foreground flex flex-col">
           <header className="border-b border-border sticky top-0 z-10 bg-background">

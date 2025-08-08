@@ -43,7 +43,7 @@ interface TreeNode {
 
 // Core concepts data structure
 const coreConceptsData = [
-  // Tier 0 - Prompting Fundamentals
+  // Tier 0 - GPT-5 Prompting Fundamentals (5 concepts)
   {
     id: 'agentic-prompting-fundamentals',
     name: 'Agentic Prompting Fundamentals',
@@ -84,7 +84,7 @@ const coreConceptsData = [
     difficulty: 'advanced' as const,
     estimatedTime: 50
   },
-  // Tier 1 - Foundational Concepts
+  // Tier 1 - Foundational Concepts (6 concepts)
   {
     id: 'agent-architecture',
     name: 'Agent Architecture & Lifecycle',
@@ -125,7 +125,15 @@ const coreConceptsData = [
     difficulty: 'beginner' as const,
     estimatedTime: 20
   },
-  // Tier 2
+  {
+    id: 'agent-evaluation',
+    name: 'Agent Evaluation',
+    description: 'Performance metrics, benchmarking, and continuous evaluation strategies',
+    tier: 1,
+    difficulty: 'intermediate' as const,
+    estimatedTime: 35
+  },
+  // Tier 2 - Communication & Protocols (4 concepts)
   {
     id: 'a2a-communication',
     name: 'A2A Communication',
@@ -150,7 +158,15 @@ const coreConceptsData = [
     difficulty: 'intermediate' as const,
     estimatedTime: 25
   },
-  // Tier 3
+  {
+    id: 'a2a-communication-patterns',
+    name: 'A2A Communication Patterns',
+    description: 'Advanced communication patterns and protocols for agent coordination',
+    tier: 2,
+    difficulty: 'intermediate' as const,
+    estimatedTime: 30
+  },
+  // Tier 3 - Advanced Integration (3 concepts)
   {
     id: 'agent-communication-protocol',
     name: 'Agent Communication Protocol',
@@ -175,7 +191,7 @@ const coreConceptsData = [
     difficulty: 'intermediate' as const,
     estimatedTime: 30
   },
-  // Tier 4
+  // Tier 4 - Enterprise Operations (3 concepts)
   {
     id: 'agent-deployment',
     name: 'Agent Deployment & Operations',
@@ -282,7 +298,7 @@ export default function ComprehensiveTreeVisualization() {
       id: 'root',
       name: 'Open Agent School',
       type: 'root',
-      description: 'Comprehensive AI Agent Learning Platform with 20 concepts, 19 patterns, Azure services, knowledge quizzes, and interactive study modes',
+      description: 'Comprehensive AI Agent Learning Platform with 21 concepts, 19 patterns, Azure services, knowledge quizzes, and interactive study modes',
       icon: <Brain className="w-5 h-5" />,
       children: [
         // Core Concepts Category
@@ -290,7 +306,7 @@ export default function ComprehensiveTreeVisualization() {
           id: 'core-concepts',
           name: 'Core Concepts',
           type: 'category',
-          description: '20 concepts across 5 progressive tiers - Complete mastery path for AI agent concepts',
+          description: '21 concepts across 5 progressive tiers - Complete mastery path for AI agent concepts',
           icon: <Brain className="w-4 h-4" />,
           progress: Math.floor(Math.random() * 40 + 60), // Random progress 60-100%
           metadata: { tier: 0 },
@@ -451,7 +467,7 @@ export default function ComprehensiveTreeVisualization() {
               <div className="flex items-center gap-3">
                 <Brain className="w-8 h-8 text-blue-600" />
                 <div>
-                  <div className="text-2xl font-bold">15</div>
+                  <div className="text-2xl font-bold">21</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Core Concepts</div>
                 </div>
               </div>
@@ -463,7 +479,7 @@ export default function ComprehensiveTreeVisualization() {
               <div className="flex items-center gap-3">
                 <Cog className="w-8 h-8 text-amber-600" />
                 <div>
-                  <div className="text-2xl font-bold">18</div>
+                  <div className="text-2xl font-bold">19</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Agent Patterns</div>
                 </div>
               </div>

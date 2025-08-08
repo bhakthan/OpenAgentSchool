@@ -47,37 +47,59 @@ export default function D3TreeVisualization({
       type: 'root' as const,
       children: [
         {
+          id: 'tier-0',
+          name: 'Prompting Fundamentals (Tier 0)',
+          type: 'category' as const,
+          children: collapsedNodes.has('tier-0') ? [] : [
+            { id: 'agentic-prompting-fundamentals', name: 'Agentic Prompting Fundamentals', type: 'concept' as const, novel: true },
+            { id: 'prompt-optimization-patterns', name: 'Prompt Optimization Patterns', type: 'concept' as const, novel: true },
+            { id: 'agent-instruction-design', name: 'Agent Instruction Design', type: 'concept' as const, novel: true },
+            { id: 'agentic-workflow-control', name: 'Agentic Workflow Control', type: 'concept' as const, novel: true },
+            { id: 'agent-evaluation-methodologies', name: 'Agent Evaluation Methodologies', type: 'concept' as const, novel: true }
+          ]
+        },
+        {
           id: 'fundamentals',
-          name: 'Fundamentals (Tier 1)',
+          name: 'Foundational Concepts (Tier 1)',
           type: 'category' as const,
           children: collapsedNodes.has('fundamentals') ? [] : [
-            { id: 'ai-agents', name: 'AI Agents', type: 'concept' as const, novel: true },
             { id: 'agent-architecture', name: 'Agent Architecture & Lifecycle', type: 'concept' as const },
             { id: 'agent-security', name: 'Agent Security & Trust', type: 'concept' as const },
-            { id: 'multi-agent-systems', name: 'Multi-Agent Systems', type: 'concept' as const, novel: true },
+            { id: 'multi-agent-systems', name: 'Multi-Agent Systems', type: 'concept' as const },
             { id: 'agent-ethics', name: 'Agent Ethics & Governance', type: 'concept' as const },
-            { id: 'ai-safety-governance', name: 'AI Safety and Governance', type: 'concept' as const, novel: true }
+            { id: 'ai-agents', name: 'AI Agents', type: 'concept' as const },
+            { id: 'agent-evaluation', name: 'Agent Evaluation', type: 'concept' as const }
           ]
         },
         {
           id: 'architecture',
-          name: 'Architecture (Tier 2)',
+          name: 'Communication & Protocols (Tier 2)',
           type: 'category' as const,
           children: collapsedNodes.has('architecture') ? [] : [
-            { id: 'a2a-communication', name: 'A2A Communication', type: 'concept' as const, novel: true },
-            { id: 'mcp', name: 'Model Context Protocol', type: 'concept' as const, novel: true },
+            { id: 'a2a-communication', name: 'A2A Communication', type: 'concept' as const },
+            { id: 'model-context-protocol', name: 'Model Context Protocol', type: 'concept' as const },
             { id: 'flow-visualization', name: 'Flow Visualization', type: 'concept' as const },
-            { id: 'agent-evaluation', name: 'Agent Evaluation', type: 'concept' as const, novel: true }
+            { id: 'a2a-communication-patterns', name: 'A2A Communication Patterns', type: 'concept' as const, novel: true }
           ]
         },
         {
           id: 'implementation',
-          name: 'Implementation (Tier 3)',
+          name: 'Advanced Integration (Tier 3)',
           type: 'category' as const,
           children: collapsedNodes.has('implementation') ? [] : [
-            { id: 'acp', name: 'Agent Communication Protocol', type: 'concept' as const, novel: true },
-            { id: 'mcp-a2a-integration', name: 'MCP x A2A Integration', type: 'concept' as const, novel: true },
+            { id: 'agent-communication-protocol', name: 'Agent Communication Protocol', type: 'concept' as const },
+            { id: 'mcp-a2a-integration', name: 'MCP × A2A Integration', type: 'concept' as const },
             { id: 'data-visualization', name: 'Data Visualization', type: 'concept' as const }
+          ]
+        },
+        {
+          id: 'enterprise',
+          name: 'Enterprise Operations (Tier 4)',
+          type: 'category' as const,
+          children: collapsedNodes.has('enterprise') ? [] : [
+            { id: 'agent-deployment', name: 'Agent Deployment & Operations', type: 'concept' as const },
+            { id: 'agent-learning', name: 'Agent Learning & Adaptation', type: 'concept' as const },
+            { id: 'agent-integration', name: 'Agent Integration Patterns', type: 'concept' as const }
           ]
         },
         {
