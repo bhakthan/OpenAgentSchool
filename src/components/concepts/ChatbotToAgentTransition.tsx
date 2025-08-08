@@ -143,7 +143,7 @@ const ChatbotToAgentTransition: React.FC = () => {
           </div>
 
           {/* Progress Indicator */}
-          <div className="w-full bg-muted rounded-full h-2">
+          <div className="w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full h-2">
             <div 
               className="bg-primary h-2 rounded-full transition-all duration-500"
               style={{ width: `${((currentStep + 1) / animationSteps.length) * 100}%` }}
@@ -820,7 +820,7 @@ const ChatbotToAgentTransition: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="bg-muted/50 rounded-lg p-4"
+              className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg p-4"
             >
               <div className="flex items-center gap-2 mb-2">
                 <Badge variant="outline">Step {currentStep + 1}</Badge>
@@ -829,7 +829,7 @@ const ChatbotToAgentTransition: React.FC = () => {
               <p className="text-sm text-muted-foreground mb-3">{currentStepData.description}</p>
               
               {currentStepData.agentThought && (
-                <div className="bg-purple-100 dark:bg-purple-900/20 p-3 rounded-md mb-2">
+                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md mb-2">
                   <p className="text-sm"><strong>Agent Thought:</strong> {currentStepData.agentThought}</p>
                 </div>
               )}
@@ -841,7 +841,7 @@ const ChatbotToAgentTransition: React.FC = () => {
               )}
               
               {currentStepData.agentObservation && (
-                <div className="bg-green-100 dark:bg-green-900/20 p-3 rounded-md mb-2">
+                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md mb-2">
                   <p className="text-sm"><strong>Observation:</strong> {currentStepData.agentObservation}</p>
                 </div>
               )}
@@ -913,3 +913,12 @@ const ChatbotToAgentTransition: React.FC = () => {
 };
 
 export default ChatbotToAgentTransition;
+
+
+
+
+
+
+
+
+

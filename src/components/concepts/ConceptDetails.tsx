@@ -18,7 +18,7 @@ const ConceptDetails: React.FC<ConceptDetailsProps> = ({ conceptId }) => {
   
   return (
     <Card className="mb-6 mt-6 border-primary/20">
-      <CardHeader className="bg-muted/30">
+      <CardHeader className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
         <CardTitle className="flex items-center gap-2">
           <LightbulbFilament size={24} className="text-primary" />
           {content.name} - In-Depth Understanding
@@ -124,3 +124,7 @@ const ConceptDetails: React.FC<ConceptDetailsProps> = ({ conceptId }) => {
 };
 
 export default ConceptDetails;
+
+
+
+

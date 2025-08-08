@@ -441,7 +441,7 @@ const AgentCommunicationPlayground: React.FC = () => {
 
           {/* Step Description */}
           {currentStep > 0 && currentStep <= currentScenario.steps.length && (
-            <div className="mt-4 p-3 bg-muted rounded-md">
+            <div className="mt-4 p-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md">
               <p className="text-sm font-medium">
                 Step {currentStep}: {currentScenario.steps[currentStep - 1].description}
               </p>
@@ -449,7 +449,7 @@ const AgentCommunicationPlayground: React.FC = () => {
           )}
 
           {/* Legend */}
-          <div className="mt-4 p-4 bg-muted rounded-md">
+          <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md">
             <h4 className="font-medium mb-2">Legend</h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
               <div className="flex items-center gap-2">
@@ -493,3 +493,7 @@ const AgentCommunicationPlayground: React.FC = () => {
 };
 
 export default AgentCommunicationPlayground;
+
+
+
+

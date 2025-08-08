@@ -540,7 +540,7 @@ class AdaptiveHierarchy {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {microLearningContent[selectedPattern][userKnowledgeLevel].keyPoints.map((point, idx) => (
                     <div key={idx} className="flex items-start gap-3 p-3 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-                      <div className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-purple-600 dark:text-purple-400 text-xs font-bold">{idx + 1}</span>
                       </div>
                       <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{point}</p>
@@ -555,7 +555,7 @@ class AdaptiveHierarchy {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {microLearningContent[selectedPattern][userKnowledgeLevel].useCases.map((useCase, idx) => (
                     <div key={idx} className="flex items-start gap-3 p-3 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-                      <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-green-600 dark:text-green-400 text-xs font-bold">→</span>
                       </div>
                       <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{useCase}</p>
@@ -584,7 +584,7 @@ class AdaptiveHierarchy {
         )}
 
         {isPlaying && (
-          <div className="mt-4 p-3 bg-muted rounded-lg">
+          <div className="mt-4 p-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg">
             <div className="text-lg font-medium">
               Current Communication: {communications[selectedPattern][currentMessage]?.message}
             </div>
@@ -600,3 +600,9 @@ class AdaptiveHierarchy {
 };
 
 export default A2ACommunicationPatterns;
+
+
+
+
+
+

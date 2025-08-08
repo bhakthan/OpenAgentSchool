@@ -325,7 +325,7 @@ current_response = improved_response`,
           </div>
 
           {/* Current Pattern Info */}
-          <Card className="bg-muted/50">
+          <Card className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg">{currentPattern.title}</CardTitle>
               <CardDescription>{currentPattern.description}</CardDescription>
@@ -480,7 +480,7 @@ current_response = improved_response`,
                 </CardContent>
               </Card>
               
-              <Card className="bg-blue-50 dark:bg-blue-950/20">
+              <Card className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-2">
                     <Lightbulb size={16} className="text-blue-500 mt-1" />
@@ -548,3 +548,10 @@ current_response = improved_response`,
 };
 
 export default CodeToVisualMapper;
+
+
+
+
+
+
+

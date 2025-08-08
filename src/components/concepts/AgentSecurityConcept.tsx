@@ -65,7 +65,7 @@ export default function AgentSecurityConcept({ onMarkComplete, onNavigateToNext 
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-lg text-gray-900 dark:text-gray-100">
 {`// Agent Authentication Example
 class AgentAuthenticator {
@@ -119,7 +119,7 @@ class AgentAuthenticator {
                 capabilities, reliability, and behavior patterns over time.
               </p>
               
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Trust Metrics:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -141,7 +141,7 @@ class AgentAuthenticator {
                 </ul>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-lg text-gray-900 dark:text-gray-100">
 {`// Trust Network Implementation
 class TrustNetwork {
@@ -248,7 +248,7 @@ class TrustNetwork {
                 confidential and complies with data protection regulations.
               </p>
               
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Privacy Techniques:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -270,7 +270,7 @@ class TrustNetwork {
                 </ul>
               </div>
 
-              <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-800">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg border border-yellow-200 dark:border-yellow-800">
                 <div className="flex items-start gap-2">
                   <Warning className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-1" />
                   <div>
@@ -305,3 +305,9 @@ class TrustNetwork {
     />
   )
 }
+
+
+
+
+
+

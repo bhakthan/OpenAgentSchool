@@ -413,6 +413,336 @@ export const deepAgentsSocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Socratic Questions for Agentic Prompting Fundamentals
+export const agenticPromptingFundamentalsSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'agentic-prompting-socratic-1',
+    type: 'socratic',
+    conceptId: 'agentic-prompting-fundamentals',
+    title: 'Discovering the Need for Agent Control',
+    level: 'beginner',
+    socratiQuestion: "Imagine you're instructing an AI agent to help with a task. What would happen if you gave it a very general instruction like 'help me with my work' versus a specific one? Why might control over the agent's behavior be important?",
+    followUpQuestions: [
+      "What if the agent starts doing things you didn't want it to do?",
+      "How would you guide an agent to think step-by-step rather than rushing to an answer?",
+      "What's the difference between an agent that can access tools and one that cannot?"
+    ],
+    expectedInsights: [
+      "Specific instructions lead to more predictable and useful outcomes",
+      "Agent behavior needs to be controlled and guided",
+      "Tool access fundamentally changes what an agent can accomplish"
+    ],
+    hints: [
+      "Think about how you would instruct a human assistant",
+      "Consider what happens when instructions are ambiguous",
+      "Reflect on the difference between thinking and acting"
+    ],
+    explanation: "This exploration helps students discover that agentic prompting is about creating precise, controllable interactions that guide AI behavior toward desired outcomes.",
+    relatedConcepts: ['prompt-optimization-patterns', 'agent-instruction-design'],
+    timeEstimate: 15,
+    successCriteria: [
+      "Recognizes the importance of specific instructions",
+      "Understands the need for behavioral control",
+      "Grasps the significance of tool integration"
+    ]
+  },
+  {
+    id: 'agentic-prompting-socratic-2',
+    type: 'socratic',
+    conceptId: 'agentic-prompting-fundamentals',
+    title: 'Eagerness vs Thoughtfulness Trade-off',
+    level: 'intermediate',
+    socratiQuestion: "If an AI agent is very 'eager' to help and immediately tries to solve your problem versus one that asks clarifying questions first, which approach would be better in different situations? What are the trade-offs?",
+    followUpQuestions: [
+      "When might you want an agent to act quickly versus think carefully?",
+      "How could you control this behavior through your instructions?",
+      "What happens if an agent is too eager to use tools when simple reasoning would suffice?"
+    ],
+    expectedInsights: [
+      "Eagerness control allows matching agent behavior to task requirements",
+      "Some tasks benefit from immediate action, others from careful consideration",
+      "Prompting can influence the reasoning-to-action ratio"
+    ],
+    hints: [
+      "Consider emergency vs planning scenarios",
+      "Think about tool usage costs and complexity",
+      "Reflect on when you want human assistants to be eager vs cautious"
+    ],
+    explanation: "Students discover that agentic prompting involves sophisticated control over agent decision-making patterns and tool usage strategies.",
+    relatedConcepts: ['agentic-workflow-control', 'agent-evaluation-methodologies'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Understands eagerness as a controllable parameter",
+      "Recognizes situational appropriateness of different approaches",
+      "Grasps the concept of reasoning-action balance"
+    ]
+  }
+];
+
+// Socratic Questions for Prompt Optimization Patterns
+export const promptOptimizationPatternsSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'prompt-optimization-socratic-1',
+    type: 'socratic',
+    conceptId: 'prompt-optimization-patterns',
+    title: 'The Hidden Cost of Inefficient Prompts',
+    level: 'beginner',
+    socratiQuestion: "If a prompt produces the right answer but uses 10x more tokens than necessary, or takes 5x longer to execute, what's the real cost? Why might optimization matter even when the answer is correct?",
+    followUpQuestions: [
+      "What happens when you scale this inefficiency across thousands of interactions?",
+      "How might prompt length affect the agent's ability to focus on what's important?",
+      "What if two prompts give the same accuracy but one is much more efficient?"
+    ],
+    expectedInsights: [
+      "Efficiency matters at scale - costs and performance compound",
+      "Clarity helps agents focus on essential information",
+      "Optimization is about achieving the same quality with fewer resources"
+    ],
+    hints: [
+      "Think about scalability and real-world usage patterns",
+      "Consider the cognitive load analogy for humans",
+      "Reflect on the difference between 'works' and 'works well'"
+    ],
+    explanation: "This exploration reveals that prompt optimization is not just about correctness but about efficiency, clarity, and scalability in production systems.",
+    relatedConcepts: ['agentic-prompting-fundamentals', 'agent-evaluation-methodologies'],
+    timeEstimate: 18,
+    successCriteria: [
+      "Recognizes efficiency as distinct from accuracy",
+      "Understands scalability implications",
+      "Values optimization beyond just getting correct answers"
+    ]
+  },
+  {
+    id: 'prompt-optimization-socratic-2',
+    type: 'socratic',
+    conceptId: 'prompt-optimization-patterns',
+    title: 'Discovering Contradiction Elimination',
+    level: 'intermediate',
+    socratiQuestion: "Imagine you give an agent instructions that say both 'be creative and innovative' and 'follow the exact template provided.' What happens when instructions contradict each other? How would you systematically find and fix such conflicts?",
+    followUpQuestions: [
+      "What patterns might help you identify contradictory requirements?",
+      "How would you prioritize when multiple instructions conflict?",
+      "What systematic approach could prevent contradictions in the first place?"
+    ],
+    expectedInsights: [
+      "Contradictory instructions create unpredictable agent behavior",
+      "Systematic analysis can identify conflicting requirements",
+      "Clear hierarchies and priorities prevent contradiction problems"
+    ],
+    hints: [
+      "Think about how conflicting goals affect human performance",
+      "Consider creating a checklist or framework for review",
+      "Reflect on the importance of internal consistency"
+    ],
+    explanation: "Students discover that prompt optimization involves systematic identification and elimination of contradictions that can undermine agent performance.",
+    relatedConcepts: ['agent-instruction-design', 'agentic-workflow-control'],
+    timeEstimate: 22,
+    successCriteria: [
+      "Identifies contradiction as a source of problems",
+      "Understands systematic approaches to conflict detection",
+      "Grasps the importance of instruction hierarchy"
+    ]
+  }
+];
+
+// Socratic Questions for Agent Instruction Design
+export const agentInstructionDesignSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'agent-instruction-socratic-1',
+    type: 'socratic',
+    conceptId: 'agent-instruction-design',
+    title: 'The Hierarchy of Agent Priorities',
+    level: 'beginner',
+    socratiQuestion: "If you tell an agent to 'be helpful, be accurate, and be fast,' but these goals conflict in a specific situation, how should the agent decide what to prioritize? What system would you design to handle such conflicts?",
+    followUpQuestions: [
+      "What happens if there's no clear priority system?",
+      "How would you communicate priority levels to an agent?",
+      "What if user instructions conflict with safety instructions?"
+    ],
+    expectedInsights: [
+      "Agents need explicit priority hierarchies to resolve conflicts",
+      "Instruction design must anticipate conflicting requirements",
+      "Safety and core principles should typically override user preferences"
+    ],
+    hints: [
+      "Think about how humans handle conflicting instructions",
+      "Consider emergency protocols and safety overrides",
+      "Reflect on the need for explicit vs implicit priorities"
+    ],
+    explanation: "This exploration leads to understanding that effective agent instruction design requires explicit hierarchies and conflict resolution mechanisms.",
+    relatedConcepts: ['agentic-prompting-fundamentals', 'agentic-workflow-control'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Recognizes the need for priority hierarchies",
+      "Understands conflict resolution mechanisms",
+      "Grasps the importance of safety overrides"
+    ]
+  },
+  {
+    id: 'agent-instruction-socratic-2',
+    type: 'socratic',
+    conceptId: 'agent-instruction-design',
+    title: 'Steerability in Action',
+    level: 'intermediate',
+    socratiQuestion: "If you want an agent to adjust its communication style based on the audience (technical expert vs beginner), how would you design instructions that allow this flexibility while maintaining consistency? What mechanisms would enable real-time adjustment?",
+    followUpQuestions: [
+      "How would the agent detect what type of audience it's addressing?",
+      "What core principles should remain constant regardless of the audience?",
+      "How would you validate that the agent is adjusting appropriately?"
+    ],
+    expectedInsights: [
+      "Steerability requires both detection mechanisms and adaptation rules",
+      "Core principles should remain stable while style adapts",
+      "Validation mechanisms ensure appropriate adaptation"
+    ],
+    hints: [
+      "Think about how skilled human communicators adapt their style",
+      "Consider what indicators reveal audience expertise level",
+      "Reflect on the balance between flexibility and consistency"
+    ],
+    explanation: "Students discover that instruction design for steerability involves creating adaptive systems that maintain core integrity while allowing contextual adjustment.",
+    relatedConcepts: ['prompt-optimization-patterns', 'agent-evaluation-methodologies'],
+    timeEstimate: 25,
+    successCriteria: [
+      "Understands steerability as controlled adaptation",
+      "Recognizes the need for detection and response mechanisms",
+      "Grasps the balance between flexibility and consistency"
+    ]
+  }
+];
+
+// Socratic Questions for Agentic Workflow Control
+export const agenticWorkflowControlSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'agentic-workflow-socratic-1',
+    type: 'socratic',
+    conceptId: 'agentic-workflow-control',
+    title: 'Sequential vs Parallel Workflow Discovery',
+    level: 'intermediate',
+    socratiQuestion: "Imagine an agent needs to research a topic, write a summary, and create a presentation. Which of these tasks could happen at the same time, and which must happen in sequence? How would you design a system to coordinate this efficiently?",
+    followUpQuestions: [
+      "What information dependencies exist between these tasks?",
+      "How would you handle failures in a parallel workflow?",
+      "What if one task takes much longer than expected?"
+    ],
+    expectedInsights: [
+      "Task dependencies determine workflow structure",
+      "Parallel execution can improve efficiency but adds complexity",
+      "Failure handling and timing management are crucial design considerations"
+    ],
+    hints: [
+      "Think about which tasks require outputs from other tasks",
+      "Consider how project managers coordinate team work",
+      "Reflect on the trade-offs between speed and complexity"
+    ],
+    explanation: "This exploration helps students understand that workflow control involves analyzing dependencies and choosing appropriate execution patterns.",
+    relatedConcepts: ['agent-instruction-design', 'agent-evaluation-methodologies'],
+    timeEstimate: 25,
+    successCriteria: [
+      "Identifies task dependencies accurately",
+      "Understands parallel vs sequential trade-offs",
+      "Recognizes the importance of failure handling"
+    ]
+  },
+  {
+    id: 'agentic-workflow-socratic-2',
+    type: 'socratic',
+    conceptId: 'agentic-workflow-control',
+    title: 'Multi-Tool Coordination Challenges',
+    level: 'advanced',
+    socratiQuestion: "If an agent has access to a calculator, a web search tool, and a document editor, and needs to create a financial report, how would you ensure these tools are used in the right order and with appropriate data sharing? What could go wrong?",
+    followUpQuestions: [
+      "How would you prevent the agent from using the wrong tool for a task?",
+      "What if one tool's output needs to be processed before use by another tool?",
+      "How would you handle situations where a tool fails or is unavailable?"
+    ],
+    expectedInsights: [
+      "Tool coordination requires careful planning and error handling",
+      "Data flow between tools must be managed explicitly",
+      "Fallback strategies are essential for robust workflows"
+    ],
+    hints: [
+      "Think about how humans coordinate multiple tools and resources",
+      "Consider the importance of data validation between steps",
+      "Reflect on what happens when any component in a chain fails"
+    ],
+    explanation: "Students discover that advanced workflow control involves sophisticated coordination between multiple tools with proper error handling and data flow management.",
+    relatedConcepts: ['agentic-prompting-fundamentals', 'prompt-optimization-patterns'],
+    timeEstimate: 30,
+    successCriteria: [
+      "Understands multi-tool coordination complexity",
+      "Recognizes the importance of data flow management",
+      "Grasps the need for robust error handling strategies"
+    ]
+  }
+];
+
+// Socratic Questions for Agent Evaluation Methodologies
+export const agentEvaluationMethodologiesSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'agent-evaluation-socratic-1',
+    type: 'socratic',
+    conceptId: 'agent-evaluation-methodologies',
+    title: 'Beyond Simple Accuracy Metrics',
+    level: 'beginner',
+    socratiQuestion: "If an agent gets 100% of answers correct but takes 10 minutes per response, costs $50 per query, and gives unhelpful responses that technically answer the question, is this a good agent? What other factors should we measure?",
+    followUpQuestions: [
+      "How would you measure the 'helpfulness' of an agent's response?",
+      "What about consistency - should an agent give different answers to the same question?",
+      "How would you evaluate an agent's reasoning process, not just its final answer?"
+    ],
+    expectedInsights: [
+      "Evaluation requires multiple dimensions beyond just accuracy",
+      "Performance includes efficiency, cost, and user satisfaction",
+      "Process quality matters as much as outcome quality"
+    ],
+    hints: [
+      "Think about how you'd evaluate a human assistant",
+      "Consider the full user experience, not just correctness",
+      "Reflect on the importance of explanations and reasoning"
+    ],
+    explanation: "This exploration reveals that comprehensive agent evaluation requires multidimensional assessment frameworks that consider the full spectrum of performance factors.",
+    relatedConcepts: ['prompt-optimization-patterns', 'agentic-workflow-control'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Recognizes limitations of single-metric evaluation",
+      "Understands the importance of multidimensional assessment",
+      "Values process quality alongside outcome quality"
+    ]
+  },
+  {
+    id: 'agent-evaluation-socratic-2',
+    type: 'socratic',
+    conceptId: 'agent-evaluation-methodologies',
+    title: 'The LLM-as-Judge Paradigm',
+    level: 'advanced',
+    socratiQuestion: "If you want to evaluate whether an agent's response is 'creative,' 'professional,' or 'age-appropriate,' how would you create an objective measurement system? What if you used another AI agent as the judge - what could go well or poorly?",
+    followUpQuestions: [
+      "How would you ensure the judge AI is unbiased and consistent?",
+      "What if the judge AI has different values or perspectives than humans?",
+      "How would you validate that the judge AI is making good evaluations?"
+    ],
+    expectedInsights: [
+      "Subjective qualities require sophisticated evaluation approaches",
+      "LLM judges can provide scalable evaluation but need careful design",
+      "Judge validation is crucial to ensure evaluation quality"
+    ],
+    hints: [
+      "Think about how human judges are trained and validated",
+      "Consider the challenge of measuring subjective qualities objectively",
+      "Reflect on the meta-problem: how do you evaluate the evaluator?"
+    ],
+    explanation: "Students discover that advanced evaluation methodologies leverage AI systems to assess complex, subjective qualities while addressing the inherent challenges of automated judgment.",
+    relatedConcepts: ['agent-instruction-design', 'agentic-prompting-fundamentals'],
+    timeEstimate: 28,
+    successCriteria: [
+      "Understands the challenge of evaluating subjective qualities",
+      "Grasps the potential and limitations of LLM judges",
+      "Recognizes the importance of judge validation mechanisms"
+    ]
+  }
+];
+
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
@@ -422,7 +752,13 @@ export const socraticQuestionLibrary = {
   'modern-tool-use': modernToolUseSocraticQuestions,
   'computer-use': computerUseSocraticQuestions,
   'voice-agent': voiceAgentSocraticQuestions,
-  'deep-agents': deepAgentsSocraticQuestions
+  'deep-agents': deepAgentsSocraticQuestions,
+  // New Core Concepts
+  'agentic-prompting-fundamentals': agenticPromptingFundamentalsSocraticQuestions,
+  'prompt-optimization-patterns': promptOptimizationPatternsSocraticQuestions,
+  'agent-instruction-design': agentInstructionDesignSocraticQuestions,
+  'agentic-workflow-control': agenticWorkflowControlSocraticQuestions,
+  'agent-evaluation-methodologies': agentEvaluationMethodologiesSocraticQuestions
 };
 
 // Helper function to get socratic questions by concept and level

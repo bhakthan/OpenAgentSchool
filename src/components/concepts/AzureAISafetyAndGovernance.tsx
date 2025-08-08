@@ -11,7 +11,7 @@ export default function AzureAISafetyAndGovernance() {
     <div className="w-full p-6">
       <h2 className="text-2xl font-bold mb-4 text-cyan-800 dark:text-cyan-300">AI Safety & Governance</h2>
       <Tabs defaultValue="pillars" className="w-full">
-        <TabsList className="mb-4 flex flex-wrap gap-2 bg-muted dark:bg-muted/40 rounded-lg p-2">
+        <TabsList className="mb-4 flex flex-wrap gap-2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg p-2">
           <TabsTrigger value="pillars" className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900">Responsible AI: Six Pillars</TabsTrigger>
           <TabsTrigger value="content-filter" className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900">Content Filters</TabsTrigger>
           <TabsTrigger value="defender" className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900">Azure Defender Risk Monitoring</TabsTrigger>
@@ -113,3 +113,9 @@ export default function AzureAISafetyAndGovernance() {
     </div>
   );
 }
+
+
+
+
+
+

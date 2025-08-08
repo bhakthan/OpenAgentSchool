@@ -21,6 +21,11 @@ import AgentEvaluationConcept from "./AgentEvaluationConcept"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
 import AzureAISafetyAndGovernance from "./AzureAISafetyAndGovernance"
+import AgenticPromptingFundamentals from "./AgenticPromptingFundamentals"
+import PromptOptimizationPatterns from "./PromptOptimizationPatterns"
+import AgentInstructionDesign from "./AgentInstructionDesign"
+import AgenticWorkflowControl from "./AgenticWorkflowControl"
+import AgentEvaluationMethodologies from "./AgentEvaluationMethodologies"
 
 interface ConceptInfo {
   id: string
@@ -35,6 +40,62 @@ interface ConceptInfo {
 }
 
 const concepts: ConceptInfo[] = [
+  // Tier 0: Core Concepts (Prompting & Optimization)
+  {
+    id: 'agentic-prompting-fundamentals',
+    title: 'Agentic Prompting Fundamentals',
+    description: 'Master the core principles of prompting AI agents for optimal performance and reliability',
+    level: 'fundamentals',
+    icon: <Brain className="w-6 h-6" />,
+    color: 'bg-gray-100 dark:bg-gray-800 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
+    estimatedTime: '30-40 min',
+    prerequisites: [],
+    component: AgenticPromptingFundamentals
+  },
+  {
+    id: 'prompt-optimization-patterns',
+    title: 'Prompt Optimization Patterns',
+    description: 'Learn systematic approaches to eliminate contradictions and improve prompt effectiveness',
+    level: 'fundamentals',
+    icon: <ChartBar className="w-6 h-6" />,
+    color: 'bg-gray-100 dark:bg-gray-800 text-green-600 dark:bg-green-900/20 dark:text-green-400',
+    estimatedTime: '35-45 min',
+    prerequisites: ['agentic-prompting-fundamentals'],
+    component: PromptOptimizationPatterns
+  },
+  {
+    id: 'agent-instruction-design',
+    title: 'Agent Instruction Design',
+    description: 'Design effective instruction hierarchies and steerability controls for reliable agent behavior',
+    level: 'fundamentals',
+    icon: <BookOpen className="w-6 h-6" />,
+    color: 'bg-gray-100 dark:bg-gray-800 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
+    estimatedTime: '30-40 min',
+    prerequisites: ['agentic-prompting-fundamentals'],
+    component: AgentInstructionDesign
+  },
+  {
+    id: 'agentic-workflow-control',
+    title: 'Agentic Workflow Control',
+    description: 'Advanced workflow patterns, timing control, and multi-tool coordination strategies',
+    level: 'fundamentals',
+    icon: <ArrowsHorizontal className="w-6 h-6" />,
+    color: 'bg-gray-100 dark:bg-gray-800 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400',
+    estimatedTime: '40-50 min',
+    prerequisites: ['prompt-optimization-patterns', 'agent-instruction-design'],
+    component: AgenticWorkflowControl
+  },
+  {
+    id: 'agent-evaluation-methodologies',
+    title: 'Agent Evaluation Methodologies',
+    description: 'Comprehensive evaluation frameworks using quantitative metrics and LLM-as-judge techniques',
+    level: 'fundamentals',
+    icon: <ChartBar className="w-6 h-6" />,
+    color: 'bg-gray-100 dark:bg-gray-800 text-cyan-600 dark:bg-cyan-900/20 dark:text-cyan-400',
+    estimatedTime: '35-45 min',
+    prerequisites: ['agentic-workflow-control'],
+    component: AgentEvaluationMethodologies
+  },
   // Tier 1: Foundational Concepts
   {
     id: 'agent-architecture',
@@ -42,7 +103,7 @@ const concepts: ConceptInfo[] = [
     description: 'Understanding the fundamental building blocks and lifecycle of AI agents',
     level: 'fundamentals',
     icon: <Brain className="w-6 h-6" />,
-    color: 'bg-white/80 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
     estimatedTime: '25-35 min',
     prerequisites: [],
     component: (props) => {
@@ -61,7 +122,7 @@ const concepts: ConceptInfo[] = [
     description: 'Security mechanisms and trust models for AI agent systems',
     level: 'fundamentals',
     icon: <Shield className="w-6 h-6" />,
-    color: 'bg-white/80 text-red-600 dark:bg-red-900/20 dark:text-red-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-red-600 dark:bg-red-900/20 dark:text-red-400',
     estimatedTime: '30-40 min',
     prerequisites: ['agent-architecture'],
     component: AgentSecurityConcept
@@ -72,7 +133,7 @@ const concepts: ConceptInfo[] = [
     description: 'Coordination, collaboration, and emergent behavior in multi-agent systems',
     level: 'fundamentals',
     icon: <Users className="w-6 h-6" />,
-    color: 'bg-white/80 text-green-600 dark:bg-green-900/20 dark:text-green-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-green-600 dark:bg-green-900/20 dark:text-green-400',
     estimatedTime: '35-45 min',
     prerequisites: ['agent-architecture'],
     component: MultiAgentSystemsConcept
@@ -83,7 +144,7 @@ const concepts: ConceptInfo[] = [
     description: 'Ethical principles, bias mitigation, and regulatory compliance for AI agents',
     level: 'fundamentals',
     icon: <Shield className="w-6 h-6" />,
-    color: 'bg-white/80 text-yellow-600 dark:bg-yellow-900/20 dark:text-yellow-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-yellow-600 dark:bg-yellow-900/20 dark:text-yellow-400',
     estimatedTime: '35-45 min',
     prerequisites: ['agent-architecture'],
     component: AgentEthicsConcept
@@ -94,7 +155,7 @@ const concepts: ConceptInfo[] = [
     description: 'Learn about autonomous AI systems that can perceive, decide, and act',
     level: 'fundamentals',
     icon: <Brain className="w-6 h-6" />,
-    color: 'bg-white/80 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
     estimatedTime: '20-30 min',
     prerequisites: [],
     component: AIAgentsConcept
@@ -105,7 +166,7 @@ const concepts: ConceptInfo[] = [
     description: 'Responsible AI pillars, safety, risk monitoring, guardrails, tracing, and governance with Azure Foundry',
     level: 'fundamentals',
     icon: <Shield className="w-6 h-6" />,
-    color: 'bg-white/80 text-cyan-600 dark:bg-cyan-900/20 dark:text-cyan-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-cyan-600 dark:bg-cyan-900/20 dark:text-cyan-400',
     estimatedTime: '40-60 min',
     prerequisites: [],
     component: AzureAISafetyAndGovernance
@@ -117,7 +178,7 @@ const concepts: ConceptInfo[] = [
     description: 'How AI agents communicate and coordinate with each other',
     level: 'architecture',
     icon: <ArrowsHorizontal className="w-6 h-6" />,
-    color: 'bg-white/80 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
     estimatedTime: '25-35 min',
     prerequisites: ['multi-agent-systems'],
     component: A2ACommunicationConcept
@@ -128,7 +189,7 @@ const concepts: ConceptInfo[] = [
     description: 'Secure tool integration protocol for AI agents',
     level: 'architecture',
     icon: <Shield className="w-6 h-6" />,
-    color: 'bg-white/80 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400',
     estimatedTime: '30-40 min',
     prerequisites: ['agent-security'],
     component: MCPConcept
@@ -139,7 +200,7 @@ const concepts: ConceptInfo[] = [
     description: 'Interactive visualization of agent flows and interactions',
     level: 'architecture',
     icon: <Graph className="w-6 h-6" />,
-    color: 'bg-white/80 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400',
     estimatedTime: '30-40 min',
     prerequisites: ['a2a-communication'],
     component: FlowVisualizationConcept
@@ -150,7 +211,7 @@ const concepts: ConceptInfo[] = [
     description: 'Systematic assessment of agent performance, reliability, safety, and alignment using automated frameworks and benchmarks',
     level: 'architecture',
     icon: <CheckCircle className="w-6 h-6 text-green-600" />,
-    color: 'bg-white/80 text-green-600 dark:bg-green-900/20 dark:text-green-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-green-600 dark:bg-green-900/20 dark:text-green-400',
     estimatedTime: '30-40 min',
     prerequisites: ['agent-architecture'],
     component: AgentEvaluationConcept
@@ -162,7 +223,7 @@ const concepts: ConceptInfo[] = [
     description: 'Advanced protocols for enterprise-scale agent coordination',
     level: 'implementation',
     icon: <Stack className="w-6 h-6" />,
-    color: 'bg-white/80 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
     estimatedTime: '35-45 min',
     prerequisites: ['a2a-communication'],
     component: ACPConcept
@@ -173,7 +234,7 @@ const concepts: ConceptInfo[] = [
     description: 'Integrate Model Context Protocol with Agent-to-Agent communication',
     level: 'implementation',
     icon: <LinkSimple className="w-6 h-6" />,
-    color: 'bg-white/80 text-cyan-600 dark:bg-cyan-900/20 dark:text-cyan-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-cyan-600 dark:bg-cyan-900/20 dark:text-cyan-400',
     estimatedTime: '40-50 min',
     prerequisites: ['mcp', 'a2a-communication'],
     component: MCPxA2AIntegrationConcept
@@ -184,7 +245,7 @@ const concepts: ConceptInfo[] = [
     description: 'Advanced data visualization techniques for AI agent systems',
     level: 'implementation',
     icon: <ChartBar className="w-6 h-6" />,
-    color: 'bg-white/80 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400',
     estimatedTime: '35-45 min',
     prerequisites: ['flow-visualization'],
     component: DataVisualizationConcept
@@ -196,7 +257,7 @@ const concepts: ConceptInfo[] = [
     description: 'Containerization, monitoring, scaling, and DevOps for AI agents',
     level: 'advanced',
     icon: <Lock className="w-6 h-6" />,
-    color: 'bg-white/80 text-red-600 dark:bg-red-900/20 dark:text-red-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-red-600 dark:bg-red-900/20 dark:text-red-400',
     estimatedTime: '40-50 min',
     prerequisites: ['acp'],
     component: AgentDeploymentConcept
@@ -207,7 +268,7 @@ const concepts: ConceptInfo[] = [
     description: 'Reinforcement learning, online learning, transfer learning, and meta-learning',
     level: 'advanced',
     icon: <Brain className="w-6 h-6" />,
-    color: 'bg-white/80 text-green-600 dark:bg-green-900/20 dark:text-green-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-green-600 dark:bg-green-900/20 dark:text-green-400',
     estimatedTime: '45-55 min',
     prerequisites: ['ai-agents'],
     component: AgentLearningConcept
@@ -218,7 +279,7 @@ const concepts: ConceptInfo[] = [
     description: 'API integration, event-driven architecture, microservices, and legacy systems',
     level: 'advanced',
     icon: <LinkSimple className="w-6 h-6" />,
-    color: 'bg-white/80 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
+    color: 'bg-gray-100 dark:bg-gray-800 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
     estimatedTime: '40-50 min',
     prerequisites: ['mcp-a2a-integration'],
     component: AgentIntegrationConcept
@@ -402,7 +463,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-muted">
+                    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                       {concept.icon}
                     </div>
                     <div>
@@ -459,7 +520,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex items-center justify-center">
                 <span className="text-blue-600 dark:text-blue-400 font-semibold">1</span>
               </div>
               <div>
@@ -470,7 +531,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/20 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex items-center justify-center">
                 <span className="text-green-600 dark:text-green-400 font-semibold">2</span>
               </div>
               <div>
@@ -481,7 +542,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900/20 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex items-center justify-center">
                 <span className="text-purple-600 dark:text-purple-400 font-semibold">3</span>
               </div>
               <div>
@@ -497,3 +558,11 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
     </div>
   )
 }
+
+
+
+
+
+
+
+

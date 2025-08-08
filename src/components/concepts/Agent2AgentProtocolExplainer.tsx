@@ -149,7 +149,7 @@ const Agent2AgentProtocolExplainer = () => {
                       It tells other agents who it is, what it does, and how to contact it.
                     </p>
                     
-                    <div className="bg-muted rounded-md p-4">
+                    <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md p-4">
                       <p className="text-xs mb-2 font-medium">Example Agent Card:</p>
                       <pre className="text-xs overflow-x-auto">
 {`{
@@ -178,7 +178,7 @@ const Agent2AgentProtocolExplainer = () => {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="border rounded-md p-4 bg-muted/20">
+                      <div className="border rounded-md p-4 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
                         <h4 className="font-medium mb-2">Tasks</h4>
                         <p className="text-sm">
                           The fundamental unit of work. A client agent initiates a <strong>task</strong> when it wants 
@@ -187,7 +187,7 @@ const Agent2AgentProtocolExplainer = () => {
                         </p>
                       </div>
                       
-                      <div className="border rounded-md p-4 bg-muted/20">
+                      <div className="border rounded-md p-4 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
                         <h4 className="font-medium mb-2">Messages</h4>
                         <p className="text-sm">
                           Within a task, agents communicate using <strong>messages</strong>. These can be instructions, 
@@ -196,7 +196,7 @@ const Agent2AgentProtocolExplainer = () => {
                         </p>
                       </div>
                       
-                      <div className="border rounded-md p-4 bg-muted/20">
+                      <div className="border rounded-md p-4 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
                         <h4 className="font-medium mb-2">Artifacts</h4>
                         <p className="text-sm">
                           When a task is finished, the final, unchangeable result is delivered as an <strong>artifact</strong>. 
@@ -260,7 +260,7 @@ const Agent2AgentProtocolExplainer = () => {
                     </div>
                   </div>
                   
-                  <div className="mt-6 p-4 rounded-md bg-muted border">
+                  <div className="mt-6 p-4 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border">
                     <h4 className="font-medium mb-2">Complementary Protocols</h4>
                     <p className="text-sm">
                       A2A and MCP are not competitors; they are complementary. An agent might use A2A to coordinate 
@@ -283,9 +283,9 @@ const Agent2AgentProtocolExplainer = () => {
               <Card>
                 <CardContent className="p-6">
                   <div className="space-y-6">
-                    <p className="text-sm">
+                                        <p className="text-sm">
                       Let's see how A2A and MCP work together in a real-world scenario when a user asks:
-                      <span className="block mt-1 px-3 py-1 bg-muted rounded-md font-medium">
+                      <span className="block mt-1 px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md font-medium">
                         "What's Google's stock price right now?"
                       </span>
                     </p>
@@ -336,7 +336,7 @@ const Agent2AgentProtocolExplainer = () => {
                               <div>Stock Info Agent: "Please get Google's current stock price!"</div>
                             </div>
                           </div>
-                          <div className="bg-muted p-2 rounded-md mt-2 text-xs">
+                          <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-2 rounded-md mt-2 text-xs">
                             <pre className="whitespace-pre-wrap">
 {`// A2A Task Creation
 {
@@ -381,7 +381,7 @@ const Agent2AgentProtocolExplainer = () => {
                               <div>MCP Stock Price Server: Function_call: "get_stock_price", args: {"{'symbol': 'GOOGL'}"}</div>
                             </div>
                           </div>
-                          <div className="bg-muted p-2 rounded-md mt-2 text-xs">
+                          <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-2 rounded-md mt-2 text-xs">
                             <pre className="whitespace-pre-wrap">
 {`// MCP Function Call
 {
@@ -426,7 +426,7 @@ const Agent2AgentProtocolExplainer = () => {
                               <div>Host Agent: "Google stock is 174.92 USD"</div>
                             </div>
                           </div>
-                          <div className="bg-muted p-2 rounded-md mt-2 text-xs">
+                          <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-2 rounded-md mt-2 text-xs">
                             <pre className="whitespace-pre-wrap">
 {`// A2A Task Completion
 {
@@ -505,7 +505,7 @@ const Agent2AgentProtocolExplainer = () => {
                   <div className="flex gap-2">
                     <button
                       type="button"
-                      className="p-2 rounded hover:bg-muted"
+                      className="p-2 rounded hover:bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
                       onClick={() => {
                         navigator.clipboard.writeText(`React Agent Pattern in Retail\n\nIndustry: Retail\n\nScenario: Personalized Shopping Assistant\n\nReact agents interact with customer profiles and inventory systems to recommend products, answer queries, and streamline checkout.\n\nImplementation Path:\n1. Identify customer pain points (e.g., product discovery, checkout friction).\n2. Integrate React agents with customer data and inventory APIs.\n3. Design agent workflows for product recommendations and real-time support.\n4. Measure success via conversion rates and customer feedback.\n\nExpected Outcomes:\n- Higher sales conversion\n- Improved customer retention\n- Efficient inventory management\n\nKey Metrics:\n- Conversion rate\n- Customer satisfaction score\n- Inventory turnover\n\nNext Steps for Business Users:\n- Map current workflows to agent capabilities\n- Pilot the agent in a specific product category\n- Collect feedback and iterate`);
                       }}
@@ -575,3 +575,8 @@ const Agent2AgentProtocolExplainer = () => {
 };
 
 export default Agent2AgentProtocolExplainer;
+
+
+
+
+

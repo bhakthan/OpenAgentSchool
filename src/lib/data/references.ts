@@ -80,6 +80,107 @@ export const references: ReferencesData = {
       }
     ],
     
+    // Tier 0: Prompting Fundamentals - NEW Core Concepts
+    "agentic-prompting-fundamentals": [
+      {
+        id: "official-guides",
+        name: "Official OpenAI Documentation",
+        references: [
+          {
+            title: "GPT-5 Prompting Guide",
+            url: "https://cookbook.openai.com/examples/gpt-5/gpt-5_prompting_guide",
+            description: "Official GPT-5 prompting guide covering agentic prompting fundamentals"
+          },
+          {
+            title: "GPT-5 Prompt Optimization Cookbook",
+            url: "https://cookbook.openai.com/examples/gpt-5/prompt-optimization-cookbook",
+            description: "Comprehensive cookbook for optimizing prompts with GPT-5"
+          },
+          {
+            title: "Prompt Engineering Best Practices",
+            url: "https://platform.openai.com/docs/guides/prompt-engineering",
+            description: "OpenAI's guide to effective prompt engineering"
+          }
+        ]
+      }
+    ],
+    
+    "prompt-optimization-patterns": [
+      {
+        id: "official-guides",
+        name: "Official OpenAI Documentation",
+        references: [
+          {
+            title: "GPT-5 Prompt Optimization Cookbook",
+            url: "https://cookbook.openai.com/examples/gpt-5/prompt-optimization-cookbook",
+            description: "Advanced optimization techniques with quantitative performance improvements"
+          },
+          {
+            title: "GPT-5 Prompting Guide",
+            url: "https://cookbook.openai.com/examples/gpt-5/gpt-5_prompting_guide",
+            description: "Comprehensive guide covering systematic optimization approaches"
+          }
+        ]
+      }
+    ],
+    
+    "agent-instruction-design": [
+      {
+        id: "official-guides",
+        name: "Official OpenAI Documentation",
+        references: [
+          {
+            title: "GPT-5 Prompting Guide",
+            url: "https://cookbook.openai.com/examples/gpt-5/gpt-5_prompting_guide",
+            description: "Instruction hierarchy design and steerability control mechanisms"
+          },
+          {
+            title: "GPT-5 Prompt Optimization Cookbook",
+            url: "https://cookbook.openai.com/examples/gpt-5/prompt-optimization-cookbook",
+            description: "Implementation patterns for effective instruction design"
+          }
+        ]
+      }
+    ],
+    
+    "agentic-workflow-control": [
+      {
+        id: "official-guides",
+        name: "Official OpenAI Documentation",
+        references: [
+          {
+            title: "GPT-5 Prompting Guide",
+            url: "https://cookbook.openai.com/examples/gpt-5/gpt-5_prompting_guide",
+            description: "Advanced workflow control, timing, and multi-tool coordination patterns"
+          },
+          {
+            title: "GPT-5 Prompt Optimization Cookbook",
+            url: "https://cookbook.openai.com/examples/gpt-5/prompt-optimization-cookbook",
+            description: "Workflow optimization techniques for complex agent systems"
+          }
+        ]
+      }
+    ],
+    
+    "agent-evaluation-methodologies": [
+      {
+        id: "official-guides",
+        name: "Official OpenAI Documentation",
+        references: [
+          {
+            title: "GPT-5 Prompting Guide",
+            url: "https://cookbook.openai.com/examples/gpt-5/gpt-5_prompting_guide",
+            description: "Comprehensive evaluation frameworks using LLM-as-judge techniques"
+          },
+          {
+            title: "GPT-5 Prompt Optimization Cookbook",
+            url: "https://cookbook.openai.com/examples/gpt-5/prompt-optimization-cookbook",
+            description: "Quantitative and qualitative evaluation methodologies"
+          }
+        ]
+      }
+    ],
+    
     // Core AI agents concept
     agents: [
       {

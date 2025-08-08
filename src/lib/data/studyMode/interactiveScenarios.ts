@@ -927,6 +927,770 @@ const result = await marketResearchAgent.invoke({
   }
 ];
 
+// Interactive Scenarios for Agentic Prompting Fundamentals
+export const agenticPromptingFundamentalsScenarios: StudyModeQuestion[] = [
+  {
+    id: 'agentic-prompting-scenario-1',
+    type: 'scenario',
+    conceptId: 'agentic-prompting-fundamentals',
+    title: 'Building Your First Tool-Using Agent',
+    level: 'beginner',
+    scenario: {
+      id: 'first-tool-agent',
+      title: 'Creating a Research Assistant Agent',
+      description: 'Build a research assistant that can search the web and create summaries, learning to control its tool usage and eagerness.',
+      context: 'You work for a news organization that needs quick research summaries. You have access to web search and document creation tools.',
+      stakeholders: ['News Editors', 'Reporters', 'Research Team'],
+      challenges: [
+        {
+          id: 'tool-control',
+          title: 'Control Tool Usage',
+          description: 'Setting up appropriate tool usage guidelines',
+          question: 'For a query like "What time is it?", should your agent use web search?',
+          type: 'multiple-choice',
+          options: [
+            'Yes, always search for the most current time',
+            'No, this is basic information the agent should know',
+            'Ask the user first before searching',
+            'Search only if the user specifically requests it'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Basic information queries should use the agent\'s built-in knowledge to avoid unnecessary tool calls and improve efficiency.',
+          hints: [
+            'Consider the cost and time of tool usage',
+            'Think about what constitutes "basic" vs "current" information'
+          ]
+        },
+        {
+          id: 'eagerness-control',
+          title: 'Set Appropriate Eagerness',
+          description: 'Controlling how quickly the agent acts',
+          question: 'For breaking news research, what eagerness level would be most appropriate?',
+          type: 'multiple-choice',
+          options: [
+            'Very eager - act immediately on any information',
+            'Moderate - verify key facts before proceeding',
+            'Cautious - double-check everything with multiple sources',
+            'Ask user preferences for each piece of information'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! For breaking news, you need speed but also accuracy. Moderate eagerness with key fact verification strikes the right balance.',
+          hints: [
+            'Consider the time pressure of news reporting',
+            'Think about the consequences of inaccurate information'
+          ]
+        },
+        {
+          id: 'instruction-clarity',
+          title: 'Design Clear Instructions',
+          description: 'Creating unambiguous agent instructions',
+          question: 'Which instruction set would be most effective for your research agent?',
+          type: 'multiple-choice',
+          options: [
+            '"Be helpful and find information quickly"',
+            '"Search for information, then write a summary, prioritizing accuracy over speed"',
+            '"For each query: 1) Determine if search is needed, 2) Search if required, 3) Create 200-word summary with sources"',
+            '"Do whatever seems best for each situation"'
+          ],
+          correctAnswer: 2,
+          feedback: 'Perfect! Specific, step-by-step instructions with clear criteria remove ambiguity and ensure consistent behavior.',
+          hints: [
+            'Ambiguous instructions lead to unpredictable behavior',
+            'Step-by-step processes ensure consistency'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'effective-agent',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve created an efficient, controlled research assistant',
+          explanation: 'Your agent knows when to use tools, operates at appropriate speed, and follows clear procedures.',
+          nextSteps: [
+            'Test with different types of queries',
+            'Add error handling for failed searches',
+            'Implement quality checks for summaries'
+          ]
+        },
+        {
+          id: 'inefficient-agent',
+          condition: 'Some challenges answered incorrectly',
+          result: 'Your agent may be inefficient or unpredictable',
+          explanation: 'Review the principles of tool control and instruction clarity to improve agent reliability.',
+          nextSteps: [
+            'Refine tool usage criteria',
+            'Clarify instruction specificity',
+            'Test agent behavior with edge cases'
+          ]
+        }
+      ],
+      codeExample: `# Research Assistant Agent Setup
+system_prompt = """You are a research assistant for a news organization.
+
+Tool Usage Guidelines:
+- Use web search only for current events, statistics, or information not in your training
+- Do NOT search for basic facts, definitions, or general knowledge
+- For time-sensitive queries, search immediately
+- For general queries, use your knowledge first
+
+Process for each query:
+1. Determine if web search is needed
+2. If needed, search using focused keywords
+3. Create a 200-word summary
+4. Include 2-3 reliable sources
+5. Flag any information you're uncertain about
+
+Eagerness Level: Moderate
+- Verify key facts before proceeding
+- Don't search unnecessarily 
+- Prioritize accuracy while maintaining reasonable speed
+"""`,
+      resources: [
+        'OpenAI GPT-5 Prompting Guide',
+        'Tool Integration Best Practices',
+        'Agent Control Patterns',
+        'News Research Standards'
+      ],
+      conceptId: 'agentic-prompting-fundamentals',
+      difficulty: 'beginner',
+      estimatedTime: '20 minutes',
+      learningOutcomes: [
+        'Controls agent tool usage effectively',
+        'Sets appropriate eagerness levels',
+        'Creates clear, specific instructions',
+        'Understands the balance between automation and control'
+      ]
+    },
+    explanation: "This scenario teaches the fundamentals of agentic prompting through practical application, focusing on tool control and instruction design.",
+    relatedConcepts: ['prompt-optimization-patterns', 'agent-instruction-design'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Demonstrates understanding of tool usage criteria',
+      'Shows appropriate eagerness calibration',
+      'Creates specific, actionable instructions'
+    ]
+  }
+];
+
+// Interactive Scenarios for Prompt Optimization Patterns
+export const promptOptimizationPatternsScenarios: StudyModeQuestion[] = [
+  {
+    id: 'prompt-optimization-scenario-1',
+    type: 'scenario',
+    conceptId: 'prompt-optimization-patterns',
+    title: 'Optimizing a Customer Service Agent',
+    level: 'intermediate',
+    scenario: {
+      id: 'customer-service-optimization',
+      title: 'Reducing Response Time and Token Usage',
+      description: 'Transform a verbose, slow customer service agent into an efficient, helpful assistant while maintaining quality.',
+      context: 'Your customer service agent currently takes 45 seconds and 800 tokens per response. Management wants to reduce this to 15 seconds and 300 tokens without losing helpfulness.',
+      stakeholders: ['Customer Service Manager', 'Customers', 'Cost Management Team'],
+      challenges: [
+        {
+          id: 'identify-inefficiency',
+          title: 'Identify the Main Problem',
+          description: 'Analyzing the current agent behavior',
+          question: 'The agent currently provides a detailed explanation of every company policy before answering. What\'s the optimization strategy?',
+          type: 'multiple-choice',
+          options: [
+            'Remove all policy explanations to save tokens',
+            'Provide policy context only when directly relevant to the question',
+            'Put all policies in a separate document the user can read',
+            'Keep current approach but speak faster'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Contextual relevance ensures you provide necessary information without overwhelming users with irrelevant details.',
+          hints: [
+            'Consider what information is actually needed for each query',
+            'Think about user experience and efficiency together'
+          ]
+        },
+        {
+          id: 'contradiction-resolution',
+          title: 'Resolve Contradictory Instructions',
+          description: 'The current prompt says both "be comprehensive" and "be concise"',
+          question: 'How should you resolve this contradiction?',
+          type: 'multiple-choice',
+          options: [
+            'Choose comprehensiveness over conciseness always',
+            'Choose conciseness over comprehensiveness always',
+            'Be comprehensive for complex issues, concise for simple ones',
+            'Ask the customer which they prefer for each question'
+          ],
+          correctAnswer: 2,
+          feedback: 'Excellent! Context-dependent instruction resolution allows the agent to match response depth to question complexity.',
+          hints: [
+            'Consider that different situations have different needs',
+            'Think about how to provide clear decision criteria'
+          ]
+        },
+        {
+          id: 'efficiency-measurement',
+          title: 'Measure Success',
+          description: 'Determining if your optimization worked',
+          question: 'Which metrics best indicate successful optimization?',
+          type: 'multiple-choice',
+          options: [
+            'Token count and response time only',
+            'Customer satisfaction and resolution rate only',
+            'Token count, response time, satisfaction, and resolution rate',
+            'Number of follow-up questions needed'
+          ],
+          correctAnswer: 2,
+          feedback: 'Perfect! Comprehensive metrics ensure you\'re optimizing for real value, not just reducing numbers.',
+          hints: [
+            'Optimization should improve overall value, not just one metric',
+            'Consider the customer\'s perspective on quality'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'successful-optimization',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve created an efficient customer service agent that maintains quality',
+          explanation: 'Your optimization strategy balances efficiency with effectiveness, providing contextual responses.',
+          nextSteps: [
+            'A/B test the optimized version against the original',
+            'Monitor customer satisfaction scores',
+            'Fine-tune based on common question patterns'
+          ]
+        },
+        {
+          id: 'incomplete-optimization',
+          condition: 'Some challenges answered incorrectly',
+          result: 'Your optimization may sacrifice quality for efficiency',
+          explanation: 'Effective optimization requires balancing multiple factors and measuring holistic success.',
+          nextSteps: [
+            'Review the relationship between efficiency and quality',
+            'Consider comprehensive measurement approaches',
+            'Test with real customer interactions'
+          ]
+        }
+      ],
+      codeExample: `# Optimized Customer Service Agent
+system_prompt = """You are a customer service representative.
+
+Response Strategy:
+- For simple questions (account info, hours, locations): Direct, concise answers
+- For complex issues (billing disputes, technical problems): Detailed explanations
+- Include policy information only when directly relevant to the question
+
+Efficiency Guidelines:
+- Lead with the direct answer
+- Follow with explanation if needed
+- Avoid unnecessary background information
+- Use bullet points for multiple items
+
+Quality Standards:
+- Ensure accuracy over speed
+- Escalate when uncertain
+- Always acknowledge customer concerns
+- End with clear next steps
+"""`,
+      resources: [
+        'Prompt Optimization Cookbook',
+        'Customer Service Excellence Standards',
+        'Efficiency Measurement Frameworks',
+        'A/B Testing for AI Systems'
+      ],
+      conceptId: 'prompt-optimization-patterns',
+      difficulty: 'intermediate',
+      estimatedTime: '25 minutes',
+      learningOutcomes: [
+        'Identifies and eliminates prompt inefficiencies',
+        'Resolves contradictory instructions effectively',
+        'Balances efficiency with quality',
+        'Implements comprehensive success metrics'
+      ]
+    },
+    explanation: "This scenario demonstrates practical prompt optimization techniques, focusing on real-world efficiency gains without sacrificing quality.",
+    relatedConcepts: ['agent-evaluation-methodologies', 'agentic-workflow-control'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Identifies efficiency bottlenecks accurately',
+      'Resolves instruction contradictions systematically',
+      'Understands holistic optimization measurement'
+    ]
+  }
+];
+
+// Interactive Scenarios for Agent Instruction Design
+export const agentInstructionDesignScenarios: StudyModeQuestion[] = [
+  {
+    id: 'agent-instruction-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-instruction-design',
+    title: 'Designing a Steerable Content Creator',
+    level: 'advanced',
+    scenario: {
+      id: 'steerable-content-creator',
+      title: 'Multi-Audience Content Agent',
+      description: 'Design an agent that adapts its writing style for different audiences while maintaining core messaging consistency.',
+      context: 'Your marketing team needs an agent that can write the same message for executives, technical teams, and general consumers, adapting style while keeping key information consistent.',
+      stakeholders: ['Marketing Team', 'Executives', 'Technical Teams', 'General Consumers'],
+      challenges: [
+        {
+          id: 'audience-detection',
+          title: 'Implement Audience Detection',
+          description: 'How should the agent identify its target audience?',
+          question: 'What\'s the most reliable method for audience detection?',
+          type: 'multiple-choice',
+          options: [
+            'Analyze vocabulary complexity in user queries',
+            'Require explicit audience specification in each request',
+            'Use context clues like department, role, or meeting type',
+            'Default to general audience unless told otherwise'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Explicit specification removes ambiguity and ensures the agent targets the intended audience consistently.',
+          hints: [
+            'Automatic detection can be unreliable',
+            'Clarity prevents mismatched content'
+          ]
+        },
+        {
+          id: 'consistency-mechanism',
+          title: 'Maintain Core Consistency',
+          description: 'Ensuring key messages remain consistent across audiences',
+          question: 'How should you ensure core facts remain consistent while style adapts?',
+          type: 'multiple-choice',
+          options: [
+            'Write completely different content for each audience',
+            'Keep a core facts checklist that must appear in all versions',
+            'Use the same text but change formatting only',
+            'Let the agent decide what\'s important for each audience'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! A core facts checklist ensures critical information appears consistently while allowing style adaptation.',
+          hints: [
+            'Some information must never change regardless of audience',
+            'Think about maintaining message integrity'
+          ]
+        },
+        {
+          id: 'priority-hierarchy',
+          title: 'Handle Conflicting Requirements',
+          description: 'When audience needs conflict with company policy',
+          question: 'If the technical audience wants detailed security information but company policy prohibits sharing specifics, what should the agent do?',
+          type: 'multiple-choice',
+          options: [
+            'Always prioritize audience preferences',
+            'Always follow company policy regardless of audience',
+            'Ask the user to resolve the conflict',
+            'Provide general security information that satisfies both needs'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Company policy must take precedence over audience preferences to ensure compliance and security.',
+          hints: [
+            'Consider legal and security implications',
+            'Think about which conflicts are negotiable vs non-negotiable'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'effective-steerability',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve designed a reliably steerable agent with proper safeguards',
+          explanation: 'Your agent adapts appropriately while maintaining consistency and respecting important constraints.',
+          nextSteps: [
+            'Test with real content across different audiences',
+            'Create feedback loops for continuous improvement',
+            'Develop templates for common message types'
+          ]
+        },
+        {
+          id: 'unreliable-steerability',
+          condition: 'Some challenges answered incorrectly',
+          result: 'Your agent may produce inconsistent or inappropriate content',
+          explanation: 'Effective steerability requires clear detection, consistency mechanisms, and priority hierarchies.',
+          nextSteps: [
+            'Clarify audience detection methods',
+            'Establish non-negotiable consistency requirements',
+            'Define clear priority hierarchies'
+          ]
+        }
+      ],
+      codeExample: `# Steerable Content Creator Agent
+system_prompt = """You are a content creator that adapts writing style for different audiences.
+
+AUDIENCE ADAPTATION:
+- Executive: High-level insights, business impact, minimal technical detail
+- Technical: Detailed implementation, specifications, technical accuracy
+- General: Clear explanations, analogies, accessible language
+
+CORE CONSISTENCY REQUIREMENTS:
+- All numerical data must be identical across versions
+- Legal disclaimers must appear in all versions
+- Brand messaging must remain consistent
+- Security information follows company disclosure policy
+
+PRIORITY HIERARCHY:
+1. Company policy and legal requirements (non-negotiable)
+2. Factual accuracy (non-negotiable)  
+3. Audience appropriateness (adaptable)
+4. Engagement optimization (adaptable)
+
+Format: Always specify target audience at the start of your response.
+"""`,
+      resources: [
+        'Multi-Audience Communication Strategies',
+        'Brand Consistency Guidelines',
+        'Adaptive Writing Frameworks',
+        'Content Governance Policies'
+      ],
+      conceptId: 'agent-instruction-design',
+      difficulty: 'advanced',
+      estimatedTime: '30 minutes',
+      learningOutcomes: [
+        'Designs reliable audience detection mechanisms',
+        'Implements consistency safeguards',
+        'Creates clear priority hierarchies',
+        'Balances adaptability with control'
+      ]
+    },
+    explanation: "This scenario demonstrates advanced instruction design for steerable agents, emphasizing the balance between flexibility and control.",
+    relatedConcepts: ['agentic-prompting-fundamentals', 'agent-evaluation-methodologies'],
+    timeEstimate: 30,
+    successCriteria: [
+      'Designs effective audience detection systems',
+      'Implements robust consistency mechanisms',
+      'Understands priority hierarchy principles'
+    ]
+  }
+];
+
+// Interactive Scenarios for Agentic Workflow Control
+export const agenticWorkflowControlScenarios: StudyModeQuestion[] = [
+  {
+    id: 'agentic-workflow-scenario-1',
+    type: 'scenario',
+    conceptId: 'agentic-workflow-control',
+    title: 'Orchestrating a Content Production Pipeline',
+    level: 'advanced',
+    scenario: {
+      id: 'content-production-pipeline',
+      title: 'Multi-Tool Content Workflow',
+      description: 'Design a robust workflow that coordinates research, writing, editing, and publishing tools with proper error handling.',
+      context: 'Your content team needs an automated pipeline: research topic → write article → edit for quality → optimize for SEO → publish. Each step uses different tools and can fail.',
+      stakeholders: ['Content Team', 'SEO Specialists', 'Publishers', 'Quality Assurance'],
+      challenges: [
+        {
+          id: 'dependency-analysis',
+          title: 'Analyze Task Dependencies',
+          description: 'Understanding which tasks can run in parallel',
+          question: 'Which of these tasks can be done in parallel during content creation?',
+          type: 'multiple-choice',
+          options: [
+            'Research and writing can happen simultaneously',
+            'SEO optimization and quality editing can happen simultaneously',
+            'Writing and publishing can happen simultaneously',
+            'All tasks must happen sequentially'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! SEO optimization and quality editing work on different aspects and can run in parallel, then merge results.',
+          hints: [
+            'Consider which tasks work on independent aspects of the content',
+            'Think about what information each task needs from previous steps'
+          ]
+        },
+        {
+          id: 'failure-handling',
+          title: 'Design Failure Recovery',
+          description: 'Handling tool failures gracefully',
+          question: 'If the SEO optimization tool fails, what\'s the best recovery strategy?',
+          type: 'multiple-choice',
+          options: [
+            'Fail the entire pipeline and start over',
+            'Skip SEO optimization and continue with publishing',
+            'Use basic SEO rules manually and continue',
+            'Stop and wait for the tool to be fixed'
+          ],
+          correctAnswer: 2,
+          feedback: 'Excellent! Fallback to basic SEO rules maintains workflow continuity while preserving some optimization value.',
+          hints: [
+            'Consider what minimal functionality you can provide',
+            'Think about business continuity vs perfect execution'
+          ]
+        },
+        {
+          id: 'coordination-strategy',
+          title: 'Coordinate Tool Handoffs',
+          description: 'Managing data flow between tools',
+          question: 'How should you handle version conflicts when parallel editing and SEO optimization both modify the content?',
+          type: 'multiple-choice',
+          options: [
+            'Always prioritize editing changes over SEO changes',
+            'Always prioritize SEO changes over editing changes',
+            'Use a merge strategy that combines both sets of changes',
+            'Run the tasks sequentially to avoid conflicts'
+          ],
+          correctAnswer: 2,
+          feedback: 'Perfect! A merge strategy preserves the value from both parallel processes while handling conflicts systematically.',
+          hints: [
+            'Both editing and SEO add value that shouldn\'t be lost',
+            'Think about conflict resolution strategies'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'robust-workflow',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve designed a resilient, efficient content production pipeline',
+          explanation: 'Your workflow maximizes parallelism, handles failures gracefully, and preserves value from all processing steps.',
+          nextSteps: [
+            'Implement monitoring and alerting for tool failures',
+            'Add quality metrics tracking throughout the pipeline',
+            'Create rollback mechanisms for problematic publications'
+          ]
+        },
+        {
+          id: 'fragile-workflow',
+          condition: 'Some challenges answered incorrectly',
+          result: 'Your workflow may be inefficient or prone to failures',
+          explanation: 'Robust workflow design requires careful dependency analysis, failure planning, and coordination strategies.',
+          nextSteps: [
+            'Map out task dependencies more carefully',
+            'Plan for common failure scenarios',
+            'Design conflict resolution mechanisms'
+          ]
+        }
+      ],
+      codeExample: `# Content Production Workflow
+workflow_config = {
+    "stages": [
+        {
+            "name": "research",
+            "tool": "web_search",
+            "parallel": False,
+            "timeout": 300,
+            "fallback": "use_cached_research"
+        },
+        {
+            "name": "writing", 
+            "tool": "content_generator",
+            "depends_on": ["research"],
+            "parallel": False,
+            "timeout": 600
+        },
+        {
+            "name": "parallel_processing",
+            "parallel": True,
+            "subtasks": [
+                {
+                    "name": "quality_edit",
+                    "tool": "grammar_checker",
+                    "timeout": 180,
+                    "fallback": "basic_spell_check"
+                },
+                {
+                    "name": "seo_optimize",
+                    "tool": "seo_analyzer", 
+                    "timeout": 120,
+                    "fallback": "basic_seo_rules"
+                }
+            ],
+            "merge_strategy": "combine_edits"
+        },
+        {
+            "name": "publish",
+            "tool": "cms_publisher",
+            "depends_on": ["parallel_processing"],
+            "timeout": 60,
+            "fallback": "save_as_draft"
+        }
+    ]
+}`,
+      resources: [
+        'Workflow Orchestration Best Practices',
+        'Error Handling in Distributed Systems',
+        'Content Production Methodologies',
+        'Tool Integration Patterns'
+      ],
+      conceptId: 'agentic-workflow-control',
+      difficulty: 'advanced',
+      estimatedTime: '35 minutes',
+      learningOutcomes: [
+        'Analyzes task dependencies for optimization',
+        'Designs robust failure handling strategies',
+        'Implements effective tool coordination',
+        'Balances efficiency with reliability'
+      ]
+    },
+    explanation: "This scenario demonstrates advanced workflow control principles through a complex, real-world content production pipeline.",
+    relatedConcepts: ['prompt-optimization-patterns', 'agent-evaluation-methodologies'],
+    timeEstimate: 35,
+    successCriteria: [
+      'Correctly identifies parallelizable tasks',
+      'Designs appropriate failure recovery mechanisms',
+      'Implements effective coordination strategies'
+    ]
+  }
+];
+
+// Interactive Scenarios for Agent Evaluation Methodologies
+export const agentEvaluationMethodologiesScenarios: StudyModeQuestion[] = [
+  {
+    id: 'agent-evaluation-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-evaluation-methodologies',
+    title: 'Building a Comprehensive Evaluation System',
+    level: 'advanced',
+    scenario: {
+      id: 'comprehensive-evaluation',
+      title: 'Multi-Dimensional Agent Assessment',
+      description: 'Design an evaluation system that accurately predicts real-world agent performance across multiple dimensions.',
+      context: 'Your AI team has deployed several agents, but traditional accuracy metrics don\'t predict user satisfaction. You need a comprehensive evaluation framework.',
+      stakeholders: ['AI Team', 'Product Managers', 'End Users', 'Quality Assurance'],
+      challenges: [
+        {
+          id: 'metric-selection',
+          title: 'Choose Evaluation Dimensions',
+          description: 'Selecting metrics that matter for real-world performance',
+          question: 'For a customer support agent, which metric combination best predicts user satisfaction?',
+          type: 'multiple-choice',
+          options: [
+            'Accuracy and response time only',
+            'Accuracy, response time, helpfulness, and politeness',
+            'Just user satisfaction surveys',
+            'Technical correctness and compliance only'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Multiple dimensions capture the full user experience better than any single metric.',
+          hints: [
+            'Consider what makes users happy with support interactions',
+            'Think beyond just correctness'
+          ]
+        },
+        {
+          id: 'judge-design',
+          title: 'Design LLM Judge System',
+          description: 'Creating an unbiased evaluation system',
+          question: 'How should you prevent your LLM judge from being biased toward verbose responses?',
+          type: 'multiple-choice',
+          options: [
+            'Train the judge to prefer shorter responses',
+            'Include response length as a negative factor in scoring',
+            'Evaluate helpfulness and efficiency separately, then combine scores',
+            'Only use human judges for evaluation'
+          ],
+          correctAnswer: 2,
+          feedback: 'Excellent! Separate evaluation of different qualities allows you to balance them appropriately rather than having implicit biases.',
+          hints: [
+            'Separate evaluation reduces bias interactions between criteria',
+            'Consider how to balance multiple quality dimensions'
+          ]
+        },
+        {
+          id: 'validation-strategy',
+          title: 'Validate Judge Quality',
+          description: 'Ensuring your evaluation system is reliable',
+          question: 'How should you validate that your LLM judge makes good evaluations?',
+          type: 'multiple-choice',
+          options: [
+            'Compare judge scores to human expert ratings on a test set',
+            'Use the judge scores as ground truth',
+            'Check if judge scores correlate with agent confidence',
+            'Assume the judge is accurate if it uses good criteria'
+          ],
+          correctAnswer: 0,
+          feedback: 'Perfect! Human expert validation provides the gold standard for judge calibration and reliability assessment.',
+          hints: [
+            'You need an external standard to validate against',
+            'Human experts provide the most reliable comparison'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'comprehensive-system',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve designed a reliable, multi-dimensional evaluation system',
+          explanation: 'Your system captures real user experience through multiple metrics, uses unbiased evaluation, and validates its reliability.',
+          nextSteps: [
+            'Implement A/B testing to validate evaluation predictiveness',
+            'Create dashboards for monitoring agent performance trends',
+            'Set up automated alerts for performance degradation'
+          ]
+        },
+        {
+          id: 'incomplete-system',
+          condition: 'Some challenges answered incorrectly',
+          result: 'Your evaluation system may miss important quality dimensions',
+          explanation: 'Comprehensive evaluation requires multiple dimensions, bias mitigation, and validation against human standards.',
+          nextSteps: [
+            'Expand your evaluation dimensions',
+            'Address potential biases in your judging system',
+            'Establish human validation benchmarks'
+          ]
+        }
+      ],
+      codeExample: `# Comprehensive Agent Evaluation System
+evaluation_framework = {
+    "dimensions": {
+        "accuracy": {
+            "weight": 0.3,
+            "method": "exact_match_and_semantic_similarity"
+        },
+        "helpfulness": {
+            "weight": 0.25,
+            "method": "llm_judge_with_specific_criteria"
+        },
+        "efficiency": {
+            "weight": 0.2,
+            "method": "response_time_and_token_usage"
+        },
+        "politeness": {
+            "weight": 0.15,
+            "method": "sentiment_and_tone_analysis"
+        },
+        "safety": {
+            "weight": 0.1,
+            "method": "safety_classifier"
+        }
+    },
+    "judge_validation": {
+        "human_expert_sample_size": 200,
+        "correlation_threshold": 0.8,
+        "bias_checks": ["length_bias", "formality_bias", "complexity_bias"]
+    },
+    "reporting": {
+        "overall_score": "weighted_average",
+        "dimension_breakdown": True,
+        "trend_analysis": True,
+        "user_segment_analysis": True
+    }
+}`,
+      resources: [
+        'LLM-as-Judge Best Practices',
+        'Multi-Dimensional Evaluation Frameworks',
+        'Judge Calibration Methodologies',
+        'User Experience Measurement'
+      ],
+      conceptId: 'agent-evaluation-methodologies',
+      difficulty: 'advanced',
+      estimatedTime: '40 minutes',
+      learningOutcomes: [
+        'Designs comprehensive evaluation frameworks',
+        'Creates unbiased LLM judge systems',
+        'Implements proper validation strategies',
+        'Understands the relationship between metrics and user satisfaction'
+      ]
+    },
+    explanation: "This scenario demonstrates advanced evaluation design, emphasizing real-world predictiveness and bias mitigation in automated assessment systems.",
+    relatedConcepts: ['prompt-optimization-patterns', 'agent-instruction-design'],
+    timeEstimate: 40,
+    successCriteria: [
+      'Selects appropriate multi-dimensional metrics',
+      'Designs unbiased evaluation systems',
+      'Implements robust validation strategies'
+    ]
+  }
+];
+
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
@@ -934,7 +1698,13 @@ export const scenarioLibrary = {
   'agentic-rag': agenticRAGScenarios,
   'modern-tool-use': modernToolUseScenarios,
   'computer-use': computerUseScenarios,
-  'deep-agents': deepAgentsScenarios
+  'deep-agents': deepAgentsScenarios,
+  // New Core Concepts
+  'agentic-prompting-fundamentals': agenticPromptingFundamentalsScenarios,
+  'prompt-optimization-patterns': promptOptimizationPatternsScenarios,
+  'agent-instruction-design': agentInstructionDesignScenarios,
+  'agentic-workflow-control': agenticWorkflowControlScenarios,
+  'agent-evaluation-methodologies': agentEvaluationMethodologiesScenarios
 };
 
 // Helper function to get scenarios by concept and level

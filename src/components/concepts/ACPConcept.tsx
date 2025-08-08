@@ -46,7 +46,7 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
                 workflow management, and advanced coordination patterns.
               </p>
               
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Advanced Capabilities:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -282,7 +282,7 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
               <CardTitle>ACP Configuration Example</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <pre className="text-sm">
 {`{
   "agents": [
@@ -380,7 +380,7 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">
                     Performance & Scaling
                   </h4>
@@ -391,7 +391,7 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
                     <li>• Monitor system resources and bottlenecks</li>
                   </ul>
                 </div>
-                <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
                     Security & Compliance
                   </h4>
@@ -402,7 +402,7 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
                     <li>• Regular security assessments and updates</li>
                   </ul>
                 </div>
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
                     Monitoring & Observability
                   </h4>
@@ -442,3 +442,10 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
     />
   )
 }
+
+
+
+
+
+
+

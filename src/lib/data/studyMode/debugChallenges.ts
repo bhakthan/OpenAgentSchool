@@ -1419,6 +1419,466 @@ async function processComplexTask(task: string) {
   }
 ];
 
+// Debug Challenges for Agentic Prompting Fundamentals
+const agenticPromptingFundamentalsDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'agentic-prompting-debug-1',
+    type: 'debug',
+    conceptId: 'agentic-prompting-fundamentals',
+    title: 'The Over-Eager Agent',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'agentic-prompting-debug-1',
+      title: 'The Over-Eager Agent',
+      description: "An agent immediately uses a web search tool for the query 'What is 2+2?' instead of using basic reasoning.",
+      problemDescription: "The agent is using expensive external tools for simple tasks that could be solved with basic reasoning, leading to inefficiency and unnecessary costs.",
+      brokenCode: `System: You are a helpful assistant with access to web search. Always help users efficiently.
+
+User: What is 2+2?
+
+Agent: I'll search for information about this mathematical problem.
+[Uses web search tool for "2+2"]`,
+      expectedBehavior: "The agent should recognize that simple arithmetic can be solved through reasoning and only use external tools when necessary.",
+      commonIssues: [
+        {
+          issue: "Indiscriminate tool usage",
+          symptoms: ["Using web search for basic math", "High tool usage costs", "Slow response times"],
+          diagnosis: "Lack of guidance about when to use tools vs reasoning",
+          fix: "Add clear criteria for tool selection based on task complexity"
+        }
+      ],
+      solution: "Add guidance about when to use tools vs reasoning, emphasize efficiency through appropriate tool selection.",
+      explanation: "This demonstrates the importance of controlling agent eagerness and providing clear guidance about when different capabilities should be used."
+    },
+    hints: [
+      "Consider what 'efficiently' means - sometimes reasoning is faster than tool use",
+      "Think about adding guidance for tool selection",
+      "The agent needs criteria for when to use external tools vs internal knowledge"
+    ],
+    explanation: "This demonstrates the importance of controlling agent eagerness and providing clear guidance about when different capabilities should be used.",
+    relatedConcepts: ['prompt-optimization-patterns', 'agentic-workflow-control'],
+    timeEstimate: 15,
+    successCriteria: [
+      "Identifies inappropriate tool usage",
+      "Suggests criteria for tool vs reasoning decisions",
+      "Understands efficiency in context"
+    ]
+  },
+  {
+    id: 'agentic-prompting-debug-2',
+    type: 'debug',
+    conceptId: 'agentic-prompting-fundamentals',
+    title: 'The Paralyzed Planner',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'agentic-prompting-debug-2',
+      title: 'The Paralyzed Planner',
+      description: "An agent with file access keeps asking for permission for every small action instead of proceeding with the assigned task.",
+      problemDescription: "The agent is overly cautious and seeks permission for routine operations, preventing it from completing assigned tasks efficiently.",
+      brokenCode: `User: Please organize my documents folder.
+
+Agent: I can help organize your documents. Should I:
+1. First examine what files are in the folder?
+2. Create a backup before making changes?
+3. Ask you about each file individually?
+4. Create subfolders for organization?
+
+Please let me know how you'd like me to proceed with each step.`,
+      expectedBehavior: "The agent should take reasonable organizing actions autonomously while asking for permission only when necessary for destructive or uncertain operations.",
+      commonIssues: [
+        {
+          issue: "Over-cautious behavior",
+          symptoms: ["Excessive permission requests", "Inability to proceed with tasks", "User frustration"],
+          diagnosis: "Lack of clear autonomy boundaries",
+          fix: "Define which actions are safe to take autonomously vs requiring permission"
+        }
+      ],
+      solution: "Balance autonomy with safety - the agent should take reasonable organizing actions while asking for permission only when necessary.",
+      explanation: "This shows the challenge of balancing agent autonomy with appropriate caution - agents need to be empowered to act within reasonable bounds."
+    },
+    hints: [
+      "Consider what actions are safe to take autonomously vs what needs permission",
+      "Think about the user's intent when they ask for organization",
+      "The agent should be empowered to make reasonable decisions"
+    ],
+    explanation: "This shows the challenge of balancing agent autonomy with appropriate caution - agents need to be empowered to act within reasonable bounds.",
+    relatedConcepts: ['agent-instruction-design', 'agentic-workflow-control'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Identifies over-cautious behavior",
+      "Suggests appropriate autonomy boundaries",
+      "Understands the balance between safety and efficiency"
+    ]
+  }
+];
+
+// Debug Challenges for Prompt Optimization Patterns
+const promptOptimizationPatternsDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'prompt-optimization-debug-1',
+    type: 'debug',
+    conceptId: 'prompt-optimization-patterns',
+    title: 'The Contradictory Creative',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'prompt-optimization-debug-1',
+      title: 'The Contradictory Creative',
+      description: "A prompt asks for both 'highly creative and original content' and 'strictly follow the approved template format.'",
+      problemDescription: "The agent produces inconsistent results, sometimes creative but breaking format, sometimes formatted but generic, due to contradictory instructions.",
+      brokenCode: `You are a marketing content creator. Generate highly creative and original content that stands out from competitors. Strictly follow the approved template format provided below. Be innovative and think outside the box while adhering to all formatting requirements.
+
+Template:
+[TITLE: Max 50 characters]
+[BODY: Exactly 200 words]
+[CTA: Use only approved phrases]`,
+      expectedBehavior: "The agent should produce content that is creative within the specified constraints, with clear priority when requirements conflict.",
+      commonIssues: [
+        {
+          issue: "Contradictory instructions",
+          symptoms: ["Inconsistent output quality", "Unpredictable behavior", "Either creative OR formatted, not both"],
+          diagnosis: "Instructions conflict between creativity and strict format adherence",
+          fix: "Resolve contradictions by specifying bounded creativity or clear priorities"
+        }
+      ],
+      solution: "Resolve the contradiction by specifying creativity within format constraints or prioritizing one requirement over the other.",
+      explanation: "This demonstrates how contradictory instructions lead to unpredictable behavior and the need for conflict resolution in prompt design."
+    },
+    hints: [
+      "The instructions contradict each other - identify the conflict",
+      "Consider how to enable creativity within constraints",
+      "Think about setting clear priorities when requirements conflict"
+    ],
+    explanation: "This demonstrates how contradictory instructions lead to unpredictable behavior and the need for conflict resolution in prompt design.",
+    relatedConcepts: ['agent-instruction-design', 'agentic-prompting-fundamentals'],
+    timeEstimate: 18,
+    successCriteria: [
+      "Identifies the contradiction between creativity and strict format adherence",
+      "Suggests ways to enable bounded creativity",
+      "Understands the importance of consistent instruction hierarchies"
+    ]
+  },
+  {
+    id: 'prompt-optimization-debug-2',
+    type: 'debug',
+    conceptId: 'prompt-optimization-patterns',
+    title: 'The Verbose Processor',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'prompt-optimization-debug-2',
+      title: 'The Verbose Processor',
+      description: "A data processing agent uses 2000 tokens to explain what it's doing for a simple calculation that should take 50 tokens.",
+      problemDescription: "The results are correct but extremely inefficient due to excessive explanation for simple tasks.",
+      brokenCode: `You are a helpful data analysis assistant. Please be thorough and explain your thinking step by step. Always provide detailed explanations of your methodology and reasoning process so users can understand and verify your work.
+
+User: Calculate the average of these numbers: 5, 10, 15
+
+Agent: I'll help you calculate the average of the provided numbers. Let me start by explaining what an average means: An average, also known as the arithmetic mean, is calculated by adding all the numbers together and then dividing by the count of numbers...
+
+[Continues for 2000 tokens explaining basic math concepts]`,
+      expectedBehavior: "The agent should provide explanations proportional to task complexity, being concise for simple operations while being thorough when needed.",
+      commonIssues: [
+        {
+          issue: "Disproportionate verbosity",
+          symptoms: ["Excessive token usage", "Slow response times", "Information overload"],
+          diagnosis: "Explanation depth doesn't match task complexity",
+          fix: "Match explanation level to task requirements and user needs"
+        }
+      ],
+      solution: "Optimize for efficiency by matching explanation depth to task complexity and user needs.",
+      explanation: "This shows how optimization requires balancing thoroughness with efficiency, matching response complexity to task needs."
+    },
+    hints: [
+      "The explanation is disproportionate to the task complexity",
+      "Consider when detailed explanations add value vs create noise",
+      "Think about matching response length to task requirements"
+    ],
+    explanation: "This shows how optimization requires balancing thoroughness with efficiency, matching response complexity to task needs.",
+    relatedConcepts: ['agent-evaluation-methodologies', 'agentic-workflow-control'],
+    timeEstimate: 22,
+    successCriteria: [
+      "Identifies excessive verbosity for simple tasks",
+      "Suggests proportional response strategies",
+      "Understands efficiency optimization beyond just correctness"
+    ]
+  }
+];
+
+// Debug Challenges for Agent Instruction Design
+const agentInstructionDesignDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'agent-instruction-debug-1',
+    type: 'debug',
+    conceptId: 'agent-instruction-design',
+    title: 'The Priority Confusion',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'agent-instruction-debug-1',
+      title: 'The Priority Confusion',
+      description: "An agent receives conflicting instructions about response speed vs accuracy.",
+      problemDescription: "When asked to quickly check facts for a news article, it spends 20 minutes researching to ensure perfect accuracy, missing the deadline.",
+      brokenCode: `You are a fact-checking assistant. Always provide the most accurate information possible by thoroughly researching multiple sources. Speed is important for news deadlines, so work quickly. Never compromise on accuracy - false information is worse than no information.
+
+User: Quick fact-check needed for breaking news - is the stock market up or down today? Need answer in 2 minutes for publication.`,
+      expectedBehavior: "The agent should recognize time constraints and adjust accuracy standards appropriately, providing good-enough information within deadlines.",
+      commonIssues: [
+        {
+          issue: "Conflicting priorities",
+          symptoms: ["Missed deadlines", "Over-researching for time-sensitive tasks", "Inability to balance speed vs accuracy"],
+          diagnosis: "Instructions conflict between speed and exhaustive accuracy",
+          fix: "Establish clear priority hierarchies and time-constrained protocols"
+        }
+      ],
+      solution: "Establish clear priority hierarchies and provide guidance for time-constrained scenarios.",
+      explanation: "This demonstrates the need for explicit priority hierarchies and context-sensitive instruction frameworks."
+    },
+    hints: [
+      "The instructions conflict between speed and exhaustive accuracy",
+      "Consider how to handle time constraints explicitly",
+      "Think about different accuracy standards for different time pressures"
+    ],
+    explanation: "This demonstrates the need for explicit priority hierarchies and context-sensitive instruction frameworks.",
+    relatedConcepts: ['agentic-workflow-control', 'prompt-optimization-patterns'],
+    timeEstimate: 25,
+    successCriteria: [
+      "Identifies the speed vs accuracy conflict",
+      "Suggests priority frameworks for time-constrained tasks",
+      "Understands context-sensitive instruction design"
+    ]
+  },
+  {
+    id: 'agent-instruction-debug-2',
+    type: 'debug',
+    conceptId: 'agent-instruction-design',
+    title: 'The Inflexible Specialist',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'agent-instruction-debug-2',
+      title: 'The Inflexible Specialist',
+      description: "An agent designed for technical documentation always uses jargon and complex explanations.",
+      problemDescription: "Even when the user is clearly a beginner asking basic questions, the agent maintains technical complexity inappropriate for the audience.",
+      brokenCode: `You are a technical documentation specialist. Provide comprehensive, technically accurate documentation using industry-standard terminology. Ensure all explanations include proper technical specifications and assume users have domain expertise.
+
+User: Hi, I'm new to programming. How do I save a file?
+
+Agent: To persist data structures to non-volatile storage media, you must invoke the appropriate system call through your integrated development environment's file I/O abstraction layer, ensuring proper buffer management and exception handling protocols...`,
+      expectedBehavior: "The agent should detect user expertise level and adjust communication style while maintaining technical accuracy.",
+      commonIssues: [
+        {
+          issue: "Lack of audience adaptation",
+          symptoms: ["Inappropriate technical complexity", "Poor user experience", "Confusion for beginners"],
+          diagnosis: "No mechanism for detecting and adapting to user expertise level",
+          fix: "Implement steerability mechanisms for audience-appropriate communication"
+        }
+      ],
+      solution: "Add steerability mechanisms to detect user expertise level and adjust communication style accordingly.",
+      explanation: "This illustrates the importance of steerability in instruction design - agents need to adapt their communication style while maintaining core competencies."
+    },
+    hints: [
+      "The agent isn't adapting to the user's skill level",
+      "Consider how to detect and respond to user expertise",
+      "Think about maintaining technical accuracy while adjusting complexity"
+    ],
+    explanation: "This illustrates the importance of steerability in instruction design - agents need to adapt their communication style while maintaining core competencies.",
+    relatedConcepts: ['agentic-prompting-fundamentals', 'agent-evaluation-methodologies'],
+    timeEstimate: 30,
+    successCriteria: [
+      "Identifies the lack of audience adaptation",
+      "Suggests mechanisms for detecting user expertise",
+      "Understands adaptive communication strategies"
+    ]
+  }
+];
+
+// Debug Challenges for Agentic Workflow Control
+const agenticWorkflowControlDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'agentic-workflow-debug-1',
+    type: 'debug',
+    conceptId: 'agentic-workflow-control',
+    title: 'The Sequential Bottleneck',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'agentic-workflow-debug-1',
+      title: 'The Sequential Bottleneck',
+      description: "An agent researching a topic sequentially searches for each piece of information one at a time.",
+      problemDescription: "Takes 10 minutes total when the searches could be done in parallel in 2 minutes, due to unnecessary sequential processing.",
+      brokenCode: `Task: Research the founding date, headquarters location, and current CEO of Microsoft, Apple, and Google.
+
+Agent workflow:
+1. Search: "Microsoft founding date" → Wait for result
+2. Search: "Microsoft headquarters location" → Wait for result  
+3. Search: "Microsoft current CEO" → Wait for result
+4. Search: "Apple founding date" → Wait for result
+[...continues sequentially for all companies...]`,
+      expectedBehavior: "The agent should identify independent tasks and execute them in parallel to minimize total execution time.",
+      commonIssues: [
+        {
+          issue: "Unnecessary sequential processing",
+          symptoms: ["Slow task completion", "Underutilized resources", "Poor efficiency"],
+          diagnosis: "Failure to analyze task dependencies and identify parallelizable operations",
+          fix: "Implement dependency analysis and parallel execution strategies"
+        }
+      ],
+      solution: "Redesign workflow to parallelize independent searches and aggregate results efficiently.",
+      explanation: "This demonstrates the importance of analyzing task dependencies and optimizing workflow execution patterns."
+    },
+    hints: [
+      "These searches don't depend on each other",
+      "Consider which tasks can run simultaneously",
+      "Think about how to coordinate parallel operations"
+    ],
+    explanation: "This demonstrates the importance of analyzing task dependencies and optimizing workflow execution patterns.",
+    relatedConcepts: ['prompt-optimization-patterns', 'agent-evaluation-methodologies'],
+    timeEstimate: 25,
+    successCriteria: [
+      "Identifies unnecessary sequential processing",
+      "Suggests parallel execution strategies",
+      "Understands dependency analysis for workflow optimization"
+    ]
+  },
+  {
+    id: 'agentic-workflow-debug-2',
+    type: 'debug',
+    conceptId: 'agentic-workflow-control',
+    title: 'The Fragile Chain',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'agentic-workflow-debug-2',
+      title: 'The Fragile Chain',
+      description: "A workflow that processes data through multiple tools fails completely when one component is unavailable.",
+      problemDescription: "A workflow (fetch → analyze → format → email) fails completely when the email tool is temporarily unavailable, even though partial results could be saved.",
+      brokenCode: `Workflow: Customer Report Generation
+1. Fetch sales data from database ✓
+2. Analyze trends using analytics tool ✓  
+3. Format results into presentation ✓
+4. Email report to stakeholders ✗ [EMAIL SERVICE DOWN]
+
+Result: Entire workflow fails, all progress lost, no partial deliverables saved.`,
+      expectedBehavior: "The workflow should implement graceful degradation, saving intermediate results and providing alternative delivery methods when components fail.",
+      commonIssues: [
+        {
+          issue: "All-or-nothing failure pattern",
+          symptoms: ["Complete workflow failure", "Lost intermediate work", "No fallback options"],
+          diagnosis: "Lack of failure handling and graceful degradation strategies",
+          fix: "Implement partial success handling and alternative delivery methods"
+        }
+      ],
+      solution: "Implement graceful degradation and partial success handling with appropriate fallback strategies.",
+      explanation: "This shows the importance of robust workflow design with failure handling and graceful degradation strategies."
+    },
+    hints: [
+      "Consider what happens when individual components fail",
+      "Think about saving intermediate results",
+      "What alternative delivery methods could work?"
+    ],
+    explanation: "This shows the importance of robust workflow design with failure handling and graceful degradation strategies.",
+    relatedConcepts: ['agent-instruction-design', 'agentic-prompting-fundamentals'],
+    timeEstimate: 30,
+    successCriteria: [
+      "Identifies the all-or-nothing failure pattern",
+      "Suggests graceful degradation strategies",
+      "Understands robust workflow design principles"
+    ]
+  }
+];
+
+// Debug Challenges for Agent Evaluation Methodologies
+const agentEvaluationMethodologiesDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'agent-evaluation-debug-1',
+    type: 'debug',
+    conceptId: 'agent-evaluation-methodologies',
+    title: 'The Misleading Metric',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'agent-evaluation-debug-1',
+      title: 'The Misleading Metric',
+      description: "An agent evaluation shows 95% accuracy, leading to deployment, but users complain about the real-world experience.",
+      problemDescription: "Users complain about slow responses and unhelpful answers despite high accuracy scores. The evaluation only tested correctness on a narrow dataset.",
+      brokenCode: `Evaluation Report:
+- Dataset: 100 factual questions (Who, What, When, Where)
+- Accuracy: 95% correct answers
+- Conclusion: Agent ready for production
+
+User Feedback After Deployment:
+- "Takes forever to respond"
+- "Technically correct but doesn't actually help"
+- "Gives me facts but no actionable advice"
+- "Inconsistent responses to similar questions"`,
+      expectedBehavior: "Evaluation should include multiple dimensions including speed, helpfulness, consistency, and user satisfaction to predict real-world performance.",
+      commonIssues: [
+        {
+          issue: "Single-metric evaluation",
+          symptoms: ["High accuracy but poor user experience", "Deployment failures", "Misleading performance indicators"],
+          diagnosis: "Accuracy alone doesn't capture user experience",
+          fix: "Develop comprehensive evaluation framework with multiple performance dimensions"
+        }
+      ],
+      solution: "Develop comprehensive evaluation framework including speed, helpfulness, consistency, and user satisfaction metrics.",
+      explanation: "This demonstrates the limitations of single-metric evaluation and the need for comprehensive assessment frameworks."
+    },
+    hints: [
+      "Accuracy alone doesn't capture user experience",
+      "Consider what other dimensions matter for real-world use",
+      "Think about the gap between test conditions and actual usage"
+    ],
+    explanation: "This demonstrates the limitations of single-metric evaluation and the need for comprehensive assessment frameworks.",
+    relatedConcepts: ['prompt-optimization-patterns', 'agentic-workflow-control'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Identifies the limitations of accuracy-only evaluation",
+      "Suggests additional evaluation dimensions",
+      "Understands the importance of real-world performance metrics"
+    ]
+  },
+  {
+    id: 'agent-evaluation-debug-2',
+    type: 'debug',
+    conceptId: 'agent-evaluation-methodologies',
+    title: 'The Biased Judge',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'agent-evaluation-debug-2',
+      title: 'The Biased Judge',
+      description: "An LLM judge consistently rates responses with formal language higher than casual responses.",
+      problemDescription: "The judge prioritizes formality over helpfulness, even when casual responses are more helpful and appropriate for the context.",
+      brokenCode: `Evaluation Setup:
+Judge Prompt: "Rate responses on professionalism and quality (1-10 scale)"
+
+Response A (Casual): "Hey! Sure, I can help with that. The quick way to do this is just go to Settings > Privacy and toggle off the sharing option. Should take like 30 seconds tops!"
+
+Response B (Formal): "Certainly, I shall provide assistance regarding your inquiry. Please navigate to the Settings application, proceed to the Privacy configuration panel, and subsequently adjust the data sharing parameter to the disabled state through the appropriate interface controls."
+
+Judge Rating: Response A = 4/10, Response B = 9/10
+User Preference: Response A strongly preferred for clarity and efficiency`,
+      expectedBehavior: "The judge should evaluate responses based on context-appropriateness and user value, not just stylistic formality.",
+      commonIssues: [
+        {
+          issue: "Bias toward formal language",
+          symptoms: ["Misaligned judge preferences", "Poor correlation with user satisfaction", "Style over substance evaluation"],
+          diagnosis: "Judge prioritizing formality over actual helpfulness",
+          fix: "Redesign evaluation criteria to include context-appropriateness and user value"
+        }
+      ],
+      solution: "Redesign judge evaluation criteria to include context-appropriateness and user value, not just formality.",
+      explanation: "This illustrates the challenge of designing unbiased evaluation systems that align with actual user value rather than superficial style preferences."
+    },
+    hints: [
+      "The judge is prioritizing formality over actual helpfulness",
+      "Consider what makes a response good in different contexts",
+      "Think about how to calibrate judge preferences with user needs"
+    ],
+    explanation: "This illustrates the challenge of designing unbiased evaluation systems that align with actual user value rather than superficial style preferences.",
+    relatedConcepts: ['agent-instruction-design', 'agentic-prompting-fundamentals'],
+    timeEstimate: 28,
+    successCriteria: [
+      "Identifies the bias toward formal language",
+      "Suggests context-appropriate evaluation criteria",
+      "Understands the importance of aligning judge values with user needs"
+    ]
+  }
+];
+
 // Export debug challenges organized by concept
 export const debugChallengeLibrary = {
   'multi-agent-systems': debugChallenges.filter(c => c.conceptId === 'multi-agent-systems'),
@@ -1426,7 +1886,13 @@ export const debugChallengeLibrary = {
   'mcp': debugChallenges.filter(c => c.conceptId === 'mcp'),
   'agentic-rag': debugChallenges.filter(c => c.conceptId === 'agentic-rag'),
   'modern-tool-use': debugChallenges.filter(c => c.conceptId === 'modern-tool-use'),
-  'deep-agents': debugChallenges.filter(c => c.conceptId === 'deep-agents')
+  'deep-agents': debugChallenges.filter(c => c.conceptId === 'deep-agents'),
+  // New Core Concepts
+  'agentic-prompting-fundamentals': agenticPromptingFundamentalsDebugChallenges,
+  'prompt-optimization-patterns': promptOptimizationPatternsDebugChallenges,
+  'agent-instruction-design': agentInstructionDesignDebugChallenges,
+  'agentic-workflow-control': agenticWorkflowControlDebugChallenges,
+  'agent-evaluation-methodologies': agentEvaluationMethodologiesDebugChallenges
 };
 
 // Helper function to get debug challenges by concept and level

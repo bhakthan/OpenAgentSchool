@@ -35,7 +35,7 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
                 maintaining proper isolation and security boundaries.
               </p>
               
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Key Integration Benefits:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -108,7 +108,7 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
                     MCP to A2A Message Translation
                   </h4>
@@ -119,7 +119,7 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
                     <li>• MCP errors → A2A exception handling</li>
                   </ul>
                 </div>
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Security Considerations
                   </h4>
@@ -289,7 +289,7 @@ class MCPToA2ABridge {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">
                     Performance Optimization
                   </h4>
@@ -300,7 +300,7 @@ class MCPToA2ABridge {
                     <li>• Monitor latency and throughput</li>
                   </ul>
                 </div>
-                <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
                     Scalability Patterns
                   </h4>
@@ -335,3 +335,10 @@ class MCPToA2ABridge {
     />
   )
 }
+
+
+
+
+
+
+

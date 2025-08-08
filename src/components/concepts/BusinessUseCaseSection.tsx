@@ -23,3 +23,6 @@ const BusinessUseCaseSection: React.FC<BusinessUseCaseProps> = ({ industry, scen
 );
 
 export default BusinessUseCaseSection;
+
+
+

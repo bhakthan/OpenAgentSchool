@@ -94,7 +94,7 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
                 </div>
               </div>
 
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Implementation Framework:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -158,7 +158,7 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Bias detection implementation
 import pandas as pd
 import numpy as np
@@ -281,7 +281,7 @@ class BiasDetector:
                 </div>
               </div>
 
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Compliance Implementation:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -363,7 +363,7 @@ class BiasDetector:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Responsible AI implementation
 class ResponsibleAIFramework:
     def __init__(self):
@@ -427,3 +427,8 @@ class ResponsibleAIFramework:
     />
   )
 }
+
+
+
+
+

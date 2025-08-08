@@ -7,7 +7,34 @@
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges, plus **Critical Thinking Challenges** with LLM-powered assessment and feedback.
 ---
 
-## 🆕 Latest Updates (July 30, 2025)
+## 🆕 Latest Updates (August 8, 2025)
+
+### 🎯 **NEW: Core Concepts - GPT-5 Prompting Optimization Curriculum**
+
+**Revolutionary Prompting Fundamentals** - Comprehensive GPT-5 prompting optimization curriculum derived from cutting-edge prompting guides:
+
+**New Tier 0: Prompting Fundamentals** (5 concepts) 🆕
+- **Agentic Prompting Fundamentals**: Master core principles including eagerness control, reasoning effort, tool preambles, and steerability with interactive before/after examples
+- **Prompt Optimization Patterns**: Learn systematic optimization techniques showing quantitative improvements (-84% memory usage) through contradiction elimination and specificity enhancements  
+- **Agent Instruction Design**: Design effective instruction hierarchies and steerability controls with interactive verbosity demonstrations and format templates
+- **Agentic Workflow Control**: Advanced workflow coordination with sequential, parallel, and adaptive patterns including multi-tool orchestration and timing control
+- **Agent Evaluation Methodologies**: Comprehensive evaluation frameworks using LLM-as-judge techniques and multi-dimensional assessment approaches with reliability validation
+
+**Enhanced Learning System**:
+- **20 Core Concepts**: Expanded from 15 to 20 concepts across 5 progressive tiers (Tier 0 added)
+- **Interactive Demonstrations**: Each concept includes sliders, tabs, code examples, and real-time optimization examples
+- **Quiz Integration**: 15 new comprehensive questions covering all prompting optimization concepts with proper categorization
+- **Journey Map Enhancement**: Updated 5-tier visual layout with new Tier 0 progression and prerequisite chains
+- **Universal Integration**: Core Concepts seamlessly integrated with Study Mode, Critical Thinking Challenges, and EnlightenMe AI Assistant
+
+**Technical Implementation**:
+- **Production-Ready Components**: Five fully interactive React/TypeScript components with Phosphor icon integration
+- **Educational Progression**: Structured learning path from basic prompting principles to advanced agentic evaluation methodologies
+- **Real Performance Metrics**: Actual quantitative improvements demonstrated through optimization examples
+- **Cross-Platform Compatibility**: All concepts work seamlessly across navigation, quizzes, and learning journey visualizations
+- **Official Reference Links**: Direct links to OpenAI GPT-5 Prompting Guide and Prompt Optimization Cookbook integrated into each concept's reference section
+
+## 🆕 Previous Updates (July 30, 2025)
 
 ### 🧠 **NEW: Study Mode - Interactive Learning System**
 
@@ -16,7 +43,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Interactive Scenarios**: Real-world business challenges with code implementation, system design, and decision-making
 - **Debug Challenges**: Systematic three-phase debugging (Analysis → Diagnosis → Solution) with realistic multi-agent system issues
 - **Progress Analytics**: Comprehensive session tracking, insight recognition, and learning effectiveness measurement
-- **Cross-Concept Integration**: Works across all 15 core concepts and agent patterns with adaptive difficulty
+- **Cross-Concept Integration**: Works across all 20 core concepts and agent patterns with adaptive difficulty
 
 ### ⚡ **NEW: AI-Native Skills - Revolutionary Organizational Practices**
 
@@ -125,7 +152,14 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Production Examples**: Real-world AutoGen deployment scenarios and best practices
 
 ### ✨ Comprehensive Core Concepts Learning System
-**4-Tier Progressive Learning Experience** - Complete mastery path for AI agent concepts:
+**5-Tier Progressive Learning Experience** - Complete mastery path for AI agent concepts:
+
+**Tier 0: Prompting Fundamentals** (5 concepts) 🆕
+- **Agentic Prompting Fundamentals**: Core principles of agentic prompting including eagerness control, reasoning effort, tool preambles, and steerability
+- **Prompt Optimization Patterns**: Advanced optimization techniques with quantitative performance improvements including contradiction elimination and specificity improvements
+- **Agent Instruction Design**: Instruction hierarchy design and steerability control mechanisms with behavioral priorities and validation frameworks
+- **Agentic Workflow Control**: Advanced workflow control, timing, and multi-tool coordination with sequential, parallel, and adaptive workflow patterns
+- **Agent Evaluation Methodologies**: Comprehensive evaluation frameworks using quantitative metrics and LLM-as-judge techniques with multi-dimensional assessment
 
 **Tier 1: Foundational Concepts** (5 concepts)
 - **Agent Architecture & Lifecycle**: Fundamental building blocks and lifecycle of AI agents
@@ -151,10 +185,10 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Agent Integration Patterns**: API integration, event-driven architecture, microservices, and legacy systems
 
 **Enhanced Learning Features**:
-- **All Concepts Unlocked**: Complete access to all 15 core concepts without prerequisites
+- **All Concepts Unlocked**: Complete access to all 20 core concepts without prerequisites
 - **Interactive Navigation**: Seamless concept progression with "Next" buttons and learning path tracking
 - **Rich Visualizations**: Each concept includes multiple interactive demonstrations and real-time components
-- **Comprehensive Coverage**: Complete spectrum from fundamentals to advanced production patterns
+- **Comprehensive Coverage**: Complete spectrum from foundational prompting to advanced production patterns
 - **Prerequisite-Free Access**: Learn at your own pace without artificial barriers
 - **Progress Tracking**: Visual progress indicators and completion tracking across all tiers
 
@@ -167,7 +201,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Better Error Handling**: Fixed syntax errors and mixed Python/TypeScript code issues by isolating patterns
 
 ### 🎯 Complete Core Concepts Library
-**Comprehensive AI Agent Education** - 15 in-depth concepts across 4 progressive tiers:
+**Comprehensive AI Agent Education** - 20 in-depth concepts across 5 progressive tiers:
 
 **Advanced Integration Concepts**:
 - **MCP×A2A Integration**: Comprehensive guide to combining MCP and A2A protocols
@@ -402,7 +436,7 @@ This navigation creates a natural learning flow: **Learn → Apply → Transform
 - **Insight Collection**: Automatic capture of learning breakthroughs and "aha moments"
 - **Performance Analytics**: Detailed tracking of learning effectiveness and knowledge retention
 - **Modern UI**: Beautiful interface using shadcn/ui components with smooth animations
-- **Cross-Concept Integration**: Study modes work across all 15 core concepts and agent patterns
+- **Cross-Concept Integration**: Study modes work across all 20 core concepts and agent patterns
 
 ### 🧠 Critical Thinking Challenge: LLM-Powered Assessment
 **AI-Enhanced Learning Evaluation** - Intelligent feedback system that provides comprehensive assessment and encouragement:
@@ -427,7 +461,7 @@ This navigation creates a natural learning flow: **Learn → Apply → Transform
 **Three-Component Implementation** - Fully integrated across all learning pathways:
 
 **Core Concepts Integration** (ConceptsHub & ConceptsExplorer):
-- **15 Concept-Specific Questions**: Tailored critical thinking challenges for each core concept
+- **20 Concept-Specific Questions**: Tailored critical thinking challenges for each core concept
 - **Progressive Difficulty**: Questions scale from fundamentals to advanced levels
 - **Concept-Aware Context**: LLM feedback considers specific concept complexity and learning objectives
 - **Cross-Tier Learning**: Challenges span all 4 tiers of the learning progression
@@ -685,9 +719,9 @@ npm run build:analyze
 
 ### 🗺️ Learning Journey Map
 **Visual Progress Tracking** - Comprehensive visualization of your AI agent mastery path:
-- **4-Tier Visual Layout**: Interactive map showing progression through Fundamentals, Architecture, Implementation, and Advanced concepts
-- **Node-Based Progress**: Visual nodes for each of the 15 core concepts with completion tracking
-- **Tier Badges**: Color-coded tier indicators (T1, T2, T3, T4) for quick identification of concept levels
+- **5-Tier Visual Layout**: Interactive map showing progression through Prompting Fundamentals, Foundational Concepts, Architecture, Implementation, and Advanced concepts
+- **Node-Based Progress**: Visual nodes for each of the 20 core concepts with completion tracking
+- **Tier Badges**: Color-coded tier indicators (T0, T1, T2, T3, T4) for quick identification of concept levels
 - **Prerequisite Visualization**: Connected pathways showing learning dependencies and recommended order
 - **Achievement System**: Unlock achievements as you complete different tiers and concept combinations
 - **Progress Analytics**: Real-time progress percentage with detailed completion statistics
@@ -695,7 +729,7 @@ npm run build:analyze
 - **Interactive Navigation**: Click any unlocked concept to jump directly to detailed learning content
 
 **Journey Map Features**:
-- **Comprehensive Coverage**: Visual representation of all 15 core concepts plus additional resources
+- **Comprehensive Coverage**: Visual representation of all 20 core concepts plus additional resources
 - **Adaptive Unlocking**: Concepts unlock based on prerequisite completion (currently all unlocked for flexibility)
 - **Tier-Based Organization**: Clear visual grouping of concepts by learning tier and difficulty
 - **Estimated Time Tracking**: Time estimates for each concept to help plan your learning schedule
@@ -979,7 +1013,7 @@ Real-world implementations in multiple languages:
 **Comprehensive Knowledge Assessment** - Advanced quiz system with role-based personalization:
 - **Smart Question Selection**: Questions adapt to your professional role and expertise level
 - **Real-Time Scoring**: Instant feedback with detailed explanations and improvement suggestions
-- **Progress Analytics**: Track your learning journey across 15 core concepts in 4 progressive tiers, categories, and difficulty levels
+- **Progress Analytics**: Track your learning journey across 20 core concepts in 5 progressive tiers, categories, and difficulty levels
 - **Learning Journey Map**: Visual progress tracking through the complete AI agent mastery path from fundamentals to advanced production patterns
 - **Tier-Based Progression**: Structured learning experience across Fundamentals, Architecture, Implementation, and Advanced concepts
 - **Professional Personas**: 8 specialized roles from Business Leaders to AI Architects

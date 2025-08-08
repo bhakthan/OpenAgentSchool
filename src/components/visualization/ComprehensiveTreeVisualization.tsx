@@ -43,6 +43,48 @@ interface TreeNode {
 
 // Core concepts data structure
 const coreConceptsData = [
+  // Tier 0 - Prompting Fundamentals
+  {
+    id: 'agentic-prompting-fundamentals',
+    name: 'Agentic Prompting Fundamentals',
+    description: 'Core principles of agentic prompting including eagerness control, reasoning effort, tool preambles, and steerability',
+    tier: 0,
+    difficulty: 'beginner' as const,
+    estimatedTime: 30
+  },
+  {
+    id: 'prompt-optimization-patterns',
+    name: 'Prompt Optimization Patterns',
+    description: 'Advanced optimization techniques with quantitative performance improvements',
+    tier: 0,
+    difficulty: 'intermediate' as const,
+    estimatedTime: 35
+  },
+  {
+    id: 'agent-instruction-design',
+    name: 'Agent Instruction Design',
+    description: 'Instruction hierarchy design and steerability control mechanisms',
+    tier: 0,
+    difficulty: 'intermediate' as const,
+    estimatedTime: 40
+  },
+  {
+    id: 'agentic-workflow-control',
+    name: 'Agentic Workflow Control',
+    description: 'Advanced workflow control, timing, and multi-tool coordination',
+    tier: 0,
+    difficulty: 'advanced' as const,
+    estimatedTime: 45
+  },
+  {
+    id: 'agent-evaluation-methodologies',
+    name: 'Agent Evaluation Methodologies',
+    description: 'Comprehensive evaluation frameworks using quantitative and LLM-as-judge techniques',
+    tier: 0,
+    difficulty: 'advanced' as const,
+    estimatedTime: 50
+  },
+  // Tier 1 - Foundational Concepts
   {
     id: 'agent-architecture',
     name: 'Agent Architecture & Lifecycle',
@@ -240,7 +282,7 @@ export default function ComprehensiveTreeVisualization() {
       id: 'root',
       name: 'Open Agent School',
       type: 'root',
-      description: 'Comprehensive AI Agent Learning Platform with 15 concepts, 19 patterns, Azure services, knowledge quizzes, and interactive study modes',
+      description: 'Comprehensive AI Agent Learning Platform with 20 concepts, 19 patterns, Azure services, knowledge quizzes, and interactive study modes',
       icon: <Brain className="w-5 h-5" />,
       children: [
         // Core Concepts Category
@@ -248,7 +290,7 @@ export default function ComprehensiveTreeVisualization() {
           id: 'core-concepts',
           name: 'Core Concepts',
           type: 'category',
-          description: '15 concepts across 4 progressive tiers - Complete mastery path for AI agent concepts',
+          description: '20 concepts across 5 progressive tiers - Complete mastery path for AI agent concepts',
           icon: <Brain className="w-4 h-4" />,
           progress: Math.floor(Math.random() * 40 + 60), // Random progress 60-100%
           metadata: { tier: 0 },

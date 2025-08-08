@@ -160,7 +160,7 @@ const A2AMultiAgentSystem: React.FC = () => {
           </div>
 
           {/* Progress Indicator */}
-          <div className="w-full bg-muted rounded-full h-2">
+          <div className="w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full h-2">
             <div 
               className="bg-primary h-2 rounded-full transition-all duration-500"
               style={{ width: `${((currentStep + 1) / animationSteps.length) * 100}%` }}
@@ -487,7 +487,7 @@ const A2AMultiAgentSystem: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="bg-muted/50 rounded-lg p-4"
+              className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg p-4"
             >
               <div className="flex items-center gap-2 mb-2">
                 <Badge variant="outline">Step {currentStep + 1}</Badge>
@@ -496,19 +496,19 @@ const A2AMultiAgentSystem: React.FC = () => {
               <p className="text-lg text-muted-foreground mb-3">{currentStepData.description}</p>
               
               {currentStepData.message && (
-                <div className="bg-blue-100 dark:bg-blue-900/20 p-3 rounded-md mb-2">
+                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md mb-2">
                   <p className="text-base"><strong>Message:</strong> {currentStepData.message}</p>
                 </div>
               )}
               
               {currentStepData.techStack && (
-                <div className="bg-purple-100 dark:bg-purple-900/20 p-3 rounded-md mb-2">
+                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md mb-2">
                   <p className="text-base"><strong>Technology:</strong> {currentStepData.techStack}</p>
                 </div>
               )}
               
               {currentStepData.securityNote && (
-                <div className="bg-red-100 dark:bg-red-900/20 p-3 rounded-md">
+                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md">
                   <p className="text-base flex items-center gap-2">
                     <Shield className="w-4 h-4" />
                     <strong>Security:</strong> {currentStepData.securityNote}
@@ -940,9 +940,9 @@ const A2AMultiAgentSystem: React.FC = () => {
                     <p className="text-lg text-muted-foreground">
                       A Python library for building the internal logic of an agent. It provides a modular framework where complex tasks are broken down into smaller, reusable, asynchronous components called Processors.
                     </p>
-                    <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-md">
+                    <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md">
                       <p className="text-base font-medium">Example Pipeline:</p>
-                      <code className="text-lg bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                      <code className="text-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
                         TopicGenerator → TopicResearcher → Synthesizer
                       </code>
                     </div>
@@ -956,9 +956,9 @@ const A2AMultiAgentSystem: React.FC = () => {
                     <p className="text-lg text-muted-foreground">
                       The communication and task management layer that allows agents to interact with each other and external systems in a standardized way. It defines protocols centered around task lifecycles.
                     </p>
-                    <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-md">
+                    <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md">
                       <p className="text-base font-medium">Task States:</p>
-                      <code className="text-lg bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                      <code className="text-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
                         submitted → working → completed
                       </code>
                     </div>
@@ -972,9 +972,9 @@ const A2AMultiAgentSystem: React.FC = () => {
                     <p className="text-lg text-muted-foreground">
                       A specialized protocol for AI models to securely discover and use external tools. It standardizes how agents authenticate with and call tools from secure providers.
                     </p>
-                    <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-md">
+                    <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md">
                       <p className="text-base font-medium">Security Features:</p>
-                      <code className="text-lg bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                      <code className="text-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
                         OAuth 2.0 + PKCE + Session Encryption
                       </code>
                     </div>
@@ -1091,3 +1091,12 @@ const A2AMultiAgentSystem: React.FC = () => {
 };
 
 export default A2AMultiAgentSystem;
+
+
+
+
+
+
+
+
+

@@ -61,7 +61,7 @@ export default function MultiAgentSystemsConcept({ onMarkComplete, onNavigateToN
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-base text-gray-900 dark:text-gray-100">
 {`// Agent Coordination Example
 class AgentCoordinator {
@@ -112,7 +112,7 @@ class AgentCoordinator {
                 allocation, task distribution, and conflict resolution without human intervention.
               </p>
               
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Common Negotiation Strategies:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -134,7 +134,7 @@ class AgentCoordinator {
                 </ul>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-base text-gray-900 dark:text-gray-100">
 {`// Auction-Based Negotiation
 class AgentAuction {
@@ -211,7 +211,7 @@ class AgentAuction {
                 </div>
               </div>
 
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Examples of Emergent Behavior:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -256,7 +256,7 @@ class AgentAuction {
               
               <div className="space-y-4">
                 <div className="flex items-start gap-4 p-4 border rounded-lg">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/20">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                     <Crown className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
@@ -272,7 +272,7 @@ class AgentAuction {
                 </div>
 
                 <div className="flex items-start gap-4 p-4 border rounded-lg">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/20">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                     <Network className="w-5 h-5 text-green-600 dark:text-green-400" />
                   </div>
                   <div>
@@ -288,7 +288,7 @@ class AgentAuction {
                 </div>
 
                 <div className="flex items-start gap-4 p-4 border rounded-lg">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/20">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                     <Target className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                   </div>
                   <div>
@@ -406,7 +406,7 @@ class AgentAuction {
                 </Card>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <h4 className="font-semibold mb-3">Basic AutoGen Implementation</h4>
                 <pre className="text-base text-gray-900 dark:text-gray-100 overflow-x-auto">{`import autogen
 
@@ -447,7 +447,7 @@ user_proxy.initiate_chat(
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse border border-gray-300">
                   <thead>
-                    <tr className="bg-gray-50 dark:bg-gray-800">
+                    <tr className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                       <th className="border border-gray-300 p-2 text-left">Feature</th>
                       <th className="border border-gray-300 p-2 text-center">AutoGen</th>
                       <th className="border border-gray-300 p-2 text-center">CrewAI</th>
@@ -566,3 +566,10 @@ user_proxy.initiate_chat(
     />
   )
 }
+
+
+
+
+
+
+

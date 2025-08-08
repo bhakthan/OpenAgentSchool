@@ -726,7 +726,7 @@ class EnterpriseDataFederation {
         </div>
         
         {/* Current flow details */}
-        <div className="mt-4 p-4 bg-muted rounded-lg">
+        <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg">
           <h4 className="font-semibold text-lg mb-2">
             Current Flow: {dataFlowSteps[currentFlow].title}
           </h4>
@@ -829,7 +829,7 @@ class EnterpriseDataFederation {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {microLearningContent[activeMicroLesson][userKnowledgeLevel].useCases.map((useCase, idx) => (
                     <div key={idx} className="flex items-start gap-3 p-3 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-                      <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-green-600 dark:text-green-400 text-xs font-bold">→</span>
                       </div>
                       <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{useCase}</p>
@@ -863,3 +863,9 @@ class EnterpriseDataFederation {
 };
 
 export default MCPArchitectureDiagram;
+
+
+
+
+
+

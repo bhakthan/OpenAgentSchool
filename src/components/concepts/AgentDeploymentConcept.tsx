@@ -68,7 +68,7 @@ export default function AgentDeploymentConcept({ onMarkComplete, onNavigateToNex
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Dockerfile for AI Agent
 FROM python:3.11-slim
 
@@ -103,7 +103,7 @@ CMD ["python", "main.py"]`}</pre>
               <CardTitle>Kubernetes Deployment</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-lg text-gray-900 dark:text-gray-100">{`# agent-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -200,7 +200,7 @@ spec:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Agent monitoring configuration
 import logging
 from prometheus_client import Counter, Histogram, start_http_server
@@ -294,7 +294,7 @@ class AgentObservability:
                 </div>
               </div>
 
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Scaling Considerations:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -362,7 +362,7 @@ class AgentObservability:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-lg text-gray-900 dark:text-gray-100">{`# GitHub Actions workflow for AI Agent
 name: Agent CI/CD
 
@@ -428,3 +428,8 @@ jobs:
     />
   )
 }
+
+
+
+
+

@@ -86,7 +86,7 @@ export default function AgentIntegrationConcept({ onMarkComplete, onNavigateToNe
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-base text-gray-900 dark:text-gray-100">{`# API Integration for AI Agents
 import asyncio
 import aiohttp
@@ -257,7 +257,7 @@ class RateLimiter:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-base text-gray-900 dark:text-gray-100">{`# Event-Driven Agent Architecture
 import asyncio
 import json
@@ -447,7 +447,7 @@ class EventDrivenAgent:
                 </div>
               </div>
 
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Best Practices:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -529,7 +529,7 @@ class EventDrivenAgent:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <pre className="text-base text-gray-900 dark:text-gray-100">{`# Legacy System Integration Adapter
 import asyncio
 import logging
@@ -702,3 +702,8 @@ class LegacyIntegrationAgent:
     />
   )
 }
+
+
+
+
+

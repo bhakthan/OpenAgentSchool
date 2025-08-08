@@ -43,7 +43,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                 It helps in understanding, debugging, and optimizing agent systems.
               </p>
               
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Key Visualization Areas:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -217,7 +217,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
                     Response Time
                   </h4>
@@ -228,7 +228,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                     Average response time
                   </div>
                 </div>
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Success Rate
                   </h4>
@@ -239,7 +239,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                     Successful requests
                   </div>
                 </div>
-                <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
                     Active Agents
                   </h4>
@@ -306,7 +306,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
                     Data Collection & Storage
                   </h4>
@@ -317,7 +317,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                     <Badge variant="outline" className="text-xs">MongoDB</Badge>
                   </div>
                 </div>
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Visualization Libraries
                   </h4>
@@ -328,7 +328,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                     <Badge variant="outline" className="text-xs">Recharts</Badge>
                   </div>
                 </div>
-                <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
                     Dashboard Frameworks
                   </h4>
@@ -349,7 +349,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
               <CardTitle>Data Flow Pipeline</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-muted p-4 rounded-lg">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                 <div className="flex items-center justify-between text-sm">
                   <div className="text-center">
                     <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-2">
@@ -571,7 +571,7 @@ const AgentMetricsDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">
                     Streaming Data Challenges
                   </h4>
@@ -582,7 +582,7 @@ const AgentMetricsDashboard = () => {
                     <li>• Real-time aggregation complexity</li>
                   </ul>
                 </div>
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Solutions & Best Practices
                   </h4>
@@ -604,7 +604,7 @@ const AgentMetricsDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
                     Automated Insights
                   </h4>
@@ -617,7 +617,7 @@ const AgentMetricsDashboard = () => {
                     <Badge variant="outline" className="text-xs">Outlier Detection</Badge>
                   </div>
                 </div>
-                <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
                     Smart Alerting
                   </h4>
@@ -649,3 +649,10 @@ const AgentMetricsDashboard = () => {
     />
   )
 }
+
+
+
+
+
+
+

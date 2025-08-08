@@ -15,6 +15,7 @@ import { advancedProtocolsQuestions } from './advanced-protocols';
 import { agentEvaluationQuestions } from './agent-evaluation';
 import { businessUseCasesQuestions } from './business-use-cases';
 import { systemDesignQuestions } from './system-design';
+import { promptingOptimizationQuestions } from './prompting-optimization';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -35,7 +36,8 @@ const allQuestions = [
   ...advancedProtocolsQuestions,
   ...agentEvaluationQuestions,
   ...businessUseCasesQuestions,
-  ...systemDesignQuestions
+  ...systemDesignQuestions,
+  ...promptingOptimizationQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -58,10 +60,56 @@ const advancedProtocolsTime = calculateTotalTime(advancedProtocolsQuestions);
 const agentEvaluationTime = calculateTotalTime(agentEvaluationQuestions);
 const businessUseCasesTime = calculateTotalTime(businessUseCasesQuestions);
 const systemDesignTime = calculateTotalTime(systemDesignQuestions);
+const promptingOptimizationTime = calculateTotalTime(promptingOptimizationQuestions);
 // ----------------------------------------------------------------
 
 // Quiz categories configuration
 export const quizCategories: QuizCategory[] = [
+  {
+    id: 'prompting-optimization',
+    name: 'Prompting & Optimization',
+    description: 'Master agentic prompting, optimization patterns, and evaluation methodologies',
+    icon: 'Brain',
+    totalQuestions: promptingOptimizationQuestions.length,
+    estimatedTime: promptingOptimizationTime,
+    subCategories: [
+      {
+        id: 'agentic-fundamentals',
+        name: 'Agentic Prompting Fundamentals',
+        description: 'Core principles of prompting AI agents for optimal performance',
+        prerequisites: [],
+        questions: promptingOptimizationQuestions.filter(q => q.subCategory === 'agentic-fundamentals')
+      },
+      {
+        id: 'optimization-patterns',
+        name: 'Prompt Optimization Patterns',
+        description: 'Systematic approaches to eliminate contradictions and improve effectiveness',
+        prerequisites: ['agentic-fundamentals'],
+        questions: promptingOptimizationQuestions.filter(q => q.subCategory === 'optimization-patterns')
+      },
+      {
+        id: 'instruction-design',
+        name: 'Agent Instruction Design',
+        description: 'Design effective instruction hierarchies and steerability controls',
+        prerequisites: ['agentic-fundamentals'],
+        questions: promptingOptimizationQuestions.filter(q => q.subCategory === 'instruction-design')
+      },
+      {
+        id: 'workflow-control',
+        name: 'Agentic Workflow Control',
+        description: 'Advanced workflow patterns, timing control, and multi-tool coordination',
+        prerequisites: ['optimization-patterns', 'instruction-design'],
+        questions: promptingOptimizationQuestions.filter(q => q.subCategory === 'workflow-control')
+      },
+      {
+        id: 'evaluation-methodologies',
+        name: 'Agent Evaluation Methodologies',
+        description: 'Comprehensive evaluation frameworks using quantitative and LLM-as-judge techniques',
+        prerequisites: ['workflow-control'],
+        questions: promptingOptimizationQuestions.filter(q => q.subCategory === 'evaluation-methodologies')
+      }
+    ]
+  },
   {
     id: 'core-concepts',
     name: 'Core Concepts',

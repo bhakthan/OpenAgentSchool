@@ -45,7 +45,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                 beyond text generation.
               </p>
               
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Key Benefits:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -271,7 +271,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
               <CardTitle>Example MCP Tool Definition</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <pre className="text-lg">
 {`{
   "name": "search_database",
@@ -364,7 +364,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
                     Security Considerations
                   </h4>
@@ -375,7 +375,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                     <li>• Audit and log all tool interactions</li>
                   </ul>
                 </div>
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Performance Optimization
                   </h4>
@@ -415,3 +415,9 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
     />
   )
 }
+
+
+
+
+
+

@@ -465,7 +465,7 @@ const ACPProtocolStack: React.FC = () => {
           </div>
 
           {/* ACP Message Structure */}
-          <div className="p-4 bg-muted rounded-lg">
+          <div className="p-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg">
             <h4 className="font-medium mb-3">Sample ACP Message Structure</h4>
             <pre className="text-xs bg-background p-3 rounded border overflow-x-auto">
 {`{
@@ -507,3 +507,7 @@ const ACPProtocolStack: React.FC = () => {
 };
 
 export default ACPProtocolStack;
+
+
+
+

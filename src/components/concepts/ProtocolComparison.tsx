@@ -201,8 +201,8 @@ const ProtocolComparison: React.FC = () => {
                   {comparisonData.features.map((item, index) => (
                     <tr 
                       key={item.feature} 
-                      className={`border-b hover:bg-muted/50 transition-colors ${
-                        selectedMetric === item.feature ? 'bg-muted' : ''
+                      className={`border-b hover:bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors ${
+                        selectedMetric === item.feature ? 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200' : ''
                       }`}
                       onClick={() => setSelectedMetric(selectedMetric === item.feature ? null : item.feature)}
                       style={{ cursor: 'pointer' }}
@@ -254,7 +254,7 @@ const ProtocolComparison: React.FC = () => {
             </div>
             
             {selectedMetric && (
-              <div className="p-4 bg-muted rounded-lg">
+              <div className="p-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg">
                 <h4 className="font-medium mb-3">{selectedMetric} - Detailed Comparison</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -356,3 +356,10 @@ const ProtocolComparison: React.FC = () => {
 };
 
 export default ProtocolComparison;
+
+
+
+
+
+
+

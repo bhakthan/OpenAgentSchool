@@ -368,7 +368,7 @@ class DriftDetector:
                 </div>
               </div>
 
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Transfer Learning Best Practices:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -546,3 +546,7 @@ class MAMLAgent(nn.Module):
     />
   )
 }
+
+
+
+

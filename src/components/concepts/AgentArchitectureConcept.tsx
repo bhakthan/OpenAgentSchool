@@ -63,7 +63,7 @@ export default function AgentArchitectureConcept({ onMarkComplete, onNavigateToN
                 </div>
               </div>
 
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Key Architectural Principles:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -179,7 +179,7 @@ class AzureAIAgent {
         // Detect dark mode
         const isDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         const labelColor = isDark ? '#F3F4F6' : '#111';
-        const noteBg = isDark ? 'bg-gray-900' : 'bg-muted/40';
+        const noteBg = isDark ? 'bg-gray-900' : 'bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200';
         const noteText = isDark ? 'text-white' : 'text-foreground';
 
         return (
@@ -251,7 +251,7 @@ class AzureAIAgent {
 
                 <div className="space-y-4 mt-8">
                   <div className="flex items-start gap-4 p-4 border rounded-lg">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/20">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                       <span className="text-blue-600 dark:text-blue-400 font-semibold">1</span>
                     </div>
                     <div>
@@ -270,7 +270,7 @@ class AzureAIAgent {
                   </div>
 
                   <div className="flex items-start gap-4 p-4 border rounded-lg">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/20">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                       <span className="text-green-600 dark:text-green-400 font-semibold">2</span>
                     </div>
                     <div>
@@ -289,7 +289,7 @@ class AzureAIAgent {
                   </div>
 
                   <div className="flex items-start gap-4 p-4 border rounded-lg">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-yellow-100 dark:bg-yellow-900/20">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                       <span className="text-yellow-600 dark:text-yellow-400 font-semibold">3</span>
                     </div>
                     <div>
@@ -308,7 +308,7 @@ class AzureAIAgent {
                   </div>
 
                   <div className="flex items-start gap-4 p-4 border rounded-lg">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/20">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                       <span className="text-red-600 dark:text-red-400 font-semibold">4</span>
                     </div>
                     <div>
@@ -391,7 +391,7 @@ class AgentStateManager {
                 and selecting appropriate actions based on goals and constraints.
               </p>
               
-              <div className="bg-muted p-4 rounded-md">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Decision Making Framework:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -434,3 +434,12 @@ class AgentStateManager {
     />
   )
 }
+
+
+
+
+
+
+
+
+

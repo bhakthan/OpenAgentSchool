@@ -64,8 +64,11 @@ const learningPaths: LearningPath[] = [
   {
     id: 'comprehensive-path',
     title: 'Complete AI Agent Mastery',
-    description: 'Comprehensive learning path covering all core concepts in 4 progressive tiers',
+    description: 'Comprehensive learning path covering all core concepts in 5 progressive tiers',
     recommendedOrder: [
+      // Tier 0: Core Concepts (Prompting & Optimization)
+      'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 
+      'agentic-workflow-control', 'agent-evaluation-methodologies',
       // Tier 1: Foundational Concepts
       'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents',
       // Tier 2: Architecture Concepts  
@@ -79,6 +82,77 @@ const learningPaths: LearningPath[] = [
     ],
     totalProgress: 0,
     nodes: [
+      // Tier 0: Core Concepts (Prompting & Optimization)
+      {
+        id: 'agentic-prompting-fundamentals',
+        title: 'Agentic Prompting Fundamentals',
+        description: 'Master the core principles of prompting AI agents for optimal performance',
+        icon: <Brain size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '30-40 min',
+        prerequisites: [],
+        skills: ['Eagerness Control', 'Tool Preambles', 'Reasoning Effort', 'Steerability'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: true,
+        path: '/concepts'
+      },
+      {
+        id: 'prompt-optimization-patterns',
+        title: 'Prompt Optimization Patterns',
+        description: 'Learn systematic approaches to eliminate contradictions and improve effectiveness',
+        icon: <ChartBar size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '35-45 min',
+        prerequisites: ['agentic-prompting-fundamentals'],
+        skills: ['Contradiction Elimination', 'Specificity Improvements', 'Example Consistency'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'agent-instruction-design',
+        title: 'Agent Instruction Design',
+        description: 'Design effective instruction hierarchies and steerability controls',
+        icon: <Books size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '30-40 min',
+        prerequisites: ['agentic-prompting-fundamentals'],
+        skills: ['Instruction Hierarchy', 'Steerability Control', 'Verbosity Management'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'agentic-workflow-control',
+        title: 'Agentic Workflow Control',
+        description: 'Advanced workflow patterns, timing control, and multi-tool coordination',
+        icon: <ArrowsHorizontal size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '40-50 min',
+        prerequisites: ['prompt-optimization-patterns', 'agent-instruction-design'],
+        skills: ['Workflow Patterns', 'Timing Control', 'Tool Coordination'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'agent-evaluation-methodologies',
+        title: 'Agent Evaluation Methodologies',
+        description: 'Comprehensive evaluation frameworks using quantitative and LLM-as-judge techniques',
+        icon: <Scales size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '35-45 min',
+        prerequisites: ['agentic-workflow-control'],
+        skills: ['LLM-as-Judge', 'Quantitative Metrics', 'Evaluation Validation'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
       // Tier 1: Foundational Concepts
       {
         id: 'agent-architecture',
@@ -381,6 +455,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
   const [selectedPath, setSelectedPath] = useState<LearningPath>(learningPaths[0]);
   const [activeTier, setActiveTier] = useState(0);
   const tierLabels = [
+    'Tier 0: Core Concepts',
     'Tier 1: Fundamentals',
     'Tier 2: Architecture',
     'Tier 3: Implementation',
@@ -388,6 +463,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     'Additional Resources'
   ];
   const tiers = [
+    ['agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'],
     ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents'],
     ['a2a-communication', 'mcp', 'flow-visualization'],
     ['acp', 'mcp-a2a-integration', 'data-visualization'],
@@ -522,6 +598,10 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
   };
 
   const getTierColor = (nodeId: string) => {
+    // Tier 0: Core Concepts
+    if (['agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'].includes(nodeId)) {
+      return 'bg-purple-100 text-purple-800';
+    }
     // Tier 1: Fundamentals
     if (['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents'].includes(nodeId)) {
       return 'bg-blue-100 text-blue-800';
@@ -538,16 +618,17 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     if (['agent-deployment', 'agent-learning', 'agent-integration'].includes(nodeId)) {
       return 'bg-red-100 text-red-800';
     }
-    // Other resources
+    // Additional resources
     return 'bg-gray-100 text-gray-800';
   };
 
   const getTierNumber = (nodeId: string) => {
+    if (['agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'].includes(nodeId)) return 0;
     if (['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents'].includes(nodeId)) return 1;
     if (['a2a-communication', 'mcp', 'flow-visualization'].includes(nodeId)) return 2;
     if (['acp', 'mcp-a2a-integration', 'data-visualization'].includes(nodeId)) return 3;
     if (['agent-deployment', 'agent-learning', 'agent-integration'].includes(nodeId)) return 4;
-    return 0; // Other resources
+    return 5; // Additional resources
   };
 
   const getNodePosition = (index: number, total: number) => {

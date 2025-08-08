@@ -176,7 +176,7 @@ Please provide:
     ol: ({ children }: any) => <ol className="list-decimal list-inside mb-3 space-y-1 text-foreground">{children}</ol>,
     li: ({ children }: any) => <li className="text-foreground">{children}</li>,
     blockquote: ({ children }: any) => (
-      <blockquote className="border-l-4 border-primary pl-4 my-4 italic text-muted-foreground bg-muted/30 py-2 rounded-r">
+      <blockquote className="border-l-4 border-primary pl-4 my-4 italic text-muted-foreground bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 py-2 rounded-r">
         {children}
       </blockquote>
     ),
@@ -187,7 +187,7 @@ Please provide:
         </table>
       </div>
     ),
-    thead: ({ children }: any) => <thead className="bg-muted">{children}</thead>,
+    thead: ({ children }: any) => <thead className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">{children}</thead>,
     tbody: ({ children }: any) => <tbody>{children}</tbody>,
     tr: ({ children }: any) => <tr className="border-b border-border">{children}</tr>,
     th: ({ children }: any) => <th className="px-4 py-2 text-left font-semibold text-foreground">{children}</th>,
@@ -242,7 +242,7 @@ Please provide:
         <DialogContent className="sm:max-w-6xl max-w-[95vw] h-[90vh] max-h-[95vh] min-h-[80vh] flex flex-col">
           <DialogHeader className="pb-4 border-b">
             <DialogTitle className="flex items-center gap-2 text-xl">
-              <div className="p-2 rounded-full bg-yellow-100 dark:bg-yellow-900/20">
+              <div className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                 <Lightbulb className="text-yellow-600 dark:text-yellow-400" size={24} weight="fill" />
               </div>
               <div>
@@ -363,3 +363,11 @@ Please provide:
 };
 
 export default EnlightenMeButton;
+
+
+
+
+
+
+
+
