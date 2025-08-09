@@ -326,14 +326,14 @@ export const references: ReferencesData = {
             description: "Google Cloud official video on multi-agent systems"
           },
           {
-            title: "DeepLearning.AI - LLM Applications (2024)",
-            url: "https://www.youtube.com/watch?v=1g5QkF6QFvA",
-            description: "Recent DeepLearning.AI video on LLM applications"
+            title: "DeepLearning.AI - LLM Workflows with Pydantic",
+            url: "https://www.deeplearning.ai/short-courses/pydantic-for-llm-workflows/",
+            description: "Recent DeepLearning.AI video on LLM applications using Pydantic"
           },
           {
-            title: "DeepLearning.AI - Generative Agents Research (2024)",
-            url: "https://www.youtube.com/watch?v=2g7QkF6QFvB",
-            description: "Recent DeepLearning.AI video on generative agents"
+            title: "DeepLearning.AI - Agent Communication Protocol",
+            url: "https://www.deeplearning.ai/short-courses/acp-agent-communication-protocol/",
+            description: "A short course on Agent Communication Protocol (IBM)"
           }
         ]
       },
@@ -372,14 +372,14 @@ export const references: ReferencesData = {
             description: "Training and certification programs for Google Cloud"
           },
           {
-            title: "DeepLearning.AI - LLM Course",
-            url: "https://www.deeplearning.ai/short-courses/llm-applications/",
-            description: "Short course on LLM applications and agents"
+            title: "DeepLearning.AI - Reasoning with o1",
+            url: "https://www.deeplearning.ai/short-courses/reasoning-with-o1/",
+            description: "Short course on Reasoning with o1"
           },
           {
-            title: "DeepLearning.AI - Generative Agents Research",
-            url: "https://www.deeplearning.ai/short-courses/generative-agents/",
-            description: "Course and research on generative agents"
+            title: "DeepLearning.AI - Agents Evaluation",
+            url: "https://www.deeplearning.ai/short-courses/evaluating-ai-agents/",
+            description: "Short Course on evaluating AI agents"
           }
         ]
       }
