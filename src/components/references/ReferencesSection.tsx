@@ -4,8 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Books, FileText, Link as LinkIcon, MagnifyingGlass } from '@phosphor-icons/react';
+import { Books, FileText, Link as LinkIcon, MagnifyingGlass, Building, Users, ChartLineUp } from '@phosphor-icons/react';
 import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutorialButton';
+import { references } from '@/lib/data/references';
 
 export default function ReferencesSection() {
   const [activeTab, setActiveTab] = useState('documentation');
@@ -23,6 +24,33 @@ export default function ReferencesSection() {
       ))
     );
   };
+
+  // Convert references data to the expected format
+  const convertToReferenceFormat = (referencesData: any) => {
+    const converted = [];
+    
+    for (const [key, categoryData] of Object.entries(referencesData)) {
+      if (Array.isArray(categoryData)) {
+        categoryData.forEach((group: any) => {
+          if (group.references) {
+            group.references.forEach((ref: any) => {
+              converted.push({
+                title: ref.title,
+                description: ref.description,
+                url: ref.url,
+                tags: [group.name || key],
+                updated: '2024-08-09' // Default date
+              });
+            });
+          }
+        });
+      }
+    }
+    
+    return converted;
+  };
+
+  const realWorldUseCases = convertToReferenceFormat(references.realWorldUseCases || {});
   
   return (
     <div className="space-y-6">
@@ -66,6 +94,10 @@ export default function ReferencesSection() {
             <LinkIcon size={18} />
             <span>GitHub Repositories</span>
           </TabsTrigger>
+          <TabsTrigger value="realWorldUseCases" className="flex items-center gap-2">
+            <ChartLineUp size={18} />
+            <span>Real-World Use Cases</span>
+          </TabsTrigger>
         </TabsList>
         
         <TabsContent value="documentation" className="space-y-4">
@@ -83,6 +115,12 @@ export default function ReferencesSection() {
         <TabsContent value="githubRepos" className="space-y-4">
           {filterReferences(githubRepos).map((repo, index) => (
             <ReferenceCard key={index} {...repo} />
+          ))}
+        </TabsContent>
+        
+        <TabsContent value="realWorldUseCases" className="space-y-4">
+          {filterReferences(realWorldUseCases).map((useCase, index) => (
+            <ReferenceCard key={index} {...useCase} />
           ))}
         </TabsContent>
       </Tabs>
@@ -183,7 +221,7 @@ const articleLinks = [
   {
     title: "Implementing Retrieval-Augmented Generation (RAG)",
     description: "Step-by-step guide to implementing RAG patterns with Azure AI Search and Azure OpenAI.",
-    url: "https://cookbook.openai.com/examples/how_to_build_a_rag_system",
+    url: "https://cookbook.openai.com/",
     tags: ["RAG", "Azure OpenAI", "Azure AI Search"],
     updated: "2023-08-12"
   },

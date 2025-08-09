@@ -25,6 +25,9 @@ export type ReferencesData = {
   acp: {
     concepts: ReferenceCategory[];
   };
+  realWorldUseCases: {
+    [key: string]: ReferenceCategory[]
+  };
 };
 
 export const references: ReferencesData = {
@@ -302,28 +305,28 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Microsoft Azure AI Agents Overview (Official)",
-            url: "https://www.youtube.com/watch?v=QJb6tQwQK2A",
+            url: "https://www.youtube.com/watch?v=GD7MnIwAxYM",
             description: "Official Microsoft video introducing Azure AI Agents"
           },
           {
             title: "Google Cloud Vertex AI Agent Builder (Official)",
-            url: "https://www.youtube.com/watch?v=QvQwQwQwQwQ",
+            url: "https://www.youtube.com/watch?v=8rlNdKywldQ",
             description: "Official Google Cloud video on Vertex AI Agent Builder"
           },
           {
-            title: "DeepLearning.AI - Building LLM Agents",
-            url: "https://www.youtube.com/watch?v=8pTEmbeENF4",
-            description: "DeepLearning.AI course video on building LLM agents"
+            title: "Building Reliable LLM Agents",
+            url: "https://www.youtube.com/watch?v=kTnfJszFxCg",
+            description: "Three Ingredients for Building Reliable LLM Agents"
           },
           {
-            title: "Azure OpenAI Service: End-to-End Demo",
-            url: "https://www.youtube.com/watch?v=QJb6tQwQK2A",
-            description: "Microsoft official demo of Azure OpenAI Service"
+            title: "Azure OpenAI on Azure AI Foundry",
+            url: "https://www.youtube.com/watch?v=DUdRdeUtuZQ&t=2s",
+            description: "Microsoft official demo of Azure AI Foundry - BRK155"
           },
           {
-            title: "Google Cloud AI: Multi-Agent Systems",
-            url: "https://www.youtube.com/watch?v=QvQwQwQwQwQ",
-            description: "Google Cloud official video on multi-agent systems"
+            title: "Google Gemini AI: Multi-Agent Systems",
+            url: "https://www.youtube.com/watch?v=ATpyVXA6Yp0",
+            description: "Google on multi-agent systems"
           },
           {
             title: "DeepLearning.AI - LLM Workflows with Pydantic",
@@ -1503,6 +1506,54 @@ export const references: ReferencesData = {
       }
     ]
   },
+  
+  realWorldUseCases: {
+    "customer-stories": [
+      {
+        id: "microsoft-transformations",
+        name: "Microsoft Customer Transformations",
+        references: [
+          {
+            title: "AI-powered success with 1000+ stories of customer transformation and innovation",
+            url: "https://www.microsoft.com/en-us/microsoft-cloud/blog/2025/07/24/ai-powered-success-with-1000-stories-of-customer-transformation-and-innovation/",
+            description: "More than 1000 stories of customer transformation and innovation using Microsoft AI technologies"
+          }
+        ]
+      }
+    ],
+    "industry-use-cases": [
+      {
+        id: "google-cloud-use-cases",
+        name: "Industry Leader Use Cases",
+        references: [
+          {
+            title: "101 real-world generative AI use cases from industry leaders",
+            url: "https://cloud.google.com/transform/101-real-world-generative-ai-use-cases-from-industry-leaders",
+            description: "Comprehensive collection of AI use cases from various industries including healthcare, finance, retail, and manufacturing"
+          }
+        ]
+      }
+    ],
+    "transformation-stories": [
+      {
+        id: "enterprise-adoption",
+        name: "Enterprise AI Adoption",
+        references: [
+          {
+            title: "Microsoft Customer Success Stories",
+            url: "https://customers.microsoft.com/en-us/search?sq=%22artificial%20intelligence%22&ff=&p=0&so=story_publish_date%20desc",
+            description: "Real customer success stories showcasing AI implementation across enterprises"
+          },
+          {
+            title: "Google Cloud AI Success Stories",
+            url: "https://cloud.google.com/customers#/products=AI_Platform",
+            description: "Customer success stories demonstrating AI transformation with Google Cloud"
+          }
+        ]
+      }
+    ]
+  },
+  
   acp: {
     // Each section follows the ACP structure from the existing code
     concepts: [

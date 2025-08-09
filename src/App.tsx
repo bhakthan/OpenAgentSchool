@@ -31,6 +31,7 @@ const ConceptsExplorer = lazy(() => import('./components/concepts/ConceptsExplor
 const AzureServicesOverview = lazy(() => import('./components/azure-services/AzureServicesOverview'))
 const CommunitySharing = lazy(() => import('./components/community/CommunitySharing'))
 const ReferenceSection = lazy(() => import('./components/references/ReferenceSection'))
+const ReferencesSection = lazy(() => import('./components/references/ReferencesSection'))
 const QuizSection = lazy(() => import('./components/quiz/QuizSection'))
 const TreeVisualizationPage = lazy(() => import('./components/pages/TreeVisualizationPage'))
 const StudyMode = lazy(() => import('./components/study-mode/StudyMode'))
@@ -309,7 +310,7 @@ function App() {
                 <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
                 <Route path="/quiz/:quizId?" element={<QuizSection />} />
                 <Route path="/tree-view" element={<TreeVisualizationPage />} />
-                <Route path="/references" element={<ReferenceSection type="concept" itemId="agents" />} />
+                <Route path="/references" element={<ReferencesSection />} />
                 <Route path="/community" element={<CommunitySharing />} />
                 {/* Fallback route to redirect to home page */}
                 <Route path="*" element={<Navigate to="/" replace />} />
