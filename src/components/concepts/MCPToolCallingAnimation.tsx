@@ -394,7 +394,7 @@ return final_answer`,
           MCP Tool Calling: Animation + Code
         </CardTitle>
         <CardDescription className="text-center">
-          Watch the flow while seeing the actual implementation code
+          Watch the flow between Host Application (containing MCP Client) and MCP Server while seeing the actual implementation code
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -526,20 +526,27 @@ return final_answer`,
 
                 {/* Column headers */}
                 <text x="100" y="35" textAnchor="middle" className="fill-foreground text-base font-medium">MCP SERVER</text>
+                <text x="100" y="50" textAnchor="middle" className="fill-muted-foreground text-sm">Tool Provider</text>
+                
                 <text x="300" y="35" textAnchor="middle" className="fill-foreground text-base font-medium">MCP CLIENT</text>
-                <text x="500" y="35" textAnchor="middle" className="fill-foreground text-base font-medium">APPLICATION</text>
+                <text x="300" y="50" textAnchor="middle" className="fill-muted-foreground text-sm">Protocol Handler</text>
+
+                <text x="500" y="35" textAnchor="middle" className="fill-foreground text-base font-medium">HOST APPLICATION</text>
+                <text x="500" y="50" textAnchor="middle" className="fill-muted-foreground text-sm">User Interface</text>
+
                 <text x="700" y="35" textAnchor="middle" className="fill-foreground text-base font-medium">LLM</text>
+                <text x="700" y="50" textAnchor="middle" className="fill-muted-foreground text-sm">AI Model</text>
 
                 {/* Flow paths */}
-                <path id="path1" d="M100,70 L500,70" stroke="#FF8C00" strokeWidth="3" fill="none" markerEnd="url(#arrowhead)" opacity="0" />
-                <text id="text1" x="300" y="60" textAnchor="middle" className="fill-foreground text-sm font-medium" opacity="0">1. Tool Definition</text>
+                <path id="path1" d="M100,80 L500,80" stroke="#FF8C00" strokeWidth="3" fill="none" markerEnd="url(#arrowhead)" opacity="0" />
+                <text id="text1" x="300" y="70" textAnchor="middle" className="fill-foreground text-sm font-medium" opacity="0">1. Tool Definition</text>
 
-                <path id="path2" d="M500,110 L700,110" stroke="#228B22" strokeWidth="3" fill="none" markerEnd="url(#arrowhead)" opacity="0" />
-                <text id="text2" x="600" y="100" textAnchor="middle" className="fill-foreground text-sm font-medium" opacity="0">2. Query + Tools → LLM</text>
-                <text id="text2b" x="600" y="120" textAnchor="middle" className="fill-foreground text-sm font-medium" opacity="0">"iPhone 15 Pro Max price?"</text>
+                <path id="path2" d="M500,120 L700,120" stroke="#228B22" strokeWidth="3" fill="none" markerEnd="url(#arrowhead)" opacity="0" />
+                <text id="text2" x="600" y="110" textAnchor="middle" className="fill-foreground text-sm font-medium" opacity="0">2. Query + Tools → LLM</text>
+                <text id="text2b" x="600" y="130" textAnchor="middle" className="fill-foreground text-sm font-medium" opacity="0">"iPhone 15 Pro Max price?"</text>
 
-                <path id="path3" d="M700,150 L500,150" stroke="#1E90FF" strokeWidth="3" fill="none" markerEnd="url(#arrowhead)" opacity="0" />
-                <text id="text3" x="600" y="140" textAnchor="middle" className="fill-foreground text-sm font-medium" opacity="0">3. LLM → Tool Call</text>
+                <path id="path3" d="M700,160 L500,160" stroke="#1E90FF" strokeWidth="3" fill="none" markerEnd="url(#arrowhead)" opacity="0" />
+                <text id="text3" x="600" y="150" textAnchor="middle" className="fill-foreground text-sm font-medium" opacity="0">3. LLM → Tool Call</text>
 
                 <path id="path4" d="M500,190 L300,190 L100,190" stroke="#FF8C00" strokeWidth="3" fill="none" markerEnd="url(#arrowhead)" opacity="0" />
                 <text id="text4" x="300" y="180" textAnchor="middle" className="fill-foreground text-sm font-medium" opacity="0">4. Execute Tool</text>
@@ -600,7 +607,7 @@ return final_answer`,
                   <Badge className="bg-green-200 text-green-800 dark:bg-green-900 dark:text-green-200 border border-green-300 dark:border-green-700">
                     MCP Client
                   </Badge>
-                  <span className="text-gray-900 dark:text-gray-100">Host Application</span>
+                  <span className="text-gray-600 dark:text-gray-400">(Code Layer)</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
