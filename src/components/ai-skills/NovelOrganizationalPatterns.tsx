@@ -25,7 +25,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
-      <Card className="bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/30 border-violet-200 dark:border-violet-800">
+      <Card className="bg-gradient-to-r from-violet-100 to-purple-100 dark:from-violet-900 dark:to-purple-900 border-violet-200 dark:border-violet-800">
         <CardHeader>
           <CardTitle className="text-xl">Revolutionary Organizational Patterns</CardTitle>
           <CardDescription className="text-base">
@@ -96,9 +96,9 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
+              <div className="p-4 bg-red-100 dark:bg-red-900 border border-red-200 dark:border-red-800 rounded-lg">
                 <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">Traditional Strategic Process</h4>
-                <ul className="space-y-1 text-sm text-red-700 dark:text-red-300">
+                <ul className="space-y-1 text-sm text-red-800 dark:text-red-300">
                   <li>• Weeks of data gathering</li>
                   <li>• Multiple committee reviews</li>
                   <li>• Consultant reports</li>
@@ -106,9 +106,9 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
                   <li>• 3-6 month decision cycles</li>
                 </ul>
               </div>
-              <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
+              <div className="p-4 bg-green-100 dark:bg-green-900 border border-green-200 dark:border-green-800 rounded-lg">
                 <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">AI-Enhanced Process</h4>
-                <ul className="space-y-1 text-sm text-green-700 dark:text-green-300">
+                <ul className="space-y-1 text-sm text-green-800 dark:text-green-300">
                   <li>• Real-time data synthesis</li>
                   <li>• AI scenario modeling</li>
                   <li>• Instant impact analysis</li>
@@ -118,9 +118,9 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-yellow-50 dark:bg-yellow-950/30 p-4 rounded-lg border border-yellow-200 dark:border-yellow-800">
+            <div className="bg-yellow-100 dark:bg-yellow-900 p-4 rounded-lg border border-yellow-200 dark:border-yellow-800">
               <h4 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Revolutionary Impact</h4>
-              <p className="text-sm text-yellow-700 dark:text-yellow-300">
+              <p className="text-sm text-yellow-800 dark:text-yellow-300">
                 "We're making strategic pivots in real-time based on market changes. Our competitive response time 
                 has gone from quarters to hours. AI doesn't just help us think faster—it helps us think better."
               </p>
@@ -170,7 +170,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+            <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">3x</div>
@@ -281,15 +281,15 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
               <div>
                 <h4 className="font-medium text-red-600 dark:text-red-400 mb-2">Traditional Structure</h4>
                 <div className="space-y-3">
-                  <div className="p-3 border-l-4 border-red-500 bg-red-50 dark:bg-red-950/30">
+                  <div className="p-3 border-l-4 border-red-500 bg-red-100 dark:bg-red-900">
                     <h5 className="font-semibold">Fixed Roles</h5>
                     <p className="text-sm text-muted-foreground">Engineer, Designer, PM, QA</p>
                   </div>
-                  <div className="p-3 border-l-4 border-red-500 bg-red-50 dark:bg-red-950/30">
+                  <div className="p-3 border-l-4 border-red-500 bg-red-100 dark:bg-red-900">
                     <h5 className="font-semibold">Static Responsibilities</h5>
                     <p className="text-sm text-muted-foreground">Rigid job descriptions</p>
                   </div>
-                  <div className="p-3 border-l-4 border-red-500 bg-red-50 dark:bg-red-950/30">
+                  <div className="p-3 border-l-4 border-red-500 bg-red-100 dark:bg-red-900">
                     <h5 className="font-semibold">Hierarchical Reporting</h5>
                     <p className="text-sm text-muted-foreground">Fixed management chains</p>
                   </div>
@@ -299,15 +299,15 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
               <div>
                 <h4 className="font-medium text-green-600 dark:text-green-400 mb-2">Fluid Architecture</h4>
                 <div className="space-y-3">
-                  <div className="p-3 border-l-4 border-green-500 bg-green-50 dark:bg-green-950/30">
+                  <div className="p-3 border-l-4 border-green-500 bg-green-100 dark:bg-green-900">
                     <h5 className="font-semibold">Capability Clusters</h5>
                     <p className="text-sm text-muted-foreground">AI-enhanced skill combinations</p>
                   </div>
-                  <div className="p-3 border-l-4 border-green-500 bg-green-50 dark:bg-green-950/30">
+                  <div className="p-3 border-l-4 border-green-500 bg-green-100 dark:bg-green-900">
                     <h5 className="font-semibold">Dynamic Allocation</h5>
                     <p className="text-sm text-muted-foreground">Real-time role evolution</p>
                   </div>
-                  <div className="p-3 border-l-4 border-green-500 bg-green-50 dark:bg-green-950/30">
+                  <div className="p-3 border-l-4 border-green-500 bg-green-100 dark:bg-green-900">
                     <h5 className="font-semibold">Context-Driven Authority</h5>
                     <p className="text-sm text-muted-foreground">Expertise-based leadership</p>
                   </div>
@@ -315,7 +315,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-purple-50 dark:bg-purple-950/30 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
+            <div className="bg-purple-100 dark:bg-purple-900 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
               <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">Real Example</h4>
               <p className="text-sm text-purple-700 dark:text-purple-300">
                 "Sarah started the day as a UX designer, pivoted to data analysis for a critical insight at noon, 
@@ -368,7 +368,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+            <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">2x</div>
@@ -517,7 +517,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
           </div>
 
           <div className="mt-6 pt-6 border-t">
-            <div className="bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/30 p-6 rounded-lg border border-violet-200 dark:border-violet-800">
+            <div className="bg-gradient-to-r from-violet-100 to-purple-100 dark:from-violet-900 dark:to-purple-900 p-6 rounded-lg border border-violet-200 dark:border-violet-800">
               <h3 className="text-lg font-semibold mb-3">Ready to Transform Your Organization?</h3>
               <p className="text-sm text-muted-foreground mb-4">
                 These revolutionary patterns represent the cutting edge of organizational evolution. 

@@ -801,7 +801,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                     </div>
 
                     {/* Context Engineering Deep Dive */}
-                    <div className="mt-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-lg">
+                    <div className="mt-6 p-4 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900 dark:to-orange-900 rounded-lg">
                       <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                         <Database className="w-5 h-5 text-amber-600" />
                         Context Engineering: The Game Changer
@@ -850,7 +850,7 @@ const A2AMultiAgentSystem: React.FC = () => {
               >
                 <Card className="border-blue-200 dark:border-blue-800">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-blue-600 dark:text-blue-400 flex items-center gap-2">
+                    <CardTitle className="text-blue-800 dark:text-blue-200 flex items-center gap-2">
                       <Users className="w-4 h-4" />
                       A2A Protocol
                     </CardTitle>
@@ -984,7 +984,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                 {/* Business Scenario Breakdown */}
                 <div className="mt-8">
                   <h3 className="font-semibold text-lg mb-4">Business Scenario: Multi-Faceted Customer Inquiry</h3>
-                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-4 rounded-lg">
+                  <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 p-4 rounded-lg">
                     <p className="text-lg italic mb-3">
                       "What are the eco-friendly features of the 'Aqua-Pure X1' water filter, and can you check the status of my latest order for it?"
                     </p>
@@ -998,7 +998,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                   <Card className="border-blue-200 dark:border-blue-800">
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-blue-600 dark:text-blue-400 text-lg">
+                      <CardTitle className="text-blue-800 dark:text-blue-200 text-lg">
                         Customer Service Agent
                       </CardTitle>
                       <p className="text-lg text-muted-foreground">Azure AI - Primary orchestrator</p>
@@ -1067,7 +1067,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                 </div>
 
                 {/* Integration Summary */}
-                <div className="mt-8 p-4 bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-800 dark:to-gray-800 rounded-lg">
+                <div className="mt-8 p-4 bg-gradient-to-r from-slate-100 to-gray-100 dark:from-slate-800 dark:to-gray-800 rounded-lg">
                   <h3 className="font-semibold text-lg mb-3">Integration Summary</h3>
                   <div className="space-y-2 text-lg">
                     <p>

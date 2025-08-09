@@ -736,7 +736,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                 {llmJudgeResponse.strengths.length > 0 && (
                   <div className="p-3 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg mb-3">
                     <h4 className="font-medium mb-2 text-green-800 dark:text-green-200">Your Strengths</h4>
-                    <ul className="text-sm text-green-700 dark:text-green-300 space-y-2">
+                    <ul className="text-sm text-green-800 dark:text-green-300 space-y-2">
                       {llmJudgeResponse.strengths.map((strength, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <CheckCircle size={14} className="mt-0.5 flex-shrink-0" />
@@ -754,7 +754,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                 {llmJudgeResponse.suggestions.length > 0 && (
                   <div className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg mb-3">
                     <h4 className="font-medium mb-2 text-amber-800 dark:text-amber-200">Suggestions for Improvement</h4>
-                    <ul className="text-sm text-amber-700 dark:text-amber-300 space-y-2">
+                    <ul className="text-sm text-amber-800 dark:text-amber-300 space-y-2">
                       {llmJudgeResponse.suggestions.map((suggestion, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <Lightbulb size={14} className="mt-0.5 flex-shrink-0" />
@@ -773,7 +773,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
           ) : (
             <div className="p-4 bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-800 rounded-lg mb-4">
               <h4 className="font-medium mb-3 text-yellow-800 dark:text-yellow-200">AI Judge Unavailable</h4>
-              <div className="text-sm text-yellow-700 dark:text-yellow-300 leading-relaxed">
+              <div className="text-sm text-yellow-800 dark:text-yellow-300 leading-relaxed">
                 The AI judge could not be reached or returned no feedback. Please check your network or try again later.
               </div>
             </div>
@@ -880,7 +880,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
     <div className="w-full max-w-4xl mx-auto space-y-6">
       {/* User Context Display */}
       {userContext && (
-        <Card className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30 border-purple-200 dark:border-purple-800">
+        <Card className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900 dark:to-blue-900 border-purple-200 dark:border-purple-800">
           <CardContent className="pt-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-sm">
@@ -994,7 +994,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
 
           {/* Real-time Follow-up Questions */}
           {hasLlmProvider && currentDynamicFollowUps.length > 0 && userResponse.length > 20 && (
-            <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
+            <div className="p-4 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900 dark:to-orange-900 border border-amber-200 dark:border-amber-800 rounded-lg">
               <div className="flex items-start gap-2 mb-3">
                 <Brain size={16} className="text-amber-600 mt-0.5" />
                 <div>

@@ -35,7 +35,7 @@ const LlmConfigurationNotice: React.FC<LlmConfigurationNoticeProps> = ({
   const message = modeMessages[mode];
 
   return (
-    <Alert className={`border-amber-200 dark:border-amber-800 bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30 ${className}`}>
+    <Alert className={`border-amber-200 dark:border-amber-800 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900 dark:to-yellow-900 ${className}`}>
       <div className="flex items-start gap-3">
         <Sparkle size={16} className="text-amber-600 dark:text-amber-400 flex-shrink-0" />
         <div className="flex-1 space-y-1">

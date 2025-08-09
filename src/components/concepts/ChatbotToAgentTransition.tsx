@@ -858,7 +858,7 @@ const ChatbotToAgentTransition: React.FC = () => {
               >
                 <Card className="border-red-200 dark:border-red-800">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-red-600 dark:text-red-400">Traditional Chatbot</CardTitle>
+                    <CardTitle className="text-red-800 dark:text-red-200">Traditional Chatbot</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <div className="flex items-center gap-2">
@@ -882,7 +882,7 @@ const ChatbotToAgentTransition: React.FC = () => {
 
                 <Card className="border-green-200 dark:border-green-800">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-green-600 dark:text-green-400">Azure AI Agent</CardTitle>
+                    <CardTitle className="text-green-800 dark:text-green-200">Azure AI Agent</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <div className="flex items-center gap-2">

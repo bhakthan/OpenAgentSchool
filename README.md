@@ -7,7 +7,61 @@
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges, plus **Critical Thinking Challenges** with LLM-powered assessment and feedback.
 ---
 
-## 🆕 Latest Updates (August 8, 2025)
+## 🆕 Latest Updates (August 9, 2025)
+
+## 🆕 Latest Updates (August 9, 2025)
+
+### 🎮 **NEW: Interactive MCP Tool Calling Experience**
+
+**Revolutionary Synchronized Animation + Code Learning** - World's first interactive tool calling visualization that transforms MCP education:
+
+**🎬 Split-Screen Innovation:**
+
+- **Visual Flow Animation**: Left side shows animated SVG of the 7-step MCP tool calling process
+- **Live Code Highlighting**: Right side displays synchronized server/client code that highlights as animation progresses
+- **Real-time Synchronization**: Each animation step triggers corresponding code section highlighting with color-coded badges
+
+**🎯 Complete User Control:**
+
+- **Auto Play Mode**: 18-second automated cycle with full synchronized highlighting for overview learning
+- **Step-by-Step Navigation**: Manual control with numbered buttons (1-7) for self-paced learning
+- **Previous/Next Controls**: Sequential navigation through each tool calling phase
+- **Smart Reset**: Return to beginning anytime for review or teaching demonstrations
+- **Status Indicators**: Clear visual feedback showing current mode (Auto/Manual) and active step
+
+**💻 Educational Innovation:**
+
+- **Dual Learning Reinforcement**: See both "what happens" (visual) and "how it's coded" (implementation) simultaneously
+- **Progressive Code Revelation**: Each step reveals relevant server/client implementation details
+- **Production-Ready Examples**: Complete MCP server and client code with error handling, logging, and conversation management
+- **Interactive Learning Path**: Users can explore manually first, then use auto-play for complete flow understanding
+
+**🎨 Visual Excellence:**
+
+- **Color-Coded Highlighting**: Orange glow for MCP Server operations, green glow for MCP Client operations  
+- **Smooth Transitions**: Professional animations with 0.3-0.5 second transitions between states
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile with touch-friendly controls
+- **Theme Integration**: Full dark/light mode compatibility with proper contrast and visibility
+
+**🧠 Learning Benefits:**
+
+- **Self-Paced Discovery**: Take time to understand complex concepts like tool schema definition and LLM integration
+- **Code Reading Practice**: Manual mode provides unlimited time to read and understand implementation details
+- **Concept Reinforcement**: Jump back to previous steps to compare server vs client responsibilities
+- **Teaching Tool**: Perfect for educators demonstrating MCP concepts to students or teams
+
+**Technical Implementation:**
+
+- **React State Management**: Sophisticated state management preventing race conditions and animation conflicts
+- **Synchronized Highlighting**: Real-time coordination between SVG animation and code block highlighting
+- **Interactive Controls**: Full button state management with proper enabled/disabled logic
+- **Mobile Optimization**: Touch-friendly controls with responsive layout for all screen sizes
+
+Navigate to **Core Concepts → Model Context Protocol → Tool Calling** to experience this groundbreaking educational technology that combines visual learning, interactive controls, and synchronized code examples into the ultimate MCP learning experience!
+
+## 🆕 Previous Updates (August 8, 2025)
+
+## 🆕 Previous Updates (August 8, 2025)
 
 ### 🎯 **NEW: Core Concepts - GPT-5 Prompting Optimization Curriculum**
 

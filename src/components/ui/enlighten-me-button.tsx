@@ -132,7 +132,7 @@ export function EnlightenMeButton({
           <div className="flex-1 flex flex-col min-h-0">
             {!showResponse ? (
               <div className="flex flex-col gap-4 flex-1">
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+                <div className="bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
                   <h4 className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2 flex items-center gap-2">
                     ✨ Smart Prompt Builder
                   </h4>
@@ -189,7 +189,7 @@ export function EnlightenMeButton({
                   </div>
                 ) : (
                   <>
-                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                    <div className="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900 dark:to-emerald-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
                       <h4 className="text-sm font-semibold text-green-900 dark:text-green-100 mb-1 flex items-center gap-2">
                         🎯 Your Personalized AI Insight
                       </h4>

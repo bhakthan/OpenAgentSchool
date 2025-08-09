@@ -4,8 +4,10 @@ import { Badge } from "@/components/ui/badge"
 import MCPArchitectureDiagram from "./MCPArchitectureDiagram"
 import MCPDemo from "../interactive-demos/MCPDemo"
 import MCPVisualDemo from "../interactive-demos/MCPVisualDemo"
+import MCPToolCallingAnimation from "./MCPToolCallingAnimation"
+import MCPToolCallingCode from "./MCPToolCallingCode"
 import ReferenceSection from "../references/ReferenceSection"
-import { Shield, Plug, Lock, Database } from "@phosphor-icons/react"
+import { Shield, Plug, Lock, Database, Code } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
@@ -203,6 +205,27 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
           <EnlightenMeButton
             title="MCP Architecture"
             contextDescription="Understand the technical components of MCP"
+          />
+        </div>
+      )
+    },
+    {
+      id: 'tool-calling',
+      title: 'Tool Calling',
+      description: 'Interactive visualization of the MCP tool calling flow',
+      icon: <Code className="w-4 h-4" />,
+      level: 'implementation' as const,
+      content: (
+        <div className="space-y-6">
+          {/* Interactive Animation */}
+          <MCPToolCallingAnimation />
+
+          {/* Code Examples */}
+          <MCPToolCallingCode />
+
+          <EnlightenMeButton
+            title="MCP Tool Calling"
+            contextDescription="Master the tool calling flow in Model Context Protocol"
           />
         </div>
       )

@@ -21,7 +21,7 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
-      <Card className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 border-emerald-200 dark:border-emerald-800">
+      <Card className="bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-900 dark:to-teal-900 border-emerald-200 dark:border-emerald-800">
         <CardHeader>
           <CardTitle className="text-xl">Breaking Down Technical Barriers</CardTitle>
           <CardDescription className="text-base">
@@ -314,7 +314,7 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950/30 dark:to-indigo-950/30 rounded-lg">
+            <div className="mt-6 p-4 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900 dark:to-indigo-900 rounded-lg">
               <h4 className="font-semibold mb-2">🎯 Key Success Factor</h4>
               <p className="text-sm text-muted-foreground">
                 <strong>Human + Agent Partnership:</strong> Teams remain in control of priorities, quality, and strategy 

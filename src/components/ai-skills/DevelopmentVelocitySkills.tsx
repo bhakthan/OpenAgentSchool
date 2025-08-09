@@ -21,10 +21,10 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
-      <Card className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 border-purple-200 dark:border-purple-800">
+      <Card className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700">
         <CardHeader>
-          <CardTitle className="text-xl">Exponential Development Velocity</CardTitle>
-          <CardDescription className="text-base">
+          <CardTitle className="text-xl text-zinc-900 dark:text-zinc-100">Exponential Development Velocity</CardTitle>
+          <CardDescription className="text-base text-zinc-600 dark:text-zinc-400">
             AI-native practices that dramatically accelerate development speed while maintaining quality
           </CardDescription>
         </CardHeader>
@@ -79,13 +79,13 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
             <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
               <h4 className="font-semibold mb-2">Example Transformation</h4>
               <div className="space-y-3">
-                <div className="p-3 bg-red-50 dark:bg-red-950/30 rounded border border-red-200 dark:border-red-800">
+                <div className="p-3 bg-red-100 dark:bg-red-900 rounded border border-red-200 dark:border-red-800">
                   <p className="text-sm font-medium text-red-800 dark:text-red-200">Traditional: 2-3 weeks</p>
-                  <p className="text-sm text-red-600 dark:text-red-400">Requirements → Design → Code → Test → Deploy</p>
+                  <p className="text-sm text-red-700 dark:text-red-300">Requirements → Design → Code → Test → Deploy</p>
                 </div>
-                <div className="p-3 bg-green-50 dark:bg-green-950/30 rounded border border-green-200 dark:border-green-800">
+                <div className="p-3 bg-green-100 dark:bg-green-900 rounded border border-green-200 dark:border-green-800">
                   <p className="text-sm font-medium text-green-800 dark:text-green-200">AI-Native: 2-3 hours</p>
-                  <p className="text-sm text-green-600 dark:text-green-400">Prompt → Working Prototype → User Feedback → Iterate</p>
+                  <p className="text-sm text-green-700 dark:text-green-300">Prompt → Working Prototype → User Feedback → Iterate</p>
                 </div>
               </div>
             </div>
@@ -155,7 +155,7 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
                     <span>Sequential processing of changes</span>
                   </div>
                 </div>
-                <div className="mt-3 p-2 bg-red-50 dark:bg-red-950/30 rounded text-sm text-red-700 dark:text-red-300">
+                <div className="mt-3 p-2 bg-red-100 dark:bg-red-900 rounded text-sm text-red-800 dark:text-red-200">
                   <strong>Time:</strong> Days to weeks for large refactors
                 </div>
               </div>
@@ -180,7 +180,7 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
                     <span>Parallel processing of multiple changes</span>
                   </div>
                 </div>
-                <div className="mt-3 p-2 bg-green-50 dark:bg-green-950/30 rounded text-sm text-green-700 dark:text-green-300">
+                <div className="mt-3 p-2 bg-green-100 dark:bg-green-900 rounded text-sm text-green-800 dark:text-green-200">
                   <strong>Time:</strong> Hours for complex migrations
                 </div>
               </div>
@@ -235,9 +235,11 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-purple-50 dark:bg-purple-950/30 p-4 rounded-lg">
-              <h4 className="font-semibold mb-2">Real-World Example: Internationalization</h4>
-              <p className="text-sm text-muted-foreground mb-2">
+            <div className="bg-purple-100 dark:bg-purple-900 p-4 rounded-lg">
+              <h4 className="font-semibold mb-2 text-purple-800 dark:text-purple-200">
+                Real-World Example: Internationalization
+              </h4>
+              <p className="text-sm mb-2 text-purple-600 dark:text-purple-400">
                 Prompt: "Create i18n capability supporting English, French, and Spanish with user language selection"
               </p>
               <div className="space-y-2 text-sm">
@@ -335,7 +337,7 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg">
+            <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-lg">
               <h4 className="font-semibold mb-2">GitHub MCP Capabilities</h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
@@ -363,28 +365,28 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
                     <span className="text-purple-600 dark:text-purple-400 font-bold">1</span>
                   </div>
                   <h4 className="font-medium text-sm">Natural Language Request</h4>
                   <p className="text-xs text-muted-foreground mt-1">Describe feature or fix needed</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
                     <span className="text-blue-600 dark:text-blue-400 font-bold">2</span>
                   </div>
                   <h4 className="font-medium text-sm">Issue Creation</h4>
                   <p className="text-xs text-muted-foreground mt-1">AI generates structured issue</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
                     <span className="text-green-600 dark:text-green-400 font-bold">3</span>
                   </div>
                   <h4 className="font-medium text-sm">Autonomous Development</h4>
                   <p className="text-xs text-muted-foreground mt-1">Coding agent implements solution</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                  <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-orange-100 dark:bg-orange-900 flex items-center justify-center">
                     <span className="text-orange-600 dark:text-orange-400 font-bold">4</span>
                   </div>
                   <h4 className="font-medium text-sm">Review & Iterate</h4>
@@ -392,7 +394,7 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
                 </div>
               </div>
               
-              <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950/30 dark:to-indigo-950/30 rounded-lg">
+              <div className="mt-6 p-4 bg-purple-100 dark:bg-purple-900 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <Timer className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                   <span className="font-semibold">Development Time Impact</span>
@@ -445,7 +447,7 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
                 <h4 className="font-semibold">How Auto-Accept Works</h4>
                 <div className="space-y-3">
                   <div className="flex items-start gap-3 p-3 border rounded-lg">
-                    <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                    <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center flex-shrink-0">
                       <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">1</span>
                     </div>
                     <div>
@@ -454,7 +456,7 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-3 border rounded-lg">
-                    <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                    <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center flex-shrink-0">
                       <span className="text-xs font-semibold text-green-600 dark:text-green-400">2</span>
                     </div>
                     <div>
@@ -463,7 +465,7 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-3 border rounded-lg">
-                    <div className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+                    <div className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center flex-shrink-0">
                       <span className="text-xs font-semibold text-purple-600 dark:text-purple-400">3</span>
                     </div>
                     <div>
@@ -477,17 +479,17 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
               <div className="space-y-4">
                 <h4 className="font-semibold">Success Metrics</h4>
                 <div className="space-y-3">
-                  <div className="p-3 bg-green-50 dark:bg-green-950/30 rounded border border-green-200 dark:border-green-800">
+                  <div className="p-3 bg-green-100 dark:bg-green-900 rounded border border-green-200 dark:border-green-800">
                     <div className="text-2xl font-bold text-green-600 dark:text-green-400">70%</div>
-                    <div className="text-sm text-green-700 dark:text-green-300">Features developed autonomously</div>
+                    <div className="text-sm text-green-800 dark:text-green-200">Features developed autonomously</div>
                   </div>
-                  <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded border border-blue-200 dark:border-blue-800">
+                  <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded border border-blue-200 dark:border-blue-800">
                     <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">90%</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">Auto-accept approval rate</div>
+                    <div className="text-sm text-blue-800 dark:text-blue-200">Auto-accept approval rate</div>
                   </div>
-                  <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded border border-purple-200 dark:border-purple-800">
+                  <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded border border-purple-200 dark:border-purple-800">
                     <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">5x</div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">Development speed increase</div>
+                    <div className="text-sm text-purple-800 dark:text-purple-200">Development speed increase</div>
                   </div>
                 </div>
               </div>
@@ -527,7 +529,7 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg">
+            <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-lg">
               <h4 className="font-semibold mb-2">Key Success Factors</h4>
               <ul className="space-y-1 text-sm">
                 <li>• Clear specification and requirements documentation</li>

@@ -234,7 +234,7 @@ export default function AISkillsFundamentals({ onNavigate, navigateToTab }: Prop
       </Card>
 
       {/* Interactive Visualizations Notice */}
-      <Card className="border-2 border-dashed border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-950/20">
+      <Card className="border-2 border-dashed border-blue-200 dark:border-blue-800 bg-blue-100 dark:bg-blue-900">
         <CardContent className="pt-6">
           <div className="text-center space-y-4">
             <div className="w-16 h-16 mx-auto rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">

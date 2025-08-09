@@ -292,9 +292,9 @@ export default function FrontierFirmAssessment({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Legal Disclaimer */}
-      <Card className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border-amber-200 dark:border-amber-800">
+      <Card className="bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900 dark:to-orange-900 border-amber-200 dark:border-amber-800">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-amber-700 dark:text-amber-300">
+          <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
             <span className="text-xl">⚠️</span>
             Important Assessment Disclaimer
           </CardTitle>

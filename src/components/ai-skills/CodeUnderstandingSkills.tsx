@@ -20,7 +20,7 @@ export default function CodeUnderstandingSkills({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
-      <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-blue-200 dark:border-blue-800">
+      <Card className="bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 border-blue-200 dark:border-blue-800">
         <CardHeader>
           <CardTitle className="text-xl">Revolutionary Code Understanding & Navigation</CardTitle>
           <CardDescription className="text-base">

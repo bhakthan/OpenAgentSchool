@@ -131,9 +131,9 @@ export default function HumanAgentRatioCalculator({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Legal Disclaimer */}
-      <Card className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border-amber-200 dark:border-amber-800">
+      <Card className="bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900 dark:to-orange-900 border-amber-200 dark:border-amber-800">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-amber-700 dark:text-amber-300">
+          <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
             <span className="text-xl">⚠️</span>
             Important Disclaimer
           </CardTitle>
@@ -160,9 +160,9 @@ export default function HumanAgentRatioCalculator({ onNavigate }: Props) {
       </Card>
 
       {/* Instructions Header */}
-      <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 border-blue-200 dark:border-blue-800">
+      <Card className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 border-blue-200 dark:border-blue-800">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-blue-700 dark:text-blue-300">
+          <CardTitle className="flex items-center gap-2 text-blue-800 dark:text-blue-200">
             <Brain className="w-6 h-6" />
             Human + Agent Collaboration Strategy
           </CardTitle>

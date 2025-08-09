@@ -205,7 +205,7 @@ export default function InteractiveVisualizations({ onNavigate }: Props) {
             </div>
           </div>
 
-          <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
+          <div className="mt-6 p-4 bg-blue-100 dark:bg-blue-900 border border-blue-200 dark:border-blue-800 rounded-lg">
             <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">🎯 Exploration Tips</h4>
             <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
               <li>• Start with high-level nodes, then drill down into specific practices</li>

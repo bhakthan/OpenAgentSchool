@@ -335,7 +335,7 @@ const MCPxA2AIntegrationFlow: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="bg-blue-50 dark:bg-blue-950/30 p-3 rounded-md">
+              <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-md">
                 <h4 className="font-semibold text-blue-900 dark:text-blue-100 text-sm mb-2">Core Capabilities</h4>
                 <ul className="text-xs text-blue-700 dark:text-blue-300 space-y-1">
                   <li>• Agent Cards: JSON metadata defining functions and authentication</li>
@@ -344,7 +344,7 @@ const MCPxA2AIntegrationFlow: React.FC = () => {
                   <li>• Multimodal Support: Text, images, audio, and video communication</li>
                 </ul>
               </div>
-              <div className="bg-green-50 dark:bg-green-950/30 p-3 rounded-md">
+              <div className="bg-green-100 dark:bg-green-900 p-3 rounded-md">
                 <h4 className="font-semibold text-green-900 dark:text-green-100 text-sm mb-2">Enterprise Features</h4>
                 <ul className="text-xs text-green-700 dark:text-green-300 space-y-1">
                   <li>• OAuth2 and JWT token authentication</li>
@@ -364,7 +364,7 @@ const MCPxA2AIntegrationFlow: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="bg-orange-50 dark:bg-orange-950/30 p-3 rounded-md">
+              <div className="bg-orange-100 dark:bg-orange-900 p-3 rounded-md">
                 <h4 className="font-semibold text-orange-900 dark:text-orange-100 text-sm mb-2">Core Capabilities</h4>
                 <ul className="text-xs text-orange-700 dark:text-orange-300 space-y-1">
                   <li>• Tool Descriptions: JSON schemas for function definitions</li>
@@ -373,7 +373,7 @@ const MCPxA2AIntegrationFlow: React.FC = () => {
                   <li>• Error Handling: Standard error codes and recovery</li>
                 </ul>
               </div>
-              <div className="bg-purple-50 dark:bg-purple-950/30 p-3 rounded-md">
+              <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded-md">
                 <h4 className="font-semibold text-purple-900 dark:text-purple-100 text-sm mb-2">Integration Features</h4>
                 <ul className="text-xs text-purple-700 dark:text-purple-300 space-y-1">
                   <li>• Type safety with JSON schema validation</li>
@@ -428,7 +428,7 @@ const MCPxA2AIntegrationFlow: React.FC = () => {
           <CardContent>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
                   <h4 className="font-semibold text-blue-900 dark:text-blue-100 text-sm mb-3">🏗️ Azure Framework Components</h4>
                   <ul className="text-xs text-blue-700 dark:text-blue-300 space-y-2">
                     <li>• <strong>Azure AI Agent Service:</strong> Managed runtime for agent orchestration</li>
@@ -440,7 +440,7 @@ const MCPxA2AIntegrationFlow: React.FC = () => {
                   </ul>
                 </div>
                 
-                <div className="bg-green-50 dark:bg-green-950/30 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                <div className="bg-green-100 dark:bg-green-900 p-4 rounded-lg border border-green-200 dark:border-green-800">
                   <h4 className="font-semibold text-green-900 dark:text-green-100 text-sm mb-3">📊 Performance Benefits</h4>
                   <ul className="text-xs text-green-700 dark:text-green-300 space-y-2">
                     <li>• <strong>70% Code Reduction:</strong> Pre-built Azure integrations</li>
@@ -452,7 +452,7 @@ const MCPxA2AIntegrationFlow: React.FC = () => {
               </div>
               
               <div className="space-y-4">
-                <div className="bg-purple-50 dark:bg-purple-950/30 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
+                <div className="bg-purple-100 dark:bg-purple-900 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
                   <h4 className="font-semibold text-purple-900 dark:text-purple-100 text-sm mb-3">🔧 Implementation Stack</h4>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center text-xs">
@@ -482,7 +482,7 @@ const MCPxA2AIntegrationFlow: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="bg-orange-50 dark:bg-orange-950/30 p-4 rounded-lg border border-orange-200 dark:border-orange-800">
+                <div className="bg-orange-100 dark:bg-orange-900 p-4 rounded-lg border border-orange-200 dark:border-orange-800">
                   <h4 className="font-semibold text-orange-900 dark:text-orange-100 text-sm mb-3">🚀 Azure Integration Patterns</h4>
                   <ul className="text-xs text-orange-700 dark:text-orange-300 space-y-2">
                     <li>• <strong>Azure Logic Apps:</strong> Workflow automation with A2A triggers</li>

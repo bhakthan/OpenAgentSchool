@@ -180,7 +180,7 @@ export const CriticalThinkingModal: React.FC<CriticalThinkingModalProps> = ({
 
           {/* Feedback Results */}
           {feedback && (
-            <div className="p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/30 dark:to-blue-950/30 rounded-lg border border-green-200 dark:border-green-800">
+            <div className="p-4 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 rounded-lg border border-green-200 dark:border-green-800">
               <div className="flex items-center justify-between mb-3">
                 <h4 className="font-semibold text-lg text-green-800 dark:text-green-200">🎯 Critical Thinking Assessment</h4>
                 <Badge variant="secondary" className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
@@ -190,7 +190,7 @@ export const CriticalThinkingModal: React.FC<CriticalThinkingModalProps> = ({
               
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm font-medium text-green-700 dark:text-green-300 mb-2">Feedback:</p>
+                  <p className="text-sm font-medium text-green-800 dark:text-green-300 mb-2">Feedback:</p>
                   <p className="text-green-900 dark:text-green-100 leading-relaxed">{feedback.feedback}</p>
                 </div>
 
@@ -210,7 +210,7 @@ export const CriticalThinkingModal: React.FC<CriticalThinkingModalProps> = ({
 
                 {feedback.suggestions.length > 0 && (
                   <div>
-                    <p className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">💡 Suggestions for Growth:</p>
+                    <p className="text-sm font-medium text-blue-800 dark:text-blue-300 mb-2">💡 Suggestions for Growth:</p>
                     <ul className="space-y-1">
                       {feedback.suggestions.map((suggestion, index) => (
                         <li key={index} className="text-sm text-blue-800 dark:text-blue-200 flex items-start gap-2">
