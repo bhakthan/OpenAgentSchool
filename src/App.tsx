@@ -24,6 +24,8 @@ import { disableResizeObserverIfProblematic } from './lib/utils/resizeObserverUt
 import { setupGlobalFlowHandlers } from './lib/utils/flows/globalFlowHandlers';
 import LadderIcon from './components/ui/LadderIcon';
 import { Logo } from './components/ui/Logo';
+import { SEO, pageSEOConfigs } from './components/seo/SEO';
+import { SEORouteWrapper } from './components/seo/SEORouteWrapper';
 
 // Lazy load major components for better code splitting
 const PatternExplorer = lazy(() => import('./components/patterns/PatternExplorer'))
@@ -299,20 +301,22 @@ function App() {
           
           <main className="flex-1 container mx-auto px-4 py-6">
             <Suspense fallback={<LoadingSpinner />}>
-              <Routes>
-                <Route path="/" element={<ConceptsExplorer />} />
-                <Route path="/concepts/:conceptId?" element={<ConceptsExplorer />} />
-                <Route path="/ai-skills" element={<AISkillsExplorer />} />
-                <Route path="/study-mode" element={<StudyMode />} />
-                <Route path="/patterns/:patternId?" element={<PatternExplorer />} />
-                <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
-                <Route path="/quiz/:quizId?" element={<QuizSection />} />
-                <Route path="/tree-view" element={<TreeVisualizationPage />} />
-                <Route path="/references" element={<ReferencesSection />} />
-                <Route path="/community" element={<CommunitySharing />} />
-                {/* Fallback route to redirect to home page */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
+              <SEORouteWrapper>
+                <Routes>
+                  <Route path="/" element={<ConceptsExplorer />} />
+                  <Route path="/concepts/:conceptId?" element={<ConceptsExplorer />} />
+                  <Route path="/ai-skills" element={<AISkillsExplorer />} />
+                  <Route path="/study-mode" element={<StudyMode />} />
+                  <Route path="/patterns/:patternId?" element={<PatternExplorer />} />
+                  <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
+                  <Route path="/quiz/:quizId?" element={<QuizSection />} />
+                  <Route path="/tree-view" element={<TreeVisualizationPage />} />
+                  <Route path="/references" element={<ReferencesSection />} />
+                  <Route path="/community" element={<CommunitySharing />} />
+                  {/* Fallback route to redirect to home page */}
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </SEORouteWrapper>
             </Suspense>
             <Outlet />
           </main>

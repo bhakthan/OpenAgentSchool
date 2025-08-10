@@ -1,0 +1,61 @@
+# Open Agent School - Robots.txt
+# https://www.openagentschool.org/robots.txt
+
+User-agent: *
+Allow: /
+
+# High-value content for crawlers
+Allow: /concepts/
+Allow: /study-mode/
+Allow: /patterns/
+Allow: /ai-skills/
+Allow: /playbook/
+
+# Static assets
+Allow: /images/
+Allow: /favicon.ico
+Allow: /favicon.svg
+Allow: /apple-touch-icon.png
+
+# Block unnecessary paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /.git/
+Disallow: /dist/
+
+# Sitemap location
+Sitemap: https://www.openagentschool.org/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Special instructions for AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Search engine specific optimizations
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
