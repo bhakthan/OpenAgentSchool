@@ -55,7 +55,7 @@ export const references: ReferencesData = {
           },
           {
             title: "Building Intelligent Agents",
-            url: "https://learn.microsoft.com/training/paths/develop-ai-agents-on-azure/",
+            url: "https://learn.microsoft.com/training",
             description: "Microsoft Learn training path for developing AI agents"
           }
         ]
@@ -66,7 +66,7 @@ export const references: ReferencesData = {
         references: [
           {
             title: "AI Fundamentals Learning Path",
-            url: "https://learn.microsoft.com/training/paths/azure-ai-fundamentals/",
+            url: "https://learn.microsoft.com/training",
             description: "Foundational concepts in AI and machine learning"
           },
           {
@@ -346,7 +346,7 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Azure AI Fundamentals Learning Path",
-            url: "https://learn.microsoft.com/training/paths/azure-ai-fundamentals/",
+            url: "https://learn.microsoft.com/training/",
             description: "Microsoft Learn path for Azure AI fundamentals"
           },
           {
@@ -526,8 +526,8 @@ export const references: ReferencesData = {
           },
           {
             title: "Context Management Best Practices",
-            url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/context-management",
-            description: "Guide to managing context in Azure AI applications"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: ""
           },
           {
             title: "MCP for Beginners - Open Source Curriculum",
@@ -696,7 +696,7 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Azure AI Fundamentals Learning Path",
-            url: "https://learn.microsoft.com/training/paths/azure-ai-fundamentals/",
+            url: "https://learn.microsoft.com/training/",
             description: "Microsoft Learn path for Azure AI fundamentals"
           },
           {
@@ -760,7 +760,7 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Routing Pattern Documentation",
-            url: "https://learn.microsoft.com/azure/ai-services/patterns/routing",
+            url: "https://learn.microsoft.com/azure/ai-services/",
             description: "Official documentation on the Routing pattern"
           },
           {
@@ -800,7 +800,7 @@ export const references: ReferencesData = {
           },
           {
             title: "Self-Improvement in LLMs",
-            url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/self-critique",
+            url: "https://learn.microsoft.com/azure/ai-services/",
             description: "Concepts for implementing self-reflection in Azure AI"
           }
         ]
@@ -846,7 +846,7 @@ export const references: ReferencesData = {
           },
           {
             title: "Planning with Azure AI",
-            url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/task-planning",
+            url: "https://learn.microsoft.com/azure/ai-services/",
             description: "Task planning implementation in Azure AI"
           }
         ]
@@ -871,12 +871,12 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Evaluator-Optimizer Pattern Documentation",
-            url: "https://learn.microsoft.com/azure/ai-services/patterns/evaluator",
-            description: "Official documentation on the Evaluator-Optimizer pattern"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: ""
           },
           {
             title: "Azure AI Evaluation Tools",
-            url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/evaluation",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
             description: "Tools for evaluating and optimizing Azure AI solutions"
           }
         ]
@@ -901,8 +901,8 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Orchestrator-Worker Pattern Documentation",
-            url: "https://learn.microsoft.com/azure/ai-services/patterns/orchestrator",
-            description: "Official documentation on the Orchestrator-Worker pattern"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: ""
           },
           {
             title: "Azure AI Orchestration Guide",
@@ -931,12 +931,12 @@ export const references: ReferencesData = {
         references: [
           {
             title: "ReAct Pattern Documentation",
-            url: "https://learn.microsoft.com/azure/ai-services/patterns/react",
-            description: "Official documentation on the ReAct pattern"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: ""
           },
           {
             title: "Azure AI Reasoning and Action",
-            url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/reasoning",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
             description: "Implementation of reasoning and action in Azure AI"
           }
         ]
@@ -972,13 +972,13 @@ export const references: ReferencesData = {
         references: [
           {
             title: "CodeAct Pattern Documentation",
-            url: "https://learn.microsoft.com/azure/ai-services/patterns/codeact",
-            description: "Official documentation on the CodeAct pattern"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: "Official documentation"
           },
           {
             title: "Azure AI Code Generation",
-            url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/code-generation",
-            description: "Guide to code generation with Azure AI"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: "Guide to Azure AI"
           }
         ]
       },
@@ -1001,14 +1001,14 @@ export const references: ReferencesData = {
         name: "Documentation",
         references: [
           {
-            title: "Self-Reflection Pattern Documentation",
-            url: "https://learn.microsoft.com/azure/ai-services/patterns/self-reflection",
-            description: "Official documentation on the Self-Reflection pattern"
+            title: "Self-Reflection Pattern",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: ""
           },
           {
             title: "Azure AI Self-Critique Framework",
-            url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/self-critique",
-            description: "Framework for self-reflection in Azure AI"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: "Check out Azure AI Foundry"
           }
         ]
       },
@@ -1031,9 +1031,9 @@ export const references: ReferencesData = {
         name: "Documentation",
         references: [
           {
-            title: "Agentic RAG Pattern Documentation",
-            url: "https://learn.microsoft.com/azure/ai-services/patterns/agentic-rag",
-            description: "Official documentation on the Agentic RAG pattern"
+            title: "Agentic RAG Pattern",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: ""
           },
           {
             title: "Azure AI RAG Implementation",
@@ -1066,13 +1066,13 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Computer Using Agent (CUA) Overview",
-            url: "https://learn.microsoft.com/azure/ai-services/patterns/cua",
-            description: "Official documentation on Computer Using Agents"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: ""
           },
           {
             title: "Browser Automation with AI",
-            url: "https://learn.microsoft.com/azure/ai-studio/how-to/browser-automation",
-            description: "Guide for AI-powered browser automation"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: ""
           }
         ]
       },
@@ -1111,12 +1111,12 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Deep Researcher Agent Pattern",
-            url: "https://learn.microsoft.com/azure/ai-services/patterns/researcher",
-            description: "Official documentation on Deep Researcher agents"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: ""
           },
           {
             title: "Azure AI for Research",
-            url: "https://learn.microsoft.com/azure/ai-studio/concepts/research-agents",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
             description: "Overview of research capabilities in Azure AI"
           }
         ]
@@ -1151,8 +1151,8 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Azure AI Voice Agents",
-            url: "https://learn.microsoft.com/azure/ai-services/speech-service/voice-assistants",
-            description: "Official documentation on Voice Agents in Azure"
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: "Voice Agents in Azure"
           },
           {
             title: "Azure Neural Voice",
@@ -1204,12 +1204,12 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Azure OpenAI Service Documentation",
-            url: "https://learn.microsoft.com/azure/ai-services/openai/",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
             description: "Official documentation for Azure OpenAI Service"
           },
           {
             title: "Azure OpenAI Models",
-            url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/models",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
             description: "Overview of available models in Azure OpenAI"
           }
         ]
