@@ -10,8 +10,6 @@ import { Books } from '@phosphor-icons/react/dist/ssr/Books';
 import { PuzzlePiece } from '@phosphor-icons/react/dist/ssr/PuzzlePiece';
 import { Plugs } from '@phosphor-icons/react/dist/ssr/Plugs';
 import { StackSimple } from '@phosphor-icons/react/dist/ssr/StackSimple';
-import { Brain } from '@phosphor-icons/react/dist/ssr/Brain';
-import { Robot } from '@phosphor-icons/react/dist/ssr/Robot';
 import { Article } from '@phosphor-icons/react/dist/ssr/Article';
 import { Users } from '@phosphor-icons/react/dist/ssr/Users';
 import { GithubLogo } from '@phosphor-icons/react/dist/ssr/GithubLogo';
@@ -24,6 +22,8 @@ import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtil
 import { setupReactFlowErrorHandling } from './lib/utils/reactFlowUtils';
 import { disableResizeObserverIfProblematic } from './lib/utils/resizeObserverUtils';
 import { setupGlobalFlowHandlers } from './lib/utils/flows/globalFlowHandlers';
+import LadderIcon from './components/ui/LadderIcon';
+import { Logo } from './components/ui/Logo';
 
 // Lazy load major components for better code splitting
 const PatternExplorer = lazy(() => import('./components/patterns/PatternExplorer'))
@@ -222,11 +222,7 @@ function App() {
           <header className="border-b border-border sticky top-0 z-10 bg-background">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Brain size={28} weight="duotone" className="text-primary" />
-                <div>
-                  <h1 className="text-2xl font-bold">Open Agent School</h1>
-                  <p className="text-sm text-muted-foreground">Agentic Learning for everyone</p>
-                </div>
+                <Logo size="small" showText={true} />
               </div>
               
               <div className="flex items-center space-x-4">
@@ -287,13 +283,13 @@ function App() {
             <div className="container mx-auto px-4 pb-1">
               <ScrollArea className="w-full">
                 <div className="flex space-x-4">
-                  <TabLink to="/" icon={<Brain size={16} weight="duotone" />} label="Core Concepts" />
+                  <TabLink to="/" icon={<LadderIcon size={16} />} label="Core Concepts" />
                   <TabLink to="/patterns" icon={<PuzzlePiece size={16} weight="duotone" />} label="Agent Patterns" />
                   <TabLink to="/ai-skills" icon={<Lightning size={16} weight="duotone" />} label="AI-Native Skills" />
                   <TabLink to="/azure-services" icon={<StackSimple size={16} weight="duotone" />} label="Azure Services" />
                   <TabLink to="/tree-view" icon={<Tree size={16} weight="duotone" />} label="Tree View" />
                   <TabLink to="/study-mode" icon={<GraduationCap size={16} weight="duotone" />} label="Study Mode" />
-                  <TabLink to="/quiz" icon={<Brain size={16} weight="duotone" />} label="Knowledge Quiz" />
+                  <TabLink to="/quiz" icon={<LadderIcon size={16} />} label="Knowledge Quiz" />
                   <TabLink to="/references" icon={<Books size={16} weight="duotone" />} label="References" />
                   <TabLink to="/community" icon={<Users size={16} weight="duotone" />} label="Community" />
                 </div>

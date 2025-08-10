@@ -34,7 +34,7 @@ export const categories: Category[] = [
     id: "assistants",
     name: "Assistants API",
     description: "Building AI assistants with persistent memory",
-    icon: "Robot"
+    icon: "LadderIcon"
   },
   {
     id: "embeddings",

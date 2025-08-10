@@ -5,7 +5,8 @@ import { PageSynopsis } from "../tutorial/EnhancedTutorialButton"
 import { Brain, ArrowsHorizontal, Shield, Stack } from "@phosphor-icons/react"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { useState, Suspense, lazy, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
+import { LandingHero } from "../landing/LandingHero"
 
 // Lazy load heavy components
 const ConceptsHub = lazy(() => import("./ConceptsHub"))
@@ -59,6 +60,7 @@ const coreConceptsSynopsis: PageSynopsis = {
 
 export default function ConceptsExplorer() {
   const { conceptId } = useParams();
+  const navigate = useNavigate();
   const { isVisible, hideHelp, showHelp, toggleHelp } = useFloatingContextualHelp("core-concepts", 5000)
   const [isModalOpen, setModalOpen] = useState(false)
   const [selectedConcept, setSelectedConcept] = useState<string | null>(conceptId || null) // Track selected concept
@@ -67,8 +69,22 @@ export default function ConceptsExplorer() {
   useEffect(() => {
     if (conceptId) {
       setSelectedConcept(conceptId);
+    } else {
+      setSelectedConcept(null);
     }
   }, [conceptId]);
+
+  // Handle concept selection with navigation
+  const handleConceptSelection = (conceptId: string | null) => {
+    if (conceptId === null) {
+      // Navigate back to the main concepts page
+      navigate('/');
+    } else {
+      // Navigate to specific concept
+      navigate(`/concepts/${conceptId}`);
+    }
+    setSelectedConcept(conceptId);
+  };
 
   // Determine the question based on the selected concept
   const getCriticalThinkingQuestion = () => {
@@ -87,12 +103,16 @@ export default function ConceptsExplorer() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8 relative">
-      {/* Header */}
+    <div className="space-y-0">
+      {/* Landing Hero Section - Only show when no concept is selected */}
+      {!selectedConcept && <LandingHero />}
+      
+      {/* Main Content Container */}
+      <div className="max-w-7xl mx-auto space-y-8 relative px-4 py-8">
 
       {/* Main Content */}
       <Suspense fallback={<ConceptsLoader />}>
-        <ConceptsHub onSelectConcept={setSelectedConcept} initialConcept={selectedConcept} />
+        <ConceptsHub onSelectConcept={handleConceptSelection} initialConcept={selectedConcept} />
       </Suspense>
 
       {/* References */}
@@ -145,6 +165,7 @@ export default function ConceptsExplorer() {
           ]
         }}
       />
+      </div>
     </div>
   )
 }

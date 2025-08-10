@@ -59,6 +59,56 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 
 Navigate to **Core Concepts → Model Context Protocol → Tool Calling** to experience this groundbreaking educational technology that combines visual learning, interactive controls, and synchronized code examples into the ultimate MCP learning experience!
 
+### 🎧 **NEW: AudioNarration System - Multi-Modal Learning Experience**
+
+**Revolutionary Three-Tier Audio Learning** - Transform any concept into an immersive audio educational experience:
+
+**🎓 Three-Tier Difficulty System:**
+
+- **🌱 Beginner Level**: Simple, easy-to-understand explanations for newcomers to AI agent concepts
+- **💪 Intermediate Level**: More detailed technical explanations with implementation insights  
+- **🚀 Advanced Level**: Deep technical implementation details and expert-level considerations
+
+**🎯 Universal Integration:**
+
+- **Embedded Controls**: Seamlessly integrated into every core concept component header
+- **Floating Player**: Optional floating player for distraction-free listening while exploring visualizations
+- **Smart Component Detection**: Automatically maps component names to corresponding audio content
+- **Cross-Platform Compatibility**: Works across all 20 core concepts, study mode, and interactive demonstrations
+
+**🎨 Enhanced User Experience:**
+
+- **Visual Audio Controls**: Prominent emoji-based buttons with distinctive styling and hover effects
+- **Real-time Progress**: Visual progress indicators and play/pause states with animated feedback
+- **Settings Panel**: Customizable volume, speech rate, and voice selection with 8+ premium voice options
+- **Theme Integration**: Full dark/light mode support with proper contrast and accessibility
+- **Responsive Design**: Optimized for desktop, tablet, and mobile with touch-friendly controls
+
+**🧠 Educational Benefits:**
+
+- **Multi-Modal Learning**: Combine visual, interactive, and auditory learning for maximum retention
+- **Accessibility**: Full audio descriptions make complex technical concepts accessible to diverse learners
+- **Self-Paced Discovery**: Control playback speed and replay sections for deeper understanding
+- **Background Learning**: Listen while exploring interactive visualizations and code examples
+- **Concept Reinforcement**: Audio explanations reinforce visual and interactive learning elements
+
+**🔧 Technical Innovation:**
+
+- **Intelligent Mapping**: Sophisticated component-to-audio file mapping system supporting both kebab-case and PascalCase naming
+- **Local TTS Integration**: High-quality text-to-speech with fallback to Web Speech API for universal compatibility
+- **State Management**: Advanced React state management preventing audio conflicts and race conditions  
+- **Voice Selection**: Premium female voice prioritization with Microsoft Zira, Google UK Female, and Apple Samantha support
+- **Error Handling**: Robust error handling with graceful fallbacks and user-friendly error messages
+
+**🎪 Available Across Platform:**
+
+- **All Core Concepts**: 20 comprehensive audio explanations covering prompting fundamentals to advanced deployment patterns
+- **ConceptLayout Integration**: Automatic audio controls for all ConceptLayout-based components
+- **Individual Components**: Custom integration for specialized components like analytics dashboards and interactive animations
+- **Consistent Experience**: Uniform audio control interface across all educational content areas
+
+Experience the future of technical education where complex AI agent concepts become accessible through professional audio narration, interactive controls, and seamless integration with visual learning materials!
+
 ## 🆕 Previous Updates (August 8, 2025)
 
 ## 🆕 Previous Updates (August 8, 2025)

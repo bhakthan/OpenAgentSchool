@@ -9,7 +9,7 @@ export const studyModeCategories: StudyModeCategory[] = [
     id: 'socratic-thinking',
     name: 'Socratic Discovery',
     description: 'Learn through guided questioning that helps you discover concepts yourself',
-    icon: 'Brain',
+    icon: 'LadderIcon',
     questions: Object.values(socraticQuestionLibrary).flat(),
     prerequisites: []
   },

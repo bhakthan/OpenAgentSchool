@@ -287,7 +287,7 @@ const concepts: ConceptInfo[] = [
 ]
 
 interface ConceptsHubProps {
-  onSelectConcept: (conceptId: string) => void;
+  onSelectConcept: (conceptId: string | null) => void;
   initialConcept?: string | null;
 }
 
@@ -303,6 +303,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
 
   const handleBackToHub = () => {
     setSelectedConcept(null)
+    onSelectConcept(null)
   }
 
   const handleNextConcept = (nextConceptId: string) => {

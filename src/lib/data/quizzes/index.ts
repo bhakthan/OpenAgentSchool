@@ -69,7 +69,7 @@ export const quizCategories: QuizCategory[] = [
     id: 'prompting-optimization',
     name: 'Prompting & Optimization',
     description: 'Master agentic prompting, optimization patterns, and evaluation methodologies',
-    icon: 'Brain',
+    icon: 'LadderIcon',
     totalQuestions: promptingOptimizationQuestions.length,
     estimatedTime: promptingOptimizationTime,
     subCategories: [
@@ -114,7 +114,7 @@ export const quizCategories: QuizCategory[] = [
     id: 'core-concepts',
     name: 'Core Concepts',
     description: 'Fundamental AI agent concepts and principles',
-    icon: 'Brain',
+    icon: 'LadderIcon',
     totalQuestions: coreConceptsQuestions.length,
     estimatedTime: coreConceptsTime,
     subCategories: [

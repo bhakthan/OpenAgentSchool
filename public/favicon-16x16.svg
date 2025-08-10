@@ -1,0 +1,22 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <!-- Microsoft Colors Favicon 16x16 - Ultra Simplified Ladder -->
+  <defs>
+    <style>
+      .ms-red { fill: #F25022; }
+      .ms-green { fill: #7FBA00; }
+      .ms-blue { fill: #00A4EF; }
+      .ms-yellow { fill: #FFB900; }
+      .support { fill: #2B2B2B; }
+    </style>
+  </defs>
+  
+  <!-- Ladder Supports -->
+  <rect x="3" y="2" width="2" height="12" rx="1" class="support"/>
+  <rect x="11" y="2" width="2" height="12" rx="1" class="support"/>
+  
+  <!-- Microsoft Colored Rungs -->
+  <rect x="4" y="4" width="8" height="1.5" rx="0.75" class="ms-red"/>
+  <rect x="4" y="7" width="8" height="1.5" rx="0.75" class="ms-green"/>
+  <rect x="4" y="10" width="8" height="1.5" rx="0.75" class="ms-blue"/>
+  <rect x="4" y="13" width="8" height="1.5" rx="0.75" class="ms-yellow"/>
+</svg>

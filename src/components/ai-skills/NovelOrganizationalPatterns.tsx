@@ -2,9 +2,9 @@ import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { LadderIcon } from "@/components/ui/LadderIcon"
 import { 
   Rocket, 
-  Brain, 
   Users, 
   Target,
   Lightning,
@@ -328,7 +328,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
           {/* Continuous Organizational Learning */}
           <div className="border rounded-lg p-6 space-y-4">
             <div className="flex items-center gap-2">
-              <Brain className="w-5 h-5 text-blue-500" />
+              <LadderIcon size={20} className="text-blue-500" />
               <h3 className="text-lg font-semibold">Continuous Organizational Learning</h3>
               <Badge variant="outline" className="border-red-500 text-red-600 dark:text-red-400">Revolutionary</Badge>
             </div>
@@ -471,7 +471,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
                 </div>
 
                 <div className="flex items-start gap-3 p-3 border rounded-lg">
-                  <Brain className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5" />
+                  <LadderIcon size={20} className="text-green-600 dark:text-green-400 mt-0.5" />
                   <div>
                     <h4 className="font-medium">AI Infrastructure</h4>
                     <p className="text-sm text-muted-foreground">Enterprise-grade AI capabilities</p>

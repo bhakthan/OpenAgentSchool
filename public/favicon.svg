@@ -1,26 +1,22 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Robot head/brain representing AI agents -->
-  <rect x="6" y="6" width="20" height="18" rx="3" fill="#3B82F6" stroke="#1E40AF" stroke-width="1"/>
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Microsoft Colors Favicon - Simplified Ladder -->
+  <defs>
+    <style>
+      .ms-red { fill: #F25022; }
+      .ms-green { fill: #7FBA00; }
+      .ms-blue { fill: #00A4EF; }
+      .ms-yellow { fill: #FFB900; }
+      .support { fill: #2B2B2B; }
+    </style>
+  </defs>
   
-  <!-- Eyes -->
-  <circle cx="12" cy="13" r="2" fill="#EFF6FF"/>
-  <circle cx="20" cy="13" r="2" fill="#EFF6FF"/>
-  <circle cx="12" cy="13" r="1" fill="#1E40AF"/>
-  <circle cx="20" cy="13" r="1" fill="#1E40AF"/>
+  <!-- Ladder Supports -->
+  <rect x="8" y="4" width="3" height="24" rx="1.5" class="support"/>
+  <rect x="21" y="4" width="3" height="24" rx="1.5" class="support"/>
   
-  <!-- Neural network connections -->
-  <line x1="8" y1="18" x2="12" y2="20" stroke="#60A5FA" stroke-width="1" opacity="0.7"/>
-  <line x1="16" y1="18" x2="20" y2="20" stroke="#60A5FA" stroke-width="1" opacity="0.7"/>
-  <line x1="12" y1="20" x2="20" y2="20" stroke="#60A5FA" stroke-width="1" opacity="0.7"/>
-  
-  <!-- Small nodes representing learning -->
-  <circle cx="8" cy="18" r="1" fill="#60A5FA"/>
-  <circle cx="12" cy="20" r="1" fill="#60A5FA"/>
-  <circle cx="16" cy="18" r="1" fill="#60A5FA"/>
-  <circle cx="20" cy="20" r="1" fill="#60A5FA"/>
-  <circle cx="24" cy="18" r="1" fill="#60A5FA"/>
-  
-  <!-- Antenna for communication -->
-  <line x1="16" y1="6" x2="16" y2="3" stroke="#1E40AF" stroke-width="2"/>
-  <circle cx="16" cy="3" r="1.5" fill="#EF4444"/>
+  <!-- Microsoft Colored Rungs (4 colors, bottom to top) -->
+  <rect x="9" y="8" width="14" height="2.5" rx="1.25" class="ms-red"/>
+  <rect x="9" y="13" width="14" height="2.5" rx="1.25" class="ms-green"/>
+  <rect x="9" y="18" width="14" height="2.5" rx="1.25" class="ms-blue"/>
+  <rect x="9" y="23" width="14" height="2.5" rx="1.25" class="ms-yellow"/>
 </svg>
