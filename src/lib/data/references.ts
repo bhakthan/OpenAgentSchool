@@ -71,7 +71,7 @@ export const references: ReferencesData = {
           },
           {
             title: "Azure AI Engineer Associate",
-            url: "https://learn.microsoft.com/certifications/azure-ai-engineer-associate/",
+            url: "https://learn.microsoft.com/en-us/credentials/",
             description: "Professional certification for Azure AI Engineers"
           },
           {
@@ -233,7 +233,7 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Getting Started with Agents - Training Microsoft",
-            url: "https://learn.microsoft.com/en-us/training/paths/develop-ai-agents-on-azure/",
+            url: "https://learn.microsoft.com/en-us/training/",
             description: "Microsoft Learn training path for developing AI agents on Azure"
           },
           {
@@ -351,12 +351,12 @@ export const references: ReferencesData = {
           },
           {
             title: "Azure AI Engineer Associate Certification",
-            url: "https://learn.microsoft.com/certifications/azure-ai-engineer-associate/",
+            url: "https://learn.microsoft.com/en-us/credentials/",
             description: "Certification for Azure AI Engineers"
           },
           {
             title: "Azure Solutions Architect Expert Certification",
-            url: "https://learn.microsoft.com/certifications/azure-solutions-architect-expert/",
+            url: "https://learn.microsoft.com/en-us/credentials/",
             description: "Certification for Azure Solutions Architects"
           },
           {
@@ -701,12 +701,12 @@ export const references: ReferencesData = {
           },
           {
             title: "Azure AI Engineer Associate Certification",
-            url: "https://learn.microsoft.com/certifications/azure-ai-engineer-associate/",
+            url: "https://learn.microsoft.com/en-us/credentials/",
             description: "Certification for Azure AI Engineers"
           },
           {
             title: "Azure Solutions Architect Expert Certification",
-            url: "https://learn.microsoft.com/certifications/azure-solutions-architect-expert/",
+            url: "https://learn.microsoft.com/en-us/credentials/",
             description: "Certification for Azure Solutions Architects"
           }
         ]

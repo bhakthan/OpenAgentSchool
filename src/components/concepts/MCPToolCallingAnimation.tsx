@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, SkipForward, SkipBack, ArrowCounterClockwise, PlayCircle } from '@phosphor-icons/react';
+import AudioNarrationControls from '../audio/AudioNarrationControls';
 
 export default function MCPToolCallingAnimation() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -389,13 +390,20 @@ return final_answer`,
 
   return (
     <Card className="w-full">
-      <CardHeader>
+      <CardHeader className="relative">
         <CardTitle className="text-center text-xl text-primary">
           MCP Tool Calling: Animation + Code
         </CardTitle>
         <CardDescription className="text-center">
           Watch the flow between Host Application (containing MCP Client) and MCP Server while seeing the actual implementation code
         </CardDescription>
+        
+        {/* Audio Narration Controls */}
+        <AudioNarrationControls 
+          componentName="MCPToolCallingAnimation"
+          position="embedded"
+          className="mt-4"
+        />
       </CardHeader>
       <CardContent>
         <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-lg mb-4">

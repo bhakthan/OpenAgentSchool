@@ -47,6 +47,7 @@ import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFi
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
 import { Toaster } from '@/components/ui/toaster';
+import { AudioNarrationProvider } from './contexts/AudioNarrationContext';
 
 // Placeholder component (disabled)
 const AppTutorialButton = () => null;
@@ -215,8 +216,9 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="azure-ai-agent-theme">
-      <EnlightenMeProvider>
-        <div className="min-h-screen bg-background text-foreground flex flex-col">
+      <AudioNarrationProvider>
+        <EnlightenMeProvider>
+          <div className="min-h-screen bg-background text-foreground flex flex-col">
           <header className="border-b border-border sticky top-0 z-10 bg-background">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -337,6 +339,7 @@ function App() {
           <Toaster />
         </div>
       </EnlightenMeProvider>
+      </AudioNarrationProvider>
     </ThemeProvider>
   );
 }

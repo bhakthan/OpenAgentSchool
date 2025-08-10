@@ -8,6 +8,7 @@ import { ArrowRight, PuzzlePiece, Wrench, Gear, BracketsCurly, Code } from "@pho
 import BusinessUseCaseSection from "./BusinessUseCaseSection";
 import { Clipboard } from "@phosphor-icons/react";
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 const Agent2AgentProtocolExplainer = () => {
   return (
@@ -16,6 +17,15 @@ const Agent2AgentProtocolExplainer = () => {
         <CardHeader>
           <CardTitle>A Beginner's Guide to Agent2Agent (A2A) Protocol</CardTitle>
           <CardDescription>Understanding how AI agents communicate and collaborate</CardDescription>
+          
+          {/* Audio Narration Controls */}
+          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <AudioNarrationControls 
+              componentName="Agent2AgentProtocolExplainer"
+              position="embedded"
+              className="justify-center"
+            />
+          </div>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="prose max-w-none">

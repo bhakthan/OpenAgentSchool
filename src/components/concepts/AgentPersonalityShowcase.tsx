@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useTheme } from '@/components/theme/ThemeProvider';
 import { Brain, Code, MagnifyingGlass, Lightbulb, Calculator, FileText, Users, Lightning } from '@phosphor-icons/react';
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 interface AgentPersonality {
   id: string;
@@ -217,6 +218,15 @@ const AgentPersonalityShowcase: React.FC = () => {
         <CardDescription>
           Meet the different agent personalities, each with unique specialties and communication styles
         </CardDescription>
+        
+        {/* Audio Narration Controls */}
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <AudioNarrationControls 
+            componentName="AgentPersonalityShowcase"
+            position="embedded"
+            className="justify-center"
+          />
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">

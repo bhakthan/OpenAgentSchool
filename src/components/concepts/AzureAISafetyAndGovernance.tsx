@@ -1,14 +1,41 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import AzureAISafetyVisualization from "../visualization/AzureAISafetyVisualization";
 import AzureContentFilterVisualization from "../visualization/AzureContentFilterVisualization";
 import AzureDefenderVisualization from "../visualization/AzureDefenderVisualization";
 import AzureGuardrailsVisualization from "../visualization/AzureGuardrailsVisualization";
 import AzureAppInsightsVisualization from "../visualization/AzureAppInsightsVisualization";
 import AzurePurviewVisualization from "../visualization/AzurePurviewVisualization";
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
+import { ShieldCheck } from "@phosphor-icons/react";
 
 export default function AzureAISafetyAndGovernance() {
   return (
-    <div className="w-full p-6">
+    <div className="w-full space-y-6">
+      {/* Header with Audio Controls */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <ShieldCheck size={24} className="text-primary" />
+            Azure AI Safety & Governance
+          </CardTitle>
+          <CardDescription>
+            Comprehensive Azure AI safety, governance, and monitoring solutions for responsible AI deployment
+          </CardDescription>
+          
+          {/* Audio Narration Controls */}
+          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <AudioNarrationControls 
+              componentName="AzureAISafetyAndGovernance"
+              position="embedded"
+              className="justify-center"
+            />
+          </div>
+        </CardHeader>
+      </Card>
+
+      {/* Main Content */}
+      <div className="p-6">
       <h2 className="text-2xl font-bold mb-4 text-cyan-800 dark:text-cyan-300">AI Safety & Governance</h2>
       <Tabs defaultValue="pillars" className="w-full">
         <TabsList className="mb-4 flex flex-wrap gap-2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg p-2">
@@ -110,6 +137,7 @@ export default function AzureAISafetyAndGovernance() {
           </div>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 }

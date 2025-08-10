@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { BookOpen, Code, Gear, GraduationCap, ArrowRight, ArrowLeft, CheckCircle } from "@phosphor-icons/react"
 import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 interface ConceptTab {
   id: string
@@ -29,6 +30,7 @@ interface ConceptLayoutProps {
   }
   onMarkComplete?: () => void
   onNavigateToNext?: (nextConceptId: string) => void
+  enableAudioNarration?: boolean
 }
 
 const levelColors = {
@@ -45,7 +47,16 @@ const levelIcons = {
   advanced: <GraduationCap className="w-4 h-4" />
 }
 
-export default function ConceptLayout({ conceptId, title, description, tabs, nextConcept, onMarkComplete, onNavigateToNext }: ConceptLayoutProps) {
+export default function ConceptLayout({ 
+  conceptId, 
+  title, 
+  description, 
+  tabs, 
+  nextConcept, 
+  onMarkComplete, 
+  onNavigateToNext,
+  enableAudioNarration = true 
+}: ConceptLayoutProps) {
   const [activeTab, setActiveTab] = useState(tabs[0]?.id || '')
   const [completedTabs, setCompletedTabs] = useState<Set<string>>(new Set())
   const [isConceptComplete, setIsConceptComplete] = useState(false)
@@ -96,6 +107,17 @@ export default function ConceptLayout({ conceptId, title, description, tabs, nex
               </div>
             </div>
           </div>
+          
+          {/* Audio Narration Controls */}
+          {enableAudioNarration && (
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <AudioNarrationControls 
+                componentName={conceptId}
+                position="embedded"
+                className="justify-center"
+              />
+            </div>
+          )}
         </CardHeader>
       </Card>
 

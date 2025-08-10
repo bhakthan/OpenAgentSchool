@@ -1,0 +1,16 @@
+MCPToolCallingAnimation Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This demonstrates how AI agents can look up information they don't already know using external tools. In our example, when you ask "How much is an iPhone 15 Pro Max?", the AI doesn't have that price stored in its training data. So it uses a special tool to check current prices. Think of it like calling a friend who works at an electronics store - you ask them a question, they look it up for you, and then give you the answer. The Model Context Protocol, or MCP, is like having a standard way for the AI to "call" different tools and get reliable information back.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+The Model Context Protocol enables secure and standardized communication between AI models and external tools. In this price lookup scenario, we see the full MCP workflow: First, the tool is registered with the MCP server, defining what it can do (get product prices) and what information it needs (product name). When you ask about the iPhone price, the LLM recognizes it needs external data and constructs a proper tool call with the product name as a parameter. The MCP client forwards this call to the appropriate server, which executes the price lookup function and returns structured data. Finally, the LLM incorporates this real-time information to provide you with an accurate, current answer. This protocol ensures tools are called safely and consistently across different AI applications.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This implementation showcases MCP's architecture for tool orchestration in multi-agent systems. The scenario demonstrates several key MCP concepts: tool schema validation, where the get_product_price function is registered with strict parameter types and return formats; bidirectional communication flow between the MCP client (host application) and MCP server (tool provider); and context preservation, where the complete conversation history including the original query, tool call, and result is maintained for the final LLM synthesis. The protocol handles authentication, error management, and resource cleanup automatically. This standardized approach allows the same pricing tool to be used by different AI applications without modification, while ensuring security boundaries are maintained. The structured JSON responses enable reliable data parsing and integration into the LLM's reasoning process, making tool-augmented AI both scalable and maintainable.

@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Play, Pause, RotateCcw, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 interface AnimationStep {
   id: string;
@@ -127,6 +128,15 @@ const ChatbotToAgentTransition: React.FC = () => {
         <p className="text-muted-foreground">
           Watch how Azure AI Agents differ from traditional chatbots through autonomous reasoning and tool usage
         </p>
+        
+        {/* Audio Narration Controls */}
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <AudioNarrationControls 
+            componentName="ChatbotToAgentTransition"
+            position="embedded"
+            className="justify-center"
+          />
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">

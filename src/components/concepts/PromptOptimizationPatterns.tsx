@@ -18,6 +18,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import ReferenceSection from "@/components/references/ReferenceSection";
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 interface PromptOptimizationPatternsProps {
   onMarkComplete?: () => void;
@@ -41,6 +42,15 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
           Learn systematic approaches to identify and fix common prompting problems for better agent performance
         </p>
+        
+        {/* Audio Narration Controls */}
+        <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <AudioNarrationControls 
+            componentName="PromptOptimizationPatterns"
+            position="embedded"
+            className="justify-center"
+          />
+        </div>
       </div>
 
       {/* Optimization Framework */}

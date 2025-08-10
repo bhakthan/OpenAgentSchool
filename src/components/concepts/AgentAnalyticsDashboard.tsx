@@ -5,6 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { TrendUp, Clock, Users, TrendDown, ChartBar } from "@phosphor-icons/react";
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 
 // Sample data for different chart types
@@ -82,6 +83,28 @@ export default function AgentAnalyticsDashboard() {
 
   return (
     <div className="space-y-6">
+      {/* Header with Audio Controls */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <ChartBar size={24} className="text-primary" />
+            Agent Analytics Dashboard
+          </CardTitle>
+          <CardDescription>
+            Real-time monitoring and analytics for AI agent performance and activity
+          </CardDescription>
+          
+          {/* Audio Narration Controls */}
+          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <AudioNarrationControls 
+              componentName="AgentAnalyticsDashboard"
+              position="embedded"
+              className="justify-center"
+            />
+          </div>
+        </CardHeader>
+      </Card>
+
       {/* Key Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>

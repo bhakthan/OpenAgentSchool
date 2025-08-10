@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Play, Pause, ArrowClockwise } from "@phosphor-icons/react";
 import { useTheme } from '@/components/theme/ThemeProvider';
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 interface AgentLifecycleProps {
   autoPlay?: boolean;
@@ -478,6 +479,15 @@ class MetaLearner {
             </Button>
           </div>
         </CardTitle>
+        
+        {/* Audio Narration Controls */}
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <AudioNarrationControls 
+            componentName="AgentLifecycleVisual"
+            position="embedded"
+            className="justify-center"
+          />
+        </div>
         <CardDescription>
           Watch how an AI agent processes tasks through its cognitive cycle
         </CardDescription>

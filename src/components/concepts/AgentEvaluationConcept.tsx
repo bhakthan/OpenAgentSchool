@@ -8,6 +8,7 @@ import { RewardModelVisual } from "@/components/visualization/evaluation/RewardM
 import { MultiAgentEvalVisual } from "@/components/visualization/evaluation/MultiAgentEvalVisual";
 import CodeBlock from "@/components/ui/CodeBlock";
 import AdvancedArchitectureSimulation from "@/components/visualization/evaluation/AdvancedArchitectureSimulation";
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 const PersonaBadge = ({ persona, className }: { persona: string, className?: string }) => (
   <Badge variant="secondary" className={className}>
@@ -42,13 +43,22 @@ print(results)
 const AgentEvaluationConcept = () => {
   return (
     <Card>
-      <CardHeader>
+            <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <TestTube size={28} /> Advanced AI Agent Evaluation
         </CardTitle>
         <CardDescription>
-          A comprehensive guide to evaluating modern AI agents, from single-agent testing to complex multi-agent systems.
+          Sophisticated approaches for evaluating multi-agent systems, including LLM-as-a-Judge, reward models, and complex benchmarking strategies
         </CardDescription>
+        
+        {/* Audio Narration Controls */}
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <AudioNarrationControls 
+            componentName="AgentEvaluationConcept"
+            position="embedded"
+            className="justify-center"
+          />
+        </div>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="architecture">
