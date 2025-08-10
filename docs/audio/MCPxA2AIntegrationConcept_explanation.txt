@@ -1,0 +1,16 @@
+MCPxA2AIntegrationConcept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This page explains how two key agent technologies, MCP and A2A, work together. Think of A2A as the communication system for a team of agents, allowing them to delegate big tasks. MCP is the system that lets an agent use a specific tool. By integrating them, you can build a team of agents where one agent can securely ask another agent to use its special tools. This allows for more powerful and flexible teams of agents.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page explores the integration of the Model Context Protocol (MCP) and the Agent-to-Agent (A2A) protocol. The "Integration Flow" tab features an interactive visualization that shows how an "Orchestrator Agent" can use A2A to send a task to a "Tool Agent." The Tool Agent then uses MCP to securely access a database. This demonstrates how A2A is used for high-level coordination between agents, while MCP is used for the low-level, secure execution of a specific tool or function.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `MCPxA2AIntegrationConcept` component explains the architectural pattern of composing A2A and MCP. The 'Implementation Guide' tab includes a JavaScript pseudo-code example for an `MCPToA2ABridge` class. This class shows how an A2A agent can discover the tools available on an MCP server and register them as capabilities in the A2A network. The `invokeMCPTool` method within the bridge acts as a proxy, translating an A2A capability request into a specific MCP tool call and returning the result, effectively and securely exposing an agent's tools to other agents in the network.

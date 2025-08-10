@@ -1,0 +1,16 @@
+MCPConcept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to the Model Context Protocol, or MCP. In simple terms, MCP is a secure "plug" that lets AI agents use external tools. An AI model by itself can only work with text. MCP gives it a safe and standard way to connect to other things, like a database, a calendar, or a search engine. This page explains why MCP is so important for building agents that can do useful things in the real world.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page introduces the Model Context Protocol (MCP), a standard for secure tool integration for AI agents. The "MCP Basics" tab explains the key benefits, such as security and standardization, and contrasts a world with and without MCP. The "MCP Architecture" tab provides a high-level diagram of how clients and servers communicate. The "Tool Calling" tab features an interactive animation that walks you through the six steps of an MCP tool call, from the initial prompt to the final response. The "Tool Integration" tab shows a practical example of how a developer would define a new tool for an agent to use.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `MCPConcept` component is a comprehensive educational module that embeds several other complex, interactive components. It uses a `ConceptLayout` to structure the content into five tabs. The 'Architecture' tab embeds the `MCPArchitectureDiagram` component. The 'Tool Calling' tab embeds both the `MCPToolCallingAnimation` and `MCPToolCallingCode` components, providing both a visual and a code-level explanation of the process. The 'Tool Integration' tab embeds the `MCPVisualDemo` component. The 'Implementation' tab includes a JSON schema example of an MCP tool definition, showing how to define the tool's name, description, and input/output schemas. This component is an excellent example of a high-level container that composes multiple, specialized child components to create a rich and deeply technical learning experience.

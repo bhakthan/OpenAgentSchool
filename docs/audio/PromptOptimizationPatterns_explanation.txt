@@ -1,0 +1,16 @@
+PromptOptimizationPatterns Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This page is about how to write better instructions, or "prompts," for AI agents. If you give a confusing prompt, you'll get a confusing answer. This page shows you a four-step process for improving your prompts: Identify Issues, Apply Patterns, Test & Measure, and Iterate. You'll see examples of common problems, like giving the agent contradictory instructions, and how to fix them by being more clear and specific. The goal is to learn how to write prompts that give the agent the best possible chance of success.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page provides a systematic guide to prompt optimization. It's built around a four-tab interface that addresses common prompting problems. The "Contradictions" tab shows how to eliminate conflicting instructions. The "Specificity" tab demonstrates how to move from vague requests to precise, measurable requirements. The "Constraints" tab explains how to set clear boundaries for the agent's performance, like how much memory it can use. Finally, the "Examples" tab highlights the importance of providing examples that are consistent with your instructions. The "Measuring Optimization Impact" section at the bottom quantifies the benefits of these improvements, showing real data on how optimization can reduce memory usage and execution time.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `PromptOptimizationPatterns` component is an interactive tool for learning advanced prompt engineering. The component uses a `Tabs` structure to present four key optimization patterns. The 'Specificity' and 'Constraints' tabs are particularly insightful for technical users, as they advocate for using objective, measurable criteria like Big O notation (e.g., "Target peak memory O(k)") rather than subjective terms. The 'Contradictions' and 'Examples' tabs show side-by-side "Before" and "After" code blocks, clearly illustrating how to refactor problematic prompts into optimized ones. The component effectively teaches a rigorous, almost scientific method for prompt engineering, backed by a "Measuring Optimization Impact" card that displays quantitative improvements in performance metrics.

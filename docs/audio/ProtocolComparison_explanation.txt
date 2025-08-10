@@ -1,0 +1,16 @@
+ProtocolComparison Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This page compares two important "languages" that AI agents use: MCP and ACP. Think of MCP, the Model Context Protocol, as the language an agent uses to talk to a specific tool, like a database. It's very direct and focused on getting a specific piece of information. Think of ACP, the Agent Communication Protocol, as the language agents use to talk to each other to coordinate on a bigger project. This page helps you understand the differences and when you would use each one.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page provides a detailed, side-by-side comparison of the Model Context Protocol (MCP) and the Agent Communication Protocol (ACP). The "Overview" tab gives a high-level summary of each protocol's purpose and scope. The "Features" tab is an interactive table that scores each protocol on eight different features, like "Context Preservation" and "Agent Discovery." You can click on any feature to see a more detailed explanation of how each protocol handles it. The "Architecture" and "Use Cases" tabs provide further details on the structure and typical applications of both MCP and ACP.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `ProtocolComparison` component is a data-driven, interactive comparison tool built in React. The component's logic is centered around the `comparisonData` object, which holds all the information for the overview, feature comparison, architecture, and use cases. The 'Features' tab dynamically renders a table from this data object. It uses a `useState` hook to manage the `selectedMetric`, and when a user clicks on a row, it displays a detailed comparison for that feature. The component also uses helper functions like `getScoreColor` and `getSupportIcon` to visually represent the feature scores and support levels, making the complex comparison easy to understand at a glance.

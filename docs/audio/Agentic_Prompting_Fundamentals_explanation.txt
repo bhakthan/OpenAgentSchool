@@ -1,0 +1,16 @@
+Agentic Prompting Fundamentals Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to the Agentic Prompting Fundamentals page. Think of this as your first lesson in how to have a productive conversation with an AI. On this page, you'll learn the difference between a simple, traditional prompt and a more powerful "agentic" prompt. A traditional prompt is like asking a simple question, while an agentic prompt is like giving a detailed instruction to a smart assistant. As you look at the screen, you'll see examples of how to make your instructions clearer and more effective. The main goal here is to help you understand how to guide the AI to get the best possible results, moving from simple questions to clear, effective commands.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+On this page, we're exploring the core techniques for controlling an AI agent's behavior. You'll see four main tabs: Eagerness Control, Reasoning Effort, Tool Preambles, and Steerability. Think of these as the control panel for the AI. As you click through them, you'll see how each one helps you shape the AI's response. For example, "Eagerness Control" lets you decide if the AI should act immediately or think things through first. "Reasoning Effort" allows you to set how much "brainpower" the AI should use for a task. "Tool Preambles" are like safety briefings you give the AI before it uses a tool, and "Steerability" is how you set the overall rules and format for the AI's output. By interacting with these tabs, you'll learn how to move from being a passive user to an active director of the AI.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This component, `AgenticPromptingFundamentals.tsx`, is a React component that uses a combination of UI elements from a library, likely ShadCN, to create an interactive learning experience. The state of the active example in the "Before & After" section is managed using the `useState` hook. The four main concepts are presented in a `Tabs` component, which dynamically renders the content for each selected tab. The code is structured to be highly modular, with components like `Card`, `Tabs`, and `Button` being imported and used to build the UI. The "Before & After" example demonstrates a critical concept in agentic prompting: the transformation from a vague, unstructured prompt to a highly-structured, detailed one that provides the AI with a clear role, context, constraints, and a defined output format. This structured approach is key to making the AI's behavior more predictable and reliable, which is essential for building robust, AI-powered applications. The component also includes a `ReferenceSection` and an `EnlightenMeButton`, suggesting it's part of a larger educational framework that connects concepts to further reading and interactive exploration.

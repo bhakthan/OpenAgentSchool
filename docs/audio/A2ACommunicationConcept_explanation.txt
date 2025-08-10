@@ -1,0 +1,16 @@
+A2ACommunicationConcept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to the Agent-to-Agent, or A2A, Communication page. Think of this as learning how to get AI assistants to work together as a team. Instead of one AI trying to do everything, A2A allows them to talk to each other, share work, and combine their skills. On your screen, you'll see why this is so important: it allows AIs to specialize in what they're good at, handle bigger tasks, and be more efficient, just like a well-organized human team. You'll also see a mindmap that gives a big-picture view of how this communication works.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page explores the fundamentals of how AI agents collaborate. We'll cover the core architectural components that make this possible, such as a "Message Broker" that directs traffic and an "Agent Registry" that keeps track of which agents are available and what they can do. You'll also learn about the basic communication patterns agents use, like "Request-Response," where one agent asks another for information, or "Delegation," where a manager agent assigns tasks to worker agents. As you explore the tabs, you'll move from these basics to the overall architecture and even see how to implement a multi-agent system. The mindmap provides a visual guide to how all these pieces fit together.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `A2ACommunicationConcept` component is a comprehensive learning module built in React. It uses a `ConceptLayout` to structure the content into tabs, including 'A2A Basics', 'Communication Architecture', 'Multi-Agent Systems', and 'Advanced A2A Patterns'. The mindmap you see is an image that can be zoomed and expanded into a modal, a feature implemented using React's `useState` hook to manage the zoom level and modal visibility. The 'AutoGen Integration' tab is particularly noteworthy, as it contains a `CodeBlock` component displaying Python code for integrating AutoGen with Azure AI Services. This demonstrates a practical, enterprise-level application of A2A principles, showing how to configure assistant agents with Azure OpenAI and set up a group chat for collaboration. The component also references other complex components like `A2ACommunicationPatterns` and `A2AMultiAgentSystem`, indicating a deeply interconnected and modular codebase.

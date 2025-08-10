@@ -1,0 +1,16 @@
+DataVisualizationConcept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to the Data Visualization page. This is about how we create charts and graphs to understand how our AI agents are performing. Instead of looking at long tables of numbers, we can use visuals to quickly see important information, like the agent's average response time or its success rate. This helps developers monitor the agents' health and find ways to make them better. On this page, you'll see examples of different charts and even a live dashboard showing agent analytics.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page explores how data visualization is used to monitor and understand AI agent systems. The "Data Visualization Basics" tab introduces the key areas we visualize, such as performance metrics and behavior patterns, and shows common chart types. This tab also includes interactive demos, like the "Data Flow Visualization" and the "Data Transform Visualization," which let you see how data moves and changes within the system. The "Building Dashboards" tab shows a live example of an "Agent Analytics Dashboard," which brings many of these charts together into a single, real-time monitoring view.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `DataVisualizationConcept` component is a comprehensive module that integrates several complex, custom visualization components. The 'Fundamentals' tab embeds `EnhancedDataFlowVisualizer` and `DataTransformVisualizer`, which are likely sophisticated components that use libraries like D3.js or React Flow to render interactive, animated diagrams. The 'Implementation' tab embeds the `TransformSequenceDemo` and the `AgentAnalyticsDashboard` component, the latter of which uses the `recharts` library to display live-updating charts. The 'Building Dashboards' tab also includes a React code snippet demonstrating how to build a simple dashboard component, including fetching data and rendering a line chart with `recharts`. This component is a prime example of a high-level "hub" that composes multiple, specialized child components to create a rich user experience.

@@ -1,0 +1,16 @@
+AgentInstructionDesign Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to Agent Instruction Design. This page is about the best way to give instructions to an AI agent. If you give vague instructions, you might get a vague or unhelpful answer. This page teaches you how to be clear and specific. A key idea is the "Instruction Hierarchy," which is about telling the agent what's most important. For example, you might tell it that being accurate is more important than being concise. This helps the agent make the right decision if your instructions seem to conflict.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page focuses on the art of crafting effective instructions for AI agents. The "Instruction Hierarchy Design" section shows the difference between an unclear set of instructions and a clear, prioritized list that helps the agent resolve conflicts. The "Steerability and Control" section is interactive; you can click between "Low," "Medium," and "High" control to see how the level of detail in your instructions dramatically changes the predictability of the agent's output. The "Verbosity Control" section has a slider that lets you see how you can ask the agent for different levels of detail, from a minimal, command-only response to a verbose, comprehensive explanation.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `AgentInstructionDesign` component is an interactive guide to prompt engineering. The "Steerability" section uses a `useState` hook to dynamically display different instruction examples and their corresponding issues based on the selected control level. The "Verbosity Control" section is also interactive, using a `Slider` component to control the `verbosityLevel` state, which in turn determines the output of the `getVerbosityExample` function. The component also features a tabbed section for "Advanced Techniques," which provides detailed templates for controlling output formats, defining fallback procedures for errors, and building self-validation checks directly into the agent's instructions. These templates are presented in code blocks and represent a sophisticated, programmatic approach to instruction design.

@@ -1,0 +1,16 @@
+ACPConcept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to the Agent Communication Protocol, or ACP. Think of ACP as the enterprise-level version of agent communication. If basic A2A is like a small team having a conversation, ACP is like the communication system for a whole corporation. It's designed for bigger, more complex tasks and includes features for managing complex workflows and ensuring everything runs smoothly and reliably, which is essential for businesses. On the screen, you can see how ACP compares to other protocols, showing that it's built for advanced coordination.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page introduces the Agent Communication Protocol (ACP), an advanced stack for multi-agent systems. As you can see in the "ACP vs Other Protocols" section, while A2A handles basic messaging and MCP handles secure tool use, ACP is designed for orchestrating complex workflows. When you click the "Protocol Stack" tab, you'll see that ACP is a layered system. It includes layers for the application, orchestration, communication, and transport, each handling a different part of the process. The interactive demos on this page will let you see a simplified ACP workflow in action and compare it directly with MCP.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `ACPConcept` component serves as a high-level introduction to the Agent Communication Protocol. It's built using the `ConceptLayout` which organizes the information into tabs: 'ACP Basics', 'Protocol Stack', 'Enterprise Integration', and 'Advanced Patterns'. The content explains that ACP provides an orchestration layer on top of basic A2A communication, making it suitable for enterprise applications. The 'Enterprise Integration' tab includes a JSON example of an ACP configuration, defining agent roles, capabilities, and endpoints, as well as a multi-step workflow. The 'Advanced Patterns' tab introduces sophisticated software architecture patterns like Circuit Breaker and Saga, indicating that ACP is designed to handle distributed transactions and improve fault tolerance in complex, multi-agent systems.

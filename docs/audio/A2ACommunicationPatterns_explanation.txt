@@ -1,0 +1,16 @@
+A2ACommunicationPatterns Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+On this page, you can see a live simulation of how AI agents talk to each other. There are three main styles, or "patterns," of communication you can explore using the tabs at the top. The "Direct" pattern is like agents talking one-on-one. The "Broadcast" pattern is like a team leader giving instructions to the whole team at once. The "Hierarchical" pattern is like a company's organizational chart, where messages move up and down the chain of command. You can press the "Play" button to watch the messages flow between the agents in each style.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This interactive visualization demonstrates three key A2A communication patterns. In the "Direct" tab, you see a peer-to-peer network where agents like 'Research' and 'Writing' collaborate directly. In the "Broadcast" tab, a central 'Coordinator' agent distributes tasks to multiple 'Specialist' agents in parallel. The "Hierarchical" tab shows a multi-level structure where a 'Master Agent' delegates to 'Sub-Agents'. You can click the question mark icon on the main agent in each pattern to open a "micro-learning" panel. This panel provides more detail and even code examples, with content tailored to beginner, intermediate, or advanced knowledge levels, which you can select.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `A2ACommunicationPatterns` component is a sophisticated React component that uses SVG for its animated visualization. The animation logic is controlled by `useState` and `useEffect` hooks to manage the play/pause state and the message flow timing. The agent positions and communication lines are dynamically rendered based on data structures defined in the `agents` and `communications` objects. A key feature is the `microLearningContent` object, which holds tiered educational content—including code examples—for each pattern. The user's selected knowledge level (`useState`) determines which content is displayed. The entire visualization is theme-aware, using the `useTheme` hook to adjust colors for light and dark modes, ensuring a seamless user experience.

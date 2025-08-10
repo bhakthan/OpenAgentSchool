@@ -1,0 +1,16 @@
+ACPProtocolStack Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This page shows you the "ACP Stack." Think of it like a stack of building blocks. Each block, or "layer," has a specific job to do to make sure AI agents can communicate properly. At the bottom, you have the physical infrastructure, like the cloud servers. As you go up, layers handle networking, data transport, and finally, the agent's application logic at the very top. The animation you see shows how a message from "Agent A" travels through these layers to get to "Agent B."
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Here we have a detailed visualization of the Agent Communication Protocol (ACP) stack. You can see the five distinct layers. From the bottom up, they are: Physical, Network, Transport, the ACP layer itself, and the Application layer. As you hover over each layer, you can see its key components and the protocols it uses. The animation shows a request from Agent A traveling down the stack and a response from Agent B traveling back up. The ACP layer is the key here; it standardizes how agents discover each other and exchange capabilities, making complex coordination possible. Below the diagram, you can see a sample of what an ACP message looks like in a structured JSON format.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `ACPProtocolStack` React component provides an interactive SVG-based visualization of the protocol stack. The component uses the `useState` hook to track the `hoveredLayer`, which dynamically applies CSS classes for highlighting and scaling effects to the SVG elements. The data flow is animated using SVG's built-in animation capabilities, like `<animateMotion>` along an `<mpath>` for the data packets and `<animate>` on the `stroke-dashoffset` for the communication lines, creating a dynamic visual effect. The component clearly defines the responsibilities of each layer, from the physical infrastructure to the agent application logic, and it includes a detailed JSON structure of a sample ACP message, showing fields for versioning, sender/recipient info, content payload, context, and security.

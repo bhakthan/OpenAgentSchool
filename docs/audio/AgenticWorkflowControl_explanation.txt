@@ -1,0 +1,16 @@
+AgenticWorkflowControl Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This page is about controlling how an AI agent "thinks" and works through a task. You can choose different "Workflow Patterns." A "Sequential" workflow is like a checklist, where the agent does one step at a time. A "Parallel" workflow is for when the agent can do multiple things at once to save time. You can also control the agent's "Eagerness," which is the balance between thinking and acting. You can tell it to be very cautious and plan a lot, or to act quickly and decisively.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page explores advanced methods for controlling an agent's execution process. The "Workflow Execution Patterns" section lets you compare three main strategies: Sequential, for tasks that require careful, step-by-step processing; Parallel, for tasks that can be broken down into independent sub-tasks; and Adaptive, where the agent chooses the best strategy based on the problem. The "Eagerness and Timing Control" section has an interactive slider that lets you adjust the agent's tendency to plan versus act. The "Reasoning Effort" slider similarly lets you control the depth of the agent's analysis, from a quick, surface-level look to a deep, comprehensive investigation.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `AgenticWorkflowControl` component provides a sophisticated, interactive dashboard for understanding agent execution control. The component uses `useState` hooks to manage the state for the selected `workflowType`, `eagernessSetting`, and `reasoningEffort`, dynamically rendering different UI elements and code blocks in response to user interaction with the buttons and sliders. The "Tool Integration Control" section is a tabbed interface that provides detailed code-block examples of "Tool Preambles" for a file system and a web search tool. These preambles are structured prompts that define the context, constraints, and expected behavior for tool use, demonstrating an advanced technique for ensuring safe and reliable tool integration in an agentic workflow.

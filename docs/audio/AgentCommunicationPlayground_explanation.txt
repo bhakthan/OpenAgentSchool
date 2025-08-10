@@ -1,0 +1,16 @@
+AgentCommunicationPlayground Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to the Agent Communication Playground! This is a fun, interactive space where you can see how different AI systems communicate. At the top, you can choose between three different scenarios: MCP, A2A, and ACP. Each one is a different "language" or style of communication. When you press the "Play" button, you'll see animated messages flowing between the different components on the screen, showing you how a request is handled from start to finish in each system.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This playground provides an interactive visualization of three different agent communication protocols. You can select a scenario using the buttons at the top. The "MCP" scenario shows how a client like Claude can securely access various tools and data sources. The "A2A" scenario demonstrates how a team of specialized agents can collaborate to handle a complex query. The "ACP" scenario illustrates a more formal, enterprise-grade communication system with components like a gateway and an agent registry. As the simulation plays, you can see the status of each component change and read a description of the current step below the diagram.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `AgentCommunicationPlayground` is a complex React component designed for visualizing different communication protocols. It uses a `scenarios` object to hold the configuration for each protocol, including the components, their positions, and the sequence of steps for the animation. The component's state is managed with `useState` and `useEffect` to control the animation flow, update component statuses, and render messages. The visualization itself is an SVG, where component rectangles and message lines are dynamically rendered from the state. The logic for offsetting message labels to prevent them from overlapping is a nice touch that improves readability in a complex animation. This is an excellent example of using React and SVG to create a data-driven, educational animation.

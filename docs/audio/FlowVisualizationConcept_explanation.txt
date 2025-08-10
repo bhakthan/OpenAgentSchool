@@ -1,0 +1,16 @@
+FlowVisualizationConcept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This page is about "Flow Visualization," which is a fancy way of saying we draw diagrams to see how AI agents work. Think of it like a flowchart. These visualizations help us understand how an agent makes decisions and how different agents in a team communicate with each other. By seeing the flow, developers can more easily spot problems, find ways to make the agent more efficient, and understand how the whole system works together.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page explores the concept of visualizing agent workflows. The "Visualization Basics" tab explains the benefits of this approach, such as for debugging and optimization, and introduces different types of diagrams like sequence diagrams and network graphs. The "Visualization Architecture" tab discusses the technology behind these visuals, including popular libraries like React Flow. The "Advanced Visualization" tab features a particularly interesting "Pattern Comparison Timeline," which is an interactive demo that lets you run two different agent patterns—like "Parallelization" and "Chain of Thought"—side-by-side to see how their execution flows and timelines differ.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `FlowVisualizationConcept` component is a showcase for several advanced, custom-built visualization components. The 'Architecture' tab embeds a `FlowArchitectureVisualizer`, which appears to be a custom SVG-based component for rendering agent patterns. The 'Implementation' tab includes an `AlgorithmVisualizer`, which interactively steps through a task distribution algorithm. The 'Advanced Visualization' tab is the most complex, featuring a `ComparisonTimelineVisualizer` that simulates and compares two different agent patterns, and a `PatternDemoSVG` which is a pure SVG-based interactive demo. The use of multiple, distinct, and custom-built visualization components indicates a sophisticated and highly specialized front-end architecture for this educational module.

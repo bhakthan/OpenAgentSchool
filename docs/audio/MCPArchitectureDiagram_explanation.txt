@@ -1,0 +1,16 @@
+MCPArchitectureDiagram Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This page shows you a diagram of the Model Context Protocol, or MCP, architecture. Think of it like a blueprint. On the left, you have the "Clients," which are the AI applications that need to get work done. In the middle, you have the "MCP Servers," which act as a secure bridge. On the right, you have your "Data Sources," like files, databases, or other apps. When you press "Play," you can watch how a request flows from the client, through the secure server, to the data source, and back again.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This is an interactive visualization of the MCP architecture. The diagram is divided into three main parts: the "Frontend Clients," which are the AI agents or applications making requests; the central "MCP Servers," which manage the protocol; and the "Data Sources," which are the tools and resources the agents need to access. When you play the animation, you can follow the five main steps of a data flow. You can also click the question mark icons on each section to open a "micro-learning" pop-up. This pop-up provides more detailed explanations and code examples, with different levels of complexity for beginner, intermediate, and advanced users.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `MCPArchitectureDiagram` is a sophisticated React component that uses an SVG to create an animated and interactive architectural diagram. The animation is controlled by `useState` and `useEffect` hooks that cycle through the `dataFlowSteps` array, highlighting the active components and data paths at each stage. The component's most powerful feature is the `microLearningContent` object, which contains a three-tiered set of explanations, code examples, key points, and use cases for each major part of the architecture. The content displayed in the modal is dynamically chosen based on the `activeMicroLesson` and `userKnowledgeLevel` state variables, making this a highly adaptive and deeply technical educational tool.

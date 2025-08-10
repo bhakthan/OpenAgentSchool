@@ -1,0 +1,16 @@
+AIAgentsConcept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to the "What are AI Agents?" page. This is your starting point for understanding this exciting technology. In simple terms, an AI Agent is an AI that can do more than just chat. It's an autonomous system that can understand a goal, make a plan, and take actions to achieve it. Unlike a simple chatbot, an agent can use tools, remember past conversations, and work on its own to complete complex tasks. On this page, you'll see a clear comparison between traditional chatbots and these more powerful AI agents.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page provides a foundational understanding of AI Agents. The "Fundamentals" tab defines an agent and its key characteristics: autonomy, goal-orientation, adaptability, and interactivity. It also includes an interactive "Chatbot to Agent Transition" demo that visually contrasts the limited, reactive nature of a chatbot with the proactive, multi-step problem-solving of an agent. The "Agent Architecture" tab introduces the core components of an agent, such as its foundation model and planning system, and includes an interactive visualization of the agent's lifecycle. You can also explore the "Agent Personality Showcase" to see how different agents can be specialized for different tasks.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `AIAgentsConcept` component serves as a hub, integrating several other complex components to provide a comprehensive overview of AI agents. It uses a `ConceptLayout` to structure the content into tabs covering fundamentals, architecture, implementation, and advanced patterns. The 'Architecture' tab is particularly rich, as it embeds the `AgentLifecycleVisual` and `AgentPersonalityShowcase` components, creating a multi-faceted and interactive learning experience. The 'Implementation' tab includes a JavaScript code block showing a `SimpleAgent` class that uses the `openai` library, demonstrating the basic structure for planning and execution. This component effectively composes multiple, complex child components into a cohesive and deeply informative educational module.

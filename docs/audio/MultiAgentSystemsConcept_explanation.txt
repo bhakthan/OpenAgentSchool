@@ -1,0 +1,16 @@
+MultiAgentSystemsConcept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to Multi-Agent Systems. This page is about how you can get multiple AI agents to work together as a team to solve problems that would be too big for a single agent. Just like a human team, agent teams need ways to coordinate their work, and this page explores how they do that. For example, they use "Coordination Mechanisms" to avoid stepping on each other's toes and "Negotiation" to decide how to share resources or divide up tasks.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page dives into the concepts behind building and managing multi-agent systems. The "Coordination Mechanisms" tab explains patterns like "Consensus Algorithms" for group decisions and "Task Allocation" for distributing work. The "Agent Negotiation" tab covers strategies like "Auction-Based" negotiation, where agents can bid on tasks. The "Collaboration Models" tab shows different team structures, like a "Hierarchical Model" with a manager and workers, or a "Peer-to-Peer Model" where all agents are equal. The page also introduces Microsoft's "AutoGen Framework," a popular tool for building these kinds of multi-agent applications.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `MultiAgentSystemsConcept` component provides a detailed, tabbed overview of the principles of multi-agent systems. The 'Coordination' and 'Negotiation' tabs include Python pseudo-code examples for an `AgentCoordinator` and an `AgentAuction`, illustrating the logic behind these complex interactions. The 'AutoGen Framework' tab is particularly detailed, explaining the core components of AutoGen, such as `ConversableAgents` and `UserProxyAgents`, and providing a sample Python script for setting up a basic two-agent chat. It also includes a feature comparison table between AutoGen, CrewAI, and LangGraph, and describes advanced conversation patterns like "Sequential Chat" and "Nested Chat," making it a rich resource for developers looking to implement multi-agent systems.

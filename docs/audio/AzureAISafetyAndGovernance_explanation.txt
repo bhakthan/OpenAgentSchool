@@ -1,0 +1,16 @@
+AzureAISafetyAndGovernance Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to the AI Safety and Governance page. This is all about the tools and rules Microsoft Azure provides to make sure AI is used safely and responsibly. Think of it like the safety features in a car. Azure has "Content Filters" to block harmful content, "Guardrails" to keep the AI's behavior within safe limits, and "Monitoring" tools to keep an eye on everything and alert developers if something goes wrong. The goal is to build AI systems that are helpful and trustworthy.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page provides an overview of the safety and governance features within the Azure AI platform. The first tab, "Responsible AI: Six Pillars," introduces Microsoft's core principles: Fairness, Reliability, Privacy, Inclusiveness, Transparency, and Accountability. As you click through the other tabs, you'll see visualizations and explanations for specific Azure services that implement these principles. This includes "Content Filters" for moderating inputs and outputs, "Azure Defender" for monitoring security risks, "Guardrails" for controlling model behavior, and "Microsoft Purview" for data governance and lineage tracking.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `AzureAISafetyAndGovernance` component is a high-level overview that links to and describes various Azure services. It's structured as a `Tabs` component where each tab corresponds to a key area of AI safety and governance. Each `TabsContent` section contains a custom visualization component (e.g., `AzureAISafetyVisualization`, `AzureContentFilterVisualization`) and a textual explanation. This component serves as a directory of Azure's responsible AI capabilities, covering everything from content moderation and threat detection with Azure Defender to data governance with Microsoft Purview and distributed tracing with Azure Application Insights. It effectively maps Microsoft's six pillars of responsible AI to concrete services and tools available on the Azure platform.

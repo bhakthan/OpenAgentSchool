@@ -1,0 +1,16 @@
+ChatbotToAgentTransition Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This page shows you the big difference between a simple chatbot and a powerful AI agent. When you press "Play," you'll see a user ask for help scheduling a meeting. The traditional chatbot on the left can only give a basic, generic response. But the Azure AI Agent on the right is much smarter. It understands the goal, makes a plan, uses tools like a calendar and a calculator, and then takes action to schedule the meeting and send invitations, all on its own.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This is an interactive demo that visually contrasts a traditional chatbot with an Azure AI Agent. As the animation plays, you'll see the chatbot is limited to a single, reactive response. The AI Agent, however, goes through a multi-step, autonomous process. You can see its "Thought" process, the "Actions" it takes by calling tools, and the "Observations" it makes from the tool's output. This demonstrates the agent's core capabilities: planning, tool use, memory, and self-reflection. After the animation, a comparison table appears, clearly summarizing the key differences between the two.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `ChatbotToAgentTransition` component uses Framer Motion to create a sophisticated, step-by-step animation. The entire sequence is driven by the `animationSteps` array, where each object defines a stage in the agent's process, including its thoughts, actions, and observations. The `useEffect` hook manages the progression through these steps. The SVG diagram is designed to highlight different components—like the agent's core, memory, and tools—at different stages of the animation by changing their CSS classes. This is a well-structured, declarative approach to building a complex, educational animation that clearly illustrates the architectural and functional differences between a simple chatbot and a reasoning, tool-using AI agent.

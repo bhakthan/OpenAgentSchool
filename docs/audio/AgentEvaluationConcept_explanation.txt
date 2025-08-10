@@ -1,0 +1,16 @@
+AgentEvaluationConcept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to the Agent Evaluation page. This is all about how we "grade" AI agents to make sure they're doing a good job. Just like a student gets a report card, an AI agent is tested to see how well it performs. We check things like its accuracy, how well it handles tricky situations, and whether it's safe to use. This helps developers find areas for improvement and build better, more reliable agents.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page provides a comprehensive guide to evaluating AI agents. The "Architecture" tab explains the overall strategy, which includes automated benchmarking and getting feedback from human reviewers. The "Implementation" tab shows real code examples of how to use evaluation tools like the "Azure AI Evaluation SDK" to test an agent's performance. The "Business Use Case" tab gives a practical example of why this is important, showing how a retail company would evaluate a shopping assistant agent. Finally, the "Simulation" tab includes advanced visualizations of different evaluation methods, like "LLM as a Judge," where one AI is used to grade another.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `AgentEvaluationConcept` component is a detailed, tabbed resource for understanding advanced AI agent evaluation. The 'Architecture' tab includes a Python code block that defines a multi-agent evaluation environment, specifying metrics for time, code quality, bug rate, and collaboration efficiency, demonstrating a sophisticated, multi-faceted evaluation approach. The 'Implementation' tab provides practical code snippets for using both the proprietary `azure-ai-evaluation` SDK and the open-source `evallm` library. The 'Simulation' tab is particularly advanced, featuring custom React components like `AdvancedArchitectureSimulation` and `MultiAgentEvalVisual` to provide interactive diagrams of complex evaluation setups, such as using a reward model or a multi-agent debate for assessment.

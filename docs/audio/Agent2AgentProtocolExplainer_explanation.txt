@@ -1,0 +1,16 @@
+Agent2AgentProtocolExplainer Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to the Agent2Agent Protocol explainer. In simple terms, this is a guide to the "language" that AI agents use to talk to each other. Just like people use standard languages to communicate, agents need a common protocol to work together, especially if they were built by different teams. On this page, you'll learn the five core principles that make this protocol effective, like being simple to use and ready for business needs. You'll also see the basic building blocks, like "Tasks" and "Messages," that agents use in their conversations.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page provides a deeper look into the Agent2Agent (A2A) Protocol. As you explore the tabs, you'll see the five core principles, such as "Async First," which allows for long-running tasks, and "Opaque Execution," which means an agent can use another's services without needing to know its internal workings. In the "Building Blocks" tab, you'll learn about the "Agent Card," a digital business card that advertises an agent's skills. You'll also see the distinction between A2A, which is for agent-to-agent collaboration, and MCP, which is for an agent to use a specific tool. The "Complete Workflow" tab provides a step-by-step example of how these two protocols work together to solve a user's query.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `Agent2AgentProtocolExplainer` component is a detailed, tabbed interface built with React and ShadCN UI components. It breaks down the A2A protocol into five key sections: Core Principles, Building Blocks, A2A vs MCP, a Complete Workflow example, and a Business Use Case. The "Building Blocks" tab includes a JSON snippet showing the structure of an "Agent Card," which is crucial for agent discovery. The "Complete Workflow" tab is particularly insightful, as it programmatically details a sequence of eight steps, showing the interplay between user requests, A2A delegation, and MCP tool calls, complete with example JSON payloads for both A2A task creation and MCP function calls. This demonstrates a sophisticated understanding of how different agent-related protocols form a cohesive, functional ecosystem.

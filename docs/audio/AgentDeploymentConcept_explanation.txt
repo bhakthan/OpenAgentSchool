@@ -1,0 +1,16 @@
+AgentDeploymentConcept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This page is all about how AI agents are "deployed," which is how they are put into a live environment where they can do their work. A key technology for this is "Containerization." Think of a container like a standardized shipping container for software. It packages up the agent and everything it needs to run, so it can be easily moved and run on any computer or cloud server. This makes deploying and managing agents much more reliable and efficient.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page covers the key concepts for deploying and managing AI agents in a production environment. The first tab, "Containerization," explains how technologies like Docker and Kubernetes are used. Docker creates the "container" for the agent, and Kubernetes is a system for managing and scaling many of these containers at once. The other tabs cover "Monitoring & Observability," which is about keeping an eye on the agent's health and performance; "Scaling Strategies," which explains how to handle more users and traffic; and "DevOps for Agents," which is about automating the process of testing and deploying new versions of the agent.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `AgentDeploymentConcept` component provides a comprehensive overview of MLOps for AI agents. The 'Containerization' tab includes a sample `Dockerfile` for an AI agent, showing best practices like using a slim base image, setting environment variables, and defining a health check. It also provides a Kubernetes `deployment.yaml` file, demonstrating how to manage replicas, secrets, resource requests and limits, and liveness probes. The 'Monitoring & Observability' tab features a Python code block showing how to implement the three pillars of observability—metrics (with Prometheus), logging, and tracing (with OpenTelemetry and Jaeger)—within an agent's code. The 'DevOps' tab provides a sample GitHub Actions workflow for a full CI/CD pipeline, including testing, model validation, and deployment to a staging environment.

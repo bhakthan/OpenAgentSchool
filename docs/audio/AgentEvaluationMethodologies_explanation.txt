@@ -1,0 +1,16 @@
+AgentEvaluationMethodologies Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+This page is about the different methods we use to test and measure how well an AI agent is performing. Think of it like a doctor's check-up for an AI. We use "Quantitative" methods, which are about numbers, like measuring response time or accuracy percentage. We also use "Qualitative" methods, which are about quality, like having a human rate how clear or helpful the agent's response was. The best approach, called "Hybrid," is to use a mix of both to get a complete picture of the agent's health.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This page dives deep into the methodologies for agent evaluation. The "Comprehensive Evaluation Framework" section at the top breaks down the three main approaches: Quantitative, Qualitative, and Hybrid. The "Core Evaluation Metrics" section lets you explore four key areas of performance: Accuracy, Robustness (how well it handles weird inputs), Efficiency (how fast it is), and Quality. As you click through these, you'll see code examples and visualizations for how each is measured. The page also has a detailed section on the "LLM-as-Judge" methodology, which is an advanced technique where one powerful AI is used to score the performance of another.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+This `AgentEvaluationMethodologies` component is a highly detailed and interactive learning module. The "Core Evaluation Metrics" section is driven by a `useState` hook that dynamically renders different content based on the `selectedMetric`. Each metric's section includes a Python code block demonstrating a sophisticated evaluation function, such as a multi-faceted accuracy assessment or a robustness testing protocol. The "LLM-as-Judge" section is a four-tab module that provides a deep dive into this technique, including a comprehensive Python template for an LLM Judge's system prompt and user prompt, and a code block for a validation pipeline that calculates inter-rater reliability and performs outlier detection. This component is a rich, technical resource for implementing a rigorous, multi-dimensional evaluation framework.
