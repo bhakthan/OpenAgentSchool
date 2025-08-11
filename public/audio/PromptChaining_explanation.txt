@@ -22,7 +22,7 @@ This approach has several advantages over a single, monolithic prompt. It allows
 --------------------------------------------------------------------------------
 Advanced Explanation
 --------------------------------------------------------------------------------
-Prompt Chaining is a foundational pattern in orchestrating LLM interactions for complex problem-solving. It involves a sequence of LLM calls where the output of `prompt_n` serves as a variable in the template for `prompt_n+1`. This creates a directed acyclic graph (DAG) of operations, which can be managed by a simple sequential script or a more sophisticated framework like LangChain's `SequentialChain`.
+Prompt Chaining is a foundational pattern in orchestrating LLM interactions for complex problem-solving. It involves a sequence of LLM calls where the output of prompt_n serves as a variable in the template for prompt_n+1. This creates a directed acyclic graph (DAG) of operations, which can be managed by a simple sequential script or a more sophisticated framework like LangChain's SequentialChain.
 
 The implementation of a prompt chain involves several key components:
 1.  Prompt Templates: These are parameterized strings that define the structure of each prompt in the chain. They contain placeholders for variables that will be filled in at runtime.
@@ -30,5 +30,5 @@ The implementation of a prompt chain involves several key components:
 3.  Output Parsers: These are functions that extract and transform the raw string output from the LLM into a more structured format (e.g., JSON, a list of strings) that can be easily passed to the next prompt in the chain.
 4.  Orchestration Logic: This is the code that defines the sequence of the chain. It takes the initial input, calls the first prompt, passes the parsed output to the second, and so on, until the final output is produced.
 
-For example, a chain might be defined as `chain = LLMChain(prompt=prompt_A) | LLMChain(prompt=prompt_B)`. When this chain is invoked with an input, the input is first passed to `prompt_A`. The output of that LLM call is then automatically passed as the input to `prompt_B`. This modular approach allows for the construction of complex reasoning workflows and is a core concept behind many advanced agentic architectures.
+For example, a chain might be defined as chain = LLMChain(prompt=prompt_A) | LLMChain(prompt=prompt_B). When this chain is invoked with an input, the input is first passed to prompt_A. The output of that LLM call is then automatically passed as the input to prompt_B. This modular approach allows for the construction of complex reasoning workflows and is a core concept behind many advanced agentic architectures.
 

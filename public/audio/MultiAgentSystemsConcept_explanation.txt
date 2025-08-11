@@ -15,7 +15,7 @@ Advanced Explanation
 --------------------------------------------------------------------------------
 Multi-Agent Systems (MAS) are a subfield of AI focused on the computational study of societies of autonomous agents. At a technical level, designing a MAS involves addressing several core challenges:
 
-1.  Communication and Interaction Protocols: Effective coordination requires a standardized Agent Communication Language (ACL). Historically, FIPA-ACL has been a standard, defining message types like `inform`, `query`, and `propose`. Modern systems often use simpler, web-friendly protocols like REST APIs, gRPC, or message queues (e.g., RabbitMQ) for inter-agent communication, with message payloads structured in JSON.
+1.  Communication and Interaction Protocols: Effective coordination requires a standardized Agent Communication Language (ACL). Historically, FIPA-ACL has been a standard, defining message types like inform, query, and propose. Modern systems often use simpler, web-friendly protocols like REST APIs, gRPC, or message queues (e.g., RabbitMQ) for inter-agent communication, with message payloads structured in JSON.
 
 2.  Coordination Mechanisms: Beyond simple messaging, agents need algorithms to coordinate their actions. This can involve distributed algorithms for task allocation, such as the Contract Net Protocol, where an "initiator" agent advertises a task, other agents "bid" on it, and the initiator awards the contract. For achieving agreement in the presence of faults, consensus algorithms like Paxos or Raft can be adapted for agent decision-making.
 

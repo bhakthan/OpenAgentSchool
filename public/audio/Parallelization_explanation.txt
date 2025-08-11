@@ -19,17 +19,17 @@ To prevent overwhelming external services (like an API), a concurrency controlle
 --------------------------------------------------------------------------------
 Advanced Explanation
 --------------------------------------------------------------------------------
-The Parallelization pattern is a computational technique for executing multiple independent tasks concurrently to reduce end-to-end latency. In the context of AI agents, this is often implemented using asynchronous programming models, such as `asyncio` in Python or `Promise.all` in JavaScript/TypeScript.
+The Parallelization pattern is a computational technique for executing multiple independent tasks concurrently to reduce end-to-end latency. In the context of AI agents, this is often implemented using asynchronous programming models, such as asyncio in Python or Promise.all in JavaScript/TypeScript.
 
 The implementation typically involves these components:
-1.  Task Definition: A function or method that encapsulates a single, independent unit of work (e.g., `analyze_review(review_text)`). This function is usually asynchronous (`async`).
+1.  Task Definition: A function or method that encapsulates a single, independent unit of work (e.g., analyze_review(review_text)). This function is usually asynchronous (async).
 2.  Task Collection: An iterable (like a list) containing all the individual inputs for the tasks to be performed.
-3.  Concurrency Limiter: To avoid overwhelming system resources or external APIs, a semaphore or a similar concurrency primitive is used. A semaphore is initialized with a maximum concurrency limit (e.g., `asyncio.Semaphore(10)`). Before a task is run, it must acquire the semaphore, and it releases it upon completion. This ensures that no more than the specified number of tasks are running at any one time.
-4.  Task Execution and Aggregation: The tasks are submitted for execution, often using a function like `asyncio.gather()`. This function runs all the awaitable tasks concurrently and returns a list of their results once all have completed.
+3.  Concurrency Limiter: To avoid overwhelming system resources or external APIs, a semaphore or a similar concurrency primitive is used. A semaphore is initialized with a maximum concurrency limit (e.g., asyncio.Semaphore(10)). Before a task is run, it must acquire the semaphore, and it releases it upon completion. This ensures that no more than the specified number of tasks are running at any one time.
+4.  Task Execution and Aggregation: The tasks are submitted for execution, often using a function like asyncio.gather(). This function runs all the awaitable tasks concurrently and returns a list of their results once all have completed.
 
 For example, a Python implementation might look like this:
-`tasks = [process_item(item, semaphore) for item in all_items]`
-`results = await asyncio.gather(*tasks)`
+tasks = [process_item(item, semaphore) for item in all_items]
+results = await asyncio.gather(*tasks)
 
-This approach is highly efficient for I/O-bound operations, as it allows the program to switch to another task while one is waiting for a response from a network request. For CPU-bound tasks, a multi-processing approach (using a `ProcessPoolExecutor`) is often preferred to leverage multiple CPU cores, as this bypasses Python's Global Interpreter Lock (GIL).
+This approach is highly efficient for I/O-bound operations, as it allows the program to switch to another task while one is waiting for a response from a network request. For CPU-bound tasks, a multi-processing approach (using a ProcessPoolExecutor) is often preferred to leverage multiple CPU cores, as this bypasses Python's Global Interpreter Lock (GIL).
 
