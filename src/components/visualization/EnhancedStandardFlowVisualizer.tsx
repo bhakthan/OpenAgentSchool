@@ -40,6 +40,7 @@ export interface StandardFlowMessage {
   content: string;
   type: DataFlowType;
   progress: number;
+  timestamp: number;
   label?: string;
   complete?: boolean;
 }
@@ -123,7 +124,10 @@ export const EnhancedStandardFlowVisualizer: React.FC<EnhancedStandardFlowVisual
   const reactFlowInstance = useReactFlow();
   
   // Use our stable flow utility to ensure proper rendering
-  const { resetFlow, fitView } = useStableFlow(containerRef);
+  const { resetFlow, fitView } = useStableFlow({
+    fitViewOnResize: true,
+    fitViewPadding: 0.1
+  });
   
   // Apply theme-based styling when theme changes
   useEffect(() => {
@@ -151,10 +155,10 @@ export const EnhancedStandardFlowVisualizer: React.FC<EnhancedStandardFlowVisual
             ...getStandardEdgeStyle(edgeType, isDarkMode ? 'dark' : 'light', edge.animated),
             ...(edge.style || {})
           },
-          markerEnd: edge.markerEnd ? {
+          markerEnd: edge.markerEnd && typeof edge.markerEnd === 'object' ? {
             ...edge.markerEnd,
             color: getStandardEdgeStyle(edgeType, isDarkMode ? 'dark' : 'light', edge.animated).stroke
-          } : undefined
+          } : edge.markerEnd
         };
       })
     );

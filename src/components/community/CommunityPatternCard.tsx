@@ -16,6 +16,7 @@ interface CommunityPatternCardProps {
   tags: string[];
   stars: number;
   lastUpdated: string;
+  onSelect?: () => void;
 }
 
 const CommunityPatternCard: React.FC<CommunityPatternCardProps> = ({
@@ -24,10 +25,11 @@ const CommunityPatternCard: React.FC<CommunityPatternCardProps> = ({
   description,
   tags,
   stars,
-  lastUpdated
+  lastUpdated,
+  onSelect
 }) => {
   return (
-    <Card className="h-full flex flex-col">
+    <Card className="h-full flex flex-col cursor-pointer hover:shadow-md transition-shadow" onClick={onSelect}>
       <CardHeader className="pb-3">
         <CardTitle className="text-lg font-semibold">{title}</CardTitle>
         <div className="flex items-center text-sm text-muted-foreground">

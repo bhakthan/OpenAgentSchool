@@ -3,7 +3,8 @@
  */
 
 // Re-export from resizeObserverUtils
-export { disableResizeObserverIfProblematic } from './resizeObserverUtils';
+import { disableResizeObserverIfProblematic } from './resizeObserverUtils';
+export { disableResizeObserverIfProblematic };
 
 export default {
   disableResizeObserverIfProblematic

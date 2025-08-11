@@ -26,7 +26,7 @@ interface PracticeItem {
 
 const BestPractices: React.FC<BestPracticesProps> = ({ patternId, patternName }) => {
   const [practiceType, setPracticeType] = useState<'general' | 'azure'>('general');
-  const [azureView, setAzureView] = useState<'overview' | 'detailed' | 'reference'>('overview');
+  const [azureView, setAzureView] = useState<'overview' | 'detailed' | 'reference' | 'security'>('overview');
   
   // Get best practices based on pattern ID
   const generalPractices = getGeneralBestPracticesForPattern(patternId);
@@ -163,7 +163,7 @@ const BestPractices: React.FC<BestPracticesProps> = ({ patternId, patternName })
                 {azureView === 'overview' && <AzureIntegrationGuide patternId={patternId} patternName={patternName} />}
                 {azureView === 'detailed' && <AzureServicesBestPractices patternId={patternId} patternName={patternName} />}
                 {azureView === 'security' && <AzureSecurityImplementation patternId={patternId} patternName={patternName} />}
-                {azureView === 'reference' && <AzureServiceReference patternId={patternId} patternName={patternName} />}
+                {azureView === 'reference' && <AzureServiceReference pattern={patternId} />}
               </div>
               
               {/* Add resources section */}

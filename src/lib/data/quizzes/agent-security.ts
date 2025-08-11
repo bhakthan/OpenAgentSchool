@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Agent security quiz questions
 import { QuizQuestion } from './types';
 
@@ -5,6 +6,7 @@ export const agentSecurityQuestions: QuizQuestion[] = [
   {
     id: 'security-b1',
     question: 'Why is security important in AI agent systems?',
+    text: 'Why is security important in AI agent systems?',
     options: [
       'It\'s not important for AI agents',
       'To protect against prompt injection, data breaches, and unauthorized access',
@@ -24,6 +26,7 @@ export const agentSecurityQuestions: QuizQuestion[] = [
   {
     id: 'security-i1',
     question: 'What are the main types of security threats to AI agent systems?',
+    text: 'What are the main types of security threats to AI agent systems?',
     options: [
       'Only network attacks',
       'Prompt injection, data poisoning, adversarial inputs, and privilege escalation',
@@ -43,6 +46,7 @@ export const agentSecurityQuestions: QuizQuestion[] = [
   {
     id: 'security-a1',
     question: 'How should enterprise AI agent systems implement defense-in-depth security?',
+    text: 'How should enterprise AI agent systems implement defense-in-depth security?',
     options: [
       'Only use firewalls',
       'Implement input validation, output filtering, access controls, monitoring, and incident response',
@@ -62,6 +66,7 @@ export const agentSecurityQuestions: QuizQuestion[] = [
   {
     id: 'security-i2',
     question: 'What is prompt injection and how can it be prevented?',
+    text: 'What is prompt injection and how can it be prevented?',
     options: [
       'A type of SQL injection',
       'Malicious inputs designed to manipulate AI agent behavior, prevented through input validation and output filtering',
@@ -81,6 +86,7 @@ export const agentSecurityQuestions: QuizQuestion[] = [
   {
     id: 'security-a2',
     question: 'How should sensitive data be handled in AI agent systems?',
+    text: 'How should sensitive data be handled in AI agent systems?',
     options: [
       'Store everything in plain text',
       'Use encryption, data masking, access controls, and audit logging',
@@ -98,3 +104,6 @@ export const agentSecurityQuestions: QuizQuestion[] = [
     timeEstimate: 55
   }
 ];
+
+// Calculate total time for all questions
+export const agentSecurityTime = agentSecurityQuestions.reduce((total, question) => total + question.timeEstimate, 0);

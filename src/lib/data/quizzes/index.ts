@@ -2,20 +2,20 @@
 import { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback } from './types';
 import { userPersonas } from './personas';
 import { coreConceptsQuestions } from './core-concepts';
-import { agentPatternsQuestions } from './agent-patterns';
-import { agentSecurityQuestions } from './agent-security';
-import { agentEthicsQuestions } from './agent-ethics';
+import { agentEthicsQuestions, agentEthicsTime } from './agent-ethics';
 import { multiAgentSystemsQuestions } from './multi-agent-systems';
 import { azureServicesQuestions } from './azure-services';
-import { dataVisualizationQuestions } from './data-visualization';
 import { agentDeploymentQuestions } from './agent-deployment';
-import { agentLearningQuestions } from './agent-learning';
 import { agentIntegrationQuestions } from './agent-integration';
 import { advancedProtocolsQuestions } from './advanced-protocols';
 import { agentEvaluationQuestions } from './agent-evaluation';
 import { businessUseCasesQuestions } from './business-use-cases';
 import { systemDesignQuestions } from './system-design';
 import { promptingOptimizationQuestions } from './prompting-optimization';
+import { agentPatternsQuestions, agentPatternsTime } from './agent-patterns';
+import { agentLearningQuestions, agentLearningTime } from './agent-learning';
+import { agentSecurityQuestions, agentSecurityTime } from './agent-security';
+import { dataVisualizationQuestions, dataVisualizationTime } from './data-visualization';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -24,37 +24,37 @@ export { userPersonas };
 // Combine all quiz questions
 const allQuestions = [
   ...coreConceptsQuestions,
-  ...agentPatternsQuestions,
-  ...agentSecurityQuestions,
   ...agentEthicsQuestions,
   ...multiAgentSystemsQuestions,
   ...azureServicesQuestions,
-  ...dataVisualizationQuestions,
   ...agentDeploymentQuestions,
-  ...agentLearningQuestions,
   ...agentIntegrationQuestions,
   ...advancedProtocolsQuestions,
   ...agentEvaluationQuestions,
   ...businessUseCasesQuestions,
   ...systemDesignQuestions,
-  ...promptingOptimizationQuestions
+  ...promptingOptimizationQuestions,
+  ...agentPatternsQuestions,
+  ...agentLearningQuestions,
+  ...agentSecurityQuestions,
+  ...dataVisualizationQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
 const calculateTotalTime = (questions: QuizQuestion[]): number => {
-  const totalSeconds = questions.reduce((sum, q) => sum + (q.timeEstimate || 0), 0);
-  return Math.round(totalSeconds / 60);
+  return questions.reduce((total, question) => total + question.timeEstimate, 0);
+};
+
+// Helper function to filter questions by subCategory
+const getQuestionsBySubCategory = (allQuestions: QuizQuestion[], subCategory: string): QuizQuestion[] => {
+  return allQuestions.filter(q => q.subCategory === subCategory);
 };
 
 const coreConceptsTime = calculateTotalTime(coreConceptsQuestions);
-const agentPatternsTime = calculateTotalTime(agentPatternsQuestions);
-const agentSecurityTime = calculateTotalTime(agentSecurityQuestions);
-const agentEthicsTime = calculateTotalTime(agentEthicsQuestions);
+// const agentEthicsTime = calculateTotalTime(agentEthicsQuestions);
 const multiAgentSystemsTime = calculateTotalTime(multiAgentSystemsQuestions);
 const azureServicesTime = calculateTotalTime(azureServicesQuestions);
-const dataVisualizationTime = calculateTotalTime(dataVisualizationQuestions);
 const agentDeploymentTime = calculateTotalTime(agentDeploymentQuestions);
-const agentLearningTime = calculateTotalTime(agentLearningQuestions);
 const agentIntegrationTime = calculateTotalTime(agentIntegrationQuestions);
 const advancedProtocolsTime = calculateTotalTime(advancedProtocolsQuestions);
 const agentEvaluationTime = calculateTotalTime(agentEvaluationQuestions);
@@ -132,43 +132,43 @@ export const quizCategories: QuizCategory[] = [
     name: 'Agent Patterns',
     description: 'Common patterns and approaches for AI agent implementation',
     icon: 'Cog',
-    totalQuestions: agentPatternsQuestions.length,
     estimatedTime: agentPatternsTime,
+    totalQuestions: agentPatternsQuestions.length,
     subCategories: [
       {
         id: 'voice-agent',
         name: 'Voice Agent',
         description: 'Voice-enabled AI agent patterns',
         prerequisites: ['core-concepts'],
-        questions: agentPatternsQuestions.filter(q => q.subCategory === 'voice-agent')
+        questions: getQuestionsBySubCategory(allQuestions, 'voice-agent')
       },
       {
         id: 'computer-use',
         name: 'Computer Use',
         description: 'Agents that interact with computer interfaces',
         prerequisites: ['core-concepts'],
-        questions: agentPatternsQuestions.filter(q => q.subCategory === 'computer-use')
+        questions: getQuestionsBySubCategory(allQuestions, 'computer-use')
       },
       {
         id: 'code-act',
         name: 'Code Act',
         description: 'Agents that write and execute code',
         prerequisites: ['core-concepts'],
-        questions: agentPatternsQuestions.filter(q => q.subCategory === 'code-act')
+        questions: getQuestionsBySubCategory(allQuestions, 'code-act')
       },
       {
         id: 'react-pattern',
         name: 'ReAct Pattern',
         description: 'Reason and Act pattern for transparent decision-making',
         prerequisites: ['voice-agent', 'computer-use', 'code-act'],
-        questions: agentPatternsQuestions.filter(q => q.subCategory === 'react-pattern')
+        questions: getQuestionsBySubCategory(allQuestions, 'react-pattern')
       },
       {
         id: 'self-reflection',
         name: 'Self-Reflection',
         description: 'Agents that evaluate and improve their own performance',
         prerequisites: ['react-pattern'],
-        questions: agentPatternsQuestions.filter(q => q.subCategory === 'self-reflection')
+        questions: getQuestionsBySubCategory(allQuestions, 'self-reflection')
       }
     ]
   },
@@ -177,43 +177,38 @@ export const quizCategories: QuizCategory[] = [
     name: 'Agent Security',
     description: 'Security considerations for AI agent systems',
     icon: 'Shield',
-    totalQuestions: agentSecurityQuestions.length,
     estimatedTime: agentSecurityTime,
+    totalQuestions: agentSecurityQuestions.length,
     subCategories: [
       {
         id: 'security-fundamentals',
         name: 'Security Fundamentals',
         description: 'Basic security principles for AI agents',
         prerequisites: ['core-concepts'],
-        questions: agentSecurityQuestions.filter(q => q.subCategory === 'security-fundamentals')
       },
       {
         id: 'threat-analysis',
         name: 'Threat Analysis',
         description: 'Identifying and mitigating security threats',
         prerequisites: ['security-fundamentals'],
-        questions: agentSecurityQuestions.filter(q => q.subCategory === 'threat-analysis')
       },
       {
         id: 'enterprise-security',
         name: 'Enterprise Security',
         description: 'Security for enterprise AI agent deployments',
         prerequisites: ['threat-analysis'],
-        questions: agentSecurityQuestions.filter(q => q.subCategory === 'enterprise-security')
       },
       {
         id: 'prompt-security',
         name: 'Prompt Security',
         description: 'Securing AI agents against prompt injection',
         prerequisites: ['security-fundamentals'],
-        questions: agentSecurityQuestions.filter(q => q.subCategory === 'prompt-security')
       },
       {
         id: 'data-protection',
         name: 'Data Protection',
         description: 'Protecting sensitive data in AI agent systems',
         prerequisites: ['enterprise-security'],
-        questions: agentSecurityQuestions.filter(q => q.subCategory === 'data-protection')
       }
     ]
   },
@@ -230,21 +225,21 @@ export const quizCategories: QuizCategory[] = [
         name: 'Ethical Principles',
         description: 'Core ethical principles for AI agent systems',
         prerequisites: ['core-concepts'],
-        questions: agentEthicsQuestions.filter(q => q.subCategory === 'ethical-principles')
+//         questions: agentEthicsQuestions.filter(q => q.subCategory === 'ethical-principles')
       },
       {
         id: 'bias-prevention',
         name: 'Bias Prevention',
         description: 'Preventing bias in AI agent systems',
         prerequisites: ['ethical-principles'],
-        questions: agentEthicsQuestions.filter(q => q.subCategory === 'bias-prevention')
+//         questions: agentEthicsQuestions.filter(q => q.subCategory === 'bias-prevention')
       },
       {
         id: 'governance-frameworks',
         name: 'Governance Frameworks',
         description: 'Frameworks for ethical AI agent governance',
         prerequisites: ['bias-prevention'],
-        questions: agentEthicsQuestions.filter(q => q.subCategory === 'governance-frameworks')
+//         questions: agentEthicsQuestions.filter(q => q.subCategory === 'governance-frameworks')
       }
     ]
   },
@@ -315,29 +310,26 @@ export const quizCategories: QuizCategory[] = [
     name: 'Data Visualization',
     description: 'Visualizing AI agent data and performance',
     icon: 'ChartBar',
-    totalQuestions: dataVisualizationQuestions.length,
     estimatedTime: dataVisualizationTime,
+    totalQuestions: dataVisualizationQuestions.length,
     subCategories: [
       {
         id: 'fundamentals',
         name: 'Visualization Fundamentals',
         description: 'Basic concepts of data visualization for AI agents',
         prerequisites: ['core-concepts'],
-        questions: dataVisualizationQuestions.filter(q => q.subCategory === 'fundamentals')
       },
       {
         id: 'visualization-types',
         name: 'Visualization Types',
         description: 'Different types of visualizations for agent data',
         prerequisites: ['fundamentals'],
-        questions: dataVisualizationQuestions.filter(q => q.subCategory === 'visualization-types')
       },
       {
         id: 'real-time-systems',
         name: 'Real-time Systems',
         description: 'Real-time visualization for agent monitoring',
         prerequisites: ['visualization-types'],
-        questions: dataVisualizationQuestions.filter(q => q.subCategory === 'real-time-systems')
       }
     ]
   },
@@ -377,29 +369,26 @@ export const quizCategories: QuizCategory[] = [
     name: 'Agent Learning',
     description: 'Learning and adaptation mechanisms for AI agents',
     icon: 'AcademicCap',
-    totalQuestions: agentLearningQuestions.length,
     estimatedTime: agentLearningTime,
+    totalQuestions: agentLearningQuestions.length,
     subCategories: [
       {
         id: 'learning-fundamentals',
         name: 'Learning Fundamentals',
         description: 'Basic concepts of agent learning',
         prerequisites: ['core-concepts'],
-        questions: agentLearningQuestions.filter(q => q.subCategory === 'learning-fundamentals')
       },
       {
         id: 'learning-types',
         name: 'Learning Types',
         description: 'Different types of learning mechanisms',
         prerequisites: ['learning-fundamentals'],
-        questions: agentLearningQuestions.filter(q => q.subCategory === 'learning-types')
       },
       {
         id: 'continual-learning',
         name: 'Continual Learning',
         description: 'Advanced learning techniques for agents',
         prerequisites: ['learning-types'],
-        questions: agentLearningQuestions.filter(q => q.subCategory === 'continual-learning')
       }
     ]
   },

@@ -8,7 +8,7 @@ import Agent2AgentProtocolExplainer from "./Agent2AgentProtocolExplainer"
 import ReferenceSection from "../references/ReferenceSection"
 import { ArrowsHorizontal, Network, GitBranch, Sparkle, CloudArrowUp, MagnifyingGlassPlus, MagnifyingGlassMinus, ArrowSquareOut } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
-import { EnlightenMeButton } from "@/components/ui/enlightenMeButton";
+import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 import CodeBlock from "@/components/ui/CodeBlock";
 import { useState } from "react";
 

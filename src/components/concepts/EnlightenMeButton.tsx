@@ -92,10 +92,10 @@ Please provide:
       
       // Update the response and save it to KV store
       setResponse(result.content);
-      setSavedInsights(current => ({
-        ...current,
+      setSavedInsights({
+        ...savedInsights,
         [conceptId]: result.content
-      }));
+      });
     } catch (error) {
       console.error('Error in EnlightenMeButton:', error);
       setResponse(`Sorry, I encountered an error processing your request. Please try again. \n\n **Error:** ${error instanceof Error ? error.message : 'Unknown error'}`);

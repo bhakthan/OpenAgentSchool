@@ -315,7 +315,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                             </div>
                             <div>
                               <div className="font-medium">
-                                {quiz.categoryId === 'adaptive' ? 'Adaptive Quiz' : quiz.categoryId}
+                                {quiz.category === 'adaptive' ? 'Adaptive Quiz' : quiz.category}
                               </div>
                               <div className="text-base text-muted-foreground">
                                 {quiz.difficulty} • {Math.floor(quiz.timeSpent / 60)}m {quiz.timeSpent % 60}s

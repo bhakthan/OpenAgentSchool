@@ -17,14 +17,14 @@ interface CommunityPatternFormProps {
 
 const patternTypes: PatternType[] = [
   "react",
-  "codeact",
-  "reflexion",
-  "rag",
-  "plan-and-execute",
+  "codeact-agent",
+  "self-reflection", 
+  "prompt-chaining",
+  "parallelization",
   "orchestrator-worker",
   "evaluator-optimizer",
-  "self-reflection",
-  "routing"
+  "routing",
+  "autonomous-workflow"
 ];
 
 export default function CommunityPatternForm({ onSubmit, onCancel }: CommunityPatternFormProps) {

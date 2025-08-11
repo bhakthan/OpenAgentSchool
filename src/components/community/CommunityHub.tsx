@@ -22,7 +22,7 @@ import { toast } from 'sonner';
 
 export default function CommunityHub() {
   // Get the patterns from the KV store, with initial data from communityPatterns
-  const [storedPatterns, setStoredPatterns, deleteStoredPatterns] = useKV<CommunityPattern[]>('community-patterns', communityPatterns);
+  const [storedPatterns, setStoredPatterns] = useKV<CommunityPattern[]>('community-patterns', communityPatterns);
   
   const [view, setView] = useState<'list' | 'details' | 'form'>('list');
   const [selectedPattern, setSelectedPattern] = useState<CommunityPattern | null>(null);
@@ -166,8 +166,13 @@ export default function CommunityHub() {
               {filteredPatterns.map(pattern => (
                 <CommunityPatternCard 
                   key={pattern.id} 
-                  pattern={pattern} 
-                  onSelect={handlePatternSelect} 
+                  title={pattern.title}
+                  author={pattern.author}
+                  description={pattern.description}
+                  tags={pattern.tags}
+                  stars={pattern.votes}
+                  lastUpdated={pattern.createdAt}
+                  onSelect={() => handlePatternSelect(pattern)}
                 />
               ))}
             </div>

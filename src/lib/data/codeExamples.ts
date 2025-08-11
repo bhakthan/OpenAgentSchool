@@ -805,11 +805,11 @@ These patterns help AI systems handle complex tasks by providing structured appr
           explanation: 'Execution phase - the agent executes each step in the plan sequentially.',
           output: 'Plan created with 3 steps\nExecuting step 1: Get weather forecast for New York City\nExecuting step 2: Find top attractions in NYC\nExecuting step 3: Search for restaurant recommendations',
           variableState: {
-            'results': [
+            'results': JSON.stringify([
               {step_id: 1, status: "success", result: {temperature: 72, condition: "sunny"}},
               {step_id: 2, status: "success", result: {results: "Search results for 'top tourist attractions in New York City'"}},
               {step_id: 3, status: "success", result: {results: "Search results for 'best restaurants in New York City for tourists'"}}
-            ]
+            ])
           },
           duration: 2500
         },

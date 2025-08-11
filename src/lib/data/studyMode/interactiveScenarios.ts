@@ -1691,6 +1691,309 @@ evaluation_framework = {
   }
 ];
 
+// Interactive Scenarios for Agent Deployment (GenAIOps)
+export const agentDeploymentScenarios: StudyModeQuestion[] = [
+  {
+    id: 'agent-deployment-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-deployment',
+    title: 'Production Agent Quality Crisis',
+    level: 'intermediate',
+    scenario: {
+      id: 'production-quality-crisis',
+      title: 'Diagnosing and Fixing Silent Agent Failures',
+      description: 'Your customer service AI agent has been live for 3 months. Customer satisfaction scores are mysteriously dropping, but traditional monitoring shows everything is "green." You need to implement GenAIOps practices to identify and fix the hidden issues.',
+      context: 'Your AI-powered customer service agent handles 10,000+ conversations daily. Traditional monitoring shows 99.9% uptime and fast response times, but customer satisfaction has dropped from 4.2/5 to 3.1/5 over the past month. Users are complaining that responses feel "robotic" and "unhelpful," but the agent isn\'t technically failing.',
+      stakeholders: ['Customer Service Team', 'AI Engineering Team', 'Customer Experience Manager', 'End Customers'],
+      challenges: [
+        {
+          id: 'agentops-monitoring',
+          title: 'Implement AgentOps Monitoring',
+          description: 'Design monitoring for agent-specific issues',
+          question: 'What AgentOps metrics would best help identify why the agent\'s responses are becoming less helpful?',
+          type: 'multiple-choice',
+          options: [
+            'Only response time and error rates (traditional metrics)',
+            'Goal completion rate, conversation resolution rate, escalation frequency, and user satisfaction per interaction',
+            'CPU usage and memory consumption only',
+            'Number of API calls made per day'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! AgentOps focuses on outcome-based metrics that measure whether the agent is actually helping users achieve their goals, not just technical performance.',
+          hints: [
+            'Think about what makes a customer service interaction successful from the user\'s perspective',
+            'Consider metrics that capture "helpfulness" rather than just "functionality"'
+          ]
+        },
+        {
+          id: 'promptops-investigation',
+          title: 'PromptOps Quality Analysis',
+          description: 'Investigate prompt degradation over time',
+          question: 'How would you use PromptOps practices to identify if prompt quality is causing the satisfaction drop?',
+          type: 'multiple-choice',
+          options: [
+            'Just read through some random conversations manually',
+            'Implement prompt versioning, A/B test current vs. original prompts, and track prompt performance metrics over time',
+            'Replace all prompts with completely new ones',
+            'Ask users directly what prompts they prefer'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! PromptOps provides systematic approaches to track prompt performance over time and test improvements scientifically.',
+          hints: [
+            'Consider how you could compare current prompt performance to historical baselines',
+            'Think about systematic ways to test if prompt changes improve outcomes'
+          ]
+        },
+        {
+          id: 'ragops-diagnosis',
+          title: 'RAGOps Knowledge Quality Check',
+          description: 'Evaluate if knowledge retrieval is degrading',
+          question: 'What RAGOps practices would help determine if the agent is retrieving less relevant information over time?',
+          type: 'multiple-choice',
+          options: [
+            'Manually check the knowledge base for errors',
+            'Implement retrieval relevance scoring, track answer grounding quality, and monitor knowledge staleness metrics',
+            'Replace the entire knowledge base weekly',
+            'Only rely on user feedback about answer quality'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! RAGOps focuses on measuring and maintaining the quality of the entire retrieval-augmentation pipeline to ensure agents have access to relevant, current information.',
+          hints: [
+            'Think about how to measure whether retrieved information is actually relevant to user questions',
+            'Consider how knowledge can become outdated or less useful over time'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'successful-diagnosis',
+          condition: 'Implements comprehensive GenAIOps monitoring across all three domains',
+          result: 'Identifies that knowledge base updates introduced irrelevant content, prompts drifted due to model updates, and agents lost context of company policies',
+          explanation: 'Systematic GenAIOps practices revealed multiple interconnected issues that traditional monitoring missed',
+          nextSteps: [
+            'Implement automated prompt regression testing',
+            'Create knowledge quality gates for updates',
+            'Establish agent behavior baselines and alerts'
+          ]
+        },
+        {
+          id: 'traditional-approach',
+          condition: 'Relies only on traditional monitoring approaches',
+          result: 'Quality continues to degrade as root causes remain unidentified',
+          explanation: 'Without AI-specific operational practices, silent failures in agent behavior go undetected until customer impact becomes severe',
+          nextSteps: [
+            'Implement GenAIOps frameworks before more customers are affected',
+            'Develop AI-aware monitoring and evaluation systems'
+          ]
+        }
+      ],
+      codeExample: `# GenAIOps Monitoring Implementation
+class GenAIOpsMonitoring:
+    def __init__(self):
+        self.agentops = AgentOpsMonitor()
+        self.promptops = PromptOpsTracker() 
+        self.ragops = RAGOpsAnalyzer()
+    
+    def track_conversation(self, conversation):
+        # AgentOps: Goal completion and satisfaction
+        self.agentops.record_goal_completion(
+            conversation.id,
+            goal_achieved=conversation.resolved,
+            user_satisfaction=conversation.satisfaction_score,
+            escalation_needed=conversation.escalated
+        )
+        
+        # PromptOps: Prompt performance tracking
+        self.promptops.record_prompt_performance(
+            prompt_version=conversation.prompt_version,
+            quality_score=conversation.response_quality,
+            user_rating=conversation.user_rating
+        )
+        
+        # RAGOps: Retrieval quality assessment
+        self.ragops.assess_retrieval_quality(
+            query=conversation.user_query,
+            retrieved_docs=conversation.retrieved_context,
+            answer_grounding=conversation.citation_accuracy,
+            relevance_score=conversation.context_relevance
+        )`,
+      resources: [
+        'AgentOps Monitoring Guide',
+        'PromptOps Best Practices',
+        'RAGOps Quality Framework',
+        'Customer Service AI Metrics'
+      ],
+      conceptId: 'agent-deployment',
+      difficulty: 'intermediate',
+      estimatedTime: '35 minutes',
+      learningOutcomes: [
+        'Understanding AI-specific operational challenges',
+        'Implementing GenAIOps monitoring practices',
+        'Diagnosing silent failures in AI systems',
+        'Designing outcome-focused metrics for AI agents'
+      ]
+    },
+    explanation: 'This scenario demonstrates how GenAIOps practices are essential for maintaining AI system quality in production environments where traditional monitoring is insufficient.',
+    relatedConcepts: ['agentops', 'promptops', 'ragops', 'observability'],
+    timeEstimate: 35,
+    successCriteria: [
+      'Correctly identifies AI-specific monitoring needs',
+      'Understands the limitations of traditional monitoring for AI systems',
+      'Implements appropriate GenAIOps practices for each domain'
+    ]
+  },
+  {
+    id: 'agent-deployment-scenario-2',
+    type: 'scenario',
+    conceptId: 'agent-deployment',
+    title: 'Scaling GenAIOps Across Teams',
+    level: 'advanced',
+    scenario: {
+      id: 'enterprise-genaiopsl-implementation',
+      title: 'Enterprise GenAIOps Implementation Strategy',
+      description: 'You\'re leading the implementation of GenAIOps practices across a large organization with multiple AI teams, different agent types, and varying operational maturity levels.',
+      context: 'Your company has 15 different AI agents in production: customer service bots, code generation assistants, document processing agents, and recommendation systems. Each team has been managing their agents independently, leading to inconsistent practices, duplicated effort, and hard-to-diagnose cross-system issues.',
+      stakeholders: ['AI Engineering Teams', 'Platform Engineering', 'Customer Experience', 'Compliance Team', 'Executive Leadership'],
+      challenges: [
+        {
+          id: 'framework-design',
+          title: 'Design Unified GenAIOps Framework',
+          description: 'Create organizational standards across AgentOps, PromptOps, and RAGOps',
+          question: 'What approach would best establish consistent GenAIOps practices across diverse AI teams?',
+          type: 'multiple-choice',
+          options: [
+            'Let each team continue with their own approaches to avoid disruption',
+            'Mandate identical tools and processes for all teams immediately',
+            'Establish common frameworks and standards while allowing tool flexibility, with shared monitoring and evaluation infrastructure',
+            'Only focus on AgentOps since agents are the most visible component'
+          ],
+          correctAnswer: 2,
+          feedback: 'Excellent! A successful enterprise GenAIOps strategy balances standardization (frameworks, metrics) with flexibility (tools) while building shared infrastructure for visibility and learning.',
+          hints: [
+            'Think about what needs to be consistent vs. what can be team-specific',
+            'Consider how to enable visibility and learning across teams'
+          ]
+        },
+        {
+          id: 'evaluation-standardization',
+          title: 'Cross-Team Evaluation Standards',
+          description: 'Establish evaluation practices that work across different agent types',
+          question: 'How would you create evaluation standards that work for both customer service bots and code generation assistants?',
+          type: 'multiple-choice',
+          options: [
+            'Use the same exact metrics for all agent types',
+            'Define domain-agnostic quality dimensions (accuracy, helpfulness, safety) with domain-specific implementations and shared evaluation infrastructure',
+            'Let each team define completely different evaluation approaches',
+            'Only evaluate agents that directly interact with customers'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! This approach recognizes that while specific metrics differ across domains, fundamental quality dimensions are universal and benefit from shared tooling.',
+          hints: [
+            'Consider what quality means across different types of AI applications',
+            'Think about infrastructure that can support multiple evaluation approaches'
+          ]
+        },
+        {
+          id: 'operational-maturity',
+          title: 'Maturity-Based Implementation',
+          description: 'Roll out GenAIOps practices across teams with different operational maturity',
+          question: 'What\'s the best approach for teams at different GenAIOps maturity levels?',
+          type: 'multiple-choice',
+          options: [
+            'Require all teams to implement all practices immediately',
+            'Start with the most advanced teams and let practices trickle down naturally',
+            'Implement a maturity model with progressive capabilities: basic monitoring → evaluation frameworks → advanced optimization, with shared learning and support',
+            'Focus only on teams with the most business-critical agents'
+          ],
+          correctAnswer: 2,
+          feedback: 'Excellent! A maturity-based approach allows teams to build capabilities progressively while ensuring even basic GenAIOps practices provide immediate value.',
+          hints: [
+            'Think about how to build capabilities incrementally rather than all at once',
+            'Consider how more advanced teams can help others learn'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'unified-success',
+          condition: 'Successfully implements unified GenAIOps framework with maturity-based rollout',
+          result: 'Achieves 40% faster issue resolution, 25% improvement in cross-team agent quality, and establishes repeatable practices for new AI initiatives',
+          explanation: 'Systematic GenAIOps implementation creates organizational capabilities that compound over time',
+          nextSteps: [
+            'Expand GenAIOps practices to partner organizations',
+            'Develop internal GenAIOps certification program',
+            'Open-source organizational learnings and frameworks'
+          ]
+        },
+        {
+          id: 'fragmented-approach',
+          condition: 'Teams continue with inconsistent practices',
+          result: 'Continued operational silos, difficult root cause analysis for cross-system issues, and missed opportunities for organizational learning',
+          explanation: 'Without coordinated GenAIOps practices, organizations struggle to scale AI operations effectively',
+          nextSteps: [
+            'Revisit the need for standardized operational practices',
+            'Assess the cost of continued operational fragmentation'
+          ]
+        }
+      ],
+      codeExample: `# Enterprise GenAIOps Framework
+class EnterpriseGenAIOps:
+    def __init__(self):
+        self.shared_infrastructure = SharedInfrastructure()
+        self.maturity_assessor = MaturityAssessor()
+        self.framework_registry = FrameworkRegistry()
+    
+    def assess_team_maturity(self, team_id):
+        """Assess current GenAIOps maturity level"""
+        return self.maturity_assessor.evaluate(
+            team_id,
+            dimensions=['monitoring', 'evaluation', 'optimization', 'governance']
+        )
+    
+    def get_implementation_plan(self, team_id, maturity_level):
+        """Generate progressive implementation plan"""
+        if maturity_level == 'basic':
+            return ['implement_basic_monitoring', 'establish_evaluation_baseline']
+        elif maturity_level == 'intermediate':
+            return ['advanced_metrics', 'automated_evaluation', 'cross_team_sharing']
+        elif maturity_level == 'advanced':
+            return ['optimization_automation', 'predictive_monitoring', 'innovation_practices']
+    
+    def register_best_practice(self, practice, team_id, outcomes):
+        """Share successful practices across teams"""
+        self.framework_registry.add_practice(
+            practice=practice,
+            source_team=team_id,
+            validated_outcomes=outcomes,
+            replication_guide=practice.get_implementation_guide()
+        )`,
+      resources: [
+        'Enterprise AI Operations Guide',
+        'GenAIOps Maturity Model',
+        'Cross-Team Evaluation Frameworks',
+        'Organizational Change Management'
+      ],
+      conceptId: 'agent-deployment',
+      difficulty: 'advanced',
+      estimatedTime: '45 minutes',
+      learningOutcomes: [
+        'Designing enterprise-scale GenAIOps strategies',
+        'Balancing standardization with team autonomy',
+        'Implementing maturity-based operational practices',
+        'Creating shared learning and infrastructure systems'
+      ]
+    },
+    explanation: 'This scenario explores the organizational and strategic challenges of implementing GenAIOps at enterprise scale, emphasizing systematic approaches to operational maturity.',
+    relatedConcepts: ['organizational-change', 'operational-maturity', 'enterprise-architecture'],
+    timeEstimate: 45,
+    successCriteria: [
+      'Designs comprehensive enterprise GenAIOps strategy',
+      'Understands organizational change management for AI operations',
+      'Creates systems for shared learning and continuous improvement'
+    ]
+  }
+];
+
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
@@ -1704,7 +2007,8 @@ export const scenarioLibrary = {
   'prompt-optimization-patterns': promptOptimizationPatternsScenarios,
   'agent-instruction-design': agentInstructionDesignScenarios,
   'agentic-workflow-control': agenticWorkflowControlScenarios,
-  'agent-evaluation-methodologies': agentEvaluationMethodologiesScenarios
+  'agent-evaluation-methodologies': agentEvaluationMethodologiesScenarios,
+  'agent-deployment': agentDeploymentScenarios
 };
 
 // Helper function to get scenarios by concept and level

@@ -54,9 +54,6 @@ export function useFlowContainer(containerRef: React.RefObject<HTMLElement>) {
           }
         }
       }, 300);
-    }, {
-      throttleMs: 100,
-      debounceMs: 300
     });
     
     // Start observing the container

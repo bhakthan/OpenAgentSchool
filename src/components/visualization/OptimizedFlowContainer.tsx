@@ -17,6 +17,7 @@ import { useTheme } from '@/components/theme/ThemeProvider';
 import { optimizeNodes, optimizeEdges, applyDomFixes } from '@/lib/utils/reactFlowOptimization';
 import DataFlowVisualizer from './DataFlowVisualizer';
 import { Card } from '@/components/ui/card';
+import { DataFlowType } from '@/lib/utils/dataFlowUtils';
 
 // Define data flow message interface with standardized properties
 export interface FlowMessage {
@@ -25,8 +26,9 @@ export interface FlowMessage {
   source: string;
   target: string;
   content: string;
-  type: string;
+  type: DataFlowType;
   progress: number;
+  timestamp: number;
   label?: string;
   complete?: boolean;
 }

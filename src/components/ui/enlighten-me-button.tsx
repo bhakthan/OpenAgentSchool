@@ -16,8 +16,10 @@ import { LlmProvider, callLlm } from '@/lib/llm';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface EnlightenMeButtonProps {
-  topic: string;
-  defaultPrompt: string;
+  topic?: string;
+  title?: string;
+  defaultPrompt?: string;
+  contextDescription?: string;
   className?: string;
   size?: 'sm' | 'default' | 'lg' | 'icon';
   variant?: 'default' | 'subtle' | 'icon';
@@ -25,13 +27,15 @@ interface EnlightenMeButtonProps {
 
 export function EnlightenMeButton({
   topic, 
+  title,
   defaultPrompt, 
+  contextDescription,
   className = '', 
   size = 'sm',
   variant = 'icon'
 }: EnlightenMeButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [prompt, setPrompt] = useState(defaultPrompt);
+  const [prompt, setPrompt] = useState(defaultPrompt || `Explain ${title || topic} in detail.`);
   const [response, setResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showResponse, setShowResponse] = useState(false);

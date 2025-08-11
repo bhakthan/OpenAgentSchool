@@ -35,10 +35,12 @@ const EnhancedCodeVisualizer = ({ code, language, steps, title = "Code Execution
   const activeLineRef = useRef<HTMLDivElement>(null);
 
   // If no steps are provided, generate basic ones based on line count
-  const executionSteps = steps || codeLines.map((_, index) => ({
+  const executionSteps: CodeExecutionStep[] = steps || codeLines.map((_, index) => ({
     lineStart: index,
     lineEnd: index,
     description: `Line ${index + 1} execution`,
+    output: undefined,
+    variableState: undefined,
   }));
 
   // Toggle play/pause state
@@ -125,7 +127,7 @@ const EnhancedCodeVisualizer = ({ code, language, steps, title = "Code Execution
     for (let i = 0; i <= currentStep; i++) {
       const stepVars = executionSteps[i].variableState || {};
       Object.entries(stepVars).forEach(([key, value]) => {
-        allVars[key] = value;
+        allVars[key] = String(value);
       });
     }
     

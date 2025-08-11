@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import MCPxA2AIntegrationFlow from "../visualization/MCPxA2AIntegrationFlow"
 import { ArrowsHorizontal, Shield, LinkSimple, Sparkle } from "@phosphor-icons/react"
-import EnlightenMeButton from "@/components/EnlightenMeButton"
+import EnlightenMeButton from "@/components/concepts/EnlightenMeButton"
 
 interface MCPxA2AIntegrationConceptProps {
   onMarkComplete?: () => void

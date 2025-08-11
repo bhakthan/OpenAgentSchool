@@ -5,6 +5,7 @@ export const agentEthicsQuestions: QuizQuestion[] = [
   {
     id: 'ethics-b1',
     question: 'What are the main ethical considerations for AI agent development?',
+    text: 'What are the main ethical considerations for AI agent development?',
     options: [
       'Only technical performance',
       'Fairness, transparency, accountability, and privacy protection',
@@ -24,6 +25,7 @@ export const agentEthicsQuestions: QuizQuestion[] = [
   {
     id: 'ethics-i1',
     question: 'How can AI agents be designed to avoid bias and ensure fairness?',
+    text: 'How can AI agents be designed to avoid bias and ensure fairness?',
     options: [
       'Ignore bias completely',
       'Use diverse training data, implement bias testing, and regular audits',
@@ -43,6 +45,7 @@ export const agentEthicsQuestions: QuizQuestion[] = [
   {
     id: 'ethics-a1',
     question: 'What governance frameworks should organizations implement for ethical AI agent deployment?',
+    text: 'What governance frameworks should organizations implement for ethical AI agent deployment?',
     options: [
       'No governance needed',
       'Ethics committees, impact assessments, monitoring systems, and stakeholder engagement',
@@ -60,3 +63,6 @@ export const agentEthicsQuestions: QuizQuestion[] = [
     timeEstimate: 65
   }
 ];
+
+// Calculate total time for all questions
+export const agentEthicsTime = agentEthicsQuestions.reduce((total, question) => total + question.timeEstimate, 0);

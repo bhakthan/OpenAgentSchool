@@ -147,9 +147,9 @@ const DataTransformVisualizer = React.memo(({
         ...newFlows.map(flow => ({ 
           ...flow, 
           progress: 0,
-          transformStage: 'raw',
+          transformStage: 'raw' as TransformationStage,
           transformationProgress: 0,
-        }))
+        } as TransformableDataFlow))
       ]);
     }
   }, [flows, activeFlows]);
@@ -309,7 +309,7 @@ const DataTransformVisualizer = React.memo(({
     // Create style object with needed properties for rendering
     const style = {
       stroke: transformColors.currentColor,
-      strokeWidth: colorMap[flow.type]?.strokeWidth || typeParams.strokeWidth || 4,
+      strokeWidth: 4,
       fill: transformColors.fillColor
     };
     
@@ -332,7 +332,7 @@ const DataTransformVisualizer = React.memo(({
     
     const dotTransition = {
       scale: transformColors.pulseEffect 
-        ? { repeat: Infinity, duration: 1, ease: "easeInOut" } 
+        ? { repeat: Infinity, duration: 1, ease: [0.4, 0, 0.6, 1] as const } 
         : { duration: 0.3 }
     };
     

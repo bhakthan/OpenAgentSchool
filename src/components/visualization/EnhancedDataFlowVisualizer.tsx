@@ -176,9 +176,9 @@ const EnhancedDataFlowVisualizer = ({
     
     // Create style object with needed properties for rendering
     const style = {
-      stroke: typeParams.stroke || flowStyle.color,
-      strokeWidth: typeParams.strokeWidth || 4,
-      fill: typeParams.fill || `${flowStyle.color}33`
+      stroke: flowStyle.color,
+      strokeWidth: 4,
+      fill: `${flowStyle.color}33`
     };
     
     // Enhance visibility in dark mode
@@ -247,9 +247,9 @@ const EnhancedDataFlowVisualizer = ({
     
     // Create style object with needed properties for rendering
     const style = {
-      stroke: typeParams.stroke || flowStyle.color,
-      strokeWidth: typeParams.strokeWidth || 4,
-      fill: typeParams.fill || `${flowStyle.color}33`
+      stroke: flowStyle.color,
+      strokeWidth: 4,
+      fill: `${flowStyle.color}33`
     };
 
     // Enhance visibility in dark mode
@@ -338,8 +338,8 @@ const EnhancedDataFlowVisualizer = ({
                 
                 // Create style object with needed properties for rendering
                 const style = {
-                  stroke: typeParams.stroke || flowStyle.color,
-                  fill: typeParams.fill || `${flowStyle.color}33`
+                  stroke: flowStyle.color,
+                  fill: `${flowStyle.color}33`
                 };
                 
                 return (

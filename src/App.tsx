@@ -27,17 +27,16 @@ import { Logo } from './components/ui/Logo';
 import { SEO, pageSEOConfigs } from './components/seo/SEO';
 import { SEORouteWrapper } from './components/seo/SEORouteWrapper';
 
-// Lazy load major components for better code splitting
-const PatternExplorer = lazy(() => import('./components/patterns/PatternExplorer'))
-const ConceptsExplorer = lazy(() => import('./components/concepts/ConceptsExplorer'))
-const AzureServicesOverview = lazy(() => import('./components/azure-services/AzureServicesOverview'))
-const CommunitySharing = lazy(() => import('./components/community/CommunitySharing'))
-const ReferenceSection = lazy(() => import('./components/references/ReferenceSection'))
-const ReferencesSection = lazy(() => import('./components/references/ReferencesSection'))
-const QuizSection = lazy(() => import('./components/quiz/QuizSection'))
-const TreeVisualizationPage = lazy(() => import('./components/pages/TreeVisualizationPage'))
-const StudyMode = lazy(() => import('./components/study-mode/StudyMode'))
-const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'))
+// Lazy-loaded components
+const ConceptsExplorer = lazy(() => import('./components/concepts/ConceptsExplorer'));
+const PatternExplorer = lazy(() => import('./components/patterns/PatternExplorer'));
+const AzureServicesOverview = lazy(() => import('./components/azure-services/AzureServicesOverview'));
+const QuizSection = lazy(() => import('./components/quiz/QuizSection'));
+const StudyMode = lazy(() => import('./components/study-mode/StudyMode'));
+const TreeVisualizationPage = lazy(() => import('./components/pages/TreeVisualizationPage'));
+const ReferencesSection = lazy(() => import('./components/references/ReferencesSection'));
+const CommunitySharing = lazy(() => import('./components/community/CommunitySharing'));
+const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'));
 
 // Loading component for lazy-loaded routes
 const LoadingSpinner = () => (

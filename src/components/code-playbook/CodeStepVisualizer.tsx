@@ -28,10 +28,12 @@ const CodeStepVisualizer = ({ code, language, steps }: CodeStepVisualizerProps) 
   const activeLineRef = useRef<HTMLDivElement>(null);
 
   // If no steps are provided, generate basic ones based on line count
-  const executionSteps = steps || codeLines.map((_, index) => ({
+  const executionSteps: CodeExecutionStep[] = steps || codeLines.map((_, index) => ({
     lineStart: index,
     lineEnd: index,
     description: `Line ${index + 1} execution`,
+    output: undefined,
+    variableState: undefined,
   }));
 
   const togglePlay = () => {
@@ -200,7 +202,7 @@ const CodeStepVisualizer = ({ code, language, steps }: CodeStepVisualizerProps) 
                     {Object.entries(activeStep.variableState).map(([key, value]) => (
                       <div key={key} className="flex text-sm">
                         <span className="font-medium text-primary w-1/3">{key}:</span>
-                        <span className="font-mono">{value}</span>
+                        <span className="font-mono">{String(value)}</span>
                       </div>
                     ))}
                   </div>

@@ -6,17 +6,27 @@ import { cn } from '@/lib/utils';
 
 interface EnlightenMeButtonProps {
   title: string;
+  conceptId?: string;
+  description?: string;
+  customPrompt?: string;
   contextDescription?: string;
   className?: string;
 }
 
-export function EnlightenMeButton({ title, contextDescription, className }: EnlightenMeButtonProps) {
+export function EnlightenMeButton({ 
+  title, 
+  conceptId, 
+  description, 
+  customPrompt, 
+  contextDescription, 
+  className 
+}: EnlightenMeButtonProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Create a detailed prompt based on the context description
-  const defaultPrompt = `I want to understand more about "${title}" in the context of Azure AI Agents and Large Language Models.
+  const defaultPrompt = customPrompt || `I want to understand more about "${title}" in the context of Azure AI Agents and Large Language Models.
   
-Context: ${contextDescription}
+Context: ${description || contextDescription || ''}
 
 Please explain this concept in detail, covering:
 1. What it is and why it's important

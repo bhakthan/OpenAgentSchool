@@ -101,7 +101,7 @@ const ExampleStandardFlow: React.FC = () => {
   ];
   
   // Timeouts for animation
-  let timeoutsRef = React.useRef<number[]>([]);
+  let timeoutsRef = React.useRef<NodeJS.Timeout[]>([]);
   
   // Start the animation
   const playAnimation = useCallback(() => {

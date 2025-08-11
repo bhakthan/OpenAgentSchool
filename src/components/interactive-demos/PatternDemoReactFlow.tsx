@@ -75,7 +75,7 @@ export const PatternDemoReactFlow = memo(({ patternData, className }: PatternDem
       id: node.id,
       type: 'default',
       data: { 
-        label: node.label,
+        label: node.data.label,
         nodeType: node.type
       },
       position: standardNodePositions[node.type as keyof typeof standardNodePositions] || node.position || { x: 0, y: 0 },
@@ -167,7 +167,8 @@ export const PatternDemoReactFlow = memo(({ patternData, className }: PatternDem
       content,
       type,
       progress: 0,
-      label: type
+      timestamp: Date.now(),
+      label: type as string
     }]);
   }, [patternData.edges]);
   
@@ -187,7 +188,7 @@ export const PatternDemoReactFlow = memo(({ patternData, className }: PatternDem
         acc[node.id] = {
           id: node.id,
           node: node.id,
-          label: node.label,
+          label: node.data.label,
           status: 'pending'
         };
         return acc;
@@ -200,7 +201,7 @@ export const PatternDemoReactFlow = memo(({ patternData, className }: PatternDem
         if (animationMode === 'auto') {
           setTimeout(resolve, ms / SPEED_MULTIPLIERS[animationSpeed]);
         } else {
-          stepController.current.waitForNextStep(resolve);
+          stepController.current.waitForNextStep(() => resolve(undefined));
         }
       });
       
@@ -299,11 +300,11 @@ export const PatternDemoReactFlow = memo(({ patternData, className }: PatternDem
             }
             
             await wait(1500);
-            updateNodeStatus(node.id, 'complete', `Processed ${node.label}`);
+            updateNodeStatus(node.id, 'complete', `Processed ${node.data.label}`);
             
             // If this is the final node, set output
             if (!patternData.edges.some(e => e.source === node.id)) {
-              setOutput(`Pattern execution completed successfully. ${node.label} generated final result.`);
+              setOutput(`Pattern execution completed successfully. ${node.data.label} generated final result.`);
             }
           }
           break;

@@ -37,19 +37,17 @@ export const EnlightenMeProvider: React.FC<EnlightenMeProviderProps> = ({ childr
 
   // Save an insight for a concept
   const saveInsight = (conceptId: string, content: string) => {
-    setRecentInsights((current) => ({
-      ...current,
+    setRecentInsights({
+      ...recentInsights,
       [conceptId]: content,
-    }));
+    });
   };
 
   // Clear a specific insight
   const clearInsight = (conceptId: string) => {
-    setRecentInsights((current) => {
-      const updated = { ...current };
-      delete updated[conceptId];
-      return updated;
-    });
+    const updated = { ...recentInsights };
+    delete updated[conceptId];
+    setRecentInsights(updated);
   };
 
   // Clear all insights

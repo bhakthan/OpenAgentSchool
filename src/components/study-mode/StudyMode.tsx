@@ -47,6 +47,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
 
   // Get all questions from all concepts
   const allQuestions = getAllStudyModeQuestions();
+  
   const completedQuestionIds = sessions
     .filter(s => s.isComplete)
     .map(s => s.questionId);

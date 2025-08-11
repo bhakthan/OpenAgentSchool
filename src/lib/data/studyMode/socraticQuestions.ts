@@ -743,6 +743,106 @@ export const agentEvaluationMethodologiesSocraticQuestions: StudyModeQuestion[] 
   }
 ];
 
+// Socratic Questions for Agent Deployment (GenAIOps)
+export const agentDeploymentSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'agent-deployment-socratic-1',
+    type: 'socratic',
+    conceptId: 'agent-deployment',
+    title: 'From Development to Production Reality',
+    level: 'beginner',
+    socratiQuestion: "You've built an amazing AI agent that works perfectly on your laptop. When you deploy it to production, suddenly users are reporting inconsistent responses and strange behaviors. What could be different between your development environment and the real world?",
+    followUpQuestions: [
+      "Why might the same agent behave differently with different users?",
+      "What happens when thousands of people use your agent simultaneously instead of just you?",
+      "How could external factors like time of day or user location affect your agent?"
+    ],
+    expectedInsights: [
+      "Production environments have unpredictable variability",
+      "Scale introduces new challenges not present in development",
+      "Agent behavior can be influenced by external context",
+      "Traditional software deployment practices may not account for AI-specific issues"
+    ],
+    hints: [
+      "Think about the difference between a conversation with one person vs. managing a party",
+      "Consider how models might behave with diverse, real-world inputs",
+      "Reflect on what makes AI systems different from traditional applications"
+    ],
+    explanation: "This exploration helps students discover why specialized operational practices (GenAIOps) are needed for AI systems beyond traditional DevOps approaches.",
+    relatedConcepts: ['containerization', 'observability', 'genaiopsl'],
+    timeEstimate: 15,
+    successCriteria: [
+      "Recognizes the unpredictability of production environments",
+      "Understands that scale changes system behavior",
+      "Sees the need for AI-specific operational practices"
+    ]
+  },
+  {
+    id: 'agent-deployment-socratic-2',
+    type: 'socratic',
+    conceptId: 'agent-deployment',
+    title: 'The Three Pillars of GenAIOps',
+    level: 'intermediate',
+    socratiQuestion: "If you were organizing a large hospital, you'd need specialists: doctors for patients, pharmacists for medications, and administrators for operations. How might this specialization principle apply to managing different aspects of AI systems in production?",
+    followUpQuestions: [
+      "What are the different 'moving parts' of an AI system that need specialized attention?",
+      "How would you organize operational responsibilities for agents, prompts, and data retrieval?",
+      "What unique challenges does each component bring that might require specialized expertise?"
+    ],
+    expectedInsights: [
+      "AI systems have distinct operational domains requiring specialized practices",
+      "Agents, prompts, and RAG systems each have unique operational challenges",
+      "Specialization enables deeper expertise and better outcomes",
+      "Coordination between specialized domains is crucial"
+    ],
+    hints: [
+      "Consider the different types of problems that arise with agent behavior vs. prompt management",
+      "Think about what makes managing a knowledge base different from managing code",
+      "Reflect on why you might need different tools and processes for different AI components"
+    ],
+    explanation: "Students discover the rationale behind GenAIOps' three specialized domains: AgentOps, PromptOps, and RAGOps, each addressing distinct operational challenges.",
+    relatedConcepts: ['agentops', 'promptops', 'ragops'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Identifies distinct operational domains in AI systems",
+      "Understands the need for specialized practices",
+      "Recognizes coordination challenges between domains"
+    ]
+  },
+  {
+    id: 'agent-deployment-socratic-3',
+    type: 'socratic',
+    conceptId: 'agent-deployment',
+    title: 'The Feedback Loop Challenge',
+    level: 'advanced',
+    socratiQuestion: "Traditional software either works or crashes - it's usually obvious when something is wrong. But what if your AI agent gives plausible but subtly incorrect answers, or gradually degrades in quality over time? How would you detect and address these 'silent failures' that users might not even report?",
+    followUpQuestions: [
+      "How could you measure whether an agent's responses are getting better or worse over time?",
+      "What would you need to track to detect when a RAG system starts retrieving less relevant information?",
+      "How might you automatically detect when prompts are becoming less effective?"
+    ],
+    expectedInsights: [
+      "AI systems can fail silently in ways traditional monitoring doesn't catch",
+      "Quality degradation over time requires continuous evaluation systems",
+      "Each AI component needs specialized monitoring and evaluation approaches",
+      "Automated detection of subtle quality issues is crucial for production AI"
+    ],
+    hints: [
+      "Think about how you'd notice if a helpful assistant was gradually becoming less helpful",
+      "Consider what metrics capture 'helpfulness' vs. just 'functionality'",
+      "Reflect on the challenge of measuring subjective quality at scale"
+    ],
+    explanation: "This exploration reveals why GenAIOps requires sophisticated evaluation and monitoring systems that go beyond traditional application monitoring to detect quality degradation and silent failures.",
+    relatedConcepts: ['observability', 'evaluation-methodologies', 'continuous-monitoring'],
+    timeEstimate: 25,
+    successCriteria: [
+      "Understands the concept of silent failures in AI systems",
+      "Recognizes the need for quality-focused monitoring",
+      "Grasps the complexity of measuring AI system performance"
+    ]
+  }
+];
+
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
@@ -758,7 +858,8 @@ export const socraticQuestionLibrary = {
   'prompt-optimization-patterns': promptOptimizationPatternsSocraticQuestions,
   'agent-instruction-design': agentInstructionDesignSocraticQuestions,
   'agentic-workflow-control': agenticWorkflowControlSocraticQuestions,
-  'agent-evaluation-methodologies': agentEvaluationMethodologiesSocraticQuestions
+  'agent-evaluation-methodologies': agentEvaluationMethodologiesSocraticQuestions,
+  'agent-deployment': agentDeploymentSocraticQuestions
 };
 
 // Helper function to get socratic questions by concept and level

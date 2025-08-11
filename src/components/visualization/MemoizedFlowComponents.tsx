@@ -64,3 +64,11 @@ MemoizedBackground.displayName = 'MemoizedBackground';
 MemoizedControls.displayName = 'MemoizedControls';
 MemoizedMiniMap.displayName = 'MemoizedMiniMap';
 MemoizedReactFlow.displayName = 'MemoizedReactFlow';
+
+// Default export containing all memoized components
+export default {
+  MemoizedReactFlow,
+  MemoizedBackground,
+  MemoizedControls,
+  MemoizedMiniMap,
+};

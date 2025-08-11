@@ -57,7 +57,7 @@ const AdaptiveFlowContainerInner = forwardRef<
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Use our flow container hook for better resize handling
-  const { containerSize, triggerResize } = useFlowContainer(containerRef);
+  const { dimensions, updateDimensions } = useFlowContainer(containerRef);
   
   // State for nodes and edges
   const [localNodes, setLocalNodes] = useState<Node[]>(initialNodes);
@@ -89,7 +89,7 @@ const AdaptiveFlowContainerInner = forwardRef<
   
   // Function to optimize layout
   const optimizeLayout = useCallback(() => {
-    if (containerSize.width === 0 || containerSize.height === 0) return;
+    if (dimensions.width === 0 || dimensions.height === 0) return;
     const manager = layoutManagerRef.current;
     if (!manager.currentLayout) return;
     
@@ -98,8 +98,8 @@ const AdaptiveFlowContainerInner = forwardRef<
     // Adapt positions based on container size
     const adaptedNodes = calculateAdaptivePositions(
       nodes,
-      containerSize.width,
-      containerSize.height,
+      dimensions.width,
+      dimensions.height,
       {
         padding: 50,
         spacing: 150,
@@ -116,7 +116,7 @@ const AdaptiveFlowContainerInner = forwardRef<
     // Apply to ReactFlow
     setNodes(adaptedNodes);
     setEdges(adaptedEdges);
-  }, [containerSize, setNodes, setEdges]);
+  }, [dimensions, setNodes, setEdges]);
   
   // Function to reset layout
   const resetLayout = useCallback(() => {
@@ -142,13 +142,13 @@ const AdaptiveFlowContainerInner = forwardRef<
   
   // Function to optimize viewport
   const optimizeViewport = useCallback(() => {
-    if (!fitViewOnResize || containerSize.width === 0 || containerSize.height === 0) return;
+    if (!fitViewOnResize || dimensions.width === 0 || dimensions.height === 0) return;
     
     const nodes = getNodes();
     if (nodes.length === 0) return;
     
     // Calculate optimal viewport
-    const viewport = calculateOptimalViewport(nodes, containerSize.width, containerSize.height, {
+    const viewport = calculateOptimalViewport(nodes, dimensions.width, dimensions.height, {
       padding: 50,
       minZoom: 0.5,
       maxZoom: 2
@@ -156,11 +156,11 @@ const AdaptiveFlowContainerInner = forwardRef<
     
     // Apply viewport
     setViewport(viewport);
-  }, [containerSize, getNodes, setViewport, fitViewOnResize]);
+  }, [dimensions, getNodes, setViewport, fitViewOnResize]);
   
   // Apply adaptive layout on resize
   useEffect(() => {
-    if (containerSize.width === 0 || containerSize.height === 0) return;
+    if (dimensions.width === 0 || dimensions.height === 0) return;
     
     const timer = setTimeout(() => {
       optimizeLayout();
@@ -172,7 +172,7 @@ const AdaptiveFlowContainerInner = forwardRef<
     }, 300);
     
     return () => clearTimeout(timer);
-  }, [containerSize, optimizeLayout, optimizeViewport, fitViewOnResize]);
+  }, [dimensions, optimizeLayout, optimizeViewport, fitViewOnResize]);
   
   // Apply initial optimizations
   useEffect(() => {
@@ -265,7 +265,7 @@ const AdaptiveFlowContainerInner = forwardRef<
     if (containerRef.current !== element) {
       containerRef.current = element;
       if (element) {
-        triggerResize();
+        updateDimensions();
       }
     }
   };

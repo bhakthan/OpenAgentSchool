@@ -13,6 +13,7 @@ export interface AlgorithmStep {
   data?: Record<string, any>;
   status?: 'pending' | 'active' | 'completed' | 'error';
   timing?: number; // milliseconds
+  substeps?: AlgorithmStep[];
 }
 
 interface AlgorithmVisualizerProps {
@@ -44,9 +45,10 @@ const AlgorithmVisualizer = React.memo(({
   const processedSteps = useMemo(() => {
     return steps.map((step, index) => ({
       ...step,
-      status: 
+      status: (
         index < currentStepIndex ? 'completed' :
         index === currentStepIndex ? 'active' : 'pending'
+      ) as 'pending' | 'active' | 'completed' | 'error'
     }));
   }, [steps, currentStepIndex]);
 

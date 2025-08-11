@@ -358,7 +358,7 @@ const ComparisonTimelineVisualizer = ({
                         <td className="p-2 text-xs">{getNodeName(event.patternId, event.source)}</td>
                         <td className="p-2 text-xs">{getNodeName(event.patternId, event.target)}</td>
                         <td className="p-2">
-                          <Badge size="sm" className="text-xs">{event.type}</Badge>
+                          <Badge className="text-xs">{event.type}</Badge>
                         </td>
                         <td className="p-2 text-xs">{event.message}</td>
                       </tr>

@@ -15,6 +15,7 @@ export interface QuizQuestion {
   timeEstimate?: number;
   adaptiveWeight?: number;
   persona?: string[];
+  learningObjectives?: string[];
 }
 
 export interface QuizSubCategory {
@@ -22,7 +23,7 @@ export interface QuizSubCategory {
   name: string;
   description: string;
   prerequisites: string[];
-  questions: QuizQuestion[];
+  questions?: QuizQuestion[];
 }
 
 export interface QuizCategory {
@@ -58,6 +59,7 @@ export interface QuizSession {
   timeStarted: number;
   timeSpent?: number;
   startTime: Date;
+  endTime?: Date;
   timeCompleted?: number;
   isCompleted: boolean;
   completed: boolean;
