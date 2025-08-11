@@ -39,6 +39,7 @@
   .bg-secondary,
   .bg-accent,
   .bg-muted,
+  .tree-label,
   [class*="bg-"],
   [class*="text-"],
   [class*="border-"] {

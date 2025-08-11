@@ -15,6 +15,7 @@ import {
 } from "@phosphor-icons/react"
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton"
 import { DeploymentVisualization } from "@/components/visualization/DeploymentVisualization";
+import { GenAIOpsTreeVisualization } from "@/components/visualization/GenAIOpsTreeVisualization";
 
 interface AgentDeploymentConceptProps {
   onMarkComplete?: () => void
@@ -328,6 +329,103 @@ class AgentObservability:
       level: 'advanced' as const,
       content: (
         <div className="space-y-6">
+          {/* GenAIOps Framework Visualization */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <GitBranch className="w-5 h-5" />
+                GenAIOps Operational Framework
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg leading-relaxed">
+                GenAIOps represents the umbrella practice for operationalizing Generative AI in production environments. 
+                It encompasses specialized operational disciplines for different aspects of AI systems.
+              </p>
+
+              <GenAIOpsTreeVisualization className="my-6" />
+
+              {/* Definition Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                <div className="p-4 border rounded-lg bg-indigo-100 dark:bg-indigo-900 border-indigo-200 dark:border-indigo-700">
+                  <h4 className="font-semibold text-indigo-800 dark:text-indigo-200 mb-2">🎯 GenAIOps</h4>
+                  <p className="text-sm text-indigo-700 dark:text-gray-300">
+                    Umbrella operational practice for generative AI, integrating tech, process, and people.
+                  </p>
+                </div>
+                
+                <div className="p-4 border rounded-lg bg-violet-100 dark:bg-violet-900 border-violet-200 dark:border-violet-700">
+                  <h4 className="font-semibold text-violet-800 dark:text-violet-200 mb-2">🤖 AgentOps</h4>
+                  <p className="text-sm text-violet-700 dark:text-gray-300">
+                    Focus on operationalizing AI Agents (tool mgmt, orchestration, memory, task decomposition).
+                  </p>
+                </div>
+                
+                <div className="p-4 border rounded-lg bg-cyan-100 dark:bg-cyan-900 border-cyan-200 dark:border-cyan-700">
+                  <h4 className="font-semibold text-cyan-800 dark:text-cyan-200 mb-2">💬 PromptOps</h4>
+                  <p className="text-sm text-cyan-700 dark:text-gray-300">
+                    Operationalizing prompts (storage, registry, optimization, evaluation).
+                  </p>
+                </div>
+                
+                <div className="p-4 border rounded-lg bg-emerald-100 dark:bg-emerald-900 border-emerald-200 dark:border-emerald-700">
+                  <h4 className="font-semibold text-emerald-800 dark:text-emerald-200 mb-2">🔍 RAGOps</h4>
+                  <p className="text-sm text-emerald-700 dark:text-gray-300">
+                    Operationalizing Retrieval-Augmented Generation (offline prep, retrieval optimization, grounding).
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-violet-600 dark:text-violet-400">🤖 AgentOps</h4>
+                  <p className="text-sm text-muted-foreground">Focus: Efficient operationalization of AI Agents</p>
+                  <ul className="text-sm space-y-1 text-muted-foreground">
+                    <li>• <strong>Tool Management:</strong> API invocation, security & auth, throttling</li>
+                    <li>• <strong>Agent Brain Prompt:</strong> Goal definition, agent profile, structured instructions</li>
+                    <li>• <strong>Orchestration & Memory:</strong> Short/long-term memory, task decomposition</li>
+                    <li>• <strong>Metrics & Observability:</strong> Goal completion rate, latency, human feedback</li>
+                  </ul>
+                </div>
+                
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-cyan-600 dark:text-cyan-400">💬 PromptOps</h4>
+                  <p className="text-sm text-muted-foreground">Focus: Operationalizing prompts effectively</p>
+                  <ul className="text-sm space-y-1 text-muted-foreground">
+                    <li>• <strong>Prompt Storage & Lineage:</strong> Version control and audit history</li>
+                    <li>• <strong>Metadata & Evaluation:</strong> Evaluation results and context metadata</li>
+                    <li>• <strong>Template Registry:</strong> Centralized library and role-specific templates</li>
+                    <li>• <strong>Prompt Optimizer:</strong> A/B testing and automatic refinement</li>
+                  </ul>
+                </div>
+                
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-emerald-600 dark:text-emerald-400">🔍 RAGOps</h4>
+                  <p className="text-sm text-muted-foreground">Focus: Operationalizing Retrieval-Augmented Generation</p>
+                  <ul className="text-sm space-y-1 text-muted-foreground">
+                    <li>• <strong>Offline Data Preparation:</strong> Cleaning, chunking, vectorization</li>
+                    <li>• <strong>Retrieval Optimization:</strong> Similarity search and re-ranking</li>
+                    <li>• <strong>Prompt Augmentation:</strong> Context injection and source citation</li>
+                    <li>• <strong>Grounding:</strong> Fact-checking and hallucination reduction</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md mt-6">
+                <h4 className="font-semibold mb-3">Tree Data Hierarchy Mapping:</h4>
+                <p className="text-sm leading-relaxed">
+                  <strong>GenAIOps</strong> → <strong>Ops Types</strong> (AgentOps, PromptOps, RAGOps) → 
+                  <strong>Detailed Capabilities</strong> → <strong>Specific Aspects</strong>
+                </p>
+                <p className="text-sm leading-relaxed mt-2">
+                  This hierarchical structure provides a comprehensive framework for understanding and implementing 
+                  operational practices across different aspects of generative AI systems, from individual agents 
+                  to complex RAG pipelines.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
