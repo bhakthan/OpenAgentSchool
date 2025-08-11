@@ -299,15 +299,30 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
   const handleConceptSelect = (conceptId: string) => {
     setSelectedConcept(conceptId);
     onSelectConcept(conceptId);
+    
+    // Scroll to top when navigating to a new concept
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   }
 
   const handleBackToHub = () => {
     setSelectedConcept(null)
     onSelectConcept(null)
+    
+    // Scroll to top when going back to hub
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   }
 
   const handleNextConcept = (nextConceptId: string) => {
     setSelectedConcept(nextConceptId)
+    
+    // Scroll to top when navigating to next concept
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   }
 
   const markConceptComplete = (conceptId: string) => {

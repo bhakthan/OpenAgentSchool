@@ -80,12 +80,28 @@ export default function ConceptLayout({
     if (currentTabIndex < tabs.length - 1) {
       handleTabComplete(activeTab)
       setActiveTab(tabs[currentTabIndex + 1].id)
+      
+      // Scroll to the tabs area when moving to next tab
+      setTimeout(() => {
+        const tabsElement = document.querySelector('[role="tablist"]');
+        if (tabsElement) {
+          tabsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }
   }
 
   const handlePrevious = () => {
     if (currentTabIndex > 0) {
       setActiveTab(tabs[currentTabIndex - 1].id)
+      
+      // Scroll to the tabs area when moving to previous tab
+      setTimeout(() => {
+        const tabsElement = document.querySelector('[role="tablist"]');
+        if (tabsElement) {
+          tabsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }
   }
 

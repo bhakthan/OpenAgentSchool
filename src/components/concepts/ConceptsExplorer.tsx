@@ -84,6 +84,11 @@ export default function ConceptsExplorer() {
       navigate(`/concepts/${conceptId}`);
     }
     setSelectedConcept(conceptId);
+    
+    // Scroll to top after navigation to ensure the new concept content is visible
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   };
 
   // Determine the question based on the selected concept
