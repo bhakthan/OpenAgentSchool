@@ -79,19 +79,25 @@ export function forceRenderStability(
       }
     }, 200);
     
-    // Update node internals to force rerender
-    if (typeof reactFlowInstance.updateNodeInternals === 'function') {
+    // Force rerender by triggering a state update
+    // In React Flow v11, updateNodeInternals is not available
+    // Instead, we can use setNodes to trigger rerenders
+    if (reactFlowInstance.setNodes && typeof reactFlowInstance.setNodes === 'function') {
       // If specific node IDs are provided, only update those
       const idsToUpdate = nodeIds || 
         (reactFlowInstance.getNodes ? reactFlowInstance.getNodes().map(n => n.id) : []);
       
-      idsToUpdate.forEach(id => {
+      if (idsToUpdate.length > 0) {
         try {
-          reactFlowInstance.updateNodeInternals(id);
+          // Get current nodes and trigger a rerender by setting them again
+          const currentNodes = reactFlowInstance.getNodes?.() || [];
+          if (currentNodes.length > 0) {
+            reactFlowInstance.setNodes([...currentNodes]);
+          }
         } catch (e) {
-          // Silently ignore individual node errors
+          // Silently ignore rerender errors
         }
-      });
+      }
     }
   } catch (e) {
     console.debug('Error in forceRenderStability (suppressed)');

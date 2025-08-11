@@ -96,7 +96,7 @@ export function applyNodeStyling(nodes: Node[], theme: 'light' | 'dark' = 'light
     const className = `node-${nodeType} ${node.className || ''}`;
     
     // Base style for all nodes
-    const baseStyle = {
+    const baseStyle: React.CSSProperties = {
       border: '1px solid',
       borderRadius: '8px',
       padding: '10px 15px',
@@ -109,7 +109,7 @@ export function applyNodeStyling(nodes: Node[], theme: 'light' | 'dark' = 'light
       minWidth: '120px',
       minHeight: '40px',
       backdropFilter: theme === 'dark' ? 'blur(3px)' : 'none',
-      visibility: 'visible',
+      visibility: 'visible' as const,
       opacity: 1,
       ...(node.style || {}),
     };

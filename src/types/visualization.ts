@@ -4,7 +4,9 @@
 
 import { Node, Edge } from 'reactflow';
 import { DataFlowType } from '@/lib/utils/dataFlowUtils';
-import { NodeType } from '@/lib/utils/visualizationTheme';
+
+// Define NodeType locally since it's not exported from visualizationTheme
+export type NodeType = 'user' | 'agent' | 'llm' | 'tool' | 'system' | 'document' | 'process' | 'reflection' | 'environment';
 
 /**
  * Standard data flow message

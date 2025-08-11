@@ -14,7 +14,6 @@ import {
 
 // Import and re-export from algorithmVisualization
 import {
-  AlgorithmStep,
   AlgorithmVisualizationData,
   getAlgorithmSpeedMultiplier
 } from './algorithmVisualization';
@@ -42,8 +41,6 @@ export function cn(...inputs: ClassValue[]) {
 // Named exports from dataFlowUtils
 export {
   simulatePatternFlow,
-  BaseDataFlow,
-  DataFlowType,
   getDataFlowAnimationStyle,
   createDataFlow,
   resetDataFlow,
@@ -53,12 +50,14 @@ export {
   getNodeDataFlowParams
 };
 
+export type { BaseDataFlow, DataFlowType };
+
 // Named exports from algorithmVisualization
 export {
-  AlgorithmStep,
-  AlgorithmVisualizationData,
   getAlgorithmSpeedMultiplier
 };
+
+export type { AlgorithmVisualizationData };
 
 // Named exports from adaptiveNodePositioning
 export {

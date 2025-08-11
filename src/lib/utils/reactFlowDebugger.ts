@@ -131,7 +131,12 @@ export function exposeReactFlowDebugTools() {
   (window as any).reactFlowDebug = {
     diagnose: diagnoseReactFlow,
     fix: fixReactFlowVisibility,
-    forceShow: () => window.forceShowReactFlowNodes()
+    forceShow: () => {
+      // Force show ReactFlow nodes by applying visibility fixes
+      console.log('Forcing ReactFlow nodes to be visible...');
+      fixReactFlowVisibility();
+      return 'ReactFlow nodes visibility forced';
+    }
   };
   
   console.log('ReactFlow debug tools available at window.reactFlowDebug');

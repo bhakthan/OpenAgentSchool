@@ -285,6 +285,10 @@ export const simulatePatternFlow = (
   const speedMultiplier = getFixedSpeedMultiplier(speedSetting);
   let currentTime = 0;
   
+  // Track active elements locally
+  const activeNodes = new Set<string>();
+  const activeEdges = new Set<string>();
+  
   // Find nodes and edges in the simulation
   const getNode = (id: string) => nodes.find(n => n.id === id);
   
@@ -333,9 +337,10 @@ export const simulatePatternFlow = (
     const activateNode = () => {
       if (cancelled) return;
       
-      onUpdate(prevState => ({
-        activeNodes: new Set([...prevState.activeNodes, nodeId])
-      }));
+      activeNodes.add(nodeId);
+      onUpdate({
+        activeNodes: new Set(activeNodes)
+      });
       
       // Schedule the node to finish processing and send data to connected nodes
       timeouts.push(window.setTimeout(processNode, processingTime / speedMultiplier));
