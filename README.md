@@ -7,9 +7,28 @@
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges, plus **Critical Thinking Challenges** with LLM-powered assessment and feedback.
 ---
 
-## 🆕 Latest Updates (August 9, 2025)
+## 🆕 Latest Updates (August 11, 2025)
 
-## 🆕 Latest Updates (August 9, 2025)
+### � **ENHANCED: Smart Voice Selection System**
+
+**Revolutionary Cross-Platform Voice Optimization** - Intelligent browser and device-specific voice selection for the ultimate audio learning experience:
+
+**🌐 Browser-Specific Voice Selection:**
+- **Microsoft Edge**: Microsoft AvaMultilingual (premium multilingual voice)
+- **Google Chrome**: Google US English Female (high-quality cross-platform voice)  
+- **Safari (macOS)**: Samantha (Apple's premium voice)
+
+**📱 Mobile Device Optimization:**
+- **iPhone/iPad**: Samantha, Ava Enhanced, Siri Female (iOS-optimized voices)
+- **Android Chrome**: Google US English Female, Android TTS system voices
+- **Samsung Internet**: Samsung TTS Female with Korean language support
+
+**🧠 Intelligent Auto-Detection:**
+- Smart browser/device detection with platform-specific voice prioritization
+- Graceful fallbacks ensuring consistent experience across all platforms
+- Manual override options with 8+ premium voice selections
+
+## Previous Updates (August 9, 2025)
 
 ### 🎮 **NEW: Interactive MCP Tool Calling Experience**
 
@@ -97,7 +116,16 @@ Navigate to **Core Concepts → Model Context Protocol → Tool Calling** to exp
 - **Intelligent Mapping**: Sophisticated component-to-audio file mapping system supporting both kebab-case and PascalCase naming
 - **Local TTS Integration**: High-quality text-to-speech with fallback to Web Speech API for universal compatibility
 - **State Management**: Advanced React state management preventing audio conflicts and race conditions  
-- **Voice Selection**: Premium female voice prioritization with Microsoft Zira, Google UK Female, and Apple Samantha support
+- **Voice Selection**: Advanced browser-specific voice optimization with cross-platform mobile support:
+  - **🔷 Microsoft Edge**: Microsoft AvaMultilingual (premium multilingual voice)
+  - **🟢 Google Chrome**: Google US English Female (high-quality cross-platform voice)
+  - **🍎 Safari (macOS)**: Samantha (Apple's premium voice)
+  - **📱 iOS Safari**: Samantha, Ava Enhanced, Siri Female (iOS-optimized voices)
+  - **🤖 Android Chrome**: Google US English Female, Android TTS system voices
+  - **📱 Samsung Internet**: Samsung TTS Female, Korean language support
+  - **🦊 Firefox/Others**: Intelligent fallback with Google US English Female priority
+  - **Auto-Detection**: Smart browser detection with platform-specific voice prioritization
+  - **Manual Override**: 8+ premium voice options with "Auto (Best Female)" intelligent selection
 - **Error Handling**: Robust error handling with graceful fallbacks and user-friendly error messages
 
 **🎪 Available Across Platform:**

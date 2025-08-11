@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface AudioNarrationState {
   isPlaying: boolean;
@@ -33,6 +33,252 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     useLocalTTS: true, // Default to local TTS
     selectedVoice: null,
   });
+
+  const detectBrowser = (): 'chrome' | 'edge' | 'safari' | 'firefox' | 'ios-safari' | 'android-chrome' | 'samsung-internet' | 'other' => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isIOS = /ipad|iphone|ipod/.test(userAgent);
+    const isAndroid = /android/.test(userAgent);
+    const isMobile = /mobile|android|iphone|ipad|ipod/.test(userAgent);
+    
+    // Mobile device detection
+    if (isIOS) {
+      if (userAgent.includes('safari/') || userAgent.includes('version/')) {
+        return 'ios-safari';
+      }
+    }
+    
+    if (isAndroid) {
+      if (userAgent.includes('samsungbrowser/')) {
+        return 'samsung-internet';
+      } else if (userAgent.includes('chrome/')) {
+        return 'android-chrome';
+      }
+    }
+    
+    // Desktop browser detection (existing logic)
+    if (userAgent.includes('edg/') || userAgent.includes('edge/')) {
+      return 'edge';
+    } else if (userAgent.includes('chrome/') && !userAgent.includes('edg/')) {
+      return 'chrome';
+    } else if (userAgent.includes('safari/') && !userAgent.includes('chrome/')) {
+      return 'safari';
+    } else if (userAgent.includes('firefox/')) {
+      return 'firefox';
+    } else {
+      return 'other';
+    }
+  };
+
+  const selectBestFemaleVoice = (): SpeechSynthesisVoice | null => {
+    // Ensure voices are loaded
+    let voices = speechSynthesis.getVoices();
+    if (voices.length === 0) {
+      // Try to trigger voice loading
+      speechSynthesis.getVoices();
+      voices = speechSynthesis.getVoices();
+    }
+    
+    const browser = detectBrowser();
+    
+    // Browser-specific voice preferences
+    let preferredFemaleVoices: string[] = [];
+    
+    switch (browser) {
+      case 'edge':
+        preferredFemaleVoices = [
+          // Microsoft Edge - prioritize Microsoft voices
+          'Microsoft AvaMultilingual',
+          'Microsoft Ava',
+          'Microsoft Zira Desktop',
+          'Microsoft Zira',
+          'Microsoft Eva',
+          'Microsoft Aria',
+          // Fallback to other voices
+          'Google US English Female',
+          'Google UK English Female',
+          'Samantha',
+          'Victoria',
+        ];
+        break;
+        
+      case 'chrome':
+        preferredFemaleVoices = [
+          // Google Chrome - prioritize Google voices
+          'Google US English Female',
+          'Google UK English Female',
+          'Google français Female',
+          // Fallback to other voices
+          'Microsoft AvaMultilingual',
+          'Microsoft Ava',
+          'Microsoft Zira Desktop',
+          'Microsoft Zira',
+          'Samantha',
+          'Victoria',
+        ];
+        break;
+        
+      case 'ios-safari':
+        preferredFemaleVoices = [
+          // iOS Safari - prioritize iOS native voices
+          'Samantha',
+          'Ava (Enhanced)', 
+          'Ava',
+          'Susan',
+          'Victoria',
+          'Allison',
+          'Karen',
+          // iOS system voices
+          'Siri Female',
+          'com.apple.ttsbundle.siri-female_en-US_compact',
+          'com.apple.ttsbundle.Samantha-compact',
+          // Fallback voices
+          'en-US Female',
+          'Female',
+        ];
+        break;
+        
+      case 'android-chrome':
+        preferredFemaleVoices = [
+          // Android Chrome - prioritize Google and Android voices
+          'Google US English Female',
+          'Google UK English Female',
+          'Google हिन्दी Female', // Google Hindi Female for multilingual support
+          'Google français Female',
+          // Android system voices
+          'en-us-x-sfg#female_1-local',
+          'en-us-x-sfg#female_2-local',
+          'en-us-x-sfg#female_3-local',
+          'Android TTS Female',
+          'Samsung TTS Female',
+          // Fallback voices
+          'en-US Female',
+          'Female',
+        ];
+        break;
+        
+      case 'samsung-internet':
+        preferredFemaleVoices = [
+          // Samsung Internet - prioritize Samsung and Android voices
+          'Samsung TTS Female',
+          'Samsung Korean Female',
+          'Google US English Female',
+          'Google UK English Female',
+          // Android system voices
+          'en-us-x-sfg#female_1-local',
+          'en-us-x-sfg#female_2-local',
+          'Android TTS Female',
+          // Fallback voices
+          'en-US Female',
+          'Female',
+        ];
+        break;
+        
+      case 'safari':
+        preferredFemaleVoices = [
+          // Safari - prioritize Apple voices
+          'Samantha',
+          'Victoria',
+          'Allison',
+          'Ava',
+          'Susan',
+          'Karen',
+          // Fallback to other voices
+          'Google US English Female',
+          'Microsoft AvaMultilingual',
+          'Microsoft Ava',
+        ];
+        break;
+        
+      case 'firefox':
+      case 'other':
+      default:
+        // Default fallback for Firefox and other browsers
+        preferredFemaleVoices = [
+          'Google US English Female',
+          'Microsoft AvaMultilingual',
+          'Microsoft Ava',
+          'Microsoft Zira Desktop',
+          'Microsoft Zira',
+          'Samantha',
+          'Victoria',
+          'en-US Female',
+          'en-GB Female',
+          'Female',
+        ];
+        break;
+    }
+    
+    // First, try to find a preferred female voice by name
+    for (const preferredName of preferredFemaleVoices) {
+      const voice = voices.find(v => 
+        v.name === preferredName || 
+        v.name.includes(preferredName)
+      );
+      if (voice) {
+        console.log(`Browser: ${browser}, Selected voice:`, voice.name);
+        return voice;
+      }
+    }
+    
+    // Fallback: find any female voice by checking the name or other indicators
+    const femaleVoice = voices.find(voice => 
+      voice.name.toLowerCase().includes('female') ||
+      voice.name.toLowerCase().includes('woman') ||
+      voice.name.toLowerCase().includes('zira') ||
+      voice.name.toLowerCase().includes('eva') ||
+      voice.name.toLowerCase().includes('samantha') ||
+      voice.name.toLowerCase().includes('allison') ||
+      voice.name.toLowerCase().includes('karen') ||
+      voice.name.toLowerCase().includes('susan') ||
+      voice.name.toLowerCase().includes('victoria') ||
+      voice.name.toLowerCase().includes('aria') ||
+      voice.name.toLowerCase().includes('ava') ||
+      // Mobile-specific voice patterns
+      voice.name.toLowerCase().includes('siri') ||
+      voice.name.toLowerCase().includes('samsung') ||
+      voice.name.toLowerCase().includes('android') ||
+      voice.name.toLowerCase().includes('enhanced') ||
+      voice.name.includes('female_1') ||
+      voice.name.includes('female_2') ||
+      voice.name.includes('female_3') ||
+      voice.name.includes('sfg#female')
+    );
+    
+    if (femaleVoice) {
+      console.log(`Browser: ${browser}, Selected fallback female voice:`, femaleVoice.name);
+      return femaleVoice;
+    }
+    
+    // Last resort: pick the first available voice (might be male)
+    console.log(`Browser: ${browser}, No female voice found, using default voice`);
+    return voices[0] || null;
+  };
+
+  // Ensure voices are loaded when the component mounts
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      const loadVoices = () => {
+        const voices = speechSynthesis.getVoices();
+        if (voices.length > 0 && !state.selectedVoice) {
+          // Auto-select the best female voice if none is selected
+          const bestVoice = selectBestFemaleVoice();
+          if (bestVoice) {
+            setState(prev => ({ ...prev, selectedVoice: bestVoice }));
+          }
+        }
+      };
+
+      // Load voices immediately if available
+      loadVoices();
+
+      // Also listen for the voiceschanged event
+      speechSynthesis.addEventListener('voiceschanged', loadVoices);
+
+      return () => {
+        speechSynthesis.removeEventListener('voiceschanged', loadVoices);
+      };
+    }
+  }, []);
 
   const playNarration = async (componentName: string, level: 'beginner' | 'intermediate' | 'advanced') => {
     // Stop any current narration
@@ -91,10 +337,14 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       utterance.rate = state.speechRate;
       utterance.volume = state.volume;
       
-      // Select the best female voice available
+      // Always refresh voices and select the best female voice available
+      // This ensures consistent voice selection across all components
       const voice = state.selectedVoice || selectBestFemaleVoice();
       if (voice) {
         utterance.voice = voice;
+        console.log(`Playing audio for ${componentName} with voice:`, voice.name);
+      } else {
+        console.warn(`No suitable voice found for ${componentName}`);
       }
       
       utterance.onend = () => resolve();
@@ -102,75 +352,6 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       
       speechSynthesis.speak(utterance);
     });
-  };
-
-  const selectBestFemaleVoice = (): SpeechSynthesisVoice | null => {
-    const voices = speechSynthesis.getVoices();
-    
-    // Priority order for female voices (Google US English Female prioritized)
-    const preferredFemaleVoices = [
-      // Google US English Female as top priority
-      'Google US English Female',
-      
-      // Other Google voices
-      'Google UK English Female',
-      'Google français Female',
-      
-      // Microsoft voices (Windows)
-      'Microsoft Zira Desktop',
-      'Microsoft Zira',
-      'Microsoft Eva',
-      'Microsoft Aria',
-      
-      // Apple voices (Safari/macOS)
-      'Samantha',
-      'Victoria',
-      'Allison',
-      'Ava',
-      'Susan',
-      'Karen',
-      
-      // Other common female voices
-      'en-US Female',
-      'en-GB Female',
-      'Female',
-    ];
-    
-    // First, try to find a preferred female voice by name
-    for (const preferredName of preferredFemaleVoices) {
-      const voice = voices.find(v => 
-        v.name === preferredName || 
-        v.name.includes(preferredName)
-      );
-      if (voice) {
-        console.log('Selected voice:', voice.name);
-        return voice;
-      }
-    }
-    
-    // Fallback: find any female voice by checking the name or other indicators
-    const femaleVoice = voices.find(voice => 
-      voice.name.toLowerCase().includes('female') ||
-      voice.name.toLowerCase().includes('woman') ||
-      voice.name.toLowerCase().includes('zira') ||
-      voice.name.toLowerCase().includes('eva') ||
-      voice.name.toLowerCase().includes('samantha') ||
-      voice.name.toLowerCase().includes('allison') ||
-      voice.name.toLowerCase().includes('karen') ||
-      voice.name.toLowerCase().includes('susan') ||
-      voice.name.toLowerCase().includes('victoria') ||
-      voice.name.toLowerCase().includes('aria') ||
-      voice.name.toLowerCase().includes('ava')
-    );
-    
-    if (femaleVoice) {
-      console.log('Selected fallback female voice:', femaleVoice.name);
-      return femaleVoice;
-    }
-    
-    // Last resort: pick the first available voice (might be male)
-    console.log('No female voice found, using default voice');
-    return voices[0] || null;
   };
 
   const fetchAudioContent = async (componentName: string, level: string): Promise<string> => {
@@ -330,7 +511,17 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
 
   const getAvailableVoices = (): SpeechSynthesisVoice[] => {
     if ('speechSynthesis' in window) {
-      return speechSynthesis.getVoices();
+      let voices = speechSynthesis.getVoices();
+      
+      // If voices are not loaded yet, try to trigger loading
+      if (voices.length === 0) {
+        speechSynthesis.addEventListener('voiceschanged', () => {
+          voices = speechSynthesis.getVoices();
+        });
+        return speechSynthesis.getVoices();
+      }
+      
+      return voices;
     }
     return [];
   };
