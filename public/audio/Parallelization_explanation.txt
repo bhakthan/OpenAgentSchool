@@ -1,0 +1,35 @@
+Parallelization Pattern Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Imagine you have a hundred letters to mail, and you have to put a stamp on each one. If you do it yourself, one by one, it will take a long time. But what if you could get ten friends to help you? You could give each friend ten letters, and they could all put stamps on them at the same time. The job would get done much, much faster.
+
+That's exactly what the Parallelization pattern does for an AI agent. When there are many independent tasks to do, like analyzing thousands of customer reviews, the system doesn't do them one by one. Instead, it runs hundreds of them at the same time, or "in parallel." This dramatically speeds up the process, allowing the agent to handle huge amounts of work in a fraction of the time it would take to do it sequentially.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+The Parallelization pattern is an execution strategy used to improve the speed and efficiency of processing large numbers of independent tasks. The core principle is to execute multiple tasks concurrently rather than sequentially. This is particularly effective for tasks that are "I/O-bound" (e.g., making multiple API calls) or "CPU-bound" (e.g., performing complex calculations on many different pieces of data), where tasks don't depend on each other's results.
+
+A common implementation involves a task queue and a pool of workers. A main process adds all the tasks to the queue. The workers, which can be threads or separate processes, pull tasks from the queue and execute them. As each worker finishes a task, it stores the result and pulls the next available task. This continues until the queue is empty.
+
+To prevent overwhelming external services (like an API), a concurrency controller or a "worker pool" is often used to limit the number of tasks running at any given moment. After all tasks are completed, the results are aggregated for final processing. This pattern is fundamental for building scalable and high-performance systems.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+The Parallelization pattern is a computational technique for executing multiple independent tasks concurrently to reduce end-to-end latency. In the context of AI agents, this is often implemented using asynchronous programming models, such as `asyncio` in Python or `Promise.all` in JavaScript/TypeScript.
+
+The implementation typically involves these components:
+1.  Task Definition: A function or method that encapsulates a single, independent unit of work (e.g., `analyze_review(review_text)`). This function is usually asynchronous (`async`).
+2.  Task Collection: An iterable (like a list) containing all the individual inputs for the tasks to be performed.
+3.  Concurrency Limiter: To avoid overwhelming system resources or external APIs, a semaphore or a similar concurrency primitive is used. A semaphore is initialized with a maximum concurrency limit (e.g., `asyncio.Semaphore(10)`). Before a task is run, it must acquire the semaphore, and it releases it upon completion. This ensures that no more than the specified number of tasks are running at any one time.
+4.  Task Execution and Aggregation: The tasks are submitted for execution, often using a function like `asyncio.gather()`. This function runs all the awaitable tasks concurrently and returns a list of their results once all have completed.
+
+For example, a Python implementation might look like this:
+`tasks = [process_item(item, semaphore) for item in all_items]`
+`results = await asyncio.gather(*tasks)`
+
+This approach is highly efficient for I/O-bound operations, as it allows the program to switch to another task while one is waiting for a response from a network request. For CPU-bound tasks, a multi-processing approach (using a `ProcessPoolExecutor`) is often preferred to leverage multiple CPU cores, as this bypasses Python's Global Interpreter Lock (GIL).
+

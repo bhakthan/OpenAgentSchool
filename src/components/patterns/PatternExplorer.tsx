@@ -16,6 +16,7 @@ import { CriticalThinkingModal } from '@/components/common/CriticalThinkingModal
 import { useSidebarCollapse } from '@/hooks/use-sidebar-collapse'
 import { getPatternCue } from '@/lib/data/patternCues'
 import { cn } from '@/lib/utils'
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 // Lazy load heavy visualization components
 const SimplePatternVisualizer = lazy(() => import('@/components/visualization/SimplePatternVisualizer'))
@@ -156,6 +157,14 @@ const PatternExplorer = () => {
 
   return (
     <div className="space-y-6 layout-stable scrollbar-stable">
+      {/* Floating Audio Controls */}
+      {selectedPattern && (
+        <AudioNarrationControls 
+          componentName={selectedPattern.id}
+          position="floating"
+        />
+      )}
+      
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Agent Patterns</h2>
         <div className="flex items-center gap-2">

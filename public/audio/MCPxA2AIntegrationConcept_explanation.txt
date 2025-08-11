@@ -14,3 +14,4 @@ This page explores the integration of the Model Context Protocol (MCP) and the A
 Advanced Explanation
 --------------------------------------------------------------------------------
 This `MCPxA2AIntegrationConcept` component explains the architectural pattern of composing A2A and MCP. The 'Implementation Guide' tab includes a JavaScript pseudo-code example for an `MCPToA2ABridge` class. This class shows how an A2A agent can discover the tools available on an MCP server and register them as capabilities in the A2A network. The `invokeMCPTool` method within the bridge acts as a proxy, translating an A2A capability request into a specific MCP tool call and returning the result, effectively and securely exposing an agent's tools to other agents in the network.
+

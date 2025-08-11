@@ -1,0 +1,35 @@
+Self-Reflection Pattern Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Imagine you write a first draft of an email and then read it over to see if it makes sense. You might notice a typo or a sentence that's unclear, so you fix it. That process of checking and improving your own work is exactly what the Self-Reflection pattern does for an AI agent.
+
+When an agent is asked to do something, like write a summary, it first creates a draft. Then, a part of the agent acts like a "critic" and reviews the draft, checking it against a set of rules or quality standards. The critic gives feedback, and then a "refiner" part of the agent rewrites the draft to address the feedback. This "generate-critique-refine" loop can happen several times until the work is high-quality and meets all the requirements. It's like having a built-in editor that helps the AI improve its own work.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+The Self-Reflection pattern is an advanced technique where an agent iteratively improves its own output through a structured process of critique and refinement. The core of the pattern is a loop that consists of three main stages:
+
+1.  Generate: The agent produces an initial version of the output based on the user's request. This is the "first draft."
+
+2.  Critique: The agent then switches to a "critic" persona. Using a different, more analytical prompt, it evaluates the generated draft against a predefined rubric or a set of quality criteria. This critique identifies flaws, areas for improvement, and deviations from the requirements. The critic often produces a structured output, such as a list of issues and a quality score.
+
+3.  Refine: The original draft and the critique are then passed to a "refiner" persona. This part of the agent is tasked with rewriting the draft to specifically address the issues raised by the critic.
+
+This cycle can be repeated multiple times. The loop terminates when the critique process determines that the output has reached a satisfactory quality score or when a maximum number of iterations is reached. This pattern is highly effective for tasks requiring high-quality output, such as code generation, content creation, or detailed analysis, as it mimics the human process of iterative improvement.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+The Self-Reflection pattern implements a meta-cognitive loop within an agent, enabling it to reason about and improve its own generated outputs. The architecture involves distinct LLM calls with specialized prompts for each phase of the process.
+
+1.  Generator: This is the initial LLM call, prompted to produce a solution to the given task. The prompt is focused on fulfilling the primary request.
+
+2.  Critic: This is a subsequent LLM call that embodies a critical persona. Its prompt is engineered to be highly analytical and is provided with a detailed evaluation rubric. The rubric might include checks for factual accuracy, logical consistency, structural integrity, adherence to constraints, and overall quality. The critic is often prompted to return a structured output, such as a JSON object containing a list of identified issues, concrete suggestions for improvement, and a quantitative score (e.g., from 0.0 to 1.0).
+
+3.  Refiner: This LLM call receives the original draft and the structured critique from the critic. Its prompt explicitly instructs it to rewrite the draft, addressing each of the identified issues and incorporating the suggestions. This is not a simple request to "make it better"; it's a targeted revision based on the critic's feedback.
+
+The process is managed by an orchestrator that controls the flow and termination conditions. The loop can terminate based on the quality score from the critic (e.g., score > 0.9), a specific "approved" flag from the critic, or a predefined maximum number of iterations to prevent infinite loops. This pattern significantly enhances the reliability and quality of agent outputs but comes at the cost of increased latency and computational expense due to the multiple LLM calls per task. The effectiveness of the entire process is highly dependent on the quality and specificity of the critique prompt and rubric.
+

@@ -107,6 +107,18 @@ Navigate to **Core Concepts → Model Context Protocol → Tool Calling** to exp
 - **Individual Components**: Custom integration for specialized components like analytics dashboards and interactive animations
 - **Consistent Experience**: Uniform audio control interface across all educational content areas
 
+**📚 Complete Audio Library (62 Explanation Files):**
+
+- **Agent Patterns**: AutoGenMultiAgent, AgenticRAGPattern, CodeActPattern, ReActPattern, PlanActPattern, MemoryEnhancedAgent, SwarmIntelligence
+- **Communication Systems**: A2ACommunicationConcept, A2ACommunicationPatterns, A2AMultiAgentSystem, ACPConcept, ACPProtocolStack
+- **MCP Framework**: MCPConcept, MCPArchitectureDiagram, MCPToolCallingAnimation, MCPToolCallingCode, MCPVisualDemo, MCPxA2AIntegrationConcept
+- **Agent Architecture**: AgentArchitectureConcept, AgentLifecycleVisual, AgentPersonalityShowcase, AgentTesting, AgentEthicsConcept, AgentSecurityConcept
+- **Skills & Assessment**: PromptEngineeringSkills, CodeUnderstandingSkills, CrossTeamCollaborationSkills, DevelopmentVelocitySkills, ResearchAnalysisSkills, FutureProofingSkills
+- **Enterprise Patterns**: EnterpriseArchitecturePatterns, NovelOrganizationalPatterns, OrchestratorWorker, HumanAgentRatioCalculator, FrontierFirmAssessment
+- **Advanced Workflows**: AutonomousWorkflow, AgenticWorkflowControl, Parallelization, Routing, SelfReflection, ModernToolUse
+- **Learning Tools**: StudyMode, LearningAssessment, WorkspaceOverview, DeepResearcher, VoiceAgent
+- **All files optimized for text-to-speech with plain text formatting for natural audio narration**
+
 Experience the future of technical education where complex AI agent concepts become accessible through professional audio narration, interactive controls, and seamless integration with visual learning materials!
 
 ## 🆕 Previous Updates (August 8, 2025)

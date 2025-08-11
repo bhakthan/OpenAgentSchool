@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { PatternDemoSVG } from '../interactive-demos';
 import { EnlightenMeButton } from '@/components/enlighten/EnlightenMeButton';
+import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 import AutoGenPatternVisualizer from '../visualization/AutoGenPatternVisualizer';
 import LivePatternRunner from './LivePatternRunner';
 import { reactAgentExecutionSteps } from '@/lib/data/execution/reactAgentExecutionSteps';
@@ -50,6 +51,15 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
         <CardDescription>
           {pattern.description}
         </CardDescription>
+        
+        {/* Audio Narration Controls */}
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <AudioNarrationControls 
+            componentName={pattern.id}
+            position="embedded"
+            className="justify-center"
+          />
+        </div>
       </CardHeader>
       <CardContent className="pt-6">
         <Tabs defaultValue={hasBusinessUseCase ? "business-use-case" : "details"} className="w-full">

@@ -1,0 +1,34 @@
+Prompt Chaining Pattern Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Imagine you're trying to write a story. Instead of trying to write the whole thing at once, you might break it down into smaller steps. First, you think of the main characters. Then, you think about the setting. After that, you outline the plot. Finally, you write the story, using the characters, setting, and plot you already came up with.
+
+Prompt Chaining works the same way for an AI agent. Instead of giving it one huge, complex instruction, you give it a series of smaller, connected instructions (or "prompts"). The output from the first prompt becomes the input for the second prompt, and so on. For example, you could have one prompt to generate ideas, a second to turn the best idea into an outline, and a third to write a full article based on that outline. This step-by-step process helps the AI produce much better, more structured results for complex tasks.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Prompt Chaining is a technique used to break down a complex task into a sequence of simpler, more manageable sub-tasks, each handled by a separate prompt. The core idea is that the output of one LLM call is programmatically used as part of the input for the next LLM call. This creates a "chain" of operations that builds towards a final, more complex result.
+
+For example, a marketing campaign generation task could be broken into a three-step chain:
+1.  Prompt 1: Generate Personas. The input is a product description. The LLM generates a list of potential customer personas.
+2.  Prompt 2: Generate Marketing Messages. The input is the list of personas from the previous step. The LLM creates targeted marketing messages for each persona.
+3.  Prompt 3: Generate Ad Copy. The input is the marketing messages. The LLM writes specific ad copy for different platforms (e.g., Facebook, Google Ads) based on those messages.
+
+This approach has several advantages over a single, monolithic prompt. It allows for better control over the output at each stage, makes the process easier to debug, and often leads to higher-quality results because each prompt is highly focused on a single, well-defined task.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Prompt Chaining is a foundational pattern in orchestrating LLM interactions for complex problem-solving. It involves a sequence of LLM calls where the output of `prompt_n` serves as a variable in the template for `prompt_n+1`. This creates a directed acyclic graph (DAG) of operations, which can be managed by a simple sequential script or a more sophisticated framework like LangChain's `SequentialChain`.
+
+The implementation of a prompt chain involves several key components:
+1.  Prompt Templates: These are parameterized strings that define the structure of each prompt in the chain. They contain placeholders for variables that will be filled in at runtime.
+2.  LLM Wrappers: These are clients for interacting with the language model (e.g., OpenAI, Anthropic). They handle the API calls and response parsing.
+3.  Output Parsers: These are functions that extract and transform the raw string output from the LLM into a more structured format (e.g., JSON, a list of strings) that can be easily passed to the next prompt in the chain.
+4.  Orchestration Logic: This is the code that defines the sequence of the chain. It takes the initial input, calls the first prompt, passes the parsed output to the second, and so on, until the final output is produced.
+
+For example, a chain might be defined as `chain = LLMChain(prompt=prompt_A) | LLMChain(prompt=prompt_B)`. When this chain is invoked with an input, the input is first passed to `prompt_A`. The output of that LLM call is then automatically passed as the input to `prompt_B`. This modular approach allows for the construction of complex reasoning workflows and is a core concept behind many advanced agentic architectures.
+

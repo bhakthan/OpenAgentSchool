@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -31,6 +31,36 @@ export default function AudioNarrationControls({
   const [showSettings, setShowSettings] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragPosition, setDragPosition] = useState({ x: window.innerWidth - 200, y: 100 });
+  const dragRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (position === 'floating') {
+      setIsDragging(true);
+      const rect = dragRef.current?.getBoundingClientRect();
+      if (rect) {
+        const offsetX = e.clientX - rect.left;
+        const offsetY = e.clientY - rect.top;
+        
+        const handleMouseMove = (e: MouseEvent) => {
+          setDragPosition({
+            x: e.clientX - offsetX,
+            y: e.clientY - offsetY
+          });
+        };
+
+        const handleMouseUp = () => {
+          setIsDragging(false);
+          document.removeEventListener('mousemove', handleMouseMove);
+          document.removeEventListener('mouseup', handleMouseUp);
+        };
+
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+      }
+    }
+  };
 
   // Load available voices on component mount
   useEffect(() => {
@@ -100,26 +130,42 @@ advanced: {
   if (position === 'floating') {
     return (
       <TooltipProvider>
-        <div className={`fixed top-4 right-4 z-50 ${className}`}>
-          <Card className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg border border-gray-200 dark:border-gray-700">
-            <CardContent className="p-3">
+        <div 
+          ref={dragRef}
+          className={`fixed z-50 ${className}`}
+          style={{
+            left: `${dragPosition.x}px`,
+            top: `${dragPosition.y}px`,
+            cursor: isDragging ? 'grabbing' : 'grab'
+          }}
+          onMouseDown={handleMouseDown}
+        >
+          <Card className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-lg border border-gray-200/50 dark:border-gray-700/50">
+            <CardContent className="p-2">
               {!isExpanded ? (
-                // Collapsed state - just the expand button with prominent design
-                <Button
-                  onClick={() => setIsExpanded(true)}
-                  size="lg"
-                  className="flex items-center gap-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white dark:from-blue-600 dark:to-blue-700 dark:hover:from-blue-700 dark:hover:to-blue-800 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-blue-400 dark:border-blue-500"
-                >
-                  <div className="flex items-center gap-2">
-                    <SpeakerHigh className="w-5 h-5" />
-                    <span className="font-semibold">🎧 Audio Guide</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="text-lg">🎓</span>
-                    <span className="text-lg">🧠</span>
-                    <span className="text-lg">🚀</span>
-                  </div>
-                </Button>
+                // Slim collapsed state - just the three difficulty icons
+                <div className="flex items-center gap-2">
+                  {Object.entries(levelConfig).map(([level, config]) => (
+                    <Button
+                      key={level}
+                      onClick={() => handleLevelPlay(level as 'beginner' | 'intermediate' | 'advanced')}
+                      size="sm"
+                      variant="ghost"
+                      className="p-1 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors"
+                      disabled={state.isPlaying}
+                    >
+                      <span className="text-lg">{config.icon}</span>
+                    </Button>
+                  ))}
+                  <Button
+                    onClick={() => setIsExpanded(true)}
+                    size="sm"
+                    variant="ghost"
+                    className="p-1 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors"
+                  >
+                    <Gear className="w-4 h-4" />
+                  </Button>
+                </div>
               ) : (
                 // Expanded state - full controls
                 <div className="space-y-3 min-w-[280px]">

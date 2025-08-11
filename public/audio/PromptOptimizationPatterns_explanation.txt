@@ -1,16 +1,46 @@
-PromptOptimizationPatterns Explanation
+Prompt Optimization Patterns Explanation
 --------------------------------------------------------------------------------
 
 Beginner Explanation
 --------------------------------------------------------------------------------
-This page is about how to write better instructions, or "prompts," for AI agents. If you give a confusing prompt, you'll get a confusing answer. This page shows you a four-step process for improving your prompts: Identify Issues, Apply Patterns, Test & Measure, and Iterate. You'll see examples of common problems, like giving the agent contradictory instructions, and how to fix them by being more clear and specific. The goal is to learn how to write prompts that give the agent the best possible chance of success.
+Imagine you're giving instructions to a new assistant. If your instructions are vague or contradictory, like "I want this done fast, but also be very careful and double-check everything," your assistant might get confused and not do a great job. Prompt Optimization is the art of giving an AI agent crystal-clear instructions so it can perform its best.
+
+This involves a few key ideas:
+1.  No Contradictions: Don't tell the agent to do two opposite things. Be decisive.
+2.  Be Specific: Instead of saying "make it fast," say "it needs to process 1,000 items per second."
+3.  Set Boundaries: Tell the agent exactly what it can and can't do, like "only use the tools I've given you."
+4.  Give Good Examples: If you provide examples, make sure they perfectly match your instructions.
+
+By following these patterns, you can turn a confused agent into a highly effective one that does exactly what you want, efficiently and reliably.
 
 --------------------------------------------------------------------------------
 Intermediate Explanation
 --------------------------------------------------------------------------------
-This page provides a systematic guide to prompt optimization. It's built around a four-tab interface that addresses common prompting problems. The "Contradictions" tab shows how to eliminate conflicting instructions. The "Specificity" tab demonstrates how to move from vague requests to precise, measurable requirements. The "Constraints" tab explains how to set clear boundaries for the agent's performance, like how much memory it can use. Finally, the "Examples" tab highlights the importance of providing examples that are consistent with your instructions. The "Measuring Optimization Impact" section at the bottom quantifies the benefits of these improvements, showing real data on how optimization can reduce memory usage and execution time.
+Prompt Optimization Patterns are a systematic set of techniques used to refine the instructions given to an AI agent to improve its performance, reliability, and efficiency. The process involves identifying common problems in a prompt and applying specific patterns to resolve them. The core patterns include:
+
+1.  Eliminating Contradictions: This involves analyzing the prompt for conflicting instructions. For example, a prompt might ask for a memory-efficient, single-pass algorithm but also suggest caching data, which are contradictory goals. The solution is to remove the ambiguity and provide a single, clear directive.
+
+2.  Increasing Specificity: This pattern focuses on replacing vague, subjective language with precise, measurable requirements. Instead of asking for a "fast" algorithm, a specific performance target is provided, such as "runtime complexity must be O(N log N)." This removes ambiguity and guides the agent toward a more optimal solution.
+
+3.  Defining Constraints: This involves setting clear boundaries on the agent's behavior, such as resource usage or algorithmic choices. For instance, explicitly stating "do not materialize the entire dataset in memory" or "use only the standard library, no external packages" provides clear guardrails for the agent.
+
+4.  Ensuring Example Consistency: When using few-shot prompting (providing examples), it's crucial that the examples perfectly align with the instructions. If an instruction forbids external libraries, the examples must not use them. Inconsistencies can confuse the agent, leading it to ignore the instructions and mimic the flawed example.
+
+By methodically applying these patterns, developers can significantly reduce erratic agent behavior and improve key performance metrics like memory usage, execution time, and the quality of the generated output.
 
 --------------------------------------------------------------------------------
 Advanced Explanation
 --------------------------------------------------------------------------------
-This `PromptOptimizationPatterns` component is an interactive tool for learning advanced prompt engineering. The component uses a `Tabs` structure to present four key optimization patterns. The 'Specificity' and 'Constraints' tabs are particularly insightful for technical users, as they advocate for using objective, measurable criteria like Big O notation (e.g., "Target peak memory O(k)") rather than subjective terms. The 'Contradictions' and 'Examples' tabs show side-by-side "Before" and "After" code blocks, clearly illustrating how to refactor problematic prompts into optimized ones. The component effectively teaches a rigorous, almost scientific method for prompt engineering, backed by a "Measuring Optimization Impact" card that displays quantitative improvements in performance metrics.
+Prompt Optimization Patterns provide a formal framework for enhancing the efficacy of instructions provided to large language models, particularly in agentic systems. The methodology is rooted in a four-stage iterative process: 1) Identify Issues, 2) Apply Patterns, 3) Test & Measure, and 4) Iterate.
+
+The core patterns address specific failure modes in prompt design:
+
+1.  Contradiction Elimination: This pattern targets logical inconsistencies within the prompt. These often manifest as competing, non-prioritized goals (e.g., "be concise but also comprehensive"). The optimization involves establishing a clear hierarchy of objectives or providing explicit rules for trade-offs, thereby resolving the ambiguity for the agent's decision-making process.
+
+2.  Specificity Injection: This pattern is about quantifying qualitative statements. Vague descriptors like "fast" or "efficient" are replaced with formal complexity constraints (e.g., "target peak additional memory O(k) beyond the initial data structure") or specific algorithmic mandates (e.g., "use a bounded min-heap for Top-K selection"). This provides the agent with a precise, verifiable target.
+
+3.  Constraint Formalization: This pattern establishes strict operational boundaries. This goes beyond specificity and involves defining non-negotiable rules. This can include disallowing certain function calls (e.g., `eval`), prohibiting specific libraries, or enforcing architectural patterns (e.g., "process data as a stream using generators"). These constraints act as guardrails, preventing the agent from selecting suboptimal or insecure paths.
+
+4.  Example-Instruction Congruence: In the context of few-shot or chain-of-thought prompting, this pattern ensures that all provided examples are fully compliant with all instructions. Any divergence, however minor, can degrade the agent's adherence to the primary instructions, as the model may overweight the provided example. The examples must be curated to be exemplars of the desired behavior, reinforcing the instructions rather than conflicting with them.
+
+The impact of applying these patterns is quantifiable. By systematically refining prompts, developers can achieve significant improvements in performance metrics such as memory footprint (e.g., -84% by enforcing streaming), execution latency (e.g., -12% by specifying an optimal algorithm), and the qualitative aspects of the output, such as code quality or adherence to architectural standards.

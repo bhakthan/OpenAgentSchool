@@ -1,0 +1,36 @@
+Routing Pattern Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Imagine you call a large company's customer service line. You don't just get a random person. An automated system first asks you, "For billing, press 1. For technical support, press 2." This system is a "router" – its job is to figure out what you need and send you to the right expert.
+
+The Routing pattern for AI agents works the same way. When you send a query, it first goes to a special "Router Agent." This agent's only job is to read your query and understand what it's about. Then, it directs your query to a specialized "expert" agent. If you ask about your bill, you go to the Billing Agent. If you ask why your internet is slow, you go to the Technical Support Agent. This makes sure you always get the best and fastest answer because you're talking to the agent with the right expertise.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+The Routing pattern is a multi-agent architecture where a dedicated "Router Agent" acts as an intelligent entry point for all incoming queries. The router's primary responsibility is to classify the intent of a query and forward it to the most appropriate specialized agent from a pool of available agents.
+
+The process is as follows:
+1.  A user sends a query to the system.
+2.  The query is first received by the Router Agent.
+3.  The Router Agent uses an LLM to analyze the query's content and semantic meaning. The prompt for this LLM call typically includes the user's query and a list of the available specialized agents, along with a brief description of their capabilities (e.g., "BillingAgent: Handles questions about invoices and payments," "TechSupportAgent: Troubleshoots technical issues").
+4.  The LLM returns a decision, identifying which specialized agent is the best fit.
+5.  The Router then forwards the query and conversation context to the selected agent.
+
+This pattern allows for the creation of scalable and maintainable systems. Each specialized agent can be developed and improved independently, focusing on its narrow domain of expertise. The router itself can also be improved over time to make more accurate routing decisions.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+The Routing pattern is a sophisticated multi-agent design that implements a classification and delegation workflow. At its core, the Router Agent is an LLM-based classifier.
+
+The implementation involves several key components:
+1.  Agent Registry: A mechanism, often a simple dictionary or a more complex service discovery system, that maintains a list of available agents. For each agent, the registry stores its ID, a description of its capabilities, and its endpoint or invocation details.
+2.  Routing Prompt: The prompt for the router is critical. It uses few-shot prompting or structured instructions to force the LLM to act as a classifier. The prompt includes the user query and a dynamically generated list of the available agents and their descriptions from the registry. To ensure reliable, machine-readable output, the prompt often instructs the LLM to use "function calling" or to return its choice in a structured format like JSON (e.g., `{"chosen_agent": "TechSupportAgent", "confidence_score": 0.95, "reasoning": "The query mentions 'internet is down', which is a technical issue."}`).
+3.  Dispatch Logic: After the LLM returns its choice, the router's code parses the structured output and dispatches the request to the chosen agent's endpoint.
+4.  Confidence Handling and Escalation: A robust router doesn't just make a choice; it also assesses its confidence. If the LLM's confidence score is below a certain threshold, the router can trigger a clarification flow, asking the user a disambiguating question before making a final decision. If a specialized agent fails to resolve the issue, there's an escalation path, often back to the router or to a human agent, to handle the failure gracefully.
+
+This pattern is a form of the broader Orchestrator-Worker pattern, but it is specifically focused on the initial classification and delegation of a task based on the content of the query itself.
+

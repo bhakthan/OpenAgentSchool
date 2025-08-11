@@ -1,0 +1,37 @@
+Deep Researcher Pattern Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Imagine you're writing a research paper. You don't just do one quick Google search and call it a day. You start with a main question, but then you come up with a list of more specific questions to investigate. You look for information in many different places—books, articles, websites—and as you learn more, you might come up with even more questions. Finally, you take everything you've learned and synthesize it into a detailed report.
+
+The Deep Researcher pattern is an AI agent that does exactly that. You give it a broad topic, and it starts by creating a research plan and a set of questions. It then searches multiple sources, gathers information, and checks its facts. It can even identify gaps in its own knowledge and generate new questions to investigate further. At the end of the process, it doesn't just give you a list of links; it provides a comprehensive, well-structured report based on all the information it found.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+The Deep Researcher pattern is an advanced agentic workflow designed for comprehensive, evidence-based investigation. It goes far beyond a simple RAG (Retrieval-Augmented Generation) system by creating a dynamic and iterative research process.
+
+The workflow typically involves these stages:
+1.  Query Planner: The process begins with an initial research query. The agent's first step is to use an LLM to break this broad query down into a structured research plan, which consists of a set of specific, answerable questions.
+2.  Source Finder & Content Extractor: For each question, the agent uses a search tool to find relevant sources (e.g., web pages, documents in a database). It then extracts the content from these sources.
+3.  Fact Checker/Validator: The extracted information is then critically evaluated. The agent might check for credibility of the source or cross-reference facts between multiple sources to ensure accuracy.
+4.  Synthesizer: The agent synthesizes the verified information it has gathered for each question into a coherent summary.
+5.  Iterative Refinement: Crucially, the agent can review its own synthesized findings. If it identifies gaps in its knowledge or new avenues for investigation, it can loop back to the Query Planner to generate new questions and continue the research process.
+6.  Report Generator: Once the research is complete, a final LLM call is made to take all the synthesized answers and generate a comprehensive, well-structured report.
+
+This pattern allows the agent to tackle complex research tasks that require deep investigation and the synthesis of information from many different sources.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+The Deep Researcher pattern is a multi-agent or multi-persona system that automates a comprehensive research workflow. The architecture is often orchestrated as a state machine or a directed acyclic graph (DAG) of tasks.
+
+The key components and their technical implementations are:
+1.  Query Planner: This is an LLM-based component. Its prompt is engineered to take a high-level topic and decompose it into a structured set of research questions. The output is typically a JSON object representing a research plan, which can be dynamically modified as the research progresses.
+2.  Search/Retrieval Tools: This is a collection of tools that the agent can use to gather information. This might include a standard web search API, a connection to a vector database for internal documents, or specialized API connectors for academic or legal databases (e.g., arXiv, Westlaw).
+3.  Credibility Engine: The system often includes a mechanism to score the credibility of sources. This could be a simple rule-based system (e.g., academic journals > news articles > blog posts) or a more sophisticated model that has been trained to assess source reliability.
+4.  Synthesis Module: This is another LLM-based component. Its prompt is designed for "synthesis from sources." It takes a question and a set of retrieved text chunks (often with their source and credibility score) and is instructed to generate a concise answer, citing its sources. It is explicitly prompted to identify and report any conflicting information between sources.
+5.  Meta-Cognitive Loop: The most advanced aspect of this pattern is the agent's ability to reason about its own research process. After an initial round of synthesis, a "meta-agent" or a specific prompt can be used to review the collected findings, identify gaps or unanswered questions, and add new tasks to the research plan. This creates an iterative loop that continues until a predefined "depth" of research is achieved or no new information is being found.
+6.  Report Generator: The final stage involves an LLM call with a prompt designed for long-form content generation. It takes the entire collection of synthesized answers and is instructed to weave them into a final, structured report, complete with an executive summary, detailed sections, and a bibliography.
+
