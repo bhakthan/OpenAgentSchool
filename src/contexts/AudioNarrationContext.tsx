@@ -107,18 +107,20 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
   const selectBestFemaleVoice = (): SpeechSynthesisVoice | null => {
     const voices = speechSynthesis.getVoices();
     
-    // Priority order for female voices (most natural to least)
+    // Priority order for female voices (Google US English Female prioritized)
     const preferredFemaleVoices = [
+      // Google US English Female as top priority
+      'Google US English Female',
+      
+      // Other Google voices
+      'Google UK English Female',
+      'Google français Female',
+      
       // Microsoft voices (Windows)
       'Microsoft Zira Desktop',
       'Microsoft Zira',
       'Microsoft Eva',
       'Microsoft Aria',
-      
-      // Google voices (Chrome)
-      'Google UK English Female',
-      'Google US English Female',
-      'Google français Female',
       
       // Apple voices (Safari/macOS)
       'Samantha',
