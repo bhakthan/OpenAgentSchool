@@ -10,7 +10,19 @@ import {
   Star,
   ArrowRight,
   TrendUp,
-  Scales
+  Scales,
+  Terminal,
+  ChatText,
+  Brain,
+  Lightning,
+  Network,
+  FolderOpen,
+  FileText,
+  Briefcase,
+  Palette,
+  CheckCircle,
+  GitMerge,
+  Download
 } from "@phosphor-icons/react"
 
 interface Props {
@@ -583,6 +595,261 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
                       <h5 className="font-medium">Implementation</h5>
                       <p className="text-sm text-muted-foreground">Production deployment without engineering team</p>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Gemini CLI for Cross-Team Collaboration */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+              <Terminal className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <CardTitle>Gemini CLI: Democratizing Technical Execution</CardTitle>
+              <CardDescription>
+                Breaking down technical barriers - enabling any team member to execute complex technical workflows
+              </CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Core Collaboration Features */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Users className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+                Cross-Team Empowerment
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <ChatText className="w-4 h-4 text-blue-600 dark:text-blue-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Natural Language Technical Interface</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Any team member can execute technical tasks using plain English descriptions
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Brain className="w-4 h-4 text-green-600 dark:text-green-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">1M Token Context Understanding</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Comprehends entire cross-team projects and complex business requirements
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Lightning className="w-4 h-4 text-yellow-600 dark:text-yellow-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Non-Interactive Workflow Scripting</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Teams can create automated workflows without technical scripting knowledge
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Network className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                Team Integration Features
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <FolderOpen className="w-4 h-4 text-purple-600 dark:text-purple-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Multi-Directory Project Support</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Coordinate across team-specific folders and cross-functional project structures
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <FileText className="w-4 h-4 text-orange-600 dark:text-orange-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Team Context Files (GEMINI.md)</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Maintain team-specific standards, conventions, and business context
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Shield className="w-4 h-4 text-red-600 dark:text-red-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Sandboxed Execution</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Safe experimentation environment for non-technical teams
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Real-World Cross-Team Scenarios */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <Briefcase className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              Real-World Cross-Team Applications
+            </h3>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Design Team Example */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Palette className="w-4 h-4 text-pink-600 dark:text-pink-400" />
+                  <h4 className="font-semibold">Design Team: Autonomous Feature Implementation</h4>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-sm">
+                  <div className="font-medium text-pink-600 dark:text-pink-400 mb-2">Natural Language Command:</div>
+                  <div className="text-muted-foreground italic mb-3">
+                    "Update the user dashboard to match our new design system. Apply the new color palette, 
+                    update button styles, and implement the responsive grid layout from our Figma file."
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
+                    <span className="font-medium text-green-600 dark:text-green-400">Direct implementation without developer handoff</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Marketing Team Example */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <TrendUp className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  <h4 className="font-semibold">Marketing Team: Campaign Automation</h4>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-sm">
+                  <div className="font-medium text-blue-600 dark:text-blue-400 mb-2">Natural Language Command:</div>
+                  <div className="text-muted-foreground italic mb-3">
+                    "Create an automated campaign that personalizes email content based on user behavior, 
+                    integrates with our CRM, and generates weekly performance reports."
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
+                    <span className="font-medium text-green-600 dark:text-green-400">End-to-end automation without technical dependencies</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Finance Team Example */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Calculator className="w-4 h-4 text-green-600 dark:text-green-400" />
+                  <h4 className="font-semibold">Finance Team: Data Pipeline Creation</h4>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-sm">
+                  <div className="font-medium text-green-600 dark:text-green-400 mb-2">Natural Language Command:</div>
+                  <div className="text-muted-foreground italic mb-3">
+                    "Build a real-time financial dashboard that aggregates data from Stripe, QuickBooks, 
+                    and our internal systems. Include automated variance analysis and budget tracking."
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
+                    <span className="font-medium text-green-600 dark:text-green-400">Complex data integration without data engineering team</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Legal Team Example */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Scales className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                  <h4 className="font-semibold">Legal Team: Compliance Tool Development</h4>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-sm">
+                  <div className="font-medium text-purple-600 dark:text-purple-400 mb-2">Natural Language Command:</div>
+                  <div className="text-muted-foreground italic mb-3">
+                    "Create a GDPR compliance checker that scans our codebase for data collection patterns, 
+                    generates privacy impact assessments, and maintains audit trails."
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
+                    <span className="font-medium text-green-600 dark:text-green-400">Specialized legal tech tools without coding</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Collaboration Workflow */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <GitMerge className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              Cross-Team Workflow Integration
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center space-y-2">
+                <div className="w-12 h-12 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mx-auto">
+                  <Users className="w-6 h-6 text-violet-600 dark:text-violet-400" />
+                </div>
+                <h4 className="font-semibold">Team Empowerment</h4>
+                <p className="text-sm text-muted-foreground">
+                  Any team member can execute technical tasks using natural language
+                </p>
+              </div>
+              
+              <div className="text-center space-y-2">
+                <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mx-auto">
+                  <ArrowRight className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                </div>
+                <h4 className="font-semibold">Seamless Handoffs</h4>
+                <p className="text-sm text-muted-foreground">
+                  Checkpointing enables smooth transitions between team members
+                </p>
+              </div>
+              
+              <div className="text-center space-y-2">
+                <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto">
+                  <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+                </div>
+                <h4 className="font-semibold">Barrier Removal</h4>
+                <p className="text-sm text-muted-foreground">
+                  Technical expertise no longer required for technical execution
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Installation & Team Setup */}
+          <div className="bg-gradient-to-r from-violet-50 to-indigo-50 dark:from-violet-950 dark:to-indigo-950 p-6 rounded-lg">
+            <h3 className="font-semibold mb-4 flex items-center gap-2">
+              <Download className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+              Team Setup & Installation
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-medium mb-2">Quick Team Installation</h4>
+                <div className="bg-black text-green-400 p-3 rounded text-sm font-mono">
+                  npm install -g @google/generative-ai-cli
+                </div>
+                <p className="text-sm text-muted-foreground mt-2">
+                  One-time setup enables entire team access to technical execution capabilities
+                </p>
+              </div>
+              <div>
+                <h4 className="font-medium mb-2">Team Context Configuration</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <ArrowRight className="w-3 h-3" />
+                    <span>Create team-specific GEMINI.md context files</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ArrowRight className="w-3 h-3" />
+                    <span>Configure MCP servers for team tools (@slack, @github)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ArrowRight className="w-3 h-3" />
+                    <span>Enable non-interactive mode for automated workflows</span>
                   </div>
                 </div>
               </div>

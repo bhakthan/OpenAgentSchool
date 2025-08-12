@@ -57,6 +57,11 @@ function App() {
   const [mounted, setMounted] = useState(false)
   const [showJourneyMap, setShowJourneyMap] = useState(false)
   const location = useLocation()
+
+  // Scroll to top when route changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
   
     // Get current page for journey map
   const getCurrentPage = () => {
