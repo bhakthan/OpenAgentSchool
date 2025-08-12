@@ -568,7 +568,6 @@ export const agentPatternsQuestions: QuizQuestion[] = [
     id: 'patterns-deep-agents-b1',
     text: 'What is the primary purpose of the Deep Agents pattern?',
     question: 'What is the primary purpose of the Deep Agents pattern?',
-    text: 'What is the primary purpose of the Deep Agents pattern?',
     options: [
       'To create simple, single-step agents',
       'To handle complex, multi-step tasks requiring deep reasoning, research, and iterative refinement',
@@ -588,7 +587,6 @@ export const agentPatternsQuestions: QuizQuestion[] = [
     id: 'patterns-deep-agents-i1',
     text: 'Which components are essential to the Deep Agents architecture?',
     question: 'Which components are essential to the Deep Agents architecture?',
-    text: 'Which components are essential to the Deep Agents architecture?',
     options: [
       'Only a main agent and database',
       'Main Deep Agent, Planning Tools, Research Sub-Agent, Critique Sub-Agent, and Virtual File System',
@@ -608,7 +606,6 @@ export const agentPatternsQuestions: QuizQuestion[] = [
     id: 'patterns-deep-agents-a1',
     text: 'What is the role of the Virtual File System in Deep Agents?',
     question: 'What is the role of the Virtual File System in Deep Agents?',
-    text: 'What is the role of the Virtual File System in Deep Agents?',
     options: [
       'To store only final outputs',
       'To provide persistent state management, enable collaboration between agents, and maintain context across interactions',
@@ -628,7 +625,6 @@ export const agentPatternsQuestions: QuizQuestion[] = [
     id: 'patterns-deep-agents-i2',
     text: 'How does the Critique Sub-Agent improve output quality in Deep Agents?',
     question: 'How does the Critique Sub-Agent improve output quality in Deep Agents?',
-    text: 'How does the Critique Sub-Agent improve output quality in Deep Agents?',
     options: [
       'By replacing the main agent entirely',
       'By providing systematic quality review, detailed feedback, and guiding iterative improvement cycles',
@@ -648,7 +644,6 @@ export const agentPatternsQuestions: QuizQuestion[] = [
     id: 'patterns-deep-agents-a2',
     text: 'In what business scenarios would Deep Agents be most appropriate?',
     question: 'In what business scenarios would Deep Agents be most appropriate?',
-    text: 'In what business scenarios would Deep Agents be most appropriate?',
     options: [
       'Simple data entry tasks only',
       'Complex research projects, comprehensive analysis, strategic planning, and multi-step content creation',
@@ -668,7 +663,6 @@ export const agentPatternsQuestions: QuizQuestion[] = [
     id: 'patterns-deep-agents-i3',
     text: 'What Azure services would typically be used to implement Deep Agents?',
     question: 'What Azure services would typically be used to implement Deep Agents?',
-    text: 'What Azure services would typically be used to implement Deep Agents?',
     options: [
       'Only Azure Storage',
       'Azure OpenAI, Azure Cognitive Search, Azure App Service, Azure Storage, and Azure Key Vault',

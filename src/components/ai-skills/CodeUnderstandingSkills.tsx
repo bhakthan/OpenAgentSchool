@@ -485,6 +485,245 @@ Error: TypeError: Cannot read property 'length' of undefined
             </div>
           </div>
 
+        </CardContent>
+      </Card>
+
+      {/* Google Gemini CLI */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              <span className="text-white font-bold">G</span>
+            </div>
+            <div>
+              <CardTitle>Google Gemini CLI: Open-Source Terminal Agent</CardTitle>
+              <CardDescription>1M token context autonomous AI agent with built-in tools and MCP extensibility</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Terminal-First Agent */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Terminal-Native AI Agent</h3>
+              <Badge variant="secondary">Apache 2.0</Badge>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-medium text-red-600 dark:text-red-400 mb-2">Traditional CLI Tools</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>• Command-specific utilities</li>
+                  <li>• Manual process orchestration</li>
+                  <li>• Limited context understanding</li>
+                  <li>• Separate tools for different tasks</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-green-600 dark:text-green-400 mb-2">Gemini CLI Agent</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>• 1M token context window for deep understanding</li>
+                  <li>• Autonomous multi-step task execution</li>
+                  <li>• Built-in Google Search grounding</li>
+                  <li>• Integrated file operations and shell commands</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg">
+              <p className="text-sm font-medium mb-2">Installation & Usage:</p>
+              <div className="text-sm text-muted-foreground space-y-1">
+                <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">npx https://github.com/google-gemini/gemini-cli</code> - Run instantly</div>
+                <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">npm install -g @google/gemini-cli</code> - Global install</div>
+                <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">brew install gemini-cli</code> - macOS/Linux</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Built-in Tools Ecosystem */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Built-in Tools Ecosystem</h3>
+              <Badge variant="secondary">Tool-Rich</Badge>
+            </div>
+            
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Gemini CLI includes comprehensive built-in tools for complete development workflows:
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <h4 className="font-medium">Core Operations</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="p-2 bg-muted rounded">📁 File system operations (read, write, edit)</div>
+                    <div className="p-2 bg-muted rounded">💻 Shell command execution</div>
+                    <div className="p-2 bg-muted rounded">🔍 Multi-file operations and search</div>
+                  </div>
+                </div>
+                
+                <div className="space-y-3">
+                  <h4 className="font-medium">Advanced Features</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="p-2 bg-muted rounded">🌐 Web fetch and Google Search</div>
+                    <div className="p-2 bg-muted rounded">💾 Memory management across sessions</div>
+                    <div className="p-2 bg-muted rounded">🔐 Sandboxed execution environment</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* MCP Integration & Extensibility */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">MCP Server Integration</h3>
+              <Badge variant="secondary">Extensible</Badge>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Model Context Protocol (MCP) support enables custom tool integration:
+              </p>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-medium mb-3">Custom Integrations</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                      <span>@github - Pull request management</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                      <span>@slack - Team communication</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+                      <span>@database - SQL queries and analysis</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 className="font-medium mb-3">Transport Mechanisms</h4>
+                  <div className="space-y-2 text-sm">
+                    <div>• Stdio Transport - subprocess communication</div>
+                    <div>• SSE Transport - Server-Sent Events</div>
+                    <div>• HTTP Streaming - real-time data flow</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-4 rounded-lg">
+                <p className="text-sm font-medium mb-2">Example MCP Usage:</p>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">@github List my open pull requests</code></div>
+                  <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">@slack Send summary to #dev channel</code></div>
+                  <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">@database Find inactive users</code></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Authentication & Rate Limits */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Free Tier & Authentication</h3>
+              <Badge variant="secondary">Developer-Friendly</Badge>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold mb-2">Personal Google Account</h4>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>• 60 requests/minute</div>
+                  <div>• 1,000 requests/day</div>
+                  <div>• Free tier access</div>
+                </div>
+              </div>
+              
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold mb-2">Gemini API Key</h4>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>• 100 requests/day</div>
+                  <div>• Model selection control</div>
+                  <div>• Usage-based billing</div>
+                </div>
+              </div>
+              
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold mb-2">Vertex AI Enterprise</h4>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>• Higher rate limits</div>
+                  <div>• Enterprise security</div>
+                  <div>• Google Cloud integration</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Advanced Workflow Capabilities */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Advanced Development Workflows</h3>
+              <Badge variant="secondary">Professional</Badge>
+            </div>
+
+            <div className="space-y-4">
+              <h4 className="font-medium">Enterprise Features</h4>
+              
+              <div className="space-y-3">
+                <div className="flex items-start gap-3 p-3 border rounded-lg">
+                  <File className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Checkpointing</h4>
+                    <p className="text-sm text-muted-foreground">Save and resume complex development sessions</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 border rounded-lg">
+                  <MagnifyingGlass className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">GEMINI.md Context Files</h4>
+                    <p className="text-sm text-muted-foreground">Project-specific AI behavior customization</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 border rounded-lg">
+                  <ArrowsOut className="w-5 h-5 text-purple-600 dark:text-purple-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Multi-Directory Support</h4>
+                    <p className="text-sm text-muted-foreground">Include multiple directories in workspace context</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 border rounded-lg">
+                  <Bug className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Sandboxed Execution</h4>
+                    <p className="text-sm text-muted-foreground">Docker/Podman security isolation for tool execution</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/30 dark:to-blue-950/30 p-4 rounded-lg">
+              <p className="text-sm font-medium mb-2">🚀 Professional Workflow Example:</p>
+              <p className="text-sm text-muted-foreground">
+                "Analyze this multi-repo codebase for security issues, create fixes, run tests in sandbox, 
+                and generate documentation" → Gemini CLI autonomously coordinates across directories, 
+                executes tools securely, and maintains context throughout the complex workflow.
+              </p>
+            </div>
+          </div>
+
           <div className="mt-6 pt-6 border-t">
             <Button className="w-full" size="lg" onClick={onNavigate}>
               <span>Continue to Development Velocity Skills</span>

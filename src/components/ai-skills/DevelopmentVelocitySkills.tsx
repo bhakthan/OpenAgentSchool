@@ -542,6 +542,332 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
         </CardContent>
       </Card>
 
+      {/* Google Gemini CLI */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              <span className="text-white font-bold">G</span>
+            </div>
+            <div>
+              <CardTitle>Google Gemini CLI: Lightning-Fast Development Automation</CardTitle>
+              <CardDescription>60 requests/minute with non-interactive scripting for maximum development velocity</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Non-Interactive Velocity */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Non-Interactive Scripting for Velocity</h3>
+              <Badge variant="secondary">Pipeline-Ready</Badge>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-medium text-red-600 dark:text-red-400 mb-2">Traditional CLI Tools</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>• Interactive prompts slow automation</li>
+                  <li>• Manual intervention required</li>
+                  <li>• Difficult to chain commands</li>
+                  <li>• Limited scriptability</li>
+                  <li>• Sequential processing bottlenecks</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-green-600 dark:text-green-400 mb-2">Gemini CLI Automation</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>• Pipeline-ready non-interactive mode</li>
+                  <li>• Direct stdin/stdout for chaining</li>
+                  <li>• Scriptable with bash/PowerShell</li>
+                  <li>• Parallel processing capabilities</li>
+                  <li>• 60 requests/minute burst capacity</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-lg">
+              <h4 className="font-semibold mb-2">High-Velocity Examples</h4>
+              <div className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
+                <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">echo "Generate API docs" | gemini</code> - Instant documentation</div>
+                <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">gemini -p "Fix all TypeScript errors"</code> - Automated error resolution</div>
+                <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">find . -name "*.js" | xargs gemini</code> - Batch processing</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Background Processing Workflows */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Background Processing & Checkpointing</h3>
+              <Badge variant="secondary">Long-Running</Badge>
+            </div>
+            
+            <p className="text-sm text-muted-foreground">
+              Gemini CLI's checkpointing enables complex multi-hour tasks to run in background 
+              while preserving state across interruptions and system restarts.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 border rounded-lg space-y-2">
+                <Clock className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <h4 className="font-semibold">Start Complex Task</h4>
+                <p className="text-sm text-muted-foreground">Initiate migration or refactoring</p>
+                <p className="text-xs text-blue-600 dark:text-blue-400">Checkpoint: Analysis phase saved</p>
+              </div>
+              <div className="p-4 border rounded-lg space-y-2">
+                <Timer className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                <h4 className="font-semibold">Background Processing</h4>
+                <p className="text-sm text-muted-foreground">AI continues during meetings/lunch</p>
+                <p className="text-xs text-orange-600 dark:text-orange-400">Checkpoint: Implementation 60% complete</p>
+              </div>
+              <div className="p-4 border rounded-lg space-y-2">
+                <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+                <h4 className="font-semibold">Resume & Complete</h4>
+                <p className="text-sm text-muted-foreground">Pick up exactly where left off</p>
+                <p className="text-xs text-green-600 dark:text-green-400">Checkpoint: Task completed successfully</p>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-4 rounded-lg">
+              <p className="text-sm font-medium mb-2">⚡ Real-World Velocity Impact:</p>
+              <p className="text-sm text-muted-foreground">
+                "Migrate 50+ files to new framework" → Start before lunch, AI works autonomously, 
+                resume after lunch with 80% complete and full context preserved.
+              </p>
+            </div>
+          </div>
+
+          {/* Multi-Directory Velocity */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Multi-Directory Bulk Operations</h3>
+              <Badge variant="secondary">Repo-Scale</Badge>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-medium text-red-600 dark:text-red-400 mb-3">Single Repository Focus</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <span>Limited to current directory context</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <span>Manual navigation between projects</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <span>Lose context when switching repos</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <span>Sequential processing across projects</span>
+                  </div>
+                </div>
+                <div className="mt-3 p-2 bg-red-100 dark:bg-red-900 rounded text-sm text-red-800 dark:text-red-200">
+                  <strong>Time:</strong> Hours to days for cross-repo changes
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="font-medium text-green-600 dark:text-green-400 mb-3">Multi-Directory Intelligence</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                    <span>Include multiple directories with --include-directories</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                    <span>Cross-repository pattern analysis</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                    <span>Consistent changes across all projects</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                    <span>Parallel processing with context sharing</span>
+                  </div>
+                </div>
+                <div className="mt-3 p-2 bg-green-100 dark:bg-green-900 rounded text-sm text-green-800 dark:text-green-200">
+                  <strong>Time:</strong> Minutes for enterprise-wide refactors
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <h4 className="font-semibold mb-2">Enterprise Velocity Example</h4>
+              <div className="text-sm space-y-1">
+                <p><code className="bg-white dark:bg-gray-700 px-1 rounded">gemini --include-directories ../frontend,../backend,../mobile</code></p>
+                <p className="text-muted-foreground">→ "Update authentication to use OAuth 2.0 across all services"</p>
+                <p className="text-muted-foreground">→ AI analyzes patterns in all three repos simultaneously</p>
+                <p className="text-muted-foreground">→ Generates consistent implementation across entire stack</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Sandboxed Velocity with Safety */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Sandboxed High-Velocity Execution</h3>
+              <Badge variant="secondary">Safe Automation</Badge>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Execute high-velocity automation with built-in safety through Docker/Podman sandboxing, 
+                enabling aggressive optimization without system risk.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <h4 className="font-medium">Velocity Operations</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="p-2 bg-muted rounded">🔄 Mass file transformations</div>
+                    <div className="p-2 bg-muted rounded">⚡ Aggressive refactoring</div>
+                    <div className="p-2 bg-muted rounded">🧪 Experimental optimizations</div>
+                    <div className="p-2 bg-muted rounded">🔍 Deep dependency analysis</div>
+                  </div>
+                </div>
+                
+                <div className="space-y-3">
+                  <h4 className="font-medium">Safety Guarantees</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="p-2 bg-muted rounded">🛡️ Isolated execution environment</div>
+                    <div className="p-2 bg-muted rounded">📦 Container-based boundaries</div>
+                    <div className="p-2 bg-muted rounded">🔒 No host system access</div>
+                    <div className="p-2 bg-muted rounded">♻️ Clean state for each operation</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-green-100 dark:bg-green-900 p-4 rounded-lg">
+              <h4 className="font-semibold mb-2">High-Velocity + High-Safety</h4>
+              <div className="text-sm text-green-800 dark:text-green-200 space-y-1">
+                <p>• <code className="bg-white dark:bg-gray-800 px-1 rounded">gemini --sandbox -p "Optimize entire codebase for performance"</code></p>
+                <p>• AI can be maximally aggressive with changes</p>
+                <p>• Zero risk to host development environment</p>
+                <p>• Review sandbox results before applying to real codebase</p>
+              </div>
+            </div>
+          </div>
+
+          {/* CI/CD Pipeline Integration */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">CI/CD Pipeline Automation</h3>
+              <Badge variant="secondary">DevOps Ready</Badge>
+            </div>
+
+            <div className="space-y-4">
+              <h4 className="font-medium">Automated Development Pipelines</h4>
+              
+              <div className="space-y-3">
+                <div className="flex items-start gap-3 p-3 border rounded-lg">
+                  <Rocket className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Automated Code Generation</h4>
+                    <p className="text-sm text-muted-foreground">Generate boilerplate, tests, and documentation in CI</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 border rounded-lg">
+                  <GitMerge className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Automated PR Optimization</h4>
+                    <p className="text-sm text-muted-foreground">AI reviews and optimizes PRs before human review</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 border rounded-lg">
+                  <ArrowsClockwise className="w-5 h-5 text-purple-600 dark:text-purple-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Continuous Refactoring</h4>
+                    <p className="text-sm text-muted-foreground">Scheduled AI-driven code quality improvements</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3 border rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium">Automated Issue Resolution</h4>
+                    <p className="text-sm text-muted-foreground">AI detects and fixes issues before they reach humans</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/30 dark:to-blue-950/30 p-4 rounded-lg">
+              <p className="text-sm font-medium mb-2">🚀 Pipeline Velocity Example:</p>
+              <p className="text-sm text-muted-foreground">
+                GitHub Action triggers → Gemini CLI analyzes PR → Generates optimization suggestions → 
+                Auto-applies safe improvements → Creates summary comment → 90% faster review cycle
+              </p>
+            </div>
+          </div>
+
+          {/* Rate Limit Velocity Optimization */}
+          <div className="border rounded-lg p-6 space-y-4">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <h3 className="text-lg font-semibold">Rate Limit Optimization for Maximum Throughput</h3>
+              <Badge variant="secondary">60 req/min</Badge>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold mb-2">Free Tier Strategy</h4>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>• 60 requests/minute burst</div>
+                  <div>• 1,000 requests/day total</div>
+                  <div>• Optimize for high-impact tasks</div>
+                  <div>• Batch operations efficiently</div>
+                </div>
+              </div>
+              
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold mb-2">API Key Scaling</h4>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>• 100 requests/day baseline</div>
+                  <div>• Pay-per-use scaling</div>
+                  <div>• Higher burst rates available</div>
+                  <div>• Model selection control</div>
+                </div>
+              </div>
+              
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-semibold mb-2">Enterprise Vertex AI</h4>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>• Unlimited rate scaling</div>
+                  <div>• Enterprise security</div>
+                  <div>• Custom model access</div>
+                  <div>• Advanced billing controls</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-yellow-100 dark:bg-yellow-900 p-4 rounded-lg">
+              <h4 className="font-semibold mb-2">Velocity Optimization Tips</h4>
+              <ul className="space-y-1 text-sm text-yellow-800 dark:text-yellow-200">
+                <li>• Use 1M token context to reduce round trips</li>
+                <li>• Batch related operations in single requests</li>
+                <li>• Leverage checkpointing for long-running tasks</li>
+                <li>• Use non-interactive mode for automation</li>
+              </ul>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Implementation Guide */}
       <Card>
         <CardHeader>
