@@ -19,13 +19,10 @@ const Agent2AgentProtocolExplainer = () => {
           <CardDescription>Understanding how AI agents communicate and collaborate</CardDescription>
           
           {/* Audio Narration Controls */}
-          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-            <AudioNarrationControls 
-              componentName="Agent2AgentProtocolExplainer"
-              position="embedded"
-              className="justify-center"
-            />
-          </div>
+          <AudioNarrationControls 
+            componentName="Agent2AgentProtocolExplainer"
+            position="embedded"
+          />
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="prose max-w-none">

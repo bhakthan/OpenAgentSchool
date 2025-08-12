@@ -130,13 +130,10 @@ const ChatbotToAgentTransition: React.FC = () => {
         </p>
         
         {/* Audio Narration Controls */}
-        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-          <AudioNarrationControls 
-            componentName="ChatbotToAgentTransition"
-            position="embedded"
-            className="justify-center"
-          />
-        </div>
+        <AudioNarrationControls 
+          componentName="ChatbotToAgentTransition"
+          position="embedded"
+        />
       </CardHeader>
       <CardContent>
         <div className="space-y-6">

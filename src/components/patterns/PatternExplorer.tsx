@@ -5,12 +5,9 @@ import PatternDetails from './PatternDetails'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { ChartLine, Code, Info, Swap } from '@phosphor-icons/react'
+import { ChartLine, Code, Info, Swap, Question } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { PatternSidebar } from './PatternSidebar'
-import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutorialButton'
-import { useTutorialContext } from '../tutorial/TutorialProvider'
-import { agentPatternsTutorial } from '@/lib/tutorial'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { CriticalThinkingModal } from '@/components/common/CriticalThinkingModal'
 import { useSidebarCollapse } from '@/hooks/use-sidebar-collapse'
@@ -48,8 +45,6 @@ const PatternExplorer = () => {
   const [activeTab, setActiveTab] = useState('flow-diagram'); // Track the active tab
   const { isCollapsed } = useSidebarCollapse(); // Get sidebar collapse state
   const [forceUpdate, setForceUpdate] = useState(0); // Force re-render when needed
-
-  const { startTutorial, registerTutorial, hasCompletedTutorial } = useTutorialContext();
   
   // Update selected pattern when URL parameter changes
   useEffect(() => {
@@ -60,11 +55,6 @@ const PatternExplorer = () => {
       }
     }
   }, [patternId]);
-
-  // Register the agent patterns tutorial
-  useEffect(() => {
-    registerTutorial(agentPatternsTutorial.id, agentPatternsTutorial);
-  }, [registerTutorial]);
   
   // Edge browser-optimized layout adjustment when sidebar state changes
   useEffect(() => {
@@ -157,25 +147,19 @@ const PatternExplorer = () => {
 
   return (
     <div className="space-y-6 layout-stable scrollbar-stable">
-      {/* Floating Audio Controls */}
-      {selectedPattern && (
-        <AudioNarrationControls 
-          componentName={selectedPattern.id}
-          position="floating"
-        />
-      )}
-      
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Agent Patterns</h2>
+      <div className="flex justify-between items-start mb-4 gap-4">
+        {/* Left side: Audio Controls */}
+        {selectedPattern && (
+          <div className="flex-shrink-0">
+            <AudioNarrationControls 
+              componentName={selectedPattern.id}
+              position="embedded"
+            />
+          </div>
+        )}
+        
+        {/* Right side: Action Buttons */}
         <div className="flex items-center gap-2">
-          <EnhancedTutorialButton
-            hasCompleted={hasCompletedTutorial(agentPatternsTutorial.id)}
-            onClick={() => startTutorial(agentPatternsTutorial.id)}
-            tooltip="Learn about Agent Patterns"
-            pageSynopsis={pagesSynopsis['agent-patterns']}
-            showDetailedView={true}
-          />
-          
           <Button 
             variant="outline" 
             onClick={toggleViewMode}
@@ -188,9 +172,10 @@ const PatternExplorer = () => {
           <Button
             size="lg"
             onClick={() => setModalOpen(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl flex items-center gap-2"
           >
-            🧠 Critical Thinking Challenge
+            <Question size={20} weight="bold" />
+            Critical Thinking Challenge
           </Button>
         </div>
       </div>

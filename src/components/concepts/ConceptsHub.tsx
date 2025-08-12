@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question } from "@phosphor-icons/react"
 import AIAgentsConcept from "./AIAgentsConcept"
 import A2ACommunicationConcept from "./A2ACommunicationConcept"
 import MCPConcept from "./MCPConcept"
@@ -400,9 +400,10 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
             <Button
               size="lg"
               onClick={() => setModalOpen(true)}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl flex items-center justify-center gap-2"
             >
-              🧠 Critical Thinking Challenge
+              <Question size={20} weight="bold" />
+              Critical Thinking Challenge
             </Button>
             
             {/* Navigation Buttons */}

@@ -24,13 +24,10 @@ export default function AzureAISafetyAndGovernance() {
           </CardDescription>
           
           {/* Audio Narration Controls */}
-          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-            <AudioNarrationControls 
-              componentName="AzureAISafetyAndGovernance"
-              position="embedded"
-              className="justify-center"
-            />
-          </div>
+          <AudioNarrationControls 
+            componentName="AzureAISafetyAndGovernance"
+            position="embedded"
+          />
         </CardHeader>
       </Card>
 

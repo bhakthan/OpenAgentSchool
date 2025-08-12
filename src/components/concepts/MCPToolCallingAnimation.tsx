@@ -402,7 +402,6 @@ return final_answer`,
         <AudioNarrationControls 
           componentName="MCPToolCallingAnimation"
           position="embedded"
-          className="mt-4"
         />
       </CardHeader>
       <CardContent>

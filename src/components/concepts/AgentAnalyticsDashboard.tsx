@@ -95,13 +95,10 @@ export default function AgentAnalyticsDashboard() {
           </CardDescription>
           
           {/* Audio Narration Controls */}
-          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-            <AudioNarrationControls 
-              componentName="AgentAnalyticsDashboard"
-              position="embedded"
-              className="justify-center"
-            />
-          </div>
+          <AudioNarrationControls 
+            componentName="AgentAnalyticsDashboard"
+            position="embedded"
+          />
         </CardHeader>
       </Card>
 

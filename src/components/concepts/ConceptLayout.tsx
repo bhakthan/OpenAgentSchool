@@ -126,13 +126,10 @@ export default function ConceptLayout({
           
           {/* Audio Narration Controls */}
           {enableAudioNarration && (
-            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <AudioNarrationControls 
-                componentName={conceptId}
-                position="embedded"
-                className="justify-center"
-              />
-            </div>
+            <AudioNarrationControls 
+              componentName={conceptId}
+              position="embedded"
+            />
           )}
         </CardHeader>
       </Card>

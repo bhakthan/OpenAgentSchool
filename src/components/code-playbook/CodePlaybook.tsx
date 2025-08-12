@@ -22,9 +22,6 @@ import { getAlgorithmVisualization, AlgorithmVisualizationData } from '@/lib/uti
 import { getSystemDesignPattern } from '@/lib/data/systemDesign'
 import { useSidebarCollapse } from '@/hooks/use-sidebar-collapse'
 import { cn } from '@/lib/utils'
-import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutorialButton'
-import { useTutorialContext } from '../tutorial/TutorialProvider'
-import { codePlaybookTutorial } from '@/lib/tutorial'
 
 interface CodePlaybookProps {
   patternData: PatternData
@@ -35,13 +32,6 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
   const [language, setLanguage] = useState<'python' | 'typescript'>('python')
   const [visualizationMode, setVisualizationMode] = useState<'static' | 'interactive'>('static')
   const { isCollapsed } = useSidebarCollapse();
-  
-  const { startTutorial, registerTutorial, hasCompletedTutorial } = useTutorialContext();
-  
-  // Register the code playbook tutorial
-  useEffect(() => {
-    registerTutorial(codePlaybookTutorial.id, codePlaybookTutorial);
-  }, [registerTutorial]);
   
   // Listen to sidebar state changes with stabilized layout adjustment for Edge browser
   useEffect(() => {
@@ -140,17 +130,6 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
   
   return (
     <div className="space-y-6 w-full layout-stable scrollbar-stable">
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-lg font-medium">Code Playbook</h3>
-        <EnhancedTutorialButton
-          hasCompleted={hasCompletedTutorial(codePlaybookTutorial.id)}
-          onClick={() => startTutorial(codePlaybookTutorial.id)}
-          tooltip="Learn about Code Playbook"
-          pageSynopsis={pagesSynopsis['agent-patterns']}
-          showDetailedView={true}
-        />
-      </div>
-      
       <Card className={cn(
         "w-full transition-all duration-300 ease-in-out",
         // Edge browser scrollbar stability - prevent layout jumping
