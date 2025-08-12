@@ -329,11 +329,22 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           {/* Study Mode Categories */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {studyModeCategories.map((category) => {
-              const categoryQuestions = allQuestions.filter(q => q.type === category.id as StudyModeType);
+              // Map category IDs to tab values
+              const getTabValue = (categoryId: string): StudyModeType => {
+                switch (categoryId) {
+                  case 'socratic-thinking': return 'socratic';
+                  case 'interactive-scenarios': return 'scenario';
+                  case 'debug-challenges': return 'debug';
+                  default: return 'socratic';
+                }
+              };
+
+              const tabValue = getTabValue(category.id);
+              const categoryQuestions = allQuestions.filter(q => q.type === tabValue);
               const completedCount = categoryQuestions.filter(q => 
                 completedQuestionIds.includes(q.id)
               ).length;
-              const isUnlocked = hasUnlockedStudyModeType(category.id as StudyModeType, sessions);
+              const isUnlocked = hasUnlockedStudyModeType(tabValue, sessions);
 
               return (
                 <Card 
@@ -342,12 +353,12 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                     "cursor-pointer transition-all",
                     isUnlocked ? "hover:shadow-md hover:border-primary" : "opacity-60"
                   )}
-                  onClick={() => isUnlocked && setActiveTab(category.id as StudyModeType)}
+                  onClick={() => isUnlocked && setActiveTab(tabValue)}
                 >
                   <CardContent className="p-6 text-center">
                     <div className="flex justify-center mb-3">
                       <div className="p-3 bg-primary/10 rounded-full">
-                        {getTypeIcon(category.id as StudyModeType)}
+                        {getTypeIcon(tabValue)}
                       </div>
                     </div>
                     <h3 className="font-semibold mb-2">{category.name}</h3>
