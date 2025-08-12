@@ -39,22 +39,16 @@ export const VoiceInputButton = React.forwardRef<
       }
     },
     onError: (errorMessage) => {
-      console.error('Voice input error:', errorMessage);
+      // Silent error handling - errors will be shown in UI state
     }
   });
 
   const handleClick = () => {
-    console.log('🎤 Voice button clicked', { disabled, isSupported, isListening });
-    if (disabled || !isSupported) {
-      console.log('🎤 Button click ignored - disabled or not supported');
-      return;
-    }
+    if (disabled || !isSupported) return;
     
     if (isListening) {
-      console.log('🎤 Stopping listening...');
       stopListening();
     } else {
-      console.log('🎤 Starting listening...');
       startListening();
     }
   };
@@ -67,9 +61,9 @@ export const VoiceInputButton = React.forwardRef<
       return `Error: ${error}`;
     }
     if (isListening) {
-      return 'Click to stop recording. Speak now...';
+      return 'Listening... Speak now! Click to stop recording.';
     }
-    return 'Click to start voice input';
+    return 'Click to start voice input. Speak immediately after clicking.';
   };
 
   const getButtonIcon = () => {
@@ -101,8 +95,8 @@ export const VoiceInputButton = React.forwardRef<
           >
             {getButtonIcon()}
             {isListening && (
-              <span className="ml-2 animate-pulse text-xs">
-                Recording...
+              <span className="ml-2 animate-pulse text-xs font-medium">
+                Listening...
               </span>
             )}
           </Button>

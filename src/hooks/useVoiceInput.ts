@@ -56,7 +56,7 @@ interface UseVoiceInputReturn {
 export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInputReturn => {
   const {
     language = 'en-US',
-    continuous = true,
+    continuous = true, // Back to true for better detection
     interimResults = true,
     onResult,
     onError
@@ -66,32 +66,50 @@ export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInput
   const [transcript, setTranscript] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isSupported, setIsSupported] = useState(false);
+  const [shouldBeListening, setShouldBeListening] = useState(false); // Track intent to listen
 
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const restartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Use refs for callbacks to avoid useEffect dependency issues
+  const onResultRef = useRef(onResult);
+  const onErrorRef = useRef(onError);
+  
+  // Update refs when callbacks change
+  useEffect(() => {
+    onResultRef.current = onResult;
+  }, [onResult]);
+  
+  useEffect(() => {
+    onErrorRef.current = onError;
+  }, [onError]);
 
   // Check for browser support
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    console.log('Speech Recognition API available:', !!SpeechRecognition);
     setIsSupported(!!SpeechRecognition);
 
-    if (SpeechRecognition) {
+    if (SpeechRecognition && !recognitionRef.current) {
       recognitionRef.current = new SpeechRecognition();
-      console.log('Speech Recognition instance created');
       
-      // Configure recognition
+      // Configure recognition with more permissive settings
       recognitionRef.current.continuous = continuous;
       recognitionRef.current.interimResults = interimResults;
       recognitionRef.current.lang = language;
+      
+      // Add more permissive settings for better detection
+      if ('maxAlternatives' in recognitionRef.current) {
+        (recognitionRef.current as any).maxAlternatives = 1;
+      }
 
       // Handle results
       recognitionRef.current.onresult = (event) => {
-        console.log('🎤 Speech recognition result received:', event);
         let finalTranscript = '';
         let interimTranscript = '';
 
         for (let i = event.resultIndex; i < event.results.length; i++) {
           const result = event.results[i];
+          
           if (result.isFinal) {
             finalTranscript += result[0].transcript;
           } else {
@@ -100,12 +118,10 @@ export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInput
         }
 
         const fullTranscript = finalTranscript || interimTranscript;
-        console.log('🎤 Transcript:', { finalTranscript, interimTranscript, fullTranscript });
         setTranscript(fullTranscript);
         
-        if (finalTranscript && onResult) {
-          console.log('🎤 Calling onResult with:', finalTranscript);
-          onResult(finalTranscript);
+        if (finalTranscript && onResultRef.current) {
+          onResultRef.current(finalTranscript);
         }
       };
 
@@ -121,22 +137,35 @@ export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInput
         setError(errorMessage);
         setIsListening(false);
         
-        if (onError && event.error !== 'aborted') {
-          onError(errorMessage);
+        if (onErrorRef.current && event.error !== 'aborted') {
+          onErrorRef.current(errorMessage);
         }
       };
 
       // Handle end
       recognitionRef.current.onend = () => {
-        console.log('🎤 Speech recognition ended');
         setIsListening(false);
+        
+        // If we're supposed to be listening but recognition ended unexpectedly,
+        // restart it automatically (common with no-speech timeout)
+        if (shouldBeListening && recognitionRef.current) {
+          restartTimeoutRef.current = setTimeout(() => {
+            if (shouldBeListening && recognitionRef.current) {
+              try {
+                recognitionRef.current.start();
+              } catch (err) {
+                setShouldBeListening(false);
+              }
+            }
+          }, 100);
+        }
       };
 
       // Handle start
       recognitionRef.current.onstart = () => {
-        console.log('🎤 Speech recognition started');
         setError(null);
         setIsListening(true);
+        setShouldBeListening(true);
       };
     }
 
@@ -144,45 +173,42 @@ export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInput
       if (recognitionRef.current) {
         recognitionRef.current.abort();
       }
+      if (restartTimeoutRef.current) {
+        clearTimeout(restartTimeoutRef.current);
+      }
     };
-  }, [language, continuous, interimResults, onResult, onError]);
+  }, [language, continuous, interimResults]); // Removed onResult, onError dependencies
 
   const startListening = useCallback(() => {
-    console.log('🎤 startListening called', { isSupported, isListening, recognitionRef: !!recognitionRef.current });
-    
     if (!isSupported || !recognitionRef.current || isListening) {
       if (!isSupported) {
-        console.log('❌ Speech recognition not supported');
         setError('Speech recognition is not supported in this browser');
-      }
-      if (isListening) {
-        console.log('⚠️ Already listening, ignoring start request');
       }
       return;
     }
 
     // Check for microphone permission if available
     if (navigator.permissions) {
-      navigator.permissions.query({ name: 'microphone' as PermissionName }).then(result => {
-        console.log('🎤 Microphone permission state:', result.state);
-      }).catch(err => {
-        console.log('🎤 Could not check microphone permission:', err);
+      navigator.permissions.query({ name: 'microphone' as PermissionName }).catch(() => {
+        // Permission query failed, continue anyway
       });
     }
 
     try {
-      console.log('🚀 Starting speech recognition...');
       setError(null);
       setTranscript('');
       recognitionRef.current.start();
     } catch (err) {
-      console.log('❌ Error starting speech recognition:', err);
       setError('Failed to start speech recognition');
-      console.error('Speech recognition start error:', err);
     }
   }, [isSupported, isListening]);
 
   const stopListening = useCallback(() => {
+    setShouldBeListening(false);
+    if (restartTimeoutRef.current) {
+      clearTimeout(restartTimeoutRef.current);
+      restartTimeoutRef.current = null;
+    }
     if (recognitionRef.current && isListening) {
       recognitionRef.current.stop();
     }
@@ -191,6 +217,19 @@ export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInput
   const clearTranscript = useCallback(() => {
     setTranscript('');
     setError(null);
+  }, []);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      setShouldBeListening(false);
+      if (restartTimeoutRef.current) {
+        clearTimeout(restartTimeoutRef.current);
+      }
+      if (recognitionRef.current) {
+        recognitionRef.current.abort();
+      }
+    };
   }, []);
 
   return {
