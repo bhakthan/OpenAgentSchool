@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Textarea } from "@/components/ui/textarea";
+import { TextareaWithVoice } from "@/components/ui/TextareaWithVoice";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { 
@@ -981,14 +981,13 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
         <CardContent className="space-y-6">
           {/* Response Area */}
           <div>
-            <label className="text-sm font-medium mb-2 block">
-              Share your thoughts:
-            </label>
-            <Textarea
+            <TextareaWithVoice
               value={userResponse}
-              onChange={(e) => setUserResponse(e.target.value)}
-              placeholder="Share your thoughts and reasoning. There's no single right answer - we're exploring ideas together."
+              onChange={setUserResponse}
+              placeholder="Share your thoughts and reasoning. There's no single right answer - we're exploring ideas together. You can type or use the microphone to speak."
               className="min-h-[120px] resize-none"
+              label="Share your thoughts:"
+              description="Express your ideas through typing or voice input"
             />
           </div>
 

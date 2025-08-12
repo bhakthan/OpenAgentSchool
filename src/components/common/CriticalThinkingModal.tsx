@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { TextareaWithVoice } from '@/components/ui/TextareaWithVoice';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Copy, FileDown, Brain, Loader2 } from 'lucide-react';
 import jsPDF from 'jspdf';
 import { criticalThinkingJudge } from '@/lib/llmJudge';
@@ -136,6 +136,9 @@ export const CriticalThinkingModal: React.FC<CriticalThinkingModalProps> = ({
       <DialogContent className="sm:max-w-[900px] max-h-[90vh] flex flex-col">
         <DialogHeader className="flex-shrink-0">
           <DialogTitle>Critical Thinking Challenge</DialogTitle>
+          <DialogDescription>
+            Engage with a thought-provoking question designed to develop your analytical and reasoning skills. Use typing or voice input to share your insights.
+          </DialogDescription>
         </DialogHeader>
         <div className="flex-1 overflow-y-auto py-4 space-y-4">
           {contextCue && (
@@ -148,12 +151,14 @@ export const CriticalThinkingModal: React.FC<CriticalThinkingModalProps> = ({
             <p className="font-semibold text-xl">Question:</p>
             <p className="text-xl text-muted-foreground">{question}</p>
           </div>
-          <Textarea
+          <TextareaWithVoice
             className="w-full h-40"
-            placeholder="Type your response here..."
+            placeholder="Type or speak your response here..."
             value={response}
-            onChange={(e) => setResponse(e.target.value)}
+            onChange={setResponse}
             rows={10}
+            label="Your Response"
+            description="Share your thoughts, analysis, or solution. You can type or use the microphone button to speak."
           />
           
           {/* Get Feedback Button */}

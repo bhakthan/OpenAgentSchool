@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Textarea } from "@/components/ui/textarea";
+import { TextareaWithVoice } from "@/components/ui/TextareaWithVoice";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -720,15 +720,13 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
               {/* Analysis Phase */}
               {currentPhase === 'analysis' && (
                 <div>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    Examine the code, logs, and configuration. What patterns do you notice? 
-                    What seems to be going wrong?
-                  </p>
-                  <Textarea
+                  <TextareaWithVoice
                     value={analysisResponse}
-                    onChange={(e) => setAnalysisResponse(e.target.value)}
+                    onChange={setAnalysisResponse}
                     placeholder="Describe what you observe in the system. Look for error patterns, infinite loops, communication issues, or configuration problems..."
                     className="min-h-[120px]"
+                    label="Your Analysis"
+                    description="Examine the code, logs, and configuration. What patterns do you notice? You can type or speak your observations."
                   />
                 </div>
               )}
@@ -769,14 +767,13 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
               {/* Solution Phase */}
               {currentPhase === 'solution' && (
                 <div>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    Now provide a comprehensive solution to fix the identified issues:
-                  </p>
-                  <Textarea
+                  <TextareaWithVoice
                     value={solutionResponse}
-                    onChange={(e) => setSolutionResponse(e.target.value)}
+                    onChange={setSolutionResponse}
                     placeholder="Describe how you would fix each identified issue. Include specific code changes, configuration updates, or architectural improvements..."
                     className="min-h-[150px]"
+                    label="Your Solution"
+                    description="Provide a comprehensive solution to fix the identified issues. You can type or speak your solution."
                   />
                 </div>
               )}
