@@ -1,5 +1,4 @@
 ReAct Pattern - Pattern Guide - Advanced
-================================================================================
 
 Welcome to the advanced pattern guide for ReAct. Here, we discuss the strategic implications of using ReAct agents, including their role in enterprise architecture, governance, and long-term business transformation.
 
@@ -16,4 +15,3 @@ The strategic implications of adopting ReAct at scale are profound. Companies th
 
 However, this also requires a change in organizational structure and skills. You will need to build a center of excellence for agentic AI, with experts in LLMs, prompt engineering, and system integration. You will also need to upskill your existing workforce to collaborate with these new AI colleagues. The journey to adopting ReAct at an enterprise level is a significant one, but for those who navigate it successfully, it can unlock a powerful new frontier of business capabilities.
 
-================================================================================

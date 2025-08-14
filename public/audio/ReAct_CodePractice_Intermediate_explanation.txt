@@ -1,5 +1,4 @@
 ReAct Pattern - Code & Practice - Intermediate
-================================================================================
 
 This guide covers intermediate-level code patterns for building robust and production-ready ReAct agents. We'll discuss error handling, testing strategies, and more advanced tool design.
 
@@ -16,4 +15,3 @@ Testing ReAct agents can be challenging because of their non-deterministic natur
 
 For practice, try to make your beginner ReAct agent more robust. Add error handling to your tool calls. For example, what should your calculator do if you ask it to divide by zero? Then, try to implement a more structured action format using JSON. Finally, try to write a simple unit test for one of your tools, and then a test for the agent's logic itself, using mock objects for the language model and tools.
 
-================================================================================

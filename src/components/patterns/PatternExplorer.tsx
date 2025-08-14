@@ -14,6 +14,7 @@ import { useSidebarCollapse } from '@/hooks/use-sidebar-collapse'
 import { getPatternCue } from '@/lib/data/patternCues'
 import { cn } from '@/lib/utils'
 import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
+import ReActAudioControls from '@/components/audio/ReActAudioControls';
 
 // Lazy load heavy visualization components
 const SimplePatternVisualizer = lazy(() => import('@/components/visualization/SimplePatternVisualizer'))
@@ -151,10 +152,18 @@ const PatternExplorer = () => {
         {/* Left side: Audio Controls */}
         {selectedPattern && (
           <div className="flex-shrink-0">
-            <AudioNarrationControls 
-              componentName={selectedPattern.id}
-              position="embedded"
-            />
+            {selectedPattern.id === 'react-agent' ? (
+              <ReActAudioControls 
+                componentName={selectedPattern.id}
+                className="react-audio-controls"
+                activeTab={activeTab}
+              />
+            ) : (
+              <AudioNarrationControls 
+                componentName={selectedPattern.id}
+                position="embedded"
+              />
+            )}
           </div>
         )}
         

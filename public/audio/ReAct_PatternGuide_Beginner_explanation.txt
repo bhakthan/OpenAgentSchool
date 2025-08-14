@@ -1,5 +1,4 @@
 ReAct Pattern - Pattern Guide - Beginner
-================================================================================
 
 Welcome to the Pattern Guide for ReAct. Here, we'll explore how the ReAct pattern is used in the real world, the business value it provides, and when you should consider using it for your own projects.
 
@@ -16,4 +15,3 @@ The business value of this is huge. ReAct agents can automate complex, multi-ste
 
 So, when should you use the ReAct pattern? It's a great choice when a task requires more than a single step or needs information from external sources. If the problem involves looking things up, using different tools, or adapting to new information, ReAct is likely a good fit. It's perfect for building powerful, autonomous agents that can reason and act to get things done.
 
-================================================================================

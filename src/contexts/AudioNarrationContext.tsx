@@ -4,6 +4,7 @@ interface AudioNarrationState {
   isPlaying: boolean;
   currentLevel: 'beginner' | 'intermediate' | 'advanced' | null;
   currentComponent: string | null;
+  currentContentType: string | null;
   volume: number;
   speechRate: number;
   useLocalTTS: boolean;
@@ -12,7 +13,7 @@ interface AudioNarrationState {
 
 interface AudioNarrationContextType {
   state: AudioNarrationState;
-  playNarration: (componentName: string, level: 'beginner' | 'intermediate' | 'advanced') => Promise<void>;
+  playNarration: (componentName: string, level: 'beginner' | 'intermediate' | 'advanced', contentType?: string) => Promise<void>;
   stopNarration: () => void;
   setVolume: (volume: number) => void;
   setSpeechRate: (rate: number) => void;
@@ -28,6 +29,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     isPlaying: false,
     currentLevel: null,
     currentComponent: null,
+    currentContentType: null,
     volume: 0.8,
     speechRate: 1.0,
     useLocalTTS: true, // Default to local TTS
@@ -280,7 +282,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const playNarration = async (componentName: string, level: 'beginner' | 'intermediate' | 'advanced') => {
+  const playNarration = async (componentName: string, level: 'beginner' | 'intermediate' | 'advanced', contentType?: string) => {
     // Stop any current narration
     stopNarration();
 
@@ -289,21 +291,22 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       isPlaying: true,
       currentLevel: level,
       currentComponent: componentName,
+      currentContentType: contentType || null,
     }));
 
     try {
       // Try local TTS first, fallback to Web Speech API
       if (state.useLocalTTS) {
-        await playWithLocalTTS(componentName, level);
+        await playWithLocalTTS(componentName, level, contentType);
       } else {
-        await playWithWebSpeechAPI(componentName, level);
+        await playWithWebSpeechAPI(componentName, level, contentType);
       }
     } catch (error) {
       console.error('Audio narration failed:', error);
       // Fallback to Web Speech API if local TTS fails
       if (state.useLocalTTS) {
         try {
-          await playWithWebSpeechAPI(componentName, level);
+          await playWithWebSpeechAPI(componentName, level, contentType);
         } catch (fallbackError) {
           console.error('Fallback audio narration also failed:', fallbackError);
         }
@@ -314,18 +317,19 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         isPlaying: false,
         currentLevel: null,
         currentComponent: null,
+        currentContentType: null,
       }));
     }
   };
 
-  const playWithLocalTTS = async (componentName: string, level: string) => {
+  const playWithLocalTTS = async (componentName: string, level: string, contentType?: string) => {
     // This would integrate with a local TTS service/model
     // For now, we'll simulate with a promise and fallback to Web Speech API
     throw new Error('Local TTS not yet implemented - falling back to Web Speech API');
   };
 
-  const playWithWebSpeechAPI = async (componentName: string, level: string) => {
-    const text = await fetchAudioContent(componentName, level);
+  const playWithWebSpeechAPI = async (componentName: string, level: string, contentType?: string) => {
+    const text = await fetchAudioContent(componentName, level, contentType);
     
     return new Promise<void>((resolve, reject) => {
       if (!('speechSynthesis' in window)) {
@@ -354,7 +358,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const fetchAudioContent = async (componentName: string, level: string): Promise<string> => {
+  const fetchAudioContent = async (componentName: string, level: string, contentType?: string): Promise<string> => {
     try {
       // Map conceptIds to actual audio file names
       const audioFileMap: { [key: string]: string } = {
@@ -456,6 +460,23 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       };
 
       const mappedName = audioFileMap[componentName] || componentName;
+      
+      // For ReAct pattern, try to use the new granular files first
+      if (mappedName === 'ReActPattern' && contentType) {
+        const granularFileName = `ReAct_${contentType}_${level.charAt(0).toUpperCase() + level.slice(1)}_explanation.txt`;
+        try {
+          const granularResponse = await fetch(`/audio/${granularFileName}`);
+          if (granularResponse.ok) {
+            const granularContent = await granularResponse.text();
+            // For granular files, return the entire content (no need to extract sections)
+            return granularContent;
+          }
+        } catch (granularError) {
+          console.log(`Granular file not found: ${granularFileName}, falling back to unified file`);
+        }
+      }
+      
+      // Fallback to the unified format
       const response = await fetch(`/audio/${mappedName}_explanation.txt`);
       if (!response.ok) throw new Error(`Audio file not found: ${mappedName}_explanation.txt`);
       
@@ -490,6 +511,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       isPlaying: false,
       currentLevel: null,
       currentComponent: null,
+      currentContentType: null,
     }));
   };
 

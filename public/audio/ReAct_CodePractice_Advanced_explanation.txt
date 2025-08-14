@@ -1,5 +1,4 @@
 ReAct Pattern - Code & Practice - Advanced
-================================================================================
 
 Welcome to the advanced guide for Code and Practice with the ReAct pattern. Here, we'll dive into sophisticated techniques for optimization, monitoring, and performance tuning of your ReAct agents.
 
@@ -18,4 +17,3 @@ For performance tuning, a key focus is on reducing the latency of each cycle. On
 
 For practice, try to implement one of these advanced techniques. You could try adding a self-reflection step to your agent, where it analyzes its own performance after a task. Or, you could set up a simple logging system to track the agent's activities. These exercises will give you a deeper understanding of what it takes to build and operate ReAct agents at an advanced level.
 
-================================================================================

@@ -1,5 +1,4 @@
 ReAct Pattern - Flow Diagram - Beginner
-================================================================================
 
 Welcome to the ReAct pattern! Think of an AI agent using ReAct as a detective solving a case. Instead of just guessing the answer, it thinks, acts, and then observes the result before deciding what to do next. Let's walk through how it works, step by step.
 
@@ -20,4 +19,3 @@ Now, the cycle repeats! The agent looks at the observation and goes back to the 
 
 So, the ReAct pattern is a simple loop: Think about what you need to do, take an action to get information, and then observe the result. It continues this loop until it has enough information to complete the task. It's a powerful way for AI agents to solve complex problems by breaking them down into smaller, manageable steps.
 
-================================================================================

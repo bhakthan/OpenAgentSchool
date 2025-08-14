@@ -1,5 +1,4 @@
 ReAct Pattern - Code & Practice - Beginner
-================================================================================
 
 Welcome to the Code and Practice tab for the ReAct pattern. Here, we'll look at the basic code structure of a ReAct agent, walk through a simple example, and give you some ideas for getting started with your own practice.
 
@@ -18,4 +17,3 @@ Your code would then parse this action and call the `add` function in your calcu
 
 For practice, try building your own simple ReAct agent. You could start with a calculator tool, as we just described. Then, try adding a new tool, like one that can tell you the current date. Once you have a few tools, you can try giving the agent more complex, multi-step problems, like "What is 10 times 3, and what is the date today?". This will help you get a feel for the power of the ReAct pattern.
 
-================================================================================
