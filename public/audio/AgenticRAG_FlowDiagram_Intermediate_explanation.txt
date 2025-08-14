@@ -1,0 +1,13 @@
+At the intermediate level, the Agentic RAG flow diagram becomes more sophisticated, showcasing an iterative and adaptive research process. Unlike the linear beginner approach, this system operates in cycles, continuously refining its understanding and improving its search strategy based on what it discovers.
+
+The process starts with an enhanced query analysis phase. The agent doesn't just understand the question but also identifies the type of information needed, the likely sources where answers might be found, and potential challenges in retrieving accurate information. For complex queries, it creates a research plan with multiple investigative paths.
+
+The flow then shows the agent executing its initial search strategy. This might involve querying different types of sources simultaneously, such as structured databases, unstructured documents, and external APIs. As results come in, a critical evaluation phase begins. The agent assesses the quality, relevance, and completeness of the retrieved information.
+
+Here's where the intermediate pattern becomes powerful. If the initial results are insufficient or contradictory, the agent doesn't simply proceed to answer generation. Instead, it enters a refinement loop. It might reformulate search queries based on gaps it identified, seek additional sources to verify claims, or pursue entirely different research directions that emerged from the initial findings.
+
+For example, if researching a technical question about cloud security, the agent might initially find general documentation. Recognizing this isn't sufficient for the specific query, it might then search for security certifications, compliance reports, and implementation case studies. If it discovers conflicting information about a particular security feature, it might specifically search for recent updates or clarifications.
+
+The synthesis phase is also more advanced. Rather than simply combining information, the agent weighs evidence quality, identifies areas of uncertainty, and structures its response to reflect confidence levels. It might explicitly state when information sources disagree or when additional verification would be beneficial.
+
+This intermediate flow creates a more reliable and thorough research process, particularly valuable for business-critical decisions where accuracy and completeness are essential. The agent becomes a true research partner, demonstrating both intelligence and intellectual humility.

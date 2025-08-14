@@ -1,0 +1,15 @@
+The advanced flow diagram for the Tool Use pattern depicts a highly autonomous and resilient agent capable of dynamic tool discovery, automated tool composition, and robust error handling. At this level, the agent is not limited to a pre-defined set of tools but can actively find and learn to use new tools to accomplish its goals.
+
+The process begins with a complex, high-level goal from the user, such as, increase the efficiency of our marketing campaign for product X. The AI, likely an autonomous agent, first needs to understand what tools it has at its disposal.
+
+A key component in this advanced flow is the tool discovery module. The agent can query a tool registry or a service directory, which is a database of available tools, their capabilities, their APIs, and their documentation. This registry could be an internal company-wide service hosted on Azure. The agent might search this registry for tools related to marketing, analytics, and customer relationship management.
+
+Once it has a list of potentially useful tools, the agent enters a tool evaluation and selection phase. It might read the documentation for each tool, a process known as "reading the manual," to understand how to use it. It might even perform small test calls to verify that the tool is working as expected.
+
+The next advanced capability is automatic tool composition. The agent might determine that no single tool can accomplish the goal. It needs to create a new workflow by chaining several tools together. For example, its plan might be, first, I will use the marketing analytics tool to get the performance data of the current campaign. Second, I will use the customer segmentation tool to identify underperforming segments. Third, I will use the A/B testing tool to create a new experimental campaign targeted at these segments.
+
+This is not a pre-defined workflow, but one that the agent creates on the fly. The flow diagram shows this as a dynamic graph construction process, where the agent is essentially building a new application by composing existing services.
+
+A crucial part of this advanced flow is sophisticated error handling and recovery. What if a tool call fails? The agent does not just give up. It analyzes the error message. Was it a temporary network issue? It might try again. Was it a problem with the input data? It might try to correct the data or use a different tool to get the data in the right format. The flow diagram shows these complex error handling loops, where the agent might try multiple alternative strategies before reporting a failure.
+
+Finally, the agent can even have the ability to generate new tools. If it identifies a recurring task that cannot be done with existing tools, it could use a code generation model to write a new function, test it, and add it to the tool registry for future use. This represents the highest level of autonomy, where the agent can not only use tools but also expand its own capabilities over time. This entire system is a hallmark of a sophisticated multi-agent architecture, where different agents might be responsible for discovering, composing, and executing tools.

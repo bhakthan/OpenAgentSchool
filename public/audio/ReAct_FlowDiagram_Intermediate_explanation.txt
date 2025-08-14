@@ -3,15 +3,15 @@ ReAct Pattern - Flow Diagram - Intermediate
 In this guide, we'll explore the intermediate-level details of the ReAct pattern's flow diagram. While the beginner's view shows a simple loop, here we'll focus on the critical decision-making, error handling, and optimization that make ReAct a robust pattern for production agents.
 
 Key Topics Covered:
-- The role of the internal monologue or "thought" process.
-- Handling errors and tool failures gracefully.
-- Optimizing the ReAct loop for efficiency.
+The role of the internal monologue or "thought" process.
+Handling errors and tool failures gracefully.
+Optimizing the ReAct loop for efficiency.
 
 At the heart of the ReAct flow is the agent's internal monologue. This isn't just a simple thought; it's a structured piece of reasoning. The language model generates a rationale for why it's choosing a specific action. This is crucial for debugging and understanding agent behavior. For example, if an agent is stuck in a loop, analyzing its thoughts can reveal a flawed reasoning pattern.
 
-A key decision point occurs after the **Observe** step. The agent has new information from a tool. Now it must decide: is this information sufficient to answer the user's query? Or does it need to continue the ReAct loop? This decision is guided by the initial prompt and the agent's reasoning capabilities. The agent might think, "The user asked for the capital of France and its population. I have found the capital is Paris, but I don't have the population yet. I need to perform another action."
+A key decision point occurs after the Observe step. The agent has new information from a tool. Now it must decide: is this information sufficient to answer the user's query? Or does it need to continue the ReAct loop? This decision is guided by the initial prompt and the agent's reasoning capabilities. The agent might think, "The user asked for the capital of France and its population. I have found the capital is Paris, but I don't have the population yet. I need to perform another action."
 
-But what happens when an action fails? This is a critical aspect of a production-ready ReAct agent. Let's say the agent tries to use a tool, but the tool returns an error, like an API being unavailable. A naive agent might give up. A more sophisticated agent, however, will use this error as an observation. In the next **Reason** step, it will think, "My attempt to use the `get_population` tool failed. I should try an alternative, like searching the web for 'population of Paris'." This ability to dynamically re-plan based on errors is a key strength of the ReAct pattern.
+But what happens when an action fails? This is a critical aspect of a production-ready ReAct agent. Let's say the agent tries to use a tool, but the tool returns an error, like an API being unavailable. A naive agent might give up. A more sophisticated agent, however, will use this error as an observation. In the next Reason step, it will think, "My attempt to use the get_population tool failed. I should try an alternative, like searching the web for 'population of Paris'." This ability to dynamically re-plan based on errors is a key strength of the ReAct pattern.
 
 Finally, let's talk about optimization. A simple ReAct loop can be slow if it takes too many steps. One optimization is to provide the agent with more powerful, multi-step tools. Instead of a tool that only gets a city's capital, you could have a tool that gets the capital, population, and currency in a single call. Another optimization is to refine the agent's initial prompt to give it better strategies for solving problems, reducing the number of thought-action cycles. By focusing on these areas, you can build ReAct agents that are not just effective, but also efficient.
 

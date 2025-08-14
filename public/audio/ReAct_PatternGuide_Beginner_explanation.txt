@@ -3,9 +3,9 @@ ReAct Pattern - Pattern Guide - Beginner
 Welcome to the Pattern Guide for ReAct. Here, we'll explore how the ReAct pattern is used in the real world, the business value it provides, and when you should consider using it for your own projects.
 
 Key Topics Covered:
-- Real-world examples of the ReAct pattern.
-- The business value of using ReAct agents.
-- When to choose the ReAct pattern.
+Real-world examples of the ReAct pattern.
+The business value of using ReAct agents.
+When to choose the ReAct pattern.
 
 So, where would you actually see the ReAct pattern in action? Imagine a customer service chatbot. A customer asks, "What's the status of my order, and can I change the shipping address?" A simple chatbot might only be able to answer one of those questions at a time. But a ReAct agent can handle it all. It would first think, "I need to check the order status and then see if the address can be changed." It would use a tool to look up the order, see that it hasn't shipped yet, and then use another tool to update the address. It combines multiple steps to solve the customer's problem in one go.
 

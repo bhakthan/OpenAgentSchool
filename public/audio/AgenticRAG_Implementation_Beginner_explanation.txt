@@ -1,0 +1,15 @@
+Implementing a beginner-level Agentic RAG system focuses on creating a simple but effective retrieve-and-reason loop. The core concept is to combine traditional document retrieval with language model reasoning in a structured way that goes beyond basic RAG implementations.
+
+The first step is setting up your knowledge base. This typically involves chunking your documents into smaller, searchable pieces and creating embeddings for each chunk using a service like Azure OpenAI embeddings. Store these in a vector database such as Azure Cognitive Search or a simple vector store.
+
+The second step is implementing the basic agent loop. Unlike standard RAG that does retrieve-then-generate, Agentic RAG includes a reasoning step. Your code needs to first analyze the user's query using a language model prompt that asks the AI to understand what information is needed and how to best search for it.
+
+Here's the basic structure. First, send the user query to your language model with a prompt like, analyze this question and determine what specific information would be needed to answer it accurately. The model responds with an analysis that guides your search strategy.
+
+Next, use this analysis to construct better search queries. Instead of just using the original user question, you might search for specific facts, concepts, or relationships that the analysis identified as important. Perform the vector search using these refined queries.
+
+After retrieving relevant documents, the crucial step is verification and synthesis. Send both the original question and the retrieved documents to the language model with a prompt instructing it to verify the information quality and generate an answer only if the retrieved content supports it. This prompt should explicitly tell the model to say when it cannot find sufficient information.
+
+The key implementation difference from basic RAG is this verification step. The agent actively evaluates whether the retrieved information is adequate and relevant before generating an answer. This significantly reduces hallucination and improves answer quality.
+
+For deployment, you can start with simple tools like LangChain or build this logic directly using Azure OpenAI service calls. The beginner implementation proves the concept and provides a foundation for more sophisticated versions.

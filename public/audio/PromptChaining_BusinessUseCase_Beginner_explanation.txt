@@ -1,0 +1,11 @@
+The Chain of Thought pattern offers significant value to businesses by making AI-powered decision making more transparent, reliable, and trustworthy. At a beginner level, one of the most common and impactful use cases is in customer support.
+
+Imagine a customer support agent trying to solve a customer's problem. The customer might have a complex issue that requires checking their account details, reviewing their recent orders, and understanding the company's return policy. Instead of having the AI give a quick, and possibly incorrect, answer, the Chain of Thought pattern can guide the AI to work through the problem systematically.
+
+First, the AI would identify the core problem. For example, the customer wants to return a product but has lost the receipt. The AI's first thought would be, I need to verify the customer's identity and find their recent purchase history. It would then ask the support agent for the customer's name or email address.
+
+Once the agent provides the information, the AI's next step would be to look up the customer's account in the company's database. Its thought would be, now I will search for the customer's recent orders to find the one they are referring to. After finding the order, the AI's next thought would be, I have found the order. Now I need to check the company's return policy for items purchased without a receipt.
+
+Finally, after retrieving the policy, the AI can present a complete and well-reasoned answer to the support agent. It might say, The customer can return the item using their order number. According to our policy, they will receive store credit.
+
+This step by step approach has several business benefits. It reduces errors by ensuring that all necessary steps are taken. It speeds up training for new support agents, as they can learn by following the AI's logical process. Most importantly, it improves customer satisfaction because problems are solved more accurately and efficiently. This use case is often built on the Azure cloud, using Azure OpenAI for the reasoning and connecting to customer databases like Azure Cosmos DB. It is a simple but powerful way to improve a critical business function.

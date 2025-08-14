@@ -3,13 +3,13 @@ ReAct Pattern - Code & Practice - Intermediate
 This guide covers intermediate-level code patterns for building robust and production-ready ReAct agents. We'll discuss error handling, testing strategies, and more advanced tool design.
 
 Key Topics Covered:
-- Production-ready code patterns for ReAct.
-- Strategies for handling errors from tools.
-- How to test your ReAct agents effectively.
+Production-ready code patterns for ReAct.
+Strategies for handling errors from tools.
+How to test your ReAct agents effectively.
 
 In a production environment, your ReAct agent needs to be much more robust than a simple beginner example. One of the most important things to handle is errors. What happens if a tool call fails? For example, an external API might be down, or the agent might call a function with the wrong parameters. Your code should wrap all tool calls in a try-except block. When an error occurs, you should catch it and return a helpful error message to the agent as an observation. The agent can then use its reasoning ability to try a different approach.
 
-Another key pattern is to use a structured format for the agent's thoughts and actions. While natural language is fine for simple examples, using a format like JSON for the action makes it much easier and more reliable to parse. You can define a clear schema for your actions, for example, `{"tool": "calculator", "function": "add", "args": [5, 7]}`. This reduces the chances of parsing errors and makes your agent more predictable.
+Another key pattern is to use a structured format for the agent's thoughts and actions. While natural language is fine for simple examples, using a format like JSON for the action makes it much easier and more reliable to parse. You can define a clear schema for your actions, for example, {"tool": "calculator", "function": "add", "args": [5, 7]}. This reduces the chances of parsing errors and makes your agent more predictable.
 
 Testing ReAct agents can be challenging because of their non-deterministic nature. One effective strategy is to create a suite of test cases with known inputs and expected outcomes. For each test case, you can mock the language model and the tools. This allows you to test the agent's logic in a controlled environment. For example, you can test that the agent correctly parses a specific action, or that it correctly handles a simulated error from a tool.
 

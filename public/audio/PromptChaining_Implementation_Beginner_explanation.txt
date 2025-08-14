@@ -1,0 +1,13 @@
+Implementing a basic Chain of Thought pattern is straightforward and can be done with just a few key components. The core idea is to guide a large language model to think step by step. This is achieved not through complex code, but through careful prompt engineering.
+
+The first and most important component is the large language model itself, which you can access through a service like Azure OpenAI. The model is what does the actual thinking, so the rest of the implementation is about how we interact with it.
+
+The second component is the prompt. This is the text we send to the model. For a beginner level Chain of Thought, the prompt is designed to do two things. First, it clearly states the problem you want the AI to solve. Second, it includes a simple instruction that tells the AI to think step by step. A very common and effective way to do this is to add the phrase, let's think step by step, to the end of your prompt.
+
+For example, instead of just asking, what is the capital of France, which would give you a direct answer, you could ask a more complex question like, if I want to travel from the capital of Spain to the capital of Italy, what are the main travel options? Then you would add, let's think step by step.
+
+The AI, guided by this instruction, will then break down the problem. It will first identify the capital of Spain as Madrid. Then it will identify the capital of Italy as Rome. After that, it will start listing the travel options, such as flying, taking a train, or driving, and might even provide some brief details for each.
+
+The third component is the output parser. In this simple implementation, this is just you, the user, reading the text output. You can see the AI's reasoning laid out in a clear, sequential manner. There is no special code needed to handle the output at this stage.
+
+So, to summarize the beginner implementation, you need an AI model, a well-crafted prompt with a step by step instruction, and a way to read the output. This simple approach is surprisingly powerful and is the foundation for all more advanced implementations of the Chain of Thought pattern. It is a great way to start exploring the power of structured AI reasoning.

@@ -1,0 +1,15 @@
+At the intermediate level, the Tool Use pattern can be applied to streamline and automate more complex business workflows that require interaction with multiple systems. A powerful business use case is in sales and customer relationship management, specifically in lead qualification and follow-up.
+
+A sales team often deals with a high volume of incoming leads from various channels, like website forms, emails, and events. A multi-tool AI agent can be built to handle the initial processing of these leads, allowing the sales team to focus on the most promising opportunities.
+
+The agent would be equipped with a set of tools. For example, a crm_lookup tool to check if a lead already exists in the company's CRM like Salesforce or Dynamics 365. A data_enrichment tool that uses a service like Clearbit to find more information about a lead, such as their company size and industry. And a communication tool that can send templated emails.
+
+When a new lead comes in, the agent's workflow begins. First, it uses the crm_lookup tool to see if the person is already a known contact. If they are, the agent might update their record with the new inquiry.
+
+If it is a new lead, the agent's next step is to use the data_enrichment tool. It takes the lead's email address and gets more context. This is crucial for prioritization. A lead from a large company in a key industry might be more valuable than one from a small company in a different sector.
+
+Based on the enriched data, the agent can then perform an initial qualification. It might have a set of rules, for example, if the company has more than 500 employees and is in the technology sector, classify it as a high-priority lead.
+
+Finally, the agent uses its communication tool to take action. For a high-priority lead, it might send a notification directly to a senior sales representative on Microsoft Teams. For a lower-priority lead, it might automatically send a welcome email with a link to a webinar, and schedule a follow-up task in the CRM for one week later.
+
+This entire process, which would take a human several minutes per lead, is done automatically in seconds. The business benefits are significant. It ensures that every lead is processed instantly and consistently, 24 hours a day. It allows the sales team to focus their time and effort on the leads that are most likely to convert, increasing their efficiency and effectiveness. And it provides a better experience for potential customers, who get a prompt and relevant response. This kind of workflow automation is a perfect example of how multi-tool agents can deliver tangible business value.

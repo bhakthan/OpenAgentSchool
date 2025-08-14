@@ -3,9 +3,9 @@ ReAct Pattern - Code & Practice - Advanced
 Welcome to the advanced guide for Code and Practice with the ReAct pattern. Here, we'll dive into sophisticated techniques for optimization, monitoring, and performance tuning of your ReAct agents.
 
 Key Topics Covered:
-- Advanced optimization techniques for ReAct agents.
-- Monitoring and observability for agents in production.
-- Performance tuning and latency reduction strategies.
+Advanced optimization techniques for ReAct agents.
+Monitoring and observability for agents in production.
+Performance tuning and latency reduction strategies.
 
 To optimize a ReAct agent, you need to think about reducing the number of cycles it takes to complete a task. One powerful technique is to dynamically generate prompts. Instead of using a static prompt, you can create a prompt that is tailored to the specific task at hand. For example, you can include examples of similar, successfully completed tasks in the prompt. This is known as few-shot prompting, and it can significantly improve the agent's performance.
 

@@ -1,0 +1,15 @@
+For businesses, the Tool Use pattern provides immediate value by connecting powerful language models to existing business systems, automating simple tasks, and improving employee productivity. A great beginner-level use case is creating a smart internal knowledge base assistant.
+
+Many companies have a wealth of information stored in different places, a Sharepoint site for documents, a Wiki for technical guides, and a simple FAQ page for common questions. An employee looking for information has to know where to look and then search through the content. A simple Tool Use agent can solve this problem.
+
+The business would create a single tool, let's call it search_company_documents. This tool would be a function that takes a search query as input. Under the hood, this function would be connected to the company's search APIs for Sharepoint, the Wiki, and the FAQ page. When called, it would search all these sources simultaneously and return the most relevant snippets of information.
+
+Now, an employee can interact with a simple chatbot powered by this agent. Instead of complicated search queries, they can ask a natural language question, like, what is our policy on work from home?
+
+The AI agent, running on a service like Azure OpenAI, receives this question. It recognizes that it cannot answer this from its general knowledge. It sees the search_company_documents tool it has been given and understands that this is the right tool for the job. It calls the tool, passing the user's question as the search query.
+
+The tool runs, searches the company's internal systems, and finds the relevant section from the HR policy document stored on Sharepoint. It returns this text snippet to the AI agent.
+
+The agent then uses its language skills to present this information in a clear and concise way. It would not just dump the raw text. It would say something like, Our work from home policy allows employees to work remotely up to two days a week, with manager approval. You can find the full document here, and it would provide a link.
+
+The business benefits are clear. Employees get answers to their questions faster, reducing the time they spend searching for information. This frees them up to focus on more valuable tasks. It also ensures that employees are getting consistent and accurate information from official sources. This simple but powerful use case is often a company's first step into leveraging the power of AI agents to improve their internal operations.

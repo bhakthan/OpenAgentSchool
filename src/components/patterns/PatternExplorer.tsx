@@ -15,6 +15,9 @@ import { getPatternCue } from '@/lib/data/patternCues'
 import { cn } from '@/lib/utils'
 import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 import ReActAudioControls from '@/components/audio/ReActAudioControls';
+import ModernToolUseAudioControls from '@/components/audio/ModernToolUseAudioControls';
+import PromptChainingAudioControls from '@/components/audio/PromptChainingAudioControls';
+import AgenticRAGAudioControls from '@/components/audio/AgenticRAGAudioControls';
 
 // Lazy load heavy visualization components
 const SimplePatternVisualizer = lazy(() => import('@/components/visualization/SimplePatternVisualizer'))
@@ -156,6 +159,24 @@ const PatternExplorer = () => {
               <ReActAudioControls 
                 componentName={selectedPattern.id}
                 className="react-audio-controls"
+                activeTab={activeTab}
+              />
+            ) : selectedPattern.id === 'modern-tool-use' ? (
+              <ModernToolUseAudioControls 
+                componentName={selectedPattern.id}
+                className="modern-tool-use-audio-controls"
+                activeTab={activeTab}
+              />
+            ) : selectedPattern.id === 'prompt-chaining' ? (
+              <PromptChainingAudioControls 
+                componentName={selectedPattern.id}
+                className="prompt-chaining-audio-controls"
+                activeTab={activeTab}
+              />
+            ) : selectedPattern.id === 'agentic-rag' ? (
+              <AgenticRAGAudioControls 
+                componentName={selectedPattern.id}
+                className="agentic-rag-audio-controls"
                 activeTab={activeTab}
               />
             ) : (

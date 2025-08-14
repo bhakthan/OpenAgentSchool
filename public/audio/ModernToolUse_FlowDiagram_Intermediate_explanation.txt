@@ -1,0 +1,17 @@
+At the intermediate level, the Tool Use flow diagram becomes more complex, illustrating how an AI can use multiple tools in sequence to solve a multi-step problem. This is often called tool chaining or orchestration. The flow is no longer linear but involves a loop of thought, action, and observation, similar to the Chain of Thought pattern, but with a specific focus on external interactions.
+
+The process starts with a complex user prompt, for example, book a flight for me from New York to San Francisco for next Friday, and add it to my calendar. The AI first decomposes this request into smaller sub-tasks. Its initial thought is, I need to find available flights first.
+
+This leads to the first tool selection phase. The AI identifies the need for a flight search tool. The flow diagram shows the AI calling a searchFlights API, passing the parameters New York, San Francisco, and the calculated date for next Friday.
+
+The flight search tool returns a list of available flights. This data is fed back into the AI's reasoning module. The AI now has new information to work with. Its next thought might be, the user has not specified a preferred airline or time, so I should present the top three options and ask for clarification. The AI then communicates these options back to the user.
+
+This is a key feature at the intermediate level, the ability to have a clarifying dialogue with the user. The user might respond with, I will take the 9am flight on United.
+
+Now the AI has a new task, to book the selected flight. Its thought is, I need to book the specified flight. This leads to a second tool selection. It chooses the bookFlight tool, passing the flight ID from the previous step as a parameter. The tool call might require an additional confirmation step from the user for security.
+
+After the booking is confirmed, the tool returns a confirmation number. The AI is not done yet. It remembers the second part of the original request. Its final thought is, now I need to add this flight to the user's calendar.
+
+This triggers a third tool call, this time to a calendar API like Microsoft Graph. The AI uses the information from the flight booking, such as the date, time, and confirmation number, to create a new calendar event.
+
+The flow diagram at this level clearly shows these distinct cycles of tool use, connected by the AI's internal reasoning process. It highlights the AI's role as an orchestrator, deciding which tool to use when, how to pass information between tools, and when to interact with the user for clarification. This entire workflow can be managed and deployed using services like Azure Functions to host the individual tool functions and Azure Logic Apps to define the overall orchestration logic.

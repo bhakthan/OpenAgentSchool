@@ -1,0 +1,13 @@
+At the intermediate level, the Chain of Thought pattern is applied to more complex business processes that require not just reasoning, but also interaction with multiple systems and data sources. A prime example of this is in financial analysis and reporting.
+
+Consider a financial analyst who needs to prepare a quarterly performance report. This task involves gathering data from various sources, such as sales figures from a CRM, expense data from an accounting system, and market trend data from an external API. It also requires performing calculations and generating insights based on this data. A Chain of Thought implementation can automate and streamline this entire process.
+
+The first step for the AI would be to create a plan. Its initial thought might be, to create the quarterly report, I first need to gather sales, expense, and market data. It would then proceed to execute this plan step by step. Its next thought could be, I will now query the sales database for the last quarter's data. The system would then use a tool to connect to the company's sales database, which might be hosted on Azure SQL, and retrieve the necessary information.
+
+Next, the AI would move on to the expense data. Its thought would be, now that I have the sales data, I will retrieve the expense data from the accounting software. It would use another tool to connect to the accounting system's API and fetch the data. It would continue this process for all the required data sources.
+
+Once all the data is gathered, the AI's reasoning shifts to analysis. Its next thought might be, I will now calculate the net profit by subtracting total expenses from total revenue. It would perform this calculation and store the result. It might then proceed with more complex analysis, such as, I will now compare the net profit to the previous quarter and calculate the growth rate.
+
+Throughout this process, the AI's chain of thought is logged, creating a detailed audit trail. This is incredibly valuable for compliance and regulatory purposes. If an auditor questions a number in the final report, the analyst can show the exact steps the AI took to arrive at that number, including the data sources it used and the calculations it performed.
+
+This use case demonstrates how the Chain of Thought pattern can be used to automate complex, multi-step business workflows. It improves efficiency by reducing manual work, enhances accuracy by ensuring a systematic process is followed, and increases transparency by providing a clear record of the entire decision-making process. This kind of automation is often orchestrated using Azure Logic Apps or Azure Functions to manage the workflow and connect to the various data sources.

@@ -3,9 +3,9 @@ ReAct Pattern - Pattern Guide - Intermediate
 This guide provides an intermediate-level view of the ReAct pattern, focusing on implementation trade-offs, integration strategies, and team considerations when building with ReAct.
 
 Key Topics Covered:
-- Implementation trade-offs and challenges.
-- Integrating ReAct agents into existing systems.
-- Team skills and considerations for ReAct projects.
+Implementation trade-offs and challenges.
+Integrating ReAct agents into existing systems.
+Team skills and considerations for ReAct projects.
 
 When implementing a ReAct agent, one of the first trade-offs you'll face is the choice of the underlying language model. A larger, more powerful model like GPT-4 will offer better reasoning but will be slower and more expensive. A smaller, faster model might be cheaper, but it could make more mistakes in its reasoning. You need to find the right balance for your specific use case.
 

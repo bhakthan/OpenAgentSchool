@@ -77,3 +77,8 @@ backend/debug/
 
 # Ignore test files (if not needed in version control)
 backend/test_*.py
+
+# Scripts directory - utilities and maintenance scripts
+scripts/
+scripts/*.ps1
+scripts/*.md

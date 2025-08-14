@@ -3,9 +3,9 @@ ReAct Pattern - Pattern Guide - Advanced
 Welcome to the advanced pattern guide for ReAct. Here, we discuss the strategic implications of using ReAct agents, including their role in enterprise architecture, governance, and long-term business transformation.
 
 Key Topics Covered:
-- ReAct agents in enterprise architecture.
-- Governance and safety for autonomous agents.
-- The strategic implications of adopting ReAct at scale.
+ReAct agents in enterprise architecture.
+Governance and safety for autonomous agents.
+The strategic implications of adopting ReAct at scale.
 
 From an enterprise architecture perspective, ReAct agents can be seen as a new type of intelligent service. They can be used to orchestrate workflows that span multiple existing systems and APIs. For example, a single ReAct agent could handle the entire "new employee onboarding" process, from creating an account in the HR system to provisioning a laptop through the IT service desk. This requires a shift in thinking, from building traditional, linear workflows to designing flexible, goal-oriented agents.
 

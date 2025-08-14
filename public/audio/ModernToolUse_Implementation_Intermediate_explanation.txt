@@ -1,0 +1,15 @@
+At the intermediate level, implementing Tool Use involves building a system that can intelligently choose from multiple tools and execute them in a sequence to accomplish a goal. This requires moving from a single function call to a more robust agentic loop.
+
+The first step is to create a toolset. This is a collection of functions that your agent can use. For example, you might have a flight_search tool, a hotel_booking tool, and a calendar tool. Each of these tools is a well-defined function in your code.
+
+The second step is to create a structured description for each tool in your toolset. Just like in the beginner implementation, you need to provide a name, description, and parameter definitions for every single tool. These descriptions are then collected into a list or dictionary that can be passed to the AI model. This tool manifest is critical, as it is the only information the AI has about what it can do.
+
+The third, and most important, part of the implementation is the agentic loop. This loop is responsible for orchestrating the conversation between the user, the AI, and the tools. It starts with the user's prompt. The loop sends the prompt, along with the descriptions of all available tools, to the large language model, for instance, one hosted on Azure.
+
+The AI's job is to decide which tool, if any, to call. Based on the user's request, it might decide to call the flight_search tool. Its response will be a tool-call instruction, just like in the beginner case.
+
+Your code, which is running the loop, then receives this instruction. It needs a mechanism to route the request to the correct function. This is often a simple dictionary or a switch statement that maps the tool name from the AI's response to the actual function in your code. This is your tool dispatcher.
+
+After your code executes the function, the result is captured. The loop then sends this result back to the AI model, along with the entire conversation history. This is a crucial step. By providing the history, you allow the AI to remember what it has already done and decide what to do next.
+
+For example, after getting the flight search results, the AI might decide it needs to call the hotel_booking tool next. The loop continues, calling the hotel tool, getting the result, and feeding it back to the AI. This process repeats until the AI determines that the user's request is fully completed and generates a final text response. This implementation, often facilitated by frameworks like LangChain, allows you to build powerful agents that can perform complex, multi-step tasks.

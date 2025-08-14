@@ -1,0 +1,15 @@
+The Tool Use pattern is a fundamental concept in making AI agents more powerful and connected to the real world. At its core, this pattern allows an AI to go beyond its built-in knowledge and interact with external systems, services, and data sources. Think of it as giving an AI a set of tools, much like a person might use a hammer, a calculator, or a web browser.
+
+At the beginner level, the flow diagram for Tool Use is simple and linear. It starts with a user giving a prompt or a question to the AI. For example, a user might ask, what is the weather like in London right now? The AI's language model, perhaps running on Azure OpenAI Service, first analyzes this prompt.
+
+The first key step is for the AI to recognize that it cannot answer this question from its internal knowledge alone. Its training data is not updated in real-time, so it does not know the current weather. The AI identifies the need to use a tool. This is a critical decision point in the flow.
+
+The next step is tool selection. The AI looks at the set of tools it has been given. This might be a list of available functions or APIs. In our example, it would look for a tool related to weather. It might find a tool named getCurrentWeather.
+
+Once the correct tool is selected, the AI needs to figure out how to use it. Tools usually require specific inputs, or parameters. The getCurrentWeather tool would likely need a location. The AI extracts the location, London, from the user's original prompt.
+
+The flow then shows the AI calling the selected tool with the required parameter. This is the action step. The system makes a call to an external weather API, passing London as the input.
+
+The external tool then processes the request and returns a result. For instance, the weather API sends back data like, temperature 15 degrees Celsius, condition cloudy.
+
+In the final step, the AI takes this data from the tool and uses it to formulate a natural language answer for the user. It would not just show the raw data. Instead, it would say something like, The current weather in London is 15 degrees Celsius and cloudy. This makes the interaction feel seamless and intelligent, hiding the technical steps that happened in the background.
