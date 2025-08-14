@@ -10,7 +10,8 @@
     "build:analyze": "npm run build && npx vite-bundle-analyzer dist",
     "lint": "eslint .",
     "optimize": "vite optimize",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify-routing": "node scripts/verify-routing.js"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

@@ -1,0 +1,61 @@
+name: Deploy Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify-spa-routing:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Verify SPA routing configuration
+      run: npm run verify-routing
+      
+    - name: Test that key routes exist in built index.html
+      run: |
+        # Check if the built index.html contains the necessary elements
+        if ! grep -q "id=\"root\"" dist/index.html; then
+          echo "❌ React root element not found in index.html"
+          exit 1
+        fi
+        
+        if ! grep -q "main\.js\|main\.[a-z0-9]*\.js" dist/index.html; then
+          echo "❌ Main JavaScript bundle not found in index.html"
+          exit 1
+        fi
+        
+        echo "✅ Built index.html looks good"
+        
+    - name: Verify _redirects file was copied to dist
+      run: |
+        if [ ! -f "dist/_redirects" ]; then
+          echo "❌ _redirects file not found in dist folder"
+          exit 1
+        fi
+        
+        echo "✅ _redirects file copied correctly"
+        
+    - name: List dist contents for debugging
+      run: |
+        echo "📁 Contents of dist folder:"
+        ls -la dist/
+        echo ""
+        echo "📄 _redirects content:"
+        cat dist/_redirects
