@@ -1994,6 +1994,258 @@ class EnterpriseGenAIOps:
   }
 ];
 
+// Interactive Scenarios for Swarm Intelligence
+export const swarmIntelligenceScenarios: StudyModeQuestion[] = [
+  {
+    id: 'swarm-scenario-1',
+    type: 'scenario',
+    conceptId: 'swarm-intelligence',
+    title: 'Warehouse Robot Coordination Crisis',
+    level: 'intermediate',
+    scenario: {
+      id: 'warehouse-robot-coordination',
+      title: 'Optimizing Multi-Robot Warehouse Operations',
+      description: 'Your warehouse has 50 autonomous robots that need to coordinate efficiently to fulfill orders. The current system is causing traffic jams and inefficient routing. Design a swarm intelligence solution.',
+      context: 'A major e-commerce company operates a 200,000 sq ft warehouse with 50 autonomous robots. Each robot needs to: pick items from shelves, navigate to packing stations, avoid collisions, and optimize overall throughput. The current centralized system creates bottlenecks and the robots often get stuck in traffic jams.',
+      conceptId: 'swarm-intelligence',
+      difficulty: 'intermediate',
+      estimatedTime: '45 minutes',
+      learningOutcomes: [
+        'Apply swarm intelligence to real-world logistics problems',
+        'Design decentralized coordination systems',
+        'Understand emergent behavior in multi-agent systems'
+      ],
+      stakeholders: ['Warehouse Operations Manager', 'Robotics Engineering Team', 'Logistics Coordinator', 'Floor Workers'],
+      challenges: [
+        {
+          id: 'coordination-complexity',
+          title: 'Coordination Complexity',
+          description: 'How do you coordinate 50+ robots without central bottlenecks?',
+          question: 'What approach would be most effective for decentralized robot coordination?',
+          type: 'multiple-choice',
+          options: [
+            'Implement distributed consensus algorithms',
+            'Use local communication between nearby robots',
+            'Create emergent behavior patterns',
+            'Design pheromone-like trail systems for routing'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Local communication between nearby robots allows for efficient coordination without central bottlenecks, enabling scalable swarm behavior.',
+          hints: [
+            'Think about how birds in a flock coordinate without a leader',
+            'Consider what information robots need to share with immediate neighbors'
+          ]
+        },
+        {
+          id: 'collision-avoidance',
+          title: 'Dynamic Collision Avoidance',
+          description: 'Robots must avoid collisions while maintaining efficiency',
+          question: 'Which collision avoidance strategy best fits swarm intelligence principles?',
+          type: 'multiple-choice',
+          options: [
+            'Implement boids-like separation rules',
+            'Use predictive path planning',
+            'Create dynamic priority systems',
+            'Design local obstacle avoidance behaviors'
+          ],
+          correctAnswer: 0,
+          feedback: 'Correct! Boids-like separation rules create emergent collision avoidance through simple local rules, fundamental to swarm intelligence.',
+          hints: [
+            'Consider how birds avoid collisions in flocks',
+            'Think about simple rules that create complex emergent behavior'
+          ]
+        },
+        {
+          id: 'load-balancing',
+          title: 'Dynamic Load Balancing',
+          description: 'Distribute work efficiently without central coordination',
+          question: 'How can robots self-organize to balance workload?',
+          type: 'multiple-choice',
+          options: [
+            'Use ant colony optimization for task allocation',
+            'Implement local supply-demand signaling',
+            'Create self-organizing work queues',
+            'Design adaptive territory boundaries'
+          ],
+          correctAnswer: 0,
+          feedback: 'Correct! Ant colony optimization naturally distributes tasks through pheromone-like trails, creating efficient load balancing.',
+          hints: [
+            'Think about how ants find optimal paths to food sources',
+            'Consider how trail strength can indicate task priority'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'efficient-coordination',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve designed an efficient swarm-based warehouse coordination system',
+          explanation: 'Your design enables 50+ robots to coordinate without central bottlenecks while maintaining safety and efficiency.',
+          nextSteps: [
+            'Implement real-time performance monitoring',
+            'Add adaptive learning for route optimization',
+            'Design scalability testing for increased robot count'
+          ]
+        }
+      ],
+      codeExample: `# Swarm Intelligence Warehouse Robot System
+class SwarmRobot:
+    def __init__(self, robot_id, x, y):
+        self.id = robot_id
+        self.x, self.y = x, y
+        self.task = None
+        self.neighbors = []
+        
+    def update_behavior(self, all_robots):
+        # Local communication with nearby robots
+        self.neighbors = [r for r in all_robots 
+                         if self.distance_to(r) < 10 and r != self]
+        
+        # Boids-like separation for collision avoidance
+        self.avoid_collisions()
+        
+        # Ant colony optimization for task allocation
+        self.select_optimal_task()
+        
+    def avoid_collisions(self):
+        for neighbor in self.neighbors:
+            if self.distance_to(neighbor) < 3:
+                # Separate from nearby robots
+                self.move_away_from(neighbor)
+                
+    def select_optimal_task(self):
+        # Follow pheromone trails to high-priority tasks
+        available_tasks = self.sense_nearby_tasks()
+        if available_tasks:
+            best_task = max(available_tasks, 
+                          key=lambda t: t.pheromone_strength)
+            self.task = best_task`
+    },
+    explanation: 'This scenario demonstrates how swarm intelligence principles can solve complex coordination problems in warehouse robotics.',
+    relatedConcepts: ['decentralized-coordination', 'emergent-behavior', 'ant-colony-optimization'],
+    timeEstimate: 45,
+    successCriteria: [
+      'Designs effective local coordination rules',
+      'Understands trade-offs between local and global optimization',
+      'Creates scalable multi-agent coordination system'
+    ]
+  },
+  {
+    id: 'swarm-scenario-2',
+    type: 'scenario',
+    conceptId: 'swarm-intelligence',
+    title: 'Smart City Traffic Optimization',
+    level: 'advanced',
+    scenario: {
+      id: 'smart-city-traffic',
+      title: 'Swarm-Based Traffic Flow Management',
+      description: 'Design a swarm intelligence system to optimize traffic flow across a smart city with thousands of connected vehicles and dynamic road conditions.',
+      context: 'A smart city has 10,000+ connected vehicles, dynamic traffic lights, real-time road conditions, and varying traffic patterns. Current centralized traffic management creates delays and cannot adapt quickly to changing conditions.',
+      conceptId: 'swarm-intelligence',
+      difficulty: 'advanced',
+      estimatedTime: '60 minutes',
+      learningOutcomes: [
+        'Design large-scale swarm intelligence systems',
+        'Handle complex real-world constraints and trade-offs',
+        'Understand scalability challenges in swarm systems'
+      ],
+      stakeholders: ['City Traffic Department', 'Connected Vehicle Manufacturers', 'Citizens/Drivers', 'Emergency Services'],
+      challenges: [
+        {
+          id: 'scalability',
+          title: 'Massive Scale Coordination',
+          description: 'Coordinate thousands of vehicles without system overload',
+          question: 'What architecture handles massive scale swarm coordination?',
+          type: 'multiple-choice',
+          options: [
+            'Hierarchical swarm structures',
+            'Local traffic micro-swarms',
+            'Edge computing for local decisions',
+            'Emergent traffic flow patterns'
+          ],
+          correctAnswer: 0,
+          feedback: 'Correct! Hierarchical swarm structures allow coordination at multiple scales, handling massive systems efficiently.',
+          hints: [
+            'Think about how complex systems organize into layers',
+            'Consider how local groups can coordinate within larger structures'
+          ]
+        },
+        {
+          id: 'adaptability',
+          title: 'Real-Time Adaptability',
+          description: 'Respond instantly to accidents, events, and changing conditions',
+          question: 'How should the swarm adapt to sudden traffic disruptions?',
+          type: 'multiple-choice',
+          options: [
+            'Local propagation of traffic information',
+            'Self-organizing detour discovery',
+            'Dynamic priority systems for emergency vehicles',
+            'Collective intelligence for route optimization'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Self-organizing detour discovery allows the swarm to adapt organically to disruptions without central coordination.',
+          hints: [
+            'Think about how swarms naturally flow around obstacles',
+            'Consider how local decisions can create global adaptation'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'scalable-traffic-system',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve designed a scalable swarm-based traffic management system',
+          explanation: 'Your design handles massive scale coordination while adapting to real-time disruptions.',
+          nextSteps: [
+            'Implement vehicle-to-infrastructure communication',
+            'Add predictive traffic modeling',
+            'Design emergency response protocols'
+          ]
+        }
+      ],
+      codeExample: `# Smart City Swarm Traffic System
+class ConnectedVehicle:
+    def __init__(self, vehicle_id, route):
+        self.id = vehicle_id
+        self.route = route
+        self.local_swarm = []
+        self.traffic_info = {}
+        
+    def update_swarm_behavior(self):
+        # Hierarchical coordination
+        self.join_local_micro_swarm()
+        
+        # Adaptive routing based on swarm intelligence
+        self.adapt_route_based_on_swarm()
+        
+    def join_local_micro_swarm(self):
+        # Form local swarms with nearby vehicles
+        nearby_vehicles = self.detect_nearby_vehicles()
+        self.local_swarm = nearby_vehicles[:5]  # Max 5 vehicle micro-swarm
+        
+    def adapt_route_based_on_swarm(self):
+        # Collective intelligence for route optimization
+        swarm_traffic_data = self.aggregate_swarm_data()
+        if swarm_traffic_data.congestion_detected:
+            self.discover_alternative_route()
+            
+    def discover_alternative_route(self):
+        # Self-organizing detour discovery
+        alternative_routes = self.local_swarm.share_route_knowledge()
+        optimal_route = self.select_best_route(alternative_routes)
+        self.route = optimal_route`
+    },
+    explanation: 'This scenario explores how swarm intelligence can solve large-scale urban traffic coordination challenges.',
+    relatedConcepts: ['hierarchical-swarms', 'scalability', 'real-time-adaptation'],
+    timeEstimate: 60,
+    successCriteria: [
+      'Creates scalable coordination architecture',
+      'Balances multiple optimization objectives',
+      'Designs robust system for real-world deployment'
+    ]
+  }
+];
+
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
@@ -2008,7 +2260,8 @@ export const scenarioLibrary = {
   'agent-instruction-design': agentInstructionDesignScenarios,
   'agentic-workflow-control': agenticWorkflowControlScenarios,
   'agent-evaluation-methodologies': agentEvaluationMethodologiesScenarios,
-  'agent-deployment': agentDeploymentScenarios
+  'agent-deployment': agentDeploymentScenarios,
+  'swarm-intelligence': swarmIntelligenceScenarios
 };
 
 // Helper function to get scenarios by concept and level

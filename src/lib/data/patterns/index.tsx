@@ -22,6 +22,7 @@ export { deepAgentsPattern } from './deep-agents';
 export { agentEvaluationPattern } from './agentEvaluation';
 export { autogenPattern } from './autogen';
 export { autogenMultiAgentPattern } from './autogenMultiAgent';
+export { swarmIntelligencePattern } from './swarm-intelligence';
 
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
@@ -44,6 +45,7 @@ import { deepAgentsPattern } from './deep-agents';
 import { agentEvaluationPattern } from './agentEvaluation';
 import { autogenPattern } from './autogen';
 import { autogenMultiAgentPattern } from './autogenMultiAgent';
+import { swarmIntelligencePattern } from './swarm-intelligence';
 
 export const agentPatterns = [
   reactAgentPattern,
@@ -65,6 +67,7 @@ export const agentPatterns = [
   deepAgentsPattern,
   agentEvaluationPattern,
   autogenPattern,
+  swarmIntelligencePattern,
   // autogenMultiAgentPattern,
 ];
 

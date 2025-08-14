@@ -1,0 +1,23 @@
+ReAct Pattern - Flow Diagram - Beginner
+================================================================================
+
+Welcome to the ReAct pattern! Think of an AI agent using ReAct as a detective solving a case. Instead of just guessing the answer, it thinks, acts, and then observes the result before deciding what to do next. Let's walk through how it works, step by step.
+
+Key Topics Covered:
+- What is the ReAct pattern?
+- The three key steps: Reason, Act, and Observe.
+- A simple example of ReAct in action.
+
+First, the agent receives a question or a task from you. For example, you might ask, "What's the weather like in London?"
+
+The first thing the agent does is **Reason**. It thinks to itself, "Okay, to answer this, I need to find the current weather in London. I don't know this off the top of my head, so I'll need to use a tool to look it up." This is the "thought" part of the process. The agent is making a plan.
+
+Next, the agent will **Act**. Based on its thought, it chooses an action. In this case, the action is to use a weather tool. It might call a function like `get_weather("London")`. This is where the agent interacts with the outside world to get more information.
+
+Finally, the agent will **Observe**. It gets the result from its action. The weather tool might return something like "15 degrees Celsius and cloudy." This new information is an observation.
+
+Now, the cycle repeats! The agent looks at the observation and goes back to the **Reason** step. It thinks, "Great, I have the weather. I can now answer the user's question." It might then decide its final action is to present the answer to you.
+
+So, the ReAct pattern is a simple loop: Think about what you need to do, take an action to get information, and then observe the result. It continues this loop until it has enough information to complete the task. It's a powerful way for AI agents to solve complex problems by breaking them down into smaller, manageable steps.
+
+================================================================================

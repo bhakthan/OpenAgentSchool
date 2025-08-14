@@ -743,6 +743,104 @@ export const agentEvaluationMethodologiesSocraticQuestions: StudyModeQuestion[] 
   }
 ];
 
+// Socratic Questions for Swarm Intelligence
+export const swarmIntelligenceSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'swarm-socratic-1',
+    type: 'socratic',
+    conceptId: 'swarm-intelligence',
+    title: 'The Power of Simple Rules',
+    level: 'beginner',
+    socratiQuestion: "How can a colony of ants, where each ant has very simple instincts, collectively find the shortest path to a food source without any single ant knowing the whole map?",
+    followUpQuestions: [
+      "What if each ant leaves a small, invisible clue for the others?",
+      "How would the strength of these clues change over time?",
+      "What does this suggest about solving complex problems with simple, local actions?"
+    ],
+    expectedInsights: [
+      "Complex global behavior can emerge from simple local rules.",
+      "Indirect communication (stigmergy) can be very powerful.",
+      "Decentralized systems can be highly effective at optimization."
+    ],
+    hints: [
+      "Think about how a trail of breadcrumbs works.",
+      "Consider the concept of positive feedback loops.",
+      "Reflect on how large-scale patterns can form from small interactions."
+    ],
+    explanation: "This leads students to understand the core principle of Swarm Intelligence: complex, intelligent, and adaptive behavior can emerge from a population of simple agents following basic rules.",
+    relatedConcepts: ['emergent-behavior', 'stigmergy', 'decentralization'],
+    timeEstimate: 15,
+    successCriteria: [
+      "Articulates the concept of emergent behavior.",
+      "Explains how simple rules can lead to complex outcomes.",
+      "Understands the basics of indirect communication."
+    ]
+  },
+  {
+    id: 'swarm-socratic-2',
+    type: 'socratic',
+    conceptId: 'swarm-intelligence',
+    title: 'Designing for Resilience',
+    level: 'intermediate',
+    socratiQuestion: "If you have a swarm of delivery drones and a few of them suddenly fail or are taken offline, how does the system continue to function effectively without a central manager re-assigning tasks?",
+    followUpQuestions: [
+      "What kind of information would the remaining drones need to adapt?",
+      "How can the system be designed so that the loss of a few agents is not catastrophic?",
+      "What are the trade-offs between a centrally controlled system and a decentralized one in this scenario?"
+    ],
+    expectedInsights: [
+      "Decentralized systems are inherently more robust and fault-tolerant.",
+      "Agents must be able to adapt based on local information and the actions of their neighbors.",
+      "There is a trade-off between the predictability of central control and the resilience of decentralization."
+    ],
+    hints: [
+      "Think about how a flock of birds reacts if one bird leaves.",
+      "Consider the concept of redundancy in system design.",
+      "Reflect on the single point of failure problem in centralized systems."
+    ],
+    explanation: "This helps students grasp one of the key engineering advantages of Swarm Intelligence: its inherent resilience and ability to adapt to unexpected changes or failures.",
+    relatedConcepts: ['robustness', 'fault-tolerance', 'decentralized-control'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Explains the link between decentralization and robustness.",
+      "Identifies adaptation mechanisms for agents.",
+      "Compares the pros and cons of centralized vs. decentralized systems."
+    ]
+  },
+  {
+    id: 'swarm-socratic-3',
+    type: 'socratic',
+    conceptId: 'swarm-intelligence',
+    title: 'The Challenge of Control',
+    level: 'advanced',
+    socratiQuestion: "The emergent behavior of a swarm is powerful but can also be unpredictable. If you are designing a swarm for a critical task, how would you balance letting the desired behavior 'emerge' with the need to guarantee safety and prevent undesirable outcomes?",
+    followUpQuestions: [
+      "How could you set 'boundaries' or 'rules of engagement' for the swarm without resorting to full central control?",
+      "What kind of simulation and testing would be necessary before deploying such a system?",
+      "How might you use a 'monitor' or 'guardian' agent to oversee the swarm without directly controlling it?"
+    ],
+    expectedInsights: [
+      "Controlling emergent behavior is a key challenge in swarm engineering.",
+      "Hybrid approaches, combining local rules with global constraints, are often necessary.",
+      "Extensive simulation is critical for validating the behavior of swarm systems.",
+      "Hierarchical or layered control systems can provide safety without sacrificing all the benefits of decentralization."
+    ],
+    hints: [
+      "Think about how traffic laws guide the 'swarm' of cars on a highway.",
+      "Consider the role of a referee in a sports game.",
+      "Reflect on the concept of 'sandboxing' in software testing."
+    ],
+    explanation: "This advanced question pushes students to think about the practical engineering challenges of harnessing swarm intelligence, moving from pure theory to the complexities of real-world application and safety.",
+    relatedConcepts: ['emergent-behavior-control', 'hybrid-control-systems', 'system-validation'],
+    timeEstimate: 25,
+    successCriteria: [
+      "Articulates the tension between emergence and control.",
+      "Proposes methods for constraining swarm behavior.",
+      "Recognizes the critical role of simulation and validation."
+    ]
+  }
+];
+
 // Socratic Questions for Agent Deployment (GenAIOps)
 export const agentDeploymentSocraticQuestions: StudyModeQuestion[] = [
   {
@@ -859,7 +957,8 @@ export const socraticQuestionLibrary = {
   'agent-instruction-design': agentInstructionDesignSocraticQuestions,
   'agentic-workflow-control': agenticWorkflowControlSocraticQuestions,
   'agent-evaluation-methodologies': agentEvaluationMethodologiesSocraticQuestions,
-  'agent-deployment': agentDeploymentSocraticQuestions
+  'agent-deployment': agentDeploymentSocraticQuestions,
+  'swarm-intelligence': swarmIntelligenceSocraticQuestions
 };
 
 // Helper function to get socratic questions by concept and level

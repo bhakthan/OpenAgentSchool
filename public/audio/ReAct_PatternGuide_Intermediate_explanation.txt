@@ -1,0 +1,19 @@
+ReAct Pattern - Pattern Guide - Intermediate
+================================================================================
+
+This guide provides an intermediate-level view of the ReAct pattern, focusing on implementation trade-offs, integration strategies, and team considerations when building with ReAct.
+
+Key Topics Covered:
+- Implementation trade-offs and challenges.
+- Integrating ReAct agents into existing systems.
+- Team skills and considerations for ReAct projects.
+
+When implementing a ReAct agent, one of the first trade-offs you'll face is the choice of the underlying language model. A larger, more powerful model like GPT-4 will offer better reasoning but will be slower and more expensive. A smaller, faster model might be cheaper, but it could make more mistakes in its reasoning. You need to find the right balance for your specific use case.
+
+Another trade-off is in tool design. Should you create a few complex tools that perform many actions, or many simple, single-purpose tools? Complex tools can reduce the number of steps in a ReAct loop, making the agent faster. However, simpler tools are easier to build and maintain, and they give the agent more flexibility to combine them in novel ways.
+
+Integrating a ReAct agent into an existing system requires careful planning. You'll need to expose your existing business logic as a set of tools that the agent can call. This often means creating a new API layer for the agent to interact with. Security is also a major concern. The agent will be executing actions on behalf of the user, so you need to have robust authentication and authorization to ensure it only performs actions it's allowed to.
+
+Building and maintaining ReAct agents also has implications for your team. You'll need developers with strong skills in both software engineering and prompt engineering. They need to be able to design and build robust tools, but also write effective prompts that guide the agent's reasoning process. You'll also want to have a process for monitoring and evaluating your agents in production. This includes logging their thought processes and actions to identify areas for improvement. By carefully considering these factors, you can successfully implement the ReAct pattern in a way that is both powerful and maintainable.
+
+================================================================================

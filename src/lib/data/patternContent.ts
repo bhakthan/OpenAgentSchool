@@ -1009,5 +1009,45 @@ export const patternContents: PatternContent[] = [
       "Use context quarantine strategically to prevent information pollution between sub-tasks"
     ],
     relatedPatterns: ["Orchestrator-Worker", "ReAct Agent", "Self-Reflection", "Autonomous Workflow"]
+  },
+  {
+    id: 'swarm-intelligence',
+    name: 'Swarm Intelligence',
+    longDescription: `
+      Swarm Intelligence is a decentralized, collective behavior of multiple agents that coordinate their actions to achieve a common goal. 
+      Inspired by natural systems like ant colonies or bird flocks, this pattern leverages simple, local interactions between agents to produce complex, global behavior.
+      
+      Each agent in the swarm operates based on a set of simple rules and has limited knowledge of the overall system. 
+      Coordination emerges from these local interactions without the need for a central controller, making the system highly scalable and robust.
+    `,
+    advantages: [
+      'Highly scalable, as new agents can be added with minimal system changes.',
+      'Robust and fault-tolerant, as the failure of individual agents does not compromise the entire system.',
+      'Adaptable to dynamic and unpredictable environments through emergent behavior.',
+      'Can solve complex optimization problems that are difficult to address with centralized approaches.',
+    ],
+    limitations: [
+      'The emergent behavior of the swarm can be difficult to predict, design, and control.',
+      'Requires careful tuning of agent rules to achieve the desired collective outcome.',
+      'Communication between agents can become a bottleneck in large-scale systems.',
+      'May not be suitable for problems that require a single, authoritative solution.',
+    ],
+    realWorldApplications: [
+      'Optimizing logistics and delivery routes for a fleet of vehicles.',
+      'Coordinating drone swarms for surveillance, agriculture, or entertainment.',
+      'Controlling autonomous robots in manufacturing and warehouse environments.',
+      'Modeling financial markets and predicting economic trends.',
+      'Load balancing in telecommunication networks.',
+      'Developing adaptive camouflage and defense systems.',
+    ],
+    bestPractices: [
+      'Start with simple agent rules and incrementally add complexity.',
+      'Use simulation to test and refine the swarm\'s behavior before deployment.',
+      'Implement mechanisms for agents to share information indirectly through the environment (stigmergy).',
+      'Balance exploration and exploitation in the agent\'s behavior to avoid premature convergence.',
+      'Ensure that the communication protocol between agents is efficient and scalable.',
+      'Design the system to be resilient to the failure of individual agents.',
+    ],
+    relatedPatterns: ['multi-agent-systems', 'decentralized-autonomy', 'emergent-behavior']
   }
 ];

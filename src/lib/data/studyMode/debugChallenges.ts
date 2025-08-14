@@ -1879,6 +1879,105 @@ User Preference: Response A strongly preferred for clarity and efficiency`,
   }
 ];
 
+// Debug Challenges for Swarm Intelligence
+const swarmIntelligenceDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'swarm-debug-1',
+    type: 'debug',
+    conceptId: 'swarm-intelligence',
+    title: 'The Converging Clump',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'swarm-debug-1',
+      title: 'The Converging Clump',
+      description: "A swarm of exploratory drones, designed to spread out and map an area, instead clumps together in one spot and stops exploring.",
+      problemDescription: "The drones are all attracted to the same point and are not maintaining a minimum distance from each other, leading to a failure of the exploration task.",
+      brokenCode: `class Drone:
+    def update(self, all_drones):
+        # Rule 1: Move towards the average position of the swarm (attraction)
+        avg_x = sum(d.x for d in all_drones) / len(all_drones)
+        avg_y = sum(d.y for d in all_drones) / len(all_drones)
+        self.vx += (avg_x - self.x) * 0.01
+        self.vy += (avg_y - self.y) * 0.01
+        
+        self.x += self.vx
+        self.y += self.vy`,
+      expectedBehavior: "The drones should spread out to cover the maximum area while maintaining some level of cohesion.",
+      commonIssues: [
+        {
+          issue: "Missing repulsion rule",
+          symptoms: ["Drones clump together", "Lack of exploration", "Swarm collapses to a single point"],
+          diagnosis: "The system only has an attraction rule, causing all drones to converge on the swarm's center of mass.",
+          fix: "Add a repulsion rule that pushes drones away from each other when they get too close."
+        }
+      ],
+      solution: "Add a repulsion rule to the drone's update logic to ensure they maintain a minimum distance from each other.",
+      explanation: "This demonstrates the classic Boids algorithm principle, where a balance of attraction, repulsion, and alignment rules is needed to create realistic swarm behavior."
+    },
+    hints: [
+      "What happens if you only have a rule for attraction?",
+      "Think about personal space for each drone.",
+      "How do you balance cohesion with exploration?"
+    ],
+    explanation: "This demonstrates the classic Boids algorithm principle, where a balance of attraction, repulsion, and alignment rules is needed to create realistic swarm behavior.",
+    relatedConcepts: ['boids-algorithm', 'attraction-repulsion', 'emergent-behavior'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Identifies the missing repulsion rule.",
+      "Explains the need for balancing forces.",
+      "Suggests a correct implementation of a repulsion force."
+    ]
+  },
+  {
+    id: 'swarm-debug-2',
+    type: 'debug',
+    conceptId: 'swarm-intelligence',
+    title: 'The Stagnant Swarm',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'swarm-debug-2',
+      title: 'The Stagnant Swarm',
+      description: "A swarm of agents designed to find the optimal solution in a search space gets stuck in a local optimum and fails to explore other possibilities.",
+      problemDescription: "The agents quickly converge on a good-but-not-great solution and stop exploring the search space for better options.",
+      brokenCode: `class Ant:
+    def update(self, pheromone_map):
+        # Always follow the strongest pheromone trail
+        best_path = self.find_strongest_pheromone(pheromone_map)
+        self.move_to(best_path)
+        self.lay_pheromone(self.current_path)
+        
+    def lay_pheromone(self, path):
+        # Always reinforce the chosen path
+        path.strength += 0.1`,
+      expectedBehavior: "The swarm should continue to explore the search space even after finding a good solution, balancing exploitation of known good paths with exploration of new ones.",
+      commonIssues: [
+        {
+          issue: "Lack of exploration mechanism",
+          symptoms: ["Premature convergence", "Stuck in local optima", "No new solutions found after initial phase"],
+          diagnosis: "The agents only exploit the best-known path and never explore new, potentially better options.",
+          fix: "Introduce a probabilistic element to path selection and a mechanism for pheromone evaporation."
+        }
+      ],
+      solution: "Introduce a probability-based path selection (e.g., roulette wheel selection) and a pheromone evaporation rule to encourage exploration.",
+      explanation: "This highlights a key challenge in optimization algorithms: balancing exploitation (using what you know) and exploration (seeking new information). Pheromone evaporation and probabilistic choice are common solutions in Ant Colony Optimization."
+    },
+    hints: [
+      "What happens if you always choose the best option?",
+      "How can old, potentially suboptimal paths be 'forgotten' over time?",
+      "Think about introducing randomness into the decision-making process."
+    ],
+    explanation: "This highlights a key challenge in optimization algorithms: balancing exploitation (using what you know) and exploration (seeking new information). Pheromone evaporation and probabilistic choice are common solutions in Ant Colony Optimization.",
+    relatedConcepts: ['ant-colony-optimization', 'exploration-exploitation', 'local-optima'],
+    timeEstimate: 30,
+    successCriteria: [
+      "Identifies the exploration-exploitation problem.",
+      "Suggests adding randomness to path selection.",
+      "Explains the role of pheromone evaporation."
+    ]
+  }
+];
+
+
 // Export debug challenges organized by concept
 export const debugChallengeLibrary = {
   'multi-agent-systems': debugChallenges.filter(c => c.conceptId === 'multi-agent-systems'),
@@ -1892,7 +1991,8 @@ export const debugChallengeLibrary = {
   'prompt-optimization-patterns': promptOptimizationPatternsDebugChallenges,
   'agent-instruction-design': agentInstructionDesignDebugChallenges,
   'agentic-workflow-control': agenticWorkflowControlDebugChallenges,
-  'agent-evaluation-methodologies': agentEvaluationMethodologiesDebugChallenges
+  'agent-evaluation-methodologies': agentEvaluationMethodologiesDebugChallenges,
+  'swarm-intelligence': swarmIntelligenceDebugChallenges
 };
 
 // Helper function to get debug challenges by concept and level

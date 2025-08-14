@@ -136,7 +136,8 @@ export default function D3TreeVisualization({
             { id: 'autogen', name: 'AutoGen Multi-Agent', type: 'pattern' as const, novel: true },
             { id: 'deep-agents', name: 'Deep Agents', type: 'pattern' as const, novel: true },
             { id: 'orchestrator-worker', name: 'Orchestrator Worker', type: 'pattern' as const },
-            { id: 'routing', name: 'Routing', type: 'pattern' as const }
+            { id: 'routing', name: 'Routing', type: 'pattern' as const },
+            { id: 'swarm-intelligence', name: 'Swarm Intelligence', type: 'pattern' as const, novel: true }
           ]
         },
         {

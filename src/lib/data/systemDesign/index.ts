@@ -21,6 +21,7 @@ import { orchestratorWorkerSystemDesign } from './orchestratorWorker';
 import { routingSystemDesign } from './routing';
 import { modelContextProtocolSystemDesign } from './modelContextProtocol';
 import { deepAgentsSystemDesign } from './deep-agents';
+import { swarmIntelligenceSystemDesign } from './swarm-intelligence';
 
 // Export individual patterns
 export { pythonReActAgentSystemDesign } from './pythonReActAgent';
@@ -42,6 +43,7 @@ export { orchestratorWorkerSystemDesign } from './orchestratorWorker';
 export { routingSystemDesign } from './routing';
 export { modelContextProtocolSystemDesign } from './modelContextProtocol';
 export { deepAgentsSystemDesign } from './deep-agents';
+export { swarmIntelligenceSystemDesign } from './swarm-intelligence';
 
 // Create a registry of all system design patterns
 export const systemDesignPatterns = {
@@ -65,6 +67,7 @@ export const systemDesignPatterns = {
   'routing': routingSystemDesign,
   'model-context-protocol': modelContextProtocolSystemDesign,
   'deep-agents': deepAgentsSystemDesign,
+  'swarm-intelligence': swarmIntelligenceSystemDesign,
 };
 
 /**

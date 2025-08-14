@@ -115,6 +115,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 <Code size={16} /> Live Runner
               </TabsTrigger>
             )}
+            {pattern.id === 'swarm-intelligence' && (
+              <TabsTrigger value="live-runner-swarm" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
           </TabsList>
 
           {hasBusinessUseCase && (
@@ -305,6 +310,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 steps={modelContextProtocolExecutionSteps as any}
                 pythonSteps={modelContextProtocolPythonExecutionSteps as any}
               />
+            </TabsContent>
+          )}
+          {pattern.id === 'swarm-intelligence' && (
+            <TabsContent value="live-runner-swarm" className="pt-4">
+              {pattern.codeVisualizer && React.createElement(pattern.codeVisualizer)}
             </TabsContent>
           )}
         </Tabs>

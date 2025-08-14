@@ -137,7 +137,7 @@ Navigate to **Core Concepts → Model Context Protocol → Tool Calling** to exp
 
 **📚 Complete Audio Library (62 Explanation Files):**
 
-- **Agent Patterns**: AutoGenMultiAgent, AgenticRAGPattern, CodeActPattern, ReActPattern, PlanActPattern, MemoryEnhancedAgent, SwarmIntelligence
+- **Agent Patterns**: AutoGenMultiAgent, AgenticRAGPattern, CodeActPattern, ReActPattern, PlanActPattern, MemoryEnhancedAgent, SwarmIntelligence, ModernToolUse, VoiceAgent, DeepResearcher
 - **Communication Systems**: A2ACommunicationConcept, A2ACommunicationPatterns, A2AMultiAgentSystem, ACPConcept, ACPProtocolStack
 - **MCP Framework**: MCPConcept, MCPArchitectureDiagram, MCPToolCallingAnimation, MCPToolCallingCode, MCPVisualDemo, MCPxA2AIntegrationConcept
 - **Agent Architecture**: AgentArchitectureConcept, AgentLifecycleVisual, AgentPersonalityShowcase, AgentTesting, AgentEthicsConcept, AgentSecurityConcept
@@ -414,7 +414,7 @@ Experience the future of technical education where complex AI agent concepts bec
 **Industry-Focused Learning** - Experience AI agent patterns through authentic business scenarios across multiple industries:
 
 #### 📊 **Comprehensive Pattern Coverage**
-**19 Agent Patterns with Business Context** - Each pattern demonstrates real-world applications:
+**20 Agent Patterns with Business Context** - Each pattern demonstrates real-world applications:
 
 - **Parallelization → Sales Data Processing**
   - *Scenario*: Q4 global sales analysis across regions (North America, Europe, Asia-Pacific)
@@ -435,6 +435,10 @@ Experience the future of technical education where complex AI agent concepts bec
 - **Orchestrator-Worker → Manufacturing Operations**
   - *Scenario*: Daily production scheduling and coordination
   - *Context*: Assembly lines, quality control, and packaging operations
+
+- **Swarm Intelligence → Logistics and Supply Chain**
+  - *Scenario*: Autonomous drone delivery fleet optimization
+  - *Context*: Real-time route optimization, collision avoidance, and distributed coordination without central control
 
 - **Evaluator-Optimizer → System Performance Monitoring**
   - *Scenario*: Application performance optimization
@@ -488,6 +492,7 @@ Experience the future of technical education where complex AI agent concepts bec
 **Complete Enterprise Application Spectrum** - Real business scenarios across major industries:
 
 - **Manufacturing & Operations**: Quality control, production scheduling
+- **Logistics & Supply Chain**: Autonomous drone delivery, route optimization
 - **Finance & Investment**: Portfolio analysis, performance optimization  
 - **Technology & Development**: Software development, IT operations, UI testing
 - **Legal & Compliance**: Case management, compliance auditing
@@ -951,7 +956,7 @@ src/
 │   └── useLocalStorage.ts      # LocalStorage utility hook
 ├── lib/                     # Core logic and utilities
 │   ├── data/                # Pattern, quiz, and system design data
-│   │   ├── systemDesign/    # 19 comprehensive system design patterns
+│   │   ├── systemDesign/    # 20 comprehensive system design patterns
 │   │   │   ├── agentEvaluation.ts      # Agent evaluation system design
 │   │   │   ├── autonomousWorkflow.ts   # Autonomous workflow patterns
 │   │   │   ├── computerUse.ts          # Computer use agent design
@@ -1005,7 +1010,7 @@ src/
 **Feature Highlights:**
 
 - **System Design Visualizer**: `src/components/code-playbook/SystemDesignVisualizer.tsx` (interactive 7-step system design pattern explorer with architectural flow visualization)
-- **Comprehensive System Design Library**: `src/lib/data/systemDesign/` (19 production-ready system design patterns covering evaluation, workflow, multi-agent coordination, and specialized patterns)
+- **Comprehensive System Design Library**: `src/lib/data/systemDesign/` (20 production-ready system design patterns covering evaluation, workflow, multi-agent coordination, and specialized patterns)
 - **Dynamic Diagram Generator**: `src/components/code-playbook/AutoGenPatternVisualizer.tsx` (visualizes user-defined agent networks; uses `react-force-graph-2d`)
 - **Business Use Case Tab & Integration**: `src/components/code-playbook/PatternDetails.tsx` (hosts the dynamic diagram and critical thinking modal)
 - **Critical Thinking Modal**: `src/components/common/CriticalThinkingModal.tsx` (modal for critical thinking challenges)

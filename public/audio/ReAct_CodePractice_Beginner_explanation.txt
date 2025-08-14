@@ -1,0 +1,21 @@
+ReAct Pattern - Code & Practice - Beginner
+================================================================================
+
+Welcome to the Code and Practice tab for the ReAct pattern. Here, we'll look at the basic code structure of a ReAct agent, walk through a simple example, and give you some ideas for getting started with your own practice.
+
+Key Topics Covered:
+- The basic code structure of a ReAct agent.
+- A simple, "hello world" style ReAct example.
+- Practice exercises to build your first ReAct agent.
+
+The code for a ReAct agent has a few key parts. First, you have the agent itself, which is usually a loop that continues until the task is done. Inside the loop, you have a call to a language model, which is where the "reasoning" happens. The model's output, which includes a "thought" and an "action," is then parsed.
+
+Next, you have a set of "tools." These are just functions that the agent can call. For a beginner example, you might have a simple calculator tool with functions for adding and subtracting, or a search tool that can look up facts.
+
+Let's walk through a simple example. Imagine you ask the agent, "What is 5 plus 7?". The agent loop starts. It calls the language model with a prompt like, "You are a helpful assistant. Solve the following problem: What is 5 plus 7?". The model might respond with a thought like, "I need to add 5 and 7. I should use the calculator tool." and an action like `calculator.add(5, 7)`.
+
+Your code would then parse this action and call the `add` function in your calculator tool. The function returns 12. This result, or "observation," is then passed back to the agent. In the next loop, the agent sees the observation and thinks, "I have the answer. I can now respond to the user." It then gives you the final answer: 12.
+
+For practice, try building your own simple ReAct agent. You could start with a calculator tool, as we just described. Then, try adding a new tool, like one that can tell you the current date. Once you have a few tools, you can try giving the agent more complex, multi-step problems, like "What is 10 times 3, and what is the date today?". This will help you get a feel for the power of the ReAct pattern.
+
+================================================================================

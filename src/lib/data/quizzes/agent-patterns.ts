@@ -677,6 +677,67 @@ export const agentPatternsQuestions: QuizQuestion[] = [
     relatedConcepts: ['azure-integration', 'service-architecture', 'cloud-deployment'],
     persona: ['ai-engineer', 'agent-developer', 'cloud-architect'],
     timeEstimate: 50
+  },
+  // Swarm Intelligence Pattern
+  {
+    id: 'patterns-swarm-b1',
+    question: 'What is the core concept of the Swarm Intelligence pattern?',
+    text: 'What is the core concept of the Swarm Intelligence pattern?',
+    options: [
+      'A single, powerful agent making all decisions.',
+      'A decentralized system where collective behavior emerges from simple, local interactions between many agents.',
+      'A system where agents compete to destroy each other.',
+      'A rigid, top-down control structure.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Swarm Intelligence is characterized by a decentralized system of agents that follow simple rules. Their local interactions lead to complex, intelligent behavior at the global level without a central controller.',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'swarm-intelligence',
+    learningObjectives: ['Define Swarm Intelligence', 'Understand decentralization in AI'],
+    relatedConcepts: ['decentralization', 'emergent-behavior', 'collective-intelligence'],
+    persona: ['business-leader', 'no-code-engineer', 'agent-designer'],
+    timeEstimate: 30
+  },
+  {
+    id: 'patterns-swarm-i1',
+    question: 'Which of the following is a key advantage of Swarm Intelligence?',
+    text: 'Which of the following is a key advantage of Swarm Intelligence?',
+    options: [
+      'It is very easy to predict the exact outcome.',
+      'It is highly robust and scalable because it doesn\'t rely on a single point of control.',
+      'It requires very little computational power.',
+      'It is best suited for simple, linear problems.'
+    ],
+    correctAnswer: 1,
+    explanation: 'A major advantage of Swarm Intelligence is its robustness and scalability. The decentralized nature means the system can tolerate the failure of individual agents and can easily scale by adding more agents.',
+    difficulty: 'intermediate',
+    category: 'agent-patterns',
+    subCategory: 'swarm-intelligence',
+    learningObjectives: ['Identify advantages of Swarm Intelligence', 'Understand system robustness'],
+    relatedConcepts: ['scalability', 'robustness', 'fault-tolerance'],
+    persona: ['agent-developer', 'ai-engineer', 'agent-architect'],
+    timeEstimate: 45
+  },
+  {
+    id: 'patterns-swarm-a1',
+    question: 'What is "stigmergy" in the context of Swarm Intelligence?',
+    text: 'What is "stigmergy" in the context of Swarm Intelligence?',
+    options: [
+      'A type of direct, real-time communication between agents.',
+      'A form of centralized data storage.',
+      'Indirect communication where agents interact by modifying their environment, leaving trails or signals for others.',
+      'A security protocol for swarm systems.'
+    ],
+    correctAnswer: 2,
+    explanation: 'Stigmergy is a fundamental mechanism in many swarm systems (like ant colonies) where agents communicate indirectly by leaving traces or making changes in their environment, which influence the actions of other agents.',
+    difficulty: 'advanced',
+    category: 'agent-patterns',
+    subCategory: 'swarm-intelligence',
+    learningObjectives: ['Understand advanced swarm concepts', 'Explain stigmergy'],
+    relatedConcepts: ['stigmergy', 'indirect-communication', 'environmental-cues'],
+    persona: ['ai-engineer', 'agent-architect', 'research-scientist'],
+    timeEstimate: 60
   }
 ];
 
