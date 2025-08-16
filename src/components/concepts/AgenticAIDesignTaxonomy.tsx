@@ -319,7 +319,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     const entries = Object.entries(taxonomyData)
 
     return (
-      <div className="relative w-full bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 overflow-visible" style={{ height: stage }}>
+      <div className="relative w-full bg-gray-100 dark:bg-gray-800 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 overflow-visible shadow-inner" style={{ height: stage }}>
         <div className="w-full h-full flex items-center justify-center p-4">
           <div className="relative" style={{ width: stage, height: stage }}>
             {/* Connection Lines */}
@@ -339,8 +339,8 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                     y2={y2}
                     stroke="currentColor"
                     strokeWidth="2"
-                    className="text-gray-400 dark:text-gray-600"
-                    strokeDasharray="4,4"
+                    className="text-blue-300 dark:text-gray-600"
+                    strokeDasharray="6,3"
                   />
                 )
               })}
@@ -348,7 +348,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 
             {/* Central Agentic AI Node */}
             <div className="absolute" style={{ left: center, top: center, transform: 'translate(-50%, -50%)' }}>
-              <div className="w-32 h-32 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg animate-pulse">
+              <div className="w-32 h-32 bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-600 rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-gray-800 animate-pulse">
                 <div className="text-white text-center">
                   <Brain className="w-8 h-8 mx-auto mb-1" />
                   <span className="text-sm font-bold">Agentic AI</span>
@@ -364,14 +364,14 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
               return (
                 <div
                   key={key}
-                  className={`absolute cursor-pointer transition-all duration-300 hover:scale-110 ${selectedTaxonomyNode === key ? 'scale-110 z-10' : ''}`}
+                  className={`absolute cursor-pointer transition-all duration-300 hover:scale-110 hover:z-20 ${selectedTaxonomyNode === key ? 'scale-110 z-10' : ''}`}
                   style={{ left: x, top: y, transform: 'translate(-50%, -50%)' }}
                   onClick={() => setSelectedTaxonomyNode(selectedTaxonomyNode === key ? null : key)}
                 >
-                  <div className={`w-20 h-20 rounded-lg shadow-md flex items-center justify-center ${data.color}`}>
+                  <div className={`w-20 h-20 rounded-lg shadow-lg border-2 border-white dark:border-gray-700 flex items-center justify-center ${data.color} hover:shadow-xl transition-shadow duration-300`}>
                     {data.icon}
                   </div>
-                  <div className="text-xs font-medium text-center mt-1 max-w-20">
+                  <div className="text-sm font-semibold text-center mt-2 max-w-20 text-gray-700 dark:text-gray-300">
                     {data.title.split(' ')[0]}
                   </div>
                 </div>
@@ -380,17 +380,17 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 
             {/* Selected Node Details - Right side panel on large screens */}
             {selectedTaxonomyNode && (
-              <div className="hidden lg:block absolute top-0 left-full ml-4 w-96 max-h-full overflow-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 border">
+              <div className="hidden lg:block absolute top-0 left-full ml-4 w-96 max-h-full overflow-auto bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-xl border-2 border-blue-200 dark:border-gray-600 p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].icon}
-                    <h3 className="font-semibold">
+                    <h3 className="font-semibold text-gray-800 dark:text-gray-200">
                       {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].title}
                     </h3>
                   </div>
                   <button
                     onClick={() => setSelectedTaxonomyNode(null)}
-                    className="text-xs px-2 py-1 rounded border hover:bg-gray-50 dark:hover:bg-gray-700"
+                    className="text-sm px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium"
                     aria-label="Close details"
                   >
                     Close
@@ -398,15 +398,15 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                 </div>
                 <div className="space-y-3">
                   {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].categories.map((cat, idx) => (
-                    <div key={idx} className="p-3 rounded-md border bg-gray-50/60 dark:bg-gray-900/40">
+                    <div key={idx} className="p-3 rounded-md border border-blue-100 dark:border-gray-700 bg-blue-50/50 dark:bg-gray-900/40 shadow-sm">
                       <div className="flex items-center gap-2 mb-1">
                         {cat.icon}
-                        <span className="text-sm font-medium">{cat.name}</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-200">{cat.name}</span>
                       </div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300 mb-2">{cat.description}</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">{cat.description}</p>
                       <div className="flex flex-wrap gap-1">
                         {cat.examples.slice(0, 4).map((ex, i) => (
-                          <Badge key={i} variant="outline" className="text-[10px]">
+                          <Badge key={i} variant="outline" className="text-xs border-blue-200 dark:border-gray-600">
                             {ex}
                           </Badge>
                         ))}
@@ -419,17 +419,17 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 
             {/* Selected Node Details - Bottom overlay on small/medium screens */}
             {selectedTaxonomyNode && (
-              <div className="lg:hidden absolute bottom-4 left-4 right-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 border">
+              <div className="lg:hidden absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-xl border-2 border-blue-200 dark:border-gray-600 p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].icon}
-                    <h3 className="font-semibold">
+                    <h3 className="font-semibold text-gray-800 dark:text-gray-200">
                       {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].title}
                     </h3>
                   </div>
                   <button
                     onClick={() => setSelectedTaxonomyNode(null)}
-                    className="text-xs px-2 py-1 rounded border hover:bg-gray-50 dark:hover:bg-gray-700"
+                    className="text-sm px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium"
                     aria-label="Close details"
                   >
                     Close
@@ -437,15 +437,15 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].categories.map((cat, idx) => (
-                    <div key={idx} className="p-3 rounded-md border bg-gray-50/60 dark:bg-gray-900/40">
+                    <div key={idx} className="p-3 rounded-md border border-blue-100 dark:border-gray-700 bg-blue-50/50 dark:bg-gray-900/40 shadow-sm">
                       <div className="flex items-center gap-2 mb-1">
                         {cat.icon}
-                        <span className="text-sm font-medium">{cat.name}</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-200">{cat.name}</span>
                       </div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300 mb-2">{cat.description}</p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">{cat.description}</p>
                       <div className="flex flex-wrap gap-1">
                         {cat.examples.slice(0, 4).map((ex, i) => (
-                          <Badge key={i} variant="outline" className="text-[10px]">
+                          <Badge key={i} variant="outline" className="text-xs border-blue-200 dark:border-gray-600">
                             {ex}
                           </Badge>
                         ))}
@@ -518,14 +518,14 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
   const svg = d3.select(svgRef.current as any)
   svg.selectAll('*').remove()
   svg
-        .attr('viewBox', [ -40, x0 - dx, width, innerHeight ].join(' '))
+        .attr('viewBox', `0 0 ${width} ${height}`)
         .attr('width', '100%')
         .attr('height', height)
 
   // zoom/pan group
   const rootG = svg.append('g')
   rootGRef.current = rootG.node() as SVGGElement
-  const baseG = rootG.append('g').attr('transform', `translate(40, ${-x0 + dx})`)
+  const baseG = rootG.append('g')
   baseGRef.current = baseG.node() as SVGGElement
 
       // Links
@@ -538,14 +538,16 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
         .selectAll('path')
         .data(root.links())
         .join('path')
-        .attr('d', d3.linkHorizontal().x((d: any) => d.y).y((d: any) => d.x) as any)
+        .attr('d', d3.linkHorizontal()
+          .x((d: any) => d.y + 40)
+          .y((d: any) => d.x - x0 + dx) as any)
 
       // Nodes
       const node = baseG.append('g')
         .selectAll('g')
         .data(root.descendants())
         .join('g')
-        .attr('transform', (d: any) => `translate(${d.y},${d.x})`)
+        .attr('transform', (d: any) => `translate(${d.y + 40},${d.x - x0 + dx})`)
         .attr('cursor', 'pointer')
         .on('click', (_event: any, d: any) => {
           if (d.children) {
@@ -580,25 +582,11 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
   svg.call(zoom as any)
 
       // Auto fit the content when requested (e.g., on fullscreen open)
-      if (autoFitOnMount && !didAutoFitRef.current && baseGRef.current) {
-        const bbox = baseGRef.current.getBBox()
-        const pad = 40
-        const svgEl = svgRef.current!
-        const svgW = svgEl.clientWidth || svgEl.getBoundingClientRect().width
-        const svgH = height
-        if (bbox && bbox.width > 0 && bbox.height > 0 && svgW > 0 && svgH > 0) {
-          const scale = Math.min(
-            (svgW - 2 * pad) / bbox.width,
-            (svgH - 2 * pad) / bbox.height
-          )
-          const tx = svgW / 2 - scale * (bbox.x + bbox.width / 2)
-          const ty = svgH / 2 - scale * (bbox.y + bbox.height / 2)
-          svg.transition().duration(300).call(
-            zoomRef.current.transform,
-            d3.zoomIdentity.translate(tx, ty).scale(scale)
-          )
+      if (autoFitOnMount && !didAutoFitRef.current) {
+        setTimeout(() => {
+          fitToScreen()
           didAutoFitRef.current = true
-        }
+        }, 100)
       }
 
       return () => {
@@ -621,7 +609,13 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
         if (d._children) { d.children = d._children; d._children = null }
         if (d.children) d.children.forEach(expand)
       }
-      expand(root); setVersion(v => v + 1)
+      expand(root); 
+      setVersion(v => v + 1)
+      
+      // Auto-fit to screen after expansion with a small delay for DOM update
+      setTimeout(() => {
+        fitToScreen()
+      }, 100)
     }
     const collapseAll = () => {
       const root = rootRef.current
@@ -641,22 +635,38 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 
     const fitToScreen = () => {
       if (!svgRef.current || !zoomRef.current || !baseGRef.current) return
-      const svgEl = svgRef.current
-      const bbox = baseGRef.current.getBBox()
-      const pad = 40
-      const svgW = svgEl.clientWidth || svgEl.getBoundingClientRect().width
-      const svgH = height
-      if (!bbox || bbox.width === 0 || bbox.height === 0 || svgW === 0 || svgH === 0) return
-      const scale = Math.min(
-        (svgW - 2 * pad) / bbox.width,
-        (svgH - 2 * pad) / bbox.height
-      )
-      const tx = svgW / 2 - scale * (bbox.x + bbox.width / 2)
-      const ty = svgH / 2 - scale * (bbox.y + bbox.height / 2)
-      d3.select(svgEl).transition().duration(300).call(
-        zoomRef.current.transform,
-        d3.zoomIdentity.translate(tx, ty).scale(scale)
-      )
+      
+      // Wait a bit for any pending DOM updates
+      setTimeout(() => {
+        if (!svgRef.current || !zoomRef.current || !baseGRef.current) return
+        
+        const svgEl = svgRef.current
+        const bbox = baseGRef.current.getBBox()
+        const pad = 40
+        const svgW = svgEl.clientWidth || svgEl.getBoundingClientRect().width
+        const svgH = height
+        
+        if (!bbox || bbox.width === 0 || bbox.height === 0 || svgW === 0 || svgH === 0) {
+          return
+        }
+        
+        // Calculate scale to fit content with padding
+        const scale = Math.min(
+          (svgW - 2 * pad) / bbox.width,
+          (svgH - 2 * pad) / bbox.height,
+          1.5 // Maximum scale to prevent over-zooming on small trees
+        )
+        
+        // Calculate translation to center the content
+        const tx = svgW / 2 - scale * (bbox.x + bbox.width / 2)
+        const ty = svgH / 2 - scale * (bbox.y + bbox.height / 2)
+        
+        // Apply the transform
+        d3.select(svgEl).transition().duration(500).call(
+          zoomRef.current.transform,
+          d3.zoomIdentity.translate(tx, ty).scale(scale)
+        )
+      }, 50)
     }
 
     const zoomIn = () => {
@@ -684,15 +694,77 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 
     const exportSVG = () => {
       if (!svgRef.current) return
+      
+      // Create a clone to avoid modifying the original
       const svgEl = svgRef.current.cloneNode(true) as SVGSVGElement
+      
+      // Apply theme-aware inline styles to replace Tailwind classes
+      const applyInlineStyles = (element: Element, isDark: boolean = false) => {
+        // Handle stroke colors for links and outlines
+        if (element.classList.contains('text-gray-400')) {
+          (element as SVGElement).setAttribute('stroke', isDark ? '#6b7280' : '#9ca3af')
+        }
+        if (element.classList.contains('dark:text-gray-600')) {
+          if (isDark) (element as SVGElement).setAttribute('stroke', '#4b5563')
+        }
+        if (element.classList.contains('stroke-gray-300')) {
+          (element as SVGElement).setAttribute('stroke', isDark ? '#4b5563' : '#d1d5db')
+        }
+        if (element.classList.contains('dark:stroke-gray-600')) {
+          if (isDark) (element as SVGElement).setAttribute('stroke', '#4b5563')
+        }
+        
+        // Handle fill colors for text and shapes
+        if (element.classList.contains('fill-gray-800')) {
+          (element as SVGElement).setAttribute('fill', isDark ? '#e5e7eb' : '#1f2937')
+        }
+        if (element.classList.contains('dark:fill-gray-200')) {
+          if (isDark) (element as SVGElement).setAttribute('fill', '#e5e7eb')
+        }
+        if (element.classList.contains('fill-white')) {
+          (element as SVGElement).setAttribute('fill', '#ffffff')
+        }
+        if (element.classList.contains('dark:fill-gray-800')) {
+          (element as SVGElement).setAttribute('fill', isDark ? '#1f2937' : '#ffffff')
+        }
+        
+        // Remove the class attributes since we've applied inline styles
+        element.removeAttribute('class')
+        
+        // Recursively apply to children
+        Array.from(element.children).forEach(child => applyInlineStyles(child, isDark))
+      }
+      
+      // Detect current theme from document
+      const isDarkMode = document.documentElement.classList.contains('dark')
+      applyInlineStyles(svgEl, isDarkMode)
+      
+      // Set proper bounding box and dimensions
       if (baseGRef.current) {
         const bbox = baseGRef.current.getBBox()
         const pad = 24
         svgEl.setAttribute('viewBox', `${bbox.x - pad} ${bbox.y - pad} ${bbox.width + 2*pad} ${bbox.height + 2*pad}`)
-        svgEl.setAttribute('width', String(Math.max(1, Math.floor(bbox.width + 2*pad))))
-        svgEl.setAttribute('height', String(Math.max(1, Math.floor(bbox.height + 2*pad))))
+        svgEl.setAttribute('width', String(Math.max(400, Math.floor(bbox.width + 2*pad))))
+        svgEl.setAttribute('height', String(Math.max(300, Math.floor(bbox.height + 2*pad))))
+      } else {
+        // Fallback dimensions if baseGRef is not available
+        svgEl.setAttribute('width', '800')
+        svgEl.setAttribute('height', '600')
+        svgEl.setAttribute('viewBox', '0 0 800 600')
       }
+      
+      // Ensure proper SVG namespace
       svgEl.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+      svgEl.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+      
+      // Add background color based on theme
+      const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+      bgRect.setAttribute('width', '100%')
+      bgRect.setAttribute('height', '100%')
+      bgRect.setAttribute('fill', isDarkMode ? '#111827' : '#ffffff')
+      svgEl.insertBefore(bgRect, svgEl.firstChild)
+      
+      // Serialize and download
       const serializer = new XMLSerializer()
       const svgString = serializer.serializeToString(svgEl)
       const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' })
@@ -701,20 +773,87 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 
     const exportPNG = () => {
       if (!svgRef.current) return
+      
+      // Create a clone and apply theme-aware styling (same as SVG export)
+      const svgEl = svgRef.current.cloneNode(true) as SVGSVGElement
+      
+      // Apply theme-aware inline styles to replace Tailwind classes
+      const applyInlineStyles = (element: Element, isDark: boolean = false) => {
+        // Handle stroke colors for links and outlines
+        if (element.classList.contains('text-gray-400')) {
+          (element as SVGElement).setAttribute('stroke', isDark ? '#6b7280' : '#9ca3af')
+        }
+        if (element.classList.contains('dark:text-gray-600')) {
+          if (isDark) (element as SVGElement).setAttribute('stroke', '#4b5563')
+        }
+        if (element.classList.contains('stroke-gray-300')) {
+          (element as SVGElement).setAttribute('stroke', isDark ? '#4b5563' : '#d1d5db')
+        }
+        if (element.classList.contains('dark:stroke-gray-600')) {
+          if (isDark) (element as SVGElement).setAttribute('stroke', '#4b5563')
+        }
+        
+        // Handle fill colors for text and shapes
+        if (element.classList.contains('fill-gray-800')) {
+          (element as SVGElement).setAttribute('fill', isDark ? '#e5e7eb' : '#1f2937')
+        }
+        if (element.classList.contains('dark:fill-gray-200')) {
+          if (isDark) (element as SVGElement).setAttribute('fill', '#e5e7eb')
+        }
+        if (element.classList.contains('fill-white')) {
+          (element as SVGElement).setAttribute('fill', '#ffffff')
+        }
+        if (element.classList.contains('dark:fill-gray-800')) {
+          (element as SVGElement).setAttribute('fill', isDark ? '#1f2937' : '#ffffff')
+        }
+        
+        // Remove the class attributes since we've applied inline styles
+        element.removeAttribute('class')
+        
+        // Recursively apply to children
+        Array.from(element.children).forEach(child => applyInlineStyles(child, isDark))
+      }
+      
+      // Detect current theme
+      const isDarkMode = document.documentElement.classList.contains('dark')
+      applyInlineStyles(svgEl, isDarkMode)
+      
+      // Set dimensions
+      if (baseGRef.current) {
+        const bbox = baseGRef.current.getBBox()
+        const pad = 24
+        svgEl.setAttribute('viewBox', `${bbox.x - pad} ${bbox.y - pad} ${bbox.width + 2*pad} ${bbox.height + 2*pad}`)
+        svgEl.setAttribute('width', String(Math.max(400, Math.floor(bbox.width + 2*pad))))
+        svgEl.setAttribute('height', String(Math.max(300, Math.floor(bbox.height + 2*pad))))
+      } else {
+        svgEl.setAttribute('width', '800')
+        svgEl.setAttribute('height', '600')
+        svgEl.setAttribute('viewBox', '0 0 800 600')
+      }
+      
+      svgEl.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+      
+      // Add background
+      const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+      bgRect.setAttribute('width', '100%')
+      bgRect.setAttribute('height', '100%')
+      bgRect.setAttribute('fill', isDarkMode ? '#111827' : '#ffffff')
+      svgEl.insertBefore(bgRect, svgEl.firstChild)
+      
       const serializer = new XMLSerializer()
-      const source = serializer.serializeToString(svgRef.current)
+      const source = serializer.serializeToString(svgEl)
       const svgBlob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' })
       const url = URL.createObjectURL(svgBlob)
       const img = new Image()
       img.onload = () => {
         try {
-          let w = svgRef.current!.clientWidth
-          let h = svgRef.current!.clientHeight
+          let w = 800
+          let h = 600
           if (baseGRef.current) {
             const bbox = baseGRef.current.getBBox()
             const pad = 24
-            w = Math.max(1, Math.floor(bbox.width + 2*pad))
-            h = Math.max(1, Math.floor(bbox.height + 2*pad))
+            w = Math.max(400, Math.floor(bbox.width + 2*pad))
+            h = Math.max(300, Math.floor(bbox.height + 2*pad))
           }
           const canvas = document.createElement('canvas')
           canvas.width = w
@@ -759,16 +898,10 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
   // Enhanced content sections
   const frameworkComparisons = [
     {
-      name: "CrewAI",
-      strengths: ["Role-based agents", "Sequential workflows", "Easy setup"],
-      useCases: ["Business automation", "Content creation", "Research tasks"],
-      architecture: "Workflow-oriented"
-    },
-    {
-      name: "LangGraph",
-      strengths: ["Graph workflows", "State management", "Conditional logic"],
-      useCases: ["Complex workflows", "Decision trees", "Multi-step processes"],
-      architecture: "Graph-based"
+      name: "Semantic Kernel",
+      strengths: ["Enterprise integration", "Plugin ecosystem", "Memory management"],
+      useCases: ["Enterprise apps", "Skill orchestration", "Knowledge work"],
+      architecture: "Plugin-based"
     },
     {
       name: "AutoGen",
@@ -777,10 +910,28 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
       architecture: "Conversational"
     },
     {
-      name: "Semantic Kernel",
-      strengths: ["Enterprise integration", "Plugin ecosystem", "Memory management"],
-      useCases: ["Enterprise apps", "Skill orchestration", "Knowledge work"],
-      architecture: "Plugin-based"
+      name: "OpenAI SDK",
+      strengths: ["Native GPT integration", "Function calling", "Assistant API"],
+      useCases: ["AI assistants", "Function execution", "Tool integration"],
+      architecture: "API-driven"
+    },
+    {
+      name: "Google ADK",
+      strengths: ["Gemini integration", "Multi-modal agents", "Google ecosystem"],
+      useCases: ["Multi-modal AI", "Google services", "Enterprise solutions"],
+      architecture: "Platform-native"
+    },
+    {
+      name: "LangGraph",
+      strengths: ["Graph workflows", "State management", "Conditional logic"],
+      useCases: ["Complex workflows", "Decision trees", "Multi-step processes"],
+      architecture: "Graph-based"
+    },
+    {
+      name: "CrewAI",
+      strengths: ["Role-based agents", "Sequential workflows", "Easy setup"],
+      useCases: ["Business automation", "Content creation", "Research tasks"],
+      architecture: "Workflow-oriented"
     }
   ]
 

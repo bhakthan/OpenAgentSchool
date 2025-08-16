@@ -16,6 +16,7 @@ import { agentPatternsQuestions, agentPatternsTime } from './agent-patterns';
 import { agentLearningQuestions, agentLearningTime } from './agent-learning';
 import { agentSecurityQuestions, agentSecurityTime } from './agent-security';
 import { dataVisualizationQuestions, dataVisualizationTime } from './data-visualization';
+import { agenticAIDesignQuestions, agenticAIDesignTime } from './agentic-ai-design';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -37,7 +38,8 @@ const allQuestions = [
   ...agentPatternsQuestions,
   ...agentLearningQuestions,
   ...agentSecurityQuestions,
-  ...dataVisualizationQuestions
+  ...dataVisualizationQuestions,
+  ...agenticAIDesignQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -593,6 +595,23 @@ export const quizCategories: QuizCategory[] = [
         description: 'System design for voice-enabled agents.',
         prerequisites: ['architecture'],
         questions: systemDesignQuestions.filter(q => q.subCategory === 'voice-agent')
+      }
+    ]
+  },
+  {
+    id: 'agentic-ai-design',
+    name: 'Agentic AI Design Taxonomy',
+    description: 'Comprehensive framework for understanding architectural patterns, design principles, and implementation challenges in Agentic AI systems',
+    icon: 'Brain',
+    totalQuestions: agenticAIDesignQuestions.length,
+    estimatedTime: agenticAIDesignTime,
+    subCategories: [
+      {
+        id: 'agentic-ai-design',
+        name: 'Agentic AI Design',
+        description: 'Architectural patterns and design principles for Agentic AI systems',
+        prerequisites: ['core-concepts'],
+        questions: agenticAIDesignQuestions
       }
     ]
   }

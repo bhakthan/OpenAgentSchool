@@ -225,7 +225,16 @@ const taxonomy = {
   ],
 } as const
 
-export default function DeepDiveAgenticAITaxonomyTree({ height = 720, autoFitOnMount = false }: DeepDiveProps) {
+// Helper: collapse all children of a node
+function collapse(d: any) {
+  if (d.children) {
+    d._children = d.children
+    d._children.forEach(collapse)
+    d.children = null
+  }
+}
+
+export default function DeepDiveAgenticAITaxonomyTree({ height = 800, autoFitOnMount = false }: DeepDiveProps) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const svgRef = useRef<SVGSVGElement | null>(null)
   const [version, setVersion] = useState(0)
@@ -249,15 +258,16 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 720, autoFitOnM
     d3.select(container).selectAll('svg').remove()
     d3.select(container).selectAll('div.tooltip').remove()
 
-  const margin = { top: 40, right: 220, bottom: 40, left: 220 }
+  const margin = { top: 20, right: 40, bottom: 20, left: 40 }
   const width = container.clientWidth || 1200
   const svg = d3
       .select(container)
       .append('svg')
   .attr('width', '100%')
-  .attr('height', height)
-  .style('height', `${height}px`)
+  .attr('height', '100%')
+  .style('max-height', `${height}px`)
       .attr('xmlns', 'http://www.w3.org/2000/svg')
+      .attr('viewBox', `0 0 ${width} ${height}`)
       .classed('rounded-xl bg-white dark:bg-neutral-900', true)
   svgRef.current = svg.node() as SVGSVGElement
 
@@ -267,7 +277,7 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 720, autoFitOnM
       .attr('class', 'pan-overlay')
       .attr('x', 0)
       .attr('y', 0)
-      .attr('width', '100%')
+      .attr('width', width)
       .attr('height', height)
       .style('fill', 'none')
       .style('pointer-events', 'all')
@@ -298,21 +308,14 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 720, autoFitOnM
   const root: any = d3.hierarchy(taxonomy as any)
   root.x0 = height / 2
   root.y0 = 0
-    // Collapse initially so only desired depth is expanded (default: root only)
-    const collapseToDepth = (node: any, depth = 0) => {
-      if (!node) return
-      if (depth >= INITIAL_EXPAND_DEPTH && node.children) {
-        node._children = node.children
-        node.children = null
-      }
-      // Recurse into children that remain expanded up to target depth
-      if (node.children) node.children.forEach((c: any) => collapseToDepth(c, depth + 1))
-      if (node._children && depth < INITIAL_EXPAND_DEPTH) node._children.forEach((c: any) => collapseToDepth(c, depth + 1))
-    }
-    collapseToDepth(root, 0)
+    // Collapse all but root children for nicer first view
+    root.children?.forEach((d: any) => {
+      // expand one level by default
+      d.children && d.children.forEach((child: any) => collapse(child))
+    })
   rootRef.current = root
 
-    const treeLayout = d3.tree().nodeSize([34, 230]) as any
+    const treeLayout = d3.tree().nodeSize([36, 240]) as any
     const linkPath: any = d3.linkHorizontal().x((d: any) => d.y).y((d: any) => d.x)
 
     function colorByDepth(depth: number) {
@@ -333,10 +336,10 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 720, autoFitOnM
         .append('g')
         .attr('class', 'node')
         .attr('cursor', 'pointer')
-        .attr('transform', (d: any) => `translate(${d.y},${d.x})`)
+        .attr('transform', () => `translate(${source.y0},${source.x0})`)
         .on('click', (_event: any, d: any) => {
-          if (d.children) { d._children = d.children; d.children = null }
-          else if (d._children) { d.children = d._children; d._children = null }
+          d.children = d.children ? null : d._children
+          d._children = d.children ? null : d._children // toggle
           update(d)
         })
         .on('mousemove', (event: any, d: any) => {
@@ -380,7 +383,8 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 720, autoFitOnM
         .attr('stroke', (d: any) => (matchedNamesRef.current.has(String(d.data.name).toLowerCase()) ? '#22c55e' : (d3.color(colorByDepth(d.depth))?.darker(0.6) as any)))
         .attr('stroke-width', (d: any) => (matchedNamesRef.current.has(String(d.data.name).toLowerCase()) ? 2 : 1.2))
 
-      node
+      // EXIT
+      const nodeExit = node
         .exit()
         .transition()
         .duration(400)
@@ -449,47 +453,36 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 720, autoFitOnM
 
   update(root)
 
-    // auto-fit when requested (immediate)
-  if (autoFitOnMount && !didAutoFitRef.current && rootGRef.current) {
-      const svgEl = svg.node() as SVGSVGElement
+    // Always center the tree properly after initial render
+    setTimeout(() => {
+      if (!rootGRef.current || !svgRef.current || !zoomRef.current) return
+      
+      const svgEl = svgRef.current
       const bbox = rootGRef.current.getBBox()
-      const pad = 40
       const svgW = svgEl.clientWidth || svgEl.getBoundingClientRect().width
       const svgH = height
+      
       if (bbox && bbox.width > 0 && bbox.height > 0 && svgW > 0 && svgH > 0) {
-        const scale = Math.min((svgW - 2 * pad) / bbox.width, (svgH - 2 * pad) / bbox.height)
-    // Left-align horizontally (pad) and center vertically
-    const tx = pad - scale * bbox.x
-    const ty = svgH / 2 - scale * (bbox.y + bbox.height / 2)
-        svg.transition().duration(300).call((zoomRef.current as any).transform, d3.zoomIdentity.translate(tx, ty).scale(scale))
+        if (autoFitOnMount) {
+          // Auto-fit with proper scaling
+          const pad = 60
+          const scale = Math.min((svgW - 2 * pad) / bbox.width, (svgH - 2 * pad) / bbox.height)
+          const tx = svgW / 2 - scale * (bbox.x + bbox.width / 2)
+          const ty = svgH / 2 - scale * (bbox.y + bbox.height / 2)
+          d3.select(svgEl).transition().duration(300).call((zoomRef.current as any).transform, d3.zoomIdentity.translate(tx, ty).scale(scale))
+        } else {
+          // Just center without scaling
+          const tx = svgW / 2 - (bbox.x + bbox.width / 2)
+          const ty = svgH / 2 - (bbox.y + bbox.height / 2)
+          d3.select(svgEl).call((zoomRef.current as any).transform, d3.zoomIdentity.translate(tx, ty))
+        }
         didAutoFitRef.current = true
       }
-    }
-
-    // schedule a second fit after layout paint in case initial sizes were 0
-    let fitTimer: any
-    if (autoFitOnMount && !didAutoFitRef.current) {
-    fitTimer = setTimeout(() => {
-        if (!svgRef.current || !zoomRef.current || !rootGRef.current) return
-        const svgEl = svgRef.current
-        const bbox = rootGRef.current.getBBox()
-        const pad = 40
-        const svgW = svgEl.clientWidth || svgEl.getBoundingClientRect().width
-        const svgH = svgEl.clientHeight || height
-        if (bbox && bbox.width > 0 && bbox.height > 0 && svgW > 0 && svgH > 0) {
-          const scale = Math.min((svgW - 2 * pad) / bbox.width, (svgH - 2 * pad) / bbox.height)
-      const tx = pad - scale * bbox.x
-      const ty = svgH / 2 - scale * (bbox.y + bbox.height / 2)
-          d3.select(svgEl).transition().duration(300).call((zoomRef.current as any).transform, d3.zoomIdentity.translate(tx, ty).scale(scale))
-          didAutoFitRef.current = true
-        }
-      }, 60)
-    }
+    }, 150)
 
     const ro = new ResizeObserver(() => setVersion(v => v + 1))
     ro.observe(container)
     return () => {
-  if (fitTimer) clearTimeout(fitTimer)
       ro.disconnect()
       d3.select(container).selectAll('svg').remove()
       d3.select(container).selectAll('div.tooltip').remove()
@@ -529,12 +522,12 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 720, autoFitOnM
     if (!svgRef.current || !zoomRef.current || !rootGRef.current) return
     const svgEl = svgRef.current
     const bbox = rootGRef.current.getBBox()
-    const pad = 40
+    const pad = 60  // Increased padding to ensure content doesn't touch edges
     const svgW = svgEl.clientWidth || svgEl.getBoundingClientRect().width
     const svgH = svgEl.clientHeight || height
     if (!bbox || bbox.width === 0 || bbox.height === 0 || svgW === 0 || svgH === 0) return
     const scale = Math.min((svgW - 2 * pad) / bbox.width, (svgH - 2 * pad) / bbox.height)
-    const tx = pad - scale * bbox.x
+    const tx = svgW / 2 - scale * (bbox.x + bbox.width / 2)
     const ty = svgH / 2 - scale * (bbox.y + bbox.height / 2)
     d3.select(svgEl).transition().duration(300).call((zoomRef.current as any).transform, d3.zoomIdentity.translate(tx, ty).scale(scale))
   }
@@ -707,7 +700,7 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 720, autoFitOnM
         <Button variant="outline" size="sm" onClick={zoomOut}>−</Button>
         <Button variant="outline" size="sm" onClick={zoomIn}>+</Button>
       </div>
-  <div ref={containerRef} className="w-full overflow-auto min-h-[400px]">
+  <div ref={containerRef} className="w-full h-full overflow-hidden">
         {/* svg injected here */}
       </div>
     </div>

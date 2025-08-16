@@ -2246,6 +2246,140 @@ class ConnectedVehicle:
   }
 ];
 
+// Interactive Scenarios for Agentic AI Design Taxonomy
+export const agenticAIDesignTaxonomyScenarios: StudyModeQuestion[] = [
+  {
+    id: 'agentic-design-scenario-1',
+    type: 'scenario',
+    conceptId: 'agentic-ai-design-taxonomy',
+    title: 'Enterprise Framework Selection Crisis',
+    level: 'intermediate',
+    scenario: {
+      id: 'enterprise-framework-selection',
+      title: 'CTO Decision: Choosing the Right Agentic Framework',
+      description: 'You are the CTO of a Fortune 500 company. Your board wants to implement an enterprise-wide AI agent system. Three teams are advocating for different frameworks.',
+      context: 'Your company has: 10,000 employees, strict security requirements, existing Microsoft ecosystem, complex approval workflows, and a $50M AI transformation budget. Three teams have proposed different solutions.',
+      stakeholders: ['CTO (You)', 'Enterprise Architecture Team', 'Security Team', 'Microsoft Partnership Team', 'Innovation Lab', 'Board of Directors'],
+      challenges: [
+        {
+          id: 'framework-evaluation',
+          title: 'Evaluate Framework Proposals',
+          description: 'Team A proposes AutoGen for collaborative problem-solving, Team B proposes Semantic Kernel for enterprise integration, Team C proposes LangGraph for complex workflows.',
+          question: 'Given your enterprise requirements (security, Microsoft ecosystem, complex workflows), which framework characteristics should you prioritize?',
+          type: 'multiple-choice',
+          options: [
+            'AutoGen\'s conversational abilities for better human-AI collaboration',
+            'Semantic Kernel\'s plugin ecosystem and enterprise integration',
+            'LangGraph\'s graph-based workflows for complex business processes',
+            'All three frameworks should be used for different purposes'
+          ],
+          correctAnswer: 3,
+          feedback: 'Excellent strategic thinking! Enterprise environments often require multiple frameworks for different use cases. Semantic Kernel for core enterprise integration, AutoGen for collaborative problem-solving, and LangGraph for complex workflow automation.',
+          hints: [
+            'Consider that large enterprises have diverse needs',
+            'Think about the value of avoiding vendor lock-in',
+            'Consider interoperability requirements'
+          ]
+        },
+        {
+          id: 'architecture-design',
+          title: 'Design Interoperable Architecture',
+          description: 'With multiple frameworks in play, you need to ensure they can work together.',
+          question: 'How would you architect a system where Semantic Kernel, AutoGen, and LangGraph agents can collaborate seamlessly?',
+          type: 'multiple-choice',
+          options: [
+            'Keep them separate - each framework handles different business units',
+            'Force standardization on one framework to avoid complexity',
+            'Implement a universal message adapter using MCP for standardized communication',
+            'Build custom bridges between each framework pair'
+          ],
+          correctAnswer: 2,
+          feedback: 'Perfect! Using Model Context Protocol (MCP) or similar standards creates a universal communication layer, enabling true interoperability while preserving each framework\'s strengths.',
+          hints: [
+            'Think about standardized communication protocols',
+            'Consider the Model Context Protocol (MCP)',
+            'Look for universal solutions rather than point-to-point integration'
+          ]
+        },
+        {
+          id: 'scalability-planning',
+          title: 'Plan for Scale and Discovery',
+          description: 'Your system needs to support thousands of agents discovering and collaborating dynamically.',
+          question: 'What architectural patterns would you implement to handle agent discovery and coordination at enterprise scale?',
+          type: 'multiple-choice',
+          options: [
+            'Central registry with manual agent registration',
+            'Hierarchical organization with supervisor agents and service discovery',
+            'Peer-to-peer discovery without central coordination',
+            'Static configuration files for all agent relationships'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent choice! Hierarchical organization with supervisor agents provides scalability, while service discovery enables dynamic collaboration. This mirrors proven distributed systems patterns.',
+          hints: [
+            'Think about how distributed systems handle scale',
+            'Consider supervisor-worker patterns',
+            'Look at service mesh architectures for inspiration'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'hybrid-success',
+          condition: 'Choose multi-framework approach with MCP integration',
+          result: 'Your hybrid architecture becomes a model for the industry. Agent productivity increases 300%, and your company pioneers enterprise agentic AI standards.',
+          explanation: 'By choosing interoperability over simplicity, you created a robust, scalable system that leverages each framework\'s strengths while maintaining unified communication.',
+          nextSteps: [
+            'Develop MCP implementation guidelines',
+            'Create agent discovery service architecture',
+            'Establish governance framework for multi-framework development',
+            'Build monitoring and observability for agent interactions'
+          ]
+        },
+        {
+          id: 'single-framework-risk',
+          condition: 'Force standardization on one framework',
+          result: 'Initial deployment is successful, but limitations become apparent at scale. You face pressure to adopt additional frameworks, creating integration challenges.',
+          explanation: 'Single-framework approaches work initially but struggle with diverse enterprise needs. You\'ll eventually need interoperability anyway.',
+          nextSteps: [
+            'Plan migration strategy to multi-framework architecture',
+            'Evaluate standardized communication protocols',
+            'Assess technical debt from framework lock-in'
+          ]
+        },
+        {
+          id: 'integration-complexity',
+          condition: 'Build custom bridges between frameworks',
+          result: 'High development costs and maintenance burden. Each new framework requires N-1 new integrations. System becomes brittle and hard to evolve.',
+          explanation: 'Point-to-point integration creates exponential complexity. Standardized protocols provide better long-term scalability.',
+          nextSteps: [
+            'Refactor toward universal communication standards',
+            'Evaluate MCP and other standardized protocols',
+            'Plan technical debt reduction strategy'
+          ]
+        }
+      ],
+      conceptId: 'agentic-ai-design-taxonomy',
+      difficulty: 'intermediate',
+      estimatedTime: '25-30 minutes',
+      learningOutcomes: [
+        'Understand framework selection criteria for enterprise environments',
+        'Recognize the importance of interoperability in multi-framework systems',
+        'Learn architectural patterns for scaling agent systems',
+        'Appreciate the role of standardized protocols in agent communication'
+      ]
+    },
+    explanation: 'This scenario demonstrates real-world decision-making in enterprise agentic AI implementation, highlighting the importance of interoperability, scalability, and strategic framework selection.',
+    relatedConcepts: ['framework-selection', 'enterprise-architecture', 'interoperability', 'scalability'],
+    timeEstimate: 30,
+    successCriteria: [
+      'Makes strategic framework selection based on enterprise requirements',
+      'Designs interoperable architecture using standardized protocols',
+      'Plans for scalability using proven distributed systems patterns',
+      'Balances technical complexity with business value'
+    ]
+  }
+];
+
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
@@ -2261,7 +2395,8 @@ export const scenarioLibrary = {
   'agentic-workflow-control': agenticWorkflowControlScenarios,
   'agent-evaluation-methodologies': agentEvaluationMethodologiesScenarios,
   'agent-deployment': agentDeploymentScenarios,
-  'swarm-intelligence': swarmIntelligenceScenarios
+  'swarm-intelligence': swarmIntelligenceScenarios,
+  'agentic-ai-design-taxonomy': agenticAIDesignTaxonomyScenarios
 };
 
 // Helper function to get scenarios by concept and level

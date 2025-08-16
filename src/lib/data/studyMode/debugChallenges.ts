@@ -1974,6 +1974,258 @@ const swarmIntelligenceDebugChallenges: StudyModeQuestion[] = [
       "Suggests adding randomness to path selection.",
       "Explains the role of pheromone evaporation."
     ]
+  },
+  // Debug challenge for Agentic AI Design Taxonomy
+  {
+    id: 'debug-challenge-agentic-design-1',
+    type: 'debug',
+    conceptId: 'agentic-ai-design-taxonomy',
+    title: 'Framework Mismatch Disaster',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'framework-integration-failure',
+      title: 'Multiple Frameworks Failing to Communicate',
+      description: 'A system using three different frameworks (Semantic Kernel, AutoGen, and LangGraph) cannot get agents to communicate effectively.',
+      problemDescription: 'An enterprise system has agents built with different frameworks that need to collaborate, but they are unable to understand each other\'s messages and coordinate work.',
+      brokenCode: `# Semantic Kernel Agent
+from semantic_kernel import Kernel
+from semantic_kernel.functions import KernelFunction
+
+class SKAgent:
+    def __init__(self):
+        self.kernel = Kernel()
+        
+    def send_message(self, message, target_agent):
+        # Using SK-specific message format
+        sk_message = {
+            "type": "sk_message",
+            "content": message,
+            "sender": "sk_agent",
+            "skills": ["analysis", "reporting"]
+        }
+        return target_agent.receive_message(sk_message)
+
+# AutoGen Agent  
+import autogen
+
+class AutoGenAgent:
+    def __init__(self):
+        self.config = {"model": "gpt-4"}
+        
+    def send_message(self, message, target_agent):
+        # Using AutoGen conversation format
+        autogen_message = {
+            "role": "assistant", 
+            "content": message,
+            "name": "autogen_agent"
+        }
+        return target_agent.receive_message(autogen_message)
+
+# LangGraph Agent
+from langgraph import StateGraph
+
+class LangGraphAgent:
+    def __init__(self):
+        self.graph = StateGraph()
+        
+    def send_message(self, message, target_agent):
+        # Using LangGraph state format
+        lg_message = {
+            "state": {"message": message},
+            "node": "communication",
+            "next": "await_response"
+        }
+        return target_agent.receive_message(lg_message)
+
+# Trying to make them work together
+sk_agent = SKAgent()
+autogen_agent = AutoGenAgent()
+lg_agent = LangGraphAgent()
+
+# This fails - incompatible message formats
+result = sk_agent.send_message("Analyze sales data", autogen_agent)
+print(result)  # Error: AutoGen doesn't understand SK message format`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "SKAgent",
+          message: "Attempting to send analysis request to AutoGen agent",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:01Z", 
+          agent: "AutoGenAgent",
+          message: "ERROR: Unrecognized message format from SK agent",
+          type: "error"
+        },
+        {
+          timestamp: "2024-01-01T10:00:02Z",
+          agent: "LangGraphAgent", 
+          message: "Received malformed state transition request",
+          type: "error"
+        }
+      ],
+      expectedBehavior: "Agents should be able to communicate through a standardized protocol, coordinate tasks, and share results regardless of their underlying framework.",
+      commonIssues: [
+        {
+          issue: "Framework-specific message formats",
+          symptoms: ["TypeError when receiving messages", "Unrecognized message structure", "Communication failures"],
+          diagnosis: "Each framework uses proprietary message formats that other frameworks cannot interpret",
+          fix: "Implement a universal message adapter or use standardized protocols like MCP"
+        },
+        {
+          issue: "Lack of interoperability layer",
+          symptoms: ["Direct framework-to-framework calls fail", "No common interface", "Hardcoded integration attempts"],
+          diagnosis: "No abstraction layer exists to handle framework differences",
+          fix: "Create an interoperability layer with adapter patterns and standard message formats"
+        },
+        {
+          issue: "Missing protocol standardization",
+          symptoms: ["Inconsistent communication patterns", "No discovery mechanism", "Manual integration required"],
+          diagnosis: "No standardized communication protocol for cross-framework agent interaction",
+          fix: "Adopt emerging standards like Model Context Protocol (MCP) and Agent Communication Protocol (ACP)"
+        }
+      ],
+      solution: `# Solution: Standardized Message Adapter Pattern
+from typing import Dict, Any, Union
+import json
+
+class UniversalMessageAdapter:
+    """Adapter to translate between different framework message formats"""
+    
+    @staticmethod
+    def standardize_message(message: Dict[str, Any], source_framework: str) -> Dict[str, Any]:
+        """Convert framework-specific message to standard format"""
+        standard_message = {
+            "id": f"{source_framework}_{hash(str(message))}",
+            "sender": message.get("sender", message.get("name", "unknown")),
+            "content": "",
+            "type": "communication",
+            "timestamp": "2024-01-01T10:00:00Z",
+            "framework": source_framework,
+            "capabilities": [],
+            "metadata": {}
+        }
+        
+        if source_framework == "semantic_kernel":
+            standard_message["content"] = message.get("content", "")
+            standard_message["capabilities"] = message.get("skills", [])
+            standard_message["type"] = message.get("type", "sk_message")
+            
+        elif source_framework == "autogen":
+            standard_message["content"] = message.get("content", "")
+            standard_message["sender"] = message.get("name", "autogen_agent")
+            standard_message["type"] = "conversation"
+            
+        elif source_framework == "langgraph":
+            standard_message["content"] = message.get("state", {}).get("message", "")
+            standard_message["type"] = "state_transition"
+            standard_message["metadata"]["node"] = message.get("node", "")
+            standard_message["metadata"]["next"] = message.get("next", "")
+            
+        return standard_message
+    
+    @staticmethod
+    def translate_to_framework(standard_message: Dict[str, Any], target_framework: str) -> Dict[str, Any]:
+        """Convert standard message to framework-specific format"""
+        if target_framework == "semantic_kernel":
+            return {
+                "type": "sk_message",
+                "content": standard_message["content"],
+                "sender": standard_message["sender"],
+                "skills": standard_message["capabilities"]
+            }
+            
+        elif target_framework == "autogen":
+            return {
+                "role": "assistant",
+                "content": standard_message["content"],
+                "name": standard_message["sender"]
+            }
+            
+        elif target_framework == "langgraph":
+            return {
+                "state": {"message": standard_message["content"]},
+                "node": "communication",
+                "next": "process_message"
+            }
+            
+        return standard_message
+
+# Enhanced agents with universal communication
+class UniversalSKAgent(SKAgent):
+    def send_message(self, message, target_agent):
+        # Create SK message
+        sk_message = {
+            "type": "sk_message",
+            "content": message,
+            "sender": "sk_agent",
+            "skills": ["analysis", "reporting"]
+        }
+        
+        # Standardize and send
+        standard_msg = UniversalMessageAdapter.standardize_message(sk_message, "semantic_kernel")
+        return target_agent.receive_universal_message(standard_msg)
+    
+    def receive_universal_message(self, standard_message):
+        # Convert to SK format and process
+        sk_message = UniversalMessageAdapter.translate_to_framework(standard_message, "semantic_kernel")
+        return f"SK Agent processed: {sk_message['content']}"
+
+class UniversalAutoGenAgent(AutoGenAgent):
+    def send_message(self, message, target_agent):
+        autogen_message = {
+            "role": "assistant",
+            "content": message,
+            "name": "autogen_agent"
+        }
+        
+        standard_msg = UniversalMessageAdapter.standardize_message(autogen_message, "autogen")
+        return target_agent.receive_universal_message(standard_msg)
+    
+    def receive_universal_message(self, standard_message):
+        autogen_message = UniversalMessageAdapter.translate_to_framework(standard_message, "autogen")
+        return f"AutoGen Agent processed: {autogen_message['content']}"
+
+class UniversalLangGraphAgent(LangGraphAgent):
+    def send_message(self, message, target_agent):
+        lg_message = {
+            "state": {"message": message},
+            "node": "communication", 
+            "next": "await_response"
+        }
+        
+        standard_msg = UniversalMessageAdapter.standardize_message(lg_message, "langgraph")
+        return target_agent.receive_universal_message(standard_msg)
+    
+    def receive_universal_message(self, standard_message):
+        lg_message = UniversalMessageAdapter.translate_to_framework(standard_message, "langgraph")
+        return f"LangGraph Agent processed: {lg_message['state']['message']}"
+
+# Now they can communicate!
+sk_agent = UniversalSKAgent()
+autogen_agent = UniversalAutoGenAgent()
+lg_agent = UniversalLangGraphAgent()
+
+# This works - universal communication
+result1 = sk_agent.send_message("Analyze sales data", autogen_agent)
+result2 = autogen_agent.send_message("Generate report", lg_agent)
+result3 = lg_agent.send_message("Send summary", sk_agent)
+
+print(f"SK → AutoGen: {result1}")
+print(f"AutoGen → LangGraph: {result2}")  
+print(f"LangGraph → SK: {result3}")`,
+      explanation: "This challenge demonstrates the critical importance of standardized communication protocols in multi-framework agentic systems. The solution uses the adapter pattern to enable interoperability, which is fundamental to building scalable agent ecosystems. Key learnings include: framework interoperability requires standardized protocols, adapter patterns can bridge different message formats, universal message standards enable multi-framework systems, and MCP/A2A protocols address these exact challenges."
+    },
+    explanation: "This challenge demonstrates the critical importance of standardized communication protocols in multi-framework agentic systems and introduces the adapter pattern as a solution.",
+    relatedConcepts: ['agentic-ai-design', 'interoperability', 'framework-integration'],
+    timeEstimate: 25,
+    successCriteria: [
+      "Identifies incompatible message formats as the root cause",
+      "Understands the need for standardized communication protocols",
+      "Recognizes the adapter pattern as a solution",
+      "Connects to real-world protocols like MCP and A2A"
+    ]
   }
 ];
 
@@ -1992,7 +2244,8 @@ export const debugChallengeLibrary = {
   'agent-instruction-design': agentInstructionDesignDebugChallenges,
   'agentic-workflow-control': agenticWorkflowControlDebugChallenges,
   'agent-evaluation-methodologies': agentEvaluationMethodologiesDebugChallenges,
-  'swarm-intelligence': swarmIntelligenceDebugChallenges
+  'swarm-intelligence': swarmIntelligenceDebugChallenges,
+  'agentic-ai-design-taxonomy': debugChallenges.filter(c => c.conceptId === 'agentic-ai-design-taxonomy')
 };
 
 // Helper function to get debug challenges by concept and level

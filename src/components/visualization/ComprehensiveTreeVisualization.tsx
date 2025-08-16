@@ -41,7 +41,9 @@ interface TreeNode {
   };
 }
 
-// Core concepts data structure
+// Core concepts data structure - NOT USED BY D3 TREE (uses hardcoded data in D3TreeVisualization.tsx)
+// This data is only used for generating the comprehensive tree structure but D3 component ignores it
+/*
 const coreConceptsData = [
   // Tier 0 - GPT-5 Prompting Fundamentals (5 concepts)
   {
@@ -191,7 +193,7 @@ const coreConceptsData = [
     difficulty: 'intermediate' as const,
     estimatedTime: 30
   },
-  // Tier 4 - Enterprise Operations (3 concepts)
+  // Tier 4 - Enterprise Operations (4 concepts)
   {
     id: 'agent-deployment',
     name: 'Agent Deployment & Operations',
@@ -215,8 +217,17 @@ const coreConceptsData = [
     tier: 4,
     difficulty: 'advanced' as const,
     estimatedTime: 50
+  },
+  {
+    id: 'agentic-ai-design-taxonomy',
+    name: 'Agentic AI Design Taxonomy',
+    description: 'Comprehensive framework for understanding architectural patterns, design principles, and implementation challenges in Agentic AI systems',
+    tier: 4,
+    difficulty: 'advanced' as const,
+    estimatedTime: 60
   }
 ];
+*/
 
 // Azure services data
 const azureServicesData = [
@@ -298,7 +309,7 @@ export default function ComprehensiveTreeVisualization() {
       id: 'root',
       name: 'Open Agent School',
       type: 'root',
-      description: 'Comprehensive AI Agent Learning Platform with 21 concepts, 20 patterns, Azure services, knowledge quizzes, and interactive study modes',
+      description: 'Comprehensive AI Agent Learning Platform with 22 concepts, 20 patterns, Azure services, knowledge quizzes, and interactive study modes',
       icon: <Brain className="w-5 h-5" />,
       children: [
         // Core Concepts Category
@@ -306,26 +317,11 @@ export default function ComprehensiveTreeVisualization() {
           id: 'core-concepts',
           name: 'Core Concepts',
           type: 'category',
-          description: '21 concepts across 5 progressive tiers - Complete mastery path for AI agent concepts',
+          description: '22 concepts across 5 progressive tiers - Complete mastery path for AI agent concepts',
           icon: <Brain className="w-4 h-4" />,
           progress: Math.floor(Math.random() * 40 + 60), // Random progress 60-100%
           metadata: { tier: 0 },
-          children: coreConceptsData.map(concept => ({
-            id: concept.id,
-            name: concept.name,
-            type: 'concept' as const,
-            description: concept.description,
-            difficulty: concept.difficulty,
-            estimatedTime: concept.estimatedTime,
-            progress: Math.floor(Math.random() * 50 + 50), // Random progress 50-100%
-            metadata: { tier: concept.tier },
-            children: standardTabs.map(tab => ({
-              id: `${concept.id}-${tab.id}`,
-              name: tab.title,
-              type: 'tab' as const,
-              description: tab.description
-            }))
-          }))
+          children: [] // NOTE: D3TreeVisualization uses its own hardcoded data, not this comprehensive structure
         },
         
         // Agent Patterns Category
@@ -467,7 +463,7 @@ export default function ComprehensiveTreeVisualization() {
               <div className="flex items-center gap-3">
                 <Brain className="w-8 h-8 text-blue-600" />
                 <div>
-                  <div className="text-2xl font-bold">21</div>
+                  <div className="text-2xl font-bold">22</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Core Concepts</div>
                 </div>
               </div>

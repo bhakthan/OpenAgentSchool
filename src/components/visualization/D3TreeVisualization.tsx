@@ -51,6 +51,7 @@ export default function D3TreeVisualization({
           name: 'Prompting Fundamentals (Tier 0)',
           type: 'category' as const,
           children: collapsedNodes.has('tier-0') ? [] : [
+            { id: 'agentic-ai-design-taxonomy', name: 'Agentic AI Design Taxonomy', type: 'concept' as const },
             { id: 'agentic-prompting-fundamentals', name: 'Agentic Prompting Fundamentals', type: 'concept' as const, novel: true },
             { id: 'prompt-optimization-patterns', name: 'Prompt Optimization Patterns', type: 'concept' as const, novel: true },
             { id: 'agent-instruction-design', name: 'Agent Instruction Design', type: 'concept' as const, novel: true },

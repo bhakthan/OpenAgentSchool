@@ -941,6 +941,105 @@ export const agentDeploymentSocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Socratic Questions for Agentic AI Design Taxonomy
+export const agenticAIDesignTaxonomySocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'agentic-ai-design-socratic-1',
+    type: 'socratic',
+    conceptId: 'agentic-ai-design-taxonomy',
+    title: 'Discovering Agentic vs Traditional AI',
+    level: 'beginner',
+    socratiQuestion: "Consider a chatbot that always asks for your order versus an AI assistant that remembers you like coffee and suggests your usual. What's the fundamental difference in how they approach helping you?",
+    followUpQuestions: [
+      "What does the assistant need to 'remember' you beyond just storing data?",
+      "How does context change the way it interacts with you?",
+      "What would happen if it could also learn your preferences from your behavior?"
+    ],
+    expectedInsights: [
+      "Agentic AI systems demonstrate autonomy and goal-oriented behavior",
+      "Context and memory enable more personalized interactions",
+      "Learning and adaptation distinguish agents from reactive systems"
+    ],
+    hints: [
+      "Think about the difference between following instructions and making decisions",
+      "Consider how humans adapt their behavior based on context",
+      "Reflect on what makes an interaction feel intelligent vs scripted"
+    ],
+    explanation: "This exploration reveals that agentic AI systems are characterized by autonomy, contextual understanding, and adaptive behavior rather than just sophisticated pattern matching.",
+    relatedConcepts: ['ai-agents', 'autonomy', 'context-management'],
+    timeEstimate: 12,
+    successCriteria: [
+      "Identifies autonomy as a key differentiator",
+      "Recognizes the importance of contextual understanding",
+      "Understands adaptive behavior in AI systems"
+    ]
+  },
+  {
+    id: 'agentic-ai-design-socratic-2',
+    type: 'socratic',
+    conceptId: 'agentic-ai-design-taxonomy',
+    title: 'Framework Selection Reasoning',
+    level: 'intermediate',
+    socratiQuestion: "You need to build an AI system where multiple specialists collaborate to solve complex problems. One framework excels at conversations, another at workflows, and a third at enterprise integration. How would you decide which to choose?",
+    followUpQuestions: [
+      "What if your specialists need to have extended back-and-forth discussions?",
+      "What if you need complex decision trees with conditional branching?",
+      "What if you need to integrate with existing enterprise systems and security policies?"
+    ],
+    expectedInsights: [
+      "Framework choice depends on architectural requirements",
+      "Conversational frameworks suit collaborative problem-solving",
+      "Workflow frameworks excel at structured decision processes",
+      "Enterprise frameworks prioritize integration and compliance"
+    ],
+    hints: [
+      "Think about AutoGen's strength in multi-agent conversations",
+      "Consider LangGraph's graph-based workflow capabilities", 
+      "Reflect on Semantic Kernel's enterprise plugin architecture"
+    ],
+    explanation: "This exploration demonstrates how different frameworks serve different architectural patterns, and the choice should align with your specific use case requirements.",
+    relatedConcepts: ['framework-selection', 'multi-agent-systems', 'enterprise-integration'],
+    timeEstimate: 15,
+    successCriteria: [
+      "Maps framework strengths to use cases",
+      "Understands architectural implications of choices",
+      "Recognizes trade-offs between different approaches"
+    ]
+  },
+  {
+    id: 'agentic-ai-design-socratic-3',
+    type: 'socratic',
+    conceptId: 'agentic-ai-design-taxonomy',
+    title: 'Scaling and Interoperability Challenges',
+    level: 'advanced',
+    socratiQuestion: "Imagine you have 1000 AI agents running across different frameworks and they need to discover and collaborate with each other dynamically. What fundamental problems would you encounter?",
+    followUpQuestions: [
+      "How would an agent from Framework A communicate with an agent from Framework B?",
+      "How would agents find other agents with the capabilities they need?",
+      "What happens when the system grows to 10,000 or 100,000 agents?"
+    ],
+    expectedInsights: [
+      "Interoperability requires standardized communication protocols",
+      "Discovery mechanisms are essential for dynamic collaboration",
+      "Scalability demands hierarchical organization and load balancing",
+      "Performance and resource management become critical at scale"
+    ],
+    hints: [
+      "Consider the role of protocols like MCP and A2A",
+      "Think about service discovery patterns in distributed systems",
+      "Reflect on how the internet scales through hierarchical organization"
+    ],
+    explanation: "This exploration reveals the critical challenges of building large-scale agentic systems and why standardization, discovery protocols, and scalable architectures are essential for the future of AI.",
+    relatedConcepts: ['scalability', 'interoperability', 'distributed-systems', 'communication-protocols'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Identifies interoperability as a fundamental challenge",
+      "Understands the need for discovery mechanisms",
+      "Recognizes scalability implications and solutions"
+    ]
+  }
+];
+
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
@@ -958,7 +1057,8 @@ export const socraticQuestionLibrary = {
   'agentic-workflow-control': agenticWorkflowControlSocraticQuestions,
   'agent-evaluation-methodologies': agentEvaluationMethodologiesSocraticQuestions,
   'agent-deployment': agentDeploymentSocraticQuestions,
-  'swarm-intelligence': swarmIntelligenceSocraticQuestions
+  'swarm-intelligence': swarmIntelligenceSocraticQuestions,
+  'agentic-ai-design-taxonomy': agenticAIDesignTaxonomySocraticQuestions
 };
 
 // Helper function to get socratic questions by concept and level

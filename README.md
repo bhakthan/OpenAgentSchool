@@ -5,6 +5,8 @@
 *Built for AI by AI with lots of human intervention in the loop*
 
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges, plus **Critical Thinking Challenges** with LLM-powered assessment and feedback.
+
+✨ **Now featuring 22 comprehensive concepts including the new Agentic AI Design Taxonomy** - a complete framework for understanding architectural patterns, design principles, and implementation challenges in Agentic AI systems.
 ---
 
 ## 🆕 Latest Updates (August 11, 2025)
@@ -93,7 +95,7 @@ Navigate to **Core Concepts → Model Context Protocol → Tool Calling** to exp
 - **Embedded Controls**: Seamlessly integrated into every core concept component header
 - **Floating Player**: Optional floating player for distraction-free listening while exploring visualizations
 - **Smart Component Detection**: Automatically maps component names to corresponding audio content
-- **Cross-Platform Compatibility**: Works across all 20 core concepts, study mode, and interactive demonstrations
+- **Cross-Platform Compatibility**: Works across all 22 core concepts, study mode, and interactive demonstrations
 
 **🎨 Enhanced User Experience:**
 
@@ -130,7 +132,7 @@ Navigate to **Core Concepts → Model Context Protocol → Tool Calling** to exp
 
 **🎪 Available Across Platform:**
 
-- **All Core Concepts**: 20 comprehensive audio explanations covering prompting fundamentals to advanced deployment patterns
+- **All Core Concepts**: 22 comprehensive audio explanations covering prompting fundamentals to advanced deployment patterns
 - **ConceptLayout Integration**: Automatic audio controls for all ConceptLayout-based components
 - **Individual Components**: Custom integration for specialized components like analytics dashboards and interactive animations
 - **Consistent Experience**: Uniform audio control interface across all educational content areas
@@ -165,7 +167,7 @@ Experience the future of technical education where complex AI agent concepts bec
 - **Agent Evaluation Methodologies**: Comprehensive evaluation frameworks using LLM-as-judge techniques and multi-dimensional assessment approaches with reliability validation
 
 **Enhanced Learning System**:
-- **20 Core Concepts**: Expanded from 15 to 20 concepts across 5 progressive tiers (Tier 0 added)
+- **22 Core Concepts**: Expanded from 15 to 22 concepts across 5 progressive tiers (Tier 0 added), now including the comprehensive Agentic AI Design Taxonomy
 - **Interactive Demonstrations**: Each concept includes sliders, tabs, code examples, and real-time optimization examples
 - **Quiz Integration**: 15 new comprehensive questions covering all prompting optimization concepts with proper categorization
 - **Journey Map Enhancement**: Updated 5-tier visual layout with new Tier 0 progression and prerequisite chains
@@ -187,7 +189,7 @@ Experience the future of technical education where complex AI agent concepts bec
 - **Interactive Scenarios**: Real-world business challenges with code implementation, system design, and decision-making
 - **Debug Challenges**: Systematic three-phase debugging (Analysis → Diagnosis → Solution) with realistic multi-agent system issues
 - **Progress Analytics**: Comprehensive session tracking, insight recognition, and learning effectiveness measurement
-- **Cross-Concept Integration**: Works across all 20 core concepts and agent patterns with adaptive difficulty
+- **Cross-Concept Integration**: Works across all 22 core concepts and agent patterns with adaptive difficulty
 
 ### ⚡ **NEW: AI-Native Skills - Revolutionary Organizational Practices**
 
@@ -329,7 +331,7 @@ Experience the future of technical education where complex AI agent concepts bec
 - **Agent Integration Patterns**: API integration, event-driven architecture, microservices, and legacy systems
 
 **Enhanced Learning Features**:
-- **All Concepts Unlocked**: Complete access to all 20 core concepts without prerequisites
+- **All Concepts Unlocked**: Complete access to all 22 core concepts without prerequisites
 - **Interactive Navigation**: Seamless concept progression with "Next" buttons and learning path tracking
 - **Rich Visualizations**: Each concept includes multiple interactive demonstrations and real-time components
 - **Comprehensive Coverage**: Complete spectrum from foundational prompting to advanced production patterns
@@ -585,7 +587,7 @@ This navigation creates a natural learning flow: **Learn → Apply → Transform
 - **Insight Collection**: Automatic capture of learning breakthroughs and "aha moments"
 - **Performance Analytics**: Detailed tracking of learning effectiveness and knowledge retention
 - **Modern UI**: Beautiful interface using shadcn/ui components with smooth animations
-- **Cross-Concept Integration**: Study modes work across all 20 core concepts and agent patterns
+- **Cross-Concept Integration**: Study modes work across all 22 core concepts and agent patterns
 
 ### 🧠 Critical Thinking Challenge: LLM-Powered Assessment
 **AI-Enhanced Learning Evaluation** - Intelligent feedback system that provides comprehensive assessment and encouragement:
@@ -869,7 +871,7 @@ npm run build:analyze
 ### 🗺️ Learning Journey Map
 **Visual Progress Tracking** - Comprehensive visualization of your AI agent mastery path:
 - **5-Tier Visual Layout**: Interactive map showing progression through Prompting Fundamentals, Foundational Concepts, Architecture, Implementation, and Advanced concepts
-- **Node-Based Progress**: Visual nodes for each of the 20 core concepts with completion tracking
+- **Node-Based Progress**: Visual nodes for each of the 22 core concepts with completion tracking
 - **Tier Badges**: Color-coded tier indicators (T0, T1, T2, T3, T4) for quick identification of concept levels
 - **Prerequisite Visualization**: Connected pathways showing learning dependencies and recommended order
 - **Achievement System**: Unlock achievements as you complete different tiers and concept combinations
@@ -878,7 +880,7 @@ npm run build:analyze
 - **Interactive Navigation**: Click any unlocked concept to jump directly to detailed learning content
 
 **Journey Map Features**:
-- **Comprehensive Coverage**: Visual representation of all 20 core concepts plus additional resources
+- **Comprehensive Coverage**: Visual representation of all 22 core concepts plus additional resources
 - **Adaptive Unlocking**: Concepts unlock based on prerequisite completion (currently all unlocked for flexibility)
 - **Tier-Based Organization**: Clear visual grouping of concepts by learning tier and difficulty
 - **Estimated Time Tracking**: Time estimates for each concept to help plan your learning schedule
@@ -1162,7 +1164,7 @@ Real-world implementations in multiple languages:
 **Comprehensive Knowledge Assessment** - Advanced quiz system with role-based personalization:
 - **Smart Question Selection**: Questions adapt to your professional role and expertise level
 - **Real-Time Scoring**: Instant feedback with detailed explanations and improvement suggestions
-- **Progress Analytics**: Track your learning journey across 20 core concepts in 5 progressive tiers, categories, and difficulty levels
+- **Progress Analytics**: Track your learning journey across 22 core concepts in 5 progressive tiers, categories, and difficulty levels
 - **Learning Journey Map**: Visual progress tracking through the complete AI agent mastery path from fundamentals to advanced production patterns
 - **Tier-Based Progression**: Structured learning experience across Fundamentals, Architecture, Implementation, and Advanced concepts
 - **Professional Personas**: 8 specialized roles from Business Leaders to AI Architects
