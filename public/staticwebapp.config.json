@@ -1,0 +1,30 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*.{png,jpg,gif,svg}", "/audio/*", "/api/*", "/*.{css,scss,sass}", "/*.js", "/*.{png,jpg,gif,svg,ico,woff,woff2,ttf,eot}"]
+  },
+  "mimeTypes": {
+    ".json": "application/json"
+  },
+  "globalHeaders": {
+    "Cache-Control": "no-cache"
+  },
+  "routes": [
+    {
+      "route": "/patterns",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/ai-skills", 
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/patterns/*",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/ai-skills/*",
+      "rewrite": "/index.html"
+    }
+  ]
+}

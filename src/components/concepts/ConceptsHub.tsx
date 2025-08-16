@@ -26,6 +26,7 @@ import PromptOptimizationPatterns from "./PromptOptimizationPatterns"
 import AgentInstructionDesign from "./AgentInstructionDesign"
 import AgenticWorkflowControl from "./AgenticWorkflowControl"
 import AgentEvaluationMethodologies from "./AgentEvaluationMethodologies"
+import AgenticAIDesignTaxonomy from "./AgenticAIDesignTaxonomy"
 
 interface ConceptInfo {
   id: string
@@ -40,7 +41,19 @@ interface ConceptInfo {
 }
 
 const concepts: ConceptInfo[] = [
-  // Tier 0: Core Concepts (Prompting & Optimization)
+  // Tier 0: Foundation - Design Taxonomy
+  {
+    id: 'agentic-ai-design-taxonomy',
+    title: 'Agentic AI Design Taxonomy',
+    description: 'Comprehensive framework for understanding architectural patterns, design principles, and implementation challenges in Agentic AI systems',
+    level: 'fundamentals',
+    icon: <Brain className="w-6 h-6" />,
+    color: 'bg-gray-100 dark:bg-gray-800 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400',
+    estimatedTime: '45-60 min',
+    prerequisites: [],
+    component: AgenticAIDesignTaxonomy
+  },
+  // Tier 1: Core Concepts (Prompting & Optimization)
   {
     id: 'agentic-prompting-fundamentals',
     title: 'Agentic Prompting Fundamentals',
@@ -49,7 +62,7 @@ const concepts: ConceptInfo[] = [
     icon: <Brain className="w-6 h-6" />,
     color: 'bg-gray-100 dark:bg-gray-800 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
     estimatedTime: '30-40 min',
-    prerequisites: [],
+    prerequisites: ['agentic-ai-design-taxonomy'],
     component: AgenticPromptingFundamentals
   },
   {
@@ -157,7 +170,7 @@ const concepts: ConceptInfo[] = [
     icon: <Brain className="w-6 h-6" />,
     color: 'bg-gray-100 dark:bg-gray-800 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
     estimatedTime: '20-30 min',
-    prerequisites: [],
+    prerequisites: ['agentic-ai-design-taxonomy'],
     component: AIAgentsConcept
   },
   {
