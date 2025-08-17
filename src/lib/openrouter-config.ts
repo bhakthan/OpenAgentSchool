@@ -12,29 +12,19 @@ export interface OpenRouterConfig {
 }
 
 export const OPENROUTER_MODELS = {
-  // High-performance models
-  'anthropic/claude-3-opus': 'Claude 3 Opus',
-  'anthropic/claude-3-sonnet': 'Claude 3 Sonnet', 
-  'anthropic/claude-3-haiku': 'Claude 3 Haiku',
-  'openai/gpt-4': 'GPT-4',
-  'openai/gpt-4-turbo': 'GPT-4 Turbo',
-  'openai/gpt-3.5-turbo': 'GPT-3.5 Turbo',
+  // OpenAI OSS model - free on OpenRouter
+  'openai/gpt-oss-20b:free': 'OpenAI OSS 20B (Free)',
   
-  // Cost-effective options
-  'meta-llama/llama-2-70b-chat': 'Llama 2 70B',
-  'mistralai/mixtral-8x7b-instruct': 'Mixtral 8x7B',
-  'microsoft/wizardlm-2-8x22b': 'WizardLM 2 8x22B',
-  
-  // Specialized models
-  'cohere/command-r-plus': 'Command R+',
-  'google/gemini-pro': 'Gemini Pro',
+  // Direct OpenAI models (when using OpenAI API directly)
+  'gpt-4o': 'GPT-4o',
+  'gpt-4o-mini': 'GPT-4o Mini',
 } as const;
 
 export type OpenRouterModel = keyof typeof OPENROUTER_MODELS;
 
 export function createOpenRouterConfig(
   apiKey: string,
-  model: OpenRouterModel = 'anthropic/claude-3-sonnet'
+  model: OpenRouterModel = 'openai/gpt-oss-20b:free'
 ): OpenRouterConfig {
   return {
     apiKey,
@@ -70,12 +60,25 @@ export async function callOpenRouter(
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt }
     ],
-    temperature,
-    max_tokens: maxTokens,
   };
 
-  // Add JSON format for compatible models
-  if (responseFormat === 'json' && supportsJsonMode(config.model)) {
+  // Handle model-specific parameters
+  if (config.model === 'gpt-5' && isDirectOpenAI(config.baseUrl)) {
+    // GPT-5 specific parameters
+    requestBody.temperature = 1; // GPT-5 requires temperature = 1
+    requestBody.max_completion_tokens = maxTokens;
+  } else if (config.model.includes('gpt-4o') && isDirectOpenAI(config.baseUrl)) {
+    // GPT-4o models use max_completion_tokens but support custom temperature
+    requestBody.temperature = temperature;
+    requestBody.max_completion_tokens = maxTokens;
+  } else {
+    // Standard models and OpenRouter
+    requestBody.temperature = temperature;
+    requestBody.max_tokens = maxTokens;
+  }
+
+  // Add JSON format only for direct OpenAI API calls, not OpenRouter
+  if (responseFormat === 'json' && isDirectOpenAI(config.baseUrl) && supportsJsonMode(config.model)) {
     requestBody.response_format = { type: 'json_object' };
   }
 
@@ -100,16 +103,26 @@ export async function callOpenRouter(
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`OpenRouter API error: ${response.status} ${response.statusText}\n${errorText}`);
+    const apiProvider = config.baseUrl.includes('openrouter') ? 'OpenRouter' : 
+                       config.baseUrl.includes('openai') ? 'OpenAI' : 'API';
+    throw new Error(`${apiProvider} API error: ${response.status} ${errorText}`);
   }
 
   const data = await response.json();
+  console.log('Full API Response:', JSON.stringify(data, null, 2));
   
   if (!data.choices || !data.choices[0]) {
-    throw new Error('Invalid response from OpenRouter API');
+    const apiProvider = config.baseUrl.includes('openrouter') ? 'OpenRouter' : 
+                       config.baseUrl.includes('openai') ? 'OpenAI' : 'API';
+    console.error('Invalid response structure:', data);
+    throw new Error(`Invalid response from ${apiProvider} API`);
   }
 
-  const content = data.choices[0].message.content;
+  const choice = data.choices[0];
+  const content = choice.message?.content || '';
+  
+  console.log('Choice details:', choice);
+  console.log('Finish reason:', choice.finish_reason);
   
   // Debug logging for SCL
   console.log('OpenRouter Request:', {
@@ -121,22 +134,36 @@ export async function callOpenRouter(
   });
   console.log('OpenRouter Response Content:', content);
   
+  if (!content || content.trim() === '') {
+    console.error('Empty content in response. Full response:', data);
+    throw new Error('Empty response content from API');
+  }
+  
   return content;
 }
 
 /**
- * Check if model supports JSON mode
+ * Check if we're using direct OpenAI API vs OpenRouter
+ */
+function isDirectOpenAI(baseUrl: string): boolean {
+  return baseUrl.includes('openai.com');
+}
+
+/**
+ * Check if model supports JSON mode (only for direct OpenAI API)
  */
 function supportsJsonMode(model: string): boolean {
-  const jsonModeModels = [
-    'openai/gpt-4',
-    'openai/gpt-4-turbo', 
-    'openai/gpt-3.5-turbo',
-    'anthropic/claude-3-opus',
-    'anthropic/claude-3-sonnet'
+  // Only apply JSON mode for direct OpenAI API calls
+  const openAIJsonModeModels = [
+    'gpt-5',
+    'gpt-4o',
+    'gpt-4o-mini',
+    'gpt-4',
+    'gpt-4-turbo', 
+    'gpt-3.5-turbo'
   ];
   
-  return jsonModeModels.some(supported => model.includes(supported));
+  return openAIJsonModeModels.includes(model);
 }
 
 /**
@@ -145,8 +172,21 @@ function supportsJsonMode(model: string): boolean {
 export function getOpenRouterConfigFromEnv(): OpenRouterConfig | null {
   const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY;
   const model = (import.meta.env.VITE_OPENROUTER_MODEL || process.env.OPENROUTER_MODEL) as OpenRouterModel;
+  const baseUrl = import.meta.env.VITE_OPENROUTER_API_URL || process.env.OPENROUTER_API_URL;
   
   if (!apiKey) return null;
   
-  return createOpenRouterConfig(apiKey, model || 'anthropic/claude-3-sonnet');
+  // Determine base URL - if it contains openai.com, strip the /chat/completions part
+  let finalBaseUrl = baseUrl || 'https://openrouter.ai/api/v1';
+  if (finalBaseUrl.includes('openai.com') && finalBaseUrl.includes('/chat/completions')) {
+    finalBaseUrl = finalBaseUrl.replace('/chat/completions', '');
+  }
+  
+  return {
+    apiKey,
+    model: model || 'openai/gpt-oss-20b:free', // Use OpenAI OSS free model as default
+    baseUrl: finalBaseUrl,
+    siteName: 'OpenAgentSchool',
+    appName: 'SCL-Analysis'
+  };
 }

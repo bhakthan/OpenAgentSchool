@@ -34,11 +34,12 @@ interface SCLSessionProps {
     patternIds: string[];
     practices: string[];
   };
+  initialMode?: SCLMode;
   onClose: () => void;
 }
 
-export function SCLSession({ initialSeeds, onClose }: SCLSessionProps) {
-  const [mode, setMode] = useState<SCLMode>('consolidate');
+export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionProps) {
+  const [mode, setMode] = useState<SCLMode>(initialMode || 'consolidate');
   const [objectives, setObjectives] = useState<SCLObjective[]>(['optimize']);
   const [uiState, setUIState] = useState<SCLUIState>({
     activeTab: 'inputs',
@@ -433,10 +434,7 @@ export function SCLSession({ initialSeeds, onClose }: SCLSessionProps) {
               <SCLControls
                 mode={mode}
                 initialSeeds={initialSeeds}
-                onStartSession={async (config) => {
-                  // This could be enhanced to update constraints
-                  console.log('Session config:', config);
-                }}
+                onStartSession={handleStartSession}
                 isGenerating={isGenerating}
               />
             </TabsContent>
