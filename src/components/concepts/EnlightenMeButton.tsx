@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Lightbulb, SpinnerGap, Copy, Check } from '@phosphor-icons/react';
+import { ChatCircleDots, SpinnerGap, Copy, Check } from '@phosphor-icons/react';
 import { 
   Dialog, 
   DialogContent, 
@@ -19,6 +19,10 @@ import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import { LlmProvider, callLlm } from '@/lib/llm';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useSEOContext } from '@/hooks/useSEOContext';
+
+// NOTE: "Ask AI" is an alias for "EnlightenMe Button" - this component provides AI-powered insights
+// It helps users understand complex concepts through interactive AI assistance and contextual prompting
 
 interface EnlightenMeButtonProps {
   title: string;
@@ -40,6 +44,9 @@ const EnlightenMeButton: React.FC<EnlightenMeButtonProps> = ({
   // Get previously saved insights from KV store if available
   const [savedInsights, setSavedInsights] = useKV<Record<string, string>>('enlighten-insights', {});
   
+  // Get rich SEO context for enhanced prompts
+  const seoContext = useSEOContext();
+  
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
@@ -48,11 +55,14 @@ const EnlightenMeButton: React.FC<EnlightenMeButtonProps> = ({
   // Check if we have a previously saved response for this concept
   const hasSavedResponse = savedInsights && savedInsights[conceptId];
   
-  // Generate a default prompt based on the concept details
+  // Generate a default prompt based on the concept details with SEO enhancement
   const generateDefaultPrompt = () => {
-    if (customPrompt) return customPrompt;
+    if (customPrompt) {
+      // If there's a custom prompt and we have rich SEO context, enhance it
+      return seoContext.description ? seoContext.enhancedPrompt(customPrompt, title) : customPrompt;
+    }
     
-    return `Explain the concept of "${title}" in detail in the context of Azure AI Agents.
+    const basePrompt = `Explain the concept of "${title}" in detail in the context of Azure AI Agents.
     
 ${description ? `Context: ${description}` : ''}
 
@@ -62,6 +72,9 @@ Please provide:
 3. Real-world applications and examples
 4. Best practices for implementation
 5. How it relates to other AI agent concepts`;
+
+    // Use SEO context to enhance the prompt if available
+    return seoContext.description ? seoContext.enhancedPrompt(basePrompt, title) : basePrompt;
   };
   
   const [prompt, setPrompt] = useState<string>(generateDefaultPrompt());
@@ -203,39 +216,32 @@ Please provide:
 
   // Size and styling configuration
   const getButtonClasses = () => {
-    const baseClasses = "rounded-full hover:bg-yellow-100 hover:text-yellow-900 dark:hover:bg-yellow-900/20 dark:hover:text-yellow-400 transition-colors duration-150";
-    
+    const baseClasses = "transition-colors duration-150";
     switch (size) {
       case 'sm':
-        return `h-6 w-6 ${baseClasses}`;
+        return `h-8 px-3 ${baseClasses}`;
       case 'md':
-        return `h-8 w-8 ${baseClasses}`;
+        return `h-9 px-3.5 ${baseClasses}`;
       case 'lg':
-        return `h-10 w-10 ${baseClasses}`;
+        return `h-10 px-4 ${baseClasses}`;
       default:
-        return `h-8 w-8 ${baseClasses}`;
+        return `h-9 px-3.5 ${baseClasses}`;
     }
   };
 
-  const getIconSize = () => {
-    switch (size) {
-      case 'sm': return 12;
-      case 'md': return 16;
-      case 'lg': return 20;
-      default: return 16;
-    }
-  };
+  const getIconSize = () => (size === 'lg' ? 20 : 16);
 
   return (
-    <div className={variant === 'floating' ? "absolute top-3 right-3 z-10" : ""}>
+  <div className={variant === 'floating' ? "absolute top-3 right-3 z-10" : ""}>
       <Button
-        variant="ghost"
-        size="icon"
+    variant={variant === 'floating' ? 'default' : 'default'}
+    size={size === 'sm' ? 'sm' : 'default'}
         className={getButtonClasses()}
         onClick={() => setIsOpen(true)}
-        title="Learn more about this topic"
+    title="Ask AI about this topic"
       >
-        <Lightbulb size={getIconSize()} weight="fill" className="text-yellow-500" />
+    <ChatCircleDots size={getIconSize()} className="mr-2" />
+    <span className="text-sm">Ask AI</span>
       </Button>
       
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
@@ -243,11 +249,11 @@ Please provide:
           <DialogHeader className="pb-4 border-b">
             <DialogTitle className="flex items-center gap-2 text-xl">
               <div className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                <Lightbulb className="text-yellow-600 dark:text-yellow-400" size={24} weight="fill" />
+                <ChatCircleDots className="text-primary" size={24} />
               </div>
               <div>
-                <span className="bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
-                  Enlighten Me:
+                <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                  Ask AI:
                 </span>{" "}
                 <span className="text-foreground">{title}</span>
               </div>
@@ -309,9 +315,9 @@ Please provide:
                 {isLoading ? (
                   <div className="flex flex-col items-center justify-center flex-1 gap-4">
                     <div className="relative">
-                      <SpinnerGap size={48} className="animate-spin text-yellow-500" />
+                      <SpinnerGap size={48} className="animate-spin text-primary" />
                       <div className="absolute inset-0 animate-pulse">
-                        <Lightbulb size={24} className="text-yellow-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" weight="fill" />
+                        <ChatCircleDots size={24} className="text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
                       </div>
                     </div>
                     <div className="text-center">

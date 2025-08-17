@@ -8,6 +8,9 @@ import { BookOpen, Code, Gear, GraduationCap, ArrowRight, ArrowLeft, CheckCircle
 import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
+// NOTE: "Ask AI" is an alias for "EnlightenMe Button" - it provides AI-powered insights about concept content
+// The EnlightenMeButton component (displayed as "Ask AI") helps users understand complex concepts through AI assistance
+
 interface ConceptTab {
   id: string
   title: string
@@ -177,10 +180,15 @@ export default function ConceptLayout({
                       <CardDescription className="mt-1">{tab.description}</CardDescription>
                     </div>
                   </div>
-                  <EnlightenMeButton
-                    title={tab.title}
-                    contextDescription={tab.description}
-                  />
+                  {/* Ask AI button positioned to prevent overlap with navigation controls */}
+                  <div className="flex-shrink-0">
+                    <EnlightenMeButton
+                      title={tab.title}
+                      contextDescription={tab.description}
+                      mode="inline"
+                      className="relative z-10"
+                    />
+                  </div>
                 </div>
               </CardHeader>
             </Card>
@@ -193,7 +201,7 @@ export default function ConceptLayout({
             {/* Navigation */}
             <Card>
               <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between relative">
                   <Button
                     variant="outline"
                     onClick={handlePrevious}
@@ -204,7 +212,7 @@ export default function ConceptLayout({
                     Previous
                   </Button>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 relative z-20">
                     <Button
                       variant="outline"
                       onClick={() => handleTabComplete(activeTab)}

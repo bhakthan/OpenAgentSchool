@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Lightbulb, SpinnerGap, Copy, Check } from '@phosphor-icons/react';
+import { ChatCircleDots, SpinnerGap, Copy, Check } from '@phosphor-icons/react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -164,8 +164,8 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
       <DialogContent className="sm:max-w-4xl max-w-[90vw] max-h-[85vh] min-h-[70vh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Lightbulb className="text-yellow-500" size={20} weight="fill" />
-            Enlighten Me: {safeTitle}
+            <ChatCircleDots className="text-primary" size={20} />
+            Ask AI: {safeTitle}
           </DialogTitle>
           <DialogDescription>
             Learn more about this concept with AI assistance. Edit the prompt if you'd like to ask something specific.
@@ -269,7 +269,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                 }}
                 title="Export to PDF"
               >
-                <Lightbulb size={16} />
+                <ChatCircleDots size={16} />
                 <span>Export PDF</span>
               </Button>
                 <Button variant="outline" onClick={() => onOpenChange(false)}>

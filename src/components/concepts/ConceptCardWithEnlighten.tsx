@@ -13,6 +13,8 @@ interface ConceptCardWithEnlightenProps {
   showDetailsButton?: boolean;
   className?: string;
   footerContent?: React.ReactNode;
+  // Show an inline Ask AI button inside this card (disabled by default to avoid duplicates)
+  showAskAI?: boolean;
 }
 
 const ConceptCardWithEnlighten: React.FC<ConceptCardWithEnlightenProps> = ({
@@ -25,6 +27,7 @@ const ConceptCardWithEnlighten: React.FC<ConceptCardWithEnlightenProps> = ({
   showDetailsButton = true,
   className,
   footerContent,
+  showAskAI = false,
 }) => {
   return (
     <EnlightenCard 
@@ -51,11 +54,13 @@ const ConceptCardWithEnlighten: React.FC<ConceptCardWithEnlightenProps> = ({
       }
     >
       {children}
-      <EnlightenMeButton
-        title={title}
-        contextDescription={description}
-        className={className}
-      />
+      {showAskAI && (
+        <EnlightenMeButton
+          title={title}
+          contextDescription={description}
+          className={className}
+        />
+      )}
     </EnlightenCard>
   );
 };

@@ -38,6 +38,7 @@ import {
   Minus
 } from "@phosphor-icons/react"
 import { ArrowsOutSimple, ArrowsInSimple } from "@phosphor-icons/react"
+import { EnlightenMeButton as AskAIButton } from '@/components/enlighten/EnlightenMeButton'
 // Deep dive moved to a dedicated page to reduce memory and improve visibility
 
 interface AgenticAIDesignTaxonomyProps {
@@ -1034,7 +1035,12 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8">
       {/* Header */}
-      <div className="text-center space-y-4">
+      <div className="relative text-center space-y-4">
+        {/* Ask AI CTA */}
+        <AskAIButton 
+          title="Agentic AI Design Taxonomy" 
+          description="A comprehensive framework for understanding the architectural patterns, design principles, and implementation challenges in Agentic AI systems."
+        />
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 rounded-full">
           <Brain className="w-5 h-5 text-blue-600 dark:text-blue-400" />
           <span className="text-sm font-medium text-blue-800 dark:text-blue-200">Design Taxonomy</span>

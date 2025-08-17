@@ -50,6 +50,7 @@ import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
 import { Toaster } from '@/components/ui/toaster';
 import { AudioNarrationProvider } from './contexts/AudioNarrationContext';
+import { EnlightenMeButton as AskAIFab } from './components/enlighten/EnlightenMeButton';
 
 // Placeholder component (disabled)
 const AppTutorialButton = () => null;
@@ -329,7 +330,8 @@ function App() {
           
           <footer className="border-t border-border py-6 bg-muted transition-colors duration-300">
             <div className="container mx-auto px-4 text-center text-muted-foreground">
-              <p>Open Agent School - Where AI Agent Concepts Come to Life</p>
+              <p>Open Agent School - Where AI Concepts Come to Life</p>
+              <p className="text-xs mt-1 opacity-75">Progressive learning • Prove your understanding through intelligent dialogue</p>
             </div>
           </footer>
           
@@ -340,6 +342,48 @@ function App() {
             onClose={() => setShowJourneyMap(false)}
             onNavigate={handleNavigate}
           />
+
+          {/* Global Ask AI FAB - bottom-right (only on learning pages) */}
+          {(() => {
+            const path = location.pathname;
+            const enabled = path === '/' ||
+                            path.startsWith('/concepts') ||
+                            path.startsWith('/patterns') ||
+                            path.startsWith('/ai-skills') ||
+                            path.startsWith('/azure-services');
+            if (!enabled) return null;
+
+            const title = path.startsWith('/patterns')
+              ? 'Agent Patterns'
+              : path.startsWith('/ai-skills')
+              ? 'AI-Native Skills'
+              : path.startsWith('/azure-services')
+              ? 'Azure Services'
+              : 'Core Concepts';
+
+            // Try exact path first, then fall back to base path for sections
+            let desc = pageSEOConfigs[path as keyof typeof pageSEOConfigs]?.description;
+            if (!desc) {
+              if (path.startsWith('/patterns')) {
+                desc = pageSEOConfigs['/patterns']?.description;
+              } else if (path.startsWith('/ai-skills')) {
+                desc = pageSEOConfigs['/ai-skills']?.description;
+              } else if (path.startsWith('/azure-services')) {
+                desc = pageSEOConfigs['/azure-services']?.description;
+              } else if (path.startsWith('/concepts')) {
+                desc = pageSEOConfigs['/concepts']?.description;
+              }
+            }
+
+            return (
+              <AskAIFab
+                title={title}
+                description={desc}
+                mode="fixed"
+                position="bottom-right"
+              />
+            );
+          })()}
 
           {/* Toast notifications */}
           <Toaster />

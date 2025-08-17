@@ -67,7 +67,7 @@ const learningPaths: LearningPath[] = [
     description: 'Comprehensive learning path covering all core concepts in 5 progressive tiers',
     recommendedOrder: [
       // Tier 0: Core Concepts (Prompting & Optimization)
-      'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 
+      'agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 
       'agentic-workflow-control', 'agent-evaluation-methodologies',
       // Tier 1: Foundational Concepts
       'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents',
@@ -82,6 +82,21 @@ const learningPaths: LearningPath[] = [
     ],
     totalProgress: 0,
     nodes: [
+      // Tier 0: Foundation - Design Taxonomy
+      {
+        id: 'agentic-ai-design-taxonomy',
+        title: 'Agentic AI Design Taxonomy',
+        description: 'Comprehensive framework for understanding architectural patterns, design principles, and implementation challenges',
+        icon: <Brain size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '45-60 min',
+        prerequisites: [],
+        skills: ['Design Patterns', 'Architectural Principles', 'Implementation Framework', 'System Taxonomy'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: true,
+        path: '/concepts'
+      },
       // Tier 0: Core Concepts (Prompting & Optimization)
       {
         id: 'agentic-prompting-fundamentals',
@@ -90,7 +105,7 @@ const learningPaths: LearningPath[] = [
         icon: <Brain size={20} />,
         difficulty: 'beginner',
         estimatedTime: '30-40 min',
-        prerequisites: [],
+        prerequisites: ['agentic-ai-design-taxonomy'],
         skills: ['Eagerness Control', 'Tool Preambles', 'Reasoning Effort', 'Steerability'],
         completionRate: 0,
         isCompleted: false,
@@ -104,7 +119,7 @@ const learningPaths: LearningPath[] = [
         icon: <ChartBar size={20} />,
         difficulty: 'beginner',
         estimatedTime: '35-45 min',
-        prerequisites: ['agentic-prompting-fundamentals'],
+        prerequisites: ['agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals'],
         skills: ['Contradiction Elimination', 'Specificity Improvements', 'Example Consistency'],
         completionRate: 0,
         isCompleted: false,
@@ -118,7 +133,7 @@ const learningPaths: LearningPath[] = [
         icon: <Books size={20} />,
         difficulty: 'beginner',
         estimatedTime: '30-40 min',
-        prerequisites: ['agentic-prompting-fundamentals'],
+        prerequisites: ['agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals'],
         skills: ['Instruction Hierarchy', 'Steerability Control', 'Verbosity Management'],
         completionRate: 0,
         isCompleted: false,
@@ -463,7 +478,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     'Additional Resources'
   ];
   const tiers = [
-    ['agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'],
+    ['agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'],
     ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents'],
     ['a2a-communication', 'mcp', 'flow-visualization'],
     ['acp', 'mcp-a2a-integration', 'data-visualization'],
@@ -635,7 +650,20 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     const containerWidth = 1000;
     const containerHeight = 500;
     const padding = 80; // Increased padding for better spacing
-    
+
+    // Special compact layout for Tier 0 (6 nodes) to harmonize line lengths with Tier 1
+    if (activeTier === 0 && total === 6) {
+      const availableWidth = containerWidth - 2 * padding; // 840px
+      const spacing = availableWidth / 5; // 168px between consecutive nodes
+      const baseY = containerHeight / 2;
+      // Gentle diagonal progression to keep segments short and readable
+      const yOffsets = [-100, -60, -20, 20, 60, 100];
+      return {
+        x: padding + spacing * Math.min(index, 5),
+        y: baseY + yOffsets[Math.min(index, yOffsets.length - 1)]
+      };
+    }
+
     if (total === 1) {
       // Single node - center it
       return { x: containerWidth / 2, y: containerHeight / 2 };
@@ -803,7 +831,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
                       
                       @keyframes flowPath {
                         0% { stroke-dashoffset: 0; opacity: 0.8; }
-                        50% { opacity: 1; stroke-width: 6; }
+                        50% { opacity: 1; stroke-width: 3; }
                         100% { stroke-dashoffset: -30; opacity: 0.8; }
                       }
                       
@@ -854,7 +882,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
                         x2={next.x}
                         y2={next.y}
                         stroke={isCompleted && isNextUnlocked ? '#22c55e' : isCompleted ? '#fbbf24' : '#cbd5e1'}
-                        strokeWidth={isCompleted ? '4' : '3'}
+                        strokeWidth={isCompleted ? '3' : '2'}
                         className={isCompleted ? 'arrow-path arrow-path-animated' : 'arrow-path arrow-path-muted'}
                         markerEnd={isCompleted ? 'url(#arrow-animated)' : 'url(#arrow-grey)'}
                       />

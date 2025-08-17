@@ -59,8 +59,8 @@ export const FloatingContextualHelp: React.FC<FloatingContextualHelpProps> = ({
 
   return (
     <>
-      {/* Trigger Button - Always visible in bottom right */}
-      <div className="fixed bottom-6 right-6 z-50">
+  {/* Trigger Button - Docked above Ask AI FAB on the right to avoid collisions */}
+  <div className="fixed bottom-24 right-6 z-50">
         <Button
           onClick={onToggle}
           variant="default"
@@ -75,10 +75,10 @@ export const FloatingContextualHelp: React.FC<FloatingContextualHelpProps> = ({
         </Button>
       </div>
 
-      {/* Learning Guide Sidebar */}
+    {/* Learning Guide Sidebar */}
       {isVisible && (
         <div className={cn(
-          "fixed bottom-20 right-6 z-50 transition-all duration-300 ease-in-out",
+      "fixed bottom-36 right-6 z-50 transition-all duration-300 ease-in-out",
           isVisible ? "translate-x-0 opacity-100 scale-100" : "translate-x-full opacity-0 scale-95",
           className
         )}>

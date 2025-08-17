@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Lightbulb } from '@phosphor-icons/react';
+import { ChatCircleDots } from '@phosphor-icons/react';
 import { 
   Dialog, 
   DialogContent, 
@@ -14,6 +14,10 @@ import { SpinnerGap } from '@phosphor-icons/react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { LlmProvider, callLlm } from '@/lib/llm';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useSEOContext } from '@/hooks/useSEOContext';
+
+// NOTE: "Ask AI" is an alias for "EnlightenMe Button" - this component provides AI-powered insights
+// It helps users understand complex concepts through interactive AI assistance and contextual prompting
 
 interface EnlightenMeButtonProps {
   topic?: string;
@@ -34,8 +38,20 @@ export function EnlightenMeButton({
   size = 'sm',
   variant = 'icon'
 }: EnlightenMeButtonProps) {
+  // Get rich SEO context for enhanced prompts
+  const seoContext = useSEOContext();
+  
+  // Create enhanced prompt that uses SEO context when available
+  const createEnhancedPrompt = () => {
+    const basePrompt = defaultPrompt || `Explain ${title || topic} in detail.`;
+    const conceptTitle = title || topic;
+    
+    // Use SEO context to enhance the prompt if available
+    return seoContext.description ? seoContext.enhancedPrompt(basePrompt, conceptTitle) : basePrompt;
+  };
+  
   const [isOpen, setIsOpen] = useState(false);
-  const [prompt, setPrompt] = useState(defaultPrompt || `Explain ${title || topic} in detail.`);
+  const [prompt, setPrompt] = useState(createEnhancedPrompt());
   const [response, setResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
@@ -59,7 +75,7 @@ export function EnlightenMeButton({
   };
 
   const resetPrompt = () => {
-    setPrompt(defaultPrompt);
+    setPrompt(createEnhancedPrompt());
     setShowResponse(false);
     setResponse(null);
   };
@@ -67,40 +83,40 @@ export function EnlightenMeButton({
   // Different button variants
   const renderButton = () => {
     switch (variant) {
-      case 'default':
+  case 'default':
         return (
           <Button 
             onClick={() => setIsOpen(true)}
             size={size} 
             className={className}
           >
-            <Lightbulb className="mr-2 text-yellow-500" size={16} weight="fill" />
-            Enlighten Me
+    <ChatCircleDots className="mr-2" size={16} />
+    Ask AI
           </Button>
         );
-      case 'subtle':
+  case 'subtle':
         return (
           <Button 
             variant="ghost"
             onClick={() => setIsOpen(true)}
             size={size} 
-            className={`hover:bg-yellow-100 hover:text-yellow-900 dark:hover:bg-yellow-900/20 dark:hover:text-yellow-400 ${className}`}
+    className={`${className}`}
           >
-            <Lightbulb className="mr-2 text-yellow-500" size={16} weight="fill" />
-            Enlighten Me
+    <ChatCircleDots className="mr-2" size={16} />
+    Ask AI
           </Button>
         );
-      case 'icon':
+  case 'icon':
       default:
         return (
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(true)}
-            className={`h-8 w-8 rounded-full hover:bg-yellow-100 hover:text-yellow-900 dark:hover:bg-yellow-900/20 dark:hover:text-yellow-400 ${className}`}
-            title="Learn more about this topic"
+    className={`h-8 w-8 rounded-full ${className}`}
+    title="Ask AI about this topic"
           >
-            <Lightbulb size={16} weight="fill" className="text-yellow-500" />
+    <ChatCircleDots size={16} />
           </Button>
         );
     }
@@ -117,12 +133,12 @@ export function EnlightenMeButton({
         <DialogContent className="sm:max-w-6xl max-w-[95vw] h-[90vh] max-h-[900px] flex flex-col">
           <DialogHeader className="pb-4 border-b">
             <DialogTitle className="flex items-center gap-2 text-xl">
-              <div className="p-2 rounded-full bg-yellow-100 dark:bg-yellow-900/20">
-                <Lightbulb className="text-yellow-600 dark:text-yellow-400" size={24} weight="fill" />
+              <div className="p-2 rounded-full bg-gray-100 dark:bg-gray-900/20">
+                <ChatCircleDots className="text-primary" size={24} />
               </div>
               <div>
-                <span className="bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
-                  Enlighten Me:
+                <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                  Ask AI:
                 </span>{" "}
                 <span className="text-foreground">{topic}</span>
               </div>
@@ -181,9 +197,9 @@ export function EnlightenMeButton({
                 {isLoading ? (
                   <div className="flex flex-col items-center justify-center flex-1 gap-4">
                     <div className="relative">
-                      <SpinnerGap size={48} className="animate-spin text-yellow-500" />
+                      <SpinnerGap size={48} className="animate-spin text-primary" />
                       <div className="absolute inset-0 animate-pulse">
-                        <Lightbulb size={24} className="text-yellow-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" weight="fill" />
+                        <ChatCircleDots size={24} className="text-primary absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
                       </div>
                     </div>
                     <div className="text-center">

@@ -86,11 +86,11 @@ export const Logo: React.FC<LogoProps> = ({
           </h1>
           {size === 'hero' ? (
             <p className="text-lg text-muted-foreground font-medium">
-              Where AI Agent Concepts Come to Life
+              Climb the AI Ladder
             </p>
           ) : (
             <p className="text-sm text-muted-foreground">
-              Agentic Learning for everyone
+              Climb the AI Ladder
             </p>
           )}
         </div>
