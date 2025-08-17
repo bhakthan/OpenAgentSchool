@@ -1,0 +1,509 @@
+import React, { useState, useCallback } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { 
+  Brain, 
+  GitBranch, 
+  Target, 
+  Network,
+  Gear,
+  Download,
+  Copy,
+  ArrowCounterClockwise,
+  X,
+  Play,
+  Pause
+} from '@phosphor-icons/react';
+import type { SCLMode, SCLUIState, SCLObjective } from '@/types/supercritical';
+import { useSCLSession } from '@/hooks/useSCLSession';
+import { SCLControls } from './SCLControls';
+import { SCLEffectGraph } from './SCLEffectGraph';
+import { SCLSynthesis } from './SCLSynthesis';
+import { SCLRubric } from './SCLRubric';
+// Import our new graph visualization components
+import SCLGraph, { SCLNode } from '../../SuperCriticalLearning/SCLGraph';
+import GraphControls from '../../SuperCriticalLearning/GraphControls';
+import NodeEditor from '../../SuperCriticalLearning/NodeEditor';
+
+interface SCLSessionProps {
+  initialSeeds?: {
+    conceptIds: string[];
+    patternIds: string[];
+    practices: string[];
+  };
+  onClose: () => void;
+}
+
+export function SCLSession({ initialSeeds, onClose }: SCLSessionProps) {
+  const [mode, setMode] = useState<SCLMode>('consolidate');
+  const [objectives, setObjectives] = useState<SCLObjective[]>(['optimize']);
+  const [uiState, setUIState] = useState<SCLUIState>({
+    activeTab: 'inputs',
+    selectedNodes: [],
+    filteredDomains: [],
+    showOnlyHighConfidence: true,
+    graphLayout: 'hierarchical',
+    expandedSections: {
+      constraints: false,
+      leaps: false,
+      synthesis: false,
+    },
+  });
+
+  // Graph visualization state
+  const [enableForceLayout, setEnableForceLayout] = useState(false);
+  const [showMinimap, setShowMinimap] = useState(true);
+  const [selectedNode, setSelectedNode] = useState<SCLNode | null>(null);
+  const [showNodeEditor, setShowNodeEditor] = useState(false);
+
+  const {
+    session,
+    isGenerating,
+    progress,
+    error,
+    createSession,
+    generateEffects,
+    updateConstraints,
+    clearSession,
+  } = useSCLSession({
+    onProgress: (step, prog) => {
+      console.log(`SCL Progress: ${step} (${Math.round(prog * 100)}%)`);
+    },
+    onError: (err) => {
+      console.error('SCL Error:', err);
+    },
+  });
+
+  // Convert session effects to graph format
+  const effects = React.useMemo(() => {
+    if (!session) return [];
+    return session.effectGraph.nodes.map(node => ({
+      id: node.id,
+      text: node.title,
+      type: (node.order === 1 ? 'first-order' : 
+            node.order === 2 ? 'higher-order' : 
+            'synthesis') as 'first-order' | 'higher-order' | 'synthesis' | 'constraint',
+      confidence: node.confidence,
+      category: node.domain,
+      sources: node.references,
+      constraints: [],
+    }));
+  }, [session]);
+
+  const handleStartSession = useCallback(async () => {
+    if (!initialSeeds || isGenerating) return;
+
+    try {
+      const newSession = createSession(mode, objectives, initialSeeds);
+      
+      // Mock context summary - in real implementation, this would come from the knowledge base
+      const mockContextSummary = {
+        concepts: initialSeeds.conceptIds.map(id => ({
+          id,
+          title: `Concept: ${id}`,
+          keyMechanisms: ['mechanism1', 'mechanism2'],
+          dependencies: [],
+          guarantees: [],
+        })),
+        patterns: initialSeeds.patternIds.map(id => ({
+          id,
+          title: `Pattern: ${id}`,
+          components: ['component1', 'component2'],
+          tradeoffs: ['tradeoff1', 'tradeoff2'],
+          applicability: ['context1', 'context2'],
+        })),
+        practices: initialSeeds.practices.map(id => ({
+          id,
+          title: `Practice: ${id}`,
+          outcomes: ['outcome1', 'outcome2'],
+          prerequisites: [],
+          risks: [],
+        })),
+      };
+
+      await generateEffects(newSession, mockContextSummary);
+    } catch (error) {
+      console.error('Failed to start SCL session:', error);
+    }
+  }, [mode, objectives, initialSeeds, isGenerating, createSession, generateEffects]);
+
+  const handleModeChange = useCallback((newMode: SCLMode) => {
+    setMode(newMode);
+  }, []);
+
+  const handleConstraintChange = useCallback((constraint: string, value: any) => {
+    updateConstraints({ [constraint]: value });
+  }, [updateConstraints]);
+
+  const handleClearSession = useCallback(() => {
+    clearSession();
+    setUIState(prev => ({ ...prev, activeTab: 'inputs' }));
+  }, [clearSession]);
+
+  const handleExportSession = useCallback(() => {
+    if (!session) return;
+
+    const dataStr = JSON.stringify({
+      session,
+      exportedAt: new Date().toISOString(),
+    }, null, 2);
+    
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `scl-session-${session.id}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [session]);
+
+  const handleCopySession = useCallback(async () => {
+    if (!session) return;
+
+    try {
+      await navigator.clipboard.writeText(JSON.stringify(session, null, 2));
+      // You could add a toast notification here
+    } catch (error) {
+      console.error('Failed to copy session:', error);
+    }
+  }, [session]);
+
+  const isSessionActive = session && session.status !== 'draft';
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="border-b bg-card">
+        <div className="flex items-center justify-between p-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" onClick={onClose}>
+              <X className="h-4 w-4" />
+            </Button>
+            <div>
+              <h1 className="text-xl font-semibold">Super Critical Learning</h1>
+              <p className="text-sm text-muted-foreground">
+                {session ? `Session: ${session.id}` : 'Configure your analysis'}
+              </p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            {session && (
+              <>
+                <Badge variant={session.status === 'complete' ? 'default' : 'secondary'}>
+                  {session.status}
+                </Badge>
+                <Button variant="outline" size="sm" onClick={handleExportSession}>
+                  <Download className="h-4 w-4 mr-2" />
+                  Export
+                </Button>
+                <Button variant="outline" size="sm" onClick={handleCopySession}>
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy
+                </Button>
+              </>
+            )}
+            <Button variant="outline" size="sm" onClick={handleClearSession}>
+              <ArrowCounterClockwise className="h-4 w-4 mr-2" />
+              Reset
+            </Button>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        {isGenerating && progress && (
+          <div className="px-4 pb-4">
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>{progress.step}</span>
+                <span>{Math.round(progress.progress * 100)}%</span>
+              </div>
+              <Progress value={progress.progress * 100} />
+            </div>
+          </div>
+        )}
+
+        {/* Error Display */}
+        {error && (
+          <div className="px-4 pb-4">
+            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3">
+              <p className="text-sm text-destructive">{error}</p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 p-6">
+        {!isSessionActive ? (
+          /* Configuration Mode */
+          <div className="max-w-4xl mx-auto space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Gear className="h-5 w-5" />
+                  Session Configuration
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Mode Selection */}
+                <div className="space-y-3">
+                  <label className="text-sm font-medium">Analysis Mode</label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <Card 
+                      className={`cursor-pointer transition-colors ${
+                        mode === 'consolidate' ? 'border-primary bg-primary/5' : 'hover:bg-muted/50'
+                      }`}
+                      onClick={() => handleModeChange('consolidate')}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Target className="h-5 w-5 text-primary" />
+                          <span className="font-medium">Consolidate</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Systematic exploration of well-understood patterns
+                        </p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card 
+                      className={`cursor-pointer transition-colors ${
+                        mode === 'extrapolate' ? 'border-primary bg-primary/5' : 'hover:bg-muted/50'
+                      }`}
+                      onClick={() => handleModeChange('extrapolate')}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Brain className="h-5 w-5 text-secondary-foreground" />
+                          <span className="font-medium">Extrapolate</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Creative exploration with constraints and perturbations
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+
+                {/* Seeds Display */}
+                {initialSeeds && (
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium">Analysis Seeds</label>
+                    <div className="grid gap-3">
+                      {initialSeeds.conceptIds.length > 0 && (
+                        <div>
+                          <span className="text-xs text-muted-foreground">Concepts:</span>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {initialSeeds.conceptIds.map(id => (
+                              <Badge key={id} variant="outline">{id}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {initialSeeds.patternIds.length > 0 && (
+                        <div>
+                          <span className="text-xs text-muted-foreground">Patterns:</span>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {initialSeeds.patternIds.map(id => (
+                              <Badge key={id} variant="outline">{id}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {initialSeeds.practices.length > 0 && (
+                        <div>
+                          <span className="text-xs text-muted-foreground">Practices:</span>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {initialSeeds.practices.map(id => (
+                              <Badge key={id} variant="outline">{id}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Start Button */}
+                <div className="flex justify-center pt-4">
+                  <Button 
+                    onClick={handleStartSession} 
+                    disabled={isGenerating || !initialSeeds}
+                    size="lg"
+                    className="min-w-48"
+                  >
+                    {isGenerating ? (
+                      <>
+                        <Pause className="h-4 w-4 mr-2" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Play className="h-4 w-4 mr-2" />
+                        Start Analysis
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        ) : (
+          /* Session Active - Main Interface */
+          <Tabs value={uiState.activeTab} onValueChange={(tab) => 
+            setUIState(prev => ({ ...prev, activeTab: tab as any }))
+          }>
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="inputs" className="flex items-center gap-2">
+                <Gear className="h-4 w-4" />
+                Controls
+              </TabsTrigger>
+              <TabsTrigger value="graph" className="flex items-center gap-2">
+                <Network className="h-4 w-4" />
+                Effect Graph
+              </TabsTrigger>
+              <TabsTrigger value="synthesis" className="flex items-center gap-2">
+                <Brain className="h-4 w-4" />
+                Synthesis
+              </TabsTrigger>
+              <TabsTrigger value="rubric" className="flex items-center gap-2">
+                <Target className="h-4 w-4" />
+                Rubric
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="inputs" className="space-y-6">
+              <SCLControls
+                mode={mode}
+                initialSeeds={initialSeeds}
+                onStartSession={async (config) => {
+                  // This could be enhanced to update constraints
+                  console.log('Session config:', config);
+                }}
+                isGenerating={isGenerating}
+              />
+            </TabsContent>
+
+            <TabsContent value="graph" className="space-y-6">
+              {session ? (
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                  {/* Graph Controls */}
+                  <div className="xl:col-span-1">
+                    <GraphControls
+                      effects={effects}
+                      onEffectsChange={() => {}} // Handle filtered effects
+                      enableForceLayout={enableForceLayout}
+                      onForceLayoutChange={setEnableForceLayout}
+                      showMinimap={showMinimap}
+                      onMinimapToggle={setShowMinimap}
+                      onExportGraph={() => console.log('Export graph')}
+                      onResetLayout={() => console.log('Reset layout')}
+                      onZoomIn={() => console.log('Zoom in')}
+                      onZoomOut={() => console.log('Zoom out')}
+                      onFitView={() => console.log('Fit view')}
+                    />
+                  </div>
+
+                  {/* Graph Visualization */}
+                  <div className="xl:col-span-3">
+                    <Card className="h-[600px]">
+                      <CardHeader>
+                        <CardTitle className="flex items-center justify-between">
+                          <span className="flex items-center gap-2">
+                            <Network className="h-5 w-5" />
+                            Interactive Effect Graph
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline">
+                              {effects.length} effects
+                            </Badge>
+                            <Button 
+                              onClick={() => setUIState(prev => ({...prev, activeTab: 'synthesis'}))} 
+                              size="sm" 
+                              variant="outline"
+                            >
+                              View Details
+                            </Button>
+                          </div>
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="h-full">
+                        <SCLGraph
+                          effects={effects}
+                          onNodeClick={(node) => {
+                            setSelectedNode(node);
+                            setShowNodeEditor(true);
+                          }}
+                          onNodeEdit={(nodeId, updatedEffect) => {
+                            console.log('Update effect:', nodeId, updatedEffect);
+                          }}
+                          onEdgeCreate={() => {}} // Handle edge creation
+                          interactive={true}
+                          showMinimap={showMinimap}
+                          enableForceLayout={enableForceLayout}
+                          className="h-full"
+                        />
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              ) : (
+                <Card>
+                  <CardContent className="flex flex-col items-center justify-center py-12">
+                    <Network className="h-16 w-16 text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-medium text-foreground mb-2">No Active Session</h3>
+                    <p className="text-muted-foreground text-center mb-4">
+                      Start an analysis session to visualize effect relationships
+                    </p>
+                    <Button onClick={() => setUIState(prev => ({...prev, activeTab: 'inputs'}))}>
+                      Configure Session
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
+
+            <TabsContent value="synthesis" className="space-y-6">
+              <SCLSynthesis session={session} />
+            </TabsContent>
+
+            <TabsContent value="rubric" className="space-y-6">
+              <SCLRubric session={session} />
+            </TabsContent>
+          </Tabs>
+        )}
+      </div>
+
+      {/* Node Editor Modal */}
+      {showNodeEditor && selectedNode && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <NodeEditor
+            node={selectedNode}
+            onSave={(nodeId, updatedEffect) => {
+              console.log('Save effect:', nodeId, updatedEffect);
+              setShowNodeEditor(false);
+              setSelectedNode(null);
+            }}
+            onClose={() => {
+              setShowNodeEditor(false);
+              setSelectedNode(null);
+            }}
+            onDelete={(nodeId) => {
+              console.log('Delete effect:', nodeId);
+              setShowNodeEditor(false);
+              setSelectedNode(null);
+            }}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default SCLSession;

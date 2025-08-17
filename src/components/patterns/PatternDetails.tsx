@@ -11,6 +11,7 @@ import { PatternDemoSVG } from '../interactive-demos';
 import { EnlightenMeButton } from '@/components/enlighten/EnlightenMeButton';
 import AutoGenPatternVisualizer from '../visualization/AutoGenPatternVisualizer';
 import LivePatternRunner from './LivePatternRunner';
+import { pageSEOConfigs } from '@/components/seo/SEO';
 import { reactAgentExecutionSteps } from '@/lib/data/execution/reactAgentExecutionSteps';
 import { agenticRAGExecutionSteps } from '@/lib/data/execution/agenticRAGExecutionSteps';
 import { selfReflectionExecutionSteps } from '@/lib/data/execution/selfReflectionExecutionSteps';
@@ -36,20 +37,30 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
   const enlightenMePrompt = pattern.businessUseCase?.enlightenMePrompt ||
     `Explain the ${pattern.name} agent pattern in comprehensive detail. Cover its core concept, architecture, implementation, real-world use cases, and evaluation strategies.`;
 
+  // Get the Agent Patterns context description for proper Ask AI context
+  const agentPatternsContext = pageSEOConfigs['/patterns']?.description || 
+    'Comprehensive collection of proven AI agent design patterns with detailed implementation guides, architectural templates, and best practices for building robust, scalable agent systems.';
+
   return (
-    <Card className="mb-6 border-primary/20 relative">
-      <EnlightenMeButton
-        title={`${pattern.name} Pattern`}
-        contextDescription={pattern.description}
-      />
+    <Card className="mb-6 border-primary/20">
       <CardHeader className="bg-muted/30">
-        <CardTitle className="flex items-center gap-2">
-          <Info size={24} className="text-primary" />
-          {pattern.name}
-        </CardTitle>
-        <CardDescription>
-          {pattern.description}
-        </CardDescription>
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <CardTitle className="flex items-center gap-2">
+              <Info size={24} className="text-primary" />
+              {pattern.name}
+            </CardTitle>
+            <CardDescription>
+              {pattern.description}
+            </CardDescription>
+          </div>
+          <div className="flex-shrink-0 ml-4">
+            <EnlightenMeButton
+              title={`${pattern.name} Pattern`}
+              contextDescription={`${pattern.description}. ${agentPatternsContext}`}
+            />
+          </div>
+        </div>
       </CardHeader>
       <CardContent className="pt-6">
         <Tabs defaultValue={hasBusinessUseCase ? "business-use-case" : "details"} className="w-full">

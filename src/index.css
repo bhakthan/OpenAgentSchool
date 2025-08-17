@@ -145,35 +145,99 @@
   --border: oklch(0.9 0.02 240); /* lighter border */
   --input: oklch(0.9 0.02 240);
   --ring: oklch(0.60 0.15 180); /* #10a37f - same as primary */
+
+  /* Landing Hero theme colors */
+  --gradient-from: #3B82F6; /* blue-500 */
+  --gradient-via: #A855F7; /* purple-500 */
+  --gradient-to: #6366F1; /* indigo-500 */
+  
+  --feature-card-bg: #EFF6FF; /* blue-50 */
+  --feature-card-border: #DBEAFE; /* blue-200 */
+  --feature-card-text: #1E3A8A; /* blue-900 */
+  --feature-card-muted: #3730A3; /* blue-700 */
+  --feature-icon-bg: #DBEAFE; /* blue-100 */
+  --feature-icon-color: #2563EB; /* blue-600 */
+  
+  --learning-step-red-bg: #FEF2F2; /* red-50 */
+  --learning-step-red-text: #7F1D1D; /* red-900 */
+  --learning-step-red-icon-bg: #FEE2E2; /* red-100 */
+  --learning-step-red-icon: #DC2626; /* red-600 */
+  
+  --learning-step-orange-bg: #FFF7ED; /* orange-50 */
+  --learning-step-orange-text: #9A3412; /* orange-900 */
+  --learning-step-orange-icon-bg: #FED7AA; /* orange-100 */
+  --learning-step-orange-icon: #EA580C; /* orange-600 */
+  
+  --learning-step-green-bg: #F0FDF4; /* green-50 */
+  --learning-step-green-text: #14532D; /* green-900 */
+  --learning-step-green-icon-bg: #DCFCE7; /* green-100 */
+  --learning-step-green-icon: #16A34A; /* green-600 */
+  
+  --level-foundation: #FFB900;
+  --level-growth: #00A4EF;
+  --level-advanced: #7FBA00;
+  --level-mastery: #F25022;
 }
 
 /* Dark Mode */
 .dark {
   /* Base colors */
-  --background: oklch(0.15 0.02 240);
-  --foreground: oklch(0.95 0.02 240); /* lighter text for better readability */
+  --background: oklch(0.11 0.02 240); /* #1a1d23 */
+  --foreground: oklch(0.9 0.02 240); /* #d1d5db */
 
-  --card: oklch(0.2 0.02 240);
-  --card-foreground: oklch(0.95 0.02 240);
-  --popover: oklch(0.2 0.02 240);
-  --popover-foreground: oklch(0.95 0.02 240);
+  --card: oklch(0.13 0.02 240); /* #1f2937 */
+  --card-foreground: oklch(0.9 0.02 240); /* #d1d5db */
+  --popover: oklch(0.13 0.02 240); /* #1f2937 */
+  --popover-foreground: oklch(0.9 0.02 240); /* #d1d5db */
 
   /* Action colors */
-  --primary: oklch(0.65 0.15 180); /* #10a37f - slightly brighter in dark mode */
-  --primary-foreground: oklch(0.1 0.02 240);
-  --secondary: oklch(0.25 0.02 240);
-  --secondary-foreground: oklch(0.95 0.02 240);
-  --accent: oklch(0.65 0.15 180); /* same as primary */
-  --accent-foreground: oklch(0.1 0.02 240);
-  --destructive: oklch(0.7 0.3 25);
-  --destructive-foreground: oklch(0.1 0.02 240);
+  --primary: oklch(0.70 0.15 180); /* brighter OpenAI green for dark mode */
+  --primary-foreground: oklch(0.11 0.02 240); /* dark background */
+  --secondary: oklch(0.2 0.02 240); /* #374151 */
+  --secondary-foreground: oklch(0.9 0.02 240); /* #d1d5db */
+  --accent: oklch(0.70 0.15 180); /* same as primary */
+  --accent-foreground: oklch(0.11 0.02 240); /* dark background */
+  --destructive: oklch(0.75 0.3 25); /* brighter red for dark mode */
+  --destructive-foreground: oklch(0.9 0.02 240); /* light foreground */
 
   /* Supporting UI colors */
-  --muted: oklch(0.25 0.02 240);
-  --muted-foreground: oklch(0.7 0.02 240);
-  --border: oklch(0.3 0.02 240);
-  --input: oklch(0.3 0.02 240);
-  --ring: oklch(0.65 0.15 180); /* same as primary */
+  --muted: oklch(0.2 0.02 240); /* #374151 */
+  --muted-foreground: oklch(0.6 0.02 240); /* #9ca3af */
+  --border: oklch(0.25 0.02 240); /* #4b5563 */
+  --input: oklch(0.25 0.02 240);
+  --ring: oklch(0.70 0.15 180); /* same as primary */
+
+  /* Landing Hero theme colors */
+  --gradient-from: #60A5FA; /* blue-400 */
+  --gradient-via: #C084FC; /* purple-400 */
+  --gradient-to: #818CF8; /* indigo-400 */
+  
+  --feature-card-bg: #1E3A8A; /* blue-900 */
+  --feature-card-border: #1E40AF; /* blue-800 */
+  --feature-card-text: #DBEAFE; /* blue-200 */
+  --feature-card-muted: #93C5FD; /* blue-300 */
+  --feature-icon-bg: #1E40AF; /* blue-800 */
+  --feature-icon-color: #60A5FA; /* blue-400 */
+  
+  --learning-step-red-bg: #7F1D1D; /* red-900 */
+  --learning-step-red-text: #FEE2E2; /* red-100 */
+  --learning-step-red-icon-bg: #991B1B; /* red-800 */
+  --learning-step-red-icon: #F87171; /* red-400 */
+  
+  --learning-step-orange-bg: #9A3412; /* orange-900 */
+  --learning-step-orange-text: #FED7AA; /* orange-100 */
+  --learning-step-orange-icon-bg: #C2410C; /* orange-800 */
+  --learning-step-orange-icon: #FB923C; /* orange-400 */
+  
+  --learning-step-green-bg: #14532D; /* green-900 */
+  --learning-step-green-text: #DCFCE7; /* green-100 */
+  --learning-step-green-icon-bg: #166534; /* green-800 */
+  --learning-step-green-icon: #4ADE80; /* green-400 */
+  
+  --level-foundation: #FFD700;
+  --level-growth: #40A9FF;
+  --level-advanced: #95D600;
+  --level-mastery: #FF6B47;
 }
 
 /* Border radius */
@@ -306,4 +370,58 @@ code, pre {
   will-change: auto;
   contain: layout;
   overflow-anchor: none;
+}
+
+/* Theme-aware gradient utilities */
+.theme-gradient {
+  background: linear-gradient(
+    135deg, 
+    var(--gradient-from) 0%, 
+    var(--gradient-via) 50%, 
+    var(--gradient-to) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.theme-feature-card {
+  background-color: var(--feature-card-bg);
+  border-color: var(--feature-card-border);
+  color: var(--feature-card-text);
+}
+
+.theme-feature-icon {
+  background-color: var(--feature-icon-bg);
+  color: var(--feature-icon-color);
+}
+
+.theme-learning-red {
+  background-color: var(--learning-step-red-bg);
+  color: var(--learning-step-red-text);
+}
+
+.theme-learning-orange {
+  background-color: var(--learning-step-orange-bg);
+  color: var(--learning-step-orange-text);
+}
+
+.theme-learning-green {
+  background-color: var(--learning-step-green-bg);
+  color: var(--learning-step-green-text);
+}
+
+.theme-learning-icon-red {
+  background-color: var(--learning-step-red-icon-bg);
+  color: var(--learning-step-red-icon);
+}
+
+.theme-learning-icon-orange {
+  background-color: var(--learning-step-orange-icon-bg);
+  color: var(--learning-step-orange-icon);
+}
+
+.theme-learning-icon-green {
+  background-color: var(--learning-step-green-icon-bg);
+  color: var(--learning-step-green-icon);
 }

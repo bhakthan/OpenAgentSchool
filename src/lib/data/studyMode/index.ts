@@ -28,6 +28,14 @@ export const studyModeCategories: StudyModeCategory[] = [
     icon: 'Bug',
     questions: Object.values(debugChallengeLibrary).flat(),
     prerequisites: ['interactive-scenarios']
+  },
+  {
+    id: 'super-critical-learning',
+    name: 'Super Critical Learning',
+    description: 'Explore second and third-order effects in complex agentic systems',
+    icon: 'Brain',
+    questions: [], // SCL doesn't use traditional questions, but effect-based exploration
+    prerequisites: ['debug-challenges']
   }
 ];
 
@@ -124,14 +132,16 @@ export function calculateStudyModeProgress(sessions: StudyModeSession[]): StudyM
     socratic: 0,
     scenario: 0,
     debug: 0,
-    guided: 0
+    guided: 0,
+    scl: 0
   };
   
   const typeCounts: Record<StudyModeType, { total: number; completed: number }> = {
     socratic: { total: 0, completed: 0 },
     scenario: { total: 0, completed: 0 },
     debug: { total: 0, completed: 0 },
-    guided: { total: 0, completed: 0 }
+    guided: { total: 0, completed: 0 },
+    scl: { total: 0, completed: 0 }
   };
   
   sessions.forEach(session => {
@@ -203,8 +213,8 @@ export function getRecommendedNextQuestion(
   
   if (remainingQuestions.length === 0) return null;
   
-  // Recommend questions in order: socratic -> scenario -> debug
-  const typeOrder: StudyModeType[] = ['socratic', 'scenario', 'debug', 'guided'];
+  // Recommend questions in order: socratic -> scenario -> debug -> guided -> scl
+  const typeOrder: StudyModeType[] = ['socratic', 'scenario', 'debug', 'guided', 'scl'];
   
   for (const type of typeOrder) {
     const questionsOfType = remainingQuestions.filter(q => q.type === type);

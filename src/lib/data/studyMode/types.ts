@@ -1,5 +1,5 @@
 // Study Mode types and interfaces
-export type StudyModeType = 'socratic' | 'scenario' | 'debug' | 'guided';
+export type StudyModeType = 'socratic' | 'scenario' | 'debug' | 'guided' | 'scl';
 
 export type StudyModeLevel = 'beginner' | 'intermediate' | 'advanced';
 

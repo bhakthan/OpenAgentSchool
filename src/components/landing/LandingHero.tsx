@@ -54,7 +54,7 @@ export const LandingHero: React.FC = () => {
   return (
     <div className="relative overflow-hidden bg-gradient-to-br from-background via-background to-muted">
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16 lg:py-24">
+      <div className="container mx-auto px-4 py-8 lg:py-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Content */}
           <div className="space-y-8">
@@ -66,7 +66,7 @@ export const LandingHero: React.FC = () => {
               <div className="space-y-6">
                 {/* Core Messaging */}
                 <div className="text-center lg:text-left">
-                  <h2 className="text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                  <h2 className="text-4xl lg:text-5xl font-bold mb-4 theme-gradient">
                     Agentic Learning for Everyone
                   </h2>
                   <p className="text-xl text-muted-foreground leading-relaxed">
@@ -76,16 +76,16 @@ export const LandingHero: React.FC = () => {
                 </div>
                 
                 {/* AI as Customer Value Prop */}
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+                <div className="theme-feature-card rounded-lg p-4 border">
                   <div className="flex items-start gap-3">
-                    <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/50">
-                      <ChatCircleDots className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    <div className="theme-feature-icon p-2 rounded-lg">
+                      <ChatCircleDots className="h-5 w-5" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-1">
+                      <h4 className="font-semibold mb-1">
                         🎯 Revolutionary Learning: AI as Your Customer
                       </h4>
-                      <p className="text-sm text-blue-700 dark:text-blue-300">
+                      <p className="text-sm">
                         <strong>Can you explain it well enough to satisfy AI?</strong> Our "Ask AI" feature doesn't just help you learn—it <em>challenges</em> you to prove your understanding. Think of AI as your most demanding stakeholder who won't accept vague answers.
                       </p>
                     </div>
@@ -109,25 +109,25 @@ export const LandingHero: React.FC = () => {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8">
               <Card className="group hover:shadow-md transition-all cursor-pointer" onClick={() => handleLevelClick('foundation')}>
                 <CardContent className="p-4 text-center">
-                  <div className="w-8 h-2 bg-[#FFB900] rounded-full mx-auto mb-2"></div>
+                  <div className="w-8 h-2 rounded-full mx-auto mb-2" style={{ backgroundColor: 'var(--level-foundation)' }}></div>
                   <div className="text-xs font-medium text-muted-foreground">Foundation</div>
                 </CardContent>
               </Card>
               <Card className="group hover:shadow-md transition-all cursor-pointer" onClick={() => handleLevelClick('growth')}>
                 <CardContent className="p-4 text-center">
-                  <div className="w-8 h-2 bg-[#00A4EF] rounded-full mx-auto mb-2"></div>
+                  <div className="w-8 h-2 rounded-full mx-auto mb-2" style={{ backgroundColor: 'var(--level-growth)' }}></div>
                   <div className="text-xs font-medium text-muted-foreground">Growth</div>
                 </CardContent>
               </Card>
               <Card className="group hover:shadow-md transition-all cursor-pointer" onClick={() => handleLevelClick('advanced')}>
                 <CardContent className="p-4 text-center">
-                  <div className="w-8 h-2 bg-[#7FBA00] rounded-full mx-auto mb-2"></div>
+                  <div className="w-8 h-2 rounded-full mx-auto mb-2" style={{ backgroundColor: 'var(--level-advanced)' }}></div>
                   <div className="text-xs font-medium text-muted-foreground">Advanced</div>
                 </CardContent>
               </Card>
               <Card className="group hover:shadow-md transition-all cursor-pointer" onClick={() => handleLevelClick('mastery')}>
                 <CardContent className="p-4 text-center">
-                  <div className="w-8 h-2 bg-[#F25022] rounded-full mx-auto mb-2"></div>
+                  <div className="w-8 h-2 rounded-full mx-auto mb-2" style={{ backgroundColor: 'var(--level-mastery)' }}></div>
                   <div className="text-xs font-medium text-muted-foreground">Mastery</div>
                 </CardContent>
               </Card>
@@ -137,18 +137,18 @@ export const LandingHero: React.FC = () => {
           {/* Right Column - Feature Highlights */}
           <div className="space-y-6">
             {/* AI as Customer Feature */}
-            <Card className="group hover:shadow-lg transition-all duration-300 border-2 border-blue-200 dark:border-blue-800 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30">
+            <Card className="group hover:shadow-lg transition-all duration-300 border-2 theme-feature-card">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-blue-100 dark:bg-blue-900/50">
-                    <Brain className="h-7 w-7 text-blue-600 dark:text-blue-400" />
+                  <div className="theme-feature-icon p-3 rounded-lg">
+                    <Brain className="h-7 w-7" />
                   </div>
                   <div>
-                    <h3 className="font-bold mb-2 text-blue-900 dark:text-blue-100">AI as Your Learning Customer</h3>
-                    <p className="text-sm text-blue-700 dark:text-blue-300 mb-3">
+                    <h3 className="font-bold mb-2">AI as Your Learning Customer</h3>
+                    <p className="text-sm mb-3">
                       <strong>Your toughest customer is now your AI teacher.</strong> Explain concepts clearly enough to satisfy our demanding AI—it won't accept "I think I know" as an answer.
                     </p>
-                    <div className="flex items-center gap-2 text-xs text-blue-600 dark:text-blue-400 font-medium">
+                    <div className="flex items-center gap-2 text-xs font-medium">
                       <Lightning className="h-3 w-3" />
                       <span>Real-time knowledge validation</span>
                     </div>
@@ -160,8 +160,8 @@ export const LandingHero: React.FC = () => {
             <Card className="group hover:shadow-lg transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-lg bg-[#00A4EF]/10">
-                    <GraduationCap className="h-6 w-6 text-[#00A4EF]" />
+                  <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--level-growth)', opacity: 0.1 }}>
+                    <GraduationCap className="h-6 w-6" style={{ color: 'var(--level-growth)' }} />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">Progressive Learning</h3>
@@ -176,8 +176,8 @@ export const LandingHero: React.FC = () => {
             <Card className="group hover:shadow-lg transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-lg bg-[#7FBA00]/10">
-                    <Lightbulb className="h-6 w-6 text-[#7FBA00]" />
+                  <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--level-advanced)', opacity: 0.1 }}>
+                    <Lightbulb className="h-6 w-6" style={{ color: 'var(--level-advanced)' }} />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">Interactive Concepts</h3>
@@ -192,8 +192,8 @@ export const LandingHero: React.FC = () => {
             <Card className="group hover:shadow-lg transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-lg bg-[#F25022]/10">
-                    <Target className="h-6 w-6 text-[#F25022]" />
+                  <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--level-mastery)', opacity: 0.1 }}>
+                    <Target className="h-6 w-6" style={{ color: 'var(--level-mastery)' }} />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">Real-World Applications</h3>
@@ -208,8 +208,8 @@ export const LandingHero: React.FC = () => {
             <Card className="group hover:shadow-lg transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-lg bg-[#FFB900]/10">
-                    <Users className="h-6 w-6 text-[#FFB900]" />
+                  <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--level-foundation)', opacity: 0.1 }}>
+                    <Users className="h-6 w-6" style={{ color: 'var(--level-foundation)' }} />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">Community Learning</h3>
@@ -228,7 +228,7 @@ export const LandingHero: React.FC = () => {
       <div className="container mx-auto px-4 py-12 border-t border-border">
         <div className="text-center mb-10">
           <div className="inline-block bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-full px-6 py-2 mb-4">
-            <span className="text-sm font-semibold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="text-sm font-semibold theme-gradient">
               ✨ AGENTIC LEARNING FOR EVERYONE ✨
             </span>
           </div>
@@ -241,10 +241,10 @@ export const LandingHero: React.FC = () => {
         <div className="grid md:grid-cols-3 gap-8">
           <Card className="text-center">
             <CardContent className="p-6">
-              <div className="p-3 rounded-full bg-red-100 dark:bg-red-900/30 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <ChatCircleDots className="h-8 w-8 text-red-600 dark:text-red-400" />
+              <div className="theme-learning-icon-red p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <ChatCircleDots className="h-8 w-8" />
               </div>
-              <h3 className="font-semibold mb-3 text-red-900 dark:text-red-100">Step 1: AI Challenges You</h3>
+              <h3 className="font-semibold mb-3 theme-learning-red">Step 1: AI Challenges You</h3>
               <p className="text-sm text-muted-foreground">
                 Click "Ask AI" and face intelligent questioning. AI acts like a skeptical customer who demands clear, precise explanations.
               </p>
@@ -253,10 +253,10 @@ export const LandingHero: React.FC = () => {
           
           <Card className="text-center">
             <CardContent className="p-6">
-              <div className="p-3 rounded-full bg-orange-100 dark:bg-orange-900/30 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <Brain className="h-8 w-8 text-orange-600 dark:text-orange-400" />
+              <div className="theme-learning-icon-orange p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <Brain className="h-8 w-8" />
               </div>
-              <h3 className="font-semibold mb-3 text-orange-900 dark:text-orange-100">Step 2: Prove Your Understanding</h3>
+              <h3 className="font-semibold mb-3 theme-learning-orange">Step 2: Prove Your Understanding</h3>
               <p className="text-sm text-muted-foreground">
                 Explain concepts in your own words. The AI validates your knowledge and identifies gaps, just like presenting to a demanding client.
               </p>
@@ -265,10 +265,10 @@ export const LandingHero: React.FC = () => {
           
           <Card className="text-center">
             <CardContent className="p-6">
-              <div className="p-3 rounded-full bg-green-100 dark:bg-green-900/30 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <Target className="h-8 w-8 text-green-600 dark:text-green-400" />
+              <div className="theme-learning-icon-green p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <Target className="h-8 w-8" />
               </div>
-              <h3 className="font-semibold mb-3 text-green-900 dark:text-green-100">Step 3: Master Through Teaching</h3>
+              <h3 className="font-semibold mb-3 theme-learning-green">Step 3: Master Through Teaching</h3>
               <p className="text-sm text-muted-foreground">
                 Achieve deep understanding by successfully explaining concepts to your AI "customer." True mastery comes from teaching others.
               </p>
@@ -277,11 +277,11 @@ export const LandingHero: React.FC = () => {
         </div>
         
         <div className="text-center mt-10">
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
-            <h4 className="font-bold text-lg mb-2 text-blue-900 dark:text-blue-100">
+          <div className="theme-feature-card rounded-xl p-6 border">
+            <h4 className="font-bold text-lg mb-2">
               💡 Why This Works: The Customer Validation Method
             </h4>
-            <p className="text-blue-700 dark:text-blue-300 max-w-2xl mx-auto">
+            <p className="max-w-2xl mx-auto">
               In business, you must explain complex concepts to customers, stakeholders, and executives who won't accept vague answers. 
               Our AI simulates this demanding environment, preparing you for real-world scenarios where clarity and precision matter.
             </p>
@@ -290,7 +290,7 @@ export const LandingHero: React.FC = () => {
       </div>
 
       {/* Background Elements */}
-      <div className="absolute top-0 right-0 -z-10 opacity-5">
+      <div className="absolute top-0 right-0 -z-10 opacity-10">
         <svg width="400" height="400" viewBox="0 0 400 400">
           <defs>
             <pattern id="ladder-pattern" x="0" y="0" width="40" height="48" patternUnits="userSpaceOnUse">

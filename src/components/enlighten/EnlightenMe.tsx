@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { ChatCircleDots, SpinnerGap, Copy, Check } from '@phosphor-icons/react';
+import { ChatCircleDots, SpinnerGap, Copy, Check, CaretDown, CaretUp } from '@phosphor-icons/react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -44,6 +44,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [llmProvider, setLlmProvider] = useState<LlmProvider>('openrouter');
+  const [isPromptExpanded, setIsPromptExpanded] = useState(false);
   
   // State for tracking copied code blocks
   const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({});
@@ -157,12 +158,13 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
     setSubmitted(false);
     setResponse('');
     setPrompt(safeDefaultPrompt);
+    setIsPromptExpanded(false);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-4xl max-w-[90vw] max-h-[85vh] min-h-[70vh] flex flex-col">
-        <DialogHeader>
+      <DialogContent className="sm:max-w-4xl max-w-[90vw] max-h-[90vh] flex flex-col">
+        <DialogHeader className="flex-shrink-0">
           <DialogTitle className="flex items-center gap-2">
             <ChatCircleDots className="text-primary" size={20} />
             Ask AI: {safeTitle}
@@ -174,13 +176,15 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
         
         {!submitted ? (
           <>
-            <Textarea 
-              className="min-h-[150px] text-sm" 
-              value={prompt} 
-              onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Edit your prompt here..."
-            />
-            <DialogFooter className="flex justify-between items-center">
+            <div className="flex-1 flex flex-col min-h-0">
+              <Textarea 
+                className="min-h-[150px] text-sm flex-shrink-0" 
+                value={prompt} 
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder="Edit your prompt here..."
+              />
+            </div>
+            <DialogFooter className="flex justify-between items-center flex-shrink-0">
               <Select value={llmProvider} onValueChange={(value) => setLlmProvider(value as LlmProvider)}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select a provider" />
@@ -194,7 +198,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                   <SelectItem value="openrouter">OpenRouter</SelectItem>
                 </SelectContent>
               </Select>
-              <div>
+              <div className="flex gap-2">
                 <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
                 <Button onClick={handleSubmit}>Get Insights</Button>
               </div>
@@ -202,30 +206,62 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
           </>
         ) : (
           <>
-            <div className="border rounded-md bg-muted/30 p-4">
-              <p className="text-sm font-medium mb-2">Your prompt:</p>
-              <p className="text-sm text-muted-foreground">{prompt}</p>
+            {/* Collapsible Prompt Section */}
+            <div className="border rounded-md bg-muted/30 flex-shrink-0">
+              <button
+                onClick={() => setIsPromptExpanded(!isPromptExpanded)}
+                className="w-full p-4 flex items-center justify-between text-left hover:bg-muted/50 transition-colors"
+              >
+                <div className="flex-1">
+                  <p className="text-sm font-medium mb-1">Your prompt:</p>
+                  {!isPromptExpanded && (
+                    <p className="text-sm text-muted-foreground truncate pr-4">
+                      {prompt.length > 100 ? `${prompt.substring(0, 100)}...` : prompt}
+                    </p>
+                  )}
+                </div>
+                {isPromptExpanded ? (
+                  <CaretUp size={20} className="text-muted-foreground flex-shrink-0" />
+                ) : (
+                  <CaretDown size={20} className="text-muted-foreground flex-shrink-0" />
+                )}
+              </button>
+              {isPromptExpanded && (
+                <div className="px-4 pb-4 border-t border-border/50">
+                  <ScrollArea className="max-h-[200px] mt-2">
+                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                      {prompt}
+                    </p>
+                  </ScrollArea>
+                </div>
+              )}
             </div>
-            <div className="border rounded-md p-4 min-h-[400px] max-h-[800px] flex flex-col relative">
+
+            {/* Response Section - Now takes more space */}
+            <div className="border rounded-md flex-1 flex flex-col min-h-0 overflow-hidden">
               {isLoading ? (
                 <div className="flex items-center justify-center h-[200px]">
                   <SpinnerGap size={24} className="animate-spin text-primary" />
                   <span className="ml-2">Generating insights...</span>
                 </div>
               ) : (
-                <ScrollArea className="max-h-[60vh] overflow-y-auto">
-                  <div className="prose prose-sm dark:prose-invert max-w-none pr-4">
-                    <ReactMarkdown
-                      components={markdownComponents}
-                      remarkPlugins={[remarkGfm]}
-                    >
-                      {response}
-                    </ReactMarkdown>
-                  </div>
-                </ScrollArea>
+                <div className="flex-1 overflow-hidden">
+                  <ScrollArea className="h-full max-h-[calc(90vh-300px)]">
+                    <div className="p-4">
+                      <div className="prose prose-sm dark:prose-invert max-w-none">
+                        <ReactMarkdown
+                          components={markdownComponents}
+                          remarkPlugins={[remarkGfm]}
+                        >
+                          {response}
+                        </ReactMarkdown>
+                      </div>
+                    </div>
+                  </ScrollArea>
+                </div>
               )}
             </div>
-            <DialogFooter className="flex items-center justify-between flex-row mt-2">
+            <DialogFooter className="flex items-center justify-between flex-row mt-2 flex-shrink-0">
               <Button variant="ghost" onClick={handleReset}>
                 Ask Something Else
               </Button>

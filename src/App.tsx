@@ -38,6 +38,7 @@ const ReferencesSection = lazy(() => import('./components/references/ReferencesS
 const DeepDiveTaxonomyPage = lazy(() => import('./components/pages/DeepDiveTaxonomyPage'));
 const CommunitySharing = lazy(() => import('./components/community/CommunitySharing'));
 const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'));
+const SCLDemo = lazy(() => import('./components/SuperCriticalLearning/SCLDemo'));
 
 // Loading component for lazy-loaded routes
 const LoadingSpinner = () => (
@@ -317,6 +318,7 @@ function App() {
                   <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
                   <Route path="/quiz/:quizId?" element={<QuizSection />} />
                   <Route path="/tree-view" element={<TreeVisualizationPage />} />
+                  <Route path="/scl-demo" element={<SCLDemo />} />
                   <Route path="/references" element={<ReferencesSection />} />
                   <Route path="/deep-dive-taxonomy" element={<DeepDiveTaxonomyPage />} />
                   <Route path="/community" element={<CommunitySharing />} />

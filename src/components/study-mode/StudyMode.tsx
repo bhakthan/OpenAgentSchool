@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import SocraticQuestionMode from './SocraticQuestionMode.tsx';
 import InteractiveScenarioMode from './InteractiveScenarioMode.tsx';
 import DebugChallengeMode from './DebugChallengeMode.tsx';
+import { SuperCriticalLearning } from '../study/supercritical/SuperCriticalLearning';
 
 // Import Study Mode data
 import {
@@ -62,6 +63,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       case 'scenario': return <PuzzlePiece size={20} />;
       case 'debug': return <Bug size={20} />;
       case 'guided': return <Lightbulb size={20} />;
+      case 'scl': return <TrendUp size={20} />;
       default: return <BookOpen size={20} />;
     }
   };
@@ -72,6 +74,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       case 'scenario': return 'bg-green-100 text-green-800 border-green-200';
       case 'debug': return 'bg-red-100 text-red-800 border-red-200';
       case 'guided': return 'bg-purple-100 text-purple-800 border-purple-200';
+      case 'scl': return 'bg-orange-100 text-orange-800 border-orange-200';
       default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
@@ -223,7 +226,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       </div>
 
       <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)}>
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="socratic" disabled={!hasUnlockedStudyModeType('socratic', sessions)}>
             Socratic
@@ -233,6 +236,9 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           </TabsTrigger>
           <TabsTrigger value="debug" disabled={!hasUnlockedStudyModeType('debug', sessions)}>
             Debug
+          </TabsTrigger>
+          <TabsTrigger value="scl" disabled={!hasUnlockedStudyModeType('scl', sessions)}>
+            SCL
           </TabsTrigger>
         </TabsList>
 
@@ -335,6 +341,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                   case 'socratic-thinking': return 'socratic';
                   case 'interactive-scenarios': return 'scenario';
                   case 'debug-challenges': return 'debug';
+                  case 'super-critical-learning': return 'scl';
                   default: return 'socratic';
                 }
               };
@@ -470,6 +477,14 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* Super Critical Learning Tab */}
+        <TabsContent value="scl" className="space-y-6">
+          <SuperCriticalLearning
+            concept={conceptId}
+            onBack={() => setActiveTab('overview')}
+          />
         </TabsContent>
       </Tabs>
     </div>

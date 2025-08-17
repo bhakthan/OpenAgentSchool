@@ -1,0 +1,182 @@
+/* SCL-specific theme enhancements */
+
+/* React Flow theming for SCL graphs */
+.react-flow {
+  background: hsl(var(--background));
+}
+
+.react-flow .react-flow__node {
+  font-family: inherit;
+}
+
+.react-flow .react-flow__edge-path {
+  stroke: hsl(var(--border));
+  stroke-width: 1.5px;
+}
+
+.react-flow .react-flow__edge.selected .react-flow__edge-path {
+  stroke: hsl(var(--primary));
+  stroke-width: 2px;
+}
+
+.react-flow .react-flow__controls {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+}
+
+.react-flow .react-flow__controls button {
+  background: hsl(var(--card));
+  border-bottom: 1px solid hsl(var(--border));
+  color: hsl(var(--card-foreground));
+  transition: all 0.2s ease;
+}
+
+.react-flow .react-flow__controls button:hover {
+  background: hsl(var(--muted));
+}
+
+.react-flow .react-flow__controls button:last-child {
+  border-bottom: none;
+}
+
+.react-flow .react-flow__minimap {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+}
+
+.react-flow .react-flow__attribution {
+  background: hsl(var(--muted) / 0.8);
+  color: hsl(var(--muted-foreground));
+  border-radius: var(--radius);
+}
+
+/* Enhanced node styling for better theme compatibility */
+.scl-node {
+  font-family: inherit;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px hsl(var(--shadow));
+}
+
+.scl-node:hover {
+  box-shadow: 0 4px 8px hsl(var(--shadow));
+  transform: translateY(-1px);
+}
+
+.scl-node.selected {
+  box-shadow: 0 0 0 2px hsl(var(--primary));
+}
+
+/* SCL-specific component styling */
+.scl-constraint-card {
+  background: hsl(var(--muted) / 0.1);
+  border: 1px solid hsl(var(--border));
+  transition: all 0.2s ease;
+}
+
+.scl-constraint-card:hover {
+  background: hsl(var(--muted) / 0.2);
+}
+
+.scl-perturbation-card {
+  transition: all 0.2s ease;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+}
+
+.scl-perturbation-card:hover {
+  background: hsl(var(--muted) / 0.1);
+}
+
+/* Enhanced progress indicators */
+.scl-progress-ring {
+  stroke: hsl(var(--primary));
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.scl-progress-bg {
+  stroke: hsl(var(--muted));
+  fill: none;
+  stroke-width: 2;
+}
+
+/* Theme-aware badges */
+.scl-badge-critical {
+  background: hsl(var(--destructive) / 0.1);
+  color: hsl(var(--destructive));
+  border: 1px solid hsl(var(--destructive) / 0.2);
+}
+
+.scl-badge-high {
+  background: hsl(var(--secondary) / 0.1);
+  color: hsl(var(--secondary-foreground));
+  border: 1px solid hsl(var(--secondary) / 0.2);
+}
+
+.scl-badge-medium {
+  background: hsl(var(--accent) / 0.1);
+  color: hsl(var(--accent-foreground));
+  border: 1px solid hsl(var(--accent) / 0.2);
+}
+
+.scl-badge-low {
+  background: hsl(var(--muted) / 0.1);
+  color: hsl(var(--muted-foreground));
+  border: 1px solid hsl(var(--muted) / 0.2);
+}
+
+/* Smooth transitions for theme switching */
+.scl-themed {
+  transition: 
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Dark mode specific enhancements */
+.dark .scl-node {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark .scl-node:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.dark .react-flow__edge-path {
+  stroke-opacity: 0.7;
+}
+
+.dark .react-flow__edge.selected .react-flow__edge-path {
+  stroke-opacity: 1;
+}
+
+/* Light mode specific enhancements */
+.light .scl-node {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.light .scl-node:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Animation for theme transitions */
+@media (prefers-reduced-motion: no-preference) {
+  .scl-themed {
+    animation: themeTransition 0.2s ease-in-out;
+  }
+}
+
+@keyframes themeTransition {
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 1;
+  }
+}

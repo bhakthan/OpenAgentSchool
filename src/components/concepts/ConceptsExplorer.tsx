@@ -67,7 +67,11 @@ export default function ConceptsExplorer() {
   return (
     <div className="space-y-0">
       {/* Landing Hero Section - Only show when no concept is selected */}
-      {!selectedConcept && <LandingHero />}
+      {!selectedConcept && (
+        <div className="-mt-6">
+          <LandingHero />
+        </div>
+      )}
       
       {/* Main Content Container */}
       <div className="max-w-7xl mx-auto space-y-8 relative px-4 py-8">
