@@ -109,7 +109,19 @@ export async function callOpenRouter(
     throw new Error('Invalid response from OpenRouter API');
   }
 
-  return data.choices[0].message.content;
+  const content = data.choices[0].message.content;
+  
+  // Debug logging for SCL
+  console.log('OpenRouter Request:', {
+    model: config.model,
+    temperature,
+    maxTokens,
+    responseFormat,
+    hasJsonMode: supportsJsonMode(config.model)
+  });
+  console.log('OpenRouter Response Content:', content);
+  
+  return content;
 }
 
 /**

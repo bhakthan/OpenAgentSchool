@@ -62,19 +62,44 @@ interface SynthesisResponse {
 export class SCLOrchestrator {
   private config: OpenRouterConfig;
 
-  constructor(apiKey: string, model: OpenRouterModel = 'anthropic/claude-3-sonnet') {
+  constructor(apiKey: string, model: OpenRouterModel = 'anthropic/claude-3-sonnet', baseUrl?: string) {
     this.config = createOpenRouterConfig(apiKey, model);
+    // Override base URL if provided (for OpenAI compatibility)
+    if (baseUrl) {
+      this.config.baseUrl = baseUrl;
+    }
   }
 
   /**
    * Alternative constructor using environment variables
+   * Will try OpenRouter first, then fall back to OpenAI
    */
   static fromEnvironment(): SCLOrchestrator {
-    const envConfig = getOpenRouterConfigFromEnv();
-    if (!envConfig) {
-      throw new Error('OpenRouter API key not found in environment variables. Set VITE_OPENROUTER_API_KEY or OPENROUTER_API_KEY');
+    // Try OpenRouter first
+    const openRouterConfig = getOpenRouterConfigFromEnv();
+    if (openRouterConfig) {
+      console.log('SCL using OpenRouter API');
+      return new SCLOrchestrator(openRouterConfig.apiKey, openRouterConfig.model as OpenRouterModel);
     }
-    return new SCLOrchestrator(envConfig.apiKey, envConfig.model as OpenRouterModel);
+
+    // Fall back to OpenAI configuration
+    const openAIKey = import.meta.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY;
+    const openAIModel = import.meta.env.VITE_OPENAI_MODEL || process.env.OPENAI_MODEL || 'gpt-4o';
+    
+    if (openAIKey) {
+      console.log('SCL using OpenAI API (via OpenRouter format)');
+      // Use OpenAI key but with OpenRouter-compatible configuration
+      const config = {
+        apiKey: openAIKey,
+        model: 'openai/' + openAIModel as OpenRouterModel,
+        baseUrl: 'https://api.openai.com/v1',
+        siteName: 'OpenAgentSchool',
+        appName: 'SCL-Analysis'
+      };
+      return new SCLOrchestrator(config.apiKey, config.model, config.baseUrl);
+    }
+
+    throw new Error('No API key found. Set VITE_OPENROUTER_API_KEY for OpenRouter or VITE_OPENAI_API_KEY for OpenAI');
   }
 
   /**
@@ -203,6 +228,8 @@ Consider these domains:
 - cost: Infrastructure, development, maintenance costs
 - perf: Latency, throughput, resource utilization
 
+IMPORTANT: Return ONLY valid JSON without any markdown formatting, code blocks, or additional text.
+
 Return valid JSON with this structure:
 {
   "effects": [
@@ -255,6 +282,8 @@ SECOND-ORDER: Effects that happen 1-3 months later as a result of first-order ef
 THIRD-ORDER: Effects that happen 3-12 months later as cascades stabilize
 
 Also identify LEAPS - discontinuous changes where small inputs cause qualitative shifts.
+
+IMPORTANT: Return ONLY valid JSON without any markdown formatting, code blocks, or additional text.
 
 Return valid JSON with this structure:
 {
@@ -320,6 +349,8 @@ Also identify any LEAPS where threshold effects cause qualitative changes in sys
     return `You are a strategic advisor synthesizing insights from a complex effect analysis.
 
 Given a complete effect graph with first, second, and third-order effects plus identified leaps, generate actionable synthesis.
+
+IMPORTANT: Return ONLY valid JSON without any markdown formatting, code blocks, or additional text.
 
 Return valid JSON with this structure:
 {
@@ -391,7 +422,8 @@ Generate a strategic synthesis with actionable recommendations, implementation p
   // Response parsing
   private parseEffectResponse(response: string): EffectGenerationResponse {
     try {
-      return JSON.parse(response);
+      const cleanedResponse = this.extractJsonFromResponse(response);
+      return JSON.parse(cleanedResponse);
     } catch (error) {
       throw new Error(`Failed to parse effect response: ${error.message}`);
     }
@@ -399,10 +431,37 @@ Generate a strategic synthesis with actionable recommendations, implementation p
 
   private parseSynthesisResponse(response: string): SCLSynthesis {
     try {
-      return JSON.parse(response);
+      const cleanedResponse = this.extractJsonFromResponse(response);
+      return JSON.parse(cleanedResponse);
     } catch (error) {
       throw new Error(`Failed to parse synthesis response: ${error.message}`);
     }
+  }
+
+  // Helper method to extract JSON from markdown code blocks or raw text
+  private extractJsonFromResponse(response: string): string {
+    console.log('Raw API Response:', response);
+    
+    // Remove any leading/trailing whitespace
+    const trimmed = response.trim();
+    
+    // Try to extract JSON from markdown code blocks
+    const jsonBlockMatch = trimmed.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/);
+    if (jsonBlockMatch) {
+      console.log('Found JSON in markdown block');
+      return jsonBlockMatch[1].trim();
+    }
+    
+    // Try to find JSON object in the response
+    const jsonMatch = trimmed.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      console.log('Found JSON object in response');
+      return jsonMatch[0].trim();
+    }
+    
+    console.log('No JSON found, returning original response');
+    // If no JSON found, return original response and let JSON.parse handle the error
+    return trimmed;
   }
 
   // Helper methods

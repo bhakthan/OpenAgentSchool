@@ -30,29 +30,8 @@ dist-ssr
 packages
 .file-manifest
 
-# md files
-CHATBOT_TO_AGENT_ANIMATION.md
-COPY_FUNCTIONALITY_SUMMARY.md
-implementation-plan.md
-SCL_SETUP_GUIDE.md
-SCL_THEME_FIXES.md
-future.md
-gemini.md
-BRANDING.md
-llmasjudge.md
-**/prd.md\"criticalthinking.md\"
-docs/AZURE_DEPLOYMENT.md
-docs/AGENT_PATTERN_TEMPLATE.md
-docs/AI_NATIVE_SKILS_REFERENCE.md
-docs/FEATURE_LIST.md
-
-# Backend migration planning files (temporary)
-backend-migration-plan.md
-BACKENDS_README.md
-MIGRATION_CHECKLIST.md
-STUDY_MODE_CONTENT_EXPANSION.md
-GITHUB_SECRETS_SETUP.md
-MIGRATION_START.md
+# Markdown documentation folder (project notes and drafts)
+markdown/
 setup-backends.sh
 setup-backends.ps1
 migrate-phase1.ps1
@@ -84,3 +63,6 @@ backend/test_*.py
 scripts/
 scripts/*.ps1
 scripts/*.md
+
+#docs
+docs/

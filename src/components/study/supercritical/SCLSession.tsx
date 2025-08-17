@@ -94,36 +94,78 @@ export function SCLSession({ initialSeeds, onClose }: SCLSessionProps) {
   }, [session]);
 
   const handleStartSession = useCallback(async () => {
-    if (!initialSeeds || isGenerating) return;
+    if (isGenerating) return;
 
     try {
-      const newSession = createSession(mode, objectives, initialSeeds);
-      
-      // Mock context summary - in real implementation, this would come from the knowledge base
-      const mockContextSummary = {
-        concepts: initialSeeds.conceptIds.map(id => ({
-          id,
-          title: `Concept: ${id}`,
-          keyMechanisms: ['mechanism1', 'mechanism2'],
-          dependencies: [],
-          guarantees: [],
-        })),
-        patterns: initialSeeds.patternIds.map(id => ({
-          id,
-          title: `Pattern: ${id}`,
-          components: ['component1', 'component2'],
-          tradeoffs: ['tradeoff1', 'tradeoff2'],
-          applicability: ['context1', 'context2'],
-        })),
-        practices: initialSeeds.practices.map(id => ({
-          id,
-          title: `Practice: ${id}`,
-          outcomes: ['outcome1', 'outcome2'],
-          prerequisites: [],
-          risks: [],
-        })),
+      // Provide default seeds if none are provided
+      const seeds = initialSeeds || {
+        conceptIds: ['agentic-systems'],
+        patternIds: ['orchestration-pattern'],
+        practices: ['iterative-testing']
       };
 
+      console.log('SCL Session starting with seeds:', seeds);
+      
+      const newSession = createSession(mode, objectives, seeds);
+      
+      // Create context summary with default examples if no specific seeds provided
+      const mockContextSummary = {
+        concepts: seeds.conceptIds.length > 0 
+          ? seeds.conceptIds.map(id => ({
+              id,
+              title: id === 'agentic-systems' ? 'Agentic AI Systems' : `Concept: ${id}`,
+              keyMechanisms: id === 'agentic-systems' 
+                ? ['autonomous decision making', 'goal-directed behavior', 'environmental sensing']
+                : ['mechanism1', 'mechanism2'],
+              dependencies: [],
+              guarantees: [],
+            }))
+          : [{
+              id: 'agentic-systems',
+              title: 'Agentic AI Systems',
+              keyMechanisms: ['autonomous decision making', 'goal-directed behavior', 'environmental sensing'],
+              dependencies: [],
+              guarantees: [],
+            }],
+        patterns: seeds.patternIds.length > 0
+          ? seeds.patternIds.map(id => ({
+              id,
+              title: id === 'orchestration-pattern' ? 'Agent Orchestration Pattern' : `Pattern: ${id}`,
+              components: id === 'orchestration-pattern'
+                ? ['coordination layer', 'task distribution', 'result aggregation']
+                : ['component1', 'component2'],
+              tradeoffs: id === 'orchestration-pattern'
+                ? ['complexity vs control', 'latency vs accuracy']
+                : ['tradeoff1', 'tradeoff2'],
+              applicability: ['multi-agent scenarios', 'complex workflows'],
+            }))
+          : [{
+              id: 'orchestration-pattern',
+              title: 'Agent Orchestration Pattern',
+              components: ['coordination layer', 'task distribution', 'result aggregation'],
+              tradeoffs: ['complexity vs control', 'latency vs accuracy'],
+              applicability: ['multi-agent scenarios', 'complex workflows'],
+            }],
+        practices: seeds.practices.length > 0
+          ? seeds.practices.map(id => ({
+              id,
+              title: id === 'iterative-testing' ? 'Iterative Agent Testing' : `Practice: ${id}`,
+              outcomes: id === 'iterative-testing'
+                ? ['improved reliability', 'faster debugging', 'better performance']
+                : ['outcome1', 'outcome2'],
+              prerequisites: [],
+              risks: [],
+            }))
+          : [{
+              id: 'iterative-testing',
+              title: 'Iterative Agent Testing',
+              outcomes: ['improved reliability', 'faster debugging', 'better performance'],
+              prerequisites: [],
+              risks: [],
+            }],
+      };
+
+      console.log('SCL Context Summary:', mockContextSummary);
       await generateEffects(newSession, mockContextSummary);
     } catch (error) {
       console.error('Failed to start SCL session:', error);
@@ -292,49 +334,58 @@ export function SCLSession({ initialSeeds, onClose }: SCLSessionProps) {
                 </div>
 
                 {/* Seeds Display */}
-                {initialSeeds && (
-                  <div className="space-y-3">
-                    <label className="text-sm font-medium">Analysis Seeds</label>
-                    <div className="grid gap-3">
-                      {initialSeeds.conceptIds.length > 0 && (
-                        <div>
-                          <span className="text-xs text-muted-foreground">Concepts:</span>
-                          <div className="flex flex-wrap gap-1 mt-1">
-                            {initialSeeds.conceptIds.map(id => (
-                              <Badge key={id} variant="outline">{id}</Badge>
-                            ))}
-                          </div>
+                <div className="space-y-3">
+                  <label className="text-sm font-medium">Analysis Seeds</label>
+                  <div className="grid gap-3">
+                    {((initialSeeds?.conceptIds?.length || 0) > 0 || !initialSeeds) && (
+                      <div>
+                        <span className="text-xs text-muted-foreground">Concepts:</span>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {(initialSeeds?.conceptIds || ['agentic-systems']).map(id => (
+                            <Badge key={id} variant="outline">
+                              {id === 'agentic-systems' ? 'Agentic AI Systems' : id}
+                            </Badge>
+                          ))}
                         </div>
-                      )}
-                      {initialSeeds.patternIds.length > 0 && (
-                        <div>
-                          <span className="text-xs text-muted-foreground">Patterns:</span>
-                          <div className="flex flex-wrap gap-1 mt-1">
-                            {initialSeeds.patternIds.map(id => (
-                              <Badge key={id} variant="outline">{id}</Badge>
-                            ))}
-                          </div>
+                      </div>
+                    )}
+                    {((initialSeeds?.patternIds?.length || 0) > 0 || !initialSeeds) && (
+                      <div>
+                        <span className="text-xs text-muted-foreground">Patterns:</span>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {(initialSeeds?.patternIds || ['orchestration-pattern']).map(id => (
+                            <Badge key={id} variant="outline">
+                              {id === 'orchestration-pattern' ? 'Agent Orchestration Pattern' : id}
+                            </Badge>
+                          ))}
                         </div>
-                      )}
-                      {initialSeeds.practices.length > 0 && (
-                        <div>
-                          <span className="text-xs text-muted-foreground">Practices:</span>
-                          <div className="flex flex-wrap gap-1 mt-1">
-                            {initialSeeds.practices.map(id => (
-                              <Badge key={id} variant="outline">{id}</Badge>
-                            ))}
-                          </div>
+                      </div>
+                    )}
+                    {((initialSeeds?.practices?.length || 0) > 0 || !initialSeeds) && (
+                      <div>
+                        <span className="text-xs text-muted-foreground">Practices:</span>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {(initialSeeds?.practices || ['iterative-testing']).map(id => (
+                            <Badge key={id} variant="outline">
+                              {id === 'iterative-testing' ? 'Iterative Agent Testing' : id}
+                            </Badge>
+                          ))}
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
-                )}
+                  {!initialSeeds && (
+                    <p className="text-xs text-muted-foreground">
+                      Using default seeds for agentic systems exploration
+                    </p>
+                  )}
+                </div>
 
                 {/* Start Button */}
                 <div className="flex justify-center pt-4">
                   <Button 
                     onClick={handleStartSession} 
-                    disabled={isGenerating || !initialSeeds}
+                    disabled={isGenerating}
                     size="lg"
                     className="min-w-48"
                   >
