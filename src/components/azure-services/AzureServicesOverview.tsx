@@ -191,19 +191,25 @@ const AzureServicesOverview = () => {
       {viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredServices.map((service) => (
-            <Card key={service.id} className="overflow-hidden h-full flex flex-col relative">
-              <EnlightenMeButton 
-                title={service.name}
-                contextDescription={service.description}
-              />
+            <Card key={service.id} className="group overflow-hidden h-full flex flex-col relative">
+              {/* Hover overlay Ask AI button to reduce visual repetition */}
+              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity z-10">
+                <EnlightenMeButton 
+                  title={service.name}
+                  contextDescription={service.description}
+                />
+              </div>
               <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <div className="p-2 rounded-md bg-primary/10 text-primary">
-                    {getServiceIcon(service.id)}
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div className="text-primary">
+                      {getServiceIcon(service.id)}
+                    </div>
+                    <CardTitle className="text-lg truncate">{service.name}</CardTitle>
                   </div>
+                  {/* Ask AI moved to hover overlay */}
                 </div>
-                <CardTitle className="text-lg mt-2">{service.name}</CardTitle>
-                <CardDescription className="line-clamp-2">{service.description}</CardDescription>
+                <CardDescription className="mt-1 line-clamp-2">{service.description}</CardDescription>
               </CardHeader>
               <CardContent className="flex-grow">
                 <div className="space-y-4">
@@ -261,18 +267,16 @@ const AzureServicesOverview = () => {
           <Accordion type="multiple" className="w-full">
             {filteredServices.map((service) => (
               <AccordionItem key={service.id} value={service.id} className="relative">
-                <EnlightenMeButton 
-                  title={service.name}
-                  contextDescription={service.description}
-                />
                 <AccordionTrigger className="hover:no-underline">
-                  <div className="flex items-center gap-3 text-left">
-                    <div className="p-2 rounded-md bg-primary/10 text-primary">
-                      {getServiceIcon(service.id)}
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-lg">{service.name}</h3>
-                      <p className="text-sm text-muted-foreground">{service.description.substring(0, 100)}...</p>
+                  <div className="w-full flex items-start justify-between gap-3 text-left">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <div className="text-primary">
+                        {getServiceIcon(service.id)}
+                      </div>
+                      <div className="min-w-0">
+                        <h3 className="font-medium text-lg truncate">{service.name}</h3>
+                        <p className="text-sm text-muted-foreground line-clamp-1">{service.description}</p>
+                      </div>
                     </div>
                   </div>
                 </AccordionTrigger>
@@ -324,7 +328,11 @@ const AzureServicesOverview = () => {
                       </TabsContent>
                     </Tabs>
                     
-                    <div className="flex justify-end">
+                    <div className="flex justify-end gap-2">
+                      <EnlightenMeButton 
+                        title={service.name}
+                        contextDescription={service.description}
+                      />
                       <Button 
                         variant="outline" 
                         size="sm" 
