@@ -13,7 +13,8 @@ interface TreeNode {
 }
 
 interface D3TreeVisualizationProps {
-  data: TreeNode;
+  // data is optional; this component uses its own internal data structure
+  data?: TreeNode;
   onNodeSelect?: (node: TreeNode) => void;
   selectedNode?: TreeNode | null;
   className?: string;
@@ -150,6 +151,17 @@ export default function D3TreeVisualization({
             { id: 'azure-cognitive-services', name: 'Cognitive Services', type: 'service' as const },
             { id: 'azure-ml', name: 'Azure ML', type: 'service' as const },
             { id: 'azure-bot-service', name: 'Bot Service', type: 'service' as const, novel: true }
+          ]
+        },
+        {
+          id: 'study-mode',
+          name: 'Study Mode',
+          type: 'category' as const,
+          children: collapsedNodes.has('study-mode') ? [] : [
+            { id: 'study-socratic-thinking', name: 'Socratic Discovery', type: 'quiz' as const },
+            { id: 'study-interactive-scenarios', name: 'Hands-On Scenarios', type: 'quiz' as const },
+            { id: 'study-debug-challenges', name: 'Debug & Fix', type: 'quiz' as const },
+            { id: 'study-super-critical-learning', name: 'Super Critical Learning', type: 'quiz' as const, novel: true }
           ]
         },
         {
