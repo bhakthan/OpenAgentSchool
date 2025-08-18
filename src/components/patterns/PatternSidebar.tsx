@@ -118,7 +118,7 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
     <div className="relative">
       {isCollapsed && <CollapsedSidebarButton />}
       
-      <div 
+    <div 
         className={cn(
           "border-r border-border bg-background shadow-md sidebar-transition fixed z-30 flex flex-col",
           isCollapsed 
@@ -126,16 +126,17 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
             : "translate-x-0 opacity-100"
         )}
         style={{ 
-          width: '250px', 
-          height: 'calc(100vh - 142px)',
-          top: '142px',
+      width: '250px',
+      // Slightly reduce top offset on very small screens to gain space
+      height: 'calc(100vh - 130px)',
+      top: '130px',
           left: '0',
-          maxHeight: 'calc(100vh - 142px)'
+      maxHeight: 'calc(100vh - 130px)'
         }}
       >
         <div className="flex flex-col h-full overflow-hidden">
           {/* Header */}
-          <div className="p-3 flex flex-col gap-2 border-b border-border flex-shrink-0">
+      <div className="p-3 flex flex-col gap-2 border-b border-border flex-shrink-0">
             <div className="flex justify-between items-center">
               <h3 className="font-semibold text-sm">Agent Patterns</h3>
               <Button

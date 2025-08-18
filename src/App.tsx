@@ -17,6 +17,7 @@ import { Path } from '@phosphor-icons/react/dist/ssr/Path';
 import { GraduationCap } from '@phosphor-icons/react/dist/ssr/GraduationCap';
 import { Tree } from '@phosphor-icons/react/dist/ssr/Tree';
 import { Lightning } from '@phosphor-icons/react/dist/ssr/Lightning';
+import { DotsThree } from '@phosphor-icons/react/dist/ssr/DotsThree';
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtils';
 import { setupReactFlowErrorHandling } from './lib/utils/reactFlowUtils';
@@ -52,6 +53,7 @@ import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider'
 import { Toaster } from '@/components/ui/toaster';
 import { AudioNarrationProvider } from './contexts/AudioNarrationContext';
 import { EnlightenMeButton as AskAIFab } from './components/enlighten/EnlightenMeButton';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 // Placeholder component (disabled)
 const AppTutorialButton = () => null;
@@ -290,19 +292,69 @@ function App() {
 
             {/* Navigation tabs */}
             <div className="container mx-auto px-4 pb-1">
-              <ScrollArea className="w-full">
-                <div className="flex space-x-4">
-                  <TabLink to="/" icon={<LadderIcon size={16} />} label="Core Concepts" />
-                  <TabLink to="/patterns" icon={<PuzzlePiece size={16} weight="duotone" />} label="Agent Patterns" />
-                  <TabLink to="/ai-skills" icon={<Lightning size={16} weight="duotone" />} label="AI-Native Skills" />
-                  <TabLink to="/azure-services" icon={<StackSimple size={16} weight="duotone" />} label="Azure Services" />
-                  <TabLink to="/tree-view" icon={<Tree size={16} weight="duotone" />} label="Tree View" />
-                  <TabLink to="/study-mode" icon={<GraduationCap size={16} weight="duotone" />} label="Study Mode" />
-                  <TabLink to="/quiz" icon={<LadderIcon size={16} />} label="Knowledge Quiz" />
-                  <TabLink to="/references" icon={<Books size={16} weight="duotone" />} label="References" />
-                  <TabLink to="/community" icon={<Users size={16} weight="duotone" />} label="Community" />
-                </div>
-              </ScrollArea>
+              {(() => {
+                const allTabs = [
+                  { to: '/', label: 'Core Concepts', icon: <LadderIcon size={16} /> },
+                  { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" /> },
+                  { to: '/ai-skills', label: 'AI-Native Skills', icon: <Lightning size={16} weight="duotone" /> },
+                  { to: '/azure-services', label: 'Azure Services', icon: <StackSimple size={16} weight="duotone" /> },
+                  { to: '/tree-view', label: 'Tree View', icon: <Tree size={16} weight="duotone" /> },
+                  { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" /> },
+                  { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} /> },
+                  { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" /> },
+                  { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" /> },
+                ];
+                const primaryMobileTabs = allTabs.slice(0, 3);
+                const overflowMobileTabs = allTabs.slice(3);
+                const isOverflowActive = overflowMobileTabs.some(t => location.pathname === t.to);
+
+                return (
+                  <>
+                    {/* Desktop / md+ — keep full scrollable tabs */}
+                    <div className="hidden md:block">
+                      <ScrollArea className="w-full">
+                        <div className="flex space-x-4">
+                          {allTabs.map(t => (
+                            <TabLink key={t.to} to={t.to} icon={t.icon} label={t.label} />
+                          ))}
+                        </div>
+                      </ScrollArea>
+                    </div>
+
+                    {/* Mobile — show first few and a More (… ) menu */}
+                    <div className="md:hidden">
+                      <div className="flex items-center space-x-2">
+                        {primaryMobileTabs.map(t => (
+                          <TabLink key={t.to} to={t.to} icon={t.icon} label={t.label} />
+                        ))}
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant={isOverflowActive ? 'secondary' : 'ghost'}
+                              size="default"
+                              className="h-10 px-3"
+                              aria-label="More tabs"
+                            >
+                              <DotsThree size={20} weight="bold" />
+                              <span className="sr-only">More</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="start" className="min-w-[12rem]">
+                            {overflowMobileTabs.map(t => (
+                              <DropdownMenuItem key={t.to} asChild>
+                                <Link to={t.to} className="flex items-center gap-2">
+                                  {t.icon}
+                                  <span>{t.label}</span>
+                                </Link>
+                              </DropdownMenuItem>
+                            ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    </div>
+                  </>
+                );
+              })()}
             </div>
           </header>
           

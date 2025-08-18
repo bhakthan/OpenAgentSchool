@@ -232,20 +232,24 @@ Please provide:
   const getIconSize = () => (size === 'lg' ? 20 : 16);
 
   return (
-  <div className={variant === 'floating' ? "absolute top-3 right-3 z-10" : ""}>
+  <span className={
+    variant === 'floating'
+      ? "z-40 md:absolute md:top-3 md:right-3 fixed bottom-4 right-4"
+      : "inline-flex"
+  }>
       <Button
-    variant={variant === 'floating' ? 'default' : 'default'}
-    size={size === 'sm' ? 'sm' : 'default'}
+        variant="default"
+        size={size === 'sm' ? 'sm' : 'default'}
         className={getButtonClasses()}
         onClick={() => setIsOpen(true)}
-    title="Ask AI about this topic"
+        title="Ask AI about this topic"
       >
-    <ChatCircleDots size={getIconSize()} className="mr-2" />
-    <span className="text-sm">Ask AI</span>
+        <ChatCircleDots size={getIconSize()} className="mr-2" />
+        <span className="hidden sm:inline text-sm">Ask AI</span>
       </Button>
       
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-        <DialogContent className="sm:max-w-6xl max-w-[95vw] h-[90vh] max-h-[95vh] min-h-[80vh] flex flex-col">
+  <DialogContent className="sm:max-w-6xl max-w-[95vw] w-[95vw] h-[90vh] max-h-[95vh] min-h-[80vh] flex flex-col">
           <DialogHeader className="pb-4 border-b">
             <DialogTitle className="flex items-center gap-2 text-xl">
               <div className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
@@ -364,7 +368,7 @@ Please provide:
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+  </span>
   );
 };
 

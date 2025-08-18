@@ -23,6 +23,10 @@ import AgenticRAGAudioControls from '@/components/audio/AgenticRAGAudioControls'
 const SimplePatternVisualizer = lazy(() => import('@/components/visualization/SimplePatternVisualizer'))
 const CodePlaybook = lazy(() => import('@/components/code-playbook/CodePlaybook'))
 const SimpleMultiPatternVisualizer = lazy(() => import('./SimpleMultiPatternVisualizer'))
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DotsThree } from '@phosphor-icons/react/dist/ssr/DotsThree'
+import { ArrowsOutSimple } from '@phosphor-icons/react/dist/ssr/ArrowsOutSimple'
+import { X } from '@phosphor-icons/react/dist/ssr/X'
 
 // Loading component for lazy-loaded visualizations
 const VisualizationLoader = () => (
@@ -49,6 +53,7 @@ const PatternExplorer = () => {
   const [activeTab, setActiveTab] = useState('flow-diagram'); // Track the active tab
   const { isCollapsed } = useSidebarCollapse(); // Get sidebar collapse state
   const [forceUpdate, setForceUpdate] = useState(0); // Force re-render when needed
+  const [isFullscreenVis, setIsFullscreenVis] = useState(false); // Mobile fullscreen for visualization
   
   // Update selected pattern when URL parameter changes
   useEffect(() => {
@@ -243,31 +248,38 @@ const PatternExplorer = () => {
                 />
               </div>
               
-              {/* Mobile Pattern Selector */}
-              <Card className="md:hidden mb-4 w-full">
-                <CardHeader className="py-3">
-                  <h3 className="text-sm font-medium">Select Pattern</h3>
-                </CardHeader>
-                <CardContent className="py-2">
-                  <ScrollArea className="h-[150px]">
-                    <div className="space-y-2">
-                      {agentPatterns.map((pattern) => (
-                        <div
-                          key={pattern.id}
-                          className={`p-2 rounded-md cursor-pointer transition-colors ${
-                            selectedPattern.id === pattern.id
-                              ? 'bg-primary/10 border-l-2 border-primary'
-                              : 'hover:bg-muted'
-                          }`}
-                          onClick={() => setSelectedPattern(pattern)}
-                        >
-                          <h3 className="text-sm font-medium">{pattern.name}</h3>
-                        </div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </CardContent>
-              </Card>
+              {/* Mobile Pattern Selector (compact dropdown) */}
+              <div className="md:hidden mb-3 w-full flex items-center justify-between gap-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="flex items-center gap-2">
+                      <DotsThree size={18} weight="bold" />
+                      <span className="text-sm">Patterns</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="min-w-[14rem] max-h-[60vh] overflow-y-auto">
+                    {agentPatterns.map((pattern) => (
+                      <DropdownMenuItem key={pattern.id} onSelect={() => setSelectedPattern(pattern)}>
+                        <span className="truncate">{pattern.name}</span>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                {/* Fullscreen visualizer trigger (mobile only, visible on flow tab) */}
+                {activeTab === 'flow-diagram' && (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="md:hidden"
+                    onClick={() => setIsFullscreenVis(true)}
+                    aria-label="Open visualization fullscreen"
+                  >
+                    <ArrowsOutSimple size={18} />
+                    <span className="ml-1">Fullscreen</span>
+                  </Button>
+                )}
+              </div>
               
               {/* Main Content Area */}
               <div 
@@ -300,12 +312,15 @@ const PatternExplorer = () => {
                   </TabsList>
                   
                   <TabsContent value="flow-diagram">
+                    {/* Ensure a good mobile height and remove page padding on small screens */}
                     <div className="flow-container" data-flow>
+                      <div className="h-[60vh] md:h-[70vh] -mx-4 md:mx-0">
                       <ErrorBoundary>
                         <Suspense fallback={<VisualizationLoader />}>
                           <SimplePatternVisualizer patternData={selectedPattern} />
                         </Suspense>
                       </ErrorBoundary>
+                      </div>
                     </div>
                   </TabsContent>
                   
@@ -344,8 +359,28 @@ const PatternExplorer = () => {
           </TabsContent>
         </Tabs>
       )}
+
+      {/* Fullscreen Visualization Overlay (mobile) */}
+      {isFullscreenVis && (
+        <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm md:hidden">
+          <div className="absolute top-3 right-3">
+            <Button variant="ghost" size="icon" onClick={() => setIsFullscreenVis(false)} aria-label="Close fullscreen">
+              <X size={18} />
+            </Button>
+          </div>
+          <div className="h-full w-full pt-10 px-2">
+            <ErrorBoundary>
+              <Suspense fallback={<VisualizationLoader />}>
+                <SimplePatternVisualizer patternData={selectedPattern} />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 export default PatternExplorer
+
+// Fullscreen overlay for visualization on mobile is rendered inline in the component above when triggered.
