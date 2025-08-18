@@ -221,7 +221,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           Study Mode
         </h1>
         <p className="text-lg text-muted-foreground">
-          Learn through Socratic questioning, interactive scenarios, and debugging challenges
+          Learn through Socratic questioning, interactive scenarios, debugging and super critical learning challenges
         </p>
       </div>
 

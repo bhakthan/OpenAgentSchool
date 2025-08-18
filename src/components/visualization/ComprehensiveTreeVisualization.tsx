@@ -410,30 +410,85 @@ export default function ComprehensiveTreeVisualization() {
           id: 'study-mode',
           name: 'Study Mode',
           type: 'category',
-          description: 'Interactive learning through Socratic questioning, scenarios, and debugging challenges',
+          description: 'Interactive learning through Socratic questioning, scenarios, debugging challenges, and super critical learning',
           icon: <Lightbulb className="w-4 h-4" />,
           progress: Math.floor(Math.random() * 40 + 30), // Random progress 30-70%
           metadata: { totalQuestions: getAllStudyModeQuestions().length },
-          children: studyModeCategories.map(category => ({
-            id: `study-${category.id}`,
-            name: category.name,
-            type: 'quiz' as const, // Using quiz type for study questions
-            description: category.description,
-            difficulty: category.id === 'socratic-thinking' ? 'beginner' as const : 
-                       category.id === 'interactive-scenarios' ? 'intermediate' as const : 'advanced' as const,
-            estimatedTime: 45, // Average time for study mode sessions
-            progress: Math.floor(Math.random() * 60 + 20), // Random progress 20-80%
-            metadata: { 
-              totalQuestions: category.questions.length,
-              completedQuestions: Math.floor(Math.random() * category.questions.length * 0.5)
+          children: [
+            {
+              id: 'study-socratic-thinking',
+              name: 'Socratic Discovery',
+              type: 'quiz' as const,
+              description: 'Learn through guided questioning that helps you discover concepts yourself',
+              difficulty: 'beginner' as const,
+              estimatedTime: 30,
+              progress: Math.floor(Math.random() * 60 + 20),
+              metadata: { 
+                totalQuestions: studyModeCategories.find(c => c.id === 'socratic-thinking')?.questions.length || 0,
+                completedQuestions: Math.floor(Math.random() * 10)
+              },
+              children: [
+                { id: 'socratic-overview', name: 'Mode Overview', type: 'tab' as const, description: 'Introduction to Socratic learning' },
+                { id: 'socratic-questions', name: 'Question Library', type: 'tab' as const, description: 'Browse Socratic questions' },
+                { id: 'socratic-progress', name: 'Progress Tracking', type: 'tab' as const, description: 'Track your Socratic learning progress' }
+              ]
             },
-            children: [
-              { id: `${category.id}-overview`, name: 'Mode Overview', type: 'tab' as const, description: 'Introduction to this study mode' },
-              { id: `${category.id}-questions`, name: 'Question Library', type: 'tab' as const, description: 'Browse available questions' },
-              { id: `${category.id}-progress`, name: 'Progress Tracking', type: 'tab' as const, description: 'Track your learning progress' },
-              { id: `${category.id}-insights`, name: 'Learning Insights', type: 'tab' as const, description: 'Personalized learning insights' }
-            ]
-          }))
+            {
+              id: 'study-interactive-scenarios',
+              name: 'Hands-On Scenarios',
+              type: 'quiz' as const,
+              description: 'Build systems step-by-step through realistic implementation challenges',
+              difficulty: 'intermediate' as const,
+              estimatedTime: 45,
+              progress: Math.floor(Math.random() * 60 + 20),
+              metadata: { 
+                totalQuestions: studyModeCategories.find(c => c.id === 'interactive-scenarios')?.questions.length || 0,
+                completedQuestions: Math.floor(Math.random() * 8)
+              },
+              children: [
+                { id: 'scenario-overview', name: 'Mode Overview', type: 'tab' as const, description: 'Introduction to scenario-based learning' },
+                { id: 'scenario-library', name: 'Scenario Library', type: 'tab' as const, description: 'Browse interactive scenarios' },
+                { id: 'scenario-progress', name: 'Progress Tracking', type: 'tab' as const, description: 'Track your scenario completion' }
+              ]
+            },
+            {
+              id: 'study-debug-challenges',
+              name: 'Debug & Fix',
+              type: 'quiz' as const,
+              description: 'Analyze broken systems and learn by fixing real-world problems',
+              difficulty: 'intermediate' as const,
+              estimatedTime: 40,
+              progress: Math.floor(Math.random() * 60 + 20),
+              metadata: { 
+                totalQuestions: studyModeCategories.find(c => c.id === 'debug-challenges')?.questions.length || 0,
+                completedQuestions: Math.floor(Math.random() * 6)
+              },
+              children: [
+                { id: 'debug-overview', name: 'Mode Overview', type: 'tab' as const, description: 'Introduction to debugging challenges' },
+                { id: 'debug-challenges', name: 'Challenge Library', type: 'tab' as const, description: 'Browse debugging challenges' },
+                { id: 'debug-progress', name: 'Progress Tracking', type: 'tab' as const, description: 'Track your debugging skills' }
+              ]
+            },
+            {
+              id: 'study-super-critical-learning',
+              name: 'Super Critical Learning',
+              type: 'quiz' as const,
+              description: 'Explore second and third-order effects in complex agentic systems',
+              difficulty: 'advanced' as const,
+              estimatedTime: 60,
+              progress: Math.floor(Math.random() * 40 + 10),
+              metadata: { 
+                totalQuestions: 0, // SCL uses effect-based exploration, not traditional questions
+                completedQuestions: Math.floor(Math.random() * 3)
+              },
+              children: [
+                { id: 'scl-overview', name: 'Mode Overview', type: 'tab' as const, description: 'Introduction to Super Critical Learning' },
+                { id: 'scl-consolidate', name: 'Consolidate Mode', type: 'tab' as const, description: 'Systematic exploration of well-understood patterns' },
+                { id: 'scl-extrapolate', name: 'Extrapolate Mode', type: 'tab' as const, description: 'Creative exploration with constraints and perturbations' },
+                { id: 'scl-progress', name: 'Progress Tracking', type: 'tab' as const, description: 'Track your SCL analysis sessions' }
+              ]
+            }
+          ]
         }
       ]
     };

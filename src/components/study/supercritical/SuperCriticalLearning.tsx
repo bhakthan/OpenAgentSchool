@@ -684,21 +684,21 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="flex items-start gap-3">
-                    <div className="bg-blue-100 text-blue-700 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">1</div>
+                    <div className="bg-muted text-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">1</div>
                     <div>
                       <h4 className="font-medium">First-Order Effects</h4>
                       <p className="text-sm text-muted-foreground">Direct, immediate consequences that emerge directly from your seeds. These are the obvious, measurable effects.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="bg-orange-100 text-orange-700 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">2</div>
+                    <div className="bg-muted text-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">2</div>
                     <div>
                       <h4 className="font-medium">Higher-Order Effects</h4>
                       <p className="text-sm text-muted-foreground">Cascading consequences that emerge from first-order effects. Includes connections between effects and potential discontinuous leaps.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="bg-green-100 text-green-700 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">3</div>
+                    <div className="bg-muted text-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">3</div>
                     <div>
                       <h4 className="font-medium">Synthesis</h4>
                       <p className="text-sm text-muted-foreground">Strategic insights, actionable recommendations, and risk factors derived from the complete effect analysis.</p>
@@ -722,7 +722,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                     <h4 className="font-medium text-sm text-muted-foreground mb-2">CONCEPTS</h4>
                     <div className="space-y-1">
                       {analysisSeeds.conceptIds?.map((concept: string, i: number) => (
-                        <div key={i} className="px-3 py-2 bg-blue-50 rounded-lg">
+                        <div key={i} className="px-3 py-2 rounded-lg bg-muted/40 dark:bg-muted/30 border border-border">
                           <p className="font-medium">{concept}</p>
                           <p className="text-xs text-muted-foreground">Core concept driving analysis</p>
                         </div>
@@ -733,7 +733,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                     <h4 className="font-medium text-sm text-muted-foreground mb-2">PATTERNS</h4>
                     <div className="space-y-1">
                       {analysisSeeds.patternIds?.map((pattern: string, i: number) => (
-                        <div key={i} className="px-3 py-2 bg-purple-50 rounded-lg">
+                        <div key={i} className="px-3 py-2 rounded-lg bg-muted/40 dark:bg-muted/30 border border-border">
                           <p className="font-medium">{pattern}</p>
                           <p className="text-xs text-muted-foreground">Structural pattern being analyzed</p>
                         </div>
@@ -744,7 +744,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                     <h4 className="font-medium text-sm text-muted-foreground mb-2">PRACTICES</h4>
                     <div className="space-y-1">
                       {analysisSeeds.practices?.map((practice: string, i: number) => (
-                        <div key={i} className="px-3 py-2 bg-green-50 rounded-lg">
+                        <div key={i} className="px-3 py-2 rounded-lg bg-muted/40 dark:bg-muted/30 border border-border">
                           <p className="font-medium">{practice}</p>
                           <p className="text-xs text-muted-foreground">Implementation practice</p>
                         </div>
@@ -789,7 +789,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                       <div>
                         <h4 className="font-medium mb-3">First-Order Effects (Immediate)</h4>
                         {validationErrors.first.length > 0 && (
-                          <div className="p-3 bg-yellow-50 text-yellow-800 rounded mb-2 text-xs">
+                          <div className="p-3 rounded mb-2 text-xs bg-muted/40 dark:bg-muted/30 border border-border text-foreground">
                             Validation issues:
                             <ul className="list-disc ml-4">
                               {validationErrors.first.slice(0, 4).map((m, i) => (
@@ -804,7 +804,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                         ) : (
                           <div className="space-y-2">
                             {firstOrderEffects.map((effect, i) => (
-                              <div key={i} className="p-3 bg-blue-50 rounded-lg">
+                              <div key={i} className="p-3 rounded-lg bg-card border border-border">
                                 <div className="flex justify-between items-start">
                                   <div className="flex-1">
                                     <div className="flex items-center gap-2 flex-wrap">
@@ -816,7 +816,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                                     </div>
                                     <p className="text-sm text-muted-foreground mt-1">{effect.justification}</p>
                                   </div>
-                                  <div className="text-right text-xs space-y-1">
+                                  <div className="text-right text-xs space-y-1 text-muted-foreground">
                                     <div>Domain: <span className="font-medium">{effect.domain}</span></div>
                                     <div>Impact: <span className="font-medium">{effect.impact}</span></div>
                                     <div>Confidence: <span className="font-medium">{Math.round(effect.confidence * 100)}%</span></div>
@@ -834,7 +834,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                       <div>
                         <h4 className="font-medium mb-3">Higher-Order Effects (1-12 months)</h4>
                         {validationErrors.higher.length > 0 && (
-                          <div className="p-3 bg-yellow-50 text-yellow-800 rounded mb-2 text-xs">
+                          <div className="p-3 rounded mb-2 text-xs bg-muted/40 dark:bg-muted/30 border border-border text-foreground">
                             Validation issues:
                             <ul className="list-disc ml-4">
                               {validationErrors.higher.slice(0, 4).map((m, i) => (
@@ -849,7 +849,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                         ) : (
                           <div className="space-y-2">
                             {higherOrderEffects.map((effect, i) => (
-                              <div key={i} className="p-3 bg-orange-50 rounded-lg">
+                              <div key={i} className="p-3 rounded-lg bg-card border border-border">
                                 <div className="flex justify-between items-start">
                                   <div className="flex-1">
                                     <div className="flex items-center gap-2 flex-wrap">
@@ -860,9 +860,9 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                                       )}
                                     </div>
                                     <p className="text-sm text-muted-foreground mt-1">{effect.justification}</p>
-                                    {effect.timeframe && <p className="text-xs text-orange-600 mt-1">Timeframe: {effect.timeframe}</p>}
+                                    {effect.timeframe && <p className="text-xs text-muted-foreground mt-1">Timeframe: {effect.timeframe}</p>}
                                   </div>
-                                  <div className="text-right text-xs space-y-1">
+                                  <div className="text-right text-xs space-y-1 text-muted-foreground">
                                     <div>Order: <span className="font-medium">{effect.order}</span></div>
                                     <div>Impact: <span className="font-medium">{effect.impact}</span></div>
                                     <div>Confidence: <span className="font-medium">{Math.round(effect.confidence * 100)}%</span></div>
@@ -881,14 +881,14 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                         <h4 className="font-medium mb-3">Effect Connections</h4>
                         <div className="space-y-2">
                           {connections.map((conn, i) => (
-                            <div key={i} className="p-3 bg-purple-50 rounded-lg">
+                            <div key={i} className="p-3 rounded-lg bg-card border border-border">
                               <div className="flex items-center gap-2 flex-wrap text-sm">
                                 <Badge variant="outline" className="text-[10px] h-5">from: {conn.from}</Badge>
                                 <span>→</span>
                                 <Badge variant="outline" className="text-[10px] h-5">to: {conn.to}</Badge>
                               </div>
                               <p className="text-xs text-muted-foreground mt-1">{conn.mechanism}</p>
-                              <p className="text-xs text-purple-600 mt-1">Confidence: {Math.round(conn.confidence * 100)}%</p>
+                              <p className="text-xs text-muted-foreground mt-1">Confidence: {Math.round(conn.confidence * 100)}%</p>
                             </div>
                           ))}
                         </div>
@@ -901,7 +901,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                         <h4 className="font-medium mb-3">Qualitative Leaps</h4>
                         <div className="space-y-2">
                           {leaps.map((leap, i) => (
-                            <div key={i} className="p-3 bg-red-50 rounded-lg">
+                            <div key={i} className="p-3 rounded-lg bg-card border border-border">
                               <div className="flex items-center gap-2 flex-wrap mb-1">
                                 <Badge variant="secondary" className="text-[10px] h-5">leap</Badge>
                                 <span className="font-medium text-sm">{truncate(leap.result, 120)}</span>
@@ -912,7 +912,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                               <p className="text-xs text-muted-foreground">
                                 <strong>Threshold:</strong> {leap.threshold}
                               </p>
-                              <p className="text-xs text-red-600 mt-1">Confidence: {Math.round(leap.confidence * 100)}%</p>
+                              <p className="text-xs text-muted-foreground mt-1">Confidence: {Math.round(leap.confidence * 100)}%</p>
                             </div>
                           ))}
                         </div>
@@ -924,7 +924,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                       <div>
                         <h4 className="font-medium mb-3">Synthesis & Recommendations</h4>
                         {validationErrors.synthesis.length > 0 && (
-                          <div className="p-3 bg-yellow-50 text-yellow-800 rounded mb-2 text-xs">
+                          <div className="p-3 rounded mb-2 text-xs bg-muted/40 dark:bg-muted/30 border border-border text-foreground">
                             Validation issues:
                             <ul className="list-disc ml-4">
                               {validationErrors.synthesis.slice(0, 4).map((m, i) => (
@@ -938,7 +938,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                           <div className="flex items-center gap-2 text-sm text-muted-foreground"><div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>Generating…</div>
                         ) : (
                           <div className="grid gap-4">
-                          <div className="p-3 bg-green-50 rounded-lg">
+                          <div className="p-3 rounded-lg bg-card border border-border">
                             <h5 className="font-medium text-sm mb-2">Key Insights</h5>
                             <ul className="space-y-1">
                               {synthesis.insights?.map((insight: string, i: number) => (
@@ -946,7 +946,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                               ))}
                             </ul>
                           </div>
-                          <div className="p-3 bg-blue-50 rounded-lg">
+                          <div className="p-3 rounded-lg bg-card border border-border">
                             <h5 className="font-medium text-sm mb-2">Recommendations</h5>
                             <ul className="space-y-1">
                               {synthesis.recommendations?.map((rec: string, i: number) => (
@@ -954,7 +954,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                               ))}
                             </ul>
                           </div>
-                          <div className="p-3 bg-yellow-50 rounded-lg">
+                          <div className="p-3 rounded-lg bg-card border border-border">
                             <h5 className="font-medium text-sm mb-2">Risk Factors</h5>
                             <ul className="space-y-1">
                               {synthesis.risks?.map((risk: string, i: number) => (
