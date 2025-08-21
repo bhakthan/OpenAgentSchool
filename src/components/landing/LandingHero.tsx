@@ -58,8 +58,28 @@ export const LandingHero: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Content */}
           <div className="space-y-8">
-            {/* Main Logo */}
-            <Logo size="hero" showText={true} className="justify-start" />
+            {/* Main Logo with QR Code */}
+            <div className="flex items-center justify-between lg:justify-start gap-6">
+              <Logo size="hero" showText={true} className="justify-start" />
+              
+              {/* Large QR Code for YouTube Podcast */}
+              <div className="flex-shrink-0">
+                <div 
+                  className="group cursor-pointer bg-white p-2 rounded-xl shadow-lg border hover:border-blue-500 hover:shadow-xl transition-all duration-300"
+                  onClick={() => window.open('https://www.youtube.com/playlist?list=PL9pA6bW_V_aBCC77nHbPgPJVUXqnLkZ2C', '_blank')}
+                  title="Click to open YouTube Podcast playlist"
+                >
+                  <img 
+                    src="/images/youtube-podcast-qr.svg" 
+                    alt="YouTube Podcast QR Code" 
+                    className="w-24 h-24 lg:w-32 lg:h-32 rounded-lg transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <p className="text-center text-xs text-gray-600 mt-2 mb-2 font-medium">
+                    YouTube Podcast
+                  </p>
+                </div>
+              </div>
+            </div>
             
             {/* Hero Description */}
             <div className="space-y-4">

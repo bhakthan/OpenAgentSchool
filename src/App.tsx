@@ -27,6 +27,7 @@ import LadderIcon from './components/ui/LadderIcon';
 import { Logo } from './components/ui/Logo';
 import { SEO, pageSEOConfigs } from './components/seo/SEO';
 import { SEORouteWrapper } from './components/seo/SEORouteWrapper';
+import { QRCodeModal } from './components/ui/QRCodeModal';
 
 // Lazy-loaded components
 const ConceptsExplorer = lazy(() => import('./components/concepts/ConceptsExplorer'));
@@ -284,6 +285,27 @@ function App() {
                       >
                         <GithubLogo className="mr-1" size={16} /> GitHub Repo
                       </a>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <div className="group relative">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => window.open('https://www.youtube.com/playlist?list=PL9pA6bW_V_aBCC77nHbPgPJVUXqnLkZ2C', '_blank')}
+                          className="inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                        >
+                          <img 
+                            src="/images/youtube-podcast-qr.svg" 
+                            alt="YouTube Podcast QR Code" 
+                            className="w-6 h-6 mr-2 rounded-sm transition-all duration-300 group-hover:scale-[4] group-hover:z-50 group-hover:absolute group-hover:top-full group-hover:left-1/2 group-hover:transform group-hover:-translate-x-1/2 group-hover:mt-3 group-hover:bg-white group-hover:shadow-xl group-hover:border group-hover:rounded-sm"
+                          />
+                          <span className="hidden lg:inline">Podcast</span>
+                        </Button>
+                        {/* Clean instruction text that appears on hover */}
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-20 px-3 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-40">
+                          Scan QR code or click to open playlist
+                        </div>
+                      </div>
                     </NavigationMenuItem>
                   </NavigationMenuList>
                 </NavigationMenu>
