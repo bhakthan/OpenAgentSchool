@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { TextareaWithVoice } from '@/components/ui/TextareaWithVoice';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Copy, FileDown, Brain, Loader2 } from 'lucide-react';
-import jsPDF from 'jspdf';
+import { Copy, Printer, Brain, Loader2 } from 'lucide-react';
 import { criticalThinkingJudge } from '@/lib/llmJudge';
 import type { LlmJudgeResponse } from '@/lib/llmJudge';
 import { Badge } from '@/components/ui/badge';
@@ -78,57 +77,143 @@ export const CriticalThinkingModal: React.FC<CriticalThinkingModalProps> = ({
   };
 
   const handleExportToPdf = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(16);
-    doc.text('Critical Thinking Exercise', 14, 22);
-    doc.setFontSize(12);
-    doc.text(`Topic: ${contextTitle}`, 14, 32);
-    
-    if (contextCue) {
-      doc.setFontSize(11);
-      doc.text(`Key Insight: ${contextCue}`, 14, 40);
+    const printContent = `
+      <html>
+        <head>
+          <title>Critical Thinking Exercise - ${contextTitle}</title>
+          <style>
+            body { 
+              font-family: Arial, sans-serif; 
+              margin: 20px; 
+              line-height: 1.6; 
+              color: black;
+              background: white;
+            }
+            .header { 
+              text-align: center; 
+              margin-bottom: 30px; 
+              border-bottom: 2px solid #3b82f6; 
+              padding-bottom: 15px; 
+            }
+            .title { 
+              font-size: 24px; 
+              color: #3b82f6; 
+              font-weight: bold; 
+              margin-bottom: 10px;
+            }
+            .subtitle {
+              font-size: 16px;
+              color: #6b7280;
+              margin-bottom: 5px;
+            }
+            .section { 
+              margin: 20px 0; 
+              padding: 15px;
+              border-left: 4px solid #3b82f6;
+              background: #f8fafc;
+            }
+            .section-title { 
+              font-weight: bold; 
+              color: #1f2937; 
+              margin-bottom: 10px; 
+              font-size: 16px; 
+            }
+            .question-section {
+              background: #fef3c7;
+              border-left: 4px solid #f59e0b;
+            }
+            .response-section {
+              background: #dbeafe;
+              border-left: 4px solid #3b82f6;
+            }
+            .feedback-section {
+              background: #d1fae5;
+              border-left: 4px solid #10b981;
+            }
+            .cue-section {
+              background: #e0e7ff;
+              border-left: 4px solid #6366f1;
+              font-style: italic;
+            }
+            .score {
+              font-size: 18px;
+              color: #10b981;
+              font-weight: bold;
+            }
+            .content-text {
+              white-space: pre-wrap;
+              line-height: 1.6;
+            }
+            .footer {
+              margin-top: 30px; 
+              text-align: center; 
+              color: #6b7280; 
+              font-size: 12px;
+            }
+            @media print {
+              body { margin: 0.5in; }
+              .header { page-break-after: avoid; }
+              .section { page-break-inside: avoid; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div class="title">🧠 Critical Thinking Exercise</div>
+            <div class="subtitle">Topic: ${contextTitle}</div>
+            <div class="subtitle">Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</div>
+          </div>
+          
+          ${contextCue ? `
+          <div class="section cue-section">
+            <div class="section-title">💡 Key Insight</div>
+            <div class="content-text">${contextCue}</div>
+          </div>
+          ` : ''}
+          
+          <div class="section question-section">
+            <div class="section-title">❓ Question</div>
+            <div class="content-text">${question}</div>
+          </div>
+          
+          <div class="section response-section">
+            <div class="section-title">💭 Your Response</div>
+            <div class="content-text">${response}</div>
+          </div>
+          
+          ${feedback ? `
+          <div class="section feedback-section">
+            <div class="section-title">🎯 AI Assessment <span class="score">(Score: ${feedback.score}/100)</span></div>
+            <div class="content-text">${feedback.feedback}</div>
+            
+            ${feedback.suggestions.length > 0 ? `
+            <div style="margin-top: 15px;">
+              <strong>📈 Suggestions for Improvement:</strong>
+              <ul style="margin-top: 10px;">
+                ${feedback.suggestions.map(suggestion => `<li>${suggestion}</li>`).join('')}
+              </ul>
+            </div>
+            ` : ''}
+          </div>
+          ` : ''}
+          
+          <div class="footer">
+            <p>Generated by OpenAgent School - Critical Thinking Development Platform</p>
+            <p>Continue your learning journey with more challenging questions</p>
+          </div>
+        </body>
+      </html>
+    `;
+
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+      }, 250);
     }
-    
-    doc.setFontSize(14);
-    const questionY = contextCue ? 53 : 45;
-    doc.text('Question:', 14, questionY);
-    const splitQuestion = doc.splitTextToSize(question, 180);
-    doc.setFontSize(12);
-    doc.text(splitQuestion, 14, questionY + 7);
-
-    doc.setFontSize(14);
-    let currentY = questionY + 7 + (splitQuestion.length * 7) + 10;
-    doc.text('Your Response:', 14, currentY);
-    const splitResponse = doc.splitTextToSize(response, 180);
-    doc.setFontSize(12);
-    doc.text(splitResponse, 14, currentY + 7);
-
-    // Add feedback if available
-    if (feedback) {
-      currentY = currentY + 7 + (splitResponse.length * 7) + 15;
-      doc.setFontSize(14);
-      doc.text(`LLM Feedback (Score: ${feedback.score}/100):`, 14, currentY);
-      
-      currentY += 10;
-      doc.setFontSize(12);
-      const splitFeedback = doc.splitTextToSize(feedback.feedback, 180);
-      doc.text(splitFeedback, 14, currentY);
-      
-      if (feedback.suggestions.length > 0) {
-        currentY += (splitFeedback.length * 7) + 10;
-        doc.setFontSize(13);
-        doc.text('Suggestions:', 14, currentY);
-        currentY += 7;
-        doc.setFontSize(11);
-        feedback.suggestions.forEach((suggestion, index) => {
-          const splitSuggestion = doc.splitTextToSize(`• ${suggestion}`, 180);
-          doc.text(splitSuggestion, 14, currentY);
-          currentY += splitSuggestion.length * 5;
-        });
-      }
-    }
-
-    doc.save('critical-thinking-exercise.pdf');
   };
 
   return (
@@ -264,7 +349,7 @@ export const CriticalThinkingModal: React.FC<CriticalThinkingModalProps> = ({
                     <Copy className="mr-2 h-4 w-4" /> Copy Response
                 </Button>
                 <Button variant="outline" size="sm" onClick={handleExportToPdf}>
-                    <FileDown className="mr-2 h-4 w-4" /> Export to PDF
+                    <Printer className="mr-2 h-4 w-4" /> Export to PDF
                 </Button>
             </div>
             <Button onClick={onClose} className="w-full sm:w-auto">Close</Button>

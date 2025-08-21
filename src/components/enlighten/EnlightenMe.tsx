@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { ChatCircleDots, SpinnerGap, Copy, Check, CaretDown, CaretUp } from '@phosphor-icons/react';
+import { ChatCircleDots, SpinnerGap, Copy, Check, CaretDown, CaretUp, Printer } from '@phosphor-icons/react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -17,7 +17,6 @@ import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import { LlmProvider, callLlm } from '@/lib/llm';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import jsPDF from 'jspdf';
 
 interface EnlightenMeProps {
   title: string;
@@ -287,26 +286,112 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                 size="sm"
                 className="flex items-center gap-1"
                 onClick={() => {
-                  const doc = new jsPDF();
-                  doc.setFontSize(12);
-                  // Split response into lines and wrap long lines
-                  const lines = doc.splitTextToSize(response, 180); // 180 is page width minus margins
-                  let y = 10;
-                  lines.forEach(line => {
-                    doc.text(line, 10, y);
-                    y += 7; // Move down for next line
-                    if (y > 280) { // If near bottom of page, add new page
-                      doc.addPage();
-                      y = 10;
-                    }
-                  });
-                  const conceptName = title.replace(/\s+/g, '_').toLowerCase();
-                  doc.save(`${conceptName}-enlightenme.pdf`);
+                  const printContent = `
+                    <html>
+                      <head>
+                        <title>AI Insights - ${title}</title>
+                        <style>
+                          body { 
+                            font-family: Arial, sans-serif; 
+                            margin: 20px; 
+                            line-height: 1.6; 
+                            color: black;
+                            background: white;
+                          }
+                          .header { 
+                            text-align: center; 
+                            margin-bottom: 30px; 
+                            border-bottom: 2px solid #3b82f6; 
+                            padding-bottom: 15px; 
+                          }
+                          .title { 
+                            font-size: 24px; 
+                            color: #3b82f6; 
+                            font-weight: bold; 
+                            margin-bottom: 10px;
+                          }
+                          .subtitle {
+                            font-size: 16px;
+                            color: #6b7280;
+                            margin-bottom: 5px;
+                          }
+                          .content { 
+                            background: #f8fafc; 
+                            padding: 20px; 
+                            border-left: 4px solid #3b82f6; 
+                            margin: 20px 0; 
+                            white-space: pre-wrap;
+                            font-size: 14px;
+                            line-height: 1.8;
+                          }
+                          .prompt-section {
+                            margin: 20px 0;
+                            padding: 15px;
+                            background: #f1f5f9;
+                            border-radius: 8px;
+                            border-left: 4px solid #64748b;
+                          }
+                          .prompt-title {
+                            font-weight: bold;
+                            color: #475569;
+                            margin-bottom: 10px;
+                          }
+                          .prompt-text {
+                            font-size: 12px;
+                            color: #64748b;
+                            white-space: pre-wrap;
+                          }
+                          .footer {
+                            margin-top: 30px; 
+                            text-align: center; 
+                            color: #6b7280; 
+                            font-size: 12px;
+                          }
+                          @media print {
+                            body { margin: 0.5in; }
+                            .header { page-break-after: avoid; }
+                            .content { page-break-inside: avoid; }
+                          }
+                        </style>
+                      </head>
+                      <body>
+                        <div class="header">
+                          <div class="title">🤖 AI Insights</div>
+                          <div class="subtitle">Topic: ${title}</div>
+                          <div class="subtitle">Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</div>
+                        </div>
+                        
+                        <div class="prompt-section">
+                          <div class="prompt-title">📝 Your Question:</div>
+                          <div class="prompt-text">${prompt}</div>
+                        </div>
+                        
+                        <div class="content">
+                          ${response.replace(/\n/g, '<br>')}
+                        </div>
+                        
+                        <div class="footer">
+                          <p>Generated by OpenAgent School - AI-Powered Learning Platform</p>
+                          <p>For more insights, visit your learning dashboard</p>
+                        </div>
+                      </body>
+                    </html>
+                  `;
+
+                  const printWindow = window.open('', '_blank');
+                  if (printWindow) {
+                    printWindow.document.write(printContent);
+                    printWindow.document.close();
+                    printWindow.focus();
+                    setTimeout(() => {
+                      printWindow.print();
+                    }, 250);
+                  }
                 }}
-                title="Export to PDF"
+                title="Print to PDF"
               >
-                <ChatCircleDots size={16} />
-                <span>Export PDF</span>
+                <Printer size={16} />
+                <span>Print PDF</span>
               </Button>
                 <Button variant="outline" onClick={() => onOpenChange(false)}>
                   Close

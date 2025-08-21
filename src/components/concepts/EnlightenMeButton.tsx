@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ChatCircleDots, SpinnerGap, Copy, Check } from '@phosphor-icons/react';
+import { ChatCircleDots, SpinnerGap, Copy, Check, CaretDown, CaretUp } from '@phosphor-icons/react';
 import { 
   Dialog, 
   DialogContent, 
@@ -50,6 +50,7 @@ const EnlightenMeButton: React.FC<EnlightenMeButtonProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
+  const [isPromptExpanded, setIsPromptExpanded] = useState(false);
   const [llmProvider, setLlmProvider] = useState<LlmProvider>('openai');
   
   // Check if we have a previously saved response for this concept
@@ -121,6 +122,7 @@ Please provide:
     setShowResponse(false);
     setPrompt(generateDefaultPrompt());
     setResponse(null);
+    setIsPromptExpanded(false);
   };
 
   // State for tracking copied code blocks
@@ -249,8 +251,8 @@ Please provide:
       </Button>
       
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-  <DialogContent className="sm:max-w-6xl max-w-[95vw] w-[95vw] h-[90vh] max-h-[95vh] min-h-[80vh] flex flex-col">
-          <DialogHeader className="pb-4 border-b">
+        <DialogContent className="sm:max-w-6xl max-w-[95vw] w-[95vw] h-[90vh] max-h-[95vh] min-h-[80vh] flex flex-col">
+          <DialogHeader className="pb-4 border-b flex-shrink-0">
             <DialogTitle className="flex items-center gap-2 text-xl">
               <div className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                 <ChatCircleDots className="text-primary" size={24} />
@@ -269,7 +271,7 @@ Please provide:
             </DialogDescription>
           </DialogHeader>
           
-          <div className="flex-1 flex flex-col min-h-0">
+          <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
             {!showResponse ? (
               <div className="flex flex-col gap-4 flex-1">
                 <div className="bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
@@ -281,17 +283,21 @@ Please provide:
                   </p>
                 </div>
                 
-                <div className="flex-1 flex flex-col">
+                <div className="flex-1 flex flex-col min-h-0">
                   <label className="text-sm font-medium mb-2 text-muted-foreground">Your Custom Query:</label>
-                  <Textarea
-                    value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
-                    className="flex-1 min-h-[200px] text-sm leading-relaxed resize-none"
-                    placeholder="Enter your question about this topic..."
-                  />
+                  <div className="flex-1 min-h-0">
+                    <ScrollArea className="h-full">
+                      <Textarea
+                        value={prompt}
+                        onChange={(e) => setPrompt(e.target.value)}
+                        className="min-h-[300px] text-sm leading-relaxed resize-none border-0 focus:ring-0 p-4"
+                        placeholder="Enter your question about this topic..."
+                      />
+                    </ScrollArea>
+                  </div>
                 </div>
                 
-                <DialogFooter className="flex justify-between items-center gap-3">
+                <DialogFooter className="flex justify-between items-center gap-3 flex-shrink-0 border-t pt-4">
                   <div>
                     <Select value={llmProvider} onValueChange={(value) => setLlmProvider(value as LlmProvider)}>
                       <SelectTrigger className="w-[180px]">
@@ -331,7 +337,38 @@ Please provide:
                   </div>
                 ) : (
                   <>
-                    <div className="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900 dark:to-emerald-900 rounded-lg p-4 border border-green-200 dark:border-green-800">
+                    {/* Collapsible Prompt Section */}
+                    <div className="border rounded-md bg-muted/30 flex-shrink-0">
+                      <button
+                        onClick={() => setIsPromptExpanded(!isPromptExpanded)}
+                        className="w-full p-4 flex items-center justify-between text-left hover:bg-muted/50 transition-colors"
+                      >
+                        <div className="flex-1">
+                          <p className="text-sm font-medium mb-1">Your prompt:</p>
+                          {!isPromptExpanded && (
+                            <p className="text-sm text-muted-foreground truncate pr-4">
+                              {prompt.length > 100 ? `${prompt.substring(0, 100)}...` : prompt}
+                            </p>
+                          )}
+                        </div>
+                        {isPromptExpanded ? (
+                          <CaretUp size={20} className="text-muted-foreground flex-shrink-0" />
+                        ) : (
+                          <CaretDown size={20} className="text-muted-foreground flex-shrink-0" />
+                        )}
+                      </button>
+                      {isPromptExpanded && (
+                        <div className="px-4 pb-4 border-t border-border/50">
+                          <ScrollArea className="max-h-[200px] mt-2">
+                            <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                              {prompt}
+                            </p>
+                          </ScrollArea>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900 dark:to-emerald-900 rounded-lg p-4 border border-green-200 dark:border-green-800 flex-shrink-0">
                       <h4 className="text-sm font-semibold text-green-900 dark:text-green-100 mb-1 flex items-center gap-2">
                         🎯 Your Personalized AI Insight
                       </h4>
@@ -340,9 +377,9 @@ Please provide:
                       </p>
                     </div>
                     
-                    <div className="flex-1 min-h-0">
-                      <ScrollArea className="h-[calc(90vh-300px)]">
-                        <div className="prose prose-base dark:prose-invert max-w-none pr-4">
+                    <div className="flex-1 min-h-0 border rounded-md overflow-hidden">
+                      <ScrollArea className="h-full">
+                        <div className="prose prose-base dark:prose-invert max-w-none p-4">
                           <ReactMarkdown
                             components={markdownComponents}
                             remarkPlugins={[remarkGfm]}
@@ -353,7 +390,7 @@ Please provide:
                       </ScrollArea>
                     </div>
                     
-                    <DialogFooter className="flex justify-between gap-3 border-t pt-4">
+                    <DialogFooter className="flex justify-between gap-3 border-t pt-4 flex-shrink-0">
                       <Button variant="outline" onClick={handleReset} className="flex-1">
                         ✨ Ask Something Else
                       </Button>

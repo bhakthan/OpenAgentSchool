@@ -87,9 +87,16 @@ async function callAzureOpenAI(prompt: string): Promise<LlmResponse> {
         })
     });
     if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Azure OpenAI API Error:', errorData);
-        throw new Error(errorData.error.message);
+        const errorText = await response.text();
+        console.error('Azure OpenAI API Error:', errorText);
+        
+        // Try to parse as JSON, but fall back to text if it fails
+        try {
+            const errorData = JSON.parse(errorText);
+            throw new Error(errorData.error?.message || `API Error: ${response.status} - ${errorText}`);
+        } catch (parseError) {
+            throw new Error(`API Error: ${response.status} - ${errorText}`);
+        }
     }
     const data = await response.json();
     return { content: data.choices[0].message.content };
@@ -116,9 +123,16 @@ async function callGemini(prompt: string): Promise<LlmResponse> {
         })
     });
     if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Gemini API Error:', errorData);
-        throw new Error(errorData.error.message);
+        const errorText = await response.text();
+        console.error('Gemini API Error:', errorText);
+        
+        // Try to parse as JSON, but fall back to text if it fails
+        try {
+            const errorData = JSON.parse(errorText);
+            throw new Error(errorData.error?.message || `API Error: ${response.status} - ${errorText}`);
+        } catch (parseError) {
+            throw new Error(`API Error: ${response.status} - ${errorText}`);
+        }
     }
     const data = await response.json();
     return { content: data.candidates[0].content.parts[0].text };
@@ -144,9 +158,16 @@ async function callHuggingFace(prompt: string): Promise<LlmResponse> {
         })
     });
     if (!response.ok) {
-        const errorData = await response.json();
-        console.error('HuggingFace API Error:', errorData);
-        throw new Error(errorData.error?.message || 'Unknown error');
+        const errorText = await response.text();
+        console.error('HuggingFace API Error:', errorText);
+        
+        // Try to parse as JSON, but fall back to text if it fails
+        try {
+            const errorData = JSON.parse(errorText);
+            throw new Error(errorData.error?.message || `API Error: ${response.status} - ${errorText}`);
+        } catch (parseError) {
+            throw new Error(`API Error: ${response.status} - ${errorText}`);
+        }
     }
     const data = await response.json();
     return { content: data[0]?.generated_text || '' };
@@ -160,24 +181,80 @@ async function callOpenRouter(prompt: string): Promise<LlmResponse> {
     if (!apiKey || !apiUrl || !model) {
         throw new Error("VITE_OPENROUTER_API_KEY, VITE_OPENROUTER_API_URL, and VITE_OPENROUTER_MODEL must be set in your environment variables.");
     }
+
+    console.log('OpenRouter API Call:', { apiUrl, model }); // Debug info
+    
+    const requestBody = {
+        model,
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.7,
+        max_tokens: 1024
+    };
+
+    console.log('OpenRouter Request Body:', requestBody); // Debug request body
+    
     const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'HTTP-Referer': 'https://www.openagentschool.org', // Updated to match your domain
+            'X-Title': 'Open Agent School' // Updated to match your site name
         },
-        body: JSON.stringify({
-            model,
-            messages: [{ role: "user", content: prompt }]
-        })
+        body: JSON.stringify(requestBody)
     });
+    console.log('OpenRouter Response Status:', response.status, response.statusText); // Debug response
+    
     if (!response.ok) {
-        const errorData = await response.json();
-        console.error('OpenRouter API Error:', errorData);
-        throw new Error(errorData.error?.message || 'Unknown error');
+        const errorText = await response.text();
+        console.error('OpenRouter API Error Response:', {
+            status: response.status,
+            statusText: response.statusText,
+            headers: Object.fromEntries(response.headers.entries()),
+            body: errorText
+        });
+        
+        // Try to parse as JSON, but fall back to text if it fails
+        try {
+            const errorData = JSON.parse(errorText);
+            throw new Error(errorData.error?.message || errorData.message || `OpenRouter API Error: ${response.status} - ${errorText}`);
+        } catch (parseError) {
+            throw new Error(`OpenRouter API Error: ${response.status} - ${errorText}`);
+        }
     }
-    const data = await response.json();
-    return { content: data.choices[0].message.content };
+    
+    // Get response text first, then try to parse as JSON
+    const responseText = await response.text();
+    console.log('OpenRouter Response Text (first 500 chars):', responseText.substring(0, 500)); // Debug response
+    
+    try {
+        const data = JSON.parse(responseText);
+        console.log('OpenRouter Parsed Response:', data); // Debug parsed response
+        
+        // Validate response structure
+        if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+            throw new Error('OpenRouter response missing expected structure: choices[0].message');
+        }
+        
+        return { content: data.choices[0].message.content };
+    } catch (parseError) {
+        console.error('OpenRouter JSON Parse Error:', parseError);
+        console.error('Full Response text:', responseText);
+        
+        // If response looks like HTML, it's likely an error page
+        if (responseText.trim().startsWith('<!DOCTYPE') || responseText.trim().startsWith('<html')) {
+            throw new Error('OpenRouter returned an HTML error page instead of JSON. This usually indicates an API configuration issue or rate limiting.');
+        }
+        
+        // Check if it's a specific OpenRouter error format
+        if (responseText.includes('error') && responseText.includes('message')) {
+            throw new Error(`OpenRouter Error: ${responseText}`);
+        }
+        
+        // Try to extract any meaningful error message from the text
+        const errorMessage = responseText.length > 200 ? responseText.substring(0, 200) + '...' : responseText;
+        throw new Error(`OpenRouter returned invalid JSON response: ${errorMessage}`);
+    }
 }
 
 // Anthropic Claude API
@@ -206,9 +283,16 @@ async function callClaude(prompt: string): Promise<LlmResponse> {
         })
     });
     if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Claude API Error:', errorData);
-        throw new Error(errorData.error?.message || 'Unknown error');
+        const errorText = await response.text();
+        console.error('Claude API Error:', errorText);
+        
+        // Try to parse as JSON, but fall back to text if it fails
+        try {
+            const errorData = JSON.parse(errorText);
+            throw new Error(errorData.error?.message || `API Error: ${response.status} - ${errorText}`);
+        } catch (parseError) {
+            throw new Error(`API Error: ${response.status} - ${errorText}`);
+        }
     }
     const data = await response.json();
     let content = data.content || data.choices?.[0]?.message?.content || '';
