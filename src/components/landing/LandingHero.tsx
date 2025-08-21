@@ -106,7 +106,7 @@ export const LandingHero: React.FC = () => {
                         🎯 Revolutionary Learning: AI as Your Customer
                       </h4>
                       <p className="text-sm">
-                        <strong>Can you explain it well enough to satisfy AI?</strong> Our "Ask AI" feature doesn't just help you learn—it <em>challenges</em> you to prove your understanding. Think of AI as your most demanding stakeholder who won't accept vague answers.
+                        <strong>Can you explain it well enough to satisfy AI?</strong> Our "Ask AI" feature doesn't just help you learn—it <em>challenges</em> you to progress your understanding. Think of AI as your most demanding stakeholder who encourages clear and precise answers.
                       </p>
                     </div>
                   </div>
@@ -254,7 +254,7 @@ export const LandingHero: React.FC = () => {
           </div>
           <h2 className="text-3xl font-bold mb-4">Revolutionary Learning: AI as Your Customer</h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Transform passive learning into active mastery. Our AI doesn't just answer your questions—it challenges you to prove your understanding like a demanding customer.
+            Transform passive learning into active mastery. Our AI doesn't just answer your questions—it challenges you to progress your understanding like a thoughtful customer.
           </p>
         </div>
         
@@ -276,7 +276,7 @@ export const LandingHero: React.FC = () => {
               <div className="theme-learning-icon-orange p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <Brain className="h-8 w-8" />
               </div>
-              <h3 className="font-semibold mb-3 theme-learning-orange">Step 2: Prove Your Understanding</h3>
+              <h3 className="font-semibold mb-3 theme-learning-orange">Step 2: Progress Your Understanding</h3>
               <p className="text-sm text-muted-foreground">
                 Explain concepts in your own words. The AI validates your knowledge and identifies gaps, just like presenting to a demanding client.
               </p>

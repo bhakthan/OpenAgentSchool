@@ -406,8 +406,8 @@ function App() {
           
           <footer className="border-t border-border py-6 bg-muted transition-colors duration-300">
             <div className="container mx-auto px-4 text-center text-muted-foreground">
-              <p>Open Agent School - Where AI Concepts Come to Life</p>
-              <p className="text-xs mt-1 opacity-75">Progressive learning • Prove your understanding through intelligent dialogue</p>
+              <p>Open Agent School - Where Agentic AI Concepts Come to Life</p>
+              <p className="text-xs mt-1 opacity-75">Progressive learning • Progress your understanding through intelligent dialogue</p>
             </div>
           </footer>
           
