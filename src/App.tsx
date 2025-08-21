@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react'
-import { Outlet, Route, Routes, Link, useLocation, Navigate } from 'react-router-dom'
+import { Outlet, Route, Routes, Link, useLocation, Navigate, useNavigate } from 'react-router-dom'
 import { ThemeProvider } from './components/theme/ThemeProvider'
 import { ThemeToggle } from './components/theme/ThemeToggle'
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu"
@@ -63,6 +63,7 @@ function App() {
   const [mounted, setMounted] = useState(false)
   const [showJourneyMap, setShowJourneyMap] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
 
   // Scroll to top when route changes
   useEffect(() => {
@@ -234,7 +235,13 @@ function App() {
           <header className="border-b border-border sticky top-0 z-10 bg-background">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Logo size="small" showText={true} />
+                <button 
+                  onClick={() => navigate('/')}
+                  className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                  aria-label="Go to home page"
+                >
+                  <Logo size="small" showText={true} />
+                </button>
               </div>
               
               <div className="flex items-center space-x-4">
@@ -287,25 +294,20 @@ function App() {
                       </a>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                      <div className="group relative">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => window.open('https://www.youtube.com/playlist?list=PL9pA6bW_V_aBCC77nHbPgPJVUXqnLkZ2C', '_blank')}
-                          className="inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                        >
-                          <img 
-                            src="/images/youtube-podcast-qr.svg" 
-                            alt="YouTube Podcast QR Code" 
-                            className="w-6 h-6 mr-2 rounded-sm transition-all duration-300 group-hover:scale-[4] group-hover:z-50 group-hover:absolute group-hover:top-full group-hover:left-1/2 group-hover:transform group-hover:-translate-x-1/2 group-hover:mt-3 group-hover:bg-white group-hover:shadow-xl group-hover:border group-hover:rounded-sm"
-                          />
-                          <span className="hidden lg:inline">Podcast</span>
-                        </Button>
-                        {/* Clean instruction text that appears on hover */}
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-20 px-3 py-1 bg-gray-900 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-40">
-                          Scan QR code or click to open playlist
-                        </div>
-                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => window.open('https://www.youtube.com/playlist?list=PL9pA6bW_V_aBCC77nHbPgPJVUXqnLkZ2C', '_blank')}
+                        className="inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                        title="Click to open YouTube Podcast playlist"
+                      >
+                        <img 
+                          src="/images/youtube-podcast-qr.svg" 
+                          alt="YouTube Podcast QR Code" 
+                          className="w-6 h-6 mr-2 rounded-sm"
+                        />
+                        <span className="hidden lg:inline">Podcast</span>
+                      </Button>
                     </NavigationMenuItem>
                   </NavigationMenuList>
                 </NavigationMenu>
@@ -316,7 +318,7 @@ function App() {
             <div className="container mx-auto px-4 pb-1">
               {(() => {
                 const allTabs = [
-                  { to: '/', label: 'Core Concepts', icon: <LadderIcon size={16} /> },
+                  { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} /> },
                   { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" /> },
                   { to: '/ai-skills', label: 'AI-Native Skills', icon: <Lightning size={16} weight="duotone" /> },
                   { to: '/azure-services', label: 'Azure Services', icon: <StackSimple size={16} weight="duotone" /> },

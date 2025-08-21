@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator"
 import { SmartPageAnalytics } from "../tutorial/SmartPageAnalytics"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { useState, Suspense, lazy, useEffect } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { LandingHero } from "../landing/LandingHero"
 
 // Lazy load heavy components
@@ -19,8 +19,12 @@ const ConceptsLoader = () => (
 export default function ConceptsExplorer() {
   const { conceptId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isModalOpen, setModalOpen] = useState(false)
   const [selectedConcept, setSelectedConcept] = useState<string | null>(conceptId || null) // Track selected concept
+
+  // Check if we're on the landing page (/) vs concepts page (/concepts)
+  const isLandingPage = location.pathname === '/';
 
   // Update selected concept when URL parameter changes
   useEffect(() => {
@@ -35,7 +39,7 @@ export default function ConceptsExplorer() {
   const handleConceptSelection = (conceptId: string | null) => {
     if (conceptId === null) {
       // Navigate back to the main concepts page
-      navigate('/');
+      navigate('/concepts');
     } else {
       // Navigate to specific concept
       navigate(`/concepts/${conceptId}`);
@@ -66,8 +70,8 @@ export default function ConceptsExplorer() {
 
   return (
     <div className="space-y-0">
-      {/* Landing Hero Section - Only show when no concept is selected */}
-      {!selectedConcept && (
+      {/* Landing Hero Section - Only show when on the landing page (/) and no concept is selected */}
+      {isLandingPage && !selectedConcept && (
         <div className="-mt-6">
           <LandingHero />
         </div>
