@@ -53,10 +53,10 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
     if (!patternData.nodes) return {};
     
     const layout: Record<string, { x: number; y: number; width: number; height: number }> = {};
-    const containerWidth = 1000;
-    const containerHeight = 600;
-    const nodeWidth = 160;
-    const nodeHeight = 100;
+    const containerWidth = 800;  // Reduced from 1000 to fit in card
+    const containerHeight = 380; // Reduced from 600 to fit in 450px container with padding
+    const nodeWidth = 140;       // Slightly smaller nodes
+    const nodeHeight = 80;       // Slightly smaller nodes
     
     // Simple grid layout - same as SimplePatternFlow
     const cols = Math.ceil(Math.sqrt(patternData.nodes.length));
@@ -353,12 +353,14 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
           </div>
           
           {/* Main visualization area with side-by-side layout */}
-          <div className="flex flex-col lg:flex-row gap-4" style={{ minHeight: '590px' }}>
+          <div className="flex flex-col lg:flex-row gap-4">
             {/* Visualization container */}
-            <div className={`relative border rounded-lg p-4 bg-gray-50/50 dark:bg-gray-800/50 backdrop-blur-sm transition-all duration-300 ${
+            <div className={`relative border rounded-lg p-4 bg-gray-50/50 dark:bg-gray-800/50 backdrop-blur-sm transition-all duration-300 overflow-hidden ${
               flowSteps.length > 0 ? 'flex-1' : 'w-full'
-            }`} style={{ height: '590px' }}>
-              <svg width="100%" height="100%" className="absolute inset-0 pointer-events-none">
+            }`} style={{ height: '450px', minHeight: '450px' }}>
+              {/* Container for visualization content */}
+              <div className="relative w-full h-full">
+                <svg width="100%" height="100%" className="absolute inset-0 pointer-events-none z-0">
                 {/* Render edges */}
                 {patternData.edges?.map(edge => {
                   const animatedEdge = animatedEdges.find(ae => ae.id === edge.id);
@@ -454,7 +456,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
               })}
               
               {/* Status indicator */}
-              <div className="absolute bottom-2 left-2 right-2 text-center">
+              <div className="absolute bottom-2 left-2 right-2 text-center z-10">
                 <div className="inline-flex items-center gap-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-full px-3 py-1 text-sm shadow-sm border border-gray-200 dark:border-gray-700">
                   <DotsSixVertical size={14} className="text-gray-500 dark:text-gray-400" />
                   <span className="text-gray-700 dark:text-gray-300">
@@ -465,11 +467,12 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
                   </span>
                 </div>
               </div>
+              </div>
             </div>
 
             {/* Execution Log side panel */}
             {flowSteps.length > 0 && (
-              <div className="w-full lg:w-80 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 flex flex-col shadow-sm overflow-hidden" style={{ minHeight: '590px', maxHeight: '590px' }}>
+              <div className="w-full lg:w-80 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 flex flex-col shadow-sm overflow-hidden" style={{ minHeight: '450px', maxHeight: '450px' }}>
                 <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex-shrink-0">
                   <h4 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
                     <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />

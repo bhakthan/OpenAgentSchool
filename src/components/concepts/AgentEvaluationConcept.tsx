@@ -61,10 +61,10 @@ const AgentEvaluationConcept = () => {
         <Tabs defaultValue="architecture">
           <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5">
             <TabsTrigger value="architecture"><Lightbulb size={16} className="mr-1" /> Architecture</TabsTrigger>
+            <TabsTrigger value="simulation"><Users size={16} className="mr-1" /> Simulation</TabsTrigger>
             <TabsTrigger value="implementation"><TestTube size={16} className="mr-1" /> Implementation</TabsTrigger>
             <TabsTrigger value="business-use-case"><Briefcase size={16} className="mr-1" /> Business Use Case</TabsTrigger>
             <TabsTrigger value="best-practices"><Trophy size={16} className="mr-1" /> Best Practices</TabsTrigger>
-            <TabsTrigger value="simulation"><Users size={16} className="mr-1" /> Simulation</TabsTrigger>
           </TabsList>
 
           {/* Architecture Tab */}
@@ -78,6 +78,13 @@ const AgentEvaluationConcept = () => {
               <li>Scenario-based testing</li>
             </ul>
             <CodeBlock language="python">{ARCHITECTURE_CODE}</CodeBlock>
+          </TabsContent>
+
+          {/* Simulation Tab */}
+          <TabsContent value="simulation" className="pt-4">
+            <h3 className="text-lg font-semibold mb-3">Advanced Architecture Simulation</h3>
+            <AdvancedArchitectureSimulation />
+            <MultiAgentEvalVisual />
           </TabsContent>
 
           {/* Implementation Tab */}
@@ -139,13 +146,6 @@ const AgentEvaluationConcept = () => {
             <div className="mt-2 text-xs text-muted-foreground">
               References: Azure AI Evaluation SDK, EvalLM, AgentBench, RAGAS, HumanEval
             </div>
-          </TabsContent>
-
-          {/* Simulation Tab */}
-          <TabsContent value="simulation" className="pt-4">
-            <h3 className="text-lg font-semibold mb-3">Advanced Architecture Simulation</h3>
-            <AdvancedArchitectureSimulation />
-            <MultiAgentEvalVisual />
           </TabsContent>
         </Tabs>
       </CardContent>

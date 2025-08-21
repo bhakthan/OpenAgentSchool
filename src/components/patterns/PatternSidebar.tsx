@@ -26,7 +26,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 
 interface PatternSidebarProps {
   activePatternId: string;
@@ -223,7 +222,7 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
                             <TooltipTrigger asChild>
                               <div 
                                 className={cn(
-                                  "px-2 py-1.5 rounded-md cursor-pointer transition-all duration-150 text-base relative group hover:pr-10",
+                                  "px-2 py-1.5 rounded-md cursor-pointer transition-all duration-150 text-base relative group",
                                   activePatternId === pattern.id 
                                     ? "bg-primary/10 text-primary border-l-2 border-primary" 
                                     : "hover:bg-muted"
@@ -244,19 +243,6 @@ export function PatternSidebar({ activePatternId, onPatternSelect }: PatternSide
                                 }}
                               >
                                 <span className="block truncate">{pattern.name}</span>
-                                {/* EnlightenMeButton with improved hover area and alignment */}
-                                <div 
-                                  className="absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:opacity-100 z-10 transform translate-x-2 group-hover:translate-x-0"
-                                  onClick={(e) => e.stopPropagation()}
-                                  onMouseEnter={(e) => e.stopPropagation()}
-                                >
-                                  <div className="p-1 rounded-full hover:bg-yellow-100/80 dark:hover:bg-yellow-900/30 transition-colors duration-150 shadow-sm">
-                                    <EnlightenMeButton 
-                                      title={`${pattern.name} Agent Pattern`}
-                                      contextDescription={`The ${pattern.name} agent pattern: ${pattern.description}. Learn about its architecture, implementation using Azure OpenAI Service, Azure AI Agent Service, best practices, real-world use cases, performance considerations, and integration patterns with other Azure services.`}
-                                    />
-                                  </div>
-                                </div>
                               </div>
                             </TooltipTrigger>
                             <TooltipContent side="right" className="max-w-xs text-sm">

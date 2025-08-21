@@ -312,9 +312,9 @@ const PatternExplorer = () => {
                   </TabsList>
                   
                   <TabsContent value="flow-diagram">
-                    {/* Ensure a good mobile height and remove page padding on small screens */}
+                    {/* Flow visualization with scrollable content */}
                     <div className="flow-container" data-flow>
-                      <div className="h-[60vh] md:h-[70vh] -mx-4 md:mx-0">
+                      <div className="min-h-[60vh] md:min-h-[50vh] -mx-4 md:mx-0">
                       <ErrorBoundary>
                         <Suspense fallback={<VisualizationLoader />}>
                           <SimplePatternVisualizer patternData={selectedPattern} />
