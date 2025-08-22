@@ -383,6 +383,12 @@ code, pre {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* Fix for text clipping issues */
+  line-height: 1.2;
+  padding: 0.1em 0;
+  display: inline-block;
+  /* Ensure consistent rendering across browsers */
+  -webkit-text-fill-color: transparent;
 }
 
 .theme-feature-card {

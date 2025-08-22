@@ -86,7 +86,15 @@ export const LandingHero: React.FC = () => {
               <div className="space-y-6">
                 {/* Core Messaging */}
                 <div className="text-center lg:text-left">
-                  <h2 className="text-4xl lg:text-5xl font-bold mb-4 theme-gradient">
+                  <h2 className="text-4xl lg:text-5xl font-bold mb-4" style={{
+                    background: 'linear-gradient(135deg, #3B82F6 0%, #A855F7 50%, #6366F1 100%)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    color: 'transparent',
+                    lineHeight: '1.2',
+                    paddingBottom: '0.1em'
+                  }}>
                     Agentic Learning for Everyone
                   </h2>
                   <p className="text-xl text-muted-foreground leading-relaxed">

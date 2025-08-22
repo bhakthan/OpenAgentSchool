@@ -162,7 +162,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-4xl max-w-[90vw] max-h-[90vh] flex flex-col">
+      <DialogContent className="sm:max-w-4xl max-w-[90vw] max-h-[90vh] flex flex-col overflow-hidden">
         <DialogHeader className="flex-shrink-0">
           <DialogTitle className="flex items-center gap-2">
             <ChatCircleDots className="text-primary" size={20} />
@@ -204,7 +204,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
             </DialogFooter>
           </>
         ) : (
-          <>
+          <div className="flex-1 flex flex-col min-h-0 space-y-4">
             {/* Collapsible Prompt Section */}
             <div className="border rounded-md bg-muted/30 flex-shrink-0">
               <button
@@ -244,19 +244,15 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                   <span className="ml-2">Generating insights...</span>
                 </div>
               ) : (
-                <div className="flex-1 overflow-hidden">
-                  <ScrollArea className="h-full max-h-[calc(90vh-300px)]">
-                    <div className="p-4">
-                      <div className="prose prose-sm dark:prose-invert max-w-none">
-                        <ReactMarkdown
-                          components={markdownComponents}
-                          remarkPlugins={[remarkGfm]}
-                        >
-                          {response}
-                        </ReactMarkdown>
-                      </div>
-                    </div>
-                  </ScrollArea>
+                <div className="flex-1 overflow-y-auto max-h-[60vh] p-4">
+                  <div className="prose prose-sm dark:prose-invert max-w-none space-y-4">
+                    <ReactMarkdown
+                      components={markdownComponents}
+                      remarkPlugins={[remarkGfm]}
+                    >
+                      {response}
+                    </ReactMarkdown>
+                  </div>
                 </div>
               )}
             </div>
@@ -398,7 +394,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                 </Button>
               </div>
             </DialogFooter>
-          </>
+          </div>
         )}
       </DialogContent>
     </Dialog>
