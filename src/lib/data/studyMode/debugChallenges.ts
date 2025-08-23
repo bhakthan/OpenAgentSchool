@@ -1419,6 +1419,130 @@ async function processComplexTask(task: string) {
   }
 ];
 
+// Learner Pattern Debug Challenges
+export const learnerPatternDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'debug-socratic-coach-1',
+    type: 'debug',
+    conceptId: 'socratic-coach',
+    title: 'Spoiler Leakage',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'spoiler-leak',
+      title: 'Question gives away answer',
+      description: 'A Socratic prompt accidentally reveals the solution.',
+      problemDescription: 'The coach says: "What is the base case in factorial (it is n<=1)?"',
+      brokenCode: `const question = "What is the base case in factorial (it is n<=1)?";`,
+      expectedBehavior: 'Question should not include the answer.',
+      commonIssues: [
+        { issue: 'Leak in parentheses', symptoms: ['Learner parrots answer'], diagnosis: 'Prompt embeds answer', fix: 'Remove spoilers and ask targeted question' }
+      ],
+      solution: `const question = "What condition stops factorial from calling itself?"`,
+      explanation: 'Remove spoilers; ask about concept not value.'
+    }
+  },
+  {
+    id: 'debug-concept-to-project-1',
+    type: 'debug',
+    conceptId: 'concept-to-project',
+    title: 'Over-Scoped Milestones',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'overscoped',
+      title: 'Milestones too large',
+      description: 'Project plan collapses due to coarse milestones.',
+      problemDescription: 'First milestone: Implement all sorting algorithms.',
+      brokenCode: `const milestones = ['All sorts'];`,
+      expectedBehavior: 'Use thin slices with demo checkpoints.',
+      commonIssues: [
+        { issue: 'No thin slice', symptoms: ['No early demo'], diagnosis: 'Scope too big', fix: 'Start with single algorithm end-to-end' }
+      ],
+      solution: `const milestones = ['Bubble sort end-to-end demo'];`,
+      explanation: 'Thin slice de-risks and teaches effectively.'
+    }
+  },
+  {
+    id: 'debug-error-whisperer-1',
+    type: 'debug',
+    conceptId: 'error-whisperer',
+    title: 'Over-Fix',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'overfix',
+      title: 'Refactor instead of minimal patch',
+      description: 'Large refactor introduces new bugs.',
+      problemDescription: 'Rewrote entire module to fix one null error.',
+      brokenCode: `// massive refactor...`,
+      expectedBehavior: 'Apply minimal safe diff and validate.',
+      commonIssues: [
+        { issue: 'Scope creep', symptoms: ['New failures'], diagnosis: 'Unnecessary refactor', fix: 'Add simple guard and tests' }
+      ],
+      solution: `if(!obj) return 0;`,
+      explanation: 'Minimal change unblocks quickly with lower risk.'
+    }
+  },
+  {
+    id: 'debug-knowledge-map-navigator-1',
+    type: 'debug',
+    conceptId: 'knowledge-map-navigator',
+    title: 'Missing Prereq',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'missing-prereq',
+      title: 'Auth placed after CRUD',
+      description: 'Path fails due to misordered dependency.',
+      problemDescription: 'Learner attempts protected endpoints before auth basics.',
+      brokenCode: `const path = ['CRUD', 'Auth'];`,
+      expectedBehavior: 'Order prerequisites before dependents.',
+      commonIssues: [
+        { issue: 'Dependency inversion', symptoms: ['Confusion', 'Stuck demos'], diagnosis: 'Prereq misplaced', fix: 'Move auth before CRUD' }
+      ],
+      solution: `const path = ['Auth', 'CRUD'];`,
+      explanation: 'Dependencies drive ordering.'
+    }
+  },
+  {
+    id: 'debug-peer-review-simulator-1',
+    type: 'debug',
+    conceptId: 'peer-review-simulator',
+    title: 'No Decision',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'no-decision',
+      title: 'Review lacks outcome',
+      description: 'Reviewer feedback has no approve/request changes.',
+      problemDescription: 'Comments provided, but no decision given.',
+      brokenCode: `const decision = undefined;`,
+      expectedBehavior: 'Every review ends with a clear decision.',
+      commonIssues: [
+        { issue: 'Decision omitted', symptoms: ['PR stalled'], diagnosis: 'No explicit outcome', fix: 'Add decision with rationale' }
+      ],
+      solution: `const decision = 'request_changes';`,
+      explanation: 'Explicit decision keeps flow moving.'
+    }
+  },
+  {
+    id: 'debug-tool-use-coach-1',
+    type: 'debug',
+    conceptId: 'tool-use-coach',
+    title: 'Missing Guardrails',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'missing-guardrails',
+      title: 'Upload fails due to RBAC',
+      description: 'No prechecks for auth and permissions.',
+      problemDescription: 'Upload code assumes permissions and fails.',
+      brokenCode: `await blobClient.uploadData(buf) // throws 403`,
+      expectedBehavior: 'Run auth and role checks before action.',
+      commonIssues: [
+        { issue: 'No prechecks', symptoms: ['403 Forbidden'], diagnosis: 'Missing RBAC setup', fix: 'Validate login and role; fallback guidance' }
+      ],
+      solution: `await ensureAuthAndRole('Storage Blob Data Contributor');`,
+      explanation: 'Guardrails precede exemplars for reliability.'
+    }
+  }
+];
+
 // Debug Challenges for Agentic Prompting Fundamentals
 const agenticPromptingFundamentalsDebugChallenges: StudyModeQuestion[] = [
   {
@@ -2238,6 +2362,13 @@ export const debugChallengeLibrary = {
   'agentic-rag': debugChallenges.filter(c => c.conceptId === 'agentic-rag'),
   'modern-tool-use': debugChallenges.filter(c => c.conceptId === 'modern-tool-use'),
   'deep-agents': debugChallenges.filter(c => c.conceptId === 'deep-agents'),
+  // Learner patterns
+  'socratic-coach': learnerPatternDebugChallenges.filter(c => c.conceptId === 'socratic-coach'),
+  'concept-to-project': learnerPatternDebugChallenges.filter(c => c.conceptId === 'concept-to-project'),
+  'error-whisperer': learnerPatternDebugChallenges.filter(c => c.conceptId === 'error-whisperer'),
+  'knowledge-map-navigator': learnerPatternDebugChallenges.filter(c => c.conceptId === 'knowledge-map-navigator'),
+  'peer-review-simulator': learnerPatternDebugChallenges.filter(c => c.conceptId === 'peer-review-simulator'),
+  'tool-use-coach': learnerPatternDebugChallenges.filter(c => c.conceptId === 'tool-use-coach'),
   // New Core Concepts
   'agentic-prompting-fundamentals': agenticPromptingFundamentalsDebugChallenges,
   'prompt-optimization-patterns': promptOptimizationPatternsDebugChallenges,

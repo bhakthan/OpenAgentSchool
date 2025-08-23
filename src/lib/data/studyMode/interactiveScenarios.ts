@@ -291,6 +291,246 @@ group_chat = autogen.GroupChat(
   }
 ];
 
+// Interactive Scenarios for Learner Patterns
+export const socraticCoachScenarios: StudyModeQuestion[] = [
+  {
+    id: 'socratic-coach-s1',
+    type: 'scenario',
+    conceptId: 'socratic-coach',
+    title: 'Design a Socratic Flow',
+    level: 'beginner',
+    scenario: {
+      id: 'socratic-flow-design',
+      title: 'From Goal to Questions',
+      description: 'Create a 3-question Socratic flow for teaching recursion without spoilers.',
+      context: 'A learner can write loops but is new to recursion.',
+      stakeholders: ['Learner', 'Coach'],
+      challenges: [
+        {
+          id: 'q-sequencing',
+          title: 'Sequence Questions',
+          description: 'Arrange questions to uncover base case first',
+          question: 'Which question should come first?',
+          type: 'multiple-choice',
+          options: ['What is recursion?', 'What happens at n=0 in factorial?', 'Can you write a for loop version?'],
+          correctAnswer: 1,
+          feedback: 'Start with base case to anchor reasoning.'
+        }
+      ],
+      outcomes: [
+        { id: 'good', condition: 'Correct order', result: 'Effective Socratic flow', explanation: 'Anchored on base case then step' }
+      ],
+      conceptId: 'socratic-coach',
+      difficulty: 'beginner',
+      estimatedTime: '10 minutes',
+      learningOutcomes: ['Question sequencing', 'No-spoiler prompts']
+    },
+    explanation: 'Good Socratic flows surface key gaps stepwise.',
+    relatedConcepts: ['prompt-design'],
+    timeEstimate: 10,
+    successCriteria: ['Correct first question identified']
+  }
+];
+
+export const conceptToProjectScenarios: StudyModeQuestion[] = [
+  {
+    id: 'concept-to-project-s1',
+    type: 'scenario',
+    conceptId: 'concept-to-project',
+    title: 'Scope a 1-Week Project',
+    level: 'intermediate',
+    scenario: {
+      id: 'scope-one-week',
+      title: 'Sorting Visualizer Plan',
+      description: 'Turn sorting concept into a scoped project with milestones.',
+      context: 'Beginner learner with JS basics.',
+      stakeholders: ['Learner', 'Mentor'],
+      challenges: [
+        {
+          id: 'milestone-sizing',
+          title: 'Milestone Size',
+          description: 'Choose milestone granularity',
+          question: 'Which is an appropriate first milestone?',
+          type: 'multiple-choice',
+          options: ['Implement all sorts', 'Implement bubble sort only', 'Build a full UI'],
+          correctAnswer: 1,
+          feedback: 'Start with one sort end-to-end.'
+        }
+      ],
+      outcomes: [
+        { id: 'good', condition: 'Chooses thin slice', result: 'Achievable plan', explanation: 'End-to-end thin slice mitigates risk.' }
+      ],
+      conceptId: 'concept-to-project',
+      difficulty: 'intermediate',
+      estimatedTime: '15 minutes',
+      learningOutcomes: ['Timeboxing', 'Acceptance criteria']
+    },
+    explanation: 'Thin slices produce steady progress.',
+    relatedConcepts: ['plan-and-execute'],
+    timeEstimate: 15,
+    successCriteria: ['Selects thin slice']
+  }
+];
+
+export const errorWhispererScenarios: StudyModeQuestion[] = [
+  {
+    id: 'error-whisperer-s1',
+    type: 'scenario',
+    conceptId: 'error-whisperer',
+    title: 'Fix with Minimal Diff',
+    level: 'beginner',
+    scenario: {
+      id: 'minimal-diff-fix',
+      title: 'Null Guard',
+      description: 'Apply smallest safe change to fix a null ref error.',
+      context: 'Function crashes on undefined input.',
+      stakeholders: ['Developer'],
+      challenges: [
+        {
+          id: 'choose-fix',
+          title: 'Select Fix',
+          description: 'Pick minimal patch',
+          question: 'Which change is minimal and safe?',
+          type: 'multiple-choice',
+          options: ['Add null guard', 'Refactor module', 'Rewrite function'],
+          correctAnswer: 0,
+          feedback: 'Guard is smallest change.'
+        }
+      ],
+      outcomes: [
+        { id: 'ok', condition: 'Guard chosen', result: 'Error resolved', explanation: 'Validated via tests.' }
+      ],
+      conceptId: 'error-whisperer',
+      difficulty: 'beginner',
+      estimatedTime: '8 minutes',
+      learningOutcomes: ['Minimal diff thinking', 'Validation']
+    },
+    explanation: 'Small diffs reduce risk.',
+    relatedConcepts: ['testing'],
+    timeEstimate: 8,
+    successCriteria: ['Chooses guard']
+  }
+];
+
+export const knowledgeMapNavigatorScenarios: StudyModeQuestion[] = [
+  {
+    id: 'knowledge-map-navigator-s1',
+    type: 'scenario',
+    conceptId: 'knowledge-map-navigator',
+    title: 'Plan a Learning Path',
+    level: 'beginner',
+    scenario: {
+      id: 'plan-path',
+      title: 'REST API Path',
+      description: 'Build prerequisite graph and path to REST API proficiency.',
+      context: 'Learner wants backend basics.',
+      stakeholders: ['Learner'],
+      challenges: [
+        {
+          id: 'prereq',
+          title: 'Prereq vs Parallel',
+          description: 'Classify skills',
+          question: 'Auth belongs where?',
+          type: 'multiple-choice',
+          options: ['Prerequisite to CRUD', 'Parallel with CRUD'],
+          correctAnswer: 0,
+          feedback: 'Auth is required to design endpoints correctly.'
+        }
+      ],
+      outcomes: [
+        { id: 'good', condition: 'Correct classification', result: 'Coherent path', explanation: 'Dependencies drive order.' }
+      ],
+      conceptId: 'knowledge-map-navigator',
+      difficulty: 'beginner',
+      estimatedTime: '10 minutes',
+      learningOutcomes: ['Prereq graphs', 'Checkpoints']
+    },
+    explanation: 'Dependencies imply ordering.',
+    relatedConcepts: ['learning-paths'],
+    timeEstimate: 10,
+    successCriteria: ['Classifies correctly']
+  }
+];
+
+export const peerReviewSimulatorScenarios: StudyModeQuestion[] = [
+  {
+    id: 'peer-review-simulator-s1',
+    type: 'scenario',
+    conceptId: 'peer-review-simulator',
+    title: 'Review a PR',
+    level: 'beginner',
+    scenario: {
+      id: 'review-pr',
+      title: 'Blocking vs Non-Blocking',
+      description: 'Classify findings and issue a decision.',
+      context: 'Small feature PR with missing tests.',
+      stakeholders: ['Reviewer'],
+      challenges: [
+        {
+          id: 'decision',
+          title: 'Approve or Request Changes',
+          description: 'Pick outcome',
+          question: 'Given missing tests for new logic, what is the decision?',
+          type: 'multiple-choice',
+          options: ['Approve', 'Request changes'],
+          correctAnswer: 1,
+          feedback: 'Missing tests is blocking.'
+        }
+      ],
+      outcomes: [
+        { id: 'good', condition: 'Requests changes', result: 'Quality maintained', explanation: 'Tests enforce correctness.' }
+      ],
+      conceptId: 'peer-review-simulator',
+      difficulty: 'beginner',
+      estimatedTime: '7 minutes',
+      learningOutcomes: ['Categorization', 'Decision rationale']
+    },
+    explanation: 'Clear categories improve feedback.',
+    relatedConcepts: ['quality'],
+    timeEstimate: 7,
+    successCriteria: ['Requests changes']
+  }
+];
+
+export const toolUseCoachScenarios: StudyModeQuestion[] = [
+  {
+    id: 'tool-use-coach-s1',
+    type: 'scenario',
+    conceptId: 'tool-use-coach',
+    title: 'Upload to Azure Blob',
+    level: 'intermediate',
+    scenario: {
+      id: 'blob-upload',
+      title: 'SDK vs CLI',
+      description: 'Select tool, set guardrails, run checklist.',
+      context: 'Automate uploads from a Node app.',
+      stakeholders: ['Developer', 'Cloud Admin'],
+      challenges: [
+        {
+          id: 'tool-choice',
+          title: 'Pick Tool',
+          description: 'Choose SDK or CLI',
+          question: 'Which fits programmatic uploads best?',
+          type: 'multiple-choice',
+          options: ['Azure SDK', 'Azure CLI'],
+          correctAnswer: 0,
+          feedback: 'SDK integrates into app flows.'
+        }
+      ],
+      outcomes: [
+        { id: 'good', condition: 'SDK chosen', result: 'Reliable automation', explanation: 'Guardrails + checklist ensure success.' }
+      ],
+      conceptId: 'tool-use-coach',
+      difficulty: 'intermediate',
+      estimatedTime: '12 minutes',
+      learningOutcomes: ['Tool selection', 'Safety checks']
+    },
+    explanation: 'Programmatic tasks prefer SDK.',
+    relatedConcepts: ['modern-tool-use'],
+    timeEstimate: 12,
+    successCriteria: ['Selects SDK', 'Lists prechecks']
+  }
+];
 // Interactive Scenarios for A2A Communication
 export const a2aScenarios: StudyModeQuestion[] = [
   {
@@ -2388,6 +2628,13 @@ export const scenarioLibrary = {
   'modern-tool-use': modernToolUseScenarios,
   'computer-use': computerUseScenarios,
   'deep-agents': deepAgentsScenarios,
+  // Learner patterns
+  'socratic-coach': socraticCoachScenarios,
+  'concept-to-project': conceptToProjectScenarios,
+  'error-whisperer': errorWhispererScenarios,
+  'knowledge-map-navigator': knowledgeMapNavigatorScenarios,
+  'peer-review-simulator': peerReviewSimulatorScenarios,
+  'tool-use-coach': toolUseCoachScenarios,
   // New Core Concepts
   'agentic-prompting-fundamentals': agenticPromptingFundamentalsScenarios,
   'prompt-optimization-patterns': promptOptimizationPatternsScenarios,

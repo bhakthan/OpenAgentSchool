@@ -23,6 +23,12 @@ import { modelContextProtocolSystemDesign } from './modelContextProtocol';
 import { deepAgentsSystemDesign } from './deep-agents';
 import { swarmIntelligenceSystemDesign } from './swarm-intelligence';
 import { sensoryReasoningEnhancementSystemDesign } from './sensory-reasoning-enhancement';
+import { socraticCoachSystemDesign } from './socraticCoach';
+import { conceptToProjectSystemDesign } from './conceptToProject';
+import { errorWhispererSystemDesign } from './errorWhisperer';
+import { knowledgeMapNavigatorSystemDesign } from './knowledgeMapNavigator';
+import { peerReviewSimulatorSystemDesign } from './peerReviewSimulator';
+import { toolUseCoachSystemDesign } from './toolUseCoach';
 
 // Export individual patterns
 export { pythonReActAgentSystemDesign } from './pythonReActAgent';
@@ -46,6 +52,12 @@ export { modelContextProtocolSystemDesign } from './modelContextProtocol';
 export { deepAgentsSystemDesign } from './deep-agents';
 export { swarmIntelligenceSystemDesign } from './swarm-intelligence';
 export { sensoryReasoningEnhancementSystemDesign } from './sensory-reasoning-enhancement';
+export { socraticCoachSystemDesign } from './socraticCoach';
+export { conceptToProjectSystemDesign } from './conceptToProject';
+export { errorWhispererSystemDesign } from './errorWhisperer';
+export { knowledgeMapNavigatorSystemDesign } from './knowledgeMapNavigator';
+export { peerReviewSimulatorSystemDesign } from './peerReviewSimulator';
+export { toolUseCoachSystemDesign } from './toolUseCoach';
 
 // Create a registry of all system design patterns
 export const systemDesignPatterns = {
@@ -71,6 +83,12 @@ export const systemDesignPatterns = {
   'deep-agents': deepAgentsSystemDesign,
   'swarm-intelligence': swarmIntelligenceSystemDesign,
   'sensory-reasoning-enhancement': sensoryReasoningEnhancementSystemDesign,
+  'socratic-coach': socraticCoachSystemDesign,
+  'concept-to-project': conceptToProjectSystemDesign,
+  'error-whisperer': errorWhispererSystemDesign,
+  'knowledge-map-navigator': knowledgeMapNavigatorSystemDesign,
+  'peer-review-simulator': peerReviewSimulatorSystemDesign,
+  'tool-use-coach': toolUseCoachSystemDesign,
 };
 
 /**

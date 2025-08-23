@@ -24,6 +24,12 @@ export { autogenPattern } from './autogen';
 export { autogenMultiAgentPattern } from './autogenMultiAgent';
 export { swarmIntelligencePattern } from './swarm-intelligence';
 export { sensoryReasoningEnhancementPattern } from './sensory-reasoning-enhancement';
+export { socraticCoachPattern } from './socraticCoach';
+export { conceptToProjectPattern } from './conceptToProject';
+export { errorWhispererPattern } from './errorWhisperer';
+export { knowledgeMapNavigatorPattern } from './knowledgeMapNavigator';
+export { peerReviewSimulatorPattern } from './peerReviewSimulator';
+export { toolUseCoachPattern } from './toolUseCoach';
 
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
@@ -48,6 +54,12 @@ import { autogenPattern } from './autogen';
 import { autogenMultiAgentPattern } from './autogenMultiAgent';
 import { swarmIntelligencePattern } from './swarm-intelligence';
 import { sensoryReasoningEnhancementPattern } from './sensory-reasoning-enhancement';
+import { socraticCoachPattern } from './socraticCoach';
+import { conceptToProjectPattern } from './conceptToProject';
+import { errorWhispererPattern } from './errorWhisperer';
+import { knowledgeMapNavigatorPattern } from './knowledgeMapNavigator';
+import { peerReviewSimulatorPattern } from './peerReviewSimulator';
+import { toolUseCoachPattern } from './toolUseCoach';
 
 export const agentPatterns = [
   reactAgentPattern,
@@ -71,6 +83,12 @@ export const agentPatterns = [
   autogenPattern,
   swarmIntelligencePattern,
   sensoryReasoningEnhancementPattern,
+  socraticCoachPattern,
+  conceptToProjectPattern,
+  errorWhispererPattern,
+  knowledgeMapNavigatorPattern,
+  peerReviewSimulatorPattern,
+  toolUseCoachPattern,
   // autogenMultiAgentPattern,
 ];
 

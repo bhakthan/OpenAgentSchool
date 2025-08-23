@@ -36,8 +36,8 @@ interface PatternSecurityControlsProps {
 }
 
 const PatternSecurityControls: React.FC<PatternSecurityControlsProps> = ({ patternId, patternName }) => {
-  // Security controls for agent patterns
-  const securityControls = [
+  // Base security controls for agent patterns
+  const baseSecurityControls = [
     {
       category: 'Access Control',
       practices: [
@@ -824,6 +824,113 @@ stages:
 \`;`
     }
   ];
+
+  // Pattern-specific controls
+  const perPattern: Record<string, typeof baseSecurityControls> = {
+    'socratic-coach': [
+      {
+        category: 'Privacy & Prompt Safety',
+        practices: [
+          'Do not reveal internal prompts, notes, or chain-of-thought',
+          'Mask PII in learner inputs and logs',
+          'Detect and neutralize instruction-override attempts',
+          'Provide hints without solution leakage'
+        ],
+        implementation: `// Simple detector for instruction override or system prompt fishing
+function detectSocraticAbuse(input: string) {
+  const rules = [/ignore (previous|prior) instructions/i, /(what|show).*(system|hidden).*prompt/i, /reveal.*secret/i];
+  return rules.some(r => r.test(input));
+}`
+      }
+    ],
+    'concept-to-project': [
+      {
+        category: 'Academic Integrity',
+        practices: [
+          'Encourage originality, citations, and proper attribution',
+          'Warn on copy-paste requests from protected sources',
+          'Retain only minimal plan metadata; avoid learner PII',
+          'Gate any external fetch with allowlists'
+        ],
+        implementation: `// Check project brief for originality hints
+function flagPlagiarismRisk(brief: string) {
+  const risky = /(copy.*from|paste.*code|download.*solution|github.*solution)/i;
+  return risky.test(brief);
+}`
+      }
+    ],
+    'error-whisperer': [
+      {
+        category: 'Log & Code Safety',
+        practices: [
+          'Always mask secrets in logs before processing',
+          'Never execute untrusted code during diagnosis',
+          'Store only sanitized snippets with redacted tokens',
+          'Require repro steps that run in a sandbox'
+        ],
+        implementation: `// Redact common secrets in logs
+function redactSecrets(log: string) {
+  return log
+    .replace(/(api[_-]?key|token|authorization)[:=]\s*([^\s]+)/ig, '$1=[REDACTED]')
+    .replace(/bearer\s+[a-z0-9._-]+/ig, 'Bearer [REDACTED]');
+}`
+      }
+    ],
+    'knowledge-map-navigator': [
+      {
+        category: 'Data Minimization',
+        practices: [
+          'Collect only skills and goals; avoid identifiable data',
+          'Allow plan export without personal fields',
+          'Version plans; explain changes for transparency',
+          'Respect retention policies for learner profiles'
+        ],
+        implementation: `// Strip PII from learner profile objects
+function stripPII(profile: Record<string, any>) {
+  const { name, email, phone, ...rest } = profile;
+  return rest; // Keep non-identifying fields only
+}`
+      }
+    ],
+    'peer-review-simulator': [
+      {
+        category: 'Repo Hygiene & Secrets',
+        practices: [
+          'Scan diffs for leaked secrets and license violations',
+          'Respect CODEOWNERS and branch protection rules',
+          'Store review logs with minimal code context',
+          'Suppress comments that reveal sensitive repo metadata'
+        ],
+        implementation: `// Quick secret pattern scan in diffs
+function scanDiffForSecrets(diff: string) {
+  const patterns = [/AKIA[0-9A-Z]{16}/, /ghp_[0-9A-Za-z]{36}/, /"?password"?\s*[:=]\s*"?.+?"?/i];
+  return patterns.some(p => p.test(diff));
+}`
+      }
+    ],
+    'tool-use-coach': [
+      {
+        category: 'Command & API Safety',
+        practices: [
+          'Block destructive flags unless explicitly confirmed',
+          'Recommend retries/timeouts and idempotency keys',
+          'Allowlist endpoints and sanitize headers',
+          'Mask tokens in examples and logs'
+        ],
+        implementation: `// Validate a curl command for dangerous flags
+function checkCurlSafety(cmd: string) {
+  const dangerous = /( --data-binary @| --upload-file | rm -rf | :(){:|:&};: )/;
+  const hasToken = /-H\s+"Authorization: Bearer\s+[^\"]+"/i.test(cmd);
+  return { dangerous: dangerous.test(cmd), tokenExposed: hasToken };
+}`
+      }
+    ]
+  };
+
+  // Merge controls
+  const securityControls = [...baseSecurityControls, ...(
+    perPattern[patternId] || []
+  )];
 
   return (
     <Tabs defaultValue="security">

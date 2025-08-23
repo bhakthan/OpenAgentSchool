@@ -137,6 +137,122 @@ export const multiAgentSocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Socratic Questions for Learner Patterns
+export const socraticCoachQuestions: StudyModeQuestion[] = [
+  {
+    id: 'socratic-coach-q1',
+    type: 'socratic',
+    conceptId: 'socratic-coach',
+    title: 'Leading Without Spoiling',
+    level: 'beginner',
+    socratiQuestion: 'If you wanted someone to discover the base case in recursion on their own, what single question would you ask?',
+    followUpQuestions: [
+      'How would your question change if they confused the base case with the recursive step?',
+      'What signal tells you they are ready for a follow-up?',
+      'How do you prevent giving away the answer?'
+    ],
+    expectedInsights: [
+      'Good Socratic questions surface gaps rather than give solutions',
+      'One precise question is often better than many vague ones',
+      'Listening for misconceptions guides the next probe'
+    ],
+    hints: ['Focus on a single missing concept', 'Avoid multi-part questions', 'Prefer concrete anchors over abstractions'],
+    explanation: 'Socratic coaching works best when questions are minimal, targeted, and timed based on learner signals.',
+    relatedConcepts: ['prompt-design', 'metacognition'],
+    timeEstimate: 8,
+    successCriteria: ['Proposes a single precise question', 'Explains why it avoids spoilers']
+  }
+];
+
+export const conceptToProjectQuestions: StudyModeQuestion[] = [
+  {
+    id: 'concept-to-project-q1',
+    type: 'socratic',
+    conceptId: 'concept-to-project',
+    title: 'Right-Sizing a Project',
+    level: 'intermediate',
+    socratiQuestion: 'When turning a concept into a project, how can you tell the scope is too large for one week?',
+    followUpQuestions: ['What are signs your milestones are too coarse?', 'What evidence shows a milestone is achievable?'],
+    expectedInsights: ['Timeboxed milestones prevent over-scoping', 'Acceptance criteria make scope testable'],
+    hints: ['Use end-to-end thin slice thinking', 'Define demo checkpoints'],
+    explanation: 'Right-sized projects have small milestones with clear acceptance criteria and demos.',
+    relatedConcepts: ['plan-and-execute', 'acceptance-criteria'],
+    timeEstimate: 10,
+    successCriteria: ['Identifies anti-patterns like vague milestones']
+  }
+];
+
+export const errorWhispererQuestions: StudyModeQuestion[] = [
+  {
+    id: 'error-whisperer-q1',
+    type: 'socratic',
+    conceptId: 'error-whisperer',
+    title: 'Minimum Diff Mindset',
+    level: 'beginner',
+    socratiQuestion: 'Why might a minimal change be preferable to a broader refactor when fixing an error?',
+    followUpQuestions: ['When is a refactor warranted instead?', 'How do you validate a minimal fix?'],
+    expectedInsights: ['Smaller diffs reduce risk', 'Validation confirms impact'],
+    hints: ['Think rollback risk', 'Consider test scope'],
+    explanation: 'Minimal, validated changes unblock quickly and teach root causes effectively.',
+    relatedConcepts: ['root-cause', 'testing'],
+    timeEstimate: 6,
+    successCriteria: ['Lists risks minimized by small diffs']
+  }
+];
+
+export const knowledgeMapNavigatorQuestions: StudyModeQuestion[] = [
+  {
+    id: 'knowledge-map-navigator-q1',
+    type: 'socratic',
+    conceptId: 'knowledge-map-navigator',
+    title: 'Prerequisite Graphs',
+    level: 'beginner',
+    socratiQuestion: 'How do you determine if a skill should be a prerequisite or a parallel branch?',
+    followUpQuestions: ['What evidence shows dependency ordering?', 'How would you adapt if learners struggle?'],
+    expectedInsights: ['Dependencies imply ordering', 'Adaptive branching supports remediation'],
+    hints: ['Look for required concepts used later', 'Use checkpoints as evidence'],
+    explanation: 'Prereqs are driven by conceptual dependencies validated through checkpoints.',
+    relatedConcepts: ['learning-paths', 'assessment'],
+    timeEstimate: 7,
+    successCriteria: ['Correctly identifies ordering vs branching']
+  }
+];
+
+export const peerReviewSimulatorQuestions: StudyModeQuestion[] = [
+  {
+    id: 'peer-review-simulator-q1',
+    type: 'socratic',
+    conceptId: 'peer-review-simulator',
+    title: 'Blocking vs Non-Blocking',
+    level: 'beginner',
+    socratiQuestion: 'What criteria separate a blocking issue from a non-blocking suggestion in a PR?',
+    followUpQuestions: ['How do tests influence this call?', 'How should tone differ by category?'],
+    expectedInsights: ['Safety and correctness are blocking', 'Style and optional improvements are non-blocking'],
+    hints: ['Think risk and production impact', 'Consider evidence like failing tests'],
+    explanation: 'Clear categorization creates consistent, actionable reviews.',
+    relatedConcepts: ['code-quality', 'review-standards'],
+    timeEstimate: 6,
+    successCriteria: ['Provides concrete criteria for both categories']
+  }
+];
+
+export const toolUseCoachQuestions: StudyModeQuestion[] = [
+  {
+    id: 'tool-use-coach-q1',
+    type: 'socratic',
+    conceptId: 'tool-use-coach',
+    title: 'Choosing the Right Tool',
+    level: 'intermediate',
+    socratiQuestion: 'When automating Azure storage uploads, when would you choose SDK over CLI and why?',
+    followUpQuestions: ['What security checks must precede the action?', 'Which pitfalls commonly break uploads?'],
+    expectedInsights: ['SDK for programmatic flows; CLI for ops tasks', 'Guardrails: auth, RBAC, retries, content-type'],
+    hints: ['Consider idempotency and retries', 'Map to success criteria'],
+    explanation: 'Tool selection follows task nature, safety prechecks, and validation requirements.',
+    relatedConcepts: ['modern-tool-use', 'cloud-rbac'],
+    timeEstimate: 9,
+    successCriteria: ['Articulates tradeoffs; lists prechecks']
+  }
+];
 // Socratic Questions for Agentic RAG
 export const agenticRAGSocraticQuestions: StudyModeQuestion[] = [
   {
@@ -1150,6 +1266,13 @@ export const socraticQuestionLibrary = {
   'computer-use': computerUseSocraticQuestions,
   'voice-agent': voiceAgentSocraticQuestions,
   'deep-agents': deepAgentsSocraticQuestions,
+  // Learner patterns
+  'socratic-coach': socraticCoachQuestions,
+  'concept-to-project': conceptToProjectQuestions,
+  'error-whisperer': errorWhispererQuestions,
+  'knowledge-map-navigator': knowledgeMapNavigatorQuestions,
+  'peer-review-simulator': peerReviewSimulatorQuestions,
+  'tool-use-coach': toolUseCoachQuestions,
   // New Core Concepts
   'agentic-prompting-fundamentals': agenticPromptingFundamentalsSocraticQuestions,
   'prompt-optimization-patterns': promptOptimizationPatternsSocraticQuestions,

@@ -66,6 +66,288 @@ export function useAlgorithmVisualization(algorithmId: string, patternId: string
 function generateAlgorithmSteps(algorithmId: string, patternId: string): AlgorithmStep[] {
   // Customize steps based on algorithm ID
   switch (algorithmId) {
+    case 'socratic-coach':
+      return [
+        {
+          id: 'step1',
+          name: 'Assess Prior Knowledge',
+          description: 'Capture learner goal and current understanding to calibrate question depth',
+          data: { goal: 'Understand recursion', self_assessment: 'basic familiarity' },
+          timing: 900
+        },
+        {
+          id: 'step2',
+          name: 'Generate Socratic Question',
+          description: 'Craft a minimal, leading question without revealing the answer',
+          code: `// Socratic prompt template
+const question = template({
+  topic: 'recursion',
+  constraint: 'no spoilers',
+  style: 'encourage reasoning'
+});`,
+          data: { question: 'What happens if a function calls itself with a smaller input until it reaches 0?' },
+          timing: 1200
+        },
+        {
+          id: 'step3',
+          name: 'Analyze Response',
+          description: 'Detect misconceptions and evidence of understanding',
+          data: { misconceptions: ['base case unclear'], strengths: ['understands smaller subproblem'] },
+          timing: 1000
+        },
+        {
+          id: 'step4',
+          name: 'Follow-up Probe',
+          description: 'Ask one targeted follow-up to address the biggest gap',
+          data: { follow_up: 'Why is a base case necessary in recursion?' },
+          timing: 900
+        },
+        {
+          id: 'step5',
+          name: 'Reflection Checkpoint',
+          description: 'Prompt learner to restate the concept in their own words',
+          data: { reflection_prompt: 'Explain recursion using factorial as an example.' },
+          timing: 800
+        },
+        {
+          id: 'step6',
+          name: 'Summarize & Next Step',
+          description: 'Summarize insights and propose a small practice task',
+          data: { task: 'Write factorial(n) with base case at n<=1' },
+          timing: 800
+        }
+      ];
+    case 'concept-to-project':
+      return [
+        {
+          id: 'step1',
+          name: 'Concept Intake',
+          description: 'Capture target concept, audience level, and constraints',
+          data: { concept: 'Sorting algorithms', level: 'beginner', timebox: '1 week' },
+          timing: 900
+        },
+        {
+          id: 'step2',
+          name: 'Scope Definition',
+          description: 'Narrow to a right-sized project with clear boundaries',
+          data: { deliverable: 'Visual sort demo', constraints: ['no external libs'] },
+          timing: 900
+        },
+        {
+          id: 'step3',
+          name: 'Milestone Planning',
+          description: 'Create milestone ladder with demo checkpoints',
+          data: { milestones: ['M1: data model', 'M2: bubble sort', 'M3: viz overlay'] },
+          timing: 1100
+        },
+        {
+          id: 'step4',
+          name: 'Rubric & Acceptance',
+          description: 'Define rubric, acceptance criteria, and evidence',
+          data: { rubric: ['correctness', 'readability', 'demo works'] },
+          timing: 1000
+        },
+        {
+          id: 'step5',
+          name: 'Risk & Prereqs',
+          description: 'List prerequisites and risks with mitigation',
+          data: { prereqs: ['arrays', 'loops'], risks: ['time overrun'] },
+          timing: 800
+        },
+        {
+          id: 'step6',
+          name: 'Project Brief',
+          description: 'Assemble project brief and timeline',
+          data: { brief_url: '/briefs/sorting-visualizer' },
+          timing: 800
+        }
+      ];
+    case 'error-whisperer':
+      return [
+        {
+          id: 'step1',
+          name: 'Collect Signal',
+          description: 'Ingest error message, logs, and environment context',
+          data: { error: 'TypeError: cannot read property x of undefined' },
+          timing: 900
+        },
+        {
+          id: 'step2',
+          name: 'Minimal Repro',
+          description: 'Isolate the smallest failing example',
+          code: `// Reduce to minimal repro
+function f(obj){ return obj.x + 1 }
+f(undefined) // boom`,
+          data: { repro_lines: 4 },
+          timing: 1100
+        },
+        {
+          id: 'step3',
+          name: 'Root Cause Hypothesis',
+          description: 'Propose likely cause with confidence score',
+          data: { cause: 'Unvalidated input', confidence: 0.82 },
+          timing: 900
+        },
+        {
+          id: 'step4',
+          name: 'Minimal Fix Diff',
+          description: 'Suggest the smallest safe change',
+          code: `// Guard input
+function f(obj){
+  if(!obj) return 0;
+  return obj.x + 1;
+}`,
+          data: { change_type: 'null-check' },
+          timing: 1000
+        },
+        {
+          id: 'step5',
+          name: 'Validation',
+          description: 'Run quick tests to confirm the fix',
+          data: { tests: ['f(undefined) -> 0', 'f({x:1}) -> 2'], passed: true },
+          timing: 800
+        },
+        {
+          id: 'step6',
+          name: 'Prevention Tip',
+          description: 'Add a prevention guideline or lint rule',
+          data: { tip: 'Enable strict null checks; validate inputs at boundaries' },
+          timing: 700
+        }
+      ];
+    case 'knowledge-map-navigator':
+      return [
+        {
+          id: 'step1',
+          name: 'Goal Intake',
+          description: 'Understand learner goal and target proficiency',
+          data: { goal: 'Build a REST API', target: 'intermediate' },
+          timing: 900
+        },
+        {
+          id: 'step2',
+          name: 'Skill Inventory',
+          description: 'Assess current skills and gaps',
+          data: { have: ['HTTP basics'], need: ['auth', 'DB'] },
+          timing: 900
+        },
+        {
+          id: 'step3',
+          name: 'Prerequisite Graph',
+          description: 'Construct prerequisite graph with branches',
+          data: { nodes: 8, edges: 11 },
+          timing: 1000
+        },
+        {
+          id: 'step4',
+          name: 'Path Planning',
+          description: 'Select optimal learning path with remediation branches',
+          data: { path: ['HTTP -> REST -> Auth -> DB -> Testing'] },
+          timing: 1000
+        },
+        {
+          id: 'step5',
+          name: 'Checkpoints',
+          description: 'Define checkpoint evidence and assessments',
+          data: { checkpoints: ['Auth demo', 'CRUD endpoints', 'Integration tests'] },
+          timing: 900
+        },
+        {
+          id: 'step6',
+          name: 'Adaptive Updates',
+          description: 'Adapt path based on progress and assessment results',
+          data: { adaptation: 'Add auth mini-project due to struggle' },
+          timing: 800
+        }
+      ];
+    case 'peer-review-simulator':
+      return [
+        {
+          id: 'step1',
+          name: 'Change Intake',
+          description: 'Collect PR diff, context, and goals',
+          data: { files_changed: 5, tests_modified: 2 },
+          timing: 900
+        },
+        {
+          id: 'step2',
+          name: 'Static Analysis',
+          description: 'Run lint, type checks, and basic heuristics',
+          data: { lint_errors: 3, type_issues: 1 },
+          timing: 900
+        },
+        {
+          id: 'step3',
+          name: 'Structured Review',
+          description: 'Generate structured comments (blocking vs non-blocking)',
+          data: { blocking: 1, non_blocking: 4 },
+          timing: 1100
+        },
+        {
+          id: 'step4',
+          name: 'Decision',
+          description: 'Approve or request changes with rationale',
+          data: { decision: 'request_changes', reason: 'Missing tests' },
+          timing: 900
+        },
+        {
+          id: 'step5',
+          name: 'Suggested Diff',
+          description: 'Offer minimal example patch for the main issue',
+          code: `// Example test stub
+it('handles null input', ()=>{/* TODO */})`,
+          data: { suggestion_type: 'test-addition' },
+          timing: 900
+        }
+      ];
+    case 'tool-use-coach':
+      return [
+        {
+          id: 'step1',
+          name: 'Task Parse',
+          description: 'Parse user task and success criteria',
+          data: { task: 'Upload to Azure Blob', success: 'file accessible' },
+          timing: 800
+        },
+        {
+          id: 'step2',
+          name: 'Tool Selection',
+          description: 'Select CLI/SDK/API with rationale',
+          data: { choice: 'Azure SDK (JS)', alternatives: ['CLI', 'REST'] },
+          timing: 900
+        },
+        {
+          id: 'step3',
+          name: 'Safety Preamble',
+          description: 'Set guardrails and prechecks (auth, permissions, limits)',
+          data: { checks: ['login', 'role: Storage Blob Data Contributor'] },
+          timing: 900
+        },
+        {
+          id: 'step4',
+          name: 'Exemplar & Gotchas',
+          description: 'Show validated exemplar with common pitfalls',
+          code: `// Blob upload exemplar (JS)
+const blobClient = container.getBlockBlobClient(name);
+await blobClient.uploadData(buffer);`,
+          data: { pitfalls: ['wrong container name', 'missing content-type'] },
+          timing: 1100
+        },
+        {
+          id: 'step5',
+          name: 'Checklist Execution',
+          description: 'Guide user through a validation checklist',
+          data: { checklist: ['auth ok', 'container exists', 'upload success'] },
+          timing: 900
+        },
+        {
+          id: 'step6',
+          name: 'Verify Outcome',
+          description: 'Validate success and provide next steps',
+          data: { verify: 'HEAD blob == 200', next: 'set cache-control' },
+          timing: 800
+        }
+      ];
     case 'react-pattern':
       return [
         {

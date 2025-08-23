@@ -20,7 +20,6 @@ import InteractiveCodeExecution from './InteractiveCodeExecution'
 import { getCodeExecutionExample } from '@/lib/data/codeExamples'
 import { getAlgorithmVisualization, AlgorithmVisualizationData } from '@/lib/utils/algorithmVisualization'
 import { getSystemDesignPattern } from '@/lib/data/systemDesign'
-import { useSidebarCollapse } from '@/hooks/use-sidebar-collapse'
 import { cn } from '@/lib/utils'
 
 interface CodePlaybookProps {
@@ -31,46 +30,6 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [language, setLanguage] = useState<'python' | 'typescript'>('python')
   const [visualizationMode, setVisualizationMode] = useState<'static' | 'interactive'>('static')
-  const { isCollapsed } = useSidebarCollapse();
-  
-  // Listen to sidebar state changes with stabilized layout adjustment for Edge browser
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
-    let stabilizationTimer: ReturnType<typeof setTimeout>;
-    
-    // Edge browser-optimized layout stabilization
-    const stabilizeLayout = () => {
-      // Add temporary CSS to prevent scrollbar flickering during transitions
-      const bodyElement = document.body;
-      const htmlElement = document.documentElement;
-      
-      // Temporarily stabilize scrollbar appearance during sidebar transitions
-      bodyElement.style.setProperty('overflow-anchor', 'none');
-      htmlElement.style.setProperty('overflow-anchor', 'none');
-      
-      // Remove stabilization after transition completes
-      stabilizationTimer = setTimeout(() => {
-        bodyElement.style.removeProperty('overflow-anchor');
-        htmlElement.style.removeProperty('overflow-anchor');
-        
-        // Dispatch a gentle layout update after stabilization
-        window.dispatchEvent(new CustomEvent('layout-stabilized', { 
-          detail: { source: 'sidebar-toggle', timestamp: Date.now() } 
-        }));
-      }, 300);
-    };
-    
-    // Delay the stabilization to allow initial transition to start
-    timer = setTimeout(stabilizeLayout, 50);
-    
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(stabilizationTimer);
-      // Clean up any remaining overflow-anchor styles
-      document.body.style.removeProperty('overflow-anchor');
-      document.documentElement.style.removeProperty('overflow-anchor');
-    };
-  }, [isCollapsed]);
   
   const getCodeExample = () => {
     if (language === 'python') {
@@ -129,14 +88,8 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
   );
   
   return (
-    <div className="space-y-6 w-full layout-stable scrollbar-stable">
-      <Card className={cn(
-        "w-full transition-all duration-300 ease-in-out",
-        // Edge browser scrollbar stability - prevent layout jumping
-        "will-change-auto overflow-anchor-none",
-        // Ensure the card smoothly adapts to sidebar changes with stable dimensions
-        isCollapsed ? "ml-0 max-w-full" : ""
-      )}>
+    <div className="space-y-6 w-full">
+      <Card className="w-full transition-all duration-300 ease-in-out">
         <CardHeader className="p-4 sm:p-6">
           <CardTitle>{patternData.name} Implementation</CardTitle>
           <CardDescription className="text-base">
@@ -146,11 +99,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
         <CardContent className="p-4 sm:p-6">
           <Tabs defaultValue="general" className="w-full" data-section="code-playbook">
             <div className="overflow-x-auto pb-2 w-full">
-              <TabsList className={cn(
-                "flex w-full flex-nowrap gap-0.5 transition-all duration-300 scrollbar-stable", 
-                // Provide more space when sidebar is collapsed
-                isCollapsed ? "min-w-0" : ""
-              )} role="tablist">
+              <TabsList className="flex w-full flex-nowrap gap-0.5 transition-all duration-300" role="tablist">
                 <TabsTrigger value="general" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <ListChecks size={14} /> <span className="hidden sm:inline">General Guide</span><span className="sm:hidden">Guide</span>
                 </TabsTrigger>

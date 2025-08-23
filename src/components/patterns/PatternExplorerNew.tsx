@@ -138,12 +138,10 @@ const PatternExplorer = () => {
           )}
           
           {/* Pattern Selector */}
-          <div className="flex-1 min-w-0">
-            <TopPatternSelector
-              selectedPattern={selectedPattern}
-              onPatternSelect={handlePatternSelect}
-            />
-          </div>
+          <TopPatternSelector
+            selectedPattern={selectedPattern}
+            onPatternSelect={handlePatternSelect}
+          />
         </div>
         
         {/* Right side: Action Buttons */}

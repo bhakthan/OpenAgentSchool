@@ -12,6 +12,108 @@ export interface PatternContent {
 
 export const patternContents: PatternContent[] = [
   {
+    id: 'socratic-coach',
+    name: 'Socratic Coach',
+    longDescription: 'Guides learners with questions instead of answers to strengthen reasoning and recall. Ideal when learners are close and need conceptual nudges.',
+    advantages: ['Builds understanding', 'Encourages metacognition', 'Reduces answer dependence'],
+    limitations: ['Slower than direct answers', 'Requires quality prompts'],
+    realWorldApplications: ['Tutoring systems', 'Interview prep', 'Debug coaching'],
+    bestPractices: [
+      'Limit to 1–3 targeted questions per turn',
+      'Avoid spoilers or solution leakage',
+      'Iterate on learner reflections and restatements',
+      'Detect frustration and timebox the loop; offer optional hint',
+      'Guard against prompt injection within learner inputs (do not reveal system prompts or internal notes)',
+      'Prefer open questions that probe invariants, assumptions, and constraints'
+    ],
+    relatedPatterns: ['self-reflection', 'evaluator-optimizer']
+  },
+  {
+    id: 'concept-to-project',
+    name: 'Concept‑to‑Project Builder',
+    longDescription: 'Converts a concept into a scoped project plan with milestones, rubric, and demo checkpoints for applied learning.',
+    advantages: ['Clear scope', 'Timeboxed execution', 'Assessable outcomes'],
+    limitations: ['Needs calibration to level', 'Risk of mis-scoping'],
+    realWorldApplications: ['Course capstones', 'Hackathons', 'Internal upskilling'],
+    bestPractices: [
+      'Define acceptance criteria with observable evidence',
+      'Keep milestones small and timeboxed',
+      'Include demo moments and review checkpoints',
+      'State prerequisites and risks explicitly with mitigation steps',
+      'Encourage citations and originality (avoid copy‑paste solutions)',
+      'Adapt scope to learner level; provide stretch goals safely'
+    ],
+    relatedPatterns: ['plan-and-execute', 'routing']
+  },
+  {
+    id: 'error-whisperer',
+    name: 'Error Whisperer',
+    longDescription: 'Diagnoses errors and provides minimal fixes with prevention guidance to teach debugging intuition.',
+    advantages: ['Faster unblocks', 'Teaches root-cause thinking'],
+    limitations: ['Depends on log quality'],
+    realWorldApplications: ['CI failures', 'Student IDE help', 'Prod incident triage (non-critical)'],
+    bestPractices: [
+      'Normalize and de‑duplicate logs; mask secrets before analysis',
+      'Propose a minimal, testable diff',
+      'Explain the why behind the fix; add a prevention tip',
+      'Create/expand regression tests to cover the failure mode',
+      'Never execute untrusted snippets; reproduce with a minimal case',
+      'Link diagnosis to specific lines/modules for traceability'
+    ],
+    relatedPatterns: ['evaluator-optimizer', 'self-reflection']
+  },
+  {
+    id: 'knowledge-map-navigator',
+    name: 'Knowledge Map Navigator',
+    longDescription: 'Creates personalized learning paths with prerequisites, branches, and checkpoints aligned to a goal.',
+    advantages: ['Clarity of path', 'Reduced detours', 'Personalization'],
+    limitations: ['Needs accurate skill inventory'],
+    realWorldApplications: ['Onboarding tracks', 'Study plans', 'Career ladders'],
+    bestPractices: [
+      'Start from a concrete goal and target proficiency level',
+      'Include remediation branches and skip logic based on evidence',
+      'Define checkpoint evidence (quiz, project, rubric) per node',
+      'Collect minimal personal data; version plans and track changes',
+      'Allow adaptive updates as mastery signals arrive',
+      'Make exportable plans that respect data privacy policies'
+    ],
+    relatedPatterns: ['routing', 'plan-and-execute']
+  },
+  {
+    id: 'peer-review-simulator',
+    name: 'Peer‑Review Simulator',
+    longDescription: 'Simulates code/doc PR reviews with structured comments and a clear decision.',
+    advantages: ['Raises code quality', 'Standardizes feedback'],
+    limitations: ['May over‑flag without context'],
+    realWorldApplications: ['Pre‑PR checks', 'Code review training'],
+    bestPractices: [
+      'Separate blocking vs non‑blocking items with rationale',
+      'Provide concise fix examples or links to standards',
+      'Auto‑run linters/tests before review to reduce noise',
+      'Scan diffs for secrets/licenses and flag appropriately',
+      'Respect repo policies (CODEOWNERS, branch protection, sign‑off)',
+      'Prefer evidence‑based comments tied to standards'
+    ],
+    relatedPatterns: ['evaluator-optimizer', 'self-reflection']
+  },
+  {
+    id: 'tool-use-coach',
+    name: 'Tool‑Use Coach',
+    longDescription: 'Teaches disciplined usage of APIs/CLI/SDKs via exemplars, gotchas, and a validation checklist.',
+    advantages: ['Fewer retries', 'Higher correctness', 'Reproducibility'],
+    limitations: ['Docs drift requires updates'],
+    realWorldApplications: ['CLI onboarding', 'API training', 'SDK correctness checks'],
+    bestPractices: [
+      'Show validated exemplars with comments',
+      'List pitfalls and counter‑examples',
+      'Provide a validation checklist (timeouts, retries, idempotency)',
+      'Prefer dry‑runs and safe defaults; block destructive flags',
+      'Pin versions and document environment; mask tokens in examples',
+      'Encourage verification of outcomes with simple assertions'
+    ],
+    relatedPatterns: ['modern-tool-use', 'routing']
+  },
+  {
     id: 'react-agent',
     name: 'ReAct Agent',
     longDescription: `
