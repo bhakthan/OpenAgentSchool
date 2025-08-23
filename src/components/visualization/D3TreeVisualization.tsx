@@ -114,7 +114,8 @@ export default function D3TreeVisualization({
             { id: 'modern-tool-use', name: 'Modern Tool Use', type: 'pattern' as const, novel: true },
             { id: 'computer-use', name: 'Computer Use', type: 'pattern' as const, novel: true },
             { id: 'voice-agent', name: 'Voice Agent', type: 'pattern' as const, novel: true },
-            { id: 'self-reflection', name: 'Self-Reflection', type: 'pattern' as const, novel: true }
+            { id: 'self-reflection', name: 'Self-Reflection', type: 'pattern' as const, novel: true },
+            { id: 'sensory-reasoning-enhancement', name: 'Sensory Reasoning Enhancement', type: 'pattern' as const, novel: true }
           ]
         },
         {

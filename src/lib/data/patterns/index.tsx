@@ -23,6 +23,7 @@ export { agentEvaluationPattern } from './agentEvaluation';
 export { autogenPattern } from './autogen';
 export { autogenMultiAgentPattern } from './autogenMultiAgent';
 export { swarmIntelligencePattern } from './swarm-intelligence';
+export { sensoryReasoningEnhancementPattern } from './sensory-reasoning-enhancement';
 
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
@@ -46,6 +47,7 @@ import { agentEvaluationPattern } from './agentEvaluation';
 import { autogenPattern } from './autogen';
 import { autogenMultiAgentPattern } from './autogenMultiAgent';
 import { swarmIntelligencePattern } from './swarm-intelligence';
+import { sensoryReasoningEnhancementPattern } from './sensory-reasoning-enhancement';
 
 export const agentPatterns = [
   reactAgentPattern,
@@ -68,6 +70,7 @@ export const agentPatterns = [
   agentEvaluationPattern,
   autogenPattern,
   swarmIntelligencePattern,
+  sensoryReasoningEnhancementPattern,
   // autogenMultiAgentPattern,
 ];
 

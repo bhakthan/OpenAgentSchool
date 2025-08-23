@@ -1040,6 +1040,106 @@ export const agenticAIDesignTaxonomySocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Socratic Questions for Sensory Reasoning Enhancement
+export const sensoryReasoningEnhancementSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'sensory-reasoning-socratic-1',
+    type: 'socratic',
+    conceptId: 'sensory-reasoning-enhancement',
+    title: 'Discovering Multi-Sensory Intelligence',
+    level: 'beginner',
+    socratiQuestion: "When a doctor examines a patient, they look at visual symptoms, listen to breathing sounds, ask about pain levels, and review test results. Why is this multi-sensory approach more effective than relying on just one type of information?",
+    followUpQuestions: [
+      "What could the doctor miss if they only looked at one type of evidence?",
+      "How do different types of sensory information complement each other?",
+      "What happens when different sources of information contradict each other?"
+    ],
+    expectedInsights: [
+      "Multiple information sources reduce the risk of missing important details",
+      "Different modalities provide unique perspectives on the same situation",
+      "Cross-validation between sources improves decision accuracy",
+      "Contradictory information reveals complexity that needs investigation"
+    ],
+    hints: [
+      "Think about how your senses work together to understand your environment",
+      "Consider what happens when you lose one sense - how do the others compensate?",
+      "Reflect on how experienced professionals use multiple information sources"
+    ],
+    explanation: "This exploration helps students understand why multi-modal AI systems that process visual, auditory, and textual information simultaneously can make more accurate and comprehensive decisions than single-modality systems.",
+    relatedConcepts: ['multi-modal-processing', 'evidence-integration', 'decision-making'],
+    timeEstimate: 15,
+    successCriteria: [
+      "Understands the value of multiple information sources",
+      "Recognizes how different modalities complement each other",
+      "Sees the importance of cross-validation between sources"
+    ]
+  },
+  {
+    id: 'sensory-reasoning-socratic-2',
+    type: 'socratic',
+    conceptId: 'sensory-reasoning-enhancement',
+    title: 'Attention and Focus in Multi-Modal Systems',
+    level: 'intermediate',
+    socratiQuestion: "Imagine you're at a busy restaurant trying to have a conversation. Your brain automatically focuses on your friend's voice while filtering out background noise and movement. How does this selective attention help you understand the conversation better?",
+    followUpQuestions: [
+      "What would happen if you couldn't filter out irrelevant information?",
+      "How does your brain decide what to pay attention to?",
+      "What if multiple important things were happening at the same time?"
+    ],
+    expectedInsights: [
+      "Attention mechanisms help focus on relevant information",
+      "Filtering irrelevant information prevents cognitive overload",
+      "Context and goals influence what gets attention",
+      "Dynamic attention allocation improves processing efficiency"
+    ],
+    hints: [
+      "Think about how you naturally focus during conversations",
+      "Consider what happens when you're distracted or overwhelmed",
+      "Reflect on how experts quickly identify what's important in their field"
+    ],
+    explanation: "Students discover that attention mechanisms in AI systems serve a similar function to human selective attention, helping focus computational resources on the most relevant features across different sensory modalities.",
+    relatedConcepts: ['attention-mechanisms', 'feature-selection', 'cognitive-processing'],
+    timeEstimate: 18,
+    successCriteria: [
+      "Understands the role of attention in processing multiple inputs",
+      "Recognizes the need for relevance filtering",
+      "Grasps the concept of dynamic attention allocation"
+    ]
+  },
+  {
+    id: 'sensory-reasoning-socratic-3',
+    type: 'socratic',
+    conceptId: 'sensory-reasoning-enhancement',
+    title: 'Handling Conflicting Evidence',
+    level: 'advanced',
+    socratiQuestion: "A security system gets conflicting signals: the camera shows someone entering, the motion sensor doesn't detect movement, and the access card shows a valid entry. How would you design a system to handle these contradictory pieces of evidence and make a reliable decision?",
+    followUpQuestions: [
+      "Which piece of evidence should carry more weight and why?",
+      "How would you account for the possibility that one sensor is malfunctioning?",
+      "What additional information would help resolve the contradiction?"
+    ],
+    expectedInsights: [
+      "Evidence reliability varies and must be weighted appropriately",
+      "Sensor failures and environmental factors can create false readings",
+      "Confidence levels help quantify uncertainty in decisions",
+      "Additional context can resolve apparent contradictions"
+    ],
+    hints: [
+      "Think about how judges weigh different types of evidence in court",
+      "Consider how weather might affect different types of sensors",
+      "Reflect on how you resolve conflicting information in daily life"
+    ],
+    explanation: "This exploration reveals the complexity of evidence integration in multi-modal systems and the need for sophisticated reasoning about uncertainty, reliability, and confidence in decision-making.",
+    relatedConcepts: ['evidence-integration', 'uncertainty-handling', 'confidence-scoring'],
+    timeEstimate: 22,
+    successCriteria: [
+      "Understands the challenge of conflicting evidence",
+      "Recognizes the importance of reliability weighting",
+      "Grasps the role of uncertainty quantification in robust systems"
+    ]
+  }
+];
+
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
@@ -1058,7 +1158,8 @@ export const socraticQuestionLibrary = {
   'agent-evaluation-methodologies': agentEvaluationMethodologiesSocraticQuestions,
   'agent-deployment': agentDeploymentSocraticQuestions,
   'swarm-intelligence': swarmIntelligenceSocraticQuestions,
-  'agentic-ai-design-taxonomy': agenticAIDesignTaxonomySocraticQuestions
+  'agentic-ai-design-taxonomy': agenticAIDesignTaxonomySocraticQuestions,
+  'sensory-reasoning-enhancement': sensoryReasoningEnhancementSocraticQuestions
 };
 
 // Helper function to get socratic questions by concept and level

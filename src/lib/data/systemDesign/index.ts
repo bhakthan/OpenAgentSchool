@@ -22,6 +22,7 @@ import { routingSystemDesign } from './routing';
 import { modelContextProtocolSystemDesign } from './modelContextProtocol';
 import { deepAgentsSystemDesign } from './deep-agents';
 import { swarmIntelligenceSystemDesign } from './swarm-intelligence';
+import { sensoryReasoningEnhancementSystemDesign } from './sensory-reasoning-enhancement';
 
 // Export individual patterns
 export { pythonReActAgentSystemDesign } from './pythonReActAgent';
@@ -44,6 +45,7 @@ export { routingSystemDesign } from './routing';
 export { modelContextProtocolSystemDesign } from './modelContextProtocol';
 export { deepAgentsSystemDesign } from './deep-agents';
 export { swarmIntelligenceSystemDesign } from './swarm-intelligence';
+export { sensoryReasoningEnhancementSystemDesign } from './sensory-reasoning-enhancement';
 
 // Create a registry of all system design patterns
 export const systemDesignPatterns = {
@@ -68,6 +70,7 @@ export const systemDesignPatterns = {
   'model-context-protocol': modelContextProtocolSystemDesign,
   'deep-agents': deepAgentsSystemDesign,
   'swarm-intelligence': swarmIntelligenceSystemDesign,
+  'sensory-reasoning-enhancement': sensoryReasoningEnhancementSystemDesign,
 };
 
 /**

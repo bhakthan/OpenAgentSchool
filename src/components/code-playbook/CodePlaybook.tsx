@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Check, Code, Play, ListChecks, FileCode, FlowArrow, Graph, Bug, ShieldCheck, Stack } from "@phosphor-icons/react"
+import { Check, Code, Play, ListChecks, FileCode, Graph, Bug, ShieldCheck, Stack, Cube } from "@phosphor-icons/react"
 import { Steps } from './Steps'
 import { PatternData } from '@/lib/data/patterns/index'
 import SimplePatternFlow from '../interactive-demos/SimplePatternFlow'
@@ -154,8 +154,8 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                 <TabsTrigger value="general" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <ListChecks size={14} /> <span className="hidden sm:inline">General Guide</span><span className="sm:hidden">Guide</span>
                 </TabsTrigger>
-                <TabsTrigger value="debugger" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
-                  <Stack size={14} /> <span className="hidden sm:inline">System Design</span><span className="sm:hidden">Design</span>
+                <TabsTrigger value="system-design" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
+                  <Cube size={14} /> <span className="hidden sm:inline">System Design</span><span className="sm:hidden">Design</span>
                 </TabsTrigger>
                 <TabsTrigger value="steps" className="flex items-center gap-1 h-10 px-3 py-2 text-base">
                   <ListChecks size={14} /> <span className="hidden sm:inline">Implementation Steps</span><span className="sm:hidden">Steps</span>
@@ -373,7 +373,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
               </Alert>
             </TabsContent>
             
-            <TabsContent value="debugger" className="py-4">
+            <TabsContent value="system-design" className="py-4">
               {(() => {
                 return systemDesignPattern ? (
                   <SystemDesignVisualizer
@@ -407,6 +407,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                 <SimplePatternFlow patternData={patternData} />
               </div>
             </TabsContent>
+
           </Tabs>
         </CardContent>
         <CardFooter className="flex flex-col sm:flex-row gap-2 sm:justify-between border-t p-4 sm:p-6">

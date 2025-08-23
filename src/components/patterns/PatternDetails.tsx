@@ -131,6 +131,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 <Code size={16} /> Live Runner
               </TabsTrigger>
             )}
+            {pattern.id === 'sensory-reasoning-enhancement' && (
+              <TabsTrigger value="live-runner-sensory" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
           </TabsList>
 
           {hasBusinessUseCase && (
@@ -325,6 +330,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
           )}
           {pattern.id === 'swarm-intelligence' && (
             <TabsContent value="live-runner-swarm" className="pt-4">
+              {pattern.codeVisualizer && React.createElement(pattern.codeVisualizer)}
+            </TabsContent>
+          )}
+          {pattern.id === 'sensory-reasoning-enhancement' && (
+            <TabsContent value="live-runner-sensory" className="pt-4">
               {pattern.codeVisualizer && React.createElement(pattern.codeVisualizer)}
             </TabsContent>
           )}

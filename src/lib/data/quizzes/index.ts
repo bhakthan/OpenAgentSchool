@@ -17,6 +17,7 @@ import { agentLearningQuestions, agentLearningTime } from './agent-learning';
 import { agentSecurityQuestions, agentSecurityTime } from './agent-security';
 import { dataVisualizationQuestions, dataVisualizationTime } from './data-visualization';
 import { agenticAIDesignQuestions, agenticAIDesignTime } from './agentic-ai-design';
+import { sensoryReasoningEnhancementQuestions, sensoryReasoningEnhancementTime } from './sensory-reasoning-enhancement';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -39,7 +40,8 @@ const allQuestions = [
   ...agentLearningQuestions,
   ...agentSecurityQuestions,
   ...dataVisualizationQuestions,
-  ...agenticAIDesignQuestions
+  ...agenticAIDesignQuestions,
+  ...sensoryReasoningEnhancementQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -171,6 +173,13 @@ export const quizCategories: QuizCategory[] = [
         description: 'Agents that evaluate and improve their own performance',
         prerequisites: ['react-pattern'],
         questions: getQuestionsBySubCategory(allQuestions, 'self-reflection')
+      },
+      {
+        id: 'sensory-reasoning-enhancement',
+        name: 'Sensory Reasoning Enhancement',
+        description: 'Multi-modal AI agents that process visual, auditory, and textual inputs',
+        prerequisites: ['self-reflection'],
+        questions: getQuestionsBySubCategory(allQuestions, 'sensory-reasoning-enhancement')
       }
     ]
   },
