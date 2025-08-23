@@ -159,7 +159,7 @@ export default function ReActAudioControls({
                       size="sm"
                       variant="outline"
                       className={`
-                        relative h-8 px-2 text-xs border transition-all duration-200 flex items-center gap-1
+                        relative h-8 px-2 text-xs border transition-all duration-200 flex items-center gap-1 audio-pill
                         ${isCurrentlyActive 
                           ? `${levelConf.bgColor} ${levelConf.color} ${levelConf.borderColor} shadow-md` 
                           : `bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border-gray-300 dark:border-gray-600`
@@ -167,7 +167,7 @@ export default function ReActAudioControls({
                       `}
                     >
                       {/* Content Type Icon */}
-                      <div className={`w-3 h-3 rounded ${config.bgColor} flex items-center justify-center`}>
+                      <div className={`w-3 h-3 rounded ${config.bgColor} type-icon flex items-center justify-center`}>
                         {React.cloneElement(config.icon as React.ReactElement, { className: 'w-2 h-2' })}
                       </div>
                       
@@ -209,7 +209,7 @@ export default function ReActAudioControls({
               size="sm"
               variant="outline"
               className={`
-                h-8 px-2 border transition-all duration-200
+                h-8 px-2 border transition-all duration-200 audio-gear
                 ${showSettings 
                   ? 'bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800' 
                   : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
@@ -247,7 +247,7 @@ export default function ReActAudioControls({
 
         {/* Collapsible Settings Panel */}
         {showSettings && (
-          <div className="w-full p-3 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 shadow-inner">
+          <div className="w-full p-3 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 shadow-inner audio-settings-panel">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">Audio Settings</h4>
               <Badge className="bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-300 dark:border-blue-700 text-xs">

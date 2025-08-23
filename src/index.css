@@ -431,3 +431,43 @@ code, pre {
   background-color: var(--learning-step-green-icon-bg);
   color: var(--learning-step-green-icon);
 }
+
+/* Light-mode polish for audio control pills */
+.light .audio-pill {
+  background-color: #ffffff !important; /* ensure light background */
+  color: oklch(0.23 0.02 240) !important; /* heading/foreground */
+  border-color: oklch(0.9 0.02 240) !important; /* light border */
+}
+.light .audio-pill:hover {
+  background-color: oklch(0.97 0.005 240) !important; /* subtle hover */
+}
+.light .audio-pill .type-icon {
+  background-color: #f1f5f9 !important; /* slate-100 for icon chip */
+}
+
+/* Light-mode container for settings panels */
+.light .audio-settings-panel {
+  background-color: #ffffff !important;
+  border-color: oklch(0.9 0.02 240) !important;
+  color: oklch(0.23 0.02 240) !important;
+}
+
+/* Optional: light-mode gear button styling */
+.light .audio-gear {
+  background-color: #ffffff !important;
+  color: oklch(0.23 0.02 240) !important;
+  border-color: oklch(0.9 0.02 240) !important;
+}
+.light .audio-gear:hover {
+  background-color: oklch(0.97 0.005 240) !important;
+}
+
+/* Light-mode for large level buttons (Beginner/Intermediate/Advanced) */
+.light .audio-level {
+  background-color: #ffffff;
+  color: oklch(0.23 0.02 240);
+  border-color: oklch(0.9 0.02 240);
+}
+.light .audio-level:hover {
+  background-color: oklch(0.97 0.005 240);
+}

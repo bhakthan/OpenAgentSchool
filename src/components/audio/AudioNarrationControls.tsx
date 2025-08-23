@@ -217,14 +217,14 @@ advanced: {
                   ))}
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button
+                        <Button
                         onClick={() => {
                           setIsExpanded(true);
                           setShowSettings(true); // Auto-show settings when expanding from gear click
                         }}
                         size="sm"
-                        variant="ghost"
-                        className="p-1 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors"
+                          variant="ghost"
+                          className="p-1 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-colors audio-gear"
                       >
                         <Gear className="w-4 h-4" />
                       </Button>
@@ -257,7 +257,7 @@ advanced: {
                             onClick={() => setShowSettings(!showSettings)}
                             size="sm"
                             variant="ghost"
-                            className="w-6 h-6 p-0 hover:bg-blue-100 dark:hover:bg-blue-900"
+                            className="w-6 h-6 p-0 hover:bg-blue-100 dark:hover:bg-blue-900 audio-gear"
                           >
                             <Gear className="w-3 h-3" />
                           </Button>
@@ -298,12 +298,12 @@ advanced: {
                       return (
                         <Tooltip key={level}>
                           <TooltipTrigger asChild>
-                            <Button
+              <Button
                               onClick={() => handleLevelPlay(level)}
                               size="sm"
                               variant="outline"
                               className={`
-                                flex flex-col items-center gap-1 h-auto py-3 px-2
+                flex flex-col items-center gap-1 h-auto py-3 px-2 audio-level
                                 border-2 shadow-lg transition-all duration-300 transform
                                 ${isActiveAndPlaying 
                                   ? `${config.bgColor} ${config.color} ${config.borderColor} ${config.shadowColor} scale-105 shadow-xl` 
@@ -365,7 +365,7 @@ advanced: {
 
                   {/* Settings Panel */}
                   {showSettings && (
-                    <div className="space-y-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <div className="space-y-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 audio-settings-panel">
                       <h4 className="text-sm font-medium">Audio Settings</h4>
                       
                       {/* Volume Control */}
@@ -489,12 +489,12 @@ advanced: {
                 return (
                   <Tooltip key={level}>
                     <TooltipTrigger asChild>
-                      <Button
+            <Button
                         onClick={() => handleLevelPlay(level)}
                         size="sm"
                         variant="outline"
                         className={`
-                          relative flex items-center gap-2 h-10 px-3
+              relative flex items-center gap-2 h-10 px-3 audio-level
                           border-2 shadow-md transition-all duration-300 transform
                           ${isActiveAndPlaying 
                             ? `${config.bgColor} ${config.color} ${config.borderColor} ${config.shadowColor} scale-110 shadow-lg` 
@@ -542,7 +542,7 @@ advanced: {
                 size="sm"
                 variant="outline"
                 className={`
-                  h-10 px-3 border-2 shadow-md transition-all duration-300
+                  h-10 px-3 border-2 shadow-md transition-all duration-300 audio-gear
                   ${showSettings 
                     ? 'bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800' 
                     : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
@@ -582,7 +582,7 @@ advanced: {
 
         {/* Collapsible Settings Panel */}
         {showSettings && (
-          <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-inner">
+          <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-inner audio-settings-panel">
             <div className="flex items-center justify-between">
               <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">Audio Settings</h4>
               <Badge className="bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-300 dark:border-blue-700">
