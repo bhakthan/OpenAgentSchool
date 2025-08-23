@@ -45,6 +45,13 @@ interface SCLSessionProps {
 export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionProps) {
   const [mode, setMode] = useState<SCLMode>(initialMode || 'consolidate');
   const [objectives, setObjectives] = useState<SCLObjective[]>(['optimize']);
+  const [showIntro, setShowIntro] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('oas_scl_intro_v1_dismissed') !== '1';
+    } catch {
+      return true;
+    }
+  });
   const [uiState, setUIState] = useState<SCLUIState>({
     activeTab: 'inputs',
     selectedNodes: [],
@@ -322,6 +329,58 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
         {!isSessionActive ? (
           /* Configuration Mode */
           <div className="max-w-4xl mx-auto space-y-6">
+            {/* Intro / Description */}
+            {showIntro && (
+              <Card className="border-dashed">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Brain className="h-5 w-5" />
+                      What is Super Critical Learning (SCL)?
+                    </CardTitle>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="-mt-1"
+                      onClick={() => {
+                        try { localStorage.setItem('oas_scl_intro_v1_dismissed', '1'); } catch {}
+                        setShowIntro(false);
+                      }}
+                      aria-label="Dismiss intro"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="text-[15px] md:text-base lg:text-lg text-muted-foreground leading-relaxed space-y-3">
+                  <p>
+                    SCL is an analysis workspace that helps you explore first-, second-, and third-order
+                    effects of design choices in agentic systems. Configure a mode, provide seeds, and
+                    generate an effect graph you can inspect, refine, and synthesize into takeaways.
+                  </p>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>
+                      Modes: Consolidate (baseline), Extrapolate (creative), Transfer (cross-domain),
+                      Stress-Test (resilience), Intervene (levers), Counterfactual (assumptions),
+                      Threshold/Leaps (discontinuities), Mechanism Audit (causal rigor).
+                    </li>
+                    <li>
+                      Seeds set the starting context (concepts, patterns, practices). Use the defaults or
+                      pass your own from a pattern page.
+                    </li>
+                    <li>
+                      Output: an interactive Effect Graph, a Synthesis view that explains implications, and
+                      a Rubric to evaluate solution quality.
+                    </li>
+                    <li>
+                      Tip: Start with Consolidate or Transfer to map invariants, then Stress-Test or
+                      Intervene to probe weak links.
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">

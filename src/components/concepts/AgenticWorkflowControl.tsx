@@ -50,11 +50,21 @@ const AgenticWorkflowControl: React.FC<AgenticWorkflowControlProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      {/* Header */}
+      {/* Header with Ask AI */}
       <div className="text-center space-y-3">
         <div className="flex items-center justify-center gap-3">
           <FlowArrow className="w-10 h-10 text-primary" />
-          <h1 className="text-3xl font-bold">Agentic Workflow Control</h1>
+          <h1 className="text-3xl font-bold flex items-center gap-3">
+            Agentic Workflow Control
+            <EnlightenMeButton 
+              title="Agentic Workflow Control"
+              contextDescription="Get insights on workflow orchestration, multi-agent coordination, and dynamic control flow patterns for complex agentic systems"
+              size="xs"
+              visual="subtle"
+              iconOnly
+              hideHotkeyHint
+            />
+          </h1>
         </div>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
           Master advanced techniques for controlling agent execution patterns, timing, and decision-making processes
@@ -685,12 +695,6 @@ Parallel Execution:
 
       {/* References */}
       <ReferenceSection type="concept" itemId="agentic-workflow-control" />
-
-      {/* EnlightenMe Integration */}
-      <EnlightenMeButton 
-        title="Agentic Workflow Control"
-        contextDescription="Get insights on workflow orchestration, multi-agent coordination, and dynamic control flow patterns for complex agentic systems"
-      />
 
       {/* Navigation */}
       <div className="flex justify-between items-center pt-6">

@@ -35,11 +35,21 @@ const AgentEvaluationMethodologies: React.FC<AgentEvaluationMethodologiesProps> 
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      {/* Header */}
+      {/* Header with Ask AI */}
       <div className="text-center space-y-3">
         <div className="flex items-center justify-center gap-3">
           <ChartBar className="w-10 h-10 text-primary" />
-          <h1 className="text-3xl font-bold">Agent Evaluation Methodologies</h1>
+          <h1 className="text-3xl font-bold flex items-center gap-3">
+            Agent Evaluation Methodologies
+            <EnlightenMeButton 
+              title="Agent Evaluation Methodologies"
+              contextDescription="Get insights on comprehensive evaluation frameworks, metrics design, and assessment strategies for measuring agent performance and capabilities"
+              size="xs"
+              visual="subtle"
+              iconOnly
+              hideHotkeyHint
+            />
+          </h1>
         </div>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
           Learn systematic approaches to measuring and improving agent performance through comprehensive evaluation frameworks
@@ -802,12 +812,6 @@ def validate_evaluation_results(evaluation_data):
 
       {/* References */}
       <ReferenceSection type="concept" itemId="agent-evaluation-methodologies" />
-
-      {/* EnlightenMe Integration */}
-      <EnlightenMeButton 
-        title="Agent Evaluation Methodologies"
-        contextDescription="Get insights on comprehensive evaluation frameworks, metrics design, and assessment strategies for measuring agent performance and capabilities"
-      />
 
       {/* Navigation */}
       <div className="flex justify-between items-center pt-6">

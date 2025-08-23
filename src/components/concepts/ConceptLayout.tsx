@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { BookOpen, Code, Gear, GraduationCap, ArrowRight, ArrowLeft, CheckCircle } from "@phosphor-icons/react"
 import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 // NOTE: "Ask AI" is an alias for "EnlightenMe Button" - it provides AI-powered insights about concept content
@@ -167,27 +168,38 @@ export default function ConceptLayout({
             {/* Tab Header */}
             <Card>
               <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3 flex-1">
                     {levelIcons[tab.level]}
-                    <div>
+                    <div className="flex-1">
                       <CardTitle className="flex items-center gap-2">
                         {tab.title}
                         <span className={`text-sm font-medium ${levelColors[tab.level]}`}>
                           {tab.level}
                         </span>
+                        {/* Ask AI button inline with title */}
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <span>
+                                <EnlightenMeButton
+                                  title={tab.title}
+                                  contextDescription={tab.description}
+                                  mode="inline"
+                                  className="ml-2"
+                                  size="xs"
+                                  visual="ghost"
+                                  iconOnly
+                                  hideHotkeyHint
+                                />
+                              </span>
+                            </TooltipTrigger>
+                            <TooltipContent>Ask AI</TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                       </CardTitle>
                       <CardDescription className="mt-1">{tab.description}</CardDescription>
                     </div>
-                  </div>
-                  {/* Ask AI button positioned to prevent overlap with navigation controls */}
-                  <div className="flex-shrink-0">
-                    <EnlightenMeButton
-                      title={tab.title}
-                      contextDescription={tab.description}
-                      mode="inline"
-                      className="relative z-10"
-                    />
                   </div>
                 </div>
               </CardHeader>

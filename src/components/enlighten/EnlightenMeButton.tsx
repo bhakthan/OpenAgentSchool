@@ -18,6 +18,11 @@ interface EnlightenMeButtonProps {
   // New: dock anywhere as a fixed FAB
   mode?: 'inline' | 'fixed';
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+  // New: visual sizing/styling controls for compact placements
+  size?: 'xs' | 'sm' | 'md';
+  visual?: 'filled' | 'outline' | 'subtle' | 'ghost';
+  hideHotkeyHint?: boolean;
+  iconOnly?: boolean;
 }
 
 export function EnlightenMeButton({ 
@@ -29,6 +34,10 @@ export function EnlightenMeButton({
   className,
   mode = 'inline',
   position = 'bottom-right',
+  size = 'sm',
+  visual = 'filled',
+  hideHotkeyHint = false,
+  iconOnly = false,
 }: EnlightenMeButtonProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [hintIndex, setHintIndex] = useState(0);
@@ -101,20 +110,26 @@ Please explain this concept in detail, covering:
     <>
       <div className={cn(mode === 'fixed' ? dockClass : 'relative', className)}>
         <Button
-          variant="default"
-          size="sm"
+          variant={visual === 'filled' ? 'default' : visual === 'outline' ? 'outline' : visual === 'ghost' ? 'ghost' : 'ghost'}
+          size={size === 'xs' ? 'sm' : 'sm'}
           className={cn(
-            'h-10 px-3 rounded-full shadow-lg transition-transform hover:scale-105',
-            // Improved positioning for inline mode to prevent overlap issues
+            'rounded-full shadow-sm transition-transform hover:scale-[1.02] min-w-max',
+            size === 'xs' ? 'h-7 px-2 text-xs' : '',
+            size === 'sm' ? 'h-8 px-3 text-sm' : '',
+            size === 'md' ? 'h-10 px-3 text-sm' : '',
+            visual === 'subtle' ? 'border border-border/50 bg-transparent hover:bg-muted/50' : '',
+            // Keep inline positioning stable to avoid wrapping
             mode === 'inline' ? 'static' : ''
           )}
           onClick={() => setIsDialogOpen(true)}
           aria-label={`Ask AI about ${title}`}
           title={`Ask AI – ${hints[hintIndex]}`}
         >
-          <ChatCircleDots size={18} className="mr-2" />
-          <span className="text-sm">Ask AI</span>
-          <span className="ml-2 hidden md:inline text-[10px] opacity-70 border border-white/30 rounded px-1 py-0.5">Shift+E</span>
+          <ChatCircleDots size={size === 'xs' ? 14 : 18} className={iconOnly ? '' : 'mr-2'} />
+          {!iconOnly && <span className={cn(size === 'xs' ? 'text-xs' : 'text-sm')}>Ask AI</span>}
+          {!hideHotkeyHint && !iconOnly && (
+            <span className="ml-2 hidden md:inline text-[10px] opacity-70 border border-white/30 rounded px-1 py-0.5">Shift+E</span>
+          )}
         </Button>
       </div>
 

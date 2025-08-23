@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { jsonrepair } from 'jsonrepair';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Target, Lightning, Copy, Printer } from '@phosphor-icons/react';
+import { ArrowLeft, Target, Lightning, Copy, Printer, Brain } from '@phosphor-icons/react';
 import { SCLControls } from './SCLControls';
 import { Badge } from '@/components/ui/badge';
 import { z } from 'zod';
@@ -28,6 +28,9 @@ function SuperCriticalLearning({
   const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const printableRef = useRef<HTMLDivElement | null>(null);
+  const [showIntro, setShowIntro] = useState<boolean>(() => {
+    try { return localStorage.getItem('oas_scl_intro_v1_dismissed') !== '1'; } catch { return true; }
+  });
   // Per-section loading flags to avoid hiding earlier content during step transitions
   const [loadingFirst, setLoadingFirst] = useState(false);
   const [loadingHigher, setLoadingHigher] = useState(false);
@@ -1000,6 +1003,57 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               </div>
             </div>
           </div>
+          {/* Intro / Description */}
+          {showIntro && (
+            <Card className="border-dashed">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Brain className="h-5 w-5" />
+                    What is Super Critical Learning (SCL)?
+                  </CardTitle>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="-mt-1"
+                    onClick={() => { try { localStorage.setItem('oas_scl_intro_v1_dismissed','1'); } catch {}; setShowIntro(false); }}
+                    aria-label="Dismiss intro"
+                  >
+                    <ArrowLeft className="hidden" />
+                    <span className="sr-only">Dismiss</span>
+                    {/* Use an X icon from Phosphor via existing import set */}
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground space-y-3">
+                <p>
+                  SCL is an analysis workspace that helps you explore first-, second-, and third-order
+                  effects of design choices in agentic systems. Configure a mode, provide seeds, and
+                  generate an effect graph you can inspect, refine, and synthesize into takeaways.
+                </p>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>
+                    Modes: Consolidate (baseline), Extrapolate (creative), Transfer (cross-domain),
+                    Stress-Test (resilience), Intervene (levers), Counterfactual (assumptions),
+                    Threshold/Leaps (discontinuities), Mechanism Audit (causal rigor).
+                  </li>
+                  <li>
+                    Seeds set the starting context (concepts, patterns, practices). Use the defaults or
+                    pass your own from a pattern page.
+                  </li>
+                  <li>
+                    Output: an interactive Effect Graph, a Synthesis view that explains implications, and
+                    a Rubric to evaluate solution quality.
+                  </li>
+                  <li>
+                    Tip: Start with Consolidate or Transfer to map invariants, then Stress-Test or
+                    Intervene to probe weak links.
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          )}
           
           <SCLControls
             mode={selectedMode}
@@ -1034,6 +1088,57 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
             </div>
           </div>
         </div>
+
+        {/* Intro / Description */}
+        {showIntro && (
+          <Card className="border-dashed">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Brain className="h-5 w-5" />
+                  What is Super Critical Learning (SCL)?
+                </CardTitle>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="-mt-1"
+                  onClick={() => { try { localStorage.setItem('oas_scl_intro_v1_dismissed','1'); } catch {}; setShowIntro(false); }}
+                  aria-label="Dismiss intro"
+                >
+                  <ArrowLeft className="hidden" />
+                  <span className="sr-only">Dismiss</span>
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground space-y-3">
+              <p>
+                SCL is an analysis workspace that helps you explore first-, second-, and third-order
+                effects of design choices in agentic systems. Configure a mode, provide seeds, and
+                generate an effect graph you can inspect, refine, and synthesize into takeaways.
+              </p>
+              <ul className="list-disc list-inside space-y-1">
+                <li>
+                  Modes: Consolidate (baseline), Extrapolate (creative), Transfer (cross-domain),
+                  Stress-Test (resilience), Intervene (levers), Counterfactual (assumptions),
+                  Threshold/Leaps (discontinuities), Mechanism Audit (causal rigor).
+                </li>
+                <li>
+                  Seeds set the starting context (concepts, patterns, practices). Use the defaults or
+                  pass your own from a pattern page.
+                </li>
+                <li>
+                  Output: an interactive Effect Graph, a Synthesis view that explains implications, and
+                  a Rubric to evaluate solution quality.
+                </li>
+                <li>
+                  Tip: Start with Consolidate or Transfer to map invariants, then Stress-Test or
+                  Intervene to probe weak links.
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Session Configuration */}
         <Card>

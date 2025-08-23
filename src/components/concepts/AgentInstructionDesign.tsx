@@ -88,11 +88,21 @@ Perform statistical analysis on the provided dataset.
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      {/* Header */}
+      {/* Header with Ask AI */}
       <div className="text-center space-y-3">
         <div className="flex items-center justify-center gap-3">
           <ChatText className="w-10 h-10 text-primary" />
-          <h1 className="text-3xl font-bold">Agent Instruction Design</h1>
+          <h1 className="text-3xl font-bold flex items-center gap-3">
+            Agent Instruction Design
+            <EnlightenMeButton
+              title="Agent Instruction Design"
+              contextDescription="Master the art of creating clear, hierarchical instructions that enable steerable and reliable agent behavior"
+              size="xs"
+              visual="subtle"
+              iconOnly
+              hideHotkeyHint
+            />
+          </h1>
         </div>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
           Master the art of creating clear, steerable instructions that guide agent behavior effectively
@@ -567,11 +577,6 @@ Would you like me to try [specific alternative]?"`}
 
       {/* References */}
       <ReferenceSection type="concept" itemId="agent-instruction-design" />
-
-      <EnlightenMeButton
-        title="Agent Instruction Design"
-        contextDescription="Master the art of creating clear, hierarchical instructions that enable steerable and reliable agent behavior"
-      />
 
       {/* Navigation */}
       <div className="flex justify-between items-center pt-6">

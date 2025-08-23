@@ -33,11 +33,21 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      {/* Header */}
+      {/* Header with Ask AI */}
       <div className="text-center space-y-3">
         <div className="flex items-center justify-center gap-3">
           <TrendUp className="w-10 h-10 text-primary" />
-          <h1 className="text-3xl font-bold">Prompt Optimization Patterns</h1>
+          <h1 className="text-3xl font-bold flex items-center gap-3">
+            Prompt Optimization Patterns
+            <EnlightenMeButton
+              title="Prompt Optimization Patterns"
+              contextDescription="Learn advanced techniques for improving prompt efficiency, clarity, and effectiveness"
+              size="xs"
+              visual="subtle"
+              iconOnly
+              hideHotkeyHint
+            />
+          </h1>
         </div>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
           Learn systematic approaches to identify and fix common prompting problems for better agent performance
@@ -484,11 +494,6 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
 
       {/* References */}
       <ReferenceSection type="concept" itemId="prompt-optimization-patterns" />
-
-      <EnlightenMeButton
-        title="Prompt Optimization Patterns"
-        contextDescription="Learn advanced techniques for improving prompt efficiency, clarity, and effectiveness"
-      />
 
       {/* Navigation */}
       <div className="flex justify-between items-center pt-6">

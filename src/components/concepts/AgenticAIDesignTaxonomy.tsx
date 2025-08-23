@@ -1036,17 +1036,20 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     <div className="max-w-6xl mx-auto p-6 space-y-8">
       {/* Header */}
       <div className="relative text-center space-y-4">
-        {/* Ask AI CTA */}
-        <AskAIButton 
-          title="Agentic AI Design Taxonomy" 
-          description="A comprehensive framework for understanding the architectural patterns, design principles, and implementation challenges in Agentic AI systems."
-        />
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 rounded-full">
           <Brain className="w-5 h-5 text-blue-600 dark:text-blue-400" />
           <span className="text-sm font-medium text-blue-800 dark:text-blue-200">Design Taxonomy</span>
         </div>
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center justify-center gap-3">
           Agentic AI Design Taxonomy
+          <AskAIButton 
+            title="Agentic AI Design Taxonomy" 
+            description="A comprehensive framework for understanding the architectural patterns, design principles, and implementation challenges in Agentic AI systems."
+            size="xs"
+            visual="subtle"
+            iconOnly
+            hideHotkeyHint
+          />
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           A comprehensive framework for understanding the architectural patterns, design principles, and implementation challenges in Agentic AI systems.
