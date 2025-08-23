@@ -16,7 +16,7 @@ interface SuperCriticalLearningProps {
 function SuperCriticalLearning({ 
   onBack
 }: SuperCriticalLearningProps) {
-  const [selectedMode, setSelectedMode] = useState<'consolidate' | 'extrapolate' | null>(null);
+  const [selectedMode, setSelectedMode] = useState<'consolidate' | 'extrapolate' | 'transfer' | 'stress-test' | 'intervene' | 'counterfactual' | 'leap-focus' | 'mechanism-audit' | null>(null);
   const [analysisStarted, setAnalysisStarted] = useState(false);
   const [analysisSeeds, setAnalysisSeeds] = useState<any>(null);
   const [analysisStep, setAnalysisStep] = useState<'first-order' | 'higher-order' | 'synthesis' | 'complete'>('first-order');
@@ -1050,7 +1050,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                 <h3 className="font-medium text-primary">Analysis Mode</h3>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Consolidate Mode */}
                 <Card 
                   className="relative overflow-hidden cursor-pointer transition-all hover:shadow-md border-2 hover:border-primary/50"
@@ -1084,6 +1084,76 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                     <CardDescription>
                       Creative exploration with constraints and perturbations
                     </CardDescription>
+                  </CardHeader>
+                </Card>
+
+                {/* Transfer Mode */}
+                <Card 
+                  className="relative overflow-hidden cursor-pointer transition-all hover:shadow-md border-2 hover:border-primary/50"
+                  onClick={() => {
+                    setSelectedMode('transfer');
+                  }}
+                >
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Lightning className="h-5 w-5 text-orange-600" />
+                      Transfer
+                    </CardTitle>
+                    <CardDescription>
+                      Apply knowledge across domains; map invariants
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </div>
+              {/* Additional Modes (compact cards) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Card className="cursor-pointer border-2 hover:border-primary/50" onClick={() => setSelectedMode('stress-test')}>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Lightning className="h-5 w-5 text-amber-600" />
+                      Stress-Test
+                    </CardTitle>
+                    <CardDescription>Perturb constraints to find brittleness</CardDescription>
+                  </CardHeader>
+                </Card>
+
+                <Card className="cursor-pointer border-2 hover:border-primary/50" onClick={() => setSelectedMode('intervene')}>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Target className="h-5 w-5 text-purple-600" />
+                      Intervene
+                    </CardTitle>
+                    <CardDescription>Try levers and compare outcomes</CardDescription>
+                  </CardHeader>
+                </Card>
+
+                <Card className="cursor-pointer border-2 hover:border-primary/50" onClick={() => setSelectedMode('counterfactual')}>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Lightning className="h-5 w-5 text-sky-600" />
+                      Counterfactual
+                    </CardTitle>
+                    <CardDescription>Toggle assumptions and compare graphs</CardDescription>
+                  </CardHeader>
+                </Card>
+
+                <Card className="cursor-pointer border-2 hover:border-primary/50" onClick={() => setSelectedMode('leap-focus')}>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Lightning className="h-5 w-5 text-rose-600" />
+                      Threshold / Leaps
+                    </CardTitle>
+                    <CardDescription>Highlight discontinuities and triggers</CardDescription>
+                  </CardHeader>
+                </Card>
+
+                <Card className="cursor-pointer border-2 hover:border-primary/50" onClick={() => setSelectedMode('mechanism-audit')}>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Lightning className="h-5 w-5 text-emerald-600" />
+                      Mechanism Audit
+                    </CardTitle>
+                    <CardDescription>Require mechanisms/delays; flag weak links</CardDescription>
                   </CardHeader>
                 </Card>
               </div>

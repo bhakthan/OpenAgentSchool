@@ -27,6 +27,10 @@ import { SCLRubric } from './SCLRubric';
 import SCLGraph, { SCLNode } from '../../SuperCriticalLearning/SCLGraph';
 import GraphControls from '../../SuperCriticalLearning/GraphControls';
 import NodeEditor from '../../SuperCriticalLearning/NodeEditor';
+import { Slider } from '@/components/ui/slider';
+import { Switch } from '@/components/ui/switch';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 interface SCLSessionProps {
   initialSeeds?: {
@@ -59,6 +63,26 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
   const [showMinimap, setShowMinimap] = useState(true);
   const [selectedNode, setSelectedNode] = useState<SCLNode | null>(null);
   const [showNodeEditor, setShowNodeEditor] = useState(false);
+  // Mode-specific controls
+  const [modeControls, setModeControls] = useState<any>({
+    // stress-test
+    latencyP99: 400,
+    budget: 'medium',
+    accuracy: 0.8,
+    // intervene
+    leverRateLimit: 100,
+    leverCacheTTL: 60,
+    leverCanary: true,
+    // counterfactual
+    cfMemory: true,
+    cfToolUse: true,
+    // leap-focus
+    thresholdQueueDepth: 200,
+    thresholdErrorSlope: 0.2,
+    // mechanism-audit
+    requireMechanism: true,
+    requireDelay: true
+  });
 
   const {
     session,
@@ -166,12 +190,24 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
             }],
       };
 
+      // Push mode-specific extras to constraints for orchestrator
+      updateConstraints({
+        extras: {
+          mode,
+          ...modeControls
+        },
+        // mirror some common knobs onto typed fields when relevant
+        latencyP99: mode === 'stress-test' ? modeControls.latencyP99 : undefined,
+        accuracy: mode === 'stress-test' ? modeControls.accuracy : undefined,
+        budget: mode === 'stress-test' ? (modeControls.budget || 'medium') : undefined
+      });
+
       console.log('SCL Context Summary:', mockContextSummary);
       await generateEffects(newSession, mockContextSummary);
     } catch (error) {
       console.error('Failed to start SCL session:', error);
     }
-  }, [mode, objectives, initialSeeds, isGenerating, createSession, generateEffects]);
+  }, [mode, objectives, initialSeeds, isGenerating, createSession, generateEffects, updateConstraints, modeControls]);
 
   const handleModeChange = useCallback((newMode: SCLMode) => {
     setMode(newMode);
@@ -297,7 +333,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
                 {/* Mode Selection */}
                 <div className="space-y-3">
                   <label className="text-sm font-medium">Analysis Mode</label>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                     <Card 
                       className={`cursor-pointer transition-colors ${
                         mode === 'consolidate' ? 'border-primary bg-primary/5' : 'hover:bg-muted/50'
@@ -328,6 +364,108 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
                         </div>
                         <p className="text-sm text-muted-foreground">
                           Creative exploration with constraints and perturbations
+                        </p>
+                      </CardContent>
+                    </Card>
+
+                    <Card 
+                      className={`cursor-pointer transition-colors ${
+                        mode === 'transfer' ? 'border-primary bg-primary/5' : 'hover:bg-muted/50'
+                      }`}
+                      onClick={() => handleModeChange('transfer')}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-3 mb-2">
+                          <GitBranch className="h-5 w-5 text-secondary-foreground" />
+                          <span className="font-medium">Transfer</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Apply knowledge across domains; map invariants
+                        </p>
+                      </CardContent>
+                    </Card>
+
+                    <Card 
+                      className={`cursor-pointer transition-colors ${
+                        mode === 'stress-test' ? 'border-primary bg-primary/5' : 'hover:bg-muted/50'
+                      }`}
+                      onClick={() => handleModeChange('stress-test')}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-3 mb-2">
+                          <GitBranch className="h-5 w-5 text-primary" />
+                          <span className="font-medium">Stress-Test</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Perturb constraints and surface fragile links
+                        </p>
+                      </CardContent>
+                    </Card>
+
+                    <Card 
+                      className={`cursor-pointer transition-colors ${
+                        mode === 'intervene' ? 'border-primary bg-primary/5' : 'hover:bg-muted/50'
+                      }`}
+                      onClick={() => handleModeChange('intervene')}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Target className="h-5 w-5 text-primary" />
+                          <span className="font-medium">Intervene</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Try levers and compare downstream outcomes
+                        </p>
+                      </CardContent>
+                    </Card>
+
+                    <Card 
+                      className={`cursor-pointer transition-colors ${
+                        mode === 'counterfactual' ? 'border-primary bg-primary/5' : 'hover:bg-muted/50'
+                      }`}
+                      onClick={() => handleModeChange('counterfactual')}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Brain className="h-5 w-5 text-secondary-foreground" />
+                          <span className="font-medium">Counterfactual</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Toggle assumptions and show graph divergence
+                        </p>
+                      </CardContent>
+                    </Card>
+
+                    <Card 
+                      className={`cursor-pointer transition-colors ${
+                        mode === 'leap-focus' ? 'border-primary bg-primary/5' : 'hover:bg-muted/50'
+                      }`}
+                      onClick={() => handleModeChange('leap-focus')}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Network className="h-5 w-5 text-primary" />
+                          <span className="font-medium">Threshold / Leaps</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Highlight discontinuities and trigger points
+                        </p>
+                      </CardContent>
+                    </Card>
+
+                    <Card 
+                      className={`cursor-pointer transition-colors ${
+                        mode === 'mechanism-audit' ? 'border-primary bg-primary/5' : 'hover:bg-muted/50'
+                      }`}
+                      onClick={() => handleModeChange('mechanism-audit')}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Gear className="h-5 w-5 text-primary" />
+                          <span className="font-medium">Mechanism Audit</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          Add mechanisms/delays; score weak links
                         </p>
                       </CardContent>
                     </Card>
@@ -437,6 +575,118 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
                 onStartSession={handleStartSession}
                 isGenerating={isGenerating}
               />
+
+              {/* Mode-specific controls */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Gear className="h-5 w-5" />
+                    Mode-Specific Controls
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {mode === 'stress-test' && (
+                    <div className="grid md:grid-cols-3 gap-6">
+                      <div>
+                        <Label className="text-sm font-medium">Latency P99 (ms)</Label>
+                        <div className="pt-3">
+                          <Slider defaultValue={[modeControls.latencyP99]} min={50} max={2000} step={10}
+                            onValueChange={(v) => setModeControls((s:any)=>({...s, latencyP99: v[0]}))}/>
+                          <div className="text-xs text-muted-foreground mt-2">{modeControls.latencyP99} ms</div>
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">Accuracy Target</Label>
+                        <div className="pt-3">
+                          <Slider defaultValue={[modeControls.accuracy]} min={0.5} max={0.99} step={0.01}
+                            onValueChange={(v) => setModeControls((s:any)=>({...s, accuracy: Number(v[0].toFixed(2))}))}/>
+                          <div className="text-xs text-muted-foreground mt-2">{Math.round(modeControls.accuracy*100)}%</div>
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">Budget</Label>
+                        <Input value={modeControls.budget} onChange={(e)=>setModeControls((s:any)=>({...s, budget: e.target.value}))} placeholder="low | medium | high | unlimited"/>
+                      </div>
+                    </div>
+                  )}
+
+                  {mode === 'intervene' && (
+                    <div className="grid md:grid-cols-3 gap-6">
+                      <div>
+                        <Label className="text-sm font-medium">Rate Limit (req/s)</Label>
+                        <div className="pt-3">
+                          <Slider defaultValue={[modeControls.leverRateLimit]} min={10} max={1000} step={10}
+                            onValueChange={(v)=>setModeControls((s:any)=>({...s, leverRateLimit: v[0]}))}/>
+                          <div className="text-xs text-muted-foreground mt-2">{modeControls.leverRateLimit} rps</div>
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">Cache TTL (s)</Label>
+                        <div className="pt-3">
+                          <Slider defaultValue={[modeControls.leverCacheTTL]} min={10} max={600} step={5}
+                            onValueChange={(v)=>setModeControls((s:any)=>({...s, leverCacheTTL: v[0]}))}/>
+                          <div className="text-xs text-muted-foreground mt-2">{modeControls.leverCacheTTL} s</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Switch checked={modeControls.leverCanary} onCheckedChange={(val)=>setModeControls((s:any)=>({...s, leverCanary: val}))}/>
+                        <Label className="text-sm">Enable Canary</Label>
+                      </div>
+                    </div>
+                  )}
+
+                  {mode === 'counterfactual' && (
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="flex items-center gap-3">
+                        <Switch checked={modeControls.cfMemory} onCheckedChange={(val)=>setModeControls((s:any)=>({...s, cfMemory: val}))}/>
+                        <Label className="text-sm">Assume Memory Enabled</Label>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Switch checked={modeControls.cfToolUse} onCheckedChange={(val)=>setModeControls((s:any)=>({...s, cfToolUse: val}))}/>
+                        <Label className="text-sm">Assume Tool Use Enabled</Label>
+                      </div>
+                    </div>
+                  )}
+
+                  {mode === 'leap-focus' && (
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <Label className="text-sm font-medium">Queue Depth Threshold</Label>
+                        <div className="pt-3">
+                          <Slider defaultValue={[modeControls.thresholdQueueDepth]} min={10} max={10000} step={10}
+                            onValueChange={(v)=>setModeControls((s:any)=>({...s, thresholdQueueDepth: v[0]}))}/>
+                          <div className="text-xs text-muted-foreground mt-2">{modeControls.thresholdQueueDepth}</div>
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium">Error Slope Trigger</Label>
+                        <div className="pt-3">
+                          <Slider defaultValue={[modeControls.thresholdErrorSlope]} min={0.01} max={1} step={0.01}
+                            onValueChange={(v)=>setModeControls((s:any)=>({...s, thresholdErrorSlope: Number(v[0].toFixed(2))}))}/>
+                          <div className="text-xs text-muted-foreground mt-2">{modeControls.thresholdErrorSlope}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {mode === 'mechanism-audit' && (
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="flex items-center gap-3">
+                        <Switch checked={modeControls.requireMechanism} onCheckedChange={(val)=>setModeControls((s:any)=>({...s, requireMechanism: val}))}/>
+                        <Label className="text-sm">Require Mechanism on Edges</Label>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Switch checked={modeControls.requireDelay} onCheckedChange={(val)=>setModeControls((s:any)=>({...s, requireDelay: val}))}/>
+                        <Label className="text-sm">Require Delay on Edges</Label>
+                      </div>
+                    </div>
+                  )}
+
+                  {['consolidate','extrapolate','transfer'].includes(mode) && (
+                    <p className="text-xs text-muted-foreground">No extra controls for this mode.</p>
+                  )}
+                </CardContent>
+              </Card>
             </TabsContent>
 
             <TabsContent value="graph" className="space-y-6">

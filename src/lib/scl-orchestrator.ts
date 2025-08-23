@@ -62,7 +62,7 @@ interface SynthesisResponse {
 export class SCLOrchestrator {
   private config: OpenRouterConfig;
 
-  constructor(apiKey: string, model: OpenRouterModel = 'anthropic/claude-3-sonnet', baseUrl?: string) {
+  constructor(apiKey: string, model: OpenRouterModel = 'openai/gpt-oss-20b:free', baseUrl?: string) {
     this.config = createOpenRouterConfig(apiKey, model);
     // Override base URL if provided (for OpenAI compatibility)
     if (baseUrl) {
@@ -327,20 +327,41 @@ Look for emergent behaviors, feedback loops, and threshold effects.`;
       `${e.id}: ${e.title} (${e.domain}, impact: ${e.impact})`
     ).join('\n');
 
-    return `Given these first-order effects from an agentic AI implementation:
+    const modeGuidance = (() => {
+      switch (session.mode) {
+        case 'consolidate':
+          return '- Focus on well-understood patterns and predictable cascades\n- High confidence, documented effects';
+        case 'extrapolate':
+          return '- Explore novel interactions and unexpected combinations\n- Include lower-confidence but high-impact possibilities';
+        case 'stress-test':
+          return '- Perturb constraints (budget/latency/accuracy) and show before/after deltas\n- Surface brittle links and saturation points';
+        case 'intervene':
+          return '- Propose 2-3 concrete levers (rate limit, caching, rollout) and compare downstream outcomes';
+        case 'counterfactual':
+          return '- Toggle key assumptions (memory on/off, tool use on/off) and highlight graph divergences';
+        case 'leap-focus':
+          return '- Emphasize threshold triggers and discontinuities; promote leaps and their prerequisites';
+        case 'mechanism-audit':
+          return '- Require mechanisms and delays for edges; flag weak/low-confidence links with audit notes';
+        default:
+          return '';
+      }
+    })();
+
+  const extras = session.constraints?.extras ? `\nEXTRAS: ${JSON.stringify(session.constraints.extras)}` : '';
+
+  return `Given these first-order effects from an agentic AI implementation:
 
 ${effectsDescription}
 
 CONSTRAINTS: ${JSON.stringify(session.constraints)}
 MODE: ${session.mode}
+${extras}
 
 Generate second and third-order effects that would cascade from these first-order effects.
 
 For ${session.mode} mode:
-${session.mode === 'consolidate' 
-  ? '- Focus on well-understood patterns and predictable cascades\n- High confidence, documented effects'
-  : '- Explore novel interactions and unexpected combinations\n- Include lower-confidence but high-impact possibilities'
-}
+${modeGuidance}
 
 Also identify any LEAPS where threshold effects cause qualitative changes in system behavior.`;
   }

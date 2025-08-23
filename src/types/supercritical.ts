@@ -5,7 +5,15 @@
 
 export type SCLDomain = 'ops' | 'product' | 'security' | 'org' | 'cost' | 'perf';
 
-export type SCLMode = 'consolidate' | 'extrapolate' | 'transfer';
+export type SCLMode =
+  | 'consolidate'
+  | 'extrapolate'
+  | 'transfer'
+  | 'stress-test'
+  | 'intervene'
+  | 'counterfactual'
+  | 'leap-focus'
+  | 'mechanism-audit';
 
 export type SCLObjective = 'optimize' | 'minimizeRisk' | 'hitSLOs' | 'scaleTeam' | 'reduceComplexity';
 
@@ -45,6 +53,7 @@ export interface SCLConstraints {
   complianceProfile: 'none' | 'basic' | 'strict' | 'regulated';
   teamSize?: number;
   timeHorizon: '1month' | '3months' | '6months' | '1year' | '2years';
+  extras?: Record<string, any>; // mode-specific configuration hooks
 }
 
 export interface SCLSynthesis {

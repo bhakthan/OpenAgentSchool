@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import type { SCLMode } from '@/types/supercritical';
 
 interface SCLControlsProps {
-  mode: string;
+  mode: SCLMode;
   initialSeeds?: any;
   onStartSession: (seeds: any) => void;
   isGenerating?: boolean;
@@ -19,15 +20,49 @@ export function SCLControls({ mode, onStartSession, isGenerating }: SCLControlsP
 
   // Pre-fill defaults per mode
   React.useEffect(() => {
-    if (mode === 'consolidate') {
-      setConcept('agentic-systems');
-      setPattern('orchestration-pattern');
-      setPractice('iterative-testing\napi-integration\ndevops-automation');
-    } else if (mode === 'extrapolate') {
-      // Provide exploratory defaults for extrapolate mode
-      setConcept('frontier-capabilities');
-      setPattern('scale-emergence');
-      setPractice('counterfactual-probes\nconstraint-perturbation\nweak-signal-harvesting');
+    switch (mode) {
+      case 'consolidate':
+        setConcept('agentic-systems');
+        setPattern('orchestration-pattern');
+        setPractice('iterative-testing\napi-integration\ndevops-automation');
+        break;
+      case 'extrapolate':
+        setConcept('frontier-capabilities');
+        setPattern('scale-emergence');
+        setPractice('counterfactual-probes\nconstraint-perturbation\nweak-signal-harvesting');
+        break;
+      case 'transfer':
+        setConcept('cross-domain-transfer');
+        setPattern('knowledge-mapping');
+        setPractice('invariant-detection\nanalogy-mapping\nscaffold-reuse');
+        break;
+      case 'stress-test':
+        setConcept('slo-enforcement');
+        setPattern('circuit-breaker');
+        setPractice('chaos-engineering\nload-spikes\nlatency-injection');
+        break;
+      case 'intervene':
+        setConcept('observability-control');
+        setPattern('feedback-controller');
+        setPractice('rate-limits\npriority-queues\nrolled-deployments');
+        break;
+      case 'counterfactual':
+        setConcept('assumption-mapping');
+        setPattern('ablation-study');
+        setPractice('toggle-memory\nturn-off-cot\nno-tools-baseline');
+        break;
+      case 'leap-focus':
+        setConcept('threshold-effects');
+        setPattern('phase-transition');
+        setPractice('critical-mass-probing\nqueue-depth-thresholds\nalert-on-slope');
+        break;
+      case 'mechanism-audit':
+        setConcept('causal-links');
+        setPattern('dependency-mapping');
+        setPractice('mechanism-notes\ndelay-estimation\nedge-confidence-scoring');
+        break;
+      default:
+        break;
     }
   }, [mode]);
 
@@ -98,7 +133,7 @@ export function SCLControls({ mode, onStartSession, isGenerating }: SCLControlsP
             className="w-full h-12"
             size="lg"
           >
-            {isGenerating ? 'Starting SCL Analysis...' : `Start ${mode === 'consolidate' ? 'Consolidate' : 'Extrapolate'} Analysis`}
+            {isGenerating ? 'Starting SCL Analysis...' : `Start ${String(mode).replace('-', ' ')} Analysis`}
           </Button>
         </CardContent>
       </Card>
