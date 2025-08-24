@@ -1,4 +1,6 @@
 import { PatternData } from './types';
+import { LearningVisualization } from '@/components/visualization/LearningVisualization';
+import SimpleFlowDemo from '@/components/visualization/SimpleFlowDemo';
 
 export const conceptToProjectPattern: PatternData = {
   id: 'concept-to-project',
@@ -27,6 +29,18 @@ export const conceptToProjectPattern: PatternData = {
   advantages: ['Clarifies scope', 'Improves follow-through', 'Supports assessment'],
   limitations: ['Requires calibration to level', 'Over/under-scoping risk'],
   relatedPatterns: ['Plan and Execute', 'Routing'],
+  businessUseCase: {
+    industry: 'EdTech',
+    description: 'A coding bootcamp uses the Concept‑to‑Project Builder to auto-generate scoped project briefs with milestones and rubrics per learner level, ensuring consistent expectations and demoable outcomes.',
+    visualization: SimpleFlowDemo,
+    enlightenMePrompt: `Create a project-brief generator for a bootcamp cohort.
+
+Include:
+- Inputs (concept, level, timebox) and guardrails
+- Milestone and rubric templates with acceptance criteria
+- Export to GitHub Issues and LMS tasks
+- TA review workflow for scope calibration`
+  },
   codeExample: `// Concept to Project one-pager generator (TypeScript)
 export function buildProjectBrief(concept: string, level: string, timeboxHrs: number) {
   return {

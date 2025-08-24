@@ -1,4 +1,6 @@
 import { PatternData } from './types';
+import { LearningVisualization } from '@/components/visualization/LearningVisualization';
+import { CodeActVisualizer } from '@/components/visualization/business-use-cases/CodeActVisualizer';
 
 export const errorWhispererPattern: PatternData = {
   id: 'error-whisperer',
@@ -27,6 +29,18 @@ export const errorWhispererPattern: PatternData = {
   advantages: ['Teaches debugging mental models', 'Faster incident resolution'],
   limitations: ['Needs good log/context quality'],
   relatedPatterns: ['Evaluator-Optimizer', 'Self-Reflection'],
+  businessUseCase: {
+    industry: 'EdTech',
+    description: 'An online IDE integrates Error Whisperer to turn stack traces into teachable moments. Learners get concise root-cause hypotheses, minimal diffs, and prevention tips, accelerating debugging skills.',
+    visualization: CodeActVisualizer,
+    enlightenMePrompt: `Design an "Error Whisperer" plugin for a web IDE.
+
+Cover:
+- Log normalization and PII scrubbing
+- Heuristics + LLM chain for root cause and minimal fix
+- Safety: sandbox execution when verifying fixes
+- Telemetry: mean time to resolution, recurrence rate`
+  },
   codeExample: `// Minimal root-cause template (TypeScript)
 export type Diagnosis = { hypothesis: string; fix: string; prevent: string };
 

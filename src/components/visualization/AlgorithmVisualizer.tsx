@@ -17,7 +17,7 @@ export interface AlgorithmStep {
 }
 
 interface AlgorithmVisualizerProps {
-  steps: AlgorithmStep[];
+  steps?: AlgorithmStep[];
   title?: string;
   description?: string;
   onStepComplete?: (step: AlgorithmStep) => void;
@@ -41,22 +41,33 @@ const AlgorithmVisualizer = React.memo(({
   const [isPlaying, setIsPlaying] = useState<boolean>(autoPlay);
   const [completedSteps, setCompletedSteps] = useState<Set<string>>(new Set());
 
+  // Provide a safe fallback set of steps when none are provided
+  const safeSteps: AlgorithmStep[] = useMemo(() => {
+    if (Array.isArray(steps) && steps.length > 0) return steps;
+    // Minimal default to avoid empty UI and prevent undefined access
+    return [
+      { id: 'ingest', name: 'Ingest', description: 'Load inputs and initialize state.' },
+      { id: 'process', name: 'Process', description: 'Apply core algorithm logic.' },
+      { id: 'output', name: 'Output', description: 'Produce results and metrics.' }
+    ];
+  }, [steps]);
+
   // Memoize the processed steps to prevent unnecessary recalculations
   const processedSteps = useMemo(() => {
-    return steps.map((step, index) => ({
+    return safeSteps.map((step, index) => ({
       ...step,
       status: (
         index < currentStepIndex ? 'completed' :
         index === currentStepIndex ? 'active' : 'pending'
       ) as 'pending' | 'active' | 'completed' | 'error'
     }));
-  }, [steps, currentStepIndex]);
+  }, [safeSteps, currentStepIndex]);
 
   // Handle auto-play
   useEffect(() => {
-    if (!isPlaying || currentStepIndex >= steps.length - 1) return;
+    if (!isPlaying || currentStepIndex >= safeSteps.length - 1) return;
     
-    const currentStep = steps[currentStepIndex];
+    const currentStep = safeSteps[currentStepIndex];
     const baseDelay = currentStep?.timing || 1500; // Default to 1.5 seconds
     const adjustedDelay = baseDelay / speed;
     
@@ -65,22 +76,22 @@ const AlgorithmVisualizer = React.memo(({
     }, adjustedDelay);
     
     return () => clearTimeout(timer);
-  }, [currentStepIndex, isPlaying, steps, speed]);
+  }, [currentStepIndex, isPlaying, safeSteps, speed]);
 
   // Initialize first step
   useEffect(() => {
-    if (steps.length > 0 && currentStepIndex === -1) {
+    if (safeSteps.length > 0 && currentStepIndex === -1) {
       setCurrentStepIndex(0);
     }
-  }, [steps, currentStepIndex]);
+  }, [safeSteps, currentStepIndex]);
 
   // Advance to next step
   const nextStep = useCallback(() => {
-    if (currentStepIndex >= steps.length - 1) return;
+    if (currentStepIndex >= safeSteps.length - 1) return;
     
     // Mark current step as completed
     if (currentStepIndex >= 0) {
-      const step = steps[currentStepIndex];
+      const step = safeSteps[currentStepIndex];
       setCompletedSteps(prev => {
         const updated = new Set(prev);
         updated.add(step.id);
@@ -95,29 +106,29 @@ const AlgorithmVisualizer = React.memo(({
     
     // Advance to next step
     setCurrentStepIndex(prev => prev + 1);
-  }, [currentStepIndex, steps, onStepComplete]);
+  }, [currentStepIndex, safeSteps, onStepComplete]);
 
   // Skip to end
   const skipToEnd = useCallback(() => {
-    if (currentStepIndex >= steps.length - 1) return;
+    if (currentStepIndex >= safeSteps.length - 1) return;
     
     // Mark all remaining steps as completed
     const newCompleted = new Set(completedSteps);
-    for (let i = currentStepIndex; i < steps.length; i++) {
-      newCompleted.add(steps[i].id);
+    for (let i = currentStepIndex; i < safeSteps.length; i++) {
+      newCompleted.add(safeSteps[i].id);
       if (onStepComplete) {
-        onStepComplete(steps[i]);
+        onStepComplete(safeSteps[i]);
       }
     }
     
     setCompletedSteps(newCompleted);
-    setCurrentStepIndex(steps.length - 1);
+    setCurrentStepIndex(safeSteps.length - 1);
     setIsPlaying(false);
-  }, [currentStepIndex, steps, completedSteps, onStepComplete]);
+  }, [currentStepIndex, safeSteps, completedSteps, onStepComplete]);
 
   // Toggle play/pause
   const togglePlay = useCallback(() => {
-    if (currentStepIndex >= steps.length - 1) {
+    if (currentStepIndex >= safeSteps.length - 1) {
       // Restart if at the end
       setCurrentStepIndex(0);
       setCompletedSteps(new Set());
@@ -126,7 +137,7 @@ const AlgorithmVisualizer = React.memo(({
       // Toggle play/pause
       setIsPlaying(prev => !prev);
     }
-  }, [currentStepIndex, steps.length]);
+  }, [currentStepIndex, safeSteps.length]);
 
   // Get the current step
   const currentStep = processedSteps[currentStepIndex] || null;
@@ -223,7 +234,7 @@ const AlgorithmVisualizer = React.memo(({
         </div>
       </div>
       
-      {/* Steps timeline */}
+  {/* Steps timeline */}
       <div className="flex gap-2 overflow-x-auto py-2">
         {processedSteps.map(renderStepIndicator)}
       </div>
@@ -239,7 +250,7 @@ const AlgorithmVisualizer = React.memo(({
               </Badge>
             </div>
             <div className="text-sm text-muted-foreground">
-              Step {currentStepIndex + 1} of {steps.length}
+              Step {currentStepIndex + 1} of {safeSteps.length}
             </div>
           </div>
           
@@ -270,13 +281,17 @@ const AlgorithmVisualizer = React.memo(({
   );
 }, (prevProps, nextProps) => {
   // Optimize re-renders
-  if (prevProps.steps.length !== nextProps.steps.length) return false;
+  const prevLen = Array.isArray(prevProps.steps) ? prevProps.steps.length : 0;
+  const nextLen = Array.isArray(nextProps.steps) ? nextProps.steps.length : 0;
+  if (prevLen !== nextLen) return false;
   if (prevProps.autoPlay !== nextProps.autoPlay) return false;
   if (prevProps.speed !== nextProps.speed) return false;
   
   // Deep compare steps array
-  const areStepsEqual = prevProps.steps.every((step, index) => {
-    const nextStep = nextProps.steps[index];
+  const prevSteps = prevProps.steps ?? [];
+  const nextSteps = nextProps.steps ?? [];
+  const areStepsEqual = prevSteps.every((step, index) => {
+    const nextStep = nextSteps[index];
     return (
       step.id === nextStep.id &&
       step.name === nextStep.name &&

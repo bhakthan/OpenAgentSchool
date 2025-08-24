@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import { LearningVisualization } from '@/components/visualization/LearningVisualization';
 
 export const socraticCoachPattern: PatternData = {
   id: 'socratic-coach',
@@ -42,6 +43,19 @@ export const socraticCoachPattern: PatternData = {
     'May frustrate in time-critical contexts'
   ],
   relatedPatterns: ['Evaluator-Optimizer', 'Self-Reflection'],
+  businessUseCase: {
+    industry: 'EdTech',
+    description: 'A university LMS integrates Socratic Coach in coding labs to nudge students with targeted questions instead of solutions. This reduces plagiarism, increases conceptual mastery, and improves pass rates in intro CS courses.',
+    visualization: LearningVisualization,
+    enlightenMePrompt: `Propose a safe Socratic coaching service for a programming course.
+
+Requirements:
+- Prompt policy: never reveal full answers; generate 1–3 questions tied to rubric competencies
+- Context ingestion: student attempt, unit objectives, recent errors
+- Telemetry: hint efficacy and time-to-unblock
+- Abuse prevention: limit frequency, escalate to TA when stuck
+Provide API routes and a minimal TypeScript/Python sketch.`
+  },
   codeExample: '// Minimal Socratic Coach loop (TypeScript)\n' +
     'type CoachTurn = { questions: string[]; hint?: string };\n\n' +
     'export async function socraticCoach(goal: string, attempt: string): Promise<CoachTurn> {\n' +

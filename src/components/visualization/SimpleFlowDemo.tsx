@@ -119,56 +119,48 @@ const SimpleFlowDemo: React.FC<SimpleFlowDemoProps> = () => {
 
   const currentPresetData = flowPresets.find(p => p.id === currentPreset) || flowPresets[0];
 
-  // Color schemes
+  // Color helpers using theme tokens
+  const token = (name: string) => `hsl(var(--${name}))`;
+  const tokenAlpha = (name: string, alpha: number) => `hsl(var(--${name}) / ${alpha})`;
+
+  // Token-based color schemes for consistency across themes
   const colorSchemes = {
     default: {
-      user: { bg: '#dbeafe', border: '#3b82f6', text: '#1e40af' },
-      agent: { bg: '#dcfce7', border: '#16a34a', text: '#15803d' },
-      tool: { bg: '#fef3c7', border: '#d97706', text: '#92400e' },
-      memory: { bg: '#e0e7ff', border: '#6366f1', text: '#4338ca' },
-      output: { bg: '#fce7f3', border: '#ec4899', text: '#be185d' }
+      user:   { bg: tokenAlpha('primary', 0.12),   border: token('primary'),   text: token('primary') },
+      agent:  { bg: tokenAlpha('accent', 0.12),    border: token('accent'),    text: token('accent-foreground') },
+      tool:   { bg: tokenAlpha('secondary', 0.12), border: token('secondary'), text: token('secondary-foreground') },
+      memory: { bg: token('muted'),                 border: token('border'),    text: token('muted-foreground') },
+      output: { bg: tokenAlpha('primary', 0.08),   border: token('ring'),      text: token('foreground') }
     },
     professional: {
-      user: { bg: '#f1f5f9', border: '#475569', text: '#334155' },
-      agent: { bg: '#f8fafc', border: '#64748b', text: '#475569' },
-      tool: { bg: '#fafafa', border: '#737373', text: '#525252' },
-      memory: { bg: '#f9fafb', border: '#6b7280', text: '#4b5563' },
-      output: { bg: '#f7f8f8', border: '#71717a', text: '#52525b' }
+      user:   { bg: token('muted'),                 border: token('border'),    text: token('foreground') },
+      agent:  { bg: token('card'),                  border: token('primary'),   text: token('foreground') },
+      tool:   { bg: token('card'),                  border: token('secondary'), text: token('foreground') },
+      memory: { bg: token('muted'),                 border: token('border'),    text: token('muted-foreground') },
+      output: { bg: token('card'),                  border: token('ring'),      text: token('foreground') }
     },
     vibrant: {
-      user: { bg: '#fef2f2', border: '#ef4444', text: '#dc2626' },
-      agent: { bg: '#f0fdf4', border: '#22c55e', text: '#16a34a' },
-      tool: { bg: '#fef3c7', border: '#f59e0b', text: '#d97706' },
-      memory: { bg: '#f3e8ff', border: '#a855f7', text: '#9333ea' },
-      output: { bg: '#ecfdf5', border: '#10b981', text: '#059669' }
+      user:   { bg: tokenAlpha('primary', 0.18),   border: token('primary'),   text: token('primary') },
+      agent:  { bg: tokenAlpha('accent', 0.18),    border: token('accent'),    text: token('accent-foreground') },
+      tool:   { bg: tokenAlpha('secondary', 0.18), border: token('secondary'), text: token('secondary-foreground') },
+      memory: { bg: tokenAlpha('muted', 0.9),       border: token('border'),    text: token('muted-foreground') },
+      output: { bg: tokenAlpha('primary', 0.12),   border: token('ring'),      text: token('foreground') }
     }
-  };
+  } as const;
 
   const getNodeColors = (type: string, isActive: boolean) => {
     const scheme = colorSchemes[colorScheme] || colorSchemes.default;
-    const colors = scheme[type] || scheme.agent;
-    
+    const colors = scheme[type as keyof typeof scheme] || scheme.agent;
+
     if (isActive) {
       return {
-        bg: isDarkMode ? '#1d4ed8' : '#3b82f6',
-        border: isDarkMode ? '#60a5fa' : '#1d4ed8',
-        text: '#ffffff'
+        bg: token('primary'),
+        border: token('primary'),
+        text: token('primary-foreground'),
       };
     }
-    
-    if (theme === 'dark') {
-      // Dark mode: use darker backgrounds with light text
-      const darkColors = {
-        user: { bg: '#1e3a8a', border: '#3b82f6', text: '#dbeafe' },
-        agent: { bg: '#14532d', border: '#22c55e', text: '#dcfce7' },
-        tool: { bg: '#92400e', border: '#f59e0b', text: '#fef3c7' },
-        memory: { bg: '#4338ca', border: '#6366f1', text: '#e0e7ff' },
-        output: { bg: '#be185d', border: '#ec4899', text: '#fce7f3' }
-      };
-      return darkColors[type] || darkColors.agent;
-    }
-    
-    return colors;
+
+    return colors as typeof colors;
   };
 
   // Create SVG path for edges

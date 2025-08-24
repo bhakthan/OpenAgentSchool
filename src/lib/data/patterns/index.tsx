@@ -30,6 +30,15 @@ export { errorWhispererPattern } from './errorWhisperer';
 export { knowledgeMapNavigatorPattern } from './knowledgeMapNavigator';
 export { peerReviewSimulatorPattern } from './peerReviewSimulator';
 export { toolUseCoachPattern } from './toolUseCoach';
+export { contextCuratorPattern } from './contextCurator';
+export { rubricRaterPattern } from './rubricRater';
+export { selfRemediationLoopPattern } from './selfRemediationLoop';
+export { spacedRepetitionPlannerPattern } from './spacedRepetitionPlanner';
+export { challengeLadderGeneratorPattern } from './challengeLadderGenerator';
+export { reflectionJournalerPattern } from './reflectionJournaler';
+export { handoffSummarizerPattern } from './handoffSummarizer';
+export { misconceptionDetectorPattern } from './misconceptionDetector';
+export { timeboxPairProgrammerPattern } from './timeboxPairProgrammer';
 
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
@@ -60,6 +69,15 @@ import { errorWhispererPattern } from './errorWhisperer';
 import { knowledgeMapNavigatorPattern } from './knowledgeMapNavigator';
 import { peerReviewSimulatorPattern } from './peerReviewSimulator';
 import { toolUseCoachPattern } from './toolUseCoach';
+import { contextCuratorPattern } from './contextCurator';
+import { rubricRaterPattern } from './rubricRater';
+import { selfRemediationLoopPattern } from './selfRemediationLoop';
+import { spacedRepetitionPlannerPattern } from './spacedRepetitionPlanner';
+import { challengeLadderGeneratorPattern } from './challengeLadderGenerator';
+import { reflectionJournalerPattern } from './reflectionJournaler';
+import { handoffSummarizerPattern } from './handoffSummarizer';
+import { misconceptionDetectorPattern } from './misconceptionDetector';
+import { timeboxPairProgrammerPattern } from './timeboxPairProgrammer';
 
 export const agentPatterns = [
   reactAgentPattern,
@@ -89,6 +107,15 @@ export const agentPatterns = [
   knowledgeMapNavigatorPattern,
   peerReviewSimulatorPattern,
   toolUseCoachPattern,
+  contextCuratorPattern,
+  rubricRaterPattern,
+  selfRemediationLoopPattern,
+  spacedRepetitionPlannerPattern,
+  challengeLadderGeneratorPattern,
+  reflectionJournalerPattern,
+  handoffSummarizerPattern,
+  misconceptionDetectorPattern,
+  timeboxPairProgrammerPattern,
   // autogenMultiAgentPattern,
 ];
 

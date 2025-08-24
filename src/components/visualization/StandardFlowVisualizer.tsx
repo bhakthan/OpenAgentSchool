@@ -339,7 +339,7 @@ const StandardFlowVisualizerBase = (
         zoomOnPinch={false}
         zoomOnDoubleClick={false}
         style={{
-          background: isDarkMode ? 'var(--background)' : 'var(--card)',
+          background: 'hsl(var(--background))',
           width: '100%',
           height: '100%'
         }}
@@ -349,14 +349,11 @@ const StandardFlowVisualizerBase = (
           variant={BackgroundVariant.Dots}
           gap={12}
           size={1}
-          className={cn(
-            "bg-background transition-all duration-300",
-            isDarkMode ? "bg-opacity-40" : "bg-opacity-100"
-          )}
+          className={cn("transition-all duration-300", "bg-transparent")}
         />
         
         {showControls && (
-          <Controls className="bg-card border border-border text-foreground" />
+          <Controls className="bg-card/80 backdrop-blur border border-border text-foreground" />
         )}
         
         {flows.length > 0 && (

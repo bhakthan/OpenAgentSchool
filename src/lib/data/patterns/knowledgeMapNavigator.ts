@@ -1,4 +1,6 @@
 import { PatternData } from './types';
+import { LearningVisualization } from '@/components/visualization/LearningVisualization';
+import D3TreeVisualization from '@/components/visualization/D3TreeVisualization';
 
 export const knowledgeMapNavigatorPattern: PatternData = {
   id: 'knowledge-map-navigator',
@@ -27,6 +29,19 @@ export const knowledgeMapNavigatorPattern: PatternData = {
   advantages: ['Reduces detours', 'Clarifies progression', 'Supports personalization'],
   limitations: ['Needs accurate skill assessment'],
   relatedPatterns: ['Routing', 'Plan and Execute'],
+  businessUseCase: {
+    industry: 'EdTech',
+    description: 'Corporate L&D uses Knowledge Map Navigator to generate personalized upskilling paths for cloud certifications. It maps prerequisites, inserts remediation branches, and exports to a planner with checkpoints.',
+    visualization: D3TreeVisualization,
+    enlightenMePrompt: `Architect a skill-map service for cloud certification prep.
+
+Include:
+- Skill graph schema (nodes, prerequisites, mastery thresholds)
+- Personalization signals (prior courses, assessments, role)
+- Checkpoints and remediation paths
+- Export to calendar and spaced repetition
+- Metrics: time-to-ready, pass rate`
+  },
   codeExample: `// Build a tiny learning path (TypeScript)
 export function buildPath(goal: string, current: string[]) {
   return {
