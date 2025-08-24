@@ -58,6 +58,35 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
   const [isTreeFullscreen, setIsTreeFullscreen] = useState(false)
   // Deep dive moved to a dedicated page (opens in new tab)
 
+  // Ensures taxonomy category badges are readable in light mode while preserving color identity
+  const getCategoryBadgeClass = (sectionKey: string) => {
+    const map: Record<string, { light: string; dark: string }> = {
+      agent: { light: "bg-blue-50 ring-1 ring-blue-300", dark: "dark:bg-blue-900/20 dark:text-blue-300 dark:ring-blue-800/50" },
+      interaction: { light: "bg-green-50 ring-1 ring-green-300", dark: "dark:bg-green-900/20 dark:text-green-300 dark:ring-green-800/50" },
+      frameworks: { light: "bg-purple-50 ring-1 ring-purple-300", dark: "dark:bg-purple-900/20 dark:text-purple-300 dark:ring-purple-800/50" },
+      models: { light: "bg-orange-50 ring-1 ring-orange-300", dark: "dark:bg-orange-900/20 dark:text-orange-300 dark:ring-orange-800/50" },
+      memory: { light: "bg-cyan-50 ring-1 ring-cyan-300", dark: "dark:bg-cyan-900/20 dark:text-cyan-300 dark:ring-cyan-800/50" },
+    }
+  const palette = map[sectionKey] ?? { light: "bg-secondary ring-1 ring-border", dark: "" }
+  // Force black text in light mode for maximum readability; keep colored text in dark mode
+  return `text-black ${palette.light} ${palette.dark}`
+  }
+
+  // Provide per-category accent colors for tile icons only (labels remain black)
+  const getIconColorClass = (sectionKey: string) => {
+    const map: Record<string, string> = {
+      agent: "text-blue-600 dark:text-blue-300",
+      interaction: "text-green-600 dark:text-green-300",
+      frameworks: "text-purple-600 dark:text-purple-300",
+      models: "text-orange-600 dark:text-orange-300",
+      memory: "text-cyan-600 dark:text-cyan-300",
+      applications: "text-rose-600 dark:text-rose-300",
+      serviceOriented: "text-indigo-600 dark:text-indigo-300",
+      openIssues: "text-red-600 dark:text-red-300",
+    }
+    return map[sectionKey] ?? "text-foreground"
+  }
+
   const markSectionComplete = (section: string) => {
     const newCompleted = new Set(completedSections)
     newCompleted.add(section)
@@ -75,7 +104,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     agent: {
       title: "Agent Patterns",
       icon: <Brain className="w-5 h-5" />,
-      color: "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300",
+  color: "bg-blue-100 dark:bg-blue-900/20 dark:text-blue-300",
       position: { x: 200, y: 150 },
       categories: [
         { 
@@ -107,7 +136,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     interaction: {
       title: "Interaction Protocols",
   icon: <ArrowsHorizontal className="w-5 h-5" />,
-  color: "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300",
+  color: "bg-green-100 dark:bg-green-900/20 dark:text-green-300",
   position: { x: 100, y: 300 },
       categories: [
         { 
@@ -133,7 +162,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     frameworks: {
       title: "Framework Architectures",
       icon: <Stack className="w-5 h-5" />,
-      color: "bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300",
+  color: "bg-purple-100 dark:bg-purple-900/20 dark:text-purple-300",
       position: { x: 400, y: 100 },
       categories: [
         { 
@@ -159,7 +188,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     models: {
       title: "Models & Safety",
       icon: <Cpu className="w-5 h-5" />,
-      color: "bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300",
+  color: "bg-orange-100 dark:bg-orange-900/20 dark:text-orange-300",
       position: { x: 450, y: 250 },
       categories: [
         { 
@@ -191,7 +220,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     memory: {
       title: "Memory Systems",
       icon: <Database className="w-5 h-5" />,
-      color: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/20 dark:text-cyan-300",
+  color: "bg-cyan-100 dark:bg-cyan-900/20 dark:text-cyan-300",
       position: { x: 350, y: 400 },
       categories: [
         { 
@@ -223,7 +252,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     applications: {
       title: "Applications & Use Cases",
       icon: <Globe className="w-5 h-5" />,
-      color: "bg-rose-100 text-rose-800 dark:bg-rose-900/20 dark:text-rose-300",
+  color: "bg-rose-100 dark:bg-rose-900/20 dark:text-rose-300",
       position: { x: 150, y: 500 },
       categories: [
         { 
@@ -255,7 +284,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     serviceOriented: {
       title: "Agent Services",
       icon: <CloudArrowUp className="w-5 h-5" />,
-      color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/20 dark:text-indigo-300",
+  color: "bg-indigo-100 dark:bg-indigo-900/20 dark:text-indigo-300",
       position: { x: 250, y: 50 },
       categories: [
         { 
@@ -281,7 +310,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     openIssues: {
       title: "Challenges & Opportunities",
       icon: <Warning className="w-5 h-5" />,
-      color: "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300",
+  color: "bg-red-100 dark:bg-red-900/20 dark:text-red-300",
       position: { x: 50, y: 100 },
       categories: [
         { 
@@ -320,7 +349,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     const entries = Object.entries(taxonomyData)
 
     return (
-      <div className="relative w-full bg-gray-100 dark:bg-gray-800 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 overflow-visible shadow-inner" style={{ height: stage }}>
+  <div className="relative w-full bg-card rounded-xl border-2 border-dashed border-border overflow-visible shadow-inner" style={{ height: stage }}>
         <div className="w-full h-full flex items-center justify-center p-4">
           <div className="relative" style={{ width: stage, height: stage }}>
             {/* Connection Lines */}
@@ -340,7 +369,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                     y2={y2}
                     stroke="currentColor"
                     strokeWidth="2"
-                    className="text-blue-300 dark:text-gray-600"
+                    className="text-muted-foreground"
                     strokeDasharray="6,3"
                   />
                 )
@@ -349,7 +378,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 
             {/* Central Agentic AI Node */}
             <div className="absolute" style={{ left: center, top: center, transform: 'translate(-50%, -50%)' }}>
-              <div className="w-32 h-32 bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-600 rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-gray-800 animate-pulse">
+              <div className="w-32 h-32 bg-gradient-to-br from-indigo-500 via-purple-500 to-blue-600 rounded-full flex items-center justify-center shadow-xl border-4 border-card animate-pulse">
                 <div className="text-white text-center">
                   <Brain className="w-8 h-8 mx-auto mb-1" />
                   <span className="text-sm font-bold">Agentic AI</span>
@@ -369,10 +398,12 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                   style={{ left: x, top: y, transform: 'translate(-50%, -50%)' }}
                   onClick={() => setSelectedTaxonomyNode(selectedTaxonomyNode === key ? null : key)}
                 >
-                  <div className={`w-20 h-20 rounded-lg shadow-lg border-2 border-white dark:border-gray-700 flex items-center justify-center ${data.color} hover:shadow-xl transition-shadow duration-300`}>
-                    {data.icon}
+                  <div className={`w-20 h-20 rounded-lg shadow-lg border-2 border-border flex items-center justify-center ${data.color} hover:shadow-xl transition-shadow duration-300`}>
+                    <div className={getIconColorClass(key)}>
+                      {data.icon}
+                    </div>
                   </div>
-                  <div className="text-sm font-semibold text-center mt-2 max-w-20 text-gray-700 dark:text-gray-300">
+                  <div className="text-sm font-semibold text-center mt-2 max-w-20 text-black dark:text-foreground">
                     {data.title.split(' ')[0]}
                   </div>
                 </div>
@@ -381,17 +412,17 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 
             {/* Selected Node Details - Right side panel on large screens */}
             {selectedTaxonomyNode && (
-              <div className="hidden lg:block absolute top-0 left-full ml-4 w-96 max-h-full overflow-auto bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-xl border-2 border-blue-200 dark:border-gray-600 p-4">
+              <div className="hidden lg:block absolute top-0 left-full ml-4 w-96 max-h-full overflow-auto bg-popover/95 backdrop-blur-sm rounded-lg shadow-xl border-2 border-border p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].icon}
-                    <h3 className="font-semibold text-gray-800 dark:text-gray-200">
+                    <h3 className="font-semibold text-foreground">
                       {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].title}
                     </h3>
                   </div>
                   <button
                     onClick={() => setSelectedTaxonomyNode(null)}
-                    className="text-sm px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium"
+                    className="text-sm px-3 py-1 rounded-md border border-border hover:bg-secondary text-foreground font-medium"
                     aria-label="Close details"
                   >
                     Close
@@ -399,15 +430,15 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                 </div>
                 <div className="space-y-3">
                   {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].categories.map((cat, idx) => (
-                    <div key={idx} className="p-3 rounded-md border border-blue-100 dark:border-gray-700 bg-blue-50/50 dark:bg-gray-900/40 shadow-sm">
+                    <div key={idx} className="p-3 rounded-md border border-border bg-secondary shadow-sm">
                       <div className="flex items-center gap-2 mb-1">
                         {cat.icon}
-                        <span className="text-sm font-medium text-gray-900 dark:text-gray-200">{cat.name}</span>
+                        <span className="text-sm font-medium text-foreground">{cat.name}</span>
                       </div>
-                      <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">{cat.description}</p>
+                      <p className="text-sm text-muted-foreground mb-2">{cat.description}</p>
                       <div className="flex flex-wrap gap-1">
                         {cat.examples.slice(0, 4).map((ex, i) => (
-                          <Badge key={i} variant="outline" className="text-xs border-blue-200 dark:border-gray-600">
+                          <Badge key={i} variant="outline" className="text-xs border-border text-black dark:text-foreground">
                             {ex}
                           </Badge>
                         ))}
@@ -420,17 +451,17 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 
             {/* Selected Node Details - Bottom overlay on small/medium screens */}
             {selectedTaxonomyNode && (
-              <div className="lg:hidden absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-xl border-2 border-blue-200 dark:border-gray-600 p-4">
+              <div className="lg:hidden absolute bottom-4 left-4 right-4 bg-popover/95 backdrop-blur-sm rounded-lg shadow-xl border-2 border-border p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].icon}
-                    <h3 className="font-semibold text-gray-800 dark:text-gray-200">
+                    <h3 className="font-semibold text-foreground">
                       {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].title}
                     </h3>
                   </div>
                   <button
                     onClick={() => setSelectedTaxonomyNode(null)}
-                    className="text-sm px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium"
+                    className="text-sm px-3 py-1 rounded-md border border-border hover:bg-secondary text-foreground font-medium"
                     aria-label="Close details"
                   >
                     Close
@@ -438,15 +469,15 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {taxonomyData[selectedTaxonomyNode as keyof typeof taxonomyData].categories.map((cat, idx) => (
-                    <div key={idx} className="p-3 rounded-md border border-blue-100 dark:border-gray-700 bg-blue-50/50 dark:bg-gray-900/40 shadow-sm">
+                    <div key={idx} className="p-3 rounded-md border border-border bg-secondary shadow-sm">
                       <div className="flex items-center gap-2 mb-1">
                         {cat.icon}
-                        <span className="text-sm font-medium text-gray-900 dark:text-gray-200">{cat.name}</span>
+                        <span className="text-sm font-medium text-foreground">{cat.name}</span>
                       </div>
-                      <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">{cat.description}</p>
+                      <p className="text-sm text-muted-foreground mb-2">{cat.description}</p>
                       <div className="flex flex-wrap gap-1">
                         {cat.examples.slice(0, 4).map((ex, i) => (
-                          <Badge key={i} variant="outline" className="text-xs border-blue-200 dark:border-gray-600">
+                          <Badge key={i} variant="outline" className="text-xs border-border text-black dark:text-foreground">
                             {ex}
                           </Badge>
                         ))}
@@ -533,7 +564,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
       baseG.append('g')
         .attr('fill', 'none')
         .attr('stroke', 'currentColor')
-        .attr('class', 'text-gray-400 dark:text-gray-600')
+  .attr('class', 'text-muted-foreground stroke-[var(--color-border)]')
         .attr('stroke-opacity', 0.7)
         .attr('stroke-width', 1.5)
         .selectAll('path')
@@ -565,7 +596,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
         .attr('r', 5)
         .attr('fill', (d: any) => (d._children ? 'currentColor' : 'white'))
         .attr('stroke', 'currentColor')
-        .attr('class', 'text-gray-400 dark:text-gray-600 stroke-gray-300 dark:stroke-gray-600')
+  .attr('class', 'text-muted-foreground stroke-[var(--color-border)]')
         .attr('stroke-width', 1.5)
 
       node.append('text')
@@ -1051,12 +1082,12 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
             hideHotkeyHint
           />
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+  <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
           A comprehensive framework for understanding the architectural patterns, design principles, and implementation challenges in Agentic AI systems.
         </p>
         <div className="flex items-center gap-4 justify-center">
           <Progress value={progress} className="w-48" />
-          <span className="text-sm text-gray-500 dark:text-gray-400">
+          <span className="text-sm text-muted-foreground">
             {completedSections.size} / 5 sections completed
           </span>
         </div>
@@ -1089,7 +1120,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                     <Robot className="w-4 h-4 text-blue-600" />
                     <span className="font-medium">Autonomy</span>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Agents can make independent decisions based on goals and context
                   </p>
                 </div>
@@ -1098,7 +1129,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                     <Users className="w-4 h-4 text-green-600" />
                     <span className="font-medium">Multi-Agent Coordination</span>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Collaborative problem-solving through agent communication
                   </p>
                 </div>
@@ -1107,7 +1138,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                     <Clock className="w-4 h-4 text-purple-600" />
                     <span className="font-medium">Contextual Memory</span>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Persistent memory systems for learning and adaptation
                   </p>
                 </div>
@@ -1116,7 +1147,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                     <Gear className="w-4 h-4 text-orange-600" />
                     <span className="font-medium">Tool Integration</span>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Seamless integration with external tools, APIs, and services through protocols like MCP
                   </p>
                 </div>
@@ -1137,13 +1168,13 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                   <div key={index} className="p-4 border rounded-lg space-y-3">
                     <div className="flex items-center justify-between">
                       <h3 className="font-semibold">{framework.name}</h3>
-                      <Badge variant="outline">{framework.architecture}</Badge>
+                      <Badge variant="outline" className="text-black dark:text-foreground">{framework.architecture}</Badge>
                     </div>
                     <div>
                       <h4 className="text-sm font-medium text-green-600 dark:text-green-400">Strengths</h4>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {framework.strengths.map((strength, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs">
+                          <Badge key={idx} variant="secondary" className="text-xs text-black dark:text-foreground">
                             {strength}
                           </Badge>
                         ))}
@@ -1153,7 +1184,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                       <h4 className="text-sm font-medium text-blue-600 dark:text-blue-400">Use Cases</h4>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {framework.useCases.map((useCase, idx) => (
-                          <Badge key={idx} variant="outline" className="text-xs">
+                          <Badge key={idx} variant="outline" className="text-xs text-black dark:text-foreground">
                             {useCase}
                           </Badge>
                         ))}
@@ -1265,19 +1296,19 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {data.categories.map((category, index) => (
+      {data.categories.map((category, index) => (
                     <div key={index} className="space-y-2">
                       <div className="flex items-center gap-2">
-                        <Badge className={data.color}>
+  <Badge className={getCategoryBadgeClass(key)}>
                           {category.name}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                      <p className="text-sm text-muted-foreground">
                         {category.description}
                       </p>
                       <div className="flex flex-wrap gap-1">
                         {category.examples.map((example, exIndex) => (
-                          <Badge key={exIndex} variant="outline" className="text-xs">
+                          <Badge key={exIndex} variant="outline" className="text-xs text-black dark:text-foreground">
                             {example}
                           </Badge>
                         ))}
@@ -1329,14 +1360,14 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                       {item.icon}
                       <h3 className="font-medium">{item.challenge}</h3>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       {item.description}
                     </p>
                     <div className="space-y-1">
                       <span className="text-xs font-medium text-green-600 dark:text-green-400">Solutions:</span>
                       <div className="flex flex-wrap gap-1">
                         {item.solutions.map((solution, sIndex) => (
-                          <Badge key={sIndex} variant="secondary" className="text-xs">
+                          <Badge key={sIndex} variant="secondary" className="text-xs text-black dark:text-foreground">
                             {solution}
                           </Badge>
                         ))}
@@ -1361,7 +1392,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                   <div key={index} className="p-4 border rounded-lg text-center space-y-2">
                     <div className="flex justify-center">{feature.icon}</div>
                     <h3 className="font-medium">{feature.feature}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       {feature.description}
                     </p>
                   </div>
@@ -1432,21 +1463,21 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
               <CardContent className="space-y-4">
                 <h3 className="font-medium">Leading Frameworks</h3>
                 <div className="space-y-3">
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="p-3 bg-secondary rounded-lg">
                     <h4 className="font-medium text-sm">CrewAI & LangGraph</h4>
-                    <p className="text-xs text-gray-600 dark:text-gray-300">
+                    <p className="text-xs text-muted-foreground">
                       Business automation, risk management, workflow orchestration
                     </p>
                   </div>
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="p-3 bg-secondary rounded-lg">
                     <h4 className="font-medium text-sm">AutoGen & MetaGPT</h4>
-                    <p className="text-xs text-gray-600 dark:text-gray-300">
+                    <p className="text-xs text-muted-foreground">
                       Multi-agent collaboration, code generation, software development
                     </p>
                   </div>
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="p-3 bg-secondary rounded-lg">
                     <h4 className="font-medium text-sm">Semantic Kernel & Google ADK</h4>
-                    <p className="text-xs text-gray-600 dark:text-gray-300">
+                    <p className="text-xs text-muted-foreground">
                       Enterprise integration, adaptive assistants, scalable orchestration
                     </p>
                   </div>
@@ -1467,21 +1498,21 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                 <div className="p-4 border rounded-lg space-y-2">
                   <Shield className="w-6 h-6 text-blue-600" />
                   <h3 className="font-medium">Standardization</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Universal protocols for agent communication and interoperability
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg space-y-2">
                   <Code className="w-6 h-6 text-green-600" />
                   <h3 className="font-medium">Safety & Ethics</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Robust guardrails and ethical frameworks for responsible AI
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg space-y-2">
                   <Graph className="w-6 h-6 text-purple-600" />
                   <h3 className="font-medium">Scalability</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Efficient orchestration of large-scale multi-agent systems
                   </p>
                 </div>

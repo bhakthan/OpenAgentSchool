@@ -18,6 +18,7 @@ import { agentSecurityQuestions, agentSecurityTime } from './agent-security';
 import { dataVisualizationQuestions, dataVisualizationTime } from './data-visualization';
 import { agenticAIDesignQuestions, agenticAIDesignTime } from './agentic-ai-design';
 import { sensoryReasoningEnhancementQuestions, sensoryReasoningEnhancementTime } from './sensory-reasoning-enhancement';
+import { educationalAgentPatternsQuestions, educationalAgentPatternsTime } from './educational-agent-patterns';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -41,12 +42,13 @@ const allQuestions = [
   ...agentSecurityQuestions,
   ...dataVisualizationQuestions,
   ...agenticAIDesignQuestions,
-  ...sensoryReasoningEnhancementQuestions
+  ...sensoryReasoningEnhancementQuestions,
+  ...educationalAgentPatternsQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
 const calculateTotalTime = (questions: QuizQuestion[]): number => {
-  return questions.reduce((total, question) => total + question.timeEstimate, 0);
+  return questions.reduce((total, question) => total + (question.timeEstimate || 40), 0);
 };
 
 // Helper function to filter questions by subCategory
@@ -621,6 +623,121 @@ export const quizCategories: QuizCategory[] = [
         description: 'Architectural patterns and design principles for Agentic AI systems',
         prerequisites: ['core-concepts'],
         questions: agenticAIDesignQuestions
+      }
+    ]
+  },
+  {
+    id: 'educational-agent-patterns',
+    name: 'Educational Agent Patterns',
+    description: 'Revolutionary GPT-5 era learning methodologies that transform AI-assisted education',
+    icon: 'BookOpen',
+    estimatedTime: educationalAgentPatternsTime,
+    totalQuestions: educationalAgentPatternsQuestions.length,
+    subCategories: [
+      {
+        id: 'socratic-coach',
+        name: 'Socratic Coach',
+        description: 'Guide learners through strategic questioning for discovery-based learning',
+        prerequisites: ['agent-patterns'],
+        questions: getQuestionsBySubCategory(allQuestions, 'socratic-coach')
+      },
+      {
+        id: 'concept-to-project',
+        name: 'Concept-to-Project Builder',
+        description: 'Transform abstract concepts into concrete implementable projects',
+        prerequisites: ['agent-patterns'],
+        questions: getQuestionsBySubCategory(allQuestions, 'concept-to-project')
+      },
+      {
+        id: 'error-whisperer',
+        name: 'Error Whisperer',
+        description: 'Transform debugging frustration into structured learning opportunities',
+        prerequisites: ['agent-patterns'],
+        questions: getQuestionsBySubCategory(allQuestions, 'error-whisperer')
+      },
+      {
+        id: 'knowledge-map-navigator',
+        name: 'Knowledge Map Navigator',
+        description: 'Create visual learning paths that accommodate different learning styles',
+        prerequisites: ['socratic-coach'],
+        questions: getQuestionsBySubCategory(allQuestions, 'knowledge-map-navigator')
+      },
+      {
+        id: 'peer-review-simulator',
+        name: 'Peer Review Simulator',
+        description: 'Safe practice environment for developing collaborative review skills',
+        prerequisites: ['socratic-coach'],
+        questions: getQuestionsBySubCategory(allQuestions, 'peer-review-simulator')
+      },
+      {
+        id: 'tool-use-coach',
+        name: 'Tool-Use Coach',
+        description: 'Disciplined guidance for API/CLI/SDK usage with validated exemplars',
+        prerequisites: ['concept-to-project', 'error-whisperer'],
+        questions: getQuestionsBySubCategory(allQuestions, 'tool-use-coach')
+      },
+      {
+        id: 'context-curator',
+        name: 'Context Curator',
+        description: 'Intelligent filtering and relevance management for information overload',
+        prerequisites: ['knowledge-map-navigator'],
+        questions: getQuestionsBySubCategory(allQuestions, 'context-curator')
+      },
+      {
+        id: 'rubric-rater',
+        name: 'Rubric Rater',
+        description: 'Automated assessment with detailed, consistent feedback',
+        prerequisites: ['peer-review-simulator'],
+        questions: getQuestionsBySubCategory(allQuestions, 'rubric-rater')
+      },
+      {
+        id: 'self-remediation-loop',
+        name: 'Self-Remediation Loop',
+        description: 'Proactive identification and correction of learning gaps',
+        prerequisites: ['context-curator', 'rubric-rater'],
+        questions: getQuestionsBySubCategory(allQuestions, 'self-remediation-loop')
+      },
+      {
+        id: 'spaced-repetition-planner',
+        name: 'Spaced Repetition Planner',
+        description: 'Memory consolidation through scientifically-optimized review scheduling',
+        prerequisites: ['self-remediation-loop'],
+        questions: getQuestionsBySubCategory(allQuestions, 'spaced-repetition-planner')
+      },
+      {
+        id: 'challenge-ladder-generator',
+        name: 'Challenge Ladder Generator',
+        description: 'Progressive difficulty adaptation for optimal learning challenge',
+        prerequisites: ['tool-use-coach', 'self-remediation-loop'],
+        questions: getQuestionsBySubCategory(allQuestions, 'challenge-ladder-generator')
+      },
+      {
+        id: 'reflection-journaler',
+        name: 'Reflection Journaler',
+        description: 'Develop metacognitive skills through structured reflection processes',
+        prerequisites: ['spaced-repetition-planner'],
+        questions: getQuestionsBySubCategory(allQuestions, 'reflection-journaler')
+      },
+      {
+        id: 'handoff-summarizer',
+        name: 'Handoff Summarizer',
+        description: 'Ensure knowledge continuity when learning responsibility transfers',
+        prerequisites: ['challenge-ladder-generator'],
+        questions: getQuestionsBySubCategory(allQuestions, 'handoff-summarizer')
+      },
+      {
+        id: 'misconception-detector',
+        name: 'Misconception Detector',
+        description: 'Proactive identification and correction of faulty mental models',
+        prerequisites: ['reflection-journaler'],
+        questions: getQuestionsBySubCategory(allQuestions, 'misconception-detector')
+      },
+      {
+        id: 'timebox-pair-programmer',
+        name: 'Timebox Pair Programmer',
+        description: 'Structured collaborative coding with time management and balanced participation',
+        prerequisites: ['handoff-summarizer', 'misconception-detector'],
+        questions: getQuestionsBySubCategory(allQuestions, 'timebox-pair-programmer')
       }
     ]
   }

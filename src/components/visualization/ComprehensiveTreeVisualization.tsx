@@ -11,7 +11,8 @@ import {
   ChartLineUp,
   Lightbulb
 } from '@phosphor-icons/react';
-import { getAllStudyModeQuestions } from '@/lib/data/studyMode';
+import { getAllStudyModeQuestions, getAllStudyModeContentCount } from '@/lib/data/studyMode';
+import { getAllQuestions } from '@/lib/data/quizzes';
 
 // Types
 interface TreeNode {
@@ -67,6 +68,10 @@ const azureServicesData = [
 export default function ComprehensiveTreeVisualization() {
   const navigate = useNavigate();
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
+
+  // Debug logging to check the count
+  const studyCount = getAllStudyModeContentCount();
+  console.log('Study Mode Content Count:', studyCount);
 
   // Handle navigation for leaf nodes
   const handleNodeSelect = (node: TreeNode) => {
@@ -157,7 +162,7 @@ export default function ComprehensiveTreeVisualization() {
               <div className="flex items-center gap-3">
                 <Target className="w-8 h-8 text-purple-600" />
                 <div>
-                  <div className="text-2xl font-bold">100+</div>
+                  <div className="text-2xl font-bold">{getAllQuestions().length}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Quiz Questions</div>
                 </div>
               </div>
@@ -169,7 +174,7 @@ export default function ComprehensiveTreeVisualization() {
               <div className="flex items-center gap-3">
                 <Lightbulb className="w-8 h-8 text-indigo-600" />
                 <div>
-                  <div className="text-2xl font-bold">{getAllStudyModeQuestions().length}</div>
+                  <div className="text-2xl font-bold">{getAllStudyModeContentCount()}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Study Questions</div>
                 </div>
               </div>

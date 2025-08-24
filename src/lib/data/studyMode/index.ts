@@ -48,6 +48,13 @@ export function getAllStudyModeQuestions(): StudyModeQuestion[] {
   ];
 }
 
+// Get total study mode content count (including SCL scenarios)
+export function getAllStudyModeContentCount(): number {
+  const traditionalQuestions = getAllStudyModeQuestions().length;
+  const sclScenariosCount = 8; // SCL scenarios from SuperCriticalLearning/SCLDemo.tsx
+  return traditionalQuestions + sclScenariosCount;
+}
+
 // Get questions by concept
 export function getStudyModeQuestionsByConceptId(conceptId: string): StudyModeQuestion[] {
   const allQuestions = getAllStudyModeQuestions();

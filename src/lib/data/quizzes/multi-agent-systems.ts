@@ -16,7 +16,8 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
     explanation: 'Effective multi-agent systems exhibit autonomy (independent decision-making), social ability (communication with other agents), reactivity (responding to environment changes), and pro-activeness (goal-directed behavior).',
     difficulty: 'beginner',
     category: 'multi-agent-systems',
-    subCategory: 'fundamentals'
+    subCategory: 'fundamentals',
+    timeEstimate: 30
   },
   {
     id: 'multi-agent-i2',
@@ -32,7 +33,8 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
     explanation: 'Multi-agent systems use specialized protocols like FIPA-ACL for standardized communication, JADE for Java-based systems, and message queues with custom protocols for specific requirements.',
     difficulty: 'intermediate',
     category: 'multi-agent-systems',
-    subCategory: 'communication-protocols'
+    subCategory: 'communication-protocols',
+    timeEstimate: 35
   },
   {
     id: 'multi-agent-a2',
@@ -48,7 +50,8 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
     explanation: 'Fault-tolerant and scalable multi-agent systems require redundancy (backup agents), load balancing (distributing work), graceful degradation (maintaining functionality with failures), and horizontal scaling (adding more agents).',
     difficulty: 'advanced',
     category: 'multi-agent-systems',
-    subCategory: 'architecture-patterns'
+    subCategory: 'architecture-patterns',
+    timeEstimate: 55
   },
   // AutoGen Framework questions
   {
@@ -67,7 +70,8 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
     category: 'multi-agent-systems',
     subCategory: 'autogen-framework',
     relatedConcepts: ['autogen-framework', 'multi-agent-conversations', 'collaborative-ai'],
-    persona: ['business-leader', 'agent-designer', 'ai-enthusiast', 'agent-developer']
+    persona: ['business-leader', 'agent-designer', 'ai-enthusiast', 'agent-developer'],
+    timeEstimate: 40
   },
   {
     id: 'multi-agent-autogen-i2',
@@ -85,7 +89,8 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
     category: 'multi-agent-systems',
     subCategory: 'autogen-framework',
     relatedConcepts: ['agent-types', 'conversation-orchestration', 'human-in-loop'],
-    persona: ['agent-developer', 'ai-engineer', 'agent-architect']
+    persona: ['agent-developer', 'ai-engineer', 'agent-architect'],
+    timeEstimate: 45
   },
   {
     id: 'multi-agent-autogen-a3',
@@ -103,7 +108,8 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
     category: 'multi-agent-systems',
     subCategory: 'autogen-framework',
     relatedConcepts: ['enterprise-architecture', 'workflow-design', 'system-integration'],
-    persona: ['agent-architect', 'ai-engineer', 'ai-ops-engineer']
+    persona: ['agent-architect', 'ai-engineer', 'ai-ops-engineer'],
+    timeEstimate: 55
   },
   // Original questions
   {

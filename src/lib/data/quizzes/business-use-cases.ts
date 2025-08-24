@@ -18,7 +18,8 @@ export const businessUseCasesQuestions: QuizQuestion[] = [
     category: 'business-use-cases',
     subCategory: 'single-agent',
     relatedTopics: ['react-pattern', 'tool-use', 'it-automation'],
-    persona: ['agent-developer', 'ai-engineer', 'agent-architect', 'business-leader']
+    persona: ['agent-developer', 'ai-engineer', 'agent-architect', 'business-leader'],
+    timeEstimate: 45
   },
   {
     id: 'use-case-a1',
@@ -36,7 +37,8 @@ export const businessUseCasesQuestions: QuizQuestion[] = [
     category: 'business-use-cases',
     subCategory: 'multi-agent',
     relatedTopics: ['multi-agent-systems', 'hierarchical-agents', 'financial-analysis'],
-    persona: ['agent-architect', 'ai-engineer', 'business-leader']
+    persona: ['agent-architect', 'ai-engineer', 'business-leader'],
+    timeEstimate: 55
   },
   {
     id: 'use-case-a2',
@@ -55,6 +57,7 @@ export const businessUseCasesQuestions: QuizQuestion[] = [
     category: 'business-use-cases',
     subCategory: 'integration',
     relatedTopics: ['agent-security', 'api-integration', 'principle-of-least-privilege'],
-    persona: ['agent-developer', 'agent-architect', 'ai-engineer']
+    persona: ['agent-developer', 'agent-architect', 'ai-engineer'],
+    timeEstimate: 50
   }
 ];

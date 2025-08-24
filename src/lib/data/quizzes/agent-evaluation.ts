@@ -18,7 +18,8 @@ export const agentEvaluationQuestions: QuizQuestion[] = [
     category: 'agent-evaluation',
     subCategory: 'fundamentals',
     relatedTopics: ['benchmarking', 'performance-metrics', 'agent-testing'],
-    persona: ['agent-developer', 'ai-engineer', 'agent-architect']
+    persona: ['agent-developer', 'ai-engineer', 'agent-architect'],
+    timeEstimate: 45
   },
   {
     id: 'eval-a1',
@@ -36,7 +37,8 @@ export const agentEvaluationQuestions: QuizQuestion[] = [
     category: 'agent-evaluation',
     subCategory: 'metrics',
     relatedTopics: ['csat', 'kpis', 'task-completion'],
-    persona: ['agent-developer', 'ai-engineer', 'agent-architect', 'business-leader']
+    persona: ['agent-developer', 'ai-engineer', 'agent-architect', 'business-leader'],
+    timeEstimate: 50
   },
   {
     id: 'eval-a2',
@@ -55,6 +57,7 @@ export const agentEvaluationQuestions: QuizQuestion[] = [
     category: 'agent-evaluation',
     subCategory: 'techniques',
     relatedTopics: ['bleu-score', 'automated-evaluation', 'nlp'],
-    persona: ['agent-developer', 'ai-engineer']
+    persona: ['agent-developer', 'ai-engineer'],
+    timeEstimate: 60
   }
 ];
