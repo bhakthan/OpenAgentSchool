@@ -6,7 +6,7 @@ export const swarmIntelligencePattern: PatternData = {
   id: 'swarm-intelligence',
   name: 'Swarm Intelligence',
   description: 'A decentralized system of multiple agents that coordinate to achieve a collective goal.',
-  category: 'MultiAgent',
+  category: 'Multi-Agent',
   useCases: [
     'Supply Chain Optimization',
     'Drone Swarms for Surveillance',

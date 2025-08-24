@@ -133,7 +133,7 @@ export default function ComprehensiveTreeVisualization() {
               <div className="flex items-center gap-3">
                 <Cog className="w-8 h-8 text-amber-600" />
                 <div>
-                  <div className="text-2xl font-bold">21</div>
+                  <div className="text-2xl font-bold">27</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Agent Patterns</div>
                 </div>
               </div>

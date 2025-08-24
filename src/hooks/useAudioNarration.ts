@@ -244,6 +244,38 @@ export function getComponentAudioFile(componentName: string): string {
     'StudyMode': 'StudyMode_explanation',
     'study-mode': 'StudyMode_explanation',
     
+    // Educational Agent Patterns
+    'socratic-coach': 'SocraticCoach_explanation',
+    'SocraticCoach': 'SocraticCoach_explanation',
+    'concept-to-project-builder': 'ConceptToProjectBuilder_explanation',
+    'ConceptToProjectBuilder': 'ConceptToProjectBuilder_explanation',
+    'error-whisperer': 'ErrorWhisperer_explanation',
+    'ErrorWhisperer': 'ErrorWhisperer_explanation',
+    'knowledge-map-navigator': 'KnowledgeMapNavigator_explanation',
+    'KnowledgeMapNavigator': 'KnowledgeMapNavigator_explanation',
+    'context-curator': 'ContextCurator_explanation',
+    'ContextCurator': 'ContextCurator_explanation',
+    'rubric-rater': 'RubricRater_explanation',
+    'RubricRater': 'RubricRater_explanation',
+    'self-remediation-loop': 'SelfRemediationLoop_explanation',
+    'SelfRemediationLoop': 'SelfRemediationLoop_explanation',
+    'spaced-repetition-planner': 'SpacedRepetitionPlanner_explanation',
+    'SpacedRepetitionPlanner': 'SpacedRepetitionPlanner_explanation',
+    'challenge-ladder-generator': 'ChallengeLadderGenerator_explanation',
+    'ChallengeLadderGenerator': 'ChallengeLadderGenerator_explanation',
+    'peer-review-simulator': 'PeerReviewSimulator_explanation',
+    'PeerReviewSimulator': 'PeerReviewSimulator_explanation',
+    'reflection-journaler': 'ReflectionJournaler_explanation',
+    'ReflectionJournaler': 'ReflectionJournaler_explanation',
+    'handoff-summarizer': 'HandoffSummarizer_explanation',
+    'HandoffSummarizer': 'HandoffSummarizer_explanation',
+    'misconception-detector': 'MisconceptionDetector_explanation',
+    'MisconceptionDetector': 'MisconceptionDetector_explanation',
+    'time-box-pair-programmer': 'TimeboxPairProgrammer_explanation',
+    'TimeboxPairProgrammer': 'TimeboxPairProgrammer_explanation',
+    'tool-use-coach': 'ToolUseCoach_explanation',
+    'ToolUseCoach': 'ToolUseCoach_explanation',
+    
     // Add more mappings as needed
   };
 

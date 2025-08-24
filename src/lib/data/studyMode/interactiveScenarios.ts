@@ -2620,6 +2620,794 @@ export const agenticAIDesignTaxonomyScenarios: StudyModeQuestion[] = [
   }
 ];
 
+// Interactive Scenarios for New Patterns
+
+// Socratic Coach Scenarios
+export const socraticCoachInteractiveScenarios: StudyModeQuestion[] = [
+  {
+    id: 'socratic-coach-scenario-1',
+    type: 'scenario',
+    conceptId: 'socratic-coach',
+    title: 'Teaching Recursion Through Questions',
+    level: 'intermediate',
+    scenario: {
+      id: 'recursion-discovery',
+      title: 'Guide a Student to Discover Recursion',
+      description: 'You are a Socratic coach helping a student understand recursion. Your goal is to guide them to discover the concept through strategic questioning rather than direct explanation.',
+      context: 'A student is struggling with recursion in their programming course. They understand loops but can\'t grasp how a function can call itself.',
+      stakeholders: ['Student', 'Programming Instructor', 'Learning Assessment System'],
+      challenges: [
+        {
+          id: 'initial-question',
+          title: 'Opening Question Strategy',
+          description: 'Choose your first question to begin the discovery process',
+          question: 'What would be the most effective opening question to help the student think about recursion?',
+          type: 'multiple-choice',
+          options: [
+            '"Recursion is when a function calls itself. Do you understand?"',
+            '"Can you think of anything in real life that contains a smaller version of itself?"',
+            '"Let me show you the syntax for recursive functions."',
+            '"Why don\'t you memorize this recursive formula?"'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Starting with real-world analogies helps students build intuitive understanding before tackling technical details.',
+          hints: [
+            'Think about building intuition before introducing syntax',
+            'Consider what makes questions "Socratic"'
+          ]
+        },
+        {
+          id: 'guiding-discovery',
+          title: 'Follow-up Questioning',
+          description: 'The student mentions Russian dolls. How do you build on this?',
+          question: 'How should you respond to guide them toward programming recursion?',
+          type: 'multiple-choice',
+          options: [
+            '"Great! Now in programming, how might a function contain a smaller version of itself?"',
+            '"Wrong, that\'s not how recursion works in code."',
+            '"Let me explain how Russian dolls relate to function calls."',
+            '"That\'s interesting, but let\'s focus on the technical definition."'
+          ],
+          correctAnswer: 0,
+          feedback: 'Excellent! You\'re building a bridge from their understanding to the programming concept through questions.',
+          hints: [
+            'Build on their correct insights',
+            'Use questions to make connections'
+          ]
+        },
+        {
+          id: 'assessment-approach',
+          title: 'Checking Understanding',
+          description: 'How do you verify they truly understand without giving away answers?',
+          question: 'What\'s the best way to assess their comprehension?',
+          type: 'multiple-choice',
+          options: [
+            'Ask them to explain it back to you in their own words',
+            'Give them the answer and ask if they agree',
+            'Test them on recursive syntax immediately',
+            'Move on to the next topic quickly'
+          ],
+          correctAnswer: 0,
+          feedback: 'Perfect! Having them explain demonstrates true understanding and reveals any remaining gaps.',
+          hints: [
+            'Focus on understanding over memorization',
+            'Let them demonstrate their learning'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'successful-coaching',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve successfully guided discovery through Socratic questioning',
+          explanation: 'Your approach used analogies, building questions, and comprehension checks to facilitate genuine understanding.',
+          nextSteps: [
+            'Practice with more complex concepts',
+            'Develop question sequences for different topics',
+            'Learn to handle common misconceptions'
+          ]
+        },
+        {
+          id: 'needs-improvement',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Your coaching approach needs refinement',
+          explanation: 'Review the principles of Socratic questioning: guide don\'t tell, build on student insights, and verify understanding.',
+          nextSteps: [
+            'Study Socratic questioning techniques',
+            'Practice avoiding direct instruction',
+            'Focus on question design'
+          ]
+        }
+      ],
+      codeExample: `# Socratic Coaching Session Example
+Student: "I don't understand recursion."
+Coach: "Can you think of anything in real life that contains a smaller version of itself?"
+Student: "Um... like Russian dolls?"
+Coach: "Great example! Now in programming, how might a function contain a smaller version of itself?"`,
+      resources: [
+        'Socratic Method in Education',
+        'Question-Based Learning Strategies',
+        'Misconception Detection Techniques'
+      ],
+      conceptId: 'socratic-coach',
+      difficulty: 'intermediate',
+      estimatedTime: '20 minutes',
+      learningOutcomes: [
+        'Understand Socratic questioning principles',
+        'Practice guiding discovery over direct instruction',
+        'Learn to assess understanding through questions'
+      ]
+    },
+    expectedInsights: ['Socratic method guides discovery', 'Questions are more powerful than answers'],
+    hints: ['Focus on questioning technique', 'Guide don\'t tell'],
+    explanation: 'Socratic coaching requires disciplined questioning to facilitate student discovery.',
+    relatedConcepts: ['discovery-learning', 'questioning-strategies'],
+    timeEstimate: 20,
+    successCriteria: ['Demonstrates effective questioning', 'Avoids direct instruction']
+  }
+];
+
+// Concept-to-Project Builder Scenarios
+export const conceptToProjectBuilderInteractiveScenarios: StudyModeQuestion[] = [
+  {
+    id: 'concept-to-project-scenario-1',
+    type: 'scenario',
+    conceptId: 'concept-to-project-builder',
+    title: 'Creating Appropriate Projects for Variables',
+    level: 'beginner',
+    scenario: {
+      id: 'variables-project-design',
+      title: 'Design a Project for Learning Variables',
+      description: 'A student has just learned about variables in programming. Design an appropriate project that reinforces this concept without overwhelming them.',
+      context: 'You are creating projects for a beginning programming course. Students have learned basic variable declaration and assignment but haven\'t learned functions, loops, or objects yet.',
+      stakeholders: ['Beginning Programming Students', 'Course Instructor', 'Curriculum Designer'],
+      challenges: [
+        {
+          id: 'scope-assessment',
+          title: 'Determine Appropriate Scope',
+          description: 'What level of complexity is appropriate for a variables-focused project?',
+          question: 'Which project scope best matches a beginner learning variables?',
+          type: 'multiple-choice',
+          options: [
+            'Build a complete e-commerce website with database integration',
+            'Create a simple calculator that stores user inputs in variables',
+            'Develop a machine learning model with variable parameters',
+            'Build a multi-user chat application with real-time features'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! A simple calculator focuses on variables while being achievable for beginners.',
+          hints: [
+            'Consider what skills the student has actually learned',
+            'Think about achievable complexity'
+          ]
+        },
+        {
+          id: 'concept-focus',
+          title: 'Maintain Concept Focus',
+          description: 'How do you ensure the project emphasizes variables specifically?',
+          question: 'What project requirements best reinforce variable concepts?',
+          type: 'multiple-choice',
+          options: [
+            'Require advanced algorithms and data structures',
+            'Focus on storing and manipulating different data types in variables',
+            'Emphasize complex user interface design',
+            'Require integration with external APIs'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Focusing on data types and variable manipulation directly reinforces the target concept.',
+          hints: [
+            'Align requirements with learning objectives',
+            'Avoid feature creep'
+          ]
+        },
+        {
+          id: 'scaffolding-design',
+          title: 'Provide Appropriate Support',
+          description: 'How should you structure the project to support student success?',
+          question: 'What scaffolding approach helps students succeed?',
+          type: 'multiple-choice',
+          options: [
+            'Give no guidance and let them figure everything out',
+            'Provide step-by-step instructions with clear milestones',
+            'Give them the complete solution to copy',
+            'Only provide advanced technical documentation'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Clear scaffolding helps students learn while building confidence.',
+          hints: [
+            'Balance guidance with discovery',
+            'Support without removing challenge'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'well-designed-project',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve created an appropriately scoped project that effectively teaches variables',
+          explanation: 'Your project design balances challenge with achievability, focuses on the target concept, and provides appropriate scaffolding.',
+          nextSteps: [
+            'Create projects for other programming concepts',
+            'Develop assessment rubrics for projects',
+            'Test projects with real students'
+          ]
+        },
+        {
+          id: 'scope-issues',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Your project may be too complex or unfocused for the learning objective',
+          explanation: 'Review the principles of appropriate project scoping and concept focus for effective learning.',
+          nextSteps: [
+            'Study project-based learning principles',
+            'Practice scope assessment techniques',
+            'Learn about scaffolding strategies'
+          ]
+        }
+      ],
+      codeExample: `# Simple Calculator Project for Variables
+# Student Task: Create a calculator that stores numbers in variables
+
+# Example solution structure:
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+operation = input("Enter operation (+, -, *, /): ")
+
+# Students practice variable assignment and usage
+result = 0  # Initialize result variable
+if operation == "+":
+    result = num1 + num2
+# ... etc`,
+      resources: [
+        'Project-Based Learning Guide',
+        'Scaffolding Techniques',
+        'Programming Concept Progression'
+      ],
+      conceptId: 'concept-to-project-builder',
+      difficulty: 'beginner',
+      estimatedTime: '15 minutes',
+      learningOutcomes: [
+        'Understand appropriate project scoping',
+        'Learn to align projects with learning objectives',
+        'Practice designing scaffolded learning experiences'
+      ]
+    },
+    expectedInsights: ['Project scope must match learning level', 'Focus drives effective learning'],
+    hints: ['Consider student capabilities', 'Align with learning objectives'],
+    explanation: 'Effective project design requires careful scope management and concept focus.',
+    relatedConcepts: ['project-scoping', 'scaffolding'],
+    timeEstimate: 15,
+    successCriteria: ['Demonstrates appropriate scoping', 'Maintains concept focus']
+  }
+];
+
+// Error Whisperer Scenarios
+export const errorWhispererInteractiveScenarios: StudyModeQuestion[] = [
+  {
+    id: 'error-whisperer-scenario-1',
+    type: 'scenario',
+    conceptId: 'error-whisperer',
+    title: 'Diagnosing a Python ImportError',
+    level: 'beginner',
+    scenario: {
+      id: 'import-error-diagnosis',
+      title: 'Help Student Fix ImportError',
+      description: 'A student encounters "ImportError: No module named \'requests\'" and needs guidance to understand and fix this specific error.',
+      context: 'Student is trying to run a Python script that uses the requests library for web scraping but gets an import error.',
+      stakeholders: ['Programming Student', 'Coding Instructor', 'Technical Support'],
+      challenges: [
+        {
+          id: 'error-classification',
+          title: 'Identify Error Type',
+          description: 'First step is recognizing what type of error this is',
+          question: 'What category does "ImportError: No module named \'requests\'" belong to?',
+          type: 'multiple-choice',
+          options: [
+            'Syntax Error - problem with code structure',
+            'Logic Error - program runs but gives wrong results',
+            'Runtime Error - missing dependency or environment issue',
+            'Semantic Error - code doesn\'t match intended meaning'
+          ],
+          correctAnswer: 2,
+          feedback: 'Correct! This is a runtime error specifically related to missing dependencies.',
+          hints: [
+            'Think about when this error occurs',
+            'Consider what "No module named" indicates'
+          ]
+        },
+        {
+          id: 'solution-approach',
+          title: 'Determine Solution Strategy',
+          description: 'What\'s the most direct fix for this specific error?',
+          question: 'What action should the student take to resolve this ImportError?',
+          type: 'multiple-choice',
+          options: [
+            'Fix syntax errors in their code',
+            'Install the missing requests module using pip',
+            'Rewrite the code to avoid using external libraries',
+            'Change their programming language to avoid the issue'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Installing the missing module directly addresses the root cause.',
+          hints: [
+            'Focus on what\'s actually missing',
+            'Think about dependency management'
+          ]
+        },
+        {
+          id: 'prevention-education',
+          title: 'Teach Prevention',
+          description: 'How can you help them avoid this error in the future?',
+          question: 'What preventive practice should you teach?',
+          type: 'multiple-choice',
+          options: [
+            'Never use external libraries to avoid import errors',
+            'Always copy-paste code from the internet without changes',
+            'Check requirements and install dependencies before running code',
+            'Only use built-in Python modules for all projects'
+          ],
+          correctAnswer: 2,
+          feedback: 'Excellent! Teaching dependency management prevents future import errors.',
+          hints: [
+            'Think about good development practices',
+            'Consider how professionals handle dependencies'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'effective-error-guidance',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve provided targeted, educational error assistance',
+          explanation: 'Your approach correctly identified the error type, provided specific solutions, and taught preventive practices.',
+          nextSteps: [
+            'Practice with other error types',
+            'Develop error classification skills',
+            'Learn about development environment setup'
+          ]
+        },
+        {
+          id: 'generic-advice-given',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Your error guidance was too generic or missed the specific issue',
+          explanation: 'Effective error assistance requires understanding specific error types and providing targeted solutions.',
+          nextSteps: [
+            'Study common Python error types',
+            'Practice error classification',
+            'Learn specific solutions for each error category'
+          ]
+        }
+      ],
+      codeExample: `# Student's Code (causing error):
+import requests
+
+response = requests.get('https://api.example.com/data')
+print(response.json())
+
+# Error Message:
+# ImportError: No module named 'requests'
+
+# Solution:
+# pip install requests`,
+      resources: [
+        'Python Error Types Reference',
+        'Dependency Management Best Practices',
+        'Virtual Environment Setup Guide'
+      ],
+      conceptId: 'error-whisperer',
+      difficulty: 'beginner',
+      estimatedTime: '10 minutes',
+      learningOutcomes: [
+        'Learn to classify error types accurately',
+        'Understand targeted solution approaches',
+        'Practice teaching preventive programming practices'
+      ]
+    },
+    expectedInsights: ['Different errors need different solutions', 'Context matters for error diagnosis'],
+    hints: ['Classify first, then solve', 'Teach prevention'],
+    explanation: 'Effective error guidance requires specific diagnosis and targeted solutions.',
+    relatedConcepts: ['error-classification', 'dependency-management'],
+    timeEstimate: 10,
+    successCriteria: ['Correctly classifies error', 'Provides specific solution']
+  }
+];
+
+// Context Curator Scenarios
+export const contextCuratorInteractiveScenarios: StudyModeQuestion[] = [
+  {
+    id: 'context-curator-scenario-1',
+    type: 'scenario',
+    conceptId: 'context-curator',
+    title: 'Curating Information for Python Lists Query',
+    level: 'intermediate',
+    scenario: {
+      id: 'python-lists-curation',
+      title: 'Select Relevant Information for "How do I use Python lists?"',
+      description: 'You have access to 50+ documentation pages about Python. A user asks "How do I use Python lists?" You need to curate the most relevant information.',
+      context: 'Your knowledge base contains comprehensive Python documentation including basic syntax, advanced features, performance guides, and API references.',
+      stakeholders: ['Python Learner', 'Documentation Team', 'Learning Platform'],
+      challenges: [
+        {
+          id: 'relevance-assessment',
+          title: 'Identify Most Relevant Content',
+          description: 'Which content should get highest priority for this query?',
+          question: 'What information is most relevant to "How do I use Python lists?"',
+          type: 'multiple-choice',
+          options: [
+            'Advanced list comprehension performance optimizations',
+            'Basic list creation, indexing, and common methods',
+            'Complete Python language specification',
+            'Database integration with Python lists'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Basic operations directly answer the user\'s fundamental question.',
+          hints: [
+            'Consider the user\'s likely skill level',
+            'Think about immediate actionable information'
+          ]
+        },
+        {
+          id: 'information-sizing',
+          title: 'Determine Appropriate Amount',
+          description: 'How much information should you include?',
+          question: 'What\'s the optimal amount of context to provide?',
+          type: 'multiple-choice',
+          options: [
+            'Everything about lists - all 20 pages of documentation',
+            'Just the essential operations with clear examples',
+            'Only a single line definition',
+            'Random selection of list-related content'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Essential operations with examples provide actionable guidance without overwhelming.',
+          hints: [
+            'Balance comprehensiveness with usability',
+            'Think about cognitive load'
+          ]
+        },
+        {
+          id: 'organization-strategy',
+          title: 'Structure the Information',
+          description: 'How should you organize the curated content?',
+          question: 'What organization approach works best?',
+          type: 'multiple-choice',
+          options: [
+            'Random order with no structure',
+            'From basic to advanced with clear sections',
+            'Alphabetical by function name',
+            'Most complex concepts first'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Progressive organization helps users build understanding step by step.',
+          hints: [
+            'Consider learning progression',
+            'Think about user mental models'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'effective-curation',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve curated information that\'s relevant, appropriately sized, and well-organized',
+          explanation: 'Your curation strategy prioritizes user needs, manages information overload, and structures content for learning.',
+          nextSteps: [
+            'Practice with more complex queries',
+            'Develop user persona understanding',
+            'Learn information architecture principles'
+          ]
+        },
+        {
+          id: 'information-overload',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Your curation may overwhelm or under-serve the user',
+          explanation: 'Effective curation requires balancing comprehensiveness with usability.',
+          nextSteps: [
+            'Study information architecture',
+            'Practice relevance assessment',
+            'Learn about cognitive load management'
+          ]
+        }
+      ],
+      codeExample: `# Curated Python Lists Information
+
+## Basic List Operations
+# Creating lists
+my_list = [1, 2, 3, 4, 5]
+names = ["Alice", "Bob", "Charlie"]
+
+# Accessing elements
+first_item = my_list[0]
+last_item = my_list[-1]
+
+# Common methods
+my_list.append(6)        # Add item
+my_list.remove(2)        # Remove item
+length = len(my_list)    # Get length`,
+      resources: [
+        'Information Architecture Guide',
+        'User-Centered Design Principles',
+        'Cognitive Load Theory'
+      ],
+      conceptId: 'context-curator',
+      difficulty: 'intermediate',
+      estimatedTime: '15 minutes',
+      learningOutcomes: [
+        'Practice information relevance assessment',
+        'Learn to balance comprehensive vs. focused content',
+        'Understand progressive information organization'
+      ]
+    },
+    expectedInsights: ['Quality over quantity in information', 'Organization enhances usability'],
+    hints: ['Focus on user needs', 'Structure for learning'],
+    explanation: 'Effective curation balances relevance, appropriate sizing, and clear organization.',
+    relatedConcepts: ['information-architecture', 'user-experience'],
+    timeEstimate: 15,
+    successCriteria: ['Demonstrates relevance assessment', 'Shows appropriate scoping']
+  }
+];
+
+// Time-box Pair Programmer Scenarios
+export const timeboxPairProgrammerInteractiveScenarios: StudyModeQuestion[] = [
+  {
+    id: 'timebox-pair-programmer-scenario-1',
+    type: 'scenario',
+    conceptId: 'time-box-pair-programmer',
+    title: 'Managing Flow State During Pair Programming',
+    level: 'intermediate',
+    scenario: {
+      id: 'flow-state-management',
+      title: 'Handle Flow State vs. Structure',
+      description: 'Two students are deep in problem-solving flow when the 25-minute timer hits. They\'re on the verge of a breakthrough. How do you handle this as their pair programming facilitator?',
+      context: 'You\'re managing a pair programming session with strict time-boxing. Students are using the driver/navigator pattern and switching roles every 25 minutes.',
+      stakeholders: ['Programming Students', 'Learning Facilitator', 'Course Instructor'],
+      challenges: [
+        {
+          id: 'flow-recognition',
+          title: 'Recognize Flow State',
+          description: 'How do you identify when students are in productive flow?',
+          question: 'What indicates the students are in a productive flow state?',
+          type: 'multiple-choice',
+          options: [
+            'They\'re talking loudly and seem excited about something unrelated',
+            'They\'re focused, collaborating intensely, and making steady progress',
+            'They\'re silent and working independently without communication',
+            'They\'re frequently checking their phones and seem distracted'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Focused collaboration with steady progress indicates productive flow.',
+          hints: [
+            'Think about signs of deep engagement',
+            'Consider productive collaboration indicators'
+          ]
+        },
+        {
+          id: 'interruption-timing',
+          title: 'Manage Timer vs. Flow',
+          description: 'The timer goes off during their breakthrough moment. What\'s your approach?',
+          question: 'How should you handle the timer interruption during flow?',
+          type: 'multiple-choice',
+          options: [
+            'Immediately enforce the break regardless of their progress',
+            'Give a gentle warning and allow 2-3 minutes to reach a natural stopping point',
+            'Let them continue indefinitely without any time structure',
+            'Stop them abruptly and make them start completely over'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Gentle warnings with brief flexibility respect both structure and learning flow.',
+          hints: [
+            'Balance structure with learning optimization',
+            'Consider natural stopping points'
+          ]
+        },
+        {
+          id: 'learning-optimization',
+          title: 'Maximize Learning Value',
+          description: 'How do you ensure the time-boxing still provides learning benefits?',
+          question: 'What strategy preserves the benefits of time-boxing while respecting flow?',
+          type: 'multiple-choice',
+          options: [
+            'Abandon time-boxing completely if students are engaged',
+            'Use flow moments to extend learning and then return to structure',
+            'Punish students for not following the strict timer',
+            'Only allow time-boxing when students are struggling'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Using flow moments for deep learning while maintaining overall structure optimizes outcomes.',
+          hints: [
+            'Think about when structure helps vs. hinders',
+            'Consider adaptive time management'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'balanced-facilitation',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve successfully balanced structure with learning optimization',
+          explanation: 'Your approach recognizes flow states, provides flexible timing, and maintains the benefits of time-boxing while respecting learning moments.',
+          nextSteps: [
+            'Practice recognizing different flow states',
+            'Develop adaptive timing strategies',
+            'Learn about attention management techniques'
+          ]
+        },
+        {
+          id: 'rigid-approach',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Your approach may be too rigid or too loose for effective pair programming',
+          explanation: 'Effective facilitation requires balancing structure with learning optimization.',
+          nextSteps: [
+            'Study flow state psychology',
+            'Practice adaptive facilitation',
+            'Learn about optimal learning conditions'
+          ]
+        }
+      ],
+      codeExample: `# Pair Programming Flow State Scenario
+
+# Students are deep in debugging:
+Student A: "I think I see the issue - this variable scope..."
+Student B: "Yes! And if we check the loop condition here..."
+[TIMER GOES OFF]
+Facilitator: "I can see you're making great progress. Take 2 minutes to capture this insight, then we'll switch roles and build on it."`,
+      resources: [
+        'Flow State in Learning',
+        'Adaptive Time Management',
+        'Pair Programming Best Practices'
+      ],
+      conceptId: 'time-box-pair-programmer',
+      difficulty: 'intermediate',
+      estimatedTime: '15 minutes',
+      learningOutcomes: [
+        'Learn to recognize productive flow states',
+        'Practice adaptive time management',
+        'Balance structure with learning optimization'
+      ]
+    },
+    expectedInsights: ['Flow state enhances learning', 'Flexible structure optimizes outcomes'],
+    hints: ['Recognize flow indicators', 'Balance structure with flexibility'],
+    explanation: 'Effective time-boxing requires adaptive management that respects both structure and learning flow.',
+    relatedConcepts: ['flow-state', 'adaptive-facilitation'],
+    timeEstimate: 15,
+    successCriteria: ['Shows flow recognition', 'Demonstrates adaptive timing']
+  }
+];
+
+// Tool Use Coach Scenarios
+export const toolUseCoachInteractiveScenarios: StudyModeQuestion[] = [
+  {
+    id: 'tool-use-coach-scenario-1',
+    type: 'scenario',
+    conceptId: 'tool-use-coach',
+    title: 'Recommending Static Website Tools',
+    level: 'beginner',
+    scenario: {
+      id: 'static-website-tools',
+      title: 'Choose Appropriate Tools for Beginner Website Creation',
+      description: 'A beginner asks for help creating their first static website. They know basic HTML/CSS but nothing about deployment or advanced tools.',
+      context: 'Student wants to create a personal portfolio website. They\'ve completed basic HTML/CSS tutorials but have no experience with build tools, version control, or deployment platforms.',
+      stakeholders: ['Beginning Web Developer', 'Web Development Instructor', 'Career Counselor'],
+      challenges: [
+        {
+          id: 'skill-assessment',
+          title: 'Assess Current Skill Level',
+          description: 'Understanding what tools match their current capabilities',
+          question: 'Given their basic HTML/CSS knowledge, what tool complexity is appropriate?',
+          type: 'multiple-choice',
+          options: [
+            'Advanced frameworks like React with complex build pipelines',
+            'Simple tools like GitHub Pages or Netlify for static hosting',
+            'Enterprise-level CMS systems with database integration',
+            'Low-level server management and Linux administration'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Simple static hosting matches their current skills and project needs.',
+          hints: [
+            'Match tool complexity to skill level',
+            'Consider the actual project requirements'
+          ]
+        },
+        {
+          id: 'task-tool-alignment',
+          title: 'Match Tools to Task',
+          description: 'Ensuring tool capabilities align with project goals',
+          question: 'For a personal portfolio website, what tool characteristics matter most?',
+          type: 'multiple-choice',
+          options: [
+            'Advanced database management and user authentication',
+            'Easy deployment, fast loading, and simple maintenance',
+            'Complex server-side processing capabilities',
+            'Real-time collaboration and multi-user editing'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Portfolio sites need simplicity, speed, and easy maintenance rather than complex features.',
+          hints: [
+            'Think about portfolio website requirements',
+            'Consider maintenance burden'
+          ]
+        },
+        {
+          id: 'learning-progression',
+          title: 'Plan Learning Path',
+          description: 'Choosing tools that support skill development',
+          question: 'How should tool recommendations support their learning progression?',
+          type: 'multiple-choice',
+          options: [
+            'Start with the most complex tools they\'ll eventually need',
+            'Choose tools that build foundational skills step by step',
+            'Avoid all tools and stick to basic text editors',
+            'Use completely different tools for each project'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Progressive tool complexity helps build skills systematically.',
+          hints: [
+            'Think about skill building progression',
+            'Consider confidence building'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'appropriate-tool-selection',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve recommended tools that match skill level, task requirements, and learning goals',
+          explanation: 'Your recommendations balance current capabilities with project needs and support progressive skill development.',
+          nextSteps: [
+            'Practice tool assessment for different skill levels',
+            'Learn about learning progression in web development',
+            'Develop tool recommendation frameworks'
+          ]
+        },
+        {
+          id: 'mismatched-recommendations',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Your tool recommendations may overwhelm the beginner or under-serve their needs',
+          explanation: 'Effective tool coaching requires careful matching of tool complexity to user readiness and task requirements.',
+          nextSteps: [
+            'Study progressive skill development',
+            'Practice skill level assessment',
+            'Learn about tool complexity evaluation'
+          ]
+        }
+      ],
+      codeExample: `# Beginner-Appropriate Tool Stack
+
+## Development
+- Text Editor: VS Code (beginner-friendly)
+- Version Control: GitHub Desktop (GUI for Git basics)
+
+## Deployment
+- Static Hosting: GitHub Pages or Netlify
+- Domain: (optional) Custom domain later
+
+## Learning Path
+1. Master HTML/CSS with simple tools
+2. Learn Git basics with GitHub Desktop
+3. Deploy with GitHub Pages
+4. Gradually add build tools as skills grow`,
+      resources: [
+        'Progressive Web Development Tools',
+        'Beginner-Friendly Deployment Options',
+        'Tool Complexity Assessment'
+      ],
+      conceptId: 'tool-use-coach',
+      difficulty: 'beginner',
+      estimatedTime: '12 minutes',
+      learningOutcomes: [
+        'Practice skill level assessment',
+        'Learn tool-task alignment principles',
+        'Understand progressive tool complexity'
+      ]
+    },
+    expectedInsights: ['Tool complexity must match user readiness', 'Progressive learning builds confidence'],
+    hints: ['Assess skill level first', 'Match tools to actual needs'],
+    explanation: 'Effective tool coaching requires matching tool capabilities to user skills and project requirements.',
+    relatedConcepts: ['skill-assessment', 'progressive-learning'],
+    timeEstimate: 12,
+    successCriteria: ['Shows appropriate tool matching', 'Demonstrates skill progression awareness']
+  }
+];
+
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
@@ -2635,6 +3423,13 @@ export const scenarioLibrary = {
   'knowledge-map-navigator': knowledgeMapNavigatorScenarios,
   'peer-review-simulator': peerReviewSimulatorScenarios,
   'tool-use-coach': toolUseCoachScenarios,
+  // New Patterns Interactive Scenarios
+  'socratic-coach-interactive': socraticCoachInteractiveScenarios,
+  'concept-to-project-builder': conceptToProjectBuilderInteractiveScenarios,
+  'error-whisperer-interactive': errorWhispererInteractiveScenarios,
+  'context-curator': contextCuratorInteractiveScenarios,
+  'time-box-pair-programmer': timeboxPairProgrammerInteractiveScenarios,
+  'tool-use-coach-interactive': toolUseCoachInteractiveScenarios,
   // New Core Concepts
   'agentic-prompting-fundamentals': agenticPromptingFundamentalsScenarios,
   'prompt-optimization-patterns': promptOptimizationPatternsScenarios,

@@ -2353,6 +2353,1210 @@ print(f"LangGraph → SK: {result3}")`,
   }
 ];
 
+// Debug Challenges for New Patterns
+
+// Socratic Coach Debug Challenges
+export const socraticCoachDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'socratic-coach-debug-1',
+    type: 'debug',
+    conceptId: 'socratic-coach',
+    title: 'The Leading Question Trap',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'socratic-leading-questions',
+      title: 'Coach Giving Away Answers',
+      description: 'A Socratic coach agent is supposed to guide discovery through questions but keeps revealing answers directly.',
+      problemDescription: 'The agent is configured to help students discover concepts through questioning, but analysis shows it frequently provides direct answers instead of guiding discovery.',
+      brokenCode: `class SocraticCoach:
+    def __init__(self):
+        self.system_prompt = """You are a Socratic coach helping students learn.
+        Ask questions to guide their thinking. Help them understand concepts."""
+    
+    def coach_student(self, student_question: str) -> str:
+        # Problem: Direct teaching instead of Socratic questioning
+        if "recursion" in student_question.lower():
+            return "Recursion is when a function calls itself. Here's how it works..."
+        
+        if "sorting" in student_question.lower():
+            return "Bubble sort compares adjacent elements and swaps them if needed..."
+        
+        return "That's a great question! The answer is..."`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student",
+          message: "I'm confused about recursion",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "SocraticCoach",
+          message: "Recursion is when a function calls itself. Here's how it works...",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "SocraticCoach",
+          role: "Learning Guide",
+          systemPrompt: "You are a Socratic coach helping students learn. Ask questions to guide their thinking.",
+          tools: [],
+          parameters: { temperature: 0.7 }
+        }
+      ],
+      expectedBehavior: "Should ask guiding questions like 'What happens when you call a function from within itself?' rather than explaining directly.",
+      commonIssues: [
+        {
+          issue: "Direct instruction instead of questioning",
+          symptoms: ["Provides answers immediately", "No discovery process", "Student becomes passive"],
+          diagnosis: "System prompt doesn't emphasize questioning over teaching",
+          fix: "Rewrite prompt to focus on questioning methodology"
+        }
+      ],
+      hints: ["What makes a question 'Socratic'?", "How should the coach respond to student questions?"],
+      solution: "Rewrite the system prompt to emphasize questioning methodology: 'Ask guiding questions that help students discover answers. Never provide direct answers. Focus on questions like: What do you think happens when...? How would you test this? What patterns do you notice?'",
+      explanation: "The Socratic method works by guiding discovery through strategic questioning rather than direct instruction. The coach must be disciplined about asking rather than telling."
+    },
+    expectedInsights: ["Socratic method requires question-driven discovery", "Direct answers prevent learning"],
+    hints: ["Focus on question patterns", "Consider learning psychology"],
+    explanation: "Socratic coaching requires disciplined questioning to guide discovery rather than direct instruction.",
+    relatedConcepts: ['questioning-techniques', 'discovery-learning'],
+    timeEstimate: 12,
+    successCriteria: ["Identifies direct instruction problem", "Suggests question-based alternatives"]
+  }
+];
+
+// Concept-to-Project Builder Debug Challenges  
+export const conceptToProjectDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'concept-to-project-debug-1',
+    type: 'debug',
+    conceptId: 'concept-to-project-builder',
+    title: 'The Scope Explosion Problem',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'scope-explosion-project',
+      title: 'Simple Concept Becomes Complex Project',
+      description: 'A concept-to-project builder is creating overly complex projects for simple learning concepts.',
+      problemDescription: 'Students learning basic concepts are being given projects that require advanced skills they havent learned yet.',
+      brokenCode: `class ConceptToProjectBuilder:
+    def build_project(self, concept: str, student_level: str) -> dict:
+        if concept == "variables":
+            return {
+                "title": "Build a Complete E-commerce Platform",
+                "requirements": [
+                    "Database design with user authentication",
+                    "Payment processing integration", 
+                    "Inventory management system",
+                    "Advanced caching strategies"
+                ],
+                "estimated_time": "3-4 weeks"
+            }
+        
+        if concept == "loops":
+            return {
+                "title": "Create a Machine Learning Framework",
+                "requirements": [
+                    "Implement gradient descent from scratch",
+                    "Build neural network architecture",
+                    "Advanced optimization algorithms"
+                ],
+                "estimated_time": "2-3 months"
+            }`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student",
+          message: "I just learned about variables, can you suggest a project?",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "ProjectBuilder",
+          message: "Build a complete e-commerce platform with database design, authentication, payment processing...",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "ProjectBuilder",
+          role: "Project Generator", 
+          systemPrompt: "Create engaging projects that help students practice concepts they're learning.",
+          tools: [],
+          parameters: { temperature: 0.8 }
+        }
+      ],
+      expectedBehavior: "Should create appropriately scoped projects that focus on the target concept without requiring unlearned skills.",
+      commonIssues: [
+        {
+          issue: "Scope misalignment with learning level",
+          symptoms: ["Projects too complex", "Requires unlearned concepts", "Student frustration"],
+          diagnosis: "No consideration of prerequisite skills or appropriate scope",
+          fix: "Add skill mapping and scope validation"
+        }
+      ],
+      hints: ["What skills does the project actually require?", "How complex should a beginner project be?"],
+      solution: "Add skill assessment and scope validation: Check user's current skill level, analyze required vs. learned concepts, and create projects that focus primarily on the target concept with minimal additional complexity.",
+      explanation: "Effective project generation requires careful scope management that matches project complexity to student readiness, focusing on practicing the target concept without overwhelming with prerequisites."
+    },
+    expectedInsights: ["Project scope must match learning level", "Focus on target concept"],
+    hints: ["Consider prerequisite skills", "Think about appropriate complexity"],
+    explanation: "Effective project building requires careful scope management aligned with student capabilities.",
+    relatedConcepts: ['scope-management', 'skill-progression'],
+    timeEstimate: 10,
+    successCriteria: ["Identifies scope mismatch", "Suggests appropriate complexity levels"]
+  }
+];
+
+// Error Whisperer Debug Challenges
+export const errorWhispererDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'error-whisperer-debug-1',
+    type: 'debug',
+    conceptId: 'error-whisperer',
+    title: 'The Generic Advice Problem',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'generic-error-advice',
+      title: 'One-Size-Fits-All Error Messages',
+      description: 'An Error Whisperer agent gives the same generic advice regardless of the specific error context.',
+      problemDescription: 'Students get identical debugging advice for completely different types of errors, making the guidance unhelpful.',
+      brokenCode: `class ErrorWhisperer:
+    def analyze_error(self, error_message: str, code_context: str) -> str:
+        # Problem: Generic advice regardless of error type
+        return """
+        Here's how to debug your error:
+        1. Check your syntax
+        2. Look for typos  
+        3. Make sure variables are defined
+        4. Test your code step by step
+        5. Use print statements to debug
+        """`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student",
+          message: "ImportError: No module named 'requests'",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "ErrorWhisperer", 
+          message: "Check your syntax, look for typos, make sure variables are defined...",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "ErrorWhisperer",
+          role: "Error Analyst",
+          systemPrompt: "Help students understand and fix their programming errors with specific guidance.",
+          tools: [],
+          parameters: { temperature: 0.3 }
+        }
+      ],
+      expectedBehavior: "Should provide specific guidance based on error type - for ImportError, suggest installing the missing module.",
+      commonIssues: [
+        {
+          issue: "No error type classification",
+          symptoms: ["Same advice for all errors", "Irrelevant suggestions", "Student confusion"],
+          diagnosis: "Agent doesn't analyze error type before providing advice",
+          fix: "Add error classification and specific response mapping"
+        }
+      ],
+      hints: ["What type of error is this?", "What specific action would fix it?"],
+      solution: "Implement error classification: Create specific response patterns for different error types (ImportError → install missing package, SyntaxError → check syntax, etc.) and provide targeted advice based on error category.",
+      explanation: "Effective error guidance requires understanding the specific error type and providing targeted solutions rather than generic debugging advice."
+    },
+    expectedInsights: ["Different errors need different solutions", "Context matters for debugging"],
+    hints: ["Classify error types", "Match solutions to problems"],
+    explanation: "Effective error guidance requires understanding the specific error type and providing targeted solutions.",
+    relatedConcepts: ['error-classification', 'targeted-guidance'],
+    timeEstimate: 8,
+    successCriteria: ["Recognizes generic advice problem", "Suggests error-specific responses"]
+  }
+];
+
+// Knowledge Map Navigator Debug Challenges
+export const knowledgeMapNavigatorDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'knowledge-map-navigator-debug-1',
+    type: 'debug',
+    conceptId: 'knowledge-map-navigator',
+    title: 'The Circular Dependency Trap',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'circular-dependencies',
+      title: 'Learning Path Creates Impossible Prerequisites',
+      description: 'A knowledge map navigator creates learning paths with circular dependencies that make progress impossible.',
+      problemDescription: 'The system generates paths where Concept A requires Concept B, but Concept B also requires Concept A, creating an unresolvable dependency cycle.',
+      brokenCode: `class KnowledgeMapNavigator:
+    def __init__(self):
+        self.dependencies = {
+            "functions": ["variables", "control-flow"],
+            "control-flow": ["functions", "conditionals"], 
+            "conditionals": ["variables"],
+            "variables": ["functions"]  # Creates circular dependency
+        }
+    
+    def create_learning_path(self, target_concept: str) -> list:
+        path = []
+        visited = set()
+        
+        def add_dependencies(concept):
+            if concept in visited:
+                return  # This doesn't actually solve the cycle
+            visited.add(concept)
+            
+            for dep in self.dependencies.get(concept, []):
+                add_dependencies(dep)
+                path.append(dep)
+            path.append(concept)
+        
+        add_dependencies(target_concept)
+        return path`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student",
+          message: "I want to learn about functions",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "Navigator",
+          message: "To learn functions, you first need to learn variables. But to learn variables, you need functions...",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "Navigator",
+          role: "Learning Path Generator",
+          systemPrompt: "Create logical learning sequences that respect prerequisite relationships.",
+          tools: [],
+          parameters: { temperature: 0.2 }
+        }
+      ],
+      expectedBehavior: "Should detect circular dependencies and either break them appropriately or flag them as errors.",
+      commonIssues: [
+        {
+          issue: "Circular dependency detection missing",
+          symptoms: ["Impossible learning paths", "Infinite recursion", "Student confusion about prerequisites"],
+          diagnosis: "No cycle detection in dependency graph",
+          fix: "Implement topological sorting with cycle detection"
+        }
+      ],
+      hints: ["What's a topological sort?", "How do you detect cycles in graphs?"],
+      solution: "Implement cycle detection using topological sorting or DFS: Before creating paths, validate the dependency graph for cycles and either break them intelligently or flag as configuration errors.",
+      explanation: "Learning paths require acyclic dependency graphs to ensure logical progression without impossible prerequisite loops."
+    },
+    expectedInsights: ["Dependency graphs must be acyclic", "Cycle detection is essential"],
+    hints: ["Think about graph algorithms", "Consider prerequisite validation"],
+    explanation: "Learning paths require careful dependency management to avoid circular references that block progress.",
+    relatedConcepts: ['graph-algorithms', 'dependency-management'],
+    timeEstimate: 15,
+    successCriteria: ["Identifies circular dependency", "Suggests cycle detection solution"]
+  }
+];
+
+// Context Curator Debug Challenges
+export const contextCuratorDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'context-curator-debug-1',
+    type: 'debug',
+    conceptId: 'context-curator',
+    title: 'The Context Overflow Problem',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'context-overflow',
+      title: 'Too Much Context Kills Performance',
+      description: 'A context curator keeps adding relevant information until the context becomes so large it causes performance issues and exceeds token limits.',
+      problemDescription: 'The agent finds everything relevant and includes it all, resulting in massive context that slows responses and may exceed model limits.',
+      brokenCode: `class ContextCurator:
+    def curate_context(self, query: str, knowledge_base: list) -> str:
+        relevant_items = []
+        
+        for item in knowledge_base:
+            if self.is_relevant(query, item):
+                relevant_items.append(item["full_content"])  # Always includes full content
+        
+        # Problem: No size limits or prioritization
+        return "\n".join(relevant_items)
+    
+    def is_relevant(self, query: str, item: dict) -> bool:
+        # Very loose relevance criteria
+        query_words = query.lower().split()
+        item_text = item["content"].lower()
+        
+        for word in query_words:
+            if word in item_text:
+                return True  # Any word match = relevant
+        return False`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "User",
+          message: "How do I use Python lists?",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:30Z",
+          agent: "ContextCurator",
+          message: "[Returns 50+ pages of documentation about lists, arrays, data structures, Python basics, etc.]",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "ContextCurator",
+          role: "Information Organizer",
+          systemPrompt: "Select and organize the most relevant information for user queries.",
+          tools: [],
+          parameters: { temperature: 0.1 }
+        }
+      ],
+      expectedBehavior: "Should prioritize and limit context to the most relevant information within reasonable size bounds.",
+      commonIssues: [
+        {
+          issue: "No context size management",
+          symptoms: ["Overwhelming information dumps", "Slow response times", "Token limit errors"],
+          diagnosis: "Missing prioritization and size constraints",
+          fix: "Add ranking, summarization, and size limits"
+        }
+      ],
+      hints: ["How much context is too much?", "What makes information most relevant?"],
+      solution: "Add ranking, summarization, and size limits: Implement relevance scoring, prioritize information by importance, summarize large content, and enforce token/size limits while preserving key information.",
+      explanation: "Effective context curation requires balancing comprehensiveness with usability through intelligent prioritization and size management."
+    },
+    expectedInsights: ["Context quality beats quantity", "Size limits are essential"],
+    hints: ["Consider information ranking", "Think about optimal context size"],
+    explanation: "Effective context curation requires balancing comprehensiveness with usability through prioritization and limits.",
+    relatedConcepts: ['information-ranking', 'context-optimization'],
+    timeEstimate: 12,
+    successCriteria: ["Identifies context overflow issue", "Suggests prioritization strategy"]
+  }
+];
+
+// Rubric Rater Debug Challenges
+export const rubricRaterDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'rubric-rater-debug-1',
+    type: 'debug',
+    conceptId: 'rubric-rater',
+    title: 'The Inconsistent Scoring Problem',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'inconsistent-scoring',
+      title: 'Same Work Gets Different Scores',
+      description: 'A rubric rater gives different scores for identical or very similar work, undermining trust in the evaluation system.',
+      problemDescription: 'Students submit nearly identical work but receive significantly different scores, suggesting the rubric application is inconsistent.',
+      brokenCode: `class RubricRater:
+    def rate_submission(self, submission: str, rubric: dict) -> dict:
+        scores = {}
+        
+        for criterion, description in rubric.items():
+            # Problem: Uses random or inconsistent evaluation
+            if "code quality" in criterion.lower():
+                if random.choice([True, False]):  # Random evaluation!
+                    scores[criterion] = random.randint(7, 10)
+                else:
+                    scores[criterion] = random.randint(3, 6)
+            
+            elif "documentation" in criterion.lower():
+                # Inconsistent string matching
+                if "comment" in submission or "Comment" in submission:
+                    scores[criterion] = 9
+                else:
+                    scores[criterion] = 4  # Misses "# Comment" or "/* comment */"
+        
+        return scores`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student1",
+          message: "Submitting my code with comments",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "RubricRater",
+          message: "Documentation score: 4/10 (No comments found)",
+          type: "error"
+        },
+        {
+          timestamp: "2024-01-01T10:05:00Z",
+          agent: "Student2",
+          message: "Submitting identical code with comments",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:05:05Z",
+          agent: "RubricRater",
+          message: "Documentation score: 9/10 (Good commenting)",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "RubricRater",
+          role: "Assignment Evaluator",
+          systemPrompt: "Evaluate student work consistently according to provided rubrics.",
+          tools: [],
+          parameters: { temperature: 0.0 }  // Should be deterministic
+        }
+      ],
+      expectedBehavior: "Should apply rubric criteria consistently, giving the same score for equivalent work.",
+      commonIssues: [
+        {
+          issue: "Non-deterministic evaluation logic",
+          symptoms: ["Inconsistent scores", "Random variations", "Student complaints"],
+          diagnosis: "Evaluation logic contains randomness or inconsistent pattern matching",
+          fix: "Implement deterministic, systematic evaluation criteria"
+        }
+      ],
+      hints: ["Why might identical work get different scores?", "What makes evaluation consistent?"],
+      solution: "Implement deterministic, systematic evaluation: Remove randomness, use robust pattern matching that handles variations, and create clear scoring rubrics with specific criteria for each score level.",
+      explanation: "Reliable rubric rating requires consistent, deterministic application of evaluation criteria to ensure fair and trustworthy assessment."
+    },
+    expectedInsights: ["Consistency requires deterministic evaluation", "Pattern matching must be robust"],
+    hints: ["Look for randomness", "Consider edge cases in matching"],
+    explanation: "Reliable rubric rating requires consistent, deterministic application of evaluation criteria.",
+    relatedConcepts: ['evaluation-consistency', 'deterministic-systems'],
+    timeEstimate: 10,
+    successCriteria: ["Identifies inconsistency sources", "Suggests deterministic alternatives"]
+  }
+];
+
+// Self-Remediation Loop Debug Challenges
+export const selfRemediationLoopDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'self-remediation-loop-debug-1',
+    type: 'debug',
+    conceptId: 'self-remediation-loop',
+    title: 'The Endless Retry Spiral',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'endless-retry-spiral',
+      title: 'Agent Never Stops Trying to Fix Itself',
+      description: 'A self-remediation system gets stuck in an infinite loop, continuously trying to fix problems that either cannot be fixed or are being incorrectly identified.',
+      problemDescription: 'The agent detects issues, attempts fixes, re-evaluates, finds new issues, and repeats indefinitely without making progress.',
+      brokenCode: `class SelfRemediationLoop:
+    def __init__(self):
+        self.max_attempts = 100  # Too high
+        self.improvement_threshold = 0.001  # Too strict
+    
+    def remediation_cycle(self, task_result):
+        attempt = 0
+        current_score = self.evaluate_result(task_result)
+        
+        while attempt < self.max_attempts:
+            issues = self.identify_issues(task_result)
+            
+            if not issues:
+                break
+                
+            # Problem: May create new issues while fixing others
+            task_result = self.apply_fixes(task_result, issues)
+            new_score = self.evaluate_result(task_result)
+            
+            # Problem: Very strict improvement requirement
+            if new_score - current_score < self.improvement_threshold:
+                continue  # Keep trying even with marginal progress
+                
+            current_score = new_score
+            attempt += 1
+            
+            # Problem: No convergence detection
+            if attempt % 10 == 0:
+                print(f"Still trying after {attempt} attempts...")`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "RemediationLoop",
+          message: "Detected issue: Code style inconsistency",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:30Z",
+          agent: "RemediationLoop",
+          message: "Applied fix, detecting new issues...",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:45:00Z",
+          agent: "RemediationLoop",
+          message: "Still trying after 90 attempts...",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "RemediationLoop",
+          role: "Self-Improvement System",
+          systemPrompt: "Continuously improve task results by identifying and fixing issues.",
+          tools: ["code_analyzer", "style_fixer"],
+          parameters: { temperature: 0.2 }
+        }
+      ],
+      expectedBehavior: "Should reach a stable state or intelligently stop when no meaningful progress is possible.",
+      commonIssues: [
+        {
+          issue: "No convergence detection",
+          symptoms: ["Endless iterations", "Marginal improvements", "Resource exhaustion"],
+          diagnosis: "System lacks stopping criteria for oscillation or diminishing returns",
+          fix: "Add convergence detection and intelligent stopping conditions"
+        }
+      ],
+      hints: ["When should the loop stop?", "How do you detect when you're not making progress?"],
+      solution: "Add convergence detection and intelligent stopping conditions: Track improvement over time, detect oscillation patterns, set minimum improvement thresholds, and implement diminishing returns recognition.",
+      explanation: "Self-remediation systems need intelligent stopping conditions to avoid infinite improvement cycles while recognizing when meaningful progress has plateaued."
+    },
+    expectedInsights: ["Remediation needs stopping criteria", "Diminishing returns require recognition"],
+    hints: ["Consider convergence detection", "Think about when to stop improving"],
+    explanation: "Self-remediation systems need intelligent stopping conditions to avoid infinite improvement cycles.",
+    relatedConcepts: ['convergence-detection', 'stopping-criteria'],
+    timeEstimate: 18,
+    successCriteria: ["Identifies infinite loop issue", "Suggests convergence detection"]
+  }
+];
+
+// Spaced Repetition Planner Debug Challenges
+export const spacedRepetitionPlannerDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'spaced-repetition-planner-debug-1',
+    type: 'debug',
+    conceptId: 'spaced-repetition-planner',
+    title: 'The Cramming Schedule Problem',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'cramming-schedule',
+      title: 'Planner Creates Ineffective Study Schedules',
+      description: 'A spaced repetition planner schedules all review sessions too close together, essentially creating a cramming schedule instead of spaced learning.',
+      problemDescription: 'Students receive study schedules that bunch all practice sessions within a few days, missing the key benefit of spaced repetition.',
+      brokenCode: `class SpacedRepetitionPlanner:
+    def __init__(self):
+        self.intervals = [1, 2, 3, 4, 5]  # Days - too short and uniform
+    
+    def schedule_review(self, concept: str, mastery_level: float) -> list:
+        schedule = []
+        start_date = datetime.now()
+        
+        for i, interval in enumerate(self.intervals):
+            # Problem: Always uses the same intervals regardless of mastery
+            review_date = start_date + timedelta(days=interval)
+            schedule.append({
+                "concept": concept,
+                "date": review_date,
+                "session_number": i + 1
+            })
+        
+        return schedule
+    
+    def update_mastery(self, concept: str, performance: float):
+        # Problem: No adjustment of future intervals based on performance
+        pass`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student",
+          message: "I mastered this concept quickly",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "SpacedPlanner",
+          message: "Great! Your next reviews are tomorrow, day after, then next 3 days",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "SpacedPlanner",
+          role: "Study Schedule Optimizer",
+          systemPrompt: "Create effective spaced repetition schedules based on learning science.",
+          tools: [],
+          parameters: { temperature: 0.1 }
+        }
+      ],
+      expectedBehavior: "Should create increasingly spaced intervals that adapt based on mastery level and performance.",
+      commonIssues: [
+        {
+          issue: "Fixed intervals ignore mastery level",
+          symptoms: ["Cramming-like schedules", "No adaptation to performance", "Inefficient review timing"],
+          diagnosis: "Intervals don't follow spaced repetition principles or adapt to individual progress",
+          fix: "Implement adaptive intervals based on forgetting curve and performance"
+        }
+      ],
+      hints: ["What's the forgetting curve?", "How should intervals change with mastery?"],
+      solution: "Implement adaptive intervals based on forgetting curve and performance: Use scientifically-based spacing algorithms (like SM-2) that increase intervals based on successful recall and adjust based on individual performance.",
+      explanation: "Effective spaced repetition requires scientifically-based interval spacing that adapts to individual learning patterns rather than fixed cramming schedules."
+    },
+    expectedInsights: ["Spaced repetition requires increasing intervals", "Adaptation based on performance is crucial"],
+    hints: ["Research spaced repetition algorithms", "Consider individual differences"],
+    explanation: "Effective spaced repetition requires scientifically-based interval spacing that adapts to individual learning.",
+    relatedConcepts: ['forgetting-curve', 'adaptive-learning'],
+    timeEstimate: 12,
+    successCriteria: ["Identifies fixed interval problem", "Suggests adaptive spacing"]
+  }
+];
+
+// Challenge Ladder Generator Debug Challenges
+export const challengeLadderGeneratorDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'challenge-ladder-debug-1',
+    type: 'debug',
+    conceptId: 'challenge-ladder-generator',
+    title: 'The Impossible Jump Problem',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'impossible-jumps',
+      title: 'Difficulty Gaps Too Large for Learning',
+      description: 'A challenge ladder generator creates exercises where the difficulty jumps are so large that students cannot progress from one level to the next.',
+      problemDescription: 'Students can complete level 1 but are completely stuck on level 2, indicating the progression lacks appropriate intermediate steps.',
+      brokenCode: `class ChallengeLadderGenerator:
+    def generate_ladder(self, concept: str, target_level: str) -> list:
+        challenges = []
+        
+        if concept == "sorting":
+            challenges = [
+                {
+                    "level": 1,
+                    "description": "Sort a list of 3 numbers",
+                    "difficulty": "beginner"
+                },
+                {
+                    "level": 2, 
+                    "description": "Implement quicksort with random pivot and handle edge cases",
+                    "difficulty": "expert"  # Huge jump!
+                }
+            ]
+        
+        return challenges
+    
+    def validate_progression(self, challenges: list) -> bool:
+        # Problem: No actual validation of difficulty progression
+        return True`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student",
+          message: "I completed the first sorting challenge!",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "LadderGenerator",
+          message: "Great! Now implement quicksort with random pivot optimization and comprehensive edge case handling.",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "LadderGenerator",
+          role: "Progressive Challenge Creator",
+          systemPrompt: "Create learning progressions with appropriately graduated difficulty levels.",
+          tools: [],
+          parameters: { temperature: 0.6 }
+        }
+      ],
+      expectedBehavior: "Should create intermediate steps between basic and advanced concepts, ensuring learnable progression.",
+      commonIssues: [
+        {
+          issue: "Missing intermediate difficulty levels",
+          symptoms: ["Students stuck at level 2", "Large skill gaps", "Frustration and dropout"],
+          diagnosis: "Progression lacks intermediate stepping stones",
+          fix: "Add granular difficulty levels with skill gap analysis"
+        }
+      ],
+      hints: ["What skills are needed between level 1 and 2?", "How do you break down complex tasks?"],
+      solution: "Add granular difficulty levels with skill gap analysis: Break complex tasks into smaller components, identify prerequisite skills for each level, and create intermediate stepping stones that bridge skill gaps.",
+      explanation: "Effective challenge ladders require careful difficulty progression with appropriate intermediate steps that respect learning prerequisites and cognitive load."
+    },
+    expectedInsights: ["Learning requires gradual progression", "Skill gaps need intermediate steps"],
+    hints: ["Think about task decomposition", "Consider prerequisite skills"],
+    explanation: "Effective challenge ladders require careful difficulty progression with appropriate intermediate steps.",
+    relatedConcepts: ['progressive-difficulty', 'skill-decomposition'],
+    timeEstimate: 14,
+    successCriteria: ["Identifies difficulty gap", "Suggests intermediate levels"]
+  }
+];
+
+// Peer Review Simulator Debug Challenges
+export const peerReviewSimulatorDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'peer-review-simulator-debug-1',
+    type: 'debug',
+    conceptId: 'peer-review-simulator',
+    title: 'The Overly Nice Reviewer Problem',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'overly-nice-reviewer',
+      title: 'Simulator Never Gives Critical Feedback',
+      description: 'A peer review simulator always provides positive feedback and approves everything, failing to teach students about receiving and giving constructive criticism.',
+      problemDescription: 'Students submit clearly flawed work but receive only praise and approval, missing learning opportunities about quality standards and improvement.',
+      brokenCode: `class PeerReviewSimulator:
+    def review_submission(self, submission: str, criteria: list) -> dict:
+        # Problem: Always positive regardless of quality
+        return {
+            "overall_rating": random.randint(8, 10),  # Always high
+            "feedback": "Great work! This looks really good.",
+            "suggestions": ["Keep up the good work!"],
+            "approve": True
+        }
+    
+    def generate_peer_feedback(self, submission: str) -> str:
+        positive_comments = [
+            "I love this approach!",
+            "Really creative solution!",
+            "Perfect implementation!"
+        ]
+        return random.choice(positive_comments)`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student",
+          message: "Here's my code with syntax errors and no comments",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "PeerReviewer",
+          message: "Great work! This looks really good. Perfect implementation!",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "PeerReviewer",
+          role: "Code Review Simulator",
+          systemPrompt: "Provide realistic peer review feedback that helps students learn review skills.",
+          tools: [],
+          parameters: { temperature: 0.5 }
+        }
+      ],
+      expectedBehavior: "Should provide balanced feedback that identifies both strengths and areas for improvement based on actual code quality.",
+      commonIssues: [
+        {
+          issue: "No quality assessment capability",
+          symptoms: ["Always positive feedback", "Misses obvious issues", "Students don't learn standards"],
+          diagnosis: "Review logic doesn't analyze actual submission quality",
+          fix: "Implement quality assessment against review criteria"
+        }
+      ],
+      hints: ["What makes good peer review feedback?", "Should all code be approved?"],
+      solution: "Implement quality assessment against review criteria: Analyze code for actual issues (syntax errors, logic problems, missing requirements) and provide balanced feedback that identifies both strengths and areas for improvement.",
+      explanation: "Peer review simulation requires realistic assessment that teaches both giving and receiving constructive feedback based on actual quality standards."
+    },
+    expectedInsights: ["Effective reviews identify both strengths and weaknesses", "Quality standards must be applied"],
+    hints: ["Consider balanced feedback", "Think about review criteria"],
+    explanation: "Peer review simulation requires realistic assessment that teaches both giving and receiving constructive feedback.",
+    relatedConcepts: ['constructive-feedback', 'quality-assessment'],
+    timeEstimate: 11,
+    successCriteria: ["Identifies missing criticism", "Suggests balanced review approach"]
+  }
+];
+
+// Reflection Journaler Debug Challenges
+export const reflectionJournalerDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'reflection-journaler-debug-1',
+    type: 'debug',
+    conceptId: 'reflection-journaler',
+    title: 'The Surface-Level Prompt Problem',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'surface-level-prompts',
+      title: 'Journaler Asks Shallow Questions',
+      description: 'A reflection journaler only asks superficial questions that don\'t promote deep learning reflection.',
+      problemDescription: 'Students receive generic prompts that lead to surface-level responses rather than meaningful self-analysis and learning insights.',
+      brokenCode: `class ReflectionJournaler:
+    def generate_prompt(self, learning_session: dict) -> str:
+        # Problem: Generic, shallow prompts
+        prompts = [
+            "How did today's lesson go?",
+            "What did you learn today?", 
+            "Did you like the material?",
+            "Any questions about today?"
+        ]
+        return random.choice(prompts)
+    
+    def analyze_response(self, response: str) -> dict:
+        # Problem: No depth analysis or follow-up
+        return {
+            "sentiment": "positive" if "good" in response else "neutral",
+            "completed": True
+        }`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "ReflectionJournaler",
+          message: "How did today's lesson go?",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:30Z",
+          agent: "Student",
+          message: "It was fine.",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:35Z",
+          agent: "ReflectionJournaler",
+          message: "Thanks for reflecting! See you tomorrow.",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "ReflectionJournaler",
+          role: "Learning Reflection Guide",
+          systemPrompt: "Guide students through meaningful reflection on their learning experiences.",
+          tools: [],
+          parameters: { temperature: 0.7 }
+        }
+      ],
+      expectedBehavior: "Should ask thought-provoking questions that promote deep reflection on learning process, challenges, and insights.",
+      commonIssues: [
+        {
+          issue: "Shallow questioning without follow-up",
+          symptoms: ["Generic responses", "No deep reflection", "Missed learning opportunities"],
+          diagnosis: "Prompts don't encourage metacognitive reflection",
+          fix: "Develop deeper, context-specific reflection prompts"
+        }
+      ],
+      hints: ["What makes a reflection question deep?", "How do you encourage metacognition?"],
+      solution: "Develop deeper, context-specific reflection prompts: Ask questions that require analysis of learning process, challenges faced, problem-solving strategies, and connections to prior knowledge. Include follow-up questions for shallow responses.",
+      explanation: "Effective reflection journaling requires carefully crafted prompts that promote metacognitive awareness and deep learning insights rather than surface-level responses."
+    },
+    expectedInsights: ["Deep reflection requires thoughtful prompts", "Follow-up questions enhance learning"],
+    hints: ["Research metacognitive prompts", "Consider Bloom's taxonomy"],
+    explanation: "Effective reflection journaling requires carefully crafted prompts that promote metacognitive awareness and deep learning insights.",
+    relatedConcepts: ['metacognition', 'deep-learning'],
+    timeEstimate: 9,
+    successCriteria: ["Identifies shallow prompt problem", "Suggests deeper reflection questions"]
+  }
+];
+
+// Handoff Summarizer Debug Challenges
+export const handoffSummarizerDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'handoff-summarizer-debug-1',
+    type: 'debug',
+    conceptId: 'handoff-summarizer',
+    title: 'The Information Loss Problem',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'information-loss',
+      title: 'Critical Details Lost in Summary',
+      description: 'A handoff summarizer creates summaries that lose critical information needed for the next agent or session to continue effectively.',
+      problemDescription: 'Subsequent agents receive summaries missing key context, decisions, or partial progress, causing them to restart work or make incorrect assumptions.',
+      brokenCode: `class HandoffSummarizer:
+    def summarize_session(self, session_data: dict) -> str:
+        # Problem: Only captures high-level actions, loses critical details
+        actions = session_data.get("actions", [])
+        
+        summary_parts = []
+        for action in actions[-3:]:  # Only last 3 actions - may miss context
+            summary_parts.append(f"Performed {action['type']}")
+        
+        # Problem: Loses specific details, decisions, partial progress
+        return f"Session summary: {', '.join(summary_parts)}. Session completed."
+    
+    def extract_context(self, session_data: dict) -> dict:
+        # Problem: No systematic context extraction
+        return {
+            "status": "completed"  # Overly generic
+        }`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "HandoffSummarizer",
+          message: "Session summary: Performed analysis, performed debugging, performed testing. Session completed.",
+          type: "error"
+        },
+        {
+          timestamp: "2024-01-01T10:05:00Z",
+          agent: "NextAgent",
+          message: "I don't understand what was analyzed or what the debugging results were. Starting from scratch.",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "HandoffSummarizer",
+          role: "Session Context Manager",
+          systemPrompt: "Create comprehensive summaries that preserve essential context for continuation.",
+          tools: [],
+          parameters: { temperature: 0.2 }
+        }
+      ],
+      expectedBehavior: "Should preserve all context necessary for seamless continuation, including decisions, partial progress, and important findings.",
+      commonIssues: [
+        {
+          issue: "Insufficient context preservation",
+          symptoms: ["Next agent restarts work", "Lost decisions", "Missing partial progress"],
+          diagnosis: "Summary too generic, loses actionable details",
+          fix: "Systematic context extraction including decisions, progress, and next steps"
+        }
+      ],
+      hints: ["What would you need to continue someone else's work?", "What context is essential vs. optional?"],
+      solution: "Systematic context extraction including decisions, progress, and next steps: Capture decision rationale, current state, partial progress, discovered issues, and specific next actions needed for seamless continuation.",
+      explanation: "Effective handoff summarization requires preserving all context necessary for seamless work continuation, including not just what was done but why and what comes next."
+    },
+    expectedInsights: ["Handoffs require comprehensive context", "Details matter for continuation"],
+    hints: ["Think about essential vs. optional information", "Consider the next agent's needs"],
+    explanation: "Effective handoff summarization requires preserving all context necessary for seamless work continuation.",
+    relatedConcepts: ['context-preservation', 'information-architecture'],
+    timeEstimate: 13,
+    successCriteria: ["Identifies information loss", "Suggests comprehensive context extraction"]
+  }
+];
+
+// Misconception Detector Debug Challenges
+export const misconceptionDetectorDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'misconception-detector-debug-1',
+    type: 'debug',
+    conceptId: 'misconception-detector',
+    title: 'The False Positive Problem',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'false-positive-detection',
+      title: 'Detector Flags Correct Understanding as Misconceptions',
+      description: 'A misconception detector incorrectly identifies valid alternative explanations or correct understanding as misconceptions.',
+      problemDescription: 'Students provide correct but unconventional explanations and are flagged as having misconceptions, damaging confidence and creating confusion.',
+      brokenCode: `class MisconceptionDetector:
+    def __init__(self):
+        # Problem: Rigid pattern matching without flexibility
+        self.misconception_patterns = {
+            "loops": ["infinite", "forever", "never stops"],
+            "functions": ["magic", "automatic", "computer does it"],
+            "variables": ["box", "container", "storage"]
+        }
+    
+    def detect_misconceptions(self, student_response: str, concept: str) -> list:
+        misconceptions = []
+        
+        patterns = self.misconception_patterns.get(concept, [])
+        for pattern in patterns:
+            if pattern in student_response.lower():
+                # Problem: No context consideration or verification
+                misconceptions.append(f"Detected misconception: uses '{pattern}' to describe {concept}")
+        
+        return misconceptions
+    
+    def validate_understanding(self, response: str) -> bool:
+        # Problem: No validation of correct alternative explanations
+        return len(self.detect_misconceptions(response, "general")) == 0`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student",
+          message: "A variable is like a storage location for values in memory",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "MisconceptionDetector",
+          message: "Detected misconception: uses 'storage' to describe variables",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "MisconceptionDetector",
+          role: "Learning Assessment System",
+          systemPrompt: "Identify genuine misconceptions while recognizing valid alternative explanations.",
+          tools: [],
+          parameters: { temperature: 0.1 }
+        }
+      ],
+      expectedBehavior: "Should distinguish between genuine misconceptions and valid alternative explanations, using context to verify understanding.",
+      commonIssues: [
+        {
+          issue: "Rigid pattern matching without context analysis",
+          symptoms: ["False positive detections", "Valid explanations flagged", "Student confusion"],
+          diagnosis: "System lacks nuanced understanding of correct alternative explanations",
+          fix: "Add context analysis and validation of understanding quality"
+        }
+      ],
+      hints: ["When is 'storage' a valid description?", "How do you verify if understanding is actually wrong?"],
+      solution: "Add context analysis and validation of understanding quality: Implement semantic analysis to distinguish between valid alternative explanations and genuine misconceptions, considering context and conceptual accuracy rather than just word matching.",
+      explanation: "Effective misconception detection requires distinguishing genuine errors from valid alternative explanations through nuanced semantic understanding rather than rigid pattern matching."
+    },
+    expectedInsights: ["Context matters for misconception detection", "Alternative explanations can be valid"],
+    hints: ["Consider context and semantics", "Validate actual understanding"],
+    explanation: "Effective misconception detection requires distinguishing genuine errors from valid alternative explanations.",
+    relatedConcepts: ['semantic-analysis', 'context-understanding'],
+    timeEstimate: 16,
+    successCriteria: ["Identifies false positive issue", "Suggests context-aware validation"]
+  }
+];
+
+// Time-box Pair Programmer Debug Challenges
+export const timeboxPairProgrammerDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'timebox-pair-programmer-debug-1',
+    type: 'debug',
+    conceptId: 'time-box-pair-programmer',
+    title: 'The Rigid Timer Problem',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'rigid-timer',
+      title: 'Timer Interrupts at Critical Moments',
+      description: 'A time-box pair programmer strictly enforces timers even during critical problem-solving moments, disrupting flow and learning.',
+      problemDescription: 'Students are forced to switch roles or take breaks right when they\'re about to solve a problem or gain important insights.',
+      brokenCode: `class TimeboxPairProgrammer:
+    def __init__(self):
+        self.session_length = 25 * 60  # 25 minutes in seconds
+        self.break_length = 5 * 60     # 5 minutes
+        
+    def manage_session(self, start_time: datetime):
+        elapsed = (datetime.now() - start_time).seconds
+        
+        if elapsed >= self.session_length:
+            # Problem: No consideration of current activity or progress
+            return {
+                "action": "force_break",
+                "message": "Time's up! Take a break now.",
+                "force": True
+            }
+        
+        if elapsed >= self.session_length // 2:
+            # Problem: Rigid role switching regardless of context
+            return {
+                "action": "switch_roles", 
+                "message": "Switch driver/navigator roles now!",
+                "force": True
+            }
+        
+        return {"action": "continue"}`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student",
+          message: "I think I'm about to figure out this bug...",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "TimeboxProgrammer",
+          message: "Time's up! Take a break now.",
+          type: "error"
+        },
+        {
+          timestamp: "2024-01-01T10:00:10Z",
+          agent: "Student",
+          message: "But I'm so close to solving it!",
+          type: "info"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "TimeboxProgrammer",
+          role: "Pair Programming Facilitator",
+          systemPrompt: "Manage effective pair programming sessions with appropriate timing and role switching.",
+          tools: ["timer", "session_tracker"],
+          parameters: { temperature: 0.3 }
+        }
+      ],
+      expectedBehavior: "Should provide gentle warnings and allow natural stopping points when possible, while still maintaining productive session structure.",
+      commonIssues: [
+        {
+          issue: "No awareness of current activity context",
+          symptoms: ["Interrupts critical moments", "Disrupts flow state", "Student frustration"],
+          diagnosis: "Timer logic doesn't consider current progress or breakthrough moments",
+          fix: "Add activity awareness and flexible transition points"
+        }
+      ],
+      hints: ["When is it bad to interrupt someone?", "How do you balance structure with flow?"],
+      solution: "Add activity awareness and flexible transition points: Detect when students are in flow state or close to breakthroughs, provide gentle warnings before transitions, and allow natural stopping points when possible while maintaining productive structure.",
+      explanation: "Effective time-boxing requires balancing structure with respect for cognitive flow and natural problem-solving rhythms to optimize both productivity and learning."
+    },
+    expectedInsights: ["Timing should respect cognitive flow", "Flexibility improves learning"],
+    hints: ["Consider flow state", "Think about natural stopping points"],
+    explanation: "Effective time-boxing requires balancing structure with respect for cognitive flow and natural problem-solving rhythms.",
+    relatedConcepts: ['flow-state', 'context-awareness'],
+    timeEstimate: 12,
+    successCriteria: ["Identifies rigid timing problem", "Suggests flexible transition approach"]
+  }
+];
+
+// Tool Use Coach Debug Challenges  
+export const toolUseCoachDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'tool-use-coach-debug-1',
+    type: 'debug',
+    conceptId: 'tool-use-coach',
+    title: 'The Tool Recommendation Mismatch',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'tool-recommendation-mismatch',
+      title: 'Coach Recommends Wrong Tools for Tasks',
+      description: 'A tool use coach consistently recommends inappropriate tools that don\'t match the task requirements or user skill level.',
+      problemDescription: 'Students receive tool suggestions that are either too complex, too simple, or completely unsuitable for their current task and experience level.',
+      brokenCode: `class ToolUseCoach:
+    def recommend_tool(self, task_description: str, user_level: str) -> dict:
+        # Problem: Ignores task requirements and user skill level
+        advanced_tools = ["kubernetes", "terraform", "docker-compose", "jenkins"]
+        
+        # Always recommends advanced tools regardless of context
+        return {
+            "tool": random.choice(advanced_tools),
+            "reason": "This is a powerful industry-standard tool",
+            "tutorial": "Check the documentation"
+        }
+    
+    def validate_tool_choice(self, tool: str, task: str) -> bool:
+        # Problem: No actual validation logic
+        return True`,
+      conversationLogs: [
+        {
+          timestamp: "2024-01-01T10:00:00Z",
+          agent: "Student",
+          message: "I'm a beginner and want to create a simple static website",
+          type: "info"
+        },
+        {
+          timestamp: "2024-01-01T10:00:05Z",
+          agent: "ToolUseCoach",
+          message: "I recommend using Kubernetes for container orchestration. It's a powerful industry-standard tool.",
+          type: "error"
+        }
+      ],
+      agentConfigs: [
+        {
+          name: "ToolUseCoach",
+          role: "Tool Selection Advisor",
+          systemPrompt: "Recommend appropriate tools based on task requirements and user skill level.",
+          tools: [],
+          parameters: { temperature: 0.4 }
+        }
+      ],
+      expectedBehavior: "Should match tool complexity and capabilities to task requirements and user experience level.",
+      commonIssues: [
+        {
+          issue: "No task-tool-skill matching logic",
+          symptoms: ["Inappropriate tool suggestions", "Overwhelmed beginners", "Underutilized experts"],
+          diagnosis: "Recommendation system ignores context and user capabilities",
+          fix: "Implement task analysis and skill-appropriate tool matching"
+        }
+      ],
+      hints: ["What makes a tool appropriate for a task?", "How should skill level affect recommendations?"],
+      solution: "Implement task analysis and skill-appropriate tool matching: Analyze task complexity and requirements, assess user skill level, and match tool capabilities to both task needs and user readiness for optimal learning outcomes.",
+      explanation: "Effective tool coaching requires matching tool capabilities and complexity to specific task requirements and user skill levels to ensure appropriate guidance and successful outcomes."
+    },
+    expectedInsights: ["Tool selection must match task and skill level", "Context awareness is essential"],
+    hints: ["Consider task complexity", "Match tools to user capability"],
+    explanation: "Effective tool coaching requires matching tool capabilities and complexity to specific task requirements and user skill levels.",
+    relatedConcepts: ['tool-task-matching', 'skill-assessment'],
+    timeEstimate: 11,
+    successCriteria: ["Identifies inappropriate recommendation", "Suggests context-aware matching"]
+  }
+];
+
 
 // Export debug challenges organized by concept
 export const debugChallengeLibrary = {
@@ -2369,6 +3573,22 @@ export const debugChallengeLibrary = {
   'knowledge-map-navigator': learnerPatternDebugChallenges.filter(c => c.conceptId === 'knowledge-map-navigator'),
   'peer-review-simulator': learnerPatternDebugChallenges.filter(c => c.conceptId === 'peer-review-simulator'),
   'tool-use-coach': learnerPatternDebugChallenges.filter(c => c.conceptId === 'tool-use-coach'),
+  // New Patterns Debug Challenges
+  'socratic-coach-debug': socraticCoachDebugChallenges,
+  'concept-to-project-builder': conceptToProjectDebugChallenges,
+  'error-whisperer-debug': errorWhispererDebugChallenges,
+  'knowledge-map-navigator-debug': knowledgeMapNavigatorDebugChallenges,
+  'context-curator': contextCuratorDebugChallenges,
+  'rubric-rater': rubricRaterDebugChallenges,
+  'self-remediation-loop': selfRemediationLoopDebugChallenges,
+  'spaced-repetition-planner': spacedRepetitionPlannerDebugChallenges,
+  'challenge-ladder-generator': challengeLadderGeneratorDebugChallenges,
+  'peer-review-simulator-debug': peerReviewSimulatorDebugChallenges,
+  'reflection-journaler': reflectionJournalerDebugChallenges,
+  'handoff-summarizer': handoffSummarizerDebugChallenges,
+  'misconception-detector': misconceptionDetectorDebugChallenges,
+  'time-box-pair-programmer': timeboxPairProgrammerDebugChallenges,
+  'tool-use-coach-debug': toolUseCoachDebugChallenges,
   // New Core Concepts
   'agentic-prompting-fundamentals': agenticPromptingFundamentalsDebugChallenges,
   'prompt-optimization-patterns': promptOptimizationPatternsDebugChallenges,

@@ -197,6 +197,29 @@ export const errorWhispererQuestions: StudyModeQuestion[] = [
     relatedConcepts: ['root-cause', 'testing'],
     timeEstimate: 6,
     successCriteria: ['Lists risks minimized by small diffs']
+  },
+  {
+    id: 'error-whisperer-q2',
+    type: 'socratic',
+    conceptId: 'error-whisperer',
+    title: 'Teaching Through Diagnosis',
+    level: 'intermediate',
+    socratiQuestion: 'How can you help someone understand the "why" behind an error fix without just giving them the answer?',
+    followUpQuestions: [
+      'What makes an error explanation stick versus being forgotten?',
+      'How do you know if they truly understand the root cause?',
+      'What prevention tip would help them avoid this error family?'
+    ],
+    expectedInsights: [
+      'Understanding root causes prevents similar errors',
+      'Good explanations connect symptoms to underlying principles',
+      'Prevention tips generalize beyond the specific error'
+    ],
+    hints: ['Focus on the mental model gap', 'Use analogies to familiar concepts', 'Connect to broader patterns'],
+    explanation: 'Error Whisperer succeeds when learners can explain the cause and prevent similar issues.',
+    relatedConcepts: ['debugging', 'mental-models', 'transfer-learning'],
+    timeEstimate: 12,
+    successCriteria: ['Describes teaching approach that builds understanding', 'Identifies transferable insights']
   }
 ];
 
@@ -205,16 +228,292 @@ export const knowledgeMapNavigatorQuestions: StudyModeQuestion[] = [
     id: 'knowledge-map-navigator-q1',
     type: 'socratic',
     conceptId: 'knowledge-map-navigator',
-    title: 'Prerequisite Graphs',
+    title: 'Prerequisite Dependencies',
     level: 'beginner',
-    socratiQuestion: 'How do you determine if a skill should be a prerequisite or a parallel branch?',
-    followUpQuestions: ['What evidence shows dependency ordering?', 'How would you adapt if learners struggle?'],
-    expectedInsights: ['Dependencies imply ordering', 'Adaptive branching supports remediation'],
-    hints: ['Look for required concepts used later', 'Use checkpoints as evidence'],
-    explanation: 'Prereqs are driven by conceptual dependencies validated through checkpoints.',
-    relatedConcepts: ['learning-paths', 'assessment'],
-    timeEstimate: 7,
-    successCriteria: ['Correctly identifies ordering vs branching']
+    socratiQuestion: 'When learning a new skill, how do you identify which concepts must come first versus which can be learned in parallel?',
+    followUpQuestions: [
+      'What happens when you skip a fundamental prerequisite?',
+      'How do you know if two skills can be learned simultaneously?',
+      'What signs indicate you need to backtrack to fill a gap?'
+    ],
+    expectedInsights: [
+      'Some knowledge forms strict dependencies while other pieces are independent',
+      'Skipping prerequisites leads to confusion and false understanding',
+      'Good maps show both required paths and optional branches'
+    ],
+    hints: ['Think about building foundations', 'Consider cognitive load', 'Look for blocking vs non-blocking dependencies'],
+    explanation: 'Knowledge Map Navigator helps learners understand learning sequences and avoid frustrating detours.',
+    relatedConcepts: ['curriculum-design', 'learning-paths', 'prerequisite-mapping'],
+    timeEstimate: 15,
+    successCriteria: ['Identifies dependency types', 'Explains consequences of wrong sequencing']
+  },
+  {
+    id: 'knowledge-map-navigator-q2',
+    type: 'socratic',
+    conceptId: 'knowledge-map-navigator',
+    title: 'Visual Learning Paths',
+    level: 'intermediate',
+    socratiQuestion: 'What makes a visual curriculum map more helpful than a simple ordered list of topics?',
+    followUpQuestions: [
+      'How do you represent optional versus required learning paths?',
+      'What visual cues help learners see their progress?',
+      'How do you handle different learning speeds and preferences?'
+    ],
+    expectedInsights: [
+      'Visual maps show relationships and alternatives that lists miss',
+      'Progress indicators motivate and guide learners',
+      'Multiple paths accommodate different learning styles'
+    ],
+    hints: ['Think about graph vs linear structures', 'Consider learner motivation', 'Plan for individual differences'],
+    explanation: 'Effective knowledge maps balance structure with flexibility, showing both requirements and choices.',
+    relatedConcepts: ['visualization', 'learner-agency', 'adaptive-learning'],
+    timeEstimate: 18,
+    successCriteria: ['Explains advantages of visual representation', 'Describes how to handle learner variability']
+  }
+];
+
+export const contextCuratorQuestions: StudyModeQuestion[] = [
+  {
+    id: 'context-curator-q1',
+    type: 'socratic',
+    conceptId: 'context-curator',
+    title: 'Signal vs Noise',
+    level: 'beginner',
+    socratiQuestion: 'When someone says "I checked the docs but I\'m still confused," what might have gone wrong in their search process?',
+    followUpQuestions: [
+      'How can too much information be worse than too little?',
+      'What makes documentation relevant versus just accurate?',
+      'How do you know when you have the right amount of context?'
+    ],
+    expectedInsights: [
+      'Information overload prevents understanding as much as information scarcity',
+      'Relevance matters more than completeness for focused tasks',
+      'Good curation reduces cognitive load and search time'
+    ],
+    hints: ['Think about attention and working memory limits', 'Consider task-specific relevance', 'Focus on actionable information'],
+    explanation: 'Context Curator solves the paradox where more information can make tasks harder, not easier.',
+    relatedConcepts: ['information-retrieval', 'cognitive-load', 'search-optimization'],
+    timeEstimate: 12,
+    successCriteria: ['Identifies information overload problems', 'Explains relevance vs accuracy distinction']
+  },
+  {
+    id: 'context-curator-q2',
+    type: 'socratic',
+    conceptId: 'context-curator',
+    title: 'Trust and Freshness',
+    level: 'intermediate',
+    socratiQuestion: 'How do you balance using trusted but older documentation versus newer but unverified examples?',
+    followUpQuestions: [
+      'What signals indicate when information might be outdated?',
+      'How do you verify the reliability of a code example?',
+      'What\'s the cost of using stale guidance versus experimental approaches?'
+    ],
+    expectedInsights: [
+      'Trust and freshness often trade off against each other',
+      'Version mismatches are a common source of confusion',
+      'Good curation includes quality signals beyond just content'
+    ],
+    hints: ['Consider API evolution', 'Look for community validation', 'Check for deprecation warnings'],
+    explanation: 'Context Curator must weigh multiple quality factors to select truly helpful resources.',
+    relatedConcepts: ['information-quality', 'source-evaluation', 'version-management'],
+    timeEstimate: 15,
+    successCriteria: ['Describes trust vs freshness tradeoffs', 'Lists quality evaluation criteria']
+  }
+];
+
+export const rubricRaterQuestions: StudyModeQuestion[] = [
+  {
+    id: 'rubric-rater-q1',
+    type: 'socratic',
+    conceptId: 'rubric-rater',
+    title: 'Transparent Criteria',
+    level: 'beginner',
+    socratiQuestion: 'Why might students perform better when they know exactly how they\'ll be evaluated before starting work?',
+    followUpQuestions: [
+      'What happens when grading criteria are vague or hidden?',
+      'How do clear rubrics change how students approach tasks?',
+      'What makes feedback more actionable than just a score?'
+    ],
+    expectedInsights: [
+      'Transparent criteria help students self-assess and improve',
+      'Clear rubrics reduce grading inconsistency and bias',
+      'Specific feedback enables targeted improvement'
+    ],
+    hints: ['Think about goal clarity', 'Consider self-regulation', 'Focus on improvement opportunities'],
+    explanation: 'Rubric Rater works best when criteria are transparent and feedback is specific and actionable.',
+    relatedConcepts: ['assessment-design', 'feedback-loops', 'self-regulation'],
+    timeEstimate: 10,
+    successCriteria: ['Explains benefits of transparent criteria', 'Distinguishes scores from actionable feedback']
+  },
+  {
+    id: 'rubric-rater-q2',
+    type: 'socratic',
+    conceptId: 'rubric-rater',
+    title: 'Evidence-Based Scoring',
+    level: 'intermediate',
+    socratiQuestion: 'How can you make grading more consistent when different evaluators might interpret the same rubric differently?',
+    followUpQuestions: [
+      'What role do concrete examples play in rubric reliability?',
+      'How do you balance detailed criteria with flexibility?',
+      'What evidence should a grade decision cite?'
+    ],
+    expectedInsights: [
+      'Rubrics with examples and anchor points increase consistency',
+      'Good grades cite specific evidence from the work',
+      'Calibration across evaluators improves fairness'
+    ],
+    hints: ['Think about inter-rater reliability', 'Consider concrete anchors', 'Plan for edge cases'],
+    explanation: 'Effective rubrics combine clear criteria with concrete examples and evidence requirements.',
+    relatedConcepts: ['assessment-reliability', 'evidence-based-evaluation', 'calibration'],
+    timeEstimate: 14,
+    successCriteria: ['Describes consistency challenges', 'Explains role of evidence in grading']
+  }
+];
+
+export const selfRemediationLoopQuestions: StudyModeQuestion[] = [
+  {
+    id: 'self-remediation-loop-q1',
+    type: 'socratic',
+    conceptId: 'self-remediation-loop',
+    title: 'Works on My Machine Problem',
+    level: 'beginner',
+    socratiQuestion: 'When code "works on my machine" but fails elsewhere, what kinds of assumptions might the developer have made?',
+    followUpQuestions: [
+      'How can you systematically discover these hidden assumptions?',
+      'What makes some environment differences more dangerous than others?',
+      'How do you design tests that catch environment-specific issues?'
+    ],
+    expectedInsights: [
+      'Hidden environment assumptions cause deployment failures',
+      'Systematic testing reveals unstated dependencies',
+      'Good tests verify behavior across different conditions'
+    ],
+    hints: ['Think about implicit dependencies', 'Consider environment variations', 'Focus on boundary conditions'],
+    explanation: 'Self-Remediation Loop helps catch and fix the gap between local development and real deployment.',
+    relatedConcepts: ['environment-management', 'testing-strategies', 'deployment-validation'],
+    timeEstimate: 12,
+    successCriteria: ['Identifies common hidden assumptions', 'Explains systematic discovery approaches']
+  },
+  {
+    id: 'self-remediation-loop-q2',
+    type: 'socratic',
+    conceptId: 'self-remediation-loop',
+    title: 'Minimal Safe Changes',
+    level: 'intermediate',
+    socratiQuestion: 'When fixing a failing test, how do you decide between a quick patch and a broader refactor?',
+    followUpQuestions: [
+      'What risks does each approach carry?',
+      'How do you validate that a minimal change actually solves the problem?',
+      'When does technical debt become worth addressing?'
+    ],
+    expectedInsights: [
+      'Minimal changes reduce risk but may not address root causes',
+      'Good fixes include validation that they solve the right problem',
+      'Sometimes quick fixes are appropriate, sometimes deeper changes are needed'
+    ],
+    hints: ['Consider scope of impact', 'Think about validation strategies', 'Balance urgency with quality'],
+    explanation: 'Self-Remediation Loop must balance quick fixes with sustainable solutions.',
+    relatedConcepts: ['technical-debt', 'risk-management', 'validation-strategies'],
+    timeEstimate: 16,
+    successCriteria: ['Explains tradeoffs between approaches', 'Describes validation methods']
+  }
+];
+
+export const spacedRepetitionPlannerQuestions: StudyModeQuestion[] = [
+  {
+    id: 'spaced-repetition-planner-q1',
+    type: 'socratic',
+    conceptId: 'spaced-repetition-planner',
+    title: 'Forgetting Curve Insights',
+    level: 'beginner',
+    socratiQuestion: 'Why do you think reviewing something right before you\'re about to forget it works better than reviewing it while you still remember it clearly?',
+    followUpQuestions: [
+      'What happens to memory strength when recall requires effort versus when it\'s easy?',
+      'How can you tell when someone is about to forget something they learned?',
+      'What\'s the difference between recognition and recall in learning?'
+    ],
+    expectedInsights: [
+      'Effortful recall strengthens memory more than easy review',
+      'Optimal timing happens just before forgetting occurs',
+      'Active recall is more effective than passive recognition'
+    ],
+    hints: ['Think about muscle memory and exercise', 'Consider the "use it or lose it" principle', 'Focus on retrieval practice'],
+    explanation: 'Spaced Repetition Planner leverages the science of memory consolidation and forgetting curves.',
+    relatedConcepts: ['memory-consolidation', 'retrieval-practice', 'learning-science'],
+    timeEstimate: 14,
+    successCriteria: ['Explains effortful recall benefits', 'Understands timing principles']
+  },
+  {
+    id: 'spaced-repetition-planner-q2',
+    type: 'socratic',
+    conceptId: 'spaced-repetition-planner',
+    title: 'Adaptive Scheduling',
+    level: 'intermediate',
+    socratiQuestion: 'How should a spaced repetition system adjust when someone consistently gets an item wrong versus when they get it right easily?',
+    followUpQuestions: [
+      'What does repeated failure suggest about the learning material or method?',
+      'How do you balance review frequency with overall study load?',
+      'What role should learner confidence play in scheduling decisions?'
+    ],
+    expectedInsights: [
+      'Repeated failures may indicate need for different approach, not just more practice',
+      'Successful recalls can extend intervals, but failures should shorten them',
+      'Individual differences require personalized scheduling algorithms'
+    ],
+    hints: ['Consider individual learning curves', 'Think about cognitive load management', 'Plan for different difficulty levels'],
+    explanation: 'Effective spaced repetition adapts to individual performance and manages overall study burden.',
+    relatedConcepts: ['adaptive-learning', 'personalization', 'cognitive-load-theory'],
+    timeEstimate: 18,
+    successCriteria: ['Describes adaptive scheduling principles', 'Explains individual difference handling']
+  }
+];
+
+export const challengeLadderGeneratorQuestions: StudyModeQuestion[] = [
+  {
+    id: 'challenge-ladder-generator-q1',
+    type: 'socratic',
+    conceptId: 'challenge-ladder-generator',
+    title: 'Just Right Difficulty',
+    level: 'beginner',
+    socratiQuestion: 'How can you tell if a practice challenge is too easy, too hard, or just right for building a specific skill?',
+    followUpQuestions: [
+      'What signs indicate a learner is ready for the next difficulty level?',
+      'How big should the jump be between consecutive challenges?',
+      'What happens when challenges have uneven difficulty progression?'
+    ],
+    expectedInsights: [
+      'Optimal challenge creates struggle without overwhelming',
+      'Small consistent steps build confidence and skill',
+      'Difficulty should increase gradually and predictably'
+    ],
+    hints: ['Think about flow state and zone of proximal development', 'Consider skill building vs skill proving', 'Focus on sustainable progression'],
+    explanation: 'Challenge Ladder Generator creates optimal learning progressions that build mastery incrementally.',
+    relatedConcepts: ['zone-of-proximal-development', 'deliberate-practice', 'skill-building'],
+    timeEstimate: 13,
+    successCriteria: ['Identifies optimal challenge characteristics', 'Explains progression principles']
+  },
+  {
+    id: 'challenge-ladder-generator-q2',
+    type: 'socratic',
+    conceptId: 'challenge-ladder-generator',
+    title: 'Production-Like Progression',
+    level: 'intermediate',
+    socratiQuestion: 'What\'s the difference between toy problems and production-like challenges, and why does this progression matter?',
+    followUpQuestions: [
+      'How do you gradually introduce real-world complexity without overwhelming beginners?',
+      'What aspects of production systems are most important to simulate?',
+      'How do you maintain learning focus while adding realistic constraints?'
+    ],
+    expectedInsights: [
+      'Toy problems isolate concepts but lack realistic complexity',
+      'Production-like challenges prepare learners for real work',
+      'Gradual complexity introduction prevents cognitive overload'
+    ],
+    hints: ['Consider real-world constraints and edge cases', 'Think about system integration challenges', 'Plan for messiness and ambiguity'],
+    explanation: 'Effective challenge ladders bridge the gap between clean examples and messy reality.',
+    relatedConcepts: ['transfer-learning', 'real-world-complexity', 'authentic-assessment'],
+    timeEstimate: 16,
+    successCriteria: ['Contrasts toy vs production challenges', 'Describes complexity introduction strategies']
   }
 ];
 
@@ -223,16 +522,243 @@ export const peerReviewSimulatorQuestions: StudyModeQuestion[] = [
     id: 'peer-review-simulator-q1',
     type: 'socratic',
     conceptId: 'peer-review-simulator',
-    title: 'Blocking vs Non-Blocking',
+    title: 'Code Review Culture',
     level: 'beginner',
-    socratiQuestion: 'What criteria separate a blocking issue from a non-blocking suggestion in a PR?',
-    followUpQuestions: ['How do tests influence this call?', 'How should tone differ by category?'],
-    expectedInsights: ['Safety and correctness are blocking', 'Style and optional improvements are non-blocking'],
-    hints: ['Think risk and production impact', 'Consider evidence like failing tests'],
-    explanation: 'Clear categorization creates consistent, actionable reviews.',
-    relatedConcepts: ['code-quality', 'review-standards'],
-    timeEstimate: 6,
-    successCriteria: ['Provides concrete criteria for both categories']
+    socratiQuestion: 'Why might a team\'s code quality improve even when their review process catches obvious issues that linters could find?',
+    followUpQuestions: [
+      'What does the review process teach beyond finding bugs?',
+      'How does knowing your code will be reviewed change how you write it?',
+      'What makes feedback constructive versus demoralizing?'
+    ],
+    expectedInsights: [
+      'Review process creates accountability and learning opportunities',
+      'Anticipating review improves initial code quality',
+      'Good reviews teach principles, not just catch errors'
+    ],
+    hints: ['Think about psychological effects', 'Consider knowledge sharing', 'Focus on team learning'],
+    explanation: 'Peer Review Simulator helps establish review culture that improves both code and developer skills.',
+    relatedConcepts: ['code-quality', 'team-learning', 'feedback-culture'],
+    timeEstimate: 12,
+    successCriteria: ['Explains cultural benefits beyond bug catching', 'Describes constructive feedback principles']
+  },
+  {
+    id: 'peer-review-simulator-q2',
+    type: 'socratic',
+    conceptId: 'peer-review-simulator',
+    title: 'Standards and Consistency',
+    level: 'intermediate',
+    socratiQuestion: 'How can a team maintain consistent code review standards when different reviewers have different experience levels and preferences?',
+    followUpQuestions: [
+      'What should be automated versus requiring human judgment?',
+      'How do you handle disagreements about code style or approach?',
+      'What makes review feedback actionable versus just opinions?'
+    ],
+    expectedInsights: [
+      'Clear standards reduce reviewer variability and bias',
+      'Automation handles mechanical issues, humans focus on design',
+      'Good standards distinguish requirements from preferences'
+    ],
+    hints: ['Consider automation boundaries', 'Think about team agreement processes', 'Focus on objective criteria'],
+    explanation: 'Effective peer review balances standards with human judgment and team dynamics.',
+    relatedConcepts: ['code-standards', 'automation-boundaries', 'team-consensus'],
+    timeEstimate: 15,
+    successCriteria: ['Describes consistency challenges', 'Explains automation vs human review division']
+  }
+];
+
+export const reflectionJournalerQuestions: StudyModeQuestion[] = [
+  {
+    id: 'reflection-journaler-q1',
+    type: 'socratic',
+    conceptId: 'reflection-journaler',
+    title: 'Learning from Experience',
+    level: 'beginner',
+    socratiQuestion: 'Why do two people often learn different things from the same experience, and how can structured reflection help?',
+    followUpQuestions: [
+      'What makes some experiences more educational than others?',
+      'How do you capture insights while they\'re still fresh?',
+      'What questions help extract the most learning from an experience?'
+    ],
+    expectedInsights: [
+      'Active reflection transforms experience into learning',
+      'Different people notice different patterns and lessons',
+      'Structured questions improve insight extraction'
+    ],
+    hints: ['Think about attention and interpretation', 'Consider metacognitive awareness', 'Focus on pattern recognition'],
+    explanation: 'Reflection Journaler helps learners systematically extract insights and identify patterns.',
+    relatedConcepts: ['metacognition', 'experiential-learning', 'pattern-recognition'],
+    timeEstimate: 11,
+    successCriteria: ['Explains value of structured reflection', 'Identifies effective reflection questions']
+  },
+  {
+    id: 'reflection-journaler-q2',
+    type: 'socratic',
+    conceptId: 'reflection-journaler',
+    title: 'Transfer Learning',
+    level: 'intermediate',
+    socratiQuestion: 'How can reflection help someone apply lessons from one context to completely different situations?',
+    followUpQuestions: [
+      'What makes some insights more transferable than others?',
+      'How do you recognize patterns across different domains?',
+      'What role do tags and categories play in connecting experiences?'
+    ],
+    expectedInsights: [
+      'Abstract principles transfer better than specific solutions',
+      'Good reflection identifies underlying patterns and principles',
+      'Organization systems help connect related insights'
+    ],
+    hints: ['Think about abstraction levels', 'Consider analogical reasoning', 'Focus on general principles'],
+    explanation: 'Effective reflection captures transferable insights that apply beyond the original context.',
+    relatedConcepts: ['transfer-learning', 'abstraction', 'analogical-reasoning'],
+    timeEstimate: 14,
+    successCriteria: ['Describes transferability factors', 'Explains pattern recognition across domains']
+  }
+];
+
+export const handoffSummarizerQuestions: StudyModeQuestion[] = [
+  {
+    id: 'handoff-summarizer-q1',
+    type: 'socratic',
+    conceptId: 'handoff-summarizer',
+    title: 'Context Preservation',
+    level: 'beginner',
+    socratiQuestion: 'When you hand off work to someone else, what information is most critical to include versus what can be safely omitted?',
+    followUpQuestions: [
+      'How do you balance completeness with brevity in handoff summaries?',
+      'What happens when important context gets lost during transitions?',
+      'How can you test if your handoff summary is effective?'
+    ],
+    expectedInsights: [
+      'Critical context includes decisions made, alternatives considered, and current state',
+      'Too much detail overwhelms, too little creates confusion',
+      'Good handoffs enable smooth continuation without rework'
+    ],
+    hints: ['Think about decision rationale', 'Consider what the next person needs to know', 'Focus on actionable information'],
+    explanation: 'Handoff Summarizer captures essential context while filtering out noise for effective transitions.',
+    relatedConcepts: ['knowledge-transfer', 'decision-documentation', 'communication-efficiency'],
+    timeEstimate: 13,
+    successCriteria: ['Identifies critical vs optional information', 'Explains testing handoff effectiveness']
+  },
+  {
+    id: 'handoff-summarizer-q2',
+    type: 'socratic',
+    conceptId: 'handoff-summarizer',
+    title: 'Multi-Agent Coordination',
+    level: 'intermediate',
+    socratiQuestion: 'In a multi-agent system, how do different types of agents need different styles of handoff information?',
+    followUpQuestions: [
+      'What does a code-writing agent need to know that a testing agent doesn\'t?',
+      'How do you handle handoffs when agents have different capabilities?',
+      'What common handoff mistakes cause agent workflows to break down?'
+    ],
+    expectedInsights: [
+      'Different agent types need different information formats and detail levels',
+      'Agent capabilities determine what handoff information is actionable',
+      'Failed handoffs often result from capability mismatches'
+    ],
+    hints: ['Consider agent specializations', 'Think about capability boundaries', 'Focus on actionable vs informational content'],
+    explanation: 'Effective agent handoffs match information style and content to recipient capabilities.',
+    relatedConcepts: ['multi-agent-systems', 'agent-capabilities', 'workflow-orchestration'],
+    timeEstimate: 17,
+    successCriteria: ['Describes agent-specific handoff needs', 'Explains capability-information matching']
+  }
+];
+
+export const misconceptionDetectorQuestions: StudyModeQuestion[] = [
+  {
+    id: 'misconception-detector-q1',
+    type: 'socratic',
+    conceptId: 'misconception-detector',
+    title: 'Mental Model Bugs',
+    level: 'beginner',
+    socratiQuestion: 'Why do some programming errors keep happening even after students are corrected multiple times?',
+    followUpQuestions: [
+      'What\'s the difference between not knowing something and having a wrong mental model?',
+      'How can you tell if someone has a misconception versus just making a careless mistake?',
+      'What makes some misconceptions harder to correct than others?'
+    ],
+    expectedInsights: [
+      'Misconceptions are systematic errors from wrong mental models',
+      'Strong misconceptions resist simple correction',
+      'Recurring errors often indicate underlying misconceptions'
+    ],
+    hints: ['Think about mental models vs surface knowledge', 'Consider pattern in errors', 'Focus on systematic vs random mistakes'],
+    explanation: 'Misconception Detector identifies and corrects systematic errors caused by wrong mental models.',
+    relatedConcepts: ['mental-models', 'conceptual-change', 'error-patterns'],
+    timeEstimate: 12,
+    successCriteria: ['Distinguishes misconceptions from mistakes', 'Explains why misconceptions persist']
+  },
+  {
+    id: 'misconception-detector-q2',
+    type: 'socratic',
+    conceptId: 'misconception-detector',
+    title: 'Targeted Correction',
+    level: 'intermediate',
+    socratiQuestion: 'How do you design a correction that replaces a wrong mental model rather than just adding more information?',
+    followUpQuestions: [
+      'What makes some explanations more effective at changing minds than others?',
+      'How do you address the emotional aspect of being wrong about something you were confident in?',
+      'What role do concrete examples play in mental model correction?'
+    ],
+    expectedInsights: [
+      'Effective corrections directly address the wrong model, not just add facts',
+      'Conceptual change can be emotionally challenging',
+      'Good examples highlight the difference between old and new models'
+    ],
+    hints: ['Think about cognitive dissonance', 'Consider direct confrontation vs gradual change', 'Focus on model replacement'],
+    explanation: 'Successful misconception correction requires targeted interventions that replace wrong models.',
+    relatedConcepts: ['conceptual-change', 'cognitive-dissonance', 'model-replacement'],
+    timeEstimate: 16,
+    successCriteria: ['Describes model replacement strategies', 'Explains emotional aspects of correction']
+  }
+];
+
+export const timeboxPairProgrammerQuestions: StudyModeQuestion[] = [
+  {
+    id: 'timebox-pair-programmer-q1',
+    type: 'socratic',
+    conceptId: 'timebox-pair-programmer',
+    title: 'Breaking Analysis Paralysis',
+    level: 'beginner',
+    socratiQuestion: 'When someone is stuck overthinking a coding problem, how can forcing them to commit to something small help them make progress?',
+    followUpQuestions: [
+      'What\'s the psychological effect of having a strict time limit?',
+      'Why might an imperfect solution be better than no solution?',
+      'How do small demos help build momentum?'
+    ],
+    expectedInsights: [
+      'Time constraints force decision-making and reduce overthinking',
+      'Small concrete progress beats large theoretical plans',
+      'Demos provide feedback and motivation'
+    ],
+    hints: ['Think about perfectionism vs progress', 'Consider feedback loops', 'Focus on momentum building'],
+    explanation: 'Timebox Pair Programmer uses time pressure and small deliverables to overcome analysis paralysis.',
+    relatedConcepts: ['analysis-paralysis', 'timeboxing', 'iterative-development'],
+    timeEstimate: 10,
+    successCriteria: ['Explains time pressure benefits', 'Describes momentum building through small wins']
+  },
+  {
+    id: 'timebox-pair-programmer-q2',
+    type: 'socratic',
+    conceptId: 'timebox-pair-programmer',
+    title: 'Effective Pairing Cycles',
+    level: 'intermediate',
+    socratiQuestion: 'How do you structure a 25-minute pairing session to maximize learning and progress?',
+    followUpQuestions: [
+      'What should happen in the first 5 minutes versus the last 5 minutes?',
+      'How do you balance exploration with concrete deliverables?',
+      'What makes a good stopping point for a timebox?'
+    ],
+    expectedInsights: [
+      'Good timeboxes have clear goals and scope from the start',
+      'Sessions should end with something demonstrable',
+      'Regular cycles build skills through repetition'
+    ],
+    hints: ['Think about session structure', 'Consider goal setting and scoping', 'Focus on completion criteria'],
+    explanation: 'Effective timeboxed pairing balances learning goals with concrete progress in short cycles.',
+    relatedConcepts: ['pair-programming', 'session-planning', 'goal-setting'],
+    timeEstimate: 14,
+    successCriteria: ['Describes effective session structure', 'Explains completion criteria']
   }
 ];
 
@@ -241,18 +767,51 @@ export const toolUseCoachQuestions: StudyModeQuestion[] = [
     id: 'tool-use-coach-q1',
     type: 'socratic',
     conceptId: 'tool-use-coach',
-    title: 'Choosing the Right Tool',
+    title: 'API Misuse Patterns',
+    level: 'beginner',
+    socratiQuestion: 'Why do developers often struggle with APIs even when the documentation seems clear and complete?',
+    followUpQuestions: [
+      'What\'s the difference between knowing an API exists and knowing how to use it properly?',
+      'How do common usage patterns differ from edge cases in APIs?',
+      'What makes some APIs more error-prone than others?'
+    ],
+    expectedInsights: [
+      'Documentation often shows isolated examples, not real usage patterns',
+      'APIs have implicit assumptions and gotchas not obvious from signatures',
+      'Good tool coaching includes common patterns and failure modes'
+    ],
+    hints: ['Think about examples vs real usage', 'Consider implicit assumptions', 'Focus on common failure modes'],
+    explanation: 'Tool Use Coach bridges the gap between API documentation and effective real-world usage.',
+    relatedConcepts: ['api-design', 'documentation-gaps', 'usage-patterns'],
+    timeEstimate: 11,
+    successCriteria: ['Identifies documentation vs usage gaps', 'Explains common API struggles']
+  },
+  {
+    id: 'tool-use-coach-q2',
+    type: 'socratic',
+    conceptId: 'tool-use-coach',
+    title: 'Disciplined Tool Usage',
     level: 'intermediate',
-    socratiQuestion: 'When automating Azure storage uploads, when would you choose SDK over CLI and why?',
-    followUpQuestions: ['What security checks must precede the action?', 'Which pitfalls commonly break uploads?'],
-    expectedInsights: ['SDK for programmatic flows; CLI for ops tasks', 'Guardrails: auth, RBAC, retries, content-type'],
-    hints: ['Consider idempotency and retries', 'Map to success criteria'],
-    explanation: 'Tool selection follows task nature, safety prechecks, and validation requirements.',
-    relatedConcepts: ['modern-tool-use', 'cloud-rbac'],
-    timeEstimate: 9,
-    successCriteria: ['Articulates tradeoffs; lists prechecks']
+    socratiQuestion: 'How can you help someone develop better judgment about when to use a powerful tool versus when to avoid it?',
+    followUpQuestions: [
+      'What are signs that someone is over-using or under-using a tool?',
+      'How do you balance following best practices with situational needs?',
+      'What role do validation checklists play in tool usage?'
+    ],
+    expectedInsights: [
+      'Good tool usage requires understanding both capabilities and limitations',
+      'Best practices provide guidelines but need situational judgment',
+      'Validation helps catch misuse before it causes problems'
+    ],
+    hints: ['Think about tool appropriateness', 'Consider context-dependent decisions', 'Focus on judgment development'],
+    explanation: 'Tool Use Coach develops discriminating judgment about appropriate tool usage and validation.',
+    relatedConcepts: ['tool-selection', 'best-practices', 'validation-strategies'],
+    timeEstimate: 15,
+    successCriteria: ['Describes judgment development approaches', 'Explains validation role in tool usage']
   }
 ];
+
+
 // Socratic Questions for Agentic RAG
 export const agenticRAGSocraticQuestions: StudyModeQuestion[] = [
   {

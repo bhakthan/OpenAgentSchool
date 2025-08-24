@@ -6,7 +6,7 @@
 
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges, plus **Critical Thinking Challenges** with LLM-powered assessment and feedback.
 
-✨ **Now featuring 22 comprehensive concepts including the new Agentic AI Design Taxonomy** - a complete framework for understanding architectural patterns, design principles, and implementation challenges in Agentic AI systems.
+✨ **Now featuring 27 comprehensive agent patterns including 15 revolutionary Educational Agent Patterns** - from foundational concepts to advanced GPT-5 era educational methodologies with complete Study Mode integration.
 ---
 
 ## 🆕 Latest Updates (August 11, 2025)
@@ -137,9 +137,10 @@ Navigate to **Core Concepts → Model Context Protocol → Tool Calling** to exp
 - **Individual Components**: Custom integration for specialized components like analytics dashboards and interactive animations
 - **Consistent Experience**: Uniform audio control interface across all educational content areas
 
-**📚 Complete Audio Library (62 Explanation Files):**
+**📚 Complete Audio Library (77+ Explanation Files):**
 
-- **Agent Patterns**: AutoGenMultiAgent, AgenticRAGPattern, CodeActPattern, ReActPattern, PlanActPattern, MemoryEnhancedAgent, SwarmIntelligence, ModernToolUse, VoiceAgent, DeepResearcher
+- **Core Agent Patterns**: AutoGenMultiAgent, AgenticRAGPattern, CodeActPattern, ReActPattern, PlanActPattern, MemoryEnhancedAgent, SwarmIntelligence, ModernToolUse, VoiceAgent, DeepResearcher
+- **Educational Agent Patterns**: SocraticCoach, ConceptToProjectBuilder, ErrorWhisperer, KnowledgeMapNavigator, ContextCurator, RubricRater, SelfRemediationLoop, SpacedRepetitionPlanner, ChallengeLadderGenerator, PeerReviewSimulator, ReflectionJournaler, HandoffSummarizer, MisconceptionDetector, TimeboxPairProgrammer, ToolUseCoach
 - **Communication Systems**: A2ACommunicationConcept, A2ACommunicationPatterns, A2AMultiAgentSystem, ACPConcept, ACPProtocolStack
 - **MCP Framework**: MCPConcept, MCPArchitectureDiagram, MCPToolCallingAnimation, MCPToolCallingCode, MCPVisualDemo, MCPxA2AIntegrationConcept
 - **Agent Architecture**: AgentArchitectureConcept, AgentLifecycleVisual, AgentPersonalityShowcase, AgentTesting, AgentEthicsConcept, AgentSecurityConcept
@@ -416,7 +417,7 @@ Experience the future of technical education where complex AI agent concepts bec
 **Industry-Focused Learning** - Experience AI agent patterns through authentic business scenarios across multiple industries:
 
 #### 📊 **Comprehensive Pattern Coverage**
-**21 Agent Patterns with Business Context** - Each pattern demonstrates real-world applications:
+**27 Agent Patterns with Business Context** - Each pattern demonstrates real-world applications across core patterns, workflow patterns, multi-agent patterns, and the new educational agent patterns:
 
 - **Parallelization → Sales Data Processing**
   - *Scenario*: Q4 global sales analysis across regions (North America, Europe, Asia-Pacific)
@@ -489,6 +490,69 @@ Experience the future of technical education where complex AI agent concepts bec
 - **Agentic RAG → Corporate Policy Queries** *(Enhanced existing)*
   - *Scenario*: Employee HR policy questions
   - *Context*: Document search and policy verification
+
+#### 🎓 **NEW: Educational Agent Patterns (GPT-5 Era)**
+**Revolutionary Learning Methodologies** - 15 cutting-edge educational patterns designed for the GPT-5 era of AI education:
+
+- **Socratic Coach → Interactive Learning**
+  - *Scenario*: Personalized learning through guided questioning
+  - *Context*: Adaptive educational conversations that lead students to discoveries
+
+- **Concept-to-Project Builder → Hands-On Learning**
+  - *Scenario*: Transform abstract concepts into practical projects
+  - *Context*: Bridge theory and practice with guided implementation
+
+- **Error Whisperer → Debugging Mastery**
+  - *Scenario*: Intelligent error analysis and resolution guidance
+  - *Context*: Transform debugging from frustration to learning opportunity
+
+- **Knowledge Map Navigator → Learning Path Optimization**
+  - *Scenario*: Personalized learning journey mapping
+  - *Context*: Dynamic adaptation of educational content to learning progress
+
+- **Context Curator → Information Management**
+  - *Scenario*: Intelligent context aggregation and relevance filtering
+  - *Context*: Help learners focus on most relevant information sources
+
+- **Rubric Rater → Assessment Automation**
+  - *Scenario*: Consistent and detailed assessment feedback
+  - *Context*: Standardized evaluation with personalized improvement guidance
+
+- **Self-Remediation Loop → Continuous Improvement**
+  - *Scenario*: Automated identification and correction of learning gaps
+  - *Context*: Proactive learning support with targeted interventions
+
+- **Spaced Repetition Planner → Memory Optimization**
+  - *Scenario*: Intelligent scheduling of review sessions
+  - *Context*: Optimize long-term retention through scientifically-backed repetition
+
+- **Challenge Ladder Generator → Progressive Difficulty**
+  - *Scenario*: Dynamic creation of appropriately challenging tasks
+  - *Context*: Maintain optimal learning challenge without overwhelming students
+
+- **Peer-Review Simulator → Collaborative Learning**
+  - *Scenario*: Simulated peer review processes for skill development
+  - *Context*: Practice giving and receiving feedback in safe environment
+
+- **Reflection Journaler → Metacognitive Development**
+  - *Scenario*: Guided reflection on learning processes and outcomes
+  - *Context*: Develop self-awareness and learning strategy optimization
+
+- **Handoff Summarizer → Knowledge Transfer**
+  - *Scenario*: Intelligent summarization for knowledge continuity
+  - *Context*: Seamless transfer of learning context between sessions or instructors
+
+- **Misconception Detector → Error Prevention**
+  - *Scenario*: Proactive identification of common learning misconceptions
+  - *Context*: Early intervention to prevent solidification of incorrect understanding
+
+- **Time-box Pair Programmer → Collaborative Coding**
+  - *Scenario*: Structured pair programming with time management
+  - *Context*: Balanced collaboration with focused learning objectives
+
+- **Tool-Use Coach → Technical Skill Development**
+  - *Scenario*: Guided learning of technical tools and frameworks
+  - *Context*: Scaffold complex tool mastery with progressive disclosure
 
 #### 🏢 **Industry Coverage**
 **Complete Enterprise Application Spectrum** - Real business scenarios across major industries:
@@ -587,7 +651,12 @@ This navigation creates a natural learning flow: **Learn → Apply → Transform
 - **Insight Collection**: Automatic capture of learning breakthroughs and "aha moments"
 - **Performance Analytics**: Detailed tracking of learning effectiveness and knowledge retention
 - **Modern UI**: Beautiful interface using shadcn/ui components with smooth animations
-- **Cross-Concept Integration**: Study modes work across all 22 core concepts and agent patterns
+- **Cross-Concept Integration**: Study modes work across all 22 core concepts and 27 agent patterns
+- **Comprehensive Educational Content**: Complete Study Mode integration for all 15 new Educational Agent Patterns including:
+  - **Socratic Questions**: Thought-provoking questions for all 15 patterns to guide discovery-based learning
+  - **Debug Challenges**: Realistic troubleshooting scenarios with complete solution explanations for all patterns
+  - **Interactive Scenarios**: Hands-on practice scenarios for key patterns including stakeholder interactions and learning outcomes
+- **Pattern-Specific Learning**: Educational patterns have specialized Study Mode content designed for the GPT-5 era of AI education
 
 ### 🧠 Critical Thinking Challenge: LLM-Powered Assessment
 **AI-Enhanced Learning Evaluation** - Intelligent feedback system that provides comprehensive assessment and encouragement:
@@ -796,10 +865,38 @@ Each personality features:
 - **Accessibility-First**: All visualizations include proper ARIA labels and keyboard navigation
 
 ### Agent Patterns & Examples
+
+#### Core Agent Patterns (12 patterns)
 - **Self-Reflection Patterns**: Agents that evaluate and improve their own performance
 - **Agentic RAG**: Retrieval-Augmented Generation with autonomous decision-making
 - **Modern Tool Use**: Dynamic tool selection and orchestration patterns
 - **Multi-Agent Coordination**: Complex workflows with specialized agent roles
+- **ReAct Agent**: Reasoning and action coordination patterns
+- **CodeAct Agent**: Code generation and execution patterns
+- **Voice Agent**: Speech processing and conversational AI patterns
+- **Computer Use**: UI automation and interaction patterns
+- **Deep Researcher**: Comprehensive research and analysis workflows
+- **AutoGen Multi-Agent**: Microsoft AutoGen conversation patterns
+- **Orchestrator-Worker**: Task delegation and coordination patterns
+- **Swarm Intelligence**: Distributed coordination without central control
+
+#### Educational Agent Patterns (15 patterns) 🆕
+**Revolutionary GPT-5 Era Educational Methodologies**:
+- **Socratic Coach**: Guided discovery through strategic questioning
+- **Concept-to-Project Builder**: Transform abstract concepts into practical implementations
+- **Error Whisperer**: Intelligent debugging guidance and error analysis
+- **Knowledge Map Navigator**: Personalized learning path optimization
+- **Context Curator**: Intelligent information filtering and relevance management
+- **Rubric Rater**: Automated assessment with detailed feedback
+- **Self-Remediation Loop**: Proactive learning gap identification and correction
+- **Spaced Repetition Planner**: Scientific memory optimization scheduling
+- **Challenge Ladder Generator**: Progressive difficulty adaptation
+- **Peer-Review Simulator**: Safe collaborative learning practice
+- **Reflection Journaler**: Metacognitive development and self-awareness
+- **Handoff Summarizer**: Knowledge continuity and transfer optimization
+- **Misconception Detector**: Proactive error prevention in learning
+- **Time-box Pair Programmer**: Structured collaborative coding with learning focus
+- **Tool-Use Coach**: Progressive technical skill development with scaffolding
 
 ## 🚀 Quick Start
 

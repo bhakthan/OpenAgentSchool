@@ -491,6 +491,23 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'swarm-intelligence': 'SwarmIntelligence',
         'plan-act': 'PlanActPattern',
         
+        // Educational Agent Patterns (kebab-case IDs to PascalCase audio files)
+        'socratic-coach': 'SocraticCoach',
+        'concept-to-project-builder': 'ConceptToProjectBuilder',
+        'error-whisperer': 'ErrorWhisperer',
+        'knowledge-map-navigator': 'KnowledgeMapNavigator',
+        'context-curator': 'ContextCurator',
+        'rubric-rater': 'RubricRater',
+        'self-remediation-loop': 'SelfRemediationLoop',
+        'spaced-repetition-planner': 'SpacedRepetitionPlanner',
+        'challenge-ladder-generator': 'ChallengeLadderGenerator',
+        'peer-review-simulator': 'PeerReviewSimulator',
+        'reflection-journaler': 'ReflectionJournaler',
+        'handoff-summarizer': 'HandoffSummarizer',
+        'misconception-detector': 'MisconceptionDetector',
+        'time-box-pair-programmer': 'TimeboxPairProgrammer',
+        'tool-use-coach': 'ToolUseCoach',
+        
         // Direct component names (already in correct format)
         'A2ACommunicationPatterns': 'A2ACommunicationPatterns',
         'A2AMultiAgentSystem': 'A2AMultiAgentSystem',
