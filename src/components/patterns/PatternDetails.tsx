@@ -24,6 +24,7 @@ import { deepAgentsExecutionSteps } from '@/lib/data/execution/deepAgentsExecuti
 import { modelContextProtocolExecutionSteps } from '@/lib/data/execution/modelContextProtocolExecutionSteps';
 import { modelContextProtocolPythonExecutionSteps } from '@/lib/data/execution/modelContextProtocolPythonExecutionSteps';
 import { agentEvaluationPythonExecutionSteps } from '@/lib/data/execution/agentEvaluationPythonExecutionSteps';
+import { getAlgorithmVisualization } from '@/lib/utils/algorithmVisualization';
 
 interface PatternDetailsProps {
   pattern: PatternData;
@@ -63,7 +64,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
         </div>
       </CardHeader>
       <CardContent className="pt-6">
-        <Tabs defaultValue={hasBusinessUseCase ? "business-use-case" : "details"} className="w-full">
+  <Tabs defaultValue={"details"} className="w-full">
           <TabsList className="grid w-full grid-cols-5">
             {hasBusinessUseCase && (
               <TabsTrigger value="business-use-case" className="flex items-center gap-2">
@@ -149,7 +150,20 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                     <p className="text-base">{pattern.businessUseCase.description}</p>
                   </div>
                   <div>
-                    {React.createElement(pattern.businessUseCase.visualization)}
+                    {pattern.businessUseCase.visualization ? (() => {
+                      const Vis = pattern.businessUseCase!.visualization as any;
+                      // Provide helpful defaults to any visualization
+                      const baseProps: any = {
+                        title: `${pattern.name} — Business Flow`,
+                        description: pattern.businessUseCase!.description,
+                      };
+                      // If this is the AlgorithmVisualizer, pass contextual steps
+                      if (Vis?.name === 'AlgorithmVisualizer') {
+                        const { steps } = getAlgorithmVisualization(pattern.id, pattern.id);
+                        baseProps.steps = steps;
+                      }
+                      return React.createElement(Vis, baseProps);
+                    })() : null}
                   </div>
                 </CardContent>
                 {/* Move the dynamic visualization below, full width */}

@@ -29,6 +29,12 @@ import { errorWhispererSystemDesign } from './errorWhisperer';
 import { knowledgeMapNavigatorSystemDesign } from './knowledgeMapNavigator';
 import { peerReviewSimulatorSystemDesign } from './peerReviewSimulator';
 import { toolUseCoachSystemDesign } from './toolUseCoach';
+import { contextCuratorSystemDesign } from './contextCurator';
+import { rubricRaterSystemDesign } from './rubricRater';
+import { selfRemediationLoopSystemDesign } from './selfRemediationLoop';
+import { spacedRepetitionPlannerSystemDesign } from './spacedRepetitionPlanner';
+import { reflectionJournalerSystemDesign } from './reflectionJournaler';
+import { handoffSummarizerSystemDesign } from './handoffSummarizer';
 
 // Export individual patterns
 export { pythonReActAgentSystemDesign } from './pythonReActAgent';
@@ -58,6 +64,12 @@ export { errorWhispererSystemDesign } from './errorWhisperer';
 export { knowledgeMapNavigatorSystemDesign } from './knowledgeMapNavigator';
 export { peerReviewSimulatorSystemDesign } from './peerReviewSimulator';
 export { toolUseCoachSystemDesign } from './toolUseCoach';
+export { contextCuratorSystemDesign } from './contextCurator';
+export { rubricRaterSystemDesign } from './rubricRater';
+export { selfRemediationLoopSystemDesign } from './selfRemediationLoop';
+export { spacedRepetitionPlannerSystemDesign } from './spacedRepetitionPlanner';
+export { reflectionJournalerSystemDesign } from './reflectionJournaler';
+export { handoffSummarizerSystemDesign } from './handoffSummarizer';
 
 // Create a registry of all system design patterns
 export const systemDesignPatterns = {
@@ -89,6 +101,12 @@ export const systemDesignPatterns = {
   'knowledge-map-navigator': knowledgeMapNavigatorSystemDesign,
   'peer-review-simulator': peerReviewSimulatorSystemDesign,
   'tool-use-coach': toolUseCoachSystemDesign,
+  'context-curator': contextCuratorSystemDesign,
+  'rubric-rater': rubricRaterSystemDesign,
+  'self-remediation-loop': selfRemediationLoopSystemDesign,
+  'spaced-repetition-planner': spacedRepetitionPlannerSystemDesign,
+  'reflection-journaler': reflectionJournalerSystemDesign,
+  'handoff-summarizer': handoffSummarizerSystemDesign,
 };
 
 /**
