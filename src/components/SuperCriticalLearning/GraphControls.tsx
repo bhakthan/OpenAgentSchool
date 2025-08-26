@@ -179,25 +179,25 @@ export const GraphControls: React.FC<GraphControlsProps> = ({
           <div className="grid grid-cols-2 gap-3">
             <div className="flex items-center justify-between">
               <span className="text-sm">First-Order</span>
-              <Badge variant="outline" className="bg-blue-50">
+              <Badge variant="outline" className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">
                 {effectCounts.firstOrder}
               </Badge>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm">Higher-Order</span>
-              <Badge variant="outline" className="bg-orange-50">
+              <Badge variant="outline" className="ring-1 bg-[var(--badge-orange-bg)] ring-[var(--badge-orange-ring)] text-[var(--badge-orange-text)] dark:text-[var(--badge-orange-text)]">
                 {effectCounts.higherOrder}
               </Badge>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm">Synthesis</span>
-              <Badge variant="outline" className="bg-green-50">
+              <Badge variant="outline" className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">
                 {effectCounts.synthesis}
               </Badge>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm">Constraints</span>
-              <Badge variant="outline" className="bg-red-50">
+              <Badge variant="outline" className="ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)] dark:text-[var(--badge-red-text)]">
                 {effectCounts.constraints}
               </Badge>
             </div>

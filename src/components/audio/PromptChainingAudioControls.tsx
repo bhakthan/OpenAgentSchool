@@ -140,7 +140,7 @@ export default function PromptChainingAudioControls({
         <div className="flex items-center gap-2 flex-shrink-0">
           <SpeakerHigh className="w-4 h-4 text-purple-600 dark:text-purple-400" />
           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Audio:</span>
-          <Badge className="bg-purple-200 text-purple-800 dark:bg-purple-900 dark:text-purple-200 border border-purple-300 dark:border-purple-700 text-xs">
+          <Badge className="ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)] dark:text-[var(--badge-purple-text)] text-xs">
             {filteredContentTypes[currentContentType]?.label || 'Chaining Enhanced'}
           </Badge>
         </div>
@@ -256,7 +256,7 @@ export default function PromptChainingAudioControls({
           <div className="w-full p-3 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 shadow-inner">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">Audio Settings</h4>
-              <Badge className="bg-purple-200 text-purple-800 dark:bg-purple-900 dark:text-purple-200 border border-purple-300 dark:border-purple-700 text-xs">
+              <Badge className="ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)] dark:text-[var(--badge-purple-text)] text-xs">
                 {filteredContentTypes[currentContentType]?.label}
               </Badge>
             </div>

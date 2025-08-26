@@ -79,7 +79,7 @@ export const CriticalThinkingModal: React.FC<CriticalThinkingModalProps> = ({
   const handleExportToPdf = () => {
     const printContent = `
       <html>
-        <head>
+                <Badge variant="secondary" className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">
           <title>Critical Thinking Exercise - ${contextTitle}</title>
           <style>
             body { 
@@ -273,7 +273,7 @@ export const CriticalThinkingModal: React.FC<CriticalThinkingModalProps> = ({
             <div className="p-4 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 rounded-lg border border-green-200 dark:border-green-800">
               <div className="flex items-center justify-between mb-3">
                 <h4 className="font-semibold text-lg text-green-800 dark:text-green-200">🎯 Critical Thinking Assessment</h4>
-                <Badge variant="secondary" className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                <Badge variant="secondary" className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">
                   Score: {feedback.score}/100
                 </Badge>
               </div>

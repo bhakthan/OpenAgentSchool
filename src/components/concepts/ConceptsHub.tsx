@@ -303,15 +303,31 @@ const concepts: ConceptInfo[] = [
 function getLevelBadgeClass(level: ConceptInfo['level']): string {
   switch (level) {
     case 'fundamentals':
-  return 'text-black bg-blue-50 ring-1 ring-blue-300 dark:bg-blue-900/20 dark:text-blue-300 dark:ring-blue-800/40';
+  return 'ring-1 bg-[var(--badge-fundamentals-bg)] ring-[var(--badge-fundamentals-ring)] text-[var(--badge-fundamentals-text)] dark:text-[var(--badge-fundamentals-text)]';
     case 'architecture':
-  return 'text-black bg-emerald-50 ring-1 ring-emerald-300 dark:bg-emerald-900/20 dark:text-emerald-300 dark:ring-emerald-800/40';
+  return 'ring-1 bg-[var(--badge-architecture-bg)] ring-[var(--badge-architecture-ring)] text-[var(--badge-architecture-text)] dark:text-[var(--badge-architecture-text)]';
     case 'implementation':
-  return 'text-black bg-amber-50 ring-1 ring-amber-300 dark:bg-amber-900/20 dark:text-amber-300 dark:ring-amber-800/40';
+  return 'ring-1 bg-[var(--badge-implementation-bg)] ring-[var(--badge-implementation-ring)] text-[var(--badge-implementation-text)] dark:text-[var(--badge-implementation-text)]';
     case 'advanced':
-  return 'text-black bg-purple-50 ring-1 ring-purple-300 dark:bg-purple-900/20 dark:text-purple-300 dark:ring-purple-800/40';
+  return 'ring-1 bg-[var(--badge-advanced-bg)] ring-[var(--badge-advanced-ring)] text-[var(--badge-advanced-text)] dark:text-[var(--badge-advanced-text)]';
     default:
       return 'text-black bg-muted ring-1 ring-border';
+  }
+}
+
+// Theme-aware icon color per level (keeps labels/badges readable)
+function getIconColorClass(level: ConceptInfo['level']): string {
+  switch (level) {
+    case 'fundamentals':
+      return 'text-blue-600 dark:text-blue-300'
+    case 'architecture':
+      return 'text-emerald-600 dark:text-emerald-300'
+    case 'implementation':
+      return 'text-amber-600 dark:text-amber-300'
+    case 'advanced':
+      return 'text-purple-600 dark:text-purple-300'
+    default:
+      return 'text-foreground'
   }
 }
 
@@ -415,9 +431,13 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
               ← Back to Concepts
             </Button>
             <div className="flex items-center gap-2">
-              {concept.icon}
+              <span className={getIconColorClass(concept.level)}>{concept.icon}</span>
               <h2 className="text-xl font-semibold">{concept.title}</h2>
-              <span className={`inline-flex items-center justify-center rounded-md px-2 py-0.5 text-sm font-medium text-foreground ${getLevelBadgeClass(concept.level)}`}>{concept.level}</span>
+              <span
+                className={`inline-flex items-center justify-center rounded-md px-2 py-0.5 text-sm font-medium ${getLevelBadgeClass(concept.level)}`}
+              >
+                {concept.level}
+              </span>
             </div>
           </div>
           <div className="space-y-6">
@@ -510,7 +530,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-secondary text-secondary-foreground border border-border">
-                      {concept.icon}
+                      <span className={getIconColorClass(concept.level)}>{concept.icon}</span>
                     </div>
                     <div>
                       <CardTitle className="flex items-center gap-2">
@@ -520,7 +540,9 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
                         )}
                       </CardTitle>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className={`inline-flex items-center justify-center rounded-md px-2 py-0.5 text-xs font-medium text-foreground ${getLevelBadgeClass(concept.level)}`}>
+                        <span
+                          className={`inline-flex items-center justify-center rounded-md px-2 py-0.5 text-xs font-medium ${getLevelBadgeClass(concept.level)}`}
+                        >
                           {concept.level}
                         </span>
                         <span className="text-base text-muted-foreground">

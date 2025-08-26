@@ -411,10 +411,10 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'beginner': return 'bg-green-100 text-green-800 border-green-200';
-      case 'intermediate': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'advanced': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+  case 'beginner': return 'bg-green-100 text-black border-green-200 dark:text-green-200 dark:bg-green-900';
+  case 'intermediate': return 'bg-yellow-100 text-black border-yellow-200 dark:text-yellow-200 dark:bg-yellow-900';
+  case 'advanced': return 'bg-red-100 text-black border-red-200 dark:text-red-200 dark:bg-red-900';
+  default: return 'bg-gray-100 text-black border-gray-200 dark:text-gray-200 dark:bg-gray-900';
     }
   };
 

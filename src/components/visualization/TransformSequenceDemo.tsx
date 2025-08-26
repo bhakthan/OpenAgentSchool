@@ -989,31 +989,31 @@ const FlowWithDataTransform = ({ scenario }: { scenario: DemoScenario }) => {
         
         <div className="mt-4">
           <div className="flex flex-wrap gap-2 mt-2">
-            <Badge variant="outline" className="bg-card flex items-center gap-1 text-xs">
+            <Badge variant="outline" className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] dark:text-[var(--badge-gray-text)] flex items-center gap-1 text-xs">
               <div className="w-2 h-2 rounded-full bg-blue-500" />
               User
             </Badge>
-            <Badge variant="outline" className="bg-card flex items-center gap-1 text-xs">
+            <Badge variant="outline" className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)] flex items-center gap-1 text-xs">
               <div className="w-2 h-2 rounded-full bg-green-500" />
               Agent
             </Badge>
-            <Badge variant="outline" className="bg-card flex items-center gap-1 text-xs">
+            <Badge variant="outline" className="ring-1 bg-[var(--badge-yellow-bg)] ring-[var(--badge-yellow-ring)] text-[var(--badge-yellow-text)] dark:text-[var(--badge-yellow-text)] flex items-center gap-1 text-xs">
               <div className="w-2 h-2 rounded-full bg-amber-500" />
               Tool
             </Badge>
-            <Badge variant="outline" className="bg-card flex items-center gap-1 text-xs">
+            <Badge variant="outline" className="ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)] dark:text-[var(--badge-purple-text)] flex items-center gap-1 text-xs">
               <div className="w-2 h-2 rounded-full bg-purple-500" />
               Environment
             </Badge>
-            <Badge variant="outline" className="bg-card flex items-center gap-1 text-xs">
+            <Badge variant="outline" className="ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)] dark:text-[var(--badge-red-text)] flex items-center gap-1 text-xs">
               <div className="w-2 h-2 rounded-full bg-pink-500" />
               Reflection
             </Badge>
-            <Badge variant="outline" className="bg-card flex items-center gap-1 text-xs">
+            <Badge variant="outline" className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)] flex items-center gap-1 text-xs">
               <div className="w-2 h-2 rounded-full bg-emerald-500" />
               Planner
             </Badge>
-            <Badge variant="outline" className="bg-card flex items-center gap-1 text-xs">
+            <Badge variant="outline" className="ring-1 bg-[var(--badge-yellow-bg)] ring-[var(--badge-yellow-ring)] text-[var(--badge-yellow-text)] dark:text-[var(--badge-yellow-text)] flex items-center gap-1 text-xs">
               <div className="w-2 h-2 rounded-full bg-yellow-500" />
               Evaluator
             </Badge>

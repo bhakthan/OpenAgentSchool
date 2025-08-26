@@ -451,7 +451,7 @@ def evaluate_quality_with_llm_judge(responses, criteria):
                     <div className="p-3 border rounded">
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">GPT-5</span>
-                        <Badge className="bg-green-100 text-green-800">Recommended</Badge>
+                        <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">Recommended</Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Excellent reasoning and evaluation capabilities

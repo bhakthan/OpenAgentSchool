@@ -125,15 +125,15 @@ export const SCLDemo: React.FC = () => {
         </div>
         
         <div className="flex flex-wrap gap-3">
-          <Badge variant="outline" className="bg-green-50 border-green-200 text-green-700">
+          <Badge variant="outline" className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">
             <Zap className="w-3 h-3 mr-1" />
             Phase 2: Graph Visualization
           </Badge>
-          <Badge variant="outline" className="bg-blue-50 border-blue-200 text-blue-700">
+          <Badge variant="outline" className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">
             <Brain className="w-3 h-3 mr-1" />
             Phase 4: Advanced Features
           </Badge>
-          <Badge variant="outline" className="bg-purple-50 border-purple-200 text-purple-700">
+          <Badge variant="outline" className="ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)] dark:text-[var(--badge-purple-text)]">
             <Network className="w-3 h-3 mr-1" />
             Interactive Demo
           </Badge>
@@ -406,11 +406,11 @@ export const SCLDemo: React.FC = () => {
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between items-center p-2 bg-green-50 rounded">
                       <span>Phase 2: Graph Visualization</span>
-                      <Badge variant="default" className="bg-green-600">Complete</Badge>
+                      <Badge variant="default" className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">Complete</Badge>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-green-50 rounded">
                       <span>Phase 4: Advanced Features</span>
-                      <Badge variant="default" className="bg-green-600">Complete</Badge>
+                      <Badge variant="default" className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">Complete</Badge>
                     </div>
                   </div>
                 </div>
@@ -420,11 +420,11 @@ export const SCLDemo: React.FC = () => {
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between items-center p-2 bg-blue-50 rounded">
                       <span>React Flow Integration</span>
-                      <Badge variant="default" className="bg-blue-600">Active</Badge>
+                      <Badge variant="default" className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">Active</Badge>
                     </div>
                     <div className="flex justify-between items-center p-2 bg-blue-50 rounded">
                       <span>Advanced AI Features</span>
-                      <Badge variant="default" className="bg-blue-600">Active</Badge>
+                      <Badge variant="default" className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">Active</Badge>
                     </div>
                   </div>
                 </div>

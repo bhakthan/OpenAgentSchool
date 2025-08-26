@@ -490,11 +490,11 @@ return final_answer`,
         {/* Status Indicator */}
         <div className="text-center mb-4">
           {isAutoPlaying ? (
-            <Badge className="bg-green-600 hover:bg-green-700 text-white dark:bg-green-600 dark:text-white border-0">
+            <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">
               Auto Playing - Step {currentStep || "Starting..."}
             </Badge>
           ) : (
-            <Badge className="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600">
+            <Badge className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] dark:text-[var(--badge-gray-text)]">
               Manual Mode - Step {currentStep || "Ready"}
             </Badge>
           )}
@@ -506,7 +506,7 @@ return final_answer`,
           {/* Left Side: Animation */}
           <div className="space-y-4">
             <div className="flex justify-center">
-              <Badge className="bg-green-200 text-green-800 dark:bg-green-900 dark:text-green-200 border border-green-300 dark:border-green-700">
+              <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">
                 Visual Flow
               </Badge>
             </div>
@@ -574,7 +574,7 @@ return final_answer`,
           {/* Right Side: Synchronized Code */}
           <div className="space-y-4">
             <div className="flex justify-center">
-              <Badge className="bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-300 dark:border-blue-700">
+              <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">
                 Live Code
               </Badge>
             </div>
@@ -582,7 +582,7 @@ return final_answer`,
             {/* Current Step Indicator */}
             <div className="text-center p-3 bg-gray-100 dark:bg-gray-900 rounded-lg border-l-4 border-blue-500 border border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <Badge className="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600">
+                <Badge className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] dark:text-[var(--badge-gray-text)]">
                   Step {currentStep || (showAllSteps ? "Complete" : "Ready")}
                 </Badge>
                 <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100">{stepData.title}</h3>
@@ -594,7 +594,7 @@ return final_answer`,
             <Card className={`transition-all duration-500 ${currentStep >= 1 && currentStep <= 2 || currentStep === 4 || currentStep === 5 ? 'ring-4 ring-orange-400 bg-orange-100 dark:bg-orange-950/20 dark:ring-orange-500' : 'bg-white dark:bg-gray-800'} border border-gray-200 dark:border-gray-700`}>
               <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2 text-sm">
-                  <Badge className="bg-orange-200 text-orange-800 dark:bg-orange-900 dark:text-orange-200 border border-orange-300 dark:border-orange-700">
+                  <Badge className="ring-1 bg-[var(--badge-orange-bg)] ring-[var(--badge-orange-ring)] text-[var(--badge-orange-text)] dark:text-[var(--badge-orange-text)]">
                     MCP Server
                   </Badge>
                   <span className="text-gray-900 dark:text-gray-100">Tool Implementation</span>
@@ -611,7 +611,7 @@ return final_answer`,
             <Card className={`transition-all duration-500 ${currentStep === 2 || currentStep === 3 || currentStep === 4 || currentStep === 6 || currentStep === 7 ? 'ring-4 ring-green-400 bg-green-100 dark:bg-green-950/20 dark:ring-green-500' : 'bg-white dark:bg-gray-800'} border border-gray-200 dark:border-gray-700`}>
               <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2 text-sm">
-                  <Badge className="bg-green-200 text-green-800 dark:bg-green-900 dark:text-green-200 border border-green-300 dark:border-green-700">
+                  <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">
                     MCP Client
                   </Badge>
                   <span className="text-gray-600 dark:text-gray-400">(Code Layer)</span>

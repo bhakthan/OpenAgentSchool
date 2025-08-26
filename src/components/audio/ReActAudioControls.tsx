@@ -140,7 +140,7 @@ export default function ReActAudioControls({
         <div className="flex items-center gap-2 flex-shrink-0">
           <SpeakerHigh className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Audio:</span>
-          <Badge className="bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-300 dark:border-blue-700 text-xs">
+          <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)] text-xs">
             {filteredContentTypes[currentContentType]?.label || 'ReAct Enhanced'}
           </Badge>
         </div>
@@ -250,7 +250,7 @@ export default function ReActAudioControls({
           <div className="w-full p-3 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 shadow-inner audio-settings-panel">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">Audio Settings</h4>
-              <Badge className="bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-300 dark:border-blue-700 text-xs">
+              <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)] text-xs">
                 {filteredContentTypes[currentContentType]?.label}
               </Badge>
             </div>

@@ -87,6 +87,136 @@
 }
 
 @layer base {
+  :root {
+    /* Badge tokens (light) */
+    --badge-fundamentals-bg: #eff6ff; /* blue-50 */
+    --badge-fundamentals-text: #000000; /* light text: black for readability */
+    --badge-fundamentals-ring: #93c5fd; /* blue-300 */
+
+    --badge-architecture-bg: #ecfdf5; /* emerald-50 */
+    --badge-architecture-text: #000000; /* light text */
+    --badge-architecture-ring: #6ee7b7; /* emerald-300 */
+
+    --badge-implementation-bg: #fffbeb; /* amber-50 */
+    --badge-implementation-text: #000000; /* light text */
+    --badge-implementation-ring: #fcd34d; /* amber-300 */
+
+    --badge-advanced-bg: #f5f3ff; /* purple-50 */
+    --badge-advanced-text: #000000; /* light text */
+    --badge-advanced-ring: #d8b4fe; /* purple-300 */
+
+  /* AI-Native Skills badge tokens (light) */
+  --badge-beginner-bg: #f0fdf4; /* green-50 */
+  --badge-beginner-text: #000000; /* light text */
+  --badge-beginner-ring: #86efac; /* green-300 */
+
+  --badge-intermediate-bg: #eff6ff; /* blue-50 */
+  --badge-intermediate-text: #000000; /* light text */
+  --badge-intermediate-ring: #93c5fd; /* blue-300 */
+
+  --badge-advanced-skill-bg: #fff7ed; /* orange-50 */
+  --badge-advanced-skill-text: #000000; /* light text */
+  --badge-advanced-skill-ring: #fdba74; /* orange-300 */
+
+  --badge-expert-bg: #fef2f2; /* red-50 */
+  --badge-expert-text: #000000; /* light text */
+  --badge-expert-ring: #fca5a5; /* red-300 */
+
+  /* Generic badge tokens (light) */
+  --badge-green-bg: #f0fdf4; /* green-50 */
+  --badge-green-text: #000000;
+  --badge-green-ring: #86efac; /* green-300 */
+
+  --badge-blue-bg: #eff6ff; /* blue-50 */
+  --badge-blue-text: #000000;
+  --badge-blue-ring: #93c5fd; /* blue-300 */
+
+  --badge-purple-bg: #f5f3ff; /* purple-50 */
+  --badge-purple-text: #000000;
+  --badge-purple-ring: #d8b4fe; /* purple-300 */
+
+  --badge-orange-bg: #fff7ed; /* orange-50 */
+  --badge-orange-text: #000000;
+  --badge-orange-ring: #fdba74; /* orange-300 */
+
+  --badge-red-bg: #fef2f2; /* red-50 */
+  --badge-red-text: #000000;
+  --badge-red-ring: #fca5a5; /* red-300 */
+
+  --badge-yellow-bg: #fefce8; /* yellow-50 */
+  --badge-yellow-text: #000000;
+  --badge-yellow-ring: #fde047; /* yellow-300 */
+
+  --badge-gray-bg: #f3f4f6; /* gray-100 */
+  --badge-gray-text: #000000;
+  --badge-gray-ring: #d1d5db; /* gray-300 */
+  }
+
+  /* Dark mode overrides come from the html.dark class set in index.html */
+  .dark {
+    --badge-fundamentals-bg: rgba(30, 58, 138, 0.20); /* blue-900 @ 20% */
+    --badge-fundamentals-text: #e5e7eb; /* gray-200 for contrast */
+    --badge-fundamentals-ring: rgba(30, 58, 138, 0.40); /* blue-900 @ 40% */
+
+    --badge-architecture-bg: rgba(6, 78, 59, 0.20); /* emerald-900 @ 20% */
+    --badge-architecture-text: #e5e7eb;
+    --badge-architecture-ring: rgba(6, 78, 59, 0.40); /* emerald-900 @ 40% */
+
+    --badge-implementation-bg: rgba(120, 53, 15, 0.20); /* amber-900 @ 20% */
+    --badge-implementation-text: #e5e7eb;
+    --badge-implementation-ring: rgba(120, 53, 15, 0.40); /* amber-900 @ 40% */
+
+    --badge-advanced-bg: rgba(76, 29, 149, 0.20); /* purple-900 @ 20% */
+    --badge-advanced-text: #e5e7eb;
+    --badge-advanced-ring: rgba(76, 29, 149, 0.40); /* purple-900 @ 40% */
+
+  /* AI-Native Skills badge tokens (dark) */
+  --badge-beginner-bg: rgba(6, 95, 70, 0.20); /* green-900 @ 20% */
+  --badge-beginner-text: #e5e7eb; /* gray-200 */
+  --badge-beginner-ring: rgba(6, 95, 70, 0.40); /* green-900 @ 40% */
+
+  --badge-intermediate-bg: rgba(30, 58, 138, 0.20); /* blue-900 @ 20% */
+  --badge-intermediate-text: #e5e7eb;
+  --badge-intermediate-ring: rgba(30, 58, 138, 0.40); /* blue-900 @ 40% */
+
+  --badge-advanced-skill-bg: rgba(124, 45, 18, 0.20); /* orange-900 @ 20% */
+  --badge-advanced-skill-text: #e5e7eb;
+  --badge-advanced-skill-ring: rgba(124, 45, 18, 0.40); /* orange-900 @ 40% */
+
+  --badge-expert-bg: rgba(127, 29, 29, 0.20); /* red-900 @ 20% */
+  --badge-expert-text: #e5e7eb;
+  --badge-expert-ring: rgba(127, 29, 29, 0.40); /* red-900 @ 40% */
+
+  /* Generic badge tokens (dark) */
+  --badge-green-bg: rgba(6, 95, 70, 0.20); /* green-900 @ 20% */
+  --badge-green-text: #e5e7eb;
+  --badge-green-ring: rgba(6, 95, 70, 0.40);
+
+  --badge-blue-bg: rgba(30, 58, 138, 0.20); /* blue-900 @ 20% */
+  --badge-blue-text: #e5e7eb;
+  --badge-blue-ring: rgba(30, 58, 138, 0.40);
+
+  --badge-purple-bg: rgba(76, 29, 149, 0.20); /* purple-900 @ 20% */
+  --badge-purple-text: #e5e7eb;
+  --badge-purple-ring: rgba(76, 29, 149, 0.40);
+
+  --badge-orange-bg: rgba(124, 45, 18, 0.20); /* orange-900 @ 20% */
+  --badge-orange-text: #e5e7eb;
+  --badge-orange-ring: rgba(124, 45, 18, 0.40);
+
+  --badge-red-bg: rgba(127, 29, 29, 0.20); /* red-900 @ 20% */
+  --badge-red-text: #e5e7eb;
+  --badge-red-ring: rgba(127, 29, 29, 0.40);
+
+  --badge-yellow-bg: rgba(113, 63, 18, 0.20); /* amber-900-ish @ 20% */
+  --badge-yellow-text: #e5e7eb;
+  --badge-yellow-ring: rgba(113, 63, 18, 0.40);
+
+  --badge-gray-bg: rgba(31, 41, 55, 0.20); /* gray-800 @ 20% */
+  --badge-gray-text: #e5e7eb;
+  --badge-gray-ring: rgba(31, 41, 55, 0.40);
+  }
+
   #spark-app {
     --tomato-contrast: #fff;
     --red-contrast: #fff;

@@ -605,36 +605,36 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'beginner': return 'bg-green-100 text-green-800 border-green-200';
-      case 'intermediate': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'advanced': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+  case 'beginner': return 'bg-green-100 text-black border-green-200 dark:text-green-200 dark:bg-green-900';
+  case 'intermediate': return 'bg-yellow-100 text-black border-yellow-200 dark:text-yellow-200 dark:bg-yellow-900';
+  case 'advanced': return 'bg-red-100 text-black border-red-200 dark:text-red-200 dark:bg-red-900';
+  default: return 'bg-gray-100 text-black border-gray-200 dark:text-gray-200 dark:bg-gray-900';
     }
   };
 
   const getTierColor = (nodeId: string) => {
     // Tier 0: Core Concepts
     if (['agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'].includes(nodeId)) {
-      return 'bg-purple-100 text-purple-800';
+  return 'bg-purple-100 text-black dark:text-purple-200 dark:bg-purple-900';
     }
     // Tier 1: Fundamentals
     if (['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents'].includes(nodeId)) {
-      return 'bg-blue-100 text-blue-800';
+  return 'bg-blue-100 text-black dark:text-blue-200 dark:bg-blue-900';
     }
     // Tier 2: Architecture
     if (['a2a-communication', 'mcp', 'flow-visualization'].includes(nodeId)) {
-      return 'bg-green-100 text-green-800';
+  return 'bg-green-100 text-black dark:text-green-200 dark:bg-green-900';
     }
     // Tier 3: Implementation
     if (['acp', 'mcp-a2a-integration', 'data-visualization'].includes(nodeId)) {
-      return 'bg-yellow-100 text-yellow-800';
+  return 'bg-yellow-100 text-black dark:text-yellow-200 dark:bg-yellow-900';
     }
     // Tier 4: Advanced
     if (['agent-deployment', 'agent-learning', 'agent-integration'].includes(nodeId)) {
-      return 'bg-red-100 text-red-800';
+  return 'bg-red-100 text-black dark:text-red-200 dark:bg-red-900';
     }
     // Additional resources
-    return 'bg-gray-100 text-gray-800';
+  return 'bg-gray-100 text-black dark:text-gray-200 dark:bg-gray-900';
   };
 
   const getTierNumber = (nodeId: string) => {

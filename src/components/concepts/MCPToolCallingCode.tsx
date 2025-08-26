@@ -252,7 +252,7 @@ if __name__ == "__main__":
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Badge variant="outline" className="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+            <Badge variant="outline" className="ring-1 bg-[var(--badge-orange-bg)] ring-[var(--badge-orange-ring)] text-[var(--badge-orange-text)] dark:text-[var(--badge-orange-text)]">
               MCP Server
             </Badge>
             Production Server Implementation
@@ -271,7 +271,7 @@ if __name__ == "__main__":
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Badge variant="outline" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+            <Badge variant="outline" className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">
               MCP Client
             </Badge>
             Intelligent Client with Conversation History

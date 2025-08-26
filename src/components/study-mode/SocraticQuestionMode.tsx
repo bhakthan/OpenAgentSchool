@@ -856,7 +856,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                   <CardDescription>Help us create the best Socratic experience for you</CardDescription>
                 </div>
               </div>
-              <Badge className="bg-purple-100 text-purple-800 border-purple-200">
+              <Badge className="ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)] dark:text-[var(--badge-purple-text)]">
                 Setup
               </Badge>
             </div>
@@ -894,7 +894,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                   </span>
                 )}
                 {isAdaptive && (
-                  <Badge variant="secondary" className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 ml-2">
+                  <Badge variant="secondary" className="ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)] dark:text-[var(--badge-purple-text)] ml-2">
                     AI-Adapted
                   </Badge>
                 )}
@@ -925,7 +925,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                 </CardDescription>
               </div>
             </div>
-            <Badge className="bg-blue-100 text-blue-800 border-blue-200">
+            <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">
               {question.level}
             </Badge>
           </div>

@@ -579,7 +579,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                 <CardDescription>{challenge.description}</CardDescription>
               </div>
             </div>
-            <Badge className="bg-red-100 text-red-800 border-red-200">
+            <Badge className="ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)] dark:text-[var(--badge-red-text)]">
               Debug Challenge
             </Badge>
           </div>

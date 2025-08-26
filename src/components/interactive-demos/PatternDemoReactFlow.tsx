@@ -569,7 +569,7 @@ export const PatternDemoReactFlow = memo(({ patternData, className }: PatternDem
                               <Badge className="bg-primary text-primary-foreground animate-pulse">Active</Badge>
                             )}
                             {step.status === 'complete' && (
-                              <Badge className="bg-green-600 text-white">Complete</Badge>
+                              <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">Complete</Badge>
                             )}
                             {step.status === 'error' && (
                               <Badge variant="destructive">Error</Badge>

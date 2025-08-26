@@ -376,7 +376,7 @@ const SecurityCompliancePractices = () => {
                   <h4 className="text-sm font-medium mb-2">Azure Services:</h4>
                   <div className="flex flex-wrap gap-2">
                     {principle.azureServices.map((service, index) => (
-                      <Badge key={index} variant="outline" className="bg-secondary/10">
+                      <Badge key={index} variant="outline" className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] dark:text-[var(--badge-gray-text)]">
                         {service}
                       </Badge>
                     ))}

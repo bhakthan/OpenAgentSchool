@@ -140,7 +140,7 @@ export default function ModernToolUseAudioControls({
         <div className="flex items-center gap-2 flex-shrink-0">
           <SpeakerHigh className="w-4 h-4 text-orange-600 dark:text-orange-400" />
           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Audio:</span>
-          <Badge className="bg-orange-200 text-orange-800 dark:bg-orange-900 dark:text-orange-200 border border-orange-300 dark:border-orange-700 text-xs">
+          <Badge className="ring-1 bg-[var(--badge-orange-bg)] ring-[var(--badge-orange-ring)] text-[var(--badge-orange-text)] dark:text-[var(--badge-orange-text)] text-xs">
             {filteredContentTypes[currentContentType]?.label || 'Tool Use Enhanced'}
           </Badge>
         </div>
@@ -256,7 +256,7 @@ export default function ModernToolUseAudioControls({
           <div className="w-full p-3 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 shadow-inner audio-settings-panel">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">Audio Settings</h4>
-              <Badge className="bg-orange-200 text-orange-800 dark:bg-orange-900 dark:text-orange-200 border border-orange-300 dark:border-orange-700 text-xs">
+              <Badge className="ring-1 bg-[var(--badge-orange-bg)] ring-[var(--badge-orange-ring)] text-[var(--badge-orange-text)] dark:text-[var(--badge-orange-text)] text-xs">
                 {filteredContentTypes[currentContentType]?.label}
               </Badge>
             </div>

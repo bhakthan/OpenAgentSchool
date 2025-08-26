@@ -140,7 +140,7 @@ export default function AgenticRAGAudioControls({
         <div className="flex items-center gap-2 flex-shrink-0">
           <SpeakerHigh className="w-4 h-4 text-green-600 dark:text-green-400" />
           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Audio:</span>
-          <Badge className="bg-green-200 text-green-800 dark:bg-green-900 dark:text-green-200 border border-green-300 dark:border-green-700 text-xs">
+          <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)] text-xs">
             {filteredContentTypes[currentContentType]?.label || 'RAG Enhanced'}
           </Badge>
         </div>
@@ -256,7 +256,7 @@ export default function AgenticRAGAudioControls({
           <div className="w-full p-3 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 shadow-inner audio-settings-panel">
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">Audio Settings</h4>
-              <Badge className="bg-green-200 text-green-800 dark:bg-green-900 dark:text-green-200 border border-green-300 dark:border-green-700 text-xs">
+              <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)] text-xs">
                 {filteredContentTypes[currentContentType]?.label}
               </Badge>
             </div>

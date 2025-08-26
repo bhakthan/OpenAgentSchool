@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Brain, Code, Users, Lightbulb, Rocket, ChartBar, Target, Calculator } from "@phosphor-icons/react"
 import AISkillsFundamentals from "./AISkillsFundamentals"
 import InteractiveVisualizations from "./InteractiveVisualizations"
+import SystemsThinkingTree from "./SystemsThinkingTree"
 import FrontierFirmAssessment from "./FrontierFirmAssessment"
 import HumanAgentRatioCalculator from "./HumanAgentRatioCalculator"
 import CodeUnderstandingSkills from "./CodeUnderstandingSkills"
@@ -31,6 +32,14 @@ export default function AISkillsExplorer() {
       icon: <Brain className="w-4 h-4" />,
       level: "Beginner",
       component: <AISkillsFundamentals onNavigate={() => navigateToTab("interactive-visualizations")} navigateToTab={navigateToTab} />
+    },
+    {
+      id: "thinking-modes",
+      title: "Thinking Modes",
+      description: "Design vs Breakthrough vs Systems Thinking",
+      icon: <Brain className="w-4 h-4" />,
+      level: "Beginner",
+      component: <SystemsThinkingTree />
     },
     {
       id: "interactive-visualizations",
@@ -90,13 +99,19 @@ export default function AISkillsExplorer() {
     }
   ]
 
+  // Accessible AI-native skills badge styles via CSS variables
   const getLevelColor = (level: string) => {
     switch (level) {
-      case "Beginner": return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-      case "Intermediate": return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-      case "Advanced": return "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
-      case "Expert": return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
-      default: return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200"
+      case "Beginner":
+        return "ring-1 bg-[var(--badge-beginner-bg)] ring-[var(--badge-beginner-ring)] text-[var(--badge-beginner-text)] dark:text-[var(--badge-beginner-text)]"
+      case "Intermediate":
+        return "ring-1 bg-[var(--badge-intermediate-bg)] ring-[var(--badge-intermediate-ring)] text-[var(--badge-intermediate-text)] dark:text-[var(--badge-intermediate-text)]"
+      case "Advanced":
+        return "ring-1 bg-[var(--badge-advanced-skill-bg)] ring-[var(--badge-advanced-skill-ring)] text-[var(--badge-advanced-skill-text)] dark:text-[var(--badge-advanced-skill-text)]"
+      case "Expert":
+        return "ring-1 bg-[var(--badge-expert-bg)] ring-[var(--badge-expert-ring)] text-[var(--badge-expert-text)] dark:text-[var(--badge-expert-text)]"
+      default:
+        return "ring-1 bg-muted ring-border text-foreground"
     }
   }
 
@@ -165,15 +180,15 @@ export default function AISkillsExplorer() {
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 h-auto p-1">
+      <TabsList className="grid w-full grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 h-auto p-1">
             {tabs.map((tab) => (
               <TabsTrigger 
                 key={tab.id} 
                 value={tab.id}
-                className="flex items-center gap-1 px-2 py-2 text-base data-[state=active]:bg-background data-[state=active]:text-foreground"
+        className="flex items-center gap-1 px-2 py-1.5 text-sm md:text-sm lg:text-sm data-[state=active]:bg-background data-[state=active]:text-foreground"
               >
                 {tab.icon}
-                <span className="hidden sm:inline text-base">{tab.title}</span>
+        <span className="hidden sm:inline text-sm md:text-sm lg:text-sm xl:text-base truncate" title={tab.title}>{tab.title}</span>
               </TabsTrigger>
             ))}
           </TabsList>

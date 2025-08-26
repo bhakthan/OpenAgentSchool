@@ -219,7 +219,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <Badge className="bg-green-100 text-green-800 border-green-200">Beginner</Badge>
+                    <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">Beginner</Badge>
                     <span className="text-base font-medium">Foundation Level</span>
                   </div>
                   <div className="text-base text-muted-foreground">
@@ -235,7 +235,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">Intermediate</Badge>
+                    <Badge className="ring-1 bg-[var(--badge-yellow-bg)] ring-[var(--badge-yellow-ring)] text-[var(--badge-yellow-text)] dark:text-[var(--badge-yellow-text)]">Intermediate</Badge>
                     <span className="text-base font-medium">Applied Level</span>
                   </div>
                   <div className="text-base text-muted-foreground">
@@ -251,7 +251,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <Badge className="bg-red-100 text-red-800 border-red-200">Advanced</Badge>
+                    <Badge className="ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)] dark:text-[var(--badge-red-text)]">Advanced</Badge>
                     <span className="text-base font-medium">Expert Level</span>
                   </div>
                   <div className="text-base text-muted-foreground">
@@ -343,7 +343,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                       <div className="text-2xl font-bold text-green-600 mb-2">
                         {stats.difficultyStats.beginner}
                       </div>
-                      <Badge className="bg-green-100 text-green-800 border-green-200 mb-2">
+                      <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)] mb-2">
                         Beginner
                       </Badge>
                       <div className="text-base text-muted-foreground">Completed</div>
@@ -352,7 +352,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                       <div className="text-2xl font-bold text-yellow-600 mb-2">
                         {stats.difficultyStats.intermediate}
                       </div>
-                      <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200 mb-2">
+                      <Badge className="ring-1 bg-[var(--badge-yellow-bg)] ring-[var(--badge-yellow-ring)] text-[var(--badge-yellow-text)] dark:text-[var(--badge-yellow-text)] mb-2">
                         Intermediate
                       </Badge>
                       <div className="text-base text-muted-foreground">Completed</div>
@@ -361,7 +361,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
                       <div className="text-2xl font-bold text-red-600 mb-2">
                         {stats.difficultyStats.advanced}
                       </div>
-                      <Badge className="bg-red-100 text-red-800 border-red-200 mb-2">
+                      <Badge className="ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)] dark:text-[var(--badge-red-text)] mb-2">
                         Advanced
                       </Badge>
                       <div className="text-base text-muted-foreground">Completed</div>

@@ -28,24 +28,24 @@ const getCategoryIcon = (category: string) => {
 };
 
 const getCategoryColor = (category: string) => {
-  // Token-based colors (shadcn/tailwind theme vars) for better theme parity
+  // Badge CSS variable tokens for consistent light/dark theming
   switch (category) {
     case 'prompt':
-      return 'bg-accent/10 border-accent/40 text-accent-foreground';
+      return 'ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]';
     case 'context':
-      return 'bg-secondary/10 border-secondary text-secondary-foreground';
+      return 'ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)] dark:text-[var(--badge-purple-text)]';
     case 'knowledge':
-      return 'bg-primary/10 border-primary/40 text-primary';
+      return 'ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]';
     case 'evaluation':
-      return 'bg-destructive/10 border-destructive/40 text-destructive';
+      return 'ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)] dark:text-[var(--badge-red-text)]';
     case 'architecture':
-      return 'bg-muted/20 border-border text-foreground';
+      return 'ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] dark:text-[var(--badge-gray-text)]';
     case 'tools':
-      return 'bg-secondary/10 border-secondary text-secondary-foreground';
+      return 'ring-1 bg-[var(--badge-orange-bg)] ring-[var(--badge-orange-ring)] text-[var(--badge-orange-text)] dark:text-[var(--badge-orange-text)]';
     case 'instruction':
-      return 'bg-primary/10 border-primary/40 text-primary';
+      return 'ring-1 bg-[var(--badge-yellow-bg)] ring-[var(--badge-yellow-ring)] text-[var(--badge-yellow-text)] dark:text-[var(--badge-yellow-text)]';
     default:
-      return 'bg-muted/20 border-border text-foreground';
+      return 'ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] dark:text-[var(--badge-gray-text)]';
   }
 };
 

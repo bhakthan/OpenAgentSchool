@@ -87,7 +87,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
             <div className="flex items-center gap-2">
               <Sparkle className="w-5 h-5 text-yellow-500" />
               <h3 className="text-lg font-semibold">AI-Enhanced Strategic Decision Making</h3>
-              <Badge variant="outline" className="border-red-500 text-red-600 dark:text-red-400">Revolutionary</Badge>
+              <Badge variant="outline" className="ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)] dark:text-[var(--badge-red-text)]">Revolutionary</Badge>
             </div>
             
             <p className="text-sm text-muted-foreground">
@@ -132,7 +132,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
             <div className="flex items-center gap-2">
               <Rocket className="w-5 h-5 text-blue-500" />
               <h3 className="text-lg font-semibold">Autonomous Product Development Teams</h3>
-              <Badge variant="outline" className="border-red-500 text-red-600 dark:text-red-400">Revolutionary</Badge>
+              <Badge variant="outline" className="ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)] dark:text-[var(--badge-red-text)]">Revolutionary</Badge>
             </div>
             
             <p className="text-sm text-muted-foreground">
@@ -193,7 +193,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
             <div className="flex items-center gap-2">
               <Target className="w-5 h-5 text-green-500" />
               <h3 className="text-lg font-semibold">Real-Time Competitive Intelligence Networks</h3>
-              <Badge variant="outline" className="border-red-500 text-red-600 dark:text-red-400">Revolutionary</Badge>
+              <Badge variant="outline" className="ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)] dark:text-[var(--badge-red-text)]">Revolutionary</Badge>
             </div>
             
             <p className="text-sm text-muted-foreground">

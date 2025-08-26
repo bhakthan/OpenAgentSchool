@@ -241,7 +241,7 @@ advanced: {
                   {/* Header */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-300 dark:border-blue-700">
+                      <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">
                         Audio Guide
                       </Badge>
                       <div className="flex flex-col gap-0.5 cursor-grab active:cursor-grabbing">
@@ -585,7 +585,7 @@ advanced: {
           <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-inner audio-settings-panel">
             <div className="flex items-center justify-between">
               <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">Audio Settings</h4>
-              <Badge className="bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-300 dark:border-blue-700">
+              <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">
                 Embedded Mode
               </Badge>
             </div>

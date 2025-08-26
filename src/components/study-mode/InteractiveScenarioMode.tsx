@@ -736,7 +736,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                 <CardDescription>{scenario.description}</CardDescription>
               </div>
             </div>
-            <Badge className="bg-green-100 text-green-800 border-green-200">
+            <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">
               {scenario.difficulty}
             </Badge>
           </div>
