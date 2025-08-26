@@ -911,7 +911,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                             {category.totalQuestions} questions
                           </Badge>
                           <Badge variant="outline" className="text-sm">
-                            ~{Math.round(category.estimatedTime / 60)} min
+                            ~{Math.round(((category.estimatedTime ?? (category.totalQuestions * 40)) / 60))} min
                           </Badge>
                         </div>
                       </div>

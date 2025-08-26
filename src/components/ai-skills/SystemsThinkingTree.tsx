@@ -12,26 +12,20 @@ export default function SystemsThinkingTree() {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const gRef = useRef<SVGGElement | null>(null)
 
-  // Cleaner palette function based on Tailwind-like themes
+  // Theme palette sourced from CSS variables with sensible fallbacks
   function getTheme() {
     const isDark = document.documentElement.classList.contains("dark")
-    return isDark
-      ? {
-          bg: "#0b1220", // dark background
-          link: "#94a3b8", // slate-400
-          rectFill: "#0f172a", // slate-900
-          rectStroke: "#e5e7eb", // gray-200
-          text: "#e5e7eb", // gray-200
-          header: "#ffffff",
-        }
-      : {
-          bg: "#ffffff",
-          link: "#111827", // gray-900
-          rectFill: "#ffffff",
-          rectStroke: "#111827",
-          text: "#111827",
-          header: "#111827",
-        }
+    const styles = getComputedStyle(document.documentElement)
+    const cssVar = (name: string, fallback: string) => (styles.getPropertyValue(name)?.trim() || fallback)
+
+    return {
+      bg: cssVar("--ai-viz-bg", isDark ? "#0b1220" : "#ffffff"),
+      link: cssVar("--ai-viz-link", isDark ? "#94a3b8" : "#111827"),
+      rectFill: cssVar("--ai-viz-node-fill", isDark ? "#0f172a" : "#ffffff"),
+      rectStroke: cssVar("--ai-viz-node-stroke", isDark ? "#e5e7eb" : "#111827"),
+      text: cssVar("--ai-viz-text", isDark ? "#e5e7eb" : "#111827"),
+      header: cssVar("--ai-viz-title", isDark ? "#ffffff" : "#111827"),
+    }
   }
 
   // Export helpers
@@ -133,8 +127,12 @@ export default function SystemsThinkingTree() {
       .attr("preserveAspectRatio", "xMidYMid meet") as d3.Selection<SVGSVGElement, unknown, null, undefined>
 
     svgRef.current = svg.node() as SVGSVGElement
-    const g = svg.append("g")
-    gRef.current = g.node() as SVGGElement
+  // Root <g> and explicit layering groups (links-under, nodes, links-over)
+  const g = svg.append("g")
+  gRef.current = g.node() as SVGGElement
+  const gLinksBack = g.append("g").attr("id", "links-back")
+  const gNodes = g.append("g").attr("id", "nodes")
+  const gLinksTop = g.append("g").attr("id", "links-top")
 
     // Zoom/Pan
     const zoom = d3
@@ -200,41 +198,88 @@ export default function SystemsThinkingTree() {
     }
     root.children?.forEach((c: any) => c.children?.forEach((gc: any) => collapse(gc)))
 
-    const dx = 26
-    const dy = 180
-    const tree = d3.tree().nodeSize([dx, dy]) as any
+  const dx = 26
+  const dy = 180
+  const tree = d3.tree().nodeSize([dx, dy]) as any
 
     function measureText(text: string) {
-      const avg = 7.1
-      return Math.max(90, text.length * avg)
+      const avg = 7.4 // tuned for UI font
+      return Math.max(120, text.length * avg)
     }
 
-    let link = g
-      .append("g")
+    function computeColumnOffsets(rootNode: any) {
+      // Determine widest node rectangle per depth and build cumulative offsets
+      const byDepth = new Map<number, number>()
+      rootNode.each((d: any) => {
+        const w = 12 + measureText(d.data.name)
+        const current = byDepth.get(d.depth) ?? 0
+        byDepth.set(d.depth, Math.max(current, w))
+      })
+      const gap = 28 // gap between columns
+      const maxDepth = Math.max(...Array.from(byDepth.keys()))
+      const offsets: number[] = []
+      let acc = 0
+      for (let depth = 0; depth <= maxDepth + 1; depth++) {
+        offsets[depth] = acc
+        const colW = byDepth.get(depth) ?? 160
+        acc += colW + gap
+      }
+      return offsets
+    }
+
+    let linkBack = gLinksBack
       .attr("fill", "none")
       .attr("stroke-linecap", "round")
-      .attr("stroke-width", 2.25)
-      .selectAll("path")
+      .attr("stroke-width", 1.25)
+      .selectAll<SVGPathElement, any>("path")
 
-    let node = g
-      .append("g")
+    let linkTop = gLinksTop
+      .attr("fill", "none")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.25)
+      .selectAll<SVGPathElement, any>("path")
+
+    let node = gNodes
       .attr("stroke-linecap", "round")
       .attr("stroke-linejoin", "round")
-      .selectAll("g")
+      .selectAll<SVGGElement, any>("g")
 
     function update() {
       tree(root)
 
-      link = link
-        .data(root.links())
+      // Reassign horizontal positions using per-depth column widths to prevent overlap
+      const colOffsets = computeColumnOffsets(root)
+      root.each((d: any) => {
+        d.y = colOffsets[d.depth] // override depth-based y with column offsets
+      })
+
+      const allLinks = root.links()
+      const trunk = allLinks.filter((l: any) => l.source?.depth === 0) // root -> depth1
+      const branches = allLinks.filter((l: any) => l.source?.depth !== 0)
+
+      const gen = d3
+        .linkVertical<any, any>()
+        .source((l: any) => {
+          const w = 12 + measureText(l.source.data.name)
+          // parent right edge: group at (y,x), rect starts at x=-6 with width w
+          return { x: l.source.x, y: l.source.y + (w - 6) }
+        })
+        .target((l: any) => {
+          // child left edge: group at (y,x), rect starts at x=-6
+          return { x: l.target.x, y: l.target.y - 6 }
+        })
+        .x((p: any) => p.y)
+        .y((p: any) => p.x) as any
+
+      // Draw non-trunk links behind nodes
+      linkBack = linkBack.data(branches, (d: any) => `${d.source.data.name}->${d.target.data.name}`)
         .join("path")
-        .attr(
-          "d",
-          d3
-            .linkVertical()
-            .x((d: any) => d.y)
-            .y((d: any) => d.x) as any
-        )
+        .attr("d", gen)
+
+      // Draw trunk links above nodes so they aren’t hidden by leaf rectangles
+      linkTop = linkTop.data(trunk, (d: any) => `${d.source.data.name}->${d.target.data.name}`)
+        .join("path")
+        .attr("d", gen)
 
       node = node
         .data(root.descendants(), (d: any) => d.data.name as string)
@@ -285,8 +330,9 @@ export default function SystemsThinkingTree() {
           (exit) => exit.remove()
         )
 
-      applyThemeColors()
-      fitToScreen()
+  applyThemeColors()
+  // wait for DOM to settle so bbox reflects updated positions/widths
+  requestAnimationFrame(() => fitToScreen())
     }
 
     function fitToScreen() {
@@ -298,15 +344,17 @@ export default function SystemsThinkingTree() {
       if (!(isFinite(midX) && isFinite(midY))) return
       const scale = 0.92 / Math.max(bounds.width / fullWidth, bounds.height / (fullHeight - 60))
       const translate = [fullWidth / 2 - scale * midX, (fullHeight + 40) / 2 - scale * midY]
-      svg.transition().duration(450).call((d3.zoom() as any).transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale))
+      const t = d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
+      svg.transition().duration(450).call(zoom.transform as any, t)
     }
 
     function applyThemeColors() {
-      const theme = getTheme()
-      d3.select(svgRef.current).style("background", theme.bg)
-      d3.select(svgRef.current).selectAll("g path").attr("stroke", theme.link).attr("stroke-opacity", 0.9)
-      d3.select(svgRef.current).selectAll("g rect").attr("fill", theme.rectFill).attr("stroke", theme.rectStroke)
-      d3.select(svgRef.current).selectAll("text").attr("fill", theme.text)
+  const theme = getTheme()
+  d3.select(svgRef.current).style("background", theme.bg)
+  d3.select(svgRef.current).select("#links-back").selectAll("path").attr("stroke", theme.link).attr("stroke-opacity", 0.60)
+  d3.select(svgRef.current).select("#links-top").selectAll("path").attr("stroke", theme.link).attr("stroke-opacity", 0.75)
+  d3.select(svgRef.current).select("#nodes").selectAll("rect").attr("fill", theme.rectFill).attr("stroke", theme.rectStroke)
+  d3.select(svgRef.current).select("#nodes").selectAll("text").attr("fill", theme.text)
       const texts = d3.select(svgRef.current).selectAll("text")
       texts.filter((_, i, n) => {
         const el = n[i] as SVGTextElement

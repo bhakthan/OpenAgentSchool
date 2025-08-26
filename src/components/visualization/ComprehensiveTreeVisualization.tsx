@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import D3TreeVisualization from '@/components/visualization/D3TreeVisualization';
 import { 
   Brain, 
@@ -13,6 +14,7 @@ import {
 } from '@phosphor-icons/react';
 import { getAllStudyModeQuestions, getAllStudyModeContentCount } from '@/lib/data/studyMode';
 import { getAllQuestions } from '@/lib/data/quizzes';
+import { agentPatterns } from '@/lib/data/patterns';
 
 // Types
 interface TreeNode {
@@ -71,6 +73,7 @@ export default function ComprehensiveTreeVisualization() {
 
   // Debug logging to check the count
   const studyCount = getAllStudyModeContentCount();
+  const sclScenariosCount = studyCount - getAllStudyModeQuestions().length;
   console.log('Study Mode Content Count:', studyCount);
 
   // Handle navigation for leaf nodes
@@ -138,7 +141,7 @@ export default function ComprehensiveTreeVisualization() {
               <div className="flex items-center gap-3">
                 <Cog className="w-8 h-8 text-amber-600" />
                 <div>
-                  <div className="text-2xl font-bold">27</div>
+                  <div className="text-2xl font-bold">{agentPatterns.length}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Agent Patterns</div>
                 </div>
               </div>
@@ -176,6 +179,16 @@ export default function ComprehensiveTreeVisualization() {
                 <div>
                   <div className="text-2xl font-bold">{getAllStudyModeContentCount()}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Study Questions</div>
+                  {sclScenariosCount > 0 && (
+                    <div className="mt-1 flex items-center gap-2">
+                      <Badge variant="outline" className="text-[10px] leading-tight">
+                        {sclScenariosCount} SCL scenarios
+                      </Badge>
+                      <Link to="/study-mode#scl" className="text-[10px] text-indigo-600 hover:underline">
+                        View SCL
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>

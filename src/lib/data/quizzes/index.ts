@@ -781,7 +781,8 @@ export const getQuizzesByCategory = (categoryId: string, difficulty?: 'beginner'
   
   const categoryQuestions: QuizQuestion[] = [];
   category.subCategories.forEach(subCategory => {
-    subCategory.questions.forEach(question => {
+    const questions = subCategory.questions || [];
+    questions.forEach(question => {
       if (!difficulty || question.difficulty === difficulty) {
         categoryQuestions.push(question);
       }
@@ -796,7 +797,7 @@ export const getQuizzesBySubCategory = (categoryId: string, subCategoryId: strin
   if (!category) return [];
   
   const subCategory = category.subCategories.find(sc => sc.id === subCategoryId);
-  if (!subCategory) return [];
+  if (!subCategory || !subCategory.questions) return [];
   
   return subCategory.questions.filter(question => 
     !difficulty || question.difficulty === difficulty

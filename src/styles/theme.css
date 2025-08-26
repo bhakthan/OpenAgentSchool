@@ -88,6 +88,13 @@
 
 @layer base {
   :root {
+  /* AI-native skills visualization tokens (light) */
+  --ai-viz-bg: #ffffff; /* canvas background */
+  --ai-viz-link: #111827; /* link/edge stroke */
+  --ai-viz-node-fill: #ffffff; /* node rect fill */
+  --ai-viz-node-stroke: #111827; /* node rect stroke */
+  --ai-viz-text: #111827; /* node text */
+  --ai-viz-title: #111827; /* header/title text */
     /* Badge tokens (light) */
     --badge-fundamentals-bg: #eff6ff; /* blue-50 */
     --badge-fundamentals-text: #000000; /* light text: black for readability */
@@ -154,6 +161,13 @@
 
   /* Dark mode overrides come from the html.dark class set in index.html */
   .dark {
+  /* AI-native skills visualization tokens (dark) */
+  --ai-viz-bg: #0b1220; /* deep slate */
+  --ai-viz-link: #94a3b8; /* slate-400 */
+  --ai-viz-node-fill: #0f172a; /* slate-900 */
+  --ai-viz-node-stroke: #e5e7eb; /* gray-200 */
+  --ai-viz-text: #e5e7eb;
+  --ai-viz-title: #ffffff;
     --badge-fundamentals-bg: rgba(30, 58, 138, 0.20); /* blue-900 @ 20% */
     --badge-fundamentals-text: #e5e7eb; /* gray-200 for contrast */
     --badge-fundamentals-ring: rgba(30, 58, 138, 0.40); /* blue-900 @ 40% */

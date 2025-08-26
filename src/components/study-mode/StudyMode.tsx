@@ -39,11 +39,24 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [sessions, setSessions] = useState<StudyModeSession[]>([]);
   const [progress, setProgress] = useState(calculateStudyModeProgress([]));
 
-  // Load progress on mount
+  // Load progress on mount and honor hash deep-linking to a specific tab (e.g., #scl)
   useEffect(() => {
     const loadedSessions = getStudyModeProgress();
     setSessions(loadedSessions);
     setProgress(calculateStudyModeProgress(loadedSessions));
+
+    try {
+      const hash = (typeof window !== 'undefined' ? window.location.hash : '').toLowerCase();
+      if (hash === '#scl') {
+        setActiveTab('scl');
+      } else if (hash === '#socratic') {
+        setActiveTab('socratic');
+      } else if (hash === '#scenario') {
+        setActiveTab('scenario');
+      } else if (hash === '#debug') {
+        setActiveTab('debug');
+      }
+    } catch {}
   }, []);
 
   // Get all questions from all concepts
