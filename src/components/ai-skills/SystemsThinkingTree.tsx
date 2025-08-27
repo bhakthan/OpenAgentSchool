@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import * as d3 from "d3"
+import { initSkillsAI, runSkillsDemo } from "./skills-ai"
 
 /**
  * SystemsThinkingTree (theme-aware)
@@ -11,21 +12,25 @@ export default function SystemsThinkingTree() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const svgRef = useRef<SVGSVGElement | null>(null)
   const gRef = useRef<SVGGElement | null>(null)
+  const [hint, setHint] = useState<string>("")
+  const [hintVisible, setHintVisible] = useState(false)
+  const hintTimerRef = useRef<number | null>(null)
 
-  // Theme palette sourced from CSS variables with sensible fallbacks
+  // Theme palette aligned with global visualization tokens (fallbacks included)
   function getTheme() {
     const isDark = document.documentElement.classList.contains("dark")
     const styles = getComputedStyle(document.documentElement)
     const cssVar = (name: string, fallback: string) => (styles.getPropertyValue(name)?.trim() || fallback)
 
-    return {
-      bg: cssVar("--ai-viz-bg", isDark ? "#0b1220" : "#ffffff"),
-      link: cssVar("--ai-viz-link", isDark ? "#94a3b8" : "#111827"),
-      rectFill: cssVar("--ai-viz-node-fill", isDark ? "#0f172a" : "#ffffff"),
-      rectStroke: cssVar("--ai-viz-node-stroke", isDark ? "#e5e7eb" : "#111827"),
-      text: cssVar("--ai-viz-text", isDark ? "#e5e7eb" : "#111827"),
-      header: cssVar("--ai-viz-title", isDark ? "#ffffff" : "#111827"),
-    }
+    // Prefer shared app tokens first; fall back to ai-viz overrides; then hardcoded safe colors
+    const bg = cssVar("--background", cssVar("--ai-viz-bg", isDark ? "#0b1220" : "#ffffff"))
+    const link = cssVar("--muted-foreground", cssVar("--ai-viz-link", isDark ? "#94a3b8" : "#111827"))
+    const rectFill = cssVar("--card", cssVar("--ai-viz-node-fill", isDark ? "#0f172a" : "#ffffff"))
+    const rectStroke = cssVar("--border", cssVar("--ai-viz-node-stroke", isDark ? "#334155" : "#e5e7eb"))
+    const text = cssVar("--foreground", cssVar("--ai-viz-text", isDark ? "#e5e7eb" : "#111827"))
+    const header = cssVar("--foreground", cssVar("--ai-viz-title", isDark ? "#ffffff" : "#111827"))
+
+    return { bg, link, rectFill, rectStroke, text, header }
   }
 
   // Export helpers
@@ -227,7 +232,7 @@ export default function SystemsThinkingTree() {
       return offsets
     }
 
-    let linkBack = gLinksBack
+  let linkBack = gLinksBack
       .attr("fill", "none")
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.25)
@@ -271,12 +276,12 @@ export default function SystemsThinkingTree() {
         .x((p: any) => p.y)
         .y((p: any) => p.x) as any
 
-      // Draw non-trunk links behind nodes
+  // Draw non-trunk links behind nodes
       linkBack = linkBack.data(branches, (d: any) => `${d.source.data.name}->${d.target.data.name}`)
         .join("path")
         .attr("d", gen)
 
-      // Draw trunk links above nodes so they aren’t hidden by leaf rectangles
+  // Draw trunk links above nodes so they aren’t hidden by leaf rectangles
       linkTop = linkTop.data(trunk, (d: any) => `${d.source.data.name}->${d.target.data.name}`)
         .join("path")
         .attr("d", gen)
@@ -351,8 +356,8 @@ export default function SystemsThinkingTree() {
     function applyThemeColors() {
   const theme = getTheme()
   d3.select(svgRef.current).style("background", theme.bg)
-  d3.select(svgRef.current).select("#links-back").selectAll("path").attr("stroke", theme.link).attr("stroke-opacity", 0.60)
-  d3.select(svgRef.current).select("#links-top").selectAll("path").attr("stroke", theme.link).attr("stroke-opacity", 0.75)
+  d3.select(svgRef.current).select("#links-back").selectAll("path").attr("stroke", theme.link).attr("stroke-opacity", 0.55)
+  d3.select(svgRef.current).select("#links-top").selectAll("path").attr("stroke", theme.link).attr("stroke-opacity", 0.85)
   d3.select(svgRef.current).select("#nodes").selectAll("rect").attr("fill", theme.rectFill).attr("stroke", theme.rectStroke)
   d3.select(svgRef.current).select("#nodes").selectAll("text").attr("fill", theme.text)
       const texts = d3.select(svgRef.current).selectAll("text")
@@ -381,10 +386,18 @@ export default function SystemsThinkingTree() {
       .attr("opacity", 0.8)
       .text("Vertical Tree • Building Product → Design | Breakthrough | Systems Thinking")
 
-    // Initial draw
+  // Initial draw
     update()
 
     // Expose controls
+    // Helper: find a descendant by name
+    function findByName(name: string) {
+      let found: any
+      root.each((d: any) => { if (d.data.name === name) found = d })
+      return found
+    }
+
+  // Expose controls
     ;(window as any).__ST_TREE__ = {
       expandAll: () => {
         root.each((d: any) => {
@@ -404,6 +417,48 @@ export default function SystemsThinkingTree() {
       exportSVG: () => exportCurrentSVG(),
       exportPNG: () => exportPNG(),
       print: () => printSVG(),
+      focus: (name: string) => {
+        const n = findByName(name)
+        if (!n) return
+        const bbox = { x: n.y, y: n.x }
+        const scale = 1.1
+        const t = d3.zoomIdentity.translate(width/2 - scale*bbox.x, height/2 - scale*bbox.y).scale(scale)
+        svg.transition().duration(400).call(zoom.transform as any, t)
+        // brief node highlight for guidance
+        const theme = getTheme()
+        const nodeSel = d3.select(svgRef.current)
+          .select("#nodes")
+          .selectAll<SVGGElement, any>("g")
+          .filter((d: any) => d.data.name === name)
+        nodeSel.select("rect")
+          .interrupt()
+          .transition().duration(120)
+          .attr("stroke", cssVarFromDoc("--primary", theme.rectStroke))
+          .attr("stroke-width", 3.5)
+          .transition().delay(700).duration(250)
+          .attr("stroke", theme.rectStroke)
+          .attr("stroke-width", 2.5)
+      },
+      expandNode: (name: string) => {
+        const n = findByName(name)
+        if (!n) return
+        if (n._children) { n.children = n._children; n._children = null; update() }
+      },
+      collapseNode: (name: string) => {
+        const n = findByName(name)
+        if (!n) return
+        if (n.children) { n._children = n.children; n.children = null; update() }
+      },
+      showHint: (text: string, ms: number = 1500) => {
+        setHint(text)
+        setHintVisible(true)
+        if (hintTimerRef.current) window.clearTimeout(hintTimerRef.current)
+        hintTimerRef.current = window.setTimeout(() => setHintVisible(false), ms)
+      },
+      clearHint: () => {
+        if (hintTimerRef.current) window.clearTimeout(hintTimerRef.current)
+        setHintVisible(false)
+      }
     }
 
     const observer = new MutationObserver((mut) => {
@@ -415,15 +470,35 @@ export default function SystemsThinkingTree() {
     })
     observer.observe(document.documentElement, { attributes: true })
 
+    // Init Skills AI hotkeys
+  const disposeHotkeys = initSkillsAI()
+
     return () => {
       d3.select(container).selectAll("svg").remove()
       ;(window as any).__ST_TREE__ = undefined
       observer.disconnect()
+      disposeHotkeys?.()
     }
   }, [])
 
+  // helper to read CSS var from document root
+  function cssVarFromDoc(name: string, fallback: string) {
+    const styles = getComputedStyle(document.documentElement)
+    return (styles.getPropertyValue(name)?.trim() || fallback)
+  }
+
   return (
     <div className="w-full h-[85vh] bg-background text-foreground">
+      {/* Narration / hint overlay */}
+      <div
+        aria-live="polite"
+        role="status"
+        className={`pointer-events-none fixed right-4 top-16 z-20 transition-opacity duration-200 ${hintVisible ? 'opacity-100' : 'opacity-0'}`}
+      >
+        <div className="pointer-events-auto max-w-[480px] rounded-xl border border-[var(--border)] bg-[var(--card)] text-[var(--card-foreground)] shadow-lg px-4 py-2">
+          <span className="text-sm font-medium">{hint}</span>
+        </div>
+      </div>
       <div className="flex items-center gap-2 px-3 py-2 border-b sticky top-0 bg-background z-10">
         <span className="font-semibold">Controls:</span>
         <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => (window as any).__ST_TREE__?.expandAll?.()}>
@@ -437,6 +512,9 @@ export default function SystemsThinkingTree() {
         </button>
         <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => (window as any).__ST_TREE__?.resetZoom?.()}>
           Reset Zoom
+        </button>
+        <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => runSkillsDemo()}>
+          Run Demo
         </button>
         <span className="mx-2 text-gray-300">•</span>
         <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => (window as any).__ST_TREE__?.exportSVG?.()}>

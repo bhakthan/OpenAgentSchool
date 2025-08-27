@@ -52,6 +52,9 @@ const InteractiveScenarioMode: React.FC<InteractiveScenarioModeProps> = ({
   const [showLlmFeedbackModal, setShowLlmFeedbackModal] = useState(false);
   const [showCopyTooltip, setShowCopyTooltip] = useState(false);
   const [showPrintTooltip, setShowPrintTooltip] = useState(false);
+  // Hold pending finalization so users can read feedback before completing
+  const [pendingFinalResponses, setPendingFinalResponses] = useState<StudyModeResponse[] | null>(null);
+  const [pendingFinalResults, setPendingFinalResults] = useState<ChallengeResult[] | null>(null);
 
   // Reset function to allow retaking the same scenario
   const resetToStart = () => {
@@ -260,7 +263,10 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
 
       const judgment = await scenarioJudge(judgeRequest);
       setLlmJudgeResponse(judgment);
-      setShowLlmFeedbackModal(true);
+      // Only auto-open the feedback modal on the last challenge; otherwise let users open it manually
+      if (isLastChallenge) {
+        setShowLlmFeedbackModal(true);
+      }
 
       // Create response with LLM feedback
       const newResponse: StudyModeResponse = {
@@ -290,9 +296,11 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
         simulateCodeExecution(userResponse);
       }
 
-      // Move to next challenge or complete immediately after getting judgment
+      // Move to next challenge, or stage finalization for user confirmation
       if (isLastChallenge) {
-        await handleFinalCompletion(updatedResponses, updatedResults);
+        // Keep the modal open so the user can read feedback, and defer completion
+        setPendingFinalResponses(updatedResponses);
+        setPendingFinalResults(updatedResults);
       } else {
         setCurrentStep(prev => prev + 1);
         setUserResponse('');
@@ -1021,6 +1029,33 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                               ))}
                             </div>
                           </div>
+                        )}
+                      </div>
+                      {/* Footer actions to keep dialog open until user confirms on last step */}
+                      <div className="mt-6 flex items-center justify-end gap-2">
+                        {!isLastChallenge ? (
+                          <Button variant="outline" onClick={() => setShowLlmFeedbackModal(false)}>
+                            Close
+                          </Button>
+                        ) : (
+                          <>
+                            <Button variant="outline" onClick={() => setShowLlmFeedbackModal(false)}>
+                              Close
+                            </Button>
+                            <Button
+                              onClick={async () => {
+                                if (pendingFinalResponses && pendingFinalResults) {
+                                  await handleFinalCompletion(pendingFinalResponses, pendingFinalResults);
+                                  setShowLlmFeedbackModal(false);
+                                  setPendingFinalResponses(null);
+                                  setPendingFinalResults(null);
+                                }
+                              }}
+                              disabled={!pendingFinalResponses || !pendingFinalResults}
+                            >
+                              Complete Scenario
+                            </Button>
+                          </>
                         )}
                       </div>
                     </DialogContent>

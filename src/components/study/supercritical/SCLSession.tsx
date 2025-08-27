@@ -15,7 +15,9 @@ import {
   ArrowCounterClockwise,
   X,
   Play,
-  Pause
+  Pause,
+  Timer,
+  Prohibit
 } from '@phosphor-icons/react';
 import type { SCLMode, SCLUIState, SCLObjective } from '@/types/supercritical';
 import { useSCLSession } from '@/hooks/useSCLSession';
@@ -98,8 +100,11 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
     error,
     createSession,
     generateEffects,
+  generateEffectsWithContext,
     updateConstraints,
+  cancelBackend,
     clearSession,
+  activeWorkflowId,
   } = useSCLSession({
     onProgress: (step, prog) => {
       console.log(`SCL Progress: ${step} (${Math.round(prog * 100)}%)`);
@@ -107,6 +112,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
     onError: (err) => {
       console.error('SCL Error:', err);
     },
+  backendTimeoutMs: 20000,
   });
 
   // Convert session effects to graph format
@@ -138,64 +144,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
 
       console.log('SCL Session starting with seeds:', seeds);
       
-      const newSession = createSession(mode, objectives, seeds);
-      
-      // Create context summary with default examples if no specific seeds provided
-      const mockContextSummary = {
-        concepts: seeds.conceptIds.length > 0 
-          ? seeds.conceptIds.map(id => ({
-              id,
-              title: id === 'agentic-systems' ? 'Agentic AI Systems' : `Concept: ${id}`,
-              keyMechanisms: id === 'agentic-systems' 
-                ? ['autonomous decision making', 'goal-directed behavior', 'environmental sensing']
-                : ['mechanism1', 'mechanism2'],
-              dependencies: [],
-              guarantees: [],
-            }))
-          : [{
-              id: 'agentic-systems',
-              title: 'Agentic AI Systems',
-              keyMechanisms: ['autonomous decision making', 'goal-directed behavior', 'environmental sensing'],
-              dependencies: [],
-              guarantees: [],
-            }],
-        patterns: seeds.patternIds.length > 0
-          ? seeds.patternIds.map(id => ({
-              id,
-              title: id === 'orchestration-pattern' ? 'Agent Orchestration Pattern' : `Pattern: ${id}`,
-              components: id === 'orchestration-pattern'
-                ? ['coordination layer', 'task distribution', 'result aggregation']
-                : ['component1', 'component2'],
-              tradeoffs: id === 'orchestration-pattern'
-                ? ['complexity vs control', 'latency vs accuracy']
-                : ['tradeoff1', 'tradeoff2'],
-              applicability: ['multi-agent scenarios', 'complex workflows'],
-            }))
-          : [{
-              id: 'orchestration-pattern',
-              title: 'Agent Orchestration Pattern',
-              components: ['coordination layer', 'task distribution', 'result aggregation'],
-              tradeoffs: ['complexity vs control', 'latency vs accuracy'],
-              applicability: ['multi-agent scenarios', 'complex workflows'],
-            }],
-        practices: seeds.practices.length > 0
-          ? seeds.practices.map(id => ({
-              id,
-              title: id === 'iterative-testing' ? 'Iterative Agent Testing' : `Practice: ${id}`,
-              outcomes: id === 'iterative-testing'
-                ? ['improved reliability', 'faster debugging', 'better performance']
-                : ['outcome1', 'outcome2'],
-              prerequisites: [],
-              risks: [],
-            }))
-          : [{
-              id: 'iterative-testing',
-              title: 'Iterative Agent Testing',
-              outcomes: ['improved reliability', 'faster debugging', 'better performance'],
-              prerequisites: [],
-              risks: [],
-            }],
-      };
+  const newSession = createSession(mode, objectives, seeds);
 
       // Push mode-specific extras to constraints for orchestrator
       updateConstraints({
@@ -209,8 +158,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
         budget: mode === 'stress-test' ? (modeControls.budget || 'medium') : undefined
       });
 
-      console.log('SCL Context Summary:', mockContextSummary);
-      await generateEffects(newSession, mockContextSummary);
+  await generateEffectsWithContext(newSession);
     } catch (error) {
       console.error('Failed to start SCL session:', error);
     }
@@ -272,8 +220,17 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
             </Button>
             <div>
               <h1 className="text-xl font-semibold">Super Critical Learning</h1>
-              <p className="text-sm text-muted-foreground">
-                {session ? `Session: ${session.id}` : 'Configure your analysis'}
+              <p className="text-sm text-muted-foreground flex items-center gap-2">
+                {session ? (
+                  <>
+                    <span>{`Session: ${session.id}`}</span>
+                    {session.source && (
+                      <Badge variant="outline" className={session.source === 'backend' ? 'border-green-500 text-green-600' : 'border-slate-400 text-slate-600'}>
+                        Source: {session.source === 'backend' ? 'Backend' : 'Local'}
+                      </Badge>
+                    )}
+                  </>
+                ) : 'Configure your analysis'}
               </p>
             </div>
           </div>
@@ -284,6 +241,12 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
                 <Badge variant={session.status === 'complete' ? 'default' : 'secondary'}>
                   {session.status}
                 </Badge>
+                {isGenerating && activeWorkflowId && (
+                  <Button variant="destructive" size="sm" onClick={cancelBackend}>
+                    <Prohibit className="h-4 w-4 mr-2" />
+                    Cancel
+                  </Button>
+                )}
                 <Button variant="outline" size="sm" onClick={handleExportSession}>
                   <Download className="h-4 w-4 mr-2" />
                   Export
@@ -310,6 +273,19 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
                 <span>{Math.round(progress.progress * 100)}%</span>
               </div>
               <Progress value={progress.progress * 100} />
+              <div className="flex items-center justify-between pt-2">
+                <div className="text-xs text-muted-foreground">
+                  {activeWorkflowId ? `Workflow #${activeWorkflowId}` : 'Local generation'}
+                </div>
+                {activeWorkflowId && (
+                  <div className="flex items-center gap-2">
+                    <Button variant="outline" size="sm" onClick={cancelBackend}>
+                      <Prohibit className="h-4 w-4 mr-1" />
+                      Cancel
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}

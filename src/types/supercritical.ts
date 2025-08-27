@@ -88,6 +88,8 @@ export interface SCLSession {
   id: string;
   userId?: string;
   mode: SCLMode;
+  // Indicates where the current outputs came from
+  source?: 'backend' | 'local';
   
   // Inputs
   seeds: {

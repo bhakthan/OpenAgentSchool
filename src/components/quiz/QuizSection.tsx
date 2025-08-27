@@ -8,15 +8,18 @@ import {
   Users, Brain, Clock, Star, TrendUp
 } from "@phosphor-icons/react";
 import AdaptiveLearningQuiz from './AdaptiveLearningQuiz';
+import { getQuizResults, submitQuiz } from '@/lib/api/core';
 import { QuizSession } from "@/lib/data/quizzes";
+import { toast } from '@/components/ui/use-toast';
 
 interface QuizSectionProps {}
 
 const QuizSection: React.FC<QuizSectionProps> = () => {
   const [completedQuizzes, setCompletedQuizzes] = useState<QuizSession[]>([]);
+  const [progressSummary, setProgressSummary] = useState<any | null>(null);
   const [showQuiz, setShowQuiz] = useState(false);
 
-  const handleQuizComplete = (session: QuizSession) => {
+  const handleQuizComplete = async (session: QuizSession) => {
     setCompletedQuizzes(prev => [...prev, session]);
     
     // Store in localStorage for persistence
@@ -27,6 +30,26 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
       endTime: session.endTime?.toISOString()
     });
     localStorage.setItem('ai-agent-school-quiz-history', JSON.stringify(savedQuizzes));
+
+    // Best-effort: send summary to backend core API if available
+    try {
+      const letter = (n: number) => String.fromCharCode('A'.charCodeAt(0) + (n ?? 0));
+      const answers: Record<string, string> = {};
+      Object.entries(session.answers || {}).forEach(([qid, idx]) => {
+        answers[qid] = letter(Number(idx));
+      });
+      await submitQuiz({ category: session.category, answers, time_taken: session.timeSpent });
+      // Refresh from backend quiz results and compute summary
+      try {
+        const results = await getQuizResults();
+        const summary = computeSummaryFromResults(results);
+        setProgressSummary(summary);
+      } catch (e) {
+        toast({ title: 'Results load failed', description: 'Could not refresh backend results. Showing local stats.', variant: 'destructive' as any });
+      }
+    } catch (e) {
+      toast({ title: 'Submit failed', description: 'Could not submit quiz to backend. Your local history is preserved.', variant: 'destructive' as any });
+    }
   };
 
   // Load quiz history on component mount
@@ -38,6 +61,16 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
       endTime: quiz.endTime ? new Date(quiz.endTime) : undefined
     }));
     setCompletedQuizzes(parsedQuizzes);
+  // Try to load backend quiz results and compute summary
+    (async () => {
+      try {
+    const results = await getQuizResults();
+    const summary = computeSummaryFromResults(results);
+    setProgressSummary(summary);
+      } catch {
+        setProgressSummary(null);
+      }
+    })();
   }, []);
 
   const getPerformanceLevel = (score: number) => {
@@ -68,7 +101,22 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
     };
   };
 
-  const stats = calculateOverallStats();
+  const stats = progressSummary || calculateOverallStats();
+
+  function computeSummaryFromResults(results: any[]) {
+    if (!Array.isArray(results) || results.length === 0) return null;
+    const totalQuizzes = results.length;
+    const averageScore = Math.round(results.reduce((sum, r) => sum + (r.percentage ?? (r.score && r.total_questions ? (r.score / r.total_questions) * 100 : 0)), 0) / totalQuizzes);
+    const times = results.map(r => r.time_taken || 0);
+    const averageTime = Math.round(times.reduce((a, b) => a + b, 0) / totalQuizzes);
+    // Difficulty not tracked in backend results; leave zeros and let UI fallback to local if needed
+    const difficultyStats = {
+      beginner: 0,
+      intermediate: 0,
+      advanced: 0,
+    };
+    return { totalQuizzes, averageScore, averageTime, difficultyStats };
+  }
 
   if (showQuiz) {
     return (
