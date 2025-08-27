@@ -262,7 +262,12 @@ function SuperCriticalLearning({
       throw new Error('OpenRouter model not configured. Please set VITE_OPENROUTER_MODEL in your .env file.');
     }
 
-    const response = await fetch(`${apiUrl}/chat/completions`, {
+    // Support both base and full API URLs from env
+    const finalUrl = /\/chat\/completions\/?$/.test(apiUrl)
+      ? apiUrl.replace(/\/$/, '')
+      : `${apiUrl.replace(/\/$/, '')}/chat/completions`;
+
+    const response = await fetch(finalUrl, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,

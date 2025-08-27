@@ -176,13 +176,26 @@ async function callHuggingFace(prompt: string): Promise<LlmResponse> {
 // OpenRouter API
 async function callOpenRouter(prompt: string): Promise<LlmResponse> {
     const apiKey = getEnvVar('VITE_OPENROUTER_API_KEY');
-    const apiUrl = getEnvVar('VITE_OPENROUTER_API_URL');
+    let apiUrl = getEnvVar('VITE_OPENROUTER_API_URL');
     const model = getEnvVar('VITE_OPENROUTER_MODEL');
     if (!apiKey || !apiUrl || !model) {
         throw new Error("VITE_OPENROUTER_API_KEY, VITE_OPENROUTER_API_URL, and VITE_OPENROUTER_MODEL must be set in your environment variables.");
     }
 
-    console.log('OpenRouter API Call:', { apiUrl, model }); // Debug info
+    // Normalize URL: support both base (https://openrouter.ai/api/v1) and full (/chat/completions) forms
+    const ensureChatCompletionsUrl = (url: string) => {
+        let u = url.trim();
+        // If it already includes /chat/completions, keep as-is
+        if (/\/chat\/completions\/?$/.test(u)) return u.replace(/\/$/, '');
+        // Append path for OpenRouter or OpenAI-style base URLs
+        if (/openrouter\.ai|openai\.com/.test(u)) {
+            u = u.replace(/\/$/, '') + '/chat/completions';
+        }
+        return u;
+    };
+    const finalUrl = ensureChatCompletionsUrl(apiUrl);
+
+    console.log('OpenRouter API Call:', { apiUrl: finalUrl, model }); // Debug info
     
     const requestBody = {
         model,
@@ -193,7 +206,7 @@ async function callOpenRouter(prompt: string): Promise<LlmResponse> {
 
     console.log('OpenRouter Request Body:', requestBody); // Debug request body
     
-    const response = await fetch(apiUrl, {
+    const response = await fetch(finalUrl, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${apiKey}`,
@@ -223,8 +236,15 @@ async function callOpenRouter(prompt: string): Promise<LlmResponse> {
         }
     }
     
-    // Get response text first, then try to parse as JSON
+    // Proactively check content type; HTML often indicates a proxy or rate-limit page
+    const ct = response.headers.get('content-type') || '';
     const responseText = await response.text();
+    if (!ct.includes('application/json')) {
+        const snippet = responseText.substring(0, 500);
+        throw new Error(
+            `OpenRouter returned non-JSON (Content-Type: ${ct || 'unknown'}). This usually means the endpoint is wrong or you are rate limited. URL used: ${finalUrl}. Snippet: ${snippet}`
+        );
+    }
     console.log('OpenRouter Response Text (first 500 chars):', responseText.substring(0, 500)); // Debug response
     
     try {

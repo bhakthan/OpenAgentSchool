@@ -42,6 +42,9 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
     ? allFilteredPatterns.slice(0, 10)
     : allFilteredPatterns;
 
+  // Detect if we're showing a truncated list (top 10) in the All category without a search
+  const isLimitedAllView = selectedCategory === 'all' && !showAllPatterns && !searchQuery && allFilteredPatterns.length > 10;
+
   // Get category icon
   const getCategoryIcon = (category: string) => {
     switch(category) {
@@ -147,7 +150,15 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
 
                   {/* Results Count */}
                   <div className="flex items-center gap-2 text-sm text-muted-foreground whitespace-nowrap">
-                    {filteredPatterns.length} pattern{filteredPatterns.length !== 1 ? 's' : ''} found
+                    {isLimitedAllView ? (
+                      <span>
+                        Showing {filteredPatterns.length} of {allFilteredPatterns.length} patterns
+                      </span>
+                    ) : (
+                      <span>
+                        {allFilteredPatterns.length} pattern{allFilteredPatterns.length !== 1 ? 's' : ''} found
+                      </span>
+                    )}
                   </div>
                 </div>
 
