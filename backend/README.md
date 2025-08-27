@@ -20,62 +20,83 @@ A FastAPI-based backend for the Open Agent School platform with DuckDB for local
 ### Installation
 
 1. **Install dependencies:**
+
    ```bash
    cd backend
    pip install -r requirements.txt
    ```
 
 2. **Set up environment variables:**
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
 3. **Run the development server:**
+
    ```bash
    python run.py
    ```
 
    Or using uvicorn directly:
+
    ```bash
    uvicorn main:app --reload --host 0.0.0.0 --port 8000
    ```
 
 4. **Access the API:**
-   - API: http://localhost:8000
-   - Interactive docs: http://localhost:8000/docs
-   - OpenAPI spec: http://localhost:8000/redoc
+   - API: <http://localhost:8000>
+   - Interactive docs: <http://localhost:8000/docs>
+   - OpenAPI spec: <http://localhost:8000/redoc>
 
 ## API Endpoints
 
 ### Authentication
+
 - `POST /api/v1/users/register` - Register new user
 - `POST /api/v1/users/login` - Login user
 
 ### Community
+
 - `GET /api/v1/community/posts` - Get community posts
 - `POST /api/v1/community/posts` - Create new post
 - `GET /api/v1/community/posts/{id}` - Get specific post
 - `POST /api/v1/community/comments` - Create comment
 
 ### Quiz
+
 - `GET /api/v1/quiz/questions/{category}` - Get quiz questions
 - `POST /api/v1/quiz/submit` - Submit quiz answers
 - `GET /api/v1/quiz/results` - Get quiz results
 
 ### Progress
+
 - `POST /api/v1/progress/update` - Update learning progress
 - `GET /api/v1/progress/` - Get user progress
 - `GET /api/v1/progress/concept/{concept_id}` - Get concept progress
 
+### Health
+
+- `GET /health` - Basic health
+- `GET /health/live` - Liveness probe
+- `GET /health/ready` - Readiness probe
+
+### Proxy (orchestrator bridge)
+
+- `POST /api/v1/workflows/execute` - Proxies to Agent Orchestrator at `${ORCHESTRATOR_URL}/api/v1/workflows/execute`
+- `GET  /api/v1/workflows/{id}/status` - Proxies to `${ORCHESTRATOR_URL}/api/v1/workflows/{id}/status`
+
 ## Database Configuration
 
 ### DuckDB (Default)
+
 DuckDB is used by default for local development. The database file is stored in `./data/openagentschool.db`.
 
 ### Switching to Azure CosmosDB
 
 1. **Update environment variables:**
+
    ```bash
    DATABASE_TYPE=cosmosdb
    COSMOS_ENDPOINT=https://your-cosmos-account.documents.azure.com:443/
@@ -84,6 +105,7 @@ DuckDB is used by default for local development. The database file is stored in 
    ```
 
 2. **Create CosmosDB repository (future implementation):**
+
    ```python
    # app/database/cosmosdb_repository.py
    class CosmosDBRepository(DatabaseRepository):
@@ -92,7 +114,7 @@ DuckDB is used by default for local development. The database file is stored in 
 
 ## Project Structure
 
-```
+```text
 backend/
 ├── app/
 │   ├── api/
