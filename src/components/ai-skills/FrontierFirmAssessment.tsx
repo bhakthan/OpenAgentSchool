@@ -281,7 +281,7 @@ export default function FrontierFirmAssessment({ onNavigate }: Props) {
             Retake Assessment
           </Button>
           <Button onClick={onNavigate} className="flex-1">
-            Continue Learning Journey
+            Next: Ratio Calculator
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>

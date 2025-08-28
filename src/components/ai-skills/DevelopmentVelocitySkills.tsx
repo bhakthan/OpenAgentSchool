@@ -941,7 +941,7 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
 
           <div className="mt-6 pt-6 border-t">
             <Button className="w-full" size="lg" onClick={onNavigate}>
-              <span>Continue to Cross-Team Collaboration</span>
+              <span>Next: Cross-Team Collaboration</span>
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>

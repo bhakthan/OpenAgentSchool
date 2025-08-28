@@ -530,6 +530,14 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
           </div>
         </CardContent>
       </Card>
+
+      {/* Flow CTA */}
+      <div className="mt-2">
+        <Button className="w-full" size="lg" onClick={onNavigate}>
+          <span>Next: Frontier Assessment</span>
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </div>
     </div>
   )
 }

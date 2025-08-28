@@ -928,7 +928,7 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
 
           <div className="mt-6 pt-6 border-t">
             <Button className="w-full" size="lg" onClick={onNavigate}>
-              <span>Continue to Novel Organizational Patterns</span>
+              <span>Next: Novel Organizational Patterns</span>
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>

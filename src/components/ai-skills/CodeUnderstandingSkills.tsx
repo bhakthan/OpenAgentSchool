@@ -726,7 +726,7 @@ Error: TypeError: Cannot read property 'length' of undefined
 
           <div className="mt-6 pt-6 border-t">
             <Button className="w-full" size="lg" onClick={onNavigate}>
-              <span>Continue to Development Velocity Skills</span>
+              <span>Next: Development Velocity</span>
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>

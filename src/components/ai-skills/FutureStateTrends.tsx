@@ -220,6 +220,15 @@ export default function FutureStateTrends({ onNavigate }: Props) {
             </CardHeader>
             <CardContent>
               <FitTree />
+              <div className="mt-3 text-xs text-muted-foreground">
+                Reference: <a
+                  href="https://www.youtube.com/watch?v=J9UWaltU-7Q"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="underline hover:text-foreground"
+                  aria-label="Open YouTube reference for tree visualization"
+                >YouTube – Tree visualization</a>
+              </div>
             </CardContent>
       </Card>
 

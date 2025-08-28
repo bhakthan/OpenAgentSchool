@@ -26,46 +26,43 @@ export default function AISkillsExplorer() {
   }
 
   const tabs = [
+    // 1. Fundamentals
     {
       id: "fundamentals",
       title: "Fundamentals",
       description: "What are AI-Native Practices?",
       icon: <Brain className="w-4 h-4" />,
       level: "Beginner",
-      component: <AISkillsFundamentals onNavigate={() => navigateToTab("interactive-visualizations")} navigateToTab={navigateToTab} />
+      component: <AISkillsFundamentals onNavigate={() => navigateToTab("thinking-modes")} navigateToTab={navigateToTab} />
     },
+    // 2. Thinking Modes → add consistent Next button to go to Interactive Visualizations
     {
       id: "thinking-modes",
       title: "Thinking Modes",
       description: "Design vs Breakthrough vs Systems Thinking",
       icon: <Brain className="w-4 h-4" />,
       level: "Beginner",
-      component: <SystemsThinkingTree />
+      component: (
+        <div className="space-y-6">
+          <SystemsThinkingTree />
+          <div className="mt-2">
+            <Button className="w-full" size="lg" onClick={() => navigateToTab("interactive-visualizations")}> 
+              <span>Next: Interactive Visualizations</span>
+            </Button>
+          </div>
+        </div>
+      )
     },
+    // 3. Interactive Visualizations
     {
       id: "interactive-visualizations",
       title: "Interactive Visualizations",
       description: "Explore AI-native practices in detail",
       icon: <ChartBar className="w-4 h-4" />,
       level: "Beginner",
-      component: <InteractiveVisualizations onNavigate={() => navigateToTab("assessment")} />
+      component: <InteractiveVisualizations onNavigate={() => navigateToTab("code-understanding")} />
     },
-    {
-      id: "assessment",
-      title: "Frontier Assessment",
-      description: "Evaluate your organization's AI readiness",
-      icon: <Target className="w-4 h-4" />,
-      level: "Intermediate",
-      component: <FrontierFirmAssessment onNavigate={() => navigateToTab("calculator")} />
-    },
-    {
-      id: "calculator",
-      title: "Ratio Calculator",
-      description: "Optimize human-agent ratios",
-      icon: <Calculator className="w-4 h-4" />,
-      level: "Intermediate",
-      component: <HumanAgentRatioCalculator onNavigate={() => navigateToTab("code-understanding")} />
-    },
+    // 4. Code Understanding
     {
       id: "code-understanding",
       title: "Code Understanding",
@@ -74,6 +71,7 @@ export default function AISkillsExplorer() {
       level: "Intermediate",
       component: <CodeUnderstandingSkills onNavigate={() => navigateToTab("development-velocity")} />
     },
+    // 5. Development Velocity
     {
       id: "development-velocity",
       title: "Development Velocity",
@@ -82,6 +80,7 @@ export default function AISkillsExplorer() {
       level: "Advanced",
       component: <DevelopmentVelocitySkills onNavigate={() => navigateToTab("cross-team")} />
     },
+    // 6. Cross-Team Collaboration
     {
       id: "cross-team",
       title: "Cross-Team Collaboration",
@@ -90,21 +89,41 @@ export default function AISkillsExplorer() {
       level: "Advanced",
       component: <CrossTeamCollaborationSkills onNavigate={() => navigateToTab("novel-patterns")} />
     },
+    // 7. Novel Patterns
     {
       id: "novel-patterns",
       title: "Novel Patterns",
       description: "Revolutionary organizational practices",
       icon: <Lightbulb className="w-4 h-4" />,
       level: "Expert",
-      component: <NovelOrganizationalPatterns onNavigate={() => {}} />
-    }
-    ,{
+      component: <NovelOrganizationalPatterns onNavigate={() => navigateToTab("assessment")} />
+    },
+    // 8. Frontier Assessment
+    {
+      id: "assessment",
+      title: "Frontier Assessment",
+      description: "Evaluate your organization's AI readiness",
+      icon: <Target className="w-4 h-4" />,
+      level: "Intermediate",
+      component: <FrontierFirmAssessment onNavigate={() => navigateToTab("calculator")} />
+    },
+    // 9. Ratio Calculator
+    {
+      id: "calculator",
+      title: "Ratio Calculator",
+      description: "Optimize human-agent ratios",
+      icon: <Calculator className="w-4 h-4" />,
+      level: "Intermediate",
+      component: <HumanAgentRatioCalculator onNavigate={() => navigateToTab("future-state")} />
+    },
+    // 10. Future State (end)
+    {
       id: "future-state",
       title: "Future State",
       description: "Where AI‑native practices are heading",
       icon: <Rocket className="w-4 h-4" />,
       level: "Expert",
-      component: <FutureStateTrends onNavigate={() => {}} />
+      component: <FutureStateTrends onNavigate={undefined} />
     }
   ]
 
@@ -189,7 +208,7 @@ export default function AISkillsExplorer() {
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <TabsList className="grid w-full grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 h-auto p-1">
+      <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 h-auto p-1">
             {tabs.map((tab) => (
               <TabsTrigger 
                 key={tab.id} 

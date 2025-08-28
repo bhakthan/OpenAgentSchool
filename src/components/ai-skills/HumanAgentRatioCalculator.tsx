@@ -372,7 +372,7 @@ export default function HumanAgentRatioCalculator({ onNavigate }: Props) {
 
           <div className="mt-6 pt-6 border-t">
             <Button onClick={onNavigate} className="w-full" size="lg">
-              <span>Continue to Code Understanding Skills →</span>
+              <span>Next: Future State</span>
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
