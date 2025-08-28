@@ -181,18 +181,32 @@ export default function FutureStateTree({ fitToWidth = false }: { fitToWidth?: b
         }
       })
 
-      // Stagger leaf depths so connectors vary and labels don't overlap at the bottom
+      // Stagger leaf depths with an ALTERNATING per-parent bias so adjacent columns interleave
       const leafBasePad = isSmall ? 50 : 80
       const leafStagger = isSmall ? 24 : 32
       const isLeaf = (n: HNode) => !(n as any).children
       const leaves = nodes.filter(isLeaf)
+
+      // Determine left-to-right order of top-level branches (depth === 1) and assign alternating bias
+      const parents = (nodes as HNode[])
+        .filter((n: any) => (n as any).depth === 1)
+        .sort((a, b) => (a.x as number) - (b.x as number))
+      const parentBias = new Map<string, number>()
+      parents.forEach((p, i) => {
+        const key = String((p as any).id)
+        // Use a full stagger step for clear visual separation; odd-indexed parents get the bias
+        const biasMag = Math.max(leafStagger, isSmall ? 20 : 24)
+        parentBias.set(key, (i % 2 === 0) ? 0 : biasMag)
+      })
+
       const byParent = d3.group(leaves, (n: HNode) => String((n.parent as any)?.id ?? 'root'))
-      byParent.forEach((arr) => {
+      byParent.forEach((arr, parentKey) => {
         arr.sort((a, b) => a.x - b.x)
+        const bias = parentBias.get(parentKey) ?? 0
         arr.forEach((n, idx) => {
           const lineCount = String((n as any).data.name || '').split('\n').length
           const extraForLines = (lineCount - 1) * 10
-          ;(n as any).y += leafBasePad + idx * leafStagger + extraForLines
+          ;(n as any).y += leafBasePad + bias + idx * leafStagger + extraForLines
         })
       })
       // Compute dynamic extents to fit content
@@ -322,6 +336,12 @@ export default function FutureStateTree({ fitToWidth = false }: { fitToWidth?: b
         .transition()
         .duration(750)
         .attr('d', diagonal as any)
+        // Slight stroke width modulation per parent (debug visibility of alternation)
+        .attr('stroke-width', (d: any) => {
+          const pk = String((d.target.parent as any)?.id ?? '')
+          const alt = (parentBias.get(pk) ?? 0) > 0
+          return alt ? 2.25 : 1.75
+        })
 
       link
         .exit()

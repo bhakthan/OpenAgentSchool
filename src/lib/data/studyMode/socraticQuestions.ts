@@ -182,6 +182,175 @@ export const conceptToProjectQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Socratic Questions for Observability & EvalOps
+export const observabilityEvalOpsSocratic: StudyModeQuestion[] = [
+  {
+    id: 'observability-evalops-socratic-1',
+    type: 'socratic',
+    conceptId: 'observability-evalops',
+    title: 'Why eval harnesses before canaries?',
+    level: 'beginner',
+    socratiQuestion: 'If your team wants to ship a prompt change quickly, why might you build a small evaluation harness first instead of jumping straight to a canary rollout?',
+    followUpQuestions: [
+      'What risks do canaries miss if you lack stable goldens?',
+      'How do thresholds and quality bars change team behavior?',
+      'When would you still proceed to a canary first?'
+    ],
+    expectedInsights: [
+      'Goldens catch regressions deterministically before live traffic',
+      'Quality gates create predictable release discipline',
+      'Canaries complement—not replace—offline evaluation'
+    ],
+    hints: [
+      'Think: repeatability and diff reports',
+      'Consider composite Quality Score vs. single metrics'
+    ],
+    explanation: 'Eval harnesses provide fast, reproducible signal and prevent avoidable regressions from reaching users.',
+    relatedConcepts: ['golden-sets', 'quality-gates', 'drift-monitoring'],
+    timeEstimate: 8,
+    successCriteria: ['Names at least two risks avoided by offline evals', 'Explains role of thresholds/gates']
+  }
+];
+
+// Socratic Questions for PromptOps & Tooling
+export const promptOpsToolingSocratic: StudyModeQuestion[] = [
+  {
+    id: 'promptops-socratic-1',
+    type: 'socratic',
+    conceptId: 'promptops-tooling',
+    title: 'Versioning prompts like code',
+    level: 'beginner',
+    socratiQuestion: 'Why should prompts be versioned with semantic versions and changelogs rather than edited ad‑hoc in a shared doc?',
+    followUpQuestions: [
+      'What goes into a useful prompt changelog entry?',
+      'How do pinned versions reduce rollback risk?'
+    ],
+    expectedInsights: [
+      'Traceability and safe rollbacks require pinning and history',
+      'Changelogs tie changes to eval results and decisions'
+    ],
+    hints: ['Think: reproducibility, DIFFs, auditability'],
+    explanation: 'Treating prompts like code enables safe experimentation and compliance.',
+    relatedConcepts: ['semantic-versioning', 'canary-rollouts', 'eval-diffs'],
+    timeEstimate: 6,
+    successCriteria: ['Mentions pinning/rollback', 'Connects changelogs to eval evidence']
+  }
+];
+
+// Socratic Questions for Safety, Risk & Governance
+export const safetyRiskGovSocratic: StudyModeQuestion[] = [
+  {
+    id: 'safety-risk-gov-socratic-1',
+    type: 'socratic',
+    conceptId: 'safety-risk-governance',
+    title: 'Tight vs loose guardrails',
+    level: 'beginner',
+    socratiQuestion: 'How can overly tight guardrails harm product usefulness, and what signals tell you to adjust policy sensitivity?',
+    followUpQuestions: ['Which violations matter most to reduce?', 'How do you measure false positives?'],
+    expectedInsights: ['Balance risk reduction with task utility', 'Track violation and false‑positive rates'],
+    hints: ['Think: policy tuning cycles, SLOs for safety'],
+    explanation: 'Safety is a control system—measure and tune, do not freeze.',
+    relatedConcepts: ['policy-tuning', 'approval-workflows', 'auditability'],
+    timeEstimate: 7,
+    successCriteria: ['Identifies tradeoff and measurement signals']
+  }
+];
+
+// Socratic Questions for Cost & Performance
+export const costPerformanceSocratic: StudyModeQuestion[] = [
+  {
+    id: 'cost-performance-socratic-1',
+    type: 'socratic',
+    conceptId: 'cost-performance',
+    title: 'When to route to smaller models?',
+    level: 'beginner',
+    socratiQuestion: 'If a task family has predictable easy and hard cases, how could you decide when to route to a smaller model without hurting quality?',
+    followUpQuestions: ['What proxies predict hardness?', 'How do you guard against silent quality loss?'],
+    expectedInsights: ['Use confidence/heuristics to route', 'Protect with goldens and quality SLOs'],
+    hints: ['Think: classifier/gatings, token budgets'],
+    explanation: 'Cost‑aware routing preserves quality while reducing spend.',
+    relatedConcepts: ['routing', 'token-budgets', 'quality-slo'],
+    timeEstimate: 6,
+    successCriteria: ['Proposes at least one safe routing signal']
+  }
+];
+
+// Socratic Questions for Security & Data Boundaries
+export const securityDataBoundariesSocratic: StudyModeQuestion[] = [
+  {
+    id: 'security-data-boundaries-socratic-1',
+    type: 'socratic',
+    conceptId: 'security-data-boundaries',
+    title: 'Tenant isolation in RAG',
+    level: 'beginner',
+    socratiQuestion: 'In a multi‑tenant RAG system, what could go wrong if you only filter results by user ID at query time?',
+    followUpQuestions: ['What about embeddings and caches?', 'Where else can data leak?'],
+    expectedInsights: ['Isolation must cover storage, indexes, caches and tools', 'Defense‑in‑depth beats single checks'],
+    hints: ['Consider pre‑compute and runtime paths'],
+    explanation: 'Boundary enforcement needs multiple controls across the pipeline.',
+    relatedConcepts: ['rbac', 'data-isolation', 'tool-sandboxing'],
+    timeEstimate: 7,
+    successCriteria: ['Lists ≥2 isolation failure modes']
+  }
+];
+
+// Socratic Questions for RAG Systems
+export const ragSystemsSocratic: StudyModeQuestion[] = [
+  {
+    id: 'rag-systems-socratic-1',
+    type: 'socratic',
+    conceptId: 'rag-systems',
+    title: 'Why citations matter',
+    level: 'beginner',
+    socratiQuestion: 'Why do citations/change‑logs increase user trust in RAG answers even if the answer text looks correct?',
+    followUpQuestions: ['How do you detect hallucinated citations?', 'When should you refuse rather than guess?'],
+    expectedInsights: ['Grounding reduces hallucination risk', 'Users trust verifiable evidence paths'],
+    hints: ['Think: provenance, re‑rankers'],
+    explanation: 'Citations and evidence are core to reliable RAG.',
+    relatedConcepts: ['grounding', 're-ranking', 'freshness'],
+    timeEstimate: 6,
+    successCriteria: ['Connects trust to verifiability']
+  }
+];
+
+// Socratic Questions for Multi‑Agent Orchestration
+export const multiAgentOrchestrationSocratic: StudyModeQuestion[] = [
+  {
+    id: 'multi-agent-orch-socratic-1',
+    type: 'socratic',
+    conceptId: 'multi-agent-orchestration',
+    title: 'Supervisor vs free‑for‑all',
+    level: 'beginner',
+    socratiQuestion: 'When coordinating specialist agents, why might a supervisor decide who speaks next instead of round‑robin?',
+    followUpQuestions: ['What signals would it use?', 'What failure happens without it?'],
+    expectedInsights: ['Context‑aware turn‑taking improves relevance', 'Prevents loops and topic drift'],
+    hints: ['Consider speaker‑selection heuristics'],
+    explanation: 'Lightweight orchestration reduces chaos and improves outcomes.',
+    relatedConcepts: ['speaker-selection', 'shared-state', 'termination'],
+    timeEstimate: 6,
+    successCriteria: ['Names at least one benefit over round‑robin']
+  }
+];
+
+// Socratic Questions for Org Playbooks
+export const orgPlaybooksSocratic: StudyModeQuestion[] = [
+  {
+    id: 'org-playbooks-socratic-1',
+    type: 'socratic',
+    conceptId: 'org-playbooks',
+    title: 'Why playbooks beat one‑offs',
+    level: 'beginner',
+    socratiQuestion: 'What problems arise when teams ship AI features as one‑offs without shared playbooks?',
+    followUpQuestions: ['How do playbooks speed approvals?', 'What makes a playbook credible?'],
+    expectedInsights: ['Standardization reduces risk and cycle time', 'Examples + metrics make playbooks actionable'],
+    hints: ['Think: reuse, governance, onboarding'],
+    explanation: 'Playbooks codify proven patterns, reducing variance and risk.',
+    relatedConcepts: ['enablement', 'governance', 'adoption'],
+    timeEstimate: 6,
+    successCriteria: ['Identifies at least two benefits of playbooks']
+  }
+];
+
 export const errorWhispererQuestions: StudyModeQuestion[] = [
   {
     id: 'error-whisperer-q1',
@@ -1832,6 +2001,15 @@ export const socraticQuestionLibrary = {
   'knowledge-map-navigator': knowledgeMapNavigatorQuestions,
   'peer-review-simulator': peerReviewSimulatorQuestions,
   'tool-use-coach': toolUseCoachQuestions,
+  // New modules (AI Skills Explorer)
+  'observability-evalops': observabilityEvalOpsSocratic,
+  'promptops-tooling': promptOpsToolingSocratic,
+  'safety-risk-governance': safetyRiskGovSocratic,
+  'cost-performance': costPerformanceSocratic,
+  'security-data-boundaries': securityDataBoundariesSocratic,
+  'rag-systems': ragSystemsSocratic,
+  'multi-agent-orchestration': multiAgentOrchestrationSocratic,
+  'org-playbooks': orgPlaybooksSocratic,
   // New Core Concepts
   'agentic-prompting-fundamentals': agenticPromptingFundamentalsSocraticQuestions,
   'prompt-optimization-patterns': promptOptimizationPatternsSocraticQuestions,

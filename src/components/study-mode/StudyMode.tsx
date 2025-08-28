@@ -25,7 +25,8 @@ import {
   getRecommendedNextQuestion,
   hasUnlockedStudyModeType,
   getAllStudyModeQuestions,
-  clearTypeProgress
+  clearTypeProgress,
+  getStudyModeQuestionsByConceptId
 } from '@/lib/data/studyMode';
 import { StudyModeType, StudyModeQuestion, StudyModeSession } from '@/lib/data/studyMode/types';
 interface StudyModeProps {
@@ -46,6 +47,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     setProgress(calculateStudyModeProgress(loadedSessions));
 
     try {
+      // Support hash-based tab deep links
       const hash = (typeof window !== 'undefined' ? window.location.hash : '').toLowerCase();
       if (hash === '#scl') {
         setActiveTab('scl');
@@ -55,6 +57,39 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
         setActiveTab('scenario');
       } else if (hash === '#debug') {
         setActiveTab('debug');
+      }
+
+      // Support query params to auto-launch a specific question
+      const search = (typeof window !== 'undefined' ? window.location.search : '');
+      if (search) {
+        const params = new URLSearchParams(search);
+        const qid = params.get('qid');
+        const concept = params.get('concept');
+        const preferredType = (params.get('type') as StudyModeType | null);
+
+        // If qid provided, select exact question
+        if (qid) {
+          const question = getAllStudyModeQuestions().find(q => q.id === qid);
+          if (question) {
+            setSelectedQuestion(question);
+            setActiveTab(question.type);
+            return; // done
+          }
+        }
+
+        // Else if concept provided, pick first question (optionally by type)
+        if (concept) {
+          let conceptQuestions = getStudyModeQuestionsByConceptId(concept);
+          if (preferredType) {
+            conceptQuestions = conceptQuestions.filter(q => q.type === preferredType);
+          }
+          const question = conceptQuestions[0];
+          if (question) {
+            setSelectedQuestion(question);
+            setActiveTab(question.type);
+            return;
+          }
+        }
       }
     } catch {}
   }, []);

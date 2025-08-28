@@ -1417,6 +1417,212 @@ async function processComplexTask(task: string) {
       'Ensures objective quality assessment'
     ]
   }
+  ,
+  {
+    id: 'cost-perf-debug-1',
+    type: 'debug',
+    conceptId: 'cost-performance',
+    title: 'Runaway Tokens and Timeouts',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'token-timeout-mixup',
+      title: 'Cost spike after routing change',
+      description: 'A recent router update increased cost and timeout rates unexpectedly.',
+      problemDescription: 'After enabling a new model router, p95 latency regressed and token spend spiked 35%. Logs show repeated retries with no max_tokens enforcement on the fallback path.',
+      brokenCode: `type Route = 'small' | 'medium' | 'large';
+
+function classifyComplexity(input: string): Route {
+  if (input.length < 300) return 'small';
+  if (input.length < 1200) return 'medium';
+  return 'large';
+}
+
+async function callLLM(model: string, prompt: string) {
+  // BUG: missing max_tokens, no timeout wrapper, unbounded retries
+  let attempts = 0;
+  while (attempts < 5) {
+    attempts++;
+    try {
+      const res = await llm.invoke({ model, prompt });
+      if (!res.ok) throw new Error('bad response');
+      return await res.text();
+    } catch (e) {
+      console.warn('retry', attempts, e);
+    }
+  }
+  throw new Error('exhausted retries');
+}
+
+export async function routeAndCall(input: string) {
+  const route = classifyComplexity(input);
+  const model = route === 'small' ? 'gpt-small' : route === 'medium' ? 'gpt-med' : 'gpt-large';
+  // BUG: fallback to large model on any error path increases cost dramatically
+  try {
+    return await callLLM(model, input);
+  } catch {
+    return await callLLM('gpt-large', input); // fallback without guardrails
+  }
+}`,
+      expectedBehavior: 'Requests should respect timeouts, retries with backoff, and strict token limits. Fallback should prefer cheaper safe alternatives and avoid loops.',
+      commonIssues: [
+        {
+          issue: 'Missing max_tokens and truncation',
+          symptoms: ['High token usage', 'Slow responses', 'Bill spikes'],
+          diagnosis: 'LLM calls don\'t cap output, producing long generations',
+          fix: 'Add max_tokens and response truncation; prefer JSON schema when possible'
+        },
+        {
+          issue: 'No timeout/backoff',
+          symptoms: ['Multiple rapid retries', 'Thundering herd under load'],
+          diagnosis: 'Retry loop without timeout/backoff overwhelms service',
+          fix: 'Wrap calls with timeout, exponential backoff, and jitter'
+        },
+        {
+          issue: 'Expensive fallback on any error',
+          symptoms: ['Cost jumps on transient errors'],
+          diagnosis: 'Fallback path always routes to largest model',
+          fix: 'Fallback to cached result, summarization, or a cheaper model first'
+        }
+      ],
+      hints: [
+        'Cap output and input tokens explicitly',
+        'Use AbortController or a timeout helper to bound latency',
+        'Make fallback conditional and cost-aware'
+      ],
+      solution: `type Route = 'small' | 'medium' | 'large';
+
+function classifyComplexity(input: string): Route {
+  if (input.length < 300) return 'small';
+  if (input.length < 1200) return 'medium';
+  return 'large';
+}
+
+async function callLLM(model: string, prompt: string, opts: { maxTokens: number; timeoutMs: number }) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort('timeout'), opts.timeoutMs);
+  try {
+    const res = await llm.invoke({ model, prompt, max_tokens: opts.maxTokens, signal: controller.signal });
+    if (!res.ok) throw new Error('bad response');
+    return await res.text();
+  } finally {
+    clearTimeout(id);
+  }
+}
+
+async function callWithRetry(model: string, prompt: string, opts: { maxTokens: number; timeoutMs: number }) {
+  const maxAttempts = 3;
+  let attempt = 0;
+  while (attempt < maxAttempts) {
+    try {
+      return await callLLM(model, prompt, opts);
+    } catch (e) {
+      attempt++;
+      await new Promise(r => setTimeout(r, Math.min(1000 * 2 ** attempt, 5000))); // backoff with cap
+      if (attempt >= maxAttempts) throw e;
+    }
+  }
+}
+
+export async function routeAndCall(input: string) {
+  const route = classifyComplexity(input);
+  const model = route === 'small' ? 'gpt-small' : route === 'medium' ? 'gpt-med' : 'gpt-large';
+  const opts = { maxTokens: 300, timeoutMs: 8000 };
+  try {
+    return await callWithRetry(model, input, opts);
+  } catch {
+    // Cost-aware fallback: prefer cache/summary or cheaper model
+    if (route === 'large') return 'Sorry, try again shortly.'; // graceful degrade
+    return await callWithRetry('gpt-med', input, opts);
+  }
+}`,
+      explanation: 'The fix enforces token caps and bounded latency, uses exponential backoff to avoid hammering, and changes the fallback to a cost-aware strategy that avoids defaulting to the most expensive path.'
+    },
+    explanation: 'You\'ll practice diagnosing perf/cost regressions by inspecting retry loops, token caps, and fallback strategies.',
+    relatedConcepts: ['timeouts', 'retries', 'max_tokens', 'fallbacks', 'cost-aware-routing'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Adds token/latency bounds',
+      'Implements backoff',
+      'Avoids expensive fallback loops'
+    ]
+  }
+  ,
+  {
+    id: 'mao-debug-1',
+    type: 'debug',
+    conceptId: 'multi-agent-orchestration',
+    title: 'Supervisor Starvation & Deadlock',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'supervisor-deadlock',
+      title: 'Supervisor never finalizes task',
+      description: 'A supervisor oscillates between two specialists and never emits a finalize event.',
+      problemDescription: 'In production, tasks stick for 15+ minutes with no completion. Logs show repeated handoffs A→B→A and missing termination signals.',
+      brokenCode: `class Supervisor {
+  constructor(a, b) { this.a = a; this.b = b; this.turns = 0; }
+  async run(goal) {
+    let msg = { type: 'start', goal };
+    while (this.turns < 100) { // BUG: large bound, no timeouts
+      this.turns++;
+      msg = await this.a.handle(msg); // BUG: no role-based routing; always A first
+      msg = await this.b.handle(msg);
+      // BUG: no termination detection or finalize hook
+    }
+    return { status: 'timeout' };
+  }
+}`,
+      expectedBehavior: 'Supervisor routes based on capabilities, detects completion/approval, and finalizes with bounded turns/time.',
+      commonIssues: [
+        {
+          issue: 'No termination detection',
+          symptoms: ['Endless ping-pong', 'Timeouts reached'],
+          diagnosis: 'Loop lacks completion criteria or signals',
+          fix: 'Introduce isComplete predicate and finalize()'
+        },
+        {
+          issue: 'Missing timeouts/turn caps',
+          symptoms: ['Long-stuck tasks'],
+          diagnosis: 'No per-turn/per-task bounds',
+          fix: 'Add maxTurns, per-step timeout, and HITL fallback'
+        },
+        {
+          issue: 'Poor routing policy',
+          symptoms: ['A and B both work on same subtask'],
+          diagnosis: 'Supervisor not checking capability or state',
+          fix: 'Route by capabilities and current state'
+        }
+      ],
+      hints: ['Define done states explicitly', 'Enforce limits and fallback', 'Add capability-aware routing'],
+      solution: `class Supervisor {
+  constructor(a, b, opts = { maxTurns: 24, stepTimeoutMs: 8000 }) {
+    this.a = a; this.b = b; this.turns = 0; this.opts = opts;
+  }
+  isComplete(msg) { return msg?.type === 'final' || msg?.approved === true; }
+  async withTimeout(promise) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort('timeout'), this.opts.stepTimeoutMs);
+    try { return await promise(ctrl.signal); } finally { clearTimeout(t); }
+  }
+  async run(goal) {
+    let state = { type: 'start', goal };
+    while (this.turns++ < this.opts.maxTurns) {
+      // Route by capability
+      const next = state.needs === 'analysis' ? this.a : this.b;
+      state = await this.withTimeout(next.handle(state));
+      if (this.isComplete(state)) return this.finalize(state);
+    }
+    return this.handoff(state); // HITL
+  }
+  finalize(state) { return { status: 'ok', output: state.output }; }
+  handoff(state) { return { status: 'hitl', reason: 'maxTurns', snapshot: state }; }
+}`,
+      explanation: 'We add explicit completion detection, bounded loops/timeouts, and capability-aware routing with a finalize/handoff path.'
+    },
+    explanation: 'Debugs orchestration pathologies: starvation, deadlocks, and missing completion criteria.',
+    relatedConcepts: ['termination', 'routing', 'timeouts', 'HITL'],
+    timeEstimate: 20,
+    successCriteria: ['Adds completion detection', 'Enforces bounds', 'Routes by capability']
+  }
 ];
 
 // Learner Pattern Debug Challenges
@@ -3561,7 +3767,9 @@ export const toolUseCoachDebugChallenges: StudyModeQuestion[] = [
 // Export debug challenges organized by concept
 export const debugChallengeLibrary = {
   'multi-agent-systems': debugChallenges.filter(c => c.conceptId === 'multi-agent-systems'),
+  'multi-agent-orchestration': debugChallenges.filter(c => c.conceptId === 'multi-agent-orchestration'),
   'a2a-communication': debugChallenges.filter(c => c.conceptId === 'a2a-communication'),
+  'cost-performance': debugChallenges.filter(c => c.conceptId === 'cost-performance'),
   'mcp': debugChallenges.filter(c => c.conceptId === 'mcp'),
   'agentic-rag': debugChallenges.filter(c => c.conceptId === 'agentic-rag'),
   'modern-tool-use': debugChallenges.filter(c => c.conceptId === 'modern-tool-use'),

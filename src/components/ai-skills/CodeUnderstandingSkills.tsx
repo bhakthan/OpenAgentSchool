@@ -113,7 +113,7 @@ export default function CodeUnderstandingSkills({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+            <div className="bg-muted p-4 rounded-lg">
               <pre className="text-sm overflow-x-auto">
 {`// Example: Stack trace to code navigation
 Error: TypeError: Cannot read property 'length' of undefined
@@ -536,8 +536,8 @@ Error: TypeError: Cannot read property 'length' of undefined
               <p className="text-sm font-medium mb-2">Installation & Usage:</p>
               <div className="text-sm text-muted-foreground space-y-1">
                 <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">npx https://github.com/google-gemini/gemini-cli</code> - Run instantly</div>
-                <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">npm install -g @google/gemini-cli</code> - Global install</div>
-                <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">brew install gemini-cli</code> - macOS/Linux</div>
+                  <div>• <code className="bg-card px-1 rounded">npm install -g @google/gemini-cli</code> - Global install</div>
+                  <div>• <code className="bg-card px-1 rounded">brew install gemini-cli</code> - macOS/Linux</div>
               </div>
             </div>
           </div>
@@ -623,8 +623,8 @@ Error: TypeError: Cannot read property 'length' of undefined
                 <p className="text-sm font-medium mb-2">Example MCP Usage:</p>
                 <div className="text-sm text-muted-foreground space-y-1">
                   <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">@github List my open pull requests</code></div>
-                  <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">@slack Send summary to #dev channel</code></div>
-                  <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">@database Find inactive users</code></div>
+                    <div>• <code className="bg-card px-1 rounded">@slack Send summary to #dev channel</code></div>
+                    <div>• <code className="bg-card px-1 rounded">@database Find inactive users</code></div>
                 </div>
               </div>
             </div>

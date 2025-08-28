@@ -21,10 +21,10 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
-      <Card className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700">
+    <Card className="bg-card border">
         <CardHeader>
-          <CardTitle className="text-xl text-zinc-900 dark:text-zinc-100">Exponential Development Velocity</CardTitle>
-          <CardDescription className="text-base text-zinc-600 dark:text-zinc-400">
+      <CardTitle className="text-xl">Exponential Development Velocity</CardTitle>
+      <CardDescription className="text-base">
             AI-native practices that dramatically accelerate development speed while maintaining quality
           </CardDescription>
         </CardHeader>
@@ -76,7 +76,7 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+            <div className="bg-muted p-4 rounded-lg">
               <h4 className="font-semibold mb-2">Example Transformation</h4>
               <div className="space-y-3">
                 <div className="p-3 bg-red-100 dark:bg-red-900 rounded border border-red-200 dark:border-red-800">
@@ -701,10 +701,10 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+      <div className="bg-muted p-4 rounded-lg">
               <h4 className="font-semibold mb-2">Enterprise Velocity Example</h4>
               <div className="text-sm space-y-1">
-                <p><code className="bg-white dark:bg-gray-700 px-1 rounded">gemini --include-directories ../frontend,../backend,../mobile</code></p>
+        <p><code className="bg-card px-1 rounded">gemini --include-directories ../frontend,../backend,../mobile</code></p>
                 <p className="text-muted-foreground">→ "Update authentication to use OAuth 2.0 across all services"</p>
                 <p className="text-muted-foreground">→ AI analyzes patterns in all three repos simultaneously</p>
                 <p className="text-muted-foreground">→ Generates consistent implementation across entire stack</p>

@@ -33,7 +33,7 @@ export default function InteractiveVisualizations({ onNavigate }: Props) {
       </Card>
 
       {/* OpenAI Codex Visualization */}
-      <Card className="w-full">
+  <Card className="w-full bg-card">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -92,7 +92,7 @@ export default function InteractiveVisualizations({ onNavigate }: Props) {
       </Card>
 
       {/* Anthropic Claude Code Visualization */}
-      <Card className="w-full">
+  <Card className="w-full bg-card">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

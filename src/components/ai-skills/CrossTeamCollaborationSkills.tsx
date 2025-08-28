@@ -467,20 +467,20 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="bg-green-50 dark:bg-green-950/30 p-4 rounded-lg border border-green-200 dark:border-green-800">
-              <h4 className="font-semibold mb-2 text-green-800 dark:text-green-200">Results</h4>
-              <div className="grid grid-cols-3 gap-4 text-center">
+            <div className="p-4 rounded-lg border bg-card">
+              <h4 className="font-semibold mb-2">Results</h4>
+              <div className="grid grid-cols-3 gap-4 text-center text-card-foreground">
                 <div>
-                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">10x</div>
-                  <div className="text-sm text-green-700 dark:text-green-300">Campaign Output</div>
+                  <div className="text-2xl font-bold text-primary">10x</div>
+                  <div className="text-sm text-muted-foreground">Campaign Output</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">1</div>
-                  <div className="text-sm text-green-700 dark:text-green-300">Person Team</div>
+                  <div className="text-2xl font-bold text-primary">1</div>
+                  <div className="text-sm text-muted-foreground">Person Team</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">100+</div>
-                  <div className="text-sm text-green-700 dark:text-green-300">Creatives/Second</div>
+                  <div className="text-2xl font-bold text-primary">100+</div>
+                  <div className="text-sm text-muted-foreground">Creatives/Second</div>
                 </div>
               </div>
             </div>
@@ -519,13 +519,13 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
 
               <div>
                 <h4 className="font-semibold mb-3">How It Works</h4>
-                <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-sm">
+                <div className="bg-muted p-3 rounded text-sm">
                   <div className="mb-2 font-medium">Plain Text Instruction:</div>
                   <div className="text-muted-foreground italic mb-3">
                     "Create a weekly revenue report that pulls data from our sales database, 
                     calculates month-over-month growth, and sends it to the finance team every Monday morning."
                   </div>
-                  <div className="font-medium text-green-600 dark:text-green-400">
+                  <div className="font-medium text-primary">
                     ✓ AI translates to working automation
                   </div>
                 </div>
@@ -708,7 +708,7 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
                   <Palette className="w-4 h-4 text-pink-600 dark:text-pink-400" />
                   <h4 className="font-semibold">Design Team: Autonomous Feature Implementation</h4>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-sm">
+                <div className="bg-muted p-3 rounded text-sm">
                   <div className="font-medium text-pink-600 dark:text-pink-400 mb-2">Natural Language Command:</div>
                   <div className="text-muted-foreground italic mb-3">
                     "Update the user dashboard to match our new design system. Apply the new color palette, 
@@ -727,7 +727,7 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
                   <TrendUp className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                   <h4 className="font-semibold">Marketing Team: Campaign Automation</h4>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-sm">
+                <div className="bg-muted p-3 rounded text-sm">
                   <div className="font-medium text-blue-600 dark:text-blue-400 mb-2">Natural Language Command:</div>
                   <div className="text-muted-foreground italic mb-3">
                     "Create an automated campaign that personalizes email content based on user behavior, 
@@ -746,7 +746,7 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
                   <Calculator className="w-4 h-4 text-green-600 dark:text-green-400" />
                   <h4 className="font-semibold">Finance Team: Data Pipeline Creation</h4>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-sm">
+                <div className="bg-muted p-3 rounded text-sm">
                   <div className="font-medium text-green-600 dark:text-green-400 mb-2">Natural Language Command:</div>
                   <div className="text-muted-foreground italic mb-3">
                     "Build a real-time financial dashboard that aggregates data from Stripe, QuickBooks, 
@@ -765,7 +765,7 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
                   <Scales className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                   <h4 className="font-semibold">Legal Team: Compliance Tool Development</h4>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded text-sm">
+                <div className="bg-muted p-3 rounded text-sm">
                   <div className="font-medium text-purple-600 dark:text-purple-400 mb-2">Natural Language Command:</div>
                   <div className="text-muted-foreground italic mb-3">
                     "Create a GDPR compliance checker that scans our codebase for data collection patterns, 

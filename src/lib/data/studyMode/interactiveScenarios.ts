@@ -291,6 +291,159 @@ group_chat = autogen.GroupChat(
   }
 ];
 
+// Scenario for RAG Systems (micro-assessment)
+export const ragMicroScenarios: StudyModeQuestion[] = [
+  {
+    id: 'rag-scenario-micro-1',
+    type: 'scenario',
+    conceptId: 'rag-systems',
+    title: 'Grounded Answer or Refusal?',
+    level: 'beginner',
+    scenario: {
+      id: 'rag-ground-or-refuse',
+      title: 'Citations vs. Confidence',
+      description: 'Decide when to answer with citations or refuse due to low-confidence retrieval.',
+      context: 'Your RAG system retrieves three weakly relevant chunks (scores low) and one is from an out-of-date source.',
+      stakeholders: ['End User', 'Compliance'],
+      challenges: [
+        {
+          id: 'decision',
+          title: 'What should the system do?',
+          description: 'Choose the safest behavior.',
+          question: 'Given low confidence and stale sources, what is the best response?',
+          type: 'multiple-choice',
+          options: [
+            'Synthesize an answer without citations',
+            'Answer with the best available chunk and omit citations',
+            'Refuse with guidance and ask for clarifying input',
+            'Answer normally and let the user judge'
+          ],
+          correctAnswer: 2,
+          feedback: 'Refuse with guidance when grounding is weak or stale; prefer safe escalation over hallucination.',
+          hints: ['Consider trust and compliance impact', 'Think about confidence thresholds']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'safe-behavior',
+          condition: 'Correct choice',
+          result: 'User trust preserved; no hallucination.',
+          explanation: 'Low confidence + stale source → refuse and guide re-query.'
+        }
+      ],
+      conceptId: 'rag-systems',
+      difficulty: 'beginner',
+      estimatedTime: '6 minutes',
+      learningOutcomes: ['Confidence thresholds', 'Refusal behavior', 'Citations & grounding']
+    },
+    relatedConcepts: ['confidence', 'refusal', 'citations'],
+    timeEstimate: 6,
+    successCriteria: ['Chooses safe refusal', 'Explains grounds for refusal']
+  }
+];
+
+// Scenario for Security & Data Boundaries (micro-assessment)
+export const securityDataScenarios: StudyModeQuestion[] = [
+  {
+    id: 'sec-boundaries-scenario-1',
+    type: 'scenario',
+    conceptId: 'security-data-boundaries',
+    title: 'Tenant Isolation Misconfig',
+    level: 'beginner',
+    scenario: {
+      id: 'tenant-filter-missing',
+      title: 'Cross-tenant retrieval risk',
+      description: 'Detect and fix a missing tenant filter in a RAG query path.',
+      context: 'Two enterprise tenants share an index. A recent code change moved filters to a helper, but one call site forgot to apply it.',
+      stakeholders: ['Security', 'Customer A', 'Customer B'],
+      challenges: [
+        {
+          id: 'choose-fix',
+          title: 'What is the safest immediate action?',
+          description: 'Pick the best short-term mitigation before a full fix ships.',
+          question: 'Which action most effectively prevents data leakage right now?',
+          type: 'multiple-choice',
+          options: [
+            'Rely on the LLM to avoid referencing other tenants',
+            'Disable all retrieval temporarily for affected routes',
+            'Add a prompt reminder to respect tenant boundaries',
+            'Inform customers and monitor without changes'
+          ],
+          correctAnswer: 1,
+          feedback: 'Disable retrieval on risky routes until filters are enforced. Don\'t rely on prompts to enforce security.',
+          hints: ['Prefer technical controls over policy reminders']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'containment',
+          condition: 'Correct choice',
+          result: 'Leakage prevented while fix is prepared.',
+          explanation: 'Temporary disablement plus tests prevent cross-tenant exposure.'
+        }
+      ],
+      conceptId: 'security-data-boundaries',
+      difficulty: 'beginner',
+      estimatedTime: '5 minutes',
+      learningOutcomes: ['Defense-in-depth', 'Technical vs prompt controls', 'Emergency containment']
+    },
+    relatedConcepts: ['tenant-isolation', 'egress-controls'],
+    timeEstimate: 5,
+    successCriteria: ['Selects containment over prompt-only mitigations']
+  }
+];
+
+// Scenario for Safety, Risk & Governance (micro-assessment)
+export const safetyRiskGovScenarios: StudyModeQuestion[] = [
+  {
+    id: 'safety-risk-gov-scenario-1',
+    type: 'scenario',
+    conceptId: 'safety-risk-governance',
+    title: 'Jailbreak Regression Triage',
+    level: 'beginner',
+    scenario: {
+      id: 'jailbreak-regression',
+      title: 'New prompt change fails a red-team test',
+      description: 'A recent prompt tweak caused a known jailbreak test to pass through. Choose the fastest containment.',
+      context: 'CI red-team suite flagged a regression on a multi-turn injection case. Rollout is mid-canary.',
+      stakeholders: ['Safety', 'On-call', 'Product'],
+      challenges: [
+        {
+          id: 'containment-choice',
+          title: 'Best immediate step',
+          description: 'Pick the fastest containment without blocking all traffic.',
+          question: 'What should you do first?',
+          type: 'multiple-choice',
+          options: [
+            'Disable the entire feature globally',
+            'Tighten policy thresholds and pause canary',
+            'Add a warning in UI and proceed',
+            'Notify stakeholders and monitor only'
+          ],
+          correctAnswer: 1,
+          feedback: 'Pause the canary and tighten policy/filters to stop the regression while investigating.',
+          hints: ['Contain quickly; avoid total outage if possible']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'paused-contained',
+          condition: 'Correct choice',
+          result: 'Regression contained with minimal user impact.',
+          explanation: 'Canary pause limits blast radius; policy tweak blocks exploit.'
+        }
+      ],
+      conceptId: 'safety-risk-governance',
+      difficulty: 'beginner',
+      estimatedTime: '5 minutes',
+      learningOutcomes: ['Progressive delivery safety', 'Containment tactics', 'Policy tuning cycles']
+    },
+    relatedConcepts: ['canary', 'policy-tuning', 'guardrails'],
+    timeEstimate: 5,
+    successCriteria: ['Chooses canary pause + policy containment']
+  }
+];
+
 // Interactive Scenarios for Learner Patterns
 export const socraticCoachScenarios: StudyModeQuestion[] = [
   {
@@ -3411,6 +3564,9 @@ export const toolUseCoachInteractiveScenarios: StudyModeQuestion[] = [
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
+  'rag-systems': ragMicroScenarios,
+  'security-data-boundaries': securityDataScenarios,
+  'safety-risk-governance': safetyRiskGovScenarios,
   'a2a-communication': a2aScenarios,
   'agentic-rag': agenticRAGScenarios,
   'modern-tool-use': modernToolUseScenarios,
