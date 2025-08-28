@@ -880,16 +880,16 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
     <div className="w-full max-w-4xl mx-auto space-y-6">
       {/* User Context Display */}
       {userContext && (
-        <Card className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900 dark:to-blue-900 border-purple-200 dark:border-purple-800">
+        <Card className="bg-muted text-foreground border">
           <CardContent className="pt-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-sm">
-                <Users size={16} className="text-purple-600" />
-                <span className="font-medium text-purple-800 dark:text-purple-200">
+                <Users size={16} className="text-muted-foreground" />
+                <span className="font-medium">
                   Personalized for {userContext.experience} level
                 </span>
                 {userContext.background && (
-                  <span className="text-purple-600 dark:text-purple-300">
+                  <span className="text-muted-foreground">
                     • {userContext.background}
                   </span>
                 )}
@@ -899,7 +899,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                   </Badge>
                 )}
               </div>
-              <div className="text-xs text-purple-600 dark:text-purple-300">
+              <div className="text-xs text-muted-foreground">
                 {userContext.timeAvailable} min session • {userContext.learningStyle} learner
               </div>
             </div>
@@ -992,25 +992,25 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
           </div>
 
           {/* Real-time Follow-up Questions */}
-          {hasLlmProvider && currentDynamicFollowUps.length > 0 && userResponse.length > 20 && (
-            <div className="p-4 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900 dark:to-orange-900 border border-amber-200 dark:border-amber-800 rounded-lg">
+            {hasLlmProvider && currentDynamicFollowUps.length > 0 && userResponse.length > 20 && (
+              <div className="p-4 bg-muted text-foreground border rounded-lg">
               <div className="flex items-start gap-2 mb-3">
-                <Brain size={16} className="text-amber-600 mt-0.5" />
+                  <Brain size={16} className="text-muted-foreground mt-0.5" />
                 <div>
-                  <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                    <p className="text-sm font-medium">
                     Interesting response! Consider these follow-up questions:
                   </p>
                 </div>
               </div>
               <div className="space-y-2">
                 {currentDynamicFollowUps.slice(0, 2).map((followUp, index) => (
-                  <div key={index} className="text-sm text-amber-700 dark:text-amber-300 pl-4 border-l-2 border-amber-300 dark:border-amber-600">
+                  <div key={index} className="text-sm text-muted-foreground pl-4 border-l-2 border-border">
                     {followUp}
                   </div>
                 ))}
               </div>
-              {isGeneratingFollowUp && (
-                <div className="flex items-center gap-2 mt-3 text-xs text-amber-600 dark:text-amber-400">
+                {isGeneratingFollowUp && (
+                <div className="flex items-center gap-2 mt-3 text-xs text-muted-foreground">
                   <div className="animate-spin rounded-full h-3 w-3 border-b border-amber-600" />
                   Generating follow-up questions...
                 </div>

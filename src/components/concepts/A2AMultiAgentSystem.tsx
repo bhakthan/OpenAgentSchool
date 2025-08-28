@@ -135,7 +135,7 @@ const A2AMultiAgentSystem: React.FC = () => {
         <CardTitle className="flex items-center gap-2">
           <Users className="w-5 h-5" />
           <span>Multi-Agent System: A2A, GenAI-processors & MCP</span>
-          <Badge variant="secondary">Interactive Demo</Badge>
+          <Badge className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Interactive Demo</Badge>
         </CardTitle>
         <p className="text-muted-foreground">
           Watch how Agent-to-Agent communication, GenAI-processors, and Model Context Protocol work together in a real e-commerce scenario
@@ -160,7 +160,7 @@ const A2AMultiAgentSystem: React.FC = () => {
           </div>
 
           {/* Progress Indicator */}
-          <div className="w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full h-2">
+          <div className="w-full bg-muted text-foreground rounded-full h-2">
             <div 
               className="bg-primary h-2 rounded-full transition-all duration-500"
               style={{ width: `${((currentStep + 1) / animationSteps.length) * 100}%` }}
@@ -171,7 +171,7 @@ const A2AMultiAgentSystem: React.FC = () => {
           <div className="relative">
             <svg
               viewBox="0 0 1400 950"
-              className="w-full h-auto border rounded-lg bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-800 dark:to-slate-900"
+              className="w-full h-auto border rounded-lg bg-muted text-foreground"
             >
               {/* Define styles for the multi-agent system */}
               <defs>
@@ -543,7 +543,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                         width="1600"
                         height="1000"
                         viewBox="0 0 1600 1000"
-                        className="w-full h-auto border rounded-lg bg-gradient-to-br from-slate-50 to-amber-50 dark:from-slate-800 dark:to-amber-900"
+                        className="w-full h-auto border rounded-lg bg-muted text-foreground"
                       >
                         {/* SVG Content */}
                         <defs>
@@ -801,7 +801,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                     </div>
 
                     {/* Context Engineering Deep Dive */}
-                    <div className="mt-6 p-4 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900 dark:to-orange-900 rounded-lg">
+                    <div className="mt-6 p-4 rounded-lg bg-muted text-foreground ring-1 ring-border">
                       <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                         <Database className="w-5 h-5 text-amber-600" />
                         Context Engineering: The Game Changer
@@ -984,7 +984,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                 {/* Business Scenario Breakdown */}
                 <div className="mt-8">
                   <h3 className="font-semibold text-lg mb-4">Business Scenario: Multi-Faceted Customer Inquiry</h3>
-                  <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 p-4 rounded-lg">
+                  <div className="p-4 rounded-lg bg-muted text-foreground ring-1 ring-border">
                     <p className="text-lg italic mb-3">
                       "What are the eco-friendly features of the 'Aqua-Pure X1' water filter, and can you check the status of my latest order for it?"
                     </p>
@@ -1067,7 +1067,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                 </div>
 
                 {/* Integration Summary */}
-                <div className="mt-8 p-4 bg-gradient-to-r from-slate-100 to-gray-100 dark:from-slate-800 dark:to-gray-800 rounded-lg">
+                <div className="mt-8 p-4 rounded-lg bg-muted text-foreground ring-1 ring-border">
                   <h3 className="font-semibold text-lg mb-3">Integration Summary</h3>
                   <div className="space-y-2 text-lg">
                     <p>

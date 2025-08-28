@@ -50,7 +50,7 @@ export const SecurityVisualization: React.FC<SecurityVisualizationProps> = ({ cl
   }, [securityLayers.length]);
 
   return (
-    <div className={`relative w-full h-96 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 rounded-xl overflow-hidden ${className}`}>
+    <div className={`relative w-full h-96 bg-muted text-foreground rounded-xl overflow-hidden ${className}`}>
       {/* Central Agent */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
         <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg border-4 border-blue-500 dark:border-blue-400">

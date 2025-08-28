@@ -68,7 +68,7 @@ export const EthicsVisualization: React.FC<EthicsVisualizationProps> = ({ classN
   };
 
   return (
-    <div className={`relative w-full h-96 bg-gradient-to-br from-purple-50 to-blue-100 dark:from-gray-900 dark:to-purple-900/20 rounded-xl overflow-hidden ${className}`}>
+    <div className={`relative w-full h-96 bg-muted text-foreground rounded-xl overflow-hidden ${className}`}>
       {/* Central Ethics Scale */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="relative">

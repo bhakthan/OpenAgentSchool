@@ -20,7 +20,7 @@ export default function CodeUnderstandingSkills({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
-      <Card className="bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 border-blue-200 dark:border-blue-800">
+  <Card className="bg-muted text-foreground border">
         <CardHeader>
           <CardTitle className="text-xl">Revolutionary Code Understanding & Navigation</CardTitle>
           <CardDescription className="text-base">
@@ -476,7 +476,7 @@ Error: TypeError: Cannot read property 'length' of undefined
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950/30 dark:to-indigo-950/30 p-4 rounded-lg">
+            <div className="bg-muted text-foreground p-4 rounded-lg border">
               <p className="text-sm font-medium mb-2">💡 Pro Tip:</p>
               <p className="text-sm text-muted-foreground">
                 Use agent mode for open-ended tasks like "create a new feature", "migrate to new framework", or "analyze security issues". 
@@ -619,7 +619,7 @@ Error: TypeError: Cannot read property 'length' of undefined
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-4 rounded-lg">
+              <div className="bg-muted text-foreground p-4 rounded-lg border">
                 <p className="text-sm font-medium mb-2">Example MCP Usage:</p>
                 <div className="text-sm text-muted-foreground space-y-1">
                   <div>• <code className="bg-white dark:bg-gray-800 px-1 rounded">@github List my open pull requests</code></div>

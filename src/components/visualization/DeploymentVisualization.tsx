@@ -68,7 +68,7 @@ export const DeploymentVisualization: React.FC<DeploymentVisualizationProps> = (
   };
 
   return (
-    <div className={`relative w-full h-96 bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-gray-900 dark:to-blue-900/20 rounded-xl overflow-hidden ${className}`}>
+    <div className={`relative w-full h-96 bg-muted text-foreground rounded-xl overflow-hidden ${className}`}>
       {/* Central Deployment Hub */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="w-24 h-24 bg-white dark:bg-gray-800 rounded-lg flex items-center justify-center shadow-xl border-4 border-blue-500 dark:border-blue-400 relative">

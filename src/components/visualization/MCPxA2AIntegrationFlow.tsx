@@ -139,15 +139,15 @@ const MCPxA2AIntegrationFlow: React.FC = () => {
         </div>
 
         {currentPhase !== 'idle' && (
-          <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-            <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
+      <div className="mb-6 p-4 bg-muted text-foreground rounded-lg border">
+        <p className="text-sm font-medium">
               {animationPhases.find(p => p.phase === currentPhase)?.description}
             </p>
           </div>
         )}
 
         {/* Architecture SVG */}
-        <div className="mb-6 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 p-6 rounded-lg border">
+  <div className="mb-6 bg-muted text-foreground p-6 rounded-lg border">
           <svg viewBox="0 0 900 600" className="w-full h-auto">
             {/* Title */}
             <text x="450" y="25" textAnchor="middle" className="text-lg font-bold fill-slate-800 dark:fill-slate-200">
@@ -397,17 +397,17 @@ const MCPxA2AIntegrationFlow: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-lg border border-green-200 dark:border-green-800">
+              <div className="text-center p-4 bg-muted text-foreground rounded-lg border">
                 <div className="text-3xl font-bold text-green-600 dark:text-green-400">70%</div>
                 <div className="text-sm text-green-700 dark:text-green-300 font-medium">Code Reduction</div>
                 <div className="text-xs text-green-600 dark:text-green-400 mt-1">Using Azure AI Agents Framework</div>
               </div>
-              <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
+              <div className="text-center p-4 bg-muted text-foreground rounded-lg border">
                 <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">65%</div>
                 <div className="text-sm text-blue-700 dark:text-blue-300 font-medium">Faster Integration</div>
                 <div className="text-xs text-blue-600 dark:text-blue-400 mt-1">Tool integration time reduction</div>
               </div>
-              <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-950/30 dark:to-violet-950/30 rounded-lg border border-purple-200 dark:border-purple-800">
+              <div className="text-center p-4 bg-muted text-foreground rounded-lg border">
                 <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">∞</div>
                 <div className="text-sm text-purple-700 dark:text-purple-300 font-medium">Scalability</div>
                 <div className="text-xs text-purple-600 dark:text-purple-400 mt-1">Coordinate dozens of agents</div>

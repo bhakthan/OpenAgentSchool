@@ -130,14 +130,14 @@ your progress at each checkpoint."`}
                     </code>
                   </div>
                   <div className="space-y-2">
-                    <Badge variant="secondary">Best for:</Badge>
+                    <Badge className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Best for:</Badge>
                     <ul className="text-sm space-y-1">
                       <li>• Complex problem-solving</li>
                       <li>• High-stakes decisions</li>
                       <li>• Quality-critical tasks</li>
                       <li>• Learning scenarios</li>
                     </ul>
-                    <Badge variant="outline" className="mt-2">Trade-offs:</Badge>
+                    <Badge className="mt-2 ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Trade-offs:</Badge>
                     <ul className="text-sm space-y-1">
                       <li>• Slower execution</li>
                       <li>• Higher computational cost</li>
@@ -170,14 +170,14 @@ Coordinate results as they complete."`}
                     </code>
                   </div>
                   <div className="space-y-2">
-                    <Badge variant="secondary">Best for:</Badge>
+                    <Badge className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Best for:</Badge>
                     <ul className="text-sm space-y-1">
                       <li>• Time-sensitive tasks</li>
                       <li>• Independent sub-problems</li>
                       <li>• Resource optimization</li>
                       <li>• Scalable processing</li>
                     </ul>
-                    <Badge variant="outline" className="mt-2">Trade-offs:</Badge>
+                    <Badge className="mt-2 ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Trade-offs:</Badge>
                     <ul className="text-sm space-y-1">
                       <li>• Coordination complexity</li>
                       <li>• Resource contention</li>
@@ -210,14 +210,14 @@ prepared to switch strategies if needed."`}
                     </code>
                   </div>
                   <div className="space-y-2">
-                    <Badge variant="secondary">Best for:</Badge>
+                    <Badge className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Best for:</Badge>
                     <ul className="text-sm space-y-1">
                       <li>• Unknown problem complexity</li>
                       <li>• Variable resource availability</li>
                       <li>• Exploratory tasks</li>
                       <li>• Dynamic environments</li>
                     </ul>
-                    <Badge variant="outline" className="mt-2">Trade-offs:</Badge>
+                    <Badge className="mt-2 ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Trade-offs:</Badge>
                     <ul className="text-sm space-y-1">
                       <li>• Strategy overhead</li>
                       <li>• Less predictable timing</li>
@@ -315,7 +315,7 @@ Think through each step carefully before
 proceeding to the next."`}
                 </code>
                 <div className="text-sm">
-                  <Badge variant="secondary" className="mb-1">Use cases:</Badge>
+                  <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Use cases:</Badge>
                   <ul className="list-disc list-inside space-y-1">
                     <li>High-stakes decisions</li>
                     <li>Complex problem-solving</li>
@@ -338,7 +338,7 @@ Favor rapid iteration over extensive
 upfront planning."`}
                 </code>
                 <div className="text-sm">
-                  <Badge variant="secondary" className="mb-1">Use cases:</Badge>
+                  <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Use cases:</Badge>
                   <ul className="list-disc list-inside space-y-1">
                     <li>Time-sensitive tasks</li>
                     <li>Simple, clear objectives</li>

@@ -326,7 +326,7 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
               </div>
             </div>
 
-            <div className="mt-6 p-4 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900 dark:to-indigo-900 rounded-lg">
+            <div className="mt-6 p-4 bg-muted text-foreground rounded-lg border">
               <h4 className="font-semibold mb-2">🎯 Key Success Factor</h4>
               <p className="text-sm text-muted-foreground">
                 <strong>Human + Agent Partnership:</strong> Teams remain in control of priorities, quality, and strategy 
@@ -821,7 +821,7 @@ export default function CrossTeamCollaborationSkills({ onNavigate }: Props) {
           </div>
 
           {/* Installation & Team Setup */}
-          <div className="bg-gradient-to-r from-violet-50 to-indigo-50 dark:from-violet-950 dark:to-indigo-950 p-6 rounded-lg">
+          <div className="bg-muted text-foreground p-6 rounded-lg border">
             <h3 className="font-semibold mb-4 flex items-center gap-2">
               <Download className="w-5 h-5 text-violet-600 dark:text-violet-400" />
               Team Setup & Installation

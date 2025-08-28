@@ -311,7 +311,7 @@ function getLevelBadgeClass(level: ConceptInfo['level']): string {
     case 'advanced':
   return 'ring-1 bg-[var(--badge-advanced-bg)] ring-[var(--badge-advanced-ring)] text-[var(--badge-advanced-text)] dark:text-[var(--badge-advanced-text)]';
     default:
-      return 'text-black bg-muted ring-1 ring-border';
+  return 'ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] dark:text-[var(--badge-gray-text)]';
   }
 }
 

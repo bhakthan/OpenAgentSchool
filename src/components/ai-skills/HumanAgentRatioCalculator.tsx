@@ -131,7 +131,7 @@ export default function HumanAgentRatioCalculator({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Legal Disclaimer */}
-      <Card className="bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900 dark:to-orange-900 border-amber-200 dark:border-amber-800">
+  <Card className="bg-muted text-foreground border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
             <span className="text-xl">⚠️</span>
@@ -160,7 +160,7 @@ export default function HumanAgentRatioCalculator({ onNavigate }: Props) {
       </Card>
 
       {/* Instructions Header */}
-      <Card className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 border-blue-200 dark:border-blue-800">
+  <Card className="bg-muted text-foreground border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-blue-800 dark:text-blue-200">
             <Brain className="w-6 h-6" />
@@ -336,22 +336,22 @@ export default function HumanAgentRatioCalculator({ onNavigate }: Props) {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
+            <div className="text-center p-4 bg-muted text-foreground rounded-lg border">
               <div className="text-2xl font-bold text-blue-600">{totalCurrentHumans + totalSuggestedAgents}</div>
               <div className="text-sm text-muted-foreground">Collaborative Workforce</div>
               <div className="text-xs text-blue-600 mt-1">{totalCurrentHumans} humans working with {totalSuggestedAgents} AI agents</div>
             </div>
-            <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-lg border border-green-200 dark:border-green-800">
+            <div className="text-center p-4 bg-muted text-foreground rounded-lg border">
               <div className="text-2xl font-bold text-green-600">+{Math.round(totalEfficiencyGain)}%</div>
               <div className="text-sm text-muted-foreground">Avg Efficiency Gain</div>
               <div className="text-xs text-green-600 mt-1">Across all functions</div>
             </div>
-            <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-950/30 dark:to-violet-950/30 rounded-lg border border-purple-200 dark:border-purple-800">
+            <div className="text-center p-4 bg-muted text-foreground rounded-lg border">
               <div className="text-2xl font-bold text-purple-600">+{Math.round(totalCapacityGain)}%</div>
               <div className="text-sm text-muted-foreground">Capacity Increase</div>
               <div className="text-xs text-purple-600 mt-1">Additional work capacity</div>
             </div>
-            <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/30 dark:to-red-950/30 rounded-lg border border-orange-200 dark:border-orange-800">
+            <div className="text-center p-4 bg-muted text-foreground rounded-lg border">
               <div className="text-2xl font-bold text-orange-600">{Math.round((totalSuggestedAgents / totalCurrentHumans) * 10) / 10}:1</div>
               <div className="text-sm text-muted-foreground">Agent:Human Ratio</div>
               <div className="text-xs text-orange-600 mt-1">Organization average</div>

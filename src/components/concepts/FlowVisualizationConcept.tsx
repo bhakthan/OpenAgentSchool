@@ -55,7 +55,7 @@ export default function FlowVisualizationConcept({ onMarkComplete, onNavigateToN
                 agent systems by showing the flow of data, decisions, and actions.
               </p>
               
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
+              <div className="bg-muted text-foreground p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Benefits of Flow Visualization:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -186,7 +186,7 @@ export default function FlowVisualizationConcept({ onMarkComplete, onNavigateToN
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
                     SVG-based Visualization
                   </h4>
@@ -194,13 +194,13 @@ export default function FlowVisualizationConcept({ onMarkComplete, onNavigateToN
                     Lightweight, scalable vector graphics for responsive flow diagrams
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs">Lightweight</Badge>
-                    <Badge variant="outline" className="text-xs">Scalable</Badge>
-                    <Badge variant="outline" className="text-xs">CSS-friendly</Badge>
-                    <Badge variant="outline" className="text-xs">Performant</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Lightweight</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Scalable</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">CSS-friendly</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Performant</Badge>
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     React Flow
                   </h4>
@@ -208,12 +208,12 @@ export default function FlowVisualizationConcept({ onMarkComplete, onNavigateToN
                     Highly customizable library for building node-based editors and interactive diagrams
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs">Interactive</Badge>
-                    <Badge variant="outline" className="text-xs">Customizable</Badge>
-                    <Badge variant="outline" className="text-xs">Real-time</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Interactive</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Customizable</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Real-time</Badge>
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
                     Cytoscape.js
                   </h4>
@@ -221,9 +221,9 @@ export default function FlowVisualizationConcept({ onMarkComplete, onNavigateToN
                     Graph theory library for network visualization and analysis
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs">Networks</Badge>
-                    <Badge variant="outline" className="text-xs">Layout algorithms</Badge>
-                    <Badge variant="outline" className="text-xs">Interactive</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Networks</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Layout algorithms</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Interactive</Badge>
                   </div>
                 </div>
               </div>

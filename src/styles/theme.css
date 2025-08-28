@@ -142,6 +142,11 @@
   --badge-purple-text: #000000;
   --badge-purple-ring: #d8b4fe; /* purple-300 */
 
+  /* Add missing cyan generic badge tokens (light) */
+  --badge-cyan-bg: #ecfeff; /* cyan-50 */
+  --badge-cyan-text: #000000;
+  --badge-cyan-ring: #67e8f9; /* cyan-300 */
+
   --badge-orange-bg: #fff7ed; /* orange-50 */
   --badge-orange-text: #000000;
   --badge-orange-ring: #fdba74; /* orange-300 */
@@ -213,6 +218,11 @@
   --badge-purple-bg: rgba(76, 29, 149, 0.20); /* purple-900 @ 20% */
   --badge-purple-text: #e5e7eb;
   --badge-purple-ring: rgba(76, 29, 149, 0.40);
+
+  /* Add missing cyan generic badge tokens (dark) */
+  --badge-cyan-bg: rgba(22, 78, 99, 0.20); /* cyan-900 @ 20% (tealish) */
+  --badge-cyan-text: #e5e7eb;
+  --badge-cyan-ring: rgba(22, 78, 99, 0.40);
 
   --badge-orange-bg: rgba(124, 45, 18, 0.20); /* orange-900 @ 20% */
   --badge-orange-text: #e5e7eb;

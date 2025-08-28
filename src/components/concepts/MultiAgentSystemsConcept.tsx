@@ -61,7 +61,7 @@ export default function MultiAgentSystemsConcept({ onMarkComplete, onNavigateToN
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+              <div className="bg-muted text-foreground p-4 rounded-lg">
                 <pre className="text-base text-gray-900 dark:text-gray-100">
 {`// Agent Coordination Example
 class AgentCoordinator {
@@ -112,7 +112,7 @@ class AgentCoordinator {
                 allocation, task distribution, and conflict resolution without human intervention.
               </p>
               
-              <div className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-md">
+              <div className="bg-muted text-foreground p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Common Negotiation Strategies:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -134,7 +134,7 @@ class AgentCoordinator {
                 </ul>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+              <div className="bg-muted text-foreground p-4 rounded-lg">
                 <pre className="text-base text-gray-900 dark:text-gray-100">
 {`// Auction-Based Negotiation
 class AgentAuction {
@@ -211,7 +211,7 @@ class AgentAuction {
                 </div>
               </div>
 
-              <div className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-md">
+              <div className="bg-muted text-foreground p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Examples of Emergent Behavior:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -255,9 +255,9 @@ class AgentAuction {
               </p>
               
               <div className="space-y-4">
-                <div className="flex items-start gap-4 p-4 border rounded-lg">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                    <Crown className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <div className="flex items-start gap-4 p-4 border rounded-lg">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted text-foreground">
+                    <Crown className="w-5 h-5 text-[var(--badge-blue-ring)]" />
                   </div>
                   <div>
                     <h4 className="font-semibold">Hierarchical Model</h4>
@@ -265,15 +265,15 @@ class AgentAuction {
                       Clear command structure with supervisor and worker agents
                     </p>
                     <div className="mt-2">
-                      <Badge variant="outline">Centralized Control</Badge>
-                      <Badge variant="outline" className="ml-2">Clear Authority</Badge>
+                      <Badge className="ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Centralized Control</Badge>
+                      <Badge className="ml-2 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Clear Authority</Badge>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4 p-4 border rounded-lg">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                    <Network className="w-5 h-5 text-green-600 dark:text-green-400" />
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted text-foreground">
+                    <Network className="w-5 h-5 text-[var(--badge-green-ring)]" />
                   </div>
                   <div>
                     <h4 className="font-semibold">Peer-to-Peer Model</h4>
@@ -281,15 +281,15 @@ class AgentAuction {
                       Agents collaborate as equals without central authority
                     </p>
                     <div className="mt-2">
-                      <Badge variant="outline">Decentralized</Badge>
-                      <Badge variant="outline" className="ml-2">Flexible</Badge>
+                      <Badge className="ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Decentralized</Badge>
+                      <Badge className="ml-2 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Flexible</Badge>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4 p-4 border rounded-lg">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                    <Target className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted text-foreground">
+                    <Target className="w-5 h-5 text-[var(--badge-purple-ring)]" />
                   </div>
                   <div>
                     <h4 className="font-semibold">Market-Based Model</h4>
@@ -297,8 +297,8 @@ class AgentAuction {
                       Agents compete and cooperate based on economic incentives
                     </p>
                     <div className="mt-2">
-                      <Badge variant="outline">Competitive</Badge>
-                      <Badge variant="outline" className="ml-2">Efficient</Badge>
+                      <Badge className="ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Competitive</Badge>
+                      <Badge className="ml-2 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Efficient</Badge>
                     </div>
                   </div>
                 </div>

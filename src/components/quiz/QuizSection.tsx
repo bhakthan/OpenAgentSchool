@@ -159,7 +159,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
 
         <TabsContent value="overview" className="space-y-6">
           {/* Quick Start Section */}
-          <Card className="bg-gradient-to-r from-primary/10 to-primary/5">
+          <Card className="bg-muted text-foreground">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <BookOpen size={24} className="text-primary" />

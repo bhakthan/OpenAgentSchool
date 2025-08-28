@@ -224,7 +224,7 @@ const Agent2AgentProtocolExplainer = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
-                        <Badge className="bg-primary/20 text-primary">A2A Protocol</Badge>
+                        <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">A2A Protocol</Badge>
                         <span className="text-sm font-medium">Agent-to-Agent Communication</span>
                       </div>
                       
@@ -246,7 +246,7 @@ const Agent2AgentProtocolExplainer = () => {
                     
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
-                        <Badge className="bg-secondary/20 text-secondary">MCP Protocol</Badge>
+                        <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)]">MCP Protocol</Badge>
                         <span className="text-sm font-medium">Model-Tool Interaction</span>
                       </div>
                       
@@ -315,7 +315,7 @@ const Agent2AgentProtocolExplainer = () => {
                         
                         <div className="border rounded-md p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="outline" className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">Step 2</Badge>
+                            <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Step 2</Badge>
                             <h4 className="font-medium">Host Agent Analysis</h4>
                           </div>
                           <p className="text-sm mb-2">
@@ -330,7 +330,7 @@ const Agent2AgentProtocolExplainer = () => {
                         
                         <div className="border rounded-md p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="outline" className="bg-primary/20 text-primary">Step 3: A2A</Badge>
+                            <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Step 3: A2A</Badge>
                             <h4 className="font-medium">A2A Delegation to Specialist</h4>
                           </div>
                           <p className="text-sm mb-2">
@@ -360,7 +360,7 @@ const Agent2AgentProtocolExplainer = () => {
                         
                         <div className="border rounded-md p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="outline" className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">Step 4</Badge>
+                            <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Step 4</Badge>
                             <h4 className="font-medium">Stock Agent Analysis</h4>
                           </div>
                           <p className="text-sm mb-2">
@@ -375,7 +375,7 @@ const Agent2AgentProtocolExplainer = () => {
                         
                         <div className="border rounded-md p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="outline" className="bg-secondary/20 text-secondary">Step 5: MCP</Badge>
+                            <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)]">Step 5: MCP</Badge>
                             <h4 className="font-medium">MCP Tool Call</h4>
                           </div>
                           <p className="text-sm mb-2">
@@ -403,7 +403,7 @@ const Agent2AgentProtocolExplainer = () => {
                         
                         <div className="border rounded-md p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="outline" className="bg-secondary/20 text-secondary">Step 6: MCP</Badge>
+                            <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)]">Step 6: MCP</Badge>
                             <h4 className="font-medium">MCP Data Return</h4>
                           </div>
                           <p className="text-sm mb-2">
@@ -420,7 +420,7 @@ const Agent2AgentProtocolExplainer = () => {
                         
                         <div className="border rounded-md p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="outline" className="bg-primary/20 text-primary">Step 7: A2A</Badge>
+                            <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Step 7: A2A</Badge>
                             <h4 className="font-medium">A2A Response to Host</h4>
                           </div>
                           <p className="text-sm mb-2">

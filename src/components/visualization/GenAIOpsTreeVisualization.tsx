@@ -108,6 +108,20 @@ export function GenAIOpsTreeVisualization({ className }: GenAIOpsTreeVisualizati
   const svgRef = useRef<SVGSVGElement>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // Helper: resolve the actual CSS color produced by a Tailwind class
+  const resolveCssColor = (className: string) => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return '#000000';
+    const el = document.createElement('span');
+    el.style.position = 'absolute';
+    el.style.visibility = 'hidden';
+    el.style.pointerEvents = 'none';
+    el.className = className;
+    document.body.appendChild(el);
+    const color = getComputedStyle(el).color;
+    document.body.removeChild(el);
+    return color || '#000000';
+  };
+
   // Detect dark mode
   useEffect(() => {
     const checkDarkMode = () => {
@@ -170,16 +184,20 @@ export function GenAIOpsTreeVisualization({ className }: GenAIOpsTreeVisualizati
       3: "#064e3b"  // emerald-900
     };
 
+    // Resolve theme-aware colors from utility classes
+    const labelColor = resolveCssColor('text-foreground');
+    const mutedColor = resolveCssColor('text-muted-foreground');
+
     // Add links with improved styling
-    const link = g.selectAll(".link")
+  const link = g.selectAll(".link")
       .data(root.descendants().slice(1))
       .enter().append("path")
       .attr("class", "link")
       .attr("d", (d: any) => {
         return `M${d.y},${d.x}C${(d.y + d.parent.y) / 2},${d.x} ${(d.y + d.parent.y) / 2},${d.parent.x} ${d.parent.y},${d.parent.x}`;
       })
-      .style("fill", "none")
-      .style("stroke", "#64748b")
+  .style("fill", "none")
+  .style("stroke", mutedColor)
       .style("stroke-width", "2px")
       .style("stroke-opacity", 0.4);
 
@@ -214,11 +232,15 @@ export function GenAIOpsTreeVisualization({ className }: GenAIOpsTreeVisualizati
           .style("filter", "drop-shadow(0 4px 8px rgba(0,0,0,0.2))");
         
         // Show tooltip with improved styling
+        const tooltipBg = isDarkMode ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.98)';
+        const tooltipText = isDarkMode ? 'white' : '#111827';
+        const tooltipBorder = isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.08)';
+
         const tooltip = d3.select("body").append("div")
           .attr("class", "genaiopstree-tooltip")
           .style("position", "absolute")
-          .style("background", "rgba(15, 23, 42, 0.95)")
-          .style("color", "white")
+          .style("background", tooltipBg)
+          .style("color", tooltipText)
           .style("padding", "12px 16px")
           .style("border-radius", "8px")
           .style("font-size", "14px")
@@ -226,8 +248,8 @@ export function GenAIOpsTreeVisualization({ className }: GenAIOpsTreeVisualizati
           .style("z-index", "1000")
           .style("pointer-events", "none")
           .style("box-shadow", "0 10px 25px rgba(0,0,0,0.2)")
-          .style("border", "1px solid rgba(255,255,255,0.1)")
-          .html(`<div style="font-weight: 600; margin-bottom: 6px; color: ${colors[d.depth as keyof typeof colors]};">${d.data.name}</div><div style="line-height: 1.4; color: rgba(255,255,255,0.9);">${d.data.description}</div>`)
+          .style("border", tooltipBorder)
+          .html(`<div style="font-weight: 600; margin-bottom: 6px; color: ${colors[d.depth as keyof typeof colors]};">${d.data.name}</div><div style="line-height: 1.4; color: ${isDarkMode ? 'rgba(255,255,255,0.9)' : 'rgba(17,24,39,0.9)'};">${d.data.description}</div>`)
           .style("left", (event.pageX + 15) + "px")
           .style("top", (event.pageY - 15) + "px")
           .style("opacity", 0)
@@ -254,7 +276,7 @@ export function GenAIOpsTreeVisualization({ className }: GenAIOpsTreeVisualizati
           .remove();
       });
 
-    // Add text labels with improved positioning and dark mode support
+  // Add text labels with improved positioning and theme-aware colors
     node.append("text")
       .attr("dy", ".35em")
       .attr("x", (d: any) => d.children ? -20 : 20)
@@ -264,8 +286,8 @@ export function GenAIOpsTreeVisualization({ className }: GenAIOpsTreeVisualizati
         const sizes = ["16px", "14px", "13px", "12px"];
         return sizes[d.depth] || "12px";
       })
-      .style("font-weight", (d: any) => d.depth <= 1 ? "600" : "500")
-      .style("fill", isDarkMode ? "#e2e8f0" : "#ffffff") // A true black for light mode
+  .style("font-weight", (d: any) => d.depth <= 1 ? "600" : "500")
+  .style("fill", labelColor)
       .style("text-shadow", "none")
       .attr("class", "tree-label");
 
@@ -288,7 +310,7 @@ export function GenAIOpsTreeVisualization({ className }: GenAIOpsTreeVisualizati
 
   return (
     <div className={`w-full ${className}`}>
-      <div className="bg-white dark:bg-gray-900 border rounded-lg p-6">
+      <div className="bg-muted text-foreground border border-border rounded-lg p-6">
         <h3 className="text-xl font-semibold mb-4 text-center">GenAIOps Operational Framework</h3>
         <p className="text-sm text-muted-foreground text-center mb-6">
           Interactive tree showing the hierarchical structure of Generative AI Operations

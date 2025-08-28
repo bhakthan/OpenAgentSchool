@@ -43,7 +43,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                 It helps in understanding, debugging, and optimizing agent systems.
               </p>
               
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
+              <div className="bg-muted text-foreground p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Key Visualization Areas:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -217,7 +217,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
                     Response Time
                   </h4>
@@ -228,7 +228,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                     Average response time
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Success Rate
                   </h4>
@@ -239,7 +239,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                     Successful requests
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
                     Active Agents
                   </h4>
@@ -306,37 +306,37 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+        <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
                     Data Collection & Storage
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs">Prometheus</Badge>
-                    <Badge variant="outline" className="text-xs">InfluxDB</Badge>
-                    <Badge variant="outline" className="text-xs">Elasticsearch</Badge>
-                    <Badge variant="outline" className="text-xs">MongoDB</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Prometheus</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">InfluxDB</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Elasticsearch</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">MongoDB</Badge>
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+        <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Visualization Libraries
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs">Chart.js</Badge>
-                    <Badge variant="outline" className="text-xs">D3.js</Badge>
-                    <Badge variant="outline" className="text-xs">Plotly</Badge>
-                    <Badge variant="outline" className="text-xs">Recharts</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Chart.js</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">D3.js</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Plotly</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Recharts</Badge>
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+        <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
                     Dashboard Frameworks
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs">Grafana</Badge>
-                    <Badge variant="outline" className="text-xs">Tableau</Badge>
-                    <Badge variant="outline" className="text-xs">Power BI</Badge>
-                    <Badge variant="outline" className="text-xs">Custom React</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Grafana</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Tableau</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Power BI</Badge>
+          <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Custom React</Badge>
                   </div>
                 </div>
               </div>
@@ -349,7 +349,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
               <CardTitle>Data Flow Pipeline</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+              <div className="bg-muted text-foreground p-4 rounded-lg">
                 <div className="flex items-center justify-between text-sm">
                   <div className="text-center">
                     <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-2">
@@ -401,7 +401,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
             <CardContent>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <Badge variant="outline" className="mt-1">1</Badge>
+                  <Badge className="mt-1 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">1</Badge>
                   <div>
                     <h4 className="font-semibold">Define Metrics</h4>
                     <p className="text-sm text-muted-foreground">
@@ -410,7 +410,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Badge variant="outline" className="mt-1">2</Badge>
+                  <Badge className="mt-1 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">2</Badge>
                   <div>
                     <h4 className="font-semibold">Set Up Data Collection</h4>
                     <p className="text-sm text-muted-foreground">
@@ -419,7 +419,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Badge variant="outline" className="mt-1">3</Badge>
+                  <Badge className="mt-1 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">3</Badge>
                   <div>
                     <h4 className="font-semibold">Create Data API</h4>
                     <p className="text-sm text-muted-foreground">
@@ -428,7 +428,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Badge variant="outline" className="mt-1">4</Badge>
+                  <Badge className="mt-1 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">4</Badge>
                   <div>
                     <h4 className="font-semibold">Build Dashboard UI</h4>
                     <p className="text-sm text-muted-foreground">
@@ -571,7 +571,7 @@ const AgentMetricsDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">
                     Streaming Data Challenges
                   </h4>
@@ -582,7 +582,7 @@ const AgentMetricsDashboard = () => {
                     <li>• Real-time aggregation complexity</li>
                   </ul>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     Solutions & Best Practices
                   </h4>
@@ -604,7 +604,7 @@ const AgentMetricsDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
                     Automated Insights
                   </h4>
@@ -612,12 +612,12 @@ const AgentMetricsDashboard = () => {
                     Use ML algorithms to automatically identify patterns and generate insights
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs">Pattern Recognition</Badge>
-                    <Badge variant="outline" className="text-xs">Trend Analysis</Badge>
-                    <Badge variant="outline" className="text-xs">Outlier Detection</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Pattern Recognition</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Trend Analysis</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Outlier Detection</Badge>
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
                     Smart Alerting
                   </h4>
@@ -625,9 +625,9 @@ const AgentMetricsDashboard = () => {
                     ML-driven alerting system that learns from historical data
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs">Adaptive Thresholds</Badge>
-                    <Badge variant="outline" className="text-xs">Context-Aware</Badge>
-                    <Badge variant="outline" className="text-xs">Noise Reduction</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Adaptive Thresholds</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Context-Aware</Badge>
+                    <Badge className="text-xs ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Noise Reduction</Badge>
                   </div>
                 </div>
               </div>

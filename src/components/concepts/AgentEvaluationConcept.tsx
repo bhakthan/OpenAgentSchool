@@ -11,7 +11,7 @@ import AdvancedArchitectureSimulation from "@/components/visualization/evaluatio
 import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 
 const PersonaBadge = ({ persona, className }: { persona: string, className?: string }) => (
-  <Badge variant="secondary" className={className}>
+  <Badge className={`ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] ${className ?? ''}`}>
     {persona}
   </Badge>
 );

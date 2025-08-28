@@ -269,19 +269,19 @@ def evaluate_robustness(agent, test_scenarios):
                   <h4 className="font-semibold">Robustness Scenarios</h4>
                   <div className="space-y-3">
                     <div className="p-3 border rounded">
-                      <Badge variant="secondary" className="mb-1">Noisy Input</Badge>
+                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Noisy Input</Badge>
                       <p className="text-sm">Performance with corrupted or incomplete data</p>
                     </div>
                     <div className="p-3 border rounded">
-                      <Badge variant="secondary" className="mb-1">Context Shifts</Badge>
+                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Context Shifts</Badge>
                       <p className="text-sm">Adaptation to changing requirements mid-task</p>
                     </div>
                     <div className="p-3 border rounded">
-                      <Badge variant="secondary" className="mb-1">Edge Cases</Badge>
+                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Edge Cases</Badge>
                       <p className="text-sm">Handling of boundary conditions and outliers</p>
                     </div>
                     <div className="p-3 border rounded">
-                      <Badge variant="secondary" className="mb-1">Stress Testing</Badge>
+                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Stress Testing</Badge>
                       <p className="text-sm">Performance under resource constraints</p>
                     </div>
                   </div>
@@ -383,7 +383,7 @@ def evaluate_quality_with_llm_judge(responses, criteria):
                     <div className="p-3 border rounded">
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">Code Quality</span>
-                        <Badge>4.90/5</Badge>
+                        <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">4.90/5</Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Clean, maintainable, well-documented code
@@ -392,7 +392,7 @@ def evaluate_quality_with_llm_judge(responses, criteria):
                     <div className="p-3 border rounded">
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">Task Adherence</span>
-                        <Badge>4.73/5</Badge>
+                        <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">4.73/5</Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Following instructions and meeting requirements
@@ -401,7 +401,7 @@ def evaluate_quality_with_llm_judge(responses, criteria):
                     <div className="p-3 border rounded">
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">Communication Clarity</span>
-                        <Badge>4.85/5</Badge>
+                        <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">4.85/5</Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Clear explanations and user-friendly responses
@@ -460,7 +460,7 @@ def evaluate_quality_with_llm_judge(responses, criteria):
                     <div className="p-3 border rounded">
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">Claude-3.5</span>
-                        <Badge variant="secondary">Alternative</Badge>
+                        <Badge className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Alternative</Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Strong analytical skills, good for complex evaluations
@@ -469,7 +469,7 @@ def evaluate_quality_with_llm_judge(responses, criteria):
                     <div className="p-3 border rounded">
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">Specialized Models</span>
-                        <Badge variant="outline">Domain-Specific</Badge>
+                        <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Domain-Specific</Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Fine-tuned models for specific evaluation tasks
@@ -685,7 +685,7 @@ Please evaluate this response according to the criteria above.
                   <h4 className="font-semibold">Reliability Measures</h4>
                   <div className="space-y-3">
                     <div className="p-3 border rounded">
-                      <Badge variant="secondary" className="mb-1">Inter-Judge Agreement</Badge>
+                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Inter-Judge Agreement</Badge>
                       <p className="text-sm text-muted-foreground">
                         Measure consistency between multiple judges
                       </p>
@@ -694,7 +694,7 @@ Please evaluate this response according to the criteria above.
                       </code>
                     </div>
                     <div className="p-3 border rounded">
-                      <Badge variant="secondary" className="mb-1">Test-Retest Reliability</Badge>
+                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Test-Retest Reliability</Badge>
                       <p className="text-sm text-muted-foreground">
                         Consistency of same judge over time
                       </p>
@@ -703,7 +703,7 @@ Please evaluate this response according to the criteria above.
                       </code>
                     </div>
                     <div className="p-3 border rounded">
-                      <Badge variant="secondary" className="mb-1">Internal Consistency</Badge>
+                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Internal Consistency</Badge>
                       <p className="text-sm text-muted-foreground">
                         Agreement across different criteria
                       </p>

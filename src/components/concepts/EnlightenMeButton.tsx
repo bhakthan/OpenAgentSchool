@@ -274,11 +274,11 @@ Please provide:
           <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
             {!showResponse ? (
               <div className="flex flex-col gap-4 flex-1">
-                <div className="bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
-                  <h4 className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2 flex items-center gap-2">
+                <div className="bg-muted text-foreground rounded-lg p-4 border">
+                  <h4 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
                     ✨ Smart Prompt Builder
                   </h4>
-                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                  <p className="text-sm text-muted-foreground">
                     Our AI has crafted a comprehensive prompt based on "{title}". Feel free to customize it or use it as-is for the best insights.
                   </p>
                 </div>
@@ -368,11 +368,11 @@ Please provide:
                       )}
                     </div>
 
-                    <div className="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900 dark:to-emerald-900 rounded-lg p-4 border border-green-200 dark:border-green-800 flex-shrink-0">
-                      <h4 className="text-sm font-semibold text-green-900 dark:text-green-100 mb-1 flex items-center gap-2">
+                    <div className="bg-muted text-foreground rounded-lg p-4 border flex-shrink-0">
+                      <h4 className="text-sm font-semibold text-foreground mb-1 flex items-center gap-2">
                         🎯 Your Personalized AI Insight
                       </h4>
-                      <p className="text-xs text-green-700 dark:text-green-300">
+                      <p className="text-xs text-muted-foreground">
                         Generated based on your query about "{title}"
                       </p>
                     </div>

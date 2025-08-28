@@ -78,7 +78,7 @@ export const LearningVisualization: React.FC<LearningVisualizationProps> = ({ cl
   const neuronPositions = generateNeuronPositions();
 
   return (
-    <div className={`relative w-full h-96 bg-gradient-to-br from-purple-50 to-pink-100 dark:from-gray-900 dark:to-purple-900/20 rounded-xl overflow-hidden ${className}`}>
+    <div className={`relative w-full h-96 bg-muted text-foreground rounded-xl overflow-hidden ${className}`}>
       {/* Connection Lines to Learning Phases */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none z-5">
         {learningPhases.map((phase, index) => {

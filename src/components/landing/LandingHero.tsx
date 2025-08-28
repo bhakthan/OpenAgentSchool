@@ -86,6 +86,11 @@ export const LandingHero: React.FC = () => {
               <div className="space-y-6">
                 {/* Core Messaging */}
                 <div className="text-center lg:text-left">
+                  <div className="block w-fit mx-auto lg:mx-0 rounded-full px-3 py-1 mb-2 ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">
+                    <span className="text-xs sm:text-sm font-semibold">
+                      Agentic Learning for Everyone
+                    </span>
+                  </div>
                   <h2 className="text-4xl lg:text-5xl font-bold mb-4" style={{
                     background: 'linear-gradient(135deg, #3B82F6 0%, #A855F7 50%, #6366F1 100%)',
                     WebkitBackgroundClip: 'text',
@@ -95,11 +100,11 @@ export const LandingHero: React.FC = () => {
                     lineHeight: '1.2',
                     paddingBottom: '0.1em'
                   }}>
-                    Agentic Learning for Everyone
+                    Learn AI agents, step by step
                   </h2>
                   <p className="text-xl text-muted-foreground leading-relaxed">
-                    Master AI agents through progressive, hands-on learning. From core concepts to advanced patterns, 
-                    climb the ladder of agentic intelligence with interactive tools and real-world applications.
+                    Start with the basics and build real skills. Short lessons, interactive visuals, and practical examples
+                    help you make steady progress with confidence.
                   </p>
                 </div>
                 
@@ -111,10 +116,11 @@ export const LandingHero: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">
-                        🎯 Revolutionary Learning: AI as Your Customer
+                        Ask AI to check your understanding
                       </h4>
                       <p className="text-sm">
-                        <strong>Can you explain it well enough to satisfy AI?</strong> Our "Ask AI" feature doesn't just help you learn—it <em>challenges</em> you to progress your understanding. Think of AI as your most demanding stakeholder who encourages clear and precise answers.
+                        Use "Ask AI" whenever you’re unsure. It asks simple, focused questions and helps you explain ideas
+                        in clear terms so you know what’s working and what to improve.
                       </p>
                     </div>
                   </div>
@@ -125,7 +131,7 @@ export const LandingHero: React.FC = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="group" onClick={handleStartJourney}>
-                Start Your Journey
+                Start learning
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button variant="outline" size="lg" onClick={handleExplorePatterns}>
@@ -172,13 +178,14 @@ export const LandingHero: React.FC = () => {
                     <Brain className="h-7 w-7" />
                   </div>
                   <div>
-                    <h3 className="font-bold mb-2">AI as Your Learning Customer</h3>
+                    <h3 className="font-bold mb-2">Learn with feedback from AI</h3>
                     <p className="text-sm mb-3">
-                      <strong>Your toughest customer is now your AI teacher.</strong> Explain concepts clearly enough to satisfy our demanding AI—it won't accept "I think I know" as an answer.
+                      Explain your ideas in your own words. The AI points out what’s clear and what needs work, and suggests
+                      simple next steps.
                     </p>
                     <div className="flex items-center gap-2 text-xs font-medium">
                       <Lightning className="h-3 w-3" />
-                      <span>Real-time knowledge validation</span>
+                      <span>Real-time, supportive feedback</span>
                     </div>
                   </div>
                 </div>
@@ -255,14 +262,15 @@ export const LandingHero: React.FC = () => {
       {/* AI as Customer Learning Methodology Section */}
       <div className="container mx-auto px-4 py-12 border-t border-border">
         <div className="text-center mb-10">
-          <div className="inline-block bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-full px-6 py-2 mb-4">
-            <span className="text-sm font-semibold theme-gradient">
-              ✨ AGENTIC LEARNING FOR EVERYONE ✨
+          <div className="block w-fit mx-auto rounded-full px-4 py-2 mb-4 ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)]">
+            <span className="text-sm font-semibold">
+              Agentic learning, made simple
             </span>
           </div>
-          <h2 className="text-3xl font-bold mb-4">Revolutionary Learning: AI as Your Customer</h2>
+          <h2 className="text-3xl font-bold mb-4">Learn with feedback from AI</h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Transform passive learning into active mastery. Our AI doesn't just answer your questions—it challenges you to progress your understanding like a thoughtful customer.
+            Practice explaining what you know. The AI asks helpful follow-ups and gives concise feedback so you can see
+            progress and build confidence.
           </p>
         </div>
         
@@ -272,9 +280,9 @@ export const LandingHero: React.FC = () => {
               <div className="theme-learning-icon-red p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <ChatCircleDots className="h-8 w-8" />
               </div>
-              <h3 className="font-semibold mb-3 theme-learning-red">Step 1: AI Challenges You</h3>
+              <h3 className="font-semibold mb-3 theme-learning-text-red">Step 1: Ask a question</h3>
               <p className="text-sm text-muted-foreground">
-                Click "Ask AI" and face intelligent questioning. AI acts like a skeptical customer who demands clear, precise explanations.
+                Click "Ask AI" to get focused questions that guide your thinking and keep you moving.
               </p>
             </CardContent>
           </Card>
@@ -284,9 +292,9 @@ export const LandingHero: React.FC = () => {
               <div className="theme-learning-icon-orange p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <Brain className="h-8 w-8" />
               </div>
-              <h3 className="font-semibold mb-3 theme-learning-orange">Step 2: Progress Your Understanding</h3>
+              <h3 className="font-semibold mb-3 theme-learning-text-orange">Step 2: Fill the gaps</h3>
               <p className="text-sm text-muted-foreground">
-                Explain concepts in your own words. The AI validates your knowledge and identifies gaps, just like presenting to a demanding client.
+                Explain in your own words. The AI highlights gaps and suggests the next thing to learn.
               </p>
             </CardContent>
           </Card>
@@ -296,9 +304,9 @@ export const LandingHero: React.FC = () => {
               <div className="theme-learning-icon-green p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <Target className="h-8 w-8" />
               </div>
-              <h3 className="font-semibold mb-3 theme-learning-green">Step 3: Master Through Teaching</h3>
+              <h3 className="font-semibold mb-3 theme-learning-text-green">Step 3: Teach it back</h3>
               <p className="text-sm text-muted-foreground">
-                Achieve deep understanding by successfully explaining concepts to your AI "customer." True mastery comes from teaching others.
+                Summarize what you’ve learned. Teaching back is a simple way to lock in understanding.
               </p>
             </CardContent>
           </Card>
@@ -307,11 +315,11 @@ export const LandingHero: React.FC = () => {
         <div className="text-center mt-10">
           <div className="theme-feature-card rounded-xl p-6 border">
             <h4 className="font-bold text-lg mb-2">
-              💡 Why This Works: The Customer Validation Method
+              💡 Why this works
             </h4>
             <p className="max-w-2xl mx-auto">
-              In business, you must explain complex concepts to customers, stakeholders, and executives who won't accept vague answers. 
-              Our AI simulates this demanding environment, preparing you for real-world scenarios where clarity and precision matter.
+              You learn faster when you explain ideas, get quick feedback, and try again. The built‑in AI gives you gentle,
+              specific pointers so you can keep improving without feeling stuck.
             </p>
           </div>
         </div>

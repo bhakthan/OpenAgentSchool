@@ -659,7 +659,7 @@ class MetaLearner {
 
         {/* Micro-learning display area */}
         {activeMicroLesson !== null && (
-          <div className="mt-4 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 rounded-xl border border-blue-200 dark:border-blue-800 shadow-lg">
+          <div className="mt-4 p-6 bg-muted text-foreground rounded-xl border shadow-lg">
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">

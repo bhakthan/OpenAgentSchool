@@ -58,18 +58,24 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
   const [isTreeFullscreen, setIsTreeFullscreen] = useState(false)
   // Deep dive moved to a dedicated page (opens in new tab)
 
-  // Ensures taxonomy category badges are readable in light mode while preserving color identity
+  // Ensures taxonomy category badges are readable in both themes using token-based styles
   const getCategoryBadgeClass = (sectionKey: string) => {
-    const map: Record<string, { light: string; dark: string }> = {
-      agent: { light: "bg-blue-50 ring-1 ring-blue-300", dark: "dark:bg-blue-900/20 dark:text-blue-300 dark:ring-blue-800/50" },
-      interaction: { light: "bg-green-50 ring-1 ring-green-300", dark: "dark:bg-green-900/20 dark:text-green-300 dark:ring-green-800/50" },
-      frameworks: { light: "bg-purple-50 ring-1 ring-purple-300", dark: "dark:bg-purple-900/20 dark:text-purple-300 dark:ring-purple-800/50" },
-      models: { light: "bg-orange-50 ring-1 ring-orange-300", dark: "dark:bg-orange-900/20 dark:text-orange-300 dark:ring-orange-800/50" },
-      memory: { light: "bg-cyan-50 ring-1 ring-cyan-300", dark: "dark:bg-cyan-900/20 dark:text-cyan-300 dark:ring-cyan-800/50" },
+    // Map taxonomy section to generic badge token prefix
+    const tokenPrefixMap: Record<string, string> = {
+      agent: '--badge-blue',
+      interaction: '--badge-green',
+      frameworks: '--badge-purple',
+      models: '--badge-orange',
+      memory: '--badge-cyan',
+      applications: '--badge-red',
+      serviceOriented: '--badge-blue',
+      openIssues: '--badge-red',
     }
-  const palette = map[sectionKey] ?? { light: "bg-secondary ring-1 ring-border", dark: "" }
-  // Force black text in light mode for maximum readability; keep colored text in dark mode
-  return `text-black ${palette.light} ${palette.dark}`
+    const prefix = tokenPrefixMap[sectionKey]
+    if (!prefix) {
+      return 'ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]'
+    }
+    return `ring-1 bg-[var(${prefix}-bg)] ring-[var(${prefix}-ring)] text-[var(${prefix}-text)]`
   }
 
   // Provide per-category accent colors for tile icons only (labels remain black)
@@ -403,7 +409,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                       {data.icon}
                     </div>
                   </div>
-                  <div className="text-sm font-semibold text-center mt-2 max-w-20 text-black dark:text-foreground">
+                  <div className="text-sm font-semibold text-center mt-2 max-w-20 text-foreground">
                     {data.title.split(' ')[0]}
                   </div>
                 </div>
@@ -438,7 +444,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                       <p className="text-sm text-muted-foreground mb-2">{cat.description}</p>
                       <div className="flex flex-wrap gap-1">
                         {cat.examples.slice(0, 4).map((ex, i) => (
-                          <Badge key={i} variant="outline" className="text-xs border-border text-black dark:text-foreground">
+                          <Badge key={i} variant="outline" className="text-xs border-border ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">
                             {ex}
                           </Badge>
                         ))}
@@ -477,7 +483,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                       <p className="text-sm text-muted-foreground mb-2">{cat.description}</p>
                       <div className="flex flex-wrap gap-1">
                         {cat.examples.slice(0, 4).map((ex, i) => (
-                          <Badge key={i} variant="outline" className="text-xs border-border text-black dark:text-foreground">
+                          <Badge key={i} variant="outline" className="text-xs border-border ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">
                             {ex}
                           </Badge>
                         ))}
@@ -504,6 +510,18 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
   const zoomRef = useRef<any>(null)
   const didAutoFitRef = useRef(false)
 
+    // Helper: resolve a Tailwind utility color to a concrete rgba(...) via computed styles
+    const resolveCssColor = (className: string) => {
+      const probe = document.createElement('span')
+      probe.className = className
+  probe.setAttribute('style', 'position:absolute;left:-9999px;top:-9999px;width:0;height:0;');
+      // Prefer attaching to container for correct theme scoping
+      (containerRef.current ?? document.body).appendChild(probe)
+      const color = getComputedStyle(probe).color
+      probe.remove()
+      return color || 'rgb(107,114,128)' // fallback to gray-500
+    }
+
     // Initialize hierarchy with collapsed children beyond depth 1
     useEffect(() => {
       const data: any = {
@@ -527,6 +545,20 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
       setVersion(v => v + 1) // trigger first render
     }, [])
 
+    // Re-resolve colors when theme (dark class) toggles
+    useEffect(() => {
+      const el = document.documentElement
+      const observer = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          if (m.attributeName === 'class') {
+            setVersion(v => v + 1)
+          }
+        }
+      })
+      observer.observe(el, { attributes: true })
+      return () => observer.disconnect()
+    }, [])
+
   // Draw / update on size or version changes
   useEffect(() => {
       if (!svgRef.current || !containerRef.current || !rootRef.current) return
@@ -547,6 +579,10 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
       })
       const innerHeight = x1 - x0 + dx * 2
 
+  // Resolve theme-aware colors each render (handles light/dark switches)
+  const colorForeground = resolveCssColor('text-foreground')
+  const colorMuted = resolveCssColor('text-muted-foreground')
+
   const svg = d3.select(svgRef.current as any)
   svg.selectAll('*').remove()
   svg
@@ -560,11 +596,10 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
   const baseG = rootG.append('g')
   baseGRef.current = baseG.node() as SVGGElement
 
-      // Links
-      baseG.append('g')
+  // Links
+  const linksG = baseG.append('g')
         .attr('fill', 'none')
-        .attr('stroke', 'currentColor')
-  .attr('class', 'text-muted-foreground stroke-[var(--color-border)]')
+        .attr('stroke', colorMuted)
         .attr('stroke-opacity', 0.7)
         .attr('stroke-width', 1.5)
         .selectAll('path')
@@ -594,21 +629,27 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 
       node.append('circle')
         .attr('r', 5)
-        .attr('fill', (d: any) => (d._children ? 'currentColor' : 'white'))
-        .attr('stroke', 'currentColor')
-  .attr('class', 'text-muted-foreground stroke-[var(--color-border)]')
+        .attr('fill', (d: any) => (d._children ? colorMuted : 'transparent'))
+        .attr('stroke', colorMuted)
         .attr('stroke-width', 1.5)
 
       node.append('text')
         .attr('dy', '0.32em')
         .attr('x', (d: any) => d.children || d._children ? -10 : 10)
         .attr('text-anchor', (d: any) => d.children || d._children ? 'end' : 'start')
-        .attr('class', 'fill-gray-800 dark:fill-gray-200')
+        .attr('fill', colorForeground)
         .text((d: any) => d.data.name)
 
       // zoom behavior
   const zoom = d3.zoom().scaleExtent([0.5, 2.5]).on('zoom', (event: any) => {
         rootG.attr('transform', event.transform)
+        // Thicken links slightly when zoomed out for readability
+        const k = event.transform.k as number
+        const strokeW = Math.max(1, Math.min(2.5, 1.5 / Math.max(0.85, k)))
+        d3.select(rootG.node())
+          .selectAll('g')
+          .filter(function () { return (this as SVGGElement).querySelector('path') !== null })
+          .attr('stroke-width', strokeW)
       })
   zoomRef.current = zoom
   svg.call(zoom as any)
@@ -1067,9 +1108,9 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
     <div className="max-w-6xl mx-auto p-6 space-y-8">
       {/* Header */}
       <div className="relative text-center space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 rounded-full">
-          <Brain className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-          <span className="text-sm font-medium text-blue-800 dark:text-blue-200">Design Taxonomy</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted text-foreground ring-1 ring-border">
+          <Brain className="w-5 h-5 text-[var(--badge-blue-ring)]" />
+          <span className="text-sm font-medium">Design Taxonomy</span>
         </div>
         <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center justify-center gap-3">
           Agentic AI Design Taxonomy
@@ -1168,13 +1209,13 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                   <div key={index} className="p-4 border rounded-lg space-y-3">
                     <div className="flex items-center justify-between">
                       <h3 className="font-semibold">{framework.name}</h3>
-                      <Badge variant="outline" className="text-black dark:text-foreground">{framework.architecture}</Badge>
+                      <Badge variant="outline" className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">{framework.architecture}</Badge>
                     </div>
                     <div>
                       <h4 className="text-sm font-medium text-green-600 dark:text-green-400">Strengths</h4>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {framework.strengths.map((strength, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs text-black dark:text-foreground">
+                          <Badge key={idx} variant="secondary" className="text-xs ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)]">
                             {strength}
                           </Badge>
                         ))}
@@ -1184,7 +1225,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                       <h4 className="text-sm font-medium text-blue-600 dark:text-blue-400">Use Cases</h4>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {framework.useCases.map((useCase, idx) => (
-                          <Badge key={idx} variant="outline" className="text-xs text-black dark:text-foreground">
+                          <Badge key={idx} variant="outline" className="text-xs ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">
                             {useCase}
                           </Badge>
                         ))}
@@ -1308,7 +1349,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                       </p>
                       <div className="flex flex-wrap gap-1">
                         {category.examples.map((example, exIndex) => (
-                          <Badge key={exIndex} variant="outline" className="text-xs text-black dark:text-foreground">
+                          <Badge key={exIndex} variant="outline" className="text-xs ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">
                             {example}
                           </Badge>
                         ))}
@@ -1367,7 +1408,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                       <span className="text-xs font-medium text-green-600 dark:text-green-400">Solutions:</span>
                       <div className="flex flex-wrap gap-1">
                         {item.solutions.map((solution, sIndex) => (
-                          <Badge key={sIndex} variant="secondary" className="text-xs text-black dark:text-foreground">
+                          <Badge key={sIndex} variant="secondary" className="text-xs ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)]">
                             {solution}
                           </Badge>
                         ))}
@@ -1573,15 +1614,15 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
   {/* Deep dive moved to its own route: /deep-dive-taxonomy */}
 
       {/* Navigation */}
-      {progress === 100 && (
-        <Card className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border-green-200 dark:border-green-800">
+  {progress === 100 && (
+    <Card className="bg-muted border border-border">
           <CardContent className="pt-6">
             <div className="text-center space-y-4">
-              <CheckCircle className="w-12 h-12 text-green-600 mx-auto" />
-              <h3 className="text-xl font-bold text-green-800 dark:text-green-200">
+      <CheckCircle className="w-12 h-12 mx-auto text-[var(--badge-green-ring)]" />
+      <h3 className="text-xl font-bold text-foreground">
                 Taxonomy Mastered!
               </h3>
-              <p className="text-green-700 dark:text-green-300">
+      <p className="text-muted-foreground">
                 You've completed the Agentic AI Design Taxonomy. Ready to explore specific implementation patterns?
               </p>
               <div className="flex gap-3 justify-center">

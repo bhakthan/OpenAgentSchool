@@ -417,6 +417,17 @@ code, pre {
   color: var(--learning-step-green-text);
 }
 
+/* Text-only variants for learning step headings (light/dark safe) */
+.theme-learning-text-red {
+  color: var(--learning-step-red-text);
+}
+.theme-learning-text-orange {
+  color: var(--learning-step-orange-text);
+}
+.theme-learning-text-green {
+  color: var(--learning-step-green-text);
+}
+
 .theme-learning-icon-red {
   background-color: var(--learning-step-red-icon-bg);
   color: var(--learning-step-red-icon);

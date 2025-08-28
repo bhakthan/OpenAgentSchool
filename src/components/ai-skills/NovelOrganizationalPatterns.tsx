@@ -25,7 +25,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
-      <Card className="bg-gradient-to-r from-violet-100 to-purple-100 dark:from-violet-900 dark:to-purple-900 border-violet-200 dark:border-violet-800">
+  <Card className="bg-muted text-foreground border">
         <CardHeader>
           <CardTitle className="text-xl">Revolutionary Organizational Patterns</CardTitle>
           <CardDescription className="text-base">
@@ -517,7 +517,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
           </div>
 
           <div className="mt-6 pt-6 border-t">
-            <div className="bg-gradient-to-r from-violet-100 to-purple-100 dark:from-violet-900 dark:to-purple-900 p-6 rounded-lg border border-violet-200 dark:border-violet-800">
+            <div className="bg-muted text-foreground p-6 rounded-lg border">
               <h3 className="text-lg font-semibold mb-3">Ready to Transform Your Organization?</h3>
               <p className="text-sm text-muted-foreground mb-4">
                 These revolutionary patterns represent the cutting edge of organizational evolution. 

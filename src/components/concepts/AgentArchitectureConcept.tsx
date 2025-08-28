@@ -63,19 +63,19 @@ export default function AgentArchitectureConcept({ onMarkComplete, onNavigateToN
                 </div>
               </div>
 
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
+      <div className="bg-muted text-foreground p-4 rounded-md">
                 <h4 className="font-semibold mb-3">Key Architectural Principles:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
+        <span className="w-2 h-2 rounded-full bg-[var(--badge-blue-ring)] mt-2"></span>
                     <span><strong>Modularity:</strong> Components can be independently developed and tested</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
+        <span className="w-2 h-2 rounded-full bg-[var(--badge-green-ring)] mt-2"></span>
                     <span><strong>Extensibility:</strong> New capabilities can be added without core changes</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 rounded-full bg-purple-500 mt-2"></span>
+        <span className="w-2 h-2 rounded-full bg-[var(--badge-purple-ring)] mt-2"></span>
                     <span><strong>Observability:</strong> All components provide monitoring and debugging hooks</span>
                   </li>
                 </ul>
@@ -179,7 +179,7 @@ class AzureAIAgent {
         // Detect dark mode
         const isDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         const labelColor = isDark ? '#F3F4F6' : '#111';
-        const noteBg = isDark ? 'bg-gray-900' : 'bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200';
+  const noteBg = 'bg-muted text-foreground';
         const noteText = isDark ? 'text-white' : 'text-foreground';
 
         return (
@@ -251,8 +251,8 @@ class AzureAIAgent {
 
                 <div className="space-y-4 mt-8">
                   <div className="flex items-start gap-4 p-4 border rounded-lg">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                      <span className="text-blue-600 dark:text-blue-400 font-semibold">1</span>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted text-foreground">
+                      <span className="font-semibold text-[var(--badge-blue-ring)]">1</span>
                     </div>
                     <div>
                       <h4 className="font-semibold flex items-center gap-2">
@@ -263,15 +263,15 @@ class AzureAIAgent {
                         Agent is created with initial configuration, capabilities, and goals
                       </p>
                       <div className="mt-2">
-                        <Badge variant="outline">Configuration</Badge>
-                        <Badge variant="outline" className="ml-2">Capability Loading</Badge>
+                        <Badge className="ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Configuration</Badge>
+                        <Badge className="ml-2 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Capability Loading</Badge>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4 p-4 border rounded-lg">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                      <span className="text-green-600 dark:text-green-400 font-semibold">2</span>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted text-foreground">
+                      <span className="font-semibold text-[var(--badge-green-ring)]">2</span>
                     </div>
                     <div>
                       <h4 className="font-semibold flex items-center gap-2">
@@ -282,15 +282,15 @@ class AzureAIAgent {
                         Agent processes tasks, learns from interactions, and adapts behavior
                       </p>
                       <div className="mt-2">
-                        <Badge variant="outline">Task Processing</Badge>
-                        <Badge variant="outline" className="ml-2">Learning</Badge>
+                        <Badge className="ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Task Processing</Badge>
+                        <Badge className="ml-2 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Learning</Badge>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4 p-4 border rounded-lg">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                      <span className="text-yellow-600 dark:text-yellow-400 font-semibold">3</span>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted text-foreground">
+                      <span className="font-semibold text-[var(--badge-orange-ring)]">3</span>
                     </div>
                     <div>
                       <h4 className="font-semibold flex items-center gap-2">
@@ -301,15 +301,15 @@ class AzureAIAgent {
                         Agent pauses execution while preserving state for future resumption
                       </p>
                       <div className="mt-2">
-                        <Badge variant="outline">State Preservation</Badge>
-                        <Badge variant="outline" className="ml-2">Resource Release</Badge>
+                        <Badge className="ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">State Preservation</Badge>
+                        <Badge className="ml-2 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Resource Release</Badge>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4 p-4 border rounded-lg">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                      <span className="text-red-600 dark:text-red-400 font-semibold">4</span>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted text-foreground">
+                      <span className="font-semibold text-[var(--badge-red-ring)]">4</span>
                     </div>
                     <div>
                       <h4 className="font-semibold flex items-center gap-2">
@@ -320,8 +320,8 @@ class AzureAIAgent {
                         Agent completes final tasks, saves state, and releases resources
                       </p>
                       <div className="mt-2">
-                        <Badge variant="outline">Cleanup</Badge>
-                        <Badge variant="outline" className="ml-2">State Archival</Badge>
+                        <Badge className="ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">Cleanup</Badge>
+                        <Badge className="ml-2 ring-1 ring-[var(--badge-gray-ring)] bg-[var(--badge-gray-bg)] text-[var(--badge-gray-text)]">State Archival</Badge>
                       </div>
                     </div>
                   </div>

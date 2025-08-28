@@ -123,7 +123,7 @@ const ChatbotToAgentTransition: React.FC = () => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <span>From Chatbot to Azure AI Agent</span>
-          <Badge variant="secondary">Interactive Demo</Badge>
+          <Badge className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Interactive Demo</Badge>
         </CardTitle>
         <p className="text-muted-foreground">
           Watch how Azure AI Agents differ from traditional chatbots through autonomous reasoning and tool usage
@@ -150,7 +150,7 @@ const ChatbotToAgentTransition: React.FC = () => {
           </div>
 
           {/* Progress Indicator */}
-          <div className="w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full h-2">
+          <div className="w-full bg-muted text-foreground rounded-full h-2">
             <div 
               className="bg-primary h-2 rounded-full transition-all duration-500"
               style={{ width: `${((currentStep + 1) / animationSteps.length) * 100}%` }}
@@ -161,7 +161,7 @@ const ChatbotToAgentTransition: React.FC = () => {
           <div className="relative">
             <svg
               viewBox="0 0 1200 620"
-              className="w-full h-auto border rounded-lg bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-800 dark:to-slate-900"
+              className="w-full h-auto border rounded-lg bg-muted text-foreground"
             >
               {/* Define styles for dark mode compatibility */}
               <defs>

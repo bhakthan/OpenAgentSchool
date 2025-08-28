@@ -213,7 +213,7 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
             <CardContent className="space-y-6">
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="p-4 border rounded-lg">
-                  <Badge variant="destructive" className="mb-2">Vague</Badge>
+                  <Badge className="mb-2 ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)]">Vague</Badge>
                   <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 rounded mb-2">
                     "Keep it fast and lightweight"
                   </code>
@@ -222,7 +222,7 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg">
-                  <Badge variant="secondary" className="mb-2">Better</Badge>
+                  <Badge className="mb-2 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Better</Badge>
                   <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 rounded mb-2">
                     "Optimize for speed and memory usage"
                   </code>
@@ -231,7 +231,7 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
                   </p>
                 </div>
                 <div className="p-4 border rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                  <Badge className="mb-2">Specific</Badge>
+                  <Badge className="mb-2 ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)]">Specific</Badge>
                   <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 rounded mb-2">
                     "Target peak memory O(k), runtime O(N + U log k)"
                   </code>
@@ -390,13 +390,13 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
                     <h4 className="font-semibold text-red-700 dark:text-red-400 mb-3">❌ Inconsistent Example</h4>
                     <div className="space-y-2">
                       <div>
-                        <Badge variant="outline" className="mb-1">Instruction</Badge>
+                        <Badge className="mb-1 ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Instruction</Badge>
                         <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded">
                           "Use only standard library. No external packages."
                         </code>
                       </div>
                       <div>
-                        <Badge variant="outline" className="mb-1">Example</Badge>
+                        <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Example</Badge>
                         <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded">
                           import pandas as pd  # External dependency!
                         </code>
@@ -411,13 +411,13 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
                     <h4 className="font-semibold text-green-700 dark:text-green-400 mb-3">✅ Consistent Example</h4>
                     <div className="space-y-2">
                       <div>
-                        <Badge variant="outline" className="mb-1">Instruction</Badge>
+                        <Badge className="mb-1 ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Instruction</Badge>
                         <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded">
                           "Use only standard library. No external packages."
                         </code>
                       </div>
                       <div>
-                        <Badge variant="outline" className="mb-1">Example</Badge>
+                        <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Example</Badge>
                         <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded">
                           import re, heapq
                           from collections import Counter

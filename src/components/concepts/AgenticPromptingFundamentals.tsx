@@ -161,7 +161,7 @@ const AgenticPromptingFundamentals: React.FC<AgenticPromptingFundamentalsProps> 
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="p-4 border rounded-lg">
-                  <Badge variant="secondary" className="mb-2">Low Effort</Badge>
+                  <Badge className="mb-2 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Low Effort</Badge>
                   <h4 className="font-semibold mb-2">Quick Responses</h4>
                   <p className="text-sm text-muted-foreground">
                     Fast, straightforward answers for simple tasks
@@ -171,7 +171,7 @@ const AgenticPromptingFundamentals: React.FC<AgenticPromptingFundamentalsProps> 
                   </code>
                 </div>
                 <div className="p-4 border rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                  <Badge className="mb-2">Medium Effort</Badge>
+                  <Badge className="mb-2 ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Medium Effort</Badge>
                   <h4 className="font-semibold mb-2">Balanced Analysis</h4>
                   <p className="text-sm text-muted-foreground">
                     Thoughtful consideration with appropriate depth
@@ -181,7 +181,7 @@ const AgenticPromptingFundamentals: React.FC<AgenticPromptingFundamentalsProps> 
                   </code>
                 </div>
                 <div className="p-4 border rounded-lg">
-                  <Badge variant="outline" className="mb-2">High Effort</Badge>
+                  <Badge className="mb-2 ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)]">High Effort</Badge>
                   <h4 className="font-semibold mb-2">Deep Reasoning</h4>
                   <p className="text-sm text-muted-foreground">
                     Comprehensive analysis for complex problems

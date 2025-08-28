@@ -253,12 +253,13 @@ export default function D3TreeVisualization({
   };
 
   const getTextColor = (): string => {
-    // Use colors that work in both light and dark themes
-    return isDarkMode() ? '#f3f4f6' : '#1f2937'; // Light gray for dark mode, dark gray for light mode
+    // Theme-aware text: light uses near-black, dark uses light gray
+    return isDarkMode() ? '#e5e7eb' : '#111827';
   };
 
   const getLinkColor = (): string => {
-    return isDarkMode() ? '#6b7280' : '#9ca3af'; // Darker in dark mode, lighter in light mode
+    // Slightly subdued links in both themes for readability
+    return isDarkMode() ? '#6b7280' : '#64748b';
   };
 
   // Toggle collapse state
@@ -302,7 +303,7 @@ export default function D3TreeVisualization({
 
     // Manually adjust positions to reduce spacing from root to categories
     // And create three different edge lengths for better visual hierarchy
-    treeData_positioned.descendants().forEach((node, index) => {
+  treeData_positioned.descendants().forEach((node, index) => {
       if (node.depth === 1) { // Category nodes (first level after root)
         node.y = node.y * 0.4; // Reduce horizontal distance by 60%
       } else if (node.depth === 2) { // Leaf nodes (concepts, patterns, etc.)
@@ -339,6 +340,9 @@ export default function D3TreeVisualization({
         
         node.y = node.y * edgeMultiplier;
       }
+  // Global left shift to create more space on the right for detail cards (avoid horizontal scrollbar)
+  const leftShift = 100; // px
+  node.y = Math.max(0, node.y - leftShift);
     });
 
     // Create main group
@@ -411,7 +415,8 @@ export default function D3TreeVisualization({
 
   return (
     <div className={`w-full h-full ${className}`} style={{ 
-      overflow: 'auto', // Changed from 'hidden' to 'auto' to allow scrolling if needed
+      overflowX: 'hidden',
+      overflowY: 'auto',
       border: '1px solid hsl(var(--border))',
       borderRadius: '8px',
       padding: '16px',
