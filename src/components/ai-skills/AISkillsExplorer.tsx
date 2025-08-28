@@ -13,6 +13,7 @@ import CodeUnderstandingSkills from "./CodeUnderstandingSkills"
 import DevelopmentVelocitySkills from "./DevelopmentVelocitySkills"
 import CrossTeamCollaborationSkills from "./CrossTeamCollaborationSkills"
 import NovelOrganizationalPatterns from "./NovelOrganizationalPatterns"
+import FutureStateTrends from "./FutureStateTrends"
 
 export default function AISkillsExplorer() {
   const [activeTab, setActiveTab] = useState("fundamentals")
@@ -96,6 +97,14 @@ export default function AISkillsExplorer() {
       icon: <Lightbulb className="w-4 h-4" />,
       level: "Expert",
       component: <NovelOrganizationalPatterns onNavigate={() => {}} />
+    }
+    ,{
+      id: "future-state",
+      title: "Future State",
+      description: "Where AI‑native practices are heading",
+      icon: <Rocket className="w-4 h-4" />,
+      level: "Expert",
+      component: <FutureStateTrends onNavigate={() => {}} />
     }
   ]
 

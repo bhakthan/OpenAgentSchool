@@ -214,9 +214,9 @@ export default function FrontierFirmAssessment({ onNavigate }: Props) {
         </Card>
 
         {/* Results Disclaimer */}
-        <div className="bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-          <p className="text-sm text-amber-700 dark:text-amber-300">
-            <span className="font-medium">📋 Remember:</span> This assessment provides directional insights for educational purposes. 
+        <div className="bg-muted text-foreground border rounded-lg p-4">
+          <p className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">📋 Remember:</span> This assessment provides directional insights for educational purposes. 
             Consult with professionals for comprehensive AI strategy development.
           </p>
         </div>
@@ -292,20 +292,20 @@ export default function FrontierFirmAssessment({ onNavigate }: Props) {
   return (
     <div className="space-y-6">
       {/* Legal Disclaimer */}
-      <Card className="bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900 dark:to-orange-900 border-amber-200 dark:border-amber-800">
+      <Card className="bg-muted text-foreground border">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
-            <span className="text-xl">⚠️</span>
+          <CardTitle className="flex items-center gap-2 text-foreground">
+            <span className="text-xl text-amber-600">⚠️</span>
             Important Assessment Disclaimer
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm">
-            <p className="font-medium text-amber-800 dark:text-amber-200">
+            <p className="font-medium text-foreground">
               <strong>Educational Assessment Only:</strong> This assessment is designed for educational and self-evaluation purposes to help understand your organization's AI readiness.
             </p>
-            <div className="bg-white/60 dark:bg-gray-900/60 p-3 rounded-lg border border-amber-200/50">
-              <ul className="space-y-2 text-amber-700 dark:text-amber-300">
+            <div className="bg-muted/50 p-3 rounded-lg border">
+              <ul className="space-y-2 text-muted-foreground">
                 <li>• <strong>Self-Evaluation Tool:</strong> Results are based on self-reported responses and are directional, not definitive organizational assessments</li>
                 <li>• <strong>No Benchmarking Guarantee:</strong> Assessment does not guarantee comparison accuracy with actual Frontier Firms</li>
                 <li>• <strong>Context-Dependent:</strong> Actual AI readiness depends on industry, regulatory requirements, organizational culture, and specific business context</li>
@@ -313,7 +313,7 @@ export default function FrontierFirmAssessment({ onNavigate }: Props) {
                 <li>• <strong>Continuous Learning:</strong> AI readiness is an ongoing journey—this assessment captures a moment in time, not a final determination</li>
               </ul>
             </div>
-            <p className="text-xs text-amber-600 dark:text-amber-400 italic">
+            <p className="text-xs text-muted-foreground italic">
               This assessment is based on insights from Microsoft's 2025 Work Trend Index research and is intended to promote thoughtful AI strategy development.
             </p>
           </div>

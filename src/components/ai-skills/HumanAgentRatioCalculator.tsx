@@ -133,18 +133,18 @@ export default function HumanAgentRatioCalculator({ onNavigate }: Props) {
       {/* Legal Disclaimer */}
   <Card className="bg-muted text-foreground border">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
-            <span className="text-xl">⚠️</span>
+          <CardTitle className="flex items-center gap-2 text-foreground">
+            <span className="text-xl text-amber-600">⚠️</span>
             Important Disclaimer
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm">
-            <p className="font-medium text-amber-800 dark:text-amber-200">
+            <p className="font-medium text-foreground">
               <strong>Educational Tool Only:</strong> This calculator is designed for educational and exploratory purposes to help understand potential human-agent collaboration patterns.
             </p>
-            <div className="bg-white/60 dark:bg-gray-900/60 p-3 rounded-lg border border-amber-200/50">
-              <ul className="space-y-2 text-amber-700 dark:text-amber-300">
+            <div className="bg-muted/50 p-3 rounded-lg border">
+              <ul className="space-y-2 text-muted-foreground">
                 <li>• <strong>Directional Guidance:</strong> All calculations and suggestions are theoretical and directional, not definitive recommendations</li>
                 <li>• <strong>No Guarantee:</strong> Results do not guarantee actual performance improvements or cost savings</li>
                 <li>• <strong>Context Matters:</strong> Actual implementation depends on your specific organizational context, industry regulations, and business requirements</li>
@@ -152,7 +152,7 @@ export default function HumanAgentRatioCalculator({ onNavigate }: Props) {
                 <li>• <strong>Human Dignity:</strong> Any workforce changes should prioritize human dignity, retraining opportunities, and ethical considerations</li>
               </ul>
             </div>
-            <p className="text-xs text-amber-600 dark:text-amber-400 italic">
+            <p className="text-xs text-muted-foreground italic">
               This tool is based on research from Microsoft's 2025 Work Trend Index and is intended to promote thoughtful human-agent collaboration, not workforce reduction.
             </p>
           </div>
