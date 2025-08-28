@@ -1,0 +1,10 @@
+# Open Agent School - ai.txt (experimental)
+# Some AI crawlers check this file in addition to robots.txt
+
+User-Agent: *
+Allow: /
+
+Sitemap: https://www.openagentschool.org/sitemap.xml
+
+# Contacts
+Contact: https://github.com/bhakthan/OpenAgentSchool

@@ -1,0 +1,6 @@
+# Snapshots for known AI crawlers (bots get HTML snapshots, humans get SPA)
+~User-Agent=/(GPTBot|ChatGPT-User|CCBot|Claude-Web|ClaudeBot|PerplexityBot|GoogleOther|Google-Extended|Amazonbot)/ /snapshots/ai-skills.html 200!  # /ai-skills default for bots
+~User-Agent=/(GPTBot|ChatGPT-User|CCBot|Claude-Web|ClaudeBot|PerplexityBot|GoogleOther|Google-Extended|Amazonbot)/study-mode /snapshots/study-mode.html 200!
+
+# Fallback SPA route
+/* /index.html 200

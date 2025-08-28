@@ -24,6 +24,7 @@ Disallow: /node_modules/
 Disallow: /src/
 Disallow: /.git/
 Disallow: /dist/
+Disallow: /snapshots/
 
 # Sitemap location
 Sitemap: https://www.openagentschool.org/sitemap.xml
@@ -45,6 +46,22 @@ User-agent: anthropic-ai
 Allow: /
 
 User-agent: Claude-Web
+Allow: /
+
+# Additional AI crawlers
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: PPLBot
+Allow: /
+
+User-agent: ClaudeBot
 Allow: /
 
 # Search engine specific optimizations
