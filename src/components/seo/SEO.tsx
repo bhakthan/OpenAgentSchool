@@ -16,7 +16,7 @@ const DEFAULT_SEO = {
   keywords: 'AI agents, AI-native practices, Frontier Firm assessment, development velocity, cross-team collaboration, novel practice patterns, AI transformation, artificial intelligence education, MCP, Model Context Protocol, A2A communication, multi-agent systems, agent architecture, interactive learning, AI tutorials, agent security, OpenAI, Microsoft Azure AI, LLM agents, agentic AI, agent orchestration, AI ROI calculator, AI productivity metrics, AI-first organizations, collaborative AI frameworks, enterprise AI transformation, organizational AI maturity, AI-powered collaboration, intelligent decision frameworks, automated workflow orchestration',
   image: 'https://www.openagentschool.org/images/og-image.png',
   type: 'website' as const,
-  author: 'Open Agent School'
+  author: 'Srikanth Bhakthan'
 };
 
 export const SEO: React.FC<SEOProps> = ({
@@ -51,15 +51,38 @@ export const SEO: React.FC<SEOProps> = ({
     updateMetaProperty('og:image', seoImage);
     updateMetaProperty('og:url', currentUrl);
     updateMetaProperty('og:type', type);
+    // Article/author attribution (helps when pages are treated as articles)
+    updateMetaProperty('article:author', 'https://www.linkedin.com/in/bhakthan/');
     
     // Update Twitter tags
     updateMetaProperty('twitter:title', seoTitle);
     updateMetaProperty('twitter:description', seoDescription);
     updateMetaProperty('twitter:image', seoImage);
     updateMetaProperty('twitter:url', currentUrl);
+    // Author attribution for Twitter (creator). If a handle is available, prefer @handle format.
+    updateMetaProperty('twitter:creator', seoAuthor);
     
     // Update canonical link
     updateCanonicalLink(currentUrl);
+    
+    // Inject/Update JSON-LD Person schema for author attribution
+    const personJsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Srikanth Bhakthan',
+      url: 'https://www.linkedin.com/in/bhakthan/',
+      sameAs: [
+        'https://www.linkedin.com/in/bhakthan/',
+        'https://github.com/bhakthan',
+        'https://www.openagentschool.org/'
+      ],
+      affiliation: {
+        '@type': 'Organization',
+        name: 'Open Agent School',
+        url: 'https://www.openagentschool.org'
+      }
+    };
+    updateJsonLdScript('seo-jsonld-person', personJsonLd);
     
   }, [seoTitle, seoDescription, seoKeywords, seoImage, seoAuthor, currentUrl, type]);
 
@@ -94,6 +117,23 @@ function updateCanonicalLink(url: string) {
     document.head.appendChild(element);
   }
   element.href = url;
+}
+
+function updateJsonLdScript(id: string, json: Record<string, any>) {
+  let script = document.getElementById(id) as HTMLScriptElement | null;
+  const content = JSON.stringify(json);
+  if (!script) {
+    script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = id;
+    script.text = content;
+    document.head.appendChild(script);
+  } else {
+    // Only update if changed to avoid layout thrash
+    if (script.text !== content) {
+      script.text = content;
+    }
+  }
 }
 
 // Page-specific SEO configurations

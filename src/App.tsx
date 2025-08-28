@@ -410,6 +410,19 @@ function App() {
             <div className="container mx-auto px-4 text-center text-muted-foreground">
               <p>Open Agent School - Where Agentic AI Concepts Come to Life</p>
               <p className="text-xs mt-1 opacity-75">Progressive learning • Progress your understanding through intelligent dialogue</p>
+              <p className="text-xs mt-1 opacity-75">© {new Date().getFullYear()} Open Agent School</p>
+              <p className="text-sm mt-2">
+                A learning initiative by Srikanth Bhakthan - 
+                <a
+                  href="https://www.linkedin.com/in/bhakthan/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground ml-1"
+                  aria-label="Srikanth Bhakthan LinkedIn profile"
+                >
+                  LinkedIn profile
+                </a>
+              </p>
             </div>
           </footer>
           
