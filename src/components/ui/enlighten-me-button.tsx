@@ -15,6 +15,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { LlmProvider, callLlm } from '@/lib/llm';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useSEOContext } from '@/hooks/useSEOContext';
+import { buildEnlightenPrompt } from '@/prompts/enlightenPrompts';
 
 // NOTE: "Ask AI" is an alias for "EnlightenMe Button" - this component provides AI-powered insights
 // It helps users understand complex concepts through interactive AI assistance and contextual prompting
@@ -41,13 +42,14 @@ export function EnlightenMeButton({
   // Get rich SEO context for enhanced prompts
   const seoContext = useSEOContext();
   
-  // Create enhanced prompt that uses SEO context when available
+  // Create enhanced prompt via centralized builder
   const createEnhancedPrompt = () => {
-    const basePrompt = defaultPrompt || `Explain ${title || topic} in detail.`;
-    const conceptTitle = title || topic;
-    
-    // Use SEO context to enhance the prompt if available
-    return seoContext.description ? seoContext.enhancedPrompt(basePrompt, conceptTitle) : basePrompt;
+    return buildEnlightenPrompt({
+      topic,
+      title,
+      basePrompt: defaultPrompt,
+      seo: { title: seoContext.title, description: seoContext.description }
+    });
   };
   
   const [isOpen, setIsOpen] = useState(false);

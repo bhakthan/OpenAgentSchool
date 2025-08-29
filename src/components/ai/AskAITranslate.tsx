@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import { callLlm } from '@/lib/llm'
 import { getTranslateTargets, TranslateTargetCode } from '@/lib/languages'
+import { buildHtmlTranslatePrompt } from '@/prompts/translationPrompts'
 
 type Props = {
   open: boolean
@@ -56,7 +57,7 @@ export default function AskAITranslate({ open, onOpenChange, sourceHtml }: Props
     setLoading(true)
     setError(null)
     try {
-  const prompt = `You are a precise translator. Maintain meaning and tone. Preserve headings, lists, paragraphs, emphasis, and links. Output clean HTML only (no <html> or <body>, no scripts/styles). Translate the following HTML fragment into language code: ${lang}.\n\nHTML:\n${structuredSourceHtml}`
+  const prompt = buildHtmlTranslatePrompt(structuredSourceHtml, lang)
   const { content } = await callLlm(prompt, 'openrouter')
   const trimmed = (content || '').trim()
   const looksLikeHtml = /<\w+[^>]*>/.test(trimmed)

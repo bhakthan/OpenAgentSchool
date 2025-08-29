@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { callLlm } from '@/lib/llm';
 import { LANGUAGES, LanguageCode, getLocaleFor } from '@/lib/languages';
+import { buildNarrationTranslatePrompt, buildStrictNativeScriptRetry } from '@/prompts/translationPrompts';
 import { PREFERRED_VOICES_BY_LANG } from '@/lib/voices';
 
 // Language types and list are sourced from src/lib/languages.ts
@@ -679,25 +680,8 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     if (cached) return cached;
 
     try {
-      const label = LANGUAGES.find(l => l.code === lang)?.label || lang;
-  const prompt = `You are translating for voice narration (text-to-speech). Translate the content into ${label} (language code: ${lang}).
-
-STRICT OUTPUT RULES:
-- Return ONLY the translated text. Nothing else.
-- Do NOT include any preface, notes, labels, or headings (e.g., no "Translation:").
-- Do NOT wrap in quotes, code fences, brackets, or tags.
-- Plain text only (no HTML/Markdown).
-
-STYLE GUIDELINES (for speech):
-- Natural, short clauses with clear punctuation
-- Expand acronyms on first use when appropriate
-- Neutral, instructive tone in active voice
-- Keep lists as simple lines and preserve numbering when important
-- Avoid awkward symbols/parentheticals; keep technical terms accurate
-
-TEXT:
-${text}`;
-      const { content } = await callLlm(prompt, 'openrouter');
+  const prompt = buildNarrationTranslatePrompt(text, lang);
+  const { content } = await callLlm(prompt, 'openrouter');
       let output = (content || '').replace(/<[^>]+>/g, '').trim();
   // Strip common wrappers/preambles to guarantee text-only output
   output = output.replace(/^\s*(translation|translated\s*text|result|output)\s*:*/i, '').trim();
@@ -706,7 +690,7 @@ ${text}`;
       const nonLatinTargets: LanguageCode[] = ['hi','ja','ko','ta','te','kn','ml','zh'];
       const isAsciiOnly = /^[\x00-\x7F]*$/.test(output);
       if (nonLatinTargets.includes(lang) && isAsciiOnly) {
-        const strictPrompt = `Translate to ${label} (language code: ${lang}) and return ONLY the translated text in native script. No English. No romanization. No notes.\n\nTEXT:\n${text}`;
+        const strictPrompt = buildStrictNativeScriptRetry(text, lang);
         const retry = await callLlm(strictPrompt, 'openrouter');
         const r = (retry.content || '').replace(/<[^>]+>/g, '').trim();
         if (r && !/^[\x00-\x7F]*$/.test(r)) output = r;

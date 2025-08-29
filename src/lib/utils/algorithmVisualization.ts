@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { REACT_AGENT_INSTRUCTION } from '@/prompts/patternPrompts';
 import type { AlgorithmStep } from '@/components/visualization/AlgorithmVisualizer';
 
 // Algorithm visualization data type
@@ -366,7 +367,7 @@ await blobClient.uploadData(buffer);`,
           description: 'Agent reasons about how to approach the problem',
           code: `// Agent reasoning process
 const reasoning = await llm(\`
-  You are a ReAct agent solving problems through cycles of reasoning and action.
+  ${REACT_AGENT_INSTRUCTION}
   
   Task: Calculate the average of numbers from 1 to 10.
   What's the best approach to solve this problem?
