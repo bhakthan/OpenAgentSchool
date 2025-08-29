@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +15,8 @@ import {
   Gear
 } from '@phosphor-icons/react';
 import { useAudioNarration } from '@/contexts/AudioNarrationContext';
+import { useAvailableVoices } from '@/hooks/useAvailableVoices';
+import { getDisplayVoices } from '@/lib/voices';
 
 interface AgenticRAGAudioControlsProps {
   componentName: string;
@@ -27,19 +29,11 @@ export default function AgenticRAGAudioControls({
   className = '',
   activeTab = 'flow-diagram'
 }: AgenticRAGAudioControlsProps) {
-  const { state, playNarration, stopNarration, setVolume, setSpeechRate, toggleTTSMode, setSelectedVoice, getAvailableVoices } = useAudioNarration();
+  const { state, playNarration, stopNarration, setVolume, setSpeechRate, toggleTTSMode, setSelectedVoice } = useAudioNarration();
   const [selectedContentType, setSelectedContentType] = useState<string | null>(null);
   const [showSettings, setShowSettings] = useState(false);
-  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
-
-  // Load available voices
-  useEffect(() => {
-    const loadVoices = async () => {
-      const voices = await getAvailableVoices();
-      setAvailableVoices(voices);
-    };
-    loadVoices();
-  }, [getAvailableVoices]);
+  const availableVoices = useAvailableVoices();
+  const displayVoices = getDisplayVoices(availableVoices, state.selectedLanguage);
 
   const isCurrentComponent = state.currentComponent === componentName;
   const isPlaying = state.isPlaying && isCurrentComponent;
@@ -313,22 +307,7 @@ export default function AgenticRAGAudioControls({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="auto">Auto (Best Female)</SelectItem>
-                    {availableVoices
-                      .filter(voice => 
-                        voice.name.toLowerCase().includes('female') ||
-                        voice.name.toLowerCase().includes('woman') ||
-                        voice.name.toLowerCase().includes('zira') ||
-                        voice.name.toLowerCase().includes('eva') ||
-                        voice.name.toLowerCase().includes('samantha') ||
-                        voice.name.toLowerCase().includes('allison') ||
-                        voice.name.toLowerCase().includes('karen') ||
-                        voice.name.toLowerCase().includes('susan') ||
-                        voice.name.toLowerCase().includes('victoria') ||
-                        voice.name.toLowerCase().includes('aria') ||
-                        voice.name.toLowerCase().includes('ava')
-                      )
-                      .slice(0, 8) // Limit to prevent overwhelming UI
-                      .map((voice) => (
+                    {displayVoices.map((voice) => (
                         <SelectItem key={voice.name} value={voice.name}>
                           {voice.name.length > 25 ? voice.name.substring(0, 25) + '...' : voice.name}
                         </SelectItem>

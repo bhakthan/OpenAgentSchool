@@ -1,4 +1,9 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
+import { callLlm } from '@/lib/llm';
+import { LANGUAGES, LanguageCode, getLocaleFor } from '@/lib/languages';
+import { PREFERRED_VOICES_BY_LANG } from '@/lib/voices';
+
+// Language types and list are sourced from src/lib/languages.ts
 
 interface AudioNarrationState {
   isPlaying: boolean;
@@ -9,6 +14,7 @@ interface AudioNarrationState {
   speechRate: number;
   useLocalTTS: boolean;
   selectedVoice: SpeechSynthesisVoice | null;
+  selectedLanguage: LanguageCode;
 }
 
 interface AudioNarrationContextType {
@@ -20,6 +26,7 @@ interface AudioNarrationContextType {
   toggleTTSMode: () => void;
   setSelectedVoice: (voice: SpeechSynthesisVoice | null) => void;
   getAvailableVoices: () => SpeechSynthesisVoice[];
+  setSelectedLanguage: (lang: LanguageCode) => void;
 }
 
 const AudioNarrationContext = createContext<AudioNarrationContextType | undefined>(undefined);
@@ -34,7 +41,24 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     speechRate: 1.0,
     useLocalTTS: false, // Default to Web Speech API since local TTS is not implemented
     selectedVoice: null,
+    selectedLanguage: 'en',
   });
+
+  // getLocaleFor and LANGUAGES come from the shared module
+
+  // Hydrate saved language preference from localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('oas.audio.lang');
+      if (saved && LANGUAGES.some(l => l.code === saved)) {
+        setState(prev => ({ ...prev, selectedLanguage: saved as LanguageCode }));
+      }
+    } catch {}
+  }, []);
+
+  // Simple in-memory cache for translations by (hash(text), lang)
+  const translationCacheRef = useRef<Map<string, string>>(new Map());
+  const makeCacheKey = (text: string, lang: LanguageCode) => `${lang}:${text.length}:${text.slice(0,64)}`;
 
   const detectBrowser = (): 'chrome' | 'edge' | 'safari' | 'firefox' | 'ios-safari' | 'android-chrome' | 'samsung-internet' | 'other' => {
     const userAgent = navigator.userAgent.toLowerCase();
@@ -89,16 +113,18 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     // Browser-specific voice preferences
     let preferredFemaleVoices: string[] = [];
     
-    switch (browser) {
+  switch (browser) {
       case 'edge':
         preferredFemaleVoices = [
-          // Microsoft Edge - prioritize Microsoft voices
-          'Microsoft AvaMultilingual',
-          'Microsoft Ava',
-          'Microsoft Zira Desktop',
-          'Microsoft Zira',
-          'Microsoft Eva',
-          'Microsoft Aria',
+      // Microsoft Edge - prioritize Aria Online/Neural first
+      'Microsoft Aria Online',
+      'AriaNeural',
+      'Microsoft Aria',
+      'Microsoft AvaMultilingual',
+      'Microsoft Ava',
+      'Microsoft Zira Desktop',
+      'Microsoft Zira',
+      'Microsoft Eva',
           // Fallback to other voices
           'Google US English Female',
           'Google UK English Female',
@@ -330,7 +356,11 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
   };
 
   const playWithWebSpeechAPI = async (componentName: string, level: string, contentType?: string) => {
-    const text = await fetchAudioContent(componentName, level, contentType);
+    const baseText = await fetchAudioContent(componentName, level, contentType);
+    const targetLang = state.selectedLanguage || 'en';
+
+    // Optionally translate text before narration
+    const text = await translateIfNeeded(baseText, targetLang);
     
     return new Promise<void>((resolve, reject) => {
       if (!('speechSynthesis' in window)) {
@@ -341,12 +371,35 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       // Small delay to ensure any previous speech is fully stopped
       setTimeout(() => {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = state.speechRate;
-        utterance.volume = state.volume;
+  utterance.rate = state.speechRate;
+  utterance.volume = state.volume;
+
+  // Set utterance language and voice based on selected language
+  const bcp47 = getLocaleFor(targetLang);
+  utterance.lang = bcp47;
         
         // Always refresh voices and select the best female voice available
         // This ensures consistent voice selection across all components
-        const voice = state.selectedVoice || selectBestFemaleVoice();
+  // Prefer a voice that matches the target language; fall back to user-selected or best female
+  // Choose voice with sensible priorities
+  const targetLocale = getLocaleFor(targetLang).toLowerCase();
+  const targetPrefix = targetLocale.split('-')[0];
+  const userVoiceMatches = state.selectedVoice && (state.selectedVoice.lang?.toLowerCase().startsWith(targetPrefix));
+  let voice =
+    selectVoiceForLanguage(targetLang) ||
+    (userVoiceMatches ? state.selectedVoice : null) ||
+    selectBestFemaleVoice();
+  // If still missing for English, try explicit Google female preference
+  if (!voice && (targetLang === 'en')) {
+    const candidates = speechSynthesis.getVoices();
+    const ua = navigator.userAgent.toLowerCase();
+    const isEdge = ua.includes('edg/');
+    if (isEdge) {
+      voice = candidates.find(v => /aria\s*online|arianeural|microsoft\s+aria/i.test(v.name)) || null;
+    } else {
+      voice = candidates.find(v => /google\s+us\s+english\s+female/i.test(v.name)) || null;
+    }
+  }
         if (voice) {
           utterance.voice = voice;
           // console.log(`Playing audio for ${componentName} with voice:`, voice.name);
@@ -618,6 +671,90 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // Translate the given text to the target language if needed; otherwise return original text
+  const translateIfNeeded = async (text: string, lang: LanguageCode): Promise<string> => {
+    if (lang === 'en') return text;
+    const key = makeCacheKey(text, lang);
+    const cached = translationCacheRef.current.get(key);
+    if (cached) return cached;
+
+    try {
+      const label = LANGUAGES.find(l => l.code === lang)?.label || lang;
+  const prompt = `You are translating for voice narration (text-to-speech). Translate the content into ${label} (language code: ${lang}).
+
+STRICT OUTPUT RULES:
+- Return ONLY the translated text. Nothing else.
+- Do NOT include any preface, notes, labels, or headings (e.g., no "Translation:").
+- Do NOT wrap in quotes, code fences, brackets, or tags.
+- Plain text only (no HTML/Markdown).
+
+STYLE GUIDELINES (for speech):
+- Natural, short clauses with clear punctuation
+- Expand acronyms on first use when appropriate
+- Neutral, instructive tone in active voice
+- Keep lists as simple lines and preserve numbering when important
+- Avoid awkward symbols/parentheticals; keep technical terms accurate
+
+TEXT:
+${text}`;
+      const { content } = await callLlm(prompt, 'openrouter');
+      let output = (content || '').replace(/<[^>]+>/g, '').trim();
+  // Strip common wrappers/preambles to guarantee text-only output
+  output = output.replace(/^\s*(translation|translated\s*text|result|output)\s*:*/i, '').trim();
+  output = output.replace(/^(```+|["']+)|(```+|["']+)$/g, '').trim();
+      // If target language uses non-Latin script and output looks ASCII-only, retry once with stronger instruction
+      const nonLatinTargets: LanguageCode[] = ['hi','ja','ko','ta','te','kn','ml','zh'];
+      const isAsciiOnly = /^[\x00-\x7F]*$/.test(output);
+      if (nonLatinTargets.includes(lang) && isAsciiOnly) {
+        const strictPrompt = `Translate to ${label} (language code: ${lang}) and return ONLY the translated text in native script. No English. No romanization. No notes.\n\nTEXT:\n${text}`;
+        const retry = await callLlm(strictPrompt, 'openrouter');
+        const r = (retry.content || '').replace(/<[^>]+>/g, '').trim();
+        if (r && !/^[\x00-\x7F]*$/.test(r)) output = r;
+      }
+      if (output) translationCacheRef.current.set(key, output);
+      return output || text;
+    } catch (e) {
+      console.error('Translation failed, falling back to English:', e);
+      return text;
+    }
+  };
+
+  // Try to pick a voice matching selected language code; fall back gracefully
+  const selectVoiceForLanguage = (lang: LanguageCode): SpeechSynthesisVoice | null => {
+    try {
+      const voices = speechSynthesis.getVoices();
+      if (!voices || voices.length === 0) return null;
+      const locale = getLocaleFor(lang);
+      const lc = locale.toLowerCase();
+      const prefix = lc.split('-')[0];
+      // Filter voices matching locale or prefix
+      const matching = voices.filter(v => {
+        const vl = v.lang?.toLowerCase() || '';
+        return vl === lc || vl.startsWith(prefix);
+      });
+      if (matching.length > 0) {
+        // First, try preferred names for this language
+        const prefs = PREFERRED_VOICES_BY_LANG[lang] || [];
+        for (const pat of prefs) {
+          const m = matching.find(v => v.name.toLowerCase().includes(pat.toLowerCase()));
+          if (m) return m;
+        }
+        // Prefer female-sounding voices
+        const femaleFirst = matching.find(v => /female|girl|aria|zira|jenny|sara|sona/i.test(v.name));
+        if (femaleFirst) return femaleFirst;
+        // Prefer Google voices if available
+        const google = matching.find(v => /google/i.test(v.name));
+        if (google) return google;
+        return matching[0];
+      }
+      // Any voice hinting at the language in the name (fallback)
+      const nameMatch = voices.find(v => v.name.toLowerCase().includes(prefix));
+      return nameMatch || null;
+    } catch {
+      return null;
+    }
+  };
+
   const extractLevelContent = (content: string, level: string): string => {
     const sections = content.split('--------------------------------------------------------------------------------');
     
@@ -662,6 +799,15 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
 
   const setSelectedVoice = (voice: SpeechSynthesisVoice | null) => {
     setState(prev => ({ ...prev, selectedVoice: voice }));
+    try {
+      if (voice?.name) localStorage.setItem('oas.audio.voice', voice.name);
+      else localStorage.removeItem('oas.audio.voice');
+    } catch {}
+  };
+
+  const setSelectedLanguage = (lang: LanguageCode) => {
+  setState(prev => ({ ...prev, selectedLanguage: lang }));
+  try { localStorage.setItem('oas.audio.lang', lang); } catch {}
   };
 
   const getAvailableVoices = (): SpeechSynthesisVoice[] => {
@@ -681,6 +827,25 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     return [];
   };
 
+  // Hydrate a saved preferred voice when voices are available
+  useEffect(() => {
+    const applySavedVoice = () => {
+      try {
+        const savedName = localStorage.getItem('oas.audio.voice');
+        if (!savedName) return;
+        const voices = speechSynthesis.getVoices();
+        const match = voices.find(v => v.name === savedName);
+        if (match) setState(prev => ({ ...prev, selectedVoice: match }));
+      } catch {}
+    };
+    applySavedVoice();
+    if ('speechSynthesis' in window) {
+      const handler = () => applySavedVoice();
+      speechSynthesis.addEventListener('voiceschanged', handler);
+      return () => speechSynthesis.removeEventListener('voiceschanged', handler);
+    }
+  }, []);
+
   return (
     <AudioNarrationContext.Provider
       value={{
@@ -692,6 +857,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         toggleTTSMode,
         setSelectedVoice,
         getAvailableVoices,
+  setSelectedLanguage,
       }}
     >
       {children}
