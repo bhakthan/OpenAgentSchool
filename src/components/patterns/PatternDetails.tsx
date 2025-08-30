@@ -63,8 +63,8 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="pt-6">
-  <Tabs defaultValue={"details"} className="w-full">
+    <CardContent className="pt-6">
+  <Tabs defaultValue={hasBusinessUseCase ? "business-use-case" : "details"} className="w-full">
           <TabsList className="grid w-full grid-cols-5">
             {hasBusinessUseCase && (
               <TabsTrigger value="business-use-case" className="flex items-center gap-2">
