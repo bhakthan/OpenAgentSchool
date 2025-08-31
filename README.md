@@ -194,14 +194,14 @@ Experience the future of technical education where complex AI agent concepts bec
 
 ### ⚡ **NEW: AI-Native Skills - Revolutionary Organizational Practices**
 
-**Industry-Leading AI-Native Practices** - Learn how OpenAI and Anthropic are revolutionizing software development with comprehensive 8-tab learning system:
+**Industry-Leading AI-Native Practices** - Learn how OpenAI and Anthropic are revolutionizing software development with comprehensive 19-tab learning system:
 - **Interactive D3.js Visualizations**: Explore real-world AI-native practices from industry leaders with fully interactive mindmaps
 - **OpenAI Codex Team Practices**: 7 core practices including Ask Mode Bug Detection, Async AI Work, and 5-minute Performance Audits
 - **Anthropic Claude Code Workflows**: 10 team-specific practices including Screenshot-based Debugging, 70% AI Feature Development, and Cross-functional AI Empowerment
 - **GitHub Copilot Agent Mode**: Revolutionary autonomous coding with multi-step task orchestration, contextual workspace analysis, and automatic error correction loops
 - **Frontier Firm Assessment**: Interactive evaluation tool based on Microsoft's 2025 Work Trend Index research with 6-question assessment, comprehensive legal disclaimer for educational use, and personalized recommendations
 - **Human-Agent Ratio Calculator**: Strategic collaboration calculator with comprehensive legal disclaimer, emphasizing "Human + Agent" partnerships with capacity-focused metrics and directional guidance for educational exploration
-- **Progressive Skill Development**: 8-tab learning path from fundamentals to expert-level organizational transformation
+- **Progressive Skill Development**: 19-tab learning path from fundamentals to expert-level organizational transformation
 - **Novel Practice Identification**: Color-coded highlighting of revolutionary practices that didn't exist before AI collaboration
 - **Cross-Team Implementation**: Learn how legal, design, marketing, and engineering teams use AI-native workflows
 - **Organizational Transformation**: Expert-level patterns for reshaping entire company operations around AI capabilities
@@ -215,6 +215,38 @@ Experience the future of technical education where complex AI agent concepts bec
 - **Microsoft Research Integration**: Direct integration with Microsoft Work Trend Index 2025 findings and frontier firm characteristics
 - **Collaborative Messaging**: Strategic emphasis on human-agent collaboration rather than workforce replacement
 - **Capacity-Focused Analytics**: Tools for calculating productivity gains through strategic human-agent partnerships
+
+### 📚 AI‑Native Skills Modules (19 tabs)
+
+Explore a complete, progressive pathway from foundations to advanced orchestration. The current modules include:
+
+1) Fundamentals — What are AI‑Native Practices?
+2) Thinking Modes — Design vs Breakthrough vs Systems Thinking
+3) Interactive Visualizations — Explore AI‑native practices in detail
+4) Code Understanding — Navigation, debugging & tracing
+5) Development Velocity — Rapid scaffolding & async workflows
+6) Observability & EvalOps — Traces, evals, and quality gates
+7) PromptOps & Tooling — Versioned prompts, canaries, guardrails
+8) Safety & Governance — Adversarial testing, policies, approvals
+9) Cost & Performance — Latency, routing, spend optimization
+10) Security & Data Boundaries — Zero‑trust patterns for LLMs/tools
+11) RAG Systems — Hybrid retrieval, re‑ranking, grounding
+12) Multi‑Agent — Supervisor/specialist patterns and safety
+13) Org Playbooks — Standardize and scale AI‑native excellence
+14) Cross‑Team Collaboration — Non‑technical teams using AI
+15) Novel Patterns — Revolutionary organizational practices
+16) Frontier Assessment — Evaluate AI readiness (WTI‑informed)
+17) Human‑Agent Ratio Calculator — Optimize collaboration ratios
+18) Future State — Where AI‑native practices are heading
+19) Hands‑On Studios — Interactive labs: Eval, Cost, RAG, HITL, Orchestration
+
+Tip: The “Hands‑On Studios” tab includes interactive labs with saved run history, mini delta charts, and estimated call counts. It currently offers:
+
+- Eval Harness Studio (Observability)
+- Cost Guardrail Studio (Cost/Performance)
+- RAG Quality Studio (RAG)
+- HITL Studio (Human‑in‑the‑Loop)
+- Multi‑Agent Studio (Orchestration)
 
 ## 🆕 Previous Updates (July 28, 2025)
 
@@ -1023,87 +1055,53 @@ src/
 ├── prd.md                   # Product documentation/notes
 ├── test.tsx                 # Test entry file
 ├── vite-end.d.ts            # Vite type definitions
-├── components/              # All UI and visualization components
-│   ├── azure-services/      # Azure AI service cards and guides
-│   ├── code-playbook/       # Code playbook, system design, and dynamic diagram generator
-│   │   ├── AutoGenPatternVisualizer.tsx   # Dynamic, user-driven agent network visualizer (react-force-graph-2d)
-│   │   ├── PatternDetails.tsx             # Hosts business use case tab, dynamic diagram, and critical thinking modal
-│   │   ├── SystemDesignVisualizer.tsx     # Interactive system design pattern visualizer with 7-step architecture flows
-│   │   ├── CriticalThinkingModal.tsx      # Critical thinking challenge modal (in common/)
-│   │   └── ...existing code...
-│   ├── community/           # Community sharing and pattern hub
-│   ├── concepts/            # Core concept visualizations
+├── prompts/                 # Centralized prompt builders (translation, SCL, judge, pattern, enlighten)
+├── components/              # UI, learning, and visualization components
+│   ├── ai-skills/           # AI‑Native Skills explorer and 19 modules (with Hands‑On Studios entry)
+│   ├── learning/            # Curriculum tabs, micro-assessments, progress badges
+│   │   └── studios/         # EvalHarness, CostGuardrail, RagQuality, Hitl, MultiAgent labs
 │   ├── enlighten/           # EnlightenMe AI learning assistant
-│   ├── interactive-demos/   # Interactive protocol and pattern demos
-│   ├── patterns/            # Agent pattern examples and visualizations
-│   ├── quiz/                # Comprehensive quiz system components with role-based assessments
-│   ├── references/          # Reference materials and docs
-│   ├── security/            # Security and compliance components
-│   ├── test/                # Test UI components
-│   ├── theme/               # Theme and appearance controls
-│   ├── tutorial/            # Tutorial and learning journey components
-│   ├── ui/                  # Reusable UI primitives
-│   └── visualization/       # Visualization utilities and SVGs
+│   ├── study-mode/          # Study Mode (Socratic, Scenarios, Debug) and LLM judge demo
+│   ├── tutorial/            # Tutorial components and learning journey map
+│   ├── visualization/       # Protocol/flow diagrams, Azure safety, advanced visualizations
+│   ├── ui/                  # Reusable UI primitives (shadcn/radix wrappers)
+│   └── DebugPage.tsx        # Developer debug utilities
 ├── contexts/                # React context providers
-│   └── SidebarContext.tsx   # Sidebar state/context
+│   ├── AudioNarrationContext.tsx  # Narration state/context
+│   └── SidebarContext.tsx         # Sidebar state/context
+├── data/                    # App/sample datasets
+│   └── studios/             # RAG corpus, queries, and eval harness samples
 ├── docs/                    # Project documentation
-│   └── ReactFlowComponents.md # ReactFlow component docs
+│   └── ReactFlowComponents.md
 ├── hooks/                   # Custom React hooks
-│   ├── use-mobile.ts        # Mobile device detection hook
-│   ├── use-sidebar-collapse.ts # Sidebar collapse logic
-│   ├── use-sidebar-search.tsx   # Sidebar search logic
-│   └── useLocalStorage.ts      # LocalStorage utility hook
+│   ├── useAudioNarration.ts
+│   ├── useAvailableVoices.ts
+│   ├── useLocalStorage.ts
+│   ├── use-mobile.ts
+│   ├── use-sidebar-search.tsx
+│   └── useSEOContext.tsx
 ├── lib/                     # Core logic and utilities
-│   ├── data/                # Pattern, quiz, and system design data
-│   │   ├── systemDesign/    # 20 comprehensive system design patterns
-│   │   │   ├── agentEvaluation.ts      # Agent evaluation system design
-│   │   │   ├── autonomousWorkflow.ts   # Autonomous workflow patterns
-│   │   │   ├── computerUse.ts          # Computer use agent design
-│   │   │   ├── deepResearcher.ts       # Deep research agent patterns
-│   │   │   ├── evaluatorOptimizer.ts   # Evaluator-optimizer design
-│   │   │   ├── modernToolUse.ts        # Modern tool integration patterns
-│   │   │   ├── selfReflection.ts       # Self-reflection agent design
-│   │   │   ├── voiceAgent.ts           # Voice agent system design
-│   │   │   ├── agentToAgent.ts         # Agent-to-agent communication
-│   │   │   ├── autoGenMultiAgent.ts    # AutoGen multi-agent systems
-│   │   │   ├── orchestratorWorker.ts   # Orchestrator-worker patterns
-│   │   │   ├── routing.ts              # Agent routing and coordination
-│   │   │   ├── modelContextProtocol.ts # MCP system design
-│   │   │   ├── codeAct.ts              # CodeAct pattern design
-│   │   │   ├── agenticRAG.ts           # Agentic RAG system design
-│   │   │   ├── parallelization.ts      # Parallel processing patterns
-│   │   │   ├── promptChaining.ts       # Prompt chaining design
-│   │   │   ├── pythonReActAgent.ts     # Python ReAct agent patterns
-│   │   │   ├── index.ts                # System design pattern registry
-│   │   │   ├── types.ts                # System design type definitions
-│   │   │   └── README.md               # System design documentation
-│   │   ├── quizzes/         # Comprehensive quiz system with 15+ categories
-│   │   │   ├── system-design.ts        # System design knowledge quiz (NEW)
-│   │   │   ├── agent-patterns.ts       # Agent pattern assessments
-│   │   │   ├── multi-agent-systems.ts  # Multi-agent quiz questions
-│   │   │   ├── agent-security.ts       # Security-focused assessments
-│   │   │   ├── azure-services.ts       # Azure AI services quiz
-│   │   │   ├── core-concepts.ts        # Fundamental concept tests
-│   │   │   ├── personas.ts             # 5 role-based user personas
-│   │   │   ├── types.ts                # Quiz system type definitions
-│   │   │   └── index.ts                # Quiz category registry and utilities
-│   │   └── patterns/        # Agent pattern implementations
-│   ├── hooks/               # Shared hooks for lib
-│   ├── llm.ts               # LLM provider integration
-│   ├── pythonPatterns.ts    # Python pattern definitions
-│   ├── tutorial/            # Tutorial logic and helpers
-│   ├── types/               # Shared types for lib
-│   ├── utils/               # Utility functions
-│   └── utils.ts             # General utilities
+│   ├── api/                 # Frontend API helpers
+│   ├── eval/                # Deterministic evaluation harness
+│   ├── learning/            # Module registry, content, progress store
+│   ├── rag/                 # Simple RAG engine
+│   ├── tutorial/            # Tutorial registry and helpers
+│   ├── types/               # Ambient/global type declarations
+│   ├── utils/               # Visualization/app utils
+│   ├── llm.ts               # Provider-agnostic LLM abstraction
+│   ├── voices.ts            # Voice enumeration and selection
+│   └── sanitizeHtml.ts      # HTML-safe rendering utilities
 ├── styles/                  # Global and visualization styles
-│   ├── theme.css            # Theme styles
-│   └── visualization.css    # Visualization-specific styles
+│   ├── theme.css
+│   ├── visualization.css
+│   └── scl-theme.css
 ├── tests/                   # Test files and helpers
-│   └── testImports.ts       # Test import utilities
+│   └── testImports.ts
 ├── types/                   # TypeScript type definitions
-│   ├── react-force-graph-2d.d.ts # Type declarations for dynamic diagram visualizer
-│   ├── spark.d.ts           # Spark protocol types
-│   └── visualization.ts     # Visualization types
+│   ├── react-force-graph-2d.d.ts
+│   ├── spark.d.ts
+│   ├── supercritical.ts
+│   └── visualization.ts
 ```
 
 **Feature Highlights:**

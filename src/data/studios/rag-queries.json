@@ -1,0 +1,6 @@
+[
+  { "id": "q1", "question": "What is the capital of France?", "expected": "paris" },
+  { "id": "q2", "question": "At what temperature does water boil?", "expected": "100" },
+  { "id": "q3", "question": "How many chambers does the human heart have?", "expected": "four" },
+  { "id": "q4", "question": "What does RAG stand for?", "expected": "retrieval augmented generation" }
+]

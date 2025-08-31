@@ -22,6 +22,7 @@ import SecurityDataBoundaries from "./SecurityDataBoundaries"
 import RAGSystems from "./RAGSystems"
 import MultiAgentOrchestration from "./MultiAgentOrchestration"
 import OrgPlaybooks from "./OrgPlaybooks"
+import { CurriculumTabs } from '@/components/learning/CurriculumTabs'
 
 export default function AISkillsExplorer() {
   const [activeTab, setActiveTab] = useState("fundamentals")
@@ -227,6 +228,20 @@ export default function AISkillsExplorer() {
       icon: <Rocket className="w-4 h-4" />,
       level: "Expert",
       component: <FutureStateTrends onNavigate={undefined} />
+    }
+    ,
+    // 14. Hands-On Studios (renders CurriculumTabs)
+    {
+      id: "hands-on-studios",
+      title: "Hands‑On Studios",
+      description: "Interactive labs with evals, cost, HITL, RAG, and orchestration",
+      icon: <Gauge className="w-4 h-4" />,
+      level: "Advanced",
+      component: (
+        <div className="mt-2">
+          <CurriculumTabs defaultModuleId={'observability-evalops' as any} />
+        </div>
+      )
     }
   ]
 
