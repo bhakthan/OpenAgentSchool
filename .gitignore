@@ -24,8 +24,13 @@ dist-ssr
 *.sln
 *.sw?
 
-.env
+*.env
 **/.env
+**/.env.*
+!**/.env.example
+!**/.env.template
+!.env.example
+!.env.template
 **/agent-eval-report*
 packages
 .file-manifest
@@ -38,7 +43,22 @@ migrate-phase1.ps1
 docker-compose.yml
 
 # Ignore backend migration directory structure
-openagent-backends/
+# Ignore backend services but keep their documentation and templates
+openagent-backends/**
+!openagent-backends/**/*.md
+!openagent-backends/**/.env.example
+!openagent-backends/**/.env.template
+!openagent-backends/README.md
+!openagent-backends/**/Dockerfile
+!openagent-backends/**/docker-compose*.yml
+!openagent-backends/**/requirements.txt
+!openagent-backends/**/app/**
+!openagent-backends/**/config.py
+!openagent-backends/**/main.py
+!openagent-backends/**/run.py
+!openagent-backends/**/start_dev.py
+!openagent-backends/**/worker.py
+!openagent-backends/**/tests/**
 
 # Ignore backend implementation documentation
 backend/implementation.md
@@ -66,3 +86,6 @@ scripts/*.md
 
 #docs
 docs/
+
+# Local specifications (drafts not for commit)
+specs/

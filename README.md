@@ -7,9 +7,62 @@
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges, plus **Critical Thinking Challenges** with LLM-powered assessment and feedback.
 
 ✨ **Now featuring 27 comprehensive agent patterns including 15 revolutionary Educational Agent Patterns** - from foundational concepts to advanced GPT-5 era educational methodologies with complete Study Mode integration.
----
+
+## ⚡ Quick start: Study Mode API (dev)
+
+- Start backend
+  - Run `backend/run.py` (uvicorn dev server)
+
+- Optional auth
+  - API key: set `API_KEYS=dev-key-1` and add header `x-api-key: dev-key-1`
+  - AAD (Bearer): set `AAD_JWKS_URL`, `AAD_ISSUER`, `AAD_AUDIENCE` and send `Authorization: Bearer <JWT>`
+
+- Try a request (Windows PowerShell)
+
+```powershell
 
 ## 🆕 Latest Updates (August 11, 2025)
+
+If you configured an API key, add `"x-api-key"="dev-key-1"` to the headers.
+
+- OpenAPI YAML with examples: browse <http://localhost:8000/openapi.yaml>
+
+Full endpoint details and examples: see `specs/study-mode-api.md`.
+
+### Retrieval setup
+
+To enable real document grounding, see `docs/VECTOR_STORE_INGESTION.md`:
+
+- ChromaDB local ingestion script and settings
+- Azure AI Search configuration and expected fields
+
+Quick Azure Search push index (Option B via Azure CLI):
+
+```powershell
+$rg = "YOUR-RG"
+$searchName = "YOUR-SEARCH"
+$indexName = "study"
+az search index create `
+  --resource-group $rg `
+  --service-name $searchName `
+  --name $indexName `
+  --fields "[{name:'id',type:'Edm.String',key:true},{name:'title',type:'Edm.String',searchable:true},{name:'url',type:'Edm.String',searchable:true,filterable:true,sortable:true},{name:'content',type:'Edm.String',searchable:true}]"
+
+@'
+{
+  "value": [
+    {"@search.action":"upload","id":"intro","title":"Intro","url":"intro.md","content":"Hello world."}
+  ]
+}
+'@ | Set-Content -Path .\docs.json
+
+az rest `
+  --method post `
+  --uri "https://$searchName.search.windows.net/indexes/$indexName/docs/index?api-version=2023-11-01" `
+  --headers "Content-Type=application/json" "api-key=YOUR-ADMIN-KEY" `
+  --body (Get-Content -Raw -Path .\docs.json)
+```
+
 
 ### � **ENHANCED: Smart Voice Selection System**
 

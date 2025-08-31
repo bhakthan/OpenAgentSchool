@@ -383,6 +383,11 @@ export const references: ReferencesData = {
             title: "DeepLearning.AI - Agents Evaluation",
             url: "https://www.deeplearning.ai/short-courses/evaluating-ai-agents/",
             description: "Short Course on evaluating AI agents"
+          },
+          {
+            title: "DeepLearning.AI - Generative AI Courses",
+            url: "https://www.deeplearning.ai/resources/generative-ai-courses-guide/",
+            description: "Guide to Generative AI courses offered by DeepLearning.AI"
           }
         ]
       }
@@ -1039,6 +1044,11 @@ export const references: ReferencesData = {
             title: "Azure AI RAG Implementation",
             url: "https://learn.microsoft.com/azure/search/retrieval-augmented-generation-overview",
             description: "Overview of RAG implementation in Azure"
+          },
+          {
+            title: "LangChain RAG Tutorial",
+            url: "https://python.langchain.com/docs/tutorials/rag/",
+            description: "Official LangChain tutorial for building RAG pipelines"
           }
         ]
       },
@@ -1055,6 +1065,22 @@ export const references: ReferencesData = {
             title: "Azure Vector Search with RAG",
             url: "https://github.com/Azure-Samples/azure-vector-search-openai-demo",
             description: "Vector search with Azure OpenAI and RAG"
+          },
+          {
+            title: "RAG Techniques (Comprehensive Examples)",
+            url: "https://github.com/NirDiamant/RAG_Techniques",
+            description: "Curated collection of practical RAG techniques and patterns"
+          }
+        ]
+      },
+      {
+        id: "papers",
+        name: "Research Papers",
+        references: [
+          {
+            title: "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+            url: "https://arxiv.org/pdf/2005.11401",
+            description: "Foundational RAG paper introducing retrieval-augmented generation"
           }
         ]
       }
