@@ -63,6 +63,30 @@ az rest `
   --body (Get-Content -Raw -Path .\docs.json)
 ```
 
+### AI-native skills pipeline (export → ingest → API)
+
+1) Export tabs from the UI source
+
+```powershell
+node .\scripts\export-ai-skills.mjs
+```
+
+Output: `data\export\ai_skills.json`
+
+1) Ingest into DuckDB (uses conda env `oas-duckdb`)
+
+```powershell
+conda run -n oas-duckdb python backend\scripts\ingest_ai_skills_json.py --file data\export\ai_skills.json
+```
+
+1) API endpoints
+
+- GET `http://localhost:8000/api/v1/ai-skills/list`
+- GET `http://localhost:8000/api/v1/ai-skills/search?q=...`
+- GET `http://localhost:8000/api/v1/ai-skills/{id}`
+
+See also: `docs/AI_SKILLS_PIPELINE.md`.
+
 
 ### � **ENHANCED: Smart Voice Selection System**
 

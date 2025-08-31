@@ -87,6 +87,38 @@ A FastAPI-based backend for the Open Agent School platform with DuckDB for local
 - `POST /api/v1/workflows/execute` - Proxies to Agent Orchestrator at `${ORCHESTRATOR_URL}/api/v1/workflows/execute`
 - `GET  /api/v1/workflows/{id}/status` - Proxies to `${ORCHESTRATOR_URL}/api/v1/workflows/{id}/status`
 
+### Knowledge APIs
+
+- Concepts
+   - `GET /api/v1/concepts/list`
+   - `GET /api/v1/concepts/search?q=...`
+   - `GET /api/v1/concepts/{id}`
+- Agent Patterns
+   - `GET /api/v1/patterns/list`
+   - `GET /api/v1/patterns/search?q=...`
+   - `GET /api/v1/patterns/{id}`
+- AI‑Skills
+   - `GET /api/v1/ai-skills/list`
+   - `GET /api/v1/ai-skills/search?q=...`
+   - `GET /api/v1/ai-skills/{id}`
+
+Study responses include attribution and related items:
+
+```json
+{
+   "attribution": {
+      "sources": [/* retrieval results */],
+      "curated": [/* curated Qs */],
+      "concepts": [/* matched concepts */],
+      "patterns": [/* matched patterns */],
+      "skills": [/* matched AI‑skills */]
+   },
+   "relatedConcepts": [/* same as attribution.concepts */],
+   "relatedPatterns": [/* same as attribution.patterns */],
+   "relatedSkills": [/* same as attribution.skills */]
+}
+```
+
 ## Database Configuration
 
 ### DuckDB (Default)
@@ -185,6 +217,26 @@ await progressAPI.updateProgress({
 
 ```bash
 pytest
+```
+
+### AI‑skills: how to run (export → ingest → query)
+
+1) Export from UI source
+
+```bash
+node ./scripts/export-ai-skills.mjs
+```
+
+1) Ingest into DuckDB (conda env recommended)
+
+```bash
+conda run -n oas-duckdb python backend/scripts/ingest_ai_skills_json.py --file data/export/ai_skills.json
+```
+
+1) Query APIs
+
+```bash
+curl http://localhost:8000/api/v1/ai-skills/list
 ```
 
 ## Deployment

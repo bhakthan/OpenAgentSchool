@@ -1,0 +1,222 @@
+[
+  {
+    "id": "agentic-ai-design-taxonomy",
+    "name": "Agentic AI Design Taxonomy",
+    "description": "Comprehensive framework for understanding architectural patterns, design principles, and implementation challenges in Agentic AI systems",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agentic-prompting-fundamentals",
+    "name": "Agentic Prompting Fundamentals",
+    "description": "Master the core principles of prompting AI agents for optimal performance and reliability",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "prompt-optimization-patterns",
+    "name": "Prompt Optimization Patterns",
+    "description": "Learn systematic approaches to eliminate contradictions and improve prompt effectiveness",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-instruction-design",
+    "name": "Agent Instruction Design",
+    "description": "Design effective instruction hierarchies and steerability controls for reliable agent behavior",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agentic-workflow-control",
+    "name": "Agentic Workflow Control",
+    "description": "Advanced workflow patterns, timing control, and multi-tool coordination strategies",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-evaluation-methodologies",
+    "name": "Agent Evaluation Methodologies",
+    "description": "Comprehensive evaluation frameworks using quantitative metrics and LLM-as-judge techniques",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-architecture",
+    "name": "Agent Architecture & Lifecycle",
+    "description": "Understanding the fundamental building blocks and lifecycle of AI agents",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-security",
+    "name": "Agent Security & Trust",
+    "description": "Security mechanisms and trust models for AI agent systems",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "multi-agent-systems",
+    "name": "Multi-Agent Systems",
+    "description": "Coordination, collaboration, and emergent behavior in multi-agent systems",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-ethics",
+    "name": "Agent Ethics & Governance",
+    "description": "Ethical principles, bias mitigation, and regulatory compliance for AI agents",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "ai-agents",
+    "name": "AI Agents",
+    "description": "Learn about autonomous AI systems that can perceive, decide, and act",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "ai-safety-governance",
+    "name": "AI Safety and Governance",
+    "description": "Responsible AI pillars, safety, risk monitoring, guardrails, tracing, and governance with Azure Foundry",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "a2a-communication",
+    "name": "A2A Communication",
+    "description": "How AI agents communicate and coordinate with each other",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "mcp",
+    "name": "Model Context Protocol",
+    "description": "Secure tool integration protocol for AI agents",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "flow-visualization",
+    "name": "Flow Visualization",
+    "description": "Interactive visualization of agent flows and interactions",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-evaluation",
+    "name": "Agent Evaluation",
+    "description": "Systematic assessment of agent performance, reliability, safety, and alignment using automated frameworks and benchmarks",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "acp",
+    "name": "Agent Communication Protocol",
+    "description": "Advanced protocols for enterprise-scale agent coordination",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "mcp-a2a-integration",
+    "name": "MCP x A2A Integration",
+    "description": "Integrate Model Context Protocol with Agent-to-Agent communication",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "data-visualization",
+    "name": "Data Visualization",
+    "description": "Advanced data visualization techniques for AI agent systems",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-deployment",
+    "name": "Agent Deployment & Operations",
+    "description": "Containerization, monitoring, scaling, and DevOps for AI agents",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-learning",
+    "name": "Agent Learning & Adaptation",
+    "description": "Reinforcement learning, online learning, transfer learning, and meta-learning",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-integration",
+    "name": "Agent Integration Patterns",
+    "description": "API integration, event-driven architecture, microservices, and legacy systems",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  }
+]

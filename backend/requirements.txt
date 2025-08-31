@@ -18,7 +18,7 @@ azure-cosmos==4.5.1
 openai==1.10.0
 azure-identity==1.15.0
 azure-storage-blob==12.19.0
-azure-search-documents==11.6.0
+azure-search-documents>=11.5.3,<11.6.0
 
 # Azure AI Agents and Projects (for comprehensive AI agent capabilities)
 azure-ai-agents==1.1.0

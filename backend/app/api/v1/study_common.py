@@ -82,6 +82,9 @@ class BaseResponse(BaseModel):
     usage: Optional[Dict[str, Any]] = None
     safety: Optional[Dict[str, Any]] = None
     attribution: Optional[Dict[str, Any]] = None
+    relatedConcepts: Optional[List[Dict[str, Any]]] = None
+    relatedPatterns: Optional[List[Dict[str, Any]]] = None
+    relatedSkills: Optional[List[Dict[str, Any]]] = None
 
 
 class SocraticResponse(BaseResponse):
