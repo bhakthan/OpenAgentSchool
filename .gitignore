@@ -1,4 +1,25 @@
-# Logs
+# Local databases (do not commit)
+backend/data/*.db
+backend/data/*.db.*
+backend/data/chroma/
+backend/logs/
+
+# Generated exports (do not commit)
+data/export/*.csv
+
+# Python cache
+__pycache__/
+backend/**/__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/# Logs
 logs
 *.log
 npm-debug.log*

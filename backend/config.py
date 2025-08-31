@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -6,7 +7,9 @@ load_dotenv()
 class Settings:
     # Database
     DATABASE_TYPE = os.getenv("DATABASE_TYPE", "duckdb")  # "duckdb" or "cosmosdb"
-    DUCKDB_PATH = os.getenv("DUCKDB_PATH", "./data/openagentschool.db")
+    # Default DuckDB path relative to this file (backend/data/openagentschool.db) so it works regardless of CWD
+    _default_duckdb = str((Path(__file__).parent / "data" / "openagentschool.db").resolve())
+    DUCKDB_PATH = os.getenv("DUCKDB_PATH", _default_duckdb)
     
     # Azure CosmosDB (when DATABASE_TYPE is "cosmosdb")
     COSMOS_ENDPOINT = os.getenv("COSMOS_ENDPOINT")

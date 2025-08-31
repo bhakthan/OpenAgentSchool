@@ -1,7 +1,11 @@
 from typing import Dict, Any, List
 import os
 import asyncio
-from openai import AzureOpenAI
+
+try:
+	from openai import AzureOpenAI  # type: ignore
+except Exception:  # noqa: BLE001
+	AzureOpenAI = None  # type: ignore
 
 
 class AzureOpenAIProvider:
@@ -10,7 +14,7 @@ class AzureOpenAIProvider:
 		self.api_key = os.getenv("AZURE_OPENAI_API_KEY")
 		self.deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")
 		self.api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-06-01")
-		if self.endpoint and self.api_key:
+		if self.endpoint and self.api_key and AzureOpenAI is not None:
 			self.client = AzureOpenAI(
 				azure_endpoint=self.endpoint,
 				api_key=self.api_key,

@@ -1,2 +1,14 @@
-# Auto detect text files and perform LF normalization
+# Default: normalize to LF in repo, convert on checkout as needed
+* text=auto
+
+# Keep PowerShell and batch scripts with CRLF on checkout (Windows-friendly)
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+
+# Preserve binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.db binary
+*.db.* binary# Auto detect text files and perform LF normalization
 * text=auto
