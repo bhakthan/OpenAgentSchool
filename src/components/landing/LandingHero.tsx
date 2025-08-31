@@ -2,7 +2,8 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Logo } from '@/components/ui/Logo';
-import { ArrowRight, GraduationCap, Users, Lightbulb, Target, ChatCircleDots, Brain, Lightning } from '@phosphor-icons/react';
+import { ArrowRight, ChatCircleDots, Brain, Target } from '@phosphor-icons/react';
+import { LandingRightPanel } from '@/components/landing/LandingRightPanel';
 import { useNavigate } from 'react-router-dom';
 
 export const LandingHero: React.FC = () => {
@@ -168,117 +169,8 @@ export const LandingHero: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column - Image and Feature Highlights */}
-          <div className="space-y-6">
-            {/* Hero image as its own banner block */}
-            <div className="relative overflow-hidden rounded-xl border">
-              <img
-                src="/images/landing/open-agent-school-hero.png"
-                alt="Open Agent School hero"
-                className="w-full h-64 sm:h-72 md:h-80 object-cover object-top"
-              />
-              {/* fade-out at bottom to blend into page */}
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)',
-                  maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)'
-                }}
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-background/10 via-transparent to-transparent" />
-            </div>
-
-            {/* Feature cards on a translucent panel for readability */}
-            <div className="rounded-xl border bg-background/70 supports-[backdrop-filter]:bg-background/60 backdrop-blur p-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* AI as Customer Feature */}
-                <Card className="group hover:shadow-lg transition-all duration-300 border-2 theme-feature-card col-span-1 sm:col-span-2">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="theme-feature-icon p-3 rounded-lg">
-                        <Brain className="h-7 w-7" />
-                      </div>
-                      <div>
-                        <h3 className="font-bold mb-2">Learn with feedback from AI</h3>
-                        <p className="text-sm mb-3">
-                          Explain your ideas in your own words. The AI points out what’s clear and what needs work, and suggests
-                          simple next steps.
-                        </p>
-                        <div className="flex items-center gap-2 text-xs font-medium">
-                          <Lightning className="h-3 w-3" />
-                          <span>Real-time, supportive feedback</span>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="group hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--level-growth)', opacity: 0.1 }}>
-                        <GraduationCap className="h-6 w-6" style={{ color: 'var(--level-growth)' }} />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-2">Progressive Learning</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Master AI Agents with our structured ladder approach.
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="group hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--level-advanced)', opacity: 0.1 }}>
-                        <Lightbulb className="h-6 w-6" style={{ color: 'var(--level-advanced)' }} />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-2">Interactive Concepts</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Explore agent patterns through hands-on visualizations and simulations.
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="group hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--level-mastery)', opacity: 0.1 }}>
-                        <Target className="h-6 w-6" style={{ color: 'var(--level-mastery)' }} />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-2">Real-World Applications</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Apply knowledge through practical scenarios and case studies.
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="group hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--level-foundation)', opacity: 0.1 }}>
-                        <Users className="h-6 w-6" style={{ color: 'var(--level-foundation)' }} />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-2">Community Learning</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Share knowledge and learn from a growing community of practitioners.
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </div>
+          {/* Right Column - Reusable panel */}
+          <LandingRightPanel imageHeightClasses="h-56 sm:h-64 md:h-72 lg:h-80" imageObjectPosition="object-center" />
         </div>
       </div>
 

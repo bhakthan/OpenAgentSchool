@@ -255,44 +255,49 @@ export default function SystemsThinkingTree() {
       // Reassign horizontal positions using per-depth column widths to prevent overlap
       const colOffsets = computeColumnOffsets(root)
       root.each((d: any) => {
-        d.y = colOffsets[d.depth] // override depth-based y with column offsets
+        const off = colOffsets[d.depth]
+        d.y = Number.isFinite(off) ? off : (d.depth || 0) * 160 // safe fallback
       })
 
       const allLinks = root.links()
       const trunk = allLinks.filter((l: any) => l.source?.depth === 0) // root -> depth1
       const branches = allLinks.filter((l: any) => l.source?.depth !== 0)
 
-      const gen = d3
+    const gen = d3
         .linkVertical<any, any>()
         .source((l: any) => {
-          const w = 12 + measureText(l.source.data.name)
+      const w = 12 + measureText(l?.source?.data?.name ?? '')
           // parent right edge: group at (y,x), rect starts at x=-6 with width w
-          return { x: l.source.x, y: l.source.y + (w - 6) }
+      const sx = Number.isFinite(l?.source?.x) ? l.source.x : 0
+      const sy = Number.isFinite(l?.source?.y) ? l.source.y : 0
+      return { x: sx, y: sy + (w - 6) }
         })
         .target((l: any) => {
           // child left edge: group at (y,x), rect starts at x=-6
-          return { x: l.target.x, y: l.target.y - 6 }
+      const tx = Number.isFinite(l?.target?.x) ? l.target.x : 0
+      const ty = Number.isFinite(l?.target?.y) ? l.target.y : 0
+      return { x: tx, y: ty - 6 }
         })
         .x((p: any) => p.y)
         .y((p: any) => p.x) as any
 
   // Draw non-trunk links behind nodes
-      linkBack = linkBack.data(branches, (d: any) => `${d.source.data.name}->${d.target.data.name}`)
+  linkBack = linkBack.data(branches, (d: any) => `${d.source?.data?.name}->${d.target?.data?.name}`)
         .join("path")
         .attr("d", gen)
 
   // Draw trunk links above nodes so they aren’t hidden by leaf rectangles
-      linkTop = linkTop.data(trunk, (d: any) => `${d.source.data.name}->${d.target.data.name}`)
+  linkTop = linkTop.data(trunk, (d: any) => `${d.source?.data?.name}->${d.target?.data?.name}`)
         .join("path")
         .attr("d", gen)
 
       node = node
-        .data(root.descendants(), (d: any) => d.data.name as string)
+    .data(root.descendants(), (d: any) => (d?.data?.name as string) ?? Math.random().toString())
         .join(
           (enter) => {
             const gEnter = enter
               .append("g")
-              .attr("transform", (d: any) => `translate(${d.y},${d.x})`)
+      .attr("transform", (d: any) => `translate(${Number.isFinite(d?.y) ? d.y : 0},${Number.isFinite(d?.x) ? d.x : 0})`)
               .style("cursor", "pointer")
               .on("click", (_event: any, d: any) => {
                 if (d.children) {
@@ -311,7 +316,7 @@ export default function SystemsThinkingTree() {
               .attr("y", -12)
               .attr("rx", 8)
               .attr("ry", 8)
-              .attr("width", (d: any) => 12 + measureText(d.data.name))
+              .attr("width", (d: any) => 12 + measureText(d?.data?.name ?? ''))
               .attr("height", 24)
               .attr("stroke-width", 2.5)
               .attr("opacity", 1)
@@ -324,14 +329,14 @@ export default function SystemsThinkingTree() {
               .attr("font-family", "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial")
               .attr("font-size", 13)
               .attr("font-weight", (d: any) => (d.depth === 0 ? 800 : d.depth === 1 ? 700 : 500))
-              .text((d: any) => d.data.name)
+              .text((d: any) => d?.data?.name ?? '')
 
             return gEnter
           },
           (updateSel) => updateSel
-            .attr("transform", (d: any) => `translate(${d.y},${d.x})`)
-            .call((sel) => sel.select("rect").attr("width", (d: any) => 12 + measureText(d.data.name)))
-            .call((sel) => sel.select("text").text((d: any) => d.data.name)),
+            .attr("transform", (d: any) => `translate(${Number.isFinite(d?.y) ? d.y : 0},${Number.isFinite(d?.x) ? d.x : 0})`)
+            .call((sel) => sel.select("rect").attr("width", (d: any) => 12 + measureText(d?.data?.name ?? '')))
+            .call((sel) => sel.select("text").text((d: any) => d?.data?.name ?? '')),
           (exit) => exit.remove()
         )
 
@@ -346,11 +351,19 @@ export default function SystemsThinkingTree() {
       const fullHeight = height
       const midX = bounds.x + bounds.width / 2
       const midY = bounds.y + bounds.height / 2
-      if (!(isFinite(midX) && isFinite(midY))) return
-      const scale = 0.92 / Math.max(bounds.width / fullWidth, bounds.height / (fullHeight - 60))
-      const translate = [fullWidth / 2 - scale * midX, (fullHeight + 40) / 2 - scale * midY]
-      const t = d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
-      svg.transition().duration(450).call(zoom.transform as any, t)
+  if (!(isFinite(midX) && isFinite(midY))) return
+  // Prevent divide-by-zero and Infinity scales when the layout is empty/tiny
+  let denom = Math.max(bounds.width / fullWidth, bounds.height / (fullHeight - 60))
+  if (!isFinite(denom) || denom <= 0) denom = 1
+  const scaleRaw = 0.92 / denom
+  // Clamp to zoom extent to avoid huge or tiny scales
+  const [minScale, maxScale] = [0.5, 2.5]
+  const scale = Math.min(maxScale, Math.max(minScale, scaleRaw))
+  const tx = fullWidth / 2 - scale * midX
+  const ty = (fullHeight + 40) / 2 - scale * midY
+  if (!isFinite(tx) || !isFinite(ty) || !isFinite(scale)) return
+  const t = d3.zoomIdentity.translate(tx, ty).scale(scale)
+  svg.transition().duration(450).call(zoom.transform as any, t)
     }
 
     function applyThemeColors() {
