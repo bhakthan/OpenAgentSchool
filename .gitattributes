@@ -10,5 +10,4 @@
 *.jpg binary
 *.ico binary
 *.db binary
-*.db.* binary# Auto detect text files and perform LF normalization
-* text=auto
+*.db.* binary
