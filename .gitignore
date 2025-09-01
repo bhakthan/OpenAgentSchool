@@ -110,3 +110,7 @@ docs/
 
 # Local specifications (drafts not for commit)
 specs/
+
+# Local VS Code workspace (contains absolute paths; do not commit)
+*.code-workspace
+OpenAgentSchool.code-workspace
