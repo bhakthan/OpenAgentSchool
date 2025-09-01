@@ -40,6 +40,7 @@ const ReferencesSection = lazy(() => import('./components/references/ReferencesS
 const DeepDiveTaxonomyPage = lazy(() => import('./components/pages/DeepDiveTaxonomyPage'));
 const ApiDocsPage = lazy(() => import('./components/pages/ApiDocsPage'));
 const CommunitySharing = lazy(() => import('./components/community/CommunitySharing'));
+const AgentsConsole = lazy(() => import('./components/agents/AgentsConsole'));
 const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'));
 const SCLDemo = lazy(() => import('./components/SuperCriticalLearning/SCLDemo'));
 
@@ -329,6 +330,7 @@ function App() {
                   { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" /> },
                   { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" /> },
                   { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" /> },
+                  ...(import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL ? [{ to: '/agents', label: 'Agents', icon: <Plugs size={16} weight="duotone" /> }] : []),
                 ];
                 const primaryMobileTabs = allTabs.slice(0, 3);
                 const overflowMobileTabs = allTabs.slice(3);
@@ -397,6 +399,7 @@ function App() {
                   <Route path="/quiz/:quizId?" element={<QuizSection />} />
                   <Route path="/tree-view" element={<TreeVisualizationPage />} />
                   <Route path="/scl-demo" element={<SCLDemo />} />
+                  <Route path="/agents" element={<AgentsConsole />} />
                   <Route path="/references" element={<ReferencesSection />} />
                   <Route path="/deep-dive-taxonomy" element={<DeepDiveTaxonomyPage />} />
                   <Route path="/community" element={<CommunitySharing />} />
