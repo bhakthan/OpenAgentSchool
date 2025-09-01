@@ -1,7 +1,9 @@
 // Backend API service for Open Agent School
 import axios from 'axios';
+import { API_CONFIG, withApiV1 } from './config';
 
-const API_BASE_URL = 'http://localhost:8000/api/v1';
+// Resolve base URL from env-configured core API
+const API_BASE_URL = withApiV1(API_CONFIG.core);
 
 // Create axios instance with default config
 const api = axios.create({

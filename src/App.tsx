@@ -38,6 +38,7 @@ const StudyMode = lazy(() => import('./components/study-mode/StudyMode'));
 const TreeVisualizationPage = lazy(() => import('./components/pages/TreeVisualizationPage'));
 const ReferencesSection = lazy(() => import('./components/references/ReferencesSection'));
 const DeepDiveTaxonomyPage = lazy(() => import('./components/pages/DeepDiveTaxonomyPage'));
+const ApiDocsPage = lazy(() => import('./components/pages/ApiDocsPage'));
 const CommunitySharing = lazy(() => import('./components/community/CommunitySharing'));
 const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'));
 const SCLDemo = lazy(() => import('./components/SuperCriticalLearning/SCLDemo'));
@@ -326,6 +327,7 @@ function App() {
                   { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" /> },
                   { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} /> },
                   { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" /> },
+                  { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" /> },
                   { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" /> },
                 ];
                 const primaryMobileTabs = allTabs.slice(0, 3);
@@ -398,6 +400,7 @@ function App() {
                   <Route path="/references" element={<ReferencesSection />} />
                   <Route path="/deep-dive-taxonomy" element={<DeepDiveTaxonomyPage />} />
                   <Route path="/community" element={<CommunitySharing />} />
+                  <Route path="/api-docs" element={<ApiDocsPage />} />
                   {/* Fallback route to redirect to home page */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>

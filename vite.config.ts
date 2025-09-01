@@ -90,7 +90,8 @@ export default defineConfig({
       // This is used in local development and in the live preview.
       // Deployed sparks route through ACA for /_spark.
       "^/_spark/.*": {
-        target: "http://localhost:8000",
+        // Allow overriding proxy target to hit a backend running from a separate repo
+        target: process.env.VITE_CORE_API_URL || "http://localhost:8000",
         changeOrigin: true,
       }
     },

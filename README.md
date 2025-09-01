@@ -8,6 +8,8 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 
 ✨ **Now featuring 27 comprehensive agent patterns including 15 revolutionary Educational Agent Patterns** - from foundational concepts to advanced GPT-5 era educational methodologies with complete Study Mode integration.
 
+> Architecture split note: If you deploy backends separately (or in another repo), see docs/CONTRACTS_AND_CONFIG.md for the minimal frontend ↔ backend contracts and environment settings. The SPA keeps working locally with defaults; set VITE_* variables later to point at remote services.
+
 ## ⚡ Quick start: Study Mode API (dev)
 
 - Start backend

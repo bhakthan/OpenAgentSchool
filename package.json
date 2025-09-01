@@ -10,7 +10,7 @@
     "build:analyze": "npm run build && npx vite-bundle-analyzer dist",
     "lint": "eslint .",
     "optimize": "vite optimize",
-  "preview": "vite preview",
+    "preview": "vite preview",
   "verify-routing": "node scripts/verify-routing.js",
   "export:questions": "node ./scripts/export-questions.mjs"
   },
