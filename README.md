@@ -3,6 +3,7 @@
 [![Static Web Apps CI/CD](https://github.com/bhakthan/OpenAgentSchool/actions/workflows/azure-static-web-apps-delightful-flower-04ec3a31e.yml/badge.svg?branch=main)](https://github.com/bhakthan/OpenAgentSchool/actions/workflows/azure-static-web-apps-delightful-flower-04ec3a31e.yml)
 [![Deploy Verification](https://github.com/bhakthan/OpenAgentSchool/actions/workflows/deploy-verification.yml/badge.svg?branch=main)](https://github.com/bhakthan/OpenAgentSchool/actions/workflows/deploy-verification.yml)
 [![Azure CLI Deploy](https://github.com/bhakthan/OpenAgentSchool/actions/workflows/azure-cli-deploy.yml/badge.svg?branch=main)](https://github.com/bhakthan/OpenAgentSchool/actions/workflows/azure-cli-deploy.yml)
+[![Latest release](https://img.shields.io/github/v/release/bhakthan/OpenAgentSchool?include_prereleases&sort=semver)](https://github.com/bhakthan/OpenAgentSchool/releases)
 [![License](https://img.shields.io/github/license/bhakthan/OpenAgentSchool.svg)](LICENSE)
 
 **Where AI Agent Concepts Come to Life**
