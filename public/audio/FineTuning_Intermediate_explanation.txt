@@ -1,0 +1,5 @@
+Intermediate fine tuning view.
+Stage one S F T locks in formatting, tone, safety disclaimers, and reduces prompt verbosity. Key success signals: stable validation loss, improved style conformity, lower hallucination rate.
+Stage two D P O sharpens preferences. You curate prompt plus chosen and rejected responses. Optimization directly increases the log probability gap in favour of chosen samples while controlling K L divergence to a reference. Watch win rate, K L drift, and regression on a held out supervised slice.
+Stage three R F T introduces a scalar reward: often a mixture of helpfulness, correctness tests, safety filters, and maybe latency penalties. Use policy optimization like PPO with a K L penalty to prevent collapse. Monitor reward trend, K L band, and catastrophic forgetting (rise in supervised loss). Exit criteria: marginal reward gain falls below operational cost or quality regresses on business benchmarks.
+Rule of thumb: Do not escalate past S F T unless remaining error modes are preference based. Do not escalate past D P O unless you need composite or long-horizon signals.

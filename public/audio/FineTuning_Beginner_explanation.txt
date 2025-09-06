@@ -1,0 +1,4 @@
+Welcome to fine tuning basics. Think of three layers of teaching a model.
+First, Supervised Fine Tuning or S F T: you simply show input and the ideal output. The model copies style, format, and safe behaviours. It is imitation.
+Second, Direct Preference Optimization or D P O: for the same input you give two outputs, a good one and a bad one. The model is pushed to prefer the good one. It learns a delta: more like this, less like that. No separate reward model needed.
+Third, Reinforcement Fine Tuning or R F T: now we introduce a reward signal — maybe a learned reward model or programmatic checks. The model explores, gets scored, and adjusts while staying near a reference. Here we often encourage reasoning steps like chain of thought. Summarize: S F T imitates; D P O differentiates; R F T reasons and optimizes with feedback.

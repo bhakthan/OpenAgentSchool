@@ -11,8 +11,8 @@
     "lint": "eslint .",
     "optimize": "vite optimize",
     "preview": "vite preview",
-  "verify-routing": "node scripts/verify-routing.js",
-  "export:questions": "node ./scripts/export-questions.mjs"
+    "verify-routing": "node scripts/verify-routing.js",
+    "export:questions": "node ./scripts/export-questions.mjs"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -66,7 +66,7 @@
     "framer-motion": "^12.23.0",
     "input-otp": "^1.4.2",
     "jsonrepair": "^3.13.0",
-    "jspdf": "^3.0.1",
+    "jspdf": "^3.0.2",
     "lucide-react": "^0.484.0",
     "marked": "^15.0.7",
     "next-themes": "^0.4.6",

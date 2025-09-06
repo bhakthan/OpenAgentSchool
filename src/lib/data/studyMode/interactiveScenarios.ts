@@ -3572,6 +3572,135 @@ export const scenarioLibrary = {
   'modern-tool-use': modernToolUseScenarios,
   'computer-use': computerUseScenarios,
   'deep-agents': deepAgentsScenarios,
+  // Fine-Tuning core concept scenarios (micro staged escalation)
+  'fine-tuning': [
+    {
+      id: 'fine-tuning-scenario-b1',
+      type: 'scenario',
+      conceptId: 'fine-tuning',
+      title: 'Deciding If SFT Is Enough',
+      level: 'beginner',
+      scenario: {
+        id: 'sft-scope-eval',
+        title: 'Baseline Post-SFT Assessment',
+        description: 'You have completed an initial SFT pass on 12k curated instruction pairs. Should you proceed to DPO now?',
+        context: 'Model shows structurally correct answers but tone is neutral and lacking in domain voice.',
+        stakeholders: ['ML Engineer', 'Product Owner', 'Safety Reviewer'],
+        challenges: [
+          {
+            id: 'escalation-decision',
+            title: 'Escalation Criteria',
+            description: 'Choose the strongest reason to stay longer in SFT vs move to DPO.',
+            question: 'What is the best next step?',
+            type: 'multiple-choice',
+            options: [
+              'Start DPO immediately – preference gaps exist',
+              'Collect more diverse supervised pairs to reduce style variance',
+              'Jump to RLHF for maximum alignment',
+              'Abandon fine-tuning and use prompting only'
+            ],
+            correctAnswer: 1,
+            feedback: 'Extending SFT to reduce variance before pairwise preference modeling often improves downstream stability.'
+          }
+        ],
+        outcomes: [
+          { id: 'good', condition: 'Chose additional SFT data collection', result: 'More stable DPO foundation', explanation: 'Variance reduction simplifies preference learning.' }
+        ],
+        conceptId: 'fine-tuning',
+        difficulty: 'beginner',
+        estimatedTime: '8 minutes',
+        learningOutcomes: ['Understand SFT exit criteria', 'Differentiate structure vs preference gaps']
+      },
+      explanation: 'Reinforces disciplined staging before escalation.',
+      relatedConcepts: ['sft', 'data-curation'],
+      timeEstimate: 8,
+      successCriteria: ['Chooses data variance mitigation']
+    },
+    {
+      id: 'fine-tuning-scenario-i1',
+      type: 'scenario',
+      conceptId: 'fine-tuning',
+      title: 'Introducing DPO for Stylistic Preference',
+      level: 'intermediate',
+      scenario: {
+        id: 'dpo-intro-pipeline',
+        title: 'Pairwise Dataset Strategy',
+        description: 'You plan a DPO stage. You have 5k SFT prompts. Need preference pairs for warmth + concision without hallucination regression.',
+        context: 'Current model verbose; hallucination benchmarks stable.',
+        stakeholders: ['ML Engineer', 'Evaluation Lead'],
+        challenges: [
+          {
+            id: 'pair-source',
+            title: 'Pair Generation Strategy',
+            description: 'Select best primary source of preferred vs rejected outputs.',
+            question: 'Most robust initial pair source?',
+            type: 'multiple-choice',
+            options: [
+              'Synthetically mutate model outputs for negatives',
+              'Use crowd workers to write both sides from scratch',
+              'Sample multiple model variants + human rank',
+              'Only reuse SFT examples'
+            ],
+            correctAnswer: 2,
+            feedback: 'Diversity from multiple variants with human ranking reduces bias & overfitting compared to synthetic mutation alone.'
+          }
+        ],
+        outcomes: [
+          { id: 'good', condition: 'Chose variant sampling + ranking', result: 'Higher preference signal quality', explanation: 'Captures natural model diversity for ranking.' }
+        ],
+        conceptId: 'fine-tuning',
+        difficulty: 'intermediate',
+        estimatedTime: '10 minutes',
+        learningOutcomes: ['Design preference pair strategy', 'Avoid synthetic collapse']
+      },
+      explanation: 'Highlights robust DPO data assembly over synthetic shortcuts.',
+      relatedConcepts: ['dpo', 'data-quality', 'ranking'],
+      timeEstimate: 10,
+      successCriteria: ['Chooses model variant ranking path']
+    },
+    {
+      id: 'fine-tuning-scenario-a1',
+      type: 'scenario',
+      conceptId: 'fine-tuning',
+      title: 'Diagnosing Reward Hacking',
+      level: 'advanced',
+      scenario: {
+        id: 'rft-reward-hacking',
+        title: 'KL Drift vs Reward Gain',
+        description: 'During RFT training reward steadily increases while style regression set degrades and KL penalty falls below target.',
+        context: 'Recent reward model update broadened positive classification of flowery padding.',
+        stakeholders: ['ML Engineer', 'Safety Reviewer', 'Deployment Owner'],
+        challenges: [
+          {
+            id: 'primary-hypothesis',
+            title: 'Root Cause Hypothesis',
+            description: 'Pick the most plausible explanation.',
+            question: 'Why is quality regressing?',
+            type: 'multiple-choice',
+            options: [
+              'Overfitting to SFT base formatting',
+              'Reward model drift rewarding verbosity',
+              'KL penalty too high causing collapse',
+              'Benchmark harness bug'
+            ],
+            correctAnswer: 1,
+            feedback: 'Reward model drift rewarding verbose padding commonly drives deceptive reward increases with style degradation.'
+          }
+        ],
+        outcomes: [
+          { id: 'good', condition: 'Chose reward drift hypothesis', result: 'Implements reward audit + recalibration', explanation: 'Focuses mitigation on reward misspecification.' }
+        ],
+        conceptId: 'fine-tuning',
+        difficulty: 'advanced',
+        estimatedTime: '12 minutes',
+        learningOutcomes: ['Detect reward hacking', 'Correlate KL & benchmark shifts']
+      },
+      explanation: 'Teaches structured diagnosis of conflicting reward vs benchmark signals.',
+      relatedConcepts: ['reward-hacking', 'kl-divergence', 'benchmark-governance'],
+      timeEstimate: 12,
+      successCriteria: ['Identifies reward drift']
+    }
+  ],
   // Learner patterns
   'socratic-coach': socraticCoachScenarios,
   'concept-to-project': conceptToProjectScenarios,

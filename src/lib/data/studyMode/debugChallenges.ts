@@ -3774,6 +3774,90 @@ export const debugChallengeLibrary = {
   'agentic-rag': debugChallenges.filter(c => c.conceptId === 'agentic-rag'),
   'modern-tool-use': debugChallenges.filter(c => c.conceptId === 'modern-tool-use'),
   'deep-agents': debugChallenges.filter(c => c.conceptId === 'deep-agents'),
+  // Fine-Tuning core concept debug challenges
+  'fine-tuning': [
+    {
+      id: 'fine-tuning-debug-b1',
+      type: 'debug',
+      conceptId: 'fine-tuning',
+      title: 'Silent Degradation After SFT Epoch 2',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'sft-overfit-style',
+        title: 'Overfitting Emerging Mid-Training',
+        description: 'Validation perplexity improves slightly but style diversity metrics sharply narrow after epoch 2.',
+        problemDescription: 'Logs show flattening accuracy gains but reduction in lexical variety and answer length variance.',
+        brokenCode: '// pseudo config snippet showing high learning rate and no early stopping\ntraining_args = { lr: 5e-5, epochs: 5, eval_steps: 200, save_total_limit: 1 }',
+        conversationLogs: [],
+        agentConfigs: [],
+        expectedBehavior: 'Maintain diversity while reducing loss.',
+        commonIssues: [
+          { issue: 'Learning rate too high', symptoms: ['Sharp early loss drop', 'Reduced diversity'], diagnosis: 'Aggressive LR collapsing representation space', fix: 'Lower LR or use warmup decay' },
+          { issue: 'No early stopping on style metrics', symptoms: ['Non-loss metric regressions ignored'], diagnosis: 'Governance missing multi-metric stop', fix: 'Add composite early stop condition' }
+        ]
+      },
+      expectedInsights: ['Non-loss signals matter', 'Overfitting appears in diversity metrics first'],
+      hints: ['Look beyond perplexity', 'Track lexical entropy'],
+      explanation: 'Encourages multi-metric monitoring beyond pure loss.',
+      relatedConcepts: ['sft', 'early-stopping', 'diversity-metrics'],
+      timeEstimate: 9,
+      successCriteria: ['Identifies missing early stop', 'Proposes LR reduction']
+    },
+    {
+      id: 'fine-tuning-debug-i1',
+      type: 'debug',
+      conceptId: 'fine-tuning',
+      title: 'DPO Instability – Preference Collapse',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'dpo-collapse',
+        title: 'Reward Proxy Saturation',
+        description: 'DPO training yields rapidly increasing pair accuracy but downstream factual QA benchmark drops 7%.',
+        problemDescription: 'Training log: pairwise loss decreasing; hallucination guard benchmark regression.',
+        brokenCode: '// dpo config missing negative sampling diversity\nneg_sampling = "same_seed_variant" // leads to trivial pairs',
+        conversationLogs: [],
+        agentConfigs: [],
+        expectedBehavior: 'Improve preference alignment without factual regression.',
+        commonIssues: [
+          { issue: 'Low diversity negative pairs', symptoms: ['Trivial preference wins'], diagnosis: 'Model overfits ranking artifacts', fix: 'Increase negative diversity (different seeds/models)' },
+          { issue: 'No factual holdout evaluation gating', symptoms: ['Undetected regression until late'], diagnosis: 'Governance gap', fix: 'Add factual regression gate to pipeline' }
+        ]
+      },
+      expectedInsights: ['Preference optimization can hide semantic regression', 'Negative diversity crucial'],
+      hints: ['Inspect negative generation method', 'Check evaluation mix'],
+      explanation: 'Shows coupling between preference data quality and generalization.',
+      relatedConcepts: ['dpo', 'data-diversity', 'governance'],
+      timeEstimate: 11,
+      successCriteria: ['Calls out low diversity negatives', 'Adds regression gate']
+    },
+    {
+      id: 'fine-tuning-debug-a1',
+      type: 'debug',
+      conceptId: 'fine-tuning',
+      title: 'RFT Reward Hacking Drift',
+      level: 'advanced',
+      debugChallenge: {
+        id: 'rft-reward-hack',
+        title: 'Reward Up – Quality Down',
+        description: 'Policy reward climbs steadily while KL divergence shrinks below lower bound and style regressions mount.',
+        problemDescription: 'KL target 0.6 actual 0.32; reward +18%; style benchmark -12%.',
+        brokenCode: '// pseudo: missing adaptive KL penalty\nkl_penalty = constant(0.1) // not scaling with divergence',
+        conversationLogs: [],
+        agentConfigs: [],
+        expectedBehavior: 'Reward improvement constrained by semantic alignment.',
+        commonIssues: [
+          { issue: 'Static KL penalty', symptoms: ['Uncontrolled policy drift'], diagnosis: 'Insufficient anchoring', fix: 'Implement adaptive KL schedule' },
+          { issue: 'Reward misspecification', symptoms: ['Verbose padded outputs rewarded'], diagnosis: 'Reward model drift', fix: 'Recalibrate reward with penalization of verbosity' }
+        ]
+      },
+      expectedInsights: ['Adaptive constraints needed', 'Reward audits critical'],
+      hints: ['Check KL scheduling', 'Audit reward model recent changes'],
+      explanation: 'Teaches diagnosing divergence between reward and holistic quality metrics.',
+      relatedConcepts: ['rft', 'kl-control', 'reward-audit'],
+      timeEstimate: 13,
+      successCriteria: ['Proposes adaptive KL', 'Mentions reward recalibration']
+    }
+  ],
   // Learner patterns
   'socratic-coach': learnerPatternDebugChallenges.filter(c => c.conceptId === 'socratic-coach'),
   'concept-to-project': learnerPatternDebugChallenges.filter(c => c.conceptId === 'concept-to-project'),

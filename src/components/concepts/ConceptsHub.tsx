@@ -18,6 +18,7 @@ import AgentEthicsConcept from "./AgentEthicsConcept"
 import AgentLearningConcept from "./AgentLearningConcept"
 import AgentIntegrationConcept from "./AgentIntegrationConcept"
 import AgentEvaluationConcept from "./AgentEvaluationConcept"
+import FineTuningConcept from "./FineTuningConcept"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
 import AzureAISafetyAndGovernance from "./AzureAISafetyAndGovernance"
@@ -296,6 +297,18 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '40-50 min',
     prerequisites: ['mcp-a2a-integration'],
     component: AgentIntegrationConcept
+  }
+  ,
+  {
+    id: 'fine-tuning',
+    title: 'Fine-Tuning Methods (SFT, DPO, RFT)',
+    description: 'Progressive alignment: supervised fine-tuning, direct preference optimization, and reinforcement fine-tuning (RLHF)',
+    level: 'advanced',
+    icon: <Brain className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-indigo-900/20 dark:text-indigo-300',
+    estimatedTime: '45-55 min',
+    prerequisites: ['agent-learning'],
+  component: FineTuningConcept
   }
 ]
 

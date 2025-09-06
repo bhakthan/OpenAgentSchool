@@ -1,0 +1,8 @@
+Advanced fine tuning walkthrough.
+Pipeline maturity hinges on: data curation quality, isolation of evaluation slices, adaptive regularization, and rollback safety.
+Supervised Fine Tuning: treat as schema consolidation. Enforce deterministic preprocessing, aggressive dedupe (semantic plus exact), and train with conservative learning rate schedule. Maintain a style regression set: any post D P O or R F T step must not degrade its loss.
+Direct Preference Optimization: engineer high information pairs. Avoid strawman negatives. Beta tuning trades off sharpness versus stability. Actively monitor preference win rate, K L divergence to the S F T reference, and calibration of any automated judge. Implement continuous pair refresh to prevent overfitting.
+Reinforcement Fine Tuning: design a decomposed reward vector: e.g., accuracy, reasoning depth proxy, safety, format adherence. Log raw components, their weighted sum, and moving averages. Use adaptive K L targeting: increase penalty when divergence spikes or style regression loss rises. Deploy automated rollback triggers tied to benchmark regression or safety drift.
+Governance: version manifests linking base model hash, S F T dataset snapshot, D P O pair manifest, reward model commit, and hyperparameters. Shadow deploy R F T candidates behind traffic sampling and require statistically significant lift on primary metrics before promotion.
+Exit criteria: additional policy updates produce diminishing composite reward gains AND incremental compute cost is no longer justified by business impact.
+Summary: S F T stabilizes form, D P O sculpts preference gradients, R F T performs constrained exploration guided by explicit reward decomposition.

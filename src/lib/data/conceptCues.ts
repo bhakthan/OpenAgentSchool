@@ -94,6 +94,11 @@ export const conceptCues: Record<string, ConceptCue> = {
     id: 'agent-evaluation',
     cue: "Measurement drives improvement - you can't optimize what you can't quantify effectively",
     criticalThinkingQuestion: "How would you design a comprehensive evaluation framework for AI agents that measures not just performance metrics but also ethical behavior, user satisfaction, and long-term value creation?"
+  },
+  'fine-tuning': {
+    id: 'fine-tuning',
+    cue: 'Alignment is iterative - each stage should justify its added complexity through measurable gain',
+    criticalThinkingQuestion: 'How would you decide whether to stop at SFT, add DPO, or proceed to reinforcement fine-tuning for a domain assistant while balancing alignment improvement, regression risk, and operational cost?'
   }
 };
 

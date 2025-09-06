@@ -579,6 +579,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'AgentPersonalityShowcase': 'AgentPersonalityShowcase',
         'AgentTesting': 'AgentTesting',
         'AISystemsThinking': 'AISystemsThinking',
+  'FineTuningConcept': 'FineTuningConcept',
         'AutoGenMultiAgent': 'AutoGenMultiAgent',
         'AutonomousWorkflow': 'AutonomousWorkflow',
         'AzureAISafetyAndGovernance': 'AzureAISafetyAndGovernance',

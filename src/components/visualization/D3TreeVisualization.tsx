@@ -1,4 +1,5 @@
-import React, { useRef, useEffect, useMemo, useState } from 'react';
+import React, { useRef, useEffect, useMemo, useState, useCallback } from 'react';
+import { jsPDF } from 'jspdf';
 import * as d3 from 'd3';
 
 // Types for our tree structure
@@ -27,6 +28,10 @@ export default function D3TreeVisualization({
   className = "" 
 }: D3TreeVisualizationProps) {
   const svgRef = useRef<SVGSVGElement>(null);
+  const rootGroupRef = useRef<SVGGElement | null>(null);
+  const dimsRef = useRef<{width:number; height:number; margin:{top:number;right:number;bottom:number;left:number}}>({width:1000,height:1100,margin:{top:60,right:120,bottom:60,left:120}});
+  const [transparentBg, setTransparentBg] = useState(false);
+  const [fitToContent, setFitToContent] = useState(true);
   
   // Simple state for collapse tracking
   const [collapsedNodes, setCollapsedNodes] = useState<Set<string>>(new Set());
@@ -44,7 +49,7 @@ export default function D3TreeVisualization({
   const treeData = useMemo(() => {
     return {
       id: 'root',
-      name: 'Open Agent School',
+  name: 'openagentschool.org',
       type: 'root' as const,
       children: [
         {
@@ -57,7 +62,8 @@ export default function D3TreeVisualization({
             { id: 'prompt-optimization-patterns', name: 'Prompt Optimization Patterns', type: 'concept' as const, novel: true },
             { id: 'agent-instruction-design', name: 'Agent Instruction Design', type: 'concept' as const, novel: true },
             { id: 'agentic-workflow-control', name: 'Agentic Workflow Control', type: 'concept' as const, novel: true },
-            { id: 'agent-evaluation-methodologies', name: 'Agent Evaluation Methodologies', type: 'concept' as const, novel: true }
+            { id: 'agent-evaluation-methodologies', name: 'Agent Evaluation Methodologies', type: 'concept' as const, novel: true },
+            // Fine-Tuning moved to Advanced Integration (Tier 3)
           ]
         },
         {
@@ -91,7 +97,8 @@ export default function D3TreeVisualization({
           children: collapsedNodes.has('implementation') ? [] : [
             { id: 'agent-communication-protocol', name: 'Agent Communication Protocol', type: 'concept' as const },
             { id: 'mcp-a2a-integration', name: 'MCP × A2A Integration', type: 'concept' as const },
-            { id: 'data-visualization', name: 'Data Visualization', type: 'concept' as const }
+            { id: 'data-visualization', name: 'Data Visualization', type: 'concept' as const },
+            { id: 'fine-tuning', name: 'Fine-Tuning Methods (SFT, DPO, RFT)', type: 'concept' as const, novel: true }
           ]
         },
         {
@@ -205,7 +212,7 @@ export default function D3TreeVisualization({
   // Helper functions for styling with fallback colors for dark/light mode
   const getNodeFill = (node: TreeNode): string => {
     const colors = {
-      root: '#3b82f6',      // Blue
+      root: '#3b82f600',    // Transparent for root (remove blue background behind colorful logo)
       category: '#8b5cf6',  // Purple  
       concept: '#06b6d4',   // Cyan
       pattern: '#f59e0b',   // Amber
@@ -235,7 +242,7 @@ export default function D3TreeVisualization({
   };
 
   const getNodeRadius = (node: TreeNode): number => {
-    if (node.type === 'root') return 12;
+    if (node.type === 'root') return 18; // larger root to host logo
     if (node.type === 'category') return 8;
     
     // Slightly larger radius for educational patterns to make them more prominent
@@ -280,9 +287,10 @@ export default function D3TreeVisualization({
     svg.selectAll("*").remove(); // Clear previous render
 
     // Set up dimensions - optimized for three-tier edge lengths while staying within screen bounds
-    const width = 1200;  // Keep original width for better screen compatibility
-    const height = 1100; // Keep increased height for the new branch
-    const margin = { top: 60, right: 120, bottom: 60, left: 150 }; // Balanced margins
+  const width = 1000;  // Slightly reduced width to improve centering
+  const height = 1100; // Keep increased height for the new branch
+  const margin = { top: 60, right: 120, bottom: 60, left: 120 }; // Reduced left margin for balance
+    dimsRef.current = { width, height, margin };
 
     // Create tree layout (horizontal) with custom separation for tighter spacing
     const treeLayout = d3.tree<TreeNode>()
@@ -305,7 +313,7 @@ export default function D3TreeVisualization({
     // And create three different edge lengths for better visual hierarchy
   treeData_positioned.descendants().forEach((node, index) => {
       if (node.depth === 1) { // Category nodes (first level after root)
-        node.y = node.y * 0.4; // Reduce horizontal distance by 60%
+        node.y = node.y * 0.55; // Slightly more horizontal distance to clarify root -> first level flow
       } else if (node.depth === 2) { // Leaf nodes (concepts, patterns, etc.)
         // Create three different edge lengths based on parent's position for visual variety
         const parentIndex = node.parent?.data.id === 'tier-0' ? 0 :
@@ -341,16 +349,17 @@ export default function D3TreeVisualization({
         node.y = node.y * edgeMultiplier;
       }
   // Global left shift to create more space on the right for detail cards (avoid horizontal scrollbar)
-  const leftShift = 100; // px
+  const leftShift = 40; // smaller shift for more central layout
   node.y = Math.max(0, node.y - leftShift);
     });
 
     // Create main group
-    const g = svg
+  const g = svg
       .attr('width', width)
       .attr('height', height)
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
+  rootGroupRef.current = g.node() as SVGGElement;
 
     // Create links (paths between nodes)
     const link = g.selectAll('.link')
@@ -384,18 +393,31 @@ export default function D3TreeVisualization({
     // Add circles for nodes
     node.append('circle')
       .attr('r', d => getNodeRadius(d.data))
-      .style('fill', d => getNodeFill(d.data))
-      .style('stroke', d => getNodeStroke(d.data))
-      .style('stroke-width', d => d.data.novel ? 3 : 2);
+      .style('fill', d => d.data.type === 'root' ? 'transparent' : getNodeFill(d.data))
+      .style('stroke', d => d.data.type === 'root' ? 'none' : getNodeStroke(d.data))
+      .style('stroke-width', d => d.data.type === 'root' ? 0 : (d.data.novel ? 3 : 2));
+
+    // Color ladder logo (uses public/favicon.svg) for root
+    const rootNode = node.filter(d => d.data.id === 'root');
+    rootNode.append('image')
+      .attr('class','root-ladder-img')
+      .attr('href','/favicon.svg')
+      .attr('width', d => getNodeRadius(d.data) * 2.2)
+      .attr('height', d => getNodeRadius(d.data) * 2.2)
+      .attr('x', d => -getNodeRadius(d.data) * 1.1)
+      .attr('y', d => -getNodeRadius(d.data) * 1.1)
+      .attr('preserveAspectRatio','xMidYMid meet')
+      .style('pointer-events','none');
 
     // Add text labels
     node.append('text')
-      .attr('dy', '0.35em')
-      .attr('x', d => d.children ? -15 : 15)
-      .style('text-anchor', d => d.children ? 'end' : 'start')
+      .attr('dy', d => d.data.id === 'root' ? undefined : '0.35em')
+      .attr('x', d => d.data.id === 'root' ? 0 : (d.children ? -15 : 15))
+      .attr('y', d => d.data.id === 'root' ? -(getNodeRadius(d.data) + 12) : 0)
+      .style('text-anchor', d => d.data.id === 'root' ? 'middle' : (d.children ? 'end' : 'start'))
       .style('fill', getTextColor())
-      .style('font-size', d => d.data.type === 'root' ? '16px' : d.data.type === 'category' ? '14px' : '12px')
-      .style('font-weight', d => d.data.type === 'root' ? 'bold' : d.data.type === 'category' ? '600' : 'normal')
+      .style('font-size', d => d.data.type === 'root' ? '14px' : d.data.type === 'category' ? '14px' : '12px')
+      .style('font-weight', d => d.data.type === 'root' ? '600' : d.data.type === 'category' ? '600' : 'normal')
       .text(d => d.data.name);
 
     // Novel indicators removed - no more red stars
@@ -413,18 +435,189 @@ export default function D3TreeVisualization({
 
   }, [treeData, collapsedNodes, onNodeSelect, selectedNode]);
 
+  // Export SVG
+  const computeContentBox = () => {
+    if (!rootGroupRef.current) return null;
+    try { return rootGroupRef.current.getBBox(); } catch { return null; }
+  };
+
+  const handleExportSVG = useCallback(() => {
+    if (!svgRef.current || !rootGroupRef.current) return;
+    const { width, height } = dimsRef.current;
+    const orig = svgRef.current;
+    const clone = orig.cloneNode(true) as SVGSVGElement;
+    let vbX = 0, vbY = 0, vbW = width, vbH = height;
+    if (fitToContent) {
+      const bbox = computeContentBox();
+      if (bbox && bbox.width && bbox.height) {
+        const pad = 24;
+        vbX = bbox.x - pad;
+        vbY = bbox.y - pad;
+        vbW = bbox.width + pad * 2;
+        vbH = bbox.height + pad * 2;
+      }
+    }
+    clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    clone.setAttribute('viewBox', `${vbX} ${vbY} ${vbW} ${vbH}`);
+    clone.setAttribute('width', String(vbW));
+    clone.setAttribute('height', String(vbH));
+    if (transparentBg) {
+      clone.style.background = 'none';
+    } else {
+      clone.style.background = isDarkMode() ? '#1f2937' : '#ffffff';
+    }
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif}`;
+    clone.insertBefore(styleEl, clone.firstChild);
+    const serializer = new XMLSerializer();
+    const svgStr = serializer.serializeToString(clone);
+    const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `open-agent-learning-tree.svg`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(()=> URL.revokeObjectURL(url), 1000);
+  }, []);
+
+  // Export PNG
+  const handleExportPNG = useCallback((scale: number = 2) => {
+    if (!svgRef.current) return;
+    const { width, height } = dimsRef.current;
+    const serializer = new XMLSerializer();
+    const clone = svgRef.current.cloneNode(true) as SVGSVGElement;
+    let vbX = 0, vbY = 0, vbW = width, vbH = height;
+    if (fitToContent) {
+      const bbox = computeContentBox();
+      if (bbox && bbox.width && bbox.height) {
+        const pad = 24;
+        vbX = bbox.x - pad;
+        vbY = bbox.y - pad;
+        vbW = bbox.width + pad * 2;
+        vbH = bbox.height + pad * 2;
+      }
+    }
+    clone.setAttribute('viewBox', `${vbX} ${vbY} ${vbW} ${vbH}`);
+    clone.setAttribute('width', String(vbW));
+    clone.setAttribute('height', String(vbH));
+    clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    const svgStr = serializer.serializeToString(clone);
+    const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = vbW * scale;
+      canvas.height = vbH * scale;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        if (!transparentBg) {
+          ctx.fillStyle = isDarkMode() ? '#1f2937' : '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(blob => {
+          if (blob) {
+            const pngUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = pngUrl;
+            a.download = 'open-agent-learning-tree.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(()=> URL.revokeObjectURL(pngUrl), 1000);
+          }
+        }, 'image/png');
+      }
+      URL.revokeObjectURL(url);
+    };
+    img.onerror = () => URL.revokeObjectURL(url);
+    img.src = url;
+  }, []);
+
+  const handleExportPDF = useCallback(() => {
+    if (!svgRef.current) return;
+    const { width, height } = dimsRef.current;
+    const serializer = new XMLSerializer();
+    const clone = svgRef.current.cloneNode(true) as SVGSVGElement;
+    let vbX = 0, vbY = 0, vbW = width, vbH = height;
+    if (fitToContent) {
+      const bbox = computeContentBox();
+      if (bbox && bbox.width && bbox.height) {
+        const pad = 24;
+        vbX = bbox.x - pad; vbY = bbox.y - pad; vbW = bbox.width + pad * 2; vbH = bbox.height + pad * 2;
+      }
+    }
+    clone.setAttribute('viewBox', `${vbX} ${vbY} ${vbW} ${vbH}`);
+    clone.setAttribute('width', String(vbW));
+    clone.setAttribute('height', String(vbH));
+    clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    const svgStr = serializer.serializeToString(clone);
+    const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+    const img = new Image();
+    img.onload = () => {
+      // Choose orientation based on aspect ratio
+      const orientation = vbW >= vbH ? 'l' : 'p';
+      // Convert px to pt (approx 1 px = 0.75 pt) or scale to fit A4
+      const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+      const scale = Math.min(pageW / vbW, pageH / vbH);
+      const drawW = vbW * scale;
+      const drawH = vbH * scale;
+      const x = (pageW - drawW) / 2;
+      const y = (pageH - drawH) / 2;
+      // Offscreen canvas for proper background/alpha
+      const canvas = document.createElement('canvas');
+      canvas.width = vbW; canvas.height = vbH;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        if (!transparentBg) {
+          ctx.fillStyle = isDarkMode() ? '#1f2937' : '#ffffff';
+          ctx.fillRect(0,0,canvas.width,canvas.height);
+        }
+        ctx.drawImage(img, 0, 0, vbW, vbH);
+        const dataUrl = canvas.toDataURL('image/png');
+        pdf.addImage(dataUrl, 'PNG', x, y, drawW, drawH);
+        pdf.save('open-agent-learning-tree.pdf');
+      }
+      URL.revokeObjectURL(url);
+    };
+    img.onerror = () => URL.revokeObjectURL(url);
+    img.src = url;
+  }, [fitToContent, transparentBg]);
+
   return (
     <div className={`w-full h-full ${className}`} style={{ 
-      overflowX: 'hidden',
+      overflowX: 'auto',
       overflowY: 'auto',
       border: '1px solid hsl(var(--border))',
-      borderRadius: '8px',
-      padding: '16px',
+      borderRadius: '12px',
+      padding: '20px 24px',
       height: 'fit-content',
       minHeight: '600px',
-      maxWidth: '100%' // Ensure container doesn't exceed parent width
+      maxWidth: '100%',
+      margin: '0 auto',
+      background: isDarkMode() ? 'rgba(31,41,55,0.55)' : 'linear-gradient(135deg,#ffffff 0%,#f8fafc 75%)'
     }}>
-      <svg ref={svgRef} style={{ width: '100%', height: '1100px', maxWidth: '1200px' }} />
+      <div className="no-print flex flex-wrap gap-2 mb-4 justify-end text-[11px]">
+        <button onClick={handleExportSVG} className="px-3 py-1.5 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm">SVG</button>
+        <button onClick={() => handleExportPNG(2)} className="px-3 py-1.5 rounded-md bg-emerald-600 text-white hover:bg-emerald-700 transition-colors shadow-sm">PNG 2x</button>
+        <button onClick={() => handleExportPNG(3)} className="px-3 py-1.5 rounded-md bg-emerald-700 text-white hover:bg-emerald-800 transition-colors shadow-sm">PNG 3x</button>
+        <button onClick={handleExportPDF} className="px-3 py-1.5 rounded-md bg-rose-600 text-white hover:bg-rose-700 transition-colors shadow-sm">PDF</button>
+        <label className="flex items-center gap-1 px-2 py-1.5 rounded border text-gray-700 dark:text-gray-200 bg-white/60 dark:bg-gray-800/40">
+          <input type="checkbox" checked={transparentBg} onChange={e => setTransparentBg(e.target.checked)} />
+          <span>Transparent</span>
+        </label>
+        <label className="flex items-center gap-1 px-2 py-1.5 rounded border text-gray-700 dark:text-gray-200 bg-white/60 dark:bg-gray-800/40">
+          <input type="checkbox" checked={fitToContent} onChange={e => setFitToContent(e.target.checked)} />
+          <span>Fit Content</span>
+        </label>
+      </div>
+      <svg ref={svgRef} style={{ width: '100%', height: '1100px', maxWidth: '1000px', display: 'block', margin: '0 auto' }} />
     </div>
   );
 }

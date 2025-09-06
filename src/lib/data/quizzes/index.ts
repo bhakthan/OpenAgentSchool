@@ -19,6 +19,7 @@ import { dataVisualizationQuestions, dataVisualizationTime } from './data-visual
 import { agenticAIDesignQuestions, agenticAIDesignTime } from './agentic-ai-design';
 import { sensoryReasoningEnhancementQuestions, sensoryReasoningEnhancementTime } from './sensory-reasoning-enhancement';
 import { educationalAgentPatternsQuestions, educationalAgentPatternsTime } from './educational-agent-patterns';
+import { fineTuningQuestions } from './fine-tuning';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -43,7 +44,8 @@ const allQuestions = [
   ...dataVisualizationQuestions,
   ...agenticAIDesignQuestions,
   ...sensoryReasoningEnhancementQuestions,
-  ...educationalAgentPatternsQuestions
+  ...educationalAgentPatternsQuestions,
+  ...fineTuningQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -738,6 +740,72 @@ export const quizCategories: QuizCategory[] = [
         description: 'Structured collaborative coding with time management and balanced participation',
         prerequisites: ['handoff-summarizer', 'misconception-detector'],
         questions: getQuestionsBySubCategory(allQuestions, 'timebox-pair-programmer')
+      }
+    ]
+  },
+  {
+    id: 'fine-tuning',
+    name: 'Fine-Tuning Methods',
+    description: 'Progressive alignment techniques: SFT, DPO, and RFT for model optimization',
+    icon: 'Brain',
+    estimatedTime: calculateTotalTime(fineTuningQuestions),
+    totalQuestions: fineTuningQuestions.length,
+    subCategories: [
+      {
+        id: 'sft',
+        name: 'Supervised Fine-Tuning (SFT)',
+        description: 'Imitation learning through input-output pairs for basic alignment',
+        prerequisites: [],
+        questions: getQuestionsBySubCategory(allQuestions, 'sft')
+      },
+      {
+        id: 'dpo',
+        name: 'Direct Preference Optimization (DPO)', 
+        description: 'Preference learning without separate reward models',
+        prerequisites: ['sft'],
+        questions: getQuestionsBySubCategory(allQuestions, 'dpo')
+      },
+      {
+        id: 'rft',
+        name: 'Reinforcement Fine-Tuning (RFT)',
+        description: 'Reward-based training for reasoning and complex capabilities',
+        prerequisites: ['dpo'],
+        questions: getQuestionsBySubCategory(allQuestions, 'rft')
+      },
+      {
+        id: 'data-strategy',
+        name: 'Data Strategy & Curation',
+        description: 'Best practices for dataset composition and quality control',
+        prerequisites: ['sft'],
+        questions: getQuestionsBySubCategory(allQuestions, 'data-strategy')
+      },
+      {
+        id: 'evaluation',
+        name: 'Evaluation & Monitoring',
+        description: 'Metrics, monitoring, and safety measures for fine-tuning',
+        prerequisites: ['dpo'],
+        questions: getQuestionsBySubCategory(allQuestions, 'evaluation')
+      },
+      {
+        id: 'strategy',
+        name: 'Strategic Decision Making',
+        description: 'When and how to escalate between fine-tuning methods',
+        prerequisites: ['rft', 'evaluation'],
+        questions: getQuestionsBySubCategory(allQuestions, 'strategy')
+      },
+      {
+        id: 'ops-risk',
+        name: 'Operations & Risk Management',
+        description: 'Production deployment, governance, and rollback strategies',
+        prerequisites: ['strategy'],
+        questions: getQuestionsBySubCategory(allQuestions, 'ops-risk')
+      },
+      {
+        id: 'risks',
+        name: 'Risk Assessment',
+        description: 'Understanding and mitigating fine-tuning risks',
+        prerequisites: ['evaluation'],
+        questions: getQuestionsBySubCategory(allQuestions, 'risks')
       }
     ]
   }

@@ -478,7 +478,6 @@ class McpContextManager {
       
       ACP provides a standardized RESTful API for agent communication that supports multiple modalities, both 
       synchronous and asynchronous communication patterns, streaming interactions, stateful and stateless 
-      operation, agent discovery, and long-running tasks.
     `,
     keyFeatures: [
       "Open protocol design for universal agent connectivity",
@@ -542,13 +541,9 @@ async function callAgent(query) {
       }
     })
   });
-  
-  // Handle the ACP-formatted response
   const result = await response.json();
   return result.output;
 }
-
-// Example usage
 const result = await callAgent("Analyze the quarterly sales data");
 console.log(result);
         `
@@ -557,66 +552,108 @@ console.log(result);
         title: "Multi-Agent ACP Server Configuration",
         description: "Setting up an ACP server with multiple agents",
         codeSnippet: `
-// Server-side code for multi-agent ACP implementation
 import express from 'express';
 import { ACPServer } from 'acp-server';
-
 const app = express();
 app.use(express.json());
-
-// Configure the ACP server with multiple agents
 const acpServer = new ACPServer({
   agents: [
-    {
-      id: 'research-agent',
-      name: 'Research Specialist',
-      description: 'Agent specialized in data research and analysis',
-      handler: async (request) => {
-        // Agent implementation for research tasks
-        const { input } = request;
-        // Process the request and generate research results
-        return {
-          output: 'Research results: ...',
-          metadata: {
-            process_time: 1.2,
-            confidence: 0.95
-          }
-        };
-      }
-    },
-    {
-      id: 'content-agent',
-      name: 'Content Creator',
-      description: 'Agent specialized in content generation',
-      handler: async (request) => {
-        // Agent implementation for content creation
-        const { input } = request;
-        // Generate content based on input
-        return {
-          output: 'Generated content: ...',
-          metadata: {
-            word_count: 250,
-            tone: 'informative'
-          }
-        };
-      }
-    }
+    { id: 'research-agent', name: 'Research Specialist', description: 'Agent specialized in data research and analysis', handler: async (request) => ({ output: 'Research results: ...', metadata: { process_time: 1.2, confidence: 0.95 } }) },
+    { id: 'content-agent', name: 'Content Creator', description: 'Agent specialized in content generation', handler: async (request) => ({ output: 'Generated content: ...', metadata: { word_count: 250, tone: 'informative' } }) }
   ]
 });
-
-// Set up ACP endpoints
 app.post('/agent/invoke', (req, res) => {
-  // Route the request to the appropriate agent based on metadata
   const { agent_id } = req.body;
   acpServer.handleRequest(agent_id, req.body)
     .then(result => res.json(result))
     .catch(error => res.status(500).json({ error: error.message }));
 });
-
-app.listen(3000, () => {
-  console.log('ACP Server running on port 3000');
-});
+app.listen(3000, () => console.log('ACP Server running on port 3000'));
         `
+      }
+    ]
+  },
+  {
+  id: 'fine-tuning',
+  name: 'Fine-Tuning Methods (SFT, DPO, RFT)',
+  description: `Fine-tuning adapts a pretrained base model to embed domain, formatting, preference and safety behaviors directly in model weights rather than relying on every prompt to restate them. A pragmatic progression is:
+1. SFT (Supervised Fine-Tuning) – imitate high-quality input→output pairs (establish structure & style)
+2. DPO (Direct Preference Optimization) – optimize policy to favor preferred completions over rejects without an explicit reward model
+3. RFT / RLHF (Reinforcement Fine-Tuning) – policy optimization against a learned or programmatic reward with KL constraints for fine control.
+
+Exit early if marginal alignment gain flattens or capability regression rises. Each stage increases variance, infrastructure cost, and monitoring burden.`,
+    keyFeatures: [
+      'Progressive alignment: stability (SFT) → preference shaping (DPO) → precision (RFT)',
+      'Bakes recurring format & style tokens into weights (lower prompt overhead)',
+      'Supports safety & refusal calibration earlier in lifecycle',
+      'DPO avoids training an explicit reward model (lower ops)',
+      'RFT enables targeted refinement (reasoning, refusal nuance)',
+      'Maintains a reference checkpoint for KL / regression tracking',
+      'Improves consistency vs purely prompt-engineered approaches',
+      'Allows hybrid datasets (human + synthetic + programmatic checks)'
+    ],
+    applicationAreas: [
+      'Domain specialized assistants (legal / medical style enforcement)',
+      'Preference & tone alignment (brand voice, politeness)',
+      'Code / structured output normalization',
+      'Reasoning or verification‑heavy tasks (math, tooling, tests)',
+      'Safety refusal / sensitive content handling',
+      'Latency & cost reduction via shorter prompts'
+    ],
+    technicalDetails: `SFT: Minimize cross-entropy on curated (prompt, response) pairs. Focus on diversity, schema adherence, leakage prevention.
+
+DPO: Given preference pairs (prompt, chosen, rejected) and frozen reference π_ref:
+  advantage = (log πθ(chosen) - log π_ref(chosen)) - (log πθ(rejected) - log π_ref(rejected))
+  loss = - log σ(β * advantage)
+  β controls sharpness; monitor KL(πθ || π_ref) and preference win-rate.
+
+RFT / RLHF: Train reward model r_φ on preference pairs; optimize policy with PPO-like objective:
+  L = E[ r_φ(x,y) ] - λ * KL(πθ || π_ref)
+Adaptive λ keeps divergence bounded. Insert safety / regression eval every N steps. Stop when reward plateaus or baseline capability degrades.
+
+Key Metrics: validation loss (SFT), preference win-rate (DPO), reward + KL trend (RFT), benchmark retention, safety refusal accuracy, hallucination / factual probes.`,
+    implementationConsiderations: [
+      'Deduplicate & stratify SFT dataset; hold out evaluation early',
+      'Track KL divergence vs base at each stage',
+      'Automate red-team & safety probe regression before promotion',
+      'Use semantic + exact duplicate filters to reduce overfitting',
+      'Log preference pair coverage & diversity (length, domain buckets)',
+      'Apply small learning rates & early stopping to preserve base competence',
+      'For RFT, design low-noise reward (verifier tests, deterministic graders)',
+      'Maintain model lineage: base → sft → dpo → rft with hashes'
+    ],
+    examples: [
+      {
+        title: 'SFT JSONL Sample',
+        description: 'Minimal lines for supervised task & formatting alignment',
+        codeSnippet: `{"prompt":"Summarize: 'Transformers enable parallelism'","response":"Transformers process tokens in parallel, improving training efficiency."}
+{"prompt":"Generate JSON list of 3 project stages","response":"{\"stages\":[\"Design\",\"Build\",\"Deploy\"]}"}`
+      },
+      {
+        title: 'DPO Loss (Simplified)',
+        description: 'Illustrative PyTorch style pseudo implementation',
+        codeSnippet: `def dpo_step(policy, ref, batch, beta=0.1):
+    ch = policy.log_prob(batch.prompts, batch.chosen)
+    rj = policy.log_prob(batch.prompts, batch.rejected)
+    ref_ch = ref.log_prob(batch.prompts, batch.chosen).detach()
+    ref_rj = ref.log_prob(batch.prompts, batch.rejected).detach()
+    advantage = (ch - ref_ch) - (rj - ref_rj)
+    loss = -torch.nn.functional.logsigmoid(beta * advantage).mean()
+    loss.backward(); optimizer.step(); optimizer.zero_grad()`
+      },
+      {
+        title: 'RFT Loop Sketch',
+        description: 'High-level PPO style reinforcement fine-tuning flow',
+        codeSnippet: `for it in range(iters):
+    prompts = sample(prompts_pool)
+    gens, logp_old = policy.generate_with_logprobs(prompts)
+    with torch.no_grad():
+        rewards = reward_model.score(prompts, gens) - kl_coef * kl_div(policy, ref, prompts, gens)
+    adv = compute_advantage(rewards)
+    loss = ppo_objective(policy, prompts, gens, logp_old, adv)
+    loss.backward(); optimizer.step(); optimizer.zero_grad()
+    adjust_kl(kl_target)
+    run_regression_eval(policy)`
       }
     ]
   }

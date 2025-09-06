@@ -482,3 +482,104 @@ code, pre {
 .light .audio-level:hover {
   background-color: oklch(0.97 0.005 240);
 }
+
+/* Fine-Tuning Audio Guide Light Mode Enhancements */
+.light .fine-tuning-audio-guide {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 70%);
+  border: 1px solid oklch(0.9 0.02 240);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+.light .fine-tuning-audio-guide h3 {
+  letter-spacing: -.5px;
+}
+.light .fine-tuning-audio-guide .ft-topic-btn {
+  background: #fff;
+  border-color: oklch(0.9 0.02 240);
+  box-shadow: 0 1px 2px rgba(15,23,42,0.06);
+}
+.light .fine-tuning-audio-guide .ft-topic-btn:hover {
+  border-color: oklch(0.8 0.02 240);
+  background: linear-gradient(180deg,#ffffff,#f1f5f9);
+}
+.light .fine-tuning-audio-guide .ft-topic-btn.active {
+  box-shadow: 0 0 0 2px #10a37f22, 0 1px 3px rgba(0,0,0,0.08);
+  position: relative;
+}
+.light .fine-tuning-audio-guide .ft-topic-btn.active .ft-topic-glow {
+  background: radial-gradient(circle at 30% 20%, rgba(16,163,127,0.15), transparent 60%);
+  opacity: 1;
+}
+.light .fine-tuning-audio-guide .audio-level {
+  background: #ffffff;
+  border-color: oklch(0.9 0.02 240);
+  box-shadow: 0 1px 2px rgba(15,23,42,0.05);
+}
+.light .fine-tuning-audio-guide .audio-level:hover {
+  border-color: oklch(0.8 0.02 240);
+  background: linear-gradient(180deg,#ffffff,#f1f5f9);
+}
+.light .fine-tuning-audio-guide .ft-playback-box {
+  background: linear-gradient(180deg,#ffffff,#f1f5f9);
+  border-color: oklch(0.88 0.02 240);
+}
+.light .fine-tuning-audio-guide .ft-playback-box .animate-pulse {
+  box-shadow: 0 0 0 4px rgba(16,163,127,0.15);
+}
+.light .fine-tuning-audio-guide .SelectTrigger, 
+.light .fine-tuning-audio-guide [data-radix-select-trigger] {
+  background: #ffffff;
+  border-color: oklch(0.88 0.02 240);
+}
+.light .fine-tuning-audio-guide .SelectTrigger:hover {
+  border-color: oklch(0.8 0.02 240);
+}
+.light .fine-tuning-audio-guide .text-muted-foreground {
+  color: oklch(0.5 0.02 240) !important;
+}
+.light .fine-tuning-audio-guide .badge[data-variant='secondary'] {
+  background: oklch(0.95 0.02 240);
+  color: oklch(0.35 0.02 240);
+}
+
+/* Fine-Tuning concept cards refinement */
+.light .fine-tuning-concept .border.rounded-md.bg-background\/40 {
+  background: linear-gradient(180deg,#ffffff,#f1f5f9) !important;
+  border-color: oklch(0.9 0.02 240) !important;
+}
+.light .fine-tuning-concept .grid .border.rounded-lg {
+  backdrop-filter: saturate(1.1);
+  box-shadow: 0 1px 2px rgba(15,23,42,0.05);
+}
+.light .fine-tuning-concept h4 {
+  letter-spacing: -.25px;
+}
+.light .fine-tuning-concept ul li span:first-child {
+  color: oklch(0.55 0.1 180);
+}
+
+/* Stage summary card enhancements */
+.light .fine-tuning-concept-wrapper .stage-card {
+  background: linear-gradient(135deg,#ffffff,#f1f5f9 80%);
+  border-color: oklch(0.9 0.02 240) !important;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.06), 0 0 0 1px rgba(15,23,42,0.03);
+  position: relative;
+}
+.light .fine-tuning-concept-wrapper .stage-card:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 25% 20%, rgba(16,163,127,0.08), transparent 70%);
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+.light .fine-tuning-concept-wrapper .stage-card:hover:before {
+  opacity: 1;
+}
+.light .fine-tuning-concept-wrapper .stage-card .text-xl {
+  letter-spacing: -.5px;
+}
+.dark .fine-tuning-concept-wrapper .stage-card {
+  background: linear-gradient(135deg,rgba(30,41,59,0.6),rgba(30,41,59,0.3));
+  backdrop-filter: blur(4px) saturate(1.1);
+  border-color: oklch(0.25 0.02 240) !important;
+}

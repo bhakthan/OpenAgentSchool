@@ -129,7 +129,7 @@ export default function ComprehensiveTreeVisualization() {
               <div className="flex items-center gap-3">
                 <Brain className="w-8 h-8 text-blue-600" />
                 <div>
-                  <div className="text-2xl font-bold">22</div>
+                  <div className="text-2xl font-bold">23</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Core Concepts</div>
                 </div>
               </div>
@@ -197,12 +197,14 @@ export default function ComprehensiveTreeVisualization() {
       </div>
 
       {/* Tree Visualization */}
-      <div className="flex-1" style={{ minHeight: '1000px' }}>
-        <D3TreeVisualization
-          selectedNode={selectedNode}
-          onNodeSelect={handleNodeSelect}
-          className="h-auto"
-        />
+      <div className="tree-center-wrapper">
+        <div className="flex-1 tree-container" style={{ minHeight: '1000px', maxWidth: '1400px' }}>
+          <D3TreeVisualization
+            selectedNode={selectedNode}
+            onNodeSelect={handleNodeSelect}
+            className="h-auto"
+          />
+        </div>
       </div>
 
     </div>

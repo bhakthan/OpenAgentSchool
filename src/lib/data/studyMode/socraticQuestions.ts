@@ -1994,6 +1994,102 @@ export const socraticQuestionLibrary = {
   'computer-use': computerUseSocraticQuestions,
   'voice-agent': voiceAgentSocraticQuestions,
   'deep-agents': deepAgentsSocraticQuestions,
+  // Fine-Tuning Core Concept
+  'fine-tuning': [
+    {
+      id: 'fine-tuning-socratic-b1',
+      type: 'socratic',
+      conceptId: 'fine-tuning',
+      title: 'Why Not Jump Straight to RLHF?',
+      level: 'beginner',
+      socratiQuestion: 'If all three stages (SFT, DPO, RFT/RLHF) can improve a model, why not skip directly to the most powerful one?',
+      followUpQuestions: [
+        'What does the model learn during simple supervised fine-tuning that later stages depend on?',
+        'What risks appear if you optimize preferences or rewards on a poorly grounded base?',
+        'How does cost & iteration speed differ across stages?'
+      ],
+      expectedInsights: [
+        'SFT establishes baseline formatting, structure, and safe task adherence',
+        'Later preference/reward optimization assumes stable instruction-following',
+        'Early cheap iterations reduce expensive misalignment later'
+      ],
+      hints: [
+        'Think of building a house: what comes before interior decoration?',
+        'Consider data cleanliness vs. signal complexity',
+        'Reflect on failure amplification when optimizing on weak foundations'
+      ],
+      explanation: 'Students realize staged progression reduces instability, improves data leverage, and lowers governance risk compared to jumping directly into reinforcement optimization.',
+      relatedConcepts: ['sft', 'dpo', 'rft', 'alignment-pipeline'],
+      timeEstimate: 10,
+      successCriteria: [
+        'Identifies layering rationale',
+        'Recognizes stability & cost trade-offs',
+        'Understands dependency of later stages'
+      ]
+    },
+    {
+      id: 'fine-tuning-socratic-i1',
+      type: 'socratic',
+      conceptId: 'fine-tuning',
+      title: 'When to Add DPO After SFT',
+      level: 'intermediate',
+      socratiQuestion: 'After SFT you observe good structure but bland or overly cautious outputs. What criteria justify introducing DPO next instead of collecting reward signals?',
+      followUpQuestions: [
+        'What signals show preference modeling will unlock quality?',
+        'How do evaluation benchmarks guide this escalation?',
+        'What governance concerns change between SFT and DPO?'
+      ],
+      expectedInsights: [
+        'Preference diversity gaps (style, tone, ranking) motivate DPO',
+        'Offline pair data cheaper than live reward pipelines',
+        'DPO adds controllable alignment without full RL infra'
+      ],
+      hints: [
+        'Look at what is missing: creativity? ranking? nuance?',
+        'Consider data collection friction vs. reward model training',
+        'Think about auditability and reproducibility'
+      ],
+      explanation: 'Focuses learner on evidence-based escalation: use DPO when structured correctness is present but preference fidelity lags.',
+      relatedConcepts: ['dpo', 'escalation-criteria', 'evaluation-benchmarks'],
+      timeEstimate: 14,
+      successCriteria: [
+        'References measurable post-SFT gaps',
+        'Distinguishes preference vs. reward regimes',
+        'Addresses governance / reproducibility'
+      ]
+    },
+    {
+      id: 'fine-tuning-socratic-a1',
+      type: 'socratic',
+      conceptId: 'fine-tuning',
+      title: 'Mitigating Catastrophic Preference Collapse in RFT',
+      level: 'advanced',
+      socratiQuestion: 'During reinforcement fine-tuning KL divergence spikes downward (policy drifting) while reward climbs but factual accuracy benchmarks regress. What hypotheses explain this and what interventions preserve gains without collapse?',
+      followUpQuestions: [
+        'How can reward misspecification create deceptive improvement?',
+        'What role does reference model anchoring play?',
+        'How do style regression sets surface unintended shifts?'
+      ],
+      expectedInsights: [
+        'Reward hacking can inflate score while degrading generalization',
+        'KL constraint or adaptive penalty prevents semantic drift',
+        'Multi-axis evaluation (factual, style, safety) detects hidden regressions'
+      ],
+      hints: [
+        'List what the reward is NOT measuring',
+        'Consider dynamic vs static KL schedules',
+        'Think about shadow deployments / canary evals'
+      ],
+      explanation: 'Learner connects reward shaping, KL control, and multi-metric monitoring to prevent over-optimization pathologies.',
+      relatedConcepts: ['reward-hacking', 'kl-control', 'multi-metric-monitoring'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Identifies reward misspecification risk',
+        'Proposes KL / constraint tuning',
+        'Mentions orthogonal benchmark tracking'
+      ]
+    }
+  ],
   // Learner patterns
   'socratic-coach': socraticCoachQuestions,
   'concept-to-project': conceptToProjectQuestions,
