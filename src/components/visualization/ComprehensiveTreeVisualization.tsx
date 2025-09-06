@@ -114,10 +114,10 @@ export default function ComprehensiveTreeVisualization() {
           <Tree className="w-8 h-8 text-indigo-600" />
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-              AI Agent Learning Tree
+              Agent School Learning Atlas
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
-              Interactive D3.js visualization of comprehensive AI agent education platform
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl text-sm md:text-base leading-relaxed">
+              Your panoramic map of the agentic mastery journey — explore every concept, pattern, skill, service and assessment path in one living, exportable knowledge space.
             </p>
           </div>
         </div>

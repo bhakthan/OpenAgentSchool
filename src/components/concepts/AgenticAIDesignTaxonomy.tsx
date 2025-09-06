@@ -1276,7 +1276,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
             <CardHeader className="flex items-center justify-between">
               <div>
                 <CardTitle>Collapsible Tree</CardTitle>
-                <CardDescription>Theme-aware D3 tree view of the taxonomy</CardDescription>
+                <CardDescription>Theme-aware D3 Learning Atlas visualization of the taxonomy</CardDescription>
               </div>
               <Button variant="outline" size="sm" onClick={() => setIsTreeFullscreen(true)}>
                 <ArrowsOutSimple className="w-4 h-4 mr-2" /> Expand

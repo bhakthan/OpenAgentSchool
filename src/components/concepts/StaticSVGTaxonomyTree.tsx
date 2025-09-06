@@ -330,7 +330,7 @@ export default function StaticSVGTaxonomyTree() {
     <div className="w-full h-full overflow-auto bg-gray-50 dark:bg-gray-900 p-4">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-          Agentic AI Taxonomy - Static Tree View
+          Agentic AI Taxonomy - Static Learning Atlas
         </h2>
         <Button 
           onClick={exportSVG}

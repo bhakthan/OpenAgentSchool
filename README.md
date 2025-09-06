@@ -16,6 +16,82 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 
 > Architecture split note: If you deploy backends separately (or in another repo), see docs/CONTRACTS_AND_CONFIG.md for the minimal frontend ↔ backend contracts and environment settings. The SPA keeps working locally with defaults; set VITE_* variables later to point at remote services.
 
+## 🆕 Latest Updates (September 6, 2025)
+
+### 🌳 Knowledge Tree Visualization Overhaul
+
+Brand identity and export fidelity upgrades to the global learning taxonomy tree:
+
+* Root node renamed to **openagentschool.org** with embedded full‑color ladder logo (no background ring; adaptive to light/dark)
+* Precise text centering above the logo (anchor middle) with refined font sizing
+* Corrected taxonomy: **Fine-Tuning Methods (SFT, DPO, RFT)** moved from Tier 0 to **Tier 3 – Advanced Integration**
+* Enhanced spacing heuristics (depth‑based edge multipliers + refined first‑level distance) for better readability and reduced horizontal scroll
+* Light & dark theme contrast tuning for links, labels, and node strokes
+* Centered layout container with reduced left shift for visual balance
+* Novel item ring styling preserved; root node stroke removed for clean brand focus
+
+### 🖨️ High-Fidelity Export & Print Suite
+
+Professional asset generation directly from the visualization interface:
+
+* One‑click exports: **SVG**, **PNG 2× / 3×**, and **PDF (auto portrait/landscape)**
+* Automatic **fit-to-content** bounding box cropping (optional toggle)
+* **Transparent background** toggle for slide decks & dark slide themes
+* Clean vector serialization with embedded font stack for portability
+* Smart padding + deterministic viewBox scaling (no clipped nodes)
+* Print button (standard & fullscreen) for native browser print workflows
+
+### 🧬 Fine-Tuning Concept Module Expansion
+
+New multi-tab deep dive covering the full fine-tuning lifecycle:
+
+* Tabs: Overview, **Data**, **SFT**, **DPO**, **RFT**, **Evaluation**, **Ops**, **References**
+* Dedicated **References** tab with authoritative external links (3 curated sources)
+* Clear separation of supervised vs preference vs reinforcement refinement workflows
+* Evaluation & Ops tabs outline continuous improvement + deployment considerations
+
+### 🗺️ Data Strategy Visual – Dual Mode Redesign
+
+The Data Strategy visualization now has genuinely distinct modes:
+
+* **Simple Mode**: High-level learner-friendly pipeline (minimal cognitive load)
+* **Technical Mode**: Detailed ingestion → curation → alignment → sampling → packaging steps with directional arrows and staged highlight animation
+* Overflow containment & responsive scaling inside concept cards (no bleed)
+* Improved arrow geometry + consistent timing loop for pedagogical pacing
+
+### 🎨 Branding & UX Polish
+
+* Full-color ladder logo replaces temporary monochrome ladder lines
+* Removed blue circular background behind logo for theme neutrality
+* Root label optical alignment & slight size reduction for hierarchy clarity
+* Subtle node spacing refinements to prioritize early-tier scan paths
+
+### 📚 Reference Enhancements
+
+* Added authoritative fine‑tuning resource links in new References tab
+* Consistent external link iconography & accessibility labelling
+
+### 🧩 Internal Architecture / Code Improvements
+
+* Refactored tree root rendering to isolate logo image layer (no stroke collisions)
+* Centralized fit-to-content bounding box logic reused across SVG/PNG/PDF exporters
+* Defensive `getBBox()` guards to avoid runtime errors in headless contexts
+* Theming helpers (`getNodeFill`, `getLinkColor`, `getTextColor`) simplified & root override applied without side effects
+
+### ✅ Impact
+
+These changes significantly improve:
+
+* Knowledge map shareability (slide-ready exports, transparent backgrounds)
+* Pedagogical clarity (accurate tier placement for fine-tuning, dual-mode data strategy)
+* Brand consistency (domain root + full-color logo)
+* Accessibility & readability (contrast-tuned strokes & labels)
+* Maintenance (export pipeline reuse + style centralization)
+
+> Looking ahead: optional roadmap items include export padding customization, palette forcing (dark-on-light / light-on-dark), multi-page tiling for very large future maps, and root node tooltip navigation.
+
+---
+
 ## ⚡ Quick start: Study Mode API (dev)
 
 - Start backend
@@ -704,7 +780,7 @@ Tip: The “Hands‑On Studios” tab includes interactive labs with saved run h
 - **Agent Patterns** - Apply concepts through practical patterns  
 - **AI-Native Skills** - Learn revolutionary organizational practices from industry leaders
 - **Azure Services** - Learn cloud implementation
-- **Tree View** - Get visual overview of everything learned
+-- **Learning Atlas** - Interactive visual overview of everything learned
 - **Study Mode** - Interactive practice and reinforcement
 - **Critical Thinking** - LLM-powered assessment and reflection
 - **Knowledge Quiz** - Test and assess knowledge

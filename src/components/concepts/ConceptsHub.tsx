@@ -46,7 +46,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agentic-ai-design-taxonomy',
     title: 'Agentic AI Design Taxonomy',
-    description: 'Comprehensive framework for understanding architectural patterns, design principles, and implementation challenges in Agentic AI systems',
+  description: 'A mental map of every major agent pattern—so you always know what you\'re building, why, and what\'s next.',
     level: 'fundamentals',
     icon: <Brain className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-indigo-900/20 dark:text-indigo-300',
@@ -58,7 +58,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agentic-prompting-fundamentals',
     title: 'Agentic Prompting Fundamentals',
-    description: 'Master the core principles of prompting AI agents for optimal performance and reliability',
+  description: 'Learn the 20% prompting moves that unlock 80% of agent reliability and control.',
     level: 'fundamentals',
     icon: <Brain className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-blue-900/20 dark:text-blue-300',
@@ -69,7 +69,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'prompt-optimization-patterns',
     title: 'Prompt Optimization Patterns',
-    description: 'Learn systematic approaches to eliminate contradictions and improve prompt effectiveness',
+  description: 'Turn brittle prompts into stable systems using repeatable refactor patterns—not guesswork.',
     level: 'fundamentals',
     icon: <ChartBar className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-green-900/20 dark:text-green-300',
@@ -80,7 +80,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-instruction-design',
     title: 'Agent Instruction Design',
-    description: 'Design effective instruction hierarchies and steerability controls for reliable agent behavior',
+  description: 'Shape agent behavior with layered instruction scaffolds that stay steerable under real-world drift.',
     level: 'fundamentals',
     icon: <BookOpen className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-purple-900/20 dark:text-purple-300',
@@ -91,7 +91,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agentic-workflow-control',
     title: 'Agentic Workflow Control',
-    description: 'Advanced workflow patterns, timing control, and multi-tool coordination strategies',
+  description: 'Orchestrate multi-step, multi-tool flows without timing chaos or context bleed.',
     level: 'fundamentals',
     icon: <ArrowsHorizontal className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-orange-900/20 dark:text-orange-300',
@@ -102,7 +102,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-evaluation-methodologies',
     title: 'Agent Evaluation Methodologies',
-    description: 'Comprehensive evaluation frameworks using quantitative metrics and LLM-as-judge techniques',
+  description: 'Know when your agent is actually improving—quant + LLM-as-judge + failure pattern surfacing.',
     level: 'fundamentals',
     icon: <ChartBar className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-cyan-900/20 dark:text-cyan-300',
@@ -114,7 +114,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-architecture',
     title: 'Agent Architecture & Lifecycle',
-    description: 'Understanding the fundamental building blocks and lifecycle of AI agents',
+  description: 'See how perception, reasoning, memory, and action really fit—and where failures usually emerge.',
     level: 'fundamentals',
     icon: <Brain className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-blue-900/20 dark:text-blue-300',
@@ -133,7 +133,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-security',
     title: 'Agent Security & Trust',
-    description: 'Security mechanisms and trust models for AI agent systems',
+  description: 'Build agents that can’t silently exfiltrate, escalate, or hallucinate authority.',
     level: 'fundamentals',
     icon: <Shield className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-red-900/20 dark:text-red-300',
@@ -144,7 +144,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'multi-agent-systems',
     title: 'Multi-Agent Systems',
-    description: 'Coordination, collaboration, and emergent behavior in multi-agent systems',
+  description: 'Design agent teams that collaborate intentionally—no emergent spaghetti.',
     level: 'fundamentals',
     icon: <Users className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-green-900/20 dark:text-green-300',
@@ -155,7 +155,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-ethics',
     title: 'Agent Ethics & Governance',
-    description: 'Ethical principles, bias mitigation, and regulatory compliance for AI agents',
+  description: 'Embed guardrails that adapt across contexts without freezing innovation.',
     level: 'fundamentals',
     icon: <Shield className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-yellow-900/20 dark:text-yellow-300',
@@ -166,7 +166,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'ai-agents',
     title: 'AI Agents',
-    description: 'Learn about autonomous AI systems that can perceive, decide, and act',
+  description: 'What truly separates an “agent” from a chat wrapper—and how to cross that line.',
     level: 'fundamentals',
     icon: <Brain className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-purple-900/20 dark:text-purple-300',
@@ -177,7 +177,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'ai-safety-governance',
     title: 'AI Safety and Governance',
-    description: 'Responsible AI pillars, safety, risk monitoring, guardrails, tracing, and governance with Azure Foundry',
+  description: 'Shift from reactive patching to proactive tracing, containment, and escalation design.',
     level: 'fundamentals',
     icon: <Shield className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-cyan-900/20 dark:text-cyan-300',
@@ -189,7 +189,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'a2a-communication',
     title: 'A2A Communication',
-    description: 'How AI agents communicate and coordinate with each other',
+  description: 'Move from message passing to meaningful shared intent and negotiated roles.',
     level: 'architecture',
     icon: <ArrowsHorizontal className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-blue-900/20 dark:text-blue-300',
@@ -200,7 +200,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'mcp',
     title: 'Model Context Protocol',
-    description: 'Secure tool integration protocol for AI agents',
+  description: 'Standardize tool access so adding capability doesn’t add fragility.',
     level: 'architecture',
     icon: <Shield className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-orange-900/20 dark:text-orange-300',
@@ -211,7 +211,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'flow-visualization',
     title: 'Flow Visualization',
-    description: 'Interactive visualization of agent flows and interactions',
+  description: 'Make invisible reasoning paths and coordination bottlenecks obvious at a glance.',
     level: 'architecture',
     icon: <Graph className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-teal-900/20 dark:text-teal-300',
@@ -222,7 +222,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-evaluation',
     title: 'Agent Evaluation',
-    description: 'Systematic assessment of agent performance, reliability, safety, and alignment using automated frameworks and benchmarks',
+  description: 'Instrument architecture-level signals before user complaints become your metrics.',
     level: 'architecture',
     icon: <CheckCircle className="w-6 h-6 text-green-600" />,
   color: 'bg-background text-foreground/80 dark:bg-green-900/20 dark:text-green-300',
@@ -234,7 +234,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'acp',
     title: 'Agent Communication Protocol',
-    description: 'Advanced protocols for enterprise-scale agent coordination',
+  description: 'A resilient contract so heterogeneous agents interoperate without version drama.',
     level: 'implementation',
     icon: <Stack className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-purple-900/20 dark:text-purple-300',
@@ -245,7 +245,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'mcp-a2a-integration',
     title: 'MCP x A2A Integration',
-    description: 'Integrate Model Context Protocol with Agent-to-Agent communication',
+  description: 'Fuse tool invocation and agent dialogue into one coherent capability fabric.',
     level: 'implementation',
     icon: <LinkSimple className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-cyan-900/20 dark:text-cyan-300',
@@ -256,7 +256,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'data-visualization',
     title: 'Data Visualization',
-    description: 'Advanced data visualization techniques for AI agent systems',
+  description: 'Turn raw telemetry into decision stories—spot drift, dead branches, and latent potential.',
     level: 'implementation',
     icon: <ChartBar className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-indigo-900/20 dark:text-indigo-300',
@@ -268,7 +268,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-deployment',
     title: 'Agent Deployment & Operations',
-    description: 'Containerization, monitoring, scaling, and DevOps for AI agents',
+  description: 'Ship agents like services: reproducible, observable, roll-forward safe.',
     level: 'advanced',
     icon: <Lock className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-red-900/20 dark:text-red-300',
@@ -279,7 +279,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-learning',
     title: 'Agent Learning & Adaptation',
-    description: 'Reinforcement learning, online learning, transfer learning, and meta-learning',
+  description: 'Improve behavior without catastrophic forgetting or runaway drift.',
     level: 'advanced',
     icon: <Brain className="w-6 h-6" />,
     color: 'bg-gray-100 dark:bg-gray-800 text-green-600 dark:bg-green-900/20 dark:text-green-400',
@@ -290,7 +290,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-integration',
     title: 'Agent Integration Patterns',
-    description: 'API integration, event-driven architecture, microservices, and legacy systems',
+  description: 'Thread agents into legacy and event-driven stacks without creating hidden coupling.',
     level: 'advanced',
     icon: <LinkSimple className="w-6 h-6" />,
     color: 'bg-gray-100 dark:bg-gray-800 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
@@ -302,7 +302,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'fine-tuning',
     title: 'Fine-Tuning Methods (SFT, DPO, RFT)',
-    description: 'Progressive alignment: supervised fine-tuning, direct preference optimization, and reinforcement fine-tuning (RLHF)',
+  description: 'Stop overtraining—choose the lowest intervention (SFT → DPO → RFT) that proves incremental lift.',
     level: 'advanced',
     icon: <Brain className="w-6 h-6" />,
     color: 'bg-background text-foreground/80 dark:bg-indigo-900/20 dark:text-indigo-300',
@@ -536,7 +536,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
           return (
             <Card 
               key={concept.id}
-              className={`relative transition-all hover:shadow-lg cursor-pointer`}
+              className={`group relative transition-all hover:shadow-lg cursor-pointer`}
               onClick={() => handleConceptSelect(concept.id)}
             >
               <CardHeader>
@@ -565,28 +565,14 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
                     </div>
                   </div>
                   {!isLocked && (
-                    <ArrowRight className="w-5 h-5 text-muted-foreground" />
+                    <ArrowRight className="w-5 h-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
                   )}
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-base text-muted-foreground mb-4">
+                <p className="text-base text-muted-foreground mb-0 pr-6">
                   {concept.description}
                 </p>
-
-                <div className="flex items-center justify-between">
-                  <div className="text-base text-muted-foreground">
-                    {isCompleted ? 'Completed' : 'Ready to start'}
-                  </div>
-                  <Button 
-                    variant={isCompleted ? "outline" : "default"}
-                    size="sm"
-                    className="flex items-center gap-1"
-                  >
-                    {isCompleted ? 'Review' : 'Start Learning'}
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </div>
               </CardContent>
             </Card>
           )

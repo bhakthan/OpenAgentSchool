@@ -595,13 +595,13 @@ export default function D3TreeVisualization({
       overflowX: 'auto',
       overflowY: 'auto',
       border: '1px solid hsl(var(--border))',
-      borderRadius: '12px',
+      borderRadius: isDarkMode() ? '10px' : '0px',
       padding: '20px 24px',
       height: 'fit-content',
       minHeight: '600px',
       maxWidth: '100%',
       margin: '0 auto',
-      background: isDarkMode() ? 'rgba(31,41,55,0.55)' : 'linear-gradient(135deg,#ffffff 0%,#f8fafc 75%)'
+      background: isDarkMode() ? 'rgba(31,41,55,0.55)' : 'transparent'
     }}>
       <div className="no-print flex flex-wrap gap-2 mb-4 justify-end text-[11px]">
         <button onClick={handleExportSVG} className="px-3 py-1.5 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm">SVG</button>

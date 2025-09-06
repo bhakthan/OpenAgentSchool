@@ -324,7 +324,7 @@ function App() {
                   { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" /> },
                   { to: '/ai-skills', label: 'AI-Native Skills', icon: <Lightning size={16} weight="duotone" /> },
                   { to: '/azure-services', label: 'Azure Services', icon: <StackSimple size={16} weight="duotone" /> },
-                  { to: '/tree-view', label: 'Tree View', icon: <Tree size={16} weight="duotone" /> },
+                  { to: '/tree-view', label: 'Learning Atlas', icon: <Tree size={16} weight="duotone" /> },
                   { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" /> },
                   { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} /> },
                   { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" /> },
