@@ -76,7 +76,7 @@ const learningPaths: LearningPath[] = [
       // Tier 3: Implementation Concepts
       'acp', 'mcp-a2a-integration', 'data-visualization',
       // Tier 4: Advanced Concepts
-      'agent-deployment', 'agent-learning', 'agent-integration',
+  'agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration',
       // Additional Learning
       'azure-services', 'references', 'community', 'patterns', 'quiz'
     ],
@@ -372,6 +372,20 @@ const learningPaths: LearningPath[] = [
         path: '/concepts'
       },
       {
+        id: 'fine-tuning',
+        title: 'Fine-Tuning Methods (SFT, DPO, RFT)',
+        description: 'Stop overtraining—choose the lowest intervention (SFT → DPO → RFT) that proves incremental lift.',
+        icon: <Brain size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '45-55 min',
+        prerequisites: ['agent-learning'],
+        skills: ['Supervised Fine-Tuning', 'Preference Optimization', 'Reinforcement Alignment'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
         id: 'agent-integration',
         title: 'Agent Integration Patterns',
         description: 'Integration patterns for enterprise AI agent systems',
@@ -482,7 +496,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents'],
     ['a2a-communication', 'mcp', 'flow-visualization'],
     ['acp', 'mcp-a2a-integration', 'data-visualization'],
-    ['agent-deployment', 'agent-learning', 'agent-integration'],
+  ['agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration'],
     ['azure-services', 'references', 'community', 'patterns', 'quiz']
   ];
   const tierNodes = selectedPath.nodes.filter(node => tiers[activeTier].includes(node.id))

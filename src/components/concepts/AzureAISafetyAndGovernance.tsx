@@ -43,6 +43,7 @@ export default function AzureAISafetyAndGovernance() {
           <TabsTrigger value="monitoring" className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900">Monitoring & Analytics</TabsTrigger>
           <TabsTrigger value="purview" className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900">Governance: Microsoft Purview</TabsTrigger>
           <TabsTrigger value="tracing" className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900">Tracing: Azure Application Insights</TabsTrigger>
+          <TabsTrigger value="references" className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900">References</TabsTrigger>
         </TabsList>
         <TabsContent value="pillars">
           <AzureAISafetyVisualization />
@@ -131,6 +132,51 @@ export default function AzureAISafetyAndGovernance() {
               <li>Integration with dashboards and alerts</li>
             </ul>
             <p className="mt-2 text-muted-foreground">Tracing is essential for monitoring, debugging, and optimizing complex agentic and AI systems in production.</p>
+          </div>
+        </TabsContent>
+        <TabsContent value="references">
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold mb-4">References & Further Reading</h3>
+            <div className="space-y-4">
+              <div className="p-4 border rounded-lg bg-gray-50 dark:bg-gray-800">
+                <h4 className="font-medium mb-2">AI Safety Standards & Guidelines</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <a 
+                      href="https://www.turing.ac.uk/sites/default/files/2024-06/aieg-ati-6-safetyv1.2.pdf" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      The Alan Turing Institute - AI Safety Standards and Guidelines v1.2 (June 2024)
+                    </a>
+                    <p className="text-muted-foreground mt-1">Comprehensive guide to AI safety standards, risk assessment frameworks, and governance principles for AI systems.</p>
+                  </li>
+                  <li>
+                    <a 
+                      href="https://www.microsoft.com/en-us/ai/responsible-ai" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      Microsoft Responsible AI Documentation
+                    </a>
+                    <p className="text-muted-foreground mt-1">Official Microsoft documentation on responsible AI principles and implementation in Azure.</p>
+                  </li>
+                  <li>
+                    <a 
+                      href="https://learn.microsoft.com/en-us/azure/ai-studio/concepts/evaluation-metrics-built-in" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      Azure AI Studio Evaluation Metrics
+                    </a>
+                    <p className="text-muted-foreground mt-1">Built-in evaluation metrics for AI safety, fairness, and performance assessment.</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </TabsContent>
       </Tabs>
