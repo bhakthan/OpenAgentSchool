@@ -29,8 +29,30 @@ jobs:
     - name: Build project
       run: npm run build
       
+    - name: Debug repository layout before verification
+      run: |
+        echo "PWD: $(pwd)"
+        echo "Git SHA: $GITHUB_SHA"
+        echo "Top-level contents:"; ls -la
+        echo "\nScripts directory:"; ls -la scripts || echo "(scripts dir missing)"
+        echo "\nDist (if exists):"; ls -la dist || echo "(dist missing yet)"
+        echo "\nGit status:"; git status --short || true
+        echo "\nNode resolve check:"; node -e "import fs from 'fs'; console.log('scripts/verify-routing.js exists?', fs.existsSync('scripts/verify-routing.js'));"
+        echo "Done debug pre-checks."
+
     - name: Verify SPA routing configuration
-      run: npm run verify-routing
+      run: |
+        set -e
+        if [ ! -f scripts/verify-routing.js ]; then
+          echo "❌ scripts/verify-routing.js not found even after debug listing" >&2
+          ls -R . | head -n 200
+          exit 1
+        fi
+        echo "Invoking via npm script first..."
+        if ! npm run verify-routing; then
+          echo "First attempt failed. Retrying with direct node execution for clearer stack trace..." >&2
+          node ./scripts/verify-routing.js
+        fi
 
     - name: Generate integrity checksums for critical bundles
       run: |
