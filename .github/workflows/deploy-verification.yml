@@ -35,9 +35,12 @@ jobs:
           echo "❌ React root element not found in index.html"
           exit 1
         fi
-        
-        if ! grep -q "main\.js\|main\.[a-z0-9]*\.js" dist/index.html; then
-          echo "❌ Main JavaScript bundle not found in index.html"
+        # After introducing manual chunk splitting, the main entry file is now named index-<hash>.js
+        # Adapt verification to match the hashed Vite entry pattern instead of legacy main.js naming.
+        if ! grep -E '/assets/index-[A-Za-z0-9_.-]+\.js' dist/index.html; then
+          echo "❌ Hashed Vite entry bundle (index-<hash>.js) not found in index.html"
+          echo "Contents of first 40 lines for debugging:" 
+          head -n 40 dist/index.html
           exit 1
         fi
         
