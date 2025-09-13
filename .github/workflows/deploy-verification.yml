@@ -1,10 +1,9 @@
 name: Deploy Verification
 
+# Temporarily disabled automatic triggers (push / PR) per request.
+# This workflow now only runs when manually dispatched.
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   verify-spa-routing:
