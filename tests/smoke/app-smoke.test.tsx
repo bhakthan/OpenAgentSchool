@@ -13,6 +13,7 @@ describe('App Smoke Test', () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByText(/Core Concepts/i)).toBeInTheDocument();
+  const tabs = screen.getAllByText(/Core Concepts/i);
+  expect(tabs.length).toBeGreaterThan(0);
   });
 });
