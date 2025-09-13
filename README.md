@@ -456,6 +456,24 @@ Tip: The “Hands‑On Studios” tab includes interactive labs with saved run h
   - All references to the old project name have been updated in the UI and documentation.
   - Improved documentation for environment setup and LLM provider configuration.
 
+### 📊 Optional Analytics
+
+Enable Google Analytics 4 (page views only, IP anonymized). Completely optional.
+
+1. Create a GA4 property → copy Measurement ID (format `G-XXXXXXXXXX`).
+2. Add to `.env`:
+
+   ```env
+   VITE_GA_MEASUREMENT_ID="G-B0NVCSGKSV"
+   ```
+3. Rebuild (`npm run build`). If unset, no script is injected—zero performance impact.
+
+Implementation:
+- Loader: `initGA()` (`src/lib/analytics/ga.ts`) injects `gtag.js` only when the env var exists.
+- Navigation tracking: `usePageView()` hook sends `page_view` on route change.
+- Test/SSR safe: Skips in tests (`__VITEST_ENV__`) and non-browser contexts.
+- Privacy: Uses `anonymize_ip: true`; no user-specific identifiers are stored.
+
 ---
 
 ## 🚀 Latest Updates
