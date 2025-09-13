@@ -1,5 +1,8 @@
 import '@testing-library/jest-dom';
 
+// Mark environment so runtime utilities can short-circuit DOM side effects safely
+(globalThis as any).__VITEST_ENV__ = true;
+
 // Polyfills / stubs for browser APIs used in App
 class ResizeObserver {
 	observe() {}

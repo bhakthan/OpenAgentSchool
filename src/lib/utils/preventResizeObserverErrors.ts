@@ -3,6 +3,10 @@
  */
 
 export const applyReactFlowGlobalOptimizations = () => {
+  // Skip entirely if no DOM (SSR, Node) or test environment
+  if (typeof document === 'undefined' || typeof window === 'undefined' || (globalThis as any).__VITEST_ENV__) {
+    return () => {};
+  }
   // Block error propagation for ResizeObserver errors
   const originalConsoleError = console.error;
   console.error = function(...args: any[]) {
@@ -39,7 +43,12 @@ export const applyReactFlowGlobalOptimizations = () => {
   };
   
   // Add a global style to ensure React Flow visualizations are properly visible
-  const style = document.createElement('style');
+  let style: HTMLStyleElement | null = null;
+  try {
+    style = document.createElement('style');
+  } catch {
+    return () => { console.error = originalConsoleError; };
+  }
   style.innerHTML = `
     .react-flow__node {
       opacity: 1 !important;
@@ -63,7 +72,11 @@ export const applyReactFlowGlobalOptimizations = () => {
       min-height: 200px;
     }
   `;
-  document.head.appendChild(style);
+  try {
+    document.head.appendChild(style);
+  } catch {
+    // ignore append failures
+  }
   
   // Add mutation observer to clean unwanted text nodes
   const observer = new MutationObserver((mutations) => {
@@ -88,11 +101,18 @@ export const applyReactFlowGlobalOptimizations = () => {
   });
   
   // Start observing
-  observer.observe(document.body, { childList: true, subtree: true });
+  try {
+    observer.observe(document.body, { childList: true, subtree: true });
+  } catch {
+    // ignore observer failures
+  }
   
   return () => {
     // Cleanup
     console.error = originalConsoleError;
-    observer.disconnect();
+    try { observer.disconnect(); } catch {}
+    if (style && style.parentNode) {
+      try { style.parentNode.removeChild(style); } catch {}
+    }
   };
 };
