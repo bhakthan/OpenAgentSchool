@@ -11,13 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
+    - name: Checkout repository (manual clone - no external actions)
+      run: |
+        git clone --depth=1 "${{ github.server_url }}/${{ github.repository }}.git" .
+        git checkout "${{ github.sha }}"
+
+    - name: Install Node.js 18 (manual - no marketplace actions)
+      run: |
+        curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+        node -v
+        npm -v
         
     - name: Install dependencies
       run: npm ci
@@ -27,6 +31,41 @@ jobs:
       
     - name: Verify SPA routing configuration
       run: npm run verify-routing
+
+    - name: Generate integrity checksums for critical bundles
+      run: |
+        set -euo pipefail
+        echo "🔐 Generating SHA256 checksums for key bundles" 
+        echo "# SHA256 checksums" > dist/integrity-checksums.txt
+        echo "generated: $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> dist/integrity-checksums.txt
+        echo "" >> dist/integrity-checksums.txt
+        # Collect target bundle patterns (entry + major vendor/feature chunks)
+        TARGETS="dist/assets/index-*.js dist/assets/vendor-*.js dist/assets/visualizations-*.js dist/assets/study-mode-*.js"
+        found_any=false
+        for pattern in $TARGETS; do
+          for file in $pattern; do
+            if [ -f "$file" ]; then
+              if [ "$found_any" = false ]; then found_any=true; fi
+              sha256sum "$file" >> dist/integrity-checksums.txt
+            fi
+          done
+        done
+        if [ "$found_any" = false ]; then
+          echo "❌ No matching asset bundles found for checksum generation" >&2
+          exit 1
+        fi
+        echo "" >> dist/integrity-checksums.txt
+        echo "# Subresource Integrity (SRI) base64 hashes" >> dist/integrity-checksums.txt
+        for pattern in $TARGETS; do
+          for file in $pattern; do
+            if [ -f "$file" ]; then
+              HASH=$(openssl dgst -sha256 -binary "$file" | openssl base64 -A)
+              echo "$(basename "$file"): sha256-$HASH" >> dist/integrity-checksums.txt
+            fi
+          done
+        done
+        echo "✅ Checksums generated:" 
+        cat dist/integrity-checksums.txt
       
     - name: Test that key routes exist in built index.html
       run: |
