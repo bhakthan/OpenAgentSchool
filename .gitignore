@@ -101,9 +101,13 @@ backend/debug/
 backend/test_*.py
 
 # Scripts directory - utilities and maintenance scripts
-scripts/
+# Previously the whole scripts/ folder was ignored which prevented new utility scripts
+# (like verify-routing.js) from being picked up in CI. We now allow JS/MJS files
+# while still ignoring PowerShell and markdown helper artifacts.
 scripts/*.ps1
 scripts/*.md
+# Allow the deployment verification script to be tracked
+!scripts/verify-routing.js
 
 #docs
 docs/
