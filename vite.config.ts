@@ -17,9 +17,7 @@ const projectRoot = process.env.PROJECT_ROOT || path.resolve()
 export default defineConfig({
   plugins: [
     react({
-      // Standard React 18 configuration
-      jsxRuntime: 'automatic',
-      jsxImportSource: 'react',
+      // Standard React 18 configuration (automatic runtime by default)
     }),
     tailwindcss(),
   ],
@@ -33,12 +31,19 @@ export default defineConfig({
     // Optimize for Azure Static Web Apps
     chunkSizeWarningLimit: 500, // Force smaller chunks
     rollupOptions: {
-      // Ensure React loads before other modules
       external: [],
       output: {
-        // Configure module loading order - React core loads first
-        manualChunks: undefined,
-        // Optimize chunk naming for better caching
+        manualChunks(id) {
+          // Group heavy libraries & visualization modules to reduce initial load
+          if (id.includes('node_modules')) {
+            if (id.includes('d3')) return 'vendor-d3';
+            if (id.includes('react-flow') || id.includes('xyflow')) return 'vendor-flow';
+            if (id.includes('three')) return 'vendor-three';
+          }
+          if (id.includes('/visualization/')) return 'visualizations';
+          if (id.includes('/study-mode/')) return 'study-mode';
+          return undefined;
+        },
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]'
