@@ -12,6 +12,8 @@ import {
   ArrowRight
 } from '@phosphor-icons/react';
 import type { SCLSession as SCLSessionType } from '@/types/supercritical';
+import { ArrowSquareOut, Play } from '@phosphor-icons/react';
+import { toast } from '@/components/ui/use-toast';
 
 interface SCLSynthesisProps {
   session: SCLSessionType;
@@ -19,6 +21,7 @@ interface SCLSynthesisProps {
 
 export function SCLSynthesis({ session }: SCLSynthesisProps) {
   const { synthesis, leaps } = session;
+  const hasProductManagement = session.seeds.conceptIds.includes('product-management');
 
   return (
     <ScrollArea className="h-full">
@@ -163,6 +166,66 @@ export function SCLSynthesis({ session }: SCLSynthesisProps) {
                   </li>
                 ))}
               </ol>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Product Management Cross-Links */}
+        {hasProductManagement && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ArrowSquareOut className="h-5 w-5 text-primary" />
+                Product Management Deep Dives
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <p className="text-sm text-muted-foreground">Explore focused debugging scenarios to reinforce synthesis insights:</p>
+              <ul className="space-y-2">
+                <li className="flex items-start gap-2 group">
+                  <ArrowRight className="h-4 w-4 text-primary mt-0.5" />
+                  <button
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('studyMode:launchQuestion', { detail: { qid: 'product-mgmt-debug-1', concept: 'product-management', type: 'debug' }}));
+                      toast({ title: 'Opening Debug Challenge', description: 'Trust Calibration Dashboard Drift' });
+                    }}
+                    className="text-left text-sm font-medium text-primary hover:underline"
+                  >
+                    Trust Calibration Dashboard Drift
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('studyMode:launchQuestion', { detail: { qid: 'product-mgmt-debug-1', concept: 'product-management', type: 'debug' }}));
+                      toast({ title: 'Starting Challenge', description: 'Trust Calibration Dashboard Drift' });
+                    }}
+                    className="ml-auto inline-flex items-center gap-1 text-xs px-2 py-1 rounded border border-primary/40 text-primary hover:bg-primary/10 transition-colors"
+                  >
+                    <Play className="h-3 w-3" /> Start
+                  </button>
+                </li>
+                <li className="flex items-start gap-2 group">
+                  <ArrowRight className="h-4 w-4 text-primary mt-0.5" />
+                  <button
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('studyMode:launchQuestion', { detail: { qid: 'product-mgmt-debug-2', concept: 'product-management', type: 'debug' }}));
+                      toast({ title: 'Opening Debug Challenge', description: 'Integration ROI Calculator Overstates Value' });
+                    }}
+                    className="text-left text-sm font-medium text-primary hover:underline"
+                  >
+                    Integration ROI Calculator Overstates Value
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('studyMode:launchQuestion', { detail: { qid: 'product-mgmt-debug-2', concept: 'product-management', type: 'debug' }}));
+                      toast({ title: 'Starting Challenge', description: 'Integration ROI Calculator Overstates Value' });
+                    }}
+                    className="ml-auto inline-flex items-center gap-1 text-xs px-2 py-1 rounded border border-primary/40 text-primary hover:bg-primary/10 transition-colors"
+                  >
+                    <Play className="h-3 w-3" /> Start
+                  </button>
+                </li>
+              </ul>
+              <p className="text-xs text-muted-foreground">These align with detected risk/opportunity patterns (instrumentation integrity, externality-adjusted value modeling). Consider opening the Debug Challenges view and filtering by Product Management.</p>
             </CardContent>
           </Card>
         )}

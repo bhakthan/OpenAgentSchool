@@ -3763,6 +3763,150 @@ export const toolUseCoachDebugChallenges: StudyModeQuestion[] = [
   }
 ];
 
+// Product Management Debug Challenges
+export const productManagementDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'product-mgmt-debug-1',
+    type: 'debug',
+    conceptId: 'product-management',
+    title: 'Trust Calibration Dashboard Drift',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'pm-trust-calibration-dashboard',
+      title: 'Trust Signals Misaligned With Actual Risk',
+      description: 'Your product trust dashboard shows a “High Reliability” green badge even though recent incident tickets and escalation metrics indicate rising failure risk.',
+      problemDescription: 'Stakeholder review surfaced that 3 near-miss incidents (suppressed retries, silent fallbacks) occurred this week, yet trust score remained 92%. Users are starting to report inconsistent behavior but churn early-warning did not trigger.',
+      brokenCode: `class TrustCalibrationEngine {
+  constructor() {
+    this.metrics = {
+      successRate: 0.992,
+      incidents: 0,              // BUG: Not counting near-misses
+      avgLatencyMs: 420,
+      silentFallbacks: 0,        // BUG: Not captured from logs
+      escalationEvents: 0,       // BUG: On-call suppressed soft alerts
+      userReportedInconsistencies: 2,
+      churnEarlyWarning: false
+    };
+  }
+
+  computeScore() {
+    // Overweighted historical reliability; ignores fresh fragility signals
+    const base = this.metrics.successRate * 100; // 99.2
+    const penalty = (this.metrics.incidents * 5); // Always 0 due to missed counting
+    return Math.round(base - penalty);
+  }
+
+  report() {
+    return {
+      trustScore: this.computeScore(),
+      badge: this.computeScore() > 90 ? 'High Reliability' : 'Needs Attention'
+    };
+  }
+}
+
+// Missing: weighting for near-misses, silent fallbacks, escalation suppression,
+// temporal decay on historical success rate, composite stability index.`,
+      conversationLogs: [
+        { timestamp: '2025-09-01T10:00:00Z', agent: 'PM', message: 'Dashboard shows 92% trust – looks fine for release gating.', type: 'info' },
+        { timestamp: '2025-09-01T10:05:00Z', agent: 'SRE', message: 'We had three suppressed retries and two silent fallbacks this week. None show up.', type: 'warning' },
+  { timestamp: '2025-09-01T10:07:30Z', agent: 'PM', message: 'Why didn’t stability degrade? Are we counting near-miss exposure?', type: 'info' }
+      ],
+      agentConfigs: [
+        { name: 'TrustMonitor', role: 'Reliability Signal Aggregator', systemPrompt: 'Aggregate runtime fragility and user-facing stability signals with decay weighting.', tools: [], parameters: { temperature: 0.2 } }
+      ],
+      expectedBehavior: 'Trust score should decline when fresh fragility indicators emerge even if historical success remains high.',
+      commonIssues: [
+        { issue: 'Ignoring near-miss signals', symptoms: ['Stable score despite increased suppressed retries'], diagnosis: 'Model only counts hard incidents', fix: 'Instrument near-misses and add proportional penalty' },
+        { issue: 'No temporal decay', symptoms: ['Legacy stability dominates score'], diagnosis: 'Long tail smoothing hides recent volatility', fix: 'Apply exponential decay to historical reliability' },
+        { issue: 'Missing composite index', symptoms: ['Single scalar masks multidimensional risk'], diagnosis: 'Over-simplified trust metric', fix: 'Add subcomponents: consistency, resilience, transparency' }
+      ],
+      solution: 'Introduce multi-signal trust index: ingest near-misses, silent fallbacks, escalation suppressions; apply exponential decay to historical success; compute composite sub-scores (consistency, resilience, transparency) and derive weighted trust score with freshness penalty.',
+      explanation: 'A robust trust model must overweight recent fragility signals and expose multidimensional risk instead of relying on a lagging aggregate success metric.'
+    },
+    expectedInsights: [
+      'Trust must incorporate fresh instability signals',
+      'Near-misses are leading indicators',
+      'Single scalar trust scores hide multidimensional risk'
+    ],
+    hints: [
+      'What is not being counted?',
+      'Is historical success rate overweighted?',
+      'How would you model decay or freshness?'
+    ],
+    explanation: 'Teaches that trust instrumentation must weight dynamic fragility signals, not just aggregate historical success rates.',
+    relatedConcepts: ['trust-calibration', 'risk-signals', 'temporal-decay'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Flags missing near-miss aggregation',
+      'Proposes temporal decay or freshness weighting',
+      'Suggests composite trust dimensions (consistency / resilience / transparency)'
+    ]
+  },
+  {
+    id: 'product-mgmt-debug-2',
+    type: 'debug',
+    conceptId: 'product-management',
+    title: 'Integration ROI Calculator Overstates Value',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'pm-integration-roi-overstate',
+      title: 'Integration Value Model Misses Latency & Churn Drag',
+      description: 'Cost-benefit dashboard shows +18% projected retention lift from new CRM integration, but downstream latency and increased abandonment suggest net negative user impact.',
+      problemDescription: 'User session analysis: checkout abandonment +6%, mean response latency +180ms after integration toggle, but ROI model unchanged (still +18% retention). Finance asking for justification.',
+      brokenCode: `function computeIntegrationROI(metrics) {
+  // metrics: { projectedRetentionLift, integrationCost, addedLatencyMs, abandonmentDelta, maintenanceHours }
+  const grossBenefit = metrics.projectedRetentionLift * 1_000_000; // naive LTV proxy
+  const cost = metrics.integrationCost + (metrics.maintenanceHours * 120);
+  // BUGS:
+  // 1. Ignores addedLatencyMs externality (UX degradation)
+  // 2. Ignores abandonmentDelta (negative behavioral signal)
+  // 3. No risk-adjustment or sensitivity weighting
+  return {
+    roi: (grossBenefit - cost) / cost,
+    narrative: 'Integration driving strong retention expansion'
+  };
+}
+
+// Missing: churn risk adjustment, latency penalty function, negative behavior weighting,
+// confidence intervals / sensitivity analysis, maintenance drag projection.`,
+      conversationLogs: [
+        { timestamp: '2025-09-02T11:00:00Z', agent: 'Analytics', message: 'Latency up from 520ms to 700ms p95 after integration.', type: 'warning' },
+        { timestamp: '2025-09-02T11:02:10Z', agent: 'PM', message: 'ROI model still claims +18% retention lift – feels off.', type: 'info' },
+        { timestamp: '2025-09-02T11:03:40Z', agent: 'Engineer', message: 'We didn’t plug latency or abandonment into ROI pipeline yet.', type: 'error' }
+      ],
+      agentConfigs: [
+        { name: 'IntegrationROIMonitor', role: 'Value vs Drag Evaluator', systemPrompt: 'Assess net value of integrations including externalities and negative user signals.', tools: [], parameters: { temperature: 0.25 } }
+      ],
+      expectedBehavior: 'ROI model should degrade when latency and abandonment introduce negative user value externalities.',
+      commonIssues: [
+        { issue: 'Ignoring externalities', symptoms: ['Positive ROI despite degraded UX'], diagnosis: 'Model omits latency / abandonment penalties', fix: 'Introduce latency impact function + churn sensitivity adjustments' },
+        { issue: 'Static retention lift assumption', symptoms: ['No confidence bounds'], diagnosis: 'Unvalidated linear benefit projection', fix: 'Add confidence interval + sensitivity analysis' },
+        { issue: 'No behavioral feedback loop', symptoms: ['Model unchanged after negative signals'], diagnosis: 'Pipeline lacks dynamic recalibration', fix: 'Ingest abandonment + session metrics into value model' }
+      ],
+      solution: 'Refactor ROI model: apply latency penalty curve (ms -> expected conversion impact), incorporate abandonmentDelta into adjusted retention lift, add risk-adjusted LTV with confidence bounds, and schedule periodic recalibration using recent session distributions.',
+      explanation: 'True integration value must discount friction costs and uncertainty—raw projected retention without negative externalities produces inflated ROI.'
+    },
+    expectedInsights: [
+      'Value models must include negative externalities',
+      'Latency & abandonment are leading churn signals',
+      'ROI without sensitivity analysis is fragile'
+    ],
+    hints: [
+      'What negative signals are ignored?',
+      'How would you penalize added latency?',
+      'What mechanism recalibrates assumptions?'
+    ],
+    explanation: 'Illustrates integrating behavioral friction and performance drag into product ROI modeling.',
+    relatedConcepts: ['integration-strategy', 'value-modeling', 'ux-performance'],
+    timeEstimate: 14,
+    successCriteria: [
+      'Identifies missing latency/abandonment penalties',
+      'Adds sensitivity or confidence framing',
+      'Proposes feedback recalibration loop'
+    ]
+  }
+];
+
 
 // Export debug challenges organized by concept
 export const debugChallengeLibrary = {
@@ -3881,6 +4025,7 @@ export const debugChallengeLibrary = {
   'misconception-detector': misconceptionDetectorDebugChallenges,
   'time-box-pair-programmer': timeboxPairProgrammerDebugChallenges,
   'tool-use-coach-debug': toolUseCoachDebugChallenges,
+  'product-management': productManagementDebugChallenges,
   // New Core Concepts
   'agentic-prompting-fundamentals': agenticPromptingFundamentalsDebugChallenges,
   'prompt-optimization-patterns': promptOptimizationPatternsDebugChallenges,

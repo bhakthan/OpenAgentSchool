@@ -40,6 +40,9 @@ export function buildSCL_USER_FIRST_ORDER(session: SCLSession, contextSummary: s
   const seeds = session.seeds;
   const objectives = session.objectives.join(', ');
   const constraints = JSON.stringify(session.constraints);
+  const pmHint = seeds.conceptIds.includes('product-management')
+    ? `\nPRODUCT MANAGEMENT FOCUS: Emphasize trust calibration signals (near-miss detection, silent fallback surfacing), integration ROI tradeoffs (latency vs retention vs abandonment), and complexity reduction in agent orchestration decisions. When describing effects, call out where instrumentation gaps could create false confidence.`
+    : '';
   return `Analyze first-order effects for this agentic AI implementation:
 
 CONCEPT SEEDS: ${seeds.conceptIds.join(', ')}
@@ -54,7 +57,7 @@ ${contextSummary}
 
 Generate 3-5 first-order effects that would occur immediately when implementing these concepts/patterns in a production environment.
 
-Focus on the most likely and impactful direct consequences.`;
+Focus on the most likely and impactful direct consequences.${pmHint}`;
 }
 
 export const SCL_SYSTEM_HIGHER_ORDER = `You are an expert systems analyst specializing in cascade effect analysis.
@@ -132,6 +135,9 @@ export function buildSCL_USER_HIGHER_ORDER(session: SCLSession, firstOrderEffect
 
   const extras = session.constraints?.extras ? `\nEXTRAS: ${JSON.stringify(session.constraints.extras)}` : '';
 
+  const pmHint = session.seeds.conceptIds.includes('product-management')
+    ? `\nADDITIONAL PRODUCT MANAGEMENT GUIDANCE: For cascades, surface how trust drift, mis-weighted dashboards, integration overhead, or latency-induced abandonment can appear as second/third-order effects. Highlight mitigation levers (telemetry enrichment, decay-weighted scoring, externality-adjusted ROI).`
+    : '';
   return `Given these first-order effects from an agentic AI implementation:
 
 ${effectsDescription}
@@ -145,7 +151,7 @@ Generate second and third-order effects that would cascade from these first-orde
 For ${session.mode} mode:
 ${modeGuidance}
 
-Also identify any LEAPS where threshold effects cause qualitative changes in system behavior.`;
+Also identify any LEAPS where threshold effects cause qualitative changes in system behavior.${pmHint}`;
 }
 
 export const SCL_SYSTEM_SYNTHESIS = `You are a strategic advisor synthesizing insights from a complex effect analysis.
@@ -182,6 +188,9 @@ export function buildSCL_USER_SYNTHESIS(session: SCLSession, allEffects: SCLEffe
     `${l.trigger} → ${l.result} (confidence: ${l.confidence})`
   ).join('\n');
 
+  const pmHint = session.seeds.conceptIds.includes('product-management')
+    ? `\nPRODUCT MANAGEMENT SYNTHESIS PRIORITIES: Include trust score integrity risks, integration ROI model biases (missing externalities), metrics for consistency vs resilience vs transparency, and actions that tighten feedback loops (near-miss logging, latency penalty modeling).`
+    : '';
   return `Synthesize insights from this complete effect analysis:
 
 FIRST-ORDER EFFECTS (${effectsByOrder[1].length}):
@@ -199,5 +208,5 @@ ${leapsSummary}
 OBJECTIVES: ${session.objectives.join(', ')}
 CONSTRAINTS: ${JSON.stringify(session.constraints)}
 
-Generate a strategic synthesis with actionable recommendations, implementation priorities, and success metrics.`;
+Generate a strategic synthesis with actionable recommendations, implementation priorities, and success metrics.${pmHint}`;
 }

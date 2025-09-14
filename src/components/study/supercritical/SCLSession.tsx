@@ -137,14 +137,25 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
     try {
       // Provide default seeds if none are provided
       const seeds = initialSeeds || {
-        conceptIds: ['agentic-systems'],
+        conceptIds: ['agentic-systems', 'product-management'],
         patternIds: ['orchestration-pattern'],
         practices: ['iterative-testing']
       };
 
+      // Auto-augment objectives if product-management is in scope
+      let sessionObjectives = [...objectives];
+      if (seeds.conceptIds.includes('product-management')) {
+        const pmAdds: SCLObjective[] = ['reduceComplexity', 'minimizeRisk'];
+        pmAdds.forEach(obj => { if (!sessionObjectives.includes(obj)) sessionObjectives.push(obj); });
+        // Reflect in UI state so user sees them added
+        if (sessionObjectives.length !== objectives.length) {
+          setObjectives(sessionObjectives);
+        }
+      }
+
       console.log('SCL Session starting with seeds:', seeds);
       
-  const newSession = createSession(mode, objectives, seeds);
+  const newSession = createSession(mode, sessionObjectives, seeds);
 
       // Push mode-specific extras to constraints for orchestrator
       updateConstraints({
@@ -515,9 +526,13 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
                       <div>
                         <span className="text-xs text-muted-foreground">Concepts:</span>
                         <div className="flex flex-wrap gap-1 mt-1">
-                          {(initialSeeds?.conceptIds || ['agentic-systems']).map(id => (
+                          {(initialSeeds?.conceptIds || ['agentic-systems','product-management']).map(id => (
                             <Badge key={id} variant="outline">
-                              {id === 'agentic-systems' ? 'Agentic AI Systems' : id}
+                              {id === 'agentic-systems'
+                                ? 'Agentic AI Systems'
+                                : id === 'product-management'
+                                  ? 'AI Product Management'
+                                  : id}
                             </Badge>
                           ))}
                         </div>

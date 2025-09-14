@@ -29,6 +29,7 @@ import {
   getStudyModeQuestionsByConceptId
 } from '@/lib/data/studyMode';
 import { StudyModeType, StudyModeQuestion, StudyModeSession } from '@/lib/data/studyMode/types';
+import { toast } from '@/components/ui/use-toast';
 interface StudyModeProps {
   conceptId?: string;
   onComplete?: (session: StudyModeSession) => void;
@@ -92,6 +93,34 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
         }
       }
     } catch {}
+    // In-app event-driven launcher (no full page reload)
+    const handler = (event: Event) => {
+      try {
+        const custom = event as CustomEvent<{ qid?: string; concept?: string; type?: StudyModeType }>;
+        const { qid, concept, type } = custom.detail || {};
+        if (qid) {
+          const question = getAllStudyModeQuestions().find(q => q.id === qid);
+          if (question) {
+            setSelectedQuestion(question);
+            setActiveTab(question.type);
+            toast({ title: 'Loaded Study Challenge', description: question.title });
+            return;
+          }
+        }
+        if (concept) {
+          let conceptQuestions = getStudyModeQuestionsByConceptId(concept);
+          if (type) conceptQuestions = conceptQuestions.filter(q => q.type === type);
+          const question = conceptQuestions[0];
+          if (question) {
+            setSelectedQuestion(question);
+            setActiveTab(question.type);
+            toast({ title: 'Loaded Concept Challenge', description: question.title });
+          }
+        }
+      } catch {}
+    };
+    window.addEventListener('studyMode:launchQuestion', handler as EventListener);
+    return () => window.removeEventListener('studyMode:launchQuestion', handler as EventListener);
   }, []);
 
   // Get all questions from all concepts

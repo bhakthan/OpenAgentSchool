@@ -13,6 +13,9 @@ import {
   Lightbulb
 } from '@phosphor-icons/react';
 import { getAllStudyModeQuestions, getAllStudyModeContentCount } from '@/lib/data/studyMode';
+import { socraticQuestionLibrary } from '@/lib/data/studyMode/socraticQuestions';
+import { scenarioLibrary } from '@/lib/data/studyMode/interactiveScenarios';
+import { debugChallengeLibrary } from '@/lib/data/studyMode/debugChallenges';
 import { getAllQuestions } from '@/lib/data/quizzes';
 import { agentPatterns } from '@/lib/data/patterns';
 
@@ -70,10 +73,15 @@ const azureServicesData = [
 export default function ComprehensiveTreeVisualization() {
   const navigate = useNavigate();
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
+  const [showStudyDetails, setShowStudyDetails] = useState(false);
 
   // Debug logging to check the count
   const studyCount = getAllStudyModeContentCount();
-  const sclScenariosCount = studyCount - getAllStudyModeQuestions().length;
+  const allStudyQuestions = getAllStudyModeQuestions();
+  const sclScenariosCount = studyCount - allStudyQuestions.length;
+  const socraticCount = Object.values(socraticQuestionLibrary).flat().length;
+  const scenarioCount = Object.values(scenarioLibrary).flat().length;
+  const debugCount = Object.values(debugChallengeLibrary).flat().length;
   console.log('Study Mode Content Count:', studyCount);
 
   // Handle navigation for leaf nodes
@@ -174,21 +182,70 @@ export default function ComprehensiveTreeVisualization() {
           
           <Card>
             <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <Lightbulb className="w-8 h-8 text-indigo-600" />
-                <div>
-                  <div className="text-2xl font-bold">{getAllStudyModeContentCount()}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Study Questions</div>
-                  {sclScenariosCount > 0 && (
-                    <div className="mt-1 flex items-center gap-2">
-                      <Badge variant="outline" className="text-[10px] leading-tight">
-                        {sclScenariosCount} SCL scenarios
-                      </Badge>
-                      <Link to="/study-mode#scl" className="text-[10px] text-indigo-600 hover:underline">
-                        View SCL
-                      </Link>
-                    </div>
-                  )}
+              <div className="flex items-start gap-3">
+                <Lightbulb className="w-8 h-8 text-indigo-600 mt-1" />
+                <div className="space-y-1">
+                  <div className="flex items-baseline gap-2">
+                    <div className="text-2xl font-bold">{studyCount}</div>
+                    <span className="text-xs px-1.5 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 border border-indigo-300/40">Total</span>
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Study Activities</div>
+                  {/* Compact summary for small screens */}
+                  <div className="sm:hidden mt-2 text-[10px] text-gray-600 dark:text-gray-400 leading-snug">
+                    <span className="font-medium">Breakdown:</span>{' '}
+                    <abbr title="Socratic Questions" className="cursor-help underline decoration-dotted underline-offset-2">Soc</abbr> {socraticCount} •{' '}
+                    <abbr title="Interactive Scenarios" className="cursor-help underline decoration-dotted underline-offset-2">Scn</abbr> {scenarioCount} •{' '}
+                    <abbr title="Debug Challenges" className="cursor-help underline decoration-dotted underline-offset-2">Dbg</abbr> {debugCount} •{' '}
+                    <abbr title="Super Critical Learning Sessions" className="cursor-help underline decoration-dotted underline-offset-2">SCL</abbr> {sclScenariosCount}
+                    <button
+                      type="button"
+                      onClick={() => setShowStudyDetails(v => !v)}
+                      className="ml-2 text-indigo-600 dark:text-indigo-300 hover:underline focus:outline-none focus:ring-1 focus:ring-indigo-400 rounded px-1"
+                      aria-expanded={showStudyDetails}
+                      aria-controls="study-activities-detail-grid"
+                    >
+                      {showStudyDetails ? 'Hide' : 'Details'}
+                    </button>
+                  </div>
+                  <div
+                    id="study-activities-detail-grid"
+                    className={`grid grid-cols-2 gap-x-4 gap-y-1 mt-2 text-[11px] leading-tight ${showStudyDetails ? 'grid' : 'hidden'} sm:grid`}
+                    aria-hidden={!showStudyDetails && typeof window !== 'undefined' && window.innerWidth < 640}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => navigate('/study-mode#socratic')}
+                      className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
+                      aria-label="View Socratic Study Mode"
+                    >
+                      <span>Socratic</span><span className="font-medium">{socraticCount}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => navigate('/study-mode#scenario')}
+                      className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
+                      aria-label="View Scenario Study Mode"
+                    >
+                      <span>Scenarios</span><span className="font-medium">{scenarioCount}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => navigate('/study-mode#debug')}
+                      className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
+                      aria-label="View Debug Study Mode"
+                    >
+                      <span>Debug</span><span className="font-medium">{debugCount}</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => navigate('/study-mode#scl')}
+                      className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
+                      aria-label="View Super Critical Learning Mode"
+                    >
+                      <span>SCL</span><span className="font-medium">{sclScenariosCount}</span>
+                    </button>
+                  </div>
+                  {/* Removed separate SCL scenarios badge & link (redundant with breakdown) */}
                 </div>
               </div>
             </CardContent>

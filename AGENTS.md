@@ -1,4 +1,4 @@
-# AGENTS.md – Operational Guide for Automated Coding Agents
+<!-- # AGENTS.md – Operational Guide for Automated Coding Agents
 
 This file gives AI coding agents and new contributors the minimal, *actionable* context needed to work effectively in the **Open Agent School** repository.
 
@@ -234,3 +234,4 @@ Maintained by contributors at `openagentschool.org` (see LICENSE). Built collabo
 ---
 
 Happy automating! Optimize for clarity, stability, and learner value.
+ -->
