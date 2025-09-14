@@ -3560,7 +3560,167 @@ export const toolUseCoachInteractiveScenarios: StudyModeQuestion[] = [
     successCriteria: ['Shows appropriate tool matching', 'Demonstrates skill progression awareness']
   }
 ];
+// Product Management Scenarios
+export const productManagementScenarios: StudyModeQuestion[] = [
+  {
+    id: 'product-mgmt-scenario-1',
+    type: 'scenario',
+    conceptId: 'product-management',
+    title: 'Confidence Calibration Crisis',
+    level: 'intermediate',
+    scenario: `Your AI customer support agent has been live for 3 months. Usage is high, but you notice a concerning pattern:
+    
+- Initial user satisfaction: 78%
+- Users who attempt 2+ complex queries: 45% never return
+- Support tickets marked "AI was wrong but confident": increasing 15% per week
+- Agent confidence scores: 85-95% for most responses
+- Actual accuracy when spot-checked: 73%
 
+Your engineering team says "the model is working as designed" but customer success is getting complaints. The CEO wants to know your plan.`,
+    multipleChoice: {
+      question: "What's your immediate priority as Product Manager?",
+      options: [
+        "Retrain the model to be more accurate before addressing confidence",
+        "Implement confidence calibration measurement and adjust display thresholds",
+        "Add human review for all high-confidence responses",
+        "Survey users to understand what they want from confidence scores"
+      ],
+      correctAnswer: 1,
+      explanations: [
+        "This addresses the symptom (accuracy) but not the core problem of miscalibrated confidence, which affects user trust even when answers are correct.",
+        "Correct! The core issue is that confidence scores don't match reality. Measuring calibration and adjusting what users see can immediately improve trust while you work on accuracy.",
+        "This is expensive and doesn't fix the root cause. Users will still see inflated confidence scores for the responses that aren't reviewed.",
+        "Surveys might provide insights, but the behavioral data already shows users are losing trust due to confidence miscalibration. Action is needed now."
+      ]
+    },
+    followUpQuestions: [
+      "How would you measure confidence calibration going forward?",
+      "What thresholds would you set for displaying confidence to users?",
+      "How would you communicate this change to stakeholders?"
+    ],
+    expectedInsights: [
+      "Confidence calibration is measurable and can be fixed through display logic",
+      "User behavior trumps satisfaction surveys for diagnosing trust issues",
+      "Product changes should address root causes, not just surface symptoms"
+    ],
+    businessContext: "This scenario teaches how to diagnose and fix trust engineering problems using data-driven approaches rather than intuitive fixes.",
+    relatedConcepts: ['trust-engineering', 'confidence-calibration', 'user-retention'],
+    timeEstimate: 25,
+    successCriteria: [
+      "Identifies confidence miscalibration as the core issue",
+      "Proposes measurement-based solutions",
+      "Explains why behavioral data matters more than satisfaction scores"
+    ]
+  },
+  {
+    id: 'product-mgmt-scenario-2',
+    type: 'scenario',
+    conceptId: 'product-management',
+    title: 'Integration Bloat Emergency',
+    level: 'advanced',
+    scenario: `Your AI agent integrates with 18 different enterprise tools. Monthly costs:
+    
+- Engineering maintenance: $180k
+- API costs: $45k  
+- Support burden: $30k
+- Total: $255k/month
+
+Recent analysis shows:
+- 3 integrations drive 78% of user value
+- 8 integrations have <5% monthly usage
+- 4 integrations are causing 60% of support tickets
+- Sales team insists "every integration is critical for deals"
+- Engineering team says "deprecating is harder than maintaining"
+
+Board meeting in 2 weeks. They want your integration strategy.`,
+    multipleChoice: {
+      question: "What framework should guide your integration rationalization?",
+      options: [
+        "Keep all integrations but optimize the problematic ones first",
+        "Survey enterprise customers about which integrations they actually need",
+        "Implement strict ROI thresholds (3x cost) and deprecation timeline for non-performers",
+        "Let usage data decide - anything under 10% usage gets deprecated immediately"
+      ],
+      correctAnswer: 2,
+      explanations: [
+        "This avoids the hard decisions and doesn't address the cost problem. Without discipline, integration bloat will continue growing.",
+        "Customer surveys often overstate needs because they fear losing options. Behavioral data (actual usage) is more reliable than stated preferences.",
+        "Correct! ROI thresholds create objective criteria and discipline. A clear deprecation process with timeline forces accountability and prevents endless maintenance of unused features.",
+        "This is too simplistic and doesn't account for value per user. A high-value integration used by few power users might still justify its cost."
+      ]
+    },
+    followUpQuestions: [
+      "How would you handle pushback from Sales about losing integration features?",
+      "What migration plan would you provide for deprecated integrations?",
+      "How would you prevent integration bloat from happening again?"
+    ],
+    expectedInsights: [
+      "Objective ROI criteria remove emotion and politics from integration decisions",
+      "Usage data is more reliable than customer surveys for measuring integration value",
+      "Disciplined deprecation processes are essential for sustainable product growth"
+    ],
+    businessContext: "This scenario demonstrates how Product Managers can use integration stewardship principles to control costs while maintaining user value.",
+    relatedConcepts: ['integration-stewardship', 'roi-analysis', 'feature-deprecation'],
+    timeEstimate: 30,
+    successCriteria: [
+      "Proposes objective ROI-based decision criteria",
+      "Explains why usage data beats surveys",
+      "Describes systematic deprecation process"
+    ]
+  },
+  {
+    id: 'product-mgmt-scenario-3',
+    type: 'scenario',
+    conceptId: 'product-management',
+    title: 'When AI Fails Publicly',
+    level: 'advanced',
+    scenario: `Your AI financial advisor gave incorrect tax advice to 1,200 users during tax season. The error:
+    
+- Agent claimed "90% confident" about a complex deduction rule
+- Actual rule had exceptions not in training data
+- Users filed returns with wrong information
+- 340 users got IRS notices
+- Local news picked up the story: "AI Tax Bot Costs Families Thousands"
+- Twitter/X thread about it has 45k retweets
+- Legal team is "assessing exposure"
+
+Current agent response to similar queries: "I cannot provide tax advice due to technical limitations." Users are frustrated and switching to competitors.`,
+    multipleChoice: {
+      question: "What's your crisis communication strategy?",
+      options: [
+        "Disable the agent until the model is retrained on correct tax data",
+        "Issue public apology and offer to pay tax penalties for affected users",
+        "Redesign failure responses to provide helpful next steps instead of just refusing",
+        "Add human review requirement for all financial advice responses"
+      ],
+      correctAnswer: 2,
+      explanations: [
+        "This avoids the real issue - users still need help, and competitors will capture them if you go dark. Better to provide helpful guidance than no guidance.",
+        "This addresses liability but doesn't solve the user experience problem. Users still need tax help, and the agent still can't provide useful guidance.",
+        "Correct! Turn failure into value by providing actionable next steps: 'I can't advise on this complex rule, but here's the IRS publication and a list of local CPAs.' This builds trust through honesty and helpfulness.",
+        "This is expensive and slow, and doesn't improve the user experience. Users get delayed responses instead of immediate helpful guidance."
+      ]
+    },
+    followUpQuestions: [
+      "How would you prevent similar high-stakes errors in the future?",
+      "What would make users trust the agent more after this incident?",
+      "How do you balance being helpful with avoiding liability?"
+    ],
+    expectedInsights: [
+      "Good failure responses provide value through helpful next steps, not just refusal",
+      "Transparency about limitations can build more trust than trying to appear perfect",
+      "Crisis response should focus on user value, not just damage control"
+    ],
+    businessContext: "This scenario shows how failure resilience architecture can turn public failures into trust-building opportunities through better communication design.",
+    relatedConcepts: ['failure-resilience', 'crisis-communication', 'trust-building'],
+    timeEstimate: 35,
+    successCriteria: [
+      "Explains how helpful failure responses build trust",
+      "Describes turning limitations into value through guidance",
+      "Balances user needs with risk management"
+    ]
+  }
+];
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
@@ -3572,6 +3732,7 @@ export const scenarioLibrary = {
   'modern-tool-use': modernToolUseScenarios,
   'computer-use': computerUseScenarios,
   'deep-agents': deepAgentsScenarios,
+  'product-management': productManagementScenarios,
   // Fine-Tuning core concept scenarios (micro staged escalation)
   'fine-tuning': [
     {

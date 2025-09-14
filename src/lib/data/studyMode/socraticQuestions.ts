@@ -1983,7 +1983,133 @@ export const sensoryReasoningEnhancementSocraticQuestions: StudyModeQuestion[] =
     ]
   }
 ];
-
+// Socratic Questions for Product Management
+export const productManagementSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'product-mgmt-socratic-1',
+    type: 'socratic',
+    conceptId: 'product-management',
+    title: 'Trust Engineering as Product Strategy',
+    level: 'beginner',
+    socratiQuestion: "Your AI agent claims '85% confidence' in its answers, but user retention drops after the first complex task. What might be wrong, and how would you measure it?",
+    followUpQuestions: [
+      "How would you design an experiment to test if confidence scores match actual accuracy?",
+      "What user behavior signals indicate trust is breaking down?",
+      "How could you turn this into a measurable KPI that drives product decisions?"
+    ],
+    expectedInsights: [
+      "Confidence calibration requires empirical validation, not just model outputs",
+      "User behavior (task complexity avoidance) reveals trust issues",
+      "Trust becomes actionable when measured as retention and escalation rates"
+    ],
+    hints: [
+      "Think about A/B testing confidence display vs. actual accuracy",
+      "Consider user journey analysis for drop-off points",
+      "Focus on behavioral metrics over satisfaction surveys"
+    ],
+    explanation: "This explores how Product Managers can operationalize trust through measurement systems rather than treating it as a vague concept.",
+    relatedConcepts: ['trust-engineering', 'confidence-calibration', 'user-retention'],
+    timeEstimate: 15,
+    successCriteria: [
+      "Identifies the confidence-accuracy gap as measurable",
+      "Connects user behavior to trust metrics",
+      "Proposes specific experiments or measurements"
+    ]
+  },
+  {
+    id: 'product-mgmt-socratic-2',
+    type: 'socratic',
+    conceptId: 'product-management',
+    title: 'Memory vs Privacy Balance',
+    level: 'intermediate',
+    socratiQuestion: "Users complain that your AI 'forgets' them, but privacy regulations require data expiration. How do you balance memory value with compliance costs?",
+    followUpQuestions: [
+      "What types of memory provide the most user value per compliance risk?",
+      "How would you implement user-controlled memory without creating a confusing UX?",
+      "What metrics would tell you if your memory governance is working?"
+    ],
+    expectedInsights: [
+      "Not all memory is equally valuable - prioritize high-impact, low-risk data",
+      "User control can increase trust if implemented simply",
+      "Success metrics include both compliance (zero violations) and user satisfaction"
+    ],
+    hints: [
+      "Consider task context vs. personal data retention",
+      "Think about transparency and user agency in memory controls",
+      "Focus on automated expiration with user override options"
+    ],
+    explanation: "This examines how Product Managers can design memory governance that satisfies both regulatory requirements and user experience needs.",
+    relatedConcepts: ['memory-governance', 'privacy-compliance', 'user-control'],
+    timeEstimate: 18,
+    successCriteria: [
+      "Identifies high-value, low-risk memory categories",
+      "Describes user-friendly control mechanisms",
+      "Proposes balanced success metrics"
+    ]
+  },
+  {
+    id: 'product-mgmt-socratic-3',
+    type: 'socratic',
+    conceptId: 'product-management',
+    title: 'Integration ROI Assessment',
+    level: 'advanced',
+    socratiQuestion: "Your team wants to integrate with 12 different tools, but each integration costs $15k/month to maintain. How do you decide which ones actually drive business value?",
+    followUpQuestions: [
+      "What metrics would prove an integration pays for itself?",
+      "How do you handle requests for integrations that seem important but lack clear ROI?",
+      "What's your framework for deprecating integrations that aren't delivering value?"
+    ],
+    expectedInsights: [
+      "Integration value should be measured in user task completion and support cost reduction",
+      "Clear ROI thresholds (e.g., 3x cost) create objective decision criteria",
+      "Deprecation processes need user migration plans and timeline discipline"
+    ],
+    hints: [
+      "Consider support ticket reduction, user task success rates, and retention impact",
+      "Think about pilot programs with success criteria before full integration",
+      "Focus on end-to-end user workflows rather than feature completeness"
+    ],
+    explanation: "This challenges Product Managers to think systematically about integration value and create disciplined processes for investment decisions.",
+    relatedConcepts: ['integration-stewardship', 'roi-analysis', 'feature-deprecation'],
+    timeEstimate: 22,
+    successCriteria: [
+      "Proposes specific ROI measurement methods",
+      "Describes objective decision-making criteria",
+      "Outlines systematic deprecation processes"
+    ]
+  },
+  {
+    id: 'product-mgmt-socratic-4',
+    type: 'socratic',
+    conceptId: 'product-management',
+    title: 'Failure Communication as Trust Building',
+    level: 'advanced',
+    socratiQuestion: "When your AI agent fails, users currently abandon the task. How could you redesign failure responses to actually increase user trust and engagement?",
+    followUpQuestions: [
+      "What information should failure messages include to be helpful rather than frustrating?",
+      "How do you prevent failures from becoming viral negative incidents on social media?",
+      "What would make users more likely to retry after a failure rather than switching to competitors?"
+    ],
+    expectedInsights: [
+      "Good failure messages provide clear next steps and context, not just error codes",
+      "Transparency about limitations can increase trust more than trying to hide problems",
+      "Recovery assistance and follow-up can turn failures into positive experiences"
+    ],
+    hints: [
+      "Consider failure messages that explain what went wrong and what to try next",
+      "Think about proactive communication when issues are detected",
+      "Focus on making failures feel temporary and recoverable rather than systemic"
+    ],
+    explanation: "This explores how Product Managers can transform failures from retention killers into trust-building opportunities through better communication design.",
+    relatedConcepts: ['failure-resilience', 'trust-building', 'user-communication'],
+    timeEstimate: 20,
+    successCriteria: [
+      "Describes helpful failure message components",
+      "Explains how transparency builds trust",
+      "Proposes recovery and follow-up strategies"
+    ]
+  }
+];
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
@@ -1994,6 +2120,7 @@ export const socraticQuestionLibrary = {
   'computer-use': computerUseSocraticQuestions,
   'voice-agent': voiceAgentSocraticQuestions,
   'deep-agents': deepAgentsSocraticQuestions,
+  'product-management': productManagementSocraticQuestions,
   // Fine-Tuning Core Concept
   'fine-tuning': [
     {

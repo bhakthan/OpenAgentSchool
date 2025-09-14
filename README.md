@@ -16,7 +16,30 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 
 > Architecture split note: If you deploy backends separately (or in another repo), see docs/CONTRACTS_AND_CONFIG.md for the minimal frontend ↔ backend contracts and environment settings. The SPA keeps working locally with defaults; set VITE_* variables later to point at remote services.
 
-## 🆕 Latest Updates (September 6, 2025)
+## 🆕 Latest Updates (September 14, 2025)
+
+### 🎯 **NEW: Product Management Perspective for AI Agents**
+
+**Strategic AI Product Management Framework** - Comprehensive 8-pillar framework for Product Managers building reliable, defensible, retention-driving AI Agents:
+
+**🏗️ Core Product Management Pillars:**
+- **Trust Engineering System**: Quantify and calibrate user trust through data-driven mechanisms with confidence calibration dashboards
+- **Memory Governance Framework**: Design data retention as ethical & operational choice with user-controlled memory horizons
+- **Integration Stewardship**: Treat integrations as high-risk business decisions with cost-to-value scoring (ROI >3x operational cost)
+- **Capability Prioritization Matrix**: Prioritize capabilities solving end-to-end user jobs with feature bloat guards
+- **Human-AI Synergy Design**: Engineer complementarity through context-preserving handoffs and feedback loops
+- **Failure Resilience Architecture**: Design for expected, isolated, recoverable failures with actionable next steps
+- **Ethical Compliance Layer**: Integrate ethics into architectural gating with bias detection workflows
+- **Complexity Governance Model**: Treat complexity as cost center with activation thresholds and transparency dashboards
+
+**🎓 Interactive Learning Components:**
+- **Socratic Questions**: 4 comprehensive PM-focused questions covering trust calibration, memory-privacy balance, integration ROI, and failure communication
+- **Business Scenarios**: 3 detailed crisis scenarios including confidence calibration crisis, integration bloat emergency, and public AI failure management
+- **Case Studies**: Real-world examples with measurable business outcomes (41% fewer complaints, $1.8M engineering debt avoided, 82% fewer support tickets)
+- **Operational Frameworks**: Systematic approaches to PM decisions with ROI thresholds, deprecation processes, and success metrics
+
+**📊 Business Impact Focus:**
+Each pillar includes concrete actions, measurable outcomes, and business impact with real case study results from healthcare, fintech, e-commerce, and enterprise contexts.
 
 ### 🌳 Knowledge Tree Visualization Overhaul
 
@@ -377,29 +400,30 @@ Experience the future of technical education where complex AI agent concepts bec
 - **Collaborative Messaging**: Strategic emphasis on human-agent collaboration rather than workforce replacement
 - **Capacity-Focused Analytics**: Tools for calculating productivity gains through strategic human-agent partnerships
 
-### 📚 AI‑Native Skills Modules (19 tabs)
+### 📚 AI‑Native Skills Modules (20 tabs)
 
 Explore a complete, progressive pathway from foundations to advanced orchestration. The current modules include:
 
 1) Fundamentals — What are AI‑Native Practices?
 2) Thinking Modes — Design vs Breakthrough vs Systems Thinking
 3) Interactive Visualizations — Explore AI‑native practices in detail
-4) Code Understanding — Navigation, debugging & tracing
-5) Development Velocity — Rapid scaffolding & async workflows
-6) Observability & EvalOps — Traces, evals, and quality gates
-7) PromptOps & Tooling — Versioned prompts, canaries, guardrails
-8) Safety & Governance — Adversarial testing, policies, approvals
-9) Cost & Performance — Latency, routing, spend optimization
-10) Security & Data Boundaries — Zero‑trust patterns for LLMs/tools
-11) RAG Systems — Hybrid retrieval, re‑ranking, grounding
-12) Multi‑Agent — Supervisor/specialist patterns and safety
-13) Org Playbooks — Standardize and scale AI‑native excellence
-14) Cross‑Team Collaboration — Non‑technical teams using AI
-15) Novel Patterns — Revolutionary organizational practices
-16) Frontier Assessment — Evaluate AI readiness (WTI‑informed)
-17) Human‑Agent Ratio Calculator — Optimize collaboration ratios
-18) Future State — Where AI‑native practices are heading
-19) Hands‑On Studios — Interactive labs: Eval, Cost, RAG, HITL, Orchestration
+4) Product Management — 8 pillars: trust, memory, integration, capability, synergy, resilience, ethics, complexity
+5) Code Understanding — Navigation, debugging & tracing
+6) Development Velocity — Rapid scaffolding & async workflows
+7) Observability & EvalOps — Traces, evals, and quality gates
+8) PromptOps & Tooling — Versioned prompts, canaries, guardrails
+9) Safety & Governance — Adversarial testing, policies, approvals
+10) Cost & Performance — Latency, routing, spend optimization
+11) Security & Data Boundaries — Zero‑trust patterns for LLMs/tools
+12) RAG Systems — Hybrid retrieval, re‑ranking, grounding
+13) Multi‑Agent — Supervisor/specialist patterns and safety
+14) Org Playbooks — Standardize and scale AI‑native excellence
+15) Cross‑Team Collaboration — Non‑technical teams using AI
+16) Novel Patterns — Revolutionary organizational practices
+17) Frontier Assessment — Evaluate AI readiness (WTI‑informed)
+18) Human‑Agent Ratio Calculator — Optimize collaboration ratios
+19) Future State — Where AI‑native practices are heading
+20) Hands‑On Studios — Interactive labs: Eval, Cost, RAG, HITL, Orchestration
 
 Tip: The “Hands‑On Studios” tab includes interactive labs with saved run history, mini delta charts, and estimated call counts. It currently offers:
 

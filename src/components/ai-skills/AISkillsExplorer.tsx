@@ -24,6 +24,8 @@ import MultiAgentOrchestration from "./MultiAgentOrchestration"
 import OrgPlaybooks from "./OrgPlaybooks"
 import { CurriculumTabs } from '@/components/learning/CurriculumTabs'
 
+const AIProductManagementPillars = React.lazy(() => import("./AIProductManagementPillars"))
+
 export default function AISkillsExplorer() {
   const [activeTab, setActiveTab] = useState("fundamentals")
   const [progress, setProgress] = useState<Record<string, boolean>>({})
@@ -92,7 +94,20 @@ export default function AISkillsExplorer() {
       description: "Explore AI-native practices in detail",
       icon: <ChartBar className="w-4 h-4" />,
       level: "Beginner",
-  component: <InteractiveVisualizations onNavigate={() => completeAndNavigate("interactive-visualizations","code-understanding")} />
+      component: <InteractiveVisualizations onNavigate={() => completeAndNavigate("interactive-visualizations","product-management")} />
+    },
+    // NEW: Product Management Perspective
+    {
+      id: "product-management",
+      title: "Product Mgmt",
+      description: "8 pillars: trust, memory, integration, capability, synergy, resilience, ethics, complexity",
+      icon: <Target className="w-4 h-4" />,
+      level: "Intermediate",
+      component: (
+        <React.Suspense fallback={<div className="p-6 text-sm text-muted-foreground">Loading Product Management Pillars…</div>}>
+          <AIProductManagementPillars onNavigate={() => completeAndNavigate("product-management","code-understanding")} />
+        </React.Suspense>
+      )
     },
     // 4. Code Understanding
     {
@@ -101,7 +116,7 @@ export default function AISkillsExplorer() {
       description: "Navigation, debugging & tracing",
       icon: <Code className="w-4 h-4" />,
       level: "Intermediate",
-  component: <CodeUnderstandingSkills onNavigate={() => completeAndNavigate("code-understanding","development-velocity")} />
+      component: <CodeUnderstandingSkills onNavigate={() => completeAndNavigate("code-understanding","development-velocity")} />
     },
     // 5. Development Velocity
     {
