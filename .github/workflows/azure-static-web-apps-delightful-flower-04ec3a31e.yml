@@ -35,6 +35,7 @@ jobs:
       
       - name: Build application
         env:
+          VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
           # # OpenAI
           # VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
           # VITE_OPENAI_API_URL: ${{ secrets.VITE_OPENAI_API_URL }}
