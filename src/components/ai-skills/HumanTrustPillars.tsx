@@ -1,0 +1,18 @@
+import React from 'react';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+
+interface Pillar { id:string; title:string; core:string; actions:string[]; outcomes:string[]; impact:string; }
+const PILLARS: Pillar[] = [
+  { id:'calibrated-confidence', title:'1. Calibrated Confidence', core:'Evidence-grounded signaling (coverage + consistency)', actions:['Multi-factor confidence score','Partial answer gating','Calibration eval harness'], outcomes:['<5% miscalibration gap','Higher retry after low confidence','Reduced overtrust incidents'], impact:'Improves long-term trust & responsible reliance.' },
+  { id:'progressive-disclosure', title:'2. Progressive Disclosure', core:'Layered explanation depth on demand', actions:['Short rationale + expandable detail','Source provenance badges','Adaptive detail when uncertainty high'], outcomes:['Lower cognitive load reports','Higher explanation engagement','Faster comprehension time'], impact:'Balances transparency & usability.' },
+  { id:'intervention-design', title:'3. Human Intervention Architecture', core:'Intentional control points at irreversible steps', actions:['Risk-tiered escalation triggers','Preview / confirm for destructive actions','Context-rich handoff packets'], outcomes:['Reduced abandonment after escalation','Higher handoff resolution speed','Fewer unnecessary interruptions'], impact:'Raises safety without degrading flow.' },
+  { id:'recovery-experience', title:'4. Recovery Experience', core:'Transform failures into trust reinforcing events', actions:['Structured recovery template','Automated corrective follow-ups','Failure taxonomy tagging'], outcomes:['Higher post-failure retention','Shorter recovery time to success','Lower repeat failure recurrence'], impact:'Turns incidents into learning loops.' }
+];
+export default function HumanTrustPillars(){
+  return <div className='space-y-8'>
+    <Card><CardHeader><CardTitle>Human Trust & Interaction: 4 Pillars</CardTitle><CardDescription>Designing control, clarity & resilient collaboration.</CardDescription></CardHeader><CardContent className='grid md:grid-cols-2 gap-4'>{PILLARS.map(p=> <a key={p.id} href={'#'+p.id} className='p-4 rounded border hover:bg-muted/40 transition'><div className='font-semibold'>{p.title}</div><div className='text-xs text-muted-foreground line-clamp-2'>{p.core}</div></a>)}</CardContent></Card>
+    {PILLARS.map(p=> <Card key={p.id} id={p.id} className='scroll-mt-24'><CardHeader><div className='flex items-center gap-2'><CardTitle>{p.title}</CardTitle><Badge variant='secondary'>{p.core.split(' ')[0]}</Badge></div><CardDescription>{p.core}</CardDescription></CardHeader><CardContent className='space-y-5'><div><h4 className='font-semibold mb-2'>Actions</h4><ul className='list-disc pl-5 space-y-1 text-sm'>{p.actions.map(a=> <li key={a}>{a}</li>)}</ul></div><div><h4 className='font-semibold mb-2'>Outcomes</h4><ul className='list-disc pl-5 space-y-1 text-sm'>{p.outcomes.map(o=> <li key={o}>{o}</li>)}</ul></div><div className='p-3 rounded border bg-background/60'><h4 className='font-semibold mb-1'>Impact</h4><p className='text-sm text-muted-foreground'>{p.impact}</p></div><div className='text-right'><a href='#top' className='text-xs text-muted-foreground hover:underline'>Back to top</a></div></CardContent></Card>)}
+    <Card><CardHeader><CardTitle>Adoption Flow</CardTitle><CardDescription>Sequence for scalable human trust.</CardDescription></CardHeader><CardContent><ol className='list-decimal pl-5 space-y-1 text-sm'><li>Confidence Calibration</li><li>Progressive Disclosure</li><li>Intervention Architecture</li><li>Recovery Experience</li></ol></CardContent></Card>
+  </div>;
+}

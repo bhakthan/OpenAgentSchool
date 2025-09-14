@@ -3577,22 +3577,6 @@ export const productManagementScenarios: StudyModeQuestion[] = [
 - Actual accuracy when spot-checked: 73%
 
 Your engineering team says "the model is working as designed" but customer success is getting complaints. The CEO wants to know your plan.`,
-    multipleChoice: {
-      question: "What's your immediate priority as Product Manager?",
-      options: [
-        "Retrain the model to be more accurate before addressing confidence",
-        "Implement confidence calibration measurement and adjust display thresholds",
-        "Add human review for all high-confidence responses",
-        "Survey users to understand what they want from confidence scores"
-      ],
-      correctAnswer: 1,
-      explanations: [
-        "This addresses the symptom (accuracy) but not the core problem of miscalibrated confidence, which affects user trust even when answers are correct.",
-        "Correct! The core issue is that confidence scores don't match reality. Measuring calibration and adjusting what users see can immediately improve trust while you work on accuracy.",
-        "This is expensive and doesn't fix the root cause. Users will still see inflated confidence scores for the responses that aren't reviewed.",
-        "Surveys might provide insights, but the behavioral data already shows users are losing trust due to confidence miscalibration. Action is needed now."
-      ]
-    },
     followUpQuestions: [
       "How would you measure confidence calibration going forward?",
       "What thresholds would you set for displaying confidence to users?",
@@ -3603,7 +3587,6 @@ Your engineering team says "the model is working as designed" but customer succe
       "User behavior trumps satisfaction surveys for diagnosing trust issues",
       "Product changes should address root causes, not just surface symptoms"
     ],
-    businessContext: "This scenario teaches how to diagnose and fix trust engineering problems using data-driven approaches rather than intuitive fixes.",
     relatedConcepts: ['trust-engineering', 'confidence-calibration', 'user-retention'],
     timeEstimate: 25,
     successCriteria: [
@@ -3633,22 +3616,6 @@ Recent analysis shows:
 - Engineering team says "deprecating is harder than maintaining"
 
 Board meeting in 2 weeks. They want your integration strategy.`,
-    multipleChoice: {
-      question: "What framework should guide your integration rationalization?",
-      options: [
-        "Keep all integrations but optimize the problematic ones first",
-        "Survey enterprise customers about which integrations they actually need",
-        "Implement strict ROI thresholds (3x cost) and deprecation timeline for non-performers",
-        "Let usage data decide - anything under 10% usage gets deprecated immediately"
-      ],
-      correctAnswer: 2,
-      explanations: [
-        "This avoids the hard decisions and doesn't address the cost problem. Without discipline, integration bloat will continue growing.",
-        "Customer surveys often overstate needs because they fear losing options. Behavioral data (actual usage) is more reliable than stated preferences.",
-        "Correct! ROI thresholds create objective criteria and discipline. A clear deprecation process with timeline forces accountability and prevents endless maintenance of unused features.",
-        "This is too simplistic and doesn't account for value per user. A high-value integration used by few power users might still justify its cost."
-      ]
-    },
     followUpQuestions: [
       "How would you handle pushback from Sales about losing integration features?",
       "What migration plan would you provide for deprecated integrations?",
@@ -3659,7 +3626,6 @@ Board meeting in 2 weeks. They want your integration strategy.`,
       "Usage data is more reliable than customer surveys for measuring integration value",
       "Disciplined deprecation processes are essential for sustainable product growth"
     ],
-    businessContext: "This scenario demonstrates how Product Managers can use integration stewardship principles to control costs while maintaining user value.",
     relatedConcepts: ['integration-stewardship', 'roi-analysis', 'feature-deprecation'],
     timeEstimate: 30,
     successCriteria: [
@@ -3685,22 +3651,6 @@ Board meeting in 2 weeks. They want your integration strategy.`,
 - Legal team is "assessing exposure"
 
 Current agent response to similar queries: "I cannot provide tax advice due to technical limitations." Users are frustrated and switching to competitors.`,
-    multipleChoice: {
-      question: "What's your crisis communication strategy?",
-      options: [
-        "Disable the agent until the model is retrained on correct tax data",
-        "Issue public apology and offer to pay tax penalties for affected users",
-        "Redesign failure responses to provide helpful next steps instead of just refusing",
-        "Add human review requirement for all financial advice responses"
-      ],
-      correctAnswer: 2,
-      explanations: [
-        "This avoids the real issue - users still need help, and competitors will capture them if you go dark. Better to provide helpful guidance than no guidance.",
-        "This addresses liability but doesn't solve the user experience problem. Users still need tax help, and the agent still can't provide useful guidance.",
-        "Correct! Turn failure into value by providing actionable next steps: 'I can't advise on this complex rule, but here's the IRS publication and a list of local CPAs.' This builds trust through honesty and helpfulness.",
-        "This is expensive and slow, and doesn't improve the user experience. Users get delayed responses instead of immediate helpful guidance."
-      ]
-    },
     followUpQuestions: [
       "How would you prevent similar high-stakes errors in the future?",
       "What would make users trust the agent more after this incident?",
@@ -3711,7 +3661,6 @@ Current agent response to similar queries: "I cannot provide tax advice due to t
       "Transparency about limitations can build more trust than trying to appear perfect",
       "Crisis response should focus on user value, not just damage control"
     ],
-    businessContext: "This scenario shows how failure resilience architecture can turn public failures into trust-building opportunities through better communication design.",
     relatedConcepts: ['failure-resilience', 'crisis-communication', 'trust-building'],
     timeEstimate: 35,
     successCriteria: [
@@ -3733,6 +3682,151 @@ export const scenarioLibrary = {
   'computer-use': computerUseScenarios,
   'deep-agents': deepAgentsScenarios,
   'product-management': productManagementScenarios,
+  // New Perspectives (MVP Scenarios)
+  'agent-ops': [
+    {
+      id: 'agent-ops-scn-1',
+      type: 'scenario',
+      conceptId: 'agent-ops',
+      title: 'Tool Failure Cascade During Peak Traffic',
+      level: 'intermediate',
+      scenario: {
+        id: 'ops-tool-failure-cascade',
+        description: 'During a marketing launch, tool call failure rate spikes from 3% to 22%, triggering retries that saturate the thread pool and increase tail latency (P95 2.1s → 8.4s).',
+        context: 'Retries configured with no backoff; observability dashboard shows flat aggregate "accuracy" metric so leadership unaware.',
+        decisionPoints: [
+          'Throttle or disable non-critical capabilities?',
+          'Introduce circuit breaker for failing tool?',
+          'Communicate partial degradation to users?'
+        ],
+        options: [
+          'Keep full functionality; increase infra scale immediately',
+          'Disable failing tool silently',
+          'Deploy circuit breaker + degrade gracefully with messaging + queue retry with jitter'
+        ]
+      },
+      correctOption: 2,
+      rationales: [
+        'Scaling hides root cause & cost spikes',
+        'Silent disable erodes trust & may break flows',
+        'Circuit breaker contains blast radius; graceful messaging preserves trust while stabilizing system'
+      ],
+      followUpQuestions: [
+        'What metrics should trigger re-enablement?',
+        'How do you prevent retry storms in future?',
+        'Which golden probes validate recovery?'
+      ],
+      expectedInsights: [
+        'Graceful degradation > blind scaling',
+        'Backoff + circuit breakers reduce saturation',
+        'Need targeted probes for reactivation'
+      ],
+      businessContext: 'Demonstrates operational containment strategy for cascading tool failures.',
+      relatedConcepts: ['reliability', 'circuit-breaker', 'latency'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Chooses degradation over naive scale',
+        'Implements backoff & circuit breaker',
+        'Defines recovery validation signals'
+      ]
+    }
+  ],
+  'cost-value': [
+    {
+      id: 'cost-value-scn-1',
+      type: 'scenario',
+      conceptId: 'cost-value',
+      title: 'Runaway Inference Spend After Feature Launch',
+      level: 'intermediate',
+      scenario: {
+        id: 'cost-runaway-inference',
+        description: 'A “smart rewrite” feature drives 3x traffic to the highest-cost model; user task success only up 4%. Finance flags monthly projection overrun (180%).',
+        context: 'Routing heuristic uses token length as complexity proxy; cache disabled for new feature pending QA; no marginal value analysis performed.',
+        decisionPoints: [
+          'Add semantic complexity scoring?',
+          'Introduce two-tier routing with cheaper model first?',
+          'Batch or cache outputs?'
+        ],
+        options: [
+          'Throttle feature until budget reset',
+          'Fine-tune large model immediately to reduce tokens',
+          'Introduce staged routing + semantic cache + collect lift data before expansion'
+        ]
+      },
+      correctOption: 2,
+      rationales: [
+        'Throttling kills adoption signal prematurely',
+        'Fine-tune adds upfront cost without proven complexity',
+        'Layered routing + caching + validation quantifies true marginal lift'
+      ],
+      followUpQuestions: [
+        'What cost per successful rewrite is acceptable?',
+        'How to measure semantic complexity affordably?',
+        'Which metrics gate full rollout?'
+      ],
+      expectedInsights: [
+        'Need marginal lift vs cost tracking',
+        'Hybrid routing reduces waste',
+        'Cache + semantic complexity gating before scale'
+      ],
+      businessContext: 'Shows disciplined cost-value optimization before irreversible spend.',
+      relatedConcepts: ['routing', 'caching', 'economics'],
+      timeEstimate: 16,
+      successCriteria: [
+        'Defines lift vs cost metric',
+        'Adds hybrid routing reasoning',
+        'Includes caching strategy'
+      ]
+    }
+  ],
+  'trust-experience': [
+    {
+      id: 'trust-exp-scn-1',
+      type: 'scenario',
+      conceptId: 'trust-experience',
+      title: 'Overload From Full Reasoning Dumps',
+      level: 'beginner',
+      scenario: {
+        id: 'trust-reasoning-overload',
+        description: 'To be “transparent,” the agent now shows full chain-of-thought for every answer. Users complain about clutter and slower comprehension; trust metrics stagnate.',
+        context: 'No progressive disclosure – binary all-or-nothing reasoning visibility. Support tickets cite confusion & cognitive overload.',
+        decisionPoints: [
+          'Introduce summary-first explanation?',
+          'Add expandable reasoning sections?',
+          'Gate full reasoning behind low confidence only?'
+        ],
+        options: [
+          'Remove reasoning entirely to simplify',
+          'Keep full reasoning, add color coding',
+          'Move to layered explanation: short rationale + expandable details + confidence drivers'
+        ]
+      },
+      correctOption: 2,
+      rationales: [
+        'Removes transparency entirely',
+        'Color coding treats symptom not overload source',
+        'Layered disclosure balances trust and usability'
+      ],
+      followUpQuestions: [
+        'When should full reasoning auto-expand?',
+        'What signals belong in the short rationale?',
+        'How to test impact on trust calibration?'
+      ],
+      expectedInsights: [
+        'Progressive disclosure reduces overload',
+        'Short rationale must cite evidence factors',
+        'Measure trust delta via calibration tasks'
+      ],
+      businessContext: 'Encourages explanation UX that improves trust without cognitive fatigue.',
+      relatedConcepts: ['explainability', 'ux', 'trust'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Chooses layered explanation',
+        'Identifies rationale content',
+        'Defines calibration test approach'
+      ]
+    }
+  ],
   // Fine-Tuning core concept scenarios (micro staged escalation)
   'fine-tuning': [
     {

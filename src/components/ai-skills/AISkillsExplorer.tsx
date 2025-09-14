@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+// Tabs UI retained (import) only if we need to fall back; currently phased out in favor of section rendering
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Brain, Code, Users, Lightbulb, Rocket, ChartBar, Target, Calculator, Gauge, Wrench, Shield, CurrencyCircleDollar, Database, Network, BookOpen, CheckCircle } from "@phosphor-icons/react"
 import AISkillsFundamentals from "./AISkillsFundamentals"
@@ -23,25 +24,51 @@ import RAGSystems from "./RAGSystems"
 import MultiAgentOrchestration from "./MultiAgentOrchestration"
 import OrgPlaybooks from "./OrgPlaybooks"
 import { CurriculumTabs } from '@/components/learning/CurriculumTabs'
+import { perspectivesRegistry } from '@/data/perspectivesRegistry';
+import { skillCategories } from '@/data/aiSkillsStructure'
+import AISkillsSideNav from './AISkillsSideNav'
 
 const AIProductManagementPillars = React.lazy(() => import("./AIProductManagementPillars"))
+const AgentOpsPillars = React.lazy(() => import('./AgentOpsPillars'))
+const AICostValuePillars = React.lazy(() => import('./AICostValuePillars'))
+const HumanTrustPillars = React.lazy(() => import('./HumanTrustPillars'))
 
 export default function AISkillsExplorer() {
+  // activeTab kept for backward compatibility with existing child components that may expect tab navigation
   const [activeTab, setActiveTab] = useState("fundamentals")
   const [progress, setProgress] = useState<Record<string, boolean>>({})
-  const STORAGE_KEY = 'oas.aiSkillsProgress.v1'
+  const [activePerspectives, setActivePerspectives] = useState<Set<string>>(new Set())
+  const STORAGE_KEY = 'oas.aiSkillsProgress.v2' // bump key to avoid collision with legacy progress map
 
-  // Navigation function to move to next tab
-  const navigateToTab = (tabId: string) => {
-    setActiveTab(tabId)
-    // Scroll to top when changing tabs
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+  // Bridge between legacy tab IDs and new taxonomy IDs
+  const legacyToNew: Record<string, string> = {
+    'security-data': 'security-data-boundaries',
+    'rag': 'rag-systems',
+    'multi-agent': 'multi-agent-orchestration',
+    'assessment': 'frontier-firm-assessment',
+    'novel-patterns': 'novel-organizational-patterns',
+    'future-state': 'future-state-trends'
+  }
+  const newToLegacy: Record<string, string> = Object.fromEntries(Object.entries(legacyToNew).map(([k,v]) => [v,k]))
+
+  // Scroll helper (id can be either legacy or new)
+  const scrollToModule = (id: string) => {
+    const targetId = legacyToNew[id] || id // if legacy, map to new anchor
+    const el = document.getElementById(targetId)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  // Mark current as complete then navigate
+  // Replacement for navigateToTab in section world
+  const navigateToModule = (moduleId: string) => {
+    setActiveTab(moduleId)
+    scrollToModule(moduleId)
+  }
+
+  // Mark complete & navigate (records progress under new taxonomy id when bridged)
   const completeAndNavigate = (currentId: string, nextId: string) => {
-    setProgress(prev => ({ ...prev, [currentId]: true }))
-    navigateToTab(nextId)
+    const newId = legacyToNew[currentId] || currentId
+    setProgress(prev => ({ ...prev, [newId]: true }))
+    if (nextId) navigateToModule(nextId)
   }
 
   // Load/save progress
@@ -59,6 +86,44 @@ export default function AISkillsExplorer() {
 
   const resetProgress = () => setProgress({})
 
+  const perspectiveTabs = perspectivesRegistry
+    .filter(p => ['product-management','agent-ops','cost-value','trust-experience'].includes(p.id))
+    .map(p => {
+      const componentMap: Record<string, React.ReactNode> = {
+        'product-management': (
+          <React.Suspense fallback={<div className="p-6 text-sm text-muted-foreground">Loading Product Management Pillars…</div>}>
+            <AIProductManagementPillars onNavigate={() => completeAndNavigate('product-management','code-understanding')} />
+          </React.Suspense>
+        ),
+        'agent-ops': (
+          <React.Suspense fallback={<div className='p-6 text-sm text-muted-foreground'>Loading Agent Operations…</div>}>
+            <AgentOpsPillars />
+          </React.Suspense>
+        ),
+        'cost-value': (
+          <React.Suspense fallback={<div className='p-6 text-sm text-muted-foreground'>Loading Cost & Value Engineering…</div>}>
+            <AICostValuePillars />
+          </React.Suspense>
+        ),
+        'trust-experience': (
+          <React.Suspense fallback={<div className='p-6 text-sm text-muted-foreground'>Loading Trust & Interaction…</div>}>
+            <HumanTrustPillars />
+          </React.Suspense>
+        )
+      };
+      return {
+        id: p.id,
+        title: p.short || p.label,
+        description: p.description || '',
+        icon: <Target className="w-4 h-4" />,
+        level: 'Intermediate',
+        component: componentMap[p.id]
+      };
+    });
+
+  // Modules array (legacy) retained for metadata & component resolution
+  // TODO: In a later pass, collapse into a schema-based registry to avoid dual maintenance.
+
   const tabs = [
     // 1. Fundamentals
     {
@@ -67,7 +132,7 @@ export default function AISkillsExplorer() {
       description: "What are AI-Native Practices?",
       icon: <Brain className="w-4 h-4" />,
       level: "Beginner",
-  component: <AISkillsFundamentals onNavigate={() => completeAndNavigate("fundamentals","thinking-modes")} navigateToTab={navigateToTab} />
+  component: <AISkillsFundamentals onNavigate={() => completeAndNavigate("fundamentals","thinking-modes")} navigateToTab={navigateToModule as any} />
     },
     // 2. Thinking Modes → add consistent Next button to go to Interactive Visualizations
     {
@@ -96,19 +161,8 @@ export default function AISkillsExplorer() {
       level: "Beginner",
       component: <InteractiveVisualizations onNavigate={() => completeAndNavigate("interactive-visualizations","product-management")} />
     },
-    // NEW: Product Management Perspective
-    {
-      id: "product-management",
-      title: "Product Mgmt",
-      description: "8 pillars: trust, memory, integration, capability, synergy, resilience, ethics, complexity",
-      icon: <Target className="w-4 h-4" />,
-      level: "Intermediate",
-      component: (
-        <React.Suspense fallback={<div className="p-6 text-sm text-muted-foreground">Loading Product Management Pillars…</div>}>
-          <AIProductManagementPillars onNavigate={() => completeAndNavigate("product-management","code-understanding")} />
-        </React.Suspense>
-      )
-    },
+    // Registry-driven perspective tabs
+    ...perspectiveTabs,
     // 4. Code Understanding
     {
       id: "code-understanding",
@@ -276,6 +330,40 @@ export default function AISkillsExplorer() {
     }
   }
 
+  // Build a map for quick lookup by id (including bridge aliases)
+  const tabMap: Record<string, typeof tabs[number]> = {}
+  tabs.forEach(t => { tabMap[t.id] = t })
+  Object.entries(legacyToNew).forEach(([legacyId, newId]) => {
+    if (tabMap[legacyId]) tabMap[newId] = tabMap[legacyId]
+  })
+
+  const totalModules = skillCategories.reduce((acc, c) => acc + c.moduleIds.length, 0)
+
+  const togglePerspective = (id: string) => {
+    setActivePerspectives(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
+
+  // Track last activated lens to auto-scroll & highlight
+  const [lastActivatedLens, setLastActivatedLens] = useState<string | null>(null)
+  useEffect(() => {
+    if (!lastActivatedLens) return
+    // Wait a tick for component mount
+    const handle = requestAnimationFrame(() => {
+      const el = document.getElementById(lastActivatedLens)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+      // Clear highlight after short delay
+      const clear = window.setTimeout(() => setLastActivatedLens(null), 1800)
+      return () => window.clearTimeout(clear)
+    })
+    return () => cancelAnimationFrame(handle)
+  }, [lastActivatedLens])
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
@@ -317,70 +405,161 @@ export default function AISkillsExplorer() {
             </CardDescription>
             <div className="mt-2 flex items-center gap-2">
               <div className="text-sm text-muted-foreground">
-                Progress: {Object.values(progress).filter(Boolean).length}/{tabs.length} completed
+                Progress: {Object.values(progress).filter(Boolean).length}/{totalModules} modules completed
               </div>
               <Button variant="secondary" size="sm" onClick={resetProgress}>Reset progress</Button>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-4">
-              {tabs.map((tab, index) => (
-                <div key={tab.id} className="relative">
-                  {index < tabs.length - 1 && (
-                    <div className="hidden md:block absolute top-6 right-0 w-full h-0.5 bg-border z-0" />
-                  )}
-                  <div className="relative z-10 bg-background p-4 rounded-lg border">
-                    {progress[tab.id] && (
-                      <div className="absolute top-2 right-2 text-green-600" title="Completed">
-                        <CheckCircle className="w-4 h-4" />
-                      </div>
-                    )}
-                    <div className="flex items-center gap-2 mb-2">
-                      {tab.icon}
-                      <Badge className={getLevelColor(tab.level)} variant="secondary">
-                        {tab.level}
-                      </Badge>
-                    </div>
-                    <h3 className="font-semibold text-base mb-1">{tab.title}</h3>
-                    <p className="text-sm text-muted-foreground">{tab.description}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="text-sm text-muted-foreground">
+              Scroll through categorized sections below. Use perspective lenses to augment Foundations with role‑specific pillars.
             </div>
           </CardContent>
         </Card>
 
-        {/* Main Content Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 h-auto p-1">
-            {tabs.map((tab) => (
-              <TabsTrigger 
-                key={tab.id} 
-                value={tab.id}
-        className="flex items-center gap-1 px-2 py-1.5 text-sm md:text-sm lg:text-sm data-[state=active]:bg-background data-[state=active]:text-foreground"
-              >
-                {tab.icon}
-        <span className="hidden sm:inline text-sm md:text-sm lg:text-sm xl:text-base truncate" title={tab.title}>{tab.title}</span>
-        {progress[tab.id] && <CheckCircle className="w-3 h-3 text-green-600" aria-label="completed" />}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+        {/* Layout Grid: Side Nav + Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8">
+          <div className="order-2 lg:order-1">
+            <AISkillsSideNav
+              categories={skillCategories.map(c => ({ id: c.id, title: c.title, moduleIds: c.moduleIds }))}
+              progress={progress}
+              onJump={(id) => scrollToModule(id)}
+            />
+          </div>
+          <div className="order-1 lg:order-2">
+        {/* Perspective Lenses */}
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-3">Perspective Lenses</h2>
+          <div className="flex flex-wrap gap-2">
+            {perspectiveTabs.map(p => {
+              const active = activePerspectives.has(p.id)
+              return (
+                <Button
+                  key={p.id}
+                  type="button"
+                  aria-pressed={active}
+                  variant={active ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => {
+                    const willActivate = !active
+                    togglePerspective(p.id)
+                    if (willActivate) setLastActivatedLens(p.id)
+                  }}
+                  className={active ? 'ring-2 ring-primary/40 data-[pressed=true]:scale-[1.02]' : ''}
+                >
+                  {active ? '✓ ' : ''}{p.title}
+                </Button>
+              )
+            })}
+          </div>
+          <p className="mt-2 text-sm text-muted-foreground">Toggle one or more lenses to inject role‑specific pillar frameworks into the Foundations section.</p>
+          {activePerspectives.size > 0 && (
+            <div className="mt-3 text-xs text-muted-foreground flex flex-wrap gap-3">
+              <span className="font-medium">Active:</span>
+              {[...activePerspectives].map(id => {
+                const tab = perspectiveTabs.find(p => p.id === id)
+                if (!tab) return null
+                return (
+                  <button
+                    key={id}
+                    onClick={() => document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'center'})}
+                    className="underline decoration-dotted hover:text-primary transition-colors"
+                    title="Jump to inserted pillar"
+                  >{tab.title}</button>
+                )
+              })}
+              <button onClick={() => setActivePerspectives(new Set())} className="ml-2 text-destructive underline decoration-dotted" title="Clear all lenses">Clear</button>
+            </div>
+          )}
+        </div>
 
-          {tabs.map((tab) => (
-            <TabsContent key={tab.id} value={tab.id} className="mt-6">
-              <div className="mb-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <h2 className="text-2xl font-bold">{tab.title}</h2>
-                  <Badge className={getLevelColor(tab.level)} variant="secondary">
-                    {tab.level}
-                  </Badge>
+  {/* Sectioned Curriculum */}
+  <div className="space-y-16">
+          {skillCategories.map(category => {
+            return (
+              <section id={category.id} key={category.id} className="scroll-mt-24">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold flex items-center gap-3">
+                    {category.title}
+                    <span className="text-sm font-normal text-muted-foreground">({category.moduleIds.length} modules)</span>
+                  </h2>
+                  {category.description && (
+                    <p className="text-muted-foreground mt-1 max-w-3xl">{category.description}</p>
+                  )}
                 </div>
-                <p className="text-muted-foreground">{tab.description}</p>
-              </div>
-              {tab.component}
-            </TabsContent>
-          ))}
-        </Tabs>
+                <div className="space-y-10">
+                  {category.moduleIds.map(moduleId => {
+                    const t = tabMap[moduleId]
+                    if (!t) return null
+                    const progressKey = moduleId // already new taxonomy id
+                    const isComplete = progress[progressKey]
+                    return (
+                      <div id={moduleId} key={moduleId} className="border rounded-lg p-5 bg-card/40 relative">
+                        {isComplete && (
+                          <div className="absolute top-3 right-3 text-green-600" title="Completed">
+                            <CheckCircle className="w-5 h-5" />
+                          </div>
+                        )}
+                        <div className="mb-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            {t.icon}
+                            <h3 className="text-xl font-semibold">{t.title}</h3>
+                            <Badge className={getLevelColor(t.level)} variant="secondary">{t.level}</Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground max-w-2xl">{t.description}</p>
+                        </div>
+                        {t.component}
+                        {!isComplete && (
+                          <div className="mt-4 flex gap-2">
+                            <Button size="sm" variant="secondary" onClick={() => setProgress(prev => ({...prev, [progressKey]: true}))}>Mark Complete</Button>
+                            <Button size="sm" onClick={() => completeAndNavigate(newToLegacy[moduleId] || moduleId, '')}>Complete & Stay</Button>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                  {category.id === 'foundations' && activePerspectives.size > 0 && (
+                    <div className="space-y-8">
+                      {[...activePerspectives].map(pid => {
+                        const pTab = perspectiveTabs.find(pt => pt.id === pid)
+                        if (!pTab) return null
+                        return (
+                          <div
+                            key={pid}
+                            id={pid}
+                            className={`border rounded-lg p-5 bg-card/60 relative transition-colors duration-700 ${lastActivatedLens === pid ? 'ring-2 ring-primary/60 bg-primary/5' : ''}`}
+                          >
+                            <div className="flex items-center gap-2 mb-2">
+                              {pTab.icon}
+                              <h3 className="text-lg font-semibold">{pTab.title} Pillars</h3>
+                              <Badge className={getLevelColor(pTab.level)} variant="secondary">{pTab.level}</Badge>
+                            </div>
+                            {lastActivatedLens === pid && (
+                              <div className="absolute -top-2 left-3 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 rounded shadow">Activated</div>
+                            )}
+                            {pTab.component}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
+              </section>
+            )
+          })}
+          {/* Hands-On Studios retained as a final section (outside taxonomy for now) */}
+          <section id="hands-on-studios" className="scroll-mt-24">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold flex items-center gap-3">Hands‑On Studios</h2>
+              <p className="text-muted-foreground mt-1 max-w-3xl">Interactive labs with evals, cost, HITL, RAG, and orchestration modules.</p>
+            </div>
+            <div className="border rounded-lg p-5 bg-card/40">
+              <CurriculumTabs defaultModuleId={'observability-evalops' as any} />
+            </div>
+          </section>
+        </div>{/* end space-y sections */}
+          </div>{/* end right content */}
+        </div>{/* end grid */}
       </div>
     </div>
   )

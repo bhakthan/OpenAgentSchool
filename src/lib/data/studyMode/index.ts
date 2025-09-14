@@ -51,7 +51,7 @@ export function getAllStudyModeQuestions(): StudyModeQuestion[] {
 // Get total study mode content count (including SCL scenarios)
 export function getAllStudyModeContentCount(): number {
   const traditionalQuestions = getAllStudyModeQuestions().length;
-  const sclScenariosCount = 8; // SCL scenarios from SuperCriticalLearning/SCLDemo.tsx
+  const sclScenariosCount = 8; // TODO: derive dynamically from SCL demo or sessions when formalized
   return traditionalQuestions + sclScenariosCount;
 }
 

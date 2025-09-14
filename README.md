@@ -41,6 +41,17 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 **📊 Business Impact Focus:**
 Each pillar includes concrete actions, measurable outcomes, and business impact with real case study results from healthcare, fintech, e-commerce, and enterprise contexts.
 
+### 🔭 Perspective Matrix (Foundational Lenses Added)
+
+| Perspective | Core Pillars / Focus | Representative Study Activities (MVP) | Early KPIs | Typical SCL Objective Mapping |
+|-------------|----------------------|----------------------------------------|-----------|-------------------------------|
+| Product Management (`product-management`) | Trust Engineering, Memory Governance, Integration Stewardship, Capability Prioritization, Human-AI Synergy, Failure Resilience, Ethical Layer, Complexity Governance | 4 Socratic, 3 Scenarios, 2 Debug | Trust calibration error %, Integration ROI realization time, Complexity debt avoided | reduceComplexity, minimizeRisk |
+| Agent Operations & Observability (`agent-ops`) | Layered Observability, Resilience Engineering, Quality/Drift Monitoring, Safe Rollouts | 3 Socratic, 1 Scenario, 1 Debug | Tail latency P95 / P50 ratio, MTTR, Drift detection lead time | hitSLOs, minimizeRisk |
+| Cost & Value Engineering (`cost-value`) | Intervention Ladder, Routing Economics, Integrity-Preserving Caching, Marginal Lift Accountability | 3 Socratic, 1 Scenario, 1 Debug | Cost per successful task, High-cost model % usage, Cache staleness rate | optimize |
+| Human Trust & Interaction Experience (`trust-experience`) | Calibrated Confidence, Progressive Disclosure, Intervention Architecture, Recovery Experience | 3 Socratic, 1 Scenario, 1 Debug | Calibrated confidence gap, Explanation engagement %, Post-failure retry rate | minimizeRisk |
+
+> These perspectives are now selectable via concept IDs in Study Mode & SCL seeds. Each injects tailored prompt guidance (first-order, cascade, synthesis) and auto-augments objectives where appropriate.
+
 ### 🌳 Knowledge Tree Visualization Overhaul
 
 Brand identity and export fidelity upgrades to the global learning taxonomy tree:

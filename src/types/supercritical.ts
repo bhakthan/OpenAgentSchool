@@ -15,7 +15,27 @@ export type SCLMode =
   | 'leap-focus'
   | 'mechanism-audit';
 
-export type SCLObjective = 'optimize' | 'minimizeRisk' | 'hitSLOs' | 'scaleTeam' | 'reduceComplexity';
+export type SCLObjective =
+  | 'optimize'
+  | 'minimizeRisk'
+  | 'hitSLOs'
+  | 'scaleTeam'
+  | 'reduceComplexity'
+  // Perspective-specific additions
+  | 'latencyTailReduction'
+  | 'marginalLiftValidation'
+  | 'calibratedConfidenceGap';
+
+export const OBJECTIVE_LABELS: Record<SCLObjective, string> = {
+  optimize: 'Optimize Outcomes',
+  minimizeRisk: 'Minimize Risk',
+  hitSLOs: 'Hit SLOs',
+  scaleTeam: 'Scale Team Capability',
+  reduceComplexity: 'Reduce Complexity',
+  latencyTailReduction: 'Latency Tail Reduction',
+  marginalLiftValidation: 'Marginal Lift Validation',
+  calibratedConfidenceGap: 'Calibrated Confidence Gap'
+};
 
 export interface SCLEffectNode {
   id: string;

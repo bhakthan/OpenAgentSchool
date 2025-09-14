@@ -18,7 +18,7 @@ import SCLGraph, { SCLEffect } from './SCLGraph';
 import AdvancedFeatures from './AdvancedFeatures';
 
 // Sample SCL effects for demonstration
-const sampleEffects: SCLEffect[] = [
+export const sampleEffects: SCLEffect[] = [
   {
     id: 'foundation-effect',
     text: 'Establish foundational AI infrastructure with cloud-native architecture',

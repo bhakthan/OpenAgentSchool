@@ -2121,6 +2121,292 @@ export const socraticQuestionLibrary = {
   'voice-agent': voiceAgentSocraticQuestions,
   'deep-agents': deepAgentsSocraticQuestions,
   'product-management': productManagementSocraticQuestions,
+  // New Perspectives (MVP sets)
+  'agent-ops': [
+    {
+      id: 'agent-ops-socratic-1',
+      type: 'socratic',
+      conceptId: 'agent-ops',
+      title: 'Metric Stack Design Failure',
+      level: 'intermediate',
+      socratiQuestion: 'Why is relying on a single "accuracy" metric dangerous for production agent reliability, and what layered metric stack would you propose instead?',
+      followUpQuestions: [
+        'How do leading vs lagging signals differ in agent observability?',
+        'Which metric would surface regression earlier: hallucination rate, tool failure %, or user abandon after first response?',
+        'How would you prevent metric gaming or overfitting to synthetic evals?'
+      ],
+      expectedInsights: [
+        'Single aggregate hides failure mode distribution',
+        'Layered stack: core correctness, tool success %, latency buckets, user recovery rate',
+        'Include anti-gaming: random holdouts / drift monitors'
+      ],
+      hints: [
+        'Think pyramid: infrastructure → reasoning → user value',
+        'Add at least one resilience / recovery metric',
+        'Consider alert routing severity tiers'
+      ],
+      explanation: 'Encourages designing a multi-dimensional observability stack to avoid false confidence and delayed incident detection.',
+      relatedConcepts: ['observability', 'evaluation', 'reliability'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Proposes ≥4 complementary metrics',
+        'Includes at least one user-centric signal',
+        'Addresses gaming / drift risk'
+      ]
+    },
+    {
+      id: 'agent-ops-socratic-2',
+      type: 'socratic',
+      conceptId: 'agent-ops',
+      title: 'Handling Latency Variance',
+      level: 'intermediate',
+      socratiQuestion: 'Mean latency is stable but P95 doubled. Why is this a reliability risk and how do you address it without over-provisioning?',
+      followUpQuestions: [
+        'What user behaviors correlate with tail latency spikes?',
+        'How do retries sometimes worsen tail latency?',
+        'Which mitigation do you try first: caching, decomposition, or model routing?'
+      ],
+      expectedInsights: [
+        'Tail latency drives abandonment / cascading retries',
+        'Blind retries amplify saturation',
+        'Target decomposition + warm path caches before scaling infra'
+      ],
+      hints: [
+        'Focus on tail not mean',
+        'Consider concurrency control',
+        'Look for expensive tool sequences'
+      ],
+      explanation: 'Highlights importance of tail latency management and systematic mitigation strategies over naive scaling.',
+      relatedConcepts: ['latency', 'throughput', 'cost-performance'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Explains user impact of tail spikes',
+        'Identifies non-infra mitigations',
+        'Addresses retry amplification'
+      ]
+    },
+    {
+      id: 'agent-ops-socratic-3',
+      type: 'socratic',
+      conceptId: 'agent-ops',
+      title: 'Silent Failure Detection',
+      level: 'advanced',
+      socratiQuestion: 'Your weekly eval pass rate is flat, but user-reported "unhelpful" tags are rising. What signals or probes do you add to detect silent degradation earlier?',
+      followUpQuestions: [
+        'How could retrieval drift manifest in stable evals?',
+        'What lightweight synthetic probes could you schedule hourly?',
+        'How do you separate UX friction from reasoning degradation?'
+      ],
+      expectedInsights: [
+        'Need behavioral + retrieval freshness probes',
+        'Add targeted golden set refresh & semantic diff checks',
+        'Segment user tags by task type / tool path'
+      ],
+      hints: [
+        'Think: retrieval freshness, tool path anomalies, embedding drift',
+        'Introduce sentinel queries',
+        'Correlate tags with internal spans'
+      ],
+      explanation: 'Focuses on mixed-signal detection to surface quality drift not caught by static evaluation suites.',
+      relatedConcepts: ['drift', 'retrieval', 'quality'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Proposes at least 2 proactive probes',
+        'Segments signals for diagnosis',
+        'Explains why static evals can mask issues'
+      ]
+    }
+  ],
+  'cost-value': [
+    {
+      id: 'cost-value-socratic-1',
+      type: 'socratic',
+      conceptId: 'cost-value',
+      title: 'Premature Model Upgrade',
+      level: 'beginner',
+      socratiQuestion: 'Your team wants to switch all traffic to a larger reasoning model after a small win on a subjective benchmark. What structured validation sequence should precede that decision?',
+      followUpQuestions: [
+        'What is the marginal lift threshold vs cost delta?',
+        'How would an interleaving test reduce variance?',
+        'When is selective routing superior to global upgrade?'
+      ],
+      expectedInsights: [
+        'Need controlled A/B or interleaving with task-aligned metrics',
+        'Assess marginal lift vs token cost per resolved task',
+        'Use selective routing for complex / ambiguous queries'
+      ],
+      hints: [
+        'Think: intervention ladder',
+        'Define evaluation horizon',
+        'Consider caching step before upgrade'
+      ],
+      explanation: 'Teaches disciplined intervention sequencing instead of headline-driven upgrades.',
+      relatedConcepts: ['model-routing', 'evaluation', 'finops'],
+      timeEstimate: 10,
+      successCriteria: [
+        'Defines validation steps',
+        'References marginal lift vs cost',
+        'Suggests targeted routing'
+      ]
+    },
+    {
+      id: 'cost-value-socratic-2',
+      type: 'socratic',
+      conceptId: 'cost-value',
+      title: 'Caching Trade-offs',
+      level: 'intermediate',
+      socratiQuestion: 'Semantic cache hit rate improved from 15% to 55%, but correctness complaints rose. What went wrong and how do you redesign caching safely?',
+      followUpQuestions: [
+        'How do semantic similarity thresholds influence stale answer risk?',
+        'Which metadata should you store for freshness invalidation?',
+        'When should you bypass cache for high-stakes tasks?'
+      ],
+      expectedInsights: [
+        'Aggressive similarity threshold overgeneralized',
+        'Need freshness TTL + domain-specific invalidation signals',
+        'Bypass logic for regulated / high-risk categories'
+      ],
+      hints: [
+        'Consider embedding drift',
+        'Add answer provenance checks',
+        'Use multi-key (intent + entities)'
+      ],
+      explanation: 'Explores disciplined caching strategies balancing cost reduction and answer integrity.',
+      relatedConcepts: ['caching', 'semantics', 'risk'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Identifies stale answer mechanism',
+        'Proposes invalidation / bypass rules',
+        'Balances cost with reliability'
+      ]
+    },
+    {
+      id: 'cost-value-socratic-3',
+      type: 'socratic',
+      conceptId: 'cost-value',
+      title: 'Intervention Ladder Discipline',
+      level: 'advanced',
+      socratiQuestion: 'Why can skipping from prompt tweaks directly to fine-tuning inflate long-term total cost of ownership?',
+      followUpQuestions: [
+        'What maintenance overhead does fine-tuning introduce?',
+        'How does data drift erode earlier fine-tune gains?',
+        'When is retrieval optimization a cheaper alternative?'
+      ],
+      expectedInsights: [
+        'Fine-tunes add retraining + eval overhead',
+        'Drift forces repeated adjustments',
+        'Retrieval / prompt layering may capture majority gains first'
+      ],
+      hints: [
+        'List lifecycle costs',
+        'Map diminishing returns curve',
+        'Reference evaluation cadence'
+      ],
+      explanation: 'Promotes structured cost-aware intervention sequencing for sustained ROI.',
+      relatedConcepts: ['fine-tuning', 'retrieval', 'optimization'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Articulates overhead sources',
+        'Shows diminishing returns logic',
+        'Suggests cheaper alternatives'
+      ]
+    }
+  ],
+  'trust-experience': [
+    {
+      id: 'trust-exp-socratic-1',
+      type: 'socratic',
+      conceptId: 'trust-experience',
+      title: 'Confidence Signal Miscalibration',
+      level: 'intermediate',
+      socratiQuestion: 'Users report overconfidence in responses with weak sources. What redesign of confidence signaling and explanation structure improves calibrated trust?',
+      followUpQuestions: [
+        'How do you separate absence of evidence vs low retrieval quality?',
+        'What UI affordances let users request more context without overload?',
+        'How could partial answer gating increase trust?'
+      ],
+      expectedInsights: [
+        'Confidence should reflect evidence quality dimensions',
+        'Progressive disclosure reduces cognitive load',
+        'Gated partial answers prevent hallucination commitment'
+      ],
+      hints: [
+        'Consider multi-factor confidence (retrieval coverage + internal consistency)',
+        'Add “expand reasoning” affordance',
+        'Separate transparency from verbosity'
+      ],
+      explanation: 'Drives redesign of trust signals toward evidence-grounded calibration.',
+      relatedConcepts: ['explainability', 'retrieval', 'ux'],
+      timeEstimate: 13,
+      successCriteria: [
+        'Defines multi-factor calibration',
+        'Avoids info overload design',
+        'Links gating to trust preservation'
+      ]
+    },
+    {
+      id: 'trust-exp-socratic-2',
+      type: 'socratic',
+      conceptId: 'trust-experience',
+      title: 'Designing Intervention Points',
+      level: 'intermediate',
+      socratiQuestion: 'Where should human intervention points be placed in a multi-step high-risk task to maximize both safety and user flow continuity?',
+      followUpQuestions: [
+        'What signals trigger escalation vs silent monitoring?',
+        'How do you avoid interrupt fatigue?',
+        'Which steps benefit from pre-commit previews?'
+      ],
+      expectedInsights: [
+        'Intervention placement should align with irreversible actions',
+        'Previews reduce need for full stoppage',
+        'Escalation triggers must be precise to reduce fatigue'
+      ],
+      hints: [
+        'Map user journey risk points',
+        'Think graded interventions',
+        'Differentiate high vs medium risk gating'
+      ],
+      explanation: 'Encourages deliberate design of human control affordances balancing flow and safety.',
+      relatedConcepts: ['human-in-loop', 'risk', 'ux-flow'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Identifies irreversible steps',
+        'Explains graded intervention model',
+        'Addresses fatigue risk'
+      ]
+    },
+    {
+      id: 'trust-exp-socratic-3',
+      type: 'socratic',
+      conceptId: 'trust-experience',
+      title: 'Recovery Experience Design',
+      level: 'advanced',
+      socratiQuestion: 'A failed reasoning chain currently produces a generic apology. How do you redesign recovery UX to increase retry likelihood and long-term trust?',
+      followUpQuestions: [
+        'What information must a recovery response contain?',
+        'How can user action options reduce abandonment?',
+        'When should the agent proactively re-attempt vs ask guidance?'
+      ],
+      expectedInsights: [
+        'Recovery = context + reason + options + alternative path',
+        'Agency increases retry probability',
+        'Autonomous re-attempt only if deterministic fix exists'
+      ],
+      hints: [
+        'Model it like transactional UX errors',
+        'Include structured remediation choices',
+        'Log recovery outcome for continuous tuning'
+      ],
+      explanation: 'Moves failure handling from apology to structured trust-preserving recovery workflow.',
+      relatedConcepts: ['failure-resilience', 'ux', 'trust'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Lists key recovery components',
+        'Provides user agency options',
+        'Sets autonomous retry criteria'
+      ]
+    }
+  ],
   // Fine-Tuning Core Concept
   'fine-tuning': [
     {

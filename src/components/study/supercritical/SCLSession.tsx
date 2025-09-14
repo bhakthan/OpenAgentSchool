@@ -20,6 +20,8 @@ import {
   Prohibit
 } from '@phosphor-icons/react';
 import type { SCLMode, SCLUIState, SCLObjective } from '@/types/supercritical';
+import { OBJECTIVE_LABELS } from '@/types/supercritical';
+import { perspectiveObjectiveMap } from '@/data/perspectivesRegistry';
 import { useSCLSession } from '@/hooks/useSCLSession';
 import { SCLControls } from './SCLControls';
 import { SCLEffectGraph } from './SCLEffectGraph';
@@ -142,16 +144,21 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
         practices: ['iterative-testing']
       };
 
-      // Auto-augment objectives if product-management is in scope
+      // Auto-augment objectives based on perspective concept IDs (registry driven)
       let sessionObjectives = [...objectives];
-      if (seeds.conceptIds.includes('product-management')) {
-        const pmAdds: SCLObjective[] = ['reduceComplexity', 'minimizeRisk'];
-        pmAdds.forEach(obj => { if (!sessionObjectives.includes(obj)) sessionObjectives.push(obj); });
-        // Reflect in UI state so user sees them added
-        if (sessionObjectives.length !== objectives.length) {
-          setObjectives(sessionObjectives);
+      seeds.conceptIds.forEach(cid => {
+        const adds = perspectiveObjectiveMap[cid];
+        if (adds?.length) {
+          let changed = false;
+            adds.forEach(obj => {
+              if (!sessionObjectives.includes(obj)) {
+                sessionObjectives.push(obj);
+                changed = true;
+              }
+            });
+          if (changed) setObjectives([...sessionObjectives]);
         }
-      }
+      });
 
       console.log('SCL Session starting with seeds:', seeds);
       
@@ -625,6 +632,25 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
                 onStartSession={handleStartSession}
                 isGenerating={isGenerating}
               />
+
+              {session && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm font-medium flex items-center gap-2">
+                      <Target className="h-4 w-4" /> Active Objectives
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {session.objectives.map(obj => (
+                        <Badge key={obj} variant="outline" className="text-xs px-2 py-1">
+                          {OBJECTIVE_LABELS[obj] || obj}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Mode-specific controls */}
               <Card>

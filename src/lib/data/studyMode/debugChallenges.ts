@@ -3918,6 +3918,84 @@ export const debugChallengeLibrary = {
   'agentic-rag': debugChallenges.filter(c => c.conceptId === 'agentic-rag'),
   'modern-tool-use': debugChallenges.filter(c => c.conceptId === 'modern-tool-use'),
   'deep-agents': debugChallenges.filter(c => c.conceptId === 'deep-agents'),
+  // New Perspectives
+  'agent-ops': [
+    {
+      id: 'agent-ops-debug-1',
+      type: 'debug',
+      conceptId: 'agent-ops',
+      title: 'Retry Storm Causing Tail Latency Spike',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'ops-retry-storm',
+        title: 'Unbounded Parallel Retries',
+        description: 'P95 latency jumped 4x; logs show clustered tool timeouts followed by simultaneous retries.',
+        problemDescription: 'Retry handler fires immediate parallel retries (max 3) with no jitter; saturation triggers more timeouts.',
+        brokenCode: `async function callToolWithRetry(fn){\n  for(let i=0;i<3;i++){\n    try { return await fn(); } catch(e){ /* swallow */ }\n  }\n  throw new Error('tool failed');\n}`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'orchestrator', message: 'tool timeout after 2000ms', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'orchestrator', message: 'retrying immediately', type: 'info' }
+        ],
+        expectedBehavior: 'Backoff with jitter; avoid parallel saturation; circuit break after threshold.',
+        commonIssues: [
+          { issue: 'No backoff', symptoms: ['Clustered timeouts'], diagnosis: 'Immediate tight loop', fix: 'Add exponential backoff + jitter' },
+          { issue: 'Parallel amplification', symptoms: ['Thread pool exhaustion'], diagnosis: 'Simultaneous retries', fix: 'Serialize or cap concurrency' }
+        ],
+        hints: ['Check retry loop structure', 'Look for missing delay', 'Consider circuit breaker'],
+        solution: 'Introduce exponential backoff (e.g. 200ms * 2^attempt + jitter), abort after timeout, and short circuit failing tool temporarily.',
+        explanation: 'Prevents cascading failure & preserves capacity by spacing retries and isolating persistent faults.'
+      }
+    }
+  ],
+  'cost-value': [
+    {
+      id: 'cost-value-debug-1',
+      type: 'debug',
+      conceptId: 'cost-value',
+      title: 'Semantic Cache Returning Stale Answers',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'cost-stale-cache',
+        title: 'Over-aggressive Embedding Threshold',
+        description: 'Support complaints about outdated policy answers despite recent updates.',
+        problemDescription: 'Cache accept threshold set to 0.70 cosine similarity; no freshness metadata; updated policies not invalidating entries.',
+        brokenCode: 'if(similarity > 0.7){ return cached.answer }',
+        conversationLogs: [],
+        expectedBehavior: 'Higher threshold + freshness TTL + domain key segmentation.',
+        commonIssues: [
+          { issue: 'Low threshold', symptoms: ['Wrong answer accepted'], diagnosis: 'Over-general match', fix: 'Raise threshold to ~0.84' },
+          { issue: 'No invalidation', symptoms: ['Outdated data served'], diagnosis: 'Missing TTL', fix: 'Attach timestamp & purge on policy update' }
+        ],
+        hints: ['Check similarity threshold', 'Is there a TTL?', 'How are updates handled?'],
+        solution: 'Increase threshold, add (intent+domain) composite key, set 24h TTL + explicit invalidation hook on policy edits.',
+        explanation: 'Reduces stale retrieval while preserving cost benefit of caching.'
+      }
+    }
+  ],
+  'trust-experience': [
+    {
+      id: 'trust-exp-debug-1',
+      type: 'debug',
+      conceptId: 'trust-experience',
+      title: 'Misleading Confidence Badge Heuristic',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'trust-confidence-badge',
+        title: 'Token Count as Confidence Proxy',
+        description: 'High confidence badge displayed for verbose answers even when retrieval sparse.',
+        problemDescription: 'Heuristic sets confidence = min(0.95, 0.40 + tokens/2000); ignores evidence coverage; no calibration check.',
+        brokenCode: 'const confidence = Math.min(0.95, 0.40 + answerTokens/2000)',
+        conversationLogs: [],
+        expectedBehavior: 'Confidence derived from evidence coverage, consistency checks, retrieval score distribution.',
+        commonIssues: [
+          { issue: 'Proxy misuse', symptoms: ['Long answers marked high confidence'], diagnosis: 'Length != correctness', fix: 'Base on evidence quality' }
+        ],
+        hints: ['Look at formula inputs', 'Is retrieval considered?', 'Where is calibration?'],
+        solution: 'Replace length heuristic with composite score (retrieval coverage %, internal consistency diff, source diversity). Clamp & display only if calibrated.',
+        explanation: 'Aligns displayed confidence with epistemic grounding, reducing overtrust.'
+      }
+    }
+  ],
   // Fine-Tuning core concept debug challenges
   'fine-tuning': [
     {

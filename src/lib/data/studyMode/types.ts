@@ -16,7 +16,8 @@ export interface StudyModeQuestion {
   expectedInsights?: string[];
   
   // Scenario-based learning
-  scenario?: StudyScenario;
+  // Some legacy/simple scenarios stored as raw narrative strings; new rich ones use StudyScenario
+  scenario?: StudyScenario | string;
   
   // Debug challenges
   debugChallenge?: DebugChallenge;
