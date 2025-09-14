@@ -57,6 +57,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { AudioNarrationProvider } from './contexts/AudioNarrationContext';
 import { EnlightenMeButton as AskAIFab } from './components/enlighten/EnlightenMeButton';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useGAPageViews } from './hooks/useGAPageViews';
 
 // Placeholder component (disabled)
 const AppTutorialButton = () => null;
@@ -226,8 +227,13 @@ function App() {
   }, [])
 
   if (!mounted) {
+    // Call analytics hook even before mount gating to preserve hook order.
+    // It internally guards for GA availability & env configuration.
+    useGAPageViews();
     return null
   }
+  // Initialize and track GA page views (must be called unconditionally every render to satisfy Hooks rules)
+  useGAPageViews();
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="azure-ai-agent-theme">
