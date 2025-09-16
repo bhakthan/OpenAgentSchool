@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 // Tabs UI retained (import) only if we need to fall back; currently phased out in favor of section rendering
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Brain, Code, Users, Lightbulb, Rocket, ChartBar, Target, Calculator, Gauge, Wrench, Shield, CurrencyCircleDollar, Database, Network, BookOpen, CheckCircle } from "@phosphor-icons/react"
+import { Brain, Code, Users, Lightbulb, Rocket, ChartBar, Target, Calculator, Gauge, Wrench, Shield, CurrencyCircleDollar, Database, Network, BookOpen, CheckCircle, ArrowsOutSimple, ArrowsInSimple, CaretLeft, CaretRight } from "@phosphor-icons/react"
 import AISkillsFundamentals from "./AISkillsFundamentals"
 import InteractiveVisualizations from "./InteractiveVisualizations"
 import SystemsThinkingTree from "./SystemsThinkingTree"
@@ -38,6 +38,10 @@ export default function AISkillsExplorer() {
   const [activeTab, setActiveTab] = useState("fundamentals")
   const [progress, setProgress] = useState<Record<string, boolean>>({})
   const [activePerspectives, setActivePerspectives] = useState<Set<string>>(new Set())
+  // viewMode allows user to switch between restored tabbed experience and sectioned curriculum view
+  const [viewMode, setViewMode] = useState<'tabs' | 'sections'>('sections')
+  const [compactTabs, setCompactTabs] = useState(false)
+  const [showTabScrollHints, setShowTabScrollHints] = useState(false)
   const STORAGE_KEY = 'oas.aiSkillsProgress.v2' // bump key to avoid collision with legacy progress map
 
   // Bridge between legacy tab IDs and new taxonomy IDs
@@ -337,7 +341,16 @@ export default function AISkillsExplorer() {
     if (tabMap[legacyId]) tabMap[newId] = tabMap[legacyId]
   })
 
-  const totalModules = skillCategories.reduce((acc, c) => acc + c.moduleIds.length, 0)
+  // Total modules for progress depends on mode. In tabs mode we count unique tab ids (excluding lenses if desired? keep them included for completeness)
+  const uniqueTabIds = Array.from(new Set(tabs.map(t => legacyToNew[t.id] || t.id)))
+  const totalModules = viewMode === 'tabs'
+    ? uniqueTabIds.length
+    : skillCategories.reduce((acc, c) => acc + c.moduleIds.length, 0)
+
+  const isCompleted = (id: string) => {
+    const newId = legacyToNew[id] || id
+    return !!progress[newId]
+  }
 
   const togglePerspective = (id: string) => {
     setActivePerspectives(prev => {
@@ -408,16 +421,111 @@ export default function AISkillsExplorer() {
                 Progress: {Object.values(progress).filter(Boolean).length}/{totalModules} modules completed
               </div>
               <Button variant="secondary" size="sm" onClick={resetProgress}>Reset progress</Button>
+              <Button variant="outline" size="sm" onClick={() => setViewMode(m => m === 'tabs' ? 'sections' : 'tabs')}>
+                {viewMode === 'tabs' ? 'Switch to Sections View' : 'Switch to Tabs View'}
+              </Button>
             </div>
           </CardHeader>
           <CardContent>
             <div className="text-sm text-muted-foreground">
-              Scroll through categorized sections below. Use perspective lenses to augment Foundations with role‑specific pillars.
+              {viewMode === 'tabs'
+                ? 'Use the tab strip below to jump across all modules (including perspectives, assessment, calculator, and labs). Switch to Sections View for progressive, scroll-based exploration.'
+                : 'Scroll through categorized sections below. Use perspective lenses to augment Foundations with role‑specific pillars or switch back to Tabs for a global overview.'}
             </div>
           </CardContent>
         </Card>
+        {viewMode === 'tabs' && (
+          <div className="mb-10 relative">
+            <div className="flex items-center justify-between mb-2 gap-2">
+              <div className="text-xs text-muted-foreground select-none">
+                Tip: Shift + Scroll to pan. Use compact mode if the bar wraps.
+              </div>
+              <div className="flex items-center gap-1">
+                <Button type="button" variant="ghost" size="icon" aria-label="Previous tabs" onClick={() => {
+                  const scroller = document.getElementById('ai-skills-tab-strip')
+                  if (scroller) scroller.scrollBy({left: -260, behavior:'smooth'})
+                }}>
+                  <CaretLeft className="w-4 h-4" />
+                </Button>
+                <Button type="button" variant="ghost" size="icon" aria-label="Next tabs" onClick={() => {
+                  const scroller = document.getElementById('ai-skills-tab-strip')
+                  if (scroller) scroller.scrollBy({left: 260, behavior:'smooth'})
+                }}>
+                  <CaretRight className="w-4 h-4" />
+                </Button>
+                <Button type="button" variant="outline" size="sm" onClick={() => setCompactTabs(c => !c)} className="gap-1">
+                  {compactTabs ? <ArrowsOutSimple className="w-4 h-4" /> : <ArrowsInSimple className="w-4 h-4" />}
+                  <span className="hidden sm:inline">{compactTabs ? 'Expand Tabs' : 'Compact Tabs'}</span>
+                </Button>
+              </div>
+            </div>
+            <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v)} className="w-full">
+              <div className="relative">
+                <div
+                  id="ai-skills-tab-strip"
+                  className={`flex overflow-x-auto no-scrollbar pb-2 -mb-2 gap-1 px-1 py-2 whitespace-nowrap ${compactTabs ? 'text-[11px] [&>div>button]:px-2' : ''}`}
+                  onScroll={e => {
+                    const el = e.currentTarget
+                    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4
+                    const atStart = el.scrollLeft <= 4
+                    setShowTabScrollHints(!(atEnd && atStart))
+                  }}
+                >
+                  <TabsList className="flex gap-1 bg-transparent p-0 h-auto">
+                    {tabs.map(t => (
+                      <TabsTrigger key={t.id} value={t.id} className={`relative data-[state=active]:ring-2 data-[state=active]:ring-primary/40 rounded-md`}> 
+                        <span className="flex items-center gap-1">
+                          {t.icon}
+                          {t.title}
+                          {isCompleted(t.id) && (
+                            <CheckCircle className="w-3.5 h-3.5 text-green-600" />
+                          )}
+                        </span>
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                </div>
+                {showTabScrollHints && (
+                  <>
+                    <div className="pointer-events-none absolute left-0 top-0 h-full w-10 bg-gradient-to-r from-background to-transparent" />
+                    <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-background to-transparent" />
+                  </>
+                )}
+              </div>
+              {tabs.map(t => (
+                <TabsContent key={t.id} value={t.id} className="pt-6 focus:outline-none">
+                  <div className="border rounded-lg p-5 bg-card/40">
+                    <div className="mb-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        {t.icon}
+                        <h3 className="text-xl font-semibold">{t.title}</h3>
+                        <Badge className={getLevelColor(t.level)} variant="secondary">{t.level}</Badge>
+                        {isCompleted(t.id) && <Badge variant="outline" className="border-green-500 text-green-600">Completed</Badge>}
+                      </div>
+                      <p className="text-sm text-muted-foreground max-w-2xl">{t.description}</p>
+                    </div>
+                    {t.component}
+                    {!isCompleted(t.id) && (
+                      <div className="mt-4 flex gap-2">
+                        <Button size="sm" variant="secondary" onClick={() => setProgress(prev => ({...prev, [legacyToNew[t.id] || t.id]: true}))}>Mark Complete</Button>
+                        {(() => {
+                          const idx = tabs.findIndex(x => x.id === t.id)
+                          const next = tabs[idx + 1]
+                          return next ? (
+                            <Button size="sm" onClick={() => completeAndNavigate(t.id, next.id)}>Complete & Next</Button>
+                          ) : null
+                        })()}
+                      </div>
+                    )}
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </div>
+        )}
 
-        {/* Layout Grid: Side Nav + Content */}
+        {viewMode === 'sections' && (
+        /* Layout Grid: Side Nav + Content */
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8">
           <div className="order-2 lg:order-1">
             <AISkillsSideNav
@@ -427,6 +535,30 @@ export default function AISkillsExplorer() {
             />
           </div>
           <div className="order-1 lg:order-2">
+        {/* Overview Grid for quick scan */}
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-3">All Skills Overview</h2>
+          <div className="grid gap-2 sm:gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+            {skillCategories.flatMap(c => c.moduleIds).map(mid => {
+              const t = tabMap[mid]
+              if (!t) return null
+              return (
+                <button
+                  key={mid}
+                  onClick={() => scrollToModule(mid)}
+                  className="group text-left border rounded-md p-2 bg-card/30 hover:bg-card/60 transition flex flex-col gap-1 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                >
+                  <span className="flex items-center gap-1 text-xs font-medium">
+                    {t.icon}
+                    {t.title}
+                    {isCompleted(mid) && <CheckCircle className="w-3 h-3 text-green-600" />}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground line-clamp-2 leading-tight">{t.description}</span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
         {/* Perspective Lenses */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-3">Perspective Lenses</h2>
@@ -547,19 +679,11 @@ export default function AISkillsExplorer() {
               </section>
             )
           })}
-          {/* Hands-On Studios retained as a final section (outside taxonomy for now) */}
-          <section id="hands-on-studios" className="scroll-mt-24">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold flex items-center gap-3">Hands‑On Studios</h2>
-              <p className="text-muted-foreground mt-1 max-w-3xl">Interactive labs with evals, cost, HITL, RAG, and orchestration modules.</p>
-            </div>
-            <div className="border rounded-lg p-5 bg-card/40">
-              <CurriculumTabs defaultModuleId={'observability-evalops' as any} />
-            </div>
-          </section>
+          {/* Labs now embedded via taxonomy under applied-tools */}
         </div>{/* end space-y sections */}
           </div>{/* end right content */}
-        </div>{/* end grid */}
+        </div>/* end grid */
+        )}
       </div>
     </div>
   )

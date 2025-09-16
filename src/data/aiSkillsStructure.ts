@@ -53,7 +53,13 @@ export const skillCategories: SkillCategory[] = [
     id: 'strategy-future',
     title: 'Strategy & Future States',
     description: 'Org design, emerging patterns, and frontier readiness',
-    moduleIds: ['org-playbooks','frontier-firm-assessment','novel-organizational-patterns','future-state-trends']
+    moduleIds: ['org-playbooks','cross-team','frontier-firm-assessment','novel-organizational-patterns','future-state-trends']
+  },
+  {
+    id: 'applied-tools',
+    title: 'Applied Tools & Labs',
+    description: 'Practical calculators and hands-on studio environments',
+    moduleIds: ['calculator','hands-on-studios']
   }
 ];
 
@@ -72,9 +78,13 @@ export const skillModules: SkillModuleMeta[] = [
   { id: 'rag-systems', title: 'RAG Systems', category: 'multi-agent' },
   { id: 'multi-agent-orchestration', title: 'Multi-Agent Orchestration', category: 'multi-agent' },
   { id: 'org-playbooks', title: 'Org Playbooks', category: 'strategy-future' },
+  { id: 'cross-team', title: 'Cross-Team Collaboration', category: 'strategy-future' },
   { id: 'frontier-firm-assessment', title: 'Frontier Firm Assessment', category: 'strategy-future' },
   { id: 'novel-organizational-patterns', title: 'Novel Organizational Patterns', category: 'strategy-future' },
   { id: 'future-state-trends', title: 'Future State Trends', category: 'strategy-future' }
+  ,
+  { id: 'calculator', title: 'Human-Agent Ratio Calculator', category: 'applied-tools' },
+  { id: 'hands-on-studios', title: 'Hands-On Studios', category: 'applied-tools' }
 ];
 
 export const moduleIdSet = new Set(skillModules.map(m => m.id));
