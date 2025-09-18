@@ -1,4 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+
+// Ambient window flag typing
+declare global {
+  interface Window {
+    __OAS_FLAGS?: { studyModeGating?: boolean };
+  }
+}
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -59,36 +66,43 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [dataBundle, setDataBundle] = useState<any | null>(null);
   const [categories, setCategories] = useState<any[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
-  // Progressive unlock logic
-  // scenario: after 2 completed socratic sessions
-  // debug: after 1 completed scenario session
-  // scl: after 1 completed debug session and average score >= 60
+  // Feature flag (can be toggled via localStorage.setItem('studyModeGating','1'))
+  const gatingEnabled = useMemo(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        // Allow runtime override via global flag (e.g., window.__OAS_FLAGS.studyModeGating)
+        // @ts-ignore
+        if (window.__OAS_FLAGS && typeof window.__OAS_FLAGS.studyModeGating === 'boolean') {
+          return !!window.__OAS_FLAGS.studyModeGating;
+        }
+        const v = localStorage.getItem('studyModeGating');
+        return v === '1' || v === 'true';
+      }
+    } catch {}
+    return false;
+  }, []);
+
+  // Ordered progression (used for recommendations + optional gating)
+  const MODE_ORDER: StudyModeType[] = ['socratic','scenario','debug','scl'];
+
+  // Unlock logic (only applied if gatingEnabled). Simple rule: a mode is unlocked if it's first, or the previous mode progress >= 40% OR at least 1 session completed in that previous mode.
   const isTypeUnlocked = (type: StudyModeType) => {
-    if (type === 'socratic' || type === 'guided') return true;
-    const completed = sessions.filter(s => s.isComplete);
-    const byType = (t: StudyModeType) => completed.filter(s => s.type === t);
-    switch (type) {
-      case 'scenario':
-        return byType('socratic').length >= 2;
-      case 'debug':
-        return byType('scenario').length >= 1;
-      case 'scl':
-        return byType('debug').length >= 1 && progress.averageScore >= 60;
-      default:
-        return true;
-    }
+    if (!gatingEnabled) return true;
+    const idx = MODE_ORDER.indexOf(type);
+    if (idx <= 0) return true; // first always unlocked
+    const prevType = MODE_ORDER[idx - 1];
+    const prevProgress = progress.typeProgress[prevType] || 0;
+    const prevCompleted = sessions.filter(s => s.type === prevType && s.isComplete).length;
+    return prevProgress >= 40 || prevCompleted > 0; // threshold
   };
 
-  // Load progress on mount and honor hash deep-linking to a specific tab (e.g., #scl)
+  // Load progress + data bundle only once (avoid flicker from re-runs)
   useEffect(() => {
     const loadedSessions = getStudyModeProgress();
     setSessions(loadedSessions);
     setProgress(calculateStudyModeProgress(loadedSessions));
-
-    // Dynamically load heavy question banks
     (async () => {
       try {
-        setLoadingData(true);
         const t0 = performance.now();
         const bundle = await loadStudyModeData();
         const t1 = performance.now();
@@ -101,76 +115,46 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
         setLoadingData(false);
       }
     })();
+  }, []);
 
+  // Deep-link + event handler effect (runs when dataBundle first appears)
+  useEffect(() => {
+    if (!dataBundle) return; // wait until data loaded
     try {
-      // Support hash-based tab deep links
-      const hash = (typeof window !== 'undefined' ? window.location.hash : '').toLowerCase();
-      if (hash === '#scl') {
-        setActiveTab('scl');
-      } else if (hash === '#socratic') {
-        setActiveTab('socratic');
-      } else if (hash === '#scenario') {
-        setActiveTab('scenario');
-      } else if (hash === '#debug') {
-        setActiveTab('debug');
+      const hash = window.location.hash.toLowerCase();
+      if (['#scl','#socratic','#scenario','#debug'].includes(hash)) {
+        setActiveTab(hash.replace('#','') as any);
       }
-
-      // Support query params to auto-launch a specific question
-      const search = (typeof window !== 'undefined' ? window.location.search : '');
+      const search = window.location.search;
       if (search) {
         const params = new URLSearchParams(search);
         const qid = params.get('qid');
         const concept = params.get('concept');
         const preferredType = (params.get('type') as StudyModeType | null);
-
-        // If qid provided, select exact question
-        if (qid && dataBundle) {
-          const question = flattenQuestions(dataBundle).find(q => q.id === qid);
-          if (question) {
-            setSelectedQuestion(question);
-            setActiveTab(question.type);
-            return; // done
-          }
+        if (qid) {
+          const q = flattenQuestions(dataBundle).find(q => q.id === qid);
+          if (q) { setSelectedQuestion(q); setActiveTab(q.type); return; }
         }
-
-        // Else if concept provided, pick first question (optionally by type)
-        if (concept && dataBundle) {
+        if (concept) {
           let conceptQuestions = filterQuestionsByConcept(dataBundle, concept);
-          if (preferredType) {
-            conceptQuestions = conceptQuestions.filter(q => q.type === preferredType);
-          }
-          const question = conceptQuestions[0];
-          if (question) {
-            setSelectedQuestion(question);
-            setActiveTab(question.type);
-            return;
-          }
+            if (preferredType) conceptQuestions = conceptQuestions.filter(q => q.type === preferredType);
+          const q = conceptQuestions[0];
+          if (q) { setSelectedQuestion(q); setActiveTab(q.type); return; }
         }
       }
     } catch {}
-    // In-app event-driven launcher (no full page reload)
     const handler = (event: Event) => {
       try {
-        const custom = event as CustomEvent<{ qid?: string; concept?: string; type?: StudyModeType }>;
-        const { qid, concept, type } = custom.detail || {};
-        if (qid && dataBundle) {
-          const question = flattenQuestions(dataBundle).find(q => q.id === qid);
-          if (question) {
-            setSelectedQuestion(question);
-            setActiveTab(question.type);
-            toast({ title: 'Loaded Study Challenge', description: question.title });
-            return;
-          }
+        const { qid, concept, type } = (event as CustomEvent<{ qid?: string; concept?: string; type?: StudyModeType }>).detail || {};
+        if (qid) {
+          const q = flattenQuestions(dataBundle).find(q => q.id === qid);
+          if (q) { setSelectedQuestion(q); setActiveTab(q.type); toast({ title: 'Loaded Study Challenge', description: q.title }); return; }
         }
-        if (concept && dataBundle) {
+        if (concept) {
           let conceptQuestions = filterQuestionsByConcept(dataBundle, concept);
           if (type) conceptQuestions = conceptQuestions.filter(q => q.type === type);
-          const question = conceptQuestions[0];
-          if (question) {
-            setSelectedQuestion(question);
-            setActiveTab(question.type);
-            toast({ title: 'Loaded Concept Challenge', description: question.title });
-          }
+          const q = conceptQuestions[0];
+          if (q) { setSelectedQuestion(q); setActiveTab(q.type); toast({ title: 'Loaded Concept Challenge', description: q.title }); }
         }
       } catch {}
     };
@@ -178,8 +162,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     return () => window.removeEventListener('studyMode:launchQuestion', handler as EventListener);
   }, [dataBundle]);
 
-  // Get all questions from all concepts
-  const allQuestions = dataBundle ? flattenQuestions(dataBundle) : [];
+  // Get all questions from all concepts (memoized)
+  const allQuestions = useMemo(() => dataBundle ? flattenQuestions(dataBundle) : [], [dataBundle]);
   
   const completedQuestionIds = sessions
     .filter(s => s.isComplete)
@@ -187,6 +171,27 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
 
   // Get recommended next question (from any concept)
   const recommendedQuestion = dataBundle ? getRecommendedQuestion(dataBundle, completedQuestionIds) : null;
+
+  // Recommended next MODE (independent of specific question) – first in order not yet at 100%
+  const recommendedNextMode = useMemo(() => {
+    for (const m of MODE_ORDER) {
+      const pct = progress.typeProgress[m];
+      if (pct === undefined) return m; // no data yet
+      if (pct < 100) return m;
+    }
+    return MODE_ORDER[MODE_ORDER.length - 1];
+  }, [progress.typeProgress]);
+
+  // Analytics: emit recommendation event once per recommended mode
+  const lastRecSentRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!recommendedNextMode) return;
+    if (lastRecSentRef.current === recommendedNextMode) return;
+    try {
+      window.dispatchEvent(new CustomEvent('analytics:recommendedMode', { detail: { mode: recommendedNextMode, gatingEnabled, typeProgress: progress.typeProgress } }));
+      lastRecSentRef.current = recommendedNextMode;
+    } catch {}
+  }, [recommendedNextMode, gatingEnabled, progress.typeProgress]);
 
   // Helper functions
   const getTypeIcon = (type: StudyModeType) => {
@@ -214,10 +219,12 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const handleQuestionStart = (question: StudyModeQuestion) => {
     if (!isTypeUnlocked(question.type)) {
       toast({ title: 'Locked Mode', description: 'Complete prerequisite sessions to unlock this mode.' });
+      try { window.dispatchEvent(new CustomEvent('analytics:gatingBlocked', { detail: { attempted: question.type } })); } catch {}
       return;
     }
     setSelectedQuestion(question);
     setActiveTab(question.type);
+    try { window.dispatchEvent(new CustomEvent('analytics:questionStart', { detail: { id: question.id, type: question.type } })); } catch {}
   };
 
   const handleSessionComplete = (session: StudyModeSession) => {
@@ -225,7 +232,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     setSessions(updatedSessions);
     setProgress(calculateStudyModeProgress(updatedSessions));
     setSelectedQuestion(null);
-    setActiveTab('overview');
+  setActiveTab('overview');
+  try { window.dispatchEvent(new CustomEvent('analytics:sessionComplete', { detail: { type: session.type, score: session.score } })); } catch {}
     
     if (onComplete) {
       onComplete(session);
@@ -234,7 +242,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
 
   const handleRetakeSocratic = () => {
     setSelectedQuestion(null);
-    setActiveTab('socratic');
+  setActiveTab('socratic');
+  try { window.dispatchEvent(new CustomEvent('analytics:retakeMode', { detail: { type: 'socratic' } })); } catch {}
     
     // Clear all Socratic mode progress using utility function
     clearTypeProgress('socratic');
@@ -245,7 +254,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   };
   const handleRetakeScenario = () => {
     setSelectedQuestion(null);
-    setActiveTab('scenario');
+  setActiveTab('scenario');
+  try { window.dispatchEvent(new CustomEvent('analytics:retakeMode', { detail: { type: 'scenario' } })); } catch {}
     
     // Clear all Scenario mode progress using utility function
     clearTypeProgress('scenario');
@@ -257,7 +267,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
 
   const handleRetakeDebug = () => {
     setSelectedQuestion(null);
-    setActiveTab('debug');
+  setActiveTab('debug');
+  try { window.dispatchEvent(new CustomEvent('analytics:retakeMode', { detail: { type: 'debug' } })); } catch {}
     
     // Clear all Debug mode progress using utility function
     clearTypeProgress('debug');
@@ -377,32 +388,27 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)}>
+      <Tabs value={activeTab} onValueChange={(value) => {
+        setActiveTab(value as any);
+        try { window.dispatchEvent(new CustomEvent('analytics:studyTabChange', { detail: { tab: value, gatingEnabled } })); } catch {}
+      }}>
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="socratic" disabled={!isTypeUnlocked('socratic')}>
+          <TabsTrigger value="socratic" className="relative">
             Socratic
+            {recommendedNextMode === 'socratic' && <span className="absolute -top-1 -right-2 text-[10px] px-1 py-0.5 rounded bg-primary text-white">Next</span>}
           </TabsTrigger>
-          <TabsTrigger
-            value="scenario"
-            disabled={!isTypeUnlocked('scenario')}
-            title={!isTypeUnlocked('scenario') ? 'Unlock after completing 2 Socratic sessions' : undefined}
-          >
-            Scenarios
-          </TabsTrigger>
-            <TabsTrigger
-              value="debug"
-              disabled={!isTypeUnlocked('debug')}
-              title={!isTypeUnlocked('debug') ? 'Unlock after completing 1 Scenario session' : undefined}
-            >
-              Debug
+            <TabsTrigger value="scenario" className="relative" disabled={!isTypeUnlocked('scenario')}>
+              Scenarios
+              {recommendedNextMode === 'scenario' && <span className="absolute -top-1 -right-2 text-[10px] px-1 py-0.5 rounded bg-primary text-white">Next</span>}
             </TabsTrigger>
-          <TabsTrigger
-            value="scl"
-            disabled={!isTypeUnlocked('scl')}
-            title={!isTypeUnlocked('scl') ? 'Unlock after 1 Debug session & avg score >= 60' : undefined}
-          >
+          <TabsTrigger value="debug" className="relative" disabled={!isTypeUnlocked('debug')}>
+            Debug
+            {recommendedNextMode === 'debug' && <span className="absolute -top-1 -right-2 text-[10px] px-1 py-0.5 rounded bg-primary text-white">Next</span>}
+          </TabsTrigger>
+          <TabsTrigger value="scl" className="relative" disabled={!isTypeUnlocked('scl')}>
             SCL
+            {recommendedNextMode === 'scl' && <span className="absolute -top-1 -right-2 text-[10px] px-1 py-0.5 rounded bg-primary text-white">Next</span>}
           </TabsTrigger>
         </TabsList>
 
@@ -416,7 +422,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                 Your Study Progress
               </CardTitle>
               <CardDescription>
-                Track your learning journey across different study modes
+                Track your learning journey across different study modes. {gatingEnabled ? 'Gating is enabled; progress in earlier modes unlocks later modes.' : 'All modes are open. Enable experimental gating via console: localStorage.setItem("studyModeGating","1"); location.reload();'}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -516,15 +522,24 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                 completedQuestionIds.includes(q.id)
               ).length;
               const isUnlocked = isTypeUnlocked(tabValue);
+              const isRecommendedMode = tabValue === recommendedNextMode;
 
               return (
                 <Card 
                   key={category.id}
                   className={cn(
-                    "cursor-pointer transition-all",
-                    isUnlocked ? "hover:shadow-md hover:border-primary" : "opacity-60"
+                    "cursor-pointer transition-all hover:shadow-md", 
+                    isRecommendedMode && 'ring-2 ring-primary/60',
+                    !isUnlocked && 'opacity-60'
                   )}
-                  onClick={() => isUnlocked && setActiveTab(tabValue)}
+                  onClick={() => {
+                    if (!isUnlocked) {
+                      toast({ title: 'Locked Mode', description: 'Progress further in previous modes to unlock.' });
+                      try { window.dispatchEvent(new CustomEvent('analytics:gatingBlocked', { detail: { attempted: tabValue } })); } catch {}
+                      return;
+                    }
+                    setActiveTab(tabValue);
+                  }}
                 >
                   <CardContent className="p-6 text-center">
                     <div className="flex justify-center mb-3">
@@ -538,7 +553,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                     </p>
                     <div className="flex items-center justify-center gap-2 text-sm">
                       <span>{completedCount}/{categoryQuestions.length} completed</span>
-                      {!isUnlocked && <span className="text-yellow-600">🔒</span>}
+                      {isRecommendedMode && <Badge className="bg-primary text-white">Next</Badge>}
+                      {!isUnlocked && gatingEnabled && <Badge variant="outline" className="text-xs">Locked</Badge>}
                     </div>
                   </CardContent>
                 </Card>
