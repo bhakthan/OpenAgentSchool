@@ -20,6 +20,8 @@ import AgentIntegrationConcept from "./AgentIntegrationConcept"
 import AgentEvaluationConcept from "./AgentEvaluationConcept"
 import FineTuningConcept from "./FineTuningConcept"
 import AgenticCommerceAP2Concept from "./AgenticCommerceAP2Concept"
+import ProductManagementConcept from "./ProductManagementConcept"
+import AgentOpsConcept from "./AgentOpsConcept"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
 import AzureAISafetyAndGovernance from "./AzureAISafetyAndGovernance"
@@ -322,6 +324,30 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '40-50 min',
     prerequisites: ['mcp-a2a-integration', 'agent-security'],
     component: AgenticCommerceAP2Concept
+  }
+  ,
+  {
+    id: 'product-management',
+    title: 'AI Product Management',
+    description: 'Design metrics, experiments & calibrated confidence signals that compound user trust and retention.',
+    level: 'advanced',
+    icon: <ChartBar className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-teal-900/20 dark:text-teal-300',
+    estimatedTime: '35-45 min',
+    prerequisites: ['agentic-ai-design-taxonomy'],
+    component: ProductManagementConcept
+  }
+  ,
+  {
+    id: 'agent-ops',
+    title: 'Agent Ops & Reliability',
+    description: 'Operational excellence: golden signals, graceful degradation, failure containment & resilience patterns.',
+    level: 'advanced',
+    icon: <Shield className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-orange-900/20 dark:text-orange-300',
+    estimatedTime: '35-45 min',
+    prerequisites: ['agent-deployment','agent-security'],
+    component: AgentOpsConcept
   }
 ]
 

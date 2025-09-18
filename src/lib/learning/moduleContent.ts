@@ -146,7 +146,7 @@ export const moduleContent: Record<ModuleId, ModuleContent> = {
       ]
     }
   },
-  'ai-product-management': {
+  'product-management': {
     outcomes: [
       'Frame problems and define success metrics tied to outcomes.',
       'Design experiments to reduce uncertainty.',

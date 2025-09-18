@@ -26,17 +26,23 @@ export const CORE_CONCEPT_IDS = [
   'agent-learning',
   'agent-integration',
   'fine-tuning',
+  // Newly elevated concept (was only in skills modules):
+  'product-management',
+  // Operational excellence & reliability perspective (added to surface study scenarios)
+  'agent-ops',
   'agentic-commerce-ap2'
 ] as const;
 
 export type CoreConceptId = typeof CORE_CONCEPT_IDS[number];
 
-export const CORE_CONCEPT_COUNT = CORE_CONCEPT_IDS.length; // currently 24
+export const CORE_CONCEPT_COUNT = CORE_CONCEPT_IDS.length; // keep in sync when adding/removing concepts
 
 // Legacy / deprecated IDs mapped to current canonical IDs. Used for inbound deep links & saved states.
 export const LEGACY_CONCEPT_ID_ALIASES: Record<string, CoreConceptId> = {
   'model-context-protocol': 'mcp',
   'agent-communication-protocol': 'acp',
+  // Product management historical identifiers
+  'ai-product-management': 'product-management',
   // Historical variations / typos (add as discovered):
   'agentic-workflow-controls': 'agentic-workflow-control',
   'agent-evaluation-methodology': 'agent-evaluation-methodologies'

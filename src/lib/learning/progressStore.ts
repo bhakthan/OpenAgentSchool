@@ -7,7 +7,7 @@ export type ModuleId =
   | 'promptops-tooling'
   | 'cost-performance'
   | 'security-data-boundaries'
-  | 'ai-product-management'
+  | 'product-management'
   | 'hitl-operations'
   | 'knowledge-rag'
   | 'multi-agent-orchestration'
