@@ -4112,6 +4112,42 @@ export const debugChallengeLibrary = {
   'agent-evaluation-methodologies': agentEvaluationMethodologiesDebugChallenges,
   'swarm-intelligence': swarmIntelligenceDebugChallenges,
   'agentic-ai-design-taxonomy': debugChallenges.filter(c => c.conceptId === 'agentic-ai-design-taxonomy')
+  ,
+  // Agentic Commerce & AP2
+  'agentic-commerce-ap2': [
+    {
+      id: 'agentic-commerce-ap2-debug-1',
+      type: 'debug',
+      conceptId: 'agentic-commerce-ap2',
+      title: 'Cart Mutation After Signing',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'ap2-cart-mutation',
+        title: 'Post-Sign Mutation Bypass',
+        description: 'Dispute shows item quantity mismatch between user view and settlement ledger.',
+        problemDescription: 'Cart object mutated after signing before Payment Mandate assembly; hash still references pre-mutation serialization due to stale buffer reuse.',
+        brokenCode: `// Problem: buffer reused, mutation after signing not rehashed\nconst signedCart = sign(cart)\ncart.items[0].qty = 3 // mutation AFTER signing\nconst payment = sign({ cartHash: signedCart.hash, presence: intent.presence })`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'commerce-agent', message: 'Emitting payment mandate', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'audit-service', message: 'Cart hash mismatch vs reconstructed snapshot', type: 'error' }
+        ],
+        expectedBehavior: 'Prohibit mutation after signing or enforce deep freeze; always derive hash from final immutable snapshot.',
+        commonIssues: [
+          { issue: 'Mutable post-sign cart', symptoms: ['Hash mismatch in audit'], diagnosis: 'State mutated after signing', fix: 'Deep-freeze / structural clone before sign' },
+          { issue: 'Stale buffer reuse', symptoms: ['Hash points to outdated bytes'], diagnosis: 'Cached serialization reused', fix: 'Force re-serialize when structure changes' }
+        ],
+        hints: ['Look at mutation timing','Is object frozen?','How is hash computed?'],
+        solution: 'Freeze or clone cart before signing; recompute hash only on canonical snapshot; reject Payment if cart mutated.',
+        explanation: 'Immutable boundary ensures auditability & non-repudiation of Cart Mandate snapshot.'
+      },
+      expectedInsights: ['Need immutability boundary','Hash validity tied to snapshot','Mutation invalidates chain'],
+      hints: ['Search for mutations after sign()','Check serialization caching'],
+      explanation: 'Teaches integrity of mandate chain and the importance of post-sign immutability.',
+      relatedConcepts: ['agent-security','hash-linking','immutability'],
+      timeEstimate: 9,
+      successCriteria: ['Identifies improper mutation','Proposes freeze/clone fix']
+    }
+  ]
 };
 
 // Helper function to get debug challenges by concept and level

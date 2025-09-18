@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -31,7 +32,8 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
   const [selectedCategory, setSelectedCategory] = useState<QuizCategory | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
   const [currentSession, setCurrentSession] = useState<QuizSession | null>(null);
-  const [currentAnswer, setCurrentAnswer] = useState<string>('');
+  const [currentAnswer, setCurrentAnswer] = useState<string>(''); // single-answer (radio)
+  const [multiSelectSelection, setMultiSelectSelection] = useState<Set<number>>(new Set()); // multi-select (checkbox)
   const [showResults, setShowResults] = useState(false);
   const [quizFeedback, setQuizFeedback] = useState<QuizFeedback[]>([]);
   const [timeRemaining, setTimeRemaining] = useState<number>(0);
@@ -102,10 +104,16 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
       setTimeRemaining(prev => {
         if (prev <= 1) {
           // Auto-submit current question when time runs out
-          if (currentAnswer) {
-            // Call handleAnswerSubmit logic directly
-            const currentQuestion = currentSession.questions[currentSession.currentQuestionIndex];
-            const answerValue = parseInt(currentAnswer);
+          const currentQuestion = currentSession.questions[currentSession.currentQuestionIndex];
+          const isMulti = !!(currentQuestion.correctAnswers && currentQuestion.correctAnswers.length > 0);
+          if ((isMulti && multiSelectSelection.size > 0) || (!isMulti && currentAnswer)) {
+            // Build answer value (bitmask for multi-select)
+            let answerValue: number;
+            if (isMulti) {
+              answerValue = Array.from(multiSelectSelection).reduce((mask, idx) => mask | (1 << idx), 0);
+            } else {
+              answerValue = parseInt(currentAnswer);
+            }
             const updatedAnswers = {
               ...currentSession.answers,
               [currentQuestion.id]: answerValue
@@ -117,6 +125,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
             };
 
             setCurrentAnswer('');
+            setMultiSelectSelection(new Set());
             
             // Move to next question or complete quiz
             const nextIndex = currentSession.currentQuestionIndex + 1;
@@ -147,6 +156,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               };
               setCurrentSession(nextSession);
               setTimeRemaining(nextSession.questions[nextIndex].timeEstimate);
+              setMultiSelectSelection(new Set());
             }            } else {
             // No answer selected, just move to next question
             const nextIndex = currentSession.currentQuestionIndex + 1;
@@ -189,7 +199,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentSession, timeRemaining, currentAnswer, onQuizComplete, calculateQuizScore, generateQuizFeedback]);
+  }, [currentSession, timeRemaining, currentAnswer, multiSelectSelection, onQuizComplete, calculateQuizScore, generateQuizFeedback]);
 
   const startQuiz = useCallback(() => {
     console.log('startQuiz called', { 
@@ -284,10 +294,18 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
   }, [selectedPersona, selectedCategory, selectedDifficulty]);
 
   const handleAnswerSubmit = useCallback(() => {
-    if (!currentSession || !currentAnswer) return;
-
+    if (!currentSession) return;
     const currentQuestion = currentSession.questions[currentSession.currentQuestionIndex];
-    const answerValue = parseInt(currentAnswer);
+    const isMulti = !!(currentQuestion.correctAnswers && currentQuestion.correctAnswers.length > 0);
+    if (!isMulti && !currentAnswer) return;
+    if (isMulti && multiSelectSelection.size === 0) return;
+
+    let answerValue: number;
+    if (isMulti) {
+      answerValue = Array.from(multiSelectSelection).reduce((mask, idx) => mask | (1 << idx), 0);
+    } else {
+      answerValue = parseInt(currentAnswer);
+    }
     const updatedAnswers = {
       ...currentSession.answers,
       [currentQuestion.id]: answerValue
@@ -323,7 +341,8 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               setQuizFeedback(feedback);
               setShowResults(true);
               setTimeRemaining(0);
-              setCurrentAnswer(''); // Clear answer only after completion
+          setCurrentAnswer('');
+          setMultiSelectSelection(new Set());
               
               // Save progress to localStorage
               saveQuizProgress(completedSession);
@@ -340,10 +359,11 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
       };
       
       setCurrentSession(nextSession);
-      setCurrentAnswer(''); // Clear answer for next question
+      setCurrentAnswer('');
+      setMultiSelectSelection(new Set());
       setTimeRemaining(nextSession.questions[nextIndex].timeEstimate);
     }
-  }, [currentSession, currentAnswer, onQuizComplete]);
+  }, [currentSession, currentAnswer, multiSelectSelection, onQuizComplete]);
 
   const handleNextQuestion = useCallback(() => {
     if (!currentSession) return;
@@ -387,8 +407,9 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
   }, [currentSession, onQuizComplete]);
 
   const resetQuiz = useCallback(() => {
-    setCurrentSession(null);
-    setCurrentAnswer('');
+  setCurrentSession(null);
+  setCurrentAnswer('');
+  setMultiSelectSelection(new Set());
     setShowResults(false);
     setQuizFeedback([]);
     setTimeRemaining(0);
@@ -426,7 +447,8 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
 
   // If quiz is started and we have a session
   if (quizStarted && currentSession && !showResults) {
-    const currentQuestion = currentSession.questions[currentSession.currentQuestionIndex];
+  const currentQuestion = currentSession.questions[currentSession.currentQuestionIndex];
+  const isMulti = !!(currentQuestion.correctAnswers && currentQuestion.correctAnswers.length > 0);
     const progress = ((currentSession.currentQuestionIndex + 1) / currentSession.questions.length) * 100;
 
     // Check if currentQuestion exists - if not, there's an issue with question loading
@@ -516,23 +538,51 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               </Card>
             )}
 
-            <RadioGroup
-              value={currentAnswer}
-              onValueChange={setCurrentAnswer}
-              className="space-y-3"
-            >
-              {currentQuestion.options.map((option, index) => (
-                <div key={index} className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
-                  <RadioGroupItem value={index.toString()} id={`option-${index}`} />
-                  <Label 
-                    htmlFor={`option-${index}`} 
-                    className="flex-1 cursor-pointer text-base leading-relaxed"
-                  >
-                    {option}
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
+            {isMulti ? (
+              <div className="space-y-3">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground font-medium">Select all that apply</div>
+                {currentQuestion.options.map((option, index) => {
+                  const checked = multiSelectSelection.has(index);
+                  return (
+                    <div key={index} className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+                      <Checkbox
+                        id={`mc-option-${index}`}
+                        checked={checked}
+                        onCheckedChange={(val) => {
+                          setMultiSelectSelection(prev => {
+                            const next = new Set(prev);
+                            if (val) next.add(index); else next.delete(index);
+                            return next;
+                          });
+                        }}
+                      />
+                      <Label htmlFor={`mc-option-${index}`} className="flex-1 cursor-pointer text-base leading-relaxed">
+                        {option}
+                      </Label>
+                    </div>
+                  );
+                })}
+                <div className="text-xs text-muted-foreground">{multiSelectSelection.size === 0 ? 'Choose one or more options' : `${multiSelectSelection.size} option${multiSelectSelection.size>1?'s':''} selected`}</div>
+              </div>
+            ) : (
+              <RadioGroup
+                value={currentAnswer}
+                onValueChange={setCurrentAnswer}
+                className="space-y-3"
+              >
+                {currentQuestion.options.map((option, index) => (
+                  <div key={index} className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+                    <RadioGroupItem value={index.toString()} id={`option-${index}`} />
+                    <Label 
+                      htmlFor={`option-${index}`} 
+                      className="flex-1 cursor-pointer text-base leading-relaxed"
+                    >
+                      {option}
+                    </Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            )}
           </div>
 
           <div className="flex items-center justify-between pt-4">
@@ -546,7 +596,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               </Button>
               <Button 
                 onClick={handleAnswerSubmit} 
-                disabled={!currentAnswer}
+                disabled={isMulti ? multiSelectSelection.size === 0 : !currentAnswer}
                 className="min-w-24"
               >
                 {currentSession.currentQuestionIndex + 1 === currentSession.questions.length ? 'Finish' : 'Next'}
@@ -662,18 +712,34 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                           <p className="text-sm font-medium mb-1 print:text-base print:font-bold">{question.question}</p>
                           <div className="print:space-y-2">
                             <div className="print:block">
-                              <p className="text-xs font-medium print:text-sm print:font-semibold mb-1">Your Answer:</p>
-                              <p className="text-xs text-muted-foreground print:text-sm print:text-black">
-                                {currentSession.answers[question.id] !== undefined 
-                                  ? question.options[currentSession.answers[question.id]]
-                                  : 'Not answered'}
-                              </p>
+                              <p className="text-xs font-medium print:text-sm print:font-semibold mb-1">{question.correctAnswers ? 'Your Selections:' : 'Your Answer:'}</p>
+                              {(() => {
+                                const raw = currentSession.answers[question.id];
+                                if (raw === undefined) {
+                                  return <p className="text-xs text-muted-foreground print:text-sm print:text-black">Not answered</p>;
+                                }
+                                if (question.correctAnswers) {
+                                  const selections = question.options.filter((_, i) => (raw & (1 << i)) !== 0);
+                                  return selections.length ? (
+                                    <ul className="text-xs text-muted-foreground print:text-sm print:text-black list-disc list-inside space-y-0.5">
+                                      {selections.map((opt, i) => <li key={i}>{opt}</li>)}
+                                    </ul>
+                                  ) : <p className="text-xs text-muted-foreground print:text-sm print:text-black">No options selected</p>;
+                                }
+                                return <p className="text-xs text-muted-foreground print:text-sm print:text-black">{question.options[raw]}</p>;
+                              })()}
                             </div>
                             <div className="print:block">
-                              <p className="text-xs font-medium print:text-sm print:font-semibold mb-1">Correct Answer:</p>
-                              <p className="text-xs text-muted-foreground print:text-sm print:text-black">
-                                {question.options[question.correctAnswer]}
-                              </p>
+                              <p className="text-xs font-medium print:text-sm print:font-semibold mb-1">{question.correctAnswers ? 'Correct Selections:' : 'Correct Answer:'}</p>
+                              {question.correctAnswers ? (
+                                <ul className="text-xs text-muted-foreground print:text-sm print:text-black list-disc list-inside space-y-0.5">
+                                  {question.correctAnswers.map(idx => (
+                                    <li key={idx}>{question.options[idx]}</li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <p className="text-xs text-muted-foreground print:text-sm print:text-black">{question.options[question.correctAnswer]}</p>
+                              )}
                             </div>
                             <div className="print:block">
                               <p className="text-xs font-medium print:text-sm print:font-semibold mb-1">Explanation:</p>
@@ -725,15 +791,29 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                           <div>
                             <p className="font-semibold mb-1">All Options:</p>
                             <ol className="list-decimal list-inside space-y-1">
-                              {question.options.map((option, optIndex) => (
-                                <li key={optIndex} className={`${
-                                  optIndex === question.correctAnswer ? 'font-bold text-green-600' : ''
-                                } ${
-                                  optIndex === currentSession.answers[question.id] ? 'bg-blue-100' : ''
-                                }`}>
-                                  {option} {optIndex === question.correctAnswer ? '(Correct)' : ''} {optIndex === currentSession.answers[question.id] ? '(Your Answer)' : ''}
-                                </li>
-                              ))}
+                              {question.options.map((option, optIndex) => {
+                                const userRaw = currentSession.answers[question.id];
+                                const userSelected = question.correctAnswers
+                                  ? (userRaw & (1 << optIndex)) !== 0
+                                  : userRaw === optIndex;
+                                const correctSelected = question.correctAnswers
+                                  ? question.correctAnswers.includes(optIndex)
+                                  : optIndex === question.correctAnswer;
+                                return (
+                                  <li
+                                    key={optIndex}
+                                    className={[
+                                      correctSelected ? 'font-bold text-green-600' : '',
+                                      userSelected && !correctSelected ? 'bg-blue-100' : '',
+                                      userSelected && correctSelected ? 'bg-green-50 border border-green-300 rounded' : ''
+                                    ].filter(Boolean).join(' ')}
+                                  >
+                                    {option}
+                                    {correctSelected ? ' (Correct)' : ''}
+                                    {userSelected ? ' (Your Selection)' : ''}
+                                  </li>
+                                );
+                              })}
                             </ol>
                           </div>
 

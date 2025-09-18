@@ -41,7 +41,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'govern-optimize',
     title: 'Govern & Optimize',
     description: 'Risk, safety, performance economics & compliance',
-    moduleIds: ['safety','cost-perf','security-data-boundaries']
+    moduleIds: ['safety','cost-perf','security-data-boundaries','agent-payments-ap2']
   },
   {
     id: 'multi-agent',
@@ -75,6 +75,7 @@ export const skillModules: SkillModuleMeta[] = [
   { id: 'safety', title: 'Safety & Governance', category: 'govern-optimize' },
   { id: 'cost-perf', title: 'Cost & Performance', category: 'govern-optimize' },
   { id: 'security-data-boundaries', title: 'Security & Data Boundaries', category: 'govern-optimize' },
+  { id: 'agent-payments-ap2', title: 'Agentic Commerce & AP2', category: 'govern-optimize' },
   { id: 'rag-systems', title: 'RAG Systems', category: 'multi-agent' },
   { id: 'multi-agent-orchestration', title: 'Multi-Agent Orchestration', category: 'multi-agent' },
   { id: 'org-playbooks', title: 'Org Playbooks', category: 'strategy-future' },

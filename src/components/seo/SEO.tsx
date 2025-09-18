@@ -83,8 +83,33 @@ export const SEO: React.FC<SEOProps> = ({
       }
     };
     updateJsonLdScript('seo-jsonld-person', personJsonLd);
+
+    // Route-specific structured data: Agentic Commerce & AP2
+    if (location.pathname === '/concepts/agentic-commerce-ap2') {
+      const ap2Article = {
+        '@context': 'https://schema.org',
+        '@type': 'TechArticle',
+        name: 'Agentic Commerce & AP2 - Delegated Trust Architecture',
+        url: currentUrl,
+        description: 'AP2 mandate chain (Intent → Cart → Payment) enabling delegated, auditable, presence-aware agentic commerce.',
+        about: [
+          { '@type': 'Thing', name: 'Agentic Commerce' },
+          { '@type': 'Thing', name: 'AP2 Mandate Chain' },
+          { '@type': 'Thing', name: 'Delegated Payments' },
+          { '@type': 'Thing', name: 'Presence Signaling' },
+          { '@type': 'Thing', name: 'Cart Integrity' }
+        ],
+        learningResourceType: 'CourseModule',
+        educationalLevel: 'Advanced',
+        author: { '@type': 'Person', name: 'Srikanth Bhakthan' },
+        publisher: { '@type': 'Organization', name: 'Open Agent School' },
+        inLanguage: 'en',
+        keywords: [ 'AP2','agentic commerce','delegated payments','mandate protocol','intent mandate','cart mandate','payment mandate','agent trust','presence signaling' ]
+      };
+      updateJsonLdScript('seo-jsonld-ap2', ap2Article);
+    }
     
-  }, [seoTitle, seoDescription, seoKeywords, seoImage, seoAuthor, currentUrl, type]);
+  }, [seoTitle, seoDescription, seoKeywords, seoImage, seoAuthor, currentUrl, type, location.pathname]);
 
   return null;
 };
@@ -147,6 +172,11 @@ export const pageSEOConfigs = {
     title: 'Core Concepts - AI Agent Fundamentals | Open Agent School',
     description: 'Master 22 fundamental AI agent concepts through interactive visualizations and hands-on learning. Core concepts include: AI Agents (autonomous software systems), Agent Architecture (design patterns and components), Multi-Agent Systems (coordination and collaboration), Agent Security (protection and validation), Model Context Protocol (MCP for secure tool integration), Agent-to-Agent Communication (A2A protocols), Agent Communication Protocol (ACP for interoperability), Agent Orchestration (coordination patterns), Agent Tools (external integrations), Agent Memory (context management), Agent Planning (goal-directed behavior), Agent Reasoning (decision-making processes), Agent Learning (adaptation mechanisms), Agent Evaluation (performance assessment), Agent Safety (risk mitigation), Agent Governance (compliance and oversight), Human-Agent Interaction (collaboration interfaces), Agent Deployment (production strategies), Agent Monitoring (observability), Agent Scaling (performance optimization), Agent Integration (enterprise systems), and Agentic AI Design Taxonomy (comprehensive classification framework). Each concept includes theoretical foundations, practical implementations, code examples, Azure integration patterns, and real-world use cases.',
     keywords: 'AI agent concepts, agent architecture, multi-agent systems, agent security, AI fundamentals, interactive learning, MCP, Model Context Protocol, A2A communication, agent orchestration, agent tools, agent memory, agent planning, agent reasoning, agent evaluation, agent safety, human-agent interaction, agent deployment, agent monitoring, agent scaling, Agentic AI Design Taxonomy'
+  },
+  '/concepts/agentic-commerce-ap2': {
+    title: 'Agentic Commerce & AP2 - Delegated Trust Architecture | Open Agent School',
+    description: 'Learn how AP2 enables trustworthy agent‑initiated payments with a cryptographically linked mandate chain (Intent → Cart → Payment) providing delegation proof, cart integrity, presence signaling, and dispute auditability.',
+    keywords: 'AP2, agentic commerce, autonomous payments, delegated payments, mandate protocol, intent mandate, cart mandate, payment mandate, agent trust, verifiable credentials, presence signaling, AI commerce security'
   },
   '/concepts/agentic-prompting-fundamentals': {
     title: 'Agentic Prompting Fundamentals - Advanced AI Control | Open Agent School',

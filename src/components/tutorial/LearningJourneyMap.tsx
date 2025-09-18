@@ -76,7 +76,7 @@ const learningPaths: LearningPath[] = [
       // Tier 3: Implementation Concepts
       'acp', 'mcp-a2a-integration', 'data-visualization',
       // Tier 4: Advanced Concepts
-  'agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration',
+  'agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration', 'agentic-commerce-ap2',
       // Additional Learning
       'azure-services', 'references', 'community', 'patterns', 'quiz'
     ],
@@ -399,6 +399,20 @@ const learningPaths: LearningPath[] = [
         isUnlocked: false,
         path: '/concepts'
       },
+      {
+        id: 'agentic-commerce-ap2',
+        title: 'Agentic Commerce & AP2',
+        description: 'Mandate chain (Intent → Cart → Payment) for trusted agent-led payments',
+        icon: <Shield size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '40-50 min',
+        prerequisites: ['mcp-a2a-integration', 'agent-security'],
+        skills: ['Delegated Trust', 'Verifiable Credentials', 'Commerce Integration'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
       
       // Additional Learning Resources
       {
@@ -496,7 +510,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents'],
     ['a2a-communication', 'mcp', 'flow-visualization'],
     ['acp', 'mcp-a2a-integration', 'data-visualization'],
-  ['agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration'],
+  ['agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration', 'agentic-commerce-ap2'],
     ['azure-services', 'references', 'community', 'patterns', 'quiz']
   ];
   const tierNodes = selectedPath.nodes.filter(node => tiers[activeTier].includes(node.id))
@@ -644,7 +658,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
   return 'bg-yellow-100 text-black dark:text-yellow-200 dark:bg-yellow-900';
     }
     // Tier 4: Advanced
-    if (['agent-deployment', 'agent-learning', 'agent-integration'].includes(nodeId)) {
+    if (['agent-deployment', 'agent-learning', 'agent-integration', 'agentic-commerce-ap2'].includes(nodeId)) {
   return 'bg-red-100 text-black dark:text-red-200 dark:bg-red-900';
     }
     // Additional resources

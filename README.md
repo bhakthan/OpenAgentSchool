@@ -6,15 +6,46 @@
 [![Latest release](https://img.shields.io/github/v/release/bhakthan/OpenAgentSchool?include_prereleases&sort=semver)](https://github.com/bhakthan/OpenAgentSchool/releases)
 [![License](https://img.shields.io/github/license/bhakthan/OpenAgentSchool.svg)](LICENSE)
 
-**Where AI Agent Concepts Come to Life**
+## Where AI Agent Concepts Come to Life
 
-*Built for AI by AI with lots of human intervention in the loop*
+_Built for AI by AI with lots of human intervention in the loop_
 
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges, plus **Critical Thinking Challenges** with LLM-powered assessment and feedback.
 
 ✨ **Now featuring 27 comprehensive agent patterns including 15 revolutionary Educational Agent Patterns** - from foundational concepts to advanced GPT-5 era educational methodologies with complete Study Mode integration.
 
 > Architecture split note: If you deploy backends separately (or in another repo), see docs/CONTRACTS_AND_CONFIG.md for the minimal frontend ↔ backend contracts and environment settings. The SPA keeps working locally with defaults; set VITE_* variables later to point at remote services.
+
+## 🆕 Latest Updates (September 18, 2025)
+
+### 💳 Agentic Commerce & AP2 – Deeper Platform Integration
+
+The AP2 (Agentic Commerce) mandate chain (Intent → Cart → Payment) is now fully woven into the learning & assessment surfaces:
+
+**Surface Integrations Added:**
+
+- Core Concept (multi-tab) + Journey Map + Knowledge Atlas (previous update)
+- Socratic Questions (4) focusing on mandate separation, expiry/presence governance, hash-linked audit acceleration, adaptive revocation
+- Interactive Scenario: Delegated price-watch purchase with tamper detection reasoning
+- Debug Challenge: Post-sign cart mutation integrity failure (hash mismatch forensic analysis)
+- Quiz Set (6 questions) including multi-select constraint placement & sequence ordering
+- Critical Thinking Cue (previous wave) + Cross-links now appended in: Security, Multi-Agent Systems, Integration, Evaluation concept footers
+
+**Structured Data / SEO:**
+
+- Added JSON-LD `TechArticle` schema for `/concepts/agentic-commerce-ap2` (about topics, educationalLevel=Advanced, learningResourceType=CourseModule).
+
+**Assessment Enhancements:**
+
+- Multi-select quiz capability (schema extended with `correctAnswers: number[]` + bitmask scoring logic). Existing AP2 multi-select now uses the new array model.
+
+**Refactoring / Architecture Notes:**
+
+- Study Mode bundle size continues to grow; next iteration will selectively code-split large static data blocks (e.g., scenario & debug challenge libraries) via dynamic imports to reduce initial payload.
+
+> Roadmap: add dedicated mandate chain visualization, payment network presence risk ladder, and integrity benchmark metrics (reconstruction latency, tamper detection rate) to Evaluation concept.
+
+---
 
 ## 🆕 Latest Updates (September 14, 2025)
 
@@ -23,6 +54,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 **Strategic AI Product Management Framework** - Comprehensive 8-pillar framework for Product Managers building reliable, defensible, retention-driving AI Agents:
 
 **🏗️ Core Product Management Pillars:**
+
 - **Trust Engineering System**: Quantify and calibrate user trust through data-driven mechanisms with confidence calibration dashboards
 - **Memory Governance Framework**: Design data retention as ethical & operational choice with user-controlled memory horizons
 - **Integration Stewardship**: Treat integrations as high-risk business decisions with cost-to-value scoring (ROI >3x operational cost)
@@ -33,6 +65,7 @@ An interactive educational platform for understanding AI agents, Agent-to-Agent 
 - **Complexity Governance Model**: Treat complexity as cost center with activation thresholds and transparency dashboards
 
 **🎓 Interactive Learning Components:**
+
 - **Socratic Questions**: 4 comprehensive PM-focused questions covering trust calibration, memory-privacy balance, integration ROI, and failure communication
 - **Business Scenarios**: 3 detailed crisis scenarios including confidence calibration crisis, integration bloat emergency, and public AI failure management
 - **Case Studies**: Real-world examples with measurable business outcomes (41% fewer complaints, $1.8M engineering debt avoided, 82% fewer support tickets)
@@ -56,71 +89,71 @@ Each pillar includes concrete actions, measurable outcomes, and business impact 
 
 Brand identity and export fidelity upgrades to the global learning taxonomy tree:
 
-* Root node renamed to **openagentschool.org** with embedded full‑color ladder logo (no background ring; adaptive to light/dark)
-* Precise text centering above the logo (anchor middle) with refined font sizing
-* Corrected taxonomy: **Fine-Tuning Methods (SFT, DPO, RFT)** moved from Tier 0 to **Tier 3 – Advanced Integration**
-* Enhanced spacing heuristics (depth‑based edge multipliers + refined first‑level distance) for better readability and reduced horizontal scroll
-* Light & dark theme contrast tuning for links, labels, and node strokes
-* Centered layout container with reduced left shift for visual balance
-* Novel item ring styling preserved; root node stroke removed for clean brand focus
+- Root node renamed to **openagentschool.org** with embedded full‑color ladder logo (no background ring; adaptive to light/dark)
+- Precise text centering above the logo (anchor middle) with refined font sizing
+- Corrected taxonomy: **Fine-Tuning Methods (SFT, DPO, RFT)** moved from Tier 0 to **Tier 3 – Advanced Integration**
+- Enhanced spacing heuristics (depth‑based edge multipliers + refined first‑level distance) for better readability and reduced horizontal scroll
+- Light & dark theme contrast tuning for links, labels, and node strokes
+- Centered layout container with reduced left shift for visual balance
+- Novel item ring styling preserved; root node stroke removed for clean brand focus
 
 ### 🖨️ High-Fidelity Export & Print Suite
 
 Professional asset generation directly from the visualization interface:
 
-* One‑click exports: **SVG**, **PNG 2× / 3×**, and **PDF (auto portrait/landscape)**
-* Automatic **fit-to-content** bounding box cropping (optional toggle)
-* **Transparent background** toggle for slide decks & dark slide themes
-* Clean vector serialization with embedded font stack for portability
-* Smart padding + deterministic viewBox scaling (no clipped nodes)
-* Print button (standard & fullscreen) for native browser print workflows
+- One‑click exports: **SVG**, **PNG 2× / 3×**, and **PDF (auto portrait/landscape)**
+- Automatic **fit-to-content** bounding box cropping (optional toggle)
+- **Transparent background** toggle for slide decks & dark slide themes
+- Clean vector serialization with embedded font stack for portability
+- Smart padding + deterministic viewBox scaling (no clipped nodes)
+- Print button (standard & fullscreen) for native browser print workflows
 
 ### 🧬 Fine-Tuning Concept Module Expansion
 
 New multi-tab deep dive covering the full fine-tuning lifecycle:
 
-* Tabs: Overview, **Data**, **SFT**, **DPO**, **RFT**, **Evaluation**, **Ops**, **References**
-* Dedicated **References** tab with authoritative external links (3 curated sources)
-* Clear separation of supervised vs preference vs reinforcement refinement workflows
-* Evaluation & Ops tabs outline continuous improvement + deployment considerations
+- Tabs: Overview, **Data**, **SFT**, **DPO**, **RFT**, **Evaluation**, **Ops**, **References**
+- Dedicated **References** tab with authoritative external links (3 curated sources)
+- Clear separation of supervised vs preference vs reinforcement refinement workflows
+- Evaluation & Ops tabs outline continuous improvement + deployment considerations
 
 ### 🗺️ Data Strategy Visual – Dual Mode Redesign
 
 The Data Strategy visualization now has genuinely distinct modes:
 
-* **Simple Mode**: High-level learner-friendly pipeline (minimal cognitive load)
-* **Technical Mode**: Detailed ingestion → curation → alignment → sampling → packaging steps with directional arrows and staged highlight animation
-* Overflow containment & responsive scaling inside concept cards (no bleed)
-* Improved arrow geometry + consistent timing loop for pedagogical pacing
+- **Simple Mode**: High-level learner-friendly pipeline (minimal cognitive load)
+- **Technical Mode**: Detailed ingestion → curation → alignment → sampling → packaging steps with directional arrows and staged highlight animation
+- Overflow containment & responsive scaling inside concept cards (no bleed)
+- Improved arrow geometry + consistent timing loop for pedagogical pacing
 
 ### 🎨 Branding & UX Polish
 
-* Full-color ladder logo replaces temporary monochrome ladder lines
-* Removed blue circular background behind logo for theme neutrality
-* Root label optical alignment & slight size reduction for hierarchy clarity
-* Subtle node spacing refinements to prioritize early-tier scan paths
+- Full-color ladder logo replaces temporary monochrome ladder lines
+- Removed blue circular background behind logo for theme neutrality
+- Root label optical alignment & slight size reduction for hierarchy clarity
+- Subtle node spacing refinements to prioritize early-tier scan paths
 
 ### 📚 Reference Enhancements
 
-* Added authoritative fine‑tuning resource links in new References tab
-* Consistent external link iconography & accessibility labelling
+- Added authoritative fine‑tuning resource links in new References tab
+- Consistent external link iconography & accessibility labelling
 
 ### 🧩 Internal Architecture / Code Improvements
 
-* Refactored tree root rendering to isolate logo image layer (no stroke collisions)
-* Centralized fit-to-content bounding box logic reused across SVG/PNG/PDF exporters
-* Defensive `getBBox()` guards to avoid runtime errors in headless contexts
-* Theming helpers (`getNodeFill`, `getLinkColor`, `getTextColor`) simplified & root override applied without side effects
+- Refactored tree root rendering to isolate logo image layer (no stroke collisions)
+- Centralized fit-to-content bounding box logic reused across SVG/PNG/PDF exporters
+- Defensive `getBBox()` guards to avoid runtime errors in headless contexts
+- Theming helpers (`getNodeFill`, `getLinkColor`, `getTextColor`) simplified & root override applied without side effects
 
 ### ✅ Impact
 
 These changes significantly improve:
 
-* Knowledge map shareability (slide-ready exports, transparent backgrounds)
-* Pedagogical clarity (accurate tier placement for fine-tuning, dual-mode data strategy)
-* Brand consistency (domain root + full-color logo)
-* Accessibility & readability (contrast-tuned strokes & labels)
-* Maintenance (export pipeline reuse + style centralization)
+- Knowledge map shareability (slide-ready exports, transparent backgrounds)
+- Pedagogical clarity (accurate tier placement for fine-tuning, dual-mode data strategy)
+- Brand consistency (domain root + full-color logo)
+- Accessibility & readability (contrast-tuned strokes & labels)
+- Maintenance (export pipeline reuse + style centralization)
 
 > Looking ahead: optional roadmap items include export padding customization, palette forcing (dark-on-light / light-on-dark), multi-page tiling for very large future maps, and root node tooltip navigation.
 

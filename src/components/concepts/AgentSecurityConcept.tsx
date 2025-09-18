@@ -295,16 +295,35 @@ class TrustNetwork {
   ]
 
   return (
-    <ConceptLayout
-      conceptId="agent-security"
-      title="Agent Security & Trust"
-      description="Essential security concepts and trust mechanisms for AI agent systems"
-      tabs={tabs}
-      onMarkComplete={onMarkComplete}
-      onNavigateToNext={onNavigateToNext}
-    />
+    <div className="space-y-8">
+      <ConceptLayout
+        conceptId="agent-security"
+        title="Agent Security & Trust"
+        description="Essential security concepts and trust mechanisms for AI agent systems"
+        tabs={tabs}
+        onMarkComplete={onMarkComplete}
+        onNavigateToNext={onNavigateToNext}
+      />
+      <div className="mt-4 border-t pt-6 dark:border-gray-700">
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Related</h4>
+        <a
+          href="#agentic-commerce-ap2"
+          className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm"
+        >
+          <span className="font-medium">Agentic Commerce & AP2</span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">delegated purchase mandate chain</span>
+        </a>
+      </div>
+    </div>
   )
 }
+
+// Related footer (Agentic Commerce & AP2) appended for cross-link visibility
+// The AP2 concept emphasizes delegated purchase mandate chaining which is a direct
+// application of security primitives (immutability, scoped delegation, presence signaling).
+// Adding a lightweight related section keeps consistency with other concept footers.
+
+
 
 
 

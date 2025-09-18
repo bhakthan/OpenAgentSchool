@@ -20,6 +20,7 @@ import { agenticAIDesignQuestions, agenticAIDesignTime } from './agentic-ai-desi
 import { sensoryReasoningEnhancementQuestions, sensoryReasoningEnhancementTime } from './sensory-reasoning-enhancement';
 import { educationalAgentPatternsQuestions, educationalAgentPatternsTime } from './educational-agent-patterns';
 import { fineTuningQuestions } from './fine-tuning';
+import { agenticCommerceAp2Questions } from './agentic-commerce-ap2';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -45,7 +46,8 @@ const allQuestions = [
   ...agenticAIDesignQuestions,
   ...sensoryReasoningEnhancementQuestions,
   ...educationalAgentPatternsQuestions,
-  ...fineTuningQuestions
+  ...fineTuningQuestions,
+  ...agenticCommerceAp2Questions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -967,6 +969,18 @@ export const calculateQuizScore = (session: QuizSession): number => {
   
   const correctAnswers = session.questions.reduce((count, question, index) => {
     const userAnswer = session.userAnswers[index];
+    if (question.correctAnswers && question.correctAnswers.length > 0) {
+      // userAnswer expected to encode multi-select as a bitmask OR index referencing a stored selection set (future enhancement)
+      // For current minimal implementation we assume UI collects a bitmask in userAnswer when multi-select used.
+      const bitmask = userAnswer ?? 0;
+      const allCorrect = question.correctAnswers.every(i => (bitmask & (1 << i)) !== 0);
+      const noExtras = question.options.every((_, optIdx) => {
+        const selected = (bitmask & (1 << optIdx)) !== 0;
+        if (selected && !question.correctAnswers!.includes(optIdx)) return false;
+        return true;
+      });
+      return (allCorrect && noExtras) ? count + 1 : count;
+    }
     return question.correctAnswer === userAnswer ? count + 1 : count;
   }, 0);
   
@@ -980,13 +994,28 @@ export const generateQuizFeedback = (session: QuizSession): QuizFeedback[] => {
   
   session.questions.forEach((question, index) => {
     const userAnswer = session.userAnswers[index];
-    const isCorrect = question.correctAnswer === userAnswer;
+    let isCorrect = false;
+    let correctLabel: string;
+    if (question.correctAnswers && question.correctAnswers.length > 0) {
+      const bitmask = userAnswer ?? 0;
+      const allCorrect = question.correctAnswers.every(i => (bitmask & (1 << i)) !== 0);
+      const noExtras = question.options.every((_, optIdx) => {
+        const selected = (bitmask & (1 << optIdx)) !== 0;
+        if (selected && !question.correctAnswers!.includes(optIdx)) return false;
+        return true;
+      });
+      isCorrect = allCorrect && noExtras;
+      correctLabel = question.correctAnswers.map(i => question.options[i]).join(', ');
+    } else {
+      isCorrect = question.correctAnswer === userAnswer;
+      correctLabel = question.options[question.correctAnswer];
+    }
     
     feedback.push({
       type: isCorrect ? 'correct' : 'incorrect',
       message: isCorrect 
         ? 'Correct! Well done.' 
-        : `Incorrect. The correct answer is: ${question.options[question.correctAnswer]}`,
+  : `Incorrect. The correct answer${question.correctAnswers && question.correctAnswers.length>1 ? 's are' : ' is'}: ${correctLabel}`,
       concept: question.category,
       resources: question.relatedTopics,
       isCorrect: isCorrect,

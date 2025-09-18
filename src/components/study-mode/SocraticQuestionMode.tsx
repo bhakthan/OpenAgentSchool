@@ -16,7 +16,7 @@ import {
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { StudyModeQuestion, StudyModeSession, StudyModeResponse } from '@/lib/data/studyMode/types';
-import { saveStudyModeProgress, clearQuestionProgress } from '@/lib/data/studyMode';
+import { saveStudyModeProgress } from '@/lib/data/studyMode/progress';
 import { socraticJudge, LlmJudgeResponse } from '@/lib/llmJudge';
 import LlmConfigurationNotice from './LlmConfigurationNotice';
 import EnhancedSocraticElicitation from './EnhancedSocraticElicitation';
@@ -188,10 +188,7 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
     setIsGettingJudgment(false);
     setShowLlmFeedbackModal(false);
     
-    // Clear progress from storage using utility function
-    clearQuestionProgress(question.id, 'socratic');
-    
-    // Inform user about page refresh for optimal experience
+    // Inform user about page refresh for optimal experience (clearing local in-memory state only)
     setTimeout(() => {
       const shouldRefresh = window.confirm(
         'Retake initiated! 🎓\n\n' +

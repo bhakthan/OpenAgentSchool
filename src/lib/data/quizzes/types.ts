@@ -4,7 +4,10 @@ export interface QuizQuestion {
   text: string;
   question: string;
   options: string[];
+  // For single-answer questions use correctAnswer.
+  // For multi-select questions supply correctAnswers (array of indices) and leave correctAnswer as -1.
   correctAnswer: number;
+  correctAnswers?: number[];
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   category: string;
   subCategory?: string;

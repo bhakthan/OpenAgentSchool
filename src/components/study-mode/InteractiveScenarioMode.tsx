@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { StudyScenario, StudyModeSession, StudyModeResponse, ScenarioChallenge, ChallengeResult } from '@/lib/data/studyMode/types';
-import { saveStudyModeProgress, clearQuestionProgress } from '@/lib/data/studyMode';
+import { saveStudyModeProgress } from '@/lib/data/studyMode/progress';
 import { scenarioJudge, LlmJudgeResponse } from '@/lib/llmJudge';
 
 interface InteractiveScenarioModeProps {
@@ -66,9 +66,6 @@ const InteractiveScenarioMode: React.FC<InteractiveScenarioModeProps> = ({
     );
     
     if (confirmed) {
-      // Clear progress from localStorage
-      clearQuestionProgress(scenario.id, 'scenario');
-      
       // Reset component state
       setCurrentStep(0);
       setUserResponse('');

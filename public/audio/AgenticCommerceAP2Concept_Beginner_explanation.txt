@@ -1,0 +1,13 @@
+Agentic Commerce & AP2 (Beginner)
+
+Think of AP2 as a 3‑step safety handshake that lets an AI agent buy something for you without blindly charging your card.
+
+1. Intent: You state what’s allowed (spend limit, categories, time window).
+2. Cart: The exact items + total become locked—no silent swaps.
+3. Payment: A final signed handoff with “presence” info (were you there or fully delegated?).
+
+Why it matters: Each step is cryptographically signed so later everyone can prove what was authorized. It reduces fraud, prevents silent cart drift, and builds trust in autonomous shopping.
+
+Mental model: Intent = guardrails, Cart = frozen snapshot, Payment = final execution receipt.
+
+Outcome: Safer delegation + audit trail if something goes wrong.

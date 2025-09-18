@@ -1,0 +1,28 @@
+Agentic Commerce & AP2 (Intermediate)
+
+AP2 chains three verifiable credentials (VCs)—Intent → Cart → Payment—to enforce scoped delegation and preserve an immutable purchase trail.
+
+Intent VC:
+- Declares scope (caps, categories, expiry, constraints)
+- Establishes presence posture (human supervising vs delegated)
+- Prevents open‑ended spend authority
+
+Cart VC:
+- Binds concrete line items + deterministic total
+- References Intent VC (hash link)
+- Freezes state pre‑payment; no item morphing post approval
+
+Payment VC:
+- References Cart VC
+- Includes presence + agent metadata (model, version, risk score)
+- Provides non‑repudiable execution evidence
+
+Hash linking (Intent→Cart→Payment) yields audit reconstruction: any dispute can diff what changed.
+
+Core benefits:
+1. Least‑authority: agents operate within explicit spend scope.
+2. Integrity: cart immutability blocks “switch after approve” attacks.
+3. Accountability: presence + agent metadata supports explainability.
+4. Interop: standard credential fields allow multi‑merchant ecosystems.
+
+Design nuance: Avoid over‑fitting constraints; too tight = agent thrash, too loose = risk spillover.

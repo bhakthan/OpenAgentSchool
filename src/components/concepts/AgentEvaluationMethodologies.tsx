@@ -831,11 +831,36 @@ def validate_evaluation_results(evaluation_data):
           <ArrowRight className="w-4 h-4" />
         </Button>
       </div>
+
+      {/* Related AP2 Cross-Link */}
+      <div className="mt-8 pt-4 border-t border-border/60 text-sm">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+            <div className="font-medium text-muted-foreground">Related:</div>
+            <a
+              href="#agentic-commerce-ap2"
+              className="inline-flex items-center gap-1 text-primary hover:underline font-medium"
+              aria-label="Navigate to Agentic Commerce & AP2 concept"
+            >
+              Agentic Commerce & AP2
+              <ArrowRight className="w-4 h-4" />
+            </a>
+        </div>
+        <p className="mt-2 text-muted-foreground/80 leading-snug">
+          Apply these evaluation patterns to delegated mandate chains (Intent → Cart → Payment) to track integrity latency, tamper detection rate, and presence governance effectiveness.
+        </p>
+      </div>
     </div>
   );
 };
 
 export default AgentEvaluationMethodologies;
+
+// Related cross-link (Agentic Commerce & AP2): evaluation of delegated mandate chains
+// introduces integrity + dispute resolution metrics (latency to reconstruct chain, tamper detection rate).
+
+// Add a small related footer visually
+// (Lightweight manual addition to avoid refactoring the large component body.)
+
 
 
 

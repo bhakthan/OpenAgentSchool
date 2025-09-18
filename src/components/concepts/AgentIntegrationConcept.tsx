@@ -692,16 +692,32 @@ class LegacyIntegrationAgent:
   ]
 
   return (
-    <ConceptLayout
-      conceptId="agent-integration"
-      title="Agent Integration Patterns"
-      description="Comprehensive integration patterns for connecting agents with APIs, event systems, microservices, and legacy systems"
-      tabs={tabs}
-      onMarkComplete={onMarkComplete}
-      onNavigateToNext={onNavigateToNext}
-    />
+    <div className="space-y-8">
+      <ConceptLayout
+        conceptId="agent-integration"
+        title="Agent Integration Patterns"
+        description="Comprehensive integration patterns for connecting agents with APIs, event systems, microservices, and legacy systems"
+        tabs={tabs}
+        onMarkComplete={onMarkComplete}
+        onNavigateToNext={onNavigateToNext}
+      />
+      <div className="mt-4 border-t pt-6 dark:border-gray-700">
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Related</h4>
+        <a
+          href="#agentic-commerce-ap2"
+          className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm"
+        >
+          <span className="font-medium">Agentic Commerce & AP2</span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">secure payment & vendor mandate integration</span>
+        </a>
+      </div>
+    </div>
   )
 }
+
+// Related footer note: Agentic Commerce & AP2 demonstrates deep integration pattern
+// combining protocol design + payment network delegation flows.
+
 
 
 

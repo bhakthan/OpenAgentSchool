@@ -1,0 +1,26 @@
+Agentic Commerce & AP2 (Advanced)
+
+AP2 establishes a verifiable mandate chain enabling autonomous or semi‑autonomous purchasing with cryptographic accountability.
+
+Credential Chain:
+1. Intent VC: Captures delegation semantics—constraints (maxTotal, category allowlist, currency), temporal validity, presence mode, optional risk thresholds.
+2. Cart VC: Deterministic serialization of selected items (SKU, qty, price, currency, tax). Hash commits to the exact composition; references Intent hash.
+3. Payment VC: References Cart hash, embeds execution metadata (agent identity claims, model lineage, presence assertion, signature suite, policy version). Optional zero‑knowledge proofs can redact PII while preserving verifiability.
+
+Security & Integrity Properties:
+- Hash Linked Immutability: tampering any VC breaks forward verification.
+- Least Authority: narrowed delegation envelope reduces exploit surface.
+- Presence Signaling: informs downstream risk engines (HUMAN_PRESENT vs DELEGATED vs SCHEDULED_AUTONOMOUS).
+- Non‑Repudiation: multi‑party signature sets (user key + agent key + merchant key).
+- Replay Mitigation: nonce + expiry + cart total binding.
+
+Interoperability Layers:
+- Tooling (MCP) surfaces product intelligence; A2A protocols negotiate merchant capability envelopes; AP2 focuses strictly on mandate semantics & verification.
+- Extensible rails: x402 or alt settlement attach beneath Payment VC without altering mandate graph.
+
+Adoption Guidance:
+- Phase gating: start with supervised mode (presence=HUMAN_PRESENT) to build trust metrics.
+- Telemetry: log constraint violation attempts pre‑Cart to refine intent schema.
+- Governance: rotate agent signing keys; version intent schema; implement dispute reconstruction harness (hash walk + VC validation).
+
+Strategic Outcome: Enables scalable, regulator‑palatable autonomous commerce by making every delegated spend cryptographically explainable.

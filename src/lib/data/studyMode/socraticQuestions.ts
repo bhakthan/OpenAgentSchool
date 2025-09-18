@@ -1049,6 +1049,66 @@ export const agenticRAGSocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Socratic Questions for Agentic Commerce & AP2
+export const agenticCommerceAp2SocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'agentic-commerce-ap2-socratic-1',
+    type: 'socratic',
+    conceptId: 'agentic-commerce-ap2',
+    title: 'Why Split Mandates?',
+    level: 'intermediate',
+    socratiQuestion: 'What risk is reduced by splitting delegated purchasing into Intent, Cart, and Payment mandates instead of a single combined authorization? What emerges when you separate them?',
+    expectedInsights: [
+      'Limits blast radius of misuse',
+      'Improves auditability & non-repudiation',
+      'Prevents silent mutation of cart contents'
+    ],
+    hints: [ 'Consider post-hoc dispute investigation', 'Think about tampering vs binding' ],
+    explanation: 'Isolation + cryptographic linkage localizes compromise and yields strong forensic evidence.',
+    relatedConcepts: ['agent-security','mcp-a2a-integration','agentic-commerce-ap2'],
+    timeEstimate: 60
+  },
+  {
+    id: 'agentic-commerce-ap2-socratic-2',
+    type: 'socratic',
+    conceptId: 'agentic-commerce-ap2',
+    title: 'Expiry & Presence Mode',
+    level: 'beginner',
+    socratiQuestion: 'Why does the Intent Mandate carry an expiry and presence mode, and what failures emerge if either is omitted?',
+    expectedInsights: [ 'Prevents indefinite reuse', 'Supports risk-tiered payment routing', 'Enables escalation gating' ],
+    hints: [ 'Replay risk', 'Risk scoring engines rely on mode' ],
+    explanation: 'Without expiry authority persists; without presence mode networks mis-price risk or block flows.',
+    relatedConcepts: ['agent-security','agentic-commerce-ap2'],
+    timeEstimate: 55
+  },
+  {
+    id: 'agentic-commerce-ap2-socratic-3',
+    type: 'socratic',
+    conceptId: 'agentic-commerce-ap2',
+    title: 'Hash Linking & Disputes',
+    level: 'intermediate',
+    socratiQuestion: 'How does cryptographic hash-linking between mandates improve customer dispute resolution latency?',
+    expectedInsights: [ 'Deterministic lineage', 'Tamper evidence', 'Fast automated reconstruction' ],
+    hints: [ 'Hash chain = O(n) verification', 'Immutable snapshot vs dynamic cart' ],
+    explanation: 'Chain enables immediate integrity check and root cause mapping without heuristic correlation.',
+    relatedConcepts: ['agent-security','observability','agentic-commerce-ap2'],
+    timeEstimate: 65
+  },
+  {
+    id: 'agentic-commerce-ap2-socratic-4',
+    type: 'socratic',
+    conceptId: 'agentic-commerce-ap2',
+    title: 'Adaptive Revocation Triggers',
+    level: 'advanced',
+    socratiQuestion: 'What governance signal would trigger revocation of an existing Intent Mandate before expiry?',
+    expectedInsights: [ 'Anomalous vendor pattern', 'Budget threshold breach', 'Fraud / risk escalation event' ],
+    hints: [ 'Dynamic risk scoring', 'Spend velocity anomaly' ],
+    explanation: 'Adaptive governance shrinks attack window by revoking at detection time rather than waiting for expiry.',
+    relatedConcepts: ['agent-security','agent-ops','governance','agentic-commerce-ap2'],
+    timeEstimate: 75
+  }
+];
+
 // Socratic Questions for Modern Tool Use
 export const modernToolUseSocraticQuestions: StudyModeQuestion[] = [
   {
@@ -2529,6 +2589,8 @@ export const socraticQuestionLibrary = {
   'swarm-intelligence': swarmIntelligenceSocraticQuestions,
   'agentic-ai-design-taxonomy': agenticAIDesignTaxonomySocraticQuestions,
   'sensory-reasoning-enhancement': sensoryReasoningEnhancementSocraticQuestions
+  ,
+  'agentic-commerce-ap2': agenticCommerceAp2SocraticQuestions
 };
 
 // Helper function to get socratic questions by concept and level

@@ -19,7 +19,7 @@ import {
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { DebugChallenge, StudyModeSession, StudyModeResponse, DebugLog, DebugIssue } from '@/lib/data/studyMode/types';
-import { saveStudyModeProgress, clearQuestionProgress } from '@/lib/data/studyMode';
+import { saveStudyModeProgress } from '@/lib/data/studyMode/progress';
 import { debugJudge, LlmJudgeResponse } from '@/lib/llmJudge';
 import LlmConfigurationNotice from './LlmConfigurationNotice';
 import ReactMarkdown from 'react-markdown';
@@ -113,9 +113,6 @@ const DebugChallengeMode: React.FC<DebugChallengeModeProps> = ({
     );
     
     if (confirmed) {
-      // Clear progress from localStorage
-      clearQuestionProgress(challenge.id, 'debug');
-      
       // Reset component state
       setCurrentPhase('analysis');
       setAnalysisResponse('');

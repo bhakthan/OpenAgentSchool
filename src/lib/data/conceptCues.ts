@@ -100,6 +100,12 @@ export const conceptCues: Record<string, ConceptCue> = {
     cue: 'Alignment is iterative - each stage should justify its added complexity through measurable gain',
     criticalThinkingQuestion: 'How would you decide whether to stop at SFT, add DPO, or proceed to reinforcement fine-tuning for a domain assistant while balancing alignment improvement, regression risk, and operational cost?'
   }
+  ,
+  'agentic-commerce-ap2': {
+    id: 'agentic-commerce-ap2',
+    cue: 'Delegated trust requires cryptographic proof – mandates turn “the agent did it” into verifiable evidence.',
+    criticalThinkingQuestion: 'How would you design a mandate lifecycle (Intent → Cart → Payment) that enables autonomous purchasing while minimizing fraud, overreach, and dispute friction in a multi-rail commerce ecosystem?'
+  }
 };
 
 // Helper function to get concept cue

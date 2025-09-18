@@ -3979,7 +3979,66 @@ export const scenarioLibrary = {
   'agent-deployment': agentDeploymentScenarios,
   'swarm-intelligence': swarmIntelligenceScenarios,
   'agentic-ai-design-taxonomy': agenticAIDesignTaxonomyScenarios
+  // Agentic Commerce & AP2
 };
+
+// Agentic Commerce & AP2 Scenario
+export const agenticCommerceAp2Scenarios: StudyModeQuestion[] = [
+  {
+    id: 'agentic-commerce-ap2-scenario-1',
+    type: 'scenario',
+    conceptId: 'agentic-commerce-ap2',
+    title: 'Delegated Purchase with Mandate Chain Integrity',
+    level: 'intermediate',
+    scenario: {
+      id: 'ap2-mandate-chain',
+      title: 'Auto-Trigger Price Watch Purchase',
+      description: 'An agent watches a product price and auto-purchases when conditions are met using AP2 mandates.',
+      context: 'User sets constraints: max $240, vendors: A or B, presence: delegated, expiry: 6h.',
+      stakeholders: ['End User','Commerce Agent','Payment Network','Merchant'],
+      challenges: [
+        {
+          id: 'ap2-c1',
+          title: 'Sequence Ordering',
+          description: 'Which mandate must be finalized before emitting Payment?',
+          question: 'Select the correct precondition for Payment Mandate emission.',
+          type: 'multiple-choice',
+          options: ['Intent only','Cart only','Intent then Cart hashed','None (Payment first)'],
+          correctAnswer: 2,
+          feedback: 'Payment references Cart which binds Intent — chain integrity requires both preceding hashes.'
+        },
+        {
+          id: 'ap2-c2',
+          title: 'Tamper Detection',
+          description: 'Cart total differs from signed value at settlement review.',
+          question: 'Most likely cause?',
+          type: 'multiple-choice',
+          options: ['Hash mismatch / tamper','Presence escalation','Expired intent incorrectly accepted','Late vendor substitution allowed'],
+          correctAnswer: 0,
+          feedback: 'Hash mismatch indicates cart mutation attempt or serialization bug.'
+        }
+      ],
+      outcomes: [
+        { id: 'ok', condition: 'All constraints respected', result: 'Purchase executed securely', explanation: 'Chain verified and within policy.' },
+        { id: 'reject', condition: 'Expiry passed', result: 'Agent halts purchase', explanation: 'Temporal boundary enforced.' }
+      ],
+      codeExample: `// Pseudocode: mandate chain assembly\nconst intent = sign(intentPayload)\nconst cart = sign({ ...cartPayload, intentHash: intent.hash })\nconst payment = sign({ cartHash: cart.hash, presence: intent.payload.presence })`,
+      resources: ['AP2 Concept Overview','Mandate Chain Security'],
+      conceptId: 'agentic-commerce-ap2',
+      difficulty: 'intermediate',
+      estimatedTime: '8-10m',
+      learningOutcomes: ['Understand mandate ordering','Detect tampering via hashes','Apply presence & expiry constraints']
+    },
+    hints: ['Review ordering Intent -> Cart -> Payment','Check hash references'],
+    explanation: 'Ensures learner internalizes ordering, integrity and constraint enforcement.',
+    relatedConcepts: ['agent-security','mcp-a2a-integration'],
+    timeEstimate: 10,
+    successCriteria: ['Correct sequence reasoning','Can diagnose tamper scenario']
+  }
+];
+
+// Register AP2 scenario set into existing library so standard getters can access it
+(scenarioLibrary as any)['agentic-commerce-ap2'] = agenticCommerceAp2Scenarios;
 
 // Helper function to get scenarios by concept and level
 export function getScenarios(

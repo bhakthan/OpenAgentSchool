@@ -12,22 +12,38 @@ import {
 import { cn } from "@/lib/utils";
 
 // Import Study Mode components
-import SocraticQuestionMode from './SocraticQuestionMode.tsx';
-import InteractiveScenarioMode from './InteractiveScenarioMode.tsx';
-import DebugChallengeMode from './DebugChallengeMode.tsx';
+import ReactLazy = React.lazy;
+const SocraticQuestionMode = React.lazy(async () => {
+  const t0 = performance.now();
+  const mod = await import('./SocraticQuestionMode.tsx');
+  const t1 = performance.now();
+  try { window.dispatchEvent(new CustomEvent('analytics:chunkLoad', { detail: { source: 'SocraticQuestionMode', ms: +(t1 - t0).toFixed(2) } })); } catch {}
+  return mod;
+});
+const InteractiveScenarioMode = React.lazy(async () => {
+  const t0 = performance.now();
+  const mod = await import('./InteractiveScenarioMode.tsx');
+  const t1 = performance.now();
+  try { window.dispatchEvent(new CustomEvent('analytics:chunkLoad', { detail: { source: 'InteractiveScenarioMode', ms: +(t1 - t0).toFixed(2) } })); } catch {}
+  return mod;
+});
+const DebugChallengeMode = React.lazy(async () => {
+  const t0 = performance.now();
+  const mod = await import('./DebugChallengeMode.tsx');
+  const t1 = performance.now();
+  try { window.dispatchEvent(new CustomEvent('analytics:chunkLoad', { detail: { source: 'DebugChallengeMode', ms: +(t1 - t0).toFixed(2) } })); } catch {}
+  return mod;
+});
 import { SuperCriticalLearning } from '../study/supercritical/SuperCriticalLearning';
 
 // Import Study Mode data
+// Replace direct heavy library imports with dynamic loader utilities
 import {
-  studyModeCategories,
   getStudyModeProgress,
   calculateStudyModeProgress,
-  getRecommendedNextQuestion,
-  hasUnlockedStudyModeType,
-  getAllStudyModeQuestions,
   clearTypeProgress,
-  getStudyModeQuestionsByConceptId
-} from '@/lib/data/studyMode';
+} from '@/lib/data/studyMode/progress';
+import { loadStudyModeData, flattenQuestions, filterQuestionsByConcept, getRecommendedQuestion, deriveCategories } from '@/lib/data/studyMode/lazy';
 import { StudyModeType, StudyModeQuestion, StudyModeSession } from '@/lib/data/studyMode/types';
 import { toast } from '@/components/ui/use-toast';
 interface StudyModeProps {
@@ -40,12 +56,51 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [selectedQuestion, setSelectedQuestion] = useState<StudyModeQuestion | null>(null);
   const [sessions, setSessions] = useState<StudyModeSession[]>([]);
   const [progress, setProgress] = useState(calculateStudyModeProgress([]));
+  const [dataBundle, setDataBundle] = useState<any | null>(null);
+  const [categories, setCategories] = useState<any[]>([]);
+  const [loadingData, setLoadingData] = useState<boolean>(true);
+  // Progressive unlock logic
+  // scenario: after 2 completed socratic sessions
+  // debug: after 1 completed scenario session
+  // scl: after 1 completed debug session and average score >= 60
+  const isTypeUnlocked = (type: StudyModeType) => {
+    if (type === 'socratic' || type === 'guided') return true;
+    const completed = sessions.filter(s => s.isComplete);
+    const byType = (t: StudyModeType) => completed.filter(s => s.type === t);
+    switch (type) {
+      case 'scenario':
+        return byType('socratic').length >= 2;
+      case 'debug':
+        return byType('scenario').length >= 1;
+      case 'scl':
+        return byType('debug').length >= 1 && progress.averageScore >= 60;
+      default:
+        return true;
+    }
+  };
 
   // Load progress on mount and honor hash deep-linking to a specific tab (e.g., #scl)
   useEffect(() => {
     const loadedSessions = getStudyModeProgress();
     setSessions(loadedSessions);
     setProgress(calculateStudyModeProgress(loadedSessions));
+
+    // Dynamically load heavy question banks
+    (async () => {
+      try {
+        setLoadingData(true);
+        const t0 = performance.now();
+        const bundle = await loadStudyModeData();
+        const t1 = performance.now();
+        try { window.dispatchEvent(new CustomEvent('analytics:chunkLoad', { detail: { source: 'studyModeData', ms: +(t1 - t0).toFixed(2) } })); } catch {}
+        setDataBundle(bundle);
+        setCategories(deriveCategories(bundle));
+      } catch (e) {
+        console.error('Failed to load Study Mode data bundle', e);
+      } finally {
+        setLoadingData(false);
+      }
+    })();
 
     try {
       // Support hash-based tab deep links
@@ -69,8 +124,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
         const preferredType = (params.get('type') as StudyModeType | null);
 
         // If qid provided, select exact question
-        if (qid) {
-          const question = getAllStudyModeQuestions().find(q => q.id === qid);
+        if (qid && dataBundle) {
+          const question = flattenQuestions(dataBundle).find(q => q.id === qid);
           if (question) {
             setSelectedQuestion(question);
             setActiveTab(question.type);
@@ -79,8 +134,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
         }
 
         // Else if concept provided, pick first question (optionally by type)
-        if (concept) {
-          let conceptQuestions = getStudyModeQuestionsByConceptId(concept);
+        if (concept && dataBundle) {
+          let conceptQuestions = filterQuestionsByConcept(dataBundle, concept);
           if (preferredType) {
             conceptQuestions = conceptQuestions.filter(q => q.type === preferredType);
           }
@@ -98,8 +153,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       try {
         const custom = event as CustomEvent<{ qid?: string; concept?: string; type?: StudyModeType }>;
         const { qid, concept, type } = custom.detail || {};
-        if (qid) {
-          const question = getAllStudyModeQuestions().find(q => q.id === qid);
+        if (qid && dataBundle) {
+          const question = flattenQuestions(dataBundle).find(q => q.id === qid);
           if (question) {
             setSelectedQuestion(question);
             setActiveTab(question.type);
@@ -107,8 +162,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
             return;
           }
         }
-        if (concept) {
-          let conceptQuestions = getStudyModeQuestionsByConceptId(concept);
+        if (concept && dataBundle) {
+          let conceptQuestions = filterQuestionsByConcept(dataBundle, concept);
           if (type) conceptQuestions = conceptQuestions.filter(q => q.type === type);
           const question = conceptQuestions[0];
           if (question) {
@@ -121,17 +176,17 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     };
     window.addEventListener('studyMode:launchQuestion', handler as EventListener);
     return () => window.removeEventListener('studyMode:launchQuestion', handler as EventListener);
-  }, []);
+  }, [dataBundle]);
 
   // Get all questions from all concepts
-  const allQuestions = getAllStudyModeQuestions();
+  const allQuestions = dataBundle ? flattenQuestions(dataBundle) : [];
   
   const completedQuestionIds = sessions
     .filter(s => s.isComplete)
     .map(s => s.questionId);
 
   // Get recommended next question (from any concept)
-  const recommendedQuestion = allQuestions.find(q => !completedQuestionIds.includes(q.id));
+  const recommendedQuestion = dataBundle ? getRecommendedQuestion(dataBundle, completedQuestionIds) : null;
 
   // Helper functions
   const getTypeIcon = (type: StudyModeType) => {
@@ -157,6 +212,10 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   };
 
   const handleQuestionStart = (question: StudyModeQuestion) => {
+    if (!isTypeUnlocked(question.type)) {
+      toast({ title: 'Locked Mode', description: 'Complete prerequisite sessions to unlock this mode.' });
+      return;
+    }
     setSelectedQuestion(question);
     setActiveTab(question.type);
   };
@@ -257,36 +316,52 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       onBack: () => setSelectedQuestion(null)
     };
 
+    const ModeWrapper: React.FC<{children: React.ReactNode}> = ({ children }) => (
+      <React.Suspense fallback={<div className="p-8 text-center">Loading module…</div>}>{children}</React.Suspense>
+    );
     switch (selectedQuestion.type) {
       case 'socratic':
-        return (
-          <SocraticQuestionMode {...commonProps} />
-        );
+        return <ModeWrapper><SocraticQuestionMode {...commonProps} /></ModeWrapper>;
       case 'scenario':
-        if (!selectedQuestion.scenario) {
+        if (!selectedQuestion.scenario || typeof selectedQuestion.scenario === 'string') {
           return <div>Scenario data not found</div>;
         }
-        return (
-          <InteractiveScenarioMode 
-            scenario={selectedQuestion.scenario} 
-            onComplete={handleSessionComplete}
-            onBack={() => setSelectedQuestion(null)}
-          />
-        );
+        return <ModeWrapper><InteractiveScenarioMode scenario={selectedQuestion.scenario} onComplete={handleSessionComplete} onBack={() => setSelectedQuestion(null)} /></ModeWrapper>;
       case 'debug':
         if (!selectedQuestion.debugChallenge) {
           return <div>Debug challenge data not found</div>;
         }
-        return (
-          <DebugChallengeMode 
-            challenge={selectedQuestion.debugChallenge}
-            onComplete={handleSessionComplete}
-            onBack={() => setSelectedQuestion(null)}
-          />
-        );
+        return <ModeWrapper><DebugChallengeMode challenge={selectedQuestion.debugChallenge} onComplete={handleSessionComplete} onBack={() => setSelectedQuestion(null)} /></ModeWrapper>;
       default:
         return <div>Question type not implemented yet</div>;
     }
+  }
+
+  // Loading skeleton while data bundle is being fetched
+  if (loadingData) {
+    return (
+      <Card className="w-full max-w-5xl mx-auto animate-pulse">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Brain size={24} className="text-primary" />
+            Loading Study Mode Resources…
+          </CardTitle>
+          <CardDescription>
+            Large adaptive learning content is being streamed in on-demand to keep the initial app fast.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="h-6 bg-muted rounded w-1/3" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="h-32 bg-muted rounded" />
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
   }
 
   return (
@@ -305,16 +380,28 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)}>
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="socratic" disabled={!hasUnlockedStudyModeType('socratic', sessions)}>
+          <TabsTrigger value="socratic" disabled={!isTypeUnlocked('socratic')}>
             Socratic
           </TabsTrigger>
-          <TabsTrigger value="scenario" disabled={!hasUnlockedStudyModeType('scenario', sessions)}>
+          <TabsTrigger
+            value="scenario"
+            disabled={!isTypeUnlocked('scenario')}
+            title={!isTypeUnlocked('scenario') ? 'Unlock after completing 2 Socratic sessions' : undefined}
+          >
             Scenarios
           </TabsTrigger>
-          <TabsTrigger value="debug" disabled={!hasUnlockedStudyModeType('debug', sessions)}>
-            Debug
-          </TabsTrigger>
-          <TabsTrigger value="scl" disabled={!hasUnlockedStudyModeType('scl', sessions)}>
+            <TabsTrigger
+              value="debug"
+              disabled={!isTypeUnlocked('debug')}
+              title={!isTypeUnlocked('debug') ? 'Unlock after completing 1 Scenario session' : undefined}
+            >
+              Debug
+            </TabsTrigger>
+          <TabsTrigger
+            value="scl"
+            disabled={!isTypeUnlocked('scl')}
+            title={!isTypeUnlocked('scl') ? 'Unlock after 1 Debug session & avg score >= 60' : undefined}
+          >
             SCL
           </TabsTrigger>
         </TabsList>
@@ -411,7 +498,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
 
           {/* Study Mode Categories */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {studyModeCategories.map((category) => {
+            {categories.map((category) => {
               // Map category IDs to tab values
               const getTabValue = (categoryId: string): StudyModeType => {
                 switch (categoryId) {
@@ -428,7 +515,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
               const completedCount = categoryQuestions.filter(q => 
                 completedQuestionIds.includes(q.id)
               ).length;
-              const isUnlocked = hasUnlockedStudyModeType(tabValue, sessions);
+              const isUnlocked = isTypeUnlocked(tabValue);
 
               return (
                 <Card 

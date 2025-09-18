@@ -622,12 +622,13 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       const mappedName = audioFileMap[componentName] || componentName;
       
       // For patterns with 3x3 matrix files, try to use the new granular files first
-      const patternsWithGranularFiles = ['ReActPattern', 'ModernToolUse', 'PromptChaining', 'AgenticRAGPattern'];
+      const patternsWithGranularFiles = ['ReActPattern', 'ModernToolUse', 'PromptChaining', 'AgenticRAGPattern', 'AgenticCommerceAP2Concept'];
       const patternFileMap: { [key: string]: string } = {
         'ReActPattern': 'ReAct',
         'ModernToolUse': 'ModernToolUse',
         'PromptChaining': 'PromptChaining',
-        'AgenticRAGPattern': 'AgenticRAG'
+        'AgenticRAGPattern': 'AgenticRAG',
+        'AgenticCommerceAP2Concept': 'AgenticCommerceAP2Concept'
       };
       
       if (patternsWithGranularFiles.includes(mappedName) && contentType) {

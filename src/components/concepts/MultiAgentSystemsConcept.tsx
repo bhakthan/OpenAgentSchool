@@ -556,16 +556,32 @@ user_proxy.initiate_chat(
   ]
 
   return (
-    <ConceptLayout
-      conceptId="multi-agent-systems"
-      title="Multi-Agent Systems"
-      description="Understanding how multiple AI agents coordinate, negotiate, and collaborate"
-      tabs={tabs}
-      onMarkComplete={onMarkComplete}
-      onNavigateToNext={onNavigateToNext}
-    />
+    <div className="space-y-8">
+      <ConceptLayout
+        conceptId="multi-agent-systems"
+        title="Multi-Agent Systems"
+        description="Understanding how multiple AI agents coordinate, negotiate, and collaborate"
+        tabs={tabs}
+        onMarkComplete={onMarkComplete}
+        onNavigateToNext={onNavigateToNext}
+      />
+      <div className="mt-4 border-t pt-6 dark:border-gray-700">
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Related</h4>
+        <a
+          href="#agentic-commerce-ap2"
+          className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline text-sm"
+        >
+          <span className="font-medium">Agentic Commerce & AP2</span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">mandate chain coordination & delegation</span>
+        </a>
+      </div>
+    </div>
   )
 }
+
+// Related: Agentic Commerce & AP2 cross-link inserted (mandate chain is an advanced
+// coordination specialization bridging secure delegation with transactional integrity.)
+
 
 
 

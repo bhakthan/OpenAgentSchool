@@ -19,6 +19,7 @@ import AgentLearningConcept from "./AgentLearningConcept"
 import AgentIntegrationConcept from "./AgentIntegrationConcept"
 import AgentEvaluationConcept from "./AgentEvaluationConcept"
 import FineTuningConcept from "./FineTuningConcept"
+import AgenticCommerceAP2Concept from "./AgenticCommerceAP2Concept"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
 import AzureAISafetyAndGovernance from "./AzureAISafetyAndGovernance"
@@ -309,6 +310,18 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '45-55 min',
     prerequisites: ['agent-learning'],
   component: FineTuningConcept
+  }
+  ,
+  {
+    id: 'agentic-commerce-ap2',
+    title: 'Agentic Commerce & AP2',
+    description: 'Chained mandate credentials (Intent → Cart → Payment) enabling trustworthy agent-led purchases.',
+    level: 'advanced',
+    icon: <Shield className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-pink-900/20 dark:text-pink-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['mcp-a2a-integration', 'agent-security'],
+    component: AgenticCommerceAP2Concept
   }
 ]
 

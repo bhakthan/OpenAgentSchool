@@ -12,10 +12,8 @@ import {
   ChartLineUp,
   Lightbulb
 } from '@phosphor-icons/react';
-import { getAllStudyModeQuestions, getAllStudyModeContentCount } from '@/lib/data/studyMode';
-import { socraticQuestionLibrary } from '@/lib/data/studyMode/socraticQuestions';
-import { scenarioLibrary } from '@/lib/data/studyMode/interactiveScenarios';
-import { debugChallengeLibrary } from '@/lib/data/studyMode/debugChallenges';
+// Lazy load heavy study mode data only when this visualization mounts
+import { loadStudyModeData, flattenQuestions } from '@/lib/data/studyMode/lazy';
 import { getAllQuestions } from '@/lib/data/quizzes';
 import { agentPatterns } from '@/lib/data/patterns';
 
@@ -75,14 +73,25 @@ export default function ComprehensiveTreeVisualization() {
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
   const [showStudyDetails, setShowStudyDetails] = useState(false);
 
-  // Debug logging to check the count
-  const studyCount = getAllStudyModeContentCount();
-  const allStudyQuestions = getAllStudyModeQuestions();
-  const sclScenariosCount = studyCount - allStudyQuestions.length;
-  const socraticCount = Object.values(socraticQuestionLibrary).flat().length;
-  const scenarioCount = Object.values(scenarioLibrary).flat().length;
-  const debugCount = Object.values(debugChallengeLibrary).flat().length;
-  console.log('Study Mode Content Count:', studyCount);
+  const [socraticCount, setSocraticCount] = useState(0);
+  const [scenarioCount, setScenarioCount] = useState(0);
+  const [debugCount, setDebugCount] = useState(0);
+  const [sclScenariosCount] = useState(8); // static placeholder
+  const studyCount = socraticCount + scenarioCount + debugCount + sclScenariosCount;
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const bundle = await loadStudyModeData();
+        const all = flattenQuestions(bundle);
+        setSocraticCount(all.filter(q => q.type === 'socratic').length);
+        setScenarioCount(all.filter(q => q.type === 'scenario').length);
+        setDebugCount(all.filter(q => q.type === 'debug').length);
+      } catch (e) {
+        console.warn('Failed to load study mode counts lazily', e);
+      }
+    })();
+  }, []);
 
   // Handle navigation for leaf nodes
   const handleNodeSelect = (node: TreeNode) => {

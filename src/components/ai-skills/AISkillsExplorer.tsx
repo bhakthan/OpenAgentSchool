@@ -20,6 +20,7 @@ import PromptOpsTooling from "./PromptOpsTooling"
 import SafetyRiskGovernance from "./SafetyRiskGovernance"
 import CostPerformance from "./CostPerformance"
 import SecurityDataBoundaries from "./SecurityDataBoundaries"
+const AgentPaymentsAP2 = React.lazy(() => import('./AgentPaymentsAP2'))
 import RAGSystems from "./RAGSystems"
 import MultiAgentOrchestration from "./MultiAgentOrchestration"
 import OrgPlaybooks from "./OrgPlaybooks"
@@ -229,6 +230,19 @@ export default function AISkillsExplorer() {
       icon: <Database className="w-4 h-4" />,
       level: "Advanced",
   component: <SecurityDataBoundaries onNavigate={() => completeAndNavigate("security-data","rag")} />
+    },
+    // 10b. Agentic Commerce & AP2 (new)
+    {
+      id: "agent-payments-ap2",
+      title: "Agentic Commerce & AP2",
+      description: "Mandates & verifiable credentials for trusted agent payments",
+      icon: <Shield className="w-4 h-4" />,
+      level: "Advanced",
+      component: (
+        <React.Suspense fallback={<div className="p-4 text-sm text-muted-foreground">Loading AP2 module…</div>}>
+          <AgentPaymentsAP2 onNavigate={() => completeAndNavigate("agent-payments-ap2","rag")} />
+        </React.Suspense>
+      )
     },
     // 11. RAG Systems
     {
