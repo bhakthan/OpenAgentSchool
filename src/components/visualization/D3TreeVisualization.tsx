@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useMemo, useState, useCallback } from 'react';
-import { jsPDF } from 'jspdf';
-import * as d3 from 'd3';
+// Dynamic heavy libs (d3, jspdf) loaded on-demand for smaller initial bundle
+let d3Lib: typeof import('d3') | null = null;
+let jsPDFCtor: typeof import('jspdf').jsPDF | null = null;
 
 // Types for our tree structure
 interface TreeNode {
@@ -76,7 +77,7 @@ export default function D3TreeVisualization({
             { id: 'multi-agent-systems', name: 'Multi-Agent Systems', type: 'concept' as const },
             { id: 'agent-ethics', name: 'Agent Ethics & Governance', type: 'concept' as const },
             { id: 'ai-agents', name: 'AI Agents', type: 'concept' as const },
-            { id: 'agent-evaluation', name: 'Agent Evaluation', type: 'concept' as const }
+            { id: 'ai-safety-governance', name: 'AI Safety & Governance', type: 'concept' as const }
           ]
         },
         {
@@ -85,8 +86,9 @@ export default function D3TreeVisualization({
           type: 'category' as const,
           children: collapsedNodes.has('architecture') ? [] : [
             { id: 'a2a-communication', name: 'A2A Communication', type: 'concept' as const },
-            { id: 'model-context-protocol', name: 'Model Context Protocol', type: 'concept' as const },
+            { id: 'mcp', name: 'Model Context Protocol', type: 'concept' as const },
             { id: 'flow-visualization', name: 'Flow Visualization', type: 'concept' as const },
+            { id: 'agent-evaluation', name: 'Agent Evaluation', type: 'concept' as const },
             { id: 'a2a-communication-patterns', name: 'A2A Communication Patterns', type: 'concept' as const, novel: true }
           ]
         },
@@ -95,7 +97,7 @@ export default function D3TreeVisualization({
           name: 'Advanced Integration (Tier 3)',
           type: 'category' as const,
           children: collapsedNodes.has('implementation') ? [] : [
-            { id: 'agent-communication-protocol', name: 'Agent Communication Protocol', type: 'concept' as const },
+            { id: 'acp', name: 'Agent Communication Protocol', type: 'concept' as const },
             { id: 'mcp-a2a-integration', name: 'MCP × A2A Integration', type: 'concept' as const },
             { id: 'data-visualization', name: 'Data Visualization', type: 'concept' as const },
             { id: 'fine-tuning', name: 'Fine-Tuning Methods (SFT, DPO, RFT)', type: 'concept' as const, novel: true }
@@ -168,8 +170,8 @@ export default function D3TreeVisualization({
           type: 'category' as const,
           children: collapsedNodes.has('study-mode') ? [] : [
             { id: 'study-socratic-thinking', name: 'Socratic Discovery', type: 'quiz' as const },
-            { id: 'study-interactive-scenarios', name: 'Hands-On Scenarios', type: 'quiz' as const },
-            { id: 'study-debug-challenges', name: 'Debug & Fix', type: 'quiz' as const },
+            { id: 'study-interactive-scenarios', name: 'Interactive Scenarios', type: 'quiz' as const },
+            { id: 'study-debug-challenges', name: 'Debug Challenges', type: 'quiz' as const },
             { id: 'study-super-critical-learning', name: 'Super Critical Learning', type: 'quiz' as const, novel: true }
           ]
         },
@@ -284,8 +286,18 @@ export default function D3TreeVisualization({
   };
 
   useEffect(() => {
-    const svg = d3.select(svgRef.current);
-    svg.selectAll("*").remove(); // Clear previous render
+    let cancelled = false;
+    (async () => {
+      if (!d3Lib) {
+        const t0 = performance.now();
+        d3Lib = await import('d3');
+        const t1 = performance.now();
+        try { window.dispatchEvent(new CustomEvent('analytics:chunkLoad', { detail: { source: 'd3', ms: +(t1 - t0).toFixed(2) } })); } catch {}
+      }
+      if (cancelled || !d3Lib) return;
+      const d3 = d3Lib;
+      const svg = d3.select(svgRef.current);
+      svg.selectAll("*").remove();
 
     // Set up dimensions - optimized for three-tier edge lengths while staying within screen bounds
   const width = 1000;  // Slightly reduced width to improve centering
@@ -306,8 +318,8 @@ export default function D3TreeVisualization({
         return 1.5;
       });
 
-    // Create hierarchy
-    const root = d3.hierarchy(treeData);
+  // Create hierarchy
+  const root = d3.hierarchy(treeData as any);
     const treeData_positioned = treeLayout(root);
 
     // Manually adjust positions to reduce spacing from root to categories
@@ -363,7 +375,7 @@ export default function D3TreeVisualization({
   rootGroupRef.current = g.node() as SVGGElement;
 
     // Create links (paths between nodes)
-    const link = g.selectAll('.link')
+  g.selectAll('.link')
       .data(treeData_positioned.links())
       .enter().append('path')
       .attr('class', 'link')
@@ -375,7 +387,7 @@ export default function D3TreeVisualization({
       .style('stroke-width', 2);
 
     // Create nodes
-    const node = g.selectAll('.node')
+  const node = g.selectAll('.node')
       .data(treeData_positioned.descendants())
       .enter().append('g')
       .attr('class', 'node')
@@ -434,6 +446,8 @@ export default function D3TreeVisualization({
       .style('font-weight', 'bold')
       .text(d => collapsedNodes.has(d.data.id) ? '+' : '-');
 
+    })();
+    return () => { cancelled = true; };
   }, [treeData, collapsedNodes, onNodeSelect, selectedNode]);
 
   // Export SVG
@@ -481,6 +495,7 @@ export default function D3TreeVisualization({
     a.click();
     document.body.removeChild(a);
     setTimeout(()=> URL.revokeObjectURL(url), 1000);
+    try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'svg' } })); } catch {}
   }, []);
 
   // Export PNG
@@ -536,59 +551,67 @@ export default function D3TreeVisualization({
     };
     img.onerror = () => URL.revokeObjectURL(url);
     img.src = url;
+    try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: `png-${scale}x` } })); } catch {}
   }, []);
 
   const handleExportPDF = useCallback(() => {
-    if (!svgRef.current) return;
-    const { width, height } = dimsRef.current;
-    const serializer = new XMLSerializer();
-    const clone = svgRef.current.cloneNode(true) as SVGSVGElement;
-    let vbX = 0, vbY = 0, vbW = width, vbH = height;
-    if (fitToContent) {
-      const bbox = computeContentBox();
-      if (bbox && bbox.width && bbox.height) {
-        const pad = 24;
-        vbX = bbox.x - pad; vbY = bbox.y - pad; vbW = bbox.width + pad * 2; vbH = bbox.height + pad * 2;
+    (async () => {
+      if (!svgRef.current) return;
+      if (!jsPDFCtor) {
+        const t0 = performance.now();
+        const mod = await import('jspdf');
+        jsPDFCtor = mod.jsPDF;
+        const t1 = performance.now();
+        try { window.dispatchEvent(new CustomEvent('analytics:chunkLoad', { detail: { source: 'jspdf', ms: +(t1 - t0).toFixed(2) } })); } catch {}
       }
-    }
-    clone.setAttribute('viewBox', `${vbX} ${vbY} ${vbW} ${vbH}`);
-    clone.setAttribute('width', String(vbW));
-    clone.setAttribute('height', String(vbH));
-    clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    const svgStr = serializer.serializeToString(clone);
-    const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
-    const url = URL.createObjectURL(svgBlob);
-    const img = new Image();
-    img.onload = () => {
-      // Choose orientation based on aspect ratio
-      const orientation = vbW >= vbH ? 'l' : 'p';
-      // Convert px to pt (approx 1 px = 0.75 pt) or scale to fit A4
-      const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
-      const pageW = pdf.internal.pageSize.getWidth();
-      const pageH = pdf.internal.pageSize.getHeight();
-      const scale = Math.min(pageW / vbW, pageH / vbH);
-      const drawW = vbW * scale;
-      const drawH = vbH * scale;
-      const x = (pageW - drawW) / 2;
-      const y = (pageH - drawH) / 2;
-      // Offscreen canvas for proper background/alpha
-      const canvas = document.createElement('canvas');
-      canvas.width = vbW; canvas.height = vbH;
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        if (!transparentBg) {
-          ctx.fillStyle = isDarkMode() ? '#1f2937' : '#ffffff';
-          ctx.fillRect(0,0,canvas.width,canvas.height);
+      const { width, height } = dimsRef.current;
+      const serializer = new XMLSerializer();
+      const clone = svgRef.current.cloneNode(true) as SVGSVGElement;
+      let vbX = 0, vbY = 0, vbW = width, vbH = height;
+      if (fitToContent) {
+        const bbox = computeContentBox();
+        if (bbox && bbox.width && bbox.height) {
+          const pad = 24;
+          vbX = bbox.x - pad; vbY = bbox.y - pad; vbW = bbox.width + pad * 2; vbH = bbox.height + pad * 2;
         }
-        ctx.drawImage(img, 0, 0, vbW, vbH);
-        const dataUrl = canvas.toDataURL('image/png');
-        pdf.addImage(dataUrl, 'PNG', x, y, drawW, drawH);
-        pdf.save('open-agent-learning-tree.pdf');
       }
-      URL.revokeObjectURL(url);
-    };
-    img.onerror = () => URL.revokeObjectURL(url);
-    img.src = url;
+      clone.setAttribute('viewBox', `${vbX} ${vbY} ${vbW} ${vbH}`);
+      clone.setAttribute('width', String(vbW));
+      clone.setAttribute('height', String(vbH));
+      clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      const svgStr = serializer.serializeToString(clone);
+      const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+      img.onload = () => {
+        const orientation = vbW >= vbH ? 'l' : 'p';
+        const pdf = new jsPDFCtor!({ orientation, unit: 'pt', format: 'a4' });
+        const pageW = pdf.internal.pageSize.getWidth();
+        const pageH = pdf.internal.pageSize.getHeight();
+        const scale = Math.min(pageW / vbW, pageH / vbH);
+        const drawW = vbW * scale;
+        const drawH = vbH * scale;
+        const x = (pageW - drawW) / 2;
+        const y = (pageH - drawH) / 2;
+        const canvas = document.createElement('canvas');
+        canvas.width = vbW; canvas.height = vbH;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          if (!transparentBg) {
+            ctx.fillStyle = isDarkMode() ? '#1f2937' : '#ffffff';
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+          }
+          ctx.drawImage(img, 0, 0, vbW, vbH);
+          const dataUrl = canvas.toDataURL('image/png');
+          pdf.addImage(dataUrl, 'PNG', x, y, drawW, drawH);
+          pdf.save('open-agent-learning-tree.pdf');
+          try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'pdf' } })); } catch {}
+        }
+        URL.revokeObjectURL(url);
+      };
+      img.onerror = () => URL.revokeObjectURL(url);
+      img.src = url;
+    })();
   }, [fitToContent, transparentBg]);
 
   return (
@@ -605,10 +628,10 @@ export default function D3TreeVisualization({
       background: isDarkMode() ? 'rgba(31,41,55,0.55)' : 'transparent'
     }}>
       <div className="no-print flex flex-wrap gap-2 mb-4 justify-end text-[11px]">
-        <button onClick={handleExportSVG} className="px-3 py-1.5 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm">SVG</button>
-        <button onClick={() => handleExportPNG(2)} className="px-3 py-1.5 rounded-md bg-emerald-600 text-white hover:bg-emerald-700 transition-colors shadow-sm">PNG 2x</button>
-        <button onClick={() => handleExportPNG(3)} className="px-3 py-1.5 rounded-md bg-emerald-700 text-white hover:bg-emerald-800 transition-colors shadow-sm">PNG 3x</button>
-        <button onClick={handleExportPDF} className="px-3 py-1.5 rounded-md bg-rose-600 text-white hover:bg-rose-700 transition-colors shadow-sm">PDF</button>
+  <button onClick={()=>{handleExportSVG(); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'svg' } })); } catch {} }} className="px-3 py-1.5 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm">SVG</button>
+  <button onClick={()=>{handleExportPNG(2); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'png-2x' } })); } catch {} }} className="px-3 py-1.5 rounded-md bg-emerald-600 text-white hover:bg-emerald-700 transition-colors shadow-sm">PNG 2x</button>
+  <button onClick={()=>{handleExportPNG(3); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'png-3x' } })); } catch {} }} className="px-3 py-1.5 rounded-md bg-emerald-700 text-white hover:bg-emerald-800 transition-colors shadow-sm">PNG 3x</button>
+  <button onClick={handleExportPDF} className="px-3 py-1.5 rounded-md bg-rose-600 text-white hover:bg-rose-700 transition-colors shadow-sm">PDF</button>
         <label className="flex items-center gap-1 px-2 py-1.5 rounded border text-gray-700 dark:text-gray-200 bg-white/60 dark:bg-gray-800/40">
           <input type="checkbox" checked={transparentBg} onChange={e => setTransparentBg(e.target.checked)} />
           <span>Transparent</span>

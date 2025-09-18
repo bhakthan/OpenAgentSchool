@@ -22,6 +22,7 @@ export const AP2ArchitectureDiagram: React.FC<{ className?: string }> = ({ class
       a.download = 'ap2-architecture.svg';
       a.click();
       URL.revokeObjectURL(url);
+      try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'AP2ArchitectureDiagram', format: 'svg' } })); } catch {}
       return;
     }
     // PNG rasterization
@@ -45,6 +46,7 @@ export const AP2ArchitectureDiagram: React.FC<{ className?: string }> = ({ class
             a.href = URL.createObjectURL(pngBlob);
             a.download = 'ap2-architecture.png';
             a.click();
+            try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'AP2ArchitectureDiagram', format: 'png' } })); } catch {}
           }
           URL.revokeObjectURL(url);
         });

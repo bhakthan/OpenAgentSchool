@@ -3,6 +3,7 @@ import { SmartPageAnalytics } from "../tutorial/SmartPageAnalytics"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { useState, Suspense, lazy, useEffect } from "react"
 import { useParams, useNavigate, useLocation } from "react-router-dom"
+import { resolveConceptId, isKnownConceptId } from '@/constants/concepts';
 import { LandingHero } from "../landing/LandingHero"
 
 // Lazy load heavy components
@@ -26,14 +27,19 @@ export default function ConceptsExplorer() {
   // Check if we're on the landing page (/) vs concepts page (/concepts)
   const isLandingPage = location.pathname === '/';
 
-  // Update selected concept when URL parameter changes
+  // Update selected concept when URL parameter changes (with legacy alias resolution)
   useEffect(() => {
     if (conceptId) {
-      setSelectedConcept(conceptId);
+      const resolved = resolveConceptId(conceptId);
+      if (resolved !== conceptId) {
+        // Replace URL with canonical ID without adding history entry
+        navigate(`/concepts/${resolved}`, { replace: true });
+      }
+      setSelectedConcept(resolved);
     } else {
       setSelectedConcept(null);
     }
-  }, [conceptId]);
+  }, [conceptId, navigate]);
 
   // Handle concept selection with navigation
   const handleConceptSelection = (conceptId: string | null) => {

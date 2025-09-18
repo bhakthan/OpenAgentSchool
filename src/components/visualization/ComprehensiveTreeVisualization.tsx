@@ -68,6 +68,8 @@ const azureServicesData = [
   }
 ];
 
+import { CORE_CONCEPT_IDS, CORE_CONCEPT_COUNT } from '@/constants/concepts';
+
 export default function ComprehensiveTreeVisualization() {
   const navigate = useNavigate();
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
@@ -146,7 +148,7 @@ export default function ComprehensiveTreeVisualization() {
               <div className="flex items-center gap-3">
                 <Brain className="w-8 h-8 text-blue-600" />
                 <div>
-                  <div className="text-2xl font-bold">23</div>
+                  <div className="text-2xl font-bold" aria-label={`${CORE_CONCEPT_COUNT} core concepts`}>{CORE_CONCEPT_COUNT}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Core Concepts</div>
                 </div>
               </div>
@@ -202,10 +204,10 @@ export default function ComprehensiveTreeVisualization() {
                   {/* Compact summary for small screens */}
                   <div className="sm:hidden mt-2 text-[10px] text-gray-600 dark:text-gray-400 leading-snug">
                     <span className="font-medium">Breakdown:</span>{' '}
-                    <abbr title="Socratic Questions" className="cursor-help underline decoration-dotted underline-offset-2">Soc</abbr> {socraticCount} •{' '}
-                    <abbr title="Interactive Scenarios" className="cursor-help underline decoration-dotted underline-offset-2">Scn</abbr> {scenarioCount} •{' '}
+                    <abbr title="Socratic Discovery" className="cursor-help underline decoration-dotted underline-offset-2">Soc</abbr> {socraticCount} •{' '}
+                    <abbr title="Interactive Scenarios" className="cursor-help underline decoration-dotted underline-offset-2">Int</abbr> {scenarioCount} •{' '}
                     <abbr title="Debug Challenges" className="cursor-help underline decoration-dotted underline-offset-2">Dbg</abbr> {debugCount} •{' '}
-                    <abbr title="Super Critical Learning Sessions" className="cursor-help underline decoration-dotted underline-offset-2">SCL</abbr> {sclScenariosCount}
+                    <abbr title="Super Critical Learning" className="cursor-help underline decoration-dotted underline-offset-2">SCL</abbr> {sclScenariosCount}
                     <button
                       type="button"
                       onClick={() => setShowStudyDetails(v => !v)}
@@ -227,7 +229,7 @@ export default function ComprehensiveTreeVisualization() {
                       className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
                       aria-label="View Socratic Study Mode"
                     >
-                      <span>Socratic</span><span className="font-medium">{socraticCount}</span>
+                      <span>Socratic Discovery</span><span className="font-medium">{socraticCount}</span>
                     </button>
                     <button
                       type="button"
@@ -235,7 +237,7 @@ export default function ComprehensiveTreeVisualization() {
                       className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
                       aria-label="View Scenario Study Mode"
                     >
-                      <span>Scenarios</span><span className="font-medium">{scenarioCount}</span>
+                      <span>Interactive Scenarios</span><span className="font-medium">{scenarioCount}</span>
                     </button>
                     <button
                       type="button"
@@ -243,7 +245,7 @@ export default function ComprehensiveTreeVisualization() {
                       className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
                       aria-label="View Debug Study Mode"
                     >
-                      <span>Debug</span><span className="font-medium">{debugCount}</span>
+                      <span>Debug Challenges</span><span className="font-medium">{debugCount}</span>
                     </button>
                     <button
                       type="button"
