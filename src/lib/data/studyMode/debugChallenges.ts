@@ -3946,6 +3946,45 @@ export const debugChallengeLibrary = {
         explanation: 'Prevents cascading failure & preserves capacity by spacing retries and isolating persistent faults.'
       }
     }
+    ,
+    {
+      id: 'agent-ops-debug-2',
+      type: 'debug',
+      conceptId: 'agent-ops',
+      title: 'Circuit Breaker That Never Trips',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'ops-cb-misconfigured',
+        title: 'Ineffective Circuit Breaker',
+        description: 'Downstream embedding service latency exploded (avg 180ms → 1500ms, P95 > 4s) but breaker stayed CLOSED.',
+        problemDescription: 'Breaker code compares rollingErrorRate > threshold, but rolling window never slides because timestamps not pruned; also uses totalRequests since process start.',
+        brokenCode: `class CircuitBreaker {\n  constructor(){\n    this.failures = []; // timestamps\n    this.state = 'CLOSED';\n    this.threshold = 0.5;\n  }\n  record(status){\n    if(status==='FAIL') this.failures.push(Date.now());\n    const errorRate = this.failures.length / process.uptime(); // WRONG basis\n    if(errorRate > this.threshold) this.state = 'OPEN';\n  }\n  canProceed(){ return this.state==='CLOSED'; }\n}`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'telemetry', message: 'embedding latency P95 4200ms', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'orchestrator', message: 'continuing full traffic to embedding service', type: 'info' }
+        ],
+        expectedBehavior: 'Breaker should OPEN after N failures within rolling window and HALF_OPEN after cooldown for probe.',
+        commonIssues: [
+          { issue: 'Improper denominator', symptoms: ['errorRate near zero'], diagnosis: 'Dividing by uptime not recent window', fix: 'Track recent window counts' },
+          { issue: 'Unbounded failure list', symptoms: ['Memory growth'], diagnosis: 'Never prunes old timestamps', fix: 'Purge entries older than windowMs' },
+          { issue: 'No half-open', symptoms: ['Stays open or closed forever'], diagnosis: 'Missing transition state', fix: 'Implement HALF_OPEN probe logic' }
+        ],
+        hints: ['Check error rate calculation basis', 'Is the time window enforced?', 'Where does HALF_OPEN transition occur?'],
+        solution: 'Use rolling window (e.g. last 30s), compute failureRate = recentFailures/ recentRequests, OPEN when rate & absolute failures exceed thresholds, schedule half-open probe after cooldown.',
+        explanation: 'Proper breaker avoids drowning a degraded upstream, allowing faster recovery and protecting tail latency.'
+      },
+      expectedInsights: [
+        'Error rate must use a bounded recent window',
+        'Breaker transitions: CLOSED → OPEN → HALF_OPEN → CLOSED',
+        'Tail latency protection beats naive infinite retries'
+      ],
+      timeEstimate: 12,
+      successCriteria: [
+        'Identifies faulty error rate computation',
+        'Adds rolling window purge & dual threshold',
+        'Describes half-open probe behavior'
+      ]
+    }
   ],
   'cost-value': [
     {
