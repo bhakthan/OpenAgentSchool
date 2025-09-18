@@ -46,6 +46,7 @@ export const AP2MandateChainAnimation:React.FC<Props>=({autoPlay=false,intervalM
   const reduced=useReduced();
   const dark=useDark();
   const svgRef=useRef<SVGSVGElement|null>(null);
+  const containerRef=useRef<HTMLDivElement|null>(null);
   const steps=buildSteps(mode);
   const timerRef=useRef<number|undefined>();
 
@@ -56,15 +57,33 @@ export const AP2MandateChainAnimation:React.FC<Props>=({autoPlay=false,intervalM
   const next =()=>setStep(s=>Math.min(s+1,steps.length));
   const prev =()=>setStep(s=>Math.max(s-1,0));
 
-  const cloneForExport=(theme:'light'|'dark')=>{ if(!svgRef.current) return null; const clone=svgRef.current.cloneNode(true) as SVGSVGElement; if(!clone.getAttribute('viewBox')){ const w=clone.getAttribute('width'); const h=clone.getAttribute('height'); if(w&&h) clone.setAttribute('viewBox',`0 0 ${w} ${h}`);} const pal=theme==='light'?{bg:'#ffffff',primary:'#0f172a',secondary:'#475569',panel:'#ffffff'}:{bg:'#0b1220',primary:'#f1f5f9',secondary:'#94a3b8',panel:'#1e293b'}; const walker=document.createTreeWalker(clone,NodeFilter.SHOW_ELEMENT); while(walker.nextNode()){ const el=walker.currentNode as HTMLElement; if(el.tagName==='text'){ const sec=el.textContent && /scope|hash|monitor|presence|network|confirmation|line items|snapshot|triggers|pricing/i.test(el.textContent); el.removeAttribute('class'); el.setAttribute('font-family',FONT); el.setAttribute('font-size',sec?'10':'12'); el.setAttribute('fill',sec?pal.secondary:pal.primary); el.setAttribute('font-weight',sec?'400':'500'); } else if(el.tagName==='rect' && el.getAttribute('rx')==='6'){ el.setAttribute('fill',pal.panel); el.setAttribute('opacity','1'); }} const bg=document.createElementNS('http://www.w3.org/2000/svg','rect'); bg.setAttribute('x','0'); bg.setAttribute('y','0'); bg.setAttribute('width',clone.getAttribute('width')||'100%'); bg.setAttribute('height',clone.getAttribute('height')||'100%'); bg.setAttribute('fill',pal.bg); clone.insertBefore(bg,clone.firstChild); return clone; };
+  const cloneForExport=(theme:'light'|'dark')=>{ if(!svgRef.current) return null; const clone=svgRef.current.cloneNode(true) as SVGSVGElement; if(!clone.getAttribute('viewBox')){ const w=clone.getAttribute('width'); const h=clone.getAttribute('height'); if(w&&h) clone.setAttribute('viewBox',`0 0 ${w} ${h}`);} const pal=theme==='light'?{bg:'#ffffff',primary:'#0f172a',secondary:'#475569',panel:'#ffffff'}:{bg:'#0b1220',primary:'#f1f5f9',secondary:'#94a3b8',panel:'#1e293b'}; const walker=document.createTreeWalker(clone,NodeFilter.SHOW_ELEMENT); while(walker.nextNode()){ const el=walker.currentNode as HTMLElement; if(el.tagName==='text'){ const isLane = (el.textContent||'').toLowerCase() === el.textContent?.toLowerCase() && ['user','agent','merchant agent','network'].includes(el.textContent.trim()); const sec=el.textContent && /scope|hash|monitor|presence|network|confirmation|line items|snapshot|triggers|pricing/i.test(el.textContent); el.removeAttribute('class'); el.setAttribute('font-family',FONT); if(isLane){ el.setAttribute('font-size','18'); el.setAttribute('font-weight','700'); el.setAttribute('letter-spacing','.6px'); } else { el.setAttribute('font-size',sec?'10':'12'); el.setAttribute('font-weight',sec?'400':'500'); } el.setAttribute('fill',sec&&!isLane?pal.secondary:pal.primary); } else if(el.tagName==='rect' && el.getAttribute('rx')==='6'){ el.setAttribute('fill',pal.panel); el.setAttribute('opacity','1'); }} const bg=document.createElementNS('http://www.w3.org/2000/svg','rect'); bg.setAttribute('x','0'); bg.setAttribute('y','0'); bg.setAttribute('width',clone.getAttribute('width')||'100%'); bg.setAttribute('height',clone.getAttribute('height')||'100%'); bg.setAttribute('fill',pal.bg); clone.insertBefore(bg,clone.firstChild); return clone; };
 
   const exportSvg=()=>{ try{ const c=cloneForExport(exportTheme); if(!c) return; const ser=new XMLSerializer().serializeToString(c); const blob=new Blob([ser],{type:'image/svg+xml;charset=utf-8'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`ap2-sequence-${mode}-${exportTheme}.svg`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }catch(e){ console.error('SVG export failed',e); } };
   const exportPng=()=>{ try{ const c=cloneForExport(exportTheme); if(!c) return; const ser=new XMLSerializer().serializeToString(c); const blob=new Blob([ser],{type:'image/svg+xml;charset=utf-8'}); const url=URL.createObjectURL(blob); const img=new Image(); const w=parseInt(c.getAttribute('width')||'1200',10); const h=parseInt(c.getAttribute('height')||'800',10); const scale=2; img.onload=()=>{ const canvas=document.createElement('canvas'); canvas.width=w*scale; canvas.height=h*scale; const ctx=canvas.getContext('2d'); if(ctx){ ctx.scale(scale,scale); ctx.drawImage(img,0,0); canvas.toBlob(b=>{ if(b){ const p=URL.createObjectURL(b); const a=document.createElement('a'); a.href=p; a.download=`ap2-sequence-${mode}-${exportTheme}.png`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(p);} URL.revokeObjectURL(url); },'image/png'); } }; img.onerror=()=>URL.revokeObjectURL(url); img.src=url; }catch(e){ console.error('PNG export failed',e); } };
 
   const laneW=180, laneGap=40, stepH=54, pad=16; const totalW=LANES.length*laneW+(LANES.length-1)*laneGap+pad*2; const totalH=steps.length*stepH+80;
 
+  // Keyboard shortcuts: Space toggles play/pause, ArrowRight next, ArrowLeft previous
+  useEffect(()=>{
+    const handler=(e:KeyboardEvent)=>{
+      const target = e.target as HTMLElement | null;
+      if(target && (target.tagName==='INPUT'||target.tagName==='TEXTAREA'||target.isContentEditable)) return; // don't intercept typing
+      if(!containerRef.current) return;
+      // Optional: only respond if component is in viewport
+      const rect=containerRef.current.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if(!inView) return;
+      if(e.code==='Space'){ e.preventDefault(); setPlaying(p=>!p); }
+      else if(e.key==='ArrowRight'){ e.preventDefault(); setStep(s=>Math.min(s+1,steps.length)); }
+      else if(e.key==='ArrowLeft'){ e.preventDefault(); setStep(s=>Math.max(s-1,0)); }
+    };
+    window.addEventListener('keydown',handler);
+    return()=>window.removeEventListener('keydown',handler);
+  },[steps.length]);
+
   return (
-    <div className="w-full border rounded-md bg-background/40 p-4 space-y-4">
+    <div ref={containerRef} className="w-full border rounded-md bg-background/40 p-4 space-y-4" aria-keyshortcuts="Space ArrowLeft ArrowRight">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <h4 className="font-semibold text-sm tracking-tight flex items-center gap-2">
           <span>AP2 Mandate Chain Sequence</span>
@@ -91,19 +110,35 @@ export const AP2MandateChainAnimation:React.FC<Props>=({autoPlay=false,intervalM
       </div>
       <div className="overflow-x-auto">
         <svg role="img" aria-label="AP2 mandate credential sequence diagram" width={totalW} height={totalH} className="max-w-none" ref={svgRef}>
-          {LANES.map((lane,i)=>{ const x=pad+i*(laneW+laneGap)+laneW/2; return <g key={lane}><text x={x} y={16} textAnchor="middle" className="fill-current text-xs font-medium">{lane}</text><line x1={x} x2={x} y1={32} y2={totalH-20} stroke="#555" strokeDasharray="4 4" strokeWidth={1}/></g>; })}
+          {/* Lane banding */}
+          {LANES.map((lane,i)=>{ const x0=pad+i*(laneW+laneGap); const bandColor = dark? (i%2? '#0f172a':'#132035') : (i%2? '#f8fafc':'#ffffff'); return <rect key={`band-${lane}`} x={x0-10} y={28} width={laneW+20} height={totalH-56} rx={8} fill={bandColor} opacity={dark?0.25:0.65} />; })}
+          {LANES.map((lane,i)=>{ const x=pad+i*(laneW+laneGap)+laneW/2; return <g key={lane}>
+            <text
+              x={x}
+              y={20}
+              textAnchor="middle"
+              fontFamily={FONT}
+              fontSize={16}
+              fontWeight={700}
+              fill={dark?'#f8fafc':'#0f172a'}
+              letterSpacing={'.55px'}
+              style={{filter:'drop-shadow(0 1px 1px rgba(0,0,0,0.25))'}}
+            >{lane.toUpperCase()}</text>
+            <line x1={x} x2={x} y1={34} y2={totalH-20} stroke={dark?'#64748b':'#64748b'} strokeDasharray="4 4" strokeWidth={1}/>
+          </g>; })}
           {steps.map((s,i)=>{ const visible=i<step; const active=step-1===i; const fromX=pad+s.from*(laneW+laneGap)+laneW/2; const toX=pad+s.to*(laneW+laneGap)+laneW/2; const y=64+i*stepH; const color=s.accent?ACCENTS[s.accent]:'#6366f1'; const len=Math.abs(toX-fromX)-16; const dir=toX>=fromX?1:-1; const start=fromX+8*dir; const end=toX-8*dir; const dash=`${len} ${len}`; const offset=active&&!reduced?len:0; const delegatedOnly=mode==='delegated' && s.label.toLowerCase().includes('monitor constraints'); return <g key={s.id} opacity={visible||active?1:0} style={{transition:'opacity 400ms ease'}}><line x1={start} y1={y} x2={end} y2={y} stroke={color} strokeWidth={2} strokeDasharray={reduced?undefined:dash} strokeDashoffset={offset} style={!reduced?{transition:'stroke-dashoffset 700ms ease'}:undefined}/><path d={`M ${end-6*dir} ${y-4} L ${end} ${y} L ${end-6*dir} ${y+4}`} fill="none" stroke={color} strokeWidth={2}/><rect x={Math.min(start,end)+2} y={y-18} rx={6} ry={6} width={Math.max(110,Math.abs(end-start)-24)} height={36} fill={dark?'#0f172a':'#ffffff'} stroke={delegatedOnly?ACCENTS.diff:color} strokeWidth={delegatedOnly?2:1.2} opacity={0.95}/><text x={(start+end)/2} y={y-2} textAnchor="middle" fontFamily={FONT} fontSize={12} fontWeight={500} letterSpacing={'.2px'} fill={dark?'#ffffff':'#0f172a'}>{s.label}</text>{s.note && <text x={(start+end)/2} y={y+11} textAnchor="middle" fontFamily={FONT} fontSize={10} fontWeight={400} fill={dark?'#cbd5e1':'#475569'}>{s.note}</text>}{delegatedOnly && <text x={(start+end)/2} y={y-24} textAnchor="middle" fontFamily={FONT} fontSize={9} fontWeight={500} fill={ACCENTS.diff}>Delegated-only</text>}</g>; })}
         </svg>
       </div>
-      <div className="flex flex-wrap gap-4 text-[11px]">
-        <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm" style={{background:ACCENTS.intent}}/> Intent VC</div>
-        <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm" style={{background:ACCENTS.cart}}/> Cart VC</div>
-        <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm" style={{background:ACCENTS.payment}}/> Payment VC</div>
-        {mode==='delegated' && <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm" style={{background:ACCENTS.diff}}/> Delegated-only step</div>}
-        <div className="text-muted-foreground">Mode: {mode==='human'?'Human-present':'Delegated'} • Step {Math.min(step,steps.length)} / {steps.length}</div>
+      <div className="flex flex-wrap gap-6 text-sm sm:text-[15px]" aria-label="Legend: credential colors and mode status">
+        <div className="flex items-center gap-1 font-medium"><span className="w-3.5 h-3.5 rounded-sm shadow-sm" style={{background:ACCENTS.intent}}/> <span className="opacity-90">Intent VC</span></div>
+        <div className="flex items-center gap-1 font-medium"><span className="w-3.5 h-3.5 rounded-sm shadow-sm" style={{background:ACCENTS.cart}}/> <span className="opacity-90">Cart VC</span></div>
+        <div className="flex items-center gap-1 font-medium"><span className="w-3.5 h-3.5 rounded-sm shadow-sm" style={{background:ACCENTS.payment}}/> <span className="opacity-90">Payment VC</span></div>
+        {mode==='delegated' && <div className="flex items-center gap-1 font-medium"><span className="w-3.5 h-3.5 rounded-sm shadow-sm" style={{background:ACCENTS.diff}}/> <span className="opacity-90">Delegated-only step</span></div>}
+        <div className="text-muted-foreground font-medium">Mode: {mode==='human'?'Human-present':'Delegated'} • Step {Math.min(step,steps.length)} / {steps.length}</div>
       </div>
       <details className="mt-2 bg-muted/40 rounded p-2">
         <summary className="cursor-pointer text-xs font-medium">Show ASCII fallback</summary>
+        <p className="mt-2 text-[10px] text-muted-foreground">Keyboard: Space play/pause • ← previous • → next</p>
         <pre className="text-[10px] leading-snug mt-2 overflow-x-auto">{`User            Agent                Merchant Agent        Network
  |  express need   |                      |                     |
  |---------------> |                      |                     |

@@ -3,6 +3,7 @@ import ConceptLayout from './ConceptLayout';
 import { ShieldCheck, FlowArrow, Lock, LinkSimple, Brain, Lightning, Wallet } from '@phosphor-icons/react';
 import CodeBlock from '@/components/ui/CodeBlock';
 import AP2MandateChainAnimation from './AP2MandateChainAnimation';
+import AP2ArchitectureDiagram from './AP2ArchitectureDiagram';
 
 interface Props {
   onMarkComplete?: () => void;
@@ -117,13 +118,20 @@ export default function AgenticCommerceAP2Concept({ onMarkComplete, onNavigateTo
       icon: <LinkSimple className="w-4 h-4" />,
       level: 'advanced' as const,
       content: (
-        <div className="space-y-4 text-sm">
-          <ul className="list-disc ml-5 space-y-1">
-            <li><strong>MCP</strong>: tool invocation for product / pricing intelligence</li>
-            <li><strong>A2A</strong>: merchant capability negotiation & session semantics</li>
-            <li><strong>AP2</strong>: mandate lifecycle (sign / verify / presence)</li>
-            <li>Extensions (e.g. x402) add alternative rails</li>
-          </ul>
+        <div className="space-y-6 text-sm">
+          <div>
+            <AP2ArchitectureDiagram />
+          </div>
+          <div>
+            <h5 className="text-xs font-semibold tracking-wide mb-2 uppercase">Layer Responsibilities</h5>
+            <ul className="list-disc ml-5 space-y-1">
+              <li><strong>MCP</strong>: tool invocation for product / pricing intelligence & capability surfacing</li>
+              <li><strong>A2A</strong>: merchant / agent negotiation, shared session semantics, capability discovery</li>
+              <li><strong>AP2</strong>: mandate lifecycle (sign → verify → presence attribution → hash linking)</li>
+              <li><strong>Rails</strong>: settlement + authorization networks (card, RTP, crypto, alt rails)</li>
+              <li><strong>Integration Note</strong>: A2A & MCP supply structured context to AP2 mandates (e.g. product metadata hash)</li>
+            </ul>
+          </div>
         </div>
       )
     },
