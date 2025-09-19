@@ -21,6 +21,7 @@ import { sensoryReasoningEnhancementQuestions, sensoryReasoningEnhancementTime }
 import { educationalAgentPatternsQuestions, educationalAgentPatternsTime } from './educational-agent-patterns';
 import { fineTuningQuestions } from './fine-tuning';
 import { agenticCommerceAp2Questions } from './agentic-commerce-ap2';
+import { agentOpsQuestions } from './agent-ops';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -47,7 +48,8 @@ const allQuestions = [
   ...sensoryReasoningEnhancementQuestions,
   ...educationalAgentPatternsQuestions,
   ...fineTuningQuestions,
-  ...agenticCommerceAp2Questions
+  ...agenticCommerceAp2Questions,
+  ...agentOpsQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -75,6 +77,23 @@ const promptingOptimizationTime = calculateTotalTime(promptingOptimizationQuesti
 
 // Quiz categories configuration
 export const quizCategories: QuizCategory[] = [
+  {
+    id: 'agent-ops',
+    name: 'Agent Ops & Reliability',
+    description: 'Golden signals, graceful degradation, circuit breakers & rollback patterns',
+    icon: 'Activity',
+    totalQuestions: agentOpsQuestions.length,
+    estimatedTime: calculateTotalTime(agentOpsQuestions),
+    subCategories: [
+      {
+        id: 'agent-ops-core',
+        name: 'Operational Foundations',
+        description: 'Identify and act on reliability signals for agent systems',
+        prerequisites: ['agent-deployment'],
+        questions: agentOpsQuestions
+      }
+    ]
+  },
   {
     id: 'prompting-optimization',
     name: 'Prompting & Optimization',
