@@ -124,7 +124,7 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
 
-        {/* Prompt Defect Taxonomy (Visual Map) */}
+        {/* Prompt Defect Taxonomy (Visual Map + Narrative) */}
         <TabsContent value="taxonomy" className="space-y-4">
           <Card>
             <CardHeader>
@@ -137,11 +137,40 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
+              {/* Narrative Explanation of the Six Dimensions */}
+              <div className="p-4 rounded-md border bg-background/50 dark:bg-gray-800/40 text-sm leading-relaxed space-y-3">
+                <h4 className="font-semibold text-base">Six Prompt Defect Dimensions</h4>
+                <p>
+                  The taxonomy groups <strong>recurring failure modes</strong> that cause prompts to underperform or drift. Diagnose at the
+                  <em> dimension level first</em>—fixing structural or specification issues upstream prevents wasted cycles tweaking individual words.
+                </p>
+                <ol className="list-decimal list-inside space-y-2">
+                  <li>
+                    <strong>Specification & Intent:</strong> Goal capture failures—ambiguous targets, missing success criteria, conflicting priorities, underspecified constraints.
+                  </li>
+                  <li>
+                    <strong>Input & Content:</strong> Issues in supplied user / system / retrieval content—irrelevant, malicious (prompt injection), stale, or factually incorrect context.
+                  </li>
+                  <li>
+                    <strong>Structure & Formatting:</strong> Organizational or syntactic weaknesses—unordered sections, missing delimiters, unclear output schema, noisy redundancy.
+                  </li>
+                  <li>
+                    <strong>Context & Memory:</strong> Failure to manage temporal / conversational continuity—context window overflow, forgetting prior constraints, fragmented hand‑offs, stale retrieval.
+                  </li>
+                  <li>
+                    <strong>Performance & Efficiency:</strong> Latency / cost inefficiencies—prompt bloat, unnecessary chain steps, over-specifying examples, redundant reasoning loops.
+                  </li>
+                  <li>
+                    <strong>Maintainability & Engineering:</strong> Operational fragility—hard‑coded blocks, version drift, hidden coupling across chains, untested edits causing regression risk.
+                  </li>
+                </ol>
+                <p className="text-muted-foreground text-xs">Reference adapted from <a href="https://arxiv.org/pdf/2509.14404" target="_blank" rel="noopener noreferrer" className="underline">arXiv:2509.14404</a> with pragmatic engineering-oriented clustering.</p>
+              </div>
               <div className="rounded-lg border bg-muted/40 p-4 flex flex-col items-center gap-4">
                 {/* NOTE: Place the exported image file at public/images/prompt-defect-taxonomy.png */}
                 <img
                   src="/images/prompt-defect-taxonomy.png"
-                  alt="Prompt Defect Taxonomy: Categories include Specification & Intent, Structure & Formatting, Context & Memory, Performance & Efficiency, Maintenance & Evolution—with sub-defects each showing impact and mitigation strategies."
+                  alt="Prompt Defect Taxonomy showing six dimensions: Specification & Intent, Input & Content, Structure & Formatting, Context & Memory, Performance & Efficiency, Maintainability & Engineering, each with sub-defects and mitigations."
                   className="w-full max-w-5xl rounded-md shadow-sm border"
                   loading="lazy"
                 />
@@ -149,7 +178,7 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
                   Source adaptation referencing <a href="https://arxiv.org/pdf/2509.14404" target="_blank" rel="noopener noreferrer" className="underline text-primary">arXiv:2509.14404</a>. This map clusters defects you should scan for <em>before</em> micro-optimizing individual instructions. Address upstream category issues first (e.g., missing constraints) to avoid chasing noise at the pattern level.
                 </p>
               </div>
-              <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                 <div className="p-4 border rounded-md bg-background/50 dark:bg-gray-800/40">
                   <h4 className="font-semibold mb-2">Specification & Intent</h4>
                   <ul className="space-y-1 list-disc list-inside">
@@ -159,6 +188,16 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
                     <li>Poor task alignment</li>
                   </ul>
                   <p className="mt-2 text-muted-foreground">Often resolved by the Contradictions & Specificity patterns.</p>
+                </div>
+                <div className="p-4 border rounded-md bg-background/50 dark:bg-gray-800/40">
+                  <h4 className="font-semibold mb-2">Input & Content</h4>
+                  <ul className="space-y-1 list-disc list-inside">
+                    <li>Irrelevant / noisy input</li>
+                    <li>Prompt injection attempts</li>
+                    <li>Stale or hallucinated facts</li>
+                    <li>Toxic / policy-violating text</li>
+                  </ul>
+                  <p className="mt-2 text-muted-foreground">Mitigate via retrieval validation, sanitization, and guardrail filters.</p>
                 </div>
                 <div className="p-4 border rounded-md bg-background/50 dark:bg-gray-800/40">
                   <h4 className="font-semibold mb-2">Structure & Formatting</h4>
@@ -191,14 +230,14 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
                   <p className="mt-2 text-muted-foreground">Feeds directly into Constraints optimization.</p>
                 </div>
                 <div className="p-4 border rounded-md bg-background/50 dark:bg-gray-800/40">
-                  <h4 className="font-semibold mb-2">Maintenance & Evolution</h4>
+                  <h4 className="font-semibold mb-2">Maintainability & Engineering</h4>
                   <ul className="space-y-1 list-disc list-inside">
                     <li>Hidden coupling</li>
                     <li>Version drift</li>
-                    <li>Poor change isolation</li>
-                    <li>Artifact sprawl</li>
+                    <li>Hard-coded monoliths</li>
+                    <li>Untested prompt edits</li>
                   </ul>
-                  <p className="mt-2 text-muted-foreground">Track defect density over time to catch entropy early.</p>
+                  <p className="mt-2 text-muted-foreground">Introduce versioning & diff tests to prevent silent regressions.</p>
                 </div>
               </div>
               <div className="p-4 rounded-md bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-sm">
