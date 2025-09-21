@@ -29,7 +29,8 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
   onMarkComplete,
   onNavigateToNext
 }) => {
-  const [activePattern, setActivePattern] = useState<'contradictions' | 'specificity' | 'constraints' | 'examples'>('contradictions');
+  // Added 'taxonomy' tab to surface holistic defect categories before diving into specific optimization patterns
+  const [activePattern, setActivePattern] = useState<'taxonomy' | 'contradictions' | 'specificity' | 'constraints' | 'examples'>('taxonomy');
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
@@ -113,14 +114,99 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
         </CardContent>
       </Card>
 
-      {/* Common Problems & Solutions */}
+      {/* Common Problems & Solutions + Defect Taxonomy */}
       <Tabs value={activePattern} onValueChange={(value: any) => setActivePattern(value)} className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="taxonomy">Defect Map</TabsTrigger>
           <TabsTrigger value="contradictions">Contradictions</TabsTrigger>
           <TabsTrigger value="specificity">Specificity</TabsTrigger>
           <TabsTrigger value="constraints">Constraints</TabsTrigger>
           <TabsTrigger value="examples">Examples</TabsTrigger>
         </TabsList>
+
+        {/* Prompt Defect Taxonomy (Visual Map) */}
+        <TabsContent value="taxonomy" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Warning className="w-5 h-5 text-amber-500" />
+                Prompt Defect Taxonomy (Holistic Map)
+              </CardTitle>
+              <CardDescription>
+                A visual systems view of recurring prompt & instruction defects and mitigation strategies—use this to triage before applying specific optimization patterns.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="rounded-lg border bg-muted/40 p-4 flex flex-col items-center gap-4">
+                {/* NOTE: Place the exported image file at public/images/prompt-defect-taxonomy.png */}
+                <img
+                  src="/images/prompt-defect-taxonomy.png"
+                  alt="Prompt Defect Taxonomy: Categories include Specification & Intent, Structure & Formatting, Context & Memory, Performance & Efficiency, Maintenance & Evolution—with sub-defects each showing impact and mitigation strategies."
+                  className="w-full max-w-5xl rounded-md shadow-sm border"
+                  loading="lazy"
+                />
+                <p className="text-xs text-muted-foreground text-center max-w-3xl">
+                  Source adaptation referencing <a href="https://arxiv.org/pdf/2509.14404" target="_blank" rel="noopener noreferrer" className="underline text-primary">arXiv:2509.14404</a>. This map clusters defects you should scan for <em>before</em> micro-optimizing individual instructions. Address upstream category issues first (e.g., missing constraints) to avoid chasing noise at the pattern level.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-3 gap-4 text-sm">
+                <div className="p-4 border rounded-md bg-background/50 dark:bg-gray-800/40">
+                  <h4 className="font-semibold mb-2">Specification & Intent</h4>
+                  <ul className="space-y-1 list-disc list-inside">
+                    <li>Ambiguous instruction</li>
+                    <li>Underspecified constraints</li>
+                    <li>Conflicting directives</li>
+                    <li>Poor task alignment</li>
+                  </ul>
+                  <p className="mt-2 text-muted-foreground">Often resolved by the Contradictions & Specificity patterns.</p>
+                </div>
+                <div className="p-4 border rounded-md bg-background/50 dark:bg-gray-800/40">
+                  <h4 className="font-semibold mb-2">Structure & Formatting</h4>
+                  <ul className="space-y-1 list-disc list-inside">
+                    <li>Inconsistent sections</li>
+                    <li>Poor example curation</li>
+                    <li>Unclear output schema</li>
+                    <li>Redundant / noisy prose</li>
+                  </ul>
+                  <p className="mt-2 text-muted-foreground">Reinforced by Examples & Constraints tabs.</p>
+                </div>
+                <div className="p-4 border rounded-md bg-background/50 dark:bg-gray-800/40">
+                  <h4 className="font-semibold mb-2">Context & Memory</h4>
+                  <ul className="space-y-1 list-disc list-inside">
+                    <li>Context overload / drift</li>
+                    <li>Stale retrieval</li>
+                    <li>Missing grounding facts</li>
+                    <li>Fragmented state handoff</li>
+                  </ul>
+                  <p className="mt-2 text-muted-foreground">Often discovered during evaluation instrumentation.</p>
+                </div>
+                <div className="p-4 border rounded-md bg-background/50 dark:bg-gray-800/40">
+                  <h4 className="font-semibold mb-2">Performance & Efficiency</h4>
+                  <ul className="space-y-1 list-disc list-inside">
+                    <li>Excess token churn</li>
+                    <li>Irrelevant chain steps</li>
+                    <li>Latency amplification</li>
+                    <li>Sprawl of nested calls</li>
+                  </ul>
+                  <p className="mt-2 text-muted-foreground">Feeds directly into Constraints optimization.</p>
+                </div>
+                <div className="p-4 border rounded-md bg-background/50 dark:bg-gray-800/40">
+                  <h4 className="font-semibold mb-2">Maintenance & Evolution</h4>
+                  <ul className="space-y-1 list-disc list-inside">
+                    <li>Hidden coupling</li>
+                    <li>Version drift</li>
+                    <li>Poor change isolation</li>
+                    <li>Artifact sprawl</li>
+                  </ul>
+                  <p className="mt-2 text-muted-foreground">Track defect density over time to catch entropy early.</p>
+                </div>
+              </div>
+              <div className="p-4 rounded-md bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-sm">
+                <strong>Usage Flow:</strong> 1) Start with this map to classify failures. 2) Apply targeted pattern tabs (Contradictions → Specificity → Constraints → Examples). 3) Re-evaluate using your agent test harness. 4) Track resolved defect categories to avoid regression.
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
 
         <TabsContent value="contradictions" className="space-y-4">
           <Card>
