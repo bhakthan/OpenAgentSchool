@@ -66,6 +66,9 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [dataBundle, setDataBundle] = useState<any | null>(null);
   const [categories, setCategories] = useState<any[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
+  // Live region for announcing session completion
+  const [lastCompletionMessage, setLastCompletionMessage] = useState<string | null>(null);
+  const liveRegionRef = useRef<HTMLDivElement | null>(null);
   // Feature flag (can be toggled via localStorage.setItem('studyModeGating','1'))
   const gatingEnabled = useMemo(() => {
     try {
@@ -234,6 +237,11 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     setSelectedQuestion(null);
   setActiveTab('overview');
   try { window.dispatchEvent(new CustomEvent('analytics:sessionComplete', { detail: { type: session.type, score: session.score } })); } catch {}
+    // Accessible completion announcement
+    const msg = `Completed ${session.type} session${typeof session.score === 'number' ? ' with score ' + session.score + '%' : ''}`;
+    setLastCompletionMessage(msg);
+    // Clear after a few seconds to allow subsequent announcements
+    setTimeout(() => setLastCompletionMessage(null), 6000);
     
     if (onComplete) {
       onComplete(session);
@@ -282,10 +290,32 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     <Card 
       key={question.id}
       className={cn(
-        "cursor-pointer transition-all hover:shadow-md",
-        isCompleted ? "border-green-200 bg-green-50" : "hover:border-primary"
+        // Base interactive styling
+        "relative transition-all hover:shadow-md outline-none",
+        // Pointer & cursor semantics
+        !isCompleted ? "cursor-pointer" : "cursor-default",
+        // Completed styling: neutral text in light mode + subtle green background + accent stripe
+        isCompleted
+          ? [
+              "border-green-300 bg-green-50 dark:border-green-700 dark:bg-green-900/25",
+              "before:content-[''] before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-green-500 dark:before:bg-green-600/70 before:rounded-l",
+              // Dark mode readable text tint only (avoid low-contrast green-on-pale-green in light)
+              "dark:[&_*]:text-green-200"
+            ].join(' ')
+          : "hover:border-primary"
       )}
+      role={!isCompleted ? 'button' : undefined}
+      tabIndex={!isCompleted ? 0 : -1}
+      aria-disabled={isCompleted || undefined}
+      aria-label={`${question.title}${isCompleted ? ' (completed)' : ''}`}
       onClick={() => !isCompleted && handleQuestionStart(question)}
+      onKeyDown={(e) => {
+        if (isCompleted) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleQuestionStart(question);
+        }
+      }}
     >
       <CardContent className="p-4">
         <div className="flex items-start justify-between mb-2">
@@ -377,6 +407,15 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
 
   return (
     <div className="w-full max-w-6xl mx-auto space-y-6">
+      {/* Live region (polite) for screen reader users to hear completion updates */}
+      <div
+        ref={liveRegionRef}
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {lastCompletionMessage || ''}
+      </div>
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold flex items-center justify-center gap-2 mb-2">
@@ -464,6 +503,38 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                     </span>
                   </div>
                 ))}
+                {/* Completion badges grid */}
+                <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  {(['socratic','scenario','debug','scl'] as StudyModeType[]).map(mode => {
+                    const pct = progress.typeProgress[mode] || 0;
+                    if (pct <= 0) return null;
+                    const complete = pct >= 100;
+                    return (
+                      <div
+                        key={mode}
+                        className={cn(
+                          "relative border rounded-md p-3 flex items-center justify-between text-xs sm:text-sm",
+                          complete ? "border-green-400 bg-green-50 dark:bg-green-900/20" : "border-border bg-muted/30"
+                        )}
+                        aria-label={`${mode} progress ${pct.toFixed(0)}%${complete ? ' complete' : ''}`}
+                      >
+                        <span className="capitalize">{mode}</span>
+                        <div className="flex items-center gap-2">
+                          <span className="tabular-nums font-medium">{pct.toFixed(0)}%</span>
+                          {complete && (
+                            <Badge
+                              variant="secondary"
+                              className="bg-green-600 text-white dark:bg-green-500 dark:text-black flex items-center gap-1"
+                              aria-label={`${mode} completed`}
+                            >
+                              <CheckCircle size={12} /> Done
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </CardContent>
           </Card>

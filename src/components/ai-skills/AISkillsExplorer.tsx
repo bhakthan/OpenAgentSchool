@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { trackEvent } from '@/lib/analytics/ga'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -81,6 +82,17 @@ export default function AISkillsExplorer() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved) setProgress(JSON.parse(saved))
+    } catch {}
+    // Fire entry analytics (direct path only; alias path tracked in redirect component)
+    try {
+      if (window.location.pathname.startsWith('/ai-skills')) {
+        const viaAlias = sessionStorage.getItem('aiSkillsAliasRedirect') === '1';
+        if (!viaAlias) {
+          trackEvent({ action: 'ai_skills_entry', category: 'ai_skills', entry_source: 'direct' });
+        }
+        // Clear marker so refresh counts as direct again
+        try { sessionStorage.removeItem('aiSkillsAliasRedirect'); } catch {}
+      }
     } catch {}
   }, [])
   useEffect(() => {
@@ -551,7 +563,7 @@ export default function AISkillsExplorer() {
           <div className="order-1 lg:order-2">
         {/* Overview Grid for quick scan */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">All Skills Overview</h2>
+          <h2 className="text-xl font-semibold mb-3">Applied AI Skills Overview</h2>
           <div className="grid gap-2 sm:gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {skillCategories.flatMap(c => c.moduleIds).map(mid => {
               const t = tabMap[mid]

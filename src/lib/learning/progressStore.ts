@@ -1,4 +1,4 @@
-// Lightweight client-side progress storage for AI-Native Skills
+// Lightweight client-side progress storage for Applied AI Skills (route /ai-skills retained for stability)
 // Persists: completed modules, last active tab per module, studio scores
 
 export type ModuleId =

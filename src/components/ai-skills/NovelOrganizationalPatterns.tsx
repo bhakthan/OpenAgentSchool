@@ -524,7 +524,7 @@ export default function NovelOrganizationalPatterns({ onNavigate }: Props) {
                 Implementation requires careful planning, cultural preparation, and iterative experimentation.
               </p>
               <p className="text-xs text-muted-foreground italic">
-                Continue exploring the AI-Native Skills learning path to build your foundation for implementing these advanced patterns.
+                Continue exploring the Applied AI Skills learning path to build your foundation for implementing these advanced patterns.
               </p>
             </div>
           </div>

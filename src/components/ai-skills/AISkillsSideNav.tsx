@@ -72,9 +72,9 @@ export const AISkillsSideNav: React.FC<AISkillsSideNavProps> = ({ categories, pr
   }, [activeModule, categories, collapsed])
 
   return (
-    <nav aria-label="AI-Native skills navigation" className="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto pr-2 text-sm hidden lg:block w-64">
+  <nav aria-label="Applied AI Skills navigation" className="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto pr-2 text-sm hidden lg:block w-64">
       <div className="mb-3 flex items-center justify-between">
-        <span className="font-semibold tracking-wide text-muted-foreground text-xs">AI‑Native Skills Map</span>
+  <span className="font-semibold tracking-wide text-muted-foreground text-xs">Applied AI Skills Map</span>
       </div>
       <div className="flex gap-2 mb-4">
   <Button size="sm" variant="outline" className="h-6 px-2 text-[10px]" onClick={expandAll}>Expand All</Button>

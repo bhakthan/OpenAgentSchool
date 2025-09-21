@@ -26,6 +26,7 @@ import { setupGlobalFlowHandlers } from './lib/utils/flows/globalFlowHandlers';
 import LadderIcon from './components/ui/LadderIcon';
 import { Logo } from './components/ui/Logo';
 import { SEO, pageSEOConfigs } from './components/seo/SEO';
+import { trackEvent } from './lib/analytics/ga';
 import { SEORouteWrapper } from './components/seo/SEORouteWrapper';
 import { QRCodeModal } from './components/ui/QRCodeModal';
 
@@ -347,7 +348,7 @@ function App() {
                 const allTabs = [
                   { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} /> },
                   { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" /> },
-                  { to: '/ai-skills', label: 'AI-Native Skills', icon: <Lightning size={16} weight="duotone" /> },
+                  { to: '/ai-skills', label: 'Applied AI Skills', icon: <Lightning size={16} weight="duotone" /> },
                   { to: '/azure-services', label: 'Azure Services', icon: <StackSimple size={16} weight="duotone" /> },
                   { to: '/tree-view', label: 'Learning Atlas', icon: <Tree size={16} weight="duotone" /> },
                   { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" /> },
@@ -417,6 +418,8 @@ function App() {
                 <Routes>
                   <Route path="/" element={<ConceptsExplorer />} />
                   <Route path="/concepts/:conceptId?" element={<ConceptsExplorer />} />
+                  {/* Alias path for rebrand; record analytics then redirect */}
+                  <Route path="/applied-ai-skills" element={<AliasAISkillsRedirect />} />
                   <Route path="/ai-skills" element={<AISkillsExplorer />} />
                   <Route path="/study-mode" element={<StudyMode />} />
                   <Route path="/patterns/:patternId?" element={<PatternExplorer />} />
@@ -496,7 +499,7 @@ function App() {
             const title = path.startsWith('/patterns')
               ? 'Agent Patterns'
               : path.startsWith('/ai-skills')
-              ? 'AI-Native Skills'
+              ? 'Applied AI Skills'
               : path.startsWith('/azure-services')
               ? 'Azure Services'
               : 'Core Concepts';
@@ -552,6 +555,20 @@ const TabLink = React.memo(function TabLink({ to, icon, label }: { to: string, i
     </Button>
   );
 });
+
+// Simple component that fires an analytics event indicating the alias was used, then navigates.
+const AliasAISkillsRedirect: React.FC = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    try {
+      trackEvent({ action: 'alias_redirect', category: 'navigation', label: 'applied-ai-skills->ai-skills' });
+      trackEvent({ action: 'ai_skills_entry', category: 'ai_skills', entry_source: 'alias' });
+      try { sessionStorage.setItem('aiSkillsAliasRedirect','1'); } catch {}
+    } catch {}
+    navigate('/ai-skills', { replace: true });
+  }, [navigate]);
+  return null;
+};
 
 const ListItem = React.memo(function ListItem({ className, title, children, ...props }: React.ComponentPropsWithoutRef<"a"> & { title: string }) {
   return (
