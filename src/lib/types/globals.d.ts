@@ -50,6 +50,8 @@ declare global {
     'layout-update': Event;
     'content-resize': Event;
     'analytics:ctaClick': CustomEvent<{ tier: string; source: string }>;
+    'analytics:abVariant': CustomEvent<{ variant: 'primary' | 'variant'; source: 'auto' | 'query' | 'stored'; timestamp: number }>;
+    'analytics:cohortFormOpen': CustomEvent<{ source: string; ts: number }>;
   }
 }
 

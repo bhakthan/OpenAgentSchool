@@ -43,7 +43,9 @@ const CommunitySharing = lazy(() => import('./components/community/CommunityShar
 const AgentsConsole = lazy(() => import('./components/agents/AgentsConsole'));
 const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'));
 const SCLDemo = lazy(() => import('./components/SuperCriticalLearning/SCLDemo'));
-const CTALandingPage = lazy(() => import('./components/pages/CTALandingPage'));
+// Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
+const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
+const CTALandingPageVariant = lazy(() => import('@/components/pages/CTALandingPageVariant'));
 
 // Loading component for lazy-loaded routes
 const LoadingSpinner = () => (
@@ -59,6 +61,10 @@ import { AudioNarrationProvider } from './contexts/AudioNarrationContext';
 import { EnlightenMeButton as AskAIFab } from './components/enlighten/EnlightenMeButton';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useGAPageViews } from './hooks/useGAPageViews';
+// Micro CTA ribbon extracted for independent chunk
+import { MicroCtaRibbon } from './components/marketing/MicroCtaRibbon';
+import { useCTAVariantAssigner } from '@/components/marketing/useABAssignment';
+import { useAnalyticsCustomEventBridge } from '@/lib/analytics/customEventsBridge';
 
 // Placeholder component (disabled)
 const AppTutorialButton = () => null;
@@ -68,6 +74,9 @@ function App() {
   const [showJourneyMap, setShowJourneyMap] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
+  // Initialize CTA variant assignment (redirect if needed before heavy renders)
+  useCTAVariantAssigner();
+  useAnalyticsCustomEventBridge();
 
   // Scroll to top when route changes
   useEffect(() => {
@@ -420,6 +429,7 @@ function App() {
                   <Route path="/deep-dive-taxonomy" element={<DeepDiveTaxonomyPage />} />
                   <Route path="/community" element={<CommunitySharing />} />
                   <Route path="/api-docs" element={<ApiDocsPage />} />
+                  <Route path="/cta-alt" element={<CTALandingPageVariant />} />
                   <Route path="/cta" element={<CTALandingPage />} />
                   {/* Fallback route to redirect to home page */}
                   <Route path="*" element={<Navigate to="/" replace />} />
@@ -448,6 +458,9 @@ function App() {
               </p>
             </div>
           </footer>
+
+          {/* Persistent micro CTA ribbon (hidden on /cta) */}
+          {location.pathname !== '/cta' && <MicroCtaRibbon />}
           
           {/* Learning Journey Map */}
           <LearningJourneyMap

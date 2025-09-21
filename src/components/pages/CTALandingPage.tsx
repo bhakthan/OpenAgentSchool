@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { Lightning, GraduationCap, Users, RocketLaunch, ChartLineUp, HeadCircuit, Buildings, Handshake } from '@phosphor-icons/react';
+import { PROOF_SIGNALS } from '@/components/marketing/proofSignals';
 
 /**
  * Conversion-focused marketing /cta landing page.
@@ -19,27 +21,46 @@ const CTALandingPage: React.FC = () => {
   };
 
   const openExternal = (url: string, tier: string, source: string) => {
-    track(tier, source);
-    window.open(url, '_blank');
+    // Append tracking query param preserving existing ones
+    try { window.dispatchEvent(new CustomEvent('analytics:ctaClick', { detail: { tier, source } })); } catch {}
+    const u = new URL(url);
+    if (!u.searchParams.has('utm_source')) {
+      u.searchParams.set('utm_source', 'oas');
+    }
+    if (tier === 'cohort') {
+      try { window.dispatchEvent(new CustomEvent('analytics:ctaClick', { detail: { tier: 'cohort', source: source + '-open-form' } })); } catch {}
+      try { window.dispatchEvent(new CustomEvent('analytics:cohortFormOpen', { detail: { source, ts: Date.now() } })); } catch {}
+    }
+    const win = window.open(u.toString(), '_blank');
+    if (!win) {
+      toast({ title: 'Popup blocked', description: 'Your browser blocked the cohort form. Please allow popups for this site or open the link manually.', variant: 'destructive' as any });
+    }
   };
+
+  useEffect(() => {
+    // Emit variant event (primary)
+    try {
+      window.dispatchEvent(new CustomEvent('analytics:abVariant', { detail: { variant: 'primary', source: 'stored', timestamp: Date.now() } }));
+    } catch {}
+  }, []);
 
   return (
     <div className="space-y-24">
       {/* Hero */}
-      <section className="text-center space-y-6 pt-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-violet-500 to-fuchsia-500 text-transparent bg-clip-text">
+      <section className="text-center space-y-8 pt-4">
+        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.05] bg-gradient-to-r from-primary via-violet-500 to-fuchsia-500 text-transparent bg-clip-text">
           Accelerate Your AI-Agent Mastery & Organizational Transformation
         </h1>
-        <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground leading-relaxed">
-          A rigorous, implementation-first learning platform for builders, engineering leaders, and enterprises
-          who are serious about becoming AI-native. Learn the patterns, systems, economics, and operational guardrails
-          behind durable agentic ecosystems—not just prompts.
+        <p className="max-w-4xl mx-auto text-xl md:text-2xl text-muted-foreground leading-relaxed font-light">
+          Build durable agent ecosystems—not prompt toys. Operationalize architecture discipline, evaluation rigor,
+          resilience patterns, and AI-native organizational leverage so initiatives ship faster, fail safer, and compound.
         </p>
+        <AnchorConfidenceRow />
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
           <Button size="lg" onClick={() => { track('individual', 'hero-primary'); openExternal('https://github.com/bhakthan/openagentschool', 'individual', 'hero-primary'); }}>
             <Lightning className="mr-2" size={20} /> Start Free – Explore Concepts
           </Button>
-          <Button size="lg" variant="secondary" onClick={() => { track('cohort', 'hero-secondary'); openExternal('https://forms.gle/2M4J7CohortApp', 'cohort', 'hero-secondary'); }}>
+          <Button size="lg" variant="secondary" onClick={() => { track('cohort', 'hero-secondary'); openExternal('https://forms.gle/gpcekkK6KGqTNJGZ8', 'cohort', 'hero-secondary'); }}>
             <GraduationCap className="mr-2" size={20} /> Apply for Cohort (Invite Only)
           </Button>
           <Button size="lg" variant="outline" onClick={() => { track('enterprise', 'hero-tertiary'); openExternal('https://cal.com/bhakthan/enterprise-ai', 'enterprise', 'hero-tertiary'); }}>
@@ -49,9 +70,9 @@ const CTALandingPage: React.FC = () => {
         <p className="text-xs text-muted-foreground uppercase tracking-wide">Open Source + Advanced Applied Curriculum</p>
       </section>
 
-      {/* Audience Segments */}
+  {/* Audience Segments */}
       <section>
-        <h2 className="text-2xl font-bold mb-6">Who This Is For</h2>
+  <h2 className="text-3xl font-bold mb-6 tracking-tight">Who This Is For</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {[
             {
@@ -73,9 +94,9 @@ const CTALandingPage: React.FC = () => {
             <div key={card.title} className="p-6 rounded-xl border bg-card shadow-sm hover:shadow-md transition-shadow flex flex-col">
               <div className="flex items-center gap-3 mb-3">
                 {card.icon}
-                <h3 className="text-lg font-semibold">{card.title}</h3>
+                <h3 className="text-xl font-semibold">{card.title}</h3>
               </div>
-              <ul className="text-sm space-y-2 text-muted-foreground leading-snug">
+              <ul className="text-base md:text-lg space-y-2 text-muted-foreground leading-relaxed">
                 {card.points.map(p => <li key={p}>• {p}</li>)}
               </ul>
             </div>
@@ -85,7 +106,7 @@ const CTALandingPage: React.FC = () => {
 
       {/* Program Paths */}
       <section>
-        <h2 className="text-2xl font-bold mb-6">Program Paths</h2>
+  <h2 className="text-3xl font-bold mb-6 tracking-tight">Program Paths</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {[
             {
@@ -100,7 +121,7 @@ const CTALandingPage: React.FC = () => {
               label: 'Applied Cohort',
               desc: 'Structured multi-week deep dive: architecture labs, failure scenario drills, evaluation harness design, ops playbooks.',
               cta: 'Request Invite',
-              action: () => openExternal('https://forms.gle/2M4J7CohortApp', 'cohort', 'path-card')
+              action: () => openExternal('https://forms.gle/gpcekkK6KGqTNJGZ8', 'cohort', 'path-card')
             },
             {
               tier: 'enterprise',
@@ -111,8 +132,8 @@ const CTALandingPage: React.FC = () => {
             }
           ].map(card => (
             <div key={card.label} className="p-6 rounded-xl border bg-card flex flex-col shadow-sm">
-              <h3 className="text-lg font-semibold mb-2">{card.label}</h3>
-              <p className="text-sm text-muted-foreground flex-1 leading-relaxed">{card.desc}</p>
+              <h3 className="text-xl font-semibold mb-2">{card.label}</h3>
+              <p className="text-base md:text-lg text-muted-foreground flex-1 leading-relaxed">{card.desc}</p>
               <Button className="mt-4" onClick={() => card.action()}>{card.cta}</Button>
             </div>
           ))}
@@ -121,7 +142,7 @@ const CTALandingPage: React.FC = () => {
 
       {/* Differentiators */}
       <section>
-        <h2 className="text-2xl font-bold mb-6">Why Open Agent School</h2>
+  <h2 className="text-3xl font-bold mb-6 tracking-tight">Why Open Agent School</h2>
         <div className="grid md:grid-cols-2 gap-6">
           {[
             {
@@ -142,8 +163,8 @@ const CTALandingPage: React.FC = () => {
             }
           ].map(item => (
             <div key={item.title} className="p-6 rounded-xl border bg-card shadow-sm">
-              <h3 className="font-semibold mb-2 flex items-center gap-2"><HeadCircuit size={20} className="text-primary" /> {item.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+              <h3 className="font-semibold mb-2 flex items-center gap-2 text-lg md:text-xl"><HeadCircuit size={24} className="text-primary" /> {item.title}</h3>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">{item.body}</p>
             </div>
           ))}
         </div>
@@ -155,14 +176,38 @@ const CTALandingPage: React.FC = () => {
         <p className="text-muted-foreground max-w-3xl mx-auto">Start free, go deep with structured cohort immersion, or align your entire org with a measurable transformation path.</p>
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <Button size="lg" onClick={() => openExternal('https://github.com/bhakthan/openagentschool', 'individual', 'cta-strip')}>Explore Free</Button>
-          <Button size="lg" variant="secondary" onClick={() => openExternal('https://forms.gle/2M4J7CohortApp', 'cohort', 'cta-strip')}>Apply to Cohort</Button>
+          <Button size="lg" variant="secondary" onClick={() => openExternal('https://forms.gle/gpcekkK6KGqTNJGZ8', 'cohort', 'cta-strip')}>Apply to Cohort</Button>
           <Button size="lg" variant="outline" onClick={() => openExternal('https://cal.com/bhakthan/enterprise-ai', 'enterprise', 'cta-strip')}>Enterprise Strategy Call</Button>
+        </div>
+      </section>
+
+      {/* Trust Indicators */}
+      <section>
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold mb-6 tracking-tight">Proof Signals</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {PROOF_SIGNALS.map(m => (
+              <div key={m.metric} className="p-6 rounded-xl border bg-card/70 backdrop-blur-sm flex flex-col gap-3 relative overflow-hidden group">
+                <div className="flex items-center gap-3">
+                  <span className="relative inline-flex items-center justify-center w-11 h-11 rounded-full bg-gradient-to-br from-indigo-500/20 via-fuchsia-500/20 to-violet-500/20 border border-border shadow-inner">
+                    <span className="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-400/25 to-fuchsia-400/25 opacity-0 group-hover:opacity-60 transition-opacity" />
+                    <span className="text-primary drop-shadow-sm">
+                      {m.icon}
+                    </span>
+                  </span>
+                  <div className="text-4xl font-extrabold bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-violet-500 text-transparent bg-clip-text tracking-tight">{m.metric}</div>
+                </div>
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">{m.desc}</p>
+                <div className="pointer-events-none absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-fuchsia-500/5 via-violet-500/5 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-70 transition-opacity" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* FAQ (minimal) */}
       <section>
-        <h2 className="text-2xl font-bold mb-6">Common Questions</h2>
+  <h2 className="text-3xl font-bold mb-6 tracking-tight">Common Questions</h2>
         <div className="space-y-4">
           {[
             { q: 'Is the platform really free to start?', a: 'Yes. Core concepts, patterns, visualizations and study modes are openly accessible. Advanced applied guidance is layered progressively.' },
@@ -170,9 +215,9 @@ const CTALandingPage: React.FC = () => {
             { q: 'Do you provide enterprise on-site or internal enablement?', a: 'Yes. We run maturity assessments, platform capability alignment sessions, architectural deep dives, and strategic acceleration workshops.' },
             { q: 'Can I sponsor or partner?', a: 'Reach out via strategy call link—partnerships are evaluated for ecosystem uplift & learner value.' }
           ].map(f => (
-            <div key={f.q} className="p-4 rounded-lg border bg-card">
+            <div key={f.q} className="p-5 rounded-lg border bg-card">
               <p className="font-medium">{f.q}</p>
-              <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{f.a}</p>
+              <p className="text-base md:text-lg text-muted-foreground mt-1 leading-relaxed">{f.a}</p>
             </div>
           ))}
         </div>
@@ -180,15 +225,116 @@ const CTALandingPage: React.FC = () => {
 
       {/* Final CTA */}
       <section className="text-center pb-8">
-        <h2 className="text-3xl font-bold mb-4">Build Durable Agent Capability</h2>
-        <p className="max-w-2xl mx-auto text-muted-foreground mb-6">Avoid shallow prompt churn. Invest in architecture, evaluation, operational readiness, and economic design. We help you compress the learning curve.</p>
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Build Durable Agent Capability</h2>
+        <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed font-light">Escape incremental demo loops. Institutionalize architecture clarity, evaluation harnesses, reliability drills, and economic guardrails so each new deployment compounds—not resets.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" onClick={() => openExternal('https://github.com/bhakthan/openagentschool', 'individual', 'final-cta')}>Start Free</Button>
-          <Button size="lg" variant="secondary" onClick={() => openExternal('https://forms.gle/2M4J7CohortApp', 'cohort', 'final-cta')}>Apply Cohort</Button>
+          <Button size="lg" variant="secondary" onClick={() => openExternal('https://forms.gle/gpcekkK6KGqTNJGZ8', 'cohort', 'final-cta')}>Apply Cohort</Button>
           <Button size="lg" variant="outline" onClick={() => openExternal('https://cal.com/bhakthan/enterprise-ai', 'enterprise', 'final-cta')}>Enterprise Call</Button>
         </div>
         <p className="text-xs text-muted-foreground mt-4">Signals of depth over hype • Architecture literacy • Operational resilience • Measurable transformation</p>
       </section>
+    </div>
+  );
+};
+
+// Animated anchor row component
+const AnchorConfidenceRow: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const observed = useRef(false);
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const cards = Array.from(containerRef.current.querySelectorAll('.anchor-seq-item')) as HTMLElement[];
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          el.classList.add('anchor-visible');
+        }
+      });
+    }, { threshold: 0.35 });
+    cards.forEach(c => observer.observe(c));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className="max-w-5xl mx-auto grid md:grid-cols-3 gap-4 text-left pt-4">
+      {[
+        {
+          title: 'Executive Confidence Anchor',
+          body: 'Collapse ambiguity: get a shared mental model for agent architecture, operating ratios, and capability sequencing in under 6 weeks.',
+          accent: true
+        },
+        {
+          title: 'Behavioral Adoption > Hype',
+          body: 'We design for sustained usage: measurable velocity uplift, reduced rework, governed experimentation funnels, and reliability baselines.'
+        },
+        {
+          title: 'Risk-Informed Acceleration',
+          body: 'Embed evaluation harnesses, safety guardrails, failure drills, and scaling thresholds early—so expansion doesn’t amplify fragility.'
+        }
+      ].map((card, i) => (
+        <div
+          key={card.title}
+          data-seq={i}
+          className={[
+            'anchor-seq-item p-5 rounded-xl border bg-card/60 backdrop-blur-sm transition-shadow flex flex-col relative overflow-hidden',
+            card.accent ? 'confidence-accent hover:shadow-lg' : 'hover:shadow-md'
+          ].join(' ')}
+        >
+          <h3 className="text-lg md:text-xl font-semibold mb-2 tracking-tight pr-4">{card.title}</h3>
+          <p className="text-base md:text-lg leading-relaxed text-muted-foreground">{card.body}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Inject FAQPage structured data for SEO conversion intent
+const FAQStructuredData: React.FC<{ faqs: { q: string; a: string }[] }> = ({ faqs }) => {
+  useEffect(() => {
+    const id = 'faq-schema-cta';
+    const existing = document.getElementById(id) as HTMLScriptElement | null;
+    const json = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(f => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a }
+      }))
+    };
+    const serialized = JSON.stringify(json);
+    if (existing) {
+      if (existing.text !== serialized) existing.text = serialized;
+    } else {
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.id = id;
+      s.text = serialized;
+      document.head.appendChild(s);
+    }
+  }, [faqs]);
+  return null;
+};
+
+// Persistent micro-CTA ribbon (funnel reinforcement)
+export const MicroCtaRibbon: React.FC = () => {
+  const [visible, setVisible] = React.useState(true);
+  useEffect(() => {
+    const hideOnCTA = () => {
+      if (window.location.pathname === '/cta') setVisible(false);
+    };
+    hideOnCTA();
+    window.addEventListener('popstate', hideOnCTA);
+    return () => window.removeEventListener('popstate', hideOnCTA);
+  }, []);
+  if (!visible) return null;
+  return (
+    <div className="micro-cta-ribbon">
+      <span className="hidden sm:inline">Architect → Evaluate → Operationalize</span>
+      <button className="cta-btn" onClick={() => { try { window.dispatchEvent(new CustomEvent('analytics:ctaClick',{ detail:{ tier:'ribbon', source:'micro-ribbon'} })); } catch {}; window.location.href = '/cta'; }}>Get Clarity</button>
+      <button className="dismiss-btn" aria-label="Dismiss" onClick={() => setVisible(false)}>×</button>
     </div>
   );
 };

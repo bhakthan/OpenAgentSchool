@@ -583,3 +583,109 @@ code, pre {
   backdrop-filter: blur(4px) saturate(1.1);
   border-color: oklch(0.25 0.02 240) !important;
 }
+
+/* ========== Marketing CTA Enhancements ========== */
+@keyframes shimmer-line {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.35); }
+  50% { box-shadow: 0 0 0 6px rgba(168,85,247,0.05); }
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(24px) scale(.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.confidence-accent {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(145deg,var(--card) 40%,rgba(99,102,241,0.12));
+  border: 1px solid rgba(140,140,255,0.25);
+}
+
+.confidence-accent::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+  height: 3px;
+  width: 120px;
+  background: linear-gradient(90deg,#6366F1,#A855F7,#6366F1);
+  background-size: 200% 100%;
+  border-radius: 2px;
+  animation: shimmer-line 2.4s linear infinite;
+  opacity: .85;
+  filter: drop-shadow(0 0 4px rgba(168,85,247,.35));
+}
+
+.dark .confidence-accent::after {
+  opacity: .72;
+  filter: drop-shadow(0 0 3px rgba(120,80,200,.28));
+}
+
+.confidence-accent:hover::after { opacity: 1; }
+
+.confidence-accent:hover { border-color: rgba(168,85,247,0.45); }
+
+.anchor-seq-item { opacity: 0; }
+.anchor-seq-item.anchor-visible { animation: fade-up .65s cubic-bezier(.25,.46,.25,1) forwards; }
+
+.anchor-seq-item[data-seq="0"].anchor-visible { animation-delay: .05s; }
+.anchor-seq-item[data-seq="1"].anchor-visible { animation-delay: .15s; }
+.anchor-seq-item[data-seq="2"].anchor-visible { animation-delay: .27s; }
+
+.micro-cta-ribbon {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  z-index: 60;
+  background: linear-gradient(135deg,#1e1f29 10%,#2d2f3b 45%,#3b1d52 95%);
+  color: var(--foreground);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 18px -4px rgba(0,0,0,0.55),0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* Light mode variant for ribbon to ensure contrast */
+.light .micro-cta-ribbon {
+  background: linear-gradient(135deg,#ffffff 5%,#f5f7fa 55%,#eceef7 90%);
+  color: var(--foreground);
+  border-color: rgba(0,0,0,0.07);
+  box-shadow: 0 4px 16px -4px rgba(0,0,0,0.15),0 0 0 1px rgba(0,0,0,0.04);
+}
+.light .micro-cta-ribbon button.cta-btn { filter: brightness(0.95); }
+.light .micro-cta-ribbon button.cta-btn:hover { filter: brightness(1); }
+.light .micro-cta-ribbon button.dismiss-btn:hover { background: rgba(0,0,0,0.06); }
+
+.micro-cta-ribbon button.cta-btn {
+  background: linear-gradient(90deg,#6366F1,#A855F7);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.micro-cta-ribbon button.dismiss-btn {
+  background: transparent;
+  color: var(--muted-foreground);
+  padding: 4px 6px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.micro-cta-ribbon button.cta-btn:hover { filter: brightness(1.08); }
+.micro-cta-ribbon button.dismiss-btn:hover { background: rgba(255,255,255,0.06); }

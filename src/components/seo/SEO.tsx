@@ -422,5 +422,10 @@ export const pageSEOConfigs = {
     title: 'Get Started - Accelerate AI Agent Mastery & Transformation | Open Agent School',
     description: 'Choose your path: open learning, applied cohort immersion, or enterprise capability acceleration. Build durable agent ecosystems with architecture depth, evaluation rigor, operational readiness, and AI-native organizational frameworks.',
     keywords: 'AI agent learning, agent architecture cohort, enterprise AI transformation, AI-native enablement, multi-agent systems training, AI evaluation frameworks, agent operations, AI maturity assessment'
+  },
+  '/cta-alt': {
+    title: 'Compound Agent Capability - Strategic Variant | Open Agent School',
+    description: 'Variant hero: Reduce initiative drift and compound durable agent capability. Architecture clarity, evaluation harnesses, failure drills, and operational economics—sequenced for measurable uplift.',
+    keywords: 'agent capability compounding, AI architecture clarity, evaluation harness design, agent reliability drills, AI operational economics'
   }
 };
