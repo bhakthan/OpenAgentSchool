@@ -49,6 +49,7 @@ declare global {
     'flow-force-stabilize': CustomEvent<{ timestamp: number; recovery: boolean; attempt: number }>;
     'layout-update': Event;
     'content-resize': Event;
+    'analytics:ctaClick': CustomEvent<{ tier: string; source: string }>;
   }
 }
 

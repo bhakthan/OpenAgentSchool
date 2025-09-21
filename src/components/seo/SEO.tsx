@@ -417,5 +417,10 @@ export const pageSEOConfigs = {
     title: 'Code Playbook - AI Agent Implementation | Open Agent School',
     description: 'Access comprehensive code examples, implementation guides, and best practices for building AI agent systems.',
     keywords: 'AI agent code, implementation guide, coding examples, agent development, programming tutorials'
+  },
+  '/cta': {
+    title: 'Get Started - Accelerate AI Agent Mastery & Transformation | Open Agent School',
+    description: 'Choose your path: open learning, applied cohort immersion, or enterprise capability acceleration. Build durable agent ecosystems with architecture depth, evaluation rigor, operational readiness, and AI-native organizational frameworks.',
+    keywords: 'AI agent learning, agent architecture cohort, enterprise AI transformation, AI-native enablement, multi-agent systems training, AI evaluation frameworks, agent operations, AI maturity assessment'
   }
 };

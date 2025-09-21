@@ -43,6 +43,7 @@ const CommunitySharing = lazy(() => import('./components/community/CommunityShar
 const AgentsConsole = lazy(() => import('./components/agents/AgentsConsole'));
 const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'));
 const SCLDemo = lazy(() => import('./components/SuperCriticalLearning/SCLDemo'));
+const CTALandingPage = lazy(() => import('./components/pages/CTALandingPage'));
 
 // Loading component for lazy-loaded routes
 const LoadingSpinner = () => (
@@ -262,6 +263,15 @@ function App() {
                   <Path size={16} />
                   <span className="hidden sm:inline">Journey Map</span>
                 </Button>
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={() => { try { window.dispatchEvent(new CustomEvent('analytics:ctaClick', { detail: { source: 'header-button', tier: 'get-started' } })); } catch {} ; navigate('/cta'); }}
+                  className="flex items-center gap-2 bg-primary text-primary-foreground"
+                >
+                  <Lightning size={16} />
+                  <span className="hidden sm:inline">Get Started</span>
+                </Button>
                 <AppTutorialButton />
                 <div className="flex items-center gap-2">
                   <ThemeToggle />
@@ -410,6 +420,7 @@ function App() {
                   <Route path="/deep-dive-taxonomy" element={<DeepDiveTaxonomyPage />} />
                   <Route path="/community" element={<CommunitySharing />} />
                   <Route path="/api-docs" element={<ApiDocsPage />} />
+                  <Route path="/cta" element={<CTALandingPage />} />
                   {/* Fallback route to redirect to home page */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
