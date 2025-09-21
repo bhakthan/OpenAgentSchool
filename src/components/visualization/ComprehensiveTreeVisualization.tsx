@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+// Card UI replaced by bespoke modern atlas stat cards styling (see main.css additions)
 import D3TreeVisualization from '@/components/visualization/D3TreeVisualization';
 import { 
   Brain, 
@@ -16,6 +15,7 @@ import {
 import { loadStudyModeData, flattenQuestions } from '@/lib/data/studyMode/lazy';
 import { getAllQuestions } from '@/lib/data/quizzes';
 import { agentPatterns } from '@/lib/data/patterns';
+import { useCountUp, formatNumber } from '@/hooks/useCountUp';
 
 // Types
 interface TreeNode {
@@ -70,16 +70,29 @@ const azureServicesData = [
 
 import { CORE_CONCEPT_IDS, CORE_CONCEPT_COUNT } from '@/constants/concepts';
 
+// Pre-compute static lengths outside component to avoid repeated heavy work
+const TOTAL_QUIZ_QUESTIONS = getAllQuestions().length;
+
 export default function ComprehensiveTreeVisualization() {
   const navigate = useNavigate();
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
   const [showStudyDetails, setShowStudyDetails] = useState(false);
+  const [highContrast, setHighContrast] = useState(false);
 
   const [socraticCount, setSocraticCount] = useState(0);
   const [scenarioCount, setScenarioCount] = useState(0);
   const [debugCount, setDebugCount] = useState(0);
   const [sclScenariosCount] = useState(8); // static placeholder
   const studyCount = socraticCount + scenarioCount + debugCount + sclScenariosCount;
+
+  // Animated counters (respect reduced motion)
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const animationOpts = prefersReducedMotion ? { durationMs: 0 } : undefined;
+  const conceptsAnimated = useCountUp(CORE_CONCEPT_COUNT, animationOpts);
+  const patternsAnimated = useCountUp(agentPatterns.length, animationOpts);
+  const azureAnimated = useCountUp(12, animationOpts);
+  const questionsAnimated = useCountUp(TOTAL_QUIZ_QUESTIONS, animationOpts);
+  const studyAnimated = useCountUp(studyCount, animationOpts);
 
   useEffect(() => {
     (async () => {
@@ -127,7 +140,7 @@ export default function ComprehensiveTreeVisualization() {
  // D3TreeVisualization uses its own internal tree data; no need to generate here
 
   return (
-    <div className="w-full min-h-screen bg-white dark:bg-gray-900">
+    <div className={`w-full min-h-screen bg-white dark:bg-gray-900 ${highContrast ? 'atlas-high-contrast' : ''}`}>
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-3 mb-4">
           <Tree className="w-8 h-8 text-indigo-600" />
@@ -139,128 +152,125 @@ export default function ComprehensiveTreeVisualization() {
               Your panoramic map of the agentic mastery journey — explore every concept, pattern, skill, service and assessment path in one living, exportable knowledge space.
             </p>
           </div>
+          <div className="ml-auto">
+            <button
+              type="button"
+              onClick={() => setHighContrast(v => !v)}
+              aria-pressed={highContrast}
+              className="detail-toggle !text-[10px] md:!text-[11px]"
+            >
+              {highContrast ? 'Normal Contrast' : 'High Contrast'}
+            </button>
+          </div>
         </div>
 
-        {/* Statistics */}
-        <div className="grid grid-cols-5 gap-4">
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <Brain className="w-8 h-8 text-blue-600" />
-                <div>
-                  <div className="text-2xl font-bold" aria-label={`${CORE_CONCEPT_COUNT} core concepts`}>{CORE_CONCEPT_COUNT}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Core Concepts</div>
-                </div>
+        {/* Modern Statistics Cards */}
+        <div className="atlas-stats-grid">
+          <div className="atlas-stat-card group" aria-label={`${CORE_CONCEPT_COUNT} core concepts total`} data-atlas-item="0">
+            <div className="flex items-start gap-3">
+              <div className="icon-wrap from-sky-500/20 to-cyan-400/10 ring-sky-400/30">
+                <Brain className="w-5 h-5 text-sky-500" />
               </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <Cog className="w-8 h-8 text-amber-600" />
-                <div>
-                  <div className="text-2xl font-bold">{agentPatterns.length}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Agent Patterns</div>
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="stat-number gradient-text-blue" aria-live="polite">{formatNumber(conceptsAnimated)}</span>
+                  <span className="stat-label">Core Concepts</span>
                 </div>
+                <p className="subtext">Foundational learning primitives.</p>
               </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <CloudArrowUp className="w-8 h-8 text-green-600" />
-                <div>
-                  <div className="text-2xl font-bold">12+</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Azure Services</div>
+            </div>
+            <span className="accent-bar" />
+          </div>
+
+          <div className="atlas-stat-card group" aria-label={`${agentPatterns.length} agent patterns`} data-atlas-item="1">
+            <div className="flex items-start gap-3">
+              <div className="icon-wrap from-amber-500/25 to-yellow-400/10 ring-amber-400/30">
+                <Cog className="w-5 h-5 text-amber-500" />
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="stat-number gradient-text-amber" aria-live="polite">{formatNumber(patternsAnimated)}</span>
+                  <span className="stat-label">Agent Patterns</span>
                 </div>
+                <p className="subtext">Composable orchestration blueprints.</p>
               </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <Target className="w-8 h-8 text-purple-600" />
-                <div>
-                  <div className="text-2xl font-bold">{getAllQuestions().length}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Quiz Questions</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-4">
+            </div>
+            <span className="accent-bar" />
+          </div>
+
+            <div className="atlas-stat-card group" aria-label="12+ Azure AI services" data-atlas-item="2">
               <div className="flex items-start gap-3">
-                <Lightbulb className="w-8 h-8 text-indigo-600 mt-1" />
+                <div className="icon-wrap from-emerald-500/25 to-green-400/10 ring-emerald-400/30">
+                  <CloudArrowUp className="w-5 h-5 text-emerald-500" />
+                </div>
                 <div className="space-y-1">
-                  <div className="flex items-baseline gap-2">
-                    <div className="text-2xl font-bold">{studyCount}</div>
-                    <span className="text-xs px-1.5 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 border border-indigo-300/40">Total</span>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="stat-number gradient-text-emerald" aria-live="polite">{formatNumber(azureAnimated)}+</span>
+                    <span className="stat-label">Azure Services</span>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Study Activities</div>
-                  {/* Compact summary for small screens */}
-                  <div className="sm:hidden mt-2 text-[10px] text-gray-600 dark:text-gray-400 leading-snug">
-                    <span className="font-medium">Breakdown:</span>{' '}
-                    <abbr title="Socratic Discovery" className="cursor-help underline decoration-dotted underline-offset-2">Soc</abbr> {socraticCount} •{' '}
-                    <abbr title="Interactive Scenarios" className="cursor-help underline decoration-dotted underline-offset-2">Int</abbr> {scenarioCount} •{' '}
-                    <abbr title="Debug Challenges" className="cursor-help underline decoration-dotted underline-offset-2">Dbg</abbr> {debugCount} •{' '}
-                    <abbr title="Super Critical Learning" className="cursor-help underline decoration-dotted underline-offset-2">SCL</abbr> {sclScenariosCount}
+                  <p className="subtext">Integration & capability surface.</p>
+                </div>
+              </div>
+              <span className="accent-bar" />
+            </div>
+
+            <div className="atlas-stat-card group" aria-label={`${TOTAL_QUIZ_QUESTIONS} quiz questions`} data-atlas-item="3">
+              <div className="flex items-start gap-3">
+                <div className="icon-wrap from-violet-500/25 to-fuchsia-500/10 ring-violet-400/30">
+                  <Target className="w-5 h-5 text-violet-500" />
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="stat-number gradient-text-violet" aria-live="polite">{formatNumber(questionsAnimated)}</span>
+                    <span className="stat-label">Quiz Questions</span>
+                  </div>
+                  <p className="subtext">Assessment pathways.</p>
+                </div>
+              </div>
+              <span className="accent-bar" />
+            </div>
+
+            <div className="atlas-stat-card group" aria-label={`${studyCount} study activities total`} data-atlas-item="4">
+              <div className="flex items-start gap-3">
+                <div className="icon-wrap from-indigo-500/25 to-sky-500/10 ring-indigo-400/30">
+                  <Lightbulb className="w-5 h-5 text-indigo-500" />
+                </div>
+                <div className="space-y-1 w-full">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <span className="stat-number gradient-text-indigo" aria-live="polite">{formatNumber(studyAnimated)}</span>
+                    <span className="stat-label">Study Activities</span>
                     <button
                       type="button"
                       onClick={() => setShowStudyDetails(v => !v)}
-                      className="ml-2 text-indigo-600 dark:text-indigo-300 hover:underline focus:outline-none focus:ring-1 focus:ring-indigo-400 rounded px-1"
+                      className="detail-toggle"
                       aria-expanded={showStudyDetails}
                       aria-controls="study-activities-detail-grid"
                     >
-                      {showStudyDetails ? 'Hide' : 'Details'}
+                      {showStudyDetails ? 'Hide' : 'Breakdown'}
                     </button>
+                  </div>
+                  <div className="hidden sm:flex gap-2 flex-wrap text-[11px] text-muted-foreground">
+                    <span className="pill">Soc {socraticCount}</span>
+                    <span className="pill">Int {scenarioCount}</span>
+                    <span className="pill">Dbg {debugCount}</span>
+                    <span className="pill">SCL {sclScenariosCount}</span>
+                  </div>
+                  <div className="sm:hidden text-[10px] text-gray-600 dark:text-gray-400 leading-snug">
+                    Soc {socraticCount} • Int {scenarioCount} • Dbg {debugCount} • SCL {sclScenariosCount}
                   </div>
                   <div
                     id="study-activities-detail-grid"
-                    className={`grid grid-cols-2 gap-x-4 gap-y-1 mt-2 text-[11px] leading-tight ${showStudyDetails ? 'grid' : 'hidden'} sm:grid`}
-                    aria-hidden={!showStudyDetails && typeof window !== 'undefined' && window.innerWidth < 640}
+                    className={`grid grid-cols-2 gap-x-3 gap-y-1 mt-2 text-[11px] leading-tight ${showStudyDetails ? 'grid' : 'hidden'}`}
                   >
-                    <button
-                      type="button"
-                      onClick={() => navigate('/study-mode#socratic')}
-                      className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
-                      aria-label="View Socratic Study Mode"
-                    >
-                      <span>Socratic Discovery</span><span className="font-medium">{socraticCount}</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => navigate('/study-mode#scenario')}
-                      className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
-                      aria-label="View Scenario Study Mode"
-                    >
-                      <span>Interactive Scenarios</span><span className="font-medium">{scenarioCount}</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => navigate('/study-mode#debug')}
-                      className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
-                      aria-label="View Debug Study Mode"
-                    >
-                      <span>Debug Challenges</span><span className="font-medium">{debugCount}</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => navigate('/study-mode#scl')}
-                      className="flex justify-between rounded px-1 py-0.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 transition-colors focus:outline-none focus:ring-1 focus:ring-indigo-400"
-                      aria-label="View Super Critical Learning Mode"
-                    >
-                      <span>SCL</span><span className="font-medium">{sclScenariosCount}</span>
-                    </button>
+                    <button type="button" onClick={() => navigate('/study-mode#socratic')} className="detail-link">Socratic Discovery<span>{socraticCount}</span></button>
+                    <button type="button" onClick={() => navigate('/study-mode#scenario')} className="detail-link">Interactive Scenarios<span>{scenarioCount}</span></button>
+                    <button type="button" onClick={() => navigate('/study-mode#debug')} className="detail-link">Debug Challenges<span>{debugCount}</span></button>
+                    <button type="button" onClick={() => navigate('/study-mode#scl')} className="detail-link">SCL<span>{sclScenariosCount}</span></button>
                   </div>
-                  {/* Removed separate SCL scenarios badge & link (redundant with breakdown) */}
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <span className="accent-bar" />
+            </div>
         </div>
       </div>
 
