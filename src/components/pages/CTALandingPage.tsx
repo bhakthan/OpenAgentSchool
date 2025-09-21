@@ -63,8 +63,8 @@ const CTALandingPage: React.FC = () => {
           <Button size="lg" variant="secondary" onClick={() => { track('cohort', 'hero-secondary'); openExternal('https://forms.gle/gpcekkK6KGqTNJGZ8', 'cohort', 'hero-secondary'); }}>
             <GraduationCap className="mr-2" size={20} /> Apply for Cohort (Invite Only)
           </Button>
-          <Button size="lg" variant="outline" onClick={() => { track('enterprise', 'hero-tertiary'); openExternal('https://cal.com/bhakthan/enterprise-ai', 'enterprise', 'hero-tertiary'); }}>
-            <Buildings className="mr-2" size={20} /> Book Enterprise Strategy Call
+          <Button size="lg" variant="outline" onClick={() => { track('enterprise', 'hero-tertiary'); openExternal('https://forms.gle/5VsoENWHdBU2XrFa6', 'enterprise', 'hero-tertiary'); }}>
+            <Buildings className="mr-2" size={20} /> Enterprise Strategy Form
           </Button>
         </div>
         <p className="text-xs text-muted-foreground uppercase tracking-wide">Open Source + Advanced Applied Curriculum</p>
@@ -127,8 +127,8 @@ const CTALandingPage: React.FC = () => {
               tier: 'enterprise',
               label: 'Enterprise Enablement',
               desc: 'Custom capability acceleration: maturity assessment, ratio modeling, platform alignment, governance & scaling playbooks.',
-              cta: 'Book Strategy Call',
-              action: () => openExternal('https://cal.com/bhakthan/enterprise-ai', 'enterprise', 'path-card')
+              cta: 'Strategy Form',
+              action: () => openExternal('https://forms.gle/5VsoENWHdBU2XrFa6', 'enterprise', 'path-card')
             }
           ].map(card => (
             <div key={card.label} className="p-6 rounded-xl border bg-card flex flex-col shadow-sm">
@@ -177,7 +177,7 @@ const CTALandingPage: React.FC = () => {
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <Button size="lg" onClick={() => openExternal('https://github.com/bhakthan/openagentschool', 'individual', 'cta-strip')}>Explore Free</Button>
           <Button size="lg" variant="secondary" onClick={() => openExternal('https://forms.gle/gpcekkK6KGqTNJGZ8', 'cohort', 'cta-strip')}>Apply to Cohort</Button>
-          <Button size="lg" variant="outline" onClick={() => openExternal('https://cal.com/bhakthan/enterprise-ai', 'enterprise', 'cta-strip')}>Enterprise Strategy Call</Button>
+          <Button size="lg" variant="outline" onClick={() => openExternal('https://forms.gle/5VsoENWHdBU2XrFa6', 'enterprise', 'cta-strip')}>Enterprise Strategy Form</Button>
         </div>
       </section>
 
@@ -230,7 +230,7 @@ const CTALandingPage: React.FC = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" onClick={() => openExternal('https://github.com/bhakthan/openagentschool', 'individual', 'final-cta')}>Start Free</Button>
           <Button size="lg" variant="secondary" onClick={() => openExternal('https://forms.gle/gpcekkK6KGqTNJGZ8', 'cohort', 'final-cta')}>Apply Cohort</Button>
-          <Button size="lg" variant="outline" onClick={() => openExternal('https://cal.com/bhakthan/enterprise-ai', 'enterprise', 'final-cta')}>Enterprise Call</Button>
+          <Button size="lg" variant="outline" onClick={() => openExternal('https://forms.gle/5VsoENWHdBU2XrFa6', 'enterprise', 'final-cta')}>Enterprise Strategy Form</Button>
         </div>
         <p className="text-xs text-muted-foreground mt-4">Signals of depth over hype • Architecture literacy • Operational resilience • Measurable transformation</p>
       </section>

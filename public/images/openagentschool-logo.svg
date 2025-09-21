@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Open Agent School Ladder Logo (standalone export) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="240" viewBox="0 0 200 240" role="img" aria-labelledby="title desc">
+  <title id="title">Open Agent School Logo</title>
+  <desc id="desc">Stylized ladder with four colored rungs representing progressive AI agent learning stages.</desc>
+  <!-- Background transparent -->
+  <!-- Ladder Supports (Vertical Rails) -->
+  <rect x="60" y="20" width="12" height="200" rx="6" fill="#2B2B2B" stroke="#1A1A1A" stroke-width="2"/>
+  <rect x="128" y="20" width="12" height="200" rx="6" fill="#2B2B2B" stroke="#1A1A1A" stroke-width="2"/>
+
+  <!-- Rung Shadows (depth) -->
+  <rect x="65" y="52" width="78" height="8" rx="4" fill="rgba(0,0,0,0.1)"/>
+  <rect x="65" y="92" width="78" height="8" rx="4" fill="rgba(0,0,0,0.1)"/>
+  <rect x="65" y="132" width="78" height="8" rx="4" fill="rgba(0,0,0,0.1)"/>
+  <rect x="65" y="172" width="78" height="8" rx="4" fill="rgba(0,0,0,0.1)"/>
+
+  <!-- Colored Rungs -->
+  <rect x="62" y="50" width="78" height="8" rx="4" fill="#F25022"/>
+  <circle cx="71" cy="54" r="3" fill="#FFFFFF" fill-opacity="0.3"/>
+
+  <rect x="62" y="90" width="78" height="8" rx="4" fill="#7FBA00"/>
+  <circle cx="71" cy="94" r="3" fill="#FFFFFF" fill-opacity="0.3"/>
+
+  <rect x="62" y="130" width="78" height="8" rx="4" fill="#00A4EF"/>
+  <circle cx="71" cy="134" r="3" fill="#FFFFFF" fill-opacity="0.3"/>
+
+  <rect x="62" y="170" width="78" height="8" rx="4" fill="#FFB900"/>
+  <circle cx="71" cy="174" r="3" fill="#FFFFFF" fill-opacity="0.3"/>
+
+  <!-- Learning Path Curves -->
+  <path d="M100 45 Q110 65 100 85" stroke="#00A4EF" stroke-width="2" fill="none" opacity="0.4" stroke-dasharray="3 3"/>
+  <path d="M100 85 Q90 105 100 125" stroke="#7FBA00" stroke-width="2" fill="none" opacity="0.4" stroke-dasharray="3 3"/>
+  <path d="M100 125 Q110 145 100 165" stroke="#FFB900" stroke-width="2" fill="none" opacity="0.4" stroke-dasharray="3 3"/>
+
+  <!-- Progress Arrows -->
+  <polygon points="150,55 160,50 160,60" fill="#F25022" fill-opacity="0.6"/>
+  <polygon points="150,95 160,90 160,100" fill="#7FBA00" fill-opacity="0.6"/>
+  <polygon points="150,135 160,130 160,140" fill="#00A4EF" fill-opacity="0.6"/>
+  <polygon points="150,175 160,170 160,180" fill="#FFB900" fill-opacity="0.6"/>
+</svg>

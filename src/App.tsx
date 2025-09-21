@@ -444,17 +444,30 @@ function App() {
               <p>Open Agent School - Where Agentic AI Concepts Come to Life</p>
               <p className="text-xs mt-1 opacity-75">Progressive learning • Progress your understanding through intelligent dialogue</p>
               <p className="text-xs mt-1 opacity-75">© {new Date().getFullYear()} Open Agent School</p>
-              <p className="text-sm mt-2">
-                A learning initiative by Srikanth Bhakthan - 
-                <a
-                  href="https://www.linkedin.com/in/bhakthan/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-foreground ml-1"
-                  aria-label="Srikanth Bhakthan LinkedIn profile"
-                >
-                  LinkedIn profile
-                </a>
+              <p className="text-sm mt-2 flex flex-col sm:flex-row gap-1 sm:gap-4 items-center justify-center">
+                <span>
+                  A learning initiative by
+                  <span className="ml-1 font-medium">Srikanth Bhakthan</span>
+                  <a
+                    href="https://www.linkedin.com/in/bhakthan/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-foreground ml-1"
+                    aria-label="Srikanth Bhakthan LinkedIn profile"
+                  >LinkedIn</a>
+                </span>
+                <span className="hidden sm:inline opacity-50">•</span>
+                <span>
+                  With contributions from
+                  <span className="ml-1 font-medium">Sowmiya Ravichandran</span>
+                  <a
+                    href="https://www.linkedin.com/in/sowmiyar/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-foreground ml-1"
+                    aria-label="Sowmiya Ravichandran LinkedIn profile"
+                  >LinkedIn</a>
+                </span>
               </p>
             </div>
           </footer>

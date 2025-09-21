@@ -41,7 +41,7 @@ const CTALandingPageVariant: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button size="lg" onClick={() => openExternal('https://github.com/bhakthan/openagentschool','individual','variant-hero-primary')}><Lightning className="mr-2" size={20}/>Start Free</Button>
             <Button size="lg" variant="secondary" onClick={() => openExternal('https://forms.gle/gpcekkK6KGqTNJGZ8','cohort','variant-hero-secondary')}><GraduationCap className="mr-2" size={20}/>Apply Cohort</Button>
-            <Button size="lg" variant="outline" onClick={() => openExternal('https://cal.com/bhakthan/enterprise-ai','enterprise','variant-hero-tertiary')}><Buildings className="mr-2" size={20}/>Enterprise Call</Button>
+            <Button size="lg" variant="outline" onClick={() => openExternal('https://forms.gle/5VsoENWHdBU2XrFa6','enterprise','variant-hero-tertiary')}><Buildings className="mr-2" size={20}/>Enterprise Strategy Form</Button>
           </div>
           <ul className="grid sm:grid-cols-2 gap-4 pt-4 text-base md:text-lg text-muted-foreground">
             <li className="p-4 rounded-md border bg-card/60">Capability Sequencing Playbooks</li>
