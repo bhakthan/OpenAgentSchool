@@ -1,0 +1,28 @@
+Data Quality Feedback & Repair Loop Audio Guide
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Imagine your analytics dashboard suddenly shows strange numbers because some daily data arrived with missing or broken values. The Data Quality Feedback & Repair Loop acts like a vigilant teammate who notices the issue, investigates what went wrong, tries smart fixes, and double-checks that everything looks normal again before returning the data to your reports.
+
+First, it watches for unusual patterns like spikes in empty fields or unexpected drops in key metrics. When it detects a problem, it inspects the affected columns to understand how serious the issue is. Next it generates a few repair ideas—maybe filling gaps with recent values, recalculating from trusted sources, or rolling back to the last good data. Finally, it tests each fix and only keeps the one that stabilizes the metrics, logging what happened so you can review it later.
+
+With this loop running, your team spends less time firefighting data issues and more time using reliable numbers to make decisions.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+The loop operationalizes continuous data quality assurance by linking anomaly detection, targeted profiling, candidate remediation, and validation in a closed feedback system. It begins with monitors that track table-level freshness, null density, distribution drift, and business KPIs. When thresholds trip, the profiler localizes the degradation to specific entities, columns, and cohorts, capturing statistics that contextualize the fault.
+
+A repair planner then proposes remediation strategies—imputation templates, conditional transforms, schema rollbacks, or request-for-human-review actions. Each candidate is grounded in a sandbox execution stage where pre- and post-metrics are evaluated. The validator compares KPI deltas, distribution similarity scores, and policy constraints to decide whether a fix is acceptable. Successful repairs update downstream consumers, while all attempts emit telemetry to continuously improve detection accuracy.
+
+This feedback architecture prevents silent data corruption, shortens incident resolution, and produces auditable artifacts for governance teams.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+In advanced deployments the loop coordinates specialized services through event-driven choreography. Anomaly detectors stream metrics into a quality topic; when violations appear, a profiler service constructs feature vectors describing the failure (column entropy, lineage fingerprints, semantic tags). A remediation orchestrator feeds those vectors into an LLM or rules engine that synthesizes repair recipes, ranking them by expected KPI impact and compliance risk.
+
+Each candidate executes within an isolated transactional sandbox using versioned datasets. Observability hooks record token usage, execution latency, and repair efficacy metrics. A Bayesian validator weighs confidence intervals, ensures regulatory constraints, and gates promotion to production tables. If no candidate meets acceptance criteria, the loop escalates for human intervention with a diagnostic package.
+
+Historical telemetry trains the detector to tune thresholds automatically, while successful repair artifacts populate a knowledge base that subsequent incidents can reuse. Together these components deliver continuous, low-latency resilience for mission-critical analytics pipelines.

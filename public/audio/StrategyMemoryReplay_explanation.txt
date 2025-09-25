@@ -1,0 +1,28 @@
+Strategy Memory Replay Audio Guide
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Think about solving a tough puzzle that feels familiar—you probably remember how you solved it last time and use that approach again. Strategy Memory Replay does the same thing for AI agents working on data tasks. When a new job looks similar to something done before, the system pulls up the earlier playbook, adjusts a few steps, and gets to a good answer faster.
+
+For example, investigating an unusual spike in financial risk today might resemble an incident from last quarter. Instead of starting from scratch, the agent reuses proven feature checks, diagnostics, and report templates, saving time and avoiding mistakes.
+
+By reapplying and adapting historical strategies, teams gain repeatable workflows, lower costs, and confidence that successful methods are not forgotten.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+The pattern maintains a repository of prior execution graphs annotated with metadata—task signatures, domain entities, success metrics, and resource consumption. When a new task arrives, an embedding model encodes its description and retrieves the top-k similar strategies. Each candidate graph is normalized, pruned, and adapted to the current context, updating parameters like data sources, latency budgets, or policy constraints.
+
+A scorer evaluates coverage, estimated effort reduction, and freshness of the strategy before recommending one for reuse. The replayed plan can then feed downstream patterns such as budget-constrained execution or action grounding. Telemetry captured during replay enriches the memory index, gradually improving retrieval relevance.
+
+This approach accelerates recurring analytical investigations, supports rotating teams, and injects hard-won institutional knowledge into every new task.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced deployments treat the strategy memory as a vector database with rich schema describing plan topology, KPI outcomes, and regulatory context. Retrieval uses ensemble similarity—combining semantic embeddings, structural fingerprints, and performance heuristics. Adaptation applies graph transformation primitives: node mutation, edge reweighting, and constraint propagation informed by domain ontologies.
+
+A reinforcement learning policy or large language model mediates the adaptation, simulating expected reward (coverage gain, risk reduction) before executing. Scoring incorporates Monte Carlo estimates of effort reduction and variance bounds per candidate. Approved strategies are versioned, signed, and stored with lineage metadata to satisfy audit requirements.
+
+Feedback loops track replay success rates, drift in embedding space, and emergent task clusters, triggering retraining or knowledge curation when the memory becomes stale. The result is a continually learning autonomy layer that compounds organizational expertise.

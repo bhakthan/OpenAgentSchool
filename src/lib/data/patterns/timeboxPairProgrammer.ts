@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import { TimeboxPairProgrammerVisual } from '@/components/visualization/business-use-cases/TimeboxPairProgrammerVisual';
 
 export const timeboxPairProgrammerPattern: PatternData = {
   id: 'timebox-pair-programmer',
@@ -24,6 +25,18 @@ export const timeboxPairProgrammerPattern: PatternData = {
   advantages: ['Reduces procrastination', 'Frequent feedback'],
   limitations: ['May feel rigid if overused'],
   relatedPatterns: ['Self‑Remediation Loop', 'Reflection Journaler'],
+  businessUseCase: {
+    industry: 'Engineering Productivity',
+    description: 'Internal developer experience teams embed Time-box Pair Programmer into IDE co-pilots so engineers run focused 20-minute cycles, capture blockers, and ship incremental value without losing context.',
+    visualization: TimeboxPairProgrammerVisual,
+    enlightenMePrompt: `Design a time-boxed pair-programming coach for internal dev teams.
+
+Include:
+- Micro-goal intake, timer orchestration, and reminder nudges
+- Diff review rubric + retro capture
+- Integrations with issue tracker and velocity metrics
+- Guardrails to prevent over-scheduling or burnout`
+  },
   codeExample: `// Cycle helper (TypeScript)
 export function nextCycle(goal: string) {
   return { plan: ['Write test'], durationMin: 20, reviewChecklist: ['Run tests', 'Commit diff'] };

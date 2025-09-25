@@ -1,0 +1,22 @@
+Perception Normalization Audio Guide
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Before an AI agent can plan a data task, it needs a clear picture of what data exists, how trustworthy it is, and which parts are sensitive. Perception Normalization is like creating a clean, well-labeled dashboard for the AI. It pulls in table summaries, key statistics, governance tags, and recent updates, then compresses everything into a concise info box the agent can understand.
+
+This prevents the agent from guessing column names, missing fresh data, or accidentally touching restricted information. With a trusted summary in hand, every next step happens with more confidence and less trial-and-error.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+The pattern orchestrates profiling services, catalog APIs, governance metadata, and lineage trackers to produce a canonical context bundle. It samples tables, captures null rates and distributions, lists key relationships, and attaches freshness and sensitivity tags. The output is a size-bounded JSON artifact that downstream planning models consume.
+
+By caching hashes and timestamps, perception normalization quickly detects when the underlying schema drifts, prompting regeneration. The process drastically reduces prompt token usage and keeps autonomous planners grounded in reality.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced implementations integrate streaming catalog updates, policy engines, and knowledge graphs. A scheduler triggers incremental refreshes when DDL changes, SLA breaches, or ownership updates are detected. A compression layer selects salient fields using entropy heuristics and role-based access requirements.
+
+Resulting info boxes include provenance, trust scores, and column-level embeddings that align with decomposition and grounding patterns. Observability tracks build latency, artifact size, and downstream success metrics, feeding autoscaling and prioritization logic for enterprise-scale data estates.

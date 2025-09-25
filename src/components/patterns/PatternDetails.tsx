@@ -24,6 +24,18 @@ import { deepAgentsExecutionSteps } from '@/lib/data/execution/deepAgentsExecuti
 import { modelContextProtocolExecutionSteps } from '@/lib/data/execution/modelContextProtocolExecutionSteps';
 import { modelContextProtocolPythonExecutionSteps } from '@/lib/data/execution/modelContextProtocolPythonExecutionSteps';
 import { agentEvaluationPythonExecutionSteps } from '@/lib/data/execution/agentEvaluationPythonExecutionSteps';
+import { conceptToProjectExecutionSteps } from '@/lib/data/execution/conceptToProjectExecutionSteps';
+import { errorWhispererExecutionSteps } from '@/lib/data/execution/errorWhispererExecutionSteps';
+import { knowledgeMapNavigatorExecutionSteps } from '@/lib/data/execution/knowledgeMapNavigatorExecutionSteps';
+import { peerReviewSimulatorExecutionSteps } from '@/lib/data/execution/peerReviewSimulatorExecutionSteps';
+import { socraticCoachExecutionSteps } from '@/lib/data/execution/socraticCoachExecutionSteps';
+import { toolUseCoachExecutionSteps } from '@/lib/data/execution/toolUseCoachExecutionSteps';
+import { challengeLadderGeneratorExecutionSteps } from '@/lib/data/execution/challengeLadderGeneratorExecutionSteps';
+import { misconceptionDetectorExecutionSteps } from '@/lib/data/execution/misconceptionDetectorExecutionSteps';
+import { timeboxPairProgrammerExecutionSteps } from '@/lib/data/execution/timeboxPairProgrammerExecutionSteps';
+import { dataQualityFeedbackLoopExecutionSteps } from '@/lib/data/execution/dataQualityFeedbackLoopExecutionSteps';
+import { queryIntentStructuredAccessExecutionSteps } from '@/lib/data/execution/queryIntentStructuredAccessExecutionSteps';
+import { strategyMemoryReplayExecutionSteps } from '@/lib/data/execution/strategyMemoryReplayExecutionSteps';
 import { getAlgorithmVisualization } from '@/lib/utils/algorithmVisualization';
 
 interface PatternDetailsProps {
@@ -134,6 +146,66 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             )}
             {pattern.id === 'sensory-reasoning-enhancement' && (
               <TabsTrigger value="live-runner-sensory" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'concept-to-project' && (
+              <TabsTrigger value="live-runner-concept" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'error-whisperer' && (
+              <TabsTrigger value="live-runner-error" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'knowledge-map-navigator' && (
+              <TabsTrigger value="live-runner-knowledge" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'peer-review-simulator' && (
+              <TabsTrigger value="live-runner-peer-review" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'socratic-coach' && (
+              <TabsTrigger value="live-runner-socratic" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'tool-use-coach' && (
+              <TabsTrigger value="live-runner-tool-use-coach" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'challenge-ladder-generator' && (
+              <TabsTrigger value="live-runner-challenge-ladder" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'misconception-detector' && (
+              <TabsTrigger value="live-runner-misconception" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'timebox-pair-programmer' && (
+              <TabsTrigger value="live-runner-timebox" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'data-quality-feedback-repair-loop' && (
+              <TabsTrigger value="live-runner-data-quality-feedback" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'query-intent-structured-access' && (
+              <TabsTrigger value="live-runner-query-intent" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'strategy-memory-replay' && (
+              <TabsTrigger value="live-runner-strategy-memory" className="flex items-center gap-2">
                 <Code size={16} /> Live Runner
               </TabsTrigger>
             )}
@@ -350,6 +422,138 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
           {pattern.id === 'sensory-reasoning-enhancement' && (
             <TabsContent value="live-runner-sensory" className="pt-4">
               {pattern.codeVisualizer && React.createElement(pattern.codeVisualizer)}
+            </TabsContent>
+          )}
+          {pattern.id === 'concept-to-project' && (
+            <TabsContent value="live-runner-concept" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={conceptToProjectExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'error-whisperer' && (
+            <TabsContent value="live-runner-error" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={errorWhispererExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'knowledge-map-navigator' && (
+            <TabsContent value="live-runner-knowledge" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={knowledgeMapNavigatorExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'peer-review-simulator' && (
+            <TabsContent value="live-runner-peer-review" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={peerReviewSimulatorExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'socratic-coach' && (
+            <TabsContent value="live-runner-socratic" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={socraticCoachExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'tool-use-coach' && (
+            <TabsContent value="live-runner-tool-use-coach" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={toolUseCoachExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'challenge-ladder-generator' && (
+            <TabsContent value="live-runner-challenge-ladder" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={challengeLadderGeneratorExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'misconception-detector' && (
+            <TabsContent value="live-runner-misconception" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={misconceptionDetectorExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'timebox-pair-programmer' && (
+            <TabsContent value="live-runner-timebox" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={timeboxPairProgrammerExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'data-quality-feedback-repair-loop' && (
+            <TabsContent value="live-runner-data-quality-feedback" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={dataQualityFeedbackLoopExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'query-intent-structured-access' && (
+            <TabsContent value="live-runner-query-intent" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={queryIntentStructuredAccessExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'strategy-memory-replay' && (
+            <TabsContent value="live-runner-strategy-memory" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={strategyMemoryReplayExecutionSteps as any}
+              />
             </TabsContent>
           )}
         </Tabs>

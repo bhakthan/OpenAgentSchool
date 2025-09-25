@@ -1,0 +1,22 @@
+Action Grounding & Verification Audio Guide
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Before an AI agent runs a script, sends an email, or updates records, we want to double-check that the action is safe and accurate. The Action Grounding & Verification pattern is that reliability step. It reviews the agent’s plan, runs the action in a test environment, compares results to expectations, and only approves the real execution when everything checks out.
+
+This prevents embarrassing mistakes and keeps automations trustworthy. If something looks off, the system asks for clarification or adjusts the plan before trying again.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+The pattern wraps execution with a validation harness. Each action proposal references the grounded context (schemas, policies, user intent). A verifier runs the action in simulation or sandboxes, collecting outputs, logs, and side effects. It evaluates assertions—row counts, schema conformity, policy compliance, KPI thresholds—and generates a verdict.
+
+Approved actions receive signatures and swap into production, while failures trigger refinement loops or human review. Telemetry captures false positive/negative rates to refine checks over time. This layer complements perception normalization, schema-aware decomposition, and policy-gated invocation.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced deployments integrate differential testing, shadow traffic, and formal policy verification. Actions compile into declarative specs that SAT/SMT solvers or static analyzers inspect for invariants. Sandboxed runs ingest realistic data snapshots and compare telemetry against historical benchmarks.
+
+A multi-armed bandit may choose verification depth based on risk score, balancing latency versus assurance. Provenance records link every approved action to its grounded context, risk assessment, and validator version for audit trails. Feedback loops automatically broaden or tighten checks to maintain a target risk tolerance as the action surface evolves.

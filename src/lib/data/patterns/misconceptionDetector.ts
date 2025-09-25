@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import { MisconceptionDetectorVisual } from '@/components/visualization/business-use-cases/MisconceptionDetectorVisual';
 
 export const misconceptionDetectorPattern: PatternData = {
   id: 'misconception-detector',
@@ -24,6 +25,18 @@ export const misconceptionDetectorPattern: PatternData = {
   advantages: ['Targeted remediation', 'Faster progress'],
   limitations: ['False positives possible'],
   relatedPatterns: ['Rubric Rater', 'Spaced Repetition Planner'],
+  businessUseCase: {
+    industry: 'EdTech',
+    description: 'Assessment platforms run Misconception Detector after quizzes to catch systematic misunderstandings and instantly push micro-lessons plus spaced review cards to learners and instructors.',
+    visualization: MisconceptionDetectorVisual,
+    enlightenMePrompt: `Plan a misconception detection service for quiz pipelines.
+
+Cover:
+- Mapping responses to misconception taxonomy and confidence
+- Generating corrective micro-lessons + formative checks
+- Integrations with LMS gradebook & spaced repetition queues
+- Precision/recall monitoring and human override tools`
+  },
   codeExample: `// Detect misconception (TypeScript)
 export function detect(text: string) {
   return [{ label: 'Confusing precision vs recall', fix: 'Work through example confusion matrix.' }];

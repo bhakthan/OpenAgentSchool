@@ -1,0 +1,28 @@
+Schema-Aware Decomposition Audio Guide
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Large analytics requests can feel overwhelming—“Audit our customer churn drivers across every region” sounds huge. Schema-Aware Decomposition breaks that big request into smaller, organized tasks based on how your data is actually structured. It studies table relationships, column types, and business rules so every sub-task lines up with real, trustworthy data.
+
+Instead of guessing, the agent creates a step-by-step plan: pull customer segments from one table, join them with subscription events from another, and analyze churn reasons safely. By respecting the schema from the start, the plan avoids missing columns, typos, or oversized queries that slow systems down.
+
+You get faster, more reliable answers because the agent thinks like a data modeler—not just a chatbot.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This pattern couples planning with schema intelligence. A graph of tables, foreign keys, materialized views, and semantic tags is ingested to ground the LLM’s reasoning. When a user request arrives, the system maps intent to a topological sort of operations: select sources, filter cohorts, derive features, and compute metrics.
+
+The planner enforces constraints such as join cardinality limits, freshness requirements, and governance tags. Each sub-task inherits schema snippets, reducing prompt token usage and preventing hallucinated columns. The output is a structured execution graph ready for budget-constrained execution or human review.
+
+Telemetry captures plan success, cost, and any corrections, feeding an iterative improvement loop that keeps decomposition aligned with evolving data models.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced implementations maintain a canonical knowledge base that blends data catalog metadata, lineage graphs, query logs, and semantic layer models. A planner LLM or neuro-symbolic engine generates candidate decompositions which are scored using schema validators, cost estimators, and safety heuristics. The system may apply integer programming or constraint solvers to meet optimization goals like minimizing cross-region data movement.
+
+Plans carry rich annotations—column sensitivity, expected row counts, dependency order—that downstream components enforce. If feedback indicates schema drift or failure, the system triggers re-profiling, updates the knowledge graph, and retrains ranking models.
+
+By baking structural awareness into planning, organizations reduce rework, accelerate onboarding of new analysts, and create reproducible analytical playbooks.

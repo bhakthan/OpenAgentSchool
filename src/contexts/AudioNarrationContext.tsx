@@ -561,6 +561,14 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'misconception-detector': 'MisconceptionDetector',
         'time-box-pair-programmer': 'TimeboxPairProgrammer',
         'tool-use-coach': 'ToolUseCoach',
+  'data-quality-feedback-repair-loop': 'DataQualityFeedbackRepairLoop',
+  'query-intent-structured-access': 'QueryIntentStructuredAccess',
+  'strategy-memory-replay': 'StrategyMemoryReplay',
+  'schema-aware-decomposition': 'SchemaAwareDecomposition',
+  'policy-gated-tool-invocation': 'PolicyGatedToolInvocation',
+  'perception-normalization': 'PerceptionNormalization',
+  'budget-constrained-execution': 'BudgetConstrainedExecution',
+  'action-grounding-verification': 'ActionGroundingVerification',
         
         // Direct component names (already in correct format)
         'A2ACommunicationPatterns': 'A2ACommunicationPatterns',

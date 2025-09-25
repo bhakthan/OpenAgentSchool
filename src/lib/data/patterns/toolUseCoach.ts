@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import { ToolUseCoachVisual } from '@/components/visualization/business-use-cases/ToolUseCoachVisual';
 
 export const toolUseCoachPattern: PatternData = {
   id: 'tool-use-coach',
@@ -27,6 +28,18 @@ export const toolUseCoachPattern: PatternData = {
   advantages: ['Reduces retries', 'Promotes best practices', 'Improves reproducibility'],
   limitations: ['Tool docs drift over time'],
   relatedPatterns: ['Modern Tool Use', 'Routing'],
+  businessUseCase: {
+    industry: 'Developer Enablement',
+    description: 'Platform teams embed the Tool-Use Coach to review internal CLI/API usage before merge. Engineers paste commands, receive guardrail checks, and log policy-compliant exemplars for future teammates.',
+    visualization: ToolUseCoachVisual,
+    enlightenMePrompt: `Design a tool-use coaching agent for internal APIs.
+
+Cover:
+- Command/SDK linting heuristics and allowlists
+- Linking to golden exemplars and platform docs
+- Telemetry on common misuses for docs backlog
+- Escalation path when violations persist`
+  },
   codeExample: `// Validate a curl call (TypeScript)
 export function validateCurl(cmd: string) {
   const hasSilent = cmd.includes('-s');

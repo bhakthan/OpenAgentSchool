@@ -1,0 +1,24 @@
+Budget-Constrained Execution Loop Audio Guide
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Imagine giving an AI assistant a checklist but also saying, “You have 50 minutes and this much budget—stop if you run out.” The Budget-Constrained Execution Loop enforces those limits. It works through an ordered plan, watches how long each step takes, tracks token or API spend, and stops early if targets are met or costs get too high.
+
+This keeps automated workflows predictable. Teams avoid runaway loops, surprise bills, or late reports. The AI focuses on the most valuable steps first, and if success conditions are satisfied, it ends before wasting resources.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Technically, the loop consumes a DAG produced by schema-aware decomposition. It maintains queues of ready tasks, monitors cumulative budgets (attempts, tokens, latency), and records outcomes per step. Before executing a node, it checks remaining headroom; if depleted, it enters graceful shutdown.
+
+Each execution delegates to action grounding for validation and emits telemetry that updates the budget tracker. Evaluation heuristics determine whether to enqueue dependents, retry, or early-terminate. The loop exposes metrics for burn-down charts, enabling product teams to tune budgets by scenario.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced versions integrate probabilistic cost estimation and reinforcement learning policies. A cost model predicts expected resource usage per step based on historical runs and context. The scheduler dynamically reorders nodes to maximize expected value under budget constraints.
+
+Retries obey exponential backoff with jitter, while fallback paths trigger when quality scores drop below thresholds. Observability spans distributed tracing, structured budget events, and policy-driven alerts. Integration with platform billing systems allows finance teams to audit spend at the workflow and step level.
+
+Over time, the loop learns which steps frequently exceed budgets, prompting plan refinements or pre-approvals, thereby coupling autonomy with financial governance.

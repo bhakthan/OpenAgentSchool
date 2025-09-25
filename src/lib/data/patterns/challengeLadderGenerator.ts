@@ -1,4 +1,5 @@
 import { PatternData } from './types';
+import { ChallengeLadderVisual } from '@/components/visualization/business-use-cases/ChallengeLadderVisual';
 
 export const challengeLadderGeneratorPattern: PatternData = {
   id: 'challenge-ladder-generator',
@@ -24,6 +25,18 @@ export const challengeLadderGeneratorPattern: PatternData = {
   advantages: ['Clear progression', 'Motivating milestones'],
   limitations: ['Needs domain vetting'],
   relatedPatterns: ['Rubric Rater', 'Spaced Repetition Planner'],
+  businessUseCase: {
+    industry: 'Workforce Upskilling',
+    description: 'An enterprise academy turns role competencies into progression ladders. Learners unlock each tier after submitting evidence; managers see prerequisites, rubrics, and suggested practice projects.',
+    visualization: ChallengeLadderVisual,
+    enlightenMePrompt: `Architect a challenge ladder generator for a corporate academy.
+
+Include:
+- Skill graph ingestion and dependency detection
+- Level design (wins, benchmarks, resources)
+- Unlock logic and evidence submission workflow
+- Analytics: cohort progression, stuck nodes, badge issuance`
+  },
   codeExample: `// Levels scaffold (TypeScript)
 export type Task = { title: string; prereqs: string[] };
 export function ladder(goal: string): Task[][] {

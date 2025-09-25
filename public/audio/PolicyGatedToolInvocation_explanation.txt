@@ -1,0 +1,28 @@
+Policy-Gated Tool Invocation Audio Guide
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Picture an AI helper that wants to update thousands of CRM records. Before it can push the button, a smart safety officer checks the request: Is this action allowed? Does it touch sensitive customers? Is the volume too large? The Policy-Gated Tool Invocation pattern is that safety officer. It examines every tool call, compares it against rules, and only approves requests that pass the checks.
+
+The process reads the agent’s intent, maps it to known capabilities, evaluates risk, runs policy rules, and logs the final decision. If anything seems risky or outside policy, the call is blocked or escalated for review.
+
+This keeps automations fast yet safe, preventing costly mistakes while maintaining an auditable trail.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Operationally, the pattern inserts an enforcement gateway between planning and execution. An intent parser structures the invocation payload (operation type, scope, data sensitivity). Capability mapping translates the request into canonical actions governed by policy. Risk scoring inspects scope size, historical error profiles, and context to produce a quantitative risk measure.
+
+The policy lattice—often implemented as decision tables, rule engines, or graph-based entitlements—evaluates the request. Outcomes include allow, deny, require human approval, or re-plan with constrained parameters. Approved calls are signed, encrypted, and logged with trace identifiers so downstream systems can verify provenance. Telemetry feeds back into risk models to tune thresholds.
+
+This gateway reduces unsafe mutations, enforces least-privilege access, and provides compliance teams with transparent evidence of controls.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+In mature architectures the gateway operates as a distributed microservice mesh. Intent parsing uses schema-aware LLMs to normalize payloads, while capability catalogs integrate with service registries and API descriptions. Risk scoring blends statistical anomaly detectors, Monte Carlo simulations of blast radius, and policy-weighted factors like PII exposure or financial impact.
+
+Policies may be expressed in Rego, Cedar, or domain-specific governance languages and executed against real-time context (user role, current incidents, rate limits). Approved invocations receive cryptographic attestations (e.g., JWT with policy hash) that downstream services verify before acting. All decisions stream into an audit log and analytics warehouse for compliance dashboards.
+
+Feedback loops reconcile policy drift, track false positives, and support automated policy suggestions as the action surface evolves.

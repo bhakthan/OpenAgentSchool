@@ -1,0 +1,28 @@
+Query Intent → Structured Access Audio Guide
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+When someone asks a natural language question like “Show me last quarter sales for Europe,” the Query Intent → Structured Access pattern translates that plain request into a safe, precise plan before any data is touched. It figures out what the person wants, which tables or dashboards they should see, and what filters are needed, all while making sure they are allowed to access it.
+
+The system first classifies the type of question—comparison, trend, top-performers, and so on. It then matches words like “sales” or “Europe” to known metrics and regions in your data catalog. Next it checks that the time range and other filters make sense, and verifies that the user has permission to see the requested information. Only after everything is validated does it build the structured query that a database or BI tool can run.
+
+The result is faster, safer answers because the AI handles the translations and guardrails for you. You get exactly the report you need without worrying about typo-heavy SQL or accidental data exposure.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+This pattern implements a multi-stage NLQ (natural language query) pipeline. An intent classifier uses embeddings and prompt-engineered hints to map the utterance to a canonical analytical template (e.g., compare_metric, trend_over_time). An entity binder resolves metrics, dimensions, and measures against a governed semantic dictionary, handling synonyms and resolving ambiguity through similarity scoring and disambiguation prompts.
+
+A parameter validator enforces structural rules—date ranges within retention windows, aggregation compatibility, and required groupings—while guarding against injection or malformed clauses. Policy evaluation applies row-level security, column masking, and rate limits tailored to the requester’s entitlements. The outcome is a structured JSON plan that downstream services can compile into SQL or orchestrated BI calls.
+
+Because the plan is explicit and auditable, teams can troubleshoot failures quickly, monitor query mix trends, and extend the library of safe analytical templates over time.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+In advanced implementations the pipeline fuses language models with deterministic parsers and governance microservices. A hybrid parser produces an abstract syntax tree annotated with intent probabilities, slot candidates, and uncertainty scores. Active learning loops route low-confidence bindings to human validators who enrich the synonym graph and policy hints. Context merging integrates session history, saved views, and business calendars to infer implicit filters.
+
+Policy enforcement leverages a capability lattice that encodes data residency, privacy tiers, and workload quotas. Plans compile into dialect-aware SQL, graph queries, or API orchestrations while emitting provenance metadata. Observability tracks intent drift, binding latency, and policy denials, feeding retraining jobs that keep classification accurate as vocabulary evolves.
+
+The architecture often exposes a plan review API so BI engineers can compare the structured intents to actual SQL, ensuring explainability and compliance across the analytics self-service surface.
