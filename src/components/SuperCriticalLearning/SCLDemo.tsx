@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
@@ -12,10 +12,21 @@ import {
   Download,
   BookOpen,
   Target,
-  Shuffle
+  Shuffle,
+  Layers
 } from 'lucide-react';
 import SCLGraph, { SCLEffect } from './SCLGraph';
 import AdvancedFeatures from './AdvancedFeatures';
+import { useNavigate } from 'react-router-dom';
+import { agentPatterns } from '@/lib/data/patterns';
+import type { PatternData } from '@/lib/data/patterns';
+import { allMasteryPatternIds, patternMasteryBands, type MasteryTier, type PatternMasteryBand } from '@/lib/data/studyMode/patternMastery';
+import { failureModes, type FailureMode } from '@/lib/data/studyMode/failureModes';
+import { adaptiveRules, type AdaptiveRule } from '@/lib/data/studyMode/adaptiveRules';
+import { transferChallenges, type TransferChallenge } from '@/lib/data/studyMode/transferChallenges';
+import { compositeScenarioQuestions } from '@/lib/data/studyMode/compositeScenarios';
+import { emitTelemetry } from '@/lib/data/studyMode/telemetry';
+import type { StudyModeQuestion } from '@/lib/data/studyMode/types';
 
 // Sample SCL effects for demonstration
 export const sampleEffects: SCLEffect[] = [
@@ -81,6 +92,115 @@ export const SCLDemo: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [effects, setEffects] = useState<SCLEffect[]>(sampleEffects);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const dataAutonomyPatterns = useMemo<PatternData[]>(() => {
+    const ids = new Set(allMasteryPatternIds);
+    return agentPatterns.filter(pattern => ids.has(pattern.id));
+  }, []);
+
+  const masteryByPattern = useMemo<Record<string, PatternMasteryBand[]>>(() => {
+    const grouped: Record<string, PatternMasteryBand[]> = {};
+    patternMasteryBands.forEach(band => {
+      if (!grouped[band.patternId]) {
+        grouped[band.patternId] = [];
+      }
+      grouped[band.patternId].push(band);
+    });
+    return grouped;
+  }, []);
+
+  const failureModesByPattern = useMemo<Record<string, FailureMode[]>>(() => {
+    const grouped: Record<string, FailureMode[]> = {};
+    failureModes.forEach(mode => {
+      if (!grouped[mode.patternId]) {
+        grouped[mode.patternId] = [];
+      }
+      grouped[mode.patternId].push(mode);
+    });
+    return grouped;
+  }, []);
+
+  const adaptiveRulesByPattern = useMemo<Record<string, AdaptiveRule[]>>(() => {
+    const grouped: Record<string, AdaptiveRule[]> = {};
+    adaptiveRules.forEach(rule => {
+      if (!grouped[rule.trigger.patternId]) {
+        grouped[rule.trigger.patternId] = [];
+      }
+      grouped[rule.trigger.patternId].push(rule);
+    });
+    return grouped;
+  }, []);
+
+  const transferByPattern = useMemo<Record<string, TransferChallenge[]>>(() => {
+    const grouped: Record<string, TransferChallenge[]> = {};
+    transferChallenges.forEach(challenge => {
+      challenge.compositePatterns.forEach(patternId => {
+        if (!grouped[patternId]) {
+          grouped[patternId] = [];
+        }
+        grouped[patternId].push(challenge);
+      });
+    });
+    return grouped;
+  }, []);
+
+  const scenariosByPattern = useMemo<Record<string, StudyModeQuestion[]>>(() => {
+    const grouped: Record<string, StudyModeQuestion[]> = {};
+    compositeScenarioQuestions.forEach(question => {
+      const ids = new Set([question.conceptId, ...(question.relatedConcepts || [])]);
+      ids.forEach(patternId => {
+        if (!patternId) return;
+        if (!grouped[patternId]) {
+          grouped[patternId] = [];
+        }
+        grouped[patternId].push(question);
+      });
+    });
+    return grouped;
+  }, []);
+
+  const telemetryEventSummaries = useMemo(
+    () => [
+      { kind: 'pattern_attempt', description: 'Emitted when a learner launches a pattern-focused SCL session.' },
+      { kind: 'failure_mode_triggered', description: 'Recorded whenever a failure mode panel drives a remediation branch.' },
+      { kind: 'mastery_tier_up', description: 'Captures progression from one mastery tier to the next for the active pattern.' },
+      { kind: 'adaptive_rule_fired', description: 'Logs adaptive heuristics routing learners to hints or remediation scenarios.' },
+      { kind: 'transfer_challenge_start', description: 'Marks the start of a fusion or transfer challenge session.' },
+      { kind: 'transfer_challenge_complete', description: 'Marks successful completion of a fusion challenge with outcome signals.' }
+    ],
+    []
+  );
+
+  const [activeDataPatternId, setActiveDataPatternId] = useState(() => dataAutonomyPatterns[0]?.id ?? '');
+
+  const activeDataPattern = useMemo(() => {
+    if (!activeDataPatternId) return dataAutonomyPatterns[0];
+    return dataAutonomyPatterns.find(pattern => pattern.id === activeDataPatternId) || dataAutonomyPatterns[0];
+  }, [dataAutonomyPatterns, activeDataPatternId]);
+
+  const masteryOrder: MasteryTier[] = ['recognition', 'application', 'optimization', 'governance'];
+
+  const masteryBandsForActive = activeDataPattern ? (masteryByPattern[activeDataPattern.id] || []).slice().sort((a, b) => masteryOrder.indexOf(a.tier) - masteryOrder.indexOf(b.tier)) : [];
+  const failureModesForActive = activeDataPattern ? (failureModesByPattern[activeDataPattern.id] || []) : [];
+  const adaptiveRulesForActive = activeDataPattern ? (adaptiveRulesByPattern[activeDataPattern.id] || []) : [];
+  const transferChallengesForActive = activeDataPattern ? (transferByPattern[activeDataPattern.id] || []) : [];
+  const scenariosForActive = activeDataPattern ? (scenariosByPattern[activeDataPattern.id] || []) : [];
+
+  const handleLaunchPattern = (patternId: string) => {
+    try { emitTelemetry({ kind: 'pattern_attempt', patternId }); } catch {}
+    navigate(`/study-mode?pattern=${patternId}&mode=scl`);
+  };
+
+  const handleLaunchTransfer = (challengeId: string, patternId?: string) => {
+    try { emitTelemetry({ kind: 'transfer_challenge_start', patternId, transferId: challengeId }); } catch {}
+    navigate(`/study-mode?mode=scenario&transfer=${challengeId}`);
+  };
+
+  const handleLaunchScenario = (questionId: string, patternId?: string) => {
+    try { emitTelemetry({ kind: 'transfer_challenge_start', patternId, transferId: questionId }); } catch {}
+    navigate(`/study-mode?mode=scenario&question=${questionId}`);
+  };
 
   // Simulate loading effects
   const refreshEffects = async () => {
@@ -142,7 +262,7 @@ export const SCLDemo: React.FC = () => {
 
       {/* Main Content */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">
             <BookOpen className="w-4 h-4 mr-2" />
             Overview
@@ -158,6 +278,10 @@ export const SCLDemo: React.FC = () => {
           <TabsTrigger value="integration">
             <Target className="w-4 h-4 mr-2" />
             Full Integration
+          </TabsTrigger>
+          <TabsTrigger value="data-autonomy">
+            <Layers className="w-4 h-4 mr-2" />
+            Data Autonomy Mastery
           </TabsTrigger>
         </TabsList>
 
@@ -431,6 +555,269 @@ export const SCLDemo: React.FC = () => {
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* Data Autonomy Mastery Layer */}
+        <TabsContent value="data-autonomy" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Layers className="w-5 h-5" />
+                Data Autonomy Mastery Control Center
+              </CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Explore mastery rubrics, failure mode panels, adaptive heuristics, and fusion challenges across all eight Data Autonomy patterns.
+              </p>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {dataAutonomyPatterns.length === 0 ? (
+                <p className="text-sm text-muted-foreground">No Data Autonomy patterns detected.</p>
+              ) : (
+                <>
+                  <div className="flex flex-wrap gap-2">
+                    {dataAutonomyPatterns.map(pattern => (
+                      <Button
+                        key={pattern.id}
+                        size="sm"
+                        variant={activeDataPattern?.id === pattern.id ? 'default' : 'outline'}
+                        onClick={() => setActiveDataPatternId(pattern.id)}
+                      >
+                        {pattern.name}
+                      </Button>
+                    ))}
+                  </div>
+                  {activeDataPattern && (
+                    <div className="border rounded-lg p-4 bg-muted/30">
+                      <div className="flex flex-wrap items-start justify-between gap-4">
+                        <div className="max-w-3xl space-y-2">
+                          <h3 className="text-lg font-semibold">{activeDataPattern.name}</h3>
+                          <p className="text-sm text-muted-foreground">{activeDataPattern.description}</p>
+                          <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+                            {activeDataPattern.relatedPatterns?.length ? (
+                              <span>Related: {activeDataPattern.relatedPatterns.join(', ')}</span>
+                            ) : null}
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <Button size="sm" onClick={() => handleLaunchPattern(activeDataPattern.id)}>
+                            <Play className="w-4 h-4 mr-2" />
+                            Launch in Study Mode
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => navigate(`/patterns/${activeDataPattern.id}`)}
+                          >
+                            <BookOpen className="w-4 h-4 mr-2" />
+                            View Pattern Guide
+                          </Button>
+                        </div>
+                      </div>
+                      {activeDataPattern.businessUseCase && (
+                        <div className="mt-3 text-sm text-muted-foreground">
+                          <strong>Business Use Case:</strong> {activeDataPattern.businessUseCase.industry} — {activeDataPattern.businessUseCase.description}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          {activeDataPattern && (
+            <>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Mastery Rubric (Recognition → Governance)</CardTitle>
+                    <p className="text-sm text-muted-foreground">Four-tier rubric outlining advancement signals and upgrade criteria.</p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {masteryBandsForActive.length === 0 && (
+                      <p className="text-sm text-muted-foreground">No mastery rubric entries defined.</p>
+                    )}
+                    {masteryBandsForActive.map(band => (
+                      <div key={`${band.patternId}-${band.tier}`} className="rounded-lg border p-4 bg-background">
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <Badge variant="secondary" className="uppercase tracking-wide">{band.tier}</Badge>
+                          <span className="text-xs text-muted-foreground">Upgrade gates: {band.upgradeCriteria.length}</span>
+                        </div>
+                        <div className="space-y-2 text-sm">
+                          <div>
+                            <span className="font-medium">Signals</span>
+                            <ul className="list-disc list-inside text-muted-foreground">
+                              {band.signals.map((signal, idx) => (
+                                <li key={idx}>{signal}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div>
+                            <span className="font-medium">Anti-signals</span>
+                            <ul className="list-disc list-inside text-muted-foreground">
+                              {band.antiSignals.map((signal, idx) => (
+                                <li key={idx}>{signal}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div>
+                            <span className="font-medium">Advance by</span>
+                            <ul className="list-disc list-inside text-muted-foreground">
+                              {band.upgradeCriteria.map((criteria, idx) => (
+                                <li key={idx}>{criteria}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Failure Modes & Adaptive Heuristics</CardTitle>
+                    <p className="text-sm text-muted-foreground">Top failure modes surfaced inline with adaptive routing rules that trigger remediation.</p>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h4 className="text-sm font-semibold mb-2">Failure Mode Panels</h4>
+                      {failureModesForActive.length === 0 ? (
+                        <p className="text-sm text-muted-foreground">No failure modes defined for this pattern.</p>
+                      ) : (
+                        <div className="space-y-3">
+                          {failureModesForActive.map(mode => (
+                            <div key={`${mode.patternId}-${mode.mode}`} className="border rounded-lg p-3 text-sm">
+                              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                <span className="font-medium">{mode.mode}</span>
+                                <Badge variant={mode.impact === 'high' ? 'destructive' : mode.impact === 'medium' ? 'secondary' : 'outline'} className="uppercase">
+                                  {mode.impact}
+                                </Badge>
+                              </div>
+                              <p className="text-muted-foreground mb-2">{mode.description}</p>
+                              <div className="text-xs text-muted-foreground space-y-1">
+                                <div><strong>Detection:</strong> {mode.detectionSignal}</div>
+                                <div><strong>Remediation:</strong> {mode.remediation}</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div>
+                      <h4 className="text-sm font-semibold mb-2">Adaptive Heuristics</h4>
+                      {adaptiveRulesForActive.length === 0 ? (
+                        <p className="text-sm text-muted-foreground">No adaptive rules currently configured.</p>
+                      ) : (
+                        <div className="space-y-3">
+                          {adaptiveRulesForActive.map(rule => (
+                            <div key={rule.id} className="border rounded-lg p-3 text-sm bg-muted/20">
+                              <div className="mb-2 text-xs uppercase text-muted-foreground">Trigger: {rule.trigger.signal}{rule.trigger.topic ? ` · ${rule.trigger.topic}` : ''}</div>
+                              <div className="font-medium mb-1">{rule.prescribe.action.replace(/-/g, ' ')}</div>
+                              <div className="text-xs text-muted-foreground space-y-1">
+                                <div><strong>Resource:</strong> {rule.prescribe.resourceRef}</div>
+                                <div><strong>Rationale:</strong> {rule.prescribe.rationale}</div>
+                                {typeof rule.trigger.threshold === 'number' && (
+                                  <div><strong>Threshold:</strong> {rule.trigger.threshold}</div>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Transfer (Fusion) Challenges</CardTitle>
+                    <p className="text-sm text-muted-foreground">Run cross-pattern assessments to ensure selective strategy reuse under drift and decomposition scenarios.</p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {transferChallengesForActive.length === 0 ? (
+                      <p className="text-sm text-muted-foreground">No transfer challenges available for this pattern.</p>
+                    ) : (
+                      transferChallengesForActive.map(challenge => (
+                        <div key={challenge.id} className="border rounded-lg p-4 bg-background space-y-2 text-sm">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-medium">{challenge.title}</span>
+                            <Badge variant="outline">{challenge.compositePatterns.join(' + ')}</Badge>
+                          </div>
+                          <p className="text-muted-foreground">{challenge.description}</p>
+                          <ul className="list-disc list-inside text-xs text-muted-foreground space-y-1">
+                            {challenge.evaluationCriteria.map((criterion, idx) => (
+                              <li key={idx}>{criterion}</li>
+                            ))}
+                          </ul>
+                          {challenge.hint && (
+                            <p className="text-xs text-muted-foreground italic">Hint: {challenge.hint}</p>
+                          )}
+                          <div className="flex flex-wrap gap-2">
+                            <Button size="sm" onClick={() => handleLaunchTransfer(challenge.id, activeDataPattern.id)}>
+                              <Play className="w-4 h-4 mr-2" />
+                              Launch Challenge
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => emitTelemetry({ kind: 'transfer_challenge_complete', patternId: activeDataPattern.id, transferId: challenge.id })}
+                            >
+                              <Zap className="w-4 h-4 mr-2" />
+                              Simulate Completion
+                            </Button>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Composite Scenarios & Telemetry</CardTitle>
+                    <p className="text-sm text-muted-foreground">Launch composite scenarios and review telemetry events emitted during mastery progression.</p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <h4 className="text-sm font-semibold mb-2">Composite Scenarios</h4>
+                      {scenariosForActive.length === 0 ? (
+                        <p className="text-sm text-muted-foreground">No composite scenarios available.</p>
+                      ) : (
+                        <div className="space-y-3">
+                          {scenariosForActive.map(question => (
+                            <div key={question.id} className="border rounded-lg p-3 text-sm bg-muted/10">
+                              <div className="font-medium mb-1">{question.title}</div>
+                              <p className="text-muted-foreground mb-2">{question.explanation}</p>
+                              <Button size="sm" variant="outline" onClick={() => handleLaunchScenario(question.id, activeDataPattern.id)}>
+                                <Play className="w-4 h-4 mr-2" />
+                                Launch Scenario
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div>
+                      <h4 className="text-sm font-semibold mb-2">Telemetry Schema</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-muted-foreground">
+                        {telemetryEventSummaries.map(event => (
+                          <div key={event.kind} className="border rounded-lg p-3 bg-background">
+                            <div className="font-medium text-foreground mb-1">{event.kind}</div>
+                            <p>{event.description}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </>
+          )}
         </TabsContent>
       </Tabs>
     </div>
