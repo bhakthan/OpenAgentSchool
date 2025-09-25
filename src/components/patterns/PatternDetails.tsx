@@ -36,6 +36,11 @@ import { timeboxPairProgrammerExecutionSteps } from '@/lib/data/execution/timebo
 import { dataQualityFeedbackLoopExecutionSteps } from '@/lib/data/execution/dataQualityFeedbackLoopExecutionSteps';
 import { queryIntentStructuredAccessExecutionSteps } from '@/lib/data/execution/queryIntentStructuredAccessExecutionSteps';
 import { strategyMemoryReplayExecutionSteps } from '@/lib/data/execution/strategyMemoryReplayExecutionSteps';
+import { schemaAwareDecompositionExecutionSteps } from '@/lib/data/execution/schemaAwareDecompositionExecutionSteps';
+import { policyGatedInvocationExecutionSteps } from '@/lib/data/execution/policyGatedInvocationExecutionSteps';
+import { perceptionNormalizationExecutionSteps } from '@/lib/data/execution/perceptionNormalizationExecutionSteps';
+import { budgetConstrainedExecutionExecutionSteps } from '@/lib/data/execution/budgetConstrainedExecutionExecutionSteps';
+import { actionGroundingVerificationExecutionSteps } from '@/lib/data/execution/actionGroundingVerificationExecutionSteps';
 import { getAlgorithmVisualization } from '@/lib/utils/algorithmVisualization';
 
 interface PatternDetailsProps {
@@ -206,6 +211,31 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             )}
             {pattern.id === 'strategy-memory-replay' && (
               <TabsTrigger value="live-runner-strategy-memory" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'schema-aware-decomposition' && (
+              <TabsTrigger value="live-runner-schema-aware" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'policy-gated-tool-invocation' && (
+              <TabsTrigger value="live-runner-policy-gated" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'perception-normalization' && (
+              <TabsTrigger value="live-runner-perception" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'budget-constrained-execution' && (
+              <TabsTrigger value="live-runner-budget" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'action-grounding-verification' && (
+              <TabsTrigger value="live-runner-action-grounding" className="flex items-center gap-2">
                 <Code size={16} /> Live Runner
               </TabsTrigger>
             )}
@@ -553,6 +583,61 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 patternId={pattern.id}
                 patternName={pattern.name}
                 steps={strategyMemoryReplayExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'schema-aware-decomposition' && (
+            <TabsContent value="live-runner-schema-aware" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={schemaAwareDecompositionExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'policy-gated-tool-invocation' && (
+            <TabsContent value="live-runner-policy-gated" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={policyGatedInvocationExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'perception-normalization' && (
+            <TabsContent value="live-runner-perception" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={perceptionNormalizationExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'budget-constrained-execution' && (
+            <TabsContent value="live-runner-budget" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={budgetConstrainedExecutionExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'action-grounding-verification' && (
+            <TabsContent value="live-runner-action-grounding" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                pythonCode={pattern.pythonCodeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={actionGroundingVerificationExecutionSteps as any}
               />
             </TabsContent>
           )}
