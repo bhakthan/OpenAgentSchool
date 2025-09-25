@@ -67,6 +67,70 @@ export function useAlgorithmVisualization(algorithmId: string, patternId: string
 function generateAlgorithmSteps(algorithmId: string, patternId: string): AlgorithmStep[] {
   // Customize steps based on algorithm ID
   switch (algorithmId) {
+    case 'perception-normalization':
+      return [
+        { id: 'step1', name: 'Discover Sources', description: 'List tables & assets in scope', data: { tables: 12 }, timing: 600 },
+        { id: 'step2', name: 'Profile Columns', description: 'Sample & compute stats', data: { profiled: 120, sampleRows: 5000 }, timing: 900 },
+        { id: 'step3', name: 'Attach Governance', description: 'Merge sensitivity & ownership', data: { tagged: 12, pii: 2 }, timing: 700 },
+        { id: 'step4', name: 'Compact Artifact', description: 'Prune low-signal fields', data: { sizeKB: 38 }, timing: 800 },
+        { id: 'step5', name: 'Hash & Cache', description: 'Create stable hash & store', data: { hash: 'ab42f1c9d3a7' }, timing: 500 }
+      ];
+    case 'schema-aware-decomposition':
+      return [
+        { id: 'step1', name: 'Draft Subtasks', description: 'LLM enumerates raw steps', data: { generated: 9 }, timing: 700 },
+        { id: 'step2', name: 'Schema Filter', description: 'Remove invalid entity refs', data: { valid: 7 }, timing: 600 },
+        { id: 'step3', name: 'Dependency Link', description: 'Infer edges via IO overlap', data: { edges: 8 }, timing: 700 },
+        { id: 'step4', name: 'Optimize Graph', description: 'Merge/split for granularity', data: { final: 6 }, timing: 800 },
+        { id: 'step5', name: 'Emit Plan Graph', description: 'Persist nodes + edges', data: { coverage: 0.78 }, timing: 500 }
+      ];
+    case 'action-grounding-verification':
+      return [
+        { id: 'step1', name: 'Generate Action', description: 'Produce candidate SQL/tool call', data: { attempt: 1 }, timing: 500 },
+        { id: 'step2', name: 'Static Checks', description: 'Parse & validate schema usage', data: { columns: 14 }, timing: 600 },
+        { id: 'step3', name: 'Policy Gate', description: 'Apply governance rules', data: { policies: 5, passed: true }, timing: 500 },
+        { id: 'step4', name: 'Dry Run', description: 'Sandbox execution w/o side effects', data: { rows: 1240 }, timing: 900 },
+        { id: 'step5', name: 'Approve & Sign', description: 'Emit provenance artifact', data: { signature: 'sig_v1' }, timing: 400 }
+      ];
+    case 'budget-constrained-execution':
+      return [
+        { id: 'step1', name: 'Load Plan', description: 'Load validated plan graph', data: { tasks: 6 }, timing: 400 },
+        { id: 'step2', name: 'Init Budgets', description: 'Set token & latency ceilings', data: { maxTokens: 50000 }, timing: 400 },
+        { id: 'step3', name: 'Schedule Root', description: 'Queue executable roots', data: { ready: 2 }, timing: 500 },
+        { id: 'step4', name: 'Execute Step', description: 'Ground + run + collect cost', data: { tokensUsed: 2400 }, timing: 1000 },
+        { id: 'step5', name: 'Evaluate & Decide', description: 'Retry / enqueue / early stop', data: { coverage: 0.5 }, timing: 800 }
+      ];
+    case 'policy-gated-tool-invocation':
+      return [
+        { id: 'step1', name: 'Parse Intent', description: 'Extract action + scope signals', data: { verbs: 1, objects: 2 }, timing: 400 },
+        { id: 'step2', name: 'Map Capability', description: 'Normalize to canonical capability', data: { capability: 'bulk_update' }, timing: 500 },
+        { id: 'step3', name: 'Risk Score', description: 'Compute composite risk', data: { risk: 0.42 }, timing: 500 },
+        { id: 'step4', name: 'Policy Lattice Eval', description: 'Traverse allow/deny/escalate nodes', data: { decision: 'allow' }, timing: 600 },
+        { id: 'step5', name: 'Sign Invocation', description: 'Attach signature & context hash', data: { sig: 'sig_a13f' }, timing: 400 }
+      ];
+    case 'data-quality-feedback-repair-loop':
+      return [
+        { id: 'step1', name: 'Monitor Metrics', description: 'Ingest KPI & quality signals', data: { metrics: 12 }, timing: 600 },
+        { id: 'step2', name: 'Detect Anomaly', description: 'Drift / spike detection', data: { anomalies: 1 }, timing: 500 },
+        { id: 'step3', name: 'Targeted Profiling', description: 'Deep profile impacted columns', data: { cols: 3 }, timing: 900 },
+        { id: 'step4', name: 'Propose Repairs', description: 'Generate ranked repair candidates', data: { candidates: 4 }, timing: 800 },
+        { id: 'step5', name: 'Apply & Validate', description: 'Ground action + validate KPI', data: { stable: true }, timing: 700 }
+      ];
+    case 'query-intent-structured-access':
+      return [
+        { id: 'step1', name: 'Classify Intent', description: 'Determine query archetype', data: { intent: 'compare' }, timing: 500 },
+        { id: 'step2', name: 'Bind Entities', description: 'Map text spans → schema entities', data: { entities: 3 }, timing: 700 },
+        { id: 'step3', name: 'Validate Params', description: 'Check ranges & metric coherence', data: { valid: true }, timing: 600 },
+        { id: 'step4', name: 'Policy Check', description: 'Row-level & join constraints', data: { allowed: true }, timing: 500 },
+        { id: 'step5', name: 'Emit Plan', description: 'Structured access JSON', data: { filters: 2 }, timing: 400 }
+      ];
+    case 'strategy-memory-replay':
+      return [
+        { id: 'step1', name: 'Embed Task', description: 'Vectorize task signature', data: { dim: 1536 }, timing: 400 },
+        { id: 'step2', name: 'Retrieve Strategies', description: 'Fetch top-k prior plans', data: { k: 5 }, timing: 600 },
+        { id: 'step3', name: 'Adapt Plans', description: 'Mutate & merge subgraphs', data: { adapted: 5 }, timing: 900 },
+        { id: 'step4', name: 'Score Candidates', description: 'Rank by coverage & cost delta', data: { bestCoverage: 0.82 }, timing: 700 },
+        { id: 'step5', name: 'Select Replay', description: 'Return best strategy artifact', data: { id: 'strat_17' }, timing: 400 }
+      ];
     case 'socratic-coach':
       return [
         {

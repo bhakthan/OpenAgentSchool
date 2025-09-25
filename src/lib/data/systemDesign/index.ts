@@ -35,6 +35,14 @@ import { selfRemediationLoopSystemDesign } from './selfRemediationLoop';
 import { spacedRepetitionPlannerSystemDesign } from './spacedRepetitionPlanner';
 import { reflectionJournalerSystemDesign } from './reflectionJournaler';
 import { handoffSummarizerSystemDesign } from './handoffSummarizer';
+import { perceptionNormalizationSystemDesign } from './perceptionNormalization';
+import { schemaAwareDecompositionSystemDesign } from './schemaAwareDecomposition';
+import { actionGroundingVerificationSystemDesign } from './actionGroundingVerification';
+import { budgetConstrainedExecutionSystemDesign } from './budgetConstrainedExecution';
+import { policyGatedInvocationSystemDesign } from './policyGatedInvocation';
+import { dataQualityFeedbackLoopSystemDesign } from './dataQualityFeedbackLoop';
+import { queryIntentStructuredAccessSystemDesign } from './queryIntentStructuredAccess';
+import { strategyMemoryReplaySystemDesign } from './strategyMemoryReplay';
 
 // Export individual patterns
 export { pythonReActAgentSystemDesign } from './pythonReActAgent';
@@ -70,6 +78,14 @@ export { selfRemediationLoopSystemDesign } from './selfRemediationLoop';
 export { spacedRepetitionPlannerSystemDesign } from './spacedRepetitionPlanner';
 export { reflectionJournalerSystemDesign } from './reflectionJournaler';
 export { handoffSummarizerSystemDesign } from './handoffSummarizer';
+export { perceptionNormalizationSystemDesign } from './perceptionNormalization';
+export { schemaAwareDecompositionSystemDesign } from './schemaAwareDecomposition';
+export { actionGroundingVerificationSystemDesign } from './actionGroundingVerification';
+export { budgetConstrainedExecutionSystemDesign } from './budgetConstrainedExecution';
+export { policyGatedInvocationSystemDesign } from './policyGatedInvocation';
+export { dataQualityFeedbackLoopSystemDesign } from './dataQualityFeedbackLoop';
+export { queryIntentStructuredAccessSystemDesign } from './queryIntentStructuredAccess';
+export { strategyMemoryReplaySystemDesign } from './strategyMemoryReplay';
 
 // Create a registry of all system design patterns
 export const systemDesignPatterns = {
@@ -107,6 +123,14 @@ export const systemDesignPatterns = {
   'spaced-repetition-planner': spacedRepetitionPlannerSystemDesign,
   'reflection-journaler': reflectionJournalerSystemDesign,
   'handoff-summarizer': handoffSummarizerSystemDesign,
+  'perception-normalization': perceptionNormalizationSystemDesign,
+  'schema-aware-decomposition': schemaAwareDecompositionSystemDesign,
+  'action-grounding-verification': actionGroundingVerificationSystemDesign,
+  'budget-constrained-execution': budgetConstrainedExecutionSystemDesign,
+  'policy-gated-tool-invocation': policyGatedInvocationSystemDesign,
+  'data-quality-feedback-repair-loop': dataQualityFeedbackLoopSystemDesign,
+  'query-intent-structured-access': queryIntentStructuredAccessSystemDesign,
+  'strategy-memory-replay': strategyMemoryReplaySystemDesign,
 };
 
 /**

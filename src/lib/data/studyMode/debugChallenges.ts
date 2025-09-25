@@ -211,6 +211,125 @@ The solution adds:
       'Implements proper conversation ending detection'
     ]
   },
+  // Data Autonomy – New Patterns Debug Challenges
+  {
+    id: 'debug-policy-gated-invocation-1',
+    type: 'debug',
+    conceptId: 'policy-gated-tool-invocation',
+    title: 'Bypassed Policy Lattice',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'policy-gate-bypass',
+      title: 'Unsigned High-Risk Invocation Slips Through',
+      description: 'A data export tool call executed without required sensitivity policy evaluation.',
+      problemDescription: 'A high-risk exportTask invoked a bulk PII table export; logs show no risk score emitted and policy lattice not consulted.',
+      brokenCode: `async function invokeTool(intent) {
+  // TODO: risk scoring temporarily disabled for performance
+  const tool = capabilityRegistry[intent.name];
+  // Direct execute without mapping canonical capability or lattice check
+  return await tool.execute(intent.args);
+}`,
+      expectedBehavior: 'Intent should map to a canonical capability, produce a risk score, evaluate layered policy rules, and emit a signed invocation artifact.',
+      commonIssues: [
+        { issue: 'Skipped risk scoring', symptoms: ['No riskScore field in telemetry', 'High sensitivity actions unflagged'], diagnosis: 'Short-circuit path removed scoring for speed', fix: 'Reinstate riskScorer and cache its results' },
+        { issue: 'Missing signature', symptoms: ['No invocationSignature hash'], diagnosis: 'Signing applied only in legacy path', fix: 'Add post-policy signing step' }
+      ],
+      solution: 'Restore intent → capability mapping, risk scoring, lattice evaluation, then sign & log invocation.',
+      explanation: 'Policy gating must be non-bypassable; performance optimizations require guarded toggles.'
+    },
+    hints: ['Look for removed risk scoring calls', 'Check telemetry fields for absence of riskScore', 'Search for signature hash generation'],
+    explanation: 'Demonstrates risk introduced by performance-motivated gating removal.',
+    relatedConcepts: ['action-grounding-verification', 'governance'],
+    timeEstimate: 14,
+    successCriteria: ['Identifies missing risk scoring', 'Proposes reinstating lattice enforcement']
+  },
+  {
+    id: 'debug-data-quality-loop-1',
+    type: 'debug',
+    conceptId: 'data-quality-feedback-repair-loop',
+    title: 'Oscillating KPI After Repair',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'quality-loop-oscillation',
+      title: 'Repair Introduces Instability',
+      description: 'A null-imputation repair caused daily KPI to oscillate instead of stabilize.',
+      problemDescription: 'Metric volatility increased 40% after a “fix”. No post-repair validation gate existed; repair auto-applied.',
+      brokenCode: `async function applyRepair(repair) {
+  await db.execute(repair.sql); // directly applies
+  // TODO: add validation later
+  return true;
+}`,
+      expectedBehavior: 'Candidate repair should run in shadow validation, compare KPI variance & drift metrics before promotion.',
+      commonIssues: [
+        { issue: 'No shadow validation', symptoms: ['Immediate production apply'], diagnosis: 'Skipped canary path', fix: 'Add shadowExecute + compareMetrics()' },
+        { issue: 'Missing rollback trigger', symptoms: ['Increased variance persists'], diagnosis: 'No guard rails for reversal', fix: 'Add threshold-based rollback routine' }
+      ],
+      solution: 'Introduce shadow evaluation + stability thresholds prior to promotion, with automatic rollback on regression.',
+      explanation: 'Closed-loop quality requires validation not just generation.'
+    },
+    hints: ['Check for absence of shadow execution', 'Look at variance deltas pre/post repair'],
+    explanation: 'Highlights necessity of validation gates in repair workflows.',
+    relatedConcepts: ['anomaly-detection', 'rollback'],
+    timeEstimate: 13,
+    successCriteria: ['Proposes shadow validation', 'Defines rollback threshold']
+  },
+  {
+    id: 'debug-query-intent-access-1',
+    type: 'debug',
+    conceptId: 'query-intent-structured-access',
+    title: 'Ambiguous Entity Binding Leak',
+    level: 'beginner',
+    debugChallenge: {
+      id: 'query-binding-ambiguity',
+      title: 'Wrong Join From Ambiguous Term',
+      description: 'Query containing “orders” bound to legacy_orders table leaking deprecated columns.',
+      problemDescription: 'Binding fallback selected first lexical match; confidence threshold ignored; policy filter missed deprecated table.',
+      brokenCode: `function bindEntities(tokens) {
+  return tokens.map(t => entityIndex.find(e => e.name.includes(t)) || { name: t });
+}`,
+      expectedBehavior: 'Entity binding should combine embedding + lexical scores, reject low-confidence, and request clarification.',
+      commonIssues: [
+        { issue: 'Pure lexical contains()', symptoms: ['Deprecated table usage'], diagnosis: 'No semantic disambiguation', fix: 'Add embedding similarity + threshold' },
+        { issue: 'No confidence gating', symptoms: ['Single match despite ambiguity'], diagnosis: 'Threshold set to 0', fix: 'Introduce minConfidence + clarification path' }
+      ],
+      solution: 'Use hybrid binding with min confidence, policy-check filtered set, and clarification on ambiguity.',
+      explanation: 'Reduces hallucinated or unsafe entity access.'
+    },
+    hints: ['Search for naive includes() usage', 'Check confidence thresholds'],
+    explanation: 'Demonstrates risks of naive entity matching.',
+    relatedConcepts: ['schema-aware-decomposition', 'policy-gated-tool-invocation'],
+    timeEstimate: 10,
+    successCriteria: ['Identifies naive lexical binding', 'Adds hybrid + threshold fix']
+  },
+  {
+    id: 'debug-strategy-replay-1',
+    type: 'debug',
+    conceptId: 'strategy-memory-replay',
+    title: 'Stale Strategy Reuse',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'strategy-replay-stale',
+      title: 'Outdated Plan Graph Applied',
+      description: 'Historical plan reused despite schema drift (dropped column) causing downstream failure.',
+      problemDescription: 'Replay logic retrieved nearest embedding but skipped freshness + schema hash comparison.',
+      brokenCode: `function replayStrategy(taskEmbedding) {
+  const nearest = vectorIndex.nn(taskEmbedding)[0];
+  return loadPlan(nearest.id); // directly loads
+}`,
+      expectedBehavior: 'Replay should validate freshness window, compare perception hash, and adapt or regenerate.',
+      commonIssues: [
+        { issue: 'No hash match check', symptoms: ['Column not found errors'], diagnosis: 'Perception hash ignored', fix: 'Add hash compare prior to reuse' },
+        { issue: 'Missing freshness TTL', symptoms: ['Use of months-old plan'], diagnosis: 'No timestamp gate', fix: 'Reject beyond TTL & regenerate' }
+      ],
+      solution: 'Introduce freshness + hash guards, then adaptive mutation to reconcile drift.',
+      explanation: 'Prevents brittle reuse of invalidated strategies.'
+    },
+    hints: ['Look for missing hash/ttl checks', 'Check error logs for missing column'],
+    explanation: 'Shows why reuse must be guarded by drift detection.',
+    relatedConcepts: ['budget-constrained-execution', 'perception-normalization'],
+    timeEstimate: 15,
+    successCriteria: ['Adds hash comparison', 'Defines freshness TTL']
+  },
   {
     id: 'debug-challenge-2',
     type: 'debug',

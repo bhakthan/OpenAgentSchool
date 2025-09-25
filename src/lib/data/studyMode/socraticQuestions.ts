@@ -441,6 +441,195 @@ export const knowledgeMapNavigatorQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Socratic Questions for Data Autonomy Patterns
+export const dataAutonomySocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'data-autonomy-perception-q1',
+    type: 'socratic',
+    conceptId: 'perception-normalization',
+    title: 'Why Normalize Perception First?',
+    level: 'beginner',
+    socratiQuestion: 'If an agent skips building a compact InfoBox and goes straight to planning, what subtle failures might appear later?',
+    followUpQuestions: [
+      'How could missing null distribution insight distort decomposition?',
+      'What governance signals might be ignored?',
+      'How does token noise affect planning determinism?'
+    ],
+    expectedInsights: [
+      'Unnormalized context leads to hallucinated or brittle plan assumptions',
+      'Governance / sensitivity gaps risk policy violations',
+      'High‑entropy raw dumps increase token cost & reduce reproducibility'
+    ],
+    hints: ['Think: schema drift, PHI redaction, compression effects'],
+    explanation: 'Perception normalization front‑loads reliable structure and safety signals that stabilize all downstream patterns.',
+    relatedConcepts: ['schema-grounding', 'governance-tags', 'cost-optimization'],
+    timeEstimate: 8,
+    successCriteria: ['Names at least two downstream failure modes', 'Connects normalization to determinism']
+  },
+  {
+    id: 'data-autonomy-decomposition-q1',
+    type: 'socratic',
+    conceptId: 'schema-aware-decomposition',
+    title: 'Detecting Over vs Under Decomposition',
+    level: 'intermediate',
+    socratiQuestion: 'What evidence would show a decomposition created too many subtasks versus too few?',
+    followUpQuestions: [
+      'How do redundant subtasks manifest in metrics?',
+      'Which signals imply hidden coupled goals?',
+      'How would you instrument coverage?'
+    ],
+    expectedInsights: [
+      'Over decomposition: low incremental value per subtask, repeated entity sets',
+      'Under decomposition: large subtasks with mixed intents and ambiguous dependencies',
+      'Coverage metrics align subtasks to referenced entities and requirements'
+    ],
+    hints: ['Consider token per subtask variance', 'Look at dependency graph density'],
+    explanation: 'Balanced decomposition maximizes clarity while minimizing orchestration overhead.',
+    relatedConcepts: ['plan-graph', 'dependency-ordering', 'cost-metrics'],
+    timeEstimate: 10,
+    successCriteria: ['Defines both over and under signals', 'Proposes at least one coverage metric']
+  },
+  {
+    id: 'data-autonomy-grounding-q1',
+    type: 'socratic',
+    conceptId: 'action-grounding-verification',
+    title: 'Layered Verification Logic',
+    level: 'intermediate',
+    socratiQuestion: 'Why separate schema validation from policy gating before a dry run rather than combining them into one mega check?',
+    followUpQuestions: [
+      'How does error specificity improve regeneration?',
+      'What ordering reduces wasted sandbox executions?',
+      'When might you short‑circuit early?'
+    ],
+    expectedInsights: [
+      'Layered checks give precise feedback loops',
+      'Early cheap failures save cost and latency',
+      'Policy rules often depend on already schema‑validated form'
+    ],
+    hints: ['Think: progressive narrowing', 'Cost of dry run vs static parse'],
+    explanation: 'Layer sequencing optimizes both safety and efficiency.',
+    relatedConcepts: ['progressive-validation', 'retry-loops', 'sandboxing'],
+    timeEstimate: 9,
+    successCriteria: ['States at least two benefits of layering', 'Identifies an early short‑circuit condition']
+  },
+  {
+    id: 'data-autonomy-execution-q1',
+    type: 'socratic',
+    conceptId: 'budget-constrained-execution',
+    title: 'Deciding to Early Stop',
+    level: 'advanced',
+    socratiQuestion: 'What composite signals could justify halting the execution loop before all subtasks finish?',
+    followUpQuestions: [
+      'How does diminishing marginal utility appear in metrics?',
+      'What guard prevents premature success?',
+      'How do you persist partial artifacts safely?'
+    ],
+    expectedInsights: [
+      'Use multi-signal gating: confidence, coverage %, cost burn rate',
+      'Require stability across recent steps to avoid flukes',
+      'Checkpointing preserves partial progress for resumability'
+    ],
+    hints: ['Graph completion ratio vs value accrual', 'Quality delta thresholds'],
+    explanation: 'Early stopping maintains ROI by ceasing low-yield refinements while ensuring safe recoverability.',
+    relatedConcepts: ['adaptive-heuristics', 'checkpointing', 'quality-metrics'],
+    timeEstimate: 11,
+    successCriteria: ['Lists at least two composite signals', 'Mentions a safeguard against premature stop']
+  }
+  ,
+  {
+    id: 'data-autonomy-policy-gate-q1',
+    type: 'socratic',
+    conceptId: 'policy-gated-tool-invocation',
+    title: 'Why Gate Before Invocation?',
+    level: 'intermediate',
+    socratiQuestion: 'If an agent calls tools directly after decomposition without intent → capability mapping, what compounded risks emerge?',
+    followUpQuestions: [
+      'How does ambiguous intent inflate false positives or misses in policy checks?',
+      'What telemetry gaps appear without explicit risk scoring?',
+      'How would you prove gating reduced near-miss incidents?'
+    ],
+    expectedInsights: [
+      'Unmapped intents lead to brittle string policy filters',
+      'Risk scoring produces ranked mitigation focus',
+      'Structured gating yields measurable reduction in violations'
+    ],
+    hints: ['Think: capability registry, policy lattice layering', 'Consider audit trails & signed invocations'],
+    explanation: 'Policy gating mediates semantic ambiguity and enforces consistent preconditions before side effects.',
+    relatedConcepts: ['action-grounding-verification', 'governance-tags'],
+    timeEstimate: 9,
+    successCriteria: ['Names at least two compounded risks', 'Links mapping to measurable mitigation']
+  },
+  {
+    id: 'data-autonomy-quality-loop-q1',
+    type: 'socratic',
+    conceptId: 'data-quality-feedback-repair-loop',
+    title: 'From Detection to Stable Repair',
+    level: 'intermediate',
+    socratiQuestion: 'Why is a naive “detect → fix” pipeline insufficient for durable data quality remediation?',
+    followUpQuestions: [
+      'What metrics confirm a repair improved rather than overfitted?',
+      'How do you prioritize among multiple candidate repairs?',
+      'When do you roll back a deployed repair?'
+    ],
+    expectedInsights: [
+      'Closed-loop validation prevents regressions',
+      'Ranking repairs via impact + reversibility',
+      'Post-repair monitoring ensures stability'
+    ],
+    hints: ['Consider shadow validation windows', 'Think KPI variance stabilization'],
+    explanation: 'A feedback loop with validation + monitoring avoids oscillating or overfitted fixes.',
+    relatedConcepts: ['anomaly-detection', 'governance'],
+    timeEstimate: 10,
+    successCriteria: ['Identifies overfitting or unstable repair risk']
+  },
+  {
+    id: 'data-autonomy-query-intent-q1',
+    type: 'socratic',
+    conceptId: 'query-intent-structured-access',
+    title: 'Binding Intent Safely',
+    level: 'beginner',
+    socratiQuestion: 'What subtle security & correctness issues arise if natural language query terms are interpolated directly into SQL templates?',
+    followUpQuestions: [
+      'How does entity ambiguity propagate to wrong joins?',
+      'What prevents unauthorized table leakage?',
+      'How do confidence thresholds change plan generation?'
+    ],
+    expectedInsights: [
+      'Direct interpolation risks injection & hallucinated entities',
+      'Binding enforces whitelist & policy scopes',
+      'Low-confidence bindings trigger clarification or fallback'
+    ],
+    hints: ['Think: entity resolution vs raw tokens', 'Consider policy evaluation points'],
+    explanation: 'Structured binding plus policy evaluation lowers both leakage and hallucination probability.',
+    relatedConcepts: ['schema-aware-decomposition', 'perception-normalization'],
+    timeEstimate: 7,
+    successCriteria: ['Mentions both security and correctness risks']
+  },
+  {
+    id: 'data-autonomy-strategy-replay-q1',
+    type: 'socratic',
+    conceptId: 'strategy-memory-replay',
+    title: 'When to Replay vs Rebuild',
+    level: 'advanced',
+    socratiQuestion: 'How do you decide between reusing an historical execution strategy and generating a fresh plan?',
+    followUpQuestions: [
+      'What freshness or drift signals invalidate reuse?',
+      'How do adaptation heuristics avoid stale dependencies?',
+      'What is the cost trade-off vs potential bias?'
+    ],
+    expectedInsights: [
+      'Similarity + freshness thresholds gate replay',
+      'Adaptive mutation prunes stale nodes',
+      'Reuse accelerates planning with measured bias risk'
+    ],
+    hints: ['Consider embedding versioning', 'Think about plan graph structural distance'],
+    explanation: 'Strategy replay accelerates planning when validated for relevance & freshness.',
+    relatedConcepts: ['budget-constrained-execution', 'memory-retrieval'],
+    timeEstimate: 9,
+    successCriteria: ['Names reuse gating signals', 'Addresses bias or drift risk']
+  }
+];
+
 export const contextCuratorQuestions: StudyModeQuestion[] = [
   {
     id: 'context-curator-q1',

@@ -22,6 +22,7 @@ import { educationalAgentPatternsQuestions, educationalAgentPatternsTime } from 
 import { fineTuningQuestions } from './fine-tuning';
 import { agenticCommerceAp2Questions } from './agentic-commerce-ap2';
 import { agentOpsQuestions } from './agent-ops';
+import { dataAutonomyPatternsQuestions } from './data-autonomy-patterns.ts';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -49,7 +50,8 @@ const allQuestions = [
   ...educationalAgentPatternsQuestions,
   ...fineTuningQuestions,
   ...agenticCommerceAp2Questions,
-  ...agentOpsQuestions
+  ...agentOpsQuestions,
+  ...dataAutonomyPatternsQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -73,10 +75,28 @@ const agentEvaluationTime = calculateTotalTime(agentEvaluationQuestions);
 const businessUseCasesTime = calculateTotalTime(businessUseCasesQuestions);
 const systemDesignTime = calculateTotalTime(systemDesignQuestions);
 const promptingOptimizationTime = calculateTotalTime(promptingOptimizationQuestions);
+const dataAutonomyPatternsTime = calculateTotalTime(dataAutonomyPatternsQuestions);
 // ----------------------------------------------------------------
 
 // Quiz categories configuration
 export const quizCategories: QuizCategory[] = [
+  {
+    id: 'data-autonomy',
+    name: 'Data Autonomy Patterns',
+    description: 'Closed-loop data agent patterns: perception, decomposition, grounding, budgeted execution.',
+    icon: 'Database',
+    totalQuestions: dataAutonomyPatternsQuestions.length,
+    estimatedTime: dataAutonomyPatternsTime,
+    subCategories: [
+      {
+        id: 'data-autonomy-core',
+        name: 'Core Data Autonomy',
+        description: 'Foundational patterns enabling schema-grounded autonomous analytic workflows.',
+        prerequisites: ['agent-patterns'],
+        questions: dataAutonomyPatternsQuestions
+      }
+    ]
+  },
   {
     id: 'agent-ops',
     name: 'Agent Ops & Reliability',

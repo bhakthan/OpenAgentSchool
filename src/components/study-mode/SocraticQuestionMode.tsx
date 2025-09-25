@@ -18,6 +18,8 @@ import { cn } from "@/lib/utils";
 import { StudyModeQuestion, StudyModeSession, StudyModeResponse } from '@/lib/data/studyMode/types';
 import { saveStudyModeProgress } from '@/lib/data/studyMode/progress';
 import { socraticJudge, LlmJudgeResponse } from '@/lib/llmJudge';
+import { emitTelemetry } from '@/lib/data/studyMode/telemetry';
+import { misconceptionRefutations } from '@/lib/data/studyMode/misconceptionRefutations';
 import LlmConfigurationNotice from './LlmConfigurationNotice';
 import EnhancedSocraticElicitation from './EnhancedSocraticElicitation';
 import { generateDynamicFollowUps, extractEnhancedInsights, detectMisconceptions, UserContext } from '@/lib/socraticElicitation';
@@ -209,6 +211,11 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
 
   const currentQuestion = allQuestions[currentStep];
   const isLastQuestion = currentStep >= allQuestions.length - 1;
+
+  // Track chain depth telemetry on advance (#8)
+  useEffect(() => {
+    try { emitTelemetry({ kind: 'socratic_chain_depth', patternId: question.conceptId, challengeId: question.id, chainDepth: currentStep + 1 }); } catch {}
+  }, [currentStep, question.conceptId, question.id]);
 
   // Copy LLM feedback to clipboard
   const handleCopyFeedback = () => {
@@ -506,6 +513,13 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
 
     saveStudyModeProgress(session);
     setIsComplete(true);
+    // Misconception refutation injection (#15) – append to insights if pattern match
+    try {
+      const refs = misconceptionRefutations.filter(m => m.patternId === question.conceptId).slice(0,1);
+      if (refs.length) {
+        session.insights = (session.insights||[]).concat('Refutation: '+refs[0].misconception+' → '+refs[0].correctModel);
+      }
+    } catch {}
     onComplete(session);
   };
 

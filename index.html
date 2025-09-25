@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Open Agent School - Agentic Learning for Everyone. Revolutionary platform where AI acts as your demanding customer to master agent concepts. Prove your understanding through intelligent dialogue and real-time validation of AI agents, MCP, A2A communication." />
-    <meta name="keywords" content="AI agents, artificial intelligence education, MCP, Model Context Protocol, A2A communication, multi-agent systems, agent architecture, interactive learning, AI tutorials, agent security, OpenAI, Microsoft Azure AI, LLM agents, agentic AI, agent orchestration, AI as customer, active learning, knowledge validation, explain to AI" />
+    <meta name="description" content="Open Agent School - Agentic Learning for Everyone. Master 8 Data Autonomy Patterns (Perception, Decomposition, Grounding, Budget Execution, Policy Gating, Quality Repair Loop, Query Intent Structuring, Strategy Memory Replay) plus MCP, A2A communication, multi-agent architecture, safety and evaluation." />
+    <meta name="keywords" content="AI agents, artificial intelligence education, Data Autonomy Patterns, Perception Normalization, Schema-Aware Decomposition, Action Grounding, Budget-Constrained Execution, MCP, Model Context Protocol, A2A communication, multi-agent systems, agent architecture, interactive learning, AI tutorials, agent safety, LLM agents, agentic AI, agent orchestration, evaluation, cost governance" />
     <meta name="author" content="Open Agent School" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="language" content="en-US" />
@@ -20,7 +20,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.openagentschool.org/" />
     <meta property="og:title" content="Open Agent School - Agentic Learning for Everyone" />
-    <meta property="og:description" content="Revolutionary learning platform where AI acts as your demanding customer. Master AI agents, MCP, A2A communication by proving your understanding through intelligent dialogue and real-time validation." />
+    <meta property="og:description" content="Interactive platform to master AI agent architecture & 8 Data Autonomy Patterns (Perception, Decomposition, Grounding, Budget Execution, Policy Gating, Quality Loop, Query Intent Structuring, Strategy Replay)." />
     <meta property="og:image" content="https://www.openagentschool.org/images/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -32,7 +32,7 @@
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://www.openagentschool.org/" />
     <meta property="twitter:title" content="Open Agent School - Where AI Agent Concepts Come to Life" />
-    <meta property="twitter:description" content="Interactive educational platform for mastering AI agents, MCP, A2A communication, and multi-agent systems through hands-on learning and visualizations." />
+    <meta property="twitter:description" content="Master AI agents & 8 Data Autonomy Patterns (Perception, Decomposition, Grounding, Budget, Policy Gating, Quality Loop, Query Intent, Strategy Replay) via interactive visualizations & dialogue." />
     <meta property="twitter:image" content="https://www.openagentschool.org/images/og-image.png" />
     <meta property="twitter:image:alt" content="Open Agent School - Interactive AI Agent Learning Platform" />
     <meta property="twitter:creator" content="@OpenAgentSchool" />
@@ -143,6 +143,35 @@
         }
     }
     </script>
+        <!-- Structured Data: Data Autonomy Pattern Family (dynamically injected to avoid drift) -->
+        <script>
+          (function(){
+            const patterns = [
+              { name: 'Perception Normalization', desc: 'Transforms raw, heterogeneous data context into a validated, task‑scoped info box for reliable downstream planning.', keywords: 'Perception Normalization, data profiling, governance tags, schema grounding' },
+              { name: 'Schema-Aware Decomposition', desc: 'Converts natural language data tasks into validated, dependency‑ordered plan graphs referencing only real schema entities.', keywords: 'Schema-Aware Decomposition, plan graph, task decomposition, coverage metrics' },
+              { name: 'Action Grounding & Verification', desc: 'Grounds abstract plan steps into validated code or tool invocations with layered schema, policy and dry‑run checks.', keywords: 'Action Grounding, layered validation, policy gate, dry run' },
+              { name: 'Budget-Constrained Execution Loop', desc: 'Executes validated plan steps under explicit token, latency and attempt budgets with adaptive early stopping heuristics.', keywords: 'Budget-Constrained Execution, early stopping, cost governance, adaptive loop' },
+              { name: 'Policy-Gated Tool Invocation', desc: 'Mediates tool/API calls via intent, capability mapping, risk scoring and policy lattice evaluation before signed execution.', keywords: 'Policy Gating, risk scoring, capability mapping, invocation signing' },
+              { name: 'Data Quality Feedback & Repair Loop', desc: 'Closed-loop anomaly detection → targeted profiling → candidate repair → validation to restore KPI stability.', keywords: 'Data Quality, anomaly detection, repair loop, profiling' },
+              { name: 'Query Intent → Structured Access', desc: 'Maps NL analytical queries to validated structured access plans with entity binding and policy checks.', keywords: 'Query Intent, structured access, entity binding, access policy' },
+              { name: 'Strategy Memory Replay', desc: 'Retrieves and adapts historical execution strategies to guide current planning and reduce cost.', keywords: 'Strategy Replay, historical plans, embedding retrieval, cost reduction' }
+            ];
+            const itemList = {
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              name: 'Data Autonomy Pattern Family',
+              itemListElement: patterns.map((p, i) => ({
+                '@type': 'ListItem',
+                position: i+1,
+                item: { '@type': 'CreativeWork', name: p.name, description: p.desc, keywords: p.keywords }
+              }))
+            };
+            const el = document.createElement('script');
+            el.type = 'application/ld+json';
+            el.textContent = JSON.stringify(itemList);
+            document.head.appendChild(el);
+          })();
+        </script>
     
     <script>
         // Minimal theme initialization only

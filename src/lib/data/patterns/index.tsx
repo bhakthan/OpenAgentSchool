@@ -39,6 +39,14 @@ export { reflectionJournalerPattern } from './reflectionJournaler';
 export { handoffSummarizerPattern } from './handoffSummarizer';
 export { misconceptionDetectorPattern } from './misconceptionDetector';
 export { timeboxPairProgrammerPattern } from './timeboxPairProgrammer';
+export { perceptionNormalizationPattern } from './perceptionNormalization';
+export { schemaAwareDecompositionPattern } from './schemaAwareDecomposition';
+export { budgetConstrainedExecutionPattern } from './budgetConstrainedExecution';
+export { actionGroundingVerificationPattern } from './actionGroundingVerification';
+export { policyGatedInvocationPattern } from './policyGatedInvocation';
+export { dataQualityFeedbackLoopPattern } from './dataQualityFeedbackLoop';
+export { queryIntentStructuredAccessPattern } from './queryIntentStructuredAccess';
+export { strategyMemoryReplayPattern } from './strategyMemoryReplay';
 
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
@@ -78,6 +86,14 @@ import { reflectionJournalerPattern } from './reflectionJournaler';
 import { handoffSummarizerPattern } from './handoffSummarizer';
 import { misconceptionDetectorPattern } from './misconceptionDetector';
 import { timeboxPairProgrammerPattern } from './timeboxPairProgrammer';
+import { perceptionNormalizationPattern } from './perceptionNormalization';
+import { schemaAwareDecompositionPattern } from './schemaAwareDecomposition';
+import { budgetConstrainedExecutionPattern } from './budgetConstrainedExecution';
+import { actionGroundingVerificationPattern } from './actionGroundingVerification';
+import { policyGatedInvocationPattern } from './policyGatedInvocation';
+import { dataQualityFeedbackLoopPattern } from './dataQualityFeedbackLoop';
+import { queryIntentStructuredAccessPattern } from './queryIntentStructuredAccess';
+import { strategyMemoryReplayPattern } from './strategyMemoryReplay';
 
 export const agentPatterns = [
   reactAgentPattern,
@@ -116,6 +132,14 @@ export const agentPatterns = [
   handoffSummarizerPattern,
   misconceptionDetectorPattern,
   timeboxPairProgrammerPattern,
+  perceptionNormalizationPattern,
+  schemaAwareDecompositionPattern,
+  budgetConstrainedExecutionPattern,
+  actionGroundingVerificationPattern,
+  policyGatedInvocationPattern,
+  dataQualityFeedbackLoopPattern,
+  queryIntentStructuredAccessPattern,
+  strategyMemoryReplayPattern,
   // autogenMultiAgentPattern,
 ];
 

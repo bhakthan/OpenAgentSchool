@@ -3982,6 +3982,143 @@ export const scenarioLibrary = {
   // Agentic Commerce & AP2
 };
 
+// Import composite fusion scenarios (if module exists; guarded dynamic import elsewhere)
+import { compositeScenarioQuestions } from './compositeScenarios';
+
+// Extend scenarioLibrary with composite scenarios under a fusion key
+// (avoid override if already present)
+// @ts-ignore
+scenarioLibrary['fusion-challenges'] = (scenarioLibrary['fusion-challenges'] || []).concat(compositeScenarioQuestions);
+
+// Data Autonomy: New Pattern Interactive Scenarios
+export const policyGatedInvocationScenarios: StudyModeQuestion[] = [
+  {
+    id: 'policy-gated-invocation-scenario-1',
+    type: 'scenario',
+    conceptId: 'policy-gated-tool-invocation',
+    title: 'High-Risk Export Attempt',
+    level: 'intermediate',
+    scenario: {
+      id: 'policy-gate-scenario',
+      title: 'Bulk Export Under Ambiguous Intent',
+      description: 'Agent must decide whether to gate a broad export request lacking scope clarity.',
+      context: 'User role: analyst_readonly. Dataset contains sensitive PII columns. Latency budget 300ms. Incoming request: "Send me full customer export".',
+      stakeholders: ['analyst', 'data-governance', 'security'],
+      conceptId: 'policy-gated-tool-invocation',
+      difficulty: 'intermediate',
+      estimatedTime: '11 minutes',
+      learningOutcomes: ['Map intent to capability', 'Apply composite risk scoring', 'Enforce policy lattice'],
+      challenges: [
+  { id: 'pgc-1', title: 'Intent Parsing', description: 'Decide initial handling path', question: 'First decision: parse intent vs direct pass-through—what is safer?', type: 'multiple-choice', options: ['Direct pass-through', 'Structured intent parse'], correctAnswer: 1, feedback: 'Structured parsing enables deterministic gating.' },
+  { id: 'pgc-2', title: 'Risk Signals', description: 'Assess strongest composite', question: 'Risk score signals: which combination is strongest?', type: 'multiple-choice', options: ['User role only', 'Capability sensitivity + row volume + historical denial ratio', 'Random sampling'], correctAnswer: 1, feedback: 'Composite signals reduce false negatives.' }
+      ],
+      outcomes: [
+        { id: 'good', condition: 'Chose structured intent + composite risk', result: 'Invocation blocked pending narrowed scope', explanation: 'Proper gating prevented over-broad export.' }
+      ]
+    },
+    explanation: 'Shows layered gating sequence preventing oversharing.',
+    relatedConcepts: ['action-grounding-verification', 'governance'],
+    timeEstimate: 11,
+    successCriteria: ['Applies composite risk scoring', 'Requires narrowed scope']
+  }
+];
+
+export const dataQualityFeedbackLoopScenarios: StudyModeQuestion[] = [
+  {
+    id: 'data-quality-loop-scenario-1',
+    type: 'scenario',
+    conceptId: 'data-quality-feedback-repair-loop',
+    title: 'Metric Drift & Candidate Repairs',
+    level: 'intermediate',
+    scenario: {
+      id: 'dq-loop-scenario',
+      title: 'Retention KPI Spike Investigation',
+      description: 'Investigate anomalous retention spike potentially caused by parsing regression and validate safe repair.',
+      context: 'Z-score 5.2 spike. Recent ETL date parsing change.',
+      stakeholders: ['data-engineer', 'analyst'],
+      conceptId: 'data-quality-feedback-repair-loop',
+      difficulty: 'intermediate',
+      estimatedTime: '10 minutes',
+      learningOutcomes: ['Profile before repair', 'Validate via shadow metrics'],
+      challenges: [
+  { id: 'dql-1', title: 'Initial Response', description: 'Determine first loop step', question: 'First action after anomaly detection?', type: 'multiple-choice', options: ['Apply repair guess', 'Deep profile impacted columns'], correctAnswer: 1, feedback: 'Profiling informs targeted repair.' },
+  { id: 'dql-2', title: 'Validation Method', description: 'Select validation strategy', question: 'How to validate repair efficacy?', type: 'multiple-choice', options: ['Visual inspection only', 'Shadow recompute + variance delta'], correctAnswer: 1, feedback: 'Quantitative validation reduces false positives.' }
+      ],
+      outcomes: [
+        { id: 'good', condition: 'Chose profiling + shadow recompute', result: 'Stable KPI restored', explanation: 'Validated improvement before promotion.' }
+      ]
+    },
+    explanation: 'Highlights structured detection→repair→validation loop.',
+    relatedConcepts: ['anomaly-detection', 'rollback'],
+    timeEstimate: 10,
+    successCriteria: ['Performs profiling first', 'Uses quantitative validation']
+  }
+];
+
+export const queryIntentStructuredAccessScenarios: StudyModeQuestion[] = [
+  {
+    id: 'query-intent-access-scenario-1',
+    type: 'scenario',
+    conceptId: 'query-intent-structured-access',
+    title: 'Ambiguous Channel Query',
+    level: 'beginner',
+    scenario: {
+      id: 'qi-access-scenario',
+      title: '“Show conversions by channel last quarter”',
+      description: 'Disambiguate ambiguous entity term and enforce policy before structured plan emission.',
+      context: 'Ambiguous term: channel. marketing_channel restricted:internal.',
+      stakeholders: ['analyst', 'data-governance'],
+      conceptId: 'query-intent-structured-access',
+      difficulty: 'beginner',
+      estimatedTime: '8 minutes',
+      learningOutcomes: ['Clarify ambiguous entities', 'Order binding then policy check'],
+      challenges: [
+  { id: 'qia-1', title: 'Ambiguous Binding', description: 'Resolve similar scores', question: 'Action when both entities score similarly?', type: 'multiple-choice', options: ['Pick first', 'Request clarification'], correctAnswer: 1, feedback: 'Clarification reduces hallucination risk.' },
+  { id: 'qia-2', title: 'Policy Order', description: 'Determine gating placement', question: 'Policy gating placement?', type: 'multiple-choice', options: ['Before binding', 'After binding prior to plan emit'], correctAnswer: 1, feedback: 'Need bound entities for policy evaluation.' }
+      ],
+      outcomes: [
+        { id: 'good', condition: 'Chose clarification + post-binding policy check', result: 'Safe, disambiguated plan produced', explanation: 'Avoided accidental restricted table usage.' }
+      ]
+    },
+    explanation: 'Reinforces clarification & binding order.',
+    relatedConcepts: ['perception-normalization', 'schema-aware-decomposition'],
+    timeEstimate: 8,
+    successCriteria: ['Requests clarification on ambiguity']
+  }
+];
+
+export const strategyMemoryReplayScenarios: StudyModeQuestion[] = [
+  {
+    id: 'strategy-memory-replay-scenario-1',
+    type: 'scenario',
+    conceptId: 'strategy-memory-replay',
+    title: 'Choosing Replay vs Fresh Plan',
+    level: 'advanced',
+    scenario: {
+      id: 'strategy-replay-scenario',
+      title: 'Similar Analytical Task Detected',
+      description: 'Assess reuse of historical plan with mild schema drift present.',
+      context: 'Embedding near-match; perception hash mismatch on dimension_customers; TTL 7d not expired.',
+      stakeholders: ['ml-engineer', 'platform'],
+      conceptId: 'strategy-memory-replay',
+      difficulty: 'advanced',
+      estimatedTime: '9 minutes',
+      learningOutcomes: ['Check freshness + hash', 'Adapt reused plan safely'],
+      challenges: [
+  { id: 'smr-1', title: 'Reuse Decision', description: 'Assess reuse choice', question: 'Proceed with reuse?', type: 'multiple-choice', options: ['Yes unmodified', 'Adapt plan with drift diff'], correctAnswer: 1, feedback: 'Adaptation accounts for drift.' },
+  { id: 'smr-2', title: 'Staleness Guard', description: 'Select guarding mechanism', question: 'What guard prevents stale reuse?', type: 'multiple-choice', options: ['None needed', 'Schema hash + freshness window'], correctAnswer: 1, feedback: 'Both required for safe replay.' }
+      ],
+      outcomes: [
+        { id: 'good', condition: 'Chooses adaptation + hash guard', result: 'Efficient plan produced safely', explanation: 'Balanced reuse with drift checks.' }
+      ]
+    },
+    explanation: 'Demonstrates safe reuse heuristics.',
+    relatedConcepts: ['budget-constrained-execution', 'perception-normalization'],
+    timeEstimate: 9,
+    successCriteria: ['Checks hash + TTL', 'Adapts rather than blindly reuses']
+  }
+];
+
 // Agentic Commerce & AP2 Scenario
 export const agenticCommerceAp2Scenarios: StudyModeQuestion[] = [
   {

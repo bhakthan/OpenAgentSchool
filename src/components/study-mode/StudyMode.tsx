@@ -53,6 +53,17 @@ import {
 import { loadStudyModeData, flattenQuestions, filterQuestionsByConcept, getRecommendedQuestion, deriveCategories } from '@/lib/data/studyMode/lazy';
 import { StudyModeType, StudyModeQuestion, StudyModeSession } from '@/lib/data/studyMode/types';
 import { toast } from '@/components/ui/use-toast';
+import { MasteryPanel, FailureModesPanel, TransferChallengesView } from './index';
+import { emitTelemetry } from '../../lib/data/studyMode/telemetry';
+import StrategyReplaySandbox from './StrategyReplaySandbox';
+import { evaluateAdaptiveRules } from '@/lib/data/studyMode/adaptiveRuntime';
+import { scoreRiskDecision } from '@/lib/data/studyMode/riskPractice';
+import { misconceptionRefutations } from '@/lib/data/studyMode/misconceptionRefutations';
+import { flashcards, getDueFlashcards, reviewFlashcard, persistFlashcard } from '@/lib/data/studyMode/flashcards';
+import { mockBenchmark } from '@/lib/data/studyMode/cohortBenchmarks';
+// patternInterlockEdges no longer needed directly (visualized via InterlockMap)
+import { driftEvents } from '@/lib/data/studyMode/driftLabs';
+import { computeMasteryTier } from '@/lib/data/studyMode/patternMastery';
 interface StudyModeProps {
   conceptId?: string;
   onComplete?: (session: StudyModeSession) => void;
@@ -231,12 +242,37 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   };
 
   const handleSessionComplete = (session: StudyModeSession) => {
-    const updatedSessions = [...sessions, session];
+  const updatedSessions = [...sessions, session];
     setSessions(updatedSessions);
     setProgress(calculateStudyModeProgress(updatedSessions));
     setSelectedQuestion(null);
   setActiveTab('overview');
   try { window.dispatchEvent(new CustomEvent('analytics:sessionComplete', { detail: { type: session.type, score: session.score } })); } catch {}
+  try { emitTelemetry({ kind: 'pattern_attempt', patternId: session.conceptId, challengeId: session.questionId }); } catch {}
+
+    // Multi-dimensional scoring (#11) – derive simple proxies
+    const correctness = (session.score || 0) / 100;
+    const riskBudget = { costLimit: 10, latencyMs: 3000, sensitivity: 'medium' as const };
+    const simulatedActual = { cost: Math.random()*12, latencyMs: 1500 + Math.random()*2500, sensitivity: 'medium' as const };
+    const riskScore = scoreRiskDecision(correctness, riskBudget, simulatedActual);
+    try { emitTelemetry({ kind: 'multi_dimensional_score', patternId: session.conceptId, challengeId: session.questionId, correctness: riskScore.correctness, riskAlignment: riskScore.riskAlignment, efficiency: riskScore.efficiency, generalization: Math.min(1, correctness * (session.type === 'scl' ? 1.1 : 0.9)) }); } catch {}
+
+    // Adaptive rule firing simulation (#2) – check any rule triggers by keywords in insights / question id
+    try {
+      const fired = evaluateAdaptiveRules(session, updatedSessions);
+      fired.forEach(r => emitTelemetry({ kind: 'adaptive_rule_fired', patternId: session.conceptId, challengeId: session.questionId, meta: { rule: r.id, action: r.prescribe.action, resource: r.prescribe.resourceRef } }));
+    } catch {}
+
+    // Misconception refutation emission (#15)
+    try {
+      const refutes = misconceptionRefutations.filter(m => m.patternId === session.conceptId);
+      if (refutes.length) emitTelemetry({ kind: 'failure_mode_triggered', patternId: session.conceptId, challengeId: session.questionId, meta: { refutations: refutes.slice(0,2) } });
+    } catch {}
+
+    // Governance impact estimator stub (#18) – only for policy pattern
+    if (session.conceptId === 'policy-gated-tool-invocation') {
+      try { emitTelemetry({ kind: 'governance_impact_estimated', patternId: session.conceptId, meta: { hypotheticalBreach: 'Unauthorized PII exfiltration if gating disabled', severity: 'high' } }); } catch {}
+    }
     // Accessible completion announcement
     const msg = `Completed ${session.type} session${typeof session.score === 'number' ? ' with score ' + session.score + '%' : ''}`;
     setLastCompletionMessage(msg);
@@ -451,8 +487,58 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           </TabsTrigger>
         </TabsList>
 
-        {/* Overview Tab */}
-        <TabsContent value="overview" className="space-y-6">
+  {/* Overview Tab */}
+  <TabsContent value="overview" className="space-y-6">
+        {/* Flashcard quick review (#14) */}
+        <Card>
+          <CardHeader><CardTitle className="text-sm">Active Recall Flashcards</CardTitle><CardDescription>Due now: {getDueFlashcards().length}</CardDescription></CardHeader>
+          <CardContent className="flex flex-wrap gap-2">
+            {getDueFlashcards().slice(0,6).map(fc => (
+              <div key={fc.id} className="p-2 border rounded-md text-xs dark:border-neutral-700 w-56">
+                <div className="font-medium mb-1 line-clamp-3" title={fc.prompt}>{fc.prompt}</div>
+                <div className="text-[10px] mb-1 text-muted-foreground">Interval: {fc.interval}d • EF {fc.easiness.toFixed(2)}</div>
+                <div className="flex gap-1" role="group" aria-label="Flashcard grading buttons">
+                  {[0,1,2,3,4,5].map(q => (
+                    <button
+                      key={q}
+                      aria-label={`Grade ${q}`}
+                      className="px-1 py-0.5 border rounded hover:bg-indigo-50 dark:hover:bg-indigo-900/30"
+                      onClick={() => { const upd = reviewFlashcard(fc, q as any); persistFlashcard(upd); try { emitTelemetry({ kind: 'hint_used', patternId: fc.patternId, challengeId: fc.id, meta: { event: 'flashcard_review', quality: q } }); } catch {} }}
+                      title={`Grade ${q}`}>{q}</button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Cohort benchmark mock (#16) */}
+        <Card>
+          <CardHeader><CardTitle className="text-sm">Cohort Benchmark (Mock)</CardTitle><CardDescription>Local vs synthetic cohort</CardDescription></CardHeader>
+          <CardContent className="text-xs space-y-1">
+            {['query-intent-structured-access','policy-gated-tool-invocation'].map(pid => {
+              const localScores = sessions.filter(s => s.conceptId===pid && typeof s.score==='number').map(s => (s.score||0)/100);
+              const r = mockBenchmark(pid, localScores);
+              try { emitTelemetry({ kind: 'hint_used', patternId: pid, meta: { event: 'benchmark_viewed', percentile: r.percentile } }); } catch {}
+              return <div key={pid} className="flex justify-between border rounded p-1 dark:border-neutral-700"><span className="truncate max-w-[60%]" title={pid}>{pid}</span><span>{r.percentile.toFixed(0)}p ({r.deltaFromMedian>=0?'+':''}{(r.deltaFromMedian*100).toFixed(1)}%)</span></div>;
+            })}
+          </CardContent>
+        </Card>
+
+
+        {/* Drift Lab teaser (#13) */}
+        <Card>
+          <CardHeader><CardTitle className="text-sm">Drift Lab Events</CardTitle><CardDescription>Upcoming simulation hooks</CardDescription></CardHeader>
+          <CardContent className="flex flex-col gap-2 text-xs">
+            {driftEvents.map(ev => (
+              <div key={ev.id} className="p-2 border rounded-md dark:border-neutral-700">
+                <div className="font-medium">{ev.type}</div>
+                <div>{ev.description}</div>
+                <div className="text-[10px] text-muted-foreground">Affected: {ev.affectedPatterns.join(', ')}</div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
           {/* Progress Overview */}
           <Card>
             <CardHeader>
@@ -572,6 +658,33 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
               </CardContent>
             </Card>
           )}
+
+          {/* Data Autonomy Mastery Section */}
+          <Card className="border border-orange-300/60 dark:border-orange-700/60">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TrendUp size={24} className="text-orange-500" />
+                Data Autonomy Mastery & Fusion
+              </CardTitle>
+              <CardDescription>Track mastery tiers, anticipate failure modes, and attempt cross-pattern fusion challenges.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4 md:grid-cols-3">
+                <MasteryPanel patternId="strategy-memory-replay" currentTier={computeMasteryTier('strategy-memory-replay', []) || undefined} />
+                <FailureModesPanel patternId="strategy-memory-replay" />
+                <div className="space-y-3">
+                  <h4 className="text-sm font-semibold">Fusion Challenges</h4>
+                  <TransferChallengesView onLaunchScenario={(id) => {
+                    const fusion = allQuestions.find(q => q.id === 'fusion-replay-perception');
+                    if (fusion) {
+                      handleQuestionStart(fusion);
+                      emitTelemetry({ kind: 'transfer_challenge_start', transferId: id });
+                    }
+                  }} />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Study Mode Categories */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

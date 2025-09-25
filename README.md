@@ -12,11 +12,50 @@ _Built for AI by AI with lots of human intervention in the loop_
 
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges, plus **Critical Thinking Challenges** with LLM-powered assessment and feedback.
 
-✨ **Now featuring 27 comprehensive agent patterns including 15 revolutionary Educational Agent Patterns** - from foundational concepts to advanced GPT-5 era educational methodologies with complete Study Mode integration.
+### 🔥 Super Critical Learning (SCL) – Data Autonomy Mastery Layer
+
+SCL now includes a mastery + remediation system across the eight Data Autonomy patterns:
+
+- **Mastery Rubric (4 tiers)**: Recognition → Application → Optimization → Governance; each tier encodes advancement criteria & signals.
+- **Failure Mode Panels**: Top 3 failure modes per pattern (mode, detection signal, remediation) rendered inline with learning flows.
+- **Adaptive Heuristics (v1)**: Simple rule triggers (e.g., repeated entity disambiguation mistakes) route to remediation scenarios or hint cards.
+- **Transfer (Fusion) Challenges**: Cross-pattern assessments testing selective strategy reuse under perception drift & integrated decomposition + repair planning.
+- **Composite Scenarios**: Fusion scenarios playable like any interactive scenario (first added: selective replay under partial drift).
+- **Telemetry Schema**: Privacy-respecting events (`pattern_attempt`, `failure_mode_triggered`, `mastery_tier_up`, `adaptive_rule_fired`) emitted for future analytics dashboards.
+
+> Goal: shift from linear completion to dynamic skill shaping—observe learner error patterns, surface targeted diagnostics, reinforce governance-aligned decision habits.
+
+✨ **Now featuring 35 comprehensive agent patterns** (including 15 Educational Agent Patterns + 8 **Data Autonomy Patterns**) – from foundational concepts to advanced GPT-5 era educational methodologies with complete Study Mode integration.
 
 > Architecture split note: If you deploy backends separately (or in another repo), see docs/CONTRACTS_AND_CONFIG.md for the minimal frontend ↔ backend contracts and environment settings. The SPA keeps working locally with defaults; set VITE_* variables later to point at remote services.
 
 ## 🆕 Latest Updates (September 18, 2025)
+
+### 🧩 New Data Autonomy Pattern Family (Foundational Eight)
+
+Introduced a cohesive baseline for safe, deterministic data-centric agent operation:
+
+| Pattern | Purpose | Key Risk Mitigated | Representative Metric |
+|---------|---------|--------------------|-----------------------|
+| Perception Normalization | Compress raw heterogeneous catalogs + profiles into a governed InfoBox | Schema hallucination & PHI leakage | InfoBox size (KB) / schema drift detection latency |
+| Schema-Aware Decomposition | Expand NL task → validated dependency-ordered subtask graph | Over/under decomposition & invalid entity refs | Valid entity coverage % / redundancy ratio |
+| Action Grounding & Verification | Layered schema + policy + dry-run validation for generated actions | Runtime execution failures & unsafe ops | Preflight rejection rate / dry-run success % |
+| Budget-Constrained Execution Loop | Execute plan steps under token/latency/attempt ceilings with adaptive early stop | Runaway cost & diminishing-return loops | Cost per successful step / early-stop precision |
+| Policy-Gated Tool Invocation | Intent → capability → risk → policy lattice gating before tool/API call | Unauthorized / over-broad tool usage | Denial precision / false positive rate |
+| Data Quality Feedback & Repair Loop | Closed-loop detect → profile → repair → validate | Prolonged data incident impact | Mean time to stability / repair success % |
+| Query Intent → Structured Access | NL query → validated structured plan (entities, metrics, filters) | Hallucinated joins & policy violations | Plan authorization rate / re-gen reduction |
+| Strategy Memory Replay | Retrieve & adapt prior strategies to guide planning | Costly repeated cold-start planning | Cost reduction % / coverage uplift |
+
+Early learning assets now shipped:
+
+- Business visualization components (healthcare perception, VaR risk decomposition, SQL repair grounding, pricing elasticity loop)
+- Algorithm visualization steps integrated into the code playbook
+- Quiz category: Data Autonomy (coverage, grounding safety, early stopping, risk mitigation)
+- Socratic questions probing normalization necessity, decomposition balance, layered verification, composite early-stop signals
+- Caching & diff test for perception InfoBox (deterministic hash + compaction behaviors)
+
+Newly added in this wave: Policy-Gated Tool Invocation, Data Quality Feedback & Repair Loop, Query Intent → Structured Access, Strategy Memory Replay (completing foundational eight). Next: lineage-aware risk scoring & adaptive semantic caching.
+
 
 ### 💳 Agentic Commerce & AP2 – Deeper Platform Integration
 
@@ -379,8 +418,6 @@ Navigate to **Core Concepts → Model Context Protocol → Tool Calling** to exp
 - **All files optimized for text-to-speech with plain text formatting for natural audio narration**
 
 Experience the future of technical education where complex AI agent concepts become accessible through professional audio narration, interactive controls, and seamless integration with visual learning materials!
-
-## 🆕 Previous Updates (August 8, 2025)
 
 ## 🆕 Previous Updates (August 8, 2025)
 

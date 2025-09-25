@@ -101,12 +101,44 @@ export const SEO: React.FC<SEOProps> = ({
         ],
         learningResourceType: 'CourseModule',
         educationalLevel: 'Advanced',
+        isPartOf: {
+          '@type': 'CreativeWork',
+          name: 'Data Autonomy Learning Path',
+          url: 'https://www.openagentschool.org/study-mode'
+        },
+        competencyRequired: [
+          'query-intent-structured-access',
+          'policy-gated-tool-invocation'
+        ],
         author: { '@type': 'Person', name: 'Srikanth Bhakthan' },
         publisher: { '@type': 'Organization', name: 'Open Agent School' },
         inLanguage: 'en',
         keywords: [ 'AP2','agentic commerce','delegated payments','mandate protocol','intent mandate','cart mandate','payment mandate','agent trust','presence signaling' ]
       };
       updateJsonLdScript('seo-jsonld-ap2', ap2Article);
+    }
+
+    // Generic pattern pages enrichment (pattern slug /patterns/<id>)
+    if (location.pathname.startsWith('/patterns/')) {
+      const patternId = location.pathname.split('/patterns/')[1];
+      if (patternId) {
+        const patternJsonLd = {
+          '@context': 'https://schema.org',
+          '@type': 'LearningResource',
+          name: patternId.replace(/-/g,' '),
+          url: currentUrl,
+            isPartOf: {
+              '@type': 'CreativeWork',
+              name: 'Agent Pattern Mastery Path',
+              url: 'https://www.openagentschool.org/patterns'
+            },
+            educationalLevel: /deep|advanced|research|governance/i.test(patternId) ? 'Advanced' : 'Intermediate',
+            competencyRequired: [ 'perception-normalization','schema-aware-decomposition' ].filter(Boolean),
+            learningResourceType: 'Module',
+            provider: { '@type': 'Organization', name: 'Open Agent School' }
+        };
+        updateJsonLdScript('seo-jsonld-pattern', patternJsonLd);
+      }
     }
     
   }, [seoTitle, seoDescription, seoKeywords, seoImage, seoAuthor, currentUrl, type, location.pathname]);
