@@ -77,7 +77,9 @@ export default function D3TreeVisualization({
             { id: 'multi-agent-systems', name: 'Multi-Agent Systems', type: 'concept' as const },
             { id: 'agent-ethics', name: 'Agent Ethics & Governance', type: 'concept' as const },
             { id: 'ai-agents', name: 'AI Agents', type: 'concept' as const },
-            { id: 'ai-safety-governance', name: 'AI Safety & Governance', type: 'concept' as const }
+            { id: 'ai-safety-governance', name: 'AI Safety & Governance', type: 'concept' as const },
+            { id: 'program-setup-north-star', name: 'Program Setup & North Star', type: 'concept' as const, novel: true },
+            { id: 'responsible-ai-governance', name: 'Responsible AI Governance Playbooks', type: 'concept' as const, novel: true }
           ]
         },
         {
@@ -89,7 +91,8 @@ export default function D3TreeVisualization({
             { id: 'mcp', name: 'Model Context Protocol', type: 'concept' as const },
             { id: 'flow-visualization', name: 'Flow Visualization', type: 'concept' as const },
             { id: 'agent-evaluation', name: 'Agent Evaluation', type: 'concept' as const },
-            { id: 'a2a-communication-patterns', name: 'A2A Communication Patterns', type: 'concept' as const, novel: true }
+            { id: 'a2a-communication-patterns', name: 'A2A Communication Patterns', type: 'concept' as const, novel: true },
+            { id: 'strategy-portfolio-management', name: 'Strategy & Portfolio Management', type: 'concept' as const, novel: true }
           ]
         },
         {
@@ -100,7 +103,8 @@ export default function D3TreeVisualization({
             { id: 'acp', name: 'Agent Communication Protocol', type: 'concept' as const },
             { id: 'mcp-a2a-integration', name: 'MCP × A2A Integration', type: 'concept' as const },
             { id: 'data-visualization', name: 'Data Visualization', type: 'concept' as const },
-            { id: 'fine-tuning', name: 'Fine-Tuning Methods (SFT, DPO, RFT)', type: 'concept' as const, novel: true }
+            { id: 'fine-tuning', name: 'Fine-Tuning Methods (SFT, DPO, RFT)', type: 'concept' as const, novel: true },
+            { id: 'data-knowledge-operations', name: 'Data & Knowledge Operations', type: 'concept' as const, novel: true }
           ]
         },
         {
@@ -111,7 +115,10 @@ export default function D3TreeVisualization({
             { id: 'agent-deployment', name: 'Agent Deployment & Operations', type: 'concept' as const },
             { id: 'agent-learning', name: 'Agent Learning & Adaptation', type: 'concept' as const },
             { id: 'agent-integration', name: 'Agent Integration Patterns', type: 'concept' as const },
-            { id: 'agentic-commerce-ap2', name: 'Agentic Commerce & AP2', type: 'concept' as const, novel: true }
+            { id: 'agentic-commerce-ap2', name: 'Agentic Commerce & AP2', type: 'concept' as const, novel: true },
+            { id: 'architecture-platform-operations', name: 'Architecture & Platform Operations', type: 'concept' as const, novel: true },
+            { id: 'experimentation-continuous-improvement', name: 'Experimentation & Continuous Improvement', type: 'concept' as const, novel: true },
+            { id: 'ecosystem-partnerships', name: 'Ecosystem & Partnerships', type: 'concept' as const, novel: true }
           ]
         },
         {
@@ -172,7 +179,8 @@ export default function D3TreeVisualization({
             { id: 'study-socratic-thinking', name: 'Socratic Discovery', type: 'quiz' as const },
             { id: 'study-interactive-scenarios', name: 'Interactive Scenarios', type: 'quiz' as const },
             { id: 'study-debug-challenges', name: 'Debug Challenges', type: 'quiz' as const },
-            { id: 'study-super-critical-learning', name: 'Super Critical Learning', type: 'quiz' as const, novel: true }
+            { id: 'study-super-critical-learning', name: 'Super Critical Learning', type: 'quiz' as const, novel: true },
+            { id: 'study-human-adoption', name: 'Human-Centric Adoption', type: 'quiz' as const, novel: true }
           ]
         },
         {
@@ -206,6 +214,14 @@ export default function D3TreeVisualization({
             { id: 'misconception-detector', name: 'Misconception Detector', type: 'pattern' as const, novel: true },
             { id: 'time-box-pair-programmer', name: 'Time-box Pair Programmer', type: 'pattern' as const, novel: true },
             { id: 'tool-use-coach', name: 'Tool-Use Coach', type: 'pattern' as const, novel: true }
+          ]
+        },
+        {
+          id: 'operating-model',
+          name: 'Operating Model & Leadership',
+          type: 'category' as const,
+          children: collapsedNodes.has('operating-model') ? [] : [
+            { id: 'organizational-enablement', name: 'Organizational Enablement', type: 'concept' as const, novel: true }
           ]
         }
       ]

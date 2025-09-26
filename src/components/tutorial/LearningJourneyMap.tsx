@@ -70,13 +70,15 @@ const learningPaths: LearningPath[] = [
       'agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 
       'agentic-workflow-control', 'agent-evaluation-methodologies',
       // Tier 1: Foundational Concepts
-      'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents',
+    'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance',
+    'program-setup-north-star', 'responsible-ai-governance',
       // Tier 2: Architecture Concepts  
-      'a2a-communication', 'mcp', 'flow-visualization',
+    'a2a-communication', 'mcp', 'flow-visualization', 'strategy-portfolio-management',
       // Tier 3: Implementation Concepts
-      'acp', 'mcp-a2a-integration', 'data-visualization',
+    'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations',
       // Tier 4: Advanced Concepts
-  'agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration', 'agentic-commerce-ap2',
+  'agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration', 'agent-ops', 'architecture-platform-operations',
+    'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'agentic-commerce-ap2',
       // Additional Learning
       'azure-services', 'references', 'community', 'patterns', 'quiz'
     ],
@@ -253,6 +255,34 @@ const learningPaths: LearningPath[] = [
         isUnlocked: false,
         path: '/concepts'
       },
+      {
+        id: 'program-setup-north-star',
+        title: 'Program Setup & North Star',
+        description: 'Align mission, metrics, and maturity before scaling agent initiatives.',
+        icon: <Target size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '30-40 min',
+        prerequisites: ['ai-safety-governance'],
+        skills: ['Mission Definition', 'Metric Design', 'Maturity Mapping'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'responsible-ai-governance',
+        title: 'Responsible AI Governance Playbooks',
+        description: 'Operationalize policy controls, risk reviews, and escalation paths.',
+        icon: <Shield size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '35-45 min',
+        prerequisites: ['program-setup-north-star'],
+        skills: ['Policy Enforcement', 'Risk Assessment', 'Escalation Design'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
       
       // Tier 2: Architecture Concepts
       {
@@ -297,6 +327,20 @@ const learningPaths: LearningPath[] = [
         isUnlocked: false,
         path: '/concepts'
       },
+      {
+        id: 'strategy-portfolio-management',
+        title: 'Strategy & Portfolio Management',
+        description: 'Prioritize high-value agent initiatives with defensible ROI and staging.',
+        icon: <TrendUp size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '35-45 min',
+        prerequisites: ['agent-architecture', 'agentic-ai-design-taxonomy'],
+        skills: ['Opportunity Scoring', 'Roadmapping', 'Portfolio Balancing'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
       
       // Tier 3: Implementation Concepts
       {
@@ -336,6 +380,20 @@ const learningPaths: LearningPath[] = [
         estimatedTime: '35-45 min',
         prerequisites: ['flow-visualization'],
         skills: ['Data Visualization', 'Analytics', 'Dashboard Design'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'data-knowledge-operations',
+        title: 'Data & Knowledge Operations',
+        description: 'Design trustworthy data supply chains and knowledge governance.',
+        icon: <Stack size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '40-50 min',
+        prerequisites: ['data-visualization'],
+        skills: ['Data Curation', 'Evaluation Suites', 'Knowledge Stewardship'],
         completionRate: 0,
         isCompleted: false,
         isUnlocked: false,
@@ -507,10 +565,10 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
   ];
   const tiers = [
     ['agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'],
-    ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents'],
-    ['a2a-communication', 'mcp', 'flow-visualization'],
-    ['acp', 'mcp-a2a-integration', 'data-visualization'],
-  ['agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration', 'agentic-commerce-ap2'],
+    ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance', 'program-setup-north-star', 'responsible-ai-governance'],
+    ['a2a-communication', 'mcp', 'flow-visualization', 'strategy-portfolio-management'],
+    ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations'],
+    ['agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration', 'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'agentic-commerce-ap2'],
     ['azure-services', 'references', 'community', 'patterns', 'quiz']
   ];
   const tierNodes = selectedPath.nodes.filter(node => tiers[activeTier].includes(node.id))

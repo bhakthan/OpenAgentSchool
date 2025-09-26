@@ -12,9 +12,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { 
   Brain, PuzzlePiece, Bug, Lightbulb, Target, TrendUp,
-  CheckCircle, Clock, Star, ArrowRight, Play, BookOpen
+  CheckCircle, Clock, Star, ArrowRight, Play, BookOpen, DownloadSimple
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
@@ -61,6 +62,7 @@ import { scoreRiskDecision } from '@/lib/data/studyMode/riskPractice';
 import { misconceptionRefutations } from '@/lib/data/studyMode/misconceptionRefutations';
 import { flashcards, getDueFlashcards, reviewFlashcard, persistFlashcard } from '@/lib/data/studyMode/flashcards';
 import { mockBenchmark } from '@/lib/data/studyMode/cohortBenchmarks';
+import MarkdownRenderer from './MarkdownRenderer';
 // patternInterlockEdges no longer needed directly (visualized via InterlockMap)
 import { driftEvents } from '@/lib/data/studyMode/driftLabs';
 import { computeMasteryTier } from '@/lib/data/studyMode/patternMastery';
@@ -68,6 +70,65 @@ interface StudyModeProps {
   conceptId?: string;
   onComplete?: (session: StudyModeSession) => void;
 }
+
+const strategicToolkits = [
+  {
+    id: 'north-star-alignment',
+    title: 'North Star Alignment Canvas',
+    description: 'Capture mission, metrics, and guardrails that ground your agent charter.',
+    href: '/toolkits/north-star-alignment-canvas.md',
+    downloadName: 'north-star-alignment-canvas.md',
+  },
+  {
+    id: 'portfolio-balance',
+    title: 'Portfolio Balance Canvas',
+    description: 'Prioritize agent investments by balancing value, readiness, and risk.',
+    href: '/toolkits/portfolio-balance-canvas.md',
+    downloadName: 'portfolio-balance-canvas.md',
+  },
+  {
+    id: 'responsible-ai-governance',
+    title: 'Responsible AI Governance Playbook',
+    description: 'Map oversight forums, escalation paths, and control checkpoints.',
+    href: '/toolkits/responsible-ai-governance-playbook.md',
+    downloadName: 'responsible-ai-governance-playbook.md',
+  },
+  {
+    id: 'continuous-improvement',
+    title: 'Continuous Improvement Flywheel',
+    description: 'Translate telemetry and feedback signals into iterative upgrades.',
+    href: '/toolkits/continuous-improvement-flywheel.md',
+    downloadName: 'continuous-improvement-flywheel.md',
+  },
+  {
+    id: 'knowledge-ops',
+    title: 'Knowledge Ops Runbook',
+    description: 'Operationalize sourcing, curation, and verification for trusted knowledge.',
+    href: '/toolkits/knowledge-ops-runbook.md',
+    downloadName: 'knowledge-ops-runbook.md',
+  },
+  {
+    id: 'platform-operating-model',
+    title: 'Platform Operating Model Canvas',
+    description: 'Define tiers, funding cadences, and paved roads for platform growth.',
+    href: '/toolkits/platform-operating-model.md',
+    downloadName: 'platform-operating-model.md',
+  },
+  {
+    id: 'partnership-evaluation',
+    title: 'Partnership Evaluation Canvas',
+    description: 'Compare partner capabilities, risk posture, and integration effort.',
+    href: '/toolkits/partnership-evaluation-canvas.md',
+    downloadName: 'partnership-evaluation-canvas.md',
+  },
+  {
+    id: 'enablement-roadmap',
+    title: 'Enablement Roadmap Canvas',
+    description: 'Plan enablement waves, incentives, and feedback signals for adoption.',
+    href: '/toolkits/enablement-roadmap-canvas.md',
+    downloadName: 'enablement-roadmap-canvas.md',
+  },
+] as const;
 
 const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [activeTab, setActiveTab] = useState<'overview' | StudyModeType>('overview');
@@ -77,6 +138,10 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [dataBundle, setDataBundle] = useState<any | null>(null);
   const [categories, setCategories] = useState<any[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
+  const [inlineToolkit, setInlineToolkit] = useState<typeof strategicToolkits[number] | null>(null);
+  const [toolkitMarkdown, setToolkitMarkdown] = useState<string>('');
+  const [loadingToolkit, setLoadingToolkit] = useState<boolean>(false);
+  const [toolkitError, setToolkitError] = useState<string | null>(null);
   // Live region for announcing session completion
   const [lastCompletionMessage, setLastCompletionMessage] = useState<string | null>(null);
   const liveRegionRef = useRef<HTMLDivElement | null>(null);
@@ -130,6 +195,40 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (!inlineToolkit) return;
+    let cancelled = false;
+    setLoadingToolkit(true);
+    setToolkitError(null);
+    setToolkitMarkdown('');
+    fetch(inlineToolkit.href)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`Failed to load toolkit: ${res.status}`);
+        }
+        return res.text();
+      })
+      .then(text => {
+        if (!cancelled) {
+          setToolkitMarkdown(text);
+        }
+      })
+      .catch(err => {
+        if (!cancelled) {
+          console.error('Failed to fetch toolkit', err);
+          setToolkitError('Unable to load toolkit. Please download the file instead.');
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setLoadingToolkit(false);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [inlineToolkit]);
 
   // Deep-link + event handler effect (runs when dataBundle first appears)
   useEffect(() => {
@@ -239,6 +338,19 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     setSelectedQuestion(question);
     setActiveTab(question.type);
     try { window.dispatchEvent(new CustomEvent('analytics:questionStart', { detail: { id: question.id, type: question.type } })); } catch {}
+  };
+
+  const handleOpenToolkitInline = (toolkit: typeof strategicToolkits[number]) => {
+    setInlineToolkit(toolkit);
+    try {
+      emitTelemetry({ kind: 'hint_used', meta: { event: 'toolkit_inline_open', toolkitId: toolkit.id } });
+    } catch {}
+  };
+
+  const handleCloseToolkitInline = () => {
+    setInlineToolkit(null);
+    setToolkitMarkdown('');
+    setToolkitError(null);
   };
 
   const handleSessionComplete = (session: StudyModeSession) => {
@@ -659,6 +771,43 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
             </Card>
           )}
 
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <DownloadSimple size={24} className="text-primary" />
+                Strategy Toolkits Library
+              </CardTitle>
+              <CardDescription>Download canvases and playbooks that extend each strategic theme into action.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {strategicToolkits.map((toolkit) => (
+                  <div key={toolkit.id} className="border rounded-lg p-4 flex flex-col justify-between bg-muted/40 dark:bg-background/60">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold">{toolkit.title}</h4>
+                      <div className="text-sm text-muted-foreground leading-relaxed flex items-start gap-2">
+                        <BookOpen size={16} className="mt-0.5 text-primary" />
+                        <span>{toolkit.description}</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex flex-col sm:flex-row gap-2">
+                      <Button size="sm" variant="ghost" className="justify-center gap-2" onClick={() => handleOpenToolkitInline(toolkit)}>
+                        <BookOpen size={16} />
+                        <span>Open Inline</span>
+                      </Button>
+                      <Button asChild variant="outline" size="sm" className="justify-center gap-2">
+                        <a href={toolkit.href} download={toolkit.downloadName}>
+                          <DownloadSimple size={16} />
+                          <span>Download</span>
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Data Autonomy Mastery Section */}
           <Card className="border border-orange-300/60 dark:border-orange-700/60">
             <CardHeader>
@@ -851,6 +1000,41 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           />
         </TabsContent>
       </Tabs>
+
+      <Dialog open={!!inlineToolkit} onOpenChange={(open) => { if (!open) handleCloseToolkitInline(); }}>
+        <DialogContent className="max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>{inlineToolkit?.title ?? 'Toolkit'}</DialogTitle>
+            <DialogDescription>
+              View the toolkit without leaving Study Mode. Download remains available if you prefer working offline.
+            </DialogDescription>
+          </DialogHeader>
+          <ScrollArea className="max-h-[70vh] pr-4">
+            {loadingToolkit && (
+              <div className="py-8 text-center text-sm text-muted-foreground">Loading toolkit…</div>
+            )}
+            {!loadingToolkit && toolkitError && (
+              <div className="py-8 text-center text-sm text-destructive">{toolkitError}</div>
+            )}
+            {!loadingToolkit && !toolkitError && inlineToolkit && (
+              <div className="prose prose-sm max-w-none dark:prose-invert">
+                <MarkdownRenderer>{toolkitMarkdown}</MarkdownRenderer>
+              </div>
+            )}
+          </ScrollArea>
+          <div className="flex justify-end gap-2 pt-4">
+            {inlineToolkit && (
+              <Button asChild variant="outline" size="sm" className="gap-2">
+                <a href={inlineToolkit.href} download={inlineToolkit.downloadName}>
+                  <DownloadSimple size={16} />
+                  <span>Download</span>
+                </a>
+              </Button>
+            )}
+            <Button size="sm" onClick={handleCloseToolkitInline}>Close</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -39,6 +39,16 @@ export const conceptCues: Record<string, ConceptCue> = {
     cue: "Safety by design, governance by principle - responsible AI protects both users and society",
     criticalThinkingQuestion: "How would you implement a comprehensive AI safety and governance framework that scales from individual agents to enterprise-wide AI ecosystems while maintaining innovation velocity?"
   },
+  'program-setup-north-star': {
+    id: 'program-setup-north-star',
+    cue: 'Clarity fuels momentum – define the mission, metrics, and maturity ladder before sprinting into build mode.',
+    criticalThinkingQuestion: 'How would you align stakeholders on a single North Star narrative that balances ambition with measurable success criteria for an enterprise agent program?'
+  },
+  'responsible-ai-governance': {
+    id: 'responsible-ai-governance',
+    cue: 'Governance works when it is operational – policies must translate into daily controls, reviews, and evidence.',
+    criticalThinkingQuestion: 'How would you embed risk reviews, escalation paths, and audit evidence into the delivery lifecycle so compliance remains lightweight but trustworthy?'
+  },
 
   // Tier 2: Architecture Concepts  
   'a2a-communication': {
@@ -55,6 +65,11 @@ export const conceptCues: Record<string, ConceptCue> = {
     id: 'flow-visualization',
     cue: "Seeing is understanding - visualized flows reveal hidden patterns and optimization opportunities",
     criticalThinkingQuestion: "How would you design an interactive visualization system that helps users understand complex agent workflows while providing actionable insights for optimization and debugging?"
+  },
+  'strategy-portfolio-management': {
+    id: 'strategy-portfolio-management',
+    cue: 'A focused portfolio beats scattered experiments – sequencing value unlocks compounding returns.',
+    criticalThinkingQuestion: 'How would you prioritize a backlog of agent opportunities to maximize enterprise impact while balancing risk, feasibility, and organizational readiness?'
   },
 
   // Tier 3: Implementation Concepts
@@ -73,6 +88,11 @@ export const conceptCues: Record<string, ConceptCue> = {
     cue: "Data tells stories - visualization transforms metrics into insights and insights into action",
     criticalThinkingQuestion: "How would you create a data visualization platform for AI agents that not only shows what happened but predicts what will happen and recommends what should happen next?"
   },
+  'data-knowledge-operations': {
+    id: 'data-knowledge-operations',
+    cue: 'High-performing agents rely on disciplined data supply chains and living knowledge bases.',
+    criticalThinkingQuestion: 'How would you design a data and knowledge operations program that keeps context accurate and compliant as products, policies, and markets shift?'
+  },
 
   // Tier 4: Advanced Concepts
   'agent-deployment': {
@@ -89,6 +109,26 @@ export const conceptCues: Record<string, ConceptCue> = {
     id: 'agent-integration',
     cue: "Integration bridges worlds - legacy systems and modern agents working in harmony",
     criticalThinkingQuestion: "How would you integrate AI agents into a complex enterprise environment with decades of legacy systems while ensuring data consistency, security, and minimal disruption to existing workflows?"
+  },
+  'architecture-platform-operations': {
+    id: 'architecture-platform-operations',
+    cue: 'Platforms remove toil – shared services and guardrails let teams ship faster without chaos.',
+    criticalThinkingQuestion: 'How would you design a shared agent platform that balances centralized control with team autonomy, ensuring reliability and policy compliance at scale?'
+  },
+  'experimentation-continuous-improvement': {
+    id: 'experimentation-continuous-improvement',
+    cue: 'Learning loops must be intentional – instrument for change, not just hindsight.',
+    criticalThinkingQuestion: 'How would you structure an experimentation program that converts telemetry, user feedback, and SCL mastery signals into a prioritized improvement roadmap?'
+  },
+  'ecosystem-partnerships': {
+    id: 'ecosystem-partnerships',
+    cue: 'No team ships alone – partnerships can accelerate or derail depending on governance.',
+    criticalThinkingQuestion: 'How would you evaluate and onboard an external agent capability provider while protecting user data, uptime, and brand trust?'
+  },
+  'organizational-enablement': {
+    id: 'organizational-enablement',
+    cue: 'Adoption is a people problem – operating models, skills, and incentives must evolve together.',
+    criticalThinkingQuestion: 'How would you evolve the organizational structure, training, and incentive systems so every function can leverage agents responsibly and confidently?'
   },
   'agent-evaluation': {
     id: 'agent-evaluation',

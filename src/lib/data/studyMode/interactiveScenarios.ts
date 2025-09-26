@@ -3670,6 +3670,837 @@ Current agent response to similar queries: "I cannot provide tax advice due to t
     ]
   }
 ];
+// Scenarios for Program Setup & North Star
+export const programSetupNorthStarScenarios: StudyModeQuestion[] = [
+  {
+    id: 'program-setup-scenario-1',
+    type: 'scenario',
+    conceptId: 'program-setup-north-star',
+    title: 'Designing the Program Charter',
+    level: 'intermediate',
+    scenario: {
+      id: 'program-setup-charter',
+      title: 'North Star Working Session',
+      description: 'Facilitate a two-hour workshop with cross-functional leaders to finalize the AI agent program charter.',
+      context: 'Pilot teams delivered scattered wins, but executives want a unified story before approving the next funding wave.',
+      stakeholders: ['Chief Product Officer', 'Head of Operations', 'Security Lead', 'Transformation PMO'],
+      challenges: [
+        {
+          id: 'psns-mission',
+          title: 'Mission Statement Alignment',
+          description: 'Select the mission statement that balances ambition and clarity.',
+          question: 'Which mission statement should anchor the charter?',
+          type: 'multiple-choice',
+          options: [
+            'Deploy agents across every customer workflow within 12 months.',
+            'Deliver measurable productivity lift for priority journeys while upholding safety-by-design principles.',
+            'Adopt cutting-edge AI capabilities faster than competitors regardless of domain.',
+            'Empower every team to build their own agents without central constraints.'
+          ],
+          correctAnswer: 1,
+          feedback: 'The mission must combine value, focus, and guardrails. Productivity lift plus safety principles makes the program credible and measurable.',
+          hints: ['Look for measurable value and explicit guardrails.', 'Avoid statements that overpromise timeline or lack focus.']
+        },
+        {
+          id: 'psns-metrics',
+          title: 'North Star Scorecard',
+          description: 'Choose the most resilient success metrics for the first maturity rung.',
+          question: 'Which combination forms a balanced north star scorecard?',
+          type: 'multiple-choice',
+          options: [
+            'Task completion uplift, agent NPS, policy incident count.',
+            'Number of prompts shipped, model accuracy, model size.',
+            'Total cost of ownership, sprint velocity, employee satisfaction.',
+            'Executive sentiment, press coverage, hackathon participation.'
+          ],
+          correctAnswer: 0,
+          feedback: 'Pair outcomes (task uplift), trust (NPS), and guardrails (incident count) to keep goals balanced.',
+          hints: ['Mix value, user trust, and risk control metrics.', 'Beware of vanity metrics.']
+        },
+        {
+          id: 'psns-readiness',
+          title: 'Maturity Exit Criteria',
+          description: 'Define the evidence required to progress to the next rung.',
+          question: 'Which exit criteria provide the strongest gate to unlock further investment?',
+          type: 'multiple-choice',
+          options: [
+            'Completion of pilot documentation and stakeholder sign-off.',
+            'Demonstrated savings or revenue impact, stable runbooks, and risk review clearance.',
+            'Commitment from three additional business units to participate.',
+            'Availability of a new model architecture from vendors.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Evidence must include value proof, operational stability, and governance clearance before scaling.',
+          hints: ['Think about value, operations, and risk as gating pillars.']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'charter-aligned',
+          condition: 'All challenges answered correctly',
+          result: 'Stakeholders approve the charter with unified language and clear measurement.',
+          explanation: 'The program secures budget because the mission, metrics, and maturity ladder are evidence-backed.',
+          nextSteps: ['Publish charter summary deck', 'Launch north star scorecard dashboard', 'Schedule quarterly maturity reviews']
+        },
+        {
+          id: 'charter-incomplete',
+          condition: 'Any challenge missed',
+          result: 'Stakeholders request revisions, delaying funding by a quarter.',
+          explanation: 'Misaligned mission or weak metrics eroded confidence; you must gather more evidence and iterate.'
+        }
+      ],
+      resources: [
+        'toolkits/north-star-alignment-canvas.md',
+        'toolkits/portfolio-balance-canvas.md'
+      ],
+      conceptId: 'program-setup-north-star',
+      difficulty: 'intermediate',
+      estimatedTime: '18 minutes',
+      learningOutcomes: [
+        'Align program mission with measurable outcomes',
+        'Construct balanced scorecards for AI programs',
+        'Set evidence-based maturity gates'
+      ]
+    },
+    hints: ['Capture mission, metrics, and guardrails in the alignment canvas.', 'Reference maturity ladder examples from prior programs.'],
+    explanation: 'Simulates facilitation challenges of landing a credible north star charter under executive pressure.',
+    relatedConcepts: ['strategy-portfolio-management', 'organizational-enablement', 'responsible-ai-governance'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Selects mission framing that balances ambition and trust',
+      'Builds multi-dimensional metric stack',
+      'Defines rigorous maturity exit criteria'
+    ]
+  }
+];
+
+// Scenarios for Responsible AI Governance
+export const responsibleAIGovernanceScenarios: StudyModeQuestion[] = [
+  {
+    id: 'responsible-gov-scenario-1',
+    type: 'scenario',
+    conceptId: 'responsible-ai-governance',
+    title: 'Risk Board Acceleration',
+    level: 'intermediate',
+    scenario: {
+      id: 'responsible-gov-risk-board',
+      title: 'Modernizing the Risk Review',
+      description: 'Incident backlog grows because the risk review board cannot keep pace with experimentation.',
+      context: 'High-risk launches require manual review. Teams complain about three-week queues, causing shadow launches. Executives demand a faster, auditable process before the next quarterly review.',
+      stakeholders: ['Chief Risk Officer', 'Product VP', 'Compliance Counsel', 'Experimentation Guild Lead'],
+      challenges: [
+        {
+          id: 'rgov-tiering',
+          title: 'Risk Tiering Framework',
+          description: 'Select the most effective way to tier risk and route reviews.',
+          question: 'Which approach allows velocity without compromising oversight?',
+          type: 'multiple-choice',
+          options: [
+            'Every launch must attend the full board for consistent governance.',
+            'Introduce policy-as-code checks and delegate low/medium risk to automated gates.',
+            'Let product leads self-attest compliance to speed decisions.',
+            'Outsource reviews to an external auditor for objectivity.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Automated controls for low-risk launches free capacity, while high-risk items still receive human scrutiny.',
+          hints: ['Use automation where risk is low and evidence is machine-checkable.']
+        },
+        {
+          id: 'rgov-evidence',
+          title: 'Evidence Automation',
+          description: 'Choose the best evidence packaging approach.',
+          question: 'Which evidence bundle best balances completeness and effort?',
+          type: 'multiple-choice',
+          options: [
+            'Manual slide deck prepared by each team.',
+            'Auto-generated evaluation report with lineage metadata, risk questionnaire, and attestation log.',
+            'Email summary with links to dashboards.',
+            'Video walkthrough recorded by engineers.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Automated reports create consistent, auditable evidence while reducing prep toil.',
+          hints: ['Look for solutions that regenerate as code or data changes.']
+        },
+        {
+          id: 'rgov-telemetry',
+          title: 'Live Monitoring Hooks',
+          description: 'Determine how incidents feed back into governance.',
+          question: 'Which telemetry hook closes the loop between production and policy?',
+          type: 'multiple-choice',
+          options: [
+            'Weekly manual status updates from teams.',
+            'Real-time incident dashboard with escalation triggers tied to policy owners.',
+            'Quarterly compliance audits only.',
+            'Open a chat channel and hope teams post issues voluntarily.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Continuous monitoring with defined triggers keeps governance proactive.',
+          hints: ['Think about automated thresholds and escalation routing.']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'rgov-modernized',
+          condition: 'All challenges correct',
+          result: 'Risk board throughput triples and backlog clears within a month.',
+          explanation: 'Tiered oversight, automated evidence, and live telemetry restore trust while preserving compliance.',
+          nextSteps: ['Roll out governance automation playbook', 'Train reviewers on new evidence portal', 'Publish monthly transparency reports']
+        },
+        {
+          id: 'rgov-stalled',
+          condition: 'Any challenge missed',
+          result: 'Shadow launches continue and regulators request a formal audit.',
+          explanation: 'Incomplete modernization keeps governance reactive and slow.'
+        }
+      ],
+      resources: [
+        'toolkits/responsible-ai-governance-playbook.md',
+        'toolkits/continuous-improvement-flywheel.md'
+      ],
+      conceptId: 'responsible-ai-governance',
+      difficulty: 'intermediate',
+      estimatedTime: '20 minutes',
+      learningOutcomes: [
+        'Design tiered governance models',
+        'Automate evidence capture for reviews',
+        'Instrument feedback loops into policy execution'
+      ]
+    },
+    hints: ['Consider policy-as-code and dashboards as leverage points.', 'Link governance cadence to experimentation velocity.'],
+    explanation: 'Challenges learners to rewire governance processes for speed and accountability.',
+    relatedConcepts: ['agent-ops', 'experimentation-continuous-improvement', 'security-data-boundaries'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Implements differential oversight',
+      'Automates evidence generation',
+      'Connects telemetry to policy updates'
+    ]
+  }
+];
+
+// Scenarios for Strategy & Portfolio Management
+export const strategyPortfolioManagementScenarios: StudyModeQuestion[] = [
+  {
+    id: 'strategy-portfolio-scenario-1',
+    type: 'scenario',
+    conceptId: 'strategy-portfolio-management',
+    title: 'Quarterly Portfolio Review',
+    level: 'intermediate',
+    scenario: {
+      id: 'strategy-portfolio-review',
+      title: 'Balancing Bets for Next Quarter',
+      description: 'Lead a quarterly business review to rebalance the agent investment portfolio.',
+      context: 'Three initiatives consume 70% of capacity. One is delivering outsized value, one is stalled on compliance, and a new opportunity emerged from support telemetry.',
+      stakeholders: ['CIO', 'Business Unit GM', 'Finance Partner', 'Head of Platform'],
+      challenges: [
+        {
+          id: 'spm-sustain',
+          title: 'Decide on the Stalled Initiative',
+          description: 'High potential but uncertain timeline due to compliance blockers.',
+          question: 'What is the best decision given current evidence?',
+          type: 'multiple-choice',
+          options: [
+            'Continue full funding; success is inevitable.',
+            'Pause the initiative until compliance issues clear and reallocate capacity now.',
+            'Split the team to multitask on the new opportunity.',
+            'Cancel the initiative permanently.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Pausing with explicit exit criteria frees capacity while preserving option value.',
+          hints: ['Tie investment to evidence and readiness.']
+        },
+        {
+          id: 'spm-newbet',
+          title: 'Evaluating the New Signal',
+          description: 'Support telemetry reveals a high-friction workflow primed for automation.',
+          question: 'How should you fund exploration?',
+          type: 'multiple-choice',
+          options: [
+            'Ignore until the next annual planning cycle.',
+            'Spin up a discovery squad with time-boxed runway and success metrics.',
+            'Fully staff a product team immediately.',
+            'Ask vendor partners to handle it without evaluation.'
+          ],
+          correctAnswer: 1,
+          feedback: 'A discovery squad tests the hypothesis quickly without destabilizing the portfolio.',
+          hints: ['Use option bets with clear learning goals.']
+        },
+        {
+          id: 'spm-communication',
+          title: 'Communicating Trade-offs',
+          description: 'Prepare messaging for affected stakeholders.',
+          question: 'Which communication plan maintains trust?',
+          type: 'multiple-choice',
+          options: [
+            'Send a terse email with final decisions.',
+            'Host a review explaining criteria, publish scorecards, and offer support for deferred teams.',
+            'Delay communication to avoid conflict.',
+            'Let teams discover changes via resource reassignments.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Transparent communication with data-backed rationale preserves alignment.',
+          hints: ['Share scorecards and next steps openly.']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'spm-rebalanced',
+          condition: 'All challenges correct',
+          result: 'Portfolio shifts unlock capacity for discovery while supporting proven work.',
+          explanation: 'Disciplined governance maintains stakeholder trust.',
+          nextSteps: ['Update portfolio dashboard', 'Launch discovery squad charter', 'Schedule mid-quarter health check']
+        },
+        {
+          id: 'spm-misaligned',
+          condition: 'Any challenge missed',
+          result: 'Stakeholders question the portfolio process and escalate to the steering committee.',
+          explanation: 'Decisions lacked evidence or communication, eroding confidence.'
+        }
+      ],
+      resources: [
+        'toolkits/portfolio-balance-canvas.md',
+        'toolkits/north-star-alignment-canvas.md'
+      ],
+      conceptId: 'strategy-portfolio-management',
+      difficulty: 'intermediate',
+      estimatedTime: '18 minutes',
+      learningOutcomes: [
+        'Apply evidence-based portfolio triage',
+        'Structure exploratory bets responsibly',
+        'Communicate trade-offs to sustain trust'
+      ]
+    },
+    hints: ['Use the balance canvas to weigh value vs readiness.', 'Keep a transparent decision log.'],
+    explanation: 'Teams practice disciplined portfolio governance under fixed capacity constraints.',
+    relatedConcepts: ['program-setup-north-star', 'ecosystem-partnerships', 'experimentation-continuous-improvement'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Applies evidence-based triage',
+      'Allocates discovery capacity prudently',
+      'Maintains stakeholder trust with transparent communication'
+    ]
+  }
+];
+
+// Scenarios for Data & Knowledge Operations
+export const dataKnowledgeOperationsScenarios: StudyModeQuestion[] = [
+  {
+    id: 'data-knowledge-scenario-1',
+    type: 'scenario',
+    conceptId: 'data-knowledge-operations',
+    title: 'Knowledge Base Refresh Runbook',
+    level: 'intermediate',
+    scenario: {
+      id: 'data-knowledge-refresh',
+      title: 'Quarterly Refresh Sprint',
+      description: 'Customer support policies changed across regions and the RAG system is drifting.',
+      context: 'Regulators issued new fairness guidance. You must refresh the knowledge base while avoiding downtime and ensuring audit trails remain intact.',
+      stakeholders: ['Knowledge Operations Lead', 'Compliance Analyst', 'Localization Manager', 'ML Engineer'],
+      challenges: [
+        {
+          id: 'dko-sourcing',
+          title: 'Source of Truth Selection',
+          description: 'Determine which sources should feed the refresh pipeline.',
+          question: 'What sourcing strategy keeps context current without flooding curators?',
+          type: 'multiple-choice',
+          options: [
+            'Ingest every document from shared drives immediately.',
+            'Pull structured policy updates via API, flag deltas for curator review, and quarantine unverified docs.',
+            'Crowdsource updates from customer forums.',
+            'Wait for monthly compliance digest emails.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Automated delta detection plus curator validation balances speed and accuracy.',
+          hints: ['Blend automation with human checkpoints.']
+        },
+        {
+          id: 'dko-controls',
+          title: 'Access Controls',
+          description: 'Decide how to handle sensitive regional data.',
+          question: 'Which control keeps data compliant and auditable?',
+          type: 'multiple-choice',
+          options: [
+            'Allow all teams to access every document for transparency.',
+            'Segment embeddings by region with policy tags and enforce runtime filtering with audit logs.',
+            'Rely on verbal agreements not to misuse data.',
+            'Disable embeddings for sensitive data entirely.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Segmentation with policy-aware connectors maintains compliance without blocking value.',
+          hints: ['Think about lineage, tagging, and runtime enforcement.']
+        },
+        {
+          id: 'dko-quality',
+          title: 'Quality Verification',
+          description: 'Establish post-refresh quality checks.',
+          question: 'Which verification step best validates the refresh?',
+          type: 'multiple-choice',
+          options: [
+            'Ship immediately and monitor social media for issues.',
+            'Run targeted evaluation suites, sample high-risk queries, and log curator sign-offs.',
+            'Trust that automation worked because no errors were thrown.',
+            'Ask one engineer to spot-check randomly.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Structured evals plus sign-offs create defensible quality evidence.',
+          hints: ['Focus on repeatable evaluation and attestation.']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'dko-success',
+          condition: 'All answers correct',
+          result: 'Knowledge base refresh completes with zero incident reports and improved accuracy.',
+          explanation: 'Delta ingestion, segmented control, and quality verification stabilized the knowledge supply chain.',
+          nextSteps: ['Publish refresh summary in audit log', 'Schedule mid-cycle drift check', 'Update curator onboarding with lessons learned']
+        },
+        {
+          id: 'dko-failure',
+          condition: 'Any answer incorrect',
+          result: 'Regulators flag inconsistencies and require remediation.',
+          explanation: 'Inadequate sourcing or controls allowed stale or non-compliant content to persist.'
+        }
+      ],
+      resources: [
+        'toolkits/knowledge-ops-runbook.md',
+        'toolkits/responsible-ai-governance-playbook.md'
+      ],
+      conceptId: 'data-knowledge-operations',
+      difficulty: 'intermediate',
+      estimatedTime: '17 minutes',
+      learningOutcomes: [
+        'Design knowledge refresh pipelines',
+        'Implement policy-aware access controls',
+        'Validate knowledge updates with structured evaluation'
+      ]
+    },
+    hints: ['Map content volatility and risk to controls.', 'Use the runbook canvas to plan sourcing and verification.'],
+    explanation: 'Learners orchestrate end-to-end knowledge refresh with compliance-grade controls.',
+    relatedConcepts: ['security-data-boundaries', 'observability-evalops', 'architecture-platform-operations'],
+    timeEstimate: 17,
+    successCriteria: [
+      'Plans balanced ingestion/curation',
+      'Implements segmentation and auditability',
+      'Executes structured evaluation and sign-off'
+    ]
+  }
+];
+
+// Scenarios for Architecture & Platform Operations
+export const architecturePlatformOperationsScenarios: StudyModeQuestion[] = [
+  {
+    id: 'architecture-platform-scenario-1',
+    type: 'scenario',
+    conceptId: 'architecture-platform-operations',
+    title: 'Platform Operating Model Tune-Up',
+    level: 'advanced',
+    scenario: {
+      id: 'architecture-platform-operating-model',
+      title: 'Scaling the Agent Platform',
+      description: 'Platform demand doubles in two quarters. Teams complain about onboarding friction and slow support response.',
+      context: 'The platform team must redesign its operating model before the next planning cycle. Leadership expects clearer service tiers, funding transparency, and stronger guardrails.',
+      stakeholders: ['Platform Director', 'Finance Partner', 'Product Team Lead', 'Security Architect'],
+      challenges: [
+        {
+          id: 'apo-service-tier',
+          title: 'Service Tier Definition',
+          description: 'Choose how to segment platform offerings.',
+          question: 'Which tiering model provides clarity and scalability?',
+          type: 'multiple-choice',
+          options: [
+            'One-size-fits-all platform offering.',
+            'Tiered services (self-serve, guided, managed) with published SLAs and feature sets.',
+            'Force all teams to build their own infrastructure.',
+            'Cap users to current teams until headcount increases.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Tiered services align expectations, enable resource planning, and support diverse team maturity levels.',
+          hints: ['Match tiering to autonomy vs support needs.']
+        },
+        {
+          id: 'apo-funding',
+          title: 'Funding Transparency',
+          description: 'Determine the most sustainable funding approach.',
+          question: 'How should the platform fund growth while encouraging responsible usage?',
+          type: 'multiple-choice',
+          options: [
+            'Rely on annual fixed budgets regardless of demand.',
+            'Introduce consumption-informed chargeback with guardrails and reinvestment commitments.',
+            'Bill teams ad-hoc when incidents happen.',
+            'Seek external venture funding.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Transparent, consumption-informed funding links usage to investment while protecting shared guardrails.',
+          hints: ['Consider cost visibility and incentives.']
+        },
+        {
+          id: 'apo-guardrails',
+          title: 'Guardrail Automation',
+          description: 'Decide how to keep quality high as onboarding accelerates.',
+          question: 'What guardrail approach scales best?',
+          type: 'multiple-choice',
+          options: [
+            'Manual code reviews for every team addition.',
+            'Golden paths with automated policy enforcement and sandbox validation suites.',
+            'No guardrails—trust teams to do the right thing.',
+            'Lock down platform access and require executive approval per change.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Automated guardrails maintain quality while enabling autonomy.',
+          hints: ['Think about paved roads and pre-flight checks.']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'apo-optimized',
+          condition: 'All challenges correct',
+          result: 'Platform satisfaction scores increase and onboarding time drops by 40%.',
+          explanation: 'Clear tiering, funding transparency, and automated guardrails reinforce trust and scalability.',
+          nextSteps: ['Publish platform operating model canvas', 'Host adopter council to validate tiers', 'Instrument guardrail dashboards']
+        },
+        {
+          id: 'apo-friction',
+          condition: 'Any challenge missed',
+          result: 'Teams escalate to leadership citing platform bottlenecks.',
+          explanation: 'Lack of tiering or automation keeps the platform reactive.'
+        }
+      ],
+      resources: [
+        'toolkits/platform-operating-model.md',
+        'toolkits/responsible-ai-governance-playbook.md'
+      ],
+      conceptId: 'architecture-platform-operations',
+      difficulty: 'advanced',
+      estimatedTime: '20 minutes',
+      learningOutcomes: [
+        'Define scalable platform service tiers',
+        'Align funding with usage and value',
+        'Automate guardrails to preserve quality'
+      ]
+    },
+    hints: ['Use the operating model canvas to visualize tiers and funding.', 'Pair autonomy with paved roads.'],
+    explanation: 'Learners redesign the platform operating model to keep pace with demand.',
+    relatedConcepts: ['agent-ops', 'program-setup-north-star', 'organizational-enablement'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Segments services by autonomy needs',
+      'Implements transparent funding',
+      'Automates guardrails for scale'
+    ]
+  }
+];
+
+// Scenarios for Experimentation & Continuous Improvement
+export const experimentationContinuousImprovementScenarios: StudyModeQuestion[] = [
+  {
+    id: 'experimentation-scenario-1',
+    type: 'scenario',
+    conceptId: 'experimentation-continuous-improvement',
+    title: 'Building the Improvement Flywheel',
+    level: 'advanced',
+    scenario: {
+      id: 'experimentation-flywheel',
+      title: 'Continuous Improvement Council',
+      description: 'User feedback, synthetic evals, and incident reports arrive in silos. Improvements struggle to land in the backlog.',
+      context: 'Leadership wants a flywheel that translates signals into prioritized workstreams without overwhelming teams. You must design the flywheel before the next leadership review.',
+      stakeholders: ['Head of Product', 'EvalOps Lead', 'Support Director', 'Data Science Manager'],
+      challenges: [
+        {
+          id: 'eci-signal',
+          title: 'Signal Aggregation',
+          description: 'Choose how to unify disparate signals.',
+          question: 'Which approach creates actionable signal aggregation?',
+          type: 'multiple-choice',
+          options: [
+            'Manual spreadsheet updated monthly.',
+            'Automated pipeline that normalizes eval scores, user feedback themes, and incident severity into a shared dashboard.',
+            'Separate dashboards per team with no integration.',
+            'Only track the metric leadership cares about most.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Unified, automated aggregation keeps the flywheel timely and trustworthy.',
+          hints: ['Consider pipelines feeding a single view of prioritized issues.']
+        },
+        {
+          id: 'eci-triage',
+          title: 'Triage Cadence',
+          description: 'Define how insights become backlog items.',
+          question: 'What triage ritual closes the loop?',
+          type: 'multiple-choice',
+          options: [
+            'Quarterly retrospective with optional attendance.',
+            'Weekly improvement council with representatives who assign owners and due dates.',
+            'Send automated emails and hope teams act.',
+            'Leadership reviews once per year.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Regular, accountable triage ensures insights convert into action.',
+          hints: ['Think about cadence, ownership, and transparency.']
+        },
+        {
+          id: 'eci-feedback',
+          title: 'Closing the Loop',
+          description: 'Ensure contributors see outcomes.',
+          question: 'How do you keep contributors engaged?',
+          type: 'multiple-choice',
+          options: [
+            'Silent backlog updates—contributors will notice eventually.',
+            'Publish improvement changelog, celebrate wins, and request new signals after each iteration.',
+            'Provide gift cards randomly.',
+            'Reduce access to telemetry to prevent more work.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Transparent communication and celebration maintain the feedback loop.',
+          hints: ['People repeat behaviors when they see impact.']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'eci-flywheel-built',
+          condition: 'All challenges correct',
+          result: 'Improvement velocity doubles and incident recurrence drops.',
+          explanation: 'A cohesive flywheel guides prioritization and celebrates impact, sustaining momentum.',
+          nextSteps: ['Publish flywheel operating guide', 'Integrate dashboards into leadership reviews', 'Schedule quarterly retrospective of the flywheel itself']
+        },
+        {
+          id: 'eci-friction',
+          condition: 'Any challenge missed',
+          result: 'Signals continue to die in inboxes and teams disengage.',
+          explanation: 'Without cadence, ownership, and recognition, the flywheel stalls.'
+        }
+      ],
+      resources: [
+        'toolkits/continuous-improvement-flywheel.md',
+        'toolkits/knowledge-ops-runbook.md'
+      ],
+      conceptId: 'experimentation-continuous-improvement',
+      difficulty: 'advanced',
+      estimatedTime: '19 minutes',
+      learningOutcomes: [
+        'Aggregate multi-source signals',
+        'Run accountable improvement councils',
+        'Sustain engagement through transparent feedback'
+      ]
+    },
+    hints: ['Use the flywheel canvas to map signal → decision → action.', 'Assign owners for every improvement theme.'],
+    explanation: 'Learners build the socio-technical loop that turns evidence into ongoing improvements.',
+    relatedConcepts: ['observability-evalops', 'organizational-enablement', 'strategy-portfolio-management'],
+    timeEstimate: 19,
+    successCriteria: [
+      'Automates signal aggregation',
+      'Defines accountable triage cadence',
+      'Celebrates improvements to keep loop alive'
+    ]
+  }
+];
+
+// Scenarios for Ecosystem & Partnerships
+export const ecosystemPartnershipsScenarios: StudyModeQuestion[] = [
+  {
+    id: 'ecosystem-scenario-1',
+    type: 'scenario',
+    conceptId: 'ecosystem-partnerships',
+    title: 'Partner Evaluation Council',
+    level: 'intermediate',
+    scenario: {
+      id: 'ecosystem-partner-eval',
+      title: 'Choosing a Strategic AI Vendor',
+      description: 'Two vendors pitch similar capabilities. One offers faster time-to-market, the other offers deeper transparency.',
+      context: 'You must recommend a partner while ensuring responsible AI alignment and negotiating joint success metrics.',
+      stakeholders: ['Procurement Lead', 'Legal Counsel', 'Head of Product', 'Security Principal'],
+      challenges: [
+        {
+          id: 'ecosystem-diligence',
+          title: 'Due Diligence Checklist',
+          description: 'Select the highest-leverage diligence focus.',
+          question: 'Which diligence approach balances speed and assurance?',
+          type: 'multiple-choice',
+          options: [
+            'Only evaluate pricing and delivery timeline.',
+            'Assess model lineage, data retention policies, incident history, and alignment with internal governance standards.',
+            'Rely on vendor marketing materials.',
+            'Sign an NDA and trust their assurances.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Holistic diligence protects the organization from downstream risk.',
+          hints: ['Map diligence to governance and security requirements.']
+        },
+        {
+          id: 'ecosystem-success',
+          title: 'Joint Success Metrics',
+          description: 'Determine how success will be measured.',
+          question: 'Which success framework aligns incentives?',
+          type: 'multiple-choice',
+          options: [
+            'Vendor-defined KPIs only.',
+            'Joint scorecard with value, quality, compliance, and enablement metrics reviewed monthly.',
+            'Focus on lagging financial metrics after a year.',
+            'Success measured solely by number of features shipped.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Shared, multi-dimensional scorecards keep both parties accountable.',
+          hints: ['Include leading and lagging indicators across value and risk.']
+        },
+        {
+          id: 'ecosystem-contingency',
+          title: 'Exit & Contingency Planning',
+          description: 'Plan for partner shifts.',
+          question: 'Which contingency plan best protects continuity?',
+          type: 'multiple-choice',
+          options: [
+            'Hope the partnership lasts forever.',
+            'Negotiate exit rights, data portability, and service level penalties upfront.',
+            'Delay contingency planning until an issue arises.',
+            'Rely on good personal relationships with vendor leadership.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Exit clauses and portability safeguards keep strategic options open.',
+          hints: ['Expect change—plan contractual safety nets early.']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'ecosystem-strong',
+          condition: 'All answers correct',
+          result: 'You secure a partnership contract with aligned incentives and governance safeguards.',
+          explanation: 'The business gains speed while protecting users and compliance posture.',
+          nextSteps: ['Publish partner evaluation summary', 'Launch joint success dashboard', 'Schedule first quarterly business review']
+        },
+        {
+          id: 'ecosystem-risk',
+          condition: 'Any answer incorrect',
+          result: 'Contract escalations arise within the first quarter due to misaligned expectations.',
+          explanation: 'Insufficient diligence or weak contingency planning eroded trust.'
+        }
+      ],
+      resources: [
+        'toolkits/partnership-evaluation-canvas.md',
+        'toolkits/north-star-alignment-canvas.md'
+      ],
+      conceptId: 'ecosystem-partnerships',
+      difficulty: 'intermediate',
+      estimatedTime: '17 minutes',
+      learningOutcomes: [
+        'Conduct responsible AI partner diligence',
+        'Structure joint success scorecards',
+        'Plan contingencies to maintain leverage'
+      ]
+    },
+    hints: ['Use the evaluation canvas to compare partner dimensions.', 'Document contingency clauses early.'],
+    explanation: 'Learners evaluate partners through governance-aware scorecards and contingency planning.',
+    relatedConcepts: ['strategy-portfolio-management', 'responsible-ai-governance', 'security-data-boundaries'],
+    timeEstimate: 17,
+    successCriteria: [
+      'Covers holistic diligence dimensions',
+      'Defines joint success metrics',
+      'Plans contractual safeguards'
+    ]
+  }
+];
+
+// Scenarios for Organizational Enablement
+export const organizationalEnablementScenarios: StudyModeQuestion[] = [
+  {
+    id: 'org-enable-scenario-1',
+    type: 'scenario',
+    conceptId: 'organizational-enablement',
+    title: 'Enablement Sprint Planning',
+    level: 'intermediate',
+    scenario: {
+      id: 'org-enable-sprint',
+      title: 'Rolling Out the Enablement Wave',
+      description: 'Adoption has plateaued at 35%. Design the next enablement sprint to reignite momentum.',
+      context: 'Different functions have uneven capability maturity. Executives want tangible progress within eight weeks without overwhelming teams already at capacity.',
+      stakeholders: ['Transformation Lead', 'HR Business Partner', 'Product Coach', 'Operations Manager'],
+      challenges: [
+        {
+          id: 'org-enable-diagnose',
+          title: 'Readiness Diagnostics',
+          description: 'Identify the smartest way to understand current capability gaps.',
+          question: 'Which approach produces actionable insight quickly?',
+          type: 'multiple-choice',
+          options: [
+            'Run an enterprise-wide survey and wait for responses.',
+            'Conduct targeted interviews, analyze usage telemetry, and review outcome metrics for top workflows.',
+            'Guess based on leadership intuition.',
+            'Pause enablement until next fiscal year.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Mixed-method diagnostics reveal true blockers fast.',
+          hints: ['Blend qualitative and quantitative signals.']
+        },
+        {
+          id: 'org-enable-pathways',
+          title: 'Capability Pathway Design',
+          description: 'Craft learning experiences for key personas.',
+          question: 'Which plan scales skill development without burnout?',
+          type: 'multiple-choice',
+          options: [
+            'One-off lecture for everyone.',
+            'Persona-specific pathways combining labs, peer circles, and applied projects with manager reinforcement.',
+            'Self-paced slide decks only.',
+            'Hire consultants to replace internal teams.'
+          ],
+          correctAnswer: 1,
+          feedback: 'Targeted, applied learning drives behavior change.',
+          hints: ['Align modalities with role needs and incentives.']
+        },
+        {
+          id: 'org-enable-incentives',
+          title: 'Incentive Alignment',
+          description: 'Ensure progress sticks.',
+          question: 'How do you reinforce new behaviors?',
+          type: 'multiple-choice',
+          options: [
+            'Add enablement goals into performance reviews, spotlight wins, and fund team experiments.',
+            'Hope enthusiasm is enough.',
+            'Rely solely on executive emails.',
+            'Mandate overtime for enablement work.'
+          ],
+          correctAnswer: 0,
+          feedback: 'Recognition, formal goals, and resourcing reinforce adoption sustainably.',
+          hints: ['Tie enablement to incentives and storytelling.']
+        }
+      ],
+      outcomes: [
+        {
+          id: 'org-enable-progress',
+          condition: 'All answers correct',
+          result: 'Enablement sprint lifts adoption to 55% and builds positive momentum.',
+          explanation: 'Focused diagnostics, tailored pathways, and aligned incentives accelerate change.',
+          nextSteps: ['Share success stories in town hall', 'Expand enablement toolkit to new personas', 'Refresh capability heatmap monthly']
+        },
+        {
+          id: 'org-enable-stall',
+          condition: 'Any answer incorrect',
+          result: 'Teams remain unconvinced and adoption stagnates.',
+          explanation: 'Without targeted support and incentives, behavior change failed to materialize.'
+        }
+      ],
+      resources: [
+        'toolkits/enablement-roadmap-canvas.md',
+        'toolkits/continuous-improvement-flywheel.md'
+      ],
+      conceptId: 'organizational-enablement',
+      difficulty: 'intermediate',
+      estimatedTime: '18 minutes',
+      learningOutcomes: [
+        'Diagnose adoption readiness accurately',
+        'Design persona-specific capability pathways',
+        'Align incentives to sustain behavior change'
+      ]
+    },
+    hints: ['Use the roadmap canvas to orchestrate enablement waves.', 'Engage managers as change multipliers.'],
+    explanation: 'Learners orchestrate people-centric change to make agent adoption durable.',
+    relatedConcepts: ['program-setup-north-star', 'organizational-enablement', 'experimentation-continuous-improvement'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Runs mixed-method diagnostics',
+      'Designs tailored capability pathways',
+      'Reinforces new behaviors with incentives'
+    ]
+  }
+];
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
@@ -3682,6 +4513,14 @@ export const scenarioLibrary = {
   'computer-use': computerUseScenarios,
   'deep-agents': deepAgentsScenarios,
   'product-management': productManagementScenarios,
+  'program-setup-north-star': programSetupNorthStarScenarios,
+  'responsible-ai-governance': responsibleAIGovernanceScenarios,
+  'strategy-portfolio-management': strategyPortfolioManagementScenarios,
+  'data-knowledge-operations': dataKnowledgeOperationsScenarios,
+  'architecture-platform-operations': architecturePlatformOperationsScenarios,
+  'experimentation-continuous-improvement': experimentationContinuousImprovementScenarios,
+  'ecosystem-partnerships': ecosystemPartnershipsScenarios,
+  'organizational-enablement': organizationalEnablementScenarios,
   // New Perspectives (MVP Scenarios)
   'agent-ops': [
     {

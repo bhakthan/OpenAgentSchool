@@ -12,6 +12,41 @@ _Built for AI by AI with lots of human intervention in the loop_
 
 An interactive educational platform for understanding AI agents, Agent-to-Agent (A2A) communication, Model Context Protocol (MCP), and Agent Communication Protocol (ACP). This application provides comprehensive visualizations, micro-learning modules, hands-on demonstrations of modern AI agent architectures, revolutionary **Study Mode** for discovery-based learning through Socratic questioning, interactive scenarios, and debug challenges, plus **Critical Thinking Challenges** with LLM-powered assessment and feedback.
 
+## Broadening Beyond Technical Execution
+
+To turn Open Agent School into a full program that spans strategy, operations, and human adoption, nine thematic expansions are now threaded through the existing core concepts instead of standing alone modules:
+
+- **Program Setup & North Star** → anchors the Foundations tier with mission, metrics, and maturity mapping to frame every learner journey.
+- **Strategy & Portfolio Management** → pairs with architecture/implementation tracks as an execution strategy branch guiding prioritization and business cases.
+- **Responsible AI & Governance** → deepens the existing AI Safety stream with policy, compliance, and risk management playbooks.
+- **Data & Knowledge Operations** → extends the dual-mode data strategy visuals with supply chain, evaluation, and stewardship practices.
+- **Architecture & Platform Operations** → layers scale-up runbooks and reference architectures onto the advanced implementation tier.
+- **Experimentation & Continuous Improvement** → adds late-stage feedback loops, telemetry, and regression testing to existing deployment content.
+- **Human-Centric Adoption** → branches from Study Mode experiences to cover HITL frameworks, change management, and recovery design.
+- **Organizational Enablement** → introduces a new “Operating Model” spine for leadership cohorts (governance councils, funding models, talent development).
+- **Ecosystem & Partnerships** → enriches advanced/applied tiers with vendor evaluation, community building, and interoperability standards.
+
+### Integration Touchpoints
+
+- **Learning Atlas**: add or expand nodes under the relevant tiers, plus a dedicated Operating Model branch.
+- **Study Mode & Critical Thinking**: inject scenarios, Socratic questions, and challenges that represent the new themes.
+- **Exportable Toolkits**: package canvases, maturity assessments, and runbooks so teams can apply each theme offline.
+
+These expansions keep the cohesive taxonomy intact while broadening the curriculum into the strategic and human dimensions teams need to scale AI agents responsibly.
+
+### 📥 Strategy Toolkits Library
+
+Bring each strategic pillar into your workshops with ready-to-print canvases and playbooks:
+
+- [North Star Alignment Canvas](./public/toolkits/north-star-alignment-canvas.md) — Anchor mission, metrics, and guardrails for every agent initiative.
+- [Portfolio Balance Canvas](./public/toolkits/portfolio-balance-canvas.md) — Compare bets by value, readiness, and risk tolerance before you scale.
+- [Responsible AI Governance Playbook](./public/toolkits/responsible-ai-governance-playbook.md) — Codify oversight forums, escalation paths, and accountability loops.
+- [Continuous Improvement Flywheel](./public/toolkits/continuous-improvement-flywheel.md) — Convert telemetry and feedback into a recurring optimization backlog.
+- [Knowledge Ops Runbook](./public/toolkits/knowledge-ops-runbook.md) — Operationalize sourcing, curation, and verification for trusted knowledge flows.
+- [Platform Operating Model Canvas](./public/toolkits/platform-operating-model.md) — Define platform tiers, paved roads, and funding cadences across the enterprise.
+- [Partnership Evaluation Canvas](./public/toolkits/partnership-evaluation-canvas.md) — Score ecosystem partners on differentiation, integration effort, and shared risk.
+- [Enablement Roadmap Canvas](./public/toolkits/enablement-roadmap-canvas.md) — Sequence enablement waves, incentives, and feedback signals for durable adoption.
+
 ### 🔥 Super Critical Learning (SCL) – Data Autonomy Mastery Layer
 
 SCL now includes a mastery + remediation system across the eight Data Autonomy patterns:

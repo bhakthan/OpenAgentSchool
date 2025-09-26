@@ -2359,6 +2359,781 @@ export const productManagementSocraticQuestions: StudyModeQuestion[] = [
     ]
   }
 ];
+// Socratic Questions for Program Setup & North Star
+export const programSetupNorthStarSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'program-setup-socratic-1',
+    type: 'socratic',
+    conceptId: 'program-setup-north-star',
+    title: 'Defining the AI Program North Star',
+    level: 'beginner',
+    socratiQuestion: 'If every stakeholder described the AI agent program in one sentence, what would you expect them all to repeat, and what happens if those sentences diverge?',
+    followUpQuestions: [
+      'How would you surface mismatched definitions of success early?',
+      'Which metrics or signals prove the north star is more than an inspirational slogan?',
+      'What trade-offs do you make when combining ambition with feasibility?'
+    ],
+    expectedInsights: [
+      'Shared language around mission, users, and value prevents fragmentation',
+      'Success indicators must combine outcome, quality, and guardrail metrics',
+      'Ambition needs explicit constraints to remain believable and actionable'
+    ],
+    hints: [
+      'Start from user impact statements, not technical features',
+      'Think about how OKRs or scorecards create evidence of progress',
+      'Consider how you would defend the charter to an exec sponsor'
+    ],
+    explanation: 'Learners realize a durable north star translates vision into measurable outcomes that align teams before scaling builds.',
+    relatedConcepts: ['strategy-portfolio-management', 'organizational-enablement', 'agent-architecture'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Articulates why shared language matters',
+      'Proposes verifiable success signals',
+      'Balances ambition with constraints'
+    ]
+  },
+  {
+    id: 'program-setup-socratic-2',
+    type: 'socratic',
+    conceptId: 'program-setup-north-star',
+    title: 'Sequencing the Maturity Ladder',
+    level: 'intermediate',
+    socratiQuestion: 'You mapped a maturity ladder from pilots to scaled automation. How do you decide which capabilities must exist before funding the next rung?',
+    followUpQuestions: [
+      'What signals show a rung is stable enough to build upon?',
+      'How do you prevent skipping steps because an executive is impatient?',
+      'Which governance or operating rhythms need to evolve between rungs?'
+    ],
+    expectedInsights: [
+      'Exit criteria turn ladders into investment gates',
+      'Staged evidence (quality, adoption, risk posture) protects against overreach',
+      'Operating rhythms mature with capability depth (e.g., review cadences, risk boards)'
+    ],
+    hints: [
+      'List artifacts or metrics you would collect at each stage',
+      'Remember people/process readiness, not just tech readiness',
+      'Consider who must sign off before advancing'
+    ],
+    explanation: 'Encourages tying maturity progression to tangible evidence and readiness signals rather than aspirational timelines.',
+    relatedConcepts: ['responsible-ai-governance', 'architecture-platform-operations', 'experimentation-continuous-improvement'],
+    timeEstimate: 14,
+    successCriteria: [
+      'Defines clear exit criteria',
+      'Links progression to risk and readiness',
+      'Identifies safeguards against skipping steps'
+    ]
+  },
+  {
+    id: 'program-setup-socratic-3',
+    type: 'socratic',
+    conceptId: 'program-setup-north-star',
+    title: 'Balancing Portfolio Appetite and Capacity',
+    level: 'advanced',
+    socratiQuestion: 'Two business units both claim their agent initiative is strategic. Your platform capacity can only support one this quarter. How do you make the call without eroding trust?',
+    followUpQuestions: [
+      'What evidence distinguishes strategic impact from loud lobbying?',
+      'How do you communicate the trade-off while preserving alignment?',
+      'What commitments can you make to the deferred team to maintain momentum?'
+    ],
+    expectedInsights: [
+      'Portfolio scoring frameworks anchor prioritization in value, risk, and readiness',
+      'Transparent criteria and review rhythms build credibility',
+      'Deferred teams need tangible support plans (enablers, prep work, pilot sandboxes)'
+    ],
+    hints: [
+      'Reference weighted scoring models used in portfolio management',
+      'Think about publishing decision memos or dashboards',
+      'Consider staggered enablement to keep deferred teams warm'
+    ],
+    explanation: 'Highlights how program leaders use transparent decision frameworks to balance ambition with capacity without fracturing stakeholder trust.',
+    relatedConcepts: ['strategy-portfolio-management', 'organizational-enablement', 'ecosystem-partnerships'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Applies objective prioritization criteria',
+      'Explains communication approach',
+      'Offers mitigation for deferred stakeholders'
+    ]
+  }
+];
+
+// Socratic Questions for Responsible AI Governance
+export const responsibleAIGovernanceSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'responsible-gov-socratic-1',
+    type: 'socratic',
+    conceptId: 'responsible-ai-governance',
+    title: 'Operationalizing Guardrails',
+    level: 'beginner',
+    socratiQuestion: 'A policy document lists dozens of guardrails, but teams still ask “what does this mean for our sprint?” How would you translate written policy into daily workflows?',
+    followUpQuestions: [
+      'Which policy elements must show up in templates, checklists, or tooling?',
+      'Who owns verification and when does it happen?',
+      'How do you keep the controls lightweight enough that teams actually follow them?'
+    ],
+    expectedInsights: [
+      'Policies need embedded checkpoints in delivery rituals',
+      'Clear ownership and evidence expectations prevent last-minute fire drills',
+      'Automation and templates lower compliance friction'
+    ],
+    hints: [
+      'Map guardrails to the build-measure-learn loop',
+      'Think of evidence artifacts: decision logs, eval reports, red-team summaries',
+      'Aim for checklists that fit sprint rhythms'
+    ],
+    explanation: 'Shows how governance succeeds when controls become part of the standard delivery muscle, not external bureaucracy.',
+    relatedConcepts: ['ai-safety-governance', 'agent-ops', 'experimentation-continuous-improvement'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Links policy to delivery artifacts',
+      'Defines ownership/timing',
+      'Keeps controls proportional to risk'
+    ]
+  },
+  {
+    id: 'responsible-gov-socratic-2',
+    type: 'socratic',
+    conceptId: 'responsible-ai-governance',
+    title: 'Adaptive Governance Cadences',
+    level: 'intermediate',
+    socratiQuestion: 'Your review board cadence is monthly, but high-risk experiments launch weekly. How do you redesign governance to stay ahead without stalling delivery?',
+    followUpQuestions: [
+      'What criteria determine which work items get fast-track vs full review?',
+      'How can automation or tooling surface anomalies for rapid attention?',
+      'What feedback loops keep policies current with new failure modes?'
+    ],
+    expectedInsights: [
+      'Risk-tiering enables differential oversight',
+      'Telemetry and dashboards should feed governance triggers',
+      'Governance must iterate based on incident postmortems and evaluation data'
+    ],
+    hints: [
+      'Consider RACI across risk tiers',
+      'Think about policy-as-code or automated controls',
+      'Look for ways to close the loop with experimentation teams'
+    ],
+    explanation: 'Encourages learners to design governance as a living system that evolves with delivery velocity and empirical risk.',
+    relatedConcepts: ['agent-ops', 'agent-deployment', 'cost-performance'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Describes tiered oversight model',
+      'Introduces automation/telemetry hooks',
+      'Builds iterative feedback into governance'
+    ]
+  },
+  {
+    id: 'responsible-gov-socratic-3',
+    type: 'socratic',
+    conceptId: 'responsible-ai-governance',
+    title: 'Evidence That Stands Up to Scrutiny',
+    level: 'advanced',
+    socratiQuestion: 'A regulator asks for traceability across data lineage, model behavior, and human overrides. What evidence package would you prepare and how would you keep it continuously up to date?',
+    followUpQuestions: [
+      'Which repositories or systems become the source of truth for each evidence type?',
+      'How do you detect when evidence is stale or incomplete?',
+      'What process ensures humans actually review and sign off on the evidence?'
+    ],
+    expectedInsights: [
+      'Evidence should be auto-generated where possible but curated for readability',
+      'Freshness and completeness checks prevent audit surprises',
+      'Human accountability is explicit through attestation and escalation paths'
+    ],
+    hints: [
+      'Think in layers: data, model, operations, outcomes',
+      'Consider dashboards or notebooks that regenerate as code changes',
+      'Plan sign-offs tied to release trains or evaluation gates'
+    ],
+    explanation: 'Prepares leaders to build defensible, continuously refreshed evidence chains that satisfy regulators and exec sponsors alike.',
+    relatedConcepts: ['data-knowledge-operations', 'agent-deployment', 'security-data-boundaries'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Outlines comprehensive evidence package',
+      'Includes freshness/quality checks',
+      'Clarifies accountable roles'
+    ]
+  }
+];
+
+// Socratic Questions for Strategy & Portfolio Management
+export const strategyPortfolioManagementSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'strategy-portfolio-socratic-1',
+    type: 'socratic',
+    conceptId: 'strategy-portfolio-management',
+    title: 'Deciding What Belongs in the Portfolio',
+    level: 'beginner',
+    socratiQuestion: 'How do you tell the difference between a shiny AI idea and a portfolio-worthy initiative that compounds value?',
+    followUpQuestions: [
+      'What signals prove the problem is material enough to solve?',
+      'How would you detect whether a concept can scale beyond a single team?',
+      'Which risks disqualify an idea even if value seems high?'
+    ],
+    expectedInsights: [
+      'Portfolio entries need clear user outcomes and measurable impact',
+      'Scalability and reuse potential matter as much as initial value',
+      'Risk appetite and compliance constraints prune the backlog'
+    ],
+    hints: [
+      'Start from value hypotheses and measurable KPIs',
+      'Assess common assets or platforms needed for reuse',
+      'Map risks to mitigation cost and velocity impact'
+    ],
+    explanation: 'Grounds learners in disciplined portfolio intake that filters hype from durable investments.',
+    relatedConcepts: ['program-setup-north-star', 'ecosystem-partnerships', 'cost-performance'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Defines tangible intake criteria',
+      'Evaluates scalability and reuse',
+      'Acknowledges risk-based disqualifiers'
+    ]
+  },
+  {
+    id: 'strategy-portfolio-socratic-2',
+    type: 'socratic',
+    conceptId: 'strategy-portfolio-management',
+    title: 'Maintaining a Living Roadmap',
+    level: 'intermediate',
+    socratiQuestion: 'Your roadmap review shows several stalled initiatives and new market signals emerging. How do you rebalance the portfolio without destabilizing delivery teams?',
+    followUpQuestions: [
+      'Which metrics or dashboards tell you when to pivot vs persevere?',
+      'How do you create optionality in the roadmap so reprioritization is graceful?',
+      'What communication keeps teams aligned even when priorities shift?'
+    ],
+    expectedInsights: [
+      'Lead/lag indicators (value, risk, capacity) inform rebalancing',
+      'Structured review cadences and kill criteria prevent zombie projects',
+      'Transparent narrative and decision logs protect trust during pivots'
+    ],
+    hints: [
+      'Think about portfolio kanban or heatmaps',
+      'Consider pre-approved contingency initiatives',
+      'Use communication artifacts like decision memos or town halls'
+    ],
+    explanation: 'Illustrates how strategic roadmaps stay dynamic through metrics-driven reviews and narrative alignment.',
+    relatedConcepts: ['experimentation-continuous-improvement', 'organizational-enablement', 'agent-ops'],
+    timeEstimate: 14,
+    successCriteria: [
+      'Identifies review metrics',
+      'Suggests mechanisms for optionality',
+      'Plans alignment communication'
+    ]
+  },
+  {
+    id: 'strategy-portfolio-socratic-3',
+    type: 'socratic',
+    conceptId: 'strategy-portfolio-management',
+    title: 'Invest or Partner?',
+    level: 'advanced',
+    socratiQuestion: 'A partner offers a prebuilt capability that overlaps with your roadmap. It accelerates launch but introduces dependency risk. How do you evaluate build vs partner?',
+    followUpQuestions: [
+      'What criteria determine whether external leverage strengthens or weakens the portfolio?',
+      'How do you factor in exit costs or the ability to switch vendors later?',
+      'What governance ensures the partnership aligns with your north star and risk posture?'
+    ],
+    expectedInsights: [
+      'Portfolio leaders weigh speed, differentiation, and control',
+      'Exit and contingency planning protect long-term autonomy',
+      'Partner governance must mirror internal risk controls'
+    ],
+    hints: [
+      'Use a weighted scorecard comparing build vs buy',
+      'Consider data residency, integration complexity, and legal exposure',
+      'Document service-level expectations and escalation paths'
+    ],
+    explanation: 'Encourages objective partner evaluation within the broader portfolio strategy.',
+    relatedConcepts: ['ecosystem-partnerships', 'architecture-platform-operations', 'responsible-ai-governance'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Applies build-partner evaluation criteria',
+      'Considers exit/contingency plan',
+      'Aligns partnership with governance requirements'
+    ]
+  }
+];
+
+// Socratic Questions for Data & Knowledge Operations
+export const dataKnowledgeOperationsSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'data-knowledge-socratic-1',
+    type: 'socratic',
+    conceptId: 'data-knowledge-operations',
+    title: 'Designing a Living Knowledge Base',
+    level: 'beginner',
+    socratiQuestion: 'Your RAG answers drift because product policies change weekly. How would you keep knowledge fresher without burning out curators?',
+    followUpQuestions: [
+      'Which data sources should drive automatic updates versus human review?',
+      'How would you set freshness SLAs without overpromising?',
+      'What signals show the knowledge base is getting stale before users complain?'
+    ],
+    expectedInsights: [
+      'Blend automated ingestion with human validation for critical content',
+      'Set freshness policies by content risk and usage frequency',
+      'Monitoring question drift and refusal spikes surfaces staleness early'
+    ],
+    hints: [
+      'Segment content by volatility and risk',
+      'Use telemetry to detect outdated answers',
+      'Think about curator workflows and tooling support'
+    ],
+    explanation: 'Demonstrates how resilient knowledge operations combine process, automation, and telemetry to stay current.',
+    relatedConcepts: ['rag-systems', 'observability-evalops', 'responsible-ai-governance'],
+    timeEstimate: 13,
+    successCriteria: [
+      'Differentiates automated vs human refresh',
+      'Sets pragmatic freshness expectations',
+      'Monitors early drift indicators'
+    ]
+  },
+  {
+    id: 'data-knowledge-socratic-2',
+    type: 'socratic',
+    conceptId: 'data-knowledge-operations',
+    title: 'Guarding Context Integrity',
+    level: 'intermediate',
+    socratiQuestion: 'A new data feed increases context richness but introduces compliance risk. What controls ensure agents use it responsibly while keeping delivery velocity high?',
+    followUpQuestions: [
+      'How do you detect and quarantine bad documents or PII leaks?',
+      'Which tooling or policies keep usage auditable?',
+      'How do you prevent shadow pipelines from bypassing controls?'
+    ],
+    expectedInsights: [
+      'Ingestion must include classification, lineage, and quarantine workflows',
+      'Access should be mediated with policy-aware connectors and audit trails',
+      'Enablement requires golden paths so teams avoid shadow work'
+    ],
+    hints: [
+      'Map ingestion steps from source to vector store',
+      'Consider policy-as-code guardrails',
+      'Provide self-service patterns that stay compliant'
+    ],
+    explanation: 'Stresses that data richness is only valuable when coupled with disciplined access and governance practices.',
+    relatedConcepts: ['security-data-boundaries', 'architecture-platform-operations', 'agent-ops'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Specifies ingestion controls',
+      'Maintains auditability',
+      'Discourages shadow pipelines'
+    ]
+  },
+  {
+    id: 'data-knowledge-socratic-3',
+    type: 'socratic',
+    conceptId: 'data-knowledge-operations',
+    title: 'Measuring Knowledge ROI',
+    level: 'advanced',
+    socratiQuestion: 'Finance asks why you are spending heavily on labeling and knowledge curation. How do you quantify the return and defend the investment?',
+    followUpQuestions: [
+      'What downstream metrics shift when knowledge quality improves?',
+      'How do you isolate knowledge impact from other improvements?',
+      'What narrative convinces non-technical executives?'
+    ],
+    expectedInsights: [
+      'Better knowledge reduces hallucinations, escalations, and cycle time',
+      'Use controlled rollouts or A/B tests to attribute impact',
+      'Translate improvements into dollars saved or revenue unlocked'
+    ],
+    hints: [
+      'Tie knowledge quality to evaluation results and support costs',
+      'Leverage before/after metrics on task success',
+      'Frame ROI in business language and risk avoidance'
+    ],
+    explanation: 'Drives home that knowledge operations investments require business storytelling backed by measurable impact.',
+    relatedConcepts: ['cost-performance', 'strategy-portfolio-management', 'organizational-enablement'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Connects knowledge quality to measurable outcomes',
+      'Describes attribution strategy',
+      'Frames ROI in executive language'
+    ]
+  }
+];
+
+// Socratic Questions for Architecture & Platform Operations
+export const architecturePlatformOperationsSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'architecture-platform-socratic-1',
+    type: 'socratic',
+    conceptId: 'architecture-platform-operations',
+    title: 'Deciding What to Centralize',
+    level: 'beginner',
+    socratiQuestion: 'Platform teams are overwhelmed. Which agent capabilities belong on the shared platform versus leaving them to product teams?',
+    followUpQuestions: [
+      'What criteria make a capability a good shared service?',
+      'How do you avoid the platform becoming a bottleneck?',
+      'What incentives encourage product teams to adopt platform components?'
+    ],
+    expectedInsights: [
+      'Shared services should be high-leverage, compliance-heavy, or cross-cutting',
+      'Platform SLAs and paved roads prevent bottlenecks',
+      'Adoption increases when platform value is clear and integration is simple'
+    ],
+    hints: [
+      'Compare differentiating vs commodity capabilities',
+      'Think about golden paths and SDKs',
+      'Consider funding or governance levers for adoption'
+    ],
+    explanation: 'Encourages strategic centralization based on leverage rather than empire building.',
+    relatedConcepts: ['agent-ops', 'program-setup-north-star', 'strategy-portfolio-management'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Defines centralization criteria',
+      'Prevents platform bottlenecks',
+      'Aligns incentives for adoption'
+    ]
+  },
+  {
+    id: 'architecture-platform-socratic-2',
+    type: 'socratic',
+    conceptId: 'architecture-platform-operations',
+    title: 'Designing Guardrails that Scale',
+    level: 'intermediate',
+    socratiQuestion: 'As more teams onboard, variance in agent quality increases. What guardrails do you implement to provide autonomy with safety?',
+    followUpQuestions: [
+      'Which interfaces or contracts define how teams plug into the platform?',
+      'How do you instrument platform services to detect misuse or degradation?',
+      'What self-service tooling accelerates onboarding without exposing risk?'
+    ],
+    expectedInsights: [
+      'Contracts, SDKs, and reference implementations set expectations',
+      'Telemetry and anomaly detection maintain platform health',
+      'Self-service sandboxes and scaffolding enable safe empowerment'
+    ],
+    hints: [
+      'Consider policy-as-code, quotas, and evaluation gates',
+      'Think about platform dashboards and alerts',
+      'Design onboarding kits that encode best practices'
+    ],
+    explanation: 'Highlights how platform teams maintain consistency through contracts, instrumentation, and enablement.',
+    relatedConcepts: ['responsible-ai-governance', 'agent-deployment', 'experimentation-continuous-improvement'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Specifies platform contracts/SDKs',
+      'Includes instrumentation strategy',
+      'Provides safe self-service tooling'
+    ]
+  },
+  {
+    id: 'architecture-platform-socratic-3',
+    type: 'socratic',
+    conceptId: 'architecture-platform-operations',
+    title: 'Funding the Platform Sustainably',
+    level: 'advanced',
+    socratiQuestion: 'Leadership questions why the platform budget keeps growing as more teams onboard. How do you create a sustainable funding and operating model?',
+    followUpQuestions: [
+      'What cost allocation or recharge models incentivize responsible usage?',
+      'How do you measure platform value beyond uptime?',
+      'What roadmap governance keeps the platform focused on leverage?'
+    ],
+    expectedInsights: [
+      'Usage-based or tiered funding models create transparency',
+      'Value metrics include time-to-launch, risk reduction, and reuse rates',
+      'Platform roadmap should be triaged with customer councils and portfolio input'
+    ],
+    hints: [
+      'Think about internal marketplace or chargeback mechanisms',
+      'Tie platform KPIs to product velocity and incident reduction',
+      'Establish governance forums with consuming teams'
+    ],
+    explanation: 'Equips platform leaders to justify investment through measurable leverage and shared accountability.',
+    relatedConcepts: ['organizational-enablement', 'cost-performance', 'ecosystem-partnerships'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Proposes transparent funding models',
+      'Defines platform value metrics',
+      'Aligns roadmap governance with stakeholders'
+    ]
+  }
+];
+
+// Socratic Questions for Experimentation & Continuous Improvement
+export const experimentationContinuousImprovementSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'experimentation-socratic-1',
+    type: 'socratic',
+    conceptId: 'experimentation-continuous-improvement',
+    title: 'Choosing the Right Experiment Signal',
+    level: 'beginner',
+    socratiQuestion: 'Your team wants to ship fast, but each experiment only tracks overall accuracy. How do you decide which signals prove an improvement is real and safe?',
+    followUpQuestions: [
+      'Which leading indicators catch regressions before users do?',
+      'How do you segment results to avoid hiding harm in aggregates?',
+      'What guardrails prevent experimentation from bypassing governance?'
+    ],
+    expectedInsights: [
+      'Multi-metric dashboards capture quality, safety, and cost',
+      'Segmentation by user cohort or task uncovers hidden regressions',
+      'Experiments should integrate with governance: pre-checklists, shadow tests, canaries'
+    ],
+    hints: [
+      'Look at typical EvalOps ladders',
+      'Consider protected cohorts or high-risk flows',
+      'Align experiment stages with review cadences'
+    ],
+    explanation: 'Teaches disciplined experiment design that balances velocity with risk awareness.',
+    relatedConcepts: ['observability-evalops', 'responsible-ai-governance', 'agent-ops'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Identifies multi-signal evaluation',
+      'Emphasizes segmentation',
+      'Connects experiments to governance'
+    ]
+  },
+  {
+    id: 'experimentation-socratic-2',
+    type: 'socratic',
+    conceptId: 'experimentation-continuous-improvement',
+    title: 'From Insight to Backlog',
+    level: 'intermediate',
+    socratiQuestion: 'Telemetry reveals recurring friction points, but product backlog stays dominated by feature requests. How do you convert insight streams into prioritized improvements?',
+    followUpQuestions: [
+      'Who triages experiment learnings and how often?',
+      'How do you quantify opportunity size to justify backlog slots?',
+      'What prevents teams from treating insights as “nice to have” reports?'
+    ],
+    expectedInsights: [
+      'Dedicated triage rituals (eval review, failure clinics) turn data into decisions',
+      'Sizing frameworks translate signals into ROI estimates',
+      'Owning teams need accountability and incentives to act on insights'
+    ],
+    hints: [
+      'Introduce weekly experimentation reviews',
+      'Use impact vs effort matrices tied to program goals',
+      'Align incentives via OKRs or service level objectives'
+    ],
+    explanation: 'Helps teams close the loop between evaluation data and backlog prioritization.',
+    relatedConcepts: ['strategy-portfolio-management', 'organizational-enablement', 'program-setup-north-star'],
+    timeEstimate: 14,
+    successCriteria: [
+      'Defines triage cadence/ownership',
+      'Quantifies impact for backlog decisions',
+      'Ensures follow-through incentives'
+    ]
+  },
+  {
+    id: 'experimentation-socratic-3',
+    type: 'socratic',
+    conceptId: 'experimentation-continuous-improvement',
+    title: 'Designing the Feedback Flywheel',
+    level: 'advanced',
+    socratiQuestion: 'You want a persistent feedback flywheel that combines human judgments, production telemetry, and synthetic evals. How do you orchestrate it without overwhelming teams?',
+    followUpQuestions: [
+      'What automation keeps the flywheel spinning without constant manual effort?',
+      'How do you prevent conflicting signals from causing analysis paralysis?',
+      'Which communities or guilds sustain the flywheel culturally?'
+    ],
+    expectedInsights: [
+      'Automated pipelines aggregate signals and surface anomalies',
+      'Governance prioritizes action through thresholding and ownership',
+      'Communities-of-practice maintain the discipline and share learnings'
+    ],
+    hints: [
+      'Map data sources to ingestion cadence',
+      'Define decision thresholds or playbooks',
+      'Leverage guilds or enablement teams for storytelling'
+    ],
+    explanation: 'Explores the socio-technical systems needed for continuous improvement to thrive long term.',
+    relatedConcepts: ['agent-ops', 'data-knowledge-operations', 'organizational-enablement'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Automates signal collection',
+      'Resolves conflicting data with governance',
+      'Builds sustaining communities'
+    ]
+  }
+];
+
+// Socratic Questions for Ecosystem & Partnerships
+export const ecosystemPartnershipsSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'ecosystem-socratic-1',
+    type: 'socratic',
+    conceptId: 'ecosystem-partnerships',
+    title: 'Selecting the Right Partner Model',
+    level: 'beginner',
+    socratiQuestion: 'When does partnering accelerate value versus introduce unacceptable dependence or risk?',
+    followUpQuestions: [
+      'What due diligence reveals hidden operational debt?',
+      'How do you judge whether the partner aligns with your responsible AI posture?',
+      'What early warning signs indicate the partnership is drifting off course?'
+    ],
+    expectedInsights: [
+      'Partner selection weighs capability fit, cultural alignment, and compliance posture',
+      'Shared values on safety, data use, and customer experience are non-negotiable',
+      'Monitoring mechanisms catch drift before it becomes failure'
+    ],
+    hints: [
+      'Build a scorecard that includes ethics and supportability',
+      'Ask how the partner handles incidents and transparency',
+      'Plan joint QBRs with metrics and escalation paths'
+    ],
+    explanation: 'Teaches disciplined partner evaluation anchored in value and responsible operations.',
+    relatedConcepts: ['strategy-portfolio-management', 'responsible-ai-governance', 'architecture-platform-operations'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Defines partner evaluation criteria',
+      'Aligns partner vetting with governance',
+      'Identifies monitoring mechanisms'
+    ]
+  },
+  {
+    id: 'ecosystem-socratic-2',
+    type: 'socratic',
+    conceptId: 'ecosystem-partnerships',
+    title: 'Designing Joint Success Metrics',
+    level: 'intermediate',
+    socratiQuestion: 'A partner integration launches but adoption stalls. How do you diagnose whether the issue is product fit, go-to-market, or partnership execution?',
+    followUpQuestions: [
+      'What shared metrics and telemetry could you review together?',
+      'Which hypotheses separate product gaps from enablement gaps?',
+      'How do you structure a remediation plan without damaging the relationship?'
+    ],
+    expectedInsights: [
+      'Joint scorecards align visibility across organizations',
+      'Hypothesis-driven diagnosis avoids blame games',
+      'Remediation requires shared action plan and revised incentives'
+    ],
+    hints: [
+      'Segment adoption by customer cohort or channel',
+      'Run structured post-launch retrospectives',
+      'Revisit partner enablement assets and commitments'
+    ],
+    explanation: 'Encourages collaborative diagnostics and transparent remediation in partner ecosystems.',
+    relatedConcepts: ['organizational-enablement', 'program-setup-north-star', 'experimentation-continuous-improvement'],
+    timeEstimate: 14,
+    successCriteria: [
+      'Builds joint metrics dashboard',
+      'Uses hypotheses to pinpoint issues',
+      'Maintains relationship through shared plan'
+    ]
+  },
+  {
+    id: 'ecosystem-socratic-3',
+    type: 'socratic',
+    conceptId: 'ecosystem-partnerships',
+    title: 'Governance for Co-Innovation',
+    level: 'advanced',
+    socratiQuestion: 'You plan to co-innovate on a new agent capability with a strategic partner. How do you govern IP, data sharing, and brand risk?',
+    followUpQuestions: [
+      'What legal and technical controls keep data exchanges compliant?',
+      'How do you define ownership of learnings or models produced?',
+      'What contingencies exist if the partner changes strategy or is acquired?'
+    ],
+    expectedInsights: [
+      'Trust boundaries require data minimization, secure enclaves, and clear contracts',
+      'Joint IP frameworks must specify ownership, licensing, and exit provisions',
+      'Scenario planning prepares for strategic shifts without halting progress'
+    ],
+    hints: [
+      'Involve legal, security, and product early',
+      'Document acceptable use and escalation pathways',
+      'Draft exit playbooks before you need them'
+    ],
+    explanation: 'Prepares leaders to co-innovate confidently while protecting enterprise interests.',
+    relatedConcepts: ['security-data-boundaries', 'responsible-ai-governance', 'strategy-portfolio-management'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Defines guardrails for data/IP',
+      'Plans contingencies for partner changes',
+      'Aligns governance with strategic goals'
+    ]
+  }
+];
+
+// Socratic Questions for Organizational Enablement
+export const organizationalEnablementSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'org-enable-socratic-1',
+    type: 'socratic',
+    conceptId: 'organizational-enablement',
+    title: 'Diagnosing Readiness Gaps',
+    level: 'beginner',
+    socratiQuestion: 'Executives love the AI vision, but frontline managers are skeptical. How do you diagnose whether the real gap is skills, incentives, or trust?',
+    followUpQuestions: [
+      'What qualitative and quantitative signals reveal readiness?',
+      'How do you differentiate loud resistance from structural blockers?',
+      'What quick wins build credibility with skeptics?'
+    ],
+    expectedInsights: [
+      'Readiness diagnostics blend surveys, shadowing, and performance data',
+      'Structural blockers (process, policy, tooling) often masquerade as attitude problems',
+      'Quick wins tied to user pain convert skeptics faster than messaging campaigns'
+    ],
+    hints: [
+      'Map roles to required capabilities',
+      'Collect stories from frontline teams',
+      'Look for processes that contradict desired behavior'
+    ],
+    explanation: 'Helps leaders ground enablement plans in observable readiness signals.',
+    relatedConcepts: ['program-setup-north-star', 'organizational-enablement', 'strategy-portfolio-management'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Performs multi-source diagnostics',
+      'Identifies structural vs cultural blockers',
+      'Proposes meaningful quick wins'
+    ]
+  },
+  {
+    id: 'org-enable-socratic-2',
+    type: 'socratic',
+    conceptId: 'organizational-enablement',
+    title: 'Designing Capability Pathways',
+    level: 'intermediate',
+    socratiQuestion: 'To scale adoption, you need new roles (prompt engineers, AI product owners). How do you design capability pathways that feel attainable and valuable?',
+    followUpQuestions: [
+      'What learning modalities and timelines fit busy teams?',
+      'How do you recognize and reward progress to reinforce the behavior change?',
+      'What happens to employees who prefer not to transition into new roles?'
+    ],
+    expectedInsights: [
+      'Blended learning (hands-on labs, apprenticeships, peer circles) beats one-off training',
+      'Recognition, career pathways, and compensation loops reinforce new behaviors',
+      'Optionality and job redesign protect morale while driving adoption'
+    ],
+    hints: [
+      'Define competency matrices',
+      'Think about integrating enablement into performance reviews',
+      'Plan bridging roles or dual tracks'
+    ],
+    explanation: 'Focuses on building sustainable talent ecosystems that support agent adoption.',
+    relatedConcepts: ['experimentation-continuous-improvement', 'agent-ops', 'ecosystem-partnerships'],
+    timeEstimate: 14,
+    successCriteria: [
+      'Builds competency-based learning plan',
+      'Links recognition/incentives to pathways',
+      'Plans for alternative paths or reassignment'
+    ]
+  },
+  {
+    id: 'org-enable-socratic-3',
+    type: 'socratic',
+    conceptId: 'organizational-enablement',
+    title: 'Embedding Change into Operations',
+    level: 'advanced',
+    socratiQuestion: 'Six months after launch, adoption plateaus. How do you embed agent-driven ways of working into operating rhythms so it sticks?',
+    followUpQuestions: [
+      'Which rituals (standups, business reviews) should include agent metrics or demos?',
+      'How do you surface success stories and lessons learned across teams?',
+      'What governance or incentives prevent backsliding to old processes?'
+    ],
+    expectedInsights: [
+      'Operational cadences must showcase agent impact and reinforce expectations',
+      'Communities and storytelling build shared identity around the transformation',
+      'Policies, incentives, and leadership modeling sustain behavior change'
+    ],
+    hints: [
+      'Integrate agent KPIs into scorecards and reviews',
+      'Facilitate cross-team demos and guilds',
+      'Align incentives with desired adoption behaviors'
+    ],
+    explanation: 'Ensures adoption scales beyond initial hype by embedding new behaviors into the operating system of the organization.',
+    relatedConcepts: ['program-setup-north-star', 'architecture-platform-operations', 'responsible-ai-governance'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Integrates agents into operating rituals',
+      'Leverages storytelling/community building',
+      'Aligns governance and incentives to sustain change'
+    ]
+  }
+];
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
@@ -2370,6 +3145,14 @@ export const socraticQuestionLibrary = {
   'voice-agent': voiceAgentSocraticQuestions,
   'deep-agents': deepAgentsSocraticQuestions,
   'product-management': productManagementSocraticQuestions,
+  'program-setup-north-star': programSetupNorthStarSocraticQuestions,
+  'responsible-ai-governance': responsibleAIGovernanceSocraticQuestions,
+  'strategy-portfolio-management': strategyPortfolioManagementSocraticQuestions,
+  'data-knowledge-operations': dataKnowledgeOperationsSocraticQuestions,
+  'architecture-platform-operations': architecturePlatformOperationsSocraticQuestions,
+  'experimentation-continuous-improvement': experimentationContinuousImprovementSocraticQuestions,
+  'ecosystem-partnerships': ecosystemPartnershipsSocraticQuestions,
+  'organizational-enablement': organizationalEnablementSocraticQuestions,
   // New Perspectives (MVP sets)
   'agent-ops': [
     {

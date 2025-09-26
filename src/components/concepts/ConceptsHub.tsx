@@ -31,6 +31,14 @@ import AgentInstructionDesign from "./AgentInstructionDesign"
 import AgenticWorkflowControl from "./AgenticWorkflowControl"
 import AgentEvaluationMethodologies from "./AgentEvaluationMethodologies"
 import AgenticAIDesignTaxonomy from "./AgenticAIDesignTaxonomy"
+import ProgramSetupNorthStarConcept from "./ProgramSetupNorthStarConcept"
+import ResponsibleAIGovernanceConcept from "./ResponsibleAIGovernanceConcept"
+import StrategyPortfolioManagementConcept from "./StrategyPortfolioManagementConcept"
+import DataKnowledgeOperationsConcept from "./DataKnowledgeOperationsConcept"
+import ArchitecturePlatformOperationsConcept from "./ArchitecturePlatformOperationsConcept"
+import ExperimentationContinuousImprovementConcept from "./ExperimentationContinuousImprovementConcept"
+import EcosystemPartnershipsConcept from "./EcosystemPartnershipsConcept"
+import OrganizationalEnablementConcept from "./OrganizationalEnablementConcept"
 
 interface ConceptInfo {
   id: string
@@ -188,6 +196,28 @@ const concepts: ConceptInfo[] = [
     prerequisites: [],
     component: AzureAISafetyAndGovernance
   },
+  {
+    id: 'program-setup-north-star',
+    title: 'Program Setup & North Star',
+    description: 'Align mission, metrics, and maturity before scaling agent initiatives across the organization.',
+    level: 'fundamentals',
+    icon: <ArrowRight className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-amber-900/20 dark:text-amber-300',
+    estimatedTime: '30-40 min',
+    prerequisites: [],
+    component: ProgramSetupNorthStarConcept
+  },
+  {
+    id: 'responsible-ai-governance',
+    title: 'Responsible AI Governance Playbooks',
+    description: 'Operationalize policies, risk reviews, and escalation paths that keep agents compliant day-to-day.',
+    level: 'fundamentals',
+    icon: <Shield className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-red-900/20 dark:text-red-300',
+    estimatedTime: '35-45 min',
+    prerequisites: ['ai-safety-governance', 'agent-ethics'],
+    component: ResponsibleAIGovernanceConcept
+  },
   // Tier 2: Architecture Concepts
   {
     id: 'a2a-communication',
@@ -233,6 +263,17 @@ const concepts: ConceptInfo[] = [
     prerequisites: ['agent-architecture'],
     component: AgentEvaluationConcept
   },
+  {
+    id: 'strategy-portfolio-management',
+    title: 'Strategy & Portfolio Management',
+    description: 'Prioritize the right agent investments with living roadmaps and defensible ROI models.',
+    level: 'architecture',
+    icon: <Graph className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-lime-900/20 dark:text-lime-300',
+    estimatedTime: '35-45 min',
+    prerequisites: ['agent-architecture', 'agentic-ai-design-taxonomy'],
+    component: StrategyPortfolioManagementConcept
+  },
   // Tier 3: Implementation Concepts
   {
     id: 'acp',
@@ -266,6 +307,17 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '35-45 min',
     prerequisites: ['flow-visualization'],
     component: DataVisualizationConcept
+  },
+  {
+    id: 'data-knowledge-operations',
+    title: 'Data & Knowledge Operations',
+    description: 'Engineer trustworthy data supply chains and knowledge governance for durable agent context.',
+    level: 'implementation',
+    icon: <Stack className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-sky-900/20 dark:text-sky-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['data-visualization'],
+    component: DataKnowledgeOperationsConcept
   },
   // Tier 4: Advanced Concepts
   {
@@ -348,6 +400,54 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '35-45 min',
     prerequisites: ['agent-deployment','agent-security'],
     component: AgentOpsConcept
+  }
+  ,
+  {
+    id: 'architecture-platform-operations',
+    title: 'Architecture & Platform Operations',
+    description: 'Scale shared platform services, guardrails, and reference architectures for enterprise-grade agents.',
+    level: 'advanced',
+    icon: <Stack className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-slate-900/20 dark:text-slate-300',
+    estimatedTime: '40-60 min',
+    prerequisites: ['agent-deployment', 'agent-ops'],
+    component: ArchitecturePlatformOperationsConcept
+  }
+  ,
+  {
+    id: 'experimentation-continuous-improvement',
+    title: 'Experimentation & Continuous Improvement',
+    description: 'Stand up evaluation pipelines and feedback loops that keep agents improving after launch.',
+    level: 'advanced',
+    icon: <ChartBar className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-rose-900/20 dark:text-rose-300',
+    estimatedTime: '35-45 min',
+    prerequisites: ['agent-ops', 'agentic-commerce-ap2'],
+    component: ExperimentationContinuousImprovementConcept
+  }
+  ,
+  {
+    id: 'ecosystem-partnerships',
+    title: 'Ecosystem & Partnerships',
+    description: 'Evaluate vendors and community alliances with shared value, compliance, and interoperability in mind.',
+    level: 'advanced',
+    icon: <Users className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-emerald-900/20 dark:text-emerald-300',
+    estimatedTime: '30-40 min',
+    prerequisites: ['strategy-portfolio-management'],
+    component: EcosystemPartnershipsConcept
+  }
+  ,
+  {
+    id: 'organizational-enablement',
+    title: 'Organizational Enablement',
+    description: 'Design operating models, talent pathways, and incentives that make agent adoption stick.',
+    level: 'advanced',
+    icon: <BookOpen className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-yellow-900/20 dark:text-yellow-300',
+    estimatedTime: '35-45 min',
+    prerequisites: ['program-setup-north-star'],
+    component: OrganizationalEnablementConcept
   }
 ]
 
