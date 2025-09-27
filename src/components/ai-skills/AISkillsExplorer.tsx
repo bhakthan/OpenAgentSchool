@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 // Tabs UI retained (import) only if we need to fall back; currently phased out in favor of section rendering
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Brain, Code, Users, Lightbulb, Rocket, ChartBar, Target, Calculator, Gauge, Wrench, Shield, CurrencyCircleDollar, Database, Network, BookOpen, CheckCircle, ArrowsOutSimple, ArrowsInSimple, CaretLeft, CaretRight } from "@phosphor-icons/react"
+import { Brain, Code, Users, Lightbulb, Rocket, ChartBar, Target, Calculator, Gauge, Wrench, Shield, CurrencyCircleDollar, Database, Network, BookOpen, CheckCircle, ArrowsOutSimple, ArrowsInSimple, CaretLeft, CaretRight, ArrowSquareOut } from "@phosphor-icons/react"
 import AISkillsFundamentals from "./AISkillsFundamentals"
 import InteractiveVisualizations from "./InteractiveVisualizations"
 import SystemsThinkingTree from "./SystemsThinkingTree"
@@ -29,6 +29,7 @@ import { CurriculumTabs } from '@/components/learning/CurriculumTabs'
 import { perspectivesRegistry } from '@/data/perspectivesRegistry';
 import { skillCategories } from '@/data/aiSkillsStructure'
 import AISkillsSideNav from './AISkillsSideNav'
+import { references } from '@/lib/data/references'
 
 const AIProductManagementPillars = React.lazy(() => import("./AIProductManagementPillars"))
 const AgentOpsPillars = React.lazy(() => import('./AgentOpsPillars'))
@@ -45,6 +46,11 @@ export default function AISkillsExplorer() {
   const [compactTabs, setCompactTabs] = useState(false)
   const [showTabScrollHints, setShowTabScrollHints] = useState(false)
   const STORAGE_KEY = 'oas.aiSkillsProgress.v2' // bump key to avoid collision with legacy progress map
+
+  const benchmarkReferenceGroups = references.concepts['applied-ai-skills'] ?? []
+  const benchmarkReferences = benchmarkReferenceGroups.flatMap(group =>
+    (group.references || []).map(ref => ({ ...ref, groupName: group.name ?? group.id ?? 'Reference' }))
+  )
 
   // Bridge between legacy tab IDs and new taxonomy IDs
   const legacyToNew: Record<string, string> = {
@@ -709,6 +715,57 @@ export default function AISkillsExplorer() {
         </div>{/* end space-y sections */}
           </div>{/* end right content */}
         </div>/* end grid */
+        )}
+
+        {benchmarkReferences.length > 0 && (
+          <section className="mt-16">
+            <div className="relative overflow-hidden rounded-2xl border border-primary/15 bg-card/60 shadow-lg shadow-primary/10 dark:bg-background/60 dark:shadow-primary/20">
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-primary/15 via-transparent to-primary/10 dark:from-primary/25 dark:via-primary/10 dark:to-primary/5" />
+              <div className="relative z-10 p-6 sm:p-8">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-primary/15 text-primary dark:bg-primary/20">
+                      <ChartBar className="h-5 w-5" />
+                    </span>
+                    <div>
+                      <h2 className="text-2xl font-semibold tracking-tight text-foreground">Benchmark &amp; Evaluation References</h2>
+                      <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+                        Stress-test your agents with community benchmarks and competitive arenas that surface planning gaps, tool coordination issues, and real-world failure modes.
+                      </p>
+                    </div>
+                  </div>
+                  <Badge variant="secondary" className="self-start whitespace-nowrap bg-primary/10 text-primary dark:bg-primary/20">
+                    Updated as the ecosystem evolves
+                  </Badge>
+                </div>
+
+                <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {benchmarkReferences.map(ref => (
+                    <a
+                      key={ref.url}
+                      href={ref.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative overflow-hidden rounded-xl border border-white/20 bg-background/90 p-5 shadow-sm transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl dark:border-white/10 dark:bg-background/70"
+                    >
+                      <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-wide text-muted-foreground">
+                        <span>{ref.groupName}</span>
+                        <ArrowSquareOut className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
+                      </div>
+                      <h3 className="mt-3 text-lg font-semibold text-foreground transition-colors group-hover:text-primary">
+                        {ref.title}
+                      </h3>
+                      {ref.description && (
+                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                          {ref.description}
+                        </p>
+                      )}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
         )}
       </div>
     </div>

@@ -191,6 +191,11 @@ export const references: ReferencesData = {
         name: "Official Documentation",
         references: [
           {
+            title: "Microsoft AI Agents Adoption Guide",
+            url: "https://www.microsoft.com/en-us/ai/ai-agents",
+            description: "Microsoft's enterprise guidance for planning, piloting, and scaling AI agents"
+          },
+          {
             title: "Azure AI Overview",
             url: "https://learn.microsoft.com/azure/ai-services/",
             description: "Official Microsoft documentation on Azure AI Services"
@@ -388,6 +393,30 @@ export const references: ReferencesData = {
             title: "DeepLearning.AI - Generative AI Courses",
             url: "https://www.deeplearning.ai/resources/generative-ai-courses-guide/",
             description: "Guide to Generative AI courses offered by DeepLearning.AI"
+          }
+        ]
+      }
+    ],
+
+    "applied-ai-skills": [
+      {
+        id: "benchmarks",
+        name: "Agent Evaluation Benchmarks",
+        references: [
+          {
+            title: "SWE-bench",
+            url: "https://www.swebench.com/",
+            description: "Open-source software engineering benchmark measuring the end-to-end capability of autonomous agents"
+          },
+          {
+            title: "Prarena",
+            url: "https://www.prarena.ai/",
+            description: "Competitive agent arena with curated task suites for stress-testing planning, tools, and collaboration"
+          },
+          {
+            title: "OpenAI Evals Leaderboard",
+            url: "https://evals.openai.com/",
+            description: "Community-driven benchmark leaderboard tracking agentic performance across real-world tasks"
           }
         ]
       }
