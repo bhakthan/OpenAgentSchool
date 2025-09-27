@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { BookOpen, DownloadSimple } from '@phosphor-icons/react';
+import { BookOpen } from '@phosphor-icons/react';
+import ToolkitDownloadButtons from './ToolkitDownloadButtons';
 
 /**
  * Program Setup & North Star: mission, metrics, and maturity framing for AI agent initiatives.
@@ -31,17 +31,11 @@ export default function ProgramSetupNorthStarConcept() {
             </span>
           </p>
           <div className="pt-2">
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="gap-2"
-            >
-              <a href="/toolkits/north-star-alignment-canvas.md" download="north-star-alignment-canvas.md">
-                <DownloadSimple size={16} />
-                <span>Download North Star Alignment Canvas</span>
-              </a>
-            </Button>
+            <ToolkitDownloadButtons
+              baseName="north-star-alignment-canvas"
+              markdownLabel="Download North Star Alignment Canvas"
+              excelLabel="Download North Star Alignment (Excel)"
+            />
           </div>
         </CardContent>
       </Card>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { BookOpen, DownloadSimple } from '@phosphor-icons/react';
+import { BookOpen } from '@phosphor-icons/react';
+import ToolkitDownloadButtons from './ToolkitDownloadButtons';
 
 /**
  * Strategy & Portfolio Management: prioritizing and sequencing agent initiatives.
@@ -31,17 +31,11 @@ export default function StrategyPortfolioManagementConcept() {
             </span>
           </p>
           <div className="pt-2">
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="gap-2"
-            >
-              <a href="/toolkits/portfolio-balance-canvas.md" download="portfolio-balance-canvas.md">
-                <DownloadSimple size={16} />
-                <span>Download Portfolio Balance Canvas</span>
-              </a>
-            </Button>
+            <ToolkitDownloadButtons
+              baseName="portfolio-balance-canvas"
+              markdownLabel="Download Portfolio Balance Canvas"
+              excelLabel="Download Portfolio Balance (Excel)"
+            />
           </div>
         </CardContent>
       </Card>

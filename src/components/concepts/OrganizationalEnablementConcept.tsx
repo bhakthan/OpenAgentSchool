@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { BookOpen, DownloadSimple } from '@phosphor-icons/react';
+import { BookOpen } from '@phosphor-icons/react';
+import ToolkitDownloadButtons from './ToolkitDownloadButtons';
 
 /**
  * Organizational Enablement: operating models, talent strategy, and incentives.
@@ -31,17 +31,11 @@ export default function OrganizationalEnablementConcept() {
             </span>
           </p>
           <div className="pt-2">
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="gap-2"
-            >
-              <a href="/toolkits/enablement-roadmap-canvas.md" download="enablement-roadmap-canvas.md">
-                <DownloadSimple size={16} />
-                <span>Download Enablement Roadmap Canvas</span>
-              </a>
-            </Button>
+            <ToolkitDownloadButtons
+              baseName="enablement-roadmap-canvas"
+              markdownLabel="Download Enablement Roadmap Canvas"
+              excelLabel="Download Enablement Roadmap (Excel)"
+            />
           </div>
         </CardContent>
       </Card>

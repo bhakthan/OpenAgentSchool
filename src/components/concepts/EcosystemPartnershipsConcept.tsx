@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { BookOpen, DownloadSimple } from '@phosphor-icons/react';
+import { BookOpen } from '@phosphor-icons/react';
+import ToolkitDownloadButtons from './ToolkitDownloadButtons';
 
 /**
  * Ecosystem & Partnerships: evaluating vendors and collaborating with the community.
@@ -31,17 +31,11 @@ export default function EcosystemPartnershipsConcept() {
             </span>
           </p>
           <div className="pt-2">
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="gap-2"
-            >
-              <a href="/toolkits/partnership-evaluation-canvas.md" download="partnership-evaluation-canvas.md">
-                <DownloadSimple size={16} />
-                <span>Download Partnership Evaluation Canvas</span>
-              </a>
-            </Button>
+            <ToolkitDownloadButtons
+              baseName="partnership-evaluation-canvas"
+              markdownLabel="Download Partnership Evaluation Canvas"
+              excelLabel="Download Partnership Evaluation (Excel)"
+            />
           </div>
         </CardContent>
       </Card>

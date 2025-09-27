@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { BookOpen, DownloadSimple } from '@phosphor-icons/react';
+import { BookOpen } from '@phosphor-icons/react';
+import ToolkitDownloadButtons from './ToolkitDownloadButtons';
 
 /**
  * Architecture & Platform Operations: scaling agent platforms responsibly.
@@ -31,17 +31,11 @@ export default function ArchitecturePlatformOperationsConcept() {
             </span>
           </p>
           <div className="pt-2">
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="gap-2"
-            >
-              <a href="/toolkits/platform-operating-model.md" download="platform-operating-model.md">
-                <DownloadSimple size={16} />
-                <span>Download Platform Operating Model Canvas</span>
-              </a>
-            </Button>
+            <ToolkitDownloadButtons
+              baseName="platform-operating-model"
+              markdownLabel="Download Platform Operating Model Canvas"
+              excelLabel="Download Platform Operating Model (Excel)"
+            />
           </div>
         </CardContent>
       </Card>

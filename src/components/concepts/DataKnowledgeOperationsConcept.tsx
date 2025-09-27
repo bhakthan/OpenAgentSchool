@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { BookOpen, DownloadSimple } from '@phosphor-icons/react';
+import { BookOpen } from '@phosphor-icons/react';
+import ToolkitDownloadButtons from './ToolkitDownloadButtons';
 
 /**
  * Data & Knowledge Operations: building durable supply chains for agent intelligence.
@@ -31,17 +31,11 @@ export default function DataKnowledgeOperationsConcept() {
             </span>
           </p>
           <div className="pt-2">
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="gap-2"
-            >
-              <a href="/toolkits/knowledge-ops-runbook.md" download="knowledge-ops-runbook.md">
-                <DownloadSimple size={16} />
-                <span>Download Knowledge Ops Runbook</span>
-              </a>
-            </Button>
+            <ToolkitDownloadButtons
+              baseName="knowledge-ops-runbook"
+              markdownLabel="Download Knowledge Ops Runbook"
+              excelLabel="Download Knowledge Ops Runbook (Excel)"
+            />
           </div>
         </CardContent>
       </Card>
