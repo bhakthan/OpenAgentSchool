@@ -2,7 +2,10 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from fastapi.responses import JSONResponse
 import httpx
 from typing import Optional
-from config import settings
+try:  # pragma: no cover
+    from backend.config import settings  # type: ignore
+except ImportError:  # pragma: no cover
+    from ....config import settings
 
 router = APIRouter()
 

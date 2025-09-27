@@ -8,8 +8,12 @@ import os
 import yaml
 from typing import Optional
 
-from config import settings
-from app.api.v1.api import api_router
+try:  # pragma: no cover - import guard for script vs package usage
+    from backend.config import settings  # type: ignore
+    from backend.app.api.v1.api import api_router  # type: ignore
+except ImportError:  # pragma: no cover
+    from .config import settings
+    from .app.api.v1.api import api_router
 try:
     from app.middleware.schema_validation import schema_validation_middleware  # type: ignore
 except Exception:

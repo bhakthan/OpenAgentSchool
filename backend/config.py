@@ -5,6 +5,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Settings:
+    BASE_DIR = Path(__file__).resolve().parent
+    PROJECT_ROOT = BASE_DIR.parent
+    DATA_EXPORT_DIR = Path(os.getenv("DATA_EXPORT_DIR", PROJECT_ROOT / "data" / "export"))
+    AI_SKILLS_EXPORT_PATH = Path(os.getenv("AI_SKILLS_EXPORT_PATH", DATA_EXPORT_DIR / "ai_skills.json"))
+
     # Database
     DATABASE_TYPE = os.getenv("DATABASE_TYPE", "duckdb")  # "duckdb" or "cosmosdb"
     # Default DuckDB path relative to this file (backend/data/openagentschool.db) so it works regardless of CWD

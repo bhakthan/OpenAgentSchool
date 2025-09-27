@@ -4,7 +4,13 @@ api_router = APIRouter()
 
 # Import and include only available routers to avoid ImportError in this minimal backend
 try:
-	from app.api.v1 import knowledge  # type: ignore
-	api_router.include_router(knowledge.router, prefix="", tags=["knowledge"])  # exposes /api/v1/documents/upload
+	from . import knowledge  # type: ignore
+	api_router.include_router(knowledge.router, prefix="", tags=["knowledge"])
+except Exception:
+	pass
+
+try:
+	from . import ai_skills  # type: ignore
+	api_router.include_router(ai_skills.router, prefix="", tags=["ai-skills"])
 except Exception:
 	pass
