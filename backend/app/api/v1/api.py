@@ -14,3 +14,9 @@ try:
 	api_router.include_router(ai_skills.router, prefix="", tags=["ai-skills"])
 except Exception:
 	pass
+
+try:
+	from . import agent_patterns  # type: ignore
+	api_router.include_router(agent_patterns.router, prefix="", tags=["agent-patterns"])
+except Exception:
+	pass

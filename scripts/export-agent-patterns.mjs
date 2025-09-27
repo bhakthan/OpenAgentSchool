@@ -70,6 +70,7 @@ function extractExportedPatternObject(filePath) {
     id, name, description, category,
     useCases, whenToUse, advantages, limitations, relatedPatterns,
     implementation, codeExample, pythonCodeExample, completeCode,
+    codeVisualizer, evaluation, evaluationProfile,
     nodes, edges, businessUseCase,
   } = pattern
   const business = businessUseCase ? {
@@ -81,8 +82,37 @@ function extractExportedPatternObject(filePath) {
     id, name, description, category,
     useCases, whenToUse, advantages, limitations, relatedPatterns,
     implementation, codeExample, pythonCodeExample, completeCode,
+    codeVisualizer, evaluation, evaluationProfile,
     nodes, edges, businessUseCase: business,
   }
+}
+
+function extractNamedExport(filePath, exportName) {
+  const sourceText = fs.readFileSync(filePath, 'utf-8')
+  const sf = ts.createSourceFile(filePath, sourceText, ts.ScriptTarget.Latest, true)
+  let value = null
+
+  function visit(node) {
+    if (
+      ts.isVariableStatement(node) &&
+      node.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)
+    ) {
+      for (const decl of node.declarationList.declarations) {
+        const name = ts.isIdentifier(decl.name) ? decl.name.text : undefined
+        const init = decl.initializer
+        if (name === exportName && init) {
+          const literal = literalToJs(init)
+          if (literal !== undefined) {
+            value = literal
+          }
+        }
+      }
+    }
+    ts.forEachChild(node, visit)
+  }
+
+  visit(sf)
+  return value
 }
 
 function main() {
@@ -97,6 +127,22 @@ function main() {
       if (obj && obj.id && obj.name) items.push(obj)
     } catch (e) {
       // skip file on parse error
+    }
+  }
+
+  const evaluationRegistryPath = path.join(patternsDir, 'evaluationRegistry.ts')
+  let evaluationRegistry = {}
+  if (fs.existsSync(evaluationRegistryPath)) {
+    const extracted = extractNamedExport(evaluationRegistryPath, 'patternEvaluationRegistry')
+    if (extracted && typeof extracted === 'object') {
+      evaluationRegistry = extracted
+    }
+  }
+
+  for (const item of items) {
+    const profile = evaluationRegistry?.[item.id]
+    if (profile) {
+      item.evaluationProfile = profile
     }
   }
 

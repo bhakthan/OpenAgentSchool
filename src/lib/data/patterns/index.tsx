@@ -1,5 +1,6 @@
 // Export all pattern types
 export * from './types';
+export * from './evaluationRegistry';
 
 // Export individual patterns
 export { reactAgentPattern } from './reactAgent';
@@ -94,6 +95,7 @@ import { policyGatedInvocationPattern } from './policyGatedInvocation';
 import { dataQualityFeedbackLoopPattern } from './dataQualityFeedbackLoop';
 import { queryIntentStructuredAccessPattern } from './queryIntentStructuredAccess';
 import { strategyMemoryReplayPattern } from './strategyMemoryReplay';
+import { patternEvaluationRegistry } from './evaluationRegistry';
 
 export const agentPatterns = [
   reactAgentPattern,
@@ -142,6 +144,13 @@ export const agentPatterns = [
   strategyMemoryReplayPattern,
   // autogenMultiAgentPattern,
 ];
+
+for (const pattern of agentPatterns) {
+  const evaluationProfile = patternEvaluationRegistry[pattern.id];
+  if (evaluationProfile) {
+    pattern.evaluationProfile = evaluationProfile;
+  }
+}
 
 // Export specific patterns for easy access
 export const chainOfThoughtPattern = promptChainingPattern; // Using prompt-chaining as chain of thought pattern

@@ -9,6 +9,9 @@ class Settings:
     PROJECT_ROOT = BASE_DIR.parent
     DATA_EXPORT_DIR = Path(os.getenv("DATA_EXPORT_DIR", PROJECT_ROOT / "data" / "export"))
     AI_SKILLS_EXPORT_PATH = Path(os.getenv("AI_SKILLS_EXPORT_PATH", DATA_EXPORT_DIR / "ai_skills.json"))
+    AGENT_PATTERNS_EXPORT_PATH = Path(
+        os.getenv("AGENT_PATTERNS_EXPORT_PATH", DATA_EXPORT_DIR / "agent_patterns.json")
+    )
 
     # Database
     DATABASE_TYPE = os.getenv("DATABASE_TYPE", "duckdb")  # "duckdb" or "cosmosdb"

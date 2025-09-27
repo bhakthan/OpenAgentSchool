@@ -1,3 +1,19 @@
+export type EvaluationCohortId =
+  | 'education'
+  | 'multi-agent'
+  | 'advanced-automation'
+  | 'communication-interface'
+  | 'cognitive-sensing'
+
+export interface PatternEvaluationProfile {
+  scenarioFocus: string
+  criticalMetrics: string[]
+  evaluationNotes: string[]
+  cohort?: EvaluationCohortId
+  readinessSignals?: string[]
+  dataNeeds?: string[]
+}
+
 export interface PatternNode {
   id: string
   type: string
@@ -47,6 +63,7 @@ export interface PatternData {
   completeCode?: string;
   codeVisualizer?: React.ComponentType;
   evaluation?: string;
+  evaluationProfile?: PatternEvaluationProfile;
 }
 
 export type PatternType = 
