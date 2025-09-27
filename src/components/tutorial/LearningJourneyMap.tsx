@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {Brain} from "@phosphor-icons/react/dist/ssr/Brain";
 import {PuzzlePiece} from "@phosphor-icons/react/dist/ssr/PuzzlePiece";
 import {StackSimple} from "@phosphor-icons/react/dist/ssr/StackSimple";
@@ -28,6 +29,7 @@ import { Lock } from "@phosphor-icons/react/dist/ssr/Lock";
 import { Package } from "@phosphor-icons/react/dist/ssr/Package";
 import { Scales } from "@phosphor-icons/react/dist/ssr/Scales";
 import { cn } from "@/lib/utils";
+import { useTheme } from '@/components/theme/ThemeProvider';
 
 interface LearningNode {
   id: string;
@@ -70,17 +72,15 @@ const learningPaths: LearningPath[] = [
       'agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 
       'agentic-workflow-control', 'agent-evaluation-methodologies',
       // Tier 1: Foundational Concepts
-    'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance',
-    'program-setup-north-star', 'responsible-ai-governance',
+      'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance',
+      'program-setup-north-star', 'responsible-ai-governance',
       // Tier 2: Architecture Concepts  
-    'a2a-communication', 'mcp', 'flow-visualization', 'strategy-portfolio-management',
+      'a2a-communication', 'mcp', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management',
       // Tier 3: Implementation Concepts
-    'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations',
+      'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations',
       // Tier 4: Advanced Concepts
-  'agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration', 'agent-ops', 'architecture-platform-operations',
-    'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'agentic-commerce-ap2',
-      // Additional Learning
-      'azure-services', 'references', 'community', 'patterns', 'quiz'
+      'agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'agentic-commerce-ap2', 'product-management',
+      'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement'
     ],
     totalProgress: 0,
     nodes: [
@@ -328,6 +328,20 @@ const learningPaths: LearningPath[] = [
         path: '/concepts'
       },
       {
+        id: 'agent-evaluation',
+        title: 'Agent Evaluation',
+        description: 'Instrument architecture-level signals before user complaints become your metrics.',
+        icon: <CheckCircle size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '30-40 min',
+        prerequisites: ['agent-architecture'],
+        skills: ['Signal Instrumentation', 'Quality Gates', 'Operational Metrics'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
         id: 'strategy-portfolio-management',
         title: 'Strategy & Portfolio Management',
         description: 'Prioritize high-value agent initiatives with defensible ROI and staging.',
@@ -471,6 +485,90 @@ const learningPaths: LearningPath[] = [
         isUnlocked: false,
         path: '/concepts'
       },
+      {
+        id: 'product-management',
+        title: 'AI Product Management',
+        description: 'Design metrics, experiments & calibrated confidence signals that compound user trust and retention.',
+        icon: <ChartBar size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '35-45 min',
+        prerequisites: ['agentic-ai-design-taxonomy'],
+        skills: ['Product Strategy', 'Experimentation', 'Signal Design'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'agent-ops',
+        title: 'Agent Ops & Reliability',
+        description: 'Operational excellence: golden signals, graceful degradation, failure containment & resilience patterns.',
+        icon: <Shield size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '35-45 min',
+        prerequisites: ['agent-deployment', 'agent-security'],
+        skills: ['Reliability Engineering', 'Incident Response', 'Operational Excellence'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'architecture-platform-operations',
+        title: 'Architecture & Platform Operations',
+        description: 'Scale shared platform services, guardrails, and reference architectures for enterprise-grade agents.',
+        icon: <Stack size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '40-60 min',
+        prerequisites: ['agent-deployment', 'agent-ops'],
+        skills: ['Platform Engineering', 'Guardrail Design', 'Scalable Architecture'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'experimentation-continuous-improvement',
+        title: 'Experimentation & Continuous Improvement',
+        description: 'Stand up evaluation pipelines and feedback loops that keep agents improving after launch.',
+        icon: <ChartBar size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '35-45 min',
+        prerequisites: ['agent-ops', 'agentic-commerce-ap2'],
+        skills: ['Experiment Design', 'Feedback Loops', 'Performance Optimization'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'ecosystem-partnerships',
+        title: 'Ecosystem & Partnerships',
+        description: 'Evaluate vendors and alliances with shared value, compliance, and interoperability in mind.',
+        icon: <Users size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '30-40 min',
+        prerequisites: ['strategy-portfolio-management'],
+        skills: ['Vendor Evaluation', 'Partnership Strategy', 'Interoperability'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'organizational-enablement',
+        title: 'Organizational Enablement',
+        description: 'Design operating models, talent pathways, and incentives that make agent adoption stick.',
+        icon: <Books size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '35-45 min',
+        prerequisites: ['program-setup-north-star'],
+        skills: ['Change Management', 'Talent Development', 'Org Design'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
       
       // Additional Learning Resources
       {
@@ -555,29 +653,23 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
 }) => {
   const [selectedPath, setSelectedPath] = useState<LearningPath>(learningPaths[0]);
   const [activeTier, setActiveTier] = useState(0);
+  const tierRefs = useRef<Record<number, HTMLDivElement | null>>({});
+  const { isDarkMode } = useTheme();
   const tierLabels = [
     'Tier 0: Core Concepts',
     'Tier 1: Fundamentals',
     'Tier 2: Architecture',
     'Tier 3: Implementation',
-    'Tier 4: Advanced',
-    'Additional Resources'
+    'Tier 4: Advanced'
   ];
   const tiers = [
     ['agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'],
     ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance', 'program-setup-north-star', 'responsible-ai-governance'],
-    ['a2a-communication', 'mcp', 'flow-visualization', 'strategy-portfolio-management'],
+    ['a2a-communication', 'mcp', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management'],
     ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations'],
-    ['agent-deployment', 'agent-learning', 'fine-tuning', 'agent-integration', 'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'agentic-commerce-ap2'],
-    ['azure-services', 'references', 'community', 'patterns', 'quiz']
+    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'agentic-commerce-ap2', 'product-management', 'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement']
   ];
-  const tierNodes = selectedPath.nodes.filter(node => tiers[activeTier].includes(node.id))
-    .sort((a, b) => {
-      // Sort by the recommended order within each tier
-      const aIndex = selectedPath.recommendedOrder.indexOf(a.id);
-      const bIndex = selectedPath.recommendedOrder.indexOf(b.id);
-      return aIndex - bIndex;
-    });
+  const supplementalResourceIds = ['azure-services', 'references', 'community', 'patterns', 'quiz'];
 
   // Load user progress from localStorage
   useEffect(() => {
@@ -698,99 +790,54 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     }
   };
 
-  const getTierColor = (nodeId: string) => {
-    // Tier 0: Core Concepts
-    if (['agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'].includes(nodeId)) {
-  return 'bg-purple-100 text-black dark:text-purple-200 dark:bg-purple-900';
-    }
-    // Tier 1: Fundamentals
-    if (['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents'].includes(nodeId)) {
-  return 'bg-blue-100 text-black dark:text-blue-200 dark:bg-blue-900';
-    }
-    // Tier 2: Architecture
-    if (['a2a-communication', 'mcp', 'flow-visualization'].includes(nodeId)) {
-  return 'bg-green-100 text-black dark:text-green-200 dark:bg-green-900';
-    }
-    // Tier 3: Implementation
-    if (['acp', 'mcp-a2a-integration', 'data-visualization'].includes(nodeId)) {
-  return 'bg-yellow-100 text-black dark:text-yellow-200 dark:bg-yellow-900';
-    }
-    // Tier 4: Advanced
-    if (['agent-deployment', 'agent-learning', 'agent-integration', 'agentic-commerce-ap2'].includes(nodeId)) {
-  return 'bg-red-100 text-black dark:text-red-200 dark:bg-red-900';
-    }
-    // Additional resources
-  return 'bg-gray-100 text-black dark:text-gray-200 dark:bg-gray-900';
-  };
+  const tierDescriptions = [
+    'Prompting, optimization, and evaluation foundations to calibrate your first agents.',
+    'Architecture, security, and governance essentials for reliable agent rollouts.',
+    'Coordination protocols and visualization patterns to orchestrate multi-agent flows.',
+    'Implementation deep dives that wire ACP, MCP, and data pipelines into production.',
+    'Advanced operations, commercialization, and organizational scaling strategies.'
+  ];
 
-  const getTierNumber = (nodeId: string) => {
-    if (['agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'].includes(nodeId)) return 0;
-    if (['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents'].includes(nodeId)) return 1;
-    if (['a2a-communication', 'mcp', 'flow-visualization'].includes(nodeId)) return 2;
-    if (['acp', 'mcp-a2a-integration', 'data-visualization'].includes(nodeId)) return 3;
-    if (['agent-deployment', 'agent-learning', 'agent-integration'].includes(nodeId)) return 4;
-    return 5; // Additional resources
-  };
+  const tierAccents = [
+    { indicator: 'bg-purple-500 border-purple-200 dark:border-purple-500', gradient: 'from-purple-500/25 via-purple-500/10 to-transparent' },
+    { indicator: 'bg-blue-500 border-blue-200 dark:border-blue-500', gradient: 'from-blue-500/25 via-blue-500/10 to-transparent' },
+    { indicator: 'bg-emerald-500 border-emerald-200 dark:border-emerald-500', gradient: 'from-emerald-500/25 via-emerald-500/10 to-transparent' },
+    { indicator: 'bg-amber-500 border-amber-200 dark:border-amber-500', gradient: 'from-amber-500/25 via-amber-500/10 to-transparent' },
+    { indicator: 'bg-rose-500 border-rose-200 dark:border-rose-500', gradient: 'from-rose-500/25 via-rose-500/10 to-transparent' }
+  ];
 
-  const getNodePosition = (index: number, total: number) => {
-    const containerWidth = 1000;
-    const containerHeight = 500;
-    const padding = 80; // Increased padding for better spacing
+  const supplementalResources = supplementalResourceIds
+    .map(id => selectedPath.nodes.find(node => node.id === id))
+    .filter((node): node is LearningNode => Boolean(node));
 
-    // Special compact layout for Tier 0 (6 nodes) to harmonize line lengths with Tier 1
-    if (activeTier === 0 && total === 6) {
-      const availableWidth = containerWidth - 2 * padding; // 840px
-      const spacing = availableWidth / 5; // 168px between consecutive nodes
-      const baseY = containerHeight / 2;
-      // Gentle diagonal progression to keep segments short and readable
-      const yOffsets = [-100, -60, -20, 20, 60, 100];
-      return {
-        x: padding + spacing * Math.min(index, 5),
-        y: baseY + yOffsets[Math.min(index, yOffsets.length - 1)]
-      };
-    }
+  const tierData = tiers.map((tierIds, idx) => {
+    const nodes = selectedPath.nodes
+      .filter(node => tierIds.includes(node.id))
+      .sort((a, b) => {
+        const orderA = selectedPath.recommendedOrder.indexOf(a.id);
+        const orderB = selectedPath.recommendedOrder.indexOf(b.id);
+        const normalizedA = orderA === -1 ? Number.MAX_SAFE_INTEGER : orderA;
+        const normalizedB = orderB === -1 ? Number.MAX_SAFE_INTEGER : orderB;
 
-    if (total === 1) {
-      // Single node - center it
-      return { x: containerWidth / 2, y: containerHeight / 2 };
-    }
-    
-    if (total <= 3) {
-      // Linear horizontal layout for small tiers
-      const spacing = (containerWidth - 2 * padding) / Math.max(1, total - 1);
-      const x = padding + (index * spacing);
-      const y = containerHeight / 2;
-      return { x, y };
-    } 
-    
-    if (total === 5) {
-      // Special layout for 5 nodes (Tier 1) - create a clear learning path with proper spacing
-      const availableWidth = containerWidth - 2 * padding; // 840px available
-      const spacing = availableWidth / 4; // 210px between nodes
-      const positions = [
-        { x: padding, y: containerHeight / 2 - 80 },                    // 1. agent-architecture
-        { x: padding + spacing, y: containerHeight / 2 - 40 },         // 2. agent-security  
-        { x: padding + spacing * 2, y: containerHeight / 2 },          // 3. multi-agent-systems
-        { x: padding + spacing * 3, y: containerHeight / 2 + 40 },     // 4. agent-ethics
-        { x: padding + spacing * 4, y: containerHeight / 2 + 80 }      // 5. ai-agents
-      ];
-      return positions[index] || { x: containerWidth / 2, y: containerHeight / 2 };
-    } else {
-      // Grid layout for other sizes with clear flow direction
-      const cols = Math.min(total, 3); // Max 3 columns for readability
-      const rows = Math.ceil(total / cols);
-      const colSpacing = (containerWidth - 2 * padding) / Math.max(1, cols - 1);
-      const rowSpacing = (containerHeight - 2 * padding) / Math.max(1, rows - 1);
-      
-      const row = Math.floor(index / cols);
-      const col = index % cols;
-      
-      const x = padding + (col * colSpacing);
-      const y = padding + (row * rowSpacing);
-      
-      return { x, y };
-    }
-  };
+        if (normalizedA === normalizedB) {
+          return selectedPath.nodes.findIndex(n => n.id === a.id) - selectedPath.nodes.findIndex(n => n.id === b.id);
+        }
+
+        return normalizedA - normalizedB;
+      });
+    const completed = nodes.filter(node => node.isCompleted).length;
+    const percent = nodes.length > 0 ? Math.round((completed / nodes.length) * 100) : 0;
+    return {
+      index: idx,
+      label: tierLabels[idx],
+      description: tierDescriptions[idx] || '',
+      nodes,
+      completed,
+      total: nodes.length,
+      percent,
+      accent: tierAccents[idx] || tierAccents[tierAccents.length - 1]
+    };
+  });
 
   const getNextRecommendedNode = () => {
     const uncompletedNodes = selectedPath.nodes.filter(node => !node.isCompleted && node.isUnlocked);
@@ -850,247 +897,356 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
   const averageScore = quizProgressData?.averageScore || 0;
   const completedQuizzes = quizProgressData?.completedQuizzes || [];
 
+  const overlayClass = isDarkMode ? 'bg-black/70 backdrop-blur-lg' : 'bg-white/75 backdrop-blur-lg';
+  const totalCompleted = selectedPath.nodes.filter(node => node.isCompleted).length;
+  const overallPercent = Math.round(selectedPath.totalProgress || 0);
+
+  const handleScrollToTier = (idx: number) => {
+    setActiveTier(idx);
+    requestAnimationFrame(() => {
+      const target = tierRefs.current[idx];
+      target?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    });
+  };
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-4xl max-h-screen h-auto flex flex-col shadow-2xl border-2 border-primary/10 bg-background/80 dark:bg-background/60">
-        <CardHeader className="pb-2 flex-shrink-0 bg-background/80 dark:bg-background/60 rounded-t-lg shadow">
-          <div className="flex items-center justify-between">
-            <CardTitle className="flex items-center gap-2 text-2xl font-bold text-primary">
-              <Path size={24} className="text-primary" />
-              Learning Journey Map
-            </CardTitle>
-            <Button variant="ghost" size="sm" onClick={onClose} className="text-xl">×</Button>
+    <div className={cn("fixed inset-0 z-50 overflow-y-auto", overlayClass)}>
+      <div className="min-h-full flex items-center justify-center p-4">
+        <Card className="w-full max-w-5xl h-full max-h-[95vh] flex flex-col shadow-2xl border border-primary/10 bg-background/90 dark:bg-background/70 backdrop-blur-xl">
+        <CardHeader className="pb-4 flex-shrink-0 border-b border-border/40 bg-background/95 dark:bg-background/60">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-primary/20 via-primary/10 to-transparent text-primary">
+                <Path size={22} weight="bold" />
+              </div>
+              <div>
+                <CardTitle className="text-2xl font-bold">Learning Journey Map</CardTitle>
+                <p className="text-sm text-muted-foreground">Follow the six-tier roadmap to design, launch, and scale agentic experiences.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary" className="rounded-full bg-primary/10 text-primary border border-primary/20">Live roadmap</Badge>
+              <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8 text-lg">×</Button>
+            </div>
           </div>
-          {/* Tier Tabs */}
-          <div className="flex gap-2 mt-2 mb-1"> {/* Reduced vertical space */}
-            {tierLabels.map((label, idx) => (
-              <Button
-                key={label}
-                variant={activeTier === idx ? 'default' : 'outline'}
-                className={cn('text-xs px-3 py-1 rounded-full', activeTier === idx ? 'font-bold' : '')}
-                onClick={() => setActiveTier(idx)}
-              >
-                {label}
-              </Button>
-            ))}
+          <div className="grid gap-3 mt-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-xl border border-border/60 bg-background/80 dark:bg-background/40 p-4 shadow-sm space-y-3">
+              <div className="flex items-center justify-between text-xs uppercase text-muted-foreground tracking-wide">
+                <span>Overall completion</span>
+                <span>{overallPercent}%</span>
+              </div>
+              <Progress value={selectedPath.totalProgress} className="h-2" />
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <span>{totalCompleted} of {selectedPath.nodes.length} modules</span>
+                <span>{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+              </div>
+            </div>
+            <div className="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-4 shadow-sm space-y-2">
+              <div className="flex items-center justify-between text-xs uppercase text-primary tracking-wide">
+                <span>Next milestone</span>
+                <Target size={16} />
+              </div>
+              {nextNode ? (
+                <div className="space-y-2">
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{nextNode.title}</p>
+                    <p className="text-xs text-muted-foreground line-clamp-2">{nextNode.description}</p>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-primary">
+                    <span>{nextNode.estimatedTime}</span>
+                    <span>•</span>
+                    <span className="capitalize">{nextNode.difficulty}</span>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground">You’ve completed every milestone—time to mentor others.</p>
+              )}
+            </div>
+            <div className="rounded-xl border border-border/60 bg-background/80 dark:bg-background/40 p-4 shadow-sm space-y-2">
+              <div className="flex items-center justify-between text-xs uppercase text-muted-foreground tracking-wide">
+                <span>Achievements unlocked</span>
+                <span>{achievements.length}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-foreground">
+                <Sparkle size={16} className="text-yellow-500" />
+                <span>{achievements.length > 0 ? achievements[achievements.length - 1].title : 'Keep exploring to earn badges'}</span>
+              </div>
+              <p className="text-xs text-muted-foreground">Celebrate momentum and earn new badges as you progress.</p>
+            </div>
           </div>
         </CardHeader>
-        <CardContent className="flex-1 min-h-0 bg-background/60 dark:bg-background/40 rounded-b-lg overflow-hidden flex flex-col">
-          {/* Legend for node status */}
-          <div className="flex gap-8 items-center justify-center mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-green-500 border-2 border-green-600 flex items-center justify-center text-white"><CheckCircle size={20} weight="fill" /></div>
-              <span className="text-sm text-foreground">Completed</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-primary border-2 border-primary flex items-center justify-center text-white"><Circle size={20} weight="fill" /></div>
-              <span className="text-sm text-foreground">Unlocked</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-muted border-2 border-muted-foreground flex items-center justify-center text-muted-foreground"><Lock size={20} weight="fill" /></div>
-              <span className="text-sm text-foreground">Locked</span>
-            </div>
-          </div>
-          {/* Journey Map Section for selected tier */}
-          <div className="flex-1 flex flex-col items-center justify-center p-4 mb-2">
-            <div className="relative w-full h-[500px] flex items-center justify-center">
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid meet">
-                <defs>
-                  <style>
-                    {`
-                      /* Animated arrow paths with smooth transitions */
-                      .arrow-path {
-                        stroke-linecap: round;
-                        stroke-linejoin: round;
-                        transition: all 0.5s ease;
-                      }
-                      .arrow-path-animated {
-                        stroke-dasharray: 20 10;
-                        animation: flowPath 3s ease-in-out infinite;
-                        filter: drop-shadow(0 2px 4px rgba(34, 197, 94, 0.3));
-                      }
-                      .arrow-path-muted {
-                        stroke-dasharray: 10 5;
-                        animation: flowPathMuted 2s ease-in-out infinite;
-                        opacity: 0.6;
-                      }
-                      
-                      @keyframes flowPath {
-                        0% { stroke-dashoffset: 0; opacity: 0.8; }
-                        50% { opacity: 1; stroke-width: 3; }
-                        100% { stroke-dashoffset: -30; opacity: 0.8; }
-                      }
-                      
-                      @keyframes flowPathMuted {
-                        0% { stroke-dashoffset: 0; opacity: 0.4; }
-                        50% { opacity: 0.7; }
-                        100% { stroke-dashoffset: -15; opacity: 0.4; }
-                      }
-                      
-                      /* Flowing data particles */
-                      .flow-particle {
-                        fill: #22c55e;
-                        opacity: 0.8;
-                        filter: drop-shadow(0 1px 2px rgba(34, 197, 94, 0.4));
-                      }
-                    `}
-                  </style>
-                  <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
-                    <polygon points="0 0, 10 4, 0 8" fill="#22c55e" />
-                  </marker>
-                  <marker id="arrow-grey" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
-                    <polygon points="0 0, 10 4, 0 8" fill="#cbd5e1" />
-                  </marker>
-                  <marker id="arrow-animated" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
-                    <polygon points="0 0, 10 4, 0 8" fill="#22c55e">
-                      <animate attributeName="fill" values="#22c55e;#16a34a;#22c55e" dur="2s" repeatCount="indefinite"/>
-                    </polygon>
-                  </marker>
-                </defs>
-                
-                {/* Clear directional learning path connections */}
-                {tierNodes.map((node, index) => {
-                  if (index === tierNodes.length - 1) return null;
-                  const current = getNodePosition(index, tierNodes.length);
-                  const next = getNodePosition(index + 1, tierNodes.length);
-                  const isCompleted = node.isCompleted;
-                  const nextNode = tierNodes[index + 1];
-                  const isNextUnlocked = nextNode?.isUnlocked;
-                  
-                  // Use straight lines for clear direction - simpler and more reliable
-                  const pathData = `M ${current.x} ${current.y} L ${next.x} ${next.y}`;
-                  
-                  return (
-                    <g key={`connection-${node.id}-${nextNode.id}`}>
-                      <line
-                        x1={current.x}
-                        y1={current.y}
-                        x2={next.x}
-                        y2={next.y}
-                        stroke={isCompleted && isNextUnlocked ? '#22c55e' : isCompleted ? '#fbbf24' : '#cbd5e1'}
-                        strokeWidth={isCompleted ? '3' : '2'}
-                        className={isCompleted ? 'arrow-path arrow-path-animated' : 'arrow-path arrow-path-muted'}
-                        markerEnd={isCompleted ? 'url(#arrow-animated)' : 'url(#arrow-grey)'}
-                      />
-                      
-                      {/* Step indicator along path */}
-                      <text 
-                        x={(current.x + next.x) / 2} 
-                        y={(current.y + next.y) / 2 - 10} 
-                        textAnchor="middle" 
-                        className="text-xs fill-muted-foreground font-medium"
-                        style={{ fontSize: '11px' }}
-                      >
-                        {isCompleted ? '✓' : `${index + 1} → ${index + 2}`}
-                      </text>
-                      
-                      {/* Animated flow particles for completed connections */}
-                      {isCompleted && (
-                        <circle r="3" className="flow-particle">
-                          <animateMotion dur="2s" repeatCount="indefinite">
-                            <path d={pathData}/>
-                          </animateMotion>
-                          <animate attributeName="r" values="3;5;3" dur="1.5s" repeatCount="indefinite"/>
-                        </circle>
-                      )}
-                    </g>
-                  );
-                })}
-              </svg>
-              {/* All learning path nodes in recommended order */}
-              {tierNodes.map((node, index) => {
-                const position = getNodePosition(index, tierNodes.length);
-                const isCurrentNext = getNextRecommendedNode()?.id === node.id;
-                const globalIndex = selectedPath.recommendedOrder.indexOf(node.id) + 1;
-                return (
-                  <div
-                    key={node.id}
-                    className={cn(
-                      "absolute w-16 h-16 rounded-full border-3 flex flex-col items-center justify-center cursor-pointer transition-all duration-500 shadow-lg hover:scale-110",
-                      node.isCompleted ? "bg-green-500 border-green-600 text-white shadow-green-200" :
-                      node.isUnlocked ? "bg-primary border-primary text-white shadow-primary/20" :
-                      "bg-muted border-muted-foreground text-muted-foreground dark:bg-muted dark:text-muted-foreground",
-                      isCurrentNext ? "ring-4 ring-yellow-400 ring-opacity-75 animate-pulse" : ""
-                    )}
-                    style={{ left: position.x - 32, top: position.y - 32, zIndex: 10 }}
-                    onClick={() => { if (node.isUnlocked) { onNavigate(node.path); } }}
-                  >
-                    <div className="text-lg">{node.icon}</div>
-                    <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-background border-2 border-current flex items-center justify-center text-xs font-bold">
-                      {globalIndex > 0 ? globalIndex : index + 1}
-                    </div>
-                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 text-center pointer-events-none max-w-[180px]">
-                      <div className="text-xs font-bold text-center leading-tight mb-1 text-foreground">{node.title}</div>
-                      <div className="flex items-center justify-center gap-1 flex-wrap">
-                        <Badge className={cn("text-xs px-1 py-0.5", getTierColor(node.id))}>T{getTierNumber(node.id)}</Badge>
-                        <span className="text-xs text-muted-foreground bg-background/80 dark:bg-background/40 px-1 py-0.5 rounded">{node.estimatedTime}</span>
-                      </div>
-                      {node.completionRate > 0 && !node.isCompleted && (
-                        <div className="mt-1 w-full bg-muted rounded-full h-1">
-                          <div 
-                            className="bg-primary h-1 rounded-full transition-all duration-300"
-                            style={{ width: `${node.completionRate}%` }}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            {/* Bottom Row: Next Step & Achievements */}
-            <div className="flex flex-row gap-6 justify-between items-stretch mt-4">
-              {nextNode && (
-                <Card className="flex-1 border-primary/20 shadow bg-background dark:bg-background">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <Target size={16} className="text-primary" /> Recommended Next Step
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-start gap-3">
-                        <div className="p-2 bg-primary/10 rounded-md">{nextNode.icon}</div>
-                        <div>
-                          <h4 className="font-medium">{nextNode.title}</h4>
-                          <p className="text-sm text-muted-foreground">{nextNode.description}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <Badge className={cn("text-xs", getDifficultyColor(nextNode.difficulty))}>{nextNode.difficulty}</Badge>
-                        <Badge variant="outline" className="text-xs">{nextNode.estimatedTime}</Badge>
-                      </div>
-                      <Button className="w-full" onClick={() => onNavigate(nextNode.path)}>Continue Learning</Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-              {achievements.length > 0 && (
-                <Card className="flex-1 shadow bg-background dark:bg-background">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-base flex items-center gap-2">
-                      <Sparkle size={16} className="text-yellow-600" /> Achievements
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      {achievements.map((achievement, index) => (
-                        <div key={index} className="flex items-center gap-2 p-2 bg-muted/50 dark:bg-muted/30 rounded-md">
-                          <div className="text-yellow-600">{achievement.icon}</div>
-                          <div>
-                            <div className="text-sm font-medium">{achievement.title}</div>
-                            <div className="text-xs text-muted-foreground">{achievement.description}</div>
+        <CardContent className="flex-1 min-h-0 p-0">
+          <div className="grid h-full min-h-0 lg:grid-cols-[260px_1fr]">
+            <aside className="border-r border-border/40 bg-background/80 dark:bg-background/40 hidden lg:block">
+              <ScrollArea className="h-full p-6">
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Quick navigation</h3>
+                    <div className="mt-3 space-y-2">
+                      {tierData.map(tier => (
+                        <Button
+                          key={tier.label}
+                          variant={activeTier === tier.index ? 'secondary' : 'ghost'}
+                          className={cn('w-full justify-start px-3 py-2 text-left rounded-xl transition', activeTier === tier.index ? 'bg-primary/15 text-primary' : 'text-muted-foreground hover:bg-muted/50')}
+                          onClick={() => handleScrollToTier(tier.index)}
+                        >
+                          <div className="flex flex-col gap-1">
+                            <span className="text-sm font-semibold">{tier.label}</span>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <span>{tier.completed}/{tier.total} complete</span>
+                              <span>•</span>
+                              <span>{tier.percent}%</span>
+                            </div>
                           </div>
-                        </div>
+                        </Button>
                       ))}
                     </div>
-                  </CardContent>
-                </Card>
-              )}
+                  </div>
+                  <div className="rounded-xl border border-border/60 bg-background/70 dark:bg-background/50 p-4 space-y-3">
+                    <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                      <Target size={16} className="text-primary" /> Status legend
+                    </h3>
+                    <div className="flex flex-col gap-2 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-3">
+                        <div className="h-3 w-3 rounded-full bg-emerald-500" />
+                        <span>Completed milestone</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="h-3 w-3 rounded-full bg-primary" />
+                        <span>Unlocked milestone</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="h-3 w-3 rounded-full bg-border" />
+                        <span>Locked until prerequisites finish</span>
+                      </div>
+                    </div>
+                  </div>
+                  {achievements.length > 0 && (
+                    <div className="rounded-xl border border-border/60 bg-background/70 dark:bg-background/50 p-4 space-y-3">
+                      <h3 className="text-sm font-semibold flex items-center gap-2 text-foreground"><Trophy size={16} /> Achievements</h3>
+                      <div className="space-y-2">
+                        {achievements.map((achievement, index) => (
+                          <div key={index} className="flex items-center gap-3 rounded-lg border border-border/40 bg-muted/40 dark:bg-muted/20 px-3 py-2">
+                            <span className="text-primary">{achievement.icon}</span>
+                            <div>
+                              <div className="text-sm font-medium text-foreground">{achievement.title}</div>
+                              <div className="text-xs text-muted-foreground">{achievement.description}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </ScrollArea>
+            </aside>
+            <div className="flex flex-col min-h-0">
+              <ScrollArea className="flex-1 h-full px-6 py-6">
+                <div className="space-y-8 pb-12">
+                  {nextNode && (
+                    <section className="rounded-3xl border border-primary/30 bg-gradient-to-r from-primary/15 via-transparent to-transparent p-6 shadow-md">
+                      <div className="flex flex-wrap items-start justify-between gap-4">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 rounded-xl bg-primary/15 text-primary/90">
+                            {nextNode.icon}
+                          </div>
+                          <div className="space-y-2">
+                            <p className="text-sm font-semibold uppercase tracking-wide text-primary">Recommended next module</p>
+                            <h3 className="text-lg font-semibold text-foreground">{nextNode.title}</h3>
+                            <p className="text-sm text-muted-foreground max-w-2xl">{nextNode.description}</p>
+                            <div className="flex flex-wrap items-center gap-2 text-xs">
+                              <Badge className={cn('capitalize', getDifficultyColor(nextNode.difficulty))}>{nextNode.difficulty}</Badge>
+                              <Badge variant="outline" className="text-xs">{nextNode.estimatedTime}</Badge>
+                              <span className="text-muted-foreground">Tier: {tierData.find(t => t.nodes.some(n => n.id === nextNode.id))?.label}</span>
+                              {averageScore > 0 && (
+                                <span className="text-muted-foreground">Avg quiz ⌀ {Math.round(averageScore)}%</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <Button onClick={() => onNavigate(nextNode.path)} className="shrink-0">Launch module</Button>
+                      </div>
+                    </section>
+                  )}
+
+                  {tierData.map(tier => (
+                    <section
+                      key={tier.label}
+                      ref={(node: HTMLDivElement | null) => { tierRefs.current[tier.index] = node; }}
+                      onMouseEnter={() => setActiveTier(tier.index)}
+                      className={cn(
+                        'rounded-3xl border bg-background/90 dark:bg-background/60 transition-shadow duration-300 overflow-hidden shadow-lg',
+                        activeTier === tier.index ? 'ring-2 ring-primary/30 shadow-primary/20' : 'ring-1 ring-border/30'
+                      )}
+                    >
+                      <div className={cn('h-1 w-full bg-gradient-to-r', tier.accent.gradient)} />
+                      <div className="p-6 space-y-6">
+                        <header className="flex flex-wrap items-start justify-between gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-3">
+                              <Badge variant="secondary" className="rounded-full bg-muted/60 text-muted-foreground">
+                                Tier {tier.index + 1}
+                              </Badge>
+                              <h2 className="text-xl font-semibold text-foreground">{tier.label}</h2>
+                            </div>
+                            <p className="max-w-2xl text-sm text-muted-foreground">{tier.description}</p>
+                          </div>
+                          <div className="min-w-[160px] space-y-2">
+                            <div className="flex items-center justify-between text-xs text-muted-foreground">
+                              <span>Completion</span>
+                              <span>{tier.percent}%</span>
+                            </div>
+                            <Progress value={tier.percent} className="h-2" />
+                            <div className="text-xs text-muted-foreground">{tier.completed} of {tier.total} modules complete</div>
+                          </div>
+                        </header>
+                        <div className="relative">
+                          <div className={cn('absolute left-[19px] top-2 bottom-2 w-[2px] bg-gradient-to-b', tier.accent.gradient)} />
+                          <div className="space-y-6">
+                            {tier.nodes.map((node, nodeIdx) => {
+                              const status = node.isCompleted ? 'completed' : node.isUnlocked ? 'unlocked' : 'locked';
+                              const indicatorClass = status === 'completed'
+                                ? 'bg-emerald-500 border-emerald-400 text-white shadow-emerald-400/30'
+                                : status === 'unlocked'
+                                  ? 'bg-primary text-primary-foreground border-primary/70 shadow-primary/30'
+                                  : 'bg-muted text-muted-foreground border-border shadow-none';
+                              const globalOrder = selectedPath.recommendedOrder.indexOf(node.id) + 1;
+                              const isSupplement = globalOrder <= 0;
+                              return (
+                                <div key={node.id} className="relative pl-14">
+                                  <div className={cn('absolute left-0 top-2 h-10 w-10 rounded-full border-2 flex items-center justify-center text-sm font-semibold transition-all duration-200', indicatorClass)}>
+                                    {status === 'completed' ? <CheckCircle size={18} weight="fill" /> : status === 'unlocked' ? (isSupplement ? 'R' : globalOrder) : <Lock size={16} />}
+                                  </div>
+                                  <div className="rounded-2xl border border-border/60 bg-background/95 dark:bg-background/70 p-5 shadow-sm hover:shadow-md transition">
+                                    <div className="flex flex-wrap items-start justify-between gap-4">
+                                      <div className="space-y-2 max-w-2xl">
+                                        <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                                          <span>{node.title}</span>
+                                          {status === 'completed' && <Badge variant="outline" className="text-xs bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 border-emerald-500/40">Completed</Badge>}
+                                        </h3>
+                                        <p className="text-base text-muted-foreground leading-7">{node.description}</p>
+                                      </div>
+                                      <div className="flex flex-col items-end gap-2 text-sm text-muted-foreground">
+                                        <div className="flex items-center gap-2">
+                                          <Badge className={cn('capitalize', getDifficultyColor(node.difficulty))}>{node.difficulty}</Badge>
+                                          <Badge variant="outline">{node.estimatedTime}</Badge>
+                                        </div>
+                                        <span className="text-base font-medium text-foreground">Prerequisites: {node.prerequisites.length > 0 ? node.prerequisites.length : 'None'}</span>
+                                      </div>
+                                    </div>
+                                    <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                                      <div className="flex items-center gap-2">
+                                        <span className="font-semibold text-foreground">Core skills:</span>
+                                        <div className="flex flex-wrap gap-2">
+                                          {node.skills.slice(0, 4).map(skill => (
+                                            <span key={skill} className="rounded-full bg-muted/60 px-3 py-1 text-xs uppercase tracking-wide">{skill}</span>
+                                          ))}
+                                          {node.skills.length > 4 && <span className="rounded-full bg-muted/40 px-3 py-1 text-xs">+{node.skills.length - 4} more</span>}
+                                        </div>
+                                      </div>
+                                      {node.completionRate > 0 && !node.isCompleted && (
+                                        <div className="flex-1 min-w-[160px]">
+                                          <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                                            <span>In progress</span>
+                                            <span>{Math.round(node.completionRate)}%</span>
+                                          </div>
+                                          <Progress value={node.completionRate} className="h-1.5" />
+                                        </div>
+                                      )}
+                                    </div>
+                                    {!node.isUnlocked && node.prerequisites.length > 0 && (
+                                      <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                                        <span className="font-semibold text-foreground">Unlock by completing:</span>
+                                        {node.prerequisites.map(prereq => {
+                                          const prereqNode = selectedPath.nodes.find(n => n.id === prereq);
+                                          return (
+                                            <span key={prereq} className="rounded-full border border-border/50 px-3 py-1 bg-muted/30 text-sm">
+                                              {prereqNode?.title || prereq}
+                                            </span>
+                                          );
+                                        })}
+                                      </div>
+                                    )}
+                                    <div className="mt-5 flex items-center justify-between">
+                                      {isSupplement ? (
+                                        <div className="flex items-center gap-3 text-base text-muted-foreground">
+                                          <Sparkle size={18} className="text-primary" />
+                                          <span className="font-medium text-foreground">Supplemental resource</span>
+                                        </div>
+                                      ) : (
+                                        <div className="flex items-center gap-4 text-xl text-muted-foreground">
+                                          <Sparkle size={22} className="text-primary" />
+                                          <span className="font-semibold text-foreground">Recommended order position #{globalOrder}</span>
+                                        </div>
+                                      )}
+                                      <Button size="sm" onClick={() => onNavigate(node.path)} disabled={!node.isUnlocked} variant={node.isUnlocked ? 'default' : 'outline'}>
+                                        {node.isCompleted ? 'Review module' : node.isUnlocked ? 'Open module' : 'Locked'}
+                                      </Button>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  ))}
+
+                  {supplementalResources.length > 0 && (
+                    <section className="rounded-3xl border border-border/40 bg-background/90 dark:bg-background/60 p-6 shadow-lg space-y-6">
+                      <header className="flex flex-wrap items-center justify-between gap-4">
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2 text-sm font-semibold text-primary uppercase tracking-wide">
+                            <Sparkle size={18} className="text-primary" />
+                            Supplemental resources
+                          </div>
+                          <p className="max-w-2xl text-sm text-muted-foreground">
+                            Reinforce the main journey with documentation, community support, applied patterns, and quizzes.
+                          </p>
+                        </div>
+                        <Badge variant="secondary" className="rounded-full bg-muted/60 text-muted-foreground">
+                          {supplementalResources.length} resources
+                        </Badge>
+                      </header>
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        {supplementalResources.map(resource => (
+                          <div key={resource.id} className="group rounded-2xl border border-border/60 bg-background/95 dark:bg-background/70 p-5 shadow-sm transition hover:shadow-md">
+                            <div className="flex items-start gap-3">
+                              <div className="p-2 rounded-xl bg-muted/60 text-foreground/70 group-hover:text-primary group-hover:bg-primary/10 transition">
+                                {resource.icon}
+                              </div>
+                              <div className="space-y-2">
+                                <h3 className="text-lg font-semibold text-foreground">{resource.title}</h3>
+                                <p className="text-sm text-muted-foreground leading-6">{resource.description}</p>
+                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                  <Badge variant="outline" className="text-xs">{resource.estimatedTime}</Badge>
+                                  <span>•</span>
+                                  <span className="capitalize">{resource.difficulty}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="mt-4 flex items-center justify-between">
+                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                <Sparkle size={16} className="text-primary" />
+                                <span>Great for reinforcement</span>
+                              </div>
+                              <Button size="sm" variant="ghost" onClick={() => onNavigate(resource.path)}>
+                                Open
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                </div>
+              </ScrollArea>
             </div>
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 };

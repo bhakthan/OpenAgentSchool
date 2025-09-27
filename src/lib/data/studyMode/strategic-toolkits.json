@@ -1,0 +1,58 @@
+[
+  {
+    "id": "north-star-alignment",
+    "title": "North Star Alignment Canvas",
+    "description": "Capture mission, metrics, and guardrails that ground your agent charter.",
+    "href": "/toolkits/north-star-alignment-canvas.md",
+    "downloadName": "north-star-alignment-canvas.md"
+  },
+  {
+    "id": "portfolio-balance",
+    "title": "Portfolio Balance Canvas",
+    "description": "Prioritize agent investments by balancing value, readiness, and risk.",
+    "href": "/toolkits/portfolio-balance-canvas.md",
+    "downloadName": "portfolio-balance-canvas.md"
+  },
+  {
+    "id": "responsible-ai-governance",
+    "title": "Responsible AI Governance Playbook",
+    "description": "Map oversight forums, escalation paths, and control checkpoints.",
+    "href": "/toolkits/responsible-ai-governance-playbook.md",
+    "downloadName": "responsible-ai-governance-playbook.md"
+  },
+  {
+    "id": "continuous-improvement",
+    "title": "Continuous Improvement Flywheel",
+    "description": "Translate telemetry and feedback signals into iterative upgrades.",
+    "href": "/toolkits/continuous-improvement-flywheel.md",
+    "downloadName": "continuous-improvement-flywheel.md"
+  },
+  {
+    "id": "knowledge-ops",
+    "title": "Knowledge Ops Runbook",
+    "description": "Operationalize sourcing, curation, and verification for trusted knowledge.",
+    "href": "/toolkits/knowledge-ops-runbook.md",
+    "downloadName": "knowledge-ops-runbook.md"
+  },
+  {
+    "id": "platform-operating-model",
+    "title": "Platform Operating Model Canvas",
+    "description": "Define tiers, funding cadences, and paved roads for platform growth.",
+    "href": "/toolkits/platform-operating-model.md",
+    "downloadName": "platform-operating-model.md"
+  },
+  {
+    "id": "partnership-evaluation",
+    "title": "Partnership Evaluation Canvas",
+    "description": "Compare partner capabilities, risk posture, and integration effort.",
+    "href": "/toolkits/partnership-evaluation-canvas.md",
+    "downloadName": "partnership-evaluation-canvas.md"
+  },
+  {
+    "id": "enablement-roadmap",
+    "title": "Enablement Roadmap Canvas",
+    "description": "Plan enablement waves, incentives, and feedback signals for adoption.",
+    "href": "/toolkits/enablement-roadmap-canvas.md",
+    "downloadName": "enablement-roadmap-canvas.md"
+  }
+]

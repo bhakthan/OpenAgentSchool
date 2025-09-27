@@ -66,69 +66,21 @@ import MarkdownRenderer from './MarkdownRenderer';
 // patternInterlockEdges no longer needed directly (visualized via InterlockMap)
 import { driftEvents } from '@/lib/data/studyMode/driftLabs';
 import { computeMasteryTier } from '@/lib/data/studyMode/patternMastery';
+import strategicToolkitData from '@/lib/data/studyMode/strategic-toolkits.json' with { type: 'json' };
+interface StrategicToolkit {
+  id: string;
+  title: string;
+  description: string;
+  href: string;
+  downloadName: string;
+}
+
+const strategicToolkits = strategicToolkitData as StrategicToolkit[];
+
 interface StudyModeProps {
   conceptId?: string;
   onComplete?: (session: StudyModeSession) => void;
 }
-
-const strategicToolkits = [
-  {
-    id: 'north-star-alignment',
-    title: 'North Star Alignment Canvas',
-    description: 'Capture mission, metrics, and guardrails that ground your agent charter.',
-    href: '/toolkits/north-star-alignment-canvas.md',
-    downloadName: 'north-star-alignment-canvas.md',
-  },
-  {
-    id: 'portfolio-balance',
-    title: 'Portfolio Balance Canvas',
-    description: 'Prioritize agent investments by balancing value, readiness, and risk.',
-    href: '/toolkits/portfolio-balance-canvas.md',
-    downloadName: 'portfolio-balance-canvas.md',
-  },
-  {
-    id: 'responsible-ai-governance',
-    title: 'Responsible AI Governance Playbook',
-    description: 'Map oversight forums, escalation paths, and control checkpoints.',
-    href: '/toolkits/responsible-ai-governance-playbook.md',
-    downloadName: 'responsible-ai-governance-playbook.md',
-  },
-  {
-    id: 'continuous-improvement',
-    title: 'Continuous Improvement Flywheel',
-    description: 'Translate telemetry and feedback signals into iterative upgrades.',
-    href: '/toolkits/continuous-improvement-flywheel.md',
-    downloadName: 'continuous-improvement-flywheel.md',
-  },
-  {
-    id: 'knowledge-ops',
-    title: 'Knowledge Ops Runbook',
-    description: 'Operationalize sourcing, curation, and verification for trusted knowledge.',
-    href: '/toolkits/knowledge-ops-runbook.md',
-    downloadName: 'knowledge-ops-runbook.md',
-  },
-  {
-    id: 'platform-operating-model',
-    title: 'Platform Operating Model Canvas',
-    description: 'Define tiers, funding cadences, and paved roads for platform growth.',
-    href: '/toolkits/platform-operating-model.md',
-    downloadName: 'platform-operating-model.md',
-  },
-  {
-    id: 'partnership-evaluation',
-    title: 'Partnership Evaluation Canvas',
-    description: 'Compare partner capabilities, risk posture, and integration effort.',
-    href: '/toolkits/partnership-evaluation-canvas.md',
-    downloadName: 'partnership-evaluation-canvas.md',
-  },
-  {
-    id: 'enablement-roadmap',
-    title: 'Enablement Roadmap Canvas',
-    description: 'Plan enablement waves, incentives, and feedback signals for adoption.',
-    href: '/toolkits/enablement-roadmap-canvas.md',
-    downloadName: 'enablement-roadmap-canvas.md',
-  },
-] as const;
 
 const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [activeTab, setActiveTab] = useState<'overview' | StudyModeType>('overview');
@@ -138,7 +90,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [dataBundle, setDataBundle] = useState<any | null>(null);
   const [categories, setCategories] = useState<any[]>([]);
   const [loadingData, setLoadingData] = useState<boolean>(true);
-  const [inlineToolkit, setInlineToolkit] = useState<typeof strategicToolkits[number] | null>(null);
+  const [inlineToolkit, setInlineToolkit] = useState<StrategicToolkit | null>(null);
   const [toolkitMarkdown, setToolkitMarkdown] = useState<string>('');
   const [loadingToolkit, setLoadingToolkit] = useState<boolean>(false);
   const [toolkitError, setToolkitError] = useState<string | null>(null);
@@ -340,7 +292,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     try { window.dispatchEvent(new CustomEvent('analytics:questionStart', { detail: { id: question.id, type: question.type } })); } catch {}
   };
 
-  const handleOpenToolkitInline = (toolkit: typeof strategicToolkits[number]) => {
+  const handleOpenToolkitInline = (toolkit: StrategicToolkit) => {
     setInlineToolkit(toolkit);
     try {
       emitTelemetry({ kind: 'hint_used', meta: { event: 'toolkit_inline_open', toolkitId: toolkit.id } });
@@ -601,56 +553,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
 
   {/* Overview Tab */}
   <TabsContent value="overview" className="space-y-6">
-        {/* Flashcard quick review (#14) */}
-        <Card>
-          <CardHeader><CardTitle className="text-sm">Active Recall Flashcards</CardTitle><CardDescription>Due now: {getDueFlashcards().length}</CardDescription></CardHeader>
-          <CardContent className="flex flex-wrap gap-2">
-            {getDueFlashcards().slice(0,6).map(fc => (
-              <div key={fc.id} className="p-2 border rounded-md text-xs dark:border-neutral-700 w-56">
-                <div className="font-medium mb-1 line-clamp-3" title={fc.prompt}>{fc.prompt}</div>
-                <div className="text-[10px] mb-1 text-muted-foreground">Interval: {fc.interval}d • EF {fc.easiness.toFixed(2)}</div>
-                <div className="flex gap-1" role="group" aria-label="Flashcard grading buttons">
-                  {[0,1,2,3,4,5].map(q => (
-                    <button
-                      key={q}
-                      aria-label={`Grade ${q}`}
-                      className="px-1 py-0.5 border rounded hover:bg-indigo-50 dark:hover:bg-indigo-900/30"
-                      onClick={() => { const upd = reviewFlashcard(fc, q as any); persistFlashcard(upd); try { emitTelemetry({ kind: 'hint_used', patternId: fc.patternId, challengeId: fc.id, meta: { event: 'flashcard_review', quality: q } }); } catch {} }}
-                      title={`Grade ${q}`}>{q}</button>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        {/* Cohort benchmark mock (#16) */}
-        <Card>
-          <CardHeader><CardTitle className="text-sm">Cohort Benchmark (Mock)</CardTitle><CardDescription>Local vs synthetic cohort</CardDescription></CardHeader>
-          <CardContent className="text-xs space-y-1">
-            {['query-intent-structured-access','policy-gated-tool-invocation'].map(pid => {
-              const localScores = sessions.filter(s => s.conceptId===pid && typeof s.score==='number').map(s => (s.score||0)/100);
-              const r = mockBenchmark(pid, localScores);
-              try { emitTelemetry({ kind: 'hint_used', patternId: pid, meta: { event: 'benchmark_viewed', percentile: r.percentile } }); } catch {}
-              return <div key={pid} className="flex justify-between border rounded p-1 dark:border-neutral-700"><span className="truncate max-w-[60%]" title={pid}>{pid}</span><span>{r.percentile.toFixed(0)}p ({r.deltaFromMedian>=0?'+':''}{(r.deltaFromMedian*100).toFixed(1)}%)</span></div>;
-            })}
-          </CardContent>
-        </Card>
-
-
-        {/* Drift Lab teaser (#13) */}
-        <Card>
-          <CardHeader><CardTitle className="text-sm">Drift Lab Events</CardTitle><CardDescription>Upcoming simulation hooks</CardDescription></CardHeader>
-          <CardContent className="flex flex-col gap-2 text-xs">
-            {driftEvents.map(ev => (
-              <div key={ev.id} className="p-2 border rounded-md dark:border-neutral-700">
-                <div className="font-medium">{ev.type}</div>
-                <div>{ev.description}</div>
-                <div className="text-[10px] text-muted-foreground">Affected: {ev.affectedPatterns.join(', ')}</div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+        {/* Overview metrics */}
           {/* Progress Overview */}
           <Card>
             <CardHeader>
@@ -772,12 +675,20 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           )}
 
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <DownloadSimple size={24} className="text-primary" />
-                Strategy Toolkits Library
-              </CardTitle>
-              <CardDescription>Download canvases and playbooks that extend each strategic theme into action.</CardDescription>
+            <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="space-y-1">
+                <CardTitle className="flex items-center gap-2">
+                  <DownloadSimple size={24} className="text-primary" />
+                  Strategy Toolkits Library
+                </CardTitle>
+                <CardDescription>Download canvases and playbooks that extend each strategic theme into action.</CardDescription>
+              </div>
+              <Button asChild variant="outline" size="sm" className="gap-2">
+                <a href="/toolkits/strategic-toolkit-library.xlsx" download>
+                  <DownloadSimple size={16} />
+                  <span>Download Excel Library</span>
+                </a>
+              </Button>
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -809,7 +720,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           </Card>
 
           {/* Data Autonomy Mastery Section */}
-          <Card className="border border-orange-300/60 dark:border-orange-700/60">
+          <Card className="border border-orange-200/70 bg-white shadow-sm dark:border-orange-700/60 dark:bg-orange-950/30">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendUp size={24} className="text-orange-500" />
@@ -818,11 +729,11 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
               <CardDescription>Track mastery tiers, anticipate failure modes, and attempt cross-pattern fusion challenges.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-6 md:grid-cols-3">
                 <MasteryPanel patternId="strategy-memory-replay" currentTier={computeMasteryTier('strategy-memory-replay', []) || undefined} />
                 <FailureModesPanel patternId="strategy-memory-replay" />
-                <div className="space-y-3">
-                  <h4 className="text-sm font-semibold">Fusion Challenges</h4>
+                <div className="space-y-4">
+                  <h4 className="text-base font-semibold text-indigo-900 dark:text-indigo-200">Fusion Challenges</h4>
                   <TransferChallengesView onLaunchScenario={(id) => {
                     const fusion = allQuestions.find(q => q.id === 'fusion-replay-perception');
                     if (fusion) {
@@ -1002,14 +913,14 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       </Tabs>
 
       <Dialog open={!!inlineToolkit} onOpenChange={(open) => { if (!open) handleCloseToolkitInline(); }}>
-        <DialogContent className="max-w-3xl">
+        <DialogContent className="max-w-none w-[min(95vw,1200px)] sm:max-w-[95vw] lg:max-w-[1200px]">
           <DialogHeader>
             <DialogTitle>{inlineToolkit?.title ?? 'Toolkit'}</DialogTitle>
             <DialogDescription>
               View the toolkit without leaving Study Mode. Download remains available if you prefer working offline.
             </DialogDescription>
           </DialogHeader>
-          <ScrollArea className="max-h-[70vh] pr-4">
+          <ScrollArea className="max-h-[75vh] pr-4">
             {loadingToolkit && (
               <div className="py-8 text-center text-sm text-muted-foreground">Loading toolkit…</div>
             )}
