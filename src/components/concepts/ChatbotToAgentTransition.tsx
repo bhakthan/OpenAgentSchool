@@ -167,261 +167,178 @@ const ChatbotToAgentTransition: React.FC = () => {
               <defs>
                 <style>
                   {`
-                    /* Text colors for light and dark modes with improved readability */
-                    .svg-text-primary { fill: rgb(30 41 59); font-family: 'Inter', sans-serif; }
-                    .svg-text-secondary { fill: rgb(71 85 105); font-family: 'Inter', sans-serif; }
-                    .svg-text-white { fill: rgb(255 255 255); font-family: 'Inter', sans-serif; }
-                    .svg-text-muted { fill: rgb(100 116 139); font-family: 'Inter', sans-serif; }
-                    
-                    /* Connection lines and arrows with better visibility */
-                    .svg-line { 
-                      stroke: rgb(59 130 246); 
-                      stroke-width: 3; 
-                      opacity: 0.8;
-                    }
-                    .svg-line-muted { 
-                      stroke: rgb(100 116 139); 
-                      stroke-width: 2; 
-                      opacity: 0.6;
-                    }
-                    
-                    /* Animated flow lines with enhanced smoothness */
-                    .svg-line-animated {
-                      stroke: rgb(59 130 246);
+                    .svg-text-primary { fill: var(--foreground); font-family: 'Inter', sans-serif; font-weight: 600; }
+                    .svg-text-secondary { fill: var(--muted-foreground); font-family: 'Inter', sans-serif; }
+                    .svg-text-white { fill: var(--primary-foreground); font-family: 'Inter', sans-serif; font-weight: 600; }
+                    .svg-text-muted { fill: var(--muted-foreground); font-family: 'Inter', sans-serif; }
+
+                    .svg-line {
+                      stroke: var(--primary);
                       stroke-width: 3;
-                      opacity: 0.9;
+                      opacity: 0.85;
+                      transition: stroke 0.3s ease, opacity 0.3s ease;
+                    }
+                    .svg-line-muted {
+                      stroke: var(--border);
+                      stroke-width: 2;
+                      opacity: 0.7;
+                      transition: stroke 0.3s ease, opacity 0.3s ease;
+                    }
+
+                    .svg-line-animated {
+                      stroke: var(--primary);
+                      stroke-width: 3;
+                      opacity: 1;
                       stroke-dasharray: 12 6;
                       animation: flowAnimation 2s ease-in-out infinite;
-                      filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.2));
                     }
                     .svg-line-muted-animated {
-                      stroke: rgb(100 116 139);
+                      stroke: var(--border);
                       stroke-width: 2;
-                      opacity: 0.8;
-                      stroke-dasharray: 8 4;
-                      animation: flowAnimation 1.5s ease-in-out infinite;
-                      filter: drop-shadow(0 1px 2px rgba(100, 116, 139, 0.2));
+                      opacity: 0.9;
+                      stroke-dasharray: 10 5;
+                      animation: flowAnimation 1.6s ease-in-out infinite;
                     }
-                    
+
                     @keyframes flowAnimation {
-                      0% { stroke-dashoffset: 0; opacity: 0.8; }
-                      50% { opacity: 1; }
-                      100% { stroke-dashoffset: -18; opacity: 0.8; }
+                      0% { stroke-dashoffset: 0; }
+                      100% { stroke-dashoffset: -18; }
                     }
-                    
+
+                    .svg-bg-user,
+                    .svg-bg-chatbot,
+                    .svg-bg-agent,
+                    .svg-bg-memory,
+                    .svg-bg-tools,
+                    .svg-bg-planning,
+                    .svg-bg-reflection,
+                    .svg-bg-action,
+                    .svg-bg-response {
+                      transition: fill 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
+                    }
+
+                    .svg-bg-user {
+                      fill: var(--primary);
+                      fill-opacity: 0.15;
+                      stroke: var(--primary);
+                      stroke-opacity: 0.45;
+                      stroke-width: 2;
+                    }
+                    .svg-bg-user-active {
+                      fill: var(--primary);
+                      fill-opacity: 1;
+                      stroke: var(--primary);
+                      stroke-opacity: 1;
+                      stroke-width: 2;
+                      filter: drop-shadow(0 12px 24px rgba(16, 163, 127, 0.35));
+                    }
+
+                    .svg-bg-chatbot {
+                      fill: var(--card);
+                      stroke: var(--border);
+                      stroke-width: 2;
+                    }
+                    .svg-bg-chatbot-active {
+                      fill: var(--destructive);
+                      fill-opacity: 0.16;
+                      stroke: var(--destructive);
+                      stroke-width: 2;
+                      filter: drop-shadow(0 12px 24px rgba(220, 38, 38, 0.25));
+                    }
+
+                    .svg-bg-agent {
+                      fill: var(--accent);
+                      fill-opacity: 0.18;
+                      stroke: var(--accent);
+                      stroke-opacity: 0.55;
+                      stroke-width: 2;
+                    }
+                    .svg-bg-agent-active {
+                      fill: var(--accent);
+                      fill-opacity: 1;
+                      stroke: var(--accent);
+                      stroke-opacity: 1;
+                      stroke-width: 2;
+                      filter: drop-shadow(0 12px 24px rgba(16, 163, 127, 0.35));
+                    }
+
+                    .svg-bg-memory,
+                    .svg-bg-tools,
+                    .svg-bg-planning,
+                    .svg-bg-reflection,
+                    .svg-bg-action {
+                      fill: var(--muted);
+                      stroke: var(--border);
+                      stroke-width: 1.5;
+                    }
+
+                    .svg-bg-memory-active {
+                      fill: var(--primary);
+                      fill-opacity: 0.85;
+                      stroke: var(--primary);
+                      stroke-width: 2;
+                    }
+                    .svg-bg-tools-active {
+                      fill: var(--accent);
+                      fill-opacity: 0.85;
+                      stroke: var(--accent);
+                      stroke-width: 2;
+                    }
+                    .svg-bg-planning-active {
+                      fill: var(--primary);
+                      fill-opacity: 0.9;
+                      stroke: var(--primary);
+                      stroke-width: 2;
+                    }
+                    .svg-bg-reflection-active {
+                      fill: var(--accent);
+                      fill-opacity: 0.9;
+                      stroke: var(--accent);
+                      stroke-width: 2;
+                    }
+                    .svg-bg-action-active {
+                      fill: var(--destructive);
+                      fill-opacity: 0.9;
+                      stroke: var(--destructive);
+                      stroke-width: 2;
+                    }
+
+                    .svg-bg-response {
+                      fill: var(--card);
+                      stroke: var(--border);
+                      stroke-width: 2;
+                    }
+                    .svg-bg-response-active {
+                      fill: var(--primary);
+                      fill-opacity: 0.18;
+                      stroke: var(--primary);
+                      stroke-width: 2;
+                      filter: drop-shadow(0 12px 24px rgba(16, 163, 127, 0.25));
+                    }
+
                     @media (prefers-color-scheme: dark) {
-                      .svg-text-primary { fill: rgb(248 250 252); }
-                      .svg-text-secondary { fill: rgb(226 232 240); }
-                      .svg-text-muted { fill: rgb(148 163 184); }
-                      
-                      .svg-line { 
-                        stroke: rgb(147 197 253); 
-                        stroke-width: 3; 
-                        opacity: 0.9;
-                      }
-                      .svg-line-muted { 
-                        stroke: rgb(148 163 184); 
-                        stroke-width: 2; 
-                        opacity: 0.7;
-                      }
-                      
-                      .svg-line-animated {
-                        stroke: rgb(147 197 253);
-                        stroke-width: 3;
-                        opacity: 1;
-                        filter: drop-shadow(0 2px 4px rgba(147, 197, 253, 0.3));
-                      }
+                      .svg-line-muted,
                       .svg-line-muted-animated {
-                        stroke: rgb(148 163 184);
-                        stroke-width: 2;
-                        opacity: 0.9;
-                        filter: drop-shadow(0 1px 2px rgba(148, 163, 184, 0.3));
+                        stroke: var(--muted-foreground);
+                        stroke-opacity: 0.6;
                       }
-                    }
-                    
-                    /* User input - Professional blue gradient */
-                    .svg-bg-user { 
-                      fill: linear-gradient(135deg, rgb(59 130 246) 0%, rgb(37 99 235) 100%);
-                      filter: drop-shadow(0 4px 6px rgba(59, 130, 246, 0.2));
-                    }
-                    .svg-bg-user-active { 
-                      fill: linear-gradient(135deg, rgb(29 78 216) 0%, rgb(30 64 175) 100%);
-                      filter: drop-shadow(0 6px 12px rgba(29, 78, 216, 0.4));
-                    }
-                    
-                    /* Chatbot - Clean neutral with professional borders */
-                    .svg-bg-chatbot { 
-                      fill: rgb(255 255 255); 
-                      stroke: rgb(203 213 225); 
-                      stroke-width: 3;
-                      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-                    }
-                    .svg-bg-chatbot-active { 
-                      fill: rgb(254 242 242); 
-                      stroke: rgb(248 113 113); 
-                      stroke-width: 3;
-                      filter: drop-shadow(0 4px 8px rgba(248, 113, 113, 0.3));
-                    }
-                    
-                    /* Agent core - Rich purple gradient */
-                    .svg-bg-agent { 
-                      fill: linear-gradient(135deg, rgb(129 140 248) 0%, rgb(99 102 241) 100%);
-                      filter: drop-shadow(0 4px 8px rgba(129, 140, 248, 0.3));
-                    }
-                    .svg-bg-agent-active { 
-                      fill: linear-gradient(135deg, rgb(79 70 229) 0%, rgb(67 56 202) 100%);
-                      filter: drop-shadow(0 6px 16px rgba(79, 70, 229, 0.4));
-                    }
-                    
-                    /* Memory - Professional slate with green active state */
-                    .svg-bg-memory { 
-                      fill: rgb(100 116 139); 
-                      filter: drop-shadow(0 2px 4px rgba(100, 116, 139, 0.2));
-                    }
-                    .svg-bg-memory-active { 
-                      fill: linear-gradient(135deg, rgb(34 197 94) 0%, rgb(22 163 74) 100%);
-                      filter: drop-shadow(0 4px 8px rgba(34, 197, 94, 0.3));
-                    }
-                    
-                    /* Tools - Slate with orange active state */
-                    .svg-bg-tools { 
-                      fill: rgb(71 85 105); 
-                      filter: drop-shadow(0 2px 4px rgba(71, 85, 105, 0.2));
-                    }
-                    .svg-bg-tools-active { 
-                      fill: linear-gradient(135deg, rgb(251 146 60) 0%, rgb(249 115 22) 100%);
-                      filter: drop-shadow(0 4px 8px rgba(251, 146, 60, 0.3));
-                    }
-                    
-                    /* Planning - Slate with indigo active state */
-                    .svg-bg-planning { 
-                      fill: rgb(71 85 105);
-                      filter: drop-shadow(0 2px 4px rgba(71, 85, 105, 0.2));
-                    }
-                    .svg-bg-planning-active { 
-                      fill: linear-gradient(135deg, rgb(124 58 237) 0%, rgb(109 40 217) 100%);
-                      filter: drop-shadow(0 4px 8px rgba(124, 58, 237, 0.3));
-                    }
-                    
-                    /* Reflection - Slate with purple active state */
-                    .svg-bg-reflection { 
-                      fill: rgb(71 85 105);
-                      filter: drop-shadow(0 2px 4px rgba(71, 85, 105, 0.2));
-                    }
-                    .svg-bg-reflection-active { 
-                      fill: linear-gradient(135deg, rgb(168 85 247) 0%, rgb(147 51 234) 100%);
-                      filter: drop-shadow(0 4px 8px rgba(168, 85, 247, 0.3));
-                    }
-                    
-                    /* Action - Slate with red active state */
-                    .svg-bg-action { 
-                      fill: rgb(71 85 105);
-                      filter: drop-shadow(0 2px 4px rgba(71, 85, 105, 0.2));
-                    }
-                    .svg-bg-action-active { 
-                      fill: linear-gradient(135deg, rgb(239 68 68) 0%, rgb(220 38 38) 100%);
-                      filter: drop-shadow(0 4px 8px rgba(239, 68, 68, 0.3));
-                    }
-                    
-                    /* Response - Clean white with green active state */
-                    .svg-bg-response { 
-                      fill: rgb(255 255 255); 
-                      stroke: rgb(203 213 225); 
-                      stroke-width: 3;
-                      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-                    }
-                    .svg-bg-response-active { 
-                      fill: rgb(240 253 244); 
-                      stroke: rgb(34 197 94); 
-                      stroke-width: 3;
-                      filter: drop-shadow(0 4px 8px rgba(34, 197, 94, 0.3));
-                    }
-                    
-                    /* Dark mode overrides with improved contrast */
-                    @media (prefers-color-scheme: dark) {
-                      .svg-bg-user { 
-                        fill: linear-gradient(135deg, rgb(79 70 229) 0%, rgb(67 56 202) 100%);
-                      }
-                      .svg-bg-user-active { 
-                        fill: linear-gradient(135deg, rgb(55 48 163) 0%, rgb(49 46 129) 100%);
-                      }
-                      
-                      .svg-bg-chatbot { 
-                        fill: rgb(51 65 85); 
-                        stroke: rgb(100 116 139); 
-                        stroke-width: 3;
-                      }
-                      .svg-bg-chatbot-active { 
-                        fill: rgb(127 29 29); 
-                        stroke: rgb(185 28 28); 
-                        stroke-width: 3;
-                      }
-                      
-                      .svg-bg-agent { 
-                        fill: linear-gradient(135deg, rgb(99 102 241) 0%, rgb(79 70 229) 100%);
-                      }
-                      .svg-bg-agent-active { 
-                        fill: linear-gradient(135deg, rgb(67 56 202) 0%, rgb(55 48 163) 100%);
-                      }
-                      
-                      .svg-bg-memory { 
-                        fill: rgb(51 65 85);
-                      }
-                      .svg-bg-memory-active { 
-                        fill: linear-gradient(135deg, rgb(22 163 74) 0%, rgb(21 128 61) 100%);
-                      }
-                      
-                      .svg-bg-tools { 
-                        fill: rgb(51 65 85);
-                      }
-                      .svg-bg-tools-active { 
-                        fill: linear-gradient(135deg, rgb(234 88 12) 0%, rgb(194 65 12) 100%);
-                      }
-                      
-                      .svg-bg-planning { 
-                        fill: rgb(51 65 85);
-                      }
-                      .svg-bg-planning-active { 
-                        fill: linear-gradient(135deg, rgb(109 40 217) 0%, rgb(91 33 182) 100%);
-                      }
-                      
-                      .svg-bg-reflection { 
-                        fill: rgb(51 65 85);
-                      }
-                      .svg-bg-reflection-active { 
-                        fill: linear-gradient(135deg, rgb(147 51 234) 0%, rgb(126 34 206) 100%);
-                      }
-                      
-                      .svg-bg-action { 
-                        fill: rgb(51 65 85);
-                      }
-                      .svg-bg-action-active { 
-                        fill: linear-gradient(135deg, rgb(220 38 38) 0%, rgb(185 28 28) 100%);
-                      }
-                      
-                      .svg-bg-response { 
-                        fill: rgb(51 65 85); 
-                        stroke: rgb(100 116 139); 
-                        stroke-width: 3;
-                      }
-                      .svg-bg-response-active { 
-                        fill: rgb(22 101 52); 
-                        stroke: rgb(34 197 94); 
-                        stroke-width: 3;
+
+                      .svg-bg-memory,
+                      .svg-bg-tools,
+                      .svg-bg-planning,
+                      .svg-bg-reflection,
+                      .svg-bg-action {
+                        fill: var(--muted);
+                        fill-opacity: 0.65;
                       }
                     }
                   `}
                 </style>
                 <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                  <polygon points="0 0, 8 3, 0 6" fill="rgb(59 130 246)" />
-                </marker>
-                <marker id="arrowhead-dark" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                  <polygon points="0 0, 8 3, 0 6" fill="rgb(147 197 253)" />
+                  <polygon points="0 0, 8 3, 0 6" fill="var(--primary)" />
                 </marker>
                 <marker id="arrowhead-animated" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                  <polygon points="0 0, 8 3, 0 6" fill="rgb(59 130 246)">
-                    <animate attributeName="fill" values="rgb(59 130 246);rgb(34 197 94);rgb(59 130 246)" dur="2s" repeatCount="indefinite"/>
-                  </polygon>
+                  <polygon points="0 0, 8 3, 0 6" fill="var(--primary)" />
                 </marker>
               </defs>
 
@@ -827,29 +744,46 @@ const ChatbotToAgentTransition: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg p-4"
+              className="rounded-xl border bg-card p-6 text-card-foreground shadow-sm transition-colors"
+              style={{ borderColor: 'var(--border)' }}
             >
               <div className="flex items-center gap-2 mb-2">
-                <Badge variant="outline">Step {currentStep + 1}</Badge>
-                <h3 className="font-semibold">{currentStepData.title}</h3>
+                <Badge variant="outline" className="border-border bg-muted/40 text-xs font-medium uppercase tracking-wide">
+                  Step {currentStep + 1}
+                </Badge>
+                <h3 className="font-semibold text-lg text-foreground">{currentStepData.title}</h3>
               </div>
-              <p className="text-sm text-muted-foreground mb-3">{currentStepData.description}</p>
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{currentStepData.description}</p>
               
               {currentStepData.agentThought && (
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md mb-2">
-                  <p className="text-sm"><strong>Agent Thought:</strong> {currentStepData.agentThought}</p>
+                <div
+                  className="mb-3 rounded-lg border bg-muted px-4 py-3 shadow-sm transition-colors dark:bg-muted/80"
+                  style={{ borderColor: 'var(--border)' }}
+                >
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Agent Thought</p>
+                  <p className="mt-1 text-sm leading-relaxed text-foreground dark:text-card-foreground">{currentStepData.agentThought}</p>
                 </div>
               )}
               
               {currentStepData.agentAction && (
-                <div className="bg-amber-100 dark:bg-amber-900/20 p-3 rounded-md mb-2">
-                  <p className="text-sm"><strong>Action:</strong> <code className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">{currentStepData.agentAction}</code></p>
+                <div
+                  className="mb-3 rounded-lg border border-dashed bg-card px-4 py-3 shadow-sm transition-colors"
+                  style={{ borderColor: 'var(--primary)' }}
+                >
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Agent Action</p>
+                  <code className="mt-2 inline-block rounded bg-muted px-2 py-1 text-xs font-mono text-foreground">
+                    {currentStepData.agentAction}
+                  </code>
                 </div>
               )}
               
               {currentStepData.agentObservation && (
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md mb-2">
-                  <p className="text-sm"><strong>Observation:</strong> {currentStepData.agentObservation}</p>
+                <div
+                  className="rounded-lg border bg-muted px-4 py-3 shadow-sm transition-colors dark:bg-muted/80"
+                  style={{ borderColor: 'var(--border)' }}
+                >
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Observation</p>
+                  <p className="mt-1 text-sm leading-relaxed text-foreground dark:text-card-foreground">{currentStepData.agentObservation}</p>
                 </div>
               )}
             </motion.div>
@@ -863,9 +797,11 @@ const ChatbotToAgentTransition: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6"
               >
-                <Card className="border-red-200 dark:border-red-800">
+                <Card className="border border-destructive/40 bg-card shadow-sm dark:border-destructive/40 dark:bg-destructive/15">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-red-800 dark:text-red-200">Traditional Chatbot</CardTitle>
+                    <CardTitle className="text-base font-semibold text-foreground dark:text-destructive-foreground">
+                      Traditional Chatbot
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <div className="flex items-center gap-2">
@@ -887,9 +823,11 @@ const ChatbotToAgentTransition: React.FC = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-green-200 dark:border-green-800">
+                <Card className="border border-primary/40 bg-card shadow-sm dark:border-primary/40 dark:bg-primary/15">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-green-800 dark:text-green-200">Azure AI Agent</CardTitle>
+                    <CardTitle className="text-base font-semibold text-foreground dark:text-primary-foreground">
+                      Azure AI Agent
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <div className="flex items-center gap-2">
