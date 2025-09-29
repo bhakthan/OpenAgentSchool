@@ -47,6 +47,7 @@ import { budgetConstrainedExecutionExecutionSteps } from '@/lib/data/execution/b
 import { actionGroundingVerificationExecutionSteps } from '@/lib/data/execution/actionGroundingVerificationExecutionSteps';
 import { getAlgorithmVisualization } from '@/lib/utils/algorithmVisualization';
 import { agentToAgentPythonExecutionSteps } from '@/lib/data/execution/agentToAgentPythonExecutionSteps';
+import { mobileManipulatorStewardExecutionSteps } from '@/lib/data/execution/mobileManipulatorStewardExecutionSteps';
 
 const CORE_PORTFOLIO_METRICS_FOR_SNIPPET = coreEvaluationMetrics.slice(0, 3).map((metric) => metric.dimension);
 
@@ -557,6 +558,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             )}
             {pattern.id === 'action-grounding-verification' && (
               <TabsTrigger value="live-runner-action-grounding" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'mobile-manipulator-steward' && (
+              <TabsTrigger value="live-runner-mobile-steward" className="flex items-center gap-2">
                 <Code size={16} /> Live Runner
               </TabsTrigger>
             )}
@@ -1221,6 +1227,16 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 patternId={pattern.id}
                 patternName={pattern.name}
                 steps={actionGroundingVerificationExecutionSteps as any}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'mobile-manipulator-steward' && (
+            <TabsContent value="live-runner-mobile-steward" className="pt-4">
+              <LivePatternRunner
+                code={pattern.codeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={mobileManipulatorStewardExecutionSteps}
               />
             </TabsContent>
           )}

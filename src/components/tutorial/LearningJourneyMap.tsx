@@ -17,6 +17,7 @@ import {Target} from "@phosphor-icons/react/dist/ssr/Target";
 import {Path} from "@phosphor-icons/react/dist/ssr/Path";
 import {MapPin} from "@phosphor-icons/react/dist/ssr/MapPin";
 import {Trophy} from "@phosphor-icons/react/dist/ssr/Trophy";
+import {Robot} from "@phosphor-icons/react/dist/ssr/Robot";
 import {Sparkle} from "@phosphor-icons/react/dist/ssr/Sparkle";
 import {GraduationCap} from "@phosphor-icons/react/dist/ssr/GraduationCap";
 import { ArrowsHorizontal } from "@phosphor-icons/react/dist/ssr/ArrowsHorizontal";
@@ -79,7 +80,7 @@ const learningPaths: LearningPath[] = [
       // Tier 3: Implementation Concepts
       'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations',
       // Tier 4: Advanced Concepts
-      'agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'agentic-commerce-ap2', 'product-management',
+  'agent-deployment', 'agent-learning', 'agent-integration', 'agentic-robotics-integration', 'fine-tuning', 'agentic-commerce-ap2', 'product-management',
       'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement'
     ],
     totalProgress: 0,
@@ -466,6 +467,20 @@ const learningPaths: LearningPath[] = [
         estimatedTime: '40-50 min',
         prerequisites: ['mcp-a2a-integration'],
         skills: ['Integration Patterns', 'API Design', 'Enterprise Architecture'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'agentic-robotics-integration',
+        title: 'Agentic Robotics Integration',
+        description: 'Design embodied agents that blend Gemini Robotics perception, planning, and guardrails.',
+        icon: <Robot size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '45-60 min',
+        prerequisites: ['agent-architecture', 'agent-integration'],
+        skills: ['Embodied AI', 'Motion Planning', 'Safety Engineering', 'Telemetry'],
         completionRate: 0,
         isCompleted: false,
         isUnlocked: false,

@@ -519,6 +519,8 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'acp': 'ACPConcept',
         'data-visualization': 'DataVisualizationConcept',
         'flow-visualization': 'FlowVisualizationConcept',
+  'agentic-robotics-control-loop': 'AgenticRoboticsControlLoop',
+  'agentic-robotics-integration': 'AgenticRoboticsControlLoop',
         
         // Agent Pattern Mappings (kebab-case pattern IDs to PascalCase audio files)
         'react-agent': 'ReActPattern',

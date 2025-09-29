@@ -3073,6 +3073,7 @@ export const organizationalEnablementSocraticQuestions: StudyModeQuestion[] = [
   },
   {
     id: 'org-enable-socratic-2',
+
     type: 'socratic',
     conceptId: 'organizational-enablement',
     title: 'Designing Capability Pathways',
@@ -3134,6 +3135,138 @@ export const organizationalEnablementSocraticQuestions: StudyModeQuestion[] = [
     ]
   }
 ];
+
+// Socratic Questions for Agentic Robotics Integration
+export const agenticRoboticsIntegrationSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'robotics-integration-socratic-1',
+    type: 'socratic',
+    conceptId: 'agentic-robotics-integration',
+    title: 'Sensing Before Autonomy',
+    level: 'beginner',
+    socratiQuestion: 'When deploying a mobile manipulator into a live facility, why must you calibrate perception streams and facility maps before writing mission scripts?',
+    followUpQuestions: [
+      'What kinds of drift or blind spots appear when RGB-D, LiDAR, and force-torque sensors are misaligned?',
+      'How does an inaccurate digital twin change the behavior of path planners and safety envelopes?',
+      'Which stakeholders are impacted first if perception is off by a few centimeters?'
+    ],
+    expectedInsights: [
+      'Perception drift cascades into bad pose estimates and unsafe trajectories',
+      'Digital twin alignment is a prerequisite for reliable planning and geo-fencing',
+      'Operations, safety, and guest experience all suffer if sensing is unstable'
+    ],
+    hints: [
+      'Trace the autonomy stack from sensors → state estimation → planning → actuation',
+      'Consider how calibration errors show up in telemetry dashboards',
+      'Think about human trust when the robot misses a handoff by a few centimeters'
+    ],
+    explanation: 'Learners surface that robotics integration begins with perception fidelity; without trustworthy sensing, downstream planning, guardrails, and human trust all collapse.',
+    relatedConcepts: ['digital-twins', 'safety-risk-governance', 'agent-ops'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Prioritizes calibration over feature scripting',
+      'Connects perception error to safety risk',
+      'Identifies stakeholders impacted by sensing drift'
+    ]
+  },
+  {
+    id: 'robotics-integration-socratic-2',
+    type: 'socratic',
+    conceptId: 'agentic-robotics-integration',
+    title: 'Designing the Human Loop',
+    level: 'intermediate',
+    socratiQuestion: 'If the robot must halt when Gemini Guard flags risk, how do you design the human-in-the-loop escalation so interventions are fast but auditable?',
+    followUpQuestions: [
+      'What metadata should the robot transmit so an operator can decide quickly?',
+      'How do you prevent alert fatigue when missions happen every few minutes?',
+      'Which signals belong in the after-action package for compliance reviews?'
+    ],
+    expectedInsights: [
+      'Escalations need compressed context: sensor snapshots, risk reason, nearest safe pose',
+      'Routing policies and severity tiers keep operators focused and responsive',
+      'Audit bundles require synchronized telemetry, intervention decisions, and outcomes'
+    ],
+    hints: [
+      'Sketch the alert payload you would want if you were the operator',
+      'Think about how often safety halts should page a human',
+      'Consider regulators asking “why did you override the policy?”'
+    ],
+    explanation: 'Encourages designing escalation loops that balance safety, operator workload, and compliance evidence.',
+    relatedConcepts: ['mobile-manipulator-steward', 'responsible-ai-governance', 'agent-ops'],
+    timeEstimate: 14,
+    successCriteria: [
+      'Includes contextual telemetry in escalation design',
+      'Defines routing/severity tiers for interventions',
+      'Lists artifacts captured for audit and learning loops'
+    ]
+  }
+];
+
+// Socratic Questions for Mobile Manipulator Steward Pattern
+export const mobileManipulatorStewardSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'mobile-steward-socratic-1',
+    type: 'socratic',
+    conceptId: 'mobile-manipulator-steward',
+    title: 'Mission Guarantees in Crowded Spaces',
+    level: 'intermediate',
+    socratiQuestion: 'A concierge robot must share elevators with guests during peak hours. How do you guarantee timeline, safety, and guest experience without over-constraining the mission planner?',
+    followUpQuestions: [
+      'Which skills or plan branches should the steward pre-compute for congestion?',
+      'How can Gemini Guard policies adapt based on density without spamming halts?',
+      'What telemetry proves to hotel leadership that guest comfort stayed high?'
+    ],
+    expectedInsights: [
+      'Skill graphs need alternate routes and service elevators to preserve mission timelines',
+      'Policy envelopes can adapt thresholds when human density rises but must log rationale',
+      'Guest sentiment metrics (narration tone, stop frequency) belong in stewardship dashboards'
+    ],
+    hints: [
+      'Map the mission to possible choke points (elevators, hallways)',
+      'Think about dynamic policy parameters vs static hard stops',
+      'List the telemetry slices an ops lead would review Monday morning'
+    ],
+    explanation: 'Centers the learner on balancing autonomy constraints with hospitality outcomes when environments are dynamic.',
+    relatedConcepts: ['agentic-robotics-integration', 'policy-gated-invocation', 'agent-ops'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Proposes contingency branches for congestion',
+      'Adjusts safety envelopes without disabling guardrails',
+      'Selects telemetry that evidences guest satisfaction'
+    ]
+  },
+  {
+    id: 'mobile-steward-socratic-2',
+    type: 'socratic',
+    conceptId: 'mobile-manipulator-steward',
+    title: 'Recovering from Manipulation Failures',
+    level: 'advanced',
+    socratiQuestion: 'The steward drops a tray mid-mission. How should the system detect, recover, and report the event so the operator and guest stay informed?',
+    followUpQuestions: [
+      'Which force or vision signals distinguish a clean handoff from a drop?',
+      'How do you stage the robot’s next actions to keep surroundings safe?',
+      'What narrative update rebuilds guest trust while ops investigates?'
+    ],
+    expectedInsights: [
+      'Force spike + sudden pose change are strong drop indicators when fused with vision',
+      'Recovery script should freeze motion, retract manipulator, and request human assist',
+      'Operators broadcast transparent status with ETA and follow-up plan'
+    ],
+    hints: [
+      'Review what telemetry the code visualizer already publishes',
+      'Consider safe poses vs continuing navigation after a drop',
+      'Draft the narrated message the guest would hear in the hallway'
+    ],
+    explanation: 'Drives planning for embodied failure modes so telemetry, autonomy, and human teams coordinate smoothly.',
+    relatedConcepts: ['failure-modes', 'telemetry', 'guest-experience'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Defines multi-sensor drop detection signal',
+      'Sequences recovery into safe pose and escalation',
+      'Crafts operator/guest communication plan'
+    ]
+  }
+];
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
@@ -3153,6 +3286,8 @@ export const socraticQuestionLibrary = {
   'experimentation-continuous-improvement': experimentationContinuousImprovementSocraticQuestions,
   'ecosystem-partnerships': ecosystemPartnershipsSocraticQuestions,
   'organizational-enablement': organizationalEnablementSocraticQuestions,
+  'agentic-robotics-integration': agenticRoboticsIntegrationSocraticQuestions,
+  'mobile-manipulator-steward': mobileManipulatorStewardSocraticQuestions,
   // New Perspectives (MVP sets)
   'agent-ops': [
     {

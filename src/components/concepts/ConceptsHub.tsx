@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot } from "@phosphor-icons/react"
 import AIAgentsConcept from "./AIAgentsConcept"
 import A2ACommunicationConcept from "./A2ACommunicationConcept"
 import MCPConcept from "./MCPConcept"
@@ -22,6 +22,7 @@ import FineTuningConcept from "./FineTuningConcept"
 import AgenticCommerceAP2Concept from "./AgenticCommerceAP2Concept"
 import ProductManagementConcept from "./ProductManagementConcept"
 import AgentOpsConcept from "./AgentOpsConcept"
+import AgenticRoboticsConcept from "./AgenticRoboticsConcept"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
 import AzureAISafetyAndGovernance from "./AzureAISafetyAndGovernance"
@@ -147,7 +148,7 @@ const concepts: ConceptInfo[] = [
   description: 'Build agents that can’t silently exfiltrate, escalate, or hallucinate authority.',
     level: 'fundamentals',
     icon: <Shield className="w-6 h-6" />,
-  color: 'bg-background text-foreground/80 dark:bg-red-900/20 dark:text-red-300',
+    color: 'bg-background text-foreground/80 dark:bg-red-900/20 dark:text-red-300',
     estimatedTime: '30-40 min',
     prerequisites: ['agent-architecture'],
     component: AgentSecurityConcept
@@ -400,6 +401,18 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '35-45 min',
     prerequisites: ['agent-deployment','agent-security'],
     component: AgentOpsConcept
+  }
+  ,
+  {
+    id: 'agentic-robotics-integration',
+    title: 'Agentic Robotics Integration',
+    description: 'Fuse Gemini Robotics perception, planning, and safety pipelines into embodied agent programs.',
+    level: 'advanced',
+    icon: <Robot className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-emerald-900/20 dark:text-emerald-300',
+    estimatedTime: '45-60 min',
+    prerequisites: ['agent-architecture', 'agent-integration'],
+    component: AgenticRoboticsConcept
   }
   ,
   {

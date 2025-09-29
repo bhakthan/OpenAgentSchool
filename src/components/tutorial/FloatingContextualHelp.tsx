@@ -8,7 +8,6 @@ import { PageSynopsis } from './EnhancedTutorialButton';
 
 interface FloatingContextualHelpProps {
   pageSynopsis: PageSynopsis;
-  pageKey: string;
   isVisible: boolean;
   onClose: () => void;
   onToggle?: () => void;
@@ -18,7 +17,6 @@ interface FloatingContextualHelpProps {
 
 export const FloatingContextualHelp: React.FC<FloatingContextualHelpProps> = ({
   pageSynopsis,
-  pageKey,
   isVisible,
   onClose,
   onToggle,
@@ -77,11 +75,14 @@ export const FloatingContextualHelp: React.FC<FloatingContextualHelpProps> = ({
 
     {/* Learning Guide Sidebar */}
       {isVisible && (
-        <div className={cn(
-      "fixed bottom-36 right-6 z-50 transition-all duration-300 ease-in-out",
-          isVisible ? "translate-x-0 opacity-100 scale-100" : "translate-x-full opacity-0 scale-95",
-          className
-        )}>
+        <div
+          className={cn(
+            "fixed bottom-36 right-6 z-50 transition-all duration-300 ease-in-out",
+            "translate-x-0 opacity-100 scale-100",
+            className
+          )}
+          data-contextual-help
+        >
           <Card className="w-80 shadow-2xl border-2 border-primary/20 bg-background/95 backdrop-blur-sm">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -215,40 +216,4 @@ export const FloatingContextualHelp: React.FC<FloatingContextualHelpProps> = ({
   );
 };
 
-// Hook for managing floating contextual help
-export const useFloatingContextualHelp = (pageKey: string, delayMs: number = 10000) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasShown, setHasShown] = useState(false);
-
-  useEffect(() => {
-    // Check if user has already seen the help for this page
-    const hasSeenHelp = localStorage.getItem(`contextual-help-${pageKey}`);
-    if (hasSeenHelp) {
-      setHasShown(true);
-    }
-
-    // Don't auto-show - let user control visibility
-    // Removed auto-show timer to keep help hidden until user clicks trigger
-  }, [pageKey, hasShown]);
-
-  const hideHelp = () => {
-    setIsVisible(false);
-    // Mark as seen so it doesn't show again automatically
-    localStorage.setItem(`contextual-help-${pageKey}`, 'true');
-  };
-
-  const showHelp = () => {
-    setIsVisible(true);
-    setHasShown(true);
-  };
-
-  const toggleHelp = () => {
-    if (isVisible) {
-      hideHelp();
-    } else {
-      showHelp();
-    }
-  };
-
-  return { isVisible, hideHelp, showHelp, toggleHelp, hasShown };
-};
+// Previously exported contextual-help hook was consolidated into tutorial state providers.

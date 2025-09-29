@@ -32,13 +32,30 @@ interface AnimatedEdge {
 // Custom SVG-based visualization component
 const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) => {
   const { theme } = useTheme();
+  const defaultPrompt = useMemo(() => {
+    const prompt = patternData.businessUseCase?.enlightenMePrompt?.trim();
+    if (prompt) {
+      return prompt.replace(/\s+/g, ' ').trim();
+    }
+
+    const primaryUseCase = patternData.useCases?.[0];
+    if (primaryUseCase) {
+      return `Simulate the ${patternData.name} pattern for ${primaryUseCase.toLowerCase()}.`;
+    }
+
+    return `Show how the ${patternData.name} pattern executes end-to-end.`;
+  }, [patternData]);
   const [isRunning, setIsRunning] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [flowSteps, setFlowSteps] = useState<FlowStep[]>([]);
   const [animatedEdges, setAnimatedEdges] = useState<AnimatedEdge[]>([]);
-  const [userInput, setUserInput] = useState('What are the latest AI developments?');
+  const [userInput, setUserInput] = useState(defaultPrompt);
   const [speed, setSpeed] = useState(1);
   const [activeNodes, setActiveNodes] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    setUserInput(defaultPrompt);
+  }, [defaultPrompt, patternData.id]);
 
   // Create a simple layout for nodes
   const nodeLayout = useMemo(() => {
@@ -290,7 +307,7 @@ const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) =>
             <Input
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              placeholder="Enter your query..."
+              placeholder={defaultPrompt || 'Describe your scenario...'}
               disabled={isRunning}
             />
           </div>

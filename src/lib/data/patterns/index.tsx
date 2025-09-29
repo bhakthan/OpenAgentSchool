@@ -48,6 +48,7 @@ export { policyGatedInvocationPattern } from './policyGatedInvocation';
 export { dataQualityFeedbackLoopPattern } from './dataQualityFeedbackLoop';
 export { queryIntentStructuredAccessPattern } from './queryIntentStructuredAccess';
 export { strategyMemoryReplayPattern } from './strategyMemoryReplay';
+export { mobileManipulatorStewardPattern } from './mobileManipulatorSteward';
 
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
@@ -95,6 +96,7 @@ import { policyGatedInvocationPattern } from './policyGatedInvocation';
 import { dataQualityFeedbackLoopPattern } from './dataQualityFeedbackLoop';
 import { queryIntentStructuredAccessPattern } from './queryIntentStructuredAccess';
 import { strategyMemoryReplayPattern } from './strategyMemoryReplay';
+import { mobileManipulatorStewardPattern } from './mobileManipulatorSteward';
 import { patternEvaluationRegistry } from './evaluationRegistry';
 
 export const agentPatterns = [
@@ -142,6 +144,7 @@ export const agentPatterns = [
   dataQualityFeedbackLoopPattern,
   queryIntentStructuredAccessPattern,
   strategyMemoryReplayPattern,
+  mobileManipulatorStewardPattern,
   // autogenMultiAgentPattern,
 ];
 

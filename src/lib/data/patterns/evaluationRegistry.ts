@@ -390,6 +390,22 @@ export const patternEvaluationRegistry: Record<string, PatternEvaluationProfile>
     evaluationNotes: ['Simulate tool outages to test resilience.', 'Ensure graceful degradation paths exist.'],
     cohort: 'advanced-automation'
   },
+  'mobile-manipulator-steward': {
+    scenarioFocus: 'Embodied concierge navigating dynamic facilities, performing light manipulation, and coordinating with humans.',
+    criticalMetrics: ['Autonomous task success rate', 'Safety intervention frequency', 'Teleoperation-to-autonomy ratio', 'Guest CSAT proxy'],
+    evaluationNotes: [
+      'Exercise skill graphs in ER-15 or digital twin sandboxes with seeded obstructions before live pilots.',
+      'Stress-test proximity, torque, and geo-fence guardrails with human actors and moving obstacles.',
+      'Archive narrated status updates, telemetry clips, and halt events for after-action review.'
+    ],
+    readinessSignals: [
+      '≥90% of pilot runs complete without takeover across representative delivery routes.',
+      'Safety guardrails halt or slow the platform within policy thresholds (≤ 1s reaction) in seeded incidents.',
+      'Telemetry packets (video, narration, metrics) deliver within target latency for operator audits.'
+    ],
+    dataNeeds: ['Semantic facility maps', 'Synthetic obstacle libraries for simulation', 'Guest feedback or CSAT collection hooks'],
+    cohort: 'advanced-automation'
+  },
   'orchestrator-worker': {
     scenarioFocus: 'Hierarchical multi-agent execution',
     criticalMetrics: ['Task decomposition accuracy', 'Worker utilization'],

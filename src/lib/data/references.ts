@@ -183,6 +183,30 @@ export const references: ReferencesData = {
         ]
       }
     ],
+
+    "agentic-robotics-integration": [
+      {
+        id: "embodied-ai",
+        name: "Embodied AI Foundations",
+        references: [
+          {
+            title: "Microsoft Research Embodied AI Collaboration",
+            url: "https://www.microsoft.com/en-us/research/collaboration/embodied-ai/",
+            description: "Research collaborations and tooling that accelerate embodied AI systems."
+          },
+          {
+            title: "Gemini Robotics 1.5 Brings AI Agents Into the Physical World",
+            url: "https://deepmind.google/discover/blog/gemini-robotics-15-brings-ai-agents-into-the-physical-world/",
+            description: "DeepMind overview of Gemini Robotics 1.5 capabilities and reference deployments."
+          },
+          {
+            title: "Building Next-Generation Physical Agents with Gemini Robotics ER-15",
+            url: "https://developers.googleblog.com/en/building-the-next-generation-of-physical-agents-with-gemini-robotics-er-15/",
+            description: "Developer guidance on ER-15 sandboxes, safety, and robotics deployment best practices."
+          }
+        ]
+      }
+    ],
     
     // Core AI agents concept
     agents: [

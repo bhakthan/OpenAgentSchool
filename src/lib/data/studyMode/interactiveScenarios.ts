@@ -4501,6 +4501,299 @@ export const organizationalEnablementScenarios: StudyModeQuestion[] = [
     ]
   }
 ];
+
+// Interactive Scenarios for Agentic Robotics Integration
+export const agenticRoboticsIntegrationScenarios: StudyModeQuestion[] = [
+  {
+    id: 'robotics-integration-scenario-1',
+    type: 'scenario',
+    conceptId: 'agentic-robotics-integration',
+    title: 'Commissioning the Steward Pilot Floor',
+    level: 'intermediate',
+    scenario: {
+      id: 'robotics-floor-commissioning',
+      title: 'Bring the Mobile Steward Online in Tower West',
+      description: 'You are leading the first week of onsite integration for a mobile manipulator steward inside a hospitality tower. Your job is to harden sensing, safety guardrails, and human escalation paths before live guest missions begin.',
+      context: 'Corporate signed off on the Gemini-powered steward. The robot just arrived from the lab and needs to operate across three floors with mixed human traffic. Facilities already exported their digital twin, but calibration and guardrail tuning must happen before guest-facing rollout.',
+      stakeholders: ['Guest Services Operations Lead', 'Robotics Integration Engineer', 'Safety & Compliance Officer', 'Overnight Concierge Team'],
+      challenges: [
+        {
+          id: 'calibration-sequencing',
+          title: 'Choose the First Integration Sprint',
+          description: 'Decide what to lock down during day one onsite.',
+          question: 'Which integration task do you prioritize before running scripted missions?',
+          type: 'multiple-choice',
+          options: [
+            'Draft guest narration scripts so the experience feels polished',
+            'Tune Gemini Guard thresholds using playback from past lab runs',
+            'Calibrate perception streams against the facility digital twin and safety beacons',
+            'Publish the concierge menu so guests can start requesting amenities'
+          ],
+          correctAnswer: 2,
+          feedback: 'Perception calibration ensures every downstream planner, guardrail, and narration call sees the same world model. Without footprint alignment, guardrails and mission guarantees are brittle.',
+          hints: [
+            'Which step unlocks reliable localization and safe navigation?',
+            'Consider the cascading impact of perception drift on mission execution'
+          ]
+        },
+        {
+          id: 'telemetry-contract',
+          title: 'Design the Operator Console Feed',
+          description: 'Determine what data the operator must see when a halt fires.',
+          question: 'The compliance officer asks for “enough context to approve or deny a restart in under 30 seconds.” What telemetry slice do you stream?',
+          type: 'multiple-choice',
+          options: [
+            'Full-resolution RGB video plus the last 5 minutes of actuator torques',
+            'The guardrail reason code, pose estimate, nearest safe waypoint, and a voice-ready narration summary',
+            'Only the raw Gemini Guard embeddings for privacy reasons',
+            'A single red/green status badge to reduce cognitive load'
+          ],
+          correctAnswer: 1,
+          feedback: 'Operators need compressed but actionable context: what tripped, where the robot is, and the suggested safe state. High-volume raw data delays decisions; no-context alerts erode trust.',
+          hints: [
+            'Balance auditability with decision speed',
+            'Which elements help decide whether to resume or request assistance?'
+          ]
+        },
+        {
+          id: 'pilot-rollout',
+          title: 'Stage the Guest-Facing Pilot',
+          description: 'Plan the final go/no-go criteria for letting guests request the steward.',
+          question: 'Which rollout gate best protects guest experience while proving readiness?',
+          type: 'multiple-choice',
+          options: [
+            'Go live immediately after the robot completes one scripted loop overnight',
+            'Require a simulation pass rate, 20 supervised amenity missions with zero unsafe halts, and operator sign-off on telemetry quality',
+            'Wait for corporate legal to publish a new global robotics policy',
+            'Run only in freight hallways indefinitely to avoid guest interaction'
+          ],
+          correctAnswer: 1,
+          feedback: 'A staged rollout using simulation + shadow runs + supervised live trials yields measurable evidence before exposing guests. Documentation and legal reviews are important, but readiness hinges on telemetry and human-loop performance.',
+          hints: [
+            'Think about evidence collection before a public launch',
+            'What convinces leadership the steward is safe and helpful?'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'robotics-floor-commissioning-success',
+          condition: 'All challenges completed correctly',
+          result: 'The steward completes a supervised amenity run with clean telemetry and satisfied operators.',
+          explanation: 'Calibration, escalation design, and staged rollout create a tight feedback loop with safety and guest teams.',
+          nextSteps: [
+            'Automate nightly calibration checks with telemetry drift alerts',
+            'Expand pilot coverage to additional floors with new waypoints',
+            'Document operator SOPs and after-action review templates'
+          ]
+        },
+        {
+          id: 'robotics-floor-commissioning-partial',
+          condition: 'Some challenges completed incorrectly',
+          result: 'The steward stalls during first guest runs due to misaligned guardrails or missing context.',
+          explanation: 'Revisit calibration order and operator telemetry so halts produce confident human decisions.',
+          nextSteps: [
+            'Replay telemetry to identify calibration gaps',
+            'Co-design escalation packets with the operator crew',
+            'Re-run supervised missions before inviting guests back in'
+          ]
+        }
+      ],
+      codeExample: `import { calibrateSensors, configureGuardRails, planPilot } from '@openagentschool/robotics/integration';
+
+const sensorStatus = calibrateSensors({
+  rgbd: { intrinsicsFile: 'calibration/rgbd.json', sampleCount: 150 },
+  forceTorque: { baselineSamples: 200, tolerance: 0.6 },
+  lidar: { mapAlignment: 'tower-west-levels-3-5' }
+});
+
+const guardRail = configureGuardRails({
+  policyId: 'gemini-guard-robotics',
+  envelopes: ['human_proximity', 'force_limit', 'geo_fence'],
+  escalation: {
+    notifyChannel: 'ops-console://tower-west',
+    payload: ['reason', 'pose', 'suggestedSafeWaypoint', 'narrationSummary']
+  }
+});
+
+planPilot({
+  calibration: sensorStatus,
+  guardRail,
+  successCriteria: {
+    supervisedRuns: 20,
+    haltFalsePositiveRate: 0.05,
+    operatorAckLatencySeconds: 25
+  }
+});`,
+      resources: [
+        'Gemini Guard Robotics Policy Guide',
+        'Digital Twin Alignment Checklist',
+        'Operator Console UX Patterns'
+      ],
+      conceptId: 'agentic-robotics-integration',
+      difficulty: 'intermediate',
+      estimatedTime: '30 minutes',
+      learningOutcomes: [
+        'Sequence calibration and guardrail tasks for embodied agents',
+        'Design escalation payloads that enable rapid human decisions',
+        'Plan staged rollouts with measurable readiness evidence'
+      ]
+    },
+    explanation: 'Students practice the integration mindset: perception fidelity, guardrail telemetry, and rollout evidence before exposing guests to the steward.',
+    relatedConcepts: ['mobile-manipulator-steward', 'agent-ops', 'responsible-ai-governance'],
+    timeEstimate: 30,
+    successCriteria: [
+      'Chooses calibration before mission scripting',
+      'Designs escalation payload with actionable context',
+      'Defines multi-phase rollout gates tied to telemetry'
+    ]
+  }
+];
+
+// Interactive Scenarios for Mobile Manipulator Steward Pattern
+export const mobileManipulatorStewardScenarios: StudyModeQuestion[] = [
+  {
+    id: 'mobile-steward-scenario-1',
+    type: 'scenario',
+    conceptId: 'mobile-manipulator-steward',
+    title: 'Recovering a Mission Mid-Flight',
+    level: 'advanced',
+    scenario: {
+      id: 'mobile-steward-live-recovery',
+      title: 'Handle a Drop Event Without Losing Guest Trust',
+      description: 'During a live amenity delivery, the steward encounters an unexpected obstacle and drops the tray. You must orchestrate recovery without triggering panic or policy breaches.',
+      context: 'The steward is on a 12th-floor delivery carrying a guest amenity box. Gemini Guard pauses the mission because the manipulator torque spiked. Guests are in the hallway and the operator console flashes a halt.',
+      stakeholders: ['On-duty Operator', 'Guest Experience Manager', 'Robotics Reliability Engineer', 'Evening Concierge'],
+      challenges: [
+        {
+          id: 'detect-drop-signal',
+          title: 'Diagnose the Halt',
+          description: 'Identify why Gemini Guard triggered and what the robot sensed.',
+          question: 'Which fused signal best confirms the tray was dropped and requires a recovery workflow?',
+          type: 'multiple-choice',
+          options: [
+            'Only the audio narrations generated for the guest',
+            'Combination of force-torque spike, wrist pose delta, and arm vibration signature',
+            'Random LLM confidence score from the planner',
+            'A manual phone call from the concierge desk'
+          ],
+          correctAnswer: 1,
+          feedback: 'Drop detection relies on multi-sensor fusion. Force spikes plus pose changes provide deterministic evidence for recovery scripts.',
+          hints: [
+            'Review the telemetry the steward publishes during mission execution',
+            'Consider which signals fire before a human can intervene'
+          ]
+        },
+        {
+          id: 'safe-pose-recovery',
+          title: 'Stage the Robot Safely',
+          description: 'Choose the next action after the halt is confirmed.',
+          question: 'How should the steward respond immediately after confirming the drop?',
+          type: 'multiple-choice',
+          options: [
+            'Continue driving to stay on schedule',
+            'Enter a safe retract pose, announce a pause to nearby guests, and request operator assistance',
+            'Power down entirely and wait for maintenance',
+            'Ignore the event and let the guest pick up the item'
+          ],
+          correctAnswer: 1,
+          feedback: 'Safe recovery scripts freeze motion, communicate clearly, and bring humans into the loop. Ignoring or powering down without notice erodes trust.',
+          hints: [
+            'Think about proximal safety before resuming navigation',
+            'What would reassure guests watching the event unfold?'
+          ]
+        },
+        {
+          id: 'guest-comms',
+          title: 'Narrate the Experience',
+          description: 'Craft the live narration to keep guests informed.',
+          question: 'What message should the steward and operator share with the guest while the issue is resolved?',
+          type: 'multiple-choice',
+          options: [
+            'No message to avoid admitting failure',
+            'A concise narration acknowledging the pause, sharing ETA for a staff member, and logging the event for after-action review',
+            'A technical dump of torque readings to show transparency',
+            'An apology blaming the guest for standing too close'
+          ],
+          correctAnswer: 1,
+          feedback: 'Concise, empathetic updates maintain guest confidence and record context for follow-up. Technical dumps or silence undermine the hospitality mission.',
+          hints: [
+            'Use hospitality tone while communicating next steps',
+            'Tie narration to telemetry so after-action logs stay consistent'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'mobile-steward-recovery-success',
+          condition: 'All challenges completed correctly',
+          result: 'The steward enters safe pose, the operator reroutes, and the guest receives a make-good follow-up.',
+          explanation: 'Telemetry-driven recovery and empathetic narration convert a near-miss into a trust-building experience.',
+          nextSteps: [
+            'Tag the incident for skill library refinement',
+            'Adjust guardrail thresholds if false positives were involved',
+            'Update coaching scripts for operators handling similar events'
+          ]
+        },
+        {
+          id: 'mobile-steward-recovery-partial',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Guests lose confidence and ops lacks data to improve the skill graph.',
+          explanation: 'Revisit drop detection signals and communication templates before re-enabling autonomous missions.',
+          nextSteps: [
+            'Replay the telemetry with the reliability engineer',
+            'Rewrite narration templates with the guest experience team',
+            'Add simulation drills for operators to practice escalation timing'
+          ]
+        }
+      ],
+      codeExample: `import { steward, registerRecoveryHook } from '@/playbooks/mobileSteward';
+
+registerRecoveryHook({
+  event: 'manipulation.drop_detected',
+  detect: payload => (
+    payload.forceSpike > 12 &&
+    Math.abs(payload.wristDeltaRadians) > 0.35 &&
+    payload.classifier === 'drop'
+  ),
+  onTrigger: async payload => {
+    await steward.motion.enterSafePose('hallway_pause');
+    await steward.narration.broadcast({
+      audience: 'nearby-guests',
+      message: 'I need a quick assist. A teammate is on the way with your amenity.',
+      tone: 'warm'
+    });
+    return steward.ops.requestHumanIntervention({
+      reason: 'amenity_drop',
+      snapshot: payload.snapshot,
+      suggestedActions: ['dispatch_runner', 'prep_replacement_item']
+    });
+  }
+});`,
+      resources: [
+        'Mobile Manipulator Steward Telemetry Map',
+        'Hospitality Narrative Microcopy Guide',
+        'Gemini Guard Intervention Cookbook'
+      ],
+      conceptId: 'mobile-manipulator-steward',
+      difficulty: 'advanced',
+      estimatedTime: '35 minutes',
+      learningOutcomes: [
+        'Fuse multi-sensor telemetry to trigger recovery scripts',
+        'Sequence safe-pose behaviors with human escalation',
+        'Craft transparent, guest-friendly live narration during incidents'
+      ]
+    },
+    explanation: 'This drill forces learners to connect telemetry, mission scripting, and human comms so the steward recovers gracefully from manipulation faults.',
+    relatedConcepts: ['agentic-robotics-integration', 'failure-modes', 'telemetry'],
+    timeEstimate: 35,
+    successCriteria: [
+      'Identifies fused signals that confirm a drop event',
+      'Selects recovery behaviors that maintain safety and trust',
+      'Delivers narration that aligns ops telemetry with guest updates'
+    ]
+  }
+];
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
@@ -4521,6 +4814,8 @@ export const scenarioLibrary = {
   'experimentation-continuous-improvement': experimentationContinuousImprovementScenarios,
   'ecosystem-partnerships': ecosystemPartnershipsScenarios,
   'organizational-enablement': organizationalEnablementScenarios,
+  'agentic-robotics-integration': agenticRoboticsIntegrationScenarios,
+  'mobile-manipulator-steward': mobileManipulatorStewardScenarios,
   // New Perspectives (MVP Scenarios)
   'agent-ops': [
     {

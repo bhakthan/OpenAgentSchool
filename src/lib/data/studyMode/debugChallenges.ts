@@ -2834,6 +2834,259 @@ export const conceptToProjectDebugChallenges: StudyModeQuestion[] = [
   }
 ];
 
+// Debug Challenges for Agentic Robotics Integration
+export const agenticRoboticsIntegrationDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'robotics-integration-debug-1',
+    type: 'debug',
+    conceptId: 'agentic-robotics-integration',
+    title: 'The Drifting Digital Twin',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'robotics-digital-twin-drift',
+      title: 'Guardrails Misfire After Facility Cutover',
+      description: 'After moving the steward from the lab to the hotel tower, Gemini Guard halts at random doorways even when the path looks clear.',
+      problemDescription: 'Operators report false-positive halts triggered by the proximity envelope. Logs show the planner thinks the robot is inside the service elevator when it is actually in the lobby. The integration team recently swapped the digital twin export but did not update calibration code.',
+      brokenCode: `import { calibrateSensors } from '@openagentschool/robotics/integration';
+import { configureGuardRails } from '@openagentschool/robotics/safety';
+
+const calibration = calibrateSensors({
+  frame: 'lab-demo-origin',
+  rgbd: { intrinsicsFile: 'lab/rgbd.json' },
+  lidar: { mapAlignment: 'lab-demo-level-1' }
+});
+
+const guardRail = configureGuardRails({
+  policyId: 'gemini-guard-robotics',
+  digitalTwinId: 'tower-west-levels-3-5',
+  safetyEnvelope: {
+    minClearanceMeters: 0.5,
+    haltActions: ['notify_operator', 'hold_pose']
+  }
+});
+
+export async function startMission(mission) {
+  await guardRail.arm(calibration);
+  return mission.execute();
+}
+`,
+      conversationLogs: [
+        {
+          timestamp: '2025-09-18T21:04:17Z',
+          agent: 'GuardRail',
+          message: 'HALT reason=human_proximity pose=(1.2, -3.1, 0.0)',
+          type: 'warning'
+        },
+        {
+          timestamp: '2025-09-18T21:04:18Z',
+          agent: 'OperatorConsole',
+          message: 'Video feed shows lobby empty; pose overlay offset by ~2m to east wall.',
+          type: 'info'
+        },
+        {
+          timestamp: '2025-09-18T21:04:24Z',
+          agent: 'IntegrationEngineer',
+          message: 'Noticed calibration still referencing lab frame. Digital twin updated last night.',
+          type: 'info'
+        }
+      ],
+      agentConfigs: [
+        {
+          name: 'StewardPlanner',
+          role: 'Mission Sequencer',
+          systemPrompt: 'Compose safe navigation plans using the facility twin provided at boot.',
+          tools: ['digital_twin_lookup', 'telemetry_stream'],
+          parameters: { temperature: 0.2 }
+        },
+        {
+          name: 'GeminiGuard',
+          role: 'Safety Envelope',
+          systemPrompt: 'Enforce geo fences and human proximity envelopes based on live fused state.',
+          tools: ['halting_actions'],
+          parameters: { sensitivity: 'high' }
+        }
+      ],
+      expectedBehavior: 'Perception calibration should reference the facility origin so planner state and guardrail envelopes align after arming.',
+      commonIssues: [
+        {
+          issue: 'Mismatched reference frames',
+          symptoms: ['Pose overlays offset from physical robot', 'Frequent false-positive halts', 'Telemetry states disagree across services'],
+          diagnosis: 'Calibration still uses lab frame identifiers instead of facility origin.',
+          fix: 'Update calibration call to use the facility frame and re-run alignment tests.'
+        },
+        {
+          issue: 'GuardRail armed before calibration resolves',
+          symptoms: ['Halt fires immediately on arm()', 'Noisy pose estimates during first few seconds'],
+          diagnosis: 'Guard rail starts enforcing envelopes with stale map alignment.',
+          fix: 'Block arming until calibration returns facility-origin transform and confidence threshold.'
+        }
+      ],
+      hints: [
+        'Compare the frame names in calibration vs guard rail setup.',
+        'What evidence proves the robot and twin agree on origin?',
+        'Should guard rails arm before calibration finishes?'
+      ],
+      solution: `const calibration = await calibrateSensors({
+  frame: 'tower-west-origin',
+  rgbd: { intrinsicsFile: 'tower/rgbd.json', sampleCount: 180 },
+  lidar: { mapAlignment: 'tower-west-levels-3-5', confidenceThreshold: 0.96 }
+});
+
+await guardRail.arm({
+  calibration,
+  digitalTwinId: 'tower-west-levels-3-5',
+  onDriftDetected: payload => publishOpsEvent('robotics/steward', payload)
+});
+
+return mission.execute();
+`,
+      explanation: 'Re-aligning the perception frame with the new digital twin eliminates the pose offset causing false halts and enforces an arming contract that waits for calibration confidence.'
+    },
+    expectedInsights: [
+      'Reference frames must match across perception, planners, and guardrails',
+      'Arming safety envelopes before calibration completes introduces false positives'
+    ],
+    hints: [
+      'Trace pose data from perception to guard rail arm()',
+      'Check which frame IDs appear in telemetry vs digital twin export'
+    ],
+    explanation: 'Learners practice debugging embodied drift by correlating telemetry frames with configuration code.',
+    relatedConcepts: ['mobile-manipulator-steward', 'agent-ops', 'telemetry'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Identifies mismatched frame configuration',
+      'Delays guard rail arming until calibration confidence threshold',
+      'Confirms alignment through telemetry validation'
+    ]
+  }
+];
+
+// Debug Challenges for Mobile Manipulator Steward
+export const mobileManipulatorStewardDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'mobile-steward-debug-1',
+    type: 'debug',
+    conceptId: 'mobile-manipulator-steward',
+    title: 'The Silent Drop Detector',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'mobile-steward-drop-detector',
+      title: 'No Alert When Tray Falls',
+      description: 'Guests report seeing the steward drop a tray without any audio narration or operator alert. Logs show the recovery hook never fired.',
+      problemDescription: 'After a mission failure, telemetry indicates a force spike and pose change, but the recovery hook did not broadcast a message or request assistance. Investigation shows the drop detector threshold and event registration are incorrect.',
+      brokenCode: `import { steward } from '@/playbooks/mobileSteward';
+
+steward.telemetry.on('force_torque', payload => {
+  if (payload.forceSpike > 5) {
+    steward.motion.enterSafePose('hold_position');
+  }
+});
+
+steward.events.on('drop_detected', () => {
+  // TODO: notify ops
+});
+`,
+      conversationLogs: [
+        {
+          timestamp: '2025-09-21T02:14:07Z',
+          agent: 'GuestNarration',
+          message: '(silence)',
+          type: 'warning'
+        },
+        {
+          timestamp: '2025-09-21T02:14:08Z',
+          agent: 'Telemetry',
+          message: 'forceSpike=11.4N wristDelta=0.42rad classifier=drop',
+          type: 'info'
+        },
+        {
+          timestamp: '2025-09-21T02:14:09Z',
+          agent: 'OpsConsole',
+          message: 'No intervention request received. Mission continued until guest pressed help button.',
+          type: 'error'
+        }
+      ],
+      agentConfigs: [
+        {
+          name: 'StewardNarrator',
+          role: 'Guest Communication',
+          systemPrompt: 'Provide empathetic real-time narration whenever mission state changes.',
+          tools: ['broadcast'],
+          parameters: { tone: 'warm' }
+        },
+        {
+          name: 'OpsConsole',
+          role: 'Human-in-the-loop Operator',
+          systemPrompt: 'Escalate when recovery hooks request assistance and track interventions.',
+          tools: ['pager', 'timeline'],
+          parameters: { acknowledgeWithinSeconds: 30 }
+        }
+      ],
+      expectedBehavior: 'Drop detection should trigger safe pose, narrated update, and operator escalation within seconds.',
+      commonIssues: [
+        {
+          issue: 'Threshold tuned for lab payloads',
+          symptoms: ['forceSpike never exceeds threshold in production', 'No safe pose triggered despite telemetry'],
+          diagnosis: 'Threshold is set to 5N but delivery trays exceed 10N when dropped.',
+          fix: 'Set realistic threshold and include pose delta confirmation.'
+        },
+        {
+          issue: 'Event listener never registers',
+          symptoms: ['Ops console shows no drop_detected events', 'Guest narration remains silent'],
+          diagnosis: 'Using telemetry listener instead of steward.recovery hooks and forgot to call narration inside handler.',
+          fix: 'Use recovery hook API and publish narration + ops request inside the handler.'
+        }
+      ],
+      hints: [
+        'Compare telemetry thresholds between lab and production payloads.',
+        'Which steward API triggers narration and operator escalation together?',
+        'How do you ensure the listener fires exactly once per event?'
+      ],
+      solution: `import { steward, registerRecoveryHook } from '@/playbooks/mobileSteward';
+
+registerRecoveryHook({
+  event: 'manipulation.drop_detected',
+  detect: payload => (
+    payload.forceSpike >= 10 &&
+    Math.abs(payload.wristDelta) >= 0.35 &&
+    payload.classifier === 'drop'
+  ),
+  onTrigger: async payload => {
+    await steward.motion.enterSafePose('hallway_pause');
+    await steward.narration.broadcast({
+      audience: 'nearby-guests',
+      message: 'I dropped your item. A teammate is on the way with a replacement.',
+      tone: 'warm'
+    });
+    return steward.ops.requestHumanIntervention({
+      reason: 'amenity_drop',
+      snapshot: payload,
+      followUp: ['dispatch_runner', 'prep_replacement_item']
+    });
+  }
+});
+`,
+      explanation: 'The fix raises the detection threshold, uses the steward recovery API, and ensures narration plus operator escalation happen together so guests and staff are immediately informed.'
+    },
+    expectedInsights: [
+      'Embodied thresholds must reflect real-world payloads',
+      'Recovery hooks should bundle telemetry, narration, and escalation'
+    ],
+    hints: [
+      'Inspect telemetry to tune thresholds',
+      'Use the steward recovery API instead of raw telemetry listeners'
+    ],
+    explanation: 'Learners debug why mission recovery hooks silently fail and redesign them for hospitality trust.',
+    relatedConcepts: ['agentic-robotics-integration', 'telemetry', 'guest-experience'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Adjusts detection thresholds to match production payloads',
+      'Implements recovery hook that narrates and escalates',
+      'Validates operator receives intervention request'
+    ]
+  }
+];
+
 // Error Whisperer Debug Challenges
 export const errorWhispererDebugChallenges: StudyModeQuestion[] = [
   {
@@ -4262,6 +4515,8 @@ export const debugChallengeLibrary = {
   'time-box-pair-programmer': timeboxPairProgrammerDebugChallenges,
   'tool-use-coach-debug': toolUseCoachDebugChallenges,
   'product-management': productManagementDebugChallenges,
+  'agentic-robotics-integration': agenticRoboticsIntegrationDebugChallenges,
+  'mobile-manipulator-steward': mobileManipulatorStewardDebugChallenges,
   // New Core Concepts
   'agentic-prompting-fundamentals': agenticPromptingFundamentalsDebugChallenges,
   'prompt-optimization-patterns': promptOptimizationPatternsDebugChallenges,

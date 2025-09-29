@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { 
-  TrendUp, Clock, Eye, Target, BookOpen, Code, 
-  Users, Sparkle, CaretRight, Brain, Lightbulb 
+import {
+  TrendUp, Clock, Eye, Target, BookOpen, Code,
+  CaretRight, Brain
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
@@ -309,6 +309,7 @@ export const SmartPageAnalytics: React.FC<SmartPageAnalyticsProps> = ({
                   ×
                 </Button>
               </div>
+              <p className="mt-1 text-xs text-muted-foreground">{pageTitle}</p>
             </CardHeader>
             
             <CardContent className="space-y-4">
