@@ -1,6 +1,5 @@
 import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { 
@@ -16,6 +15,7 @@ import {
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton"
 import { DeploymentVisualization } from "@/components/visualization/DeploymentVisualization";
 import { GenAIOpsTreeVisualization } from "@/components/visualization/GenAIOpsTreeVisualization";
+import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles";
 
 interface AgentDeploymentConceptProps {
   onMarkComplete?: () => void
@@ -49,7 +49,8 @@ export default function AgentDeploymentConcept({ onMarkComplete, onNavigateToNex
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🐳 Docker Benefits</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Environment consistency</li>
@@ -58,7 +59,8 @@ export default function AgentDeploymentConcept({ onMarkComplete, onNavigateToNex
                     <li>• Resource efficiency</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">☸️ Kubernetes Features</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Auto-scaling</li>
@@ -69,8 +71,8 @@ export default function AgentDeploymentConcept({ onMarkComplete, onNavigateToNex
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Dockerfile for AI Agent
+              <pre className={conceptCodeBlock("text-sm md:text-base leading-relaxed p-4")}
+              >{`# Dockerfile for AI Agent
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -95,7 +97,6 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \\
 
 # Run the agent
 CMD ["python", "main.py"]`}</pre>
-              </div>
             </CardContent>
           </Card>
 
@@ -104,8 +105,8 @@ CMD ["python", "main.py"]`}</pre>
               <CardTitle>Kubernetes Deployment</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# agent-deployment.yaml
+              <pre className={conceptCodeBlock("text-sm md:text-base leading-relaxed p-4")}
+              >{`# agent-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -144,7 +145,6 @@ spec:
             port: 8000
           initialDelaySeconds: 30
           periodSeconds: 10`}</pre>
-              </div>
             </CardContent>
           </Card>
         </div>
@@ -172,7 +172,8 @@ spec:
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">📊 Metrics</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Response time</li>
@@ -181,7 +182,8 @@ spec:
                     <li>• Resource usage</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">📝 Logs</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Structured logging</li>
@@ -190,7 +192,8 @@ spec:
                     <li>• Alerting</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🔍 Traces</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Request tracing</li>
@@ -201,8 +204,8 @@ spec:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Agent monitoring configuration
+              <pre className={conceptCodeBlock("text-sm md:text-base leading-relaxed p-4")}
+              >{`# Agent monitoring configuration
 import logging
 from prometheus_client import Counter, Histogram, start_http_server
 from opentelemetry import trace
@@ -247,7 +250,6 @@ class AgentObservability:
                 span.set_attribute("error.message", str(e))
                 self.logger.error(f"Agent processing failed: {e}")
                 raise`}</pre>
-              </div>
             </CardContent>
           </Card>
         </div>
@@ -275,7 +277,8 @@ class AgentObservability:
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">📈 Horizontal Scaling</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Multiple agent instances</li>
@@ -284,7 +287,8 @@ class AgentObservability:
                     <li>• Auto-scaling policies</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">⬆️ Vertical Scaling</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Increased CPU/Memory</li>
@@ -295,7 +299,8 @@ class AgentObservability:
                 </div>
               </div>
 
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
+              <div className={conceptSurfaceSoft("p-4")}
+              >
                 <h4 className="font-semibold mb-3">Scaling Considerations:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -347,30 +352,34 @@ class AgentObservability:
 
               {/* Definition Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                <div className="p-4 border rounded-lg bg-indigo-100 dark:bg-indigo-900 border-indigo-200 dark:border-indigo-700">
-                  <h4 className="font-semibold text-indigo-800 dark:text-indigo-200 mb-2">🎯 GenAIOps</h4>
-                  <p className="text-sm text-indigo-700 dark:text-gray-300">
+                <div className={conceptSurface("p-4 bg-indigo-500/10 border-indigo-400/60")}
+                >
+                  <h4 className="font-semibold text-indigo-700 dark:text-indigo-300 mb-2">🎯 GenAIOps</h4>
+                  <p className="text-sm text-muted-foreground">
                     Umbrella operational practice for generative AI, integrating tech, process, and people.
                   </p>
                 </div>
                 
-                <div className="p-4 border rounded-lg bg-violet-100 dark:bg-violet-900 border-violet-200 dark:border-violet-700">
-                  <h4 className="font-semibold text-violet-800 dark:text-violet-200 mb-2">🤖 AgentOps</h4>
-                  <p className="text-sm text-violet-700 dark:text-gray-300">
+                <div className={conceptSurface("p-4 bg-violet-500/10 border-violet-400/60")}
+                >
+                  <h4 className="font-semibold text-violet-700 dark:text-violet-300 mb-2">🤖 AgentOps</h4>
+                  <p className="text-sm text-muted-foreground">
                     Focus on operationalizing AI Agents (tool mgmt, orchestration, memory, task decomposition).
                   </p>
                 </div>
                 
-                <div className="p-4 border rounded-lg bg-cyan-100 dark:bg-cyan-900 border-cyan-200 dark:border-cyan-700">
-                  <h4 className="font-semibold text-cyan-800 dark:text-cyan-200 mb-2">💬 PromptOps</h4>
-                  <p className="text-sm text-cyan-700 dark:text-gray-300">
+                <div className={conceptSurface("p-4 bg-cyan-500/10 border-cyan-400/60")}
+                >
+                  <h4 className="font-semibold text-cyan-700 dark:text-cyan-300 mb-2">💬 PromptOps</h4>
+                  <p className="text-sm text-muted-foreground">
                     Operationalizing prompts (storage, registry, optimization, evaluation).
                   </p>
                 </div>
                 
-                <div className="p-4 border rounded-lg bg-emerald-100 dark:bg-emerald-900 border-emerald-200 dark:border-emerald-700">
-                  <h4 className="font-semibold text-emerald-800 dark:text-emerald-200 mb-2">🔍 RAGOps</h4>
-                  <p className="text-sm text-emerald-700 dark:text-gray-300">
+                <div className={conceptSurface("p-4 bg-emerald-500/10 border-emerald-400/60")}
+                >
+                  <h4 className="font-semibold text-emerald-700 dark:text-emerald-300 mb-2">🔍 RAGOps</h4>
+                  <p className="text-sm text-muted-foreground">
                     Operationalizing Retrieval-Augmented Generation (offline prep, retrieval optimization, grounding).
                   </p>
                 </div>
@@ -411,7 +420,8 @@ class AgentObservability:
                 </div>
               </div>
 
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md mt-6">
+              <div className={conceptSurfaceSoft("p-4 mt-6")}
+              >
                 <h4 className="font-semibold mb-3">Tree Data Hierarchy Mapping:</h4>
                 <p className="text-sm leading-relaxed">
                   <strong>GenAIOps</strong> → <strong>Ops Types</strong> (AgentOps, PromptOps, RAGOps) → 
@@ -440,7 +450,8 @@ class AgentObservability:
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🔄 CI Pipeline</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Code quality checks</li>
@@ -449,7 +460,8 @@ class AgentObservability:
                     <li>• Model validation</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🚀 CD Pipeline</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Automated deployment</li>
@@ -460,8 +472,8 @@ class AgentObservability:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# GitHub Actions workflow for AI Agent
+              <pre className={conceptCodeBlock("text-sm md:text-base leading-relaxed p-4")}
+              >{`# GitHub Actions workflow for AI Agent
 name: Agent CI/CD
 
 on:
@@ -507,7 +519,6 @@ jobs:
       if: github.ref == 'refs/heads/main'
       run: |
         kubectl set image deployment/ai-agent-staging agent=ai-agent:latest`}</pre>
-              </div>
             </CardContent>
           </Card>
         </div>

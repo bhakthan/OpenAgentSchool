@@ -9,6 +9,8 @@ import BusinessUseCaseSection from "./BusinessUseCaseSection";
 import { Clipboard } from "@phosphor-icons/react";
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
+import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles";
+import { cn } from "@/lib/utils";
 
 const Agent2AgentProtocolExplainer = () => {
   return (
@@ -156,9 +158,10 @@ const Agent2AgentProtocolExplainer = () => {
                       It tells other agents who it is, what it does, and how to contact it.
                     </p>
                     
-                    <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md p-4">
-                      <p className="text-xs mb-2 font-medium">Example Agent Card:</p>
-                      <pre className="text-xs overflow-x-auto">
+                    <div className={conceptSurfaceSoft("p-4 space-y-2")}
+                    >
+                      <p className="text-xs font-medium text-muted-foreground">Example Agent Card:</p>
+                      <pre className={conceptCodeBlock("text-xs p-3 overflow-x-auto")}> 
 {`{
   "name": "StockInfoAgent",
   "description": "Provides current stock price information.",
@@ -185,7 +188,8 @@ const Agent2AgentProtocolExplainer = () => {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="border rounded-md p-4 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                      <div className={conceptSurface("p-4 space-y-2")}
+                      >
                         <h4 className="font-medium mb-2">Tasks</h4>
                         <p className="text-sm">
                           The fundamental unit of work. A client agent initiates a <strong>task</strong> when it wants 
@@ -194,7 +198,8 @@ const Agent2AgentProtocolExplainer = () => {
                         </p>
                       </div>
                       
-                      <div className="border rounded-md p-4 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                      <div className={conceptSurface("p-4 space-y-2")}
+                      >
                         <h4 className="font-medium mb-2">Messages</h4>
                         <p className="text-sm">
                           Within a task, agents communicate using <strong>messages</strong>. These can be instructions, 
@@ -203,7 +208,8 @@ const Agent2AgentProtocolExplainer = () => {
                         </p>
                       </div>
                       
-                      <div className="border rounded-md p-4 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                      <div className={conceptSurface("p-4 space-y-2")}
+                      >
                         <h4 className="font-medium mb-2">Artifacts</h4>
                         <p className="text-sm">
                           When a task is finished, the final, unchangeable result is delivered as an <strong>artifact</strong>. 
@@ -267,15 +273,15 @@ const Agent2AgentProtocolExplainer = () => {
                     </div>
                   </div>
                   
-                  <div className="mt-6 p-4 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border">
-                    <h4 className="font-medium mb-2">Complementary Protocols</h4>
-                    <p className="text-sm">
+                  <div className={conceptSurfaceSoft("mt-6 p-4 space-y-3")}>
+                    <h4 className="font-medium">Complementary Protocols</h4>
+                    <p className="text-sm text-muted-foreground">
                       A2A and MCP are not competitors; they are complementary. An agent might use A2A to coordinate 
                       with another agent, and then that second agent might use MCP to call a specific tool it needs 
                       to complete its task.
                     </p>
                     
-                    <div className="flex items-center gap-2 mt-4 text-sm">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Code size={16} className="text-primary" />
                       <p className="font-medium">Example: A2A delegates to agent, agent uses MCP to call tool</p>
                     </div>
@@ -292,14 +298,16 @@ const Agent2AgentProtocolExplainer = () => {
                   <div className="space-y-6">
                                         <p className="text-sm">
                       Let's see how A2A and MCP work together in a real-world scenario when a user asks:
-                      <span className="block mt-1 px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md font-medium">
+                      <span className={conceptSurfaceSoft("block mt-1 px-3 py-1 font-medium text-sm")}
+                      >
                         "What's Google's stock price right now?"
                       </span>
                     </p>
                     
                     <ScrollArea className="h-[400px] pr-4">
                       <div className="space-y-4">
-                        <div className="border rounded-md p-4">
+                        <div className={conceptSurface("p-4 space-y-3")}
+                        >
                           <div className="flex items-center gap-2 mb-2">
                             <Badge variant="outline" className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">Step 1</Badge>
                             <h4 className="font-medium">User Query to Host Agent</h4>
@@ -313,7 +321,8 @@ const Agent2AgentProtocolExplainer = () => {
                           </div>
                         </div>
                         
-                        <div className="border rounded-md p-4">
+                        <div className={conceptSurface("p-4 space-y-3")}
+                        >
                           <div className="flex items-center gap-2 mb-2">
                             <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Step 2</Badge>
                             <h4 className="font-medium">Host Agent Analysis</h4>
@@ -328,7 +337,7 @@ const Agent2AgentProtocolExplainer = () => {
                           </div>
                         </div>
                         
-                        <div className="border rounded-md p-4">
+                        <div className={conceptSurface("p-4 space-y-3")}>
                           <div className="flex items-center gap-2 mb-2">
                             <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Step 3: A2A</Badge>
                             <h4 className="font-medium">A2A Delegation to Specialist</h4>
@@ -343,8 +352,8 @@ const Agent2AgentProtocolExplainer = () => {
                               <div>Stock Info Agent: "Please get Google's current stock price!"</div>
                             </div>
                           </div>
-                          <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-2 rounded-md mt-2 text-xs">
-                            <pre className="whitespace-pre-wrap">
+                          <div className={conceptSurfaceSoft("p-2 mt-2 text-xs space-y-2")}>
+                            <pre className={conceptCodeBlock("text-xs whitespace-pre-wrap p-2")}>
 {`// A2A Task Creation
 {
   "taskId": "task-123456",
@@ -358,7 +367,7 @@ const Agent2AgentProtocolExplainer = () => {
                           </div>
                         </div>
                         
-                        <div className="border rounded-md p-4">
+                        <div className={conceptSurface("p-4 space-y-3")}>
                           <div className="flex items-center gap-2 mb-2">
                             <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Step 4</Badge>
                             <h4 className="font-medium">Stock Agent Analysis</h4>
@@ -373,7 +382,7 @@ const Agent2AgentProtocolExplainer = () => {
                           </div>
                         </div>
                         
-                        <div className="border rounded-md p-4">
+                        <div className={conceptSurface("p-4 space-y-3")}>
                           <div className="flex items-center gap-2 mb-2">
                             <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)]">Step 5: MCP</Badge>
                             <h4 className="font-medium">MCP Tool Call</h4>
@@ -388,8 +397,8 @@ const Agent2AgentProtocolExplainer = () => {
                               <div>MCP Stock Price Server: Function_call: "get_stock_price", args: {"{'symbol': 'GOOGL'}"}</div>
                             </div>
                           </div>
-                          <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-2 rounded-md mt-2 text-xs">
-                            <pre className="whitespace-pre-wrap">
+                          <div className={conceptSurfaceSoft("p-2 mt-2 text-xs space-y-2")}>
+                            <pre className={conceptCodeBlock("text-xs whitespace-pre-wrap p-2")}>
 {`// MCP Function Call
 {
   "function": "get_stock_price",
@@ -401,7 +410,7 @@ const Agent2AgentProtocolExplainer = () => {
                           </div>
                         </div>
                         
-                        <div className="border rounded-md p-4">
+                        <div className={conceptSurface("p-4 space-y-3")}>
                           <div className="flex items-center gap-2 mb-2">
                             <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)]">Step 6: MCP</Badge>
                             <h4 className="font-medium">MCP Data Return</h4>
@@ -418,7 +427,7 @@ const Agent2AgentProtocolExplainer = () => {
                           </div>
                         </div>
                         
-                        <div className="border rounded-md p-4">
+                        <div className={conceptSurface("p-4 space-y-3")}>
                           <div className="flex items-center gap-2 mb-2">
                             <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Step 7: A2A</Badge>
                             <h4 className="font-medium">A2A Response to Host</h4>
@@ -433,8 +442,8 @@ const Agent2AgentProtocolExplainer = () => {
                               <div>Host Agent: "Google stock is 174.92 USD"</div>
                             </div>
                           </div>
-                          <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-2 rounded-md mt-2 text-xs">
-                            <pre className="whitespace-pre-wrap">
+                          <div className={conceptSurfaceSoft("p-2 mt-2 text-xs space-y-2")}>
+                            <pre className={conceptCodeBlock("text-xs whitespace-pre-wrap p-2")}>
 {`// A2A Task Completion
 {
   "taskId": "task-123456",
@@ -449,7 +458,7 @@ const Agent2AgentProtocolExplainer = () => {
                           </div>
                         </div>
                         
-                        <div className="border rounded-md p-4">
+                        <div className={conceptSurface("p-4 space-y-3")}>
                           <div className="flex items-center gap-2 mb-2">
                             <Badge variant="outline" className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">Step 8</Badge>
                             <h4 className="font-medium">Host Response to User</h4>
@@ -512,7 +521,10 @@ const Agent2AgentProtocolExplainer = () => {
                   <div className="flex gap-2">
                     <button
                       type="button"
-                      className="p-2 rounded hover:bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+                      className={cn(
+                        "p-2 rounded transition-colors text-muted-foreground hover:text-foreground",
+                        "hover:bg-muted"
+                      )}
                       onClick={() => {
                         navigator.clipboard.writeText(`React Agent Pattern in Retail\n\nIndustry: Retail\n\nScenario: Personalized Shopping Assistant\n\nReact agents interact with customer profiles and inventory systems to recommend products, answer queries, and streamline checkout.\n\nImplementation Path:\n1. Identify customer pain points (e.g., product discovery, checkout friction).\n2. Integrate React agents with customer data and inventory APIs.\n3. Design agent workflows for product recommendations and real-time support.\n4. Measure success via conversion rates and customer feedback.\n\nExpected Outcomes:\n- Higher sales conversion\n- Improved customer retention\n- Efficient inventory management\n\nKey Metrics:\n- Conversion rate\n- Customer satisfaction score\n- Inventory turnover\n\nNext Steps for Business Users:\n- Map current workflows to agent capabilities\n- Pilot the agent in a specific product category\n- Collect feedback and iterate`);
                       }}

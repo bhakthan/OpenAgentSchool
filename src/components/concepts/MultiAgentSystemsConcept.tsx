@@ -1,7 +1,8 @@
 import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Users, ArrowsIn, Handshake, Crown, Target, Network } from "@phosphor-icons/react"
+import { conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles"
+import { Users, ArrowsIn, Handshake, Crown, Target, Network, CirclesThreePlus, FlowArrow } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import ReferenceSection from "@/components/references/ReferenceSection";
 
@@ -9,6 +10,93 @@ interface MultiAgentSystemsConceptProps {
   onMarkComplete?: () => void
   onNavigateToNext?: (nextConceptId: string) => void
 }
+
+const CoordinationTopologyVisual = () => (
+  <Card className="border-dashed">
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <CirclesThreePlus className="w-5 h-5 text-primary" />
+        Coordination Topologies Cheat Sheet
+      </CardTitle>
+      <CardDescription>
+        Spot how communication patterns shift across consensus, auctions, mediation, and shared blackboards
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <div className="grid lg:grid-cols-4 gap-4">
+        {[
+          {
+            name: "Consensus Ring",
+            edges: "Bidirectional peering",
+            icon: <ArrowsIn className="w-6 h-6" />, 
+            summary: "Each node votes, rounds continue until thresholds align.",
+            signals: ["BFT chains", "Raft-like flows"],
+            headerBorder: "border-b-blue-400 dark:border-b-blue-500",
+            iconBg: "bg-blue-100 dark:bg-blue-900/50",
+            iconText: "text-blue-600 dark:text-blue-300"
+          },
+          {
+            name: "Auction Hub",
+            edges: "Hub broadcast",
+            icon: <Handshake className="w-6 h-6" />, 
+            summary: "Coordinator posts tasks, bidders respond with cost + capability.",
+            signals: ["Contract net", "Market incentives"],
+            headerBorder: "border-b-emerald-400 dark:border-b-emerald-500",
+            iconBg: "bg-emerald-100 dark:bg-emerald-900/50",
+            iconText: "text-emerald-600 dark:text-emerald-300"
+          },
+          {
+            name: "Mediation Star",
+            edges: "Broker routing",
+            icon: <Users className="w-6 h-6" />, 
+            summary: "Neutral mediator aggregates preferences and proposes compromise.",
+            signals: ["Policy hand-offs", "Escalation lanes"],
+            headerBorder: "border-b-purple-400 dark:border-b-purple-500",
+            iconBg: "bg-purple-100 dark:bg-purple-900/50",
+            iconText: "text-purple-600 dark:text-purple-300"
+          },
+          {
+            name: "Blackboard Mesh",
+            edges: "Shared state",
+            icon: <Network className="w-6 h-6" />, 
+            summary: "Agents read/write to shared knowledge store with locks + watchers.",
+            signals: ["RAG scratchpad", "Fact caches"],
+            headerBorder: "border-b-amber-400 dark:border-b-amber-500",
+            iconBg: "bg-amber-100 dark:bg-amber-900/50",
+            iconText: "text-amber-600 dark:text-amber-300"
+          }
+        ].map(topology => (
+          <div key={topology.name} className="rounded-2xl border bg-card shadow-sm overflow-hidden">
+            <div className={`px-4 py-3 border-b bg-muted/40 dark:bg-muted/20 flex items-center gap-3 ${topology.headerBorder}`}
+              aria-label={`${topology.name} coordination topology`}>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${topology.iconBg} ${topology.iconText}`}>
+                {topology.icon}
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-foreground">{topology.name}</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground">Edges: {topology.edges}</div>
+              </div>
+            </div>
+            <div className="p-4 text-sm space-y-3">
+              <p className="text-muted-foreground">{topology.summary}</p>
+              <div className="flex flex-wrap gap-2">
+                {topology.signals.map(signal => (
+                  <Badge key={signal} variant="outline" className="border-dashed text-xs">
+                    {signal}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 rounded-xl border border-dashed border-muted bg-muted/30 p-4 text-sm text-muted-foreground flex items-start gap-3">
+        <FlowArrow className="w-5 h-5 text-primary mt-0.5" />
+        <span>Choose topology per phase: consensus for plan agreement, auctions for task hand-off, blackboard for persistent context, mediation when human override is required.</span>
+      </div>
+    </CardContent>
+  </Card>
+)
 
 export default function MultiAgentSystemsConcept({ onMarkComplete, onNavigateToNext }: MultiAgentSystemsConceptProps) {
   const tabs = [
@@ -20,6 +108,8 @@ export default function MultiAgentSystemsConcept({ onMarkComplete, onNavigateToN
       level: 'fundamentals' as const,
       content: (
         <div className="space-y-6">
+          <CoordinationTopologyVisual />
+
           {/* Coordination Overview */}
           <Card>
             <CardHeader>
@@ -61,8 +151,8 @@ export default function MultiAgentSystemsConcept({ onMarkComplete, onNavigateToN
                 </div>
               </div>
 
-              <div className="bg-muted text-foreground p-4 rounded-lg">
-                <pre className="text-base text-gray-900 dark:text-gray-100">
+              <div className="p-4 rounded-lg border border-border/60 bg-muted/60">
+                <pre className="text-sm leading-relaxed text-foreground font-mono overflow-x-auto">
 {`// Agent Coordination Example
 class AgentCoordinator {
   async coordinateTask(task, availableAgents) {
@@ -112,30 +202,30 @@ class AgentCoordinator {
                 allocation, task distribution, and conflict resolution without human intervention.
               </p>
               
-              <div className="bg-muted text-foreground p-4 rounded-md">
+              <div className="p-4 rounded-md border border-border/60 bg-muted/60">
                 <h4 className="font-semibold mb-3">Common Negotiation Strategies:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
+                    <span className="w-2 h-2 rounded-full bg-blue-500/70 dark:bg-blue-400/70 mt-2"></span>
                     <span><strong>Auction-Based:</strong> Agents bid for resources or tasks</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
+                    <span className="w-2 h-2 rounded-full bg-green-500/70 dark:bg-green-400/70 mt-2"></span>
                     <span><strong>Contract Net:</strong> Structured proposal and acceptance process</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 rounded-full bg-purple-500 mt-2"></span>
+                    <span className="w-2 h-2 rounded-full bg-purple-500/70 dark:bg-purple-400/70 mt-2"></span>
                     <span><strong>Bargaining:</strong> Back-and-forth negotiation to reach compromise</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
+                    <span className="w-2 h-2 rounded-full bg-orange-500/70 dark:bg-orange-400/70 mt-2"></span>
                     <span><strong>Mediation:</strong> Third-party agent facilitates agreement</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-muted text-foreground p-4 rounded-lg">
-                <pre className="text-base text-gray-900 dark:text-gray-100">
+              <div className="p-4 rounded-lg border border-border/60 bg-muted/60">
+                <pre className="text-sm leading-relaxed text-foreground font-mono overflow-x-auto">
 {`// Auction-Based Negotiation
 class AgentAuction {
   async conductAuction(task, participants) {
@@ -406,9 +496,10 @@ class AgentAuction {
                 </Card>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                <h4 className="font-semibold mb-3">Basic AutoGen Implementation</h4>
-                <pre className="text-base text-gray-900 dark:text-gray-100 overflow-x-auto">{`import autogen
+              <div className={conceptSurfaceSoft("p-4 space-y-3")}
+              >
+                <h4 className="font-semibold">Basic AutoGen Implementation</h4>
+                <pre className={conceptCodeBlock("text-base p-4 overflow-x-auto")}>{`import autogen
 
 # Configure LLM
 config_list = [{
@@ -445,39 +536,39 @@ user_proxy.initiate_chat(
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
-                <table className="w-full border-collapse border border-gray-300">
+                <table className="w-full border-collapse border border-border/60 text-sm">
                   <thead>
-                    <tr className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                      <th className="border border-gray-300 p-2 text-left">Feature</th>
-                      <th className="border border-gray-300 p-2 text-center">AutoGen</th>
-                      <th className="border border-gray-300 p-2 text-center">CrewAI</th>
-                      <th className="border border-gray-300 p-2 text-center">LangGraph</th>
+                    <tr className="bg-muted/70 text-foreground">
+                      <th className="border border-border/60 p-2 text-left font-semibold">Feature</th>
+                      <th className="border border-border/60 p-2 text-center font-semibold">AutoGen</th>
+                      <th className="border border-border/60 p-2 text-center font-semibold">CrewAI</th>
+                      <th className="border border-border/60 p-2 text-center font-semibold">LangGraph</th>
                     </tr>
                   </thead>
                   <tbody className="text-base">
                     <tr>
-                      <td className="border border-gray-300 p-2 font-medium">Conversation Focus</td>
-                      <td className="border border-gray-300 p-2 text-center">✅ High</td>
-                      <td className="border border-gray-300 p-2 text-center">🔶 Medium</td>
-                      <td className="border border-gray-300 p-2 text-center">🔶 Medium</td>
+                      <td className="border border-border/60 p-2 font-medium">Conversation Focus</td>
+                      <td className="border border-border/60 p-2 text-center">✅ High</td>
+                      <td className="border border-border/60 p-2 text-center">🔶 Medium</td>
+                      <td className="border border-border/60 p-2 text-center">🔶 Medium</td>
                     </tr>
                     <tr>
-                      <td className="border border-gray-300 p-2 font-medium">Code Execution</td>
-                      <td className="border border-gray-300 p-2 text-center">✅ Built-in</td>
-                      <td className="border border-gray-300 p-2 text-center">🔶 Custom</td>
-                      <td className="border border-gray-300 p-2 text-center">🔶 Custom</td>
+                      <td className="border border-border/60 p-2 font-medium">Code Execution</td>
+                      <td className="border border-border/60 p-2 text-center">✅ Built-in</td>
+                      <td className="border border-border/60 p-2 text-center">🔶 Custom</td>
+                      <td className="border border-border/60 p-2 text-center">🔶 Custom</td>
                     </tr>
                     <tr>
-                      <td className="border border-gray-300 p-2 font-medium">Human-in-Loop</td>
-                      <td className="border border-gray-300 p-2 text-center">✅ Native</td>
-                      <td className="border border-gray-300 p-2 text-center">❌ Limited</td>
-                      <td className="border border-gray-300 p-2 text-center">🔶 Custom</td>
+                      <td className="border border-border/60 p-2 font-medium">Human-in-Loop</td>
+                      <td className="border border-border/60 p-2 text-center">✅ Native</td>
+                      <td className="border border-border/60 p-2 text-center">❌ Limited</td>
+                      <td className="border border-border/60 p-2 text-center">🔶 Custom</td>
                     </tr>
                     <tr>
-                      <td className="border border-gray-300 p-2 font-medium">Microsoft Integration</td>
-                      <td className="border border-gray-300 p-2 text-center">✅ Excellent</td>
-                      <td className="border border-gray-300 p-2 text-center">🔶 Good</td>
-                      <td className="border border-gray-300 p-2 text-center">🔶 Good</td>
+                      <td className="border border-border/60 p-2 font-medium">Microsoft Integration</td>
+                      <td className="border border-border/60 p-2 text-center">✅ Excellent</td>
+                      <td className="border border-border/60 p-2 text-center">🔶 Good</td>
+                      <td className="border border-border/60 p-2 text-center">🔶 Good</td>
                     </tr>
                   </tbody>
                 </table>

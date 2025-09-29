@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress"
 import { Brain, Gear, Clock, Memory, ArrowsClockwise, Play, Pause, Stop, Archive } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import CodeBlock from "@/components/ui/CodeBlock";
+import { conceptSurface, conceptSurfaceSoft } from "./conceptStyles";
 
 interface AgentArchitectureConceptProps {
   onMarkComplete?: () => void
@@ -37,25 +38,25 @@ export default function AgentArchitectureConcept({ onMarkComplete, onNavigateToN
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4 space-y-2")}>
                   <h4 className="font-semibold mb-2">🧠 Reasoning Engine</h4>
                   <p className="text-lg text-muted-foreground">
                     The core LLM that processes information, makes decisions, and generates responses
                   </p>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4 space-y-2")}>
                   <h4 className="font-semibold mb-2">📝 Memory System</h4>
                   <p className="text-lg text-muted-foreground">
                     Stores context, experiences, and learned patterns for future use
                   </p>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4 space-y-2")}>
                   <h4 className="font-semibold mb-2">🔧 Tool Interface</h4>
                   <p className="text-lg text-muted-foreground">
                     Connects agents to external systems, APIs, and data sources
                   </p>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4 space-y-2")}>
                   <h4 className="font-semibold mb-2">🎯 Goal Manager</h4>
                   <p className="text-lg text-muted-foreground">
                     Tracks objectives, plans actions, and monitors progress
@@ -63,9 +64,9 @@ export default function AgentArchitectureConcept({ onMarkComplete, onNavigateToN
                 </div>
               </div>
 
-      <div className="bg-muted text-foreground p-4 rounded-md">
-                <h4 className="font-semibold mb-3">Key Architectural Principles:</h4>
-                <ul className="space-y-2">
+              <div className={conceptSurfaceSoft("p-4 space-y-2")}>
+                <h4 className="font-semibold">Key Architectural Principles:</h4>
+                <ul className="space-y-2 text-muted-foreground">
                   <li className="flex items-start gap-2">
         <span className="w-2 h-2 rounded-full bg-[var(--badge-blue-ring)] mt-2"></span>
                     <span><strong>Modularity:</strong> Components can be independently developed and tested</span>
@@ -391,9 +392,9 @@ class AgentStateManager {
                 and selecting appropriate actions based on goals and constraints.
               </p>
               
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
-                <h4 className="font-semibold mb-3">Decision Making Framework:</h4>
-                <ul className="space-y-2">
+              <div className={conceptSurfaceSoft("p-4 space-y-2")}>
+                <h4 className="font-semibold">Decision Making Framework:</h4>
+                <ul className="space-y-2 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
                     <span><strong>Perception:</strong> Gather and interpret relevant information</span>

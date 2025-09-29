@@ -13,17 +13,111 @@ import {
   Target,
   ArrowsOut,
   ArrowsIn,
-  MagnifyingGlass
+  MagnifyingGlass,
+  NumberCircleOne,
+  NumberCircleTwo,
+  NumberCircleThree,
+  NumberCircleFour
 } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Slider } from "@/components/ui/slider";
 import ReferenceSection from "@/components/references/ReferenceSection";
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
+import { cn } from "@/lib/utils";
+import { conceptCodeBlock, conceptSurface } from "./conceptStyles";
 
 interface AgentInstructionDesignProps {
   onMarkComplete?: () => void;
   onNavigateToNext?: (nextConceptId: string) => void;
 }
+
+const InstructionHierarchyVisual = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <Target className="w-5 h-5 text-primary" />
+        Instruction Stack Blueprint
+      </CardTitle>
+      <CardDescription>
+        Four layers every steerable instruction set needs—from mission signals down to output templates
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <div className="grid lg:grid-cols-4 gap-4">
+        {[
+          {
+            icon: <NumberCircleOne className="w-6 h-6" />,
+            label: "Mission",
+            description: "Purpose, guardrails, success criteria",
+            badge: "Why we exist",
+            iconBg: "bg-blue-100 dark:bg-blue-900/50",
+            iconText: "text-blue-600 dark:text-blue-300",
+            borderTone: "border-b-blue-400 dark:border-b-blue-500"
+          },
+          {
+            icon: <NumberCircleTwo className="w-6 h-6" />,
+            label: "Guardrails",
+            description: "Hard limits, refusal clauses, safety triggers",
+            badge: "What never to break",
+            iconBg: "bg-cyan-100 dark:bg-cyan-900/50",
+            iconText: "text-cyan-600 dark:text-cyan-300",
+            borderTone: "border-b-cyan-400 dark:border-b-cyan-500"
+          },
+          {
+            icon: <NumberCircleThree className="w-6 h-6" />,
+            label: "Workflow",
+            description: "Step order, tool preambles, review cadence",
+            badge: "How we operate",
+            iconBg: "bg-emerald-100 dark:bg-emerald-900/50",
+            iconText: "text-emerald-600 dark:text-emerald-300",
+            borderTone: "border-b-emerald-400 dark:border-b-emerald-500"
+          },
+          {
+            icon: <NumberCircleFour className="w-6 h-6" />,
+            label: "Output",
+            description: "Formats, verbosity settings, delivery style",
+            badge: "How we communicate",
+            iconBg: "bg-indigo-100 dark:bg-indigo-900/50",
+            iconText: "text-indigo-600 dark:text-indigo-300",
+            borderTone: "border-b-indigo-400 dark:border-b-indigo-500"
+          }
+        ].map(layer => (
+          <div key={layer.label} className="relative">
+            <div className={`rounded-2xl border bg-card shadow-sm h-full flex flex-col`}
+              aria-label={`${layer.label} instruction layer`}>
+              <div className={`px-4 py-3 border-b ${layer.borderTone} flex items-center gap-3 bg-muted/40 dark:bg-muted/20`}> 
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${layer.iconBg} ${layer.iconText}`}>
+                  {layer.icon}
+                </div>
+                <div>
+                  <div className="text-lg font-semibold text-foreground">{layer.label}</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground">{layer.badge}</div>
+                </div>
+              </div>
+              <div className="p-4 text-sm text-muted-foreground flex-1">
+                {layer.description}
+              </div>
+            </div>
+            <div className="hidden lg:block absolute -top-6 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] uppercase text-muted-foreground">
+              {layer.label === "Mission" ? "01" : layer.label === "Guardrails" ? "02" : layer.label === "Workflow" ? "03" : "04"}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 grid lg:grid-cols-3 gap-3 text-sm text-muted-foreground">
+        <div className="rounded-lg border border-dashed border-blue-200 dark:border-blue-900/50 p-3 bg-muted/30">
+          <span className="font-semibold text-foreground">Inheritance:</span> Lower layers inherit constraints from everyone above—never invert the order.
+        </div>
+        <div className="rounded-lg border border-dashed border-emerald-200 dark:border-emerald-900/50 p-3 bg-muted/30">
+          <span className="font-semibold text-foreground">Tuning knobs:</span> Verbosity sliders and steerability toggles should reference the stack layer they influence.
+        </div>
+        <div className="rounded-lg border border-dashed border-purple-200 dark:border-purple-900/50 p-3 bg-muted/30">
+          <span className="font-semibold text-foreground">Hand-off ready:</span> Share this hierarchy with downstream teams so resilience testing hits the same priorities.
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+)
 
 const AgentInstructionDesign: React.FC<AgentInstructionDesignProps> = ({
   onMarkComplete,
@@ -109,6 +203,8 @@ Perform statistical analysis on the provided dataset.
         </p>
       </div>
 
+  <InstructionHierarchyVisual />
+
       {/* Instruction Hierarchy */}
       <Card>
         <CardHeader>
@@ -133,8 +229,8 @@ Perform statistical analysis on the provided dataset.
             <div className="grid lg:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <h4 className="font-semibold text-red-600 dark:text-red-400">❌ Unclear Hierarchy</h4>
-                <div className="p-4 border-2 border-red-200 dark:border-red-800 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded mb-3 whitespace-pre-wrap">
+                <div className={conceptSurface("p-4 border-2 border-red-200 dark:border-red-800") }>
+                  <code className={conceptCodeBlock("text-sm mb-3") }>
 {`"Be helpful and provide accurate information.
 Be concise in your responses.
 If you're unsure, say so.
@@ -153,8 +249,8 @@ Provide detailed explanations when needed."`}
 
               <div className="space-y-4">
                 <h4 className="font-semibold text-green-600 dark:text-green-400">✅ Clear Hierarchy</h4>
-                <div className="p-4 border-2 border-green-200 dark:border-green-800 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded mb-3 whitespace-pre-wrap">
+                <div className={conceptSurface("p-4 border-2 border-green-200 dark:border-green-800") }>
+                  <code className={conceptCodeBlock("text-sm mb-3") }>
 {`"Behavioral priorities (in order):
 1) Accuracy: Verify all facts from sources
 2) Safety: Refuse harmful requests  
@@ -217,11 +313,16 @@ Provide detailed explanations when needed."`}
             {(() => {
               const content = getSteerabilityContent();
               return (
-                <div className={`p-4 border-2 rounded-lg ${
-                  content.color === 'red' ? 'border-red-200 dark:border-red-800 bg-gray-50 dark:bg-gray-800' :
-                  content.color === 'yellow' ? 'border-yellow-200 dark:border-yellow-800 bg-gray-50 dark:bg-gray-800' :
-                  'border-green-200 dark:border-green-800 bg-gray-50 dark:bg-gray-800'
-                }`}>
+                <div
+                  className={cn(
+                    conceptSurface("p-4 border-2"),
+                    content.color === 'red'
+                      ? 'border-red-200 dark:border-red-800'
+                      : content.color === 'yellow'
+                        ? 'border-yellow-200 dark:border-yellow-800'
+                        : 'border-green-200 dark:border-green-800'
+                  )}
+                >
                   <h4 className={`font-semibold mb-3 ${
                     content.color === 'red' ? 'text-red-700 dark:text-red-400' :
                     content.color === 'yellow' ? 'text-yellow-700 dark:text-yellow-400' :
@@ -231,7 +332,7 @@ Provide detailed explanations when needed."`}
                      steerabilityExample === 'medium' ? '⚠️ Medium Steerability' :
                      '✅ High Steerability'}
                   </h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded mb-3 whitespace-pre-wrap">
+                  <code className={conceptCodeBlock("text-sm mb-3 whitespace-pre-wrap")}>
                     {content.instruction}
                   </code>
                   <div className={`text-sm ${
@@ -314,9 +415,9 @@ Provide detailed explanations when needed."`}
                 </span>
               </div>
 
-              <div className="p-4 border rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800/50">
+              <div className={conceptSurface("p-4 border") }>
                 <h4 className="font-semibold mb-2">Example Output (Level {verbosityLevel[0]}):</h4>
-                <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded">
+                <code className={conceptCodeBlock("text-sm") }>
                   {getVerbosityExample(verbosityLevel[0])}
                 </code>
               </div>
@@ -333,7 +434,7 @@ Provide detailed explanations when needed."`}
                 <div className="text-xs text-muted-foreground">Level 2</div>
                 <div className="text-xs mt-1">Essential info</div>
               </div>
-              <div className="p-3 border rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
+              <div className={conceptSurface("p-3 border") }>
                 <div className="font-semibold text-sm">Standard</div>
                 <div className="text-xs text-muted-foreground">Level 3</div>
                 <div className="text-xs mt-1">Balanced detail</div>
@@ -384,7 +485,7 @@ Provide detailed explanations when needed."`}
               <div className="grid lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h4 className="font-semibold">Analysis Task Template</h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock("text-sm whitespace-pre-wrap") }>
 {`# Output Format
 ## Executive Summary
 [2-3 sentence overview]
@@ -412,7 +513,7 @@ Provide detailed explanations when needed."`}
 
                 <div className="space-y-4">
                   <h4 className="font-semibold">Problem-Solving Template</h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock("text-sm whitespace-pre-wrap") }>
 {`# Output Format
 ## Problem Statement
 [Clear problem definition]
@@ -459,7 +560,7 @@ Provide detailed explanations when needed."`}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h4 className="font-semibold">Uncertainty Handling</h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock("text-sm whitespace-pre-wrap") }>
 {`# When uncertain or lacking information:
 1. Acknowledge the uncertainty explicitly
 2. State what information you have confidence in
@@ -477,7 +578,7 @@ need [specific requirements]."`}
 
                 <div className="space-y-4">
                   <h4 className="font-semibold">Error Recovery</h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock("text-sm whitespace-pre-wrap") }>
 {`# When encountering errors:
 1. Stop the problematic process immediately
 2. Explain what went wrong in simple terms
@@ -519,7 +620,7 @@ Would you like me to try [specific alternative]?"`}
             <CardContent className="space-y-6">
               <div className="space-y-4">
                 <h4 className="font-semibold">Self-Validation Framework</h4>
-                <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 p-3 rounded whitespace-pre-wrap">
+                <code className={conceptCodeBlock("text-sm whitespace-pre-wrap") }>
 {`# Before finalizing any response, verify:
 
 ## Content Validation

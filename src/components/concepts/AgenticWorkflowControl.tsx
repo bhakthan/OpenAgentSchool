@@ -15,18 +15,118 @@ import {
   Circuitry,
   Pause,
   Play,
-  FastForward
+  FastForward,
+  HourglassMedium,
+  Gauge
 } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import ReferenceSection from "@/components/references/ReferenceSection";
-import { Progress } from "@/components/ui/progress";
 import { Slider } from "@/components/ui/slider";
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
+import { cn } from "@/lib/utils";
+import { conceptCodeBlock, conceptSurface, conceptSurfaceSoft } from "./conceptStyles";
 
 interface AgenticWorkflowControlProps {
   onMarkComplete?: () => void;
   onNavigateToNext?: (nextConceptId: string) => void;
 }
+
+const WorkflowControlBoard = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <Gauge className="w-5 h-5 text-primary" />
+        Workflow Control Board
+      </CardTitle>
+      <CardDescription>
+        Compare sequencing choices, eagerness bands, and reasoning depth for each orchestration style at a glance
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <div className="grid md:grid-cols-3 gap-4">
+        {[
+          {
+            name: "Sequential",
+            icon: <Pause className="w-6 h-6" />,
+            cadence: "Plan → Execute → Validate",
+            eagerness: "1-2",
+            reasoning: "High",
+            risks: ["Bottlenecks slow total cycle", "Over-planning can delay action"],
+            bestFor: ["Complex analysis", "Compliance gates", "Learning moments"],
+            headerBorder: "border-b-blue-400 dark:border-b-blue-500",
+            iconBg: "bg-blue-100 dark:bg-blue-900/50",
+            iconText: "text-blue-600 dark:text-blue-300"
+          },
+          {
+            name: "Parallel",
+            icon: <FastForward className="w-6 h-6" />,
+            cadence: "Split → Execute → Merge",
+            eagerness: "3-4",
+            reasoning: "Medium",
+            risks: ["Coordination overhead", "Race conditions"],
+            bestFor: ["Independent subtasks", "Speed obsessed teams", "Large backlogs"],
+            headerBorder: "border-b-emerald-400 dark:border-b-emerald-500",
+            iconBg: "bg-emerald-100 dark:bg-emerald-900/50",
+            iconText: "text-emerald-600 dark:text-emerald-300"
+          },
+          {
+            name: "Adaptive",
+            icon: <Lightning className="w-6 h-6" />,
+            cadence: "Probe → Sense → Switch",
+            eagerness: "Variable",
+            reasoning: "Dynamic",
+            risks: ["Inconsistent timings", "Needs good telemetry"],
+            bestFor: ["Unknown complexity", "Exploratory pilots", "Volatile domains"],
+            headerBorder: "border-b-purple-400 dark:border-b-purple-500",
+            iconBg: "bg-purple-100 dark:bg-purple-900/50",
+            iconText: "text-purple-600 dark:text-purple-300"
+          }
+        ].map(mode => (
+          <div key={mode.name} className="rounded-2xl border bg-card shadow-sm overflow-hidden">
+            <div className={`px-4 py-3 border-b flex items-center justify-between bg-muted/40 dark:bg-muted/20 ${mode.headerBorder}`}
+              aria-label={`${mode.name} workflow summary`}>
+              <div className="flex items-center gap-3">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${mode.iconBg} ${mode.iconText}`}>
+                  {mode.icon}
+                </div>
+                <div>
+                  <div className="text-lg font-semibold text-foreground">{mode.name}</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground">Cadence: {mode.cadence}</div>
+                </div>
+              </div>
+              <div className="text-right text-xs text-muted-foreground space-y-1">
+                <div>Eagerness Band <span className="font-semibold text-foreground">{mode.eagerness}</span></div>
+                <div>Reasoning Effort <span className="font-semibold text-foreground">{mode.reasoning}</span></div>
+              </div>
+            </div>
+            <div className="p-4 text-sm space-y-3">
+              <div>
+                <div className="font-semibold text-foreground mb-1">Best When</div>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                  {mode.bestFor.map(item => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <div className="font-semibold text-foreground mb-1">Watch for</div>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                  {mode.risks.map(item => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-lg border border-dashed border-muted p-3 flex items-center gap-3 text-xs text-muted-foreground bg-muted/30">
+                <HourglassMedium className="w-5 h-5 text-primary" />
+                <span>Set telemetry alerts when eagerness or reasoning stray outside this band to trigger adaptive responses.</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </CardContent>
+  </Card>
+)
 
 const AgenticWorkflowControl: React.FC<AgenticWorkflowControlProps> = ({
   onMarkComplete,
@@ -71,6 +171,8 @@ const AgenticWorkflowControl: React.FC<AgenticWorkflowControlProps> = ({
         </p>
       </div>
 
+  <WorkflowControlBoard />
+
       {/* Workflow Patterns */}
       <Card>
         <CardHeader>
@@ -109,13 +211,13 @@ const AgenticWorkflowControl: React.FC<AgenticWorkflowControlProps> = ({
             </div>
 
             {workflowType === 'sequential' && (
-              <div className="p-4 border rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
+              <div className={conceptSurface("p-4 border")}>
                 <h4 className="font-semibold text-blue-700 dark:text-blue-400 mb-3">
                   🔄 Sequential Workflow
                 </h4>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded mb-3 whitespace-pre-wrap">
+                    <code className={conceptCodeBlock("text-sm mb-3 whitespace-pre-wrap") }>
 {`# Sequential Execution Pattern
 1. Analyze requirements thoroughly
 2. Create detailed plan  
@@ -149,13 +251,13 @@ your progress at each checkpoint."`}
             )}
 
             {workflowType === 'parallel' && (
-              <div className="p-4 border rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
+              <div className={conceptSurface("p-4 border")}>
                 <h4 className="font-semibold text-green-700 dark:text-green-400 mb-3">
                   ⚡ Parallel Workflow
                 </h4>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded mb-3 whitespace-pre-wrap">
+                    <code className={conceptCodeBlock("text-sm mb-3 whitespace-pre-wrap") }>
 {`# Parallel Execution Pattern
 1. Break down into independent tasks
 2. Execute multiple tracks simultaneously
@@ -189,13 +291,13 @@ Coordinate results as they complete."`}
             )}
 
             {workflowType === 'adaptive' && (
-              <div className="p-4 border rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
+              <div className={conceptSurface("p-4 border")}>
                 <h4 className="font-semibold text-purple-700 dark:text-purple-400 mb-3">
                   🧠 Adaptive Workflow
                 </h4>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded mb-3 whitespace-pre-wrap">
+                    <code className={conceptCodeBlock("text-sm mb-3 whitespace-pre-wrap") }>
 {`# Adaptive Execution Pattern
 1. Start with lightweight exploration
 2. Assess complexity and resources
@@ -269,29 +371,62 @@ prepared to switch strategies if needed."`}
               </div>
 
               <div className="grid md:grid-cols-5 gap-2">
-                <div className="text-center p-3 border rounded-lg">
+                <div
+                  className={conceptSurface(
+                    cn(
+                      "text-center p-3 transition-all",
+                      eagernessSetting[0] === 1 && "ring-2 ring-primary/60 bg-primary/10 shadow-sm"
+                    )
+                  )}
+                >
                   <Pause className="w-6 h-6 mx-auto mb-1 text-red-500" />
                   <div className="text-xs font-semibold">Deliberate</div>
                   <div className="text-xs text-muted-foreground">Level 1</div>
                 </div>
-                <div className="text-center p-3 border rounded-lg">
+                <div
+                  className={conceptSurface(
+                    cn(
+                      "text-center p-3 transition-all",
+                      eagernessSetting[0] === 2 && "ring-2 ring-primary/60 bg-primary/10 shadow-sm"
+                    )
+                  )}
+                >
                   <Clock className="w-6 h-6 mx-auto mb-1 text-orange-500" />
                   <div className="text-xs font-semibold">Cautious</div>
                   <div className="text-xs text-muted-foreground">Level 2</div>
                 </div>
-                <div className={`text-center p-3 border rounded-lg ${
-                  eagernessSetting[0] === 3 ? 'bg-gray-50 dark:bg-gray-800 border-blue-300 dark:border-blue-700' : ''
-                }`}>
+                <div
+                  className={conceptSurface(
+                    cn(
+                      "text-center p-3 transition-all",
+                      eagernessSetting[0] === 3 && "ring-2 ring-primary/60 bg-primary/10 shadow-sm"
+                    )
+                  )}
+                >
                   <Play className="w-6 h-6 mx-auto mb-1 text-blue-500" />
                   <div className="text-xs font-semibold">Balanced</div>
                   <div className="text-xs text-muted-foreground">Level 3</div>
                 </div>
-                <div className="text-center p-3 border rounded-lg">
+                <div
+                  className={conceptSurface(
+                    cn(
+                      "text-center p-3 transition-all",
+                      eagernessSetting[0] === 4 && "ring-2 ring-primary/60 bg-primary/10 shadow-sm"
+                    )
+                  )}
+                >
                   <FastForward className="w-6 h-6 mx-auto mb-1 text-green-500" />
                   <div className="text-xs font-semibold">Proactive</div>
                   <div className="text-xs text-muted-foreground">Level 4</div>
                 </div>
-                <div className="text-center p-3 border rounded-lg">
+                <div
+                  className={conceptSurface(
+                    cn(
+                      "text-center p-3 transition-all",
+                      eagernessSetting[0] === 5 && "ring-2 ring-primary/60 bg-primary/10 shadow-sm"
+                    )
+                  )}
+                >
                   <Lightning className="w-6 h-6 mx-auto mb-1 text-purple-500" />
                   <div className="text-xs font-semibold">Immediate</div>
                   <div className="text-xs text-muted-foreground">Level 5</div>
@@ -302,7 +437,8 @@ prepared to switch strategies if needed."`}
             <div className="grid lg:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <h4 className="font-semibold">Low Eagerness (Deliberate)</h4>
-                <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded whitespace-pre-wrap">
+                <code className={conceptCodeBlock("text-sm p-3 whitespace-pre-wrap")}
+                >
 {`# Deliberate Approach
 "Before taking any action:
 1. Analyze the full context
@@ -326,7 +462,8 @@ proceeding to the next."`}
 
               <div className="space-y-4">
                 <h4 className="font-semibold">High Eagerness (Immediate)</h4>
-                <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded whitespace-pre-wrap">
+                <code className={conceptCodeBlock("text-sm p-3 whitespace-pre-wrap")}
+                >
 {`# Immediate Approach  
 "Act quickly on clear opportunities:
 1. Identify the core requirement
@@ -381,11 +518,17 @@ upfront planning."`}
               </div>
 
               <div className="grid md:grid-cols-3 gap-4">
-                <div className={`p-4 border rounded-lg ${
-                  reasoningEffort[0] === 1 ? 'bg-gray-50 dark:bg-gray-800 border-blue-300 dark:border-blue-700' : ''
-                }`}>
+                <div
+                  className={conceptSurface(
+                    cn(
+                      "p-4 space-y-3 transition-all",
+                      reasoningEffort[0] === 1 && "ring-2 ring-primary/60 bg-primary/10 shadow-sm"
+                    )
+                  )}
+                >
                   <h5 className="font-semibold mb-2">Low Effort</h5>
-                  <code className="text-xs block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 p-2 rounded mb-2">
+                  <code className={conceptCodeBlock("text-xs p-2 mb-2 whitespace-pre-wrap")}
+                  >
                     "Provide a quick, straightforward response based on immediate analysis."
                   </code>
                   <div className="text-sm">
@@ -399,11 +542,17 @@ upfront planning."`}
                   </div>
                 </div>
 
-                <div className={`p-4 border rounded-lg ${
-                  reasoningEffort[0] === 2 ? 'bg-primary/10 border-primary' : ''
-                }`}>
+                <div
+                  className={conceptSurface(
+                    cn(
+                      "p-4 space-y-3 transition-all",
+                      reasoningEffort[0] === 2 && "ring-2 ring-primary/60 bg-primary/10 shadow-sm"
+                    )
+                  )}
+                >
                   <h5 className="font-semibold mb-2">Medium Effort</h5>
-                  <code className="text-xs block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded mb-2">
+                  <code className={conceptCodeBlock("text-xs p-2 mb-2 whitespace-pre-wrap")}
+                  >
                     "Think through this step-by-step, considering key factors and implications."
                   </code>
                   <div className="text-sm">
@@ -417,11 +566,17 @@ upfront planning."`}
                   </div>
                 </div>
 
-                <div className={`p-4 border rounded-lg ${
-                  reasoningEffort[0] === 3 ? 'bg-primary/10 border-primary' : ''
-                }`}>
+                <div
+                  className={conceptSurface(
+                    cn(
+                      "p-4 space-y-3 transition-all",
+                      reasoningEffort[0] === 3 && "ring-2 ring-primary/60 bg-primary/10 shadow-sm"
+                    )
+                  )}
+                >
                   <h5 className="font-semibold mb-2">High Effort</h5>
-                  <code className="text-xs block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded mb-2">
+                  <code className={conceptCodeBlock("text-xs p-2 mb-2 whitespace-pre-wrap")}
+                  >
                     "Analyze this comprehensively from multiple angles, considering edge cases and implications."
                   </code>
                   <div className="text-sm">
@@ -463,7 +618,8 @@ upfront planning."`}
               <div className="grid lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h4 className="font-semibold">File System Tool Preamble</h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock("text-sm p-3 whitespace-pre-wrap")}
+                  >
 {`# File System Tool Context
 You have access to file system operations with the following capabilities:
 - Read/write text files
@@ -487,7 +643,8 @@ You have access to file system operations with the following capabilities:
 
                 <div className="space-y-4">
                   <h4 className="font-semibold">Web Search Tool Preamble</h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock("text-sm p-3 whitespace-pre-wrap")}
+                  >
 {`# Web Search Tool Context
 You can search the web for current information with these capabilities:
 - Real-time web search
@@ -538,7 +695,8 @@ You can search the web for current information with these capabilities:
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <h4 className="font-semibold">Context Preservation</h4>
-                    <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded whitespace-pre-wrap">
+                    <code className={conceptCodeBlock("text-sm p-3 whitespace-pre-wrap")}
+                    >
 {`# Context Management Protocol
 ## State Tracking
 - Maintain running summary of key decisions
@@ -562,7 +720,8 @@ You can search the web for current information with these capabilities:
 
                   <div className="space-y-4">
                     <h4 className="font-semibold">Context Transitions</h4>
-                    <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded whitespace-pre-wrap">
+                    <code className={conceptCodeBlock("text-sm p-3 whitespace-pre-wrap")}
+                    >
 {`# Context Handoff Protocol
 ## Between Workflow Steps
 - Summarize current state and progress
@@ -585,9 +744,10 @@ You can search the web for current information with these capabilities:
                   </div>
                 </div>
 
-                <div className="p-4 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg">
-                  <h4 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">Context Management Best Practices</h4>
-                  <ul className="text-sm space-y-1">
+                <div className={conceptSurfaceSoft("p-4 space-y-2")}
+                >
+                  <h4 className="font-semibold text-primary mb-2">Context Management Best Practices</h4>
+                  <ul className="text-sm space-y-1 text-muted-foreground">
                     <li>• Use structured context formats for consistency</li>
                     <li>• Implement context checkpoints at key workflow stages</li>
                     <li>• Design context recovery mechanisms for failures</li>
@@ -615,7 +775,8 @@ You can search the web for current information with these capabilities:
               <div className="grid lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h4 className="font-semibold">Sequential Tool Chain</h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock("text-sm p-3 whitespace-pre-wrap")}
+                  >
 {`# Sequential Coordination Pattern
 Tool_A → Tool_B → Tool_C → Result
 
@@ -639,7 +800,8 @@ Example: Research Pipeline
 
                 <div className="space-y-4">
                   <h4 className="font-semibold">Parallel Tool Orchestration</h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded whitespace-pre-wrap">
+      <code className={conceptCodeBlock("text-sm p-3 whitespace-pre-wrap")}
+      >
 {`# Parallel Coordination Pattern
 Tool_A ↘
         → Merge → Result  
@@ -665,11 +827,12 @@ Parallel Execution:
                 </div>
               </div>
 
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg">
-                <h4 className="font-semibold text-green-700 dark:text-green-400 mb-3">
+              <div className={conceptSurfaceSoft("p-4 space-y-3")}
+              >
+                <h4 className="font-semibold text-emerald-600 dark:text-emerald-300 mb-3">
                   Advanced Coordination Strategies
                 </h4>
-                <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
                   <div>
                     <Badge variant="outline" className="mb-2">Adaptive Routing</Badge>
                     <ul className="space-y-1">

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Play, Pause, ArrowClockwise } from "@phosphor-icons/react";
 import { useTheme } from '@/components/theme/ThemeProvider';
+import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock, conceptPill } from "./conceptStyles";
 
 const A2ACommunicationPatterns: React.FC = () => {
   const { theme } = useTheme();
@@ -466,24 +467,28 @@ class AdaptiveHierarchy {
 
         {/* Micro-learning display area */}
         {activeMicroLesson === selectedPattern && (
-          <div className="mt-4 p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 rounded-xl border border-purple-200 dark:border-purple-800 shadow-lg">
+          <div
+            className={conceptSurface(
+              "mt-4 rounded-xl border-purple-300/50 dark:border-purple-700/70 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 p-6 shadow-lg"
+            )}
+          >
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">
+                <div className="w-10 h-10 rounded-full bg-purple-500/90 flex items-center justify-center text-white font-bold">
                   🤖
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                  <h3 className="text-lg font-bold text-foreground">
                     {microLearningContent[selectedPattern][userKnowledgeLevel].title}
                   </h3>
-                  <p className="text-lg text-gray-600 dark:text-gray-400">
+                  <p className="text-lg text-muted-foreground">
                     {selectedPattern.charAt(0).toUpperCase() + selectedPattern.slice(1)} Communication Pattern
                   </p>
                 </div>
               </div>
               <button
                 onClick={hideMicroLesson}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition-colors"
+                className="rounded-full p-2 text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-colors"
                 aria-label="Close micro-learning"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -494,7 +499,7 @@ class AdaptiveHierarchy {
 
             {/* Knowledge level selector */}
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-foreground/80 mb-2">
                 Choose your knowledge level:
               </label>
               <div className="flex gap-2 flex-wrap">
@@ -505,7 +510,7 @@ class AdaptiveHierarchy {
                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
                       userKnowledgeLevel === level
                         ? 'bg-purple-500 text-white shadow-md'
-                        : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 border border-gray-300 dark:border-gray-600'
+                        : 'bg-background text-foreground/80 hover:bg-muted/60 border border-border/60'
                     }`}
                   >
                     {level.charAt(0).toUpperCase() + level.slice(1)}
@@ -518,32 +523,32 @@ class AdaptiveHierarchy {
             <div className="space-y-6">
               {/* Description */}
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Overview</h4>
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                <h4 className="font-semibold text-foreground mb-2">Overview</h4>
+                <p className="text-lg text-muted-foreground leading-relaxed">
                   {microLearningContent[selectedPattern][userKnowledgeLevel].content}
                 </p>
               </div>
 
               {/* Code example */}
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Code Example</h4>
-                <div className="bg-gray-900 dark:bg-gray-800 rounded-lg p-4 overflow-x-auto">
-                  <pre className="text-lg text-green-400">
-                    <code>{microLearningContent[selectedPattern][userKnowledgeLevel].codeExample}</code>
-                  </pre>
-                </div>
+                <h4 className="font-semibold text-foreground mb-2">Code Example</h4>
+                <pre className={conceptCodeBlock("text-sm leading-relaxed text-emerald-400 overflow-x-auto p-4")}
+                >
+                  <code>{microLearningContent[selectedPattern][userKnowledgeLevel].codeExample}</code>
+                </pre>
               </div>
 
               {/* Key points */}
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Key Points</h4>
+                <h4 className="font-semibold text-foreground mb-3">Key Points</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {microLearningContent[selectedPattern][userKnowledgeLevel].keyPoints.map((point, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-3 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-                      <div className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div key={idx} className={conceptSurfaceSoft("flex items-start gap-3 p-3")}
+                    >
+                      <div className="w-6 h-6 rounded-full bg-muted text-foreground flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-purple-600 dark:text-purple-400 text-xs font-bold">{idx + 1}</span>
                       </div>
-                      <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{point}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{point}</p>
                     </div>
                   ))}
                 </div>
@@ -551,28 +556,30 @@ class AdaptiveHierarchy {
 
               {/* Use cases */}
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Use Cases</h4>
+                <h4 className="font-semibold text-foreground mb-3">Use Cases</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {microLearningContent[selectedPattern][userKnowledgeLevel].useCases.map((useCase, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-3 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-                      <div className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div key={idx} className={conceptSurfaceSoft("flex items-start gap-3 p-3")}
+                    >
+                      <div className="w-6 h-6 rounded-full bg-muted text-foreground flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-green-600 dark:text-green-400 text-xs font-bold">→</span>
                       </div>
-                      <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{useCase}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{useCase}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Quick tip */}
-              <div className="bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+              <div className={conceptSurfaceSoft("border-amber-300/50 dark:border-amber-700/70 bg-amber-50/80 dark:bg-amber-950/60 p-4")}
+              >
                 <div className="flex items-start gap-3">
                   <div className="w-6 h-6 rounded-full bg-amber-100 dark:bg-amber-900 flex items-center justify-center flex-shrink-0">
                     <span className="text-amber-600 dark:text-amber-400 text-sm">💡</span>
                   </div>
                   <div>
-                    <h5 className="font-medium text-amber-900 dark:text-amber-100 mb-1">Quick Tip</h5>
-                    <p className="text-sm text-amber-800 dark:text-amber-200">
+                    <h5 className="font-medium text-foreground mb-1">Quick Tip</h5>
+                    <p className="text-sm text-muted-foreground">
                       Switch between different communication patterns using the tabs above to see how agents can coordinate differently. 
                       Each pattern has its own strengths depending on the task complexity and team size.
                     </p>
@@ -584,7 +591,8 @@ class AdaptiveHierarchy {
         )}
 
         {isPlaying && (
-          <div className="mt-4 p-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg">
+          <div className={conceptSurfaceSoft("mt-4 p-3")}
+          >
             <div className="text-lg font-medium">
               Current Communication: {communications[selectedPattern][currentMessage]?.message}
             </div>

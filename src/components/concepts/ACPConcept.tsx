@@ -9,6 +9,7 @@ import ReferenceSection from "../references/ReferenceSection"
 import { Stack, Lightning, Rocket, Crown } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
+import { conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles";
 
 interface ACPConceptProps {
   onMarkComplete?: () => void
@@ -46,9 +47,9 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
                 workflow management, and advanced coordination patterns.
               </p>
               
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
-                <h4 className="font-semibold mb-3">Advanced Capabilities:</h4>
-                <ul className="space-y-2">
+              <div className={conceptSurfaceSoft("p-4 space-y-2")}>
+                <h4 className="font-semibold">Advanced Capabilities:</h4>
+                <ul className="space-y-2 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
                     <span><strong>Orchestration:</strong> Coordinate complex multi-agent workflows</span>
@@ -282,8 +283,9 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
               <CardTitle>ACP Configuration Example</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
-                <pre className="text-sm">
+              <div className={conceptSurfaceSoft("p-4 space-y-2")}>
+                <pre className={conceptCodeBlock("text-sm p-3 overflow-x-auto")}
+                >
 {`{
   "agents": [
     {
@@ -380,33 +382,36 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">
+                <div className={conceptSurfaceSoft("p-4 space-y-2")}
+                >
+                  <h4 className="font-semibold text-yellow-600 dark:text-yellow-200">
                     Performance & Scaling
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Implement horizontal scaling for high load</li>
                     <li>• Use caching for frequently accessed data</li>
                     <li>• Optimize message serialization and routing</li>
                     <li>• Monitor system resources and bottlenecks</li>
                   </ul>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
+                <div className={conceptSurfaceSoft("p-4 space-y-2")}
+                >
+                  <h4 className="font-semibold text-red-600 dark:text-red-200">
                     Security & Compliance
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Implement end-to-end encryption</li>
                     <li>• Use strong authentication and authorization</li>
                     <li>• Maintain audit logs for compliance</li>
                     <li>• Regular security assessments and updates</li>
                   </ul>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
+                <div className={conceptSurfaceSoft("p-4 space-y-2")}
+                >
+                  <h4 className="font-semibold text-blue-600 dark:text-blue-200">
                     Monitoring & Observability
                   </h4>
-                  <ul className="space-y-1 text-sm">
+                  <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Implement distributed tracing</li>
                     <li>• Monitor agent health and performance</li>
                     <li>• Set up alerting for critical issues</li>

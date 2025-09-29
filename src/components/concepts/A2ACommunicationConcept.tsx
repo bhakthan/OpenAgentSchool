@@ -11,6 +11,7 @@ import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 import CodeBlock from "@/components/ui/CodeBlock";
 import { useState } from "react";
+import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles";
 
 interface A2ACommunicationConceptProps {
   onMarkComplete?: () => void
@@ -54,9 +55,9 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                 share information, delegate tasks, and combine their capabilities to solve complex problems.
               </p>
               
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
-                <h4 className="font-semibold mb-3">Why A2A Communication Matters:</h4>
-                <ul className="space-y-2">
+              <div className={conceptSurfaceSoft("p-4 space-y-2")}>
+                <h4 className="font-semibold">Why A2A Communication Matters:</h4>
+                <ul className="space-y-2 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
                     <span><strong>Specialization:</strong> Each agent can focus on what it does best</span>
@@ -90,7 +91,8 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="relative border border-border rounded-lg overflow-hidden bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+              <div className={conceptSurface("relative overflow-hidden")}
+              >
                 <div className="absolute top-2 right-2 z-10 flex gap-2">
                   <Button
                     variant="outline"
@@ -271,22 +273,24 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
+                <div className={conceptSurfaceSoft("p-4 space-y-2")}
+                >
+                  <h4 className="font-semibold text-red-600 dark:text-red-200">
                     Security Challenges
                   </h4>
-                  <ul className="space-y-1 text-lg">
+                  <ul className="space-y-1 text-lg text-muted-foreground">
                     <li>• Agent authentication and authorization</li>
                     <li>• Message encryption and integrity</li>
                     <li>• Preventing malicious agent behavior</li>
                     <li>• Audit trails and monitoring</li>
                   </ul>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
+                <div className={conceptSurfaceSoft("p-4 space-y-2")}
+                >
+                  <h4 className="font-semibold text-green-600 dark:text-green-200">
                     Best Practices
                   </h4>
-                  <ul className="space-y-1 text-lg">
+                  <ul className="space-y-1 text-lg text-muted-foreground">
                     <li>• Use secure protocols (TLS/SSL)</li>
                     <li>• Implement agent identity verification</li>
                     <li>• Monitor inter-agent communications</li>
@@ -409,22 +413,24 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
+                <div className={conceptSurfaceSoft("p-4 space-y-2")}
+                >
+                  <h4 className="font-semibold text-blue-600 dark:text-blue-200">
                     Scaling Challenges
                   </h4>
-                  <ul className="space-y-1 text-lg">
+                  <ul className="space-y-1 text-lg text-muted-foreground">
                     <li>• Message volume and network congestion</li>
                     <li>• Agent discovery and registration</li>
                     <li>• Fault tolerance and recovery</li>
                     <li>• Load balancing across agents</li>
                   </ul>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
+                <div className={conceptSurfaceSoft("p-4 space-y-2")}
+                >
+                  <h4 className="font-semibold text-green-600 dark:text-green-200">
                     Optimization Strategies
                   </h4>
-                  <ul className="space-y-1 text-lg">
+                  <ul className="space-y-1 text-lg text-muted-foreground">
                     <li>• Use efficient message serialization</li>
                     <li>• Implement message batching and compression</li>
                     <li>• Add caching and result memoization</li>
@@ -459,8 +465,11 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                 Azure AI Search, and other Azure cognitive services for enhanced multi-agent capabilities.
               </p>
 
-              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-600 mb-3">Azure Integration Benefits</h4>
+              <div className={conceptSurfaceSoft("p-4 space-y-4")}>
+                <div className="flex items-center gap-2">
+                  <CloudArrowUp className="w-4 h-4 text-primary" />
+                  <h4 className="font-semibold">Azure Integration Benefits</h4>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div>
                     <h5 className="font-medium">Azure OpenAI Integration</h5>
@@ -614,8 +623,9 @@ spec:
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 border rounded-lg border-green-200 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                  <h4 className="font-semibold text-green-700 mb-2">Performance</h4>
+                <div className={conceptSurfaceSoft("p-4 space-y-2 border border-green-200/60 dark:border-green-400/40")}
+                >
+                  <h4 className="font-semibold text-green-600">Performance</h4>
                   <ul className="text-lg space-y-1">
                     <li>• Use connection pooling</li>
                     <li>• Implement caching strategies</li>
@@ -623,8 +633,8 @@ spec:
                     <li>• Optimize conversation length</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg border-blue-200 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                  <h4 className="font-semibold text-blue-700 mb-2">Security</h4>
+                <div className={conceptSurfaceSoft("p-4 space-y-2 border border-blue-200/60 dark:border-blue-400/40")}>
+                  <h4 className="font-semibold text-blue-600">Security</h4>
                   <ul className="text-lg space-y-1">
                     <li>• Use managed identities</li>
                     <li>• Implement rate limiting</li>
@@ -632,8 +642,8 @@ spec:
                     <li>• Encrypt sensitive data</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg border-purple-200 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-                  <h4 className="font-semibold text-purple-700 mb-2">Monitoring</h4>
+                <div className={conceptSurfaceSoft("p-4 space-y-2 border border-purple-200/60 dark:border-purple-400/40")}>
+                  <h4 className="font-semibold text-purple-600">Monitoring</h4>
                   <ul className="text-lg space-y-1">
                     <li>• Track conversation metrics</li>
                     <li>• Monitor error rates</li>

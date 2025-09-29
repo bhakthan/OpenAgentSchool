@@ -32,6 +32,18 @@ To turn Open Agent School into a full program that spans strategy, operations, a
 - **Study Mode & Critical Thinking**: inject scenarios, Socratic questions, and challenges that represent the new themes.
 - **Exportable Toolkits**: package canvases, maturity assessments, and runbooks so teams can apply each theme offline.
 
+### Concept Visual Enhancements
+
+| Concept | Visual Added | What it reinforces | Implementation notes |
+| --- | --- | --- | --- |
+| Agentic Prompting Fundamentals | Prompt lifecycle storyboard | Connects intent, scaffolding, tool calls, and review loops to the four control levers. | Inline gradient cards with directional arrows; responsive layout collapses neatly at smaller widths. |
+| Agent Instruction Design | Instruction stack pyramid | Clarifies priority inheritance across mission → guardrails → workflow → output. | Layered cards with numbered headers; references existing steerability sliders. |
+| Agentic Workflow Control | Workflow control board | Contrasts sequential, parallel, and adaptive orchestration choices. | Uses shared eagerness/reasoning bands and highlights telemetry guardrails. |
+| Agent Evaluation Methodologies | Multi-metric dashboard | Shows how accuracy, robustness, efficiency, and quality combine into one score. | Composite card with alert lane and experiment callouts for quick triage. |
+| Multi-Agent Systems | Coordination topology cheat sheet | Visualizes consensus, auctions, mediation, and blackboard patterns. | Four-card grid with badge callouts linking to protocol cues. |
+| Program Setup & North Star | Alignment canvas preview | Previews what the downloadable canvas covers before export. | Quadrant cards mapped to mission, metrics, alignment, maturity. |
+| Responsible AI Governance | Policy-to-production swimlane | Traces policy clauses through controls, evidence, and escalation lanes. | Four-lane swimlane anchored to governance playbook bullets. |
+
 These expansions keep the cohesive taxonomy intact while broadening the curriculum into the strategic and human dimensions teams need to scale AI agents responsibly.
 
 ### 📥 Strategy Toolkits Library

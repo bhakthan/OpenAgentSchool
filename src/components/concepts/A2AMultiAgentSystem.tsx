@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Play, Pause, RotateCcw, Users, Database, Shield, GitCompare } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock } from './conceptStyles';
 
 interface AnimationStep {
   id: string;
@@ -487,7 +488,7 @@ const A2AMultiAgentSystem: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-lg p-4"
+              className={conceptSurfaceSoft('p-4 space-y-3')}
             >
               <div className="flex items-center gap-2 mb-2">
                 <Badge variant="outline">Step {currentStep + 1}</Badge>
@@ -496,23 +497,23 @@ const A2AMultiAgentSystem: React.FC = () => {
               <p className="text-lg text-muted-foreground mb-3">{currentStepData.description}</p>
               
               {currentStepData.message && (
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md mb-2">
+                <div className={conceptSurfaceSoft('p-3 border border-border/50')}>
                   <p className="text-base"><strong>Message:</strong> {currentStepData.message}</p>
                 </div>
               )}
-              
+
               {currentStepData.techStack && (
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md mb-2">
+                <div className={conceptSurfaceSoft('p-3 border border-border/50')}>
                   <p className="text-base"><strong>Technology:</strong> {currentStepData.techStack}</p>
                 </div>
               )}
-              
+
               {currentStepData.securityNote && (
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md">
-                  <p className="text-base flex items-center gap-2">
-                    <Shield className="w-4 h-4" />
-                    <strong>Security:</strong> {currentStepData.securityNote}
-                  </p>
+                <div className={conceptSurfaceSoft('p-3 border border-red-200/60 dark:border-red-400/40')}>
+                  <div className="flex items-center gap-2 text-base">
+                    <Shield className="w-4 h-4 text-red-500" />
+                    <span><strong>Security:</strong> {currentStepData.securityNote}</span>
+                  </div>
                 </div>
               )}
             </motion.div>
@@ -940,11 +941,9 @@ const A2AMultiAgentSystem: React.FC = () => {
                     <p className="text-lg text-muted-foreground">
                       A Python library for building the internal logic of an agent. It provides a modular framework where complex tasks are broken down into smaller, reusable, asynchronous components called Processors.
                     </p>
-                    <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md">
+                    <div className={conceptSurfaceSoft('p-3 space-y-2')}>
                       <p className="text-base font-medium">Example Pipeline:</p>
-                      <code className="text-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
-                        TopicGenerator → TopicResearcher → Synthesizer
-                      </code>
+                      <div className={conceptCodeBlock('text-lg')}>TopicGenerator → TopicResearcher → Synthesizer</div>
                     </div>
                   </div>
 
@@ -956,11 +955,9 @@ const A2AMultiAgentSystem: React.FC = () => {
                     <p className="text-lg text-muted-foreground">
                       The communication and task management layer that allows agents to interact with each other and external systems in a standardized way. It defines protocols centered around task lifecycles.
                     </p>
-                    <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md">
+                    <div className={conceptSurfaceSoft('p-3 space-y-2')}>
                       <p className="text-base font-medium">Task States:</p>
-                      <code className="text-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
-                        submitted → working → completed
-                      </code>
+                      <div className={conceptCodeBlock('text-lg')}>submitted → working → completed</div>
                     </div>
                   </div>
 
@@ -972,11 +969,9 @@ const A2AMultiAgentSystem: React.FC = () => {
                     <p className="text-lg text-muted-foreground">
                       A specialized protocol for AI models to securely discover and use external tools. It standardizes how agents authenticate with and call tools from secure providers.
                     </p>
-                    <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-md">
+                    <div className={conceptSurfaceSoft('p-3 space-y-2')}>
                       <p className="text-base font-medium">Security Features:</p>
-                      <code className="text-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
-                        OAuth 2.0 + PKCE + Session Encryption
-                      </code>
+                      <div className={conceptCodeBlock('text-lg')}>OAuth 2.0 + PKCE + Session Encryption</div>
                     </div>
                   </div>
                 </div>

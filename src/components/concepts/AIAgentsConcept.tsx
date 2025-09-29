@@ -8,6 +8,7 @@ import ChatbotToAgentTransition from "./ChatbotToAgentTransition"
 import ReferenceSection from "@/components/references/ReferenceSection"
 import { Brain, Users, Code, Lightbulb } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
+import { conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles";
 
 interface AIAgentsConceptProps {
   onMarkComplete?: () => void
@@ -39,7 +40,8 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
                 to queries, AI agents can plan, execute complex tasks, and adapt their behavior based on outcomes.
               </p>
               
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
+              <div className={conceptSurfaceSoft("p-4 space-y-2")}
+              >
                 <h4 className="font-semibold mb-3">Key Characteristics:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -217,8 +219,8 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
               <CardTitle>Basic Agent Implementation</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
-                <pre className="text-lg">
+              <pre className={conceptCodeBlock("text-base lg:text-lg p-4")}
+              >
 {`// Example: Simple AI Agent with Azure OpenAI
 import { OpenAI } from 'openai';
 
@@ -245,8 +247,7 @@ class SimpleAgent {
     // This is where tool usage would happen
   }
 }`}
-                </pre>
-              </div>
+              </pre>
             </CardContent>
           </Card>
         </div>
@@ -302,7 +303,7 @@ class SimpleAgent {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className={conceptSurfaceSoft("p-4 space-y-2 border border-green-200/60 dark:border-green-500/40")}>
                   <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
                     ✅ Do's
                   </h4>
@@ -313,7 +314,7 @@ class SimpleAgent {
                     <li>• Monitor agent performance and costs</li>
                   </ul>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
+                <div className={conceptSurfaceSoft("p-4 space-y-2 border border-red-200/60 dark:border-red-500/40")}>
                   <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
                     ❌ Don'ts
                   </h4>

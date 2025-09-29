@@ -1,6 +1,5 @@
 import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { 
@@ -15,6 +14,7 @@ import {
 } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EthicsVisualization } from "@/components/visualization/EthicsVisualization";
+import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles";
 
 interface AgentEthicsConceptProps {
   onMarkComplete?: () => void
@@ -48,7 +48,8 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">⚖️ Fairness</h4>
                   <p className="text-lg text-muted-foreground mb-2">
                     Ensuring AI agents treat all users equitably without discrimination
@@ -59,7 +60,8 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
                     <li>• Inclusive design practices</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🔍 Transparency</h4>
                   <p className="text-lg text-muted-foreground mb-2">
                     Making AI decision-making processes understandable and auditable
@@ -70,7 +72,8 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
                     <li>• Clear communication to users</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">📋 Accountability</h4>
                   <p className="text-lg text-muted-foreground mb-2">
                     Clear responsibility chains for AI agent decisions and actions
@@ -81,7 +84,8 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
                     <li>• Error handling procedures</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🔒 Privacy</h4>
                   <p className="text-lg text-muted-foreground mb-2">
                     Protecting user data and maintaining confidentiality
@@ -94,7 +98,7 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
                 </div>
               </div>
 
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
+              <div className={conceptSurfaceSoft("p-4")}>
                 <h4 className="font-semibold mb-3">Implementation Framework:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -138,19 +142,22 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">📊 Statistical Parity</h4>
                   <p className="text-lg text-muted-foreground">
                     Equal positive prediction rates across groups
                   </p>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🎯 Equalized Odds</h4>
                   <p className="text-lg text-muted-foreground">
                     Equal true/false positive rates across groups
                   </p>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">⚖️ Calibration</h4>
                   <p className="text-lg text-muted-foreground">
                     Prediction probabilities reflect true outcomes
@@ -158,8 +165,8 @@ export default function AgentEthicsConcept({ onMarkComplete, onNavigateToNext }:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Bias detection implementation
+              <pre className={conceptCodeBlock("text-sm md:text-base leading-relaxed p-4")}
+              >{`# Bias detection implementation
 import pandas as pd
 import numpy as np
 from sklearn.metrics import confusion_matrix
@@ -215,7 +222,6 @@ class BiasDetector:
             }
         
         return report`}</pre>
-              </div>
             </CardContent>
           </Card>
         </div>
@@ -243,7 +249,8 @@ class BiasDetector:
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🇪🇺 EU AI Act</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Risk-based approach</li>
@@ -252,7 +259,8 @@ class BiasDetector:
                     <li>• Transparency obligations</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🔐 GDPR</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Data protection by design</li>
@@ -261,7 +269,8 @@ class BiasDetector:
                     <li>• Consent management</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🏥 Healthcare (HIPAA)</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Patient data protection</li>
@@ -270,7 +279,8 @@ class BiasDetector:
                     <li>• Breach notification</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}
+                >
                   <h4 className="font-semibold mb-2">🏦 Financial (SOX)</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Model governance</li>
@@ -281,7 +291,8 @@ class BiasDetector:
                 </div>
               </div>
 
-              <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
+              <div className={conceptSurfaceSoft("p-4")}
+              >
                 <h4 className="font-semibold mb-3">Compliance Implementation:</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
@@ -325,8 +336,7 @@ class BiasDetector:
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
-                  <h4 className="font-semibold mb-2">🛡️ Safety Measures</h4>
+                <div className={conceptSurface("p-4")}>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Robustness testing</li>
                     <li>• Adversarial defense</li>
@@ -334,7 +344,7 @@ class BiasDetector:
                     <li>• Safety constraints</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}>
                   <h4 className="font-semibold mb-2">👥 Human Oversight</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Human-in-the-loop</li>
@@ -352,7 +362,7 @@ class BiasDetector:
                     <li>• Counterfactual analysis</li>
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg">
+                <div className={conceptSurface("p-4")}>
                   <h4 className="font-semibold mb-2">📊 Governance</h4>
                   <ul className="text-lg text-muted-foreground space-y-1">
                     <li>• Ethics committees</li>
@@ -363,8 +373,8 @@ class BiasDetector:
                 </div>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                <pre className="text-lg text-gray-900 dark:text-gray-100">{`# Responsible AI implementation
+              <pre className={conceptCodeBlock("text-sm md:text-base leading-relaxed p-4")}
+              >{`# Responsible AI implementation
 class ResponsibleAIFramework:
     def __init__(self):
         self.safety_constraints = []
@@ -408,7 +418,6 @@ class ResponsibleAIFramework:
             'risk_score': self.calculate_risk_score(decision)
         }
         self.audit_log.append(audit_entry)`}</pre>
-              </div>
             </CardContent>
           </Card>
         </div>

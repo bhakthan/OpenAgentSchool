@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { useTheme } from '@/components/theme/ThemeProvider';
 import { Play, Pause, ArrowClockwise, Gear } from '@phosphor-icons/react';
+import { conceptSurfaceSoft, conceptPill } from "./conceptStyles";
 
 interface Message {
   id: string;
@@ -292,9 +292,7 @@ const AgentCommunicationPlayground: React.FC = () => {
               <span className="text-sm text-muted-foreground">
                 Step: {currentStep} / {currentScenario.steps.length}
               </span>
-              <Badge variant="outline">
-                {currentScenario.description}
-              </Badge>
+              <span className={conceptPill("text-xs")}>{currentScenario.description}</span>
             </div>
           </div>
 
@@ -441,7 +439,8 @@ const AgentCommunicationPlayground: React.FC = () => {
 
           {/* Step Description */}
           {currentStep > 0 && currentStep <= currentScenario.steps.length && (
-            <div className="mt-4 p-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md">
+            <div className={conceptSurfaceSoft("mt-4 p-3")}
+            >
               <p className="text-sm font-medium">
                 Step {currentStep}: {currentScenario.steps[currentStep - 1].description}
               </p>
@@ -449,7 +448,8 @@ const AgentCommunicationPlayground: React.FC = () => {
           )}
 
           {/* Legend */}
-          <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md">
+          <div className={conceptSurfaceSoft("mt-4 p-4")}
+          >
             <h4 className="font-medium mb-2">Legend</h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
               <div className="flex items-center gap-2">

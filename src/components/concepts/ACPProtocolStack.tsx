@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useTheme } from '@/components/theme/ThemeProvider';
+import { conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles";
 
 const ACPProtocolStack: React.FC = () => {
   const { theme, isDarkMode } = useTheme();
@@ -465,9 +466,10 @@ const ACPProtocolStack: React.FC = () => {
           </div>
 
           {/* ACP Message Structure */}
-          <div className="p-4 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg">
-            <h4 className="font-medium mb-3">Sample ACP Message Structure</h4>
-            <pre className="text-xs bg-background p-3 rounded border overflow-x-auto">
+          <div className={conceptSurfaceSoft("p-4 space-y-3")}>
+            <h4 className="font-medium">Sample ACP Message Structure</h4>
+            <pre className={conceptCodeBlock("text-xs p-3 overflow-x-auto")}
+            >
 {`{
   "acp_version": "1.0",
   "message_type": "request",

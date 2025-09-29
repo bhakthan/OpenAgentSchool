@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { 
   ArrowRight, 
@@ -14,17 +13,91 @@ import {
   Trophy,
   Warning,
   Info,
-  TrendUp
+  TrendUp,
+  LineSegments
 } from "@phosphor-icons/react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import ReferenceSection from "@/components/references/ReferenceSection";
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
+import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock, conceptPill } from "./conceptStyles";
 
 interface AgentEvaluationMethodologiesProps {
   onMarkComplete?: () => void;
   onNavigateToNext?: (nextConceptId: string) => void;
 }
+
+const EvaluationDashboardVisual = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        <LineSegments className="w-5 h-5 text-primary" />
+        Multi-Metric Evaluation Dashboard
+      </CardTitle>
+      <CardDescription>
+        Map evaluation signals across accuracy, robustness, efficiency, and quality in one glance
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <div className="grid lg:grid-cols-[1.5fr_1fr] gap-6">
+  <div className={conceptSurface("rounded-2xl p-5 shadow-sm")}
+  >
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <div className="text-sm uppercase tracking-wide text-muted-foreground">Score Composition</div>
+              <div className="text-2xl font-bold text-foreground">Composite Health 0.91</div>
+            </div>
+            <div className="text-xs text-muted-foreground">Weighted by business priority</div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            {[
+              { label: "Accuracy", value: "0.92", detail: "Exact match, semantic, factual", badgeBg: "bg-blue-100 dark:bg-blue-900/50", badgeText: "text-blue-700 dark:text-blue-300" },
+              { label: "Robustness", value: "0.88", detail: "Stress + adversarial suites", badgeBg: "bg-emerald-100 dark:bg-emerald-900/50", badgeText: "text-emerald-700 dark:text-emerald-300" },
+              { label: "Efficiency", value: "0.85", detail: "Latency, cost, footprint", badgeBg: "bg-amber-100 dark:bg-amber-900/50", badgeText: "text-amber-700 dark:text-amber-300" },
+              { label: "Quality", value: "0.96", detail: "LLM judge + UX rubric", badgeBg: "bg-purple-100 dark:bg-purple-900/50", badgeText: "text-purple-700 dark:text-purple-300" }
+            ].map(metric => (
+              <div key={metric.label} className="rounded-xl border border-dashed border-muted p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-semibold text-foreground">{metric.label}</span>
+                  <span
+                    className={conceptPill(`bg-background/80 text-foreground ring-inset ${
+                      metric.label === "Accuracy"
+                        ? "ring-blue-500/50 text-blue-600 dark:text-blue-300"
+                        : metric.label === "Robustness"
+                        ? "ring-emerald-500/50 text-emerald-600 dark:text-emerald-300"
+                        : metric.label === "Efficiency"
+                        ? "ring-amber-500/50 text-amber-600 dark:text-amber-300"
+                        : "ring-purple-500/50 text-purple-600 dark:text-purple-300"
+                    }`)}
+                  >
+                    {metric.value}
+                  </span>
+                </div>
+                <div className="text-xs text-muted-foreground">{metric.detail}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={conceptSurfaceSoft("rounded-2xl p-4 text-sm space-y-3")}
+        >
+          <div className="font-semibold text-foreground flex items-center gap-2">
+            <Warning className="w-4 h-4 text-amber-500" />
+            Alerts & Escalations
+          </div>
+          <div className="space-y-2 text-muted-foreground">
+            <p><span className="font-semibold text-foreground">Drift Watch:</span> Accuracy rolling average dipped 3% week-over-week → trigger dataset refresh playbook.</p>
+            <p><span className="font-semibold text-foreground">Safety Blockers:</span> Robustness &lt; 0.85 pauses production deploys until adversarial tests pass.</p>
+            <p><span className="font-semibold text-foreground">Efficiency Budget:</span> Auto-scale reasoning effort when cost per success exceeds $0.12.</p>
+          </div>
+          <div className="rounded-lg border border-dashed border-muted bg-background p-3">
+            <div className="font-semibold text-foreground text-xs uppercase tracking-wide mb-1">Next experiment</div>
+            <p className="text-xs text-muted-foreground">Blend human spot checks with LLM-as-judge for quality spikes; sample 5% of flows with human QA for calibration.</p>
+          </div>
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+)
 
 const AgentEvaluationMethodologies: React.FC<AgentEvaluationMethodologiesProps> = ({
   onMarkComplete,
@@ -56,6 +129,8 @@ const AgentEvaluationMethodologies: React.FC<AgentEvaluationMethodologiesProps> 
         </p>
       </div>
 
+  <EvaluationDashboardVisual />
+
       {/* Evaluation Framework Overview */}
       <Card>
         <CardHeader>
@@ -69,9 +144,16 @@ const AgentEvaluationMethodologies: React.FC<AgentEvaluationMethodologiesProps> 
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-              evaluationType === 'quantitative' ? 'bg-gray-50 dark:bg-gray-800 border-blue-300' : ''
-            }`} onClick={() => setEvaluationType('quantitative')}>
+            <div
+              className={conceptSurface(
+                `cursor-pointer transition-colors ${
+                  evaluationType === 'quantitative'
+                    ? 'ring-2 ring-blue-500/40 border-blue-500/50 bg-blue-500/10'
+                    : 'hover:bg-muted/80'
+                }`
+              )}
+              onClick={() => setEvaluationType('quantitative')}
+            >
               <div className="flex items-center gap-2 mb-2">
                 <ChartBar className="w-5 h-5 text-blue-600" />
                 <h4 className="font-semibold">Quantitative Metrics</h4>
@@ -88,9 +170,16 @@ const AgentEvaluationMethodologies: React.FC<AgentEvaluationMethodologiesProps> 
               </ul>
             </div>
 
-            <div className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-              evaluationType === 'qualitative' ? 'bg-gray-50 dark:bg-gray-800 border-green-300' : ''
-            }`} onClick={() => setEvaluationType('qualitative')}>
+            <div
+              className={conceptSurface(
+                `cursor-pointer transition-colors ${
+                  evaluationType === 'qualitative'
+                    ? 'ring-2 ring-emerald-500/40 border-emerald-500/50 bg-emerald-500/10'
+                    : 'hover:bg-muted/80'
+                }`
+              )}
+              onClick={() => setEvaluationType('qualitative')}
+            >
               <div className="flex items-center gap-2 mb-2">
                 <ClipboardText className="w-5 h-5 text-green-600" />
                 <h4 className="font-semibold">Qualitative Assessment</h4>
@@ -107,9 +196,16 @@ const AgentEvaluationMethodologies: React.FC<AgentEvaluationMethodologiesProps> 
               </ul>
             </div>
 
-            <div className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-              evaluationType === 'hybrid' ? 'bg-gray-50 dark:bg-gray-800 border-purple-300' : ''
-            }`} onClick={() => setEvaluationType('hybrid')}>
+            <div
+              className={conceptSurface(
+                `cursor-pointer transition-colors ${
+                  evaluationType === 'hybrid'
+                    ? 'ring-2 ring-purple-500/40 border-purple-500/50 bg-purple-500/10'
+                    : 'hover:bg-muted/80'
+                }`
+              )}
+              onClick={() => setEvaluationType('hybrid')}
+            >
               <div className="flex items-center gap-2 mb-2">
                 <Trophy className="w-5 h-5 text-purple-600" />
                 <h4 className="font-semibold">Hybrid Approach</h4>
@@ -177,7 +273,7 @@ const AgentEvaluationMethodologies: React.FC<AgentEvaluationMethodologiesProps> 
               <div className="grid lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h4 className="font-semibold text-blue-600 dark:text-blue-400">Accuracy Measurement</h4>
-                  <code className="text-sm block bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock()}>
 {`# Accuracy Evaluation Framework
 def evaluate_accuracy(responses, ground_truth):
     """
@@ -233,7 +329,8 @@ def evaluate_accuracy(responses, ground_truth):
                       </div>
                     </div>
                   </div>
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded">
+                  <div className={conceptSurfaceSoft("p-3")}
+                  >
                     <div className="text-lg font-semibold text-blue-700 dark:text-blue-400">Overall Accuracy: 91%</div>
                     <div className="text-sm text-blue-600 dark:text-blue-400">Based on weighted scoring across all dimensions</div>
                   </div>
@@ -245,7 +342,7 @@ def evaluate_accuracy(responses, ground_truth):
               <div className="grid lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h4 className="font-semibold text-green-600 dark:text-green-400">Robustness Testing</h4>
-                  <code className="text-sm block bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock()}>
 {`# Robustness Evaluation Protocol
 def evaluate_robustness(agent, test_scenarios):
     """
@@ -268,20 +365,24 @@ def evaluate_robustness(agent, test_scenarios):
                 <div className="space-y-4">
                   <h4 className="font-semibold">Robustness Scenarios</h4>
                   <div className="space-y-3">
-                    <div className="p-3 border rounded">
-                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Noisy Input</Badge>
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
+                      <span className={conceptPill("mb-1 text-[0.7rem] ring-border/70")}>Noisy Input</span>
                       <p className="text-sm">Performance with corrupted or incomplete data</p>
                     </div>
-                    <div className="p-3 border rounded">
-                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Context Shifts</Badge>
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
+                      <span className={conceptPill("mb-1 text-[0.7rem] ring-border/70")}>Context Shifts</span>
                       <p className="text-sm">Adaptation to changing requirements mid-task</p>
                     </div>
-                    <div className="p-3 border rounded">
-                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Edge Cases</Badge>
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
+                      <span className={conceptPill("mb-1 text-[0.7rem] ring-border/70")}>Edge Cases</span>
                       <p className="text-sm">Handling of boundary conditions and outliers</p>
                     </div>
-                    <div className="p-3 border rounded">
-                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Stress Testing</Badge>
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
+                      <span className={conceptPill("mb-1 text-[0.7rem] ring-border/70")}>Stress Testing</span>
                       <p className="text-sm">Performance under resource constraints</p>
                     </div>
                   </div>
@@ -293,7 +394,7 @@ def evaluate_robustness(agent, test_scenarios):
               <div className="grid lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h4 className="font-semibold text-purple-600 dark:text-purple-400">Efficiency Metrics</h4>
-                  <code className="text-sm block bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock()}>
 {`# Efficiency Evaluation Suite
 def evaluate_efficiency(agent_runs):
     """
@@ -322,18 +423,21 @@ def evaluate_efficiency(agent_runs):
                 <div className="space-y-4">
                   <h4 className="font-semibold">Performance Results</h4>
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div className="p-3 border rounded text-center">
+                    <div className={conceptSurfaceSoft("p-3 text-center")}
+                    >
                       <div className="text-2xl font-bold text-green-600">-84%</div>
                       <div className="text-sm text-muted-foreground">Memory Usage</div>
                       <div className="text-xs">3626KB → 577KB</div>
                     </div>
-                    <div className="p-3 border rounded text-center">
+                    <div className={conceptSurfaceSoft("p-3 text-center")}
+                    >
                       <div className="text-2xl font-bold text-blue-600">-12%</div>
                       <div className="text-sm text-muted-foreground">Response Time</div>
                       <div className="text-xs">7.9s → 7.0s</div>
                     </div>
                   </div>
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded">
+                  <div className={conceptSurfaceSoft("p-3")}
+                  >
                     <h5 className="font-semibold mb-2">Optimization Impact</h5>
                     <p className="text-sm">
                       Prompt optimization resulted in significant efficiency gains while 
@@ -348,7 +452,7 @@ def evaluate_efficiency(agent_runs):
               <div className="grid lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h4 className="font-semibold text-orange-600 dark:text-orange-400">Quality Assessment</h4>
-                  <code className="text-sm block bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock()}>
 {`# LLM-as-Judge Quality Evaluation
 def evaluate_quality_with_llm_judge(responses, criteria):
     """
@@ -380,28 +484,31 @@ def evaluate_quality_with_llm_judge(responses, criteria):
                 <div className="space-y-4">
                   <h4 className="font-semibold">Quality Dimensions</h4>
                   <div className="space-y-3">
-                    <div className="p-3 border rounded">
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">Code Quality</span>
-                        <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">4.90/5</Badge>
+                        <span className={conceptPill("ring-blue-500/50 text-blue-600 dark:text-blue-300")}>4.90/5</span>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Clean, maintainable, well-documented code
                       </p>
                     </div>
-                    <div className="p-3 border rounded">
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">Task Adherence</span>
-                        <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">4.73/5</Badge>
+                        <span className={conceptPill("ring-blue-500/50 text-blue-600 dark:text-blue-300")}>4.73/5</span>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Following instructions and meeting requirements
                       </p>
                     </div>
-                    <div className="p-3 border rounded">
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">Communication Clarity</span>
-                        <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">4.85/5</Badge>
+                        <span className={conceptPill("ring-blue-500/50 text-blue-600 dark:text-blue-300")}>4.85/5</span>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Clear explanations and user-friendly responses
@@ -448,28 +555,31 @@ def evaluate_quality_with_llm_judge(responses, criteria):
                 <div className="space-y-4">
                   <h4 className="font-semibold">Judge Model Selection</h4>
                   <div className="space-y-3">
-                    <div className="p-3 border rounded">
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">GPT-5</span>
-                        <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)] dark:text-[var(--badge-green-text)]">Recommended</Badge>
+                        <span className={conceptPill("ring-emerald-500/40 text-emerald-600 dark:text-emerald-300")}>Recommended</span>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Excellent reasoning and evaluation capabilities
                       </p>
                     </div>
-                    <div className="p-3 border rounded">
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">Claude-3.5</span>
-                        <Badge className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Alternative</Badge>
+                        <span className={conceptPill("ring-border/70 text-foreground/80")}>Alternative</span>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Strong analytical skills, good for complex evaluations
                       </p>
                     </div>
-                    <div className="p-3 border rounded">
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-medium">Specialized Models</span>
-                        <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Domain-Specific</Badge>
+                        <span className={conceptPill("ring-blue-500/40 text-blue-600 dark:text-blue-300")}>Domain-Specific</span>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         Fine-tuned models for specific evaluation tasks
@@ -480,7 +590,7 @@ def evaluate_quality_with_llm_judge(responses, criteria):
 
                 <div className="space-y-4">
                   <h4 className="font-semibold">Configuration Parameters</h4>
-                  <code className="text-sm block bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock()}>
 {`# LLM Judge Configuration
 judge_config = {
     "model": "gpt-5",
@@ -522,7 +632,7 @@ evaluation_settings = {
               <div className="grid lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h4 className="font-semibold">Financial QA Criteria</h4>
-                  <code className="text-sm block bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock()}>
 {`# FailSafeQA Evaluation Criteria
 evaluation_criteria = {
     "robustness": {
@@ -551,7 +661,7 @@ evaluation_criteria = {
 
                 <div className="space-y-4">
                   <h4 className="font-semibold">Coding Task Criteria</h4>
-                  <code className="text-sm block bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock()}>
 {`# Coding Evaluation Criteria
 coding_criteria = {
     "correctness": {
@@ -579,7 +689,8 @@ coding_criteria = {
                 </div>
               </div>
 
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg">
+              <div className={conceptSurfaceSoft("p-4")}
+              >
                 <h4 className="font-semibold text-yellow-700 dark:text-yellow-400 mb-2">
                   Criteria Design Best Practices
                 </h4>
@@ -609,7 +720,7 @@ coding_criteria = {
             <CardContent className="space-y-6">
               <div className="space-y-4">
                 <h4 className="font-semibold">Comprehensive Judge Prompt Template</h4>
-                <code className="text-sm block bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded whitespace-pre-wrap">
+                <code className={conceptCodeBlock()}>
 {`# LLM Judge Prompt Template
 system_prompt = '''
 You are an expert evaluator assessing AI agent responses for quality and adherence to requirements.
@@ -684,30 +795,36 @@ Please evaluate this response according to the criteria above.
                 <div className="space-y-4">
                   <h4 className="font-semibold">Reliability Measures</h4>
                   <div className="space-y-3">
-                    <div className="p-3 border rounded">
-                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Inter-Judge Agreement</Badge>
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
+                      <span className={conceptPill("mb-1 ring-border/70 text-foreground/80")}>Inter-Judge Agreement</span>
                       <p className="text-sm text-muted-foreground">
                         Measure consistency between multiple judges
                       </p>
-                      <code className="text-xs block mt-1 p-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded">
+                      <code className={conceptCodeBlock("text-xs mt-1 p-2")}
+                      >
                         Cohen's κ = 0.84 (substantial agreement)
                       </code>
                     </div>
-                    <div className="p-3 border rounded">
-                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Test-Retest Reliability</Badge>
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
+                      <span className={conceptPill("mb-1 ring-border/70 text-foreground/80")}>Test-Retest Reliability</span>
                       <p className="text-sm text-muted-foreground">
                         Consistency of same judge over time
                       </p>
-                      <code className="text-xs block mt-1 p-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded">
+                      <code className={conceptCodeBlock("text-xs mt-1 p-2")}
+                      >
                         Correlation = 0.91 (excellent reliability)
                       </code>
                     </div>
-                    <div className="p-3 border rounded">
-                      <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Internal Consistency</Badge>
+                    <div className={conceptSurfaceSoft("p-3")}
+                    >
+                      <span className={conceptPill("mb-1 ring-border/70 text-foreground/80")}>Internal Consistency</span>
                       <p className="text-sm text-muted-foreground">
                         Agreement across different criteria
                       </p>
-                      <code className="text-xs block mt-1 p-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded">
+                      <code className={conceptCodeBlock("text-xs mt-1 p-2")}
+                      >
                         Cronbach's α = 0.87 (good consistency)
                       </code>
                     </div>
@@ -716,7 +833,7 @@ Please evaluate this response according to the criteria above.
 
                 <div className="space-y-4">
                   <h4 className="font-semibold">Validation Strategies</h4>
-                  <code className="text-sm block bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded whitespace-pre-wrap">
+                  <code className={conceptCodeBlock()}>
 {`# Evaluation Validation Pipeline
 def validate_evaluation_results(evaluation_data):
     """
@@ -751,7 +868,8 @@ def validate_evaluation_results(evaluation_data):
                 </div>
               </div>
 
-              <div className="p-4 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg">
+              <div className={conceptSurfaceSoft("p-4")}
+              >
                 <h4 className="font-semibold text-green-700 dark:text-green-400 mb-2">
                   Validation Results Summary
                 </h4>
