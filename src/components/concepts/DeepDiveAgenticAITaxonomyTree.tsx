@@ -226,10 +226,10 @@ const taxonomy = {
 } as const
 
 // Helper: collapse all children of a node
-function collapse(d: any) {
+function collapseNode(d: any) {
   if (d.children) {
     d._children = d.children
-    d._children.forEach(collapse)
+    d._children.forEach(collapseNode)
     d.children = null
   }
 }
@@ -245,7 +245,6 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 800, autoFitOnM
   const rootRef = useRef<any>(null)
   const matchedNamesRef = useRef<Set<string>>(new Set())
   const [query, setQuery] = useState("")
-  const INITIAL_EXPAND_DEPTH = 1 // 0 = show only root on load
 
   useEffect(() => {
     const container = containerRef.current
@@ -311,7 +310,9 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 800, autoFitOnM
     // Collapse all but root children for nicer first view
     root.children?.forEach((d: any) => {
       // expand one level by default
-      d.children && d.children.forEach((child: any) => collapse(child))
+      if (d.children) {
+        d.children.forEach((child: any) => collapseNode(child))
+      }
     })
   rootRef.current = root
 
@@ -384,7 +385,7 @@ export default function DeepDiveAgenticAITaxonomyTree({ height = 800, autoFitOnM
         .attr('stroke-width', (d: any) => (matchedNamesRef.current.has(String(d.data.name).toLowerCase()) ? 2 : 1.2))
 
       // EXIT
-      const nodeExit = node
+      node
         .exit()
         .transition()
         .duration(400)

@@ -387,7 +387,11 @@ export default function AISkillsExplorer() {
   const togglePerspective = (id: string) => {
     setActivePerspectives(prev => {
       const next = new Set(prev)
-      next.has(id) ? next.delete(id) : next.add(id)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
       return next
     })
   }

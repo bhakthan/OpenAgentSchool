@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react';
 // Simple box component reused across visuals
 const Box: React.FC<{label: string; tone?: 'input'|'model'|'data'|'output'|'improved'|'hint'; small?: boolean}> = ({label, tone='data', small}) => {
   const color: Record<string,string> = {
-    input: 'bg-green-50 dark:bg-green-900/30 border-green-400/60 text-green-900 dark:text-green-100',
-    model: 'bg-sky-50 dark:bg-sky-900/30 border-sky-400/60 text-sky-900 dark:text-sky-100',
-    data: 'bg-indigo-50 dark:bg-indigo-900/30 border-indigo-400/60 text-indigo-900 dark:text-indigo-100',
-    output: 'bg-gray-50 dark:bg-gray-800 border-gray-400/60 text-gray-900 dark:text-gray-100',
-    improved: 'bg-amber-50 dark:bg-amber-900/40 border-amber-400/70 text-amber-900 dark:text-amber-100',
-    hint: 'bg-muted/40 border-muted-foreground/20 text-muted-foreground'
+    input: 'bg-card text-card-foreground border-border/70 dark:border-border/50',
+    model: 'bg-card text-card-foreground border-sky-400/60 dark:border-sky-300/60 shadow-[0_0_0_1px_rgba(56,189,248,0.12)]',
+    data: 'bg-card text-card-foreground border-indigo-400/60 dark:border-indigo-300/60 shadow-[0_0_0_1px_rgba(99,102,241,0.12)]',
+    output: 'bg-card text-card-foreground border-border/70 dark:border-border/50 shadow-[0_0_0_1px_rgba(100,116,139,0.12)]',
+    improved: 'bg-card text-card-foreground border-amber-400/60 dark:border-amber-300/60 shadow-[0_8px_16px_-12px_rgba(251,191,36,0.35)]',
+    hint: 'bg-muted text-muted-foreground border-border/40'
   };
   return (
-    <div className={`px-3 py-2 rounded-md border text-[11px] md:text-sm font-medium shadow-sm tracking-tight ${color[tone]} ${small?'opacity-90':''}`}>{label}</div>
+    <div className={`px-3 py-2 rounded-md border text-[11px] md:text-sm font-medium shadow-sm tracking-tight transition-colors ${color[tone]} ${small?'opacity-90':''}`}>{label}</div>
   );
 };
 

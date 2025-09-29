@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 const Pill: React.FC<{label:string; tone?:'raw'|'clean'|'split'|'risk'|'pref'|'reward'|'final'; small?:boolean}> = ({label, tone='raw', small}) => {
   const color: Record<string,string> = {
-    raw: 'bg-gray-50 dark:bg-gray-800 border-gray-400/50 text-gray-800 dark:text-gray-100',
-    clean: 'bg-indigo-50 dark:bg-indigo-900/40 border-indigo-400/60 text-indigo-900 dark:text-indigo-100',
-    split: 'bg-sky-50 dark:bg-sky-900/40 border-sky-400/60 text-sky-900 dark:text-sky-100',
-    risk: 'bg-rose-50 dark:bg-rose-900/40 border-rose-400/60 text-rose-900 dark:text-rose-100',
-    pref: 'bg-slate-50 dark:bg-slate-800 border-slate-400/60 text-slate-900 dark:text-slate-100',
-    reward: 'bg-yellow-50 dark:bg-yellow-900/40 border-yellow-400/60 text-yellow-900 dark:text-yellow-100',
-    final: 'bg-emerald-50 dark:bg-emerald-900/40 border-emerald-400/60 text-emerald-900 dark:text-emerald-100'
+    raw: 'bg-card text-card-foreground border-border/70 dark:border-border/50',
+    clean: 'bg-card text-card-foreground border-sky-400/60 dark:border-sky-300/60 shadow-[0_0_0_1px_rgba(56,189,248,0.15)]',
+    split: 'bg-card text-card-foreground border-cyan-400/60 dark:border-cyan-300/60 shadow-[0_0_0_1px_rgba(34,211,238,0.12)]',
+    risk: 'bg-card text-card-foreground border-rose-400/60 dark:border-rose-300/60 shadow-[0_0_0_1px_rgba(244,63,94,0.12)]',
+    pref: 'bg-card text-card-foreground border-amber-400/60 dark:border-amber-300/60 shadow-[0_0_0_1px_rgba(251,191,36,0.16)]',
+    reward: 'bg-card text-card-foreground border-emerald-400/60 dark:border-emerald-300/60 shadow-[0_0_0_1px_rgba(16,185,129,0.14)]',
+    final: 'bg-card text-card-foreground border-primary/60 shadow-[0_8px_16px_-12px_rgba(16,163,127,0.35)]'
   };
-  return <div className={`px-3 py-2 rounded-md border text-[11px] md:text-sm font-medium tracking-tight shadow-sm ${color[tone]} ${small?'opacity-90':''}`}>{label}</div>;
+  return <div className={`px-3 py-2 rounded-md border text-[11px] md:text-sm font-medium tracking-tight shadow-sm transition-colors ${color[tone]} ${small?'opacity-90':''}`}>{label}</div>;
 };
 
 // Arrow components (kept lightweight to differentiate possible future styling per mode)

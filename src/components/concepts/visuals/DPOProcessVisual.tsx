@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 const Box: React.FC<{label: string; tone?: 'input'|'bad'|'good'|'arrow'|'model'|'better'; small?: boolean}> = ({label, tone='input', small}) => {
   const color: Record<string,string> = {
-    input: 'bg-green-50 dark:bg-green-900/30 border-green-400/60 text-green-900 dark:text-green-100',
-    bad: 'bg-rose-50 dark:bg-rose-900/30 border-rose-400/60 text-rose-900 dark:text-rose-100',
-    good: 'bg-slate-50 dark:bg-slate-800 border-slate-400/60 text-slate-900 dark:text-slate-100',
-    model: 'bg-sky-50 dark:bg-sky-900/30 border-sky-400/60 text-sky-900 dark:text-sky-100',
-    better: 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-400/60 text-emerald-900 dark:text-emerald-100',
+    input: 'bg-card text-card-foreground border-border/70 dark:border-border/50',
+    bad: 'bg-card text-card-foreground border-rose-400/60 dark:border-rose-300/60 shadow-[0_0_0_1px_rgba(244,63,94,0.12)]',
+    good: 'bg-card text-card-foreground border-slate-400/60 dark:border-slate-500/60 shadow-[0_0_0_1px_rgba(148,163,184,0.14)]',
+    model: 'bg-card text-card-foreground border-sky-400/60 dark:border-sky-300/60 shadow-[0_0_0_1px_rgba(56,189,248,0.12)]',
+    better: 'bg-card text-card-foreground border-emerald-400/60 shadow-[0_8px_16px_-12px_rgba(16,163,127,0.35)]',
     arrow: 'bg-transparent border-transparent'
   };
-  return <div className={`px-3 py-2 rounded-md border text-[11px] md:text-sm font-medium shadow-sm tracking-tight ${color[tone]} ${small?'opacity-90':''}`}>{label}</div>;
+  return <div className={`px-3 py-2 rounded-md border text-[11px] md:text-sm font-medium shadow-sm tracking-tight transition-colors ${color[tone]} ${small?'opacity-90':''}`}>{label}</div>;
 };
 
 /**

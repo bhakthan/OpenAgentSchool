@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect, memo } from 'react'
+import React, { useState, useCallback, useRef, useEffect, memo, useMemo } from 'react'
 import { 
   Node, 
   Edge,
@@ -169,39 +169,22 @@ const messageTemplates = {
 };
 
 const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
-  // Add null checks for patternData
-  if (!patternData) {
-    console.error("PatternVisualizer: patternData is null or undefined");
-    return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-muted-foreground">No pattern data available</p>
-      </div>
-    );
-  }
+  const validationError = useMemo(() => {
+    if (!patternData) {
+      return 'No pattern data available';
+    }
+    if (!Array.isArray(patternData.nodes) || !Array.isArray(patternData.edges)) {
+      return 'Invalid pattern data format';
+    }
+    return null;
+  }, [patternData]);
 
-  if (!patternData.nodes || !patternData.edges) {
-    console.error("PatternVisualizer: patternData structure is invalid", patternData);
-    return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-muted-foreground">Invalid pattern data structure</p>
-      </div>
-    );
-  }
+  const hasValidData = !validationError;
+  const fallbackNodes = useMemo(() => (hasValidData ? patternData!.nodes : []), [hasValidData, patternData]);
+  const fallbackEdges = useMemo(() => (hasValidData ? patternData!.edges : []), [hasValidData, patternData]);
 
-  if (!Array.isArray(patternData.nodes) || !Array.isArray(patternData.edges)) {
-    console.error("PatternVisualizer: nodes or edges are not arrays", { 
-      nodes: patternData.nodes, 
-      edges: patternData.edges 
-    });
-    return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-muted-foreground">Invalid pattern data format</p>
-      </div>
-    );
-  }
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(patternData.nodes)
-  const [edges, setEdges, onEdgesChange] = useEdgesState(patternData.edges)
+  const [nodes, setNodes, onNodesChange] = useNodesState(fallbackNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(fallbackEdges)
   const [dataFlows, setDataFlows] = useState<DataFlowMessage[]>([])
   const [isAnimating, setIsAnimating] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
@@ -218,6 +201,7 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
   const simulationCleanupRef = useRef<(() => void) | null>(null)
   const stepQueueRef = useRef<Array<() => void>>([])
   // Remove useReactFlow() hook as it's not needed here and causes provider issues
+  const { theme } = useTheme();
   
   // Use custom flow container hook to better handle resizing
   const { containerRef, resetFlow } = useStableFlowContainer({
@@ -225,15 +209,15 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
     stabilizationDelay: 300
   });
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  
-  // Reset flow and nodes when pattern changes
-  useEffect(() => {
-    resetVisualization();
-    // Make sure isAnimating is reset when pattern changes
-    setIsAnimating(false);
-    setDataFlows([]);
-  }, [patternData.id]);
 
+  useEffect(() => {
+    setNodes(fallbackNodes)
+  }, [fallbackNodes, setNodes])
+
+  useEffect(() => {
+    setEdges(fallbackEdges)
+  }, [fallbackEdges, setEdges])
+  
   // Speed factor effect
   useEffect(() => {
     const factors = {
@@ -284,7 +268,6 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
     stepQueueRef.current = [];
     
     // Reset all nodes (remove active state and status)
-    const { theme } = useTheme();
     setNodes(currentNodes => {
       return processNodes(
         currentNodes.map(node => ({
@@ -300,18 +283,24 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
     });
     
     // Reset edges (remove animation)
-    setEdges(patternData.edges.map(edge => ({
+    setEdges(fallbackEdges.map(edge => ({
       ...edge,
       animated: false
     })));
-  }, [patternData.edges, setNodes, setEdges]);
+  }, [fallbackEdges, setNodes, setEdges, theme]);
+
+  useEffect(() => {
+    resetVisualization();
+    setIsAnimating(false);
+    setDataFlows([]);
+  }, [resetVisualization]);
   
   // Reset node layout to original positions
   const resetLayout = useCallback(() => {
     // Clone original pattern nodes to avoid mutation
-    const originalNodes = JSON.parse(JSON.stringify(patternData.nodes));
+    const originalNodes = JSON.parse(JSON.stringify(fallbackNodes));
     
-    setNodes(originalNodes.map(node => ({
+    setNodes(originalNodes.map((node: any) => ({
       ...node,
       data: {
         ...node.data,
@@ -326,7 +315,7 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
     //     flowInstanceRef.current?.fitView({ duration: 800, padding: 0.2 });
     //   }, 100);
     // }
-  }, [patternData.nodes, setNodes]);
+  }, [fallbackNodes, setNodes]);
   
   const getEdgePoints = useMemoizedCallback((edgeId: string) => {
     const edge = edges.find(e => e.id === edgeId);

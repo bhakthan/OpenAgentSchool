@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 const Box: React.FC<{label: string; tone?: 'input'|'cot'|'output'|'reward'|'model'|'better'|'hint'; small?: boolean}> = ({label, tone='output', small}) => {
   const color: Record<string,string> = {
-    input: 'bg-green-50 dark:bg-green-900/30 border-green-400/60 text-green-900 dark:text-green-100',
-    cot: 'bg-amber-50 dark:bg-amber-900/40 border-amber-400/60 text-amber-900 dark:text-amber-100',
-    output: 'bg-gray-50 dark:bg-gray-800 border-gray-400/60 text-gray-900 dark:text-gray-100',
-    reward: 'bg-yellow-50 dark:bg-yellow-900/40 border-yellow-400/60 text-yellow-900 dark:text-yellow-100',
-    model: 'bg-sky-50 dark:bg-sky-900/30 border-sky-400/60 text-sky-900 dark:text-sky-100',
-    better: 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-400/60 text-emerald-900 dark:text-emerald-100',
-    hint: 'bg-muted/40 border-muted-foreground/20 text-muted-foreground'
+    input: 'bg-card text-card-foreground border-border/70 dark:border-border/50',
+    cot: 'bg-card text-card-foreground border-amber-400/60 dark:border-amber-300/60 shadow-[0_0_0_1px_rgba(251,191,36,0.12)]',
+    output: 'bg-card text-card-foreground border-border/70 dark:border-border/50 shadow-[0_0_0_1px_rgba(148,163,184,0.12)]',
+    reward: 'bg-card text-card-foreground border-yellow-400/60 dark:border-yellow-300/60 shadow-[0_0_0_1px_rgba(250,204,21,0.14)]',
+    model: 'bg-card text-card-foreground border-sky-400/60 dark:border-sky-300/60 shadow-[0_0_0_1px_rgba(56,189,248,0.12)]',
+    better: 'bg-card text-card-foreground border-emerald-400/60 shadow-[0_8px_16px_-12px_rgba(16,163,127,0.35)]',
+    hint: 'bg-muted text-muted-foreground border-border/40'
   };
-  return <div className={`px-3 py-2 rounded-md border text-[11px] md:text-sm font-medium shadow-sm tracking-tight ${color[tone]} ${small?'opacity-90':''}`}>{label}</div>;
+  return <div className={`px-3 py-2 rounded-md border text-[11px] md:text-sm font-medium shadow-sm tracking-tight transition-colors ${color[tone]} ${small?'opacity-90':''}`}>{label}</div>;
 };
 
 /**
