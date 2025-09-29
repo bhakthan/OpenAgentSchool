@@ -15,22 +15,30 @@ export const CORE_CONCEPT_IDS = [
   'agent-ethics',
   'ai-agents',
   'ai-safety-governance',
+  'program-setup-north-star',
+  'responsible-ai-governance',
   'a2a-communication',
   'mcp',
   'flow-visualization',
   'agent-evaluation',
+  'strategy-portfolio-management',
   'acp',
   'mcp-a2a-integration',
   'data-visualization',
+  'data-knowledge-operations',
   'agent-deployment',
   'agent-learning',
   'agent-integration',
   'fine-tuning',
-  // Newly elevated concept (was only in skills modules):
+  'agentic-commerce-ap2',
+  // Newly elevated initiatives and operations pillars
   'product-management',
-  // Operational excellence & reliability perspective (added to surface study scenarios)
   'agent-ops',
-  'agentic-commerce-ap2'
+  'agentic-robotics-integration',
+  'architecture-platform-operations',
+  'experimentation-continuous-improvement',
+  'ecosystem-partnerships',
+  'organizational-enablement'
 ] as const;
 
 export type CoreConceptId = typeof CORE_CONCEPT_IDS[number];

@@ -1,0 +1,16 @@
+Adaptive Lab Technician Pattern Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Picture a hospital lab that has to process dozens of patient samples every hour. Today, a human technician must baby-sit each instrument, make sure reagents are fresh, and pause the workflow when a reading looks off. The Adaptive Lab Technician pattern gives the lab a digital co-worker. You describe the assay you need, and the agent plans the entire run: it queues samples, moves robotic pipettors, double-checks temperatures, and pings the human only when something looks risky. Instead of staring at screens, scientists can focus on tricky cases while the agent keeps the bench humming.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+The Adaptive Lab Technician pattern instruments a wet-lab workflow with an always-on orchestration agent. Sensor feeds from LIMS, incubators, and reagent lockers stream into a digital twin of the lab. An LLM planner uses that context to schedule assay steps, route tasks to robotics controllers, and apply policy guardrails (for example ISO 17025 halt conditions). A quality guardian module continuously fuses telemetry; when it detects drift, it tunes parameters or raises an escalation packet for the scientist console. Every run is archived with provenance—plan version, sensor trace, and interventions—so compliance teams can audit the entire batch.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Implementation typically couples four subsystems. 1) A queue manager ingests LIMS orders, batches compatible assays, and materializes a JSON process graph. 2) A planning agent (Gemini or GPT-4 style) converts that graph into executable instructions using tool schemas for robotics, centrifuges, and analytics endpoints. 3) A telemetry fusion service samples high-frequency sensor streams, runs change-point detection, and emits structured anomalies. 4) A policy lattice enforces safety: when anomalies cross thresholds, it triggers the planner to replan with new parameters, issue a dry-run validation, or block execution pending human approval. The agent logs every decision in a tamper-evident ledger, enabling traceability across heavily regulated lab environments.

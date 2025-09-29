@@ -1,0 +1,16 @@
+Mobile Manipulator Steward Pattern Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Think about a service robot that rides elevators, opens doors, and delivers supplies across a hospital. Today it usually follows a pre-set route and panics if anything blocks the way. The Mobile Manipulator Steward pattern gives the robot a brainy companion. You describe the job—"bring fresh linens to ICU 3"—and the agent plans the safest path, monitors the robot’s sensors, and asks for human help only when needed. It keeps managers in the loop with live status instead of leaving them to guess where the robot disappeared.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Mobile Manipulator Steward blends navigation planning, dexterous manipulation, and mission oversight. A perception stack streams LiDAR, vision, and force-torque data into a state graph. An LLM-based steward reasons over that graph plus facility policies to sequence goals: navigate corridors, badge through doors, pick/place payloads, and verify drop-offs. It synchronizes with building systems (elevators, access control) and coordinates with human coworkers through messaging or voice prompts when the robot encounters an uncertainty it cannot safely resolve.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Deployments typically layer three controllers. A global mission planner represents the facility as a semantic map with affordances and risk scores. The steward agent translates high-level requests into ROS action goals, augmenting them with safety predicates (speed limits, no-go zones, fallback docking points). A supervisory loop watches telemetry for anomalies—slippage, unexpected obstacles, manipulator joint torque spikes—and triggers adaptive behaviors or escalations. Integration with CMMS/WMS systems closes the loop, logging completed missions, auto-generating maintenance tickets, and training future policies from the steward’s intervention history.

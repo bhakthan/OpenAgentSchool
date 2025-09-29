@@ -46,6 +46,7 @@ import { useMemoizedCallback } from '@/lib/utils'
 import { useTheme } from '@/components/theme/ThemeProvider'
 import { useStableFlowContainer } from '@/lib/utils/flows/StableFlowUtils'
 import { fixReactFlowRendering } from '@/lib/utils/flows/visualizationFix'
+import { getPatternFlowPrompt } from '@/lib/utils/patternPrompts'
 
 /**
  * PatternVisualizer - Standard mode visualizer for agent patterns
@@ -72,15 +73,26 @@ interface AnimationState {
 const CustomNode = memo(({ data, id }: { data: any, id: string }) => {
   const getNodeStyle = () => {
     const baseStyle = {
-      padding: '10px 20px',
-      borderRadius: '8px',
-      transition: 'all 0.2s ease',
+      padding: '14px 18px',
+      borderRadius: '14px',
+      transition: 'all 0.25s ease',
+      width: 232,
+      maxWidth: 272,
+      minHeight: 110,
+      boxSizing: 'border-box' as const,
+      display: 'flex',
+      flexDirection: 'column' as const,
+      gap: 8,
+      whiteSpace: 'normal' as const,
+      wordBreak: 'break-word' as const,
+      lineHeight: 1.4,
+      overflow: 'hidden',
     }
     
     // Add active state styles if the node is active
     const isActive = data.isActive;
     const activeStyle = isActive ? {
-      boxShadow: '0 0 0 2px var(--primary), 0 0 15px rgba(66, 153, 225, 0.5)',
+      boxShadow: '0 0 0 2px var(--primary), 0 0 15px rgba(66, 153, 225, 0.45), 0 12px 30px -14px rgba(15, 23, 42, 0.35)',
       transform: 'scale(1.02)'
     } : {};
     
@@ -108,15 +120,28 @@ const CustomNode = memo(({ data, id }: { data: any, id: string }) => {
     }
   }
   
+  const labelStyle: React.CSSProperties = {
+    fontSize: '15px',
+    fontWeight: 600,
+    lineHeight: 1.3,
+    letterSpacing: '0.01em'
+  };
+
+  const descriptionStyle: React.CSSProperties = {
+    fontSize: '12.5px',
+    lineHeight: 1.45,
+    color: 'var(--muted-foreground, rgba(71, 85, 105, 0.85))'
+  };
+
   return (
     <div style={getNodeStyle()}>
       <Handle type="target" position={Position.Left} />
-      <div>
-        <strong className="flex items-center gap-1">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <strong className="flex items-center gap-1" style={labelStyle}>
           <DotsSixVertical size={12} className="drag-handle text-muted-foreground" />
           {data.label}
         </strong>
-        {data.description && <div style={{ fontSize: '12px' }}>{data.description}</div>}
+        {data.description && <div style={descriptionStyle}>{data.description}</div>}
         {data.status && (
           <div className="mt-1 text-xs px-2 py-1 rounded" style={{
             backgroundColor: 
@@ -182,13 +207,14 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
   const hasValidData = !validationError;
   const fallbackNodes = useMemo(() => (hasValidData ? patternData!.nodes : []), [hasValidData, patternData]);
   const fallbackEdges = useMemo(() => (hasValidData ? patternData!.edges : []), [hasValidData, patternData]);
+  const defaultFlowPrompt = useMemo(() => getPatternFlowPrompt(patternData), [patternData]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(fallbackNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(fallbackEdges)
   const [dataFlows, setDataFlows] = useState<DataFlowMessage[]>([])
   const [isAnimating, setIsAnimating] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
-  const [queryInput, setQueryInput] = useState<string>("Tell me about agent patterns")
+  const [queryInput, setQueryInput] = useState<string>(defaultFlowPrompt)
   const [animationState, setAnimationState] = useState<AnimationState>({
     speed: 'normal', // Set to normal by default
     mode: 'auto',
@@ -209,6 +235,10 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
     stabilizationDelay: 300
   });
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    setQueryInput(defaultFlowPrompt);
+  }, [defaultFlowPrompt]);
 
   useEffect(() => {
     setNodes(fallbackNodes)
@@ -461,7 +491,7 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
             edgeId: outgoingEdges[0].id,
             source: inputNode.id,
             target: outgoingEdges[0].target,
-            content: `Processing input: "${queryInput || 'Tell me about agent patterns'}"`,
+            content: `Processing input: "${queryInput || defaultFlowPrompt}"`,
             timestamp: Date.now(),
             type: 'query',
             progress: 0,
@@ -522,7 +552,7 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
             edgeId: edge.id,
             source: edge.source,
             target: edge.target,
-            content: `Processing: ${queryInput || 'data'}`,
+            content: `Processing: ${queryInput || defaultFlowPrompt || 'data'}`,
             timestamp: Date.now(),
             type: 'message',
             progress: 0,
@@ -548,7 +578,7 @@ const PatternVisualizer = ({ patternData }: PatternVisualizerProps) => {
     return () => {
       if (simulationCleanupRef.current) simulationCleanupRef.current();
     };
-  }, [nodes, edges, setNodes, setEdges, resetVisualization, animationState.mode, animationState.isPaused, speedFactor, executeNextStep, queryInput]);
+  }, [nodes, edges, setNodes, setEdges, resetVisualization, animationState.mode, animationState.isPaused, speedFactor, executeNextStep, queryInput, defaultFlowPrompt]);
   
   const onInit = useCallback((instance: ReactFlowInstance) => {
     flowInstanceRef.current = instance;

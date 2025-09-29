@@ -27,6 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import EnhancedDataFlowVisualizer from './EnhancedDataFlowVisualizer'
 import DataFlowControls, { DataFlowFilter } from './DataFlowControls'
 import { nodeTypes } from './PatternVisualizerNodeTypes'
+import { getPatternFlowPrompt } from '@/lib/utils/patternPrompts'
 
 interface AdvancedPatternVisualizerProps {
   patternData: PatternData;
@@ -80,12 +81,13 @@ const AdvancedPatternVisualizer = ({ patternData, onReady }: AdvancedPatternVisu
 
   const [nodes, setNodes, onNodesChange] = useNodesState(patternData.nodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(patternData.edges)
+  const defaultFlowPrompt = useMemo(() => getPatternFlowPrompt(patternData), [patternData]);
   const [dataFlows, setDataFlows] = useState<DataFlow[]>([])
   const [isAnimating, setIsAnimating] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
   const [showControls, setShowControls] = useState(false)
   const [activeTab, setActiveTab] = useState<string>('visualization')
-  const [queryInput, setQueryInput] = useState<string>("Tell me about agent patterns")
+  const [queryInput, setQueryInput] = useState<string>(defaultFlowPrompt)
   const [animationState, setAnimationState] = useState<AnimationState>({
     speed: 'normal',
     mode: 'auto',
@@ -148,6 +150,10 @@ const AdvancedPatternVisualizer = ({ patternData, onReady }: AdvancedPatternVisu
       onReady();
     }
   }, [patternData.id, patternData.nodes, patternData.edges, onReady]);
+
+  useEffect(() => {
+    setQueryInput(defaultFlowPrompt);
+  }, [defaultFlowPrompt]);
 
   // Initialize node type filters when nodes change
   useEffect(() => {
@@ -355,7 +361,7 @@ const AdvancedPatternVisualizer = ({ patternData, onReady }: AdvancedPatternVisu
             edgeId: edge.id,
             source: edge.source,
             target: edge.target,
-            content: `Processing: ${queryInput || 'data'}`,
+            content: `Processing: ${queryInput || defaultFlowPrompt || 'data'}`,
             timestamp: Date.now(),
             type: 'message',
             progress: 0,
@@ -386,7 +392,7 @@ const AdvancedPatternVisualizer = ({ patternData, onReady }: AdvancedPatternVisu
     return () => {
       if (cleanup) cleanup();
     };
-  }, [nodes, edges, setNodes, setEdges, resetVisualization, animationState.mode, animationState.isPaused, speedFactor]);
+  }, [nodes, edges, setNodes, setEdges, resetVisualization, animationState.mode, animationState.isPaused, speedFactor, defaultFlowPrompt, queryInput]);
   
   const onInit = useCallback((instance: ReactFlowInstance) => {
     flowInstanceRef.current = instance;

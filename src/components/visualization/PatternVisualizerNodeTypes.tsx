@@ -1,18 +1,30 @@
+import React from 'react';
 import { Handle, Position, NodeTypes } from 'reactflow';
 
 // Custom node types
 const CustomNode = ({ data, id }: { data: any, id: string }) => {
   const getNodeStyle = () => {
     const baseStyle = {
-      padding: '10px 20px',
-      borderRadius: '8px',
-      transition: 'all 0.2s ease',
+      padding: '14px 18px',
+      borderRadius: '14px',
+      transition: 'all 0.25s ease',
+      width: 232,
+      maxWidth: 272,
+      minHeight: 110,
+      boxSizing: 'border-box' as const,
+      display: 'flex',
+      flexDirection: 'column' as const,
+      gap: 8,
+      whiteSpace: 'normal' as const,
+      wordBreak: 'break-word' as const,
+      lineHeight: 1.4,
+      overflow: 'hidden',
     }
     
     // Add active state styles if the node is active
     const isActive = data.isActive;
     const activeStyle = isActive ? {
-      boxShadow: '0 0 0 2px var(--primary), 0 0 15px rgba(66, 153, 225, 0.5)',
+      boxShadow: '0 0 0 2px var(--primary), 0 0 15px rgba(66, 153, 225, 0.45), 0 12px 30px -14px rgba(15, 23, 42, 0.35)',
       transform: 'scale(1.02)'
     } : {};
     
@@ -40,12 +52,25 @@ const CustomNode = ({ data, id }: { data: any, id: string }) => {
     }
   }
   
+  const labelStyle: React.CSSProperties = {
+    fontSize: '15px',
+    fontWeight: 600,
+    lineHeight: 1.3,
+    letterSpacing: '0.01em'
+  };
+
+  const descriptionStyle: React.CSSProperties = {
+    fontSize: '12.5px',
+    lineHeight: 1.45,
+    color: 'var(--muted-foreground, rgba(71, 85, 105, 0.85))'
+  };
+
   return (
     <div style={getNodeStyle()}>
       <Handle type="target" position={Position.Left} />
-      <div>
-        <strong>{data.label}</strong>
-        {data.description && <div style={{ fontSize: '12px' }}>{data.description}</div>}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <strong className="leading-tight" style={labelStyle}>{data.label}</strong>
+        {data.description && <div style={descriptionStyle}>{data.description}</div>}
         {data.status && (
           <div className="mt-1 text-xs px-2 py-1 rounded" style={{
             backgroundColor: 

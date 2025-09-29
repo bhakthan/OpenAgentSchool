@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +15,7 @@ import { DotsSixVertical } from "@phosphor-icons/react/dist/ssr/DotsSixVertical"
 import { PatternData } from '@/lib/data/patterns/index';
 import { patternContents } from '@/lib/data/patternContent';
 import { useTheme } from '@/components/theme/ThemeProvider';
+import { getPatternFlowPrompt } from '@/lib/utils/patternPrompts';
 
 interface SimplePatternVisualizerProps {
   patternData: PatternData;
@@ -39,24 +40,29 @@ interface AnimatedEdge {
 
 const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patternData }) => {
   const { theme } = useTheme();
+  const defaultFlowPrompt = useMemo(() => getPatternFlowPrompt(patternData), [patternData]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [flowSteps, setFlowSteps] = useState<FlowStep[]>([]);
   const [animatedEdges, setAnimatedEdges] = useState<AnimatedEdge[]>([]);
-  const [queryInput, setQueryInput] = useState('Tell me about agent patterns');
+  const [queryInput, setQueryInput] = useState(defaultFlowPrompt);
   const [speed, setSpeed] = useState(1);
   const [activeNodes, setActiveNodes] = useState<Set<string>>(new Set());
   const [showDetails, setShowDetails] = useState(false);
+
+  useEffect(() => {
+    setQueryInput(defaultFlowPrompt);
+  }, [defaultFlowPrompt]);
 
   // Create layout for nodes using simple grid layout (same as SimplePatternFlow)
   const nodeLayout = useMemo(() => {
     if (!patternData.nodes) return {};
     
     const layout: Record<string, { x: number; y: number; width: number; height: number }> = {};
-    const containerWidth = 800;  // Reduced from 1000 to fit in card
-    const containerHeight = 380; // Reduced from 600 to fit in 450px container with padding
-    const nodeWidth = 140;       // Slightly smaller nodes
-    const nodeHeight = 80;       // Slightly smaller nodes
+  const containerWidth = 800;  // Reduced from 1000 to fit in card
+  const containerHeight = 420; // Slightly taller to accommodate multi-line content
+  const nodeWidth = 210;       // Wider nodes to prevent text overflow
+  const nodeHeight = 140;      // Taller nodes for richer descriptions
     
     // Simple grid layout - same as SimplePatternFlow
     const cols = Math.ceil(Math.sqrt(patternData.nodes.length));
@@ -103,7 +109,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
       steps.push({
         id: `step-${stepId++}`,
         nodeId: node.id,
-        message: `Input received: "${queryInput}"`,
+        message: `Input received: "${queryInput || defaultFlowPrompt}"`,
         type: 'input',
         timestamp: Date.now() + stepId * 1000
       });
@@ -154,7 +160,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
     });
     
     return steps;
-  }, [patternData, queryInput]);
+  }, [patternData, queryInput, defaultFlowPrompt]);
 
   const getProcessingMessage = (nodeType: string, label: string) => {
     const messages = {
@@ -416,7 +422,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
                 return (
                   <div
                     key={node.id}
-                    className="absolute rounded-xl border-2 p-4 transition-all duration-300 cursor-pointer hover:shadow-xl shadow-md"
+                    className="absolute rounded-2xl border p-4 transition-transform duration-300 cursor-pointer shadow-sm hover:shadow-xl backdrop-blur-sm"
                     style={{
                       left: layout.x,
                       top: layout.y,
@@ -428,18 +434,18 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
                       transform: isActive ? 'scale(1.05)' : 'scale(1)',
                       zIndex: isActive ? 10 : 1,
                       boxShadow: isActive 
-                        ? '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' 
-                        : '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+                        ? '0 16px 45px -20px rgba(15, 23, 42, 0.55)' 
+                        : '0 8px 18px -12px rgba(15, 23, 42, 0.25)'
                     }}
                   >
-                    <div className="font-semibold text-base mb-2 leading-tight">
+                    <div className="text-[15px] font-semibold leading-tight tracking-tight">
                       {node.data?.label || node.id}
                     </div>
-                    <div className="text-sm opacity-75 mb-2 capitalize font-medium">
+                    <div className="text-[11px] uppercase tracking-wide font-semibold opacity-75">
                       {nodeType}
                     </div>
                     {node.data?.description && (
-                      <div className="text-sm opacity-70 line-clamp-2 leading-relaxed">
+                      <div className="text-sm opacity-80 leading-snug break-words">
                         {node.data.description}
                       </div>
                     )}

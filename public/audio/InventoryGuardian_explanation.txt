@@ -1,0 +1,16 @@
+Inventory Guardian Pattern Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Imagine running a busy warehouse where items constantly arrive, get stored, and ship out. Keeping the counts accurate by hand feels like chasing shadows—by the time you finish a cycle count, the numbers are already wrong. The Inventory Guardian pattern acts like a tireless supervisor. It listens to shelf sensors, RFID readers, and delivery updates in real time. When it spots something strange—like a pallet disappearing or a cold case warming up—it tells you what happened and how to fix it. Instead of reacting after customers complain, you catch issues the moment they start.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Inventory Guardian fuses IoT telemetry, WMS events, and supplier data into a continuously refreshed digital twin of stock positions. An LLM analyst monitors variance signals, reconciling mismatches between expected and actual inventory. When drift is detected, the agent assembles evidence (sensor traces, shipment records, operator notes) and ranks likely root causes. A recovery orchestrator then drafts actions—cycle count tasks, replenishment orders, quarantine instructions—and routes them through human approval. Operators adjudicate edge cases within a unified console, and confirmed actions feed back into the twin so future alerts are smarter.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+A production deployment wires three loops together. The ingestion loop streams RFID, PLC, computer-vision, and ERP updates into feature stores keyed by location and SKU. The reasoning loop prompts a domain-tuned LLM with variance snapshots, policy constraints, and historical incident embeddings to produce hypotheses scored by confidence. The orchestration loop converts the chosen hypothesis into tasks with SLAs, integrating with workforce management, procurement APIs, and alerting channels. Telemetry from executed actions closes the loop, allowing reinforcement learning or heuristic weighting to suppress noisy sensors and prioritize high-impact anomalies. The result is a resilient control tower that keeps omnichannel inventory accurate without constant human firefighting.
