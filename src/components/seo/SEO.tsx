@@ -122,23 +122,46 @@ export const SEO: React.FC<SEOProps> = ({
     if (location.pathname.startsWith('/patterns/')) {
       const patternId = location.pathname.split('/patterns/')[1];
       if (patternId) {
+        const patternName = patternId.replace(/-/g, ' ');
         const patternJsonLd = {
           '@context': 'https://schema.org',
           '@type': 'LearningResource',
-          name: patternId.replace(/-/g,' '),
+          name: patternName,
           url: currentUrl,
-            isPartOf: {
-              '@type': 'CreativeWork',
-              name: 'Agent Pattern Mastery Path',
-              url: 'https://www.openagentschool.org/patterns'
-            },
-            educationalLevel: /deep|advanced|research|governance/i.test(patternId) ? 'Advanced' : 'Intermediate',
-            competencyRequired: [ 'perception-normalization','schema-aware-decomposition' ].filter(Boolean),
-            learningResourceType: 'Module',
-            provider: { '@type': 'Organization', name: 'Open Agent School' }
+          isPartOf: {
+            '@type': 'CreativeWork',
+            name: 'Agent Pattern Mastery Path',
+            url: 'https://www.openagentschool.org/patterns'
+          },
+          educationalLevel: /deep|advanced|research|governance|steward|guardian|technician|emergency/i.test(patternId) ? 'Advanced' : 'Intermediate',
+          competencyRequired: ['perception-normalization', 'schema-aware-decomposition'].filter(Boolean),
+          learningResourceType: 'Module',
+          provider: { '@type': 'Organization', name: 'Open Agent School' },
+          image: pageSEOConfigs[`/patterns/${patternId}`]?.image || 'https://www.openagentschool.org/images/og-pattern-default.png'
         };
         updateJsonLdScript('seo-jsonld-pattern', patternJsonLd);
       }
+    }
+
+    if (location.pathname === '/concepts/agentic-robotics-integration') {
+      const roboticsConceptJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'LearningResource',
+        name: 'Agentic Robotics Integration',
+        url: currentUrl,
+        description: 'Digital-to-physical orchestration playbook covering telemetry streaming, policy-gated robotics control, and human escalation loops.',
+        keywords: ['agentic robotics', 'digital twin', 'robotics telemetry', 'policy guardrails'],
+        image: pageSEOConfigs['/concepts/agentic-robotics-integration']?.image || 'https://www.openagentschool.org/images/og-agentic-robotics.jpg',
+        inLanguage: 'en',
+        learningResourceType: 'Module',
+        isPartOf: {
+          '@type': 'CreativeWork',
+          name: 'Agentic AI Design Taxonomy',
+          url: 'https://www.openagentschool.org/concepts'
+        },
+        provider: { '@type': 'Organization', name: 'Open Agent School' }
+      };
+      updateJsonLdScript('seo-jsonld-robotics-concept', roboticsConceptJsonLd);
     }
     
   }, [seoTitle, seoDescription, seoKeywords, seoImage, seoAuthor, currentUrl, type, location.pathname]);
@@ -198,7 +221,8 @@ export const pageSEOConfigs = {
   '/': {
     title: 'Open Agent School - Where AI Agent Concepts Come to Life',
     description: 'Interactive educational platform for mastering AI agents, MCP, A2A communication, and multi-agent systems through hands-on learning and visualizations.',
-    keywords: 'AI agents, artificial intelligence education, MCP, Model Context Protocol, A2A communication, multi-agent systems, agent architecture, interactive learning'
+    keywords: 'AI agents, artificial intelligence education, MCP, Model Context Protocol, A2A communication, multi-agent systems, agent architecture, interactive learning',
+    image: DEFAULT_SEO.image
   },
   '/concepts': {
     title: 'Core Concepts - AI Agent Fundamentals | Open Agent School',
@@ -214,6 +238,12 @@ export const pageSEOConfigs = {
     title: 'Agentic Prompting Fundamentals - Advanced AI Control | Open Agent School',
     description: 'Master advanced agentic prompting techniques for precise AI agent control including reasoning effort configuration, eagerness control, tool preambles, and steerability. Learn systematic approaches to: Reasoning Effort Control (configuring depth and thoroughness of agent thinking, computational resource allocation, and decision-making complexity), Eagerness Control (managing when agents should act versus observe, response timing optimization, and action threshold configuration), Tool Preambles (setting context and constraints for tool usage, safety guardrails, error handling procedures, and execution boundaries), Steerability (directing agent behavior through structured instructions, output formatting, verbosity control, and response shaping), Instruction Design (creating clear, unambiguous directives, hierarchical command structures, and constraint definition), Context Management (maintaining conversation state, incorporating relevant information, and managing token limits), Multi-Turn Conversation Handling (dialog state management, context preservation, and conversation flow control), Error Handling & Recovery (graceful failure management, retry mechanisms, and fallback procedures), Performance Optimization (prompt efficiency, response quality improvement, and computational cost management), and Safety & Alignment (ensuring responsible behavior, preventing harmful outputs, and maintaining ethical boundaries). Includes practical examples, before/after transformations, interactive exercises, and real-world implementation strategies for production AI agent systems.',
     keywords: 'agentic prompting, reasoning effort, eagerness control, tool preambles, steerability, AI agent control, prompt engineering, instruction design, context management, conversation handling, AI safety, prompt optimization, agent behavior, AI alignment, prompt techniques'
+  },
+  '/concepts/agentic-robotics-integration': {
+    title: 'Agentic Robotics Integration - Digital-to-Physical Orchestration | Open Agent School',
+    description: 'Learn how to blend LLM reasoning, robotics middleware, and compliance guardrails into production-grade agentic robotics systems. The module covers digital twin alignment, telemetry streaming, policy-gated actuator control, anomaly routing, human-in-the-loop escalation, and Azure-connected deployment patterns that power Adaptive Lab Technicians, Inventory Guardians, Emergency Response coordinators, and Mobile Manipulator Stewards.',
+    keywords: 'agentic robotics, robotics integration, autonomous robots, digital twin, telemetry streaming, safety guardrails, robot orchestration, lab automation, warehouse automation, policy gated control, Azure robotics, mobile manipulation',
+    image: 'https://www.openagentschool.org/images/og-image.png'
   },
   '/concepts/prompt-optimization-patterns': {
     title: 'Prompt Optimization Patterns - Systematic Improvement | Open Agent School',
@@ -394,6 +424,30 @@ export const pageSEOConfigs = {
     title: 'Swarm Intelligence Pattern - Decentralized Agent Systems | Open Agent School',
     description: 'Explore Swarm Intelligence patterns for building decentralized systems of multiple agents that coordinate to achieve collective goals through emergent behavior and distributed decision-making.',
     keywords: 'swarm intelligence, decentralized agents, collective behavior, emergent systems, distributed decision-making, multi-agent coordination, collective intelligence, agent swarms, decentralized coordination'
+  },
+  '/patterns/adaptive-lab-technician': {
+    title: 'Adaptive Lab Technician Pattern - Instrumented Wet Lab Automation | Open Agent School',
+    description: 'Deploy an instrument-aware agent that synchronizes LIMS queues, orchestrates robotics, and enforces ISO/CLIA guardrails across assay runs. Learn how telemetry-driven plan adjustments, scientist escalation consoles, and Azure OpenAI planners keep genomics and diagnostics labs running with compliance-grade traceability.',
+    keywords: 'lab automation, adaptive lab technician, robotics orchestration, LIMS integration, assay automation, telemetry monitoring, compliance automation, biopharma robotics, Azure OpenAI, lab guardrails',
+    image: 'https://www.openagentschool.org/images/og-image.png'
+  },
+  '/patterns/inventory-guardian': {
+    title: 'Inventory Guardian Pattern - Autonomous Warehouse Stewardship | Open Agent School',
+    description: 'Build an agent that fuses digital inventory twins, AMR fleets, and safety protocols to keep distribution centers stocked and incident-free. Covers slotting intelligence, vision-powered cycle counts, human override loops, and Azure-based telemetry analytics for supply chain resilience.',
+    keywords: 'inventory guardian, warehouse automation, robotics inventory, autonomous mobile robots, digital twin inventory, safety interlocks, supply chain robotics, cycle counting, telemetry analytics, Azure robotics',
+    image: 'https://www.openagentschool.org/images/og-image.png'
+  },
+  '/patterns/emergency-response-mate': {
+    title: 'Emergency Response Mate Pattern - Robotics Assisted Safety Ops | Open Agent School',
+    description: 'Design a robotics-aware incident response agent that coordinates mobile sensors, facility controls, and responder checklists during critical events. Learn escalation choreography, hazard zone mapping, policy-gated interventions, and Azure Event Grid integration for real-time situational awareness.',
+    keywords: 'emergency response robotics, safety automation, incident response agent, hazard mapping, mobile sensors, robotics orchestration, emergency automation, Azure Event Grid, safety guardrails, facility controls',
+    image: 'https://www.openagentschool.org/images/og-image.png'
+  },
+  '/patterns/mobile-manipulator-steward': {
+    title: 'Mobile Manipulator Steward Pattern - Service Robotics Concierge | Open Agent School',
+    description: 'Equip mobile manipulators with agentic planning, guest experience skills, and safe actuation loops. This pattern covers mission planning, perception fusion, low-latency teleoperation fallbacks, and Azure IoT telemetry so hospitality and retail venues can deploy human-aware robotic stewards.',
+    keywords: 'mobile manipulator, service robotics, hospitality robots, agentic planning, perception fusion, teleoperation fallback, Azure IoT, guest experience automation, robotics concierge, safe actuation loops',
+    image: 'https://www.openagentschool.org/images/og-image.png'
   },
   '/ai-native-practices': {
     title: 'AI-Native Practices - Advanced Organizational Patterns | Open Agent School',
