@@ -103,6 +103,7 @@ export default function D3TreeVisualization({
             { id: 'acp', name: 'Agent Communication Protocol', type: 'concept' as const },
             { id: 'mcp-a2a-integration', name: 'MCP × A2A Integration', type: 'concept' as const },
             { id: 'data-visualization', name: 'Data Visualization', type: 'concept' as const },
+            { id: 'agentic-robotics-integration', name: 'Agentic Robotics Integration', type: 'concept' as const, novel: true },
             { id: 'fine-tuning', name: 'Fine-Tuning Methods (SFT, DPO, RFT)', type: 'concept' as const, novel: true },
             { id: 'data-knowledge-operations', name: 'Data & Knowledge Operations', type: 'concept' as const, novel: true }
           ]
@@ -144,7 +145,8 @@ export default function D3TreeVisualization({
             { id: 'deep-researcher', name: 'Deep Researcher', type: 'pattern' as const, novel: true },
             { id: 'autonomous-workflow', name: 'Autonomous Workflow', type: 'pattern' as const, novel: true },
             { id: 'prompt-chaining', name: 'Prompt Chaining', type: 'pattern' as const },
-            { id: 'parallelization', name: 'Parallelization', type: 'pattern' as const, novel: true }
+            { id: 'parallelization', name: 'Parallelization', type: 'pattern' as const, novel: true },
+            { id: 'mobile-manipulator-steward', name: 'Mobile Manipulator Steward', type: 'pattern' as const, novel: true }
           ]
         },
         {
@@ -191,7 +193,8 @@ export default function D3TreeVisualization({
             { id: 'system-design-quiz', name: 'System Design Quiz', type: 'quiz' as const },
             { id: 'agent-fundamentals-quiz', name: 'Agent Fundamentals Quiz', type: 'quiz' as const },
             { id: 'multi-agent-quiz', name: 'Multi-Agent Systems Quiz', type: 'quiz' as const },
-            { id: 'security-quiz', name: 'Security & Ethics Quiz', type: 'quiz' as const }
+            { id: 'security-quiz', name: 'Security & Ethics Quiz', type: 'quiz' as const },
+            { id: 'agentic-robotics-quiz', name: 'Agentic Robotics Quiz', type: 'quiz' as const, novel: true }
           ]
         },
         {

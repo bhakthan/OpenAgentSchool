@@ -596,6 +596,7 @@ def merge_sort(arr):
     return merge(left, right)
     
 def merge(left, right):
+
     result = []
     i = j = 0
     
@@ -1053,4 +1054,132 @@ This itinerary gives you a mix of iconic landmarks and local experiences while k
             
         except Exception as e:
             return {"status": "error", "message": str(e)}`,
+
+  'mobile-manipulator-steward': `# Mobile Manipulator Steward sketch (Gemini Robotics concierge)
+from dataclasses import dataclass
+from typing import List, Dict, Any
+
+
+@dataclass
+class SensorSnapshot:
+    rgb_frame_id: str
+    depth_frame_id: str
+    force_torque: Dict[str, float]
+    audio_transcript: str
+
+
+@dataclass
+class MissionStep:
+    name: str
+    description: str
+    skill: str
+    requires_confirmation: bool = False
+
+
+@dataclass
+class MissionPlan:
+    mission_id: str
+    guest: str
+    steps: List[MissionStep]
+    safety_envelopes: List[str]
+
+
+class GeminiPerceptionGateway:
+    def __init__(self, sensors: List[str]):
+        self.sensors = sensors
+
+    def observe(self, location: str) -> SensorSnapshot:
+        """Simulate multimodal sensor fusion."""
+        print(f"[Perception] Capturing scene at {location} from sensors={self.sensors}")
+        return SensorSnapshot(
+            rgb_frame_id=f"rgb-{location}",
+            depth_frame_id=f"depth-{location}",
+            force_torque={"wrist": 0.0, "gripper": 0.0},
+            audio_transcript="Lobby ambient noise; no human speech detected"
+        )
+
+
+class SkillGraphPlanner:
+    def __init__(self, skills: List[str]):
+        self.skills = skills
+
+    def compose_plan(self, request: Dict[str, Any], snapshot: SensorSnapshot) -> MissionPlan:
+        guest = request.get("guest_name", "Guest")
+        print(f"[Planner] Composing plan for {guest} to deliver {request['item']}")
+
+        steps = [
+            MissionStep("CallElevator", "Summon elevator to lobby", "call_elevator"),
+            MissionStep("RideElevator", f"Ride to floor {request['floor']}", "ride_elevator"),
+            MissionStep("NavigateHallway", "Navigate hallway with obstacle avoidance", "hallway_traverse"),
+            MissionStep("DeliverItem", "Present item and confirm guest receipt", "handoff_item", requires_confirmation=True),
+            MissionStep("ReturnToBase", "Return to charging dock", "return_base")
+        ]
+
+        envelopes = ["human_proximity", "torque_limit", "geo_fence"]
+        return MissionPlan(
+            mission_id="mission-001",
+            guest=guest,
+            steps=steps,
+            safety_envelopes=envelopes
+        )
+
+
+class SafetyGuardian:
+    def __init__(self, policy_id: str):
+        self.policy_id = policy_id
+
+    def vet_step(self, step: MissionStep, snapshot: SensorSnapshot) -> bool:
+        """Apply simplified guardrails before execution."""
+        print(f"[Safety] Checking {step.name} against {self.policy_id}")
+        if step.name == "NavigateHallway" and "rgb-lobby" in snapshot.rgb_frame_id:
+            print("[Safety] Detected reflective floor; enabling low-speed mode")
+        return True
+
+    def record_intervention(self, reason: str, context: Dict[str, Any]):
+        print(f"[Safety] Intervention triggered: {reason} -> {context}")
+
+
+class OperatorNarrator:
+    def broadcast(self, message: str):
+        print(f"[Narration] {message}")
+
+
+class MobileManipulatorSteward:
+    def __init__(self):
+        self.perception = GeminiPerceptionGateway([
+            "rgb_camera_fov120", "depth_camera", "force_torque_wrist", "mic_array"
+        ])
+        self.planner = SkillGraphPlanner([
+            "call_elevator", "ride_elevator", "hallway_traverse", "handoff_item", "return_base"
+        ])
+        self.safety = SafetyGuardian("gemini-guard-robotics")
+        self.narrator = OperatorNarrator()
+
+    def execute_mission(self, request: Dict[str, Any]):
+        self.narrator.broadcast(f"Starting mission for {request['guest_name']} ({request['item']})")
+
+        snapshot = self.perception.observe(location="lobby")
+        plan = self.planner.compose_plan(request, snapshot)
+
+        for step in plan.steps:
+            if not self.safety.vet_step(step, snapshot):
+                self.safety.record_intervention("policy_denial", {"step": step.name})
+                self.narrator.broadcast("Mission paused for operator review")
+                break
+
+            self.narrator.broadcast(f"Executing step: {step.description}")
+            if step.requires_confirmation:
+                self.narrator.broadcast("Waiting for guest confirmation via voice prompt…")
+
+        self.narrator.broadcast("Mission complete. Returning to dock and archiving telemetry")
+
+
+if __name__ == "__main__":
+    steward = MobileManipulatorSteward()
+    steward.execute_mission({
+        "guest_name": "Nguyen",
+        "item": "Evening tea service",
+        "floor": 18
+    })
+`
 };

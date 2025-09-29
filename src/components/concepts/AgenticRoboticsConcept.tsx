@@ -2,7 +2,7 @@ import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Brain, Robot, MapPin, ShieldCheck, FlowArrow, ChartBar, Lightning } from "@phosphor-icons/react"
+import { Brain, Robot, MapPin, ShieldCheck, FlowArrow, ChartBar, Lightning, Eye, GearSix, ArrowsClockwise, Notebook, ArrowRight } from "@phosphor-icons/react"
 import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock, conceptPill } from "./conceptStyles"
 import ReferenceSection from "@/components/references/ReferenceSection"
 
@@ -150,6 +150,87 @@ export default function AgenticRoboticsConcept({ onMarkComplete, onNavigateToNex
       level: "advanced" as const,
       content: (
         <div className="space-y-6">
+          <Card className="overflow-hidden">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-2">
+                <FlowArrow className="w-5 h-5 text-primary" />
+                Control Loop at a Glance
+              </CardTitle>
+              <CardDescription>
+                Observe → Reason → Act → Reflect, with safety overlays baked into every transition.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                {[{
+                  id: "observe",
+                  title: "Observe",
+                  copy: "Gemini ingests RGB-D, force, and audio frames every 60–120 ms.",
+                  icon: <Eye className="w-5 h-5" />, color: "bg-sky-600/10 text-sky-700 dark:text-sky-300"
+                }, {
+                  id: "reason",
+                  title: "Reason",
+                  copy: "Intent planner queries memory, selects skill graphs, and checks policy gates.",
+                  icon: <Brain className="w-5 h-5" />, color: "bg-violet-600/10 text-violet-700 dark:text-violet-300"
+                }, {
+                  id: "act",
+                  title: "Act",
+                  copy: "Trajectory planners stream commands to navigation + manipulator controllers.",
+                  icon: <GearSix className="w-5 h-5" />, color: "bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                }, {
+                  id: "reflect",
+                  title: "Reflect",
+                  copy: "Telemetry, video snippets, and narrations feed evaluation + humans-in-the-loop.",
+                  icon: <Notebook className="w-5 h-5" />, color: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                }].map((stage) => (
+                  <div key={stage.id} className={conceptSurfaceSoft("p-4 space-y-3 border border-border/60")}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className={`inline-flex items-center justify-center rounded-full p-2 ${stage.color}`}>
+                        {stage.icon}
+                      </span>
+                      <h4 className="font-semibold text-lg">{stage.title}</h4>
+                    </div>
+                    <p className="text-muted-foreground text-base leading-relaxed">{stage.copy}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="hidden lg:flex items-center justify-between px-6 py-3 rounded-lg bg-muted/40 border border-muted/60">
+                {['Observe', 'Reason', 'Act', 'Reflect'].map((label, idx, arr) => (
+                  <div key={label} className="flex items-center gap-3 text-sm font-semibold tracking-wide uppercase text-muted-foreground">
+                    <span>{label}</span>
+                    {idx < arr.length - 1 && <ArrowRight className="w-4 h-4 text-primary/70" />}
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[{
+                  title: "Safety Overlays",
+                  items: ["Policy: Gemini Guard robotics", "Runtime: torque + proximity envelopes", "Fallback: watchdog teleop lane"]
+                }, {
+                  title: "Loop Cadence",
+                  items: ["Perception frame: 90 ms", "Planner refresh: 1.5 s or on event", "Halt budget: &lt; 250 ms"]
+                }, {
+                  title: "Evidence Trail",
+                  items: ["Mission narration + timestamps", "Telemetry snapshots to AIOps", "Incident dossier with replay"]
+                }].map((bucket) => (
+                  <div key={bucket.title} className={conceptSurface("p-4 space-y-2")}
+                  >
+                    <h4 className="font-semibold flex items-center gap-2 text-base">
+                      <ArrowsClockwise className="w-4 h-4 text-primary" />
+                      {bucket.title}
+                    </h4>
+                    <ul className="space-y-1 text-sm text-muted-foreground">
+                      {bucket.items.map((item) => (
+                        <li key={item}>• {item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle>Gemini Robotics Control Stack</CardTitle>

@@ -23,6 +23,7 @@ import { fineTuningQuestions } from './fine-tuning';
 import { agenticCommerceAp2Questions } from './agentic-commerce-ap2';
 import { agentOpsQuestions } from './agent-ops';
 import { dataAutonomyPatternsQuestions } from './data-autonomy-patterns.ts';
+import { agenticRoboticsIntegrationQuestions } from './agentic-robotics';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -51,7 +52,8 @@ const allQuestions = [
   ...fineTuningQuestions,
   ...agenticCommerceAp2Questions,
   ...agentOpsQuestions,
-  ...dataAutonomyPatternsQuestions
+  ...dataAutonomyPatternsQuestions,
+  ...agenticRoboticsIntegrationQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -76,6 +78,7 @@ const businessUseCasesTime = calculateTotalTime(businessUseCasesQuestions);
 const systemDesignTime = calculateTotalTime(systemDesignQuestions);
 const promptingOptimizationTime = calculateTotalTime(promptingOptimizationQuestions);
 const dataAutonomyPatternsTime = calculateTotalTime(dataAutonomyPatternsQuestions);
+const agenticRoboticsTime = calculateTotalTime(agenticRoboticsIntegrationQuestions);
 // ----------------------------------------------------------------
 
 // Quiz categories configuration
@@ -111,6 +114,30 @@ export const quizCategories: QuizCategory[] = [
         description: 'Identify and act on reliability signals for agent systems',
         prerequisites: ['agent-deployment'],
         questions: agentOpsQuestions
+      }
+    ]
+  },
+  {
+    id: 'agentic-robotics',
+    name: 'Agentic Robotics Integration',
+    description: 'Blend perception, planning, and safety guardrails for embodied agents and mobile manipulators.',
+    icon: 'Robot',
+    totalQuestions: agenticRoboticsIntegrationQuestions.length,
+    estimatedTime: agenticRoboticsTime,
+    subCategories: [
+      {
+        id: 'agentic-robotics-integration',
+        name: 'Integration & Safety Stack',
+        description: 'Design policy-gated control loops, telemetry, and guardrails for embodied agents.',
+        prerequisites: ['agent-integration', 'agent-ops'],
+        questions: agenticRoboticsIntegrationQuestions.filter(q => q.subCategory === 'agentic-robotics-integration')
+      },
+      {
+        id: 'mobile-manipulator-steward',
+        name: 'Mobile Manipulator Steward',
+        description: 'Apply the steward pattern to autonomous pickup, fallback, and governance routines.',
+        prerequisites: ['agentic-robotics-integration'],
+        questions: agenticRoboticsIntegrationQuestions.filter(q => q.subCategory === 'mobile-manipulator-steward')
       }
     ]
   },

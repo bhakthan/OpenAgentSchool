@@ -43,6 +43,7 @@ import { policyGatedInvocationSystemDesign } from './policyGatedInvocation';
 import { dataQualityFeedbackLoopSystemDesign } from './dataQualityFeedbackLoop';
 import { queryIntentStructuredAccessSystemDesign } from './queryIntentStructuredAccess';
 import { strategyMemoryReplaySystemDesign } from './strategyMemoryReplay';
+import { mobileManipulatorStewardSystemDesign } from './mobileManipulatorSteward';
 
 // Export individual patterns
 export { pythonReActAgentSystemDesign } from './pythonReActAgent';
@@ -86,6 +87,7 @@ export { policyGatedInvocationSystemDesign } from './policyGatedInvocation';
 export { dataQualityFeedbackLoopSystemDesign } from './dataQualityFeedbackLoop';
 export { queryIntentStructuredAccessSystemDesign } from './queryIntentStructuredAccess';
 export { strategyMemoryReplaySystemDesign } from './strategyMemoryReplay';
+export { mobileManipulatorStewardSystemDesign } from './mobileManipulatorSteward';
 
 // Create a registry of all system design patterns
 export const systemDesignPatterns = {
@@ -131,6 +133,7 @@ export const systemDesignPatterns = {
   'data-quality-feedback-repair-loop': dataQualityFeedbackLoopSystemDesign,
   'query-intent-structured-access': queryIntentStructuredAccessSystemDesign,
   'strategy-memory-replay': strategyMemoryReplaySystemDesign,
+  'mobile-manipulator-steward': mobileManipulatorStewardSystemDesign,
 };
 
 /**

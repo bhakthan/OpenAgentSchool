@@ -400,6 +400,84 @@ export const codeExecutionSteps: StepData = {
       }
     ]
   },
+
+  'mobile-manipulator-steward': {
+    python: [
+      {
+        lineStart: 1,
+        lineEnd: 33,
+        description: 'Define dataclasses and helper components for perception, mission planning, and safety.',
+        variableState: {
+          'SensorSnapshot': 'Carries RGB, depth, force, audio context',
+          'MissionStepCount': '5 core skill graph steps',
+          'SafetyEnvelopes': '["human_proximity", "torque_limit", "geo_fence"]'
+        }
+      },
+      {
+        lineStart: 35,
+        lineEnd: 74,
+        description: 'GeminiPerceptionGateway captures a snapshot and SkillGraphPlanner emits a mission plan.',
+        output: '[Perception] Capturing scene at lobby...',
+        variableState: {
+          'guest': 'Nguyen',
+          'plannedSkills': '[call_elevator, ride_elevator, hallway_traverse, handoff_item, return_base]'
+        }
+      },
+      {
+        lineStart: 76,
+        lineEnd: 128,
+        description: 'Safety guardian vets each mission step, narrating execution and pausing on issues.',
+        variableState: {
+          'currentStep': 'Iterates MissionStep objects',
+          'requiresConfirmation': 'True for DeliverItem',
+          'safetyPolicy': 'gemini-guard-robotics'
+        }
+      },
+      {
+        lineStart: 130,
+        lineEnd: 147,
+        description: 'Entry point instantiates the steward and executes the mission request.',
+        variableState: {
+          'request': '{"guest_name": "Nguyen", "item": "Evening tea service", "floor": 18}',
+          'missionStatus': 'Narration emits mission completion message'
+        }
+      }
+    ],
+    typescript: [
+      {
+        lineStart: 0,
+        lineEnd: 44,
+        description: 'Configure the steward embodied agent with perception, cognition, actuation, safety, and telemetry modules.',
+        variableState: {
+          'agentId': '"mobile-steward-01"',
+          'perceptionInputs': '["rgb_camera_fov120", "depth_camera", "force_torque_wrist", "mic_array"]',
+          'skillGraphEntry': '"amenity_delivery"',
+          'safetyPolicy': '"gemini-guard-robotics"'
+        }
+      },
+      {
+        lineStart: 46,
+        lineEnd: 82,
+        description: 'Register mission watcher callbacks to broadcast lifecycle, intervention, and completion telemetry events.',
+        output: 'publishOpsEvent invoked for mission.start, mission.intervention, mission.complete',
+        variableState: {
+          'missionWatcher': 'registerMissionWatcher({...})',
+          'telemetryChannel': '"robotics/steward"'
+        }
+      },
+      {
+        lineStart: 84,
+        lineEnd: 136,
+        description: 'Implement dispatchAmenityMission to observe context, plan the mission, execute each skill, and collect artifacts.',
+        variableState: {
+          'request': '{ item, roomNumber, priority }',
+          'plan': 'Mission plan with ordered steps',
+          'onSafetyHalt': 'Requests human review',
+          'missionResult': '{ missionId, status: "delivered", proofs }'
+        }
+      }
+    ]
+  },
   
   'routing': {
     python: [

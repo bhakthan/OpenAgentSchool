@@ -76,6 +76,16 @@ SCL now includes a mastery + remediation system across the eight Data Autonomy p
 
 > Architecture split note: If you deploy backends separately (or in another repo), see docs/CONTRACTS_AND_CONFIG.md for the minimal frontend ↔ backend contracts and environment settings. The SPA keeps working locally with defaults; set VITE_* variables later to point at remote services.
 
+## 🆕 Latest Updates (September 29, 2025)
+
+### 🤖 Agentic Robotics Integration Refresh
+
+- **Control Loop Explainer Card** – The `Agentic Robotics Integration` concept now opens with a four-stage Observe → Reason → Act → Reflect visual, highlighting safety overlays, telemetry cadence, and presence lanes for quick onboarding.
+- **Code & Practice Upgrades** – The `Mobile Manipulator Steward` pattern ships with a Python sketch, dual-language code execution steps, and the system-design blueprint so learners can compare TypeScript and Python flows side-by-side.
+- **Offline Assessment Pack** – New printable worksheet and assessment ideas live in [`docs/AGENTIC_ROBOTICS_PRINTABLE.md`](docs/AGENTIC_ROBOTICS_PRINTABLE.md), pairing with the robotics quiz bundle for classroom or workshop use.
+
+> Quick Links: [Agentic Robotics Concept](https://openagentschool.org/concepts/agentic-robotics-integration) · [Mobile Manipulator Steward Pattern](https://openagentschool.org/patterns/mobile-manipulator-steward) · [Printable Pack](docs/AGENTIC_ROBOTICS_PRINTABLE.md)
+
 ## 🆕 Latest Updates (September 18, 2025)
 
 ### 🧩 New Data Autonomy Pattern Family (Foundational Eight)
