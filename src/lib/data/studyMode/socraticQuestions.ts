@@ -3267,6 +3267,204 @@ export const mobileManipulatorStewardSocraticQuestions: StudyModeQuestion[] = [
     ]
   }
 ];
+
+// Socratic Questions for Adaptive Lab Technician Pattern
+export const adaptiveLabTechnicianSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'adaptive-lab-tech-socratic-1',
+    type: 'socratic',
+    conceptId: 'adaptive-lab-technician',
+    title: 'Sequencing Overnight Assay Runs',
+    level: 'advanced',
+    socratiQuestion: 'Sixty oncology samples must clear the queue before the morning shift. How do you orchestrate the lab technician so calibrations, reagent freshness, and human approvals all clear without missing the deadline?',
+    followUpQuestions: [
+      'Which telemetry or readiness gates prove each instrument is within tolerance before execution?',
+      'How do you encode adaptive parameter tuning without violating the compliance audit trail?',
+      'What artifacts does the morning supervisor need to accept the batch handoff?'
+    ],
+    expectedInsights: [
+      'Queue design should align with calibration windows, warm-up cycles, and reagent shelf life',
+      'Adaptive tuning must ride on policy-guarded hooks that log parameter deltas with justification',
+      'Morning handoff demands a signed ledger showing calibrations, deviations, and approvals'
+    ],
+    hints: [
+      'Map the assay queue against instrument availability and service windows',
+      'Review how the pattern’s evaluator records parameter changes today',
+      'List the compliance evidence your QA partner always checks first'
+    ],
+    explanation: 'Learners connect orchestration to calibration discipline so automation never outruns compliance or reagent chemistry realities.',
+    relatedConcepts: ['agentic-robotics-integration', 'policy-gated-invocation', 'quality-guardian'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Sequences the queue around calibration and reagent constraints',
+      'Describes guardrails that log adaptive tuning decisions',
+      'Produces a concrete QA handoff package'
+    ]
+  },
+  {
+    id: 'adaptive-lab-tech-socratic-2',
+    type: 'socratic',
+    conceptId: 'adaptive-lab-technician',
+    title: 'Managing Mid-Run Drift Alerts',
+    level: 'advanced',
+    socratiQuestion: 'An incubator’s temperature drifts mid-run and the technician agent pauses the lot. How do you decide whether to resume, rerun, or discard while keeping regulators and scientists on the same page?',
+    followUpQuestions: [
+      'Which sensor fusion signals distinguish recoverable drift from irreversible assay damage?',
+      'How do you route escalation so QA, operations, and scientists see the same evidence in real time?',
+      'What policies define whether partial data can be reported or must be suppressed?'
+    ],
+    expectedInsights: [
+      'Recovery decisions rely on correlated telemetry (temperature, vibration, reagent timestamps)',
+      'Escalations need synchronized context packets with hypothesis, risk, and recommended actions',
+      'Regulatory policy dictates salvage vs discard thresholds and reporting obligations'
+    ],
+    hints: [
+      'Check how the quality guardian packages telemetry snapshots today',
+      'Think about which disciplines must acknowledge before resuming',
+      'Review FDA/ISO policies on partial assay disclosure'
+    ],
+    explanation: 'Drives rigor around telemetry-driven triage so adaptive automation never outruns quality governance.',
+    relatedConcepts: ['quality-guardian', 'responsible-ai-governance', 'failure-modes'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Identifies telemetry bundle needed for recovery decisions',
+      'Defines cross-functional escalation payload',
+      'Applies compliance rules to salvage vs discard choices'
+    ]
+  }
+];
+
+// Socratic Questions for Inventory Guardian Pattern
+export const inventoryGuardianSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'inventory-guardian-socratic-1',
+    type: 'socratic',
+    conceptId: 'inventory-guardian',
+    title: 'Designing the Variance Playbook',
+    level: 'intermediate',
+    socratiQuestion: 'The guardian flags a 3% shrink spike across two aisles. How do you decide whether to auto-launch replenishment, trigger a cycle count, or escalate to loss prevention?',
+    followUpQuestions: [
+      'Which telemetry and historical patterns reduce false positives before involving humans?',
+      'How does the agent weigh supplier lead times versus safety stock policy when choosing actions?',
+      'What justification must be logged to satisfy finance and audit teams?'
+    ],
+    expectedInsights: [
+      'Cross-check variance against sensor confidence, recent maintenance events, and historical trends',
+      'Policy gates should balance lead time, SLA penalties, and labor availability',
+      'Every auto-action needs evidence: telemetry snapshots, hypothesis, financial impact estimate'
+    ],
+    hints: [
+      'Review the digital twin metadata available to the guardian',
+      'Think about supplier scorecards and replenishment SLAs',
+      'Sketch the audit record your controller expects next quarter'
+    ],
+    explanation: 'Learners craft policy-aware recovery loops that respect stock accuracy, labor costs, and auditability.',
+    relatedConcepts: ['data-quality-feedback-loop', 'strategy-memory-replay', 'agent-ops'],
+    timeEstimate: 14,
+    successCriteria: [
+      'Evaluates variance against multi-source evidence',
+      'Chooses an action path tied to inventory policy',
+      'Documents rationale for finance and compliance review'
+    ]
+  },
+  {
+    id: 'inventory-guardian-socratic-2',
+    type: 'socratic',
+    conceptId: 'inventory-guardian',
+    title: 'Trusting the Digital Twin Under Sensor Outage',
+    level: 'advanced',
+    socratiQuestion: 'A freezer zone loses RFID coverage for six hours. How should the guardian maintain stock accuracy and alert stakeholders without spamming false alarms?',
+    followUpQuestions: [
+      'Which fallback signals can approximate stock movement when primary sensors are dark?',
+      'How do you tier notifications so operations and compliance get the context they need?',
+      'What reconciliation steps must run once connectivity returns?'
+    ],
+    expectedInsights: [
+      'Blend secondary telemetry (weight pads, WMS events) with confidence decay to estimate stock',
+      'Notification tiers separate on-shift staff, cold-chain compliance, and leadership summaries',
+      'Post-outage reconciliation should replay buffered events and schedule targeted cycle counts'
+    ],
+    hints: [
+      'List every redundant signal feeding the inventory twin',
+      'Map audiences to the information they actually act on',
+      'Consider how the twin re-aligns once sensor data resumes'
+    ],
+    explanation: 'Focuses on resilience planning so digital twins degrade gracefully during telemetry gaps.',
+    relatedConcepts: ['telemetry', 'policy-gated-invocation', 'resilience'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Identifies fallback telemetry and confidence modeling',
+      'Designs notification strategy by stakeholder',
+      'Outlines reconciliation workflow post-outage'
+    ]
+  }
+];
+
+// Socratic Questions for Emergency Response Mate Pattern
+export const emergencyResponseMateSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'emergency-mate-socratic-1',
+    type: 'socratic',
+    conceptId: 'emergency-response-mate',
+    title: 'Coordinating the Golden Five Minutes',
+    level: 'advanced',
+    socratiQuestion: 'A chemical spill alert hits three channels simultaneously. How do you configure the response mate so triage, responder tasking, and command updates all stabilize within the first five minutes?',
+    followUpQuestions: [
+      'Which signals must be deduplicated or cross-validated before playbooks trigger?',
+      'How do you balance speed and accuracy when pushing assignments to radio, SMS, and Teams?',
+      'What telemetry makes the command center trust the agent’s situational picture?'
+    ],
+    expectedInsights: [
+      'Signal triage should merge IoT alarms, manual calls, and sensors into a single severity decision',
+      'Multi-channel tasking needs acknowledgement tracking and fallback paths for unreachable responders',
+      'Command dashboards require map overlays, responder status, and confidence scores to stay aligned'
+    ],
+    hints: [
+      'Review the pattern’s signal triage and responder loop nodes',
+      'Think about acknowledgement SLAs for critical teams',
+      'Consider what evidence command requires before broadcasting campus-wide alerts'
+    ],
+    explanation: 'Shows how rapid triage, communications, and trust signals intersect during high-pressure incidents.',
+    relatedConcepts: ['routing', 'agent-ops', 'responsible-ai-governance'],
+    timeEstimate: 17,
+    successCriteria: [
+      'Designs deduped triage with severity rationale',
+      'Defines acknowledgement-aware task dissemination',
+      'Identifies command telemetry needed for trust'
+    ]
+  },
+  {
+    id: 'emergency-mate-socratic-2',
+    type: 'socratic',
+    conceptId: 'emergency-response-mate',
+    title: 'Building After-Action Intelligence',
+    level: 'advanced',
+    socratiQuestion: 'After a multi-hour incident, leadership wants a report by morning. How do you structure the response mate’s logging so after-action, compliance, and training teams all get what they need without manual rework?',
+    followUpQuestions: [
+      'Which events and decision points must be timestamped to reconstruct the incident timeline?',
+      'How do you capture responder voice/radio transcripts and approvals while respecting privacy policies?',
+      'What insights should feed back into playbook optimization before the next drill?'
+    ],
+    expectedInsights: [
+      'Every task acknowledgement, escalation, and broadcast should be time-synced into the ledger',
+      'Secure storage must retain transcripts with access controls and redaction workflows',
+      'Lessons learned should update retrieval corpora, severity thresholds, and readiness metrics'
+    ],
+    hints: [
+      'Trace how the pattern already builds after-action packages',
+      'Review data retention requirements for your industry',
+      'List the metrics leadership reviews at the next readiness meeting'
+    ],
+    explanation: 'Reinforces incident knowledge management so every response improves the next.',
+    relatedConcepts: ['strategy-memory-replay', 'compliance', 'agent-learning'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Specifies the event ledger required for reconstruction',
+      'Addresses secure handling of transcripts and approvals',
+      'Loops findings into playbook and metric updates'
+    ]
+  }
+];
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
@@ -3288,6 +3486,9 @@ export const socraticQuestionLibrary = {
   'organizational-enablement': organizationalEnablementSocraticQuestions,
   'agentic-robotics-integration': agenticRoboticsIntegrationSocraticQuestions,
   'mobile-manipulator-steward': mobileManipulatorStewardSocraticQuestions,
+  'adaptive-lab-technician': adaptiveLabTechnicianSocraticQuestions,
+  'inventory-guardian': inventoryGuardianSocraticQuestions,
+  'emergency-response-mate': emergencyResponseMateSocraticQuestions,
   // New Perspectives (MVP sets)
   'agent-ops': [
     {

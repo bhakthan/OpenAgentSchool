@@ -246,6 +246,25 @@ export const patternEvaluationRegistry: Record<string, PatternEvaluationProfile>
     ],
     cohort: 'advanced-automation'
   },
+  'adaptive-lab-technician': {
+    scenarioFocus: 'Orchestrating assay workflows across lab instruments with telemetry-driven adaptation and compliance guardrails.',
+    criticalMetrics: ['Autonomous assay completion rate', 'Calibration drift detection latency', 'Policy halt precision', 'Human intervention frequency'],
+    evaluationNotes: [
+      'Run digital-twin simulations with seeded sensor drift and reagent issues to verify adaptive tuning and halt logic.',
+      'Validate that every run produces complete provenance artifacts (plan version, telemetry timeline, approvals).',
+      'Stress-test changeover scenarios (new assay recipes, instrument maintenance) for safe plan regeneration.'
+    ],
+    readinessSignals: [
+      '≥ 95% of assays complete within tolerance bands without manual correction across evaluation batches.',
+      'Safety halts triggered during seeded faults are acknowledged by scientists within the target SLA.',
+      'Compliance exports satisfy ISO 17025/CLIA evidence requirements without manual patching.'
+    ],
+    dataNeeds: [
+      'Digital twin datasets covering instrument telemetry, reagent metadata, and historical deviations.',
+      'Annotated policy library defining halt criteria and escalation paths for each assay class.'
+    ],
+    cohort: 'cognitive-sensing'
+  },
   'agent-evaluation': {
     scenarioFocus: 'Automated QA/QC of agents',
     criticalMetrics: ['Evaluation accuracy', 'Recall on bugs', 'Mean time to remediation (MTTR)'],
@@ -308,6 +327,25 @@ export const patternEvaluationRegistry: Record<string, PatternEvaluationProfile>
     criticalMetrics: ['Task success on target UI', 'Error recovery rate'],
     evaluationNotes: ['Evaluate across varied layouts and resolutions.', 'Enforce safety prompts for sensitive actions.'],
     cohort: 'advanced-automation'
+  },
+  'emergency-response-mate': {
+    scenarioFocus: 'Coordinating multi-channel emergency response with shared situational awareness and audit-ready timelines.',
+    criticalMetrics: ['Alert-to-acknowledgement latency', 'Task completion rate within SLA', 'Escalation accuracy', 'After-action fidelity'],
+    evaluationNotes: [
+      'Simulate concurrent incidents and degraded networks to ensure the agent maintains synchronized comms across channels.',
+      'Review generated tasking against human gold playbooks for correctness and tone appropriateness.',
+      'Cross-check after-action packages against ground-truth incident logs to verify completeness and provenance.'
+    ],
+    readinessSignals: [
+      'Critical alerts acknowledged within target SLA in ≥ 95% of evaluation drills.',
+      'Escalations route to the correct command tier with zero misrouted cases across stress scenarios.',
+      'After-action reports capture mandatory regulatory fields without manual editing.'
+    ],
+    dataNeeds: [
+      'Historical incident transcripts with timing metadata and responder roles.',
+      'SOP and communication policy corpus tagged by severity, location, and responsible unit.'
+    ],
+    cohort: 'communication-interface'
   },
   'concept-to-project': {
     scenarioFocus: 'Education project scaffolding',
@@ -404,6 +442,25 @@ export const patternEvaluationRegistry: Record<string, PatternEvaluationProfile>
       'Telemetry packets (video, narration, metrics) deliver within target latency for operator audits.'
     ],
     dataNeeds: ['Semantic facility maps', 'Synthetic obstacle libraries for simulation', 'Guest feedback or CSAT collection hooks'],
+    cohort: 'advanced-automation'
+  },
+  'inventory-guardian': {
+    scenarioFocus: 'Continuous inventory reconciliation that pairs sensor fusion with LLM reasoning and replenishment automation.',
+    criticalMetrics: ['Variance detection precision', 'Recovery time to stock accuracy', 'Auto-action success rate', 'Shrinkage reduction'],
+    evaluationNotes: [
+      'Inject synthetic variance scenarios (mis-scans, spoilage, mis-shipments) to benchmark detection and recommended actions.',
+      'Replay historical replenishment incidents to confirm guardrails prevent duplicate or conflicting orders.',
+      'Audit operator console logs to ensure hypotheses and actions are explainable and traceable.'
+    ],
+    readinessSignals: [
+      'Net shrinkage delta improves versus baseline over a full evaluation cycle.',
+      'Auto-generated tasks close successfully without manual correction ≥ 90% of the time.',
+      'Operators rate explanations as “actionable” in calibration sessions at least 4/5 on average.'
+    ],
+    dataNeeds: [
+      'Sensor and WMS event logs with labelled variance root causes.',
+      'Procurement and workforce management connectors for closed-loop task execution.'
+    ],
     cohort: 'advanced-automation'
   },
   'orchestrator-worker': {

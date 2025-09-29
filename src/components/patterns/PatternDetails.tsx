@@ -48,6 +48,9 @@ import { actionGroundingVerificationExecutionSteps } from '@/lib/data/execution/
 import { getAlgorithmVisualization } from '@/lib/utils/algorithmVisualization';
 import { agentToAgentPythonExecutionSteps } from '@/lib/data/execution/agentToAgentPythonExecutionSteps';
 import { mobileManipulatorStewardExecutionSteps } from '@/lib/data/execution/mobileManipulatorStewardExecutionSteps';
+import { adaptiveLabTechnicianExecutionSteps } from '@/lib/data/execution/adaptiveLabTechnicianExecutionSteps';
+import { inventoryGuardianExecutionSteps } from '@/lib/data/execution/inventoryGuardianExecutionSteps';
+import { emergencyResponseMateExecutionSteps } from '@/lib/data/execution/emergencyResponseMateExecutionSteps';
 
 const CORE_PORTFOLIO_METRICS_FOR_SNIPPET = coreEvaluationMetrics.slice(0, 3).map((metric) => metric.dimension);
 
@@ -563,6 +566,21 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             )}
             {pattern.id === 'mobile-manipulator-steward' && (
               <TabsTrigger value="live-runner-mobile-steward" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'adaptive-lab-technician' && (
+              <TabsTrigger value="live-runner-adaptive-lab" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'inventory-guardian' && (
+              <TabsTrigger value="live-runner-inventory-guardian" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'emergency-response-mate' && (
+              <TabsTrigger value="live-runner-emergency-response" className="flex items-center gap-2">
                 <Code size={16} /> Live Runner
               </TabsTrigger>
             )}
@@ -1237,6 +1255,36 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 patternId={pattern.id}
                 patternName={pattern.name}
                 steps={mobileManipulatorStewardExecutionSteps}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'adaptive-lab-technician' && (
+            <TabsContent value="live-runner-adaptive-lab" className="pt-4">
+              <LivePatternRunner
+                code={pattern.completeCode || pattern.codeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={adaptiveLabTechnicianExecutionSteps}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'inventory-guardian' && (
+            <TabsContent value="live-runner-inventory-guardian" className="pt-4">
+              <LivePatternRunner
+                code={pattern.completeCode || pattern.codeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={inventoryGuardianExecutionSteps}
+              />
+            </TabsContent>
+          )}
+          {pattern.id === 'emergency-response-mate' && (
+            <TabsContent value="live-runner-emergency-response" className="pt-4">
+              <LivePatternRunner
+                code={pattern.completeCode || pattern.codeExample}
+                patternId={pattern.id}
+                patternName={pattern.name}
+                steps={emergencyResponseMateExecutionSteps}
               />
             </TabsContent>
           )}

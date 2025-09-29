@@ -138,6 +138,27 @@ export const quizCategories: QuizCategory[] = [
         description: 'Apply the steward pattern to autonomous pickup, fallback, and governance routines.',
         prerequisites: ['agentic-robotics-integration'],
         questions: agenticRoboticsIntegrationQuestions.filter(q => q.subCategory === 'mobile-manipulator-steward')
+      },
+      {
+        id: 'adaptive-lab-technician',
+        name: 'Adaptive Lab Technician',
+        description: 'Govern assay orchestration, calibration discipline, and telemetry-driven recovery loops.',
+        prerequisites: ['agentic-robotics-integration'],
+        questions: agenticRoboticsIntegrationQuestions.filter(q => q.subCategory === 'adaptive-lab-technician')
+      },
+      {
+        id: 'inventory-guardian',
+        name: 'Inventory Guardian',
+        description: 'Maintain truthful digital twins, policy-aware replenishment, and audit-grade evidence.',
+        prerequisites: ['agentic-robotics-integration'],
+        questions: agenticRoboticsIntegrationQuestions.filter(q => q.subCategory === 'inventory-guardian')
+      },
+      {
+        id: 'emergency-response-mate',
+        name: 'Emergency Response Mate',
+        description: 'Coordinate incident comms, acknowledgement loops, and after-action knowledge capture.',
+        prerequisites: ['agentic-robotics-integration'],
+        questions: agenticRoboticsIntegrationQuestions.filter(q => q.subCategory === 'emergency-response-mate')
       }
     ]
   },

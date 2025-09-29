@@ -4794,6 +4794,420 @@ registerRecoveryHook({
     ]
   }
 ];
+
+// Interactive Scenarios for Adaptive Lab Technician Pattern
+export const adaptiveLabTechnicianScenarios: StudyModeQuestion[] = [
+  {
+    id: 'adaptive-lab-tech-scenario-1',
+    type: 'scenario',
+    conceptId: 'adaptive-lab-technician',
+    title: 'Standing Up a New Assay Line Overnight',
+    level: 'advanced',
+    scenario: {
+      id: 'adaptive-lab-tech-assay-launch',
+      title: 'Launch Sequencing Queue with Compliance Guardrails',
+      description: 'You must configure the adaptive technician to run a fresh oncology assay panel overnight while meeting calibration, reagent, and audit requirements.',
+      context: 'The wet lab just installed a new sequencing instrument. QA wants proof that calibrations, reagent logs, and human approvals stay airtight even when the lab runs lights-out.',
+      stakeholders: ['Lab Operations Lead', 'Quality Assurance', 'Night Shift Scientist', 'IT / Data Steward'],
+      challenges: [
+        {
+          id: 'adaptive-intake-checklist',
+          title: 'Gate the Run with Readiness Evidence',
+          description: 'Decide what the technician must confirm before the first sample enters the queue.',
+          question: 'Which readiness bundle should block mission start until satisfied?',
+          type: 'multiple-choice',
+          options: [
+            'Only confirm the LIMS queue length',
+            'Validate instrument calibration timestamps, reagent lot freshness, and QA sign-off in one packet',
+            'Skip all checks to meet the timeline',
+            'Ask the LLM to “trust but verify” later'
+          ],
+          correctAnswer: 1,
+          feedback: 'The run should only launch once calibration, reagent, and QA evidence are captured in the same readiness bundle.',
+          hints: [
+            'Look at the pattern’s quality guardian node',
+            'What evidence does QA always request during audits?'
+          ]
+        },
+        {
+          id: 'adaptive-midrun-adjustment',
+          title: 'Handle Mid-Run Telemetry Drift',
+          description: 'Temperature drift triggers a pause midway through the run.',
+          question: 'How should the technician react to regain trust and finish on time?',
+          type: 'multiple-choice',
+          options: [
+            'Force resume to avoid missing SLA',
+            'Enter safe pose, capture telemetry snapshot, notify QA/operations, and only resume after approval',
+            'Abort the run immediately and discard all samples',
+            'Switch to manual mode with no logging'
+          ],
+          correctAnswer: 1,
+          feedback: 'Safety comes first: freeze safely, broadcast context, and resume only with documented approval.',
+          hints: [
+            'Who needs to review the telemetry snapshot?',
+            'How does policy define acceptable drift ranges?'
+          ]
+        },
+        {
+          id: 'adaptive-ledger-handoff',
+          title: 'Deliver the Morning Report',
+          description: 'Prepare the run summary for the incoming team and regulators.',
+          question: 'Which artifacts must the ledger include by 7 a.m.?',
+          type: 'multiple-choice',
+          options: [
+            'Only the final assay results',
+            'Telemetry timeline, parameter adjustments, approvals, and deviations with root-cause notes',
+            'A marketing-friendly success summary',
+            'Nothing—the automation speaks for itself'
+          ],
+          correctAnswer: 1,
+          feedback: 'Compliance-grade handoffs demand full telemetry, approvals, and deviation rationale.',
+          hints: [
+            'What would an FDA/ISO inspector request?',
+            'How do you capture who approved each exception?'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'adaptive-assay-success',
+          condition: 'All challenges completed correctly',
+          result: 'The automation clears the overnight queue with pristine logs and QA confidence.',
+          explanation: 'Readiness gating, disciplined recovery, and thorough ledgers build trust in lights-out operations.',
+          nextSteps: [
+            'Expand the pattern to additional assay types',
+            'Tune guardrails based on drift frequency',
+            'Automate exception report distribution'
+          ]
+        },
+        {
+          id: 'adaptive-assay-gaps',
+          condition: 'Some challenges completed incorrectly',
+          result: 'QA halts follow-up runs and requests remediation of audit gaps.',
+          explanation: 'Without readiness proofs and detailed ledgers, regulators reject the automation handoff.',
+          nextSteps: [
+            'Rehearse the readiness checklist manually with QA',
+            'Instrument additional telemetry streams for drift detection',
+            'Implement templated ledger exports with sign-off enforcement'
+          ]
+        }
+      ],
+      codeExample: `import { createLabTechnician } from '@openagentschool/lab-automation';
+
+const technician = createLabTechnician({
+  id: 'adaptive-tech-01',
+  planner: 'gemini-1.5-pro',
+  guardrails: ['policy:iso-17025', 'halt:on-drift'],
+  tools: {
+    lims: connectLims(),
+    robotics: connectAssayRobotics(),
+    quality: connectQaLedger()
+  }
+});
+
+await technician.runBatch({
+  readinessChecklist: ['calibration-ok', 'reagent-fresh', 'qa-signoff'],
+  onDrift: payload => technician.escalate('qa-ops', payload),
+  ledger: event => technician.tools.quality.record(event)
+});`,
+      resources: [
+        'ISO 17025 Calibration Playbook',
+        'Adaptive Lab Technician Guardrail Recipes',
+        'Run Ledger Template Library'
+      ],
+      conceptId: 'adaptive-lab-technician',
+      difficulty: 'advanced',
+      estimatedTime: '30 minutes',
+      learningOutcomes: [
+        'Configure readiness gating for autonomous assays',
+        'Respond to telemetry drift with policy-aligned recovery',
+        'Deliver audit-ready ledgers without manual effort'
+      ]
+    },
+    explanation: 'Gives learners an end-to-end rehearsal for launching compliant, lights-out assay automation.',
+    relatedConcepts: ['quality-guardian', 'policy-gated-invocation', 'agent-ops'],
+    timeEstimate: 30,
+    successCriteria: [
+      'Defines readiness bundle before execution',
+      'Plans safe recovery with human approvals',
+      'Enumerates ledger deliverables for compliance'
+    ]
+  }
+];
+
+// Interactive Scenarios for Inventory Guardian Pattern
+export const inventoryGuardianScenarios: StudyModeQuestion[] = [
+  {
+    id: 'inventory-guardian-scenario-1',
+    type: 'scenario',
+    conceptId: 'inventory-guardian',
+    title: 'Resolving a Cold-Chain Variance',
+    level: 'intermediate',
+    scenario: {
+      id: 'inventory-guardian-cold-chain',
+      title: 'Keep the Digital Twin Trustworthy During Sensor Gaps',
+      description: 'A freezer pod reports inconsistent readings. The guardian must determine stock truth, protect product, and calm downstream teams.',
+      context: 'Three pallets of biologics show mismatched counts between RFID, weight pads, and manual picks. The cycle count team is short-staffed tonight.',
+      stakeholders: ['Inventory Control Manager', 'Cold Chain Compliance Officer', 'Replenishment Planner', 'Loss Prevention'],
+      challenges: [
+        {
+          id: 'inventory-signal-triangulation',
+          title: 'Triangulate Signal Confidence',
+          description: 'Choose how the guardian should interpret conflicting telemetry.',
+          question: 'What approach keeps the twin truthful without overreacting?',
+          type: 'multiple-choice',
+          options: [
+            'Trust the first sensor that fired',
+            'Blend weight pad deltas, door open events, and historical drift to model probable stock change with confidence decay',
+            'Mark the zone as accurate until tomorrow',
+            'Immediately zero the location and purge stock data'
+          ],
+          correctAnswer: 1,
+          feedback: 'Confidence-weighted fusion avoids knee-jerk actions while acknowledging uncertainty.',
+          hints: [
+            'Which sensors provide redundant coverage?',
+            'How does the digital twin already model confidence?'
+          ]
+        },
+        {
+          id: 'inventory-action-selection',
+          title: 'Pick the Right Recovery Action',
+          description: 'Decide what the guardian should do before humans arrive.',
+          question: 'What play keeps product safe and inventory accurate?',
+          type: 'multiple-choice',
+          options: [
+            'Auto-trigger full replenishment shipments',
+            'Schedule a targeted cycle count, freeze auto-shipments from the zone, and notify compliance with context packet',
+            'Ignore the alert until the morning team reviews',
+            'Dispatch loss prevention without data'
+          ],
+          correctAnswer: 1,
+          feedback: 'Targeted intervention plus policy notifications balance cost, safety, and accuracy.',
+          hints: [
+            'Which teams need actionable context?',
+            'How do you minimize disruption to other zones?'
+          ]
+        },
+        {
+          id: 'inventory-ledger',
+          title: 'Capture the Audit Trail',
+          description: 'Document the event for future retros.',
+          question: 'What should the guardian log to keep finance and compliance aligned?',
+          type: 'multiple-choice',
+          options: [
+            'Only a short Slack message to the team',
+            'Telemetry snapshots, confidence scoring, chosen playbook, and financial exposure estimate',
+            'Just the time the alert happened',
+            'No record; auditors can reconstruct later'
+          ],
+          correctAnswer: 1,
+          feedback: 'Complete packets accelerate reconciliation and protect against shrink disputes.',
+          hints: [
+            'Think about quarterly SOX reviews',
+            'What evidence justifies financial accruals?'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'inventory-success-outcome',
+          condition: 'All challenges completed correctly',
+          result: 'Product stays viable, counts reconcile by morning, and auditors praise the evidence quality.',
+          explanation: 'Confident fusion and targeted playbooks keep the digital twin reliable even under telemetry stress.',
+          nextSteps: [
+            'Automate similar playbooks for other cold zones',
+            'Tune notification tiers based on reviewer feedback',
+            'Expand shrink analytics using the captured context'
+          ]
+        },
+        {
+          id: 'inventory-risk-outcome',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Reconciliation drags into the next shift and finance must book a variance provision.',
+          explanation: 'Skipping fusion or audit logs erodes trust and inflates shrink.',
+          nextSteps: [
+            'Re-run the drill with updated telemetry rules',
+            'Shadow the compliance officer during cycle counts',
+            'Automate evidence capture with templated packets'
+          ]
+        }
+      ],
+      codeExample: `import { createInventoryGuardian } from '@openagentschool/operations';
+
+const guardian = createInventoryGuardian({
+  id: 'dc-west-guardian',
+  twin: connectInventoryTwin(),
+  policies: ['cold-chain', 'variance-threshold'],
+  channels: ['ops-console', 'finance-queue']
+});
+
+guardian.onVariance(async event => {
+  const confidence = guardian.modelConfidence(event.signals);
+  if (confidence < 0.7) {
+    return guardian.scheduleCycleCount({ zone: event.zone });
+  }
+  return guardian.executePlaybook('cold-chain-mitigation', event);
+});`,
+      resources: [
+        'Inventory Guardian Policy Catalog',
+        'Cold Chain Incident Response Guide',
+        'Variance Ledger Template'
+      ],
+      conceptId: 'inventory-guardian',
+      difficulty: 'intermediate',
+      estimatedTime: '25 minutes',
+      learningOutcomes: [
+        'Fuse conflicting telemetry using confidence models',
+        'Select recovery playbooks tuned to cost and risk',
+        'Capture audit artefacts that satisfy finance and compliance'
+      ]
+    },
+    explanation: 'Teaches resilient inventory operations when telemetry gets noisy in critical environments.',
+    relatedConcepts: ['data-quality-feedback-loop', 'telemetry', 'agent-ops'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Triangulates variance signals with confidence aware logic',
+      'Chooses policy-aligned recovery actions',
+      'Documents financial and compliance evidence'
+    ]
+  }
+];
+
+// Interactive Scenarios for Emergency Response Mate Pattern
+export const emergencyResponseMateScenarios: StudyModeQuestion[] = [
+  {
+    id: 'emergency-mate-scenario-1',
+    type: 'scenario',
+    conceptId: 'emergency-response-mate',
+    title: 'Coordinating a Multi-Site Incident',
+    level: 'advanced',
+    scenario: {
+      id: 'emergency-mate-campus-incident',
+      title: 'Stabilize a Chemical Spill with Multi-Channel Comms',
+      description: 'A spill triggers alarms in two connected buildings. The response mate must deduplicate alerts, assign responders, and keep command aligned under five minutes.',
+      context: 'IoT sensors, security radio, and hotline calls all report a chemical odor. Students begin posting on social media. Leadership wants verified situational awareness before public messaging.',
+      stakeholders: ['Emergency Operations Center', 'Facilities Response Team', 'Campus Safety Communications', 'Incident Commander'],
+      challenges: [
+        {
+          id: 'emergency-triage',
+          title: 'Deduplicate and Classify Signals',
+          description: 'Noise is high; you need confident classification fast.',
+          question: 'How should the response mate triage the incoming noise?',
+          type: 'multiple-choice',
+          options: [
+            'Alert every channel immediately without validation',
+            'Fuse IoT severity scores with human reports, mark duplicates, and escalate once severity crosses policy threshold',
+            'Ignore manual reports and trust sensors only',
+            'Wait for a human to read each alert manually'
+          ],
+          correctAnswer: 1,
+          feedback: 'Fusion with deduplication balances speed and accuracy, preventing alert fatigue.',
+          hints: [
+            'Review the signal triage node in the pattern',
+            'What severity rules do your SOPs require?'
+          ]
+        },
+        {
+          id: 'emergency-tasking',
+          title: 'Push Playbooks Across Channels',
+          description: 'Responders use radio, SMS, and Teams. Latency kills trust.',
+          question: 'What dissemination approach maintains accountability?',
+          type: 'multiple-choice',
+          options: [
+            'Send the same message everywhere with no tracking',
+            'Tailor instructions per channel, require acknowledgement receipts, and escalate if no response within SLA',
+            'Only update the web dashboard',
+            'Call each responder individually'
+          ],
+          correctAnswer: 1,
+          feedback: 'Channel-specific instructions plus acknowledgement tracking keep teams aligned under pressure.',
+          hints: [
+            'How do you prove responders heard the message?',
+            'What happens if someone misses an acknowledgement?'
+          ]
+        },
+        {
+          id: 'emergency-operating-picture',
+          title: 'Keep Command Informed',
+          description: 'Leadership needs facts before talking to the public.',
+          question: 'What should the command dashboard surface immediately?',
+          type: 'multiple-choice',
+          options: [
+            'Only raw chat transcripts',
+            'Live map with responder status, hazard zones, confidence scores, and outstanding tasks',
+            'Just social media posts mentioning the campus',
+            'Delay updates until the incident ends'
+          ],
+          correctAnswer: 1,
+          feedback: 'Command needs a synthesized operating picture with confidence and outstanding risks noted.',
+          hints: [
+            'Which signals prove containment vs escalation?',
+            'What do public information officers need before messaging?'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'emergency-success',
+          condition: 'All challenges completed correctly',
+          result: 'Responders contain the incident quickly while leadership communicates confidently.',
+          explanation: 'Coordinated triage, multi-channel tasking, and a trusted operating picture reduce chaos.',
+          nextSteps: [
+            'Run a tabletop to validate the after-action template',
+            'Update severity thresholds using captured telemetry',
+            'Expand response mate coverage to nearby facilities'
+          ]
+        },
+        {
+          id: 'emergency-chaos',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Teams act on conflicting information and public messaging stalls.',
+          explanation: 'Without deduped triage and mission tracking, command loses trust in automation.',
+          nextSteps: [
+            'Audit the signal fusion rules with emergency operations',
+            'Refine acknowledgement policies per channel',
+            'Invest in simulation drills to train responders on the new workflow'
+          ]
+        }
+      ],
+      codeExample: `import { createResponseMate } from '@openagentschool/emergency';
+
+const responseMate = createResponseMate({
+  id: 'campus-eoc',
+  knowledgeBases: ['map://campus', 'sop://hazmat', 'roster://responders'],
+  channels: ['sms', 'radio-bridge', 'teams']
+});
+
+responseMate.handleSignal(async signal => {
+  const incident = await responseMate.triage(signal);
+  const plan = await responseMate.composePlaybook(incident);
+  await responseMate.broadcast(plan.assignments, { requireAck: true, escalateAfterSeconds: 45 });
+  return responseMate.updateCommandView(plan);
+});`,
+      resources: [
+        'Emergency Response Mate Playbook Library',
+        'Campus Hazard Communication SOP',
+        'After-Action Template Checklist'
+      ],
+      conceptId: 'emergency-response-mate',
+      difficulty: 'advanced',
+      estimatedTime: '28 minutes',
+      learningOutcomes: [
+        'Deduplicate high-noise incident feeds with confidence scoring',
+        'Coordinate multi-channel responder tasking with accountability',
+        'Maintain an operating picture commanders can trust under stress'
+      ]
+    },
+    explanation: 'Prepares teams to rely on the response mate during high-stakes, multi-channel incidents.',
+    relatedConcepts: ['routing', 'agent-ops', 'strategy-memory-replay'],
+    timeEstimate: 28,
+    successCriteria: [
+      'Implements severity-aware signal fusion',
+      'Designs acknowledgement-driven task dissemination',
+      'Keeps command telemetry actionable and current'
+    ]
+  }
+];
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
@@ -4816,6 +5230,9 @@ export const scenarioLibrary = {
   'organizational-enablement': organizationalEnablementScenarios,
   'agentic-robotics-integration': agenticRoboticsIntegrationScenarios,
   'mobile-manipulator-steward': mobileManipulatorStewardScenarios,
+  'adaptive-lab-technician': adaptiveLabTechnicianScenarios,
+  'inventory-guardian': inventoryGuardianScenarios,
+  'emergency-response-mate': emergencyResponseMateScenarios,
   // New Perspectives (MVP Scenarios)
   'agent-ops': [
     {

@@ -3087,6 +3087,372 @@ registerRecoveryHook({
   }
 ];
 
+// Debug Challenges for Adaptive Lab Technician Pattern
+export const adaptiveLabTechnicianDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'adaptive-lab-tech-debug-1',
+    type: 'debug',
+    conceptId: 'adaptive-lab-technician',
+    title: 'Calibration Windows Quietly Skipped',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'adaptive-lab-calibration-skip',
+      title: 'Nightly Queue Ignores Calibration Expiry',
+      description: 'QA discovers overnight assay runs launching minutes after calibration windows expire, jeopardizing compliance.',
+      problemDescription: 'Logs show calibrations expiring at 01:15, but the technician still started a run at 01:18. The readiness guard only checked for calibration existence and ledger entries lack QA approvals.',
+      brokenCode: `import { technician } from '@/playbooks/adaptiveTechnician';
+
+technician.on('queue:ready', async ctx => {
+  const hasCalibration = await technician.checks.calibrationExists(ctx.instrumentId);
+  if (hasCalibration) {
+    return technician.startRun(ctx.queueId);
+  }
+  ctx.logger.warn('calibration missing');
+});
+
+technician.ledger.record({
+  runId: ctx.queueId,
+  approvals: ctx.approvals || []
+});
+`,
+      conversationLogs: [
+        {
+          timestamp: '2025-10-04T01:22:10Z',
+          agent: 'QualityGuardian',
+          message: 'Calibration expired 7 minutes ago for sequencer-04.',
+          type: 'warning'
+        },
+        {
+          timestamp: '2025-10-04T01:22:40Z',
+          agent: 'NightScientist',
+          message: 'Why did the run start without my sign-off?',
+          type: 'error'
+        },
+        {
+          timestamp: '2025-10-04T01:23:05Z',
+          agent: 'TechnicianOps',
+          message: 'Readiness guard only verifies calibration exists, not freshness window.',
+          type: 'info'
+        }
+      ],
+      agentConfigs: [
+        {
+          name: 'CalibrationWatcher',
+          role: 'Instrument Readiness Sentinel',
+          systemPrompt: 'Block runs when calibration freshness, reagent shelf life, or approvals are out of policy.',
+          tools: ['lims', 'instrument_telemetry'],
+          parameters: { freshnessMinutes: 60 }
+        }
+      ],
+      expectedBehavior: 'Runs launch only when calibration age, reagent freshness, and QA approvals meet policy; ledger records the readiness packet.',
+      commonIssues: [
+        {
+          issue: 'Existence check only',
+          symptoms: ['Runs start minutes after expiration'],
+          diagnosis: 'Readiness guard ignores calibration timestamp.',
+          fix: 'Compare calibration timestamp to freshness window, halt if stale.'
+        },
+        {
+          issue: 'Optional approvals',
+          symptoms: ['Ledger approvals array empty'],
+          diagnosis: 'Automation does not enforce QA sign-off.',
+          fix: 'Require digital approvals before startRun().' 
+        },
+        {
+          issue: 'Ledger evidence gaps',
+          symptoms: ['No calibration snapshot stored'],
+          diagnosis: 'Ledger record omits readiness details.',
+          fix: 'Persist calibration, reagent, and approval context per run.'
+        }
+      ],
+      hints: [
+        'Inspect the readiness guard for timestamp logic',
+        'What approvals does ISO 17025 demand?',
+        'What evidence should auditors see in the ledger?'
+      ],
+      solution: `technician.on('queue:ready', async ctx => {
+  const readiness = await technician.checks.readinessPacket(ctx.instrumentId);
+  if (!readiness.calibration || readiness.calibration.ageMinutes > 60) {
+    await technician.escalate('qa', {
+      reason: 'calibration_stale',
+      instrument: ctx.instrumentId,
+      snapshot: readiness
+    });
+    return;
+  }
+
+  if (!readiness.approvals.includes('qa-night-shift')) {
+    return technician.requestApproval('qa-night-shift', readiness);
+  }
+
+  await technician.startRun(ctx.queueId, { readiness });
+  await technician.ledger.record({
+    runId: ctx.queueId,
+    readiness,
+    timestamp: new Date().toISOString()
+  });
+});`,
+      explanation: 'Tightening readiness enforcement keeps lights-out automation compliant with calibration and approval policies.'
+    },
+    expectedInsights: [
+      'Readiness checks must enforce freshness windows, not just existence',
+      'Automation should block until digital approvals arrive',
+      'Ledger entries need full readiness evidence for audits'
+    ],
+    hints: [
+      'Compare timestamps, not just booleans',
+      'Require QA signatures before execution',
+      'Persist readiness context in the ledger'
+    ],
+    explanation: 'Learners debug readiness hooks that silently erode compliance.',
+    relatedConcepts: ['quality-guardian', 'policy-gated-invocation', 'agent-ops'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Adds calibration freshness validation',
+      'Enforces QA approvals prior to launch',
+      'Records readiness packet in ledger entries'
+    ]
+  }
+];
+
+// Debug Challenges for Inventory Guardian Pattern
+export const inventoryGuardianDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'inventory-guardian-debug-1',
+    type: 'debug',
+    conceptId: 'inventory-guardian',
+    title: 'Variance Detector Flapping Between False Positives',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'inventory-guardian-variance-flap',
+      title: 'Confidence Decay Never Resets',
+      description: 'A rebooted RFID gateway causes confidence scores to plummet and stay low, spamming shrink alerts.',
+      problemDescription: 'Confidence decay subtracts 0.1 on every read regardless of quality. After the gateway returns, the decay keeps dropping and cycle count tickets explode. Secondary sensors are ignored.',
+      brokenCode: `import { guardian } from '@/playbooks/inventoryGuardian';
+
+guardian.on('rfid-read', reading => {
+  const record = guardian.twin.get(reading.locationId);
+  record.confidence -= 0.1;
+  if (record.confidence < 0.4) {
+    guardian.alert('variance', { locationId: reading.locationId });
+  }
+});
+`,
+      conversationLogs: [
+        {
+          timestamp: '2025-09-12T04:11:00Z',
+          agent: 'OpsConsole',
+          message: 'Cycle count backlog exploded for freezer aisle 7.',
+          type: 'warning'
+        },
+        {
+          timestamp: '2025-09-12T04:12:18Z',
+          agent: 'SensorOps',
+          message: 'RFID reader rebooted at 03:45, reads back to normal.',
+          type: 'info'
+        },
+        {
+          timestamp: '2025-09-12T04:13:44Z',
+          agent: 'GuardianAnalyst',
+          message: 'Decay never resets even when reads recover.',
+          type: 'error'
+        }
+      ],
+      agentConfigs: [
+        {
+          name: 'VarianceAnalyst',
+          role: 'Telemetry Fusion',
+          systemPrompt: 'Fuse RFID, weight pad, and WMS signals to maintain truthful stock views.',
+          tools: ['rfid', 'weight_pad', 'wms-events'],
+          parameters: { decayResetThreshold: 0.8 }
+        }
+      ],
+      expectedBehavior: 'Confidence should rebound when healthy signals return and variance alerts should require multi-sensor corroboration.',
+      commonIssues: [
+        {
+          issue: 'Unbounded decay',
+          symptoms: ['Confidence stays low despite good data'],
+          diagnosis: 'No reset when sensors recover.',
+          fix: 'Reset decay based on healthy evidence or moving average.'
+        },
+        {
+          issue: 'Single-sensor dependency',
+          symptoms: ['Alerts spike after one gateway reboot'],
+          diagnosis: 'Logic ignores weight pad and WMS signals.',
+          fix: 'Fuse multiple sensors before raising alerts.'
+        },
+        {
+          issue: 'No suppression window',
+          symptoms: ['Duplicate tickets for same zone'],
+          diagnosis: 'Alerting has no cooldown.',
+          fix: 'Add suppression period and reconciliation task.'
+        }
+      ],
+      hints: [
+        'Where should confidence recover?',
+        'What redundant telemetry can you use?',
+        'How do you prevent ticket storms?'
+      ],
+      solution: `guardian.on('rfid-read', reading => {
+  const evidence = guardian.collectEvidence(reading.locationId);
+  const confidence = guardian.fuseConfidence({
+    rfid: reading.signalStrength,
+    weightPad: evidence.weightPad,
+    wms: evidence.wmsActivity
+  });
+
+  guardian.twin.update(reading.locationId, { confidence });
+
+  if (confidence < 0.5) {
+    guardian.raiseVariance({
+      locationId: reading.locationId,
+      evidence,
+      suppressMinutes: 30
+    });
+  }
+});`,
+      explanation: 'Resilient confidence models recover after outages and rely on fused evidence to avoid false positives.'
+    },
+    expectedInsights: [
+      'Confidence decay needs reset logic tied to healthy evidence',
+      'Variance detection should require multi-sensor agreement',
+      'Alert suppression avoids duplicate labor'
+    ],
+    hints: [
+      'Reset decay when sensors stabilize',
+      'Fuse redundancies before alerting',
+      'Throttle alerts with suppression windows'
+    ],
+    explanation: 'Learners harden the guardian against noisy telemetry without sacrificing accuracy.',
+    relatedConcepts: ['data-quality-feedback-loop', 'telemetry', 'agent-ops'],
+    timeEstimate: 14,
+    successCriteria: [
+      'Implements confidence reset behavior',
+      'Incorporates multi-sensor fusion',
+      'Adds suppression to prevent alert storms'
+    ]
+  }
+];
+
+// Debug Challenges for Emergency Response Mate Pattern
+export const emergencyResponseMateDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'emergency-mate-debug-1',
+    type: 'debug',
+    conceptId: 'emergency-response-mate',
+    title: 'Acknowledgement Loop Stalls Incident Response',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'emergency-mate-ack-stall',
+      title: 'Broadcasts Ignore Channel-Specific ACK Rules',
+      description: 'During a campus drill, radio responders never acknowledged tasks even though the timeline marked them complete.',
+      problemDescription: 'The dispatcher assumes acknowledgement if SMS receipts arrive. Radio bridge transcripts are ignored, and no escalation fires when silent. Command believes the incident is contained.',
+      brokenCode: `import { responseMate } from '@/playbooks/emergencyResponse';
+
+responseMate.broadcast(assignments, {
+  channels: ['sms', 'radio', 'teams'],
+  onAck: ack => responseMate.timeline.record(ack)
+});
+
+if (!assignments.every(task => task.acknowledged)) {
+  responseMate.timeline.record({ type: 'completion', message: 'All tasks acknowledged' });
+}
+`,
+      conversationLogs: [
+        {
+          timestamp: '2025-08-18T14:03:11Z',
+          agent: 'IncidentCommander',
+          message: 'Radio team never confirmed containment but timeline says complete.',
+          type: 'warning'
+        },
+        {
+          timestamp: '2025-08-18T14:03:40Z',
+          agent: 'ResponseMate',
+          message: 'Ack listener only wired for SMS/Teams receipts.',
+          type: 'info'
+        },
+        {
+          timestamp: '2025-08-18T14:04:05Z',
+          agent: 'SafetyComms',
+          message: 'Need escalation when radio is silent for 60 seconds.',
+          type: 'warning'
+        }
+      ],
+      agentConfigs: [
+        {
+          name: 'AckOrchestrator',
+          role: 'Acknowledgement Tracker',
+          systemPrompt: 'Track acknowledgements per channel and escalate if SLA breached.',
+          tools: ['sms-gateway', 'radio-transcript', 'teams-api'],
+          parameters: { radioAckTimeoutSeconds: 60 }
+        }
+      ],
+      expectedBehavior: 'Every channel must produce explicit acknowledgement or trigger escalation; timelines should not mark completion without proof.',
+      commonIssues: [
+        {
+          issue: 'Missing channel adapters',
+          symptoms: ['Radio tasks marked done without proof'],
+          diagnosis: 'Ack handler ignores radio transcripts.',
+          fix: 'Parse radio bridge transcripts and map to tasks.'
+        },
+        {
+          issue: 'No escalation timers',
+          symptoms: ['Silence tolerated indefinitely'],
+          diagnosis: 'Lacks SLA timers per channel.',
+          fix: 'Add timers that escalate to command or alternate channels.'
+        },
+        {
+          issue: 'Premature completion logging',
+          symptoms: ['Timeline shows completion instantly'],
+          diagnosis: 'Completion check assumes tasks acknowledged.',
+          fix: 'Block completion event until all acknowledgements recorded.'
+        }
+      ],
+      hints: [
+        'What counts as acknowledgement per channel?',
+        'How long before command should escalate?',
+        'Should completion fire before all receipts arrive?'
+      ],
+      solution: `responseMate.broadcast(assignments, {
+  channels: ['sms', 'radio', 'teams'],
+  onAck: ack => {
+    responseMate.timeline.record(ack);
+    responseMate.acks.confirm(ack.taskId, ack.channel);
+  }
+});
+
+responseMate.watchAcks(assignments, {
+  radio: { timeoutSeconds: 60, onTimeout: task => responseMate.escalate('command', task) },
+  sms: { timeoutSeconds: 45, onTimeout: task => responseMate.retry('sms', task) }
+});
+
+if (assignments.every(task => responseMate.acks.isComplete(task.id))) {
+  responseMate.timeline.record({ type: 'completion', message: 'All tasks acknowledged with proof.' });
+}
+`,
+      explanation: 'Channel-aware acknowledgement tracking keeps command dashboards truthful during fast-moving incidents.'
+    },
+    expectedInsights: [
+      'Multi-channel comms need channel-specific acknowledgement adapters',
+      'Escalation timers should reflect channel SLAs',
+      'Incident timelines must wait for proof before marking completion'
+    ],
+    hints: [
+      'Parse acknowledgements for each medium',
+      'Add SLA-driven escalation',
+      'Delay completion until all receipts captured'
+    ],
+    explanation: 'Learners harden emergency communications so nothing falls through silent channels.',
+    relatedConcepts: ['routing', 'agent-ops', 'responsible-ai-governance'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Implements per-channel acknowledgement tracking',
+      'Introduces escalation timers for silence',
+      'Prevents completion logging before acknowledgements'
+    ]
+  }
+];
+
 // Error Whisperer Debug Challenges
 export const errorWhispererDebugChallenges: StudyModeQuestion[] = [
   {
@@ -4515,6 +4881,9 @@ export const debugChallengeLibrary = {
   'time-box-pair-programmer': timeboxPairProgrammerDebugChallenges,
   'tool-use-coach-debug': toolUseCoachDebugChallenges,
   'product-management': productManagementDebugChallenges,
+  'adaptive-lab-technician': adaptiveLabTechnicianDebugChallenges,
+  'inventory-guardian': inventoryGuardianDebugChallenges,
+  'emergency-response-mate': emergencyResponseMateDebugChallenges,
   'agentic-robotics-integration': agenticRoboticsIntegrationDebugChallenges,
   'mobile-manipulator-steward': mobileManipulatorStewardDebugChallenges,
   // New Core Concepts

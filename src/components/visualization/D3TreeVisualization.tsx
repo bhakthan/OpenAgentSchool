@@ -159,7 +159,11 @@ export default function D3TreeVisualization({
             { id: 'deep-agents', name: 'Deep Agents', type: 'pattern' as const, novel: true },
             { id: 'orchestrator-worker', name: 'Orchestrator Worker', type: 'pattern' as const },
             { id: 'routing', name: 'Routing', type: 'pattern' as const },
-            { id: 'swarm-intelligence', name: 'Swarm Intelligence', type: 'pattern' as const, novel: true }
+            { id: 'swarm-intelligence', name: 'Swarm Intelligence', type: 'pattern' as const, novel: true },
+            { id: 'mobile-manipulator-steward', name: 'Mobile Manipulator Steward', type: 'pattern' as const, novel: true },
+            { id: 'adaptive-lab-technician', name: 'Adaptive Lab Technician', type: 'pattern' as const, novel: true },
+            { id: 'inventory-guardian', name: 'Inventory Guardian', type: 'pattern' as const, novel: true },
+            { id: 'emergency-response-mate', name: 'Emergency Response Mate', type: 'pattern' as const, novel: true }
           ]
         },
         {

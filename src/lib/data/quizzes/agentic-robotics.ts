@@ -154,5 +154,119 @@ export const agenticRoboticsIntegrationQuestions: QuizQuestion[] = [
     relatedConcepts: ['mobile-manipulator-steward', 'agent-ops', 'responsible-ai-governance'],
     timeEstimate: 90,
     persona: ['agent-architect', 'operations-manager', 'safety-engineer']
+  },
+  {
+    id: 'ar-alt-i1',
+    text: 'What readiness gate must the Adaptive Lab Technician satisfy before launching an overnight assay run?',
+    question: 'What readiness gate must the Adaptive Lab Technician satisfy before launching an overnight assay run?',
+    options: [
+      'Confirm only that the LIMS queue is non-empty',
+      'Verify calibrations are within freshness window, reagents are valid, and QA sign-off is recorded in the ledger',
+      'Ask the supervising scientist via chat after the run starts',
+      'Assume instrumentation is ready if no alarms fired in the last hour'
+    ],
+    correctAnswer: 1,
+    difficulty: 'intermediate',
+    category: 'agentic-robotics',
+    subCategory: 'adaptive-lab-technician',
+    explanation: 'Lights-out runs require evidence that calibrations, reagents, and approvals are all current before execution begins.',
+    relatedConcepts: ['adaptive-lab-technician', 'quality-guardian', 'policy-gated-invocation'],
+    timeEstimate: 65,
+    persona: ['robotics-lead', 'operations-manager', 'safety-engineer']
+  },
+  {
+    id: 'ar-alt-a1',
+    text: 'Which telemetry bundle should trigger an automatic pause for the Adaptive Lab Technician during a run?',
+    question: 'Which telemetry bundle should trigger an automatic pause for the Adaptive Lab Technician during a run?',
+    options: [
+      'Only the incubator door sensor toggling',
+      'Temperature drift beyond tolerance combined with vibration spike and reagent timer overrun',
+      'A single log warning emitted by the LLM planner',
+      'Any human message posted in the operations channel'
+    ],
+    correctAnswer: 1,
+    difficulty: 'advanced',
+    category: 'agentic-robotics',
+    subCategory: 'adaptive-lab-technician',
+    explanation: 'The technician pauses when fused telemetry indicates quality risk, not just a single signal in isolation.',
+    relatedConcepts: ['adaptive-lab-technician', 'failure-modes', 'telemetry'],
+    timeEstimate: 80,
+    persona: ['agent-architect', 'robotics-lead', 'safety-engineer']
+  },
+  {
+    id: 'ar-ig-i1',
+    text: 'How should Inventory Guardian estimate stock when primary RFID coverage drops for a zone?',
+    question: 'How should Inventory Guardian estimate stock when primary RFID coverage drops for a zone?',
+    options: [
+      'Freeze all shipments indefinitely until manual count finishes',
+      'Blend weight pad deltas, recent WMS events, and confidence decay to approximate stock until sensors return',
+      'Assume the previous count is still accurate',
+      'Trigger a full distribution center shutdown'
+    ],
+    correctAnswer: 1,
+    difficulty: 'intermediate',
+    category: 'agentic-robotics',
+    subCategory: 'inventory-guardian',
+    explanation: 'Fallback telemetry plus confidence modeling keeps the digital twin trustworthy during outages.',
+    relatedConcepts: ['inventory-guardian', 'telemetry', 'data-quality-feedback-loop'],
+    timeEstimate: 60,
+    persona: ['operations-manager', 'agent-architect', 'robotics-lead']
+  },
+  {
+    id: 'ar-ig-a1',
+    text: 'Which evidence package best supports a replenishment auto-action initiated by Inventory Guardian?',
+    question: 'Which evidence package best supports a replenishment auto-action initiated by Inventory Guardian?',
+    options: [
+      'A one-line Slack message stating “reorder triggered”',
+      'Telemetry snapshots, variance hypothesis ranking, financial exposure estimate, and approval routing',
+      'An email describing the shortage in plain text only',
+      'A manual spreadsheet uploaded after the fact'
+    ],
+    correctAnswer: 1,
+    difficulty: 'advanced',
+    category: 'agentic-robotics',
+    subCategory: 'inventory-guardian',
+    explanation: 'Auditability and trust require structured evidence tying telemetry to financial impact and approvals.',
+    relatedConcepts: ['inventory-guardian', 'agent-ops', 'responsible-ai-governance'],
+    timeEstimate: 85,
+    persona: ['operations-manager', 'agent-architect', 'safety-engineer']
+  },
+  {
+    id: 'ar-erm-i1',
+    text: 'How should Emergency Response Mate treat acknowledgements across mixed communication channels?',
+    question: 'How should Emergency Response Mate treat acknowledgements across mixed communication channels?',
+    options: [
+      'Assume radio responders heard instructions if SMS responders acknowledged',
+      'Require explicit per-channel acknowledgements with escalation timers for silence',
+      'Mark tasks complete immediately after broadcasting once',
+      'Wait for manual dispatcher confirmation hours later'
+    ],
+    correctAnswer: 1,
+    difficulty: 'intermediate',
+    category: 'agentic-robotics',
+    subCategory: 'emergency-response-mate',
+    explanation: 'Channel-aware acknowledgements ensure no responder is silently out of loop.',
+    relatedConcepts: ['emergency-response-mate', 'routing', 'agent-ops'],
+    timeEstimate: 55,
+    persona: ['agent-architect', 'operations-manager', 'safety-engineer']
+  },
+  {
+    id: 'ar-erm-a1',
+    text: 'What should the after-action packet generated by Emergency Response Mate always include for compliance review?',
+    question: 'What should the after-action packet generated by Emergency Response Mate always include for compliance review?',
+    options: [
+      'Only a short incident summary paragraph',
+      'Timestamped task acknowledgements, escalation decisions, communication transcripts, and recommended playbook updates',
+      'A marketing press release about the incident',
+      'Raw social media screenshots without context'
+    ],
+    correctAnswer: 1,
+    difficulty: 'advanced',
+    category: 'agentic-robotics',
+    subCategory: 'emergency-response-mate',
+    explanation: 'Structured after-action evidence feeds compliance, training, and playbook refinement loops.',
+    relatedConcepts: ['emergency-response-mate', 'strategy-memory-replay', 'responsible-ai-governance'],
+    timeEstimate: 90,
+    persona: ['operations-manager', 'safety-engineer', 'agent-architect']
   }
 ];

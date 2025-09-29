@@ -49,6 +49,9 @@ export { dataQualityFeedbackLoopPattern } from './dataQualityFeedbackLoop';
 export { queryIntentStructuredAccessPattern } from './queryIntentStructuredAccess';
 export { strategyMemoryReplayPattern } from './strategyMemoryReplay';
 export { mobileManipulatorStewardPattern } from './mobileManipulatorSteward';
+export { adaptiveLabTechnicianPattern } from './adaptiveLabTechnician';
+export { inventoryGuardianPattern } from './inventoryGuardian';
+export { emergencyResponseMatePattern } from './emergencyResponseMate';
 
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
@@ -97,6 +100,9 @@ import { dataQualityFeedbackLoopPattern } from './dataQualityFeedbackLoop';
 import { queryIntentStructuredAccessPattern } from './queryIntentStructuredAccess';
 import { strategyMemoryReplayPattern } from './strategyMemoryReplay';
 import { mobileManipulatorStewardPattern } from './mobileManipulatorSteward';
+import { adaptiveLabTechnicianPattern } from './adaptiveLabTechnician';
+import { inventoryGuardianPattern } from './inventoryGuardian';
+import { emergencyResponseMatePattern } from './emergencyResponseMate';
 import { patternEvaluationRegistry } from './evaluationRegistry';
 
 export const agentPatterns = [
@@ -145,6 +151,9 @@ export const agentPatterns = [
   queryIntentStructuredAccessPattern,
   strategyMemoryReplayPattern,
   mobileManipulatorStewardPattern,
+  adaptiveLabTechnicianPattern,
+  inventoryGuardianPattern,
+  emergencyResponseMatePattern,
   // autogenMultiAgentPattern,
 ];
 

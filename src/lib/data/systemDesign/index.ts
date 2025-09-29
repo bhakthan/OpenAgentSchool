@@ -44,6 +44,9 @@ import { dataQualityFeedbackLoopSystemDesign } from './dataQualityFeedbackLoop';
 import { queryIntentStructuredAccessSystemDesign } from './queryIntentStructuredAccess';
 import { strategyMemoryReplaySystemDesign } from './strategyMemoryReplay';
 import { mobileManipulatorStewardSystemDesign } from './mobileManipulatorSteward';
+import { adaptiveLabTechnicianSystemDesign } from './adaptiveLabTechnician';
+import { inventoryGuardianSystemDesign } from './inventoryGuardian';
+import { emergencyResponseMateSystemDesign } from './emergencyResponseMate';
 
 // Export individual patterns
 export { pythonReActAgentSystemDesign } from './pythonReActAgent';
@@ -88,6 +91,9 @@ export { dataQualityFeedbackLoopSystemDesign } from './dataQualityFeedbackLoop';
 export { queryIntentStructuredAccessSystemDesign } from './queryIntentStructuredAccess';
 export { strategyMemoryReplaySystemDesign } from './strategyMemoryReplay';
 export { mobileManipulatorStewardSystemDesign } from './mobileManipulatorSteward';
+export { adaptiveLabTechnicianSystemDesign } from './adaptiveLabTechnician';
+export { inventoryGuardianSystemDesign } from './inventoryGuardian';
+export { emergencyResponseMateSystemDesign } from './emergencyResponseMate';
 
 // Create a registry of all system design patterns
 export const systemDesignPatterns = {
@@ -134,6 +140,9 @@ export const systemDesignPatterns = {
   'query-intent-structured-access': queryIntentStructuredAccessSystemDesign,
   'strategy-memory-replay': strategyMemoryReplaySystemDesign,
   'mobile-manipulator-steward': mobileManipulatorStewardSystemDesign,
+  'adaptive-lab-technician': adaptiveLabTechnicianSystemDesign,
+  'inventory-guardian': inventoryGuardianSystemDesign,
+  'emergency-response-mate': emergencyResponseMateSystemDesign,
 };
 
 /**

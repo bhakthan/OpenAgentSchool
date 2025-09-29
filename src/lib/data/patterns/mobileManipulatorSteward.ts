@@ -6,7 +6,7 @@ export const mobileManipulatorStewardPattern: PatternData = {
   id: 'mobile-manipulator-steward',
   name: 'Mobile Manipulator Steward',
   description: 'Gemini Robotics-powered concierge that navigates dynamic spaces, performs light manipulation, and keeps humans in the loop.',
-  category: 'Embodied',
+  category: 'Advanced',
   useCases: [
     'Hotel amenity delivery and guest support',
     'Hospital supply runs with safety validation',

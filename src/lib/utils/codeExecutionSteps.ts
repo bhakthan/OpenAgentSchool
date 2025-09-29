@@ -478,6 +478,129 @@ export const codeExecutionSteps: StepData = {
       }
     ]
   },
+
+  'adaptive-lab-technician': {
+    typescript: [
+      {
+        lineStart: 1,
+        lineEnd: 12,
+        description: 'Instantiate adaptive lab agent with tools for LIMS, robotics, and sensors alongside guardrails.',
+        variableState: {
+          'planner': '"gemini-1.5-pro"',
+          'guardrails': "['policy:iso-17025', 'fail-safe:halt-on-temp-drift']"
+        }
+      },
+      {
+        lineStart: 14,
+        lineEnd: 26,
+        description: 'Plan assay execution by retrieving sample context from the LIMS.',
+        output: 'Assay plan with steps and constraints',
+        variableState: {
+          'sampleId': 'Input parameter',
+          'assayPlan': 'Structured mission plan'
+        }
+      },
+      {
+        lineStart: 28,
+        lineEnd: 39,
+        description: 'Execute the plan while streaming telemetry and routing policy breaches to scientists.',
+        output: 'Telemetry packets streamed; notifyScientist fired on guardrail hit',
+        variableState: {
+          'onTelemetry': 'logs to LIMS',
+          'onPolicyBreach': 'notifyScientist'
+        }
+      }
+    ],
+    python: [
+      {
+        lineStart: 1,
+        lineEnd: 8,
+        description: 'Placeholder for Python orchestration using lab_technician agent abstraction.',
+        output: 'Pattern currently documented with TypeScript sample; Python parity forthcoming.'
+      }
+    ]
+  },
+
+  'inventory-guardian': {
+    typescript: [
+      {
+        lineStart: 1,
+        lineEnd: 14,
+        description: 'Construct inventory twin and guardian agent with work order + messaging tools.',
+        variableState: {
+          'twin': 'InventoryTwin()',
+          'guardian.id': '"inventory-guardian"'
+        }
+      },
+      {
+        lineStart: 16,
+        lineEnd: 24,
+        description: 'Subscribe to anomaly events and notify ops team via messaging tool.',
+        output: 'Notification emitted to inventory-ops channel',
+        variableState: {
+          'guardian.tools.messaging': 'notifyTeam'
+        }
+      },
+      {
+        lineStart: 26,
+        lineEnd: 45,
+        description: 'Reconcile incoming sensor packet, reason about variance, and execute recovery plan if needed.',
+        variableState: {
+          'reading': 'SensorPacket',
+          'insight.requiresAction': 'Boolean'
+        }
+      }
+    ],
+    python: [
+      {
+        lineStart: 1,
+        lineEnd: 6,
+        description: 'Python walkthrough to be published; reference TypeScript steps for logic ordering.',
+        output: 'Refer to guardian executePlan parity notes.'
+      }
+    ]
+  },
+
+  'emergency-response-mate': {
+    typescript: [
+      {
+        lineStart: 1,
+        lineEnd: 10,
+        description: 'Create crisis agent with planner, communication channels, and knowledge bases.',
+        variableState: {
+          'channels': "['sms', 'radio-bridge', 'slack']",
+          'knowledgeBases': "['sop://safety', 'map://campus', 'inventory://ppe']"
+        }
+      },
+      {
+        lineStart: 12,
+        lineEnd: 23,
+        description: 'Triage incoming alert to classify incident severity and requirements.',
+        output: 'classification object with severity + recommended teams',
+        variableState: {
+          'classification': 'responseMate.triage(alert)'
+        }
+      },
+      {
+        lineStart: 24,
+        lineEnd: 35,
+        description: 'Compose and broadcast response plan, then collect after-action package.',
+        output: 'Broadcast sent across sms/radio/slack; afterAction bundle returned',
+        variableState: {
+          'playbook.id': 'Plan identifier',
+          'afterAction': 'Captured artifacts'
+        }
+      }
+    ],
+    python: [
+      {
+        lineStart: 1,
+        lineEnd: 6,
+        description: 'Python walkthrough pending; mirror crisis agent flow from TypeScript sample.',
+        output: 'Interim reference noting TypeScript canonical implementation.'
+      }
+    ]
+  },
   
   'routing': {
     python: [

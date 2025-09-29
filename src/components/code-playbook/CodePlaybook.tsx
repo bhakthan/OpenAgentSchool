@@ -363,9 +363,6 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
           <div className="text-sm text-muted-foreground">
             Available in both Python and TypeScript for Azure AI SDK
           </div>
-          <div className="flex items-center text-sm text-muted-foreground">
-            <Check className="mr-1" size={16} /> Pattern validated with Azure OpenAI
-          </div>
         </CardFooter>
       </Card>
     </div>
