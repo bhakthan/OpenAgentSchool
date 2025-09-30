@@ -24,6 +24,11 @@ import { agenticCommerceAp2Questions } from './agentic-commerce-ap2';
 import { agentOpsQuestions } from './agent-ops';
 import { dataAutonomyPatternsQuestions } from './data-autonomy-patterns.ts';
 import { agenticRoboticsIntegrationQuestions } from './agentic-robotics';
+// New Phase 1 foundation quizzes
+import { llmFundamentalsQuiz } from './llm-fundamentals';
+import { gettingStartedAgentsQuiz } from './getting-started-agents';
+import { ragFundamentalsQuiz } from './rag-fundamentals';
+import { agentOrchestrationQuiz } from './agent-orchestration';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -31,6 +36,10 @@ export { userPersonas };
 
 // Combine all quiz questions
 const allQuestions = [
+  ...llmFundamentalsQuiz.questions,
+  ...gettingStartedAgentsQuiz.questions,
+  ...ragFundamentalsQuiz.questions,
+  ...agentOrchestrationQuiz.questions,
   ...coreConceptsQuestions,
   ...agentEthicsQuestions,
   ...multiAgentSystemsQuestions,

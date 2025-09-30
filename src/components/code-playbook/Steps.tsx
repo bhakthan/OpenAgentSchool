@@ -74,7 +74,7 @@ export const Steps = ({ steps, currentStep, setCurrentStep }: StepsProps) => {
             onClick={goToPrevStep}
             disabled={currentStep === 0}
           >
-            <ArrowLeft className="mr-2 h-4 w-4" /> Previous
+            <ArrowLeft size={16} /> Previous
           </Button>
           
           <Button
@@ -83,11 +83,11 @@ export const Steps = ({ steps, currentStep, setCurrentStep }: StepsProps) => {
           >
             {currentStep === steps.length - 2 ? (
               <>
-                Finish <Check className="ml-2 h-4 w-4" />
+                Finish <Check size={16} />
               </>
             ) : (
               <>
-                Next <ArrowRight className="ml-2 h-4 w-4" />
+                Next <ArrowRight size={16} />
               </>
             )}
           </Button>

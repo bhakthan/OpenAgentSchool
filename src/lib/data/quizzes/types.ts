@@ -1,7 +1,7 @@
 // Quiz types and interfaces
 export interface QuizQuestion {
   id: string;
-  text: string;
+  text?: string;
   question: string;
   options: string[];
   // For single-answer questions use correctAnswer.
@@ -9,7 +9,7 @@ export interface QuizQuestion {
   correctAnswer: number;
   correctAnswers?: number[];
   difficulty: 'beginner' | 'intermediate' | 'advanced';
-  category: string;
+  category?: string;
   subCategory?: string;
   explanation?: string;
   codeExample?: string;
@@ -19,6 +19,18 @@ export interface QuizQuestion {
   adaptiveWeight?: number;
   persona?: string[];
   learningObjectives?: string[];
+  tags?: string[];
+}
+
+export interface Quiz {
+  id: string;
+  title: string;
+  description: string;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  estimatedTime: number; // in minutes
+  questions: QuizQuestion[];
+  tags?: string[];
+  prerequisites?: string[];
 }
 
 export interface QuizSubCategory {

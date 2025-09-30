@@ -1,39 +1,6 @@
 import React, { useState } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { Button } from '@/components/ui/button';
-import { Copy, Check } from 'lucide-react';
-
-// Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
-const syntaxTheme: { [key: string]: React.CSSProperties } = {
-  'code[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
-    fontSize: '0.9em',
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    wordWrap: 'normal',
-    lineHeight: '1.5',
-    tabSize: 4,
-  },
-  'pre[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    padding: '1em',
-    margin: '0.5em 0',
-    overflow: 'auto',
-    borderRadius: '0.3em',
-  },
-  comment: { color: '#5c6370', fontStyle: 'italic' },
-  keyword: { color: '#c678dd' },
-  string: { color: '#98c379' },
-  function: { color: '#61afef' },
-  number: { color: '#d19a66' },
-  operator: { color: '#56b6c2' },
-  className: { color: '#e5c07b' },
-};
+import { CopySimple as Copy, Check } from '@phosphor-icons/react';
 
 interface CodeBlockProps {
   children: string;
@@ -57,11 +24,9 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   const [copied, setCopied] = useState(false);
   
   const codeString = String(children).replace(/\n$/, '');
-  const detectedLanguage = language || (className.includes('language-') ? className.replace('language-', '') : '');
   
-  // Only show copy button for Python and TypeScript code blocks
-  const shouldShowCopyButton = showCopyButton && 
-    (detectedLanguage === 'python' || detectedLanguage === 'typescript' || detectedLanguage === 'javascript' || detectedLanguage === 'ts' || detectedLanguage === 'js' || detectedLanguage === 'py');
+  // Only show copy button for code languages
+  const shouldShowCopyButton = showCopyButton && (language || className.includes('language-'));
 
   const copyToClipboard = async () => {
     try {
@@ -82,13 +47,6 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
     );
   }
 
-  const defaultStyle = {
-    borderRadius: '0.5rem',
-    fontSize: '0.875rem',
-    padding: '1rem',
-    ...customStyle
-  };
-
   return (
     <div className="relative group">
       {shouldShowCopyButton && (
@@ -96,7 +54,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            className="h-8 w-8 p-0 bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
+            className="h-8 w-8 p-0 bg-gray-800/90 hover:bg-gray-700 text-gray-300 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
             onClick={copyToClipboard}
           >
             {copied ? (
@@ -107,17 +65,14 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
           </Button>
         </div>
       )}
-      <SyntaxHighlighter
-        style={syntaxTheme}
-        language={detectedLanguage}
-        PreTag="div"
-        className={`rounded-md ${className}`}
-        customStyle={defaultStyle}
-        showLineNumbers={showLineNumbers || (detectedLanguage && codeString.split('\n').length > 3)}
-        wrapLines={true}
-      >
-        {codeString}
-      </SyntaxHighlighter>
+      <div className="rounded-md border border-border/60 bg-muted/40 overflow-hidden">
+        <pre 
+          className={`overflow-x-auto p-4 text-sm font-mono leading-relaxed text-foreground ${className}`}
+          style={customStyle}
+        >
+          <code>{codeString}</code>
+        </pre>
+      </div>
     </div>
   );
 };

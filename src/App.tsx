@@ -283,23 +283,22 @@ function App() {
   useGAPageViews();
 
   return (
-    <QueryProvider>
-      <ThemeProvider defaultTheme="dark" storageKey="azure-ai-agent-theme">
-        <AuthProvider>
-          <AudioNarrationProvider>
-            <EnlightenMeProvider>
-              {/* Skip Link for Keyboard Users */}
-              <a 
-                href="#main-content" 
-                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 
-                           focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-md
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              >
-                Skip to main content
-              </a>
-              
-              <OfflineBanner />
-              <InstallPWA />
+    <ThemeProvider defaultTheme="dark" storageKey="azure-ai-agent-theme">
+      <AuthProvider>
+        <AudioNarrationProvider>
+          <EnlightenMeProvider>
+            {/* Skip Link for Keyboard Users */}
+            <a 
+              href="#main-content" 
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 
+                         focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-md
+                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Skip to main content
+            </a>
+            
+            <OfflineBanner />
+            <InstallPWA />
               <div className="min-h-screen bg-background text-foreground flex flex-col">
           <header className="border-b border-border sticky top-0 z-10 bg-background" role="banner">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -616,7 +615,6 @@ function App() {
       </AudioNarrationProvider>
       </AuthProvider>
     </ThemeProvider>
-    </QueryProvider>
   );
 }
 

@@ -22,7 +22,8 @@ export default defineConfig({
     }),
     tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
+      injectRegister: null,
       includeAssets: ['favicon.ico', 'robots.txt', 'icons/*.png'],
       manifest: {
         name: 'Open Agent School',
@@ -50,6 +51,8 @@ export default defineConfig({
         ]
       },
       workbox: {
+        clientsClaim: true,
+        skipWaiting: true,
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
         navigateFallback: null, // We'll handle navigation fallback manually
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024, // 6 MB (large visualization files)

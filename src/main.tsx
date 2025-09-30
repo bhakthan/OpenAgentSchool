@@ -2,6 +2,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, HashRouter } from 'react-router-dom'
 import App from './App.tsx'
+import { QueryProvider } from './lib/query/QueryProvider'
 import "./main.css"
 import "./index.css"
 
@@ -21,8 +22,10 @@ if (import.meta.env.DEV) {
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <QueryProvider>
+      <Router>
+        <App />
+      </Router>
+    </QueryProvider>
   </React.StrictMode>
 )
