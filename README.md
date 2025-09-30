@@ -74,6 +74,39 @@ SCL now includes a mastery + remediation system across the eight Data Autonomy p
 
 ✨ **Now featuring 35 comprehensive agent patterns** (including 15 Educational Agent Patterns + 8 **Data Autonomy Patterns**) – from foundational concepts to advanced GPT-5 era educational methodologies with complete Study Mode integration.
 
+## 🔌 Backend Integration
+
+This frontend integrates with a **three-service microservices backend** architecture:
+
+- **📖 [Backend Integration Guide](./BACKEND_INTEGRATION.md)** - Complete integration documentation
+  - Quick start commands with automated health checks
+  - Frontend-to-backend API mapping and authentication patterns
+  - Development workflow and troubleshooting guide
+  
+- **🏗️ [Architecture Overview](./docs/backend/ARCHITECTURE_OVERVIEW.md)** - Detailed system architecture
+  - Complete service architecture and technology stack
+  - 70+ environment variables reference
+  - Testing strategy and deployment architecture
+  
+- **🔗 [Service Dependencies](./docs/backend/SERVICE_DEPENDENCIES.md)** - Visual dependency diagrams
+  - Mermaid service dependency diagrams
+  - Startup sequence and data flow examples
+  - Health check endpoints and failure scenarios
+
+**Quick Start Backend Services:**
+```powershell
+# Start all three backend services with health checks
+.\start-backend.ps1
+
+# Stop all services
+.\stop-backend.ps1
+```
+
+**Backend Services:**
+- **Core API** (8000): User management, quiz, progress, community features
+- **Agent Orchestrator** (8002): AI agents, critical thinking, educational frameworks  
+- **Knowledge Service** (8003): Document processing, semantic search, knowledge bases
+
 > Architecture split note: If you deploy backends separately (or in another repo), see docs/CONTRACTS_AND_CONFIG.md for the minimal frontend ↔ backend contracts and environment settings. The SPA keeps working locally with defaults; set VITE_* variables later to point at remote services.
 
 ## 🆕 Latest Updates (September 29, 2025)

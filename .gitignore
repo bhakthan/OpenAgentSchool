@@ -48,6 +48,15 @@ dist-ssr
 *.env
 **/.env
 **/.env.*
+
+# Exploration templates (workspace-specific, not for git)
+EXPLORE_BACKEND_TEMPLATE.md
+BACKEND_QUICK_REF.md
+EXPLORATION_README.md
+EXPLORATION_QUICKSTART.md
+*_EXPLORATION_NOTES.md
+BACKEND_FINDINGS_*.md
+WORKSPACE_EXPLORATION_*.md
 !**/.env.example
 !**/.env.template
 !.env.example
@@ -111,6 +120,8 @@ scripts/*.md
 
 #docs
 docs/
+PROJECT_OVERVIEW.md
+WORKSPACE_GUIDE.md
 
 # Local specifications (drafts not for commit)
 specs/
