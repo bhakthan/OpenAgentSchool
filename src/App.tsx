@@ -30,6 +30,7 @@ import { trackEvent } from './lib/analytics/ga';
 import { SEORouteWrapper } from './components/seo/SEORouteWrapper';
 import { QRCodeModal } from './components/ui/QRCodeModal';
 import { PageLoadingFallback } from './components/common/LoadingSpinner';
+import { OfflineBanner } from './components/common/OfflineBanner';
 
 // Lazy-loaded components
 const ConceptsExplorer = lazy(() => import('./components/concepts/ConceptsExplorer'));
@@ -46,6 +47,7 @@ const AgentsConsole = lazy(() => import('./components/agents/AgentsConsole'));
 const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'));
 const SCLDemo = lazy(() => import('./components/SuperCriticalLearning/SCLDemo'));
 const KnowledgeSearch = lazy(() => import('./components/search/KnowledgeSearch'));
+const BookmarksPage = lazy(() => import('./pages/BookmarksPage'));
 // Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
 const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
 const CTALandingPageVariant = lazy(() => import('@/components/pages/CTALandingPageVariant'));
@@ -245,6 +247,7 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="azure-ai-agent-theme">
       <AudioNarrationProvider>
         <EnlightenMeProvider>
+          <OfflineBanner />
           <div className="min-h-screen bg-background text-foreground flex flex-col">
           <header className="border-b border-border sticky top-0 z-10 bg-background">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -429,6 +432,7 @@ function App() {
                   <Route path="/references" element={<ReferencesSection />} />
                   <Route path="/deep-dive-taxonomy" element={<DeepDiveTaxonomyPage />} />
                   <Route path="/community" element={<CommunitySharing />} />
+                  <Route path="/bookmarks" element={<BookmarksPage />} />
                   <Route path="/api-docs" element={<ApiDocsPage />} />
                   <Route path="/cta-alt" element={<CTALandingPageVariant />} />
                   <Route path="/cta" element={<CTALandingPage />} />
