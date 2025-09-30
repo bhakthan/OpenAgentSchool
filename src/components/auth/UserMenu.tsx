@@ -20,6 +20,15 @@ export function UserMenu() {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
+  // Check if backend is configured
+  const backendUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_CORE_API_URL;
+  const isBackendConfigured = !!backendUrl;
+
+  // Don't show login button if backend is not configured
+  if (!isAuthenticated && !isBackendConfigured) {
+    return null;
+  }
+
   if (!isAuthenticated) {
     return (
       <Button
