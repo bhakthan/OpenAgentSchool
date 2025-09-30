@@ -25,6 +25,10 @@ export function OfflineBanner() {
 
   // Check backend health
   useEffect(() => {
+    // DISABLED: Backend health checks disabled to avoid CORS errors when backends aren't running
+    // To re-enable, uncomment the code below
+    return;
+    
     // SSR safety check
     if (typeof window === 'undefined') return;
 

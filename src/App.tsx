@@ -35,6 +35,7 @@ import { QueryProvider } from './lib/query/QueryProvider';
 import { AuthProvider } from './lib/auth/AuthContext';
 import { UserMenu } from './components/auth/UserMenu';
 import { InstallPWA } from './components/pwa/InstallPWA';
+import { InstallAppMenuItem } from './components/pwa/InstallAppMenuItem';
 import { useIOSBehaviors } from './hooks/useStandaloneMode';
 import { usePullToRefresh, getPullToRefreshStyles } from './hooks/usePullToRefresh';
 import { useQueryClient } from '@tanstack/react-query';
@@ -298,7 +299,6 @@ function App() {
             </a>
             
             <OfflineBanner />
-            <InstallPWA />
               <div className="min-h-screen bg-background text-foreground flex flex-col">
           <header className="border-b border-border sticky top-0 z-10 bg-background" role="banner">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -373,6 +373,9 @@ function App() {
                       >
                         <GithubLogo className="mr-1" size={16} /> GitHub Repo
                       </a>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <InstallAppMenuItem />
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                       <Button

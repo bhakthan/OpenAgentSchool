@@ -121,31 +121,33 @@ export default function FutureStateTrends({ onNavigate }: Props) {
             A clear, practical overview of where things are heading—and what to do about it.
           </CardDescription>
         </CardHeader>
-        <CardContent ref={overviewRef}>
-          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-muted-foreground">
-            <li>• Products become <span className="font-medium">learning organisms</span> that adapt continuously</li>
-            <li>• <span className="font-medium">Post‑training</span> on your data beats building models from scratch</li>
-            <li>• Rise of an <span className="font-medium">agentic society</span> focused on throughput and work graphs</li>
-            <li>• Shift from GUIs to <span className="font-medium">code‑native, composable interfaces</span></li>
-            <li>• Everyone needs <span className="font-medium">AI fluency</span>; polymaths increase team velocity</li>
-            <li>• Obsess over the <span className="font-medium">loop (data → reward → outcomes)</span>, not the lane</li>
-            <li>• Plan in <span className="font-medium">seasons</span>, not rigid roadmaps</li>
-            <li>• <span className="font-medium">Reliability, privacy, and trust</span> drive enterprise adoption</li>
-            <li>• <span className="font-medium">Automated UX</span> adapts based on usage; humans review agent work</li>
-            <li>• AI is already in daily workflows and will have <span className="font-medium">societal impact</span></li>
-            <li>• Prefer <span className="font-medium">model diversity</span> (ensembles) over single‑model bets</li>
-          </ul>
-          <div className="mt-3">
-            <TranslateButton
-              targetRef={overviewRef}
-              capture="inner"
-              variant="outline"
-              size="sm"
-              className="text-xs"
-              title="Tip: Select text first for best results, or this will translate the whole section."
-            >
-              Ask AI: Translate
-            </TranslateButton>
+        <CardContent>
+          <div ref={overviewRef}>
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-muted-foreground">
+              <li>• Products become <span className="font-medium">learning organisms</span> that adapt continuously</li>
+              <li>• <span className="font-medium">Post‑training</span> on your data beats building models from scratch</li>
+              <li>• Rise of an <span className="font-medium">agentic society</span> focused on throughput and work graphs</li>
+              <li>• Shift from GUIs to <span className="font-medium">code‑native, composable interfaces</span></li>
+              <li>• Everyone needs <span className="font-medium">AI fluency</span>; polymaths increase team velocity</li>
+              <li>• Obsess over the <span className="font-medium">loop (data → reward → outcomes)</span>, not the lane</li>
+              <li>• Plan in <span className="font-medium">seasons</span>, not rigid roadmaps</li>
+              <li>• <span className="font-medium">Reliability, privacy, and trust</span> drive enterprise adoption</li>
+              <li>• <span className="font-medium">Automated UX</span> adapts based on usage; humans review agent work</li>
+              <li>• AI is already in daily workflows and will have <span className="font-medium">societal impact</span></li>
+              <li>• Prefer <span className="font-medium">model diversity</span> (ensembles) over single‑model bets</li>
+            </ul>
+            <div className="mt-3">
+              <TranslateButton
+                targetRef={overviewRef}
+                capture="inner"
+                variant="outline"
+                size="sm"
+                className="text-xs"
+                title="Tip: Select text first for best results, or this will translate the whole section."
+              >
+                Ask AI: Translate
+              </TranslateButton>
+            </div>
           </div>
         </CardContent>
       </Card>
