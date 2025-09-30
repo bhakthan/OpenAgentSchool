@@ -7,7 +7,8 @@ Write-Host "=============================================" -ForegroundColor Cyan
 Write-Host ""
 
 $ErrorActionPreference = "Stop"
-$baseDir = $PSScriptRoot
+# Backend services are in separate directory
+$backendDir = "C:\code\openagent-backend"
 
 # Function to check if service is healthy
 function Test-ServiceHealth {
@@ -42,33 +43,33 @@ function Test-ServiceHealth {
 # Start Core API
 Write-Host ""
 Write-Host "🚀 Starting Core API (Port 8000)..." -ForegroundColor Cyan
-Set-Location "$baseDir\core-api"
+Set-Location "$backendDir\core-api"
 docker compose up -d --build
 
 if (-not (Test-ServiceHealth -Url "http://localhost:8000/health" -ServiceName "Core API")) {
-    Write-Host "❌ Core API failed to start. Check logs with: docker compose -f core-api/docker-compose.yml logs" -ForegroundColor Red
+    Write-Host "❌ Core API failed to start. Check logs with: docker compose -f $backendDir\core-api\docker-compose.yml logs" -ForegroundColor Red
     exit 1
 }
 
 # Start Agent Orchestrator
 Write-Host ""
 Write-Host "🚀 Starting Agent Orchestrator (Port 8002)..." -ForegroundColor Cyan
-Set-Location "$baseDir\agent-orchestrator"
+Set-Location "$backendDir\agent-orchestrator"
 docker compose up -d --build
 
 if (-not (Test-ServiceHealth -Url "http://localhost:8002/api/v1/health/live" -ServiceName "Agent Orchestrator")) {
-    Write-Host "❌ Agent Orchestrator failed to start. Check logs with: docker compose -f agent-orchestrator/docker-compose.yml logs" -ForegroundColor Red
+    Write-Host "❌ Agent Orchestrator failed to start. Check logs with: docker compose -f $backendDir\agent-orchestrator\docker-compose.yml logs" -ForegroundColor Red
     exit 1
 }
 
 # Start Knowledge Service
 Write-Host ""
 Write-Host "🚀 Starting Knowledge Service (Port 8003)..." -ForegroundColor Cyan
-Set-Location "$baseDir\knowledge-service"
+Set-Location "$backendDir\knowledge-service"
 docker compose up -d --build
 
 if (-not (Test-ServiceHealth -Url "http://localhost:8003/health" -ServiceName "Knowledge Service")) {
-    Write-Host "❌ Knowledge Service failed to start. Check logs with: docker compose -f knowledge-service/docker-compose.yml logs" -ForegroundColor Red
+    Write-Host "❌ Knowledge Service failed to start. Check logs with: docker compose -f $backendDir\knowledge-service\docker-compose.yml logs" -ForegroundColor Red
     exit 1
 }
 
@@ -98,4 +99,5 @@ Write-Host "   VITE_ORCHESTRATOR_SERVICE_URL=http://localhost:8002" -ForegroundC
 Write-Host "   VITE_KNOWLEDGE_SERVICE_URL=http://localhost:8003" -ForegroundColor Gray
 Write-Host ""
 
-Set-Location $baseDir
+# Return to OpenAgentSchool directory
+Set-Location "C:\code\OpenAgentSchool"

@@ -1,0 +1,574 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for OpenAgentSchool/src/components/concepts/AP2MandateChainAnimation.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">OpenAgentSchool/src/components/concepts</a> AP2MandateChainAnimation.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/163</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/163</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >// Clean implementation after prior corruption: single component with export features and delegated-only highlighting.</span></span></span>
+<span class="cstat-no" title="statement not covered" >import React, { useEffect, useRef, useState } from 'react';</span>
+<span class="cstat-no" title="statement not covered" >import { Play, Pause, SkipForward, SkipBack, ArrowCounterClockwise, DownloadSimple } from '@phosphor-icons/react';</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >interface Step { id: number; label: string; from: number; to: number; note?: string; accent?: 'intent' | 'cart' | 'payment'; }</span>
+<span class="cstat-no" title="statement not covered" >interface Props { autoPlay?: boolean; intervalMs?: number; }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >const LANES = ['User', 'Agent', 'Merchant Agent', 'Network'];</span>
+<span class="cstat-no" title="statement not covered" >const ACCENTS: Record&lt;string,string&gt; = { intent:'#2563eb', cart:'#16a34a', payment:'#dc2626', diff:'#d97706' };</span>
+<span class="cstat-no" title="statement not covered" >const FONT = 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif';</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >const buildSteps = (mode:'human'|'delegated'):Step[] =&gt; mode==='human' ? [</span>
+<span class="cstat-no" title="statement not covered" >  { id:1,label:'Express need',from:0,to:1,note:'User describes purchase goal' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:2,label:'Sign Intent VC',from:0,to:1,note:'Delegation constraints',accent:'intent' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:3,label:'Intent VC →',from:1,to:2,note:'Agent presents scoped mandate',accent:'intent' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:4,label:'Negotiation / Offers',from:2,to:1,note:'Merchant quotes &amp; pricing' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:5,label:'Approve cart?',from:0,to:1,note:'Human review or policy' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:6,label:'Build Cart VC',from:1,to:2,note:'Immutable line items',accent:'cart' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:7,label:'Cart VC →',from:1,to:2,note:'Hash links Intent',accent:'cart' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:8,label:'Create Payment VC',from:1,to:3,note:'Presence + metadata',accent:'payment' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:9,label:'Payment VC →',from:1,to:3,note:'Submission to rails',accent:'payment' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:10,label:'Result / Status ←',from:3,to:1,note:'Clearing response' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:11,label:'Result ←',from:1,to:0,note:'User confirmation' }</span>
+<span class="cstat-no" title="statement not covered" >] : [</span>
+<span class="cstat-no" title="statement not covered" >  { id:1,label:'Express need',from:0,to:1,note:'User goal' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:2,label:'Sign Intent VC',from:0,to:1,note:'Richer constraints',accent:'intent' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:3,label:'Intent VC →',from:1,to:2,note:'Scope &amp; bounds',accent:'intent' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:4,label:'Negotiation / Offers',from:2,to:1,note:'Autonomous explore' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:5,label:'Monitor constraints',from:1,to:1,note:'Triggers watch',accent:'cart' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:6,label:'Build Cart VC',from:1,to:2,note:'Auto snapshot',accent:'cart' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:7,label:'Cart VC →',from:1,to:2,note:'Hash links Intent',accent:'cart' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:8,label:'Create Payment VC',from:1,to:3,note:'Presence: NOT_PRESENT',accent:'payment' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:9,label:'Payment VC →',from:1,to:3,note:'Submission',accent:'payment' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:10,label:'Result / Status ←',from:3,to:1,note:'Network response' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:11,label:'Result ←',from:1,to:0,note:'Async notify' }</span>
+<span class="cstat-no" title="statement not covered" >];</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >const useReduced = () =&gt; { const [r,setR]=useState(false); useEffect(()=&gt;{ const mq=window.matchMedia('(prefers-reduced-motion: reduce)'); const h=()=&gt;setR(mq.matches); h(); mq.addEventListener('change',h); return()=&gt;mq.removeEventListener('change',h);},[]); return r; };</span>
+<span class="cstat-no" title="statement not covered" >const useDark = () =&gt; { const [d,setD]=useState(false); useEffect(()=&gt;{ const upd=()=&gt;setD(document.documentElement.classList.contains('dark')||window.matchMedia('(prefers-color-scheme: dark)').matches); upd(); const o=new MutationObserver(upd); o.observe(document.documentElement,{attributes:true,attributeFilter:['class']}); const mq=window.matchMedia('(prefers-color-scheme: dark)'); const l=()=&gt;upd(); mq.addEventListener('change',l); return()=&gt;{o.disconnect(); mq.removeEventListener('change',l);};},[]); return d; };</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export const AP2MandateChainAnimation:React.FC&lt;Props&gt;=({autoPlay=false,intervalMs=1800})=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >  const [mode,setMode]=useState&lt;'human'|'delegated'&gt;('human');</span>
+<span class="cstat-no" title="statement not covered" >  const [step,setStep]=useState(0);</span>
+<span class="cstat-no" title="statement not covered" >  const [playing,setPlaying]=useState(autoPlay);</span>
+<span class="cstat-no" title="statement not covered" >  const [exportTheme,setExportTheme]=useState&lt;'light'|'dark'&gt;('light');</span>
+<span class="cstat-no" title="statement not covered" >  const reduced=useReduced();</span>
+<span class="cstat-no" title="statement not covered" >  const dark=useDark();</span>
+<span class="cstat-no" title="statement not covered" >  const svgRef=useRef&lt;SVGSVGElement|null&gt;(null);</span>
+<span class="cstat-no" title="statement not covered" >  const containerRef=useRef&lt;HTMLDivElement|null&gt;(null);</span>
+<span class="cstat-no" title="statement not covered" >  const steps=buildSteps(mode);</span>
+<span class="cstat-no" title="statement not covered" >  const timerRef=useRef&lt;number|undefined&gt;();</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  useEffect(()=&gt;{ setStep(0); setPlaying(false); },[mode]);</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(()=&gt;{ if(!playing){ if(timerRef.current) clearTimeout(timerRef.current); return;} if(step&gt;=steps.length) return; timerRef.current=window.setTimeout(()=&gt;setStep(s=&gt;Math.min(s+1,steps.length)),intervalMs); return()=&gt;{ if(timerRef.current) clearTimeout(timerRef.current); }; },[playing,step,intervalMs,steps.length]);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const reset=()=&gt;{ setStep(0); setPlaying(false); };</span>
+<span class="cstat-no" title="statement not covered" >  const next =()=&gt;setStep(s=&gt;Math.min(s+1,steps.length));</span>
+<span class="cstat-no" title="statement not covered" >  const prev =()=&gt;setStep(s=&gt;Math.max(s-1,0));</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const cloneForExport=(theme:'light'|'dark')=&gt;{ if(!svgRef.current) return null; const clone=svgRef.current.cloneNode(true) as SVGSVGElement; if(!clone.getAttribute('viewBox')){ const w=clone.getAttribute('width'); const h=clone.getAttribute('height'); if(w&amp;&amp;h) clone.setAttribute('viewBox',`0 0 ${w} ${h}`);} const pal=theme==='light'?{bg:'#ffffff',primary:'#0f172a',secondary:'#475569',panel:'#ffffff'}:{bg:'#0b1220',primary:'#f1f5f9',secondary:'#94a3b8',panel:'#1e293b'}; const walker=document.createTreeWalker(clone,NodeFilter.SHOW_ELEMENT); while(walker.nextNode()){ const el=walker.currentNode as HTMLElement; if(el.tagName==='text'){ const isLane = (el.textContent||'').toLowerCase() === el.textContent?.toLowerCase() &amp;&amp; ['user','agent','merchant agent','network'].includes(el.textContent.trim()); const sec=el.textContent &amp;&amp; /scope|hash|monitor|presence|network|confirmation|line items|snapshot|triggers|pricing/i.test(el.textContent); el.removeAttribute('class'); el.setAttribute('font-family',FONT); if(isLane){ el.setAttribute('font-size','18'); el.setAttribute('font-weight','700'); el.setAttribute('letter-spacing','.6px'); } else { el.setAttribute('font-size',sec?'10':'12'); el.setAttribute('font-weight',sec?'400':'500'); } el.setAttribute('fill',sec&amp;&amp;!isLane?pal.secondary:pal.primary); } else if(el.tagName==='rect' &amp;&amp; el.getAttribute('rx')==='6'){ el.setAttribute('fill',pal.panel); el.setAttribute('opacity','1'); }} const bg=document.createElementNS('http://www.w3.org/2000/svg','rect'); bg.setAttribute('x','0'); bg.setAttribute('y','0'); bg.setAttribute('width',clone.getAttribute('width')||'100%'); bg.setAttribute('height',clone.getAttribute('height')||'100%'); bg.setAttribute('fill',pal.bg); clone.insertBefore(bg,clone.firstChild); return clone; };</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const exportSvg=()=&gt;{ try{ const c=cloneForExport(exportTheme); if(!c) return; const ser=new XMLSerializer().serializeToString(c); const blob=new Blob([ser],{type:'image/svg+xml;charset=utf-8'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`ap2-sequence-${mode}-${exportTheme}.svg`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'AP2MandateChain', format: 'svg', theme: exportTheme, mode } })); } catch {} }catch(e){ console.error('SVG export failed',e); } };</span>
+<span class="cstat-no" title="statement not covered" >  const exportPng=()=&gt;{ try{ const c=cloneForExport(exportTheme); if(!c) return; const ser=new XMLSerializer().serializeToString(c); const blob=new Blob([ser],{type:'image/svg+xml;charset=utf-8'}); const url=URL.createObjectURL(blob); const img=new Image(); const w=parseInt(c.getAttribute('width')||'1200',10); const h=parseInt(c.getAttribute('height')||'800',10); const scale=2; img.onload=()=&gt;{ const canvas=document.createElement('canvas'); canvas.width=w*scale; canvas.height=h*scale; const ctx=canvas.getContext('2d'); if(ctx){ ctx.scale(scale,scale); ctx.drawImage(img,0,0); canvas.toBlob(b=&gt;{ if(b){ const p=URL.createObjectURL(b); const a=document.createElement('a'); a.href=p; a.download=`ap2-sequence-${mode}-${exportTheme}.png`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(p); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'AP2MandateChain', format: 'png', theme: exportTheme, mode } })); } catch {} } URL.revokeObjectURL(url); },'image/png'); } }; img.onerror=()=&gt;URL.revokeObjectURL(url); img.src=url; }catch(e){ console.error('PNG export failed',e); } };</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const laneW=180, laneGap=40, stepH=54, pad=16; const totalW=LANES.length*laneW+(LANES.length-1)*laneGap+pad*2; const totalH=steps.length*stepH+80;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  // Keyboard shortcuts: Space toggles play/pause, ArrowRight next, ArrowLeft previous</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(()=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >    const handler=(e:KeyboardEvent)=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >      const target = e.target as HTMLElement | null;</span>
+<span class="cstat-no" title="statement not covered" >      if(target &amp;&amp; (target.tagName==='INPUT'||target.tagName==='TEXTAREA'||target.isContentEditable)) return; // don't intercept typing</span>
+<span class="cstat-no" title="statement not covered" >      if(!containerRef.current) return;</span>
+<span class="cstat-no" title="statement not covered" >      // Optional: only respond if component is in viewport</span>
+<span class="cstat-no" title="statement not covered" >      const rect=containerRef.current.getBoundingClientRect();</span>
+<span class="cstat-no" title="statement not covered" >      const inView = rect.top &lt; window.innerHeight &amp;&amp; rect.bottom &gt; 0;</span>
+<span class="cstat-no" title="statement not covered" >      if(!inView) return;</span>
+<span class="cstat-no" title="statement not covered" >      if(e.code==='Space'){ e.preventDefault(); setPlaying(p=&gt;!p); }</span>
+<span class="cstat-no" title="statement not covered" >      else if(e.key==='ArrowRight'){ e.preventDefault(); setStep(s=&gt;Math.min(s+1,steps.length)); }</span>
+<span class="cstat-no" title="statement not covered" >      else if(e.key==='ArrowLeft'){ e.preventDefault(); setStep(s=&gt;Math.max(s-1,0)); }</span>
+<span class="cstat-no" title="statement not covered" >      // Fire analytics for any handled key</span>
+<span class="cstat-no" title="statement not covered" >      if(['Space','ArrowRight','ArrowLeft'].includes(e.code) || ['ArrowRight','ArrowLeft'].includes(e.key)) {</span>
+<span class="cstat-no" title="statement not covered" >        try { window.dispatchEvent(new CustomEvent('analytics:keyboard', { detail: { component: 'AP2MandateChain', key: e.code || e.key } })); } catch {}</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
+<span class="cstat-no" title="statement not covered" >    window.addEventListener('keydown',handler);</span>
+<span class="cstat-no" title="statement not covered" >    return()=&gt;window.removeEventListener('keydown',handler);</span>
+<span class="cstat-no" title="statement not covered" >  },[steps.length]);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
+<span class="cstat-no" title="statement not covered" >    &lt;div ref={containerRef} className="w-full border rounded-md bg-background/40 p-4 space-y-4" aria-keyshortcuts="Space ArrowLeft ArrowRight"&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;div className="flex items-center justify-between flex-wrap gap-4"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;h4 className="font-semibold text-sm tracking-tight flex items-center gap-2"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;span&gt;AP2 Mandate Chain Sequence&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;span className="text-xs text-muted-foreground"&gt;Intent → Cart → Payment&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/h4&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="flex items-center gap-3 flex-wrap"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="flex items-center gap-1 text-xs border rounded overflow-hidden" role="tablist" aria-label="Mode toggle"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className={`px-2 py-1 ${mode==='human'?'bg-primary text-primary-foreground':'hover:bg-muted'}`} onClick={()=&gt;setMode('human')} aria-pressed={mode==='human'}&gt;Human-present&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className={`px-2 py-1 ${mode==='delegated'?'bg-primary text-primary-foreground':'hover:bg-muted'}`} onClick={()=&gt;setMode('delegated')} aria-pressed={mode==='delegated'}&gt;Delegated&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="flex items-center gap-2"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className="px-2 py-1 text-xs rounded border hover:bg-muted" onClick={()=&gt;setPlaying(p=&gt;!p)} aria-label={playing?'Pause animation':'Play animation'}&gt;{playing?&lt;Pause size={16}/&gt;:&lt;Play size={16}/&gt;}&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className="px-2 py-1 text-xs rounded border hover:bg-muted" onClick={prev} disabled={step===0} aria-label="Previous step"&gt;&lt;SkipBack size={16}/&gt;&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className="px-2 py-1 text-xs rounded border hover:bg-muted" onClick={next} disabled={step&gt;=steps.length} aria-label="Next step"&gt;&lt;SkipForward size={16}/&gt;&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className="px-2 py-1 text-xs rounded border hover:bg-muted" onClick={reset} aria-label="Reset animation"&gt;&lt;ArrowCounterClockwise size={16}/&gt;&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div className="flex items-center gap-1 text-[10px] border rounded overflow-hidden" aria-label="Export theme toggle"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;button className={`px-2 py-1 ${exportTheme==='light'?'bg-primary text-primary-foreground':'hover:bg-muted'}`} onClick={()=&gt;setExportTheme('light')} aria-pressed={exportTheme==='light'}&gt;Light&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;button className={`px-2 py-1 ${exportTheme==='dark'?'bg-primary text-primary-foreground':'hover:bg-muted'}`} onClick={()=&gt;setExportTheme('dark')} aria-pressed={exportTheme==='dark'}&gt;Dark&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className="px-2 py-1 text-xs rounded border hover:bg-muted flex items-center gap-1" onClick={exportSvg} aria-label="Export SVG diagram"&gt;&lt;DownloadSimple size={14}/&gt; SVG&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button className="px-2 py-1 text-xs rounded border hover:bg-muted flex items-center gap-1" onClick={exportPng} aria-label="Export PNG diagram"&gt;&lt;DownloadSimple size={14}/&gt; PNG&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;div className="overflow-x-auto"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;svg role="img" aria-label="AP2 mandate credential sequence diagram" width={totalW} height={totalH} className="max-w-none" ref={svgRef}&gt;</span>
+<span class="cstat-no" title="statement not covered" >          {/* Lane banding */}</span>
+<span class="cstat-no" title="statement not covered" >          {LANES.map((lane,i)=&gt;{ const x0=pad+i*(laneW+laneGap); const bandColor = dark? (i%2? '#0f172a':'#132035') : (i%2? '#f8fafc':'#ffffff'); return &lt;rect key={`band-${lane}`} x={x0-10} y={28} width={laneW+20} height={totalH-56} rx={8} fill={bandColor} opacity={dark?0.25:0.65} /&gt;; })}</span>
+<span class="cstat-no" title="statement not covered" >          {LANES.map((lane,i)=&gt;{ const x=pad+i*(laneW+laneGap)+laneW/2; return &lt;g key={lane}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;text</span>
+<span class="cstat-no" title="statement not covered" >              x={x}</span>
+<span class="cstat-no" title="statement not covered" >              y={20}</span>
+<span class="cstat-no" title="statement not covered" >              textAnchor="middle"</span>
+<span class="cstat-no" title="statement not covered" >              fontFamily={FONT}</span>
+<span class="cstat-no" title="statement not covered" >              fontSize={16}</span>
+<span class="cstat-no" title="statement not covered" >              fontWeight={700}</span>
+<span class="cstat-no" title="statement not covered" >              fill={dark?'#f8fafc':'#0f172a'}</span>
+<span class="cstat-no" title="statement not covered" >              letterSpacing={'.55px'}</span>
+<span class="cstat-no" title="statement not covered" >              style={{filter:'drop-shadow(0 1px 1px rgba(0,0,0,0.25))'}}</span>
+<span class="cstat-no" title="statement not covered" >            &gt;{lane.toUpperCase()}&lt;/text&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;line x1={x} x2={x} y1={34} y2={totalH-20} stroke={dark?'#64748b':'#64748b'} strokeDasharray="4 4" strokeWidth={1}/&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/g&gt;; })}</span>
+<span class="cstat-no" title="statement not covered" >          {steps.map((s,i)=&gt;{ const visible=i&lt;step; const active=step-1===i; const fromX=pad+s.from*(laneW+laneGap)+laneW/2; const toX=pad+s.to*(laneW+laneGap)+laneW/2; const y=64+i*stepH; const color=s.accent?ACCENTS[s.accent]:'#6366f1'; const len=Math.abs(toX-fromX)-16; const dir=toX&gt;=fromX?1:-1; const start=fromX+8*dir; const end=toX-8*dir; const dash=`${len} ${len}`; const offset=active&amp;&amp;!reduced?len:0; const delegatedOnly=mode==='delegated' &amp;&amp; s.label.toLowerCase().includes('monitor constraints'); return &lt;g key={s.id} opacity={visible||active?1:0} style={{transition:'opacity 400ms ease'}}&gt;&lt;line x1={start} y1={y} x2={end} y2={y} stroke={color} strokeWidth={2} strokeDasharray={reduced?undefined:dash} strokeDashoffset={offset} style={!reduced?{transition:'stroke-dashoffset 700ms ease'}:undefined}/&gt;&lt;path d={`M ${end-6*dir} ${y-4} L ${end} ${y} L ${end-6*dir} ${y+4}`} fill="none" stroke={color} strokeWidth={2}/&gt;&lt;rect x={Math.min(start,end)+2} y={y-18} rx={6} ry={6} width={Math.max(110,Math.abs(end-start)-24)} height={36} fill={dark?'#0f172a':'#ffffff'} stroke={delegatedOnly?ACCENTS.diff:color} strokeWidth={delegatedOnly?2:1.2} opacity={0.95}/&gt;&lt;text x={(start+end)/2} y={y-2} textAnchor="middle" fontFamily={FONT} fontSize={12} fontWeight={500} letterSpacing={'.2px'} fill={dark?'#ffffff':'#0f172a'}&gt;{s.label}&lt;/text&gt;{s.note &amp;&amp; &lt;text x={(start+end)/2} y={y+11} textAnchor="middle" fontFamily={FONT} fontSize={10} fontWeight={400} fill={dark?'#cbd5e1':'#475569'}&gt;{s.note}&lt;/text&gt;}{delegatedOnly &amp;&amp; &lt;text x={(start+end)/2} y={y-24} textAnchor="middle" fontFamily={FONT} fontSize={9} fontWeight={500} fill={ACCENTS.diff}&gt;Delegated-only&lt;/text&gt;}&lt;/g&gt;; })}</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/svg&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;div className="flex flex-wrap gap-6 text-sm sm:text-[15px]" aria-label="Legend: credential colors and mode status"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="flex items-center gap-1 font-medium"&gt;&lt;span className="w-3.5 h-3.5 rounded-sm shadow-sm" style={{background:ACCENTS.intent}}/&gt; &lt;span className="opacity-90"&gt;Intent VC&lt;/span&gt;&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="flex items-center gap-1 font-medium"&gt;&lt;span className="w-3.5 h-3.5 rounded-sm shadow-sm" style={{background:ACCENTS.cart}}/&gt; &lt;span className="opacity-90"&gt;Cart VC&lt;/span&gt;&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="flex items-center gap-1 font-medium"&gt;&lt;span className="w-3.5 h-3.5 rounded-sm shadow-sm" style={{background:ACCENTS.payment}}/&gt; &lt;span className="opacity-90"&gt;Payment VC&lt;/span&gt;&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        {mode==='delegated' &amp;&amp; &lt;div className="flex items-center gap-1 font-medium"&gt;&lt;span className="w-3.5 h-3.5 rounded-sm shadow-sm" style={{background:ACCENTS.diff}}/&gt; &lt;span className="opacity-90"&gt;Delegated-only step&lt;/span&gt;&lt;/div&gt;}</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="text-muted-foreground font-medium"&gt;Mode: {mode==='human'?'Human-present':'Delegated'} • Step {Math.min(step,steps.length)} / {steps.length}&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;details className="mt-2 bg-muted/40 rounded p-2"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;summary className="cursor-pointer text-xs font-medium"&gt;Show ASCII fallback&lt;/summary&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;p className="mt-2 text-[10px] text-muted-foreground"&gt;Keyboard: Space play/pause • ← previous • → next&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;pre className="text-[10px] leading-snug mt-2 overflow-x-auto"&gt;{`User            Agent                Merchant Agent        Network</span>
+<span class="cstat-no" title="statement not covered" > |  express need   |                      |                     |</span>
+<span class="cstat-no" title="statement not covered" > |---------------&gt; |                      |                     |</span>
+<span class="cstat-no" title="statement not covered" > | sign Intent VC  |                      |                     |</span>
+<span class="cstat-no" title="statement not covered" > |---------------- VC -------------------&gt;| negotiate/offers    |</span>
+<span class="cstat-no" title="statement not covered" > |                  |&lt;-- data / offers --&gt;|                     |</span>
+<span class="cstat-no" title="statement not covered" > | approve cart?    |                      |                     |</span>
+<span class="cstat-no" title="statement not covered" > |-----------------&gt;| build Cart VC       | validate/pricing    |</span>
+<span class="cstat-no" title="statement not covered" > |   sign Cart VC   |---- VC -------------&gt;|                     |</span>
+<span class="cstat-no" title="statement not covered" > |                  | create Payment VC                        |</span>
+<span class="cstat-no" title="statement not covered" > |                  |--------- VC -----------------------------&gt;|</span>
+<span class="cstat-no" title="statement not covered" > |&lt;---- status -----|&lt;----- result --------|&lt;------- result -----|`}&lt;/pre&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/details&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >  );</span>
+<span class="cstat-no" title="statement not covered" >};</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export default AP2MandateChainAnimation;</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-09-30T16:03:45.290Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

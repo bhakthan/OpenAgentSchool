@@ -120,6 +120,8 @@ scripts/*.md
 
 #docs
 docs/
+docs/WEEK*.md
+docs/QUIZ*.md
 PROJECT_OVERVIEW.md
 WORKSPACE_GUIDE.md
 

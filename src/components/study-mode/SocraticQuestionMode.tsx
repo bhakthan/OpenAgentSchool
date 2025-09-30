@@ -23,6 +23,7 @@ import { misconceptionRefutations } from '@/lib/data/studyMode/misconceptionRefu
 import LlmConfigurationNotice from './LlmConfigurationNotice';
 import EnhancedSocraticElicitation from './EnhancedSocraticElicitation';
 import { generateDynamicFollowUps, extractEnhancedInsights, detectMisconceptions, UserContext } from '@/lib/socraticElicitation';
+import { orchestratorAPI, SocraticQuestion as OrchestratorSocraticQuestion } from '@/services/api';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -42,6 +43,11 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
   const [userContext, setUserContext] = useState<UserContext | null>(null);
   const [adaptiveQuestions, setAdaptiveQuestions] = useState<string[]>([]);
   const [isAdaptive, setIsAdaptive] = useState(false);
+  
+  // Orchestrator API state
+  const [isLoadingOrchestratorQuestions, setIsLoadingOrchestratorQuestions] = useState(false);
+  const [orchestratorQuestions, setOrchestratorQuestions] = useState<OrchestratorSocraticQuestion[]>([]);
+  const [useOrchestratorQuestions, setUseOrchestratorQuestions] = useState(false);
   
   // Original state
   const [currentStep, setCurrentStep] = useState(0);
@@ -117,13 +123,33 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
     
     try {
       setIsAdaptive(true);
-      // Here we could call an LLM to generate personalized questions
-      // For now, we'll adapt the existing questions based on context
+      setIsLoadingOrchestratorQuestions(true);
+      
+      // Try to fetch questions from orchestrator API
+      try {
+        const orchestratorQs = await orchestratorAPI.generateSocraticQuestions(
+          question.title, 
+          5 // Generate 5 Socratic questions
+        );
+        
+        if (orchestratorQs && orchestratorQs.length > 0) {
+          setOrchestratorQuestions(orchestratorQs);
+          setUseOrchestratorQuestions(true);
+          setIsLoadingOrchestratorQuestions(false);
+          return;
+        }
+      } catch (apiError) {
+        console.log('Orchestrator API not available, using fallback questions:', apiError);
+      }
+      
+      // Fallback: adapt the existing questions based on context
       const adaptedQuestions = adaptQuestionsToContext(question, context);
       setAdaptiveQuestions(adaptedQuestions);
+      setIsLoadingOrchestratorQuestions(false);
     } catch (error) {
-      console.log('Could not generate adaptive questions, using defaults');
+      console.log('Could not generate adaptive questions, using defaults:', error);
       setIsAdaptive(false);
+      setIsLoadingOrchestratorQuestions(false);
     }
   };
 
@@ -204,10 +230,12 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
     }, 100);
   };
 
-  // All questions for this Socratic sequence (adaptive or original)
-  const allQuestions = isAdaptive && adaptiveQuestions.length > 0 
-    ? adaptiveQuestions
-    : [question.socratiQuestion!, ...(question.followUpQuestions || [])];
+  // All questions for this Socratic sequence (orchestrator -> adaptive -> original)
+  const allQuestions = useOrchestratorQuestions && orchestratorQuestions.length > 0
+    ? orchestratorQuestions.map(q => q.question)
+    : isAdaptive && adaptiveQuestions.length > 0 
+      ? adaptiveQuestions
+      : [question.socratiQuestion!, ...(question.followUpQuestions || [])];
 
   const currentQuestion = allQuestions[currentStep];
   const isLastQuestion = currentStep >= allQuestions.length - 1;
@@ -904,7 +932,12 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                     • {userContext.background}
                   </span>
                 )}
-                {isAdaptive && (
+                {useOrchestratorQuestions && (
+                  <Badge variant="secondary" className="ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)] dark:text-[var(--badge-purple-text)] ml-2">
+                    AI Orchestrator
+                  </Badge>
+                )}
+                {isAdaptive && !useOrchestratorQuestions && (
                   <Badge variant="secondary" className="ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)] dark:text-[var(--badge-purple-text)] ml-2">
                     AI-Adapted
                   </Badge>
@@ -966,6 +999,22 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
 
       {/* LLM Configuration Notice */}
       <LlmConfigurationNotice mode="socratic" />
+
+      {/* Loading Orchestrator Questions */}
+      {isLoadingOrchestratorQuestions && (
+        <Card className="bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3 text-blue-700 dark:text-blue-300">
+              <div className="animate-spin">
+                <Brain size={20} />
+              </div>
+              <span className="font-medium">
+                Generating personalized Socratic questions from AI orchestrator...
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Main Question */}
       <Card>

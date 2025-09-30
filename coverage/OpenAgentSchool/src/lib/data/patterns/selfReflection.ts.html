@@ -1,0 +1,595 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for OpenAgentSchool/src/lib/data/patterns/selfReflection.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">OpenAgentSchool/src/lib/data/patterns</a> selfReflection.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/171</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/171</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { PatternData } from './types';<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
+<span class="cstat-no" title="statement not covered" >import { HealthcareScribeVisual } from '@/components/visualization/business-use-cases/HealthcareScribeVisual';</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export const selfReflectionPattern: PatternData = {</span>
+<span class="cstat-no" title="statement not covered" >  id: 'self-reflection',</span>
+<span class="cstat-no" title="statement not covered" >  name: 'Self-Reflection',</span>
+<span class="cstat-no" title="statement not covered" >  description: 'Agents that can reflect on their own outputs and improve them through self-critique and iteration.',</span>
+<span class="cstat-no" title="statement not covered" >  category: 'Advanced',</span>
+<span class="cstat-no" title="statement not covered" >  useCases: ['Content Quality Improvement', 'Error Correction', 'Iterative Refinement'],</span>
+<span class="cstat-no" title="statement not covered" >  whenToUse: 'Use Self-Reflection when output quality is critical and can benefit from iterative improvement. This pattern is ideal for content creation, code review, academic writing, or any scenario where the agent should evaluate and refine its own work to meet higher standards.',</span>
+<span class="cstat-no" title="statement not covered" >  nodes: [</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'input',</span>
+<span class="cstat-no" title="statement not covered" >      type: 'input',</span>
+<span class="cstat-no" title="statement not covered" >      data: { label: 'Input', nodeType: 'input' },</span>
+<span class="cstat-no" title="statement not covered" >      position: { x: 100, y: 150 }</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'generator',</span>
+<span class="cstat-no" title="statement not covered" >      type: 'default',</span>
+<span class="cstat-no" title="statement not covered" >      data: { label: 'Generator', nodeType: 'llm' },</span>
+<span class="cstat-no" title="statement not covered" >      position: { x: 300, y: 150 }</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'critic',</span>
+<span class="cstat-no" title="statement not covered" >      type: 'default',</span>
+<span class="cstat-no" title="statement not covered" >      data: { label: 'Critic', nodeType: 'evaluator' },</span>
+<span class="cstat-no" title="statement not covered" >      position: { x: 500, y: 100 }</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'refiner',</span>
+<span class="cstat-no" title="statement not covered" >      type: 'default',</span>
+<span class="cstat-no" title="statement not covered" >      data: { label: 'Refiner', nodeType: 'llm' },</span>
+<span class="cstat-no" title="statement not covered" >      position: { x: 500, y: 200 }</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'output',</span>
+<span class="cstat-no" title="statement not covered" >      type: 'output',</span>
+<span class="cstat-no" title="statement not covered" >      data: { label: 'Output', nodeType: 'output' },</span>
+<span class="cstat-no" title="statement not covered" >      position: { x: 700, y: 150 }</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  edges: [</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'e1-2', source: 'input', target: 'generator', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'e2-3', source: 'generator', target: 'critic', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'e2-4', source: 'generator', target: 'refiner', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'e3-4', source: 'critic', target: 'refiner', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'e4-2', source: 'refiner', target: 'generator', animated: true, label: 'Iterate' },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'e4-5', source: 'refiner', target: 'output' }</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  evaluation: `Evaluation of a Self-Reflection agent is multi-faceted. The quality of the final output is paramount, but the reflection process itself is also key.</span>
+<span class="cstat-no" title="statement not covered" >- **Final Output Quality:** Use an "LLM as Judge" to score the final, refined output against the initial output. The score improvement is a direct measure of the reflection process's value.</span>
+<span class="cstat-no" title="statement not covered" >- **Critique Quality:** How effective is the self-critique? A good critique is specific, actionable, and correctly identifies flaws. This can be evaluated by humans or a high-capability "judge" LLM.</span>
+<span class="cstat-no" title="statement not covered" >- **Convergence Rate:** How many iterations does it take to reach an "APPROVED" state? Faster convergence is a sign of an efficient reflection process.</span>
+<span class="cstat-no" title="statement not covered" >- **Score Accuracy:** If the agent self-scores, how well does its internal score correlate with an external evaluator's score? This measures the agent's self-awareness.`,</span>
+<span class="cstat-no" title="statement not covered" >  businessUseCase: {</span>
+<span class="cstat-no" title="statement not covered" >    industry: 'Healthcare',</span>
+<span class="cstat-no" title="statement not covered" >    description: 'An AI-powered clinical scribe uses the Self-Reflection pattern to improve the quality of medical notes. After transcribing a doctor-patient conversation, the agent generates an initial draft. Then, its "Critic" persona reviews the draft against a rubric checking for clinical accuracy, use of proper medical terminology, and completeness. The "Refiner" persona then rewrites the note to address the critique. This cycle repeats until the note is deemed accurate and compliant, significantly reducing the administrative workload on physicians and improving the quality of patient records.',</span>
+<span class="cstat-no" title="statement not covered" >    visualization: HealthcareScribeVisual,</span>
+<span class="cstat-no" title="statement not covered" >    enlightenMePrompt: `</span>
+<span class="cstat-no" title="statement not covered" >      Provide a deep-technical guide for an AI Architect on implementing a HIPAA-compliant "AI Clinical Scribe" using the Self-Reflection pattern on Azure.</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      Your response should be structured with the following sections, using Markdown for formatting:</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      ### 1. Architectural Blueprint</span>
+<span class="cstat-no" title="statement not covered" >      - Provide a detailed architecture diagram for a HIPAA-compliant solution on Azure.</span>
+<span class="cstat-no" title="statement not covered" >      - Components: Azure AI Speech for transcription, a secure Azure Function App to host the agent, Azure Key Vault for secrets, and Azure Cosmos DB for storing notes with encryption at rest and in transit.</span>
+<span class="cstat-no" title="statement not covered" >      - Emphasize the network security, including private endpoints and VNet integration.</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      ### 2. Self-Reflection Agent: Implementation</span>
+<span class="cstat-no" title="statement not covered" >      - Provide a Python code example for the core self-reflection loop (Generate, Critique, Refine).</span>
+<span class="cstat-no" title="statement not covered" >      - Show the structure of the "Critique" prompt, including specific checks for medical accuracy, billing codes (e.g., ICD-10), and clarity.</span>
+<span class="cstat-no" title="statement not covered" >      - Detail how to manage the iteration history.</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      ### 3. Data Handling &amp; Compliance</span>
+<span class="cstat-no" title="statement not covered" >      - Explain how to de-identify Protected Health Information (PHI) using Azure AI Language's PII detection before sending data to the LLM, and how to re-identify it in the secure environment.</span>
+<span class="cstat-no" title="statement not covered" >      - Discuss logging and audit trails for HIPAA compliance.</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      ### 4. Evaluation Strategy</span>
+<span class="cstat-no" title="statement not covered" >      - Detail the evaluation plan for this high-stakes environment.</span>
+<span class="cstat-no" title="statement not covered" >      - **Clinical Accuracy:** Use a panel of medical experts to review a sample of final notes and compare them to the source transcript (gold standard).</span>
+<span class="cstat-no" title="statement not covered" >      - **Metric:** Define a "Note Quality Score" (NQS) based on a rubric, and measure the score improvement from the initial draft to the final version.</span>
+<span class="cstat-no" title="statement not covered" >      - **Efficiency:** Track the number of iterations and time required to produce a final note.</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      ### 5. Fine-Tuning &amp; Customization</span>
+<span class="cstat-no" title="statement not covered" >      - Discuss the strategy for fine-tuning a base model (like GPT-4) on a private, curated dataset of high-quality medical notes to improve its performance and reduce reflection cycles.</span>
+<span class="cstat-no" title="statement not covered" >      - Explain the importance of using a private Azure OpenAI endpoint for this process.</span>
+<span class="cstat-no" title="statement not covered" >    `</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  codeExample: `// Clinical Scribe Self-Reflection implementation (TypeScript)</span>
+<span class="cstat-no" title="statement not covered" >// Goal: Generate -&gt; Critique -&gt; Refine loop with convergence on quality.</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >interface ReflectionIteration { draft: string; critique: string; score: number; refined: string; }</span>
+<span class="cstat-no" title="statement not covered" >interface CritiqueResult { issues: string[]; suggestions: string[]; score: number; approved: boolean; }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >async function llm(prompt: string): Promise&lt;string&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  if (prompt.includes('CRITIQUE')) return 'ISSUES: missing allergy section; suggestions: add vitals summary; SCORE:0.72';</span>
+<span class="cstat-no" title="statement not covered" >  if (prompt.includes('REFINE')) return 'Refined clinical note with allergy section and vitals.';</span>
+<span class="cstat-no" title="statement not covered" >  return 'Initial draft clinical note capturing chief complaint and assessment.';</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >async function generateDraft(transcript: string): Promise&lt;string&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const prompt = 'Draft a concise, structured clinical note from the transcript. Focus on Chief Complaint, HPI, Assessment.\nTRANSCRIPT:\n' + transcript;</span>
+<span class="cstat-no" title="statement not covered" >  return llm(prompt);</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >function buildCritiquePrompt(draft: string): string {</span>
+<span class="cstat-no" title="statement not covered" >  return 'CRITIQUE MODE\nEvaluate the draft clinical note against: correctness, completeness, terminology, structure.\nReturn format: ISSUES:&lt;comma list&gt;; suggestions:&lt;semicolon separated&gt;; SCORE:&lt;0-1 float&gt;.\nDRAFT:\n' + draft;</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >function parseCritique(raw: string): CritiqueResult {</span>
+<span class="cstat-no" title="statement not covered" >  const issuesMatch = raw.match(/ISSUES:(.*?)(?:suggestions:|SCORE:|$)/i);</span>
+<span class="cstat-no" title="statement not covered" >  const suggestionsMatch = raw.match(/suggestions:(.*?)(?:SCORE:|$)/i);</span>
+<span class="cstat-no" title="statement not covered" >  const scoreMatch = raw.match(/SCORE:(0?\.\d+|1\.0+)/i);</span>
+<span class="cstat-no" title="statement not covered" >  const issues = issuesMatch ? issuesMatch[1].split(/[,;]+/).map(s =&gt; s.trim()).filter(Boolean) : [];</span>
+<span class="cstat-no" title="statement not covered" >  const suggestions = suggestionsMatch ? suggestionsMatch[1].split(/[,;]+/).map(s =&gt; s.trim()).filter(Boolean) : [];</span>
+<span class="cstat-no" title="statement not covered" >  const score = scoreMatch ? parseFloat(scoreMatch[1]) : 0;</span>
+<span class="cstat-no" title="statement not covered" >  return { issues, suggestions, score, approved: score &gt;= 0.9 };</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >function buildRefinementPrompt(draft: string, critique: CritiqueResult): string {</span>
+<span class="cstat-no" title="statement not covered" >  return 'REFINE MODE\nYou are improving a clinical note. Address issues and suggestions precisely. Preserve factual content.\nISSUES:' + critique.issues.join('; ') + '\nSUGGESTIONS:' + critique.suggestions.join('; ') + '\nCURRENT DRAFT:\n' + draft + '\nReturn only the improved draft.';</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export async function runSelfReflectingClinicalScribe(transcript: string, maxIterations = 5, targetScore = 0.9) {</span>
+<span class="cstat-no" title="statement not covered" >  const history: ReflectionIteration[] = [];</span>
+<span class="cstat-no" title="statement not covered" >  let currentDraft = await generateDraft(transcript);</span>
+<span class="cstat-no" title="statement not covered" >  for (let i = 1; i &lt;= maxIterations; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    const critiquePrompt = buildCritiquePrompt(currentDraft);</span>
+<span class="cstat-no" title="statement not covered" >    const rawCritique = await llm(critiquePrompt);</span>
+<span class="cstat-no" title="statement not covered" >    const critique = parseCritique(rawCritique);</span>
+<span class="cstat-no" title="statement not covered" >    const refinementPrompt = buildRefinementPrompt(currentDraft, critique);</span>
+<span class="cstat-no" title="statement not covered" >    const refined = await llm(refinementPrompt);</span>
+<span class="cstat-no" title="statement not covered" >    history.push({ draft: currentDraft, critique: rawCritique, score: critique.score, refined });</span>
+<span class="cstat-no" title="statement not covered" >    currentDraft = refined;</span>
+<span class="cstat-no" title="statement not covered" >    if (critique.approved || critique.score &gt;= targetScore) {</span>
+<span class="cstat-no" title="statement not covered" >      return { status: 'approved', iterations: i, finalNote: currentDraft, history };</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >  return { status: 'max_iterations', iterations: maxIterations, finalNote: currentDraft, history };</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" >`,</span>
+<span class="cstat-no" title="statement not covered" >  pythonCodeExample: `# Clinical Scribe Self-Reflection implementation (Python)\nfrom typing import List, Dict, Any\nimport re\n\nasync def llm(prompt: str) -&gt; str:\n    if 'CRITIQUE' in prompt: return 'ISSUES: missing allergy section; suggestions: add vitals summary; SCORE:0.72'\n    if 'REFINE' in prompt: return 'Refined clinical note with allergy section and vitals.'\n    return 'Initial draft clinical note capturing chief complaint and assessment.'\n\nasync def generate_draft(transcript: str) -&gt; str:\n    prompt = 'Draft a concise, structured clinical note from the transcript. Focus on Chief Complaint, HPI, Assessment.\nTRANSCRIPT:\n' + transcript\n    return await llm(prompt)\n\ndef build_critique_prompt(draft: str) -&gt; str:\n    return ('CRITIQUE MODE\nEvaluate the draft clinical note against: correctness, completeness, terminology, structure.\n'\n            'Return format: ISSUES:&lt;comma list&gt;; suggestions:&lt;semicolon separated&gt;; SCORE:&lt;0-1 float&gt;.\nDRAFT:\n' + draft)\n\ndef parse_critique(raw: str) -&gt; Dict[str, Any]:\n    issues_match = re.search(r'ISSUES:(.*?)(suggestions:|SCORE:|$)', raw, re.I)\n    suggestions_match = re.search(r'suggestions:(.*?)(SCORE:|$)', raw, re.I)\n    score_match = re.search(r'SCORE:(0?\\.\\d+|1\\.0+)', raw)\n    issues = [s.strip() for s in re.split(r'[,;]+', issues_match.group(1)) if s.strip()] if issues_match else []\n    suggestions = [s.strip() for s in re.split(r'[,;]+', suggestions_match.group(1)) if s.strip()] if suggestions_match else []\n    score = float(score_match.group(1)) if score_match else 0.0\n    return { 'issues': issues, 'suggestions': suggestions, 'score': score, 'approved': score &gt;= 0.9 }\n\ndef build_refinement_prompt(draft: str, critique: Dict[str, Any]) -&gt; str:\n    return ('REFINE MODE\nYou are improving a clinical note. Address issues and suggestions precisely. Preserve factual content.\n'\n            + 'ISSUES:' + '; '.join(critique['issues']) + '\nSUGGESTIONS:' + '; '.join(critique['suggestions']) + '\nCURRENT DRAFT:\n' + draft + '\nReturn only the improved draft.')\n\nasync def run_self_reflecting_clinical_scribe(transcript: str, max_iterations: int = 5, target_score: float = 0.9):\n    history: List[Dict[str, Any]] = []\n    current_draft = await generate_draft(transcript)\n    for i in range(1, max_iterations + 1):\n        critique_prompt = build_critique_prompt(current_draft)\n        raw_critique = await llm(critique_prompt)\n        critique = parse_critique(raw_critique)\n        refinement_prompt = build_refinement_prompt(current_draft, critique)\n        refined = await llm(refinement_prompt)\n        history.append({'draft': current_draft, 'critique': raw_critique, 'score': critique['score'], 'refined': refined})\n        current_draft = refined\n        if critique['approved'] or critique['score'] &gt;= target_score:\n            return { 'status': 'approved', 'iterations': i, 'finalNote': current_draft, 'history': history }\n    return { 'status': 'max_iterations', 'iterations': max_iterations, 'finalNote': current_draft, 'history': history }\n`,</span>
+<span class="cstat-no" title="statement not covered" >  implementation: [</span>
+<span class="cstat-no" title="statement not covered" >    'Create generation-critique-refinement cycle',</span>
+<span class="cstat-no" title="statement not covered" >    'Implement quality scoring and approval criteria',</span>
+<span class="cstat-no" title="statement not covered" >    'Build feedback integration and improvement logic',</span>
+<span class="cstat-no" title="statement not covered" >    'Add iteration tracking and history management',</span>
+<span class="cstat-no" title="statement not covered" >    'Create termination conditions for quality thresholds',</span>
+<span class="cstat-no" title="statement not covered" >    'Implement different critique perspectives',</span>
+<span class="cstat-no" title="statement not covered" >    'Add meta-cognitive reasoning capabilities',</span>
+<span class="cstat-no" title="statement not covered" >    'Build learning from previous iterations'</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  advantages: [</span>
+<span class="cstat-no" title="statement not covered" >    'Significantly improves the quality and accuracy of the final output.',</span>
+<span class="cstat-no" title="statement not covered" >    'Can correct its own errors without human intervention.',</span>
+<span class="cstat-no" title="statement not covered" >    'The critique process provides transparency into how the agent is improving its work.',</span>
+<span class="cstat-no" title="statement not covered" >    'Can be adapted to meet very high or specific quality standards.'</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  limitations: [</span>
+<span class="cstat-no" title="statement not covered" >    'Increases latency and cost due to the iterative, multi-step process.',</span>
+<span class="cstat-no" title="statement not covered" >    'The quality of the self-critique is crucial; a poor critic cannot lead to good refinement.',</span>
+<span class="cstat-no" title="statement not covered" >    'May get stuck in refinement loops if the criteria for completion are not well-defined.',</span>
+<span class="cstat-no" title="statement not covered" >    'Requires sophisticated prompt engineering to create effective generator and critic personas.'</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  relatedPatterns: [</span>
+<span class="cstat-no" title="statement not covered" >    'react-agent',</span>
+<span class="cstat-no" title="statement not covered" >    'agent-evaluation',</span>
+<span class="cstat-no" title="statement not covered" >    'prompt-chaining'</span>
+<span class="cstat-no" title="statement not covered" >  ]</span>
+<span class="cstat-no" title="statement not covered" >};</span></pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-09-30T16:03:45.290Z
+            </div>
+        <script src="../../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

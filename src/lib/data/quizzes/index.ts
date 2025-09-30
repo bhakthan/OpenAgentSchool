@@ -1129,3 +1129,26 @@ export const generateQuizFeedback = (session: QuizSession): QuizFeedback[] => {
   
   return feedback;
 };
+
+/**
+ * Get static quiz questions by category (for fallback when API unavailable)
+ */
+export const getStaticQuestionsByCategory = (categoryId: string, limit: number = 15): QuizQuestion[] => {
+  const categoryQuestions = allQuestions.filter(q => q.category === categoryId);
+  
+  if (categoryQuestions.length === 0) {
+    // If exact category not found, try to find by subcategory
+    const subCategoryQuestions = allQuestions.filter(q => q.subCategory === categoryId);
+    return subCategoryQuestions.slice(0, limit);
+  }
+  
+  return categoryQuestions.slice(0, limit);
+};
+
+/**
+ * Get all static questions (useful for debugging)
+ */
+export const getAllStaticQuestions = (): QuizQuestion[] => {
+  return allQuestions;
+};
+

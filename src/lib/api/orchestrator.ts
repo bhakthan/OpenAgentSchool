@@ -1,4 +1,5 @@
 import { API_CONFIG, withApiV1 } from './config';
+import { apiCache } from '@/lib/cache';
 
 export interface ExecuteTemplateParams {
   template: string; // e.g., 'scl'
@@ -57,13 +58,31 @@ export interface OrchestratorWorkflow {
 }
 
 export async function getWorkflow(workflowId: number, signal?: AbortSignal): Promise<OrchestratorWorkflow> {
+  const cacheKey = `orchestrator:workflow:${workflowId}`;
+  
+  // Check cache first (short TTL since workflow status changes)
+  const cached = apiCache.get<OrchestratorWorkflow>(cacheKey);
+  if (cached && cached.status === 'completed') {
+    console.log('✅ Using cached workflow data');
+    return cached;
+  }
+
   const base = withApiV1(API_CONFIG.orchestrator);
   const res = await fetch(`${base}/workflows/${workflowId}`, { signal });
   if (!res.ok) {
     const text = await res.text().catch(() => '');
     throw new Error(`Orchestrator error ${res.status}: ${text || res.statusText}`);
   }
-  return res.json();
+  
+  const data = await res.json();
+  
+  // Only cache completed workflows (immutable)
+  if (data.status === 'completed') {
+    apiCache.set(cacheKey, data, 10 * 60 * 1000); // 10 minutes
+    console.log('✅ Fetched and cached completed workflow');
+  }
+  
+  return data;
 }
 
 export async function getWorkflowStatus(workflowId: number, signal?: AbortSignal): Promise<any> {

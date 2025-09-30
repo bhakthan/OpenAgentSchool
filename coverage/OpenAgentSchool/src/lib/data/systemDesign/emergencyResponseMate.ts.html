@@ -1,0 +1,553 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for OpenAgentSchool/src/lib/data/systemDesign/emergencyResponseMate.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">OpenAgentSchool/src/lib/data/systemDesign</a> emergencyResponseMate.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/156</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/156</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { SystemDesignPattern } from './types';<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export const emergencyResponseMateSystemDesign: SystemDesignPattern = {</span>
+<span class="cstat-no" title="statement not covered" >  id: 'emergency-response-mate',</span>
+<span class="cstat-no" title="statement not covered" >  name: 'Emergency Response Mate System Design',</span>
+<span class="cstat-no" title="statement not covered" >  overview: 'A situational fluency pattern that triages incidents, synchronizes responders, and produces after-action intelligence.',</span>
+<span class="cstat-no" title="statement not covered" >  problemStatement: 'Incident commanders need to fuse alerts, maps, SOPs, and communications fast enough to minimize risk while keeping every team aligned.',</span>
+<span class="cstat-no" title="statement not covered" >  solution: 'Use an LLM-powered triage and planning loop that deduplicates alerts, assembles multi-channel playbooks, tracks acknowledgements, and archives evidence automatically.',</span>
+<span class="cstat-no" title="statement not covered" >  steps: [</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'intake-design',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Incident Intake Prompting',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'prompt',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Shape intake prompts that capture incident class, severity, required disciplines, and policies for notification order.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'Prompts must account for local escalation matrices, sensitive comms, and compliance obligations so the planner routes tasks responsibly.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Aligning severity scales with OSHA / campus policy',</span>
+<span class="cstat-no" title="statement not covered" >        'Separating internal vs public messaging triggers',</span>
+<span class="cstat-no" title="statement not covered" >        'Capturing ground truth sources to avoid rumor amplification'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Include structured fields for threat type, location, headcount, and blocking hazards',</span>
+<span class="cstat-no" title="statement not covered" >        'Attach SOP references and on-call rosters to each prompt',</span>
+<span class="cstat-no" title="statement not covered" >        'Hardcode embargo clauses for non-public alerts until command validates'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'incidentPrompt = formatIncident({ severity: "critical", location, sources, sop })',</span>
+<span class="cstat-no" title="statement not covered" >        'notificationPolicies = ["sms-first", "radio-bridge", "command-ops"]'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'context-orchestration',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Context &amp; Knowledge Orchestration',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'context',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Aggregate maps, floor plans, sensor streams, and asset inventories into an incident context hub.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'LLM planners need real-time availability of responders, resource caches, and hazard zones to produce feasible routes.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Offline contingencies when network connectivity fails',</span>
+<span class="cstat-no" title="statement not covered" >        'Synchronizing location data from indoor positioning and devices',</span>
+<span class="cstat-no" title="statement not covered" >        'Governance for sensitive facilities or student data'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Cache critical maps locally with periodic sync to cloud source of truth',</span>
+<span class="cstat-no" title="statement not covered" >        'Establish SLA for telemetry updates (e.g., cameras, badge readers) during incidents',</span>
+<span class="cstat-no" title="statement not covered" >        'Tag data sources with sensitivity classification for policy enforcement'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'contextHub.load({ maps, sop, roster, equipment })',</span>
+<span class="cstat-no" title="statement not covered" >        'availabilityMatrix = buildAvailability(onCallRoster, realTimeStatus)'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'tasking-loop',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Tasking &amp; Communication Loop',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'tools',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Expose communication channels, task assignments, and acknowledgement trackers with automation hooks.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'Playbooks should spawn tasks by discipline, include deadlines, and record acknowledgements with timestamps.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Operating across SMS, radio, Teams/Slack, and PA systems',</span>
+<span class="cstat-no" title="statement not covered" >        'Fallback for device dead zones or noisy environments',</span>
+<span class="cstat-no" title="statement not covered" >        'Ensuring chain-of-command sign-offs on major escalations'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Use multi-channel fan-out with deduplicated message IDs',</span>
+<span class="cstat-no" title="statement not covered" >        'Replay acknowledgement timelines live in the command console',</span>
+<span class="cstat-no" title="statement not covered" >        'Allow manual overrides to pause or reassign tasks instantly'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'playbook.broadcast({ channel: "sms", recipients, message, ackTimeout: 45 })',</span>
+<span class="cstat-no" title="statement not covered" >        'commandConsole.trackAcknowledgement(taskId, responderId, timestamp)'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'evaluation-feedback',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Evaluation &amp; Feedback',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'evaluation',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Measure alert-to-ack latency, task completion, escalation accuracy, and responder load to refine preparedness.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'The system should log each comms exchange, task outcome, and manual override for post-incident review.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Handling incomplete data when responders go offline',</span>
+<span class="cstat-no" title="statement not covered" >        'Classifying false alarms vs real incidents for analytics',</span>
+<span class="cstat-no" title="statement not covered" >        'Privacy of recorded communication transcripts'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Emit incident metrics to dashboards updated in near real-time',</span>
+<span class="cstat-no" title="statement not covered" >        'Annotate after-action reviews with timeline visualizations and root-cause notes',</span>
+<span class="cstat-no" title="statement not covered" >        'Feed metrics into readiness drills and tabletop scenario libraries'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'metrics.record({ incidentId, ackLatency, tasksCompleted, overrides })',</span>
+<span class="cstat-no" title="statement not covered" >        'afterAction.generateTimeline({ incidentId, channelLogs })'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'architecture-governance',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Architecture &amp; Governance',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'architecture',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Deploy resilient services that can survive local disruptions, enforce policy, and integrate with emergency operations systems.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'Multi-region command services with local fallbacks ensure incident coordination stays online during outages.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Failover between on-prem command center and cloud operations',</span>
+<span class="cstat-no" title="statement not covered" >        'Regulated logging requirements for critical infrastructure',</span>
+<span class="cstat-no" title="statement not covered" >        'Securely bridging radio, telephony, and IP-based channels'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Use message queues with priority tiers for life-safety alerts',</span>
+<span class="cstat-no" title="statement not covered" >        'Encrypt transcripts at rest with role-based decryption for investigations',</span>
+<span class="cstat-no" title="statement not covered" >        'Run periodic chaos drills that simulate service degradation'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'commandBus.publish({ priority: "critical", payload })',</span>
+<span class="cstat-no" title="statement not covered" >        'policyEngine.enforce({ channel: "radio", rule: "command-auth" })'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'instruction-loop',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Instruction &amp; Training Integration',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'instruction',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Capture lessons learned, update SOPs, and push practice drills that mirror real incidents.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'After-action packages should feed training programs and policy updates so teams continuously improve readiness.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Balancing transparency with sensitive investigation details',</span>
+<span class="cstat-no" title="statement not covered" >        'Maintaining drill libraries that age out obsolete procedures',</span>
+<span class="cstat-no" title="statement not covered" >        'Tracking training completion and competency levels'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Auto-generate training scenarios from recent incidents with anonymized data',</span>
+<span class="cstat-no" title="statement not covered" >        'Link remediation actions to ticketing systems for accountability',</span>
+<span class="cstat-no" title="statement not covered" >        'Store after-action approvals alongside SOP version history'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'trainingPlanner.enqueueScenario({ incidentId, difficulty: "advanced" })',</span>
+<span class="cstat-no" title="statement not covered" >        'sopRepository.update({ id: sopId, version: nextVersion, approvals })'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  architecture: {</span>
+<span class="cstat-no" title="statement not covered" >    components: [</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Incident Intake Gateway', type: 'input', description: 'Collects alerts from sensors, 911 feeds, and human reports.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Context Hub', type: 'processing', description: 'Aggregates maps, assets, rosters, and environmental feeds.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Response Planner', type: 'control', description: 'Generates playbooks, tasks, and communication plans.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Responder Loop', type: 'output', description: 'Delivers multi-channel messaging with acknowledgement tracking.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Command Operations Console', type: 'output', description: 'Provides oversight, overrides, and situational dashboards.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'After-Action Archive', type: 'storage', description: 'Stores timelines, transcripts, and remediation recommendations.' }</span>
+<span class="cstat-no" title="statement not covered" >    ],</span>
+<span class="cstat-no" title="statement not covered" >    flows: [</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Incident Intake Gateway', to: 'Context Hub', description: 'Enrich incoming alerts with maps, SOPs, and assets.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Context Hub', to: 'Response Planner', description: 'Supply situational awareness for plan generation.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Response Planner', to: 'Responder Loop', description: 'Send task assignments and messaging payloads.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Responder Loop', to: 'Command Operations Console', description: 'Report acknowledgements, completions, and issues.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Command Operations Console', to: 'Response Planner', description: 'Inject overrides, escalation decisions, and re-tasking.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Responder Loop', to: 'After-Action Archive', description: 'Persist communication logs and field updates.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Command Operations Console', to: 'After-Action Archive', description: 'Store decisions, metrics, and remediation notes.' }</span>
+<span class="cstat-no" title="statement not covered" >    ]</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >};</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-09-30T16:03:45.290Z
+            </div>
+        <script src="../../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

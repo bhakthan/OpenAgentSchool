@@ -1,0 +1,268 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for OpenAgentSchool/src/lib/data/patterns/dataQualityFeedbackLoop.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">OpenAgentSchool/src/lib/data/patterns</a> dataQualityFeedbackLoop.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/61</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/61</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { PatternData } from './types';<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
+<span class="cstat-no" title="statement not covered" >import { DataQualityRepairVisual } from '@/components/visualization/business-use-cases/DataQualityRepairVisual';</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export const dataQualityFeedbackLoopPattern: PatternData = {</span>
+<span class="cstat-no" title="statement not covered" >  id: 'data-quality-feedback-repair-loop',</span>
+<span class="cstat-no" title="statement not covered" >  name: 'Data Quality Feedback &amp; Repair Loop',</span>
+<span class="cstat-no" title="statement not covered" >  description: 'Closed-loop anomaly detection → profiling → candidate repair → validation cycle to restore data reliability.',</span>
+<span class="cstat-no" title="statement not covered" >  category: 'Data Autonomy',</span>
+<span class="cstat-no" title="statement not covered" >  relatedPatterns: ['perception-normalization', 'action-grounding-verification', 'budget-constrained-execution'],</span>
+<span class="cstat-no" title="statement not covered" >  businessUseCase: {</span>
+<span class="cstat-no" title="statement not covered" >    industry: 'Supply Chain Analytics',</span>
+<span class="cstat-no" title="statement not covered" >    description: 'Daily inbound SKU feed develops spike in null weights. Loop detects anomaly, profiles impacted columns, synthesizes conditional fill strategy, validates downstream KPI stability, and records repair artifact.',</span>
+<span class="cstat-no" title="statement not covered" >    visualization: DataQualityRepairVisual,</span>
+<span class="cstat-no" title="statement not covered" >    enlightenMePrompt: 'Describe how targeted profiling reduces cost in a data quality repair loop.'</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  nodes: [</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'monitor', type: 'input', data: { label: 'Metric Monitor', nodeType: 'input' }, position: { x: 60, y: 180 } },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'detect', type: 'default', data: { label: 'Anomaly Detect', nodeType: 'evaluator' }, position: { x: 240, y: 140 } },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'profile', type: 'default', data: { label: 'Targeted Profiling', nodeType: 'tool' }, position: { x: 240, y: 240 } },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'propose', type: 'default', data: { label: 'Repair Proposer', nodeType: 'planner' }, position: { x: 460, y: 180 } },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'ground', type: 'default', data: { label: 'Ground &amp; Verify', nodeType: 'evaluator' }, position: { x: 680, y: 180 } },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'validate', type: 'default', data: { label: 'Post-Fix Validate', nodeType: 'evaluator' }, position: { x: 900, y: 180 } },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'stable', type: 'output', data: { label: 'Stabilized KPI', nodeType: 'output' }, position: { x: 1120, y: 180 } }</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  edges: [</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'd1', source: 'monitor', target: 'detect', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'd2', source: 'detect', target: 'profile', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'd3', source: 'profile', target: 'propose', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'd4', source: 'propose', target: 'ground', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'd5', source: 'ground', target: 'validate', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'd6', source: 'validate', target: 'monitor', label: 'Re-evaluate', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'd7', source: 'validate', target: 'stable', animated: true }</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  useCases: [</span>
+<span class="cstat-no" title="statement not covered" >    'Detect and repair sudden null / outlier spikes',</span>
+<span class="cstat-no" title="statement not covered" >    'Auto-mitigate schema drift impacts',</span>
+<span class="cstat-no" title="statement not covered" >    'Stabilize SLA dashboards with minimal latency'</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  whenToUse: 'Use when production analytical pipelines require autonomous resilience against data quality regressions.',</span>
+<span class="cstat-no" title="statement not covered" >  advantages: [</span>
+<span class="cstat-no" title="statement not covered" >    'Minimizes manual firefighting',</span>
+<span class="cstat-no" title="statement not covered" >    'Focuses profiling on impacted segments',</span>
+<span class="cstat-no" title="statement not covered" >    'Creates auditable repair artifacts'</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  limitations: [</span>
+<span class="cstat-no" title="statement not covered" >    'Risk of incorrect automated fixes',</span>
+<span class="cstat-no" title="statement not covered" >    'Requires robust anomaly detection baselines',</span>
+<span class="cstat-no" title="statement not covered" >    'May oscillate if validation thresholds unstable'</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  implementation: [</span>
+<span class="cstat-no" title="statement not covered" >    'Step 1: Continuously monitor KPIs &amp; quality metrics (null %, freshness, distribution drift).',</span>
+<span class="cstat-no" title="statement not covered" >    'Step 2: On anomaly, localize impacted columns/entities.',</span>
+<span class="cstat-no" title="statement not covered" >    'Step 3: Perform targeted deep profiling (sample expansion, conditional segment analysis).',</span>
+<span class="cstat-no" title="statement not covered" >    'Step 4: Propose repair candidates (imputation, rollback, conditional transformation).',</span>
+<span class="cstat-no" title="statement not covered" >    'Step 5: Ground &amp; verify repair (Pattern 4) in sandbox.',</span>
+<span class="cstat-no" title="statement not covered" >    'Step 6: Validate post-fix metrics; loop until stability or max iterations.'</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  codeExample: `// TypeScript quality loop skeleton\ninterface Anomaly { metric: string; severity: number; columns: string[]; }\ninterface Repair { id: string; code: string; score: number; }\n\nexport async function qualityLoop(detector: any, profiler: any, proposer: any, ground: any, validate: any) {\n  const anomaly: Anomaly | null = await detector.next();\n  if (!anomaly) return 'no-op';\n  const deep = await profiler.profile(anomaly.columns, { mode: 'targeted' });\n  const repairs: Repair[] = await proposer.generate(deep);\n  for (const r of repairs.slice(0,3)) {\n    const grounded = await ground(r.code);\n    if (!grounded.valid) continue;\n    const ok = await validate(grounded);\n    if (ok.stable) return { applied: r.id };\n  }\n  return { status: 'unresolved' };\n}\n`,</span>
+<span class="cstat-no" title="statement not covered" >  pythonCodeExample: `# Python quality loop skeleton\ndef quality_loop(detector, profiler, proposer, ground, validate):\n    anomaly = detector.next()\n    if not anomaly:\n        return 'no-op'\n    deep = profiler.profile(anomaly['columns'], mode='targeted')\n    repairs = proposer.generate(deep)\n    for r in repairs[:3]:\n        grounded = ground(r['code'])\n        if not grounded['valid']:\n            continue\n        ok = validate(grounded)\n        if ok.get('stable'):\n            return {'applied': r['id']}\n    return {'status': 'unresolved'}\n`,</span>
+<span class="cstat-no" title="statement not covered" >  completeCode: ''</span>
+<span class="cstat-no" title="statement not covered" >};</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-09-30T16:03:45.290Z
+            </div>
+        <script src="../../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

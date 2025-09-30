@@ -1,0 +1,748 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for OpenAgentSchool/src/components/ai-skills/AgentPaymentsAP2.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">OpenAgentSchool/src/components/ai-skills</a> AgentPaymentsAP2.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/221</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/221</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import React, { useEffect } from 'react'</span></span></span>
+<span class="cstat-no" title="statement not covered" >import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'</span>
+<span class="cstat-no" title="statement not covered" >import { Badge } from '@/components/ui/badge'</span>
+<span class="cstat-no" title="statement not covered" >import { Separator } from '@/components/ui/separator'</span>
+<span class="cstat-no" title="statement not covered" >import { CheckCircle2, GitBranch, Shield, KeyRound, Layers3, Timer, Workflow, Lock, Link as LinkIcon } from 'lucide-react'</span>
+<span class="cstat-no" title="statement not covered" >import { trackEvent } from '@/lib/analytics/ga'</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >interface Props {</span>
+<span class="cstat-no" title="statement not covered" >  onNavigate?: () =&gt; void</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/*</span>
+<span class="cstat-no" title="statement not covered" >  Agentic Commerce &amp; AP2 Module</span>
+<span class="cstat-no" title="statement not covered" >  Purpose: Teach learners how AP2 extends A2A &amp; MCP to enable trusted agent-led payments using a chain of cryptographically signed Mandates (Intent, Cart, Payment).</span>
+<span class="cstat-no" title="statement not covered" >  NOTE: All explanations are original synthesis (no verbatim copying of source material).</span>
+<span class="cstat-no" title="statement not covered" >*/</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >const Section: React.FC&lt;{title: string; children: React.ReactNode; icon?: React.ReactNode; subtle?: boolean}&gt; = ({title, children, icon, subtle}) =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >  &lt;div className={`rounded-md border p-4 space-y-2 ${subtle ? 'bg-muted/30' : 'bg-card/40'}`}&gt; </span>
+<span class="cstat-no" title="statement not covered" >    &lt;h4 className="font-semibold flex items-center gap-2 text-sm tracking-tight"&gt;{icon}{title}&lt;/h4&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;div className="text-sm text-muted-foreground leading-relaxed space-y-2"&gt;{children}&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >  &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >)</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >const CodeBlock: React.FC&lt;{code: string; caption?: string}&gt; = ({code, caption}) =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >  &lt;div className="mt-3"&gt;</span>
+<span class="cstat-no" title="statement not covered" >    {caption &amp;&amp; &lt;div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1"&gt;{caption}&lt;/div&gt;}</span>
+<span class="cstat-no" title="statement not covered" >    &lt;pre className="text-xs bg-neutral-900 text-neutral-200 p-3 rounded-md overflow-x-auto leading-relaxed"&gt;&lt;code&gt;{code}&lt;/code&gt;&lt;/pre&gt;</span>
+<span class="cstat-no" title="statement not covered" >  &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >)</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export default function AgentPaymentsAP2({ onNavigate }: Props) {</span>
+<span class="cstat-no" title="statement not covered" >  // Telemetry: fire once on mount</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    trackEvent({ action: 'module_view', category: 'ai_skills', label: 'agent-payments-ap2' })</span>
+<span class="cstat-no" title="statement not covered" >  }, [])</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const Gloss: React.FC&lt;{term: string; def: string}&gt; = ({term, def}) =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >    &lt;span className="underline decoration-dotted cursor-help" title={def}&gt;{term}&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >  )</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
+<span class="cstat-no" title="statement not covered" >    &lt;div className="space-y-6"&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;Card className="border-primary/30"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;CardHeader className="pb-3"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="flex items-start justify-between gap-4 flex-wrap"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div className="space-y-1"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;CardTitle className="text-xl flex items-center gap-2"&gt;Agentic Commerce &amp; AP2 &lt;Badge variant="outline" className="text-[10px]"&gt;Advanced&lt;/Badge&gt;&lt;/CardTitle&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;p className="text-sm text-muted-foreground max-w-2xl"&gt;AP2 establishes cryptographically verifiable trust for agent‑initiated payments by chaining &lt;Gloss term="Intent Mandate" def="Signed constraints + scope the user delegates to an agent." /&gt;, &lt;Gloss term="Cart Mandate" def="Immutable snapshot of items &amp; price user approved (or agent assembled within constraints)." /&gt; and &lt;Gloss term="Payment Mandate" def="Context credential signaling presence mode &amp; agent involvement to networks." /&gt; across the A2A + MCP + commerce stack.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/CardHeader&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;CardContent className="space-y-5 pt-0"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Section title="Quick Sequence (ASCII)" icon={&lt;GitBranch className="w-4 h-4 text-primary"/&gt;}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;pre className="text-[11px] leading-snug bg-neutral-900 text-neutral-200 p-3 rounded-md overflow-x-auto"&gt;</span>
+<span class="cstat-no" title="statement not covered" >{`User            Agent                Merchant Agent        Payment Network</span>
+<span class="cstat-no" title="statement not covered" > |  express need   |                      |                     |</span>
+<span class="cstat-no" title="statement not covered" > |---------------&gt; |                      |                     |</span>
+<span class="cstat-no" title="statement not covered" > |   sign Intent Mandate (VC #1)          |                     |</span>
+<span class="cstat-no" title="statement not covered" > |---------------- VC #1 ----------------&gt;| (optional discovery)|</span>
+<span class="cstat-no" title="statement not covered" > |                  |--- A2A negotiate --&gt;|                     |</span>
+<span class="cstat-no" title="statement not covered" > |                  |&lt;-- offers / data ---|                     |</span>
+<span class="cstat-no" title="statement not covered" > |  approve cart?   |                      |                     |</span>
+<span class="cstat-no" title="statement not covered" > |-----------------&gt;| build Cart Mandate  |                     |</span>
+<span class="cstat-no" title="statement not covered" > |   (sign VC #2)   |---- VC #2 ----------&gt;| validate/pricing    |</span>
+<span class="cstat-no" title="statement not covered" > |                  |                      |                     |</span>
+<span class="cstat-no" title="statement not covered" > |                  | create Payment Mandate (VC #3)             |</span>
+<span class="cstat-no" title="statement not covered" > |                  |--------- VC #3 ---------------------------&gt;|</span>
+<span class="cstat-no" title="statement not covered" > |                  |                      |  auth/settle        |</span>
+<span class="cstat-no" title="statement not covered" > |&lt;---- status -----|&lt;----- result --------|&lt;------- result -----|</span>
+<span class="cstat-no" title="statement not covered" >`}&lt;/pre&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;p className="text-xs text-muted-foreground"&gt;Delegated flow: steps 1–4 can occur asynchronously; Cart Mandate generated only when constraints satisfied.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="grid gap-4 md:grid-cols-2"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;Section title="Why It Matters" icon={&lt;Shield className="w-4 h-4 text-primary"/&gt;}&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;p&gt;Once autonomous agents can place orders, traditional assumptions (“human clicked buy now”) collapse. AP2 defines shared evidence so ecosystems can accept agent‑led transactions without fragmenting into proprietary silos.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;ul className="list-disc pl-4 space-y-1"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;&lt;strong&gt;Authorization&lt;/strong&gt;: Explicit, scoped user delegation.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;&lt;strong&gt;Authenticity&lt;/strong&gt;: Merchant confidence that the cart reflects real intent—not hallucination.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;&lt;strong&gt;Accountability&lt;/strong&gt;: Cryptographic audit trail for dispute resolution.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/ul&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;Section title="Stack Context" icon={&lt;Layers3 className="w-4 h-4 text-primary"/&gt;}&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;p&gt;Think in layers:&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;ol className="list-decimal pl-4 space-y-1"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;&lt;strong&gt;MCP&lt;/strong&gt;: Agents invoke tools, fetch context, enrich product &amp; pricing knowledge.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;&lt;strong&gt;A2A&lt;/strong&gt;: Agents negotiate capabilities &amp; commerce session semantics.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;&lt;strong&gt;AP2&lt;/strong&gt;: Generates &amp; verifies Mandates (verifiable credentials) to formalize intent → cart → payment trust chain.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/ol&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;p className="mt-1"&gt;Extensions (e.g. x402) plug into AP2 for stablecoin / crypto rails.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >          &lt;Section title="Mandate Chain (Core Mechanism)" icon={&lt;GitBranch className="w-4 h-4 text-primary"/&gt;}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;p&gt;AP2 encodes payment authority &amp; correctness as signed Verifiable Credentials (VCs):&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;ul className="list-disc pl-4 space-y-1"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;&lt;Gloss term="Intent Mandate" def="User-authorized constraints + guardrails governing a purchase scope." /&gt;&lt;/strong&gt;: Scope + constraints (price caps, timing, categories); basis for delegated autonomy.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;&lt;Gloss term="Cart Mandate" def="Immutable, signed list of items &amp; total bound to the originating Intent." /&gt;&lt;/strong&gt;: Canonical snapshot of items, quantity, price; user confirms (human‑present) or agent assembles within constraints (delegated).&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;&lt;Gloss term="Payment Mandate" def="Credential delivered to payment rails conveying presence + agent context." /&gt;&lt;/strong&gt;: Signals transaction context (agent involvement, presence mode) to networks &amp; issuers.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/ul&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;p className="text-xs text-muted-foreground"&gt;Chain gives non‑repudiation: each downstream mandate is cryptographically linked to upstream intent context.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="grid gap-4 md:grid-cols-2"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;Section title="Human-Present Flow" icon={&lt;Workflow className="w-4 h-4 text-primary"/&gt;} subtle&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;ol className="list-decimal pl-4 space-y-1"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;User expresses need (natural language) → lightweight Intent Mandate created.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;Agent explores offers (MCP tools, A2A merchant sessions).&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;Proposed cart surfaced to user.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;User approves → Cart Mandate signed.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;Payment Mandate issued → rails process with enriched context.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/ol&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;Section title="Delegated / Scheduled Flow" icon={&lt;Timer className="w-4 h-4 text-primary"/&gt;} subtle&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;ol className="list-decimal pl-4 space-y-1"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;User signs rich Intent Mandate (constraints &amp; guardrails).&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;Agent monitors or awaits trigger (inventory, price, time window).&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;Conditions satisfied → agent constructs compliant Cart Mandate.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;Payment Mandate dispatched automatically.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;li&gt;Audit chain available for post‑facto review / disputes.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/ol&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >          &lt;Section title="Security &amp; Privacy Dimensions" icon={&lt;Lock className="w-4 h-4 text-primary"/&gt;}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;ul className="list-disc pl-4 space-y-1"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Least Authority Delegation&lt;/strong&gt;: Intent Mandate defines boundaries; avoid blanket unlimited spend.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Deterministic Cart&lt;/strong&gt;: Prevents post‑approval mutations (WYSIWYP: what you see is what you pay).&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Presence Signaling&lt;/strong&gt;: Distinguishes risk posture (human‑present vs autonomous execution).&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Selective Disclosure&lt;/strong&gt;: Role-based data partitioning across merchant, payment network, issuer.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Auditability&lt;/strong&gt;: Cryptographic linkage → streamlined dispute triage.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/ul&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >          &lt;Section title="Adoption Checklist" icon={&lt;CheckCircle2 className="w-4 h-4 text-primary"/&gt;}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;ol className="list-decimal pl-4 space-y-1"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;Model user delegation UX (capture explicit constraints early).&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;Represent Intent Mandate as a signed VC (library / SDK or custom impl).&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;Integrate merchant agent discovery via A2A; define capability envelope.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;Enforce price &amp; category constraints before Cart Mandate issuance.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;Emit Payment Mandate with presence + agent metadata.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;Persist mandate chain for audit / analytics (hash linking).&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;Extend to x402 / alternative rails if crypto or push payments required.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/ol&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >          &lt;Section title="Pseudocode (Conceptual Only)" icon={&lt;KeyRound className="w-4 h-4 text-primary"/&gt;}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;CodeBlock caption="Mandate lifecycle (simplified pseudo)" code={`// 1. Capture user delegation\nconst intent = signIntentMandate({\n  userId,\n  constraints: { maxTotal: '250.00', currency: 'USD', categories:['footwear'], expiresAt },\n  mode: 'DELEGATED'\n})\n\n// 2. Merchant / offer exploration (A2A negotiated)\nconst candidate = agent.searchOffers(intent) // uses MCP tools + merchant agents\n\n// 3. Validate against constraints\nif(!withinConstraints(candidate, intent.constraints)) throw new Error('Out of bounds')\n\n// 4. Cart mandate (delegated path auto-generated)\nconst cart = signCartMandate({ intentRef: intent.id, items: candidate.items, total: candidate.total })\n\n// 5. Payment mandate for network / issuer\nconst payment = signPaymentMandate({\n  cartRef: cart.id,\n  presence: 'HUMAN_NOT_PRESENT',\n  agentMeta: { model: 'gpt-xyz', version: '2025-09' }\n})\n\n// 6. Submit to payment rails (abstract)\nsubmitPayment(payment)\n\n// 7. Persist linkage for audit\npersistChain(intent, cart, payment)`} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >          &lt;Section title="Comparison" icon={&lt;Shield className="w-4 h-4 text-primary"/&gt;} subtle&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;table className="w-full text-xs"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;thead&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;tr className="text-left border-b"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;th className="py-1 pr-2 font-medium"&gt;Aspect&lt;/th&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;th className="py-1 pr-2 font-medium"&gt;Ad-hoc Agent Payment&lt;/th&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;th className="py-1 pr-2 font-medium"&gt;AP2 Approach&lt;/th&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;/tr&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/thead&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;tbody className="align-top"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;tr className="border-b last:border-b-0"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Delegation Proof&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Implicit / logs&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Signed Intent Mandate (VC)&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;/tr&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;tr className="border-b last:border-b-0"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Cart Integrity&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Mutable request payload&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Immutable Cart Mandate snapshot&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;/tr&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;tr className="border-b last:border-b-0"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Presence Signaling&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Not standardized&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Payment Mandate presence flag&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;/tr&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;tr className="border-b last:border-b-0"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Risk / Dispute Trace&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Heuristic reconstruction&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Cryptographically linked chain&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;/tr&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;tr&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Multi-Rail Extensibility&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Custom adapters&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;td className="py-1 pr-2"&gt;Protocol extensions (e.g. x402)&lt;/td&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;/tr&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/tbody&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/table&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >          &lt;Section title="Where This Plugs Into Your Architecture" icon={&lt;Workflow className="w-4 h-4 text-primary"/&gt;}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;ul className="list-disc pl-4 space-y-1"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Tool Invocation (MCP)&lt;/strong&gt;: Product / inventory / pricing retrieval before Cart assembly.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Agent Negotiation (A2A)&lt;/strong&gt;: Merchant capability discovery &amp; offer session creation.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Governance (Safety &amp; Security Modules)&lt;/strong&gt;: Constraint validation &amp; spend policy checks pre Cart Mandate.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Multi-Agent Orchestration&lt;/strong&gt;: Supervisor agent decides when delegated conditions are satisfied.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Observability &amp; EvalOps&lt;/strong&gt;: Store mandate chain hashes for replay / anomaly detection.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;strong&gt;Cost &amp; Performance&lt;/strong&gt;: Evaluate long-lived delegated monitoring cost vs conversion lift.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/ul&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Section title="Cross-References" icon={&lt;LinkIcon className="w-4 h-4 text-primary"/&gt;} subtle&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;p className="text-xs"&gt;Explore related modules to reinforce AP2 context:&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;ul className="list-disc pl-4 text-xs space-y-1"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;button onClick={() =&gt; document.getElementById('safety')?.scrollIntoView({behavior:'smooth'})} className="underline decoration-dotted"&gt;Safety &amp; Governance&lt;/button&gt; – policy &amp; adversarial testing before delegation.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;button onClick={() =&gt; document.getElementById('security-data-boundaries')?.scrollIntoView({behavior:'smooth'})} className="underline decoration-dotted"&gt;Security &amp; Data Boundaries&lt;/button&gt; – data isolation for mandate generation context.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;button onClick={() =&gt; document.getElementById('multi-agent-orchestration')?.scrollIntoView({behavior:'smooth'})} className="underline decoration-dotted"&gt;Multi-Agent Orchestration&lt;/button&gt; – supervisor patterns that trigger Cart formation.&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/ul&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Section title="References" icon={&lt;Shield className="w-4 h-4 text-primary"/&gt;} subtle&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;ol className="list-decimal pl-4 space-y-1 text-xs"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol" target="_blank" rel="noopener noreferrer" className="underline"&gt;AP2 Announcement Blog&lt;/a&gt;&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;a href="https://ap2-protocol.org/" target="_blank" rel="noopener noreferrer" className="underline"&gt;AP2 Protocol Documentation&lt;/a&gt;&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;li&gt;&lt;a href="https://github.com/google-agentic-commerce/AP2" target="_blank" rel="noopener noreferrer" className="underline"&gt;AP2 GitHub Repository&lt;/a&gt;&lt;/li&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/ol&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Section title="Next Steps" icon={&lt;Workflow className="w-4 h-4 text-primary"/&gt;}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;p&gt;Run a reference scenario (human-present &amp; delegated). Map current flows to mandate lifecycle; introduce signing stubs, then replace with real VC primitives. Add telemetry for mandate creation latency, and simulate dispute trace with hash chain reconstruction.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Section&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/CardContent&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/Card&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >  )</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-09-30T16:03:45.290Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

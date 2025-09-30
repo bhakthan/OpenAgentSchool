@@ -1,0 +1,1636 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for OpenAgentSchool/src/components/seo/SEO.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">OpenAgentSchool/src/components/seo</a> SEO.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">67.11% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>347/517</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">20% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">20% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">67.11% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>347/517</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line medium'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a>
+<a name='L325'></a><a href='#L325'>325</a>
+<a name='L326'></a><a href='#L326'>326</a>
+<a name='L327'></a><a href='#L327'>327</a>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a>
+<a name='L331'></a><a href='#L331'>331</a>
+<a name='L332'></a><a href='#L332'>332</a>
+<a name='L333'></a><a href='#L333'>333</a>
+<a name='L334'></a><a href='#L334'>334</a>
+<a name='L335'></a><a href='#L335'>335</a>
+<a name='L336'></a><a href='#L336'>336</a>
+<a name='L337'></a><a href='#L337'>337</a>
+<a name='L338'></a><a href='#L338'>338</a>
+<a name='L339'></a><a href='#L339'>339</a>
+<a name='L340'></a><a href='#L340'>340</a>
+<a name='L341'></a><a href='#L341'>341</a>
+<a name='L342'></a><a href='#L342'>342</a>
+<a name='L343'></a><a href='#L343'>343</a>
+<a name='L344'></a><a href='#L344'>344</a>
+<a name='L345'></a><a href='#L345'>345</a>
+<a name='L346'></a><a href='#L346'>346</a>
+<a name='L347'></a><a href='#L347'>347</a>
+<a name='L348'></a><a href='#L348'>348</a>
+<a name='L349'></a><a href='#L349'>349</a>
+<a name='L350'></a><a href='#L350'>350</a>
+<a name='L351'></a><a href='#L351'>351</a>
+<a name='L352'></a><a href='#L352'>352</a>
+<a name='L353'></a><a href='#L353'>353</a>
+<a name='L354'></a><a href='#L354'>354</a>
+<a name='L355'></a><a href='#L355'>355</a>
+<a name='L356'></a><a href='#L356'>356</a>
+<a name='L357'></a><a href='#L357'>357</a>
+<a name='L358'></a><a href='#L358'>358</a>
+<a name='L359'></a><a href='#L359'>359</a>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a>
+<a name='L389'></a><a href='#L389'>389</a>
+<a name='L390'></a><a href='#L390'>390</a>
+<a name='L391'></a><a href='#L391'>391</a>
+<a name='L392'></a><a href='#L392'>392</a>
+<a name='L393'></a><a href='#L393'>393</a>
+<a name='L394'></a><a href='#L394'>394</a>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a>
+<a name='L401'></a><a href='#L401'>401</a>
+<a name='L402'></a><a href='#L402'>402</a>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a>
+<a name='L415'></a><a href='#L415'>415</a>
+<a name='L416'></a><a href='#L416'>416</a>
+<a name='L417'></a><a href='#L417'>417</a>
+<a name='L418'></a><a href='#L418'>418</a>
+<a name='L419'></a><a href='#L419'>419</a>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a>
+<a name='L423'></a><a href='#L423'>423</a>
+<a name='L424'></a><a href='#L424'>424</a>
+<a name='L425'></a><a href='#L425'>425</a>
+<a name='L426'></a><a href='#L426'>426</a>
+<a name='L427'></a><a href='#L427'>427</a>
+<a name='L428'></a><a href='#L428'>428</a>
+<a name='L429'></a><a href='#L429'>429</a>
+<a name='L430'></a><a href='#L430'>430</a>
+<a name='L431'></a><a href='#L431'>431</a>
+<a name='L432'></a><a href='#L432'>432</a>
+<a name='L433'></a><a href='#L433'>433</a>
+<a name='L434'></a><a href='#L434'>434</a>
+<a name='L435'></a><a href='#L435'>435</a>
+<a name='L436'></a><a href='#L436'>436</a>
+<a name='L437'></a><a href='#L437'>437</a>
+<a name='L438'></a><a href='#L438'>438</a>
+<a name='L439'></a><a href='#L439'>439</a>
+<a name='L440'></a><a href='#L440'>440</a>
+<a name='L441'></a><a href='#L441'>441</a>
+<a name='L442'></a><a href='#L442'>442</a>
+<a name='L443'></a><a href='#L443'>443</a>
+<a name='L444'></a><a href='#L444'>444</a>
+<a name='L445'></a><a href='#L445'>445</a>
+<a name='L446'></a><a href='#L446'>446</a>
+<a name='L447'></a><a href='#L447'>447</a>
+<a name='L448'></a><a href='#L448'>448</a>
+<a name='L449'></a><a href='#L449'>449</a>
+<a name='L450'></a><a href='#L450'>450</a>
+<a name='L451'></a><a href='#L451'>451</a>
+<a name='L452'></a><a href='#L452'>452</a>
+<a name='L453'></a><a href='#L453'>453</a>
+<a name='L454'></a><a href='#L454'>454</a>
+<a name='L455'></a><a href='#L455'>455</a>
+<a name='L456'></a><a href='#L456'>456</a>
+<a name='L457'></a><a href='#L457'>457</a>
+<a name='L458'></a><a href='#L458'>458</a>
+<a name='L459'></a><a href='#L459'>459</a>
+<a name='L460'></a><a href='#L460'>460</a>
+<a name='L461'></a><a href='#L461'>461</a>
+<a name='L462'></a><a href='#L462'>462</a>
+<a name='L463'></a><a href='#L463'>463</a>
+<a name='L464'></a><a href='#L464'>464</a>
+<a name='L465'></a><a href='#L465'>465</a>
+<a name='L466'></a><a href='#L466'>466</a>
+<a name='L467'></a><a href='#L467'>467</a>
+<a name='L468'></a><a href='#L468'>468</a>
+<a name='L469'></a><a href='#L469'>469</a>
+<a name='L470'></a><a href='#L470'>470</a>
+<a name='L471'></a><a href='#L471'>471</a>
+<a name='L472'></a><a href='#L472'>472</a>
+<a name='L473'></a><a href='#L473'>473</a>
+<a name='L474'></a><a href='#L474'>474</a>
+<a name='L475'></a><a href='#L475'>475</a>
+<a name='L476'></a><a href='#L476'>476</a>
+<a name='L477'></a><a href='#L477'>477</a>
+<a name='L478'></a><a href='#L478'>478</a>
+<a name='L479'></a><a href='#L479'>479</a>
+<a name='L480'></a><a href='#L480'>480</a>
+<a name='L481'></a><a href='#L481'>481</a>
+<a name='L482'></a><a href='#L482'>482</a>
+<a name='L483'></a><a href='#L483'>483</a>
+<a name='L484'></a><a href='#L484'>484</a>
+<a name='L485'></a><a href='#L485'>485</a>
+<a name='L486'></a><a href='#L486'>486</a>
+<a name='L487'></a><a href='#L487'>487</a>
+<a name='L488'></a><a href='#L488'>488</a>
+<a name='L489'></a><a href='#L489'>489</a>
+<a name='L490'></a><a href='#L490'>490</a>
+<a name='L491'></a><a href='#L491'>491</a>
+<a name='L492'></a><a href='#L492'>492</a>
+<a name='L493'></a><a href='#L493'>493</a>
+<a name='L494'></a><a href='#L494'>494</a>
+<a name='L495'></a><a href='#L495'>495</a>
+<a name='L496'></a><a href='#L496'>496</a>
+<a name='L497'></a><a href='#L497'>497</a>
+<a name='L498'></a><a href='#L498'>498</a>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a>
+<a name='L507'></a><a href='#L507'>507</a>
+<a name='L508'></a><a href='#L508'>508</a>
+<a name='L509'></a><a href='#L509'>509</a>
+<a name='L510'></a><a href='#L510'>510</a>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a>
+<a name='L516'></a><a href='#L516'>516</a>
+<a name='L517'></a><a href='#L517'>517</a>
+<a name='L518'></a><a href='#L518'>518</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+&nbsp;
+interface SEOProps {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  type?: 'website' | 'article' | 'course';
+  author?: string;
+}
+&nbsp;
+const DEFAULT_SEO = {
+  title: 'Open Agent School - Where AI Agent Concepts Come to Life',
+  description: 'Open Agent School is the most comprehensive interactive educational platform for mastering AI agents and AI-native organizational practices. We provide hands-on learning experiences covering 22 core AI concepts, 27+ proven agent design patterns (including ReAct, CodeAct, Orchestrator-Worker, Multi-Agent Systems, Deep Researcher, Autonomous Workflow, Swarm Intelligence), comprehensive Azure AI Services integration, AI-native skills development, Frontier Firm assessment methodologies, development velocity optimization techniques, cross-team collaboration frameworks, novel practice patterns, AI transformation strategies, ratio calculators for measuring AI ROI, productivity metrics, and collaborative AI frameworks. Our platform serves enterprise leaders, AI engineers, software architects, and organizations seeking to become AI-first through practical, implementable knowledge and assessment tools.',
+  keywords: 'AI agents, AI-native practices, Frontier Firm assessment, development velocity, cross-team collaboration, novel practice patterns, AI transformation, artificial intelligence education, MCP, Model Context Protocol, A2A communication, multi-agent systems, agent architecture, interactive learning, AI tutorials, agent security, OpenAI, Microsoft Azure AI, LLM agents, agentic AI, agent orchestration, AI ROI calculator, AI productivity metrics, AI-first organizations, collaborative AI frameworks, enterprise AI transformation, organizational AI maturity, AI-powered collaboration, intelligent decision frameworks, automated workflow orchestration',
+  image: 'https://www.openagentschool.org/images/og-image.png',
+  type: 'website' as const,
+  author: 'Srikanth Bhakthan'
+};
+&nbsp;
+export const SEO: React.FC&lt;SEOProps&gt; = ({
+  title,
+  description,
+  keywords,
+  image,
+  type = 'website',
+  author
+}) =&gt; {
+  const location = useLocation();
+  const currentUrl = `https://www.openagentschool.org${location.pathname}`;
+  
+  const seoTitle = <span class="branch-0 cbranch-no" title="branch not covered" >title || DEFAULT_SEO.title;</span>
+  const seoDescription = <span class="branch-0 cbranch-no" title="branch not covered" >description || DEFAULT_SEO.description;</span>
+  const seoKeywords = <span class="branch-0 cbranch-no" title="branch not covered" >keywords || DEFAULT_SEO.keywords;</span>
+  const seoImage = <span class="branch-0 cbranch-no" title="branch not covered" >image || DEFAULT_SEO.image;</span>
+  const seoAuthor = author || DEFAULT_SEO.author;
+&nbsp;
+  useEffect(() =&gt; {
+<span class="cstat-no" title="statement not covered" >    // Update document title</span>
+<span class="cstat-no" title="statement not covered" >    document.title = seoTitle;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    // Update meta tags</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaTag('description', seoDescription);</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaTag('keywords', seoKeywords);</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaTag('author', seoAuthor);</span>
+<span class="cstat-no" title="statement not covered" >    </span>
+<span class="cstat-no" title="statement not covered" >    // Update Open Graph tags</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('og:title', seoTitle);</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('og:description', seoDescription);</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('og:image', seoImage);</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('og:url', currentUrl);</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('og:type', type);</span>
+<span class="cstat-no" title="statement not covered" >    // Article/author attribution (helps when pages are treated as articles)</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('article:author', 'https://www.linkedin.com/in/bhakthan/');</span>
+<span class="cstat-no" title="statement not covered" >    </span>
+<span class="cstat-no" title="statement not covered" >    // Update Twitter tags</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('twitter:title', seoTitle);</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('twitter:description', seoDescription);</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('twitter:image', seoImage);</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('twitter:url', currentUrl);</span>
+<span class="cstat-no" title="statement not covered" >    // Author attribution for Twitter (creator). If a handle is available, prefer @handle format.</span>
+<span class="cstat-no" title="statement not covered" >    updateMetaProperty('twitter:creator', seoAuthor);</span>
+<span class="cstat-no" title="statement not covered" >    </span>
+<span class="cstat-no" title="statement not covered" >    // Update canonical link</span>
+<span class="cstat-no" title="statement not covered" >    updateCanonicalLink(currentUrl);</span>
+<span class="cstat-no" title="statement not covered" >    </span>
+<span class="cstat-no" title="statement not covered" >    // Inject/Update JSON-LD Person schema for author attribution</span>
+<span class="cstat-no" title="statement not covered" >    const personJsonLd = {</span>
+<span class="cstat-no" title="statement not covered" >      '@context': 'https://schema.org',</span>
+<span class="cstat-no" title="statement not covered" >      '@type': 'Person',</span>
+<span class="cstat-no" title="statement not covered" >      name: 'Srikanth Bhakthan',</span>
+<span class="cstat-no" title="statement not covered" >      url: 'https://www.linkedin.com/in/bhakthan/',</span>
+<span class="cstat-no" title="statement not covered" >      sameAs: [</span>
+<span class="cstat-no" title="statement not covered" >        'https://www.linkedin.com/in/bhakthan/',</span>
+<span class="cstat-no" title="statement not covered" >        'https://github.com/bhakthan',</span>
+<span class="cstat-no" title="statement not covered" >        'https://www.openagentschool.org/'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      affiliation: {</span>
+<span class="cstat-no" title="statement not covered" >        '@type': 'Organization',</span>
+<span class="cstat-no" title="statement not covered" >        name: 'Open Agent School',</span>
+<span class="cstat-no" title="statement not covered" >        url: 'https://www.openagentschool.org'</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
+<span class="cstat-no" title="statement not covered" >    updateJsonLdScript('seo-jsonld-person', personJsonLd);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    // Route-specific structured data: Agentic Commerce &amp; AP2</span>
+<span class="cstat-no" title="statement not covered" >    if (location.pathname === '/concepts/agentic-commerce-ap2') {</span>
+<span class="cstat-no" title="statement not covered" >      const ap2Article = {</span>
+<span class="cstat-no" title="statement not covered" >        '@context': 'https://schema.org',</span>
+<span class="cstat-no" title="statement not covered" >        '@type': 'TechArticle',</span>
+<span class="cstat-no" title="statement not covered" >        name: 'Agentic Commerce &amp; AP2 - Delegated Trust Architecture',</span>
+<span class="cstat-no" title="statement not covered" >        url: currentUrl,</span>
+<span class="cstat-no" title="statement not covered" >        description: 'AP2 mandate chain (Intent → Cart → Payment) enabling delegated, auditable, presence-aware agentic commerce.',</span>
+<span class="cstat-no" title="statement not covered" >        about: [</span>
+<span class="cstat-no" title="statement not covered" >          { '@type': 'Thing', name: 'Agentic Commerce' },</span>
+<span class="cstat-no" title="statement not covered" >          { '@type': 'Thing', name: 'AP2 Mandate Chain' },</span>
+<span class="cstat-no" title="statement not covered" >          { '@type': 'Thing', name: 'Delegated Payments' },</span>
+<span class="cstat-no" title="statement not covered" >          { '@type': 'Thing', name: 'Presence Signaling' },</span>
+<span class="cstat-no" title="statement not covered" >          { '@type': 'Thing', name: 'Cart Integrity' }</span>
+<span class="cstat-no" title="statement not covered" >        ],</span>
+<span class="cstat-no" title="statement not covered" >        learningResourceType: 'CourseModule',</span>
+<span class="cstat-no" title="statement not covered" >        educationalLevel: 'Advanced',</span>
+<span class="cstat-no" title="statement not covered" >        isPartOf: {</span>
+<span class="cstat-no" title="statement not covered" >          '@type': 'CreativeWork',</span>
+<span class="cstat-no" title="statement not covered" >          name: 'Data Autonomy Learning Path',</span>
+<span class="cstat-no" title="statement not covered" >          url: 'https://www.openagentschool.org/study-mode'</span>
+<span class="cstat-no" title="statement not covered" >        },</span>
+<span class="cstat-no" title="statement not covered" >        competencyRequired: [</span>
+<span class="cstat-no" title="statement not covered" >          'query-intent-structured-access',</span>
+<span class="cstat-no" title="statement not covered" >          'policy-gated-tool-invocation'</span>
+<span class="cstat-no" title="statement not covered" >        ],</span>
+<span class="cstat-no" title="statement not covered" >        author: { '@type': 'Person', name: 'Srikanth Bhakthan' },</span>
+<span class="cstat-no" title="statement not covered" >        publisher: { '@type': 'Organization', name: 'Open Agent School' },</span>
+<span class="cstat-no" title="statement not covered" >        inLanguage: 'en',</span>
+<span class="cstat-no" title="statement not covered" >        keywords: [ 'AP2','agentic commerce','delegated payments','mandate protocol','intent mandate','cart mandate','payment mandate','agent trust','presence signaling' ]</span>
+<span class="cstat-no" title="statement not covered" >      };</span>
+<span class="cstat-no" title="statement not covered" >      updateJsonLdScript('seo-jsonld-ap2', ap2Article);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    // Generic pattern pages enrichment (pattern slug /patterns/&lt;id&gt;)</span>
+<span class="cstat-no" title="statement not covered" >    if (location.pathname.startsWith('/patterns/')) {</span>
+<span class="cstat-no" title="statement not covered" >      const patternId = location.pathname.split('/patterns/')[1];</span>
+<span class="cstat-no" title="statement not covered" >      if (patternId) {</span>
+<span class="cstat-no" title="statement not covered" >        const patternName = patternId.replace(/-/g, ' ');</span>
+<span class="cstat-no" title="statement not covered" >        const patternJsonLd = {</span>
+<span class="cstat-no" title="statement not covered" >          '@context': 'https://schema.org',</span>
+<span class="cstat-no" title="statement not covered" >          '@type': 'LearningResource',</span>
+<span class="cstat-no" title="statement not covered" >          name: patternName,</span>
+<span class="cstat-no" title="statement not covered" >          url: currentUrl,</span>
+<span class="cstat-no" title="statement not covered" >          isPartOf: {</span>
+<span class="cstat-no" title="statement not covered" >            '@type': 'CreativeWork',</span>
+<span class="cstat-no" title="statement not covered" >            name: 'Agent Pattern Mastery Path',</span>
+<span class="cstat-no" title="statement not covered" >            url: 'https://www.openagentschool.org/patterns'</span>
+<span class="cstat-no" title="statement not covered" >          },</span>
+<span class="cstat-no" title="statement not covered" >          educationalLevel: /deep|advanced|research|governance|steward|guardian|technician|emergency/i.test(patternId) ? 'Advanced' : 'Intermediate',</span>
+<span class="cstat-no" title="statement not covered" >          competencyRequired: ['perception-normalization', 'schema-aware-decomposition'].filter(Boolean),</span>
+<span class="cstat-no" title="statement not covered" >          learningResourceType: 'Module',</span>
+<span class="cstat-no" title="statement not covered" >          provider: { '@type': 'Organization', name: 'Open Agent School' },</span>
+<span class="cstat-no" title="statement not covered" >          image: pageSEOConfigs[`/patterns/${patternId}`]?.image || 'https://www.openagentschool.org/images/og-pattern-default.png'</span>
+<span class="cstat-no" title="statement not covered" >        };</span>
+<span class="cstat-no" title="statement not covered" >        updateJsonLdScript('seo-jsonld-pattern', patternJsonLd);</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    if (location.pathname === '/concepts/agentic-robotics-integration') {</span>
+<span class="cstat-no" title="statement not covered" >      const roboticsConceptJsonLd = {</span>
+<span class="cstat-no" title="statement not covered" >        '@context': 'https://schema.org',</span>
+<span class="cstat-no" title="statement not covered" >        '@type': 'LearningResource',</span>
+<span class="cstat-no" title="statement not covered" >        name: 'Agentic Robotics Integration',</span>
+<span class="cstat-no" title="statement not covered" >        url: currentUrl,</span>
+<span class="cstat-no" title="statement not covered" >        description: 'Digital-to-physical orchestration playbook covering telemetry streaming, policy-gated robotics control, and human escalation loops.',</span>
+<span class="cstat-no" title="statement not covered" >        keywords: ['agentic robotics', 'digital twin', 'robotics telemetry', 'policy guardrails'],</span>
+<span class="cstat-no" title="statement not covered" >        image: pageSEOConfigs['/concepts/agentic-robotics-integration']?.image || 'https://www.openagentschool.org/images/og-agentic-robotics.jpg',</span>
+<span class="cstat-no" title="statement not covered" >        inLanguage: 'en',</span>
+<span class="cstat-no" title="statement not covered" >        learningResourceType: 'Module',</span>
+<span class="cstat-no" title="statement not covered" >        isPartOf: {</span>
+<span class="cstat-no" title="statement not covered" >          '@type': 'CreativeWork',</span>
+<span class="cstat-no" title="statement not covered" >          name: 'Agentic AI Design Taxonomy',</span>
+<span class="cstat-no" title="statement not covered" >          url: 'https://www.openagentschool.org/concepts'</span>
+<span class="cstat-no" title="statement not covered" >        },</span>
+<span class="cstat-no" title="statement not covered" >        provider: { '@type': 'Organization', name: 'Open Agent School' }</span>
+<span class="cstat-no" title="statement not covered" >      };</span>
+<span class="cstat-no" title="statement not covered" >      updateJsonLdScript('seo-jsonld-robotics-concept', roboticsConceptJsonLd);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    </span>
+  }, [seoTitle, seoDescription, seoKeywords, seoImage, seoAuthor, currentUrl, type, location.pathname]);
+&nbsp;
+  return null;
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function updateMetaTag(name: string, content: string) {</span></span>
+<span class="cstat-no" title="statement not covered" >  let element = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;</span>
+<span class="cstat-no" title="statement not covered" >  if (!element) {</span>
+<span class="cstat-no" title="statement not covered" >    element = document.createElement('meta');</span>
+<span class="cstat-no" title="statement not covered" >    element.name = name;</span>
+<span class="cstat-no" title="statement not covered" >    document.head.appendChild(element);</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >  element.content = content;</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function updateMetaProperty(property: string, content: string) {</span></span>
+<span class="cstat-no" title="statement not covered" >  let element = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;</span>
+<span class="cstat-no" title="statement not covered" >  if (!element) {</span>
+<span class="cstat-no" title="statement not covered" >    element = document.createElement('meta');</span>
+<span class="cstat-no" title="statement not covered" >    element.setAttribute('property', property);</span>
+<span class="cstat-no" title="statement not covered" >    document.head.appendChild(element);</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >  element.content = content;</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function updateCanonicalLink(url: string) {</span></span>
+<span class="cstat-no" title="statement not covered" >  let element = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;</span>
+<span class="cstat-no" title="statement not covered" >  if (!element) {</span>
+<span class="cstat-no" title="statement not covered" >    element = document.createElement('link');</span>
+<span class="cstat-no" title="statement not covered" >    element.rel = 'canonical';</span>
+<span class="cstat-no" title="statement not covered" >    document.head.appendChild(element);</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >  element.href = url;</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function updateJsonLdScript(id: string, json: Record&lt;string, any&gt;) {</span></span>
+<span class="cstat-no" title="statement not covered" >  let script = document.getElementById(id) as HTMLScriptElement | null;</span>
+<span class="cstat-no" title="statement not covered" >  const content = JSON.stringify(json);</span>
+<span class="cstat-no" title="statement not covered" >  if (!script) {</span>
+<span class="cstat-no" title="statement not covered" >    script = document.createElement('script');</span>
+<span class="cstat-no" title="statement not covered" >    script.type = 'application/ld+json';</span>
+<span class="cstat-no" title="statement not covered" >    script.id = id;</span>
+<span class="cstat-no" title="statement not covered" >    script.text = content;</span>
+<span class="cstat-no" title="statement not covered" >    document.head.appendChild(script);</span>
+<span class="cstat-no" title="statement not covered" >  } else {</span>
+<span class="cstat-no" title="statement not covered" >    // Only update if changed to avoid layout thrash</span>
+<span class="cstat-no" title="statement not covered" >    if (script.text !== content) {</span>
+<span class="cstat-no" title="statement not covered" >      script.text = content;</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+// Page-specific SEO configurations
+export const pageSEOConfigs = {
+  '/': {
+    title: 'Open Agent School - Where AI Agent Concepts Come to Life',
+    description: 'Interactive educational platform for mastering AI agents, MCP, A2A communication, and multi-agent systems through hands-on learning and visualizations.',
+    keywords: 'AI agents, artificial intelligence education, MCP, Model Context Protocol, A2A communication, multi-agent systems, agent architecture, interactive learning',
+    image: DEFAULT_SEO.image
+  },
+  '/concepts': {
+    title: 'Core Concepts - AI Agent Fundamentals | Open Agent School',
+    description: 'Master 22 fundamental AI agent concepts through interactive visualizations and hands-on learning. Core concepts include: AI Agents (autonomous software systems), Agent Architecture (design patterns and components), Multi-Agent Systems (coordination and collaboration), Agent Security (protection and validation), Model Context Protocol (MCP for secure tool integration), Agent-to-Agent Communication (A2A protocols), Agent Communication Protocol (ACP for interoperability), Agent Orchestration (coordination patterns), Agent Tools (external integrations), Agent Memory (context management), Agent Planning (goal-directed behavior), Agent Reasoning (decision-making processes), Agent Learning (adaptation mechanisms), Agent Evaluation (performance assessment), Agent Safety (risk mitigation), Agent Governance (compliance and oversight), Human-Agent Interaction (collaboration interfaces), Agent Deployment (production strategies), Agent Monitoring (observability), Agent Scaling (performance optimization), Agent Integration (enterprise systems), and Agentic AI Design Taxonomy (comprehensive classification framework). Each concept includes theoretical foundations, practical implementations, code examples, Azure integration patterns, and real-world use cases.',
+    keywords: 'AI agent concepts, agent architecture, multi-agent systems, agent security, AI fundamentals, interactive learning, MCP, Model Context Protocol, A2A communication, agent orchestration, agent tools, agent memory, agent planning, agent reasoning, agent evaluation, agent safety, human-agent interaction, agent deployment, agent monitoring, agent scaling, Agentic AI Design Taxonomy'
+  },
+  '/concepts/agentic-commerce-ap2': {
+    title: 'Agentic Commerce &amp; AP2 - Delegated Trust Architecture | Open Agent School',
+    description: 'Learn how AP2 enables trustworthy agent‑initiated payments with a cryptographically linked mandate chain (Intent → Cart → Payment) providing delegation proof, cart integrity, presence signaling, and dispute auditability.',
+    keywords: 'AP2, agentic commerce, autonomous payments, delegated payments, mandate protocol, intent mandate, cart mandate, payment mandate, agent trust, verifiable credentials, presence signaling, AI commerce security'
+  },
+  '/concepts/agentic-prompting-fundamentals': {
+    title: 'Agentic Prompting Fundamentals - Advanced AI Control | Open Agent School',
+    description: 'Master advanced agentic prompting techniques for precise AI agent control including reasoning effort configuration, eagerness control, tool preambles, and steerability. Learn systematic approaches to: Reasoning Effort Control (configuring depth and thoroughness of agent thinking, computational resource allocation, and decision-making complexity), Eagerness Control (managing when agents should act versus observe, response timing optimization, and action threshold configuration), Tool Preambles (setting context and constraints for tool usage, safety guardrails, error handling procedures, and execution boundaries), Steerability (directing agent behavior through structured instructions, output formatting, verbosity control, and response shaping), Instruction Design (creating clear, unambiguous directives, hierarchical command structures, and constraint definition), Context Management (maintaining conversation state, incorporating relevant information, and managing token limits), Multi-Turn Conversation Handling (dialog state management, context preservation, and conversation flow control), Error Handling &amp; Recovery (graceful failure management, retry mechanisms, and fallback procedures), Performance Optimization (prompt efficiency, response quality improvement, and computational cost management), and Safety &amp; Alignment (ensuring responsible behavior, preventing harmful outputs, and maintaining ethical boundaries). Includes practical examples, before/after transformations, interactive exercises, and real-world implementation strategies for production AI agent systems.',
+    keywords: 'agentic prompting, reasoning effort, eagerness control, tool preambles, steerability, AI agent control, prompt engineering, instruction design, context management, conversation handling, AI safety, prompt optimization, agent behavior, AI alignment, prompt techniques'
+  },
+  '/concepts/agentic-robotics-integration': {
+    title: 'Agentic Robotics Integration - Digital-to-Physical Orchestration | Open Agent School',
+    description: 'Learn how to blend LLM reasoning, robotics middleware, and compliance guardrails into production-grade agentic robotics systems. The module covers digital twin alignment, telemetry streaming, policy-gated actuator control, anomaly routing, human-in-the-loop escalation, and Azure-connected deployment patterns that power Adaptive Lab Technicians, Inventory Guardians, Emergency Response coordinators, and Mobile Manipulator Stewards.',
+    keywords: 'agentic robotics, robotics integration, autonomous robots, digital twin, telemetry streaming, safety guardrails, robot orchestration, lab automation, warehouse automation, policy gated control, Azure robotics, mobile manipulation',
+    image: 'https://www.openagentschool.org/images/og-image.png'
+  },
+  '/concepts/prompt-optimization-patterns': {
+    title: 'Prompt Optimization Patterns - Systematic Improvement | Open Agent School',
+    description: 'Learn systematic prompt optimization methodologies including contradiction elimination, specificity injection, and performance enhancement techniques. Master proven optimization patterns: Contradiction Elimination (identifying and resolving conflicting instructions, priority establishment, and logical consistency), Specificity Injection (replacing vague qualitative statements with precise quantitative constraints, measurable criteria, and formal specifications), Constraint Definition (establishing clear boundaries, operational limits, and behavioral guardrails), Example Consistency (ensuring training examples align with instructions, eliminating conflicting patterns, and maintaining coherent demonstrations), Iterative Refinement (systematic testing, measurement, and improvement cycles), Performance Measurement (response quality assessment, efficiency metrics, and success criteria), A/B Testing Frameworks (comparative evaluation, statistical significance, and optimization validation), Edge Case Handling (comprehensive scenario coverage, failure mode analysis, and robustness testing), and Automated Optimization (algorithmic prompt improvement, machine learning-assisted enhancement, and continuous optimization). Case studies demonstrate real-world applications including 84% memory usage reduction, 12% latency improvement, and 100% accuracy maintenance through systematic optimization. Includes hands-on exercises, optimization toolkits, measurement frameworks, and production deployment strategies.',
+    keywords: 'prompt optimization, contradiction elimination, specificity injection, constraint definition, example consistency, iterative refinement, performance measurement, A/B testing, automated optimization, prompt engineering, AI performance, quality improvement'
+  },
+  '/concepts/agent-architecture': {
+    title: 'AI Agent Architecture - Core Concepts | Open Agent School',
+    description: 'Learn AI agent architecture fundamentals including components, design patterns, and implementation strategies through interactive tutorials.',
+    keywords: 'AI agent architecture, agent design patterns, agent components, AI system design, agent development'
+  },
+  '/concepts/multi-agent-systems': {
+    title: 'Multi-Agent Systems - Advanced Concepts | Open Agent School',
+    description: 'Explore multi-agent systems, coordination protocols, distributed AI, and agent collaboration patterns through hands-on learning.',
+    keywords: 'multi-agent systems, agent coordination, distributed AI, agent collaboration, MAS protocols'
+  },
+  '/concepts/mcp': {
+    title: 'Model Context Protocol (MCP) - Integration Guide | Open Agent School',
+    description: 'Master Model Context Protocol implementation for secure tool integration with AI agents through interactive demonstrations.',
+    keywords: 'Model Context Protocol, MCP, AI tool integration, agent tools, secure AI integration'
+  },
+  '/study-mode': {
+    title: 'Study Mode - Interactive AI Agent Learning | Open Agent School',
+    description: 'Advanced interactive learning platform using Socratic questioning methodology and adaptive AI tutoring for deep understanding of AI agent concepts. Study Mode features include: Socratic Questioning Engine (AI-powered questions that guide discovery learning, challenge assumptions, encourage critical thinking, and promote deep understanding), Interactive Scenarios (hands-on exercises with real-world AI agent implementations, problem-solving challenges, and practical applications), Personalized Learning Paths (adaptive curriculum based on skill level, learning preferences, progress tracking, and knowledge gaps), Conceptual Understanding Assessment (evaluating comprehension through interactive exercises, scenario-based questions, and practical applications), Critical Thinking Development (analytical reasoning exercises, ethical AI discussions, decision-making frameworks, and problem decomposition techniques), Progressive Skill Building (structured advancement from basic concepts to advanced implementations with prerequisite tracking and mastery validation), Real-World Application Exercises (industry case studies, practical implementations, best practice examples, and failure analysis), Knowledge Retention Optimization (spaced repetition algorithms, concept reinforcement, and long-term memory consolidation), and Collaborative Learning Features (peer discussions, expert mentorship, community knowledge sharing, and group problem-solving). The platform adapts to individual learning styles, provides immediate feedback, tracks progress comprehensively, and offers multiple learning modalities including visual, auditory, and kinesthetic approaches.',
+    keywords: 'AI learning, interactive study, Socratic method, personalized learning, AI education, adaptive learning, critical thinking, conceptual understanding, progressive skill building, knowledge retention, collaborative learning, AI tutoring, learning assessment, educational technology, deep learning methodology'
+  },
+  '/patterns': {
+    title: 'AI Agent Patterns - Design Templates &amp; Best Practices | Open Agent School',
+  description: 'Comprehensive collection of 27+ proven AI agent design patterns with detailed implementation guides, architectural templates, and best practices for building robust, scalable agent systems. Patterns include: ReAct Agent (Reasoning and Acting for step-by-step problem solving), Parallelization (concurrent task execution and performance optimization), Prompt Chaining (sequential task processing and workflow decomposition), Agentic RAG (intelligent information retrieval and context-aware synthesis), CodeAct Agent (autonomous code generation, execution, and refinement), Self-Reflection (performance evaluation and continuous improvement), Modern Tool Use (advanced API integration and service orchestration), Model Context Protocol (secure standardized tool integration), Agent-to-Agent Communication (multi-agent coordination and collaboration), Computer Use (UI automation and system control), Voice Agent (conversational AI and speech processing), Routing (intelligent task distribution and decision-making), Orchestrator-Worker (hierarchical coordination and distributed execution), Evaluator-Optimizer (performance enhancement and feedback loops), Autonomous Workflow (self-managing systems and adaptive processes), Deep Researcher (comprehensive research and knowledge synthesis), Deep Agents (complex task execution with planning tools and sub-agents), Agent Evaluation (systematic performance assessment and testing), AutoGen (Microsoft multi-agent framework for collaborative AI), Swarm Intelligence (decentralized coordination and emergent behavior), and Sensory Reasoning Enhancement (multi-modal sensory integration for comprehensive understanding). Each pattern includes architectural diagrams, implementation code, Azure integration examples, use cases, limitations, best practices, and real-world applications.',
+    keywords: 'AI agent patterns, design patterns, agent templates, architectural patterns, agent development, ReAct agent, CodeAct agent, orchestrator worker, multi-agent systems, deep researcher, autonomous workflow, swarm intelligence, agent routing, prompt chaining, agent evaluation, agentic RAG, self-reflection agents, modern tool use, Model Context Protocol, agent-to-agent communication, computer use agents, voice agents, AutoGen, Microsoft agents, collaborative agents, agent coordination, parallel processing, intelligent routing, performance optimization, sensory reasoning enhancement, multi-modal agents'
+  },
+  '/ai-skills': {
+    title: 'Applied AI Skills Explorer - Frontier Firm Assessment &amp; Development Velocity | Open Agent School',
+    description: 'Applied AI Skills development platform covering enterprise transformation methodologies and practical implementation frameworks (formerly referenced as AI-native skills). Features Frontier Firm Assessment (organizational AI maturity evaluation using 50+ criteria across technology adoption, cultural readiness, skill development, and strategic alignment), AI Ratio Calculator (measuring ROI through productivity gains, cost savings, efficiency improvements, and value creation metrics), Development Velocity Optimization (AI-accelerated engineering practices including intelligent code generation, automated testing, AI-powered code review, continuous integration enhancement, and team productivity measurement), Cross-Team Collaboration Frameworks (coordination strategies, communication protocols, knowledge sharing systems, and collaborative AI development practices), Novel Practice Patterns (emerging applied / AI-native methodologies including AI-first design thinking, automated decision frameworks, intelligent workflow orchestration, adaptive organizational structures, and next-generation AI practices), AI Transformation (comprehensive change management, cultural shifts, technology adoption strategies, skill development programs, and strategic planning for AI-first enterprises), AI Productivity Metrics (performance measurement frameworks, impact tracking systems, efficiency analysis, and organizational value assessment), and Collaborative AI Frameworks (team-centric development, shared practices, model collaboration, and coordination strategies). Each section includes assessment tools, implementation guides, measurement frameworks, and real-world case studies.',
+    keywords: 'applied AI skills, Applied AI Skills Explorer, AI-native skills, Frontier Firm assessment, AI ratio calculator, development velocity, cross-team collaboration, applied AI practices, AI-native practices, novel practice patterns, AI transformation, AI-first organizations, AI ROI measurement, organizational AI maturity, applied AI development, AI productivity metrics, collaborative AI frameworks, enterprise AI adoption, AI assessment tools, productivity optimization, team collaboration, AI culture transformation, change management, strategic AI planning'
+  },
+  '/ai-skills/frontier-firm-assessment': {
+    title: 'Frontier Firm Assessment - AI-Native Maturity Evaluation | Open Agent School',
+    description: 'Comprehensive Frontier Firm Assessment methodology for evaluating organizational AI-native maturity across multiple dimensions and transformation readiness. The assessment framework includes: Technology Adoption Analysis (evaluating current AI infrastructure, cloud readiness, data architecture, integration capabilities, security posture, and scalability), Cultural Readiness Assessment (measuring organizational culture, change management capabilities, leadership commitment, employee mindset, innovation culture, and resistance to change), Skill Development Evaluation (assessing current AI skills, technical capabilities, training programs, knowledge gaps, learning infrastructure, and upskilling readiness), Strategic Alignment Review (analyzing AI strategy coherence, business alignment, competitive positioning, market readiness, and transformation roadmap), Operational Excellence Measurement (evaluating process maturity, workflow efficiency, decision-making capabilities, performance metrics, and continuous improvement), Data &amp; Analytics Maturity (assessing data quality, governance frameworks, analytics capabilities, AI model deployment, and insights utilization), Risk Management Framework (identifying AI risks, compliance requirements, ethical considerations, security measures, and mitigation strategies), Innovation Capability (measuring experimentation culture, R&amp;D investment, innovation processes, partnership strategies, and market responsiveness), and Financial Readiness (evaluating investment capacity, ROI frameworks, cost management, budget allocation, and value measurement). The assessment generates detailed scores, gap analysis, prioritized recommendations, transformation roadmaps, and implementation timelines. Results include maturity heatmaps, benchmark comparisons, and actionable improvement plans.',
+    keywords: 'Frontier Firm assessment, AI-native maturity, AI transformation assessment, organizational AI readiness, AI capability evaluation, AI-first enterprise, AI maturity model, digital transformation assessment, AI adoption metrics, enterprise AI strategy, technology adoption, cultural readiness, skill development, strategic alignment, operational excellence, data maturity, risk management, innovation capability, financial readiness, transformation roadmap'
+  },
+  '/ai-skills/ratio-calculator': {
+    title: 'AI Ratio Calculator - ROI &amp; Performance Metrics | Open Agent School',
+    description: 'Advanced AI Ratio Calculator suite for measuring comprehensive AI investment returns, productivity gains, and performance metrics across enterprise AI implementations. Calculator modules include: ROI Calculator (measuring financial returns through cost savings, revenue generation, efficiency improvements, and productivity gains with configurable timeframes and scenarios), Productivity Metrics Calculator (quantifying development velocity improvements, task completion rates, quality enhancements, and time savings across teams and projects), Cost-Benefit Analysis Calculator (comparing implementation costs against operational savings, including infrastructure, training, maintenance, and opportunity costs), Efficiency Ratio Calculator (measuring process improvements, automation benefits, error reduction, and quality improvements with before/after comparisons), Value Creation Calculator (assessing business value through customer satisfaction, market advantages, innovation acceleration, and competitive positioning), Development Velocity Calculator (tracking coding speed improvements, deployment frequency, bug reduction, and team collaboration enhancement), Performance Benchmarking Calculator (comparing AI-powered processes against traditional methods with industry standards and best practices), Risk-Adjusted Returns Calculator (incorporating implementation risks, technology risks, organizational risks, and market risks into ROI calculations), and Total Cost of Ownership Calculator (analyzing complete costs including licensing, infrastructure, training, support, and ongoing maintenance). Each calculator provides detailed breakdowns, sensitivity analysis, scenario planning, confidence intervals, and actionable recommendations. Results include visual dashboards, trend analysis, benchmark comparisons, and executive summaries.',
+    keywords: 'AI ratio calculator, AI ROI calculator, AI performance metrics, development velocity calculator, AI productivity metrics, AI investment returns, efficiency measurement, AI cost analysis, performance ratio analysis, AI value measurement, cost-benefit analysis, productivity gains, ROI optimization, AI impact measurement, value creation, performance benchmarking, risk-adjusted returns, total cost of ownership, AI financial metrics'
+  },
+  '/ai-skills/development-velocity': {
+    title: 'Development Velocity - AI-Accelerated Software Engineering | Open Agent School',
+    description: 'Comprehensive development velocity optimization through AI-accelerated software engineering practices designed to achieve 10x productivity improvements. Core methodologies include: AI-Assisted Coding (leveraging GitHub Copilot, Azure OpenAI Codex, and intelligent code completion for rapid development, automated boilerplate generation, and context-aware suggestions), Automated Testing Frameworks (AI-powered test generation, intelligent test case creation, automated regression testing, and quality assurance automation), Intelligent Code Review (AI-enhanced code analysis, automated best practice enforcement, security vulnerability detection, and performance optimization suggestions), Continuous Integration Enhancement (AI-optimized build processes, predictive build failure detection, automated dependency management, and intelligent deployment strategies), Team Productivity Measurement (velocity tracking dashboards, sprint performance analytics, code quality metrics, and team collaboration indicators), Documentation Automation (AI-generated technical documentation, automated API documentation, intelligent comment generation, and knowledge base maintenance), Bug Detection and Resolution (predictive bug identification, automated root cause analysis, intelligent debugging assistance, and resolution suggestion systems), Workflow Optimization (AI-powered project management, intelligent task prioritization, resource allocation optimization, and timeline prediction), Knowledge Management (AI-enhanced code search, intelligent documentation retrieval, automated knowledge capture, and team expertise mapping), and Performance Monitoring (real-time velocity metrics, productivity trend analysis, bottleneck identification, and improvement recommendations). Implementation includes Azure DevOps integration, GitHub Actions automation, Azure Application Insights monitoring, and comprehensive training programs.',
+    keywords: 'development velocity, AI-accelerated development, AI-assisted coding, automated testing, intelligent code review, development workflow optimization, AI-native engineering, software productivity, development efficiency, AI-powered development tools, GitHub Copilot, Azure OpenAI Codex, continuous integration, team productivity, documentation automation, bug detection, workflow optimization, knowledge management, performance monitoring, Azure DevOps'
+  },
+  '/ai-skills/cross-team-collaboration': {
+    title: 'Cross-Team Collaboration - AI-Native Organizational Frameworks | Open Agent School',
+    description: 'Build effective cross-team collaboration frameworks for AI-native organizations. Learn coordination strategies, communication protocols, knowledge sharing, and collaborative AI development practices.',
+    keywords: 'cross-team collaboration, AI-native collaboration, organizational frameworks, team coordination, AI development collaboration, knowledge sharing, collaborative AI practices, team productivity, organizational efficiency, AI-powered collaboration'
+  },
+  '/ai-skills/novel-practice-patterns': {
+    title: 'Novel Practice Patterns - Emerging AI-Native Methodologies | Open Agent School',
+    description: 'Cutting-edge AI-native practice patterns and emerging methodologies that define the future of AI-powered organizations. Innovation areas include: AI-First Design Thinking (human-centered design enhanced with AI capabilities, empathy mapping with AI insights, ideation acceleration through AI brainstorming, rapid prototyping with AI tools, and user experience optimization using AI analytics), Automated Decision Frameworks (intelligent decision trees, AI-powered policy engines, automated approval workflows, risk assessment automation, and real-time decision optimization), Intelligent Workflow Orchestration (adaptive process automation, AI-driven task routing, dynamic resource allocation, predictive workflow optimization, and autonomous process improvement), Emergent Organizational Structures (fluid team formations, AI-assisted role allocation, dynamic skill matching, adaptive hierarchy systems, and intelligent organizational design), Next-Generation AI Practices (swarm intelligence applications, collective AI decision-making, distributed autonomous organizations, AI-human hybrid teams, and emergent collaboration patterns), Adaptive Learning Systems (organizational learning acceleration, knowledge evolution tracking, skill gap prediction, competency development automation, and intelligent training orchestration), Innovation Acceleration Patterns (AI-powered research methodologies, automated competitive analysis, trend prediction systems, innovation pipeline optimization, and market opportunity identification), Collaborative Intelligence Frameworks (human-AI partnership models, augmented decision-making, collective problem-solving, distributed intelligence networks, and collaborative creativity enhancement), and Evolutionary Organizational Design (self-organizing teams, adaptive governance structures, emergent leadership patterns, dynamic capability development, and continuous organizational evolution). Each pattern includes implementation guides, case studies, measurement frameworks, and transformation strategies.',
+    keywords: 'novel practice patterns, AI-native methodologies, AI-first design thinking, automated decision frameworks, intelligent workflow orchestration, emerging AI practices, innovative AI patterns, AI-powered methodologies, advanced AI frameworks, next-generation AI practices, emergent organizational structures, adaptive learning systems, innovation acceleration, collaborative intelligence, evolutionary organizational design, swarm intelligence, collective AI, distributed autonomous organizations, human-AI partnerships'
+  },
+  '/ai-skills/ai-native-transformation': {
+    title: 'AI-Native Transformation - Enterprise Evolution Strategy | Open Agent School',
+    description: 'Guide your organization through comprehensive AI-native transformation. Learn change management, cultural shifts, technology adoption, skill development, and strategic planning for becoming an AI-first enterprise.',
+    keywords: 'AI-native transformation, enterprise AI evolution, AI-first strategy, organizational change management, AI culture transformation, technology adoption strategy, AI skill development, digital transformation, AI-powered enterprises, strategic AI planning'
+  },
+  '/ai-skills/ai-productivity-metrics': {
+    title: 'AI Productivity Metrics - Performance Measurement Framework | Open Agent School',
+    description: 'Implement comprehensive AI productivity metrics and performance measurement frameworks. Track AI impact, measure efficiency gains, and optimize AI-native workflows for maximum organizational value.',
+    keywords: 'AI productivity metrics, performance measurement, AI impact tracking, efficiency measurement, AI workflow optimization, productivity analysis, AI performance indicators, organizational value metrics, AI effectiveness measurement, productivity frameworks'
+  },
+  '/ai-skills/collaborative-ai-frameworks': {
+    title: 'Collaborative AI Frameworks - Team-Centric AI Development | Open Agent School',
+    description: 'Build collaborative AI frameworks that enable effective team-centric AI development. Learn shared AI practices, collaborative model development, and team coordination strategies for AI projects.',
+    keywords: 'collaborative AI frameworks, team-centric AI development, shared AI practices, collaborative model development, AI team coordination, collaborative AI projects, AI development frameworks, team AI strategies, collaborative intelligence, AI teamwork'
+  },
+  '/azure-services': {
+    title: 'Azure AI Services - Complete Cloud AI Platform | Open Agent School',
+    description: 'Comprehensive guide to Azure AI Services ecosystem for building production-ready AI agent applications. Covers Azure AI Foundry (unified AI platform for model development, deployment, and management), Azure AI Agent Service (managed agent hosting and orchestration), Azure OpenAI Service (GPT-4, ChatGPT, Codex integration), Azure AI Search (intelligent search with vector embeddings), Azure Machine Learning (MLOps and model lifecycle), Azure Cognitive Services (vision, speech, language APIs), Microsoft Purview (AI governance, data lineage, and compliance), Azure Defender for AI (security monitoring and threat detection), Microsoft Copilot Studio (conversational AI development), Microsoft 365 Copilot (enterprise productivity integration), Semantic Kernel Framework (AI orchestration and plugins), Azure Functions (serverless agent execution), Azure Container Apps (scalable agent hosting), Azure Service Bus (reliable messaging), Azure Event Grid (event-driven architectures), Azure Key Vault (secrets management), Azure Application Insights (observability), Azure Monitor (performance tracking), Azure Logic Apps (workflow automation), Azure Bot Framework (conversational interfaces), and Azure AI Content Safety (responsible AI). Includes implementation patterns, best practices, cost optimization, security configurations, and enterprise integration strategies.',
+    keywords: 'Azure AI Services, Azure AI Foundry, Azure AI Agent Service, Microsoft Purview, Azure Defender, Microsoft Copilot Studio, M365 Copilot, Semantic Kernel Framework, Azure OpenAI Service, Azure AI Search, Azure Machine Learning, Azure Cognitive Services, cloud AI, Azure integration, enterprise AI, cloud agents, Azure AI platform, AI governance, AI security, conversational AI, intelligent search, MLOps, AI orchestration, Azure Functions, Azure Container Apps, Azure Service Bus, Azure Event Grid, Azure Key Vault, Azure Application Insights, Azure Monitor, Azure Logic Apps, Azure Bot Framework, Azure AI Content Safety'
+  },
+  '/patterns/react-agent': {
+    title: 'ReAct Agent Pattern - Reasoning &amp; Acting | Open Agent School',
+    description: 'Master the ReAct (Reasoning and Acting) agent pattern that revolutionizes AI problem-solving by combining explicit reasoning traces with targeted action execution. This pattern enables agents to think through problems step-by-step while taking concrete actions based on their reasoning. Key components include: Reasoning Phase (where agents verbalize their thought process, analyze the problem, consider available information, and plan their approach), Acting Phase (where agents execute specific actions using available tools, APIs, or functions), Observation Phase (where agents process the results of their actions and update their understanding), and Iteration Cycle (continuing the reason-act-observe loop until the goal is achieved). The pattern is particularly effective for complex problem-solving scenarios that require both analytical thinking and practical execution. Implementation involves prompt engineering techniques that encourage explicit reasoning, tool integration for action execution, state management for tracking progress, and error handling for robust operation. Azure integration examples include using Azure OpenAI Service for reasoning capabilities, Azure Functions for action execution, Azure Application Insights for observability, and Azure Cognitive Services for enhanced perception. Use cases span research tasks, data analysis, troubleshooting, planning and execution scenarios, and any domain requiring methodical problem-solving approaches. Best practices include designing clear reasoning prompts, implementing reliable tools, maintaining context across iterations, handling edge cases gracefully, and providing clear success criteria.',
+    keywords: 'ReAct agent, reasoning and acting, agent reasoning, task-specific actions, intelligent agents, agent implementation, step-by-step reasoning, problem-solving agents, LLM agents, action planning, reasoning traces, action execution, observation cycles, iterative problem solving, explicit reasoning, tool integration, Azure OpenAI, analytical thinking, methodical approach'
+  },
+  '/patterns/parallelization': {
+    title: 'Parallelization Agent Pattern - Concurrent Processing | Open Agent School',
+    description: 'Learn the Parallelization agent pattern for executing multiple tasks concurrently. Discover implementation strategies, performance optimization, and use cases for building high-throughput agent systems with parallel processing capabilities.',
+    keywords: 'parallelization pattern, concurrent agents, parallel processing, agent performance, high-throughput systems, concurrent task execution, agent optimization, scalable agents, distributed processing'
+  },
+  '/patterns/prompt-chaining': {
+    title: 'Prompt Chaining Pattern - Sequential Task Processing | Open Agent School',
+    description: 'Explore the Prompt Chaining pattern for breaking complex tasks into sequential, manageable steps. Learn implementation techniques, best practices, and applications for building agents that handle multi-step workflows effectively.',
+    keywords: 'prompt chaining, sequential processing, multi-step workflows, task decomposition, agent workflows, chained prompts, sequential agents, workflow automation, step-by-step processing'
+  },
+  '/patterns/agentic-rag': {
+    title: 'Agentic RAG Pattern - Intelligent Information Retrieval | Open Agent School',
+    description: 'Master the Agentic RAG (Retrieval-Augmented Generation) pattern that combines intelligent document retrieval with dynamic information processing. Learn advanced RAG techniques, knowledge base integration, and context-aware information synthesis.',
+    keywords: 'agentic RAG, retrieval augmented generation, intelligent retrieval, knowledge base integration, document processing, context-aware agents, information synthesis, knowledge agents, dynamic retrieval'
+  },
+  '/patterns/codeact': {
+    title: 'CodeAct Agent Pattern - Code Generation &amp; Execution | Open Agent School',
+    description: 'Discover the revolutionary CodeAct agent pattern developed by Manus AI that enables agents to generate, execute, and refine code autonomously using Python as their primary action language. Unlike traditional structured JSON output formats, CodeAct agents express their actions directly through executable Python code, providing unprecedented flexibility and capability for computational tasks. Core components include: Code Generation (where agents write Python scripts to solve problems, manipulate data, interact with APIs, and perform calculations), Code Execution (secure sandbox environments for running generated code with proper isolation and safety measures), Result Interpretation (agents analyze execution outputs, handle errors, and adapt their approach), Iterative Refinement (continuous improvement through code modification and optimization), and State Management (maintaining context and variables across code execution cycles). The pattern excels at mathematical computations, data analysis, file manipulation, web scraping, API interactions, visualization generation, and complex algorithmic tasks. Security considerations include sandboxed execution environments, input validation, resource limitations, network restrictions, and comprehensive logging. Azure implementation leverages Azure Functions for secure code execution, Azure Container Instances for isolated environments, Azure Storage for file operations, Azure Key Vault for secure API access, and Azure Monitor for execution tracking. Best practices encompass secure execution environments, comprehensive error handling, resource management, code quality validation, and extensive testing protocols.',
+    keywords: 'CodeAct agent, code generation, autonomous coding, code execution, programming agents, software development automation, code refining, automated programming, AI coding assistant, Python agents, computational tasks, mathematical computations, data analysis, secure sandboxes, code iteration, algorithm generation, Azure Functions, Container Instances, execution security'
+  },
+  '/patterns/self-reflection': {
+    title: 'Self-Reflection Agent Pattern - Self-Improving Agents | Open Agent School',
+    description: 'Learn the Self-Reflection pattern for building agents that can evaluate and improve their own performance. Explore techniques for agent self-assessment, learning from mistakes, and continuous improvement.',
+    keywords: 'self-reflection agents, self-improving agents, agent self-assessment, performance evaluation, continuous improvement, adaptive agents, learning agents, self-correcting systems, agent metacognition'
+  },
+  '/patterns/modern-tool-use': {
+    title: 'Modern Tool Use Pattern - Advanced Tool Integration | Open Agent School',
+    description: 'Master modern tool use patterns for integrating AI agents with external APIs, services, and tools. Learn best practices for tool selection, execution, and result interpretation in agent systems.',
+    keywords: 'modern tool use, tool integration, API integration, external services, agent tools, tool selection, tool execution, agent capabilities, service integration, tool orchestration'
+  },
+  '/patterns/model-context-protocol': {
+    title: 'Model Context Protocol (MCP) - Secure Agent Integration | Open Agent School',
+    description: 'Explore the Model Context Protocol for secure, standardized integration between AI agents and external tools. Learn implementation, security best practices, and enterprise-grade agent tool integration.',
+    keywords: 'Model Context Protocol, MCP, secure integration, agent tools, standardized integration, enterprise security, tool security, agent protocol, secure agents, tool standardization'
+  },
+  '/patterns/agent-to-agent': {
+    title: 'Agent-to-Agent Communication Pattern - Multi-Agent Coordination | Open Agent School',
+    description: 'Learn Agent-to-Agent communication patterns for building collaborative multi-agent systems. Discover protocols, coordination strategies, and implementation techniques for agent collaboration.',
+    keywords: 'agent-to-agent communication, multi-agent systems, agent collaboration, agent coordination, communication protocols, collaborative agents, distributed agents, agent networks, inter-agent messaging'
+  },
+  '/patterns/computer-use': {
+    title: 'Computer Use Agent Pattern - UI Automation &amp; Control | Open Agent School',
+    description: 'Master the Computer Use pattern for building agents that can interact with user interfaces, automate desktop applications, and control computer systems. Learn implementation, safety considerations, and practical applications.',
+    keywords: 'computer use agents, UI automation, desktop automation, computer control, interface automation, application control, robotic process automation, GUI automation, system control agents'
+  },
+  '/patterns/voice-agent': {
+    title: 'Voice Agent Pattern - Conversational AI Systems | Open Agent School',
+    description: 'Explore Voice Agent patterns for building conversational AI systems with speech recognition, natural language processing, and voice synthesis capabilities. Learn implementation and best practices.',
+    keywords: 'voice agents, conversational AI, speech recognition, voice synthesis, natural language processing, voice interfaces, audio processing, spoken language understanding, voice assistants'
+  },
+  '/patterns/routing': {
+    title: 'Routing Agent Pattern - Intelligent Task Distribution | Open Agent School',
+    description: 'Learn the Routing pattern for intelligently directing tasks and queries to appropriate specialized agents or services. Discover implementation strategies and optimization techniques for efficient task distribution.',
+    keywords: 'routing agents, task distribution, intelligent routing, agent orchestration, task delegation, specialized agents, workflow routing, decision routing, agent coordination, load balancing'
+  },
+  '/patterns/orchestrator-worker': {
+    title: 'Orchestrator-Worker Pattern - Hierarchical Agent Systems | Open Agent School',
+    description: 'Master the Orchestrator-Worker pattern for building hierarchical agent systems with centralized coordination and distributed execution. Learn architecture design, task delegation, and coordination strategies.',
+    keywords: 'orchestrator worker, hierarchical agents, centralized coordination, distributed execution, task delegation, agent coordination, worker agents, orchestration pattern, agent hierarchy, task management'
+  },
+  '/patterns/evaluator-optimizer': {
+    title: 'Evaluator-Optimizer Pattern - Performance Enhancement | Open Agent School',
+    description: 'Explore the Evaluator-Optimizer pattern for building agents that continuously assess and improve their performance. Learn evaluation metrics, optimization strategies, and feedback loop implementation.',
+    keywords: 'evaluator optimizer, performance enhancement, agent evaluation, performance optimization, continuous improvement, feedback loops, agent metrics, optimization strategies, performance monitoring'
+  },
+  '/patterns/autonomous-workflow': {
+    title: 'Autonomous Workflow Pattern - Self-Managing Systems | Open Agent School',
+    description: 'Learn the Autonomous Workflow pattern for creating self-managing systems that can plan, execute, and adapt complex multi-step processes with minimal human intervention.',
+    keywords: 'autonomous workflow, self-managing systems, workflow automation, adaptive systems, autonomous planning, process automation, self-executing workflows, adaptive processes, intelligent automation'
+  },
+  '/patterns/deep-researcher': {
+    title: 'Deep Researcher Pattern - Advanced Research Agents | Open Agent School',
+    description: 'Master the Deep Researcher pattern for building agents capable of conducting comprehensive research, analysis, and knowledge synthesis across multiple sources and domains.',
+    keywords: 'deep researcher, research agents, knowledge synthesis, comprehensive research, information analysis, research automation, knowledge discovery, analytical agents, research methodology, data mining'
+  },
+  '/patterns/deep-agents': {
+    title: 'Deep Agents Pattern - Comprehensive Task Execution | Open Agent School',
+    description: 'Explore the Deep Agents pattern that combines planning tools, sub-agents, virtual file systems, and detailed prompts to handle complex, long-form tasks requiring deep thinking and execution.',
+    keywords: 'deep agents, comprehensive task execution, planning tools, sub-agents, virtual file systems, complex tasks, deep thinking, task orchestration, advanced agents, multi-component systems'
+  },
+  '/patterns/agent-evaluation': {
+    title: 'Agent Evaluation Pattern - Performance Assessment | Open Agent School',
+    description: 'Learn the Agent Evaluation pattern for systematically assessing agent performance, capabilities, and effectiveness. Discover evaluation frameworks, metrics, and testing methodologies.',
+    keywords: 'agent evaluation, performance assessment, evaluation frameworks, agent testing, performance metrics, capability assessment, evaluation methodologies, agent benchmarking, quality assurance'
+  },
+  '/patterns/autogen': {
+    title: 'AutoGen Pattern - Microsoft Multi-Agent Framework | Open Agent School',
+    description: 'Master the AutoGen pattern using Microsoft\'s framework for building multi-agent conversational AI systems with role-based collaboration and automated coordination.',
+    keywords: 'AutoGen, Microsoft AutoGen, multi-agent framework, conversational AI, role-based collaboration, automated coordination, Microsoft agents, collaborative agents, conversational systems'
+  },
+  '/patterns/swarm-intelligence': {
+    title: 'Swarm Intelligence Pattern - Decentralized Agent Systems | Open Agent School',
+    description: 'Explore Swarm Intelligence patterns for building decentralized systems of multiple agents that coordinate to achieve collective goals through emergent behavior and distributed decision-making.',
+    keywords: 'swarm intelligence, decentralized agents, collective behavior, emergent systems, distributed decision-making, multi-agent coordination, collective intelligence, agent swarms, decentralized coordination'
+  },
+  '/patterns/adaptive-lab-technician': {
+    title: 'Adaptive Lab Technician Pattern - Instrumented Wet Lab Automation | Open Agent School',
+    description: 'Deploy an instrument-aware agent that synchronizes LIMS queues, orchestrates robotics, and enforces ISO/CLIA guardrails across assay runs. Learn how telemetry-driven plan adjustments, scientist escalation consoles, and Azure OpenAI planners keep genomics and diagnostics labs running with compliance-grade traceability.',
+    keywords: 'lab automation, adaptive lab technician, robotics orchestration, LIMS integration, assay automation, telemetry monitoring, compliance automation, biopharma robotics, Azure OpenAI, lab guardrails',
+    image: 'https://www.openagentschool.org/images/og-image.png'
+  },
+  '/patterns/inventory-guardian': {
+    title: 'Inventory Guardian Pattern - Autonomous Warehouse Stewardship | Open Agent School',
+    description: 'Build an agent that fuses digital inventory twins, AMR fleets, and safety protocols to keep distribution centers stocked and incident-free. Covers slotting intelligence, vision-powered cycle counts, human override loops, and Azure-based telemetry analytics for supply chain resilience.',
+    keywords: 'inventory guardian, warehouse automation, robotics inventory, autonomous mobile robots, digital twin inventory, safety interlocks, supply chain robotics, cycle counting, telemetry analytics, Azure robotics',
+    image: 'https://www.openagentschool.org/images/og-image.png'
+  },
+  '/patterns/emergency-response-mate': {
+    title: 'Emergency Response Mate Pattern - Robotics Assisted Safety Ops | Open Agent School',
+    description: 'Design a robotics-aware incident response agent that coordinates mobile sensors, facility controls, and responder checklists during critical events. Learn escalation choreography, hazard zone mapping, policy-gated interventions, and Azure Event Grid integration for real-time situational awareness.',
+    keywords: 'emergency response robotics, safety automation, incident response agent, hazard mapping, mobile sensors, robotics orchestration, emergency automation, Azure Event Grid, safety guardrails, facility controls',
+    image: 'https://www.openagentschool.org/images/og-image.png'
+  },
+  '/patterns/mobile-manipulator-steward': {
+    title: 'Mobile Manipulator Steward Pattern - Service Robotics Concierge | Open Agent School',
+    description: 'Equip mobile manipulators with agentic planning, guest experience skills, and safe actuation loops. This pattern covers mission planning, perception fusion, low-latency teleoperation fallbacks, and Azure IoT telemetry so hospitality and retail venues can deploy human-aware robotic stewards.',
+    keywords: 'mobile manipulator, service robotics, hospitality robots, agentic planning, perception fusion, teleoperation fallback, Azure IoT, guest experience automation, robotics concierge, safe actuation loops',
+    image: 'https://www.openagentschool.org/images/og-image.png'
+  },
+  '/ai-native-practices': {
+    title: 'AI-Native Practices - Advanced Organizational Patterns | Open Agent School',
+    description: 'Comprehensive guide to advanced AI-native organizational practices and methodologies for building AI-first enterprises. Core practice areas include: Intelligent Decision Frameworks (AI-powered governance structures, automated policy enforcement, real-time risk assessment, predictive decision modeling, and strategic AI planning), Automated Workflow Orchestration (intelligent process design, adaptive workflow automation, dynamic resource optimization, predictive maintenance, and autonomous system management), AI-Powered Collaboration Patterns (human-AI partnership models, intelligent team coordination, automated knowledge sharing, collaborative problem-solving frameworks, and augmented decision-making processes), Organizational AI Architecture (enterprise AI infrastructure, scalable AI platforms, integrated AI ecosystems, AI service mesh, and intelligent system design), Cultural Transformation Strategies (AI-first mindset development, change management frameworks, digital literacy programs, innovation culture building, and organizational agility enhancement), Performance Optimization Methodologies (AI-driven efficiency improvements, productivity acceleration, quality enhancement, cost optimization, and value maximization), Knowledge Management Systems (AI-enhanced documentation, intelligent information retrieval, automated knowledge capture, expert system development, and organizational learning acceleration), Innovation Acceleration Frameworks (AI-powered research methodologies, automated competitive analysis, trend prediction, opportunity identification, and innovation pipeline optimization), Risk Management and Governance (AI ethics frameworks, responsible AI practices, compliance automation, security protocols, and risk mitigation strategies), and Continuous Improvement Processes (AI-driven analytics, performance monitoring, feedback loop automation, optimization recommendations, and evolutionary organizational development). Each practice includes implementation roadmaps, measurement frameworks, best practices, case studies, and transformation strategies.',
+    keywords: 'AI-native practices, intelligent decision frameworks, automated workflow orchestration, AI-powered collaboration, AI-first enterprises, organizational AI patterns, advanced AI methodologies, AI-native development, intelligent automation, AI organizational design, cultural transformation, performance optimization, knowledge management, innovation acceleration, risk management, continuous improvement, AI governance, enterprise AI architecture, AI-human collaboration'
+  },
+  '/ai-native-practices/intelligent-decision-frameworks': {
+    title: 'Intelligent Decision Frameworks - AI-Powered Decision Making | Open Agent School',
+    description: 'Implement intelligent decision frameworks that leverage AI for automated decision-making, risk assessment, and strategic planning. Learn AI-driven governance, decision automation, and intelligent policy frameworks.',
+    keywords: 'intelligent decision frameworks, AI-powered decision making, automated decision-making, AI governance, decision automation, intelligent policy frameworks, AI-driven governance, strategic AI planning, automated risk assessment, intelligent management'
+  },
+  '/ai-native-practices/automated-workflow-orchestration': {
+    title: 'Automated Workflow Orchestration - AI-Native Process Design | Open Agent School',
+    description: 'Design and implement automated workflow orchestration systems using AI-native approaches. Learn intelligent process automation, adaptive workflows, and AI-driven business process optimization.',
+    keywords: 'automated workflow orchestration, AI-native process design, intelligent process automation, adaptive workflows, AI-driven optimization, workflow automation, intelligent orchestration, process intelligence, automated business processes, AI workflow design'
+  },
+  '/ai-native-practices/ai-powered-collaboration': {
+    title: 'AI-Powered Collaboration - Next-Generation Teamwork | Open Agent School',
+    description: 'Enable AI-powered collaboration with intelligent meeting facilitation, automated knowledge synthesis, smart task delegation, and AI-enhanced team coordination for unprecedented productivity.',
+    keywords: 'AI-powered collaboration, intelligent meeting facilitation, automated knowledge synthesis, smart task delegation, AI-enhanced coordination, collaborative intelligence, team AI integration, intelligent teamwork, AI collaboration tools, augmented collaboration'
+  },
+  '/ai-native-practices/frontier-assessment-methodology': {
+    title: 'Frontier Assessment Methodology - AI Maturity Evaluation | Open Agent School',
+    description: 'Apply comprehensive frontier assessment methodologies to evaluate AI maturity, identify capability gaps, and design transformation roadmaps for achieving AI-native organizational excellence.',
+    keywords: 'frontier assessment methodology, AI maturity evaluation, capability gap analysis, transformation roadmaps, AI-native excellence, organizational AI assessment, AI readiness evaluation, maturity frameworks, AI transformation planning, capability assessment'
+  },
+  '/ai-native-practices/development-velocity-optimization': {
+    title: 'Development Velocity Optimization - AI-Accelerated Engineering | Open Agent School',
+    description: 'Optimize development velocity through AI-accelerated engineering practices including intelligent code generation, automated testing, AI-powered code review, and velocity measurement frameworks.',
+    keywords: 'development velocity optimization, AI-accelerated engineering, intelligent code generation, automated testing, AI-powered code review, velocity measurement, engineering acceleration, development efficiency, AI-assisted development, productivity optimization'
+  },
+  '/ai-native-practices/ratio-calculation-frameworks': {
+    title: 'Ratio Calculation Frameworks - AI ROI &amp; Value Measurement | Open Agent School',
+    description: 'Implement sophisticated ratio calculation frameworks for measuring AI ROI, productivity gains, efficiency improvements, and value creation across AI-native organizational transformations.',
+    keywords: 'ratio calculation frameworks, AI ROI measurement, productivity gains, efficiency improvements, value creation measurement, AI investment analysis, performance ratio calculation, AI value frameworks, ROI optimization, AI impact measurement'
+  },
+  '/ai-native-practices/cross-functional-ai-teams': {
+    title: 'Cross-Functional AI Teams - Collaborative AI Development | Open Agent School',
+    description: 'Build effective cross-functional AI teams with optimal collaboration patterns, shared responsibility models, and integrated development practices for maximum AI project success.',
+    keywords: 'cross-functional AI teams, collaborative AI development, shared responsibility models, integrated development practices, AI team collaboration, cross-functional coordination, AI project management, team integration, collaborative AI practices, AI team effectiveness'
+  },
+  '/ai-native-practices/novel-organizational-patterns': {
+    title: 'Novel Organizational Patterns - Emerging AI-Native Structures | Open Agent School',
+    description: 'Explore novel organizational patterns for AI-native enterprises including fluid team structures, AI-human collaboration models, adaptive organizational design, and emerging governance frameworks.',
+    keywords: 'novel organizational patterns, AI-native structures, fluid team structures, AI-human collaboration models, adaptive organizational design, emerging governance frameworks, organizational innovation, AI-native organization, adaptive structures, collaborative governance'
+  },
+  '/ai-native-practices/ai-first-culture': {
+    title: 'AI-First Culture - Cultural Transformation for AI-Native Organizations | Open Agent School',
+    description: 'Cultivate AI-first culture through mindset transformation, skill development programs, change management strategies, and cultural practices that enable AI-native organizational excellence.',
+    keywords: 'AI-first culture, cultural transformation, mindset transformation, skill development programs, change management, cultural practices, AI-native culture, organizational culture, AI culture development, cultural change strategies'
+  },
+  '/playbook': {
+    title: 'Code Playbook - AI Agent Implementation | Open Agent School',
+    description: 'Access comprehensive code examples, implementation guides, and best practices for building AI agent systems.',
+    keywords: 'AI agent code, implementation guide, coding examples, agent development, programming tutorials'
+  },
+  '/cta': {
+    title: 'Get Started - Accelerate AI Agent Mastery &amp; Transformation | Open Agent School',
+    description: 'Choose your path: open learning, applied cohort immersion, or enterprise capability acceleration. Build durable agent ecosystems with architecture depth, evaluation rigor, operational readiness, and AI-native organizational frameworks.',
+    keywords: 'AI agent learning, agent architecture cohort, enterprise AI transformation, AI-native enablement, multi-agent systems training, AI evaluation frameworks, agent operations, AI maturity assessment'
+  },
+  '/cta-alt': {
+    title: 'Compound Agent Capability - Strategic Variant | Open Agent School',
+    description: 'Variant hero: Reduce initiative drift and compound durable agent capability. Architecture clarity, evaluation harnesses, failure drills, and operational economics—sequenced for measurable uplift.',
+    keywords: 'agent capability compounding, AI architecture clarity, evaluation harness design, agent reliability drills, AI operational economics'
+  }
+};
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-09-30T16:03:45.290Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

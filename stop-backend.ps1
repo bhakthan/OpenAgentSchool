@@ -7,25 +7,26 @@ Write-Host "=============================================" -ForegroundColor Cyan
 Write-Host ""
 
 $ErrorActionPreference = "Continue"
-$baseDir = $PSScriptRoot
+# Backend services are in separate directory
+$backendDir = "C:\code\openagent-backend"
 
 # Stop Knowledge Service
 Write-Host "🛑 Stopping Knowledge Service..." -ForegroundColor Yellow
-Set-Location "$baseDir\knowledge-service"
+Set-Location "$backendDir\knowledge-service"
 docker compose down
 Write-Host "   ✅ Knowledge Service stopped" -ForegroundColor Green
 
 # Stop Agent Orchestrator
 Write-Host ""
 Write-Host "🛑 Stopping Agent Orchestrator..." -ForegroundColor Yellow
-Set-Location "$baseDir\agent-orchestrator"
+Set-Location "$backendDir\agent-orchestrator"
 docker compose down
 Write-Host "   ✅ Agent Orchestrator stopped" -ForegroundColor Green
 
 # Stop Core API
 Write-Host ""
 Write-Host "🛑 Stopping Core API..." -ForegroundColor Yellow
-Set-Location "$baseDir\core-api"
+Set-Location "$backendDir\core-api"
 docker compose down
 Write-Host "   ✅ Core API stopped" -ForegroundColor Green
 
@@ -45,4 +46,5 @@ Write-Host "   Remove all networks:  docker network prune -f" -ForegroundColor G
 Write-Host "   Full cleanup:         docker system prune -af --volumes" -ForegroundColor Gray
 Write-Host ""
 
-Set-Location $baseDir
+# Return to OpenAgentSchool directory
+Set-Location "C:\code\OpenAgentSchool"

@@ -1,0 +1,568 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for OpenAgentSchool/src/lib/data/systemDesign/mobileManipulatorSteward.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">OpenAgentSchool/src/lib/data/systemDesign</a> mobileManipulatorSteward.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/161</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/161</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { SystemDesignPattern } from './types';<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export const mobileManipulatorStewardSystemDesign: SystemDesignPattern = {</span>
+<span class="cstat-no" title="statement not covered" >  id: 'mobile-manipulator-steward',</span>
+<span class="cstat-no" title="statement not covered" >  name: 'Mobile Manipulator Steward System Design',</span>
+<span class="cstat-no" title="statement not covered" >  overview: 'A Gemini Robotics driven concierge that blends autonomous navigation, dexterous manipulation, and human-in-the-loop safeguards for hospitality and healthcare missions.',</span>
+<span class="cstat-no" title="statement not covered" >  problemStatement: 'How can we deliver consistent guest-facing robotics missions where an autonomous steward navigates elevators, hallways, and rooms while manipulating items safely and keeping operators informed?',</span>
+<span class="cstat-no" title="statement not covered" >  solution: 'Combine a perception-rich control loop with policy-gated planners, low-latency controllers, and narrated mission telemetry so autonomy and oversight reinforce each other.',</span>
+<span class="cstat-no" title="statement not covered" >  steps: [</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'steward-prompt-design',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Mission Template &amp; Policy Prompting',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'prompt',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Design structured prompts that translate guest intents into policy-checked mission plans.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'Capture operator notes, guest preferences, and guardrail clauses inside the mission template so Gemini can reason about tone, speed, and restricted zones before any actuation.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Distinguish concierge, logistics, or compliance missions with explicit prompt headers',</span>
+<span class="cstat-no" title="statement not covered" >        'Embed safety clauses (no unattended doors, audio disclaimers) directly in instructions',</span>
+<span class="cstat-no" title="statement not covered" >        'Surface escalation phrases for quick operator override requests'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Use YAML-like prompt scaffolds with slots for location, item, guest sentiment, and policy references',</span>
+<span class="cstat-no" title="statement not covered" >        'Attach representative failure examples that the planner must avoid',</span>
+<span class="cstat-no" title="statement not covered" >        'Route every prompt through Gemini Guard robotics policies for reinforcement'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'mission_prompt = formatMission({ intent: "Deliver tea set", floor: 18, guest: "Nguyen", policy: ["avoid_room_service_cart"] })',</span>
+<span class="cstat-no" title="statement not covered" >        'safety_overlay = "Never enter guest quarters without explicit badge confirmation"'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'steward-context-loop',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Multimodal Context &amp; Memory Fusion',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'context',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Fuse RGB-D, force, and audio streams with digital twin metadata for situational awareness.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'Maintain rolling perception buffers plus episodic mission snapshots so the agent can check waypoints, object poses, and crowd density mid-mission.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Sensor desync and clock drift between base and manipulator',</span>
+<span class="cstat-no" title="statement not covered" >        'Privacy-safe retention of audio snippets for after-action review',</span>
+<span class="cstat-no" title="statement not covered" >        'Handling degraded localization when elevators or mirrors confuse SLAM'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Timestamp all sensor frames with synchronized fleet clock',</span>
+<span class="cstat-no" title="statement not covered" >        'Persist mission "breadcrumbs" (location, posture, torque) to vector store for retrieval',</span>
+<span class="cstat-no" title="statement not covered" >        'Run edge inference for obstacle detection before shipping frames upstream'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'context_window = MultiModalRingBuffer(size=120, sensors=["rgbd", "force", "mic"] )',</span>
+<span class="cstat-no" title="statement not covered" >        'digital_twin.snapshot(roomId).merge(perception.occupancyGrid)'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'steward-skill-graph',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Skill Graph Planning &amp; Sequencing',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'knowledge',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Represent navigation and manipulation primitives as a graph with guardrail metadata.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'Gemini selects skill subgraphs (call elevator → ride → hallway traverse → handoff) while checking each edge for clearance, load limits, and required confirmations.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Handling branching flows when elevators fail or guests are absent',</span>
+<span class="cstat-no" title="statement not covered" >        'Versioning skill graphs per facility wing',</span>
+<span class="cstat-no" title="statement not covered" >        'Simulating graph changes inside ER-15 before deployment'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Annotate each skill with expected telemetry signatures',</span>
+<span class="cstat-no" title="statement not covered" >        'Keep fallback edges that route to teleoperation or staging zones',</span>
+<span class="cstat-no" title="statement not covered" >        'Use reinforcement fine-tuning on skill transitions with human labels'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'skill_graph = loadSkillGraph(["call_elevator", "floor_transition", "precision_align", "handoff_item"])',</span>
+<span class="cstat-no" title="statement not covered" >        'planner.choosePath(graph, constraints={ maxSlope: 6, occupancy: "&lt;3" })'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'steward-guardrail-evaluation',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Safety Evaluation &amp; Intervention Loop',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'evaluation',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Run continuous guardrails for force, proximity, and policy compliance with rapid halts.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'A dedicated safety guardian reviews every actuation packet, halts motion on anomalies, and composes incident dossiers for operators and auditors.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Meeting &lt;250 ms halt latency in congested spaces',</span>
+<span class="cstat-no" title="statement not covered" >        'Coordinating navigation and manipulator halts to avoid tipping payloads',</span>
+<span class="cstat-no" title="statement not covered" >        'Preventing false positives from reflective surfaces or human escorts'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Keep safety envelope enforcement on-device with direct actuator access',</span>
+<span class="cstat-no" title="statement not covered" >        'Emit structured halt events (reason, sensor evidence, recommended recovery)',</span>
+<span class="cstat-no" title="statement not covered" >        'Replay incidents to Gemini Guard to tighten future policies'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'if torqueEnvelope.exceeded(): safetyGuardian.halt("over-torque", location=currentPose)',</span>
+<span class="cstat-no" title="statement not covered" >        'guardian.emitNarration("Pausing near obstacle, requesting operator guidance")'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'steward-architecture',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Orchestration &amp; Fleet Operations',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'architecture',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Coordinate mission lifecycle, fleet status, and edge-to-cloud deployment controls.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'Mission control APIs assign tasks, stream telemetry, rotate credentials, and synchronize OTA updates across the steward fleet.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Maintaining mission atomicity when connectivity drops',</span>
+<span class="cstat-no" title="statement not covered" >        'Segregating guest data from fleet diagnostics',</span>
+<span class="cstat-no" title="statement not covered" >        'Rolling back skill graph changes with minimal downtime'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Use idempotent mission assignment APIs with leasing semantics',</span>
+<span class="cstat-no" title="statement not covered" >        'Ship delta telemetry summaries every 5 seconds, full dumps every 2 minutes',</span>
+<span class="cstat-no" title="statement not covered" >        'Integrate fleet metrics with AIOps alerts for slip ratio, halt frequency, and battery health'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'missionHub.assign({ agentId: "steward-01", missionId, expiresIn: "15m" })',</span>
+<span class="cstat-no" title="statement not covered" >        'fleetControl.scheduleUpdate({ skillGraphVersion: "2025.09.1", rollout: "canary" })'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    },</span>
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >      id: 'steward-teleop-governance',</span>
+<span class="cstat-no" title="statement not covered" >      title: 'Human Oversight &amp; Governance',</span>
+<span class="cstat-no" title="statement not covered" >      category: 'instruction',</span>
+<span class="cstat-no" title="statement not covered" >      description: 'Define escalation playbooks, logging, and compliance guardrails for shared autonomy.',</span>
+<span class="cstat-no" title="statement not covered" >      details: 'Operators need crisp handoff cues, narrated playback, and policy sign-offs linked to each mission to maintain guest trust.',</span>
+<span class="cstat-no" title="statement not covered" >      considerations: [</span>
+<span class="cstat-no" title="statement not covered" >        'Protecting PII when storing voice narrations',</span>
+<span class="cstat-no" title="statement not covered" >        'Ensuring supervisors can override within three seconds',</span>
+<span class="cstat-no" title="statement not covered" >        'Linking incident reviews to next-day policy adjustments'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      bestPractices: [</span>
+<span class="cstat-no" title="statement not covered" >        'Use presence lanes (human-supervised vs delegated) to toggle telemetry density',</span>
+<span class="cstat-no" title="statement not covered" >        'Generate after-action packets with video clips, transcripts, and policy diffs',</span>
+<span class="cstat-no" title="statement not covered" >        'Mandate daily incident reconciliation meetings feeding retrieval corpora'</span>
+<span class="cstat-no" title="statement not covered" >      ],</span>
+<span class="cstat-no" title="statement not covered" >      examples: [</span>
+<span class="cstat-no" title="statement not covered" >        'presenceLane.switch("delegated", reason="mission_autonomous")',</span>
+<span class="cstat-no" title="statement not covered" >        'governanceDesk.createDossier({ missionId, incidents, followUps })'</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  architecture: {</span>
+<span class="cstat-no" title="statement not covered" >    components: [</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Gemini Perception Gateway', type: 'input', description: 'Streams RGB-D, force, and audio signals with on-device preprocessing.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Mission Planner &amp; Skill Graph Engine', type: 'control', description: 'Selects mission flows, evaluates policies, and sequences skills.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Navigation Controller', type: 'processing', description: 'Generates safe trajectories across facility maps with live obstacle avoidance.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Manipulator Controller', type: 'processing', description: 'Executes grasp and placement primitives with compliance control.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Safety Guardian', type: 'control', description: 'Monitors envelopes, enforces halts, and records interventions.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Telemetry Bus', type: 'processing', description: 'Aggregates mission metrics, video snippets, and narrations for operators.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Operator Console &amp; Narrator', type: 'output', description: 'Provides live status, teleop channel, and after-action review packages.' },</span>
+<span class="cstat-no" title="statement not covered" >      { name: 'Mission Ledger &amp; Policy Store', type: 'storage', description: 'Persists mission manifests, policies, and incident dossiers.' }</span>
+<span class="cstat-no" title="statement not covered" >    ],</span>
+<span class="cstat-no" title="statement not covered" >    flows: [</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Gemini Perception Gateway', to: 'Mission Planner &amp; Skill Graph Engine', description: 'Perception summaries and context feed planning decisions.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Mission Planner &amp; Skill Graph Engine', to: 'Navigation Controller', description: 'Navigation subgraph with constraints is dispatched for execution.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Mission Planner &amp; Skill Graph Engine', to: 'Manipulator Controller', description: 'Manipulation steps are parameterized and queued.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Navigation Controller', to: 'Safety Guardian', description: 'Motion packets stream through guardrail checks before actuation.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Manipulator Controller', to: 'Safety Guardian', description: 'Gripper pose updates are validated against force and proximity envelopes.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Safety Guardian', to: 'Telemetry Bus', description: 'Halts, warnings, and policy events are broadcast to operators.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Telemetry Bus', to: 'Operator Console &amp; Narrator', description: 'Narrated status, video clips, and alerts reach human supervisors.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Operator Console &amp; Narrator', to: 'Mission Planner &amp; Skill Graph Engine', description: 'Manual overrides or adjustments feed back into the mission plan.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Telemetry Bus', to: 'Mission Ledger &amp; Policy Store', description: 'Mission artifacts and incident details are persisted for governance.' },</span>
+<span class="cstat-no" title="statement not covered" >      { from: 'Mission Ledger &amp; Policy Store', to: 'Mission Planner &amp; Skill Graph Engine', description: 'Policy updates and historical insights inform future planning.' }</span>
+<span class="cstat-no" title="statement not covered" >    ]</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >};</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-09-30T16:03:45.290Z
+            </div>
+        <script src="../../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

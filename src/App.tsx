@@ -29,6 +29,7 @@ import { SEO, pageSEOConfigs } from './components/seo/SEO';
 import { trackEvent } from './lib/analytics/ga';
 import { SEORouteWrapper } from './components/seo/SEORouteWrapper';
 import { QRCodeModal } from './components/ui/QRCodeModal';
+import { PageLoadingFallback } from './components/common/LoadingSpinner';
 
 // Lazy-loaded components
 const ConceptsExplorer = lazy(() => import('./components/concepts/ConceptsExplorer'));
@@ -44,16 +45,10 @@ const CommunitySharing = lazy(() => import('./components/community/CommunityShar
 const AgentsConsole = lazy(() => import('./components/agents/AgentsConsole'));
 const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'));
 const SCLDemo = lazy(() => import('./components/SuperCriticalLearning/SCLDemo'));
+const KnowledgeSearch = lazy(() => import('./components/search/KnowledgeSearch'));
 // Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
 const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
 const CTALandingPageVariant = lazy(() => import('@/components/pages/CTALandingPageVariant'));
-
-// Loading component for lazy-loaded routes
-const LoadingSpinner = () => (
-  <div className="flex items-center justify-center min-h-[400px]">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-  </div>
-);
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -352,6 +347,8 @@ function App() {
                   { to: '/azure-services', label: 'Azure Services', icon: <StackSimple size={16} weight="duotone" /> },
                   { to: '/tree-view', label: 'Learning Atlas', icon: <Tree size={16} weight="duotone" /> },
                   { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" /> },
+                  // Knowledge Search only shown if backend available
+                  ...(import.meta.env.VITE_KNOWLEDGE_SERVICE_URL ? [{ to: '/knowledge-search', label: 'Knowledge Search', icon: <Code size={16} weight="duotone" /> }] : []),
                   { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} /> },
                   { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" /> },
                   { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" /> },
@@ -413,7 +410,7 @@ function App() {
           </header>
           
           <main className="flex-1 container mx-auto px-4 py-6">
-            <Suspense fallback={<LoadingSpinner />}>
+            <Suspense fallback={<PageLoadingFallback />}>
               <SEORouteWrapper>
                 <Routes>
                   <Route path="/" element={<ConceptsExplorer />} />
@@ -422,6 +419,7 @@ function App() {
                   <Route path="/applied-ai-skills" element={<AliasAISkillsRedirect />} />
                   <Route path="/ai-skills" element={<AISkillsExplorer />} />
                   <Route path="/study-mode" element={<StudyMode />} />
+                  <Route path="/knowledge-search" element={<KnowledgeSearch />} />
                   <Route path="/patterns/:patternId?" element={<PatternExplorer />} />
                   <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
                   <Route path="/quiz/:quizId?" element={<QuizSection />} />

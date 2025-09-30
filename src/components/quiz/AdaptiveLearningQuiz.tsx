@@ -19,9 +19,11 @@ import { cn } from "@/lib/utils";
 import CodeBlock from '@/components/ui/CodeBlock';
 import { 
   QuizQuestion, QuizSession, QuizCategory, UserPersona, QuizFeedback,
-  quizCategories, userPersonas, getQuizzesByPersona, getQuizzesByCategory,
-  generateAdaptiveQuiz, calculateQuizScore, generateQuizFeedback
+  quizCategories, userPersonas, calculateQuizScore, generateQuizFeedback,
+  getStaticQuestionsByCategory
 } from "@/lib/data/quizzes";
+import { quizAPI, authAPI, progressAPI } from '@/services/api';
+import { LoginModal } from '@/components/auth/LoginModal';
 
 interface AdaptiveLearningQuizProps {
   onQuizComplete?: (session: QuizSession) => void;
@@ -38,6 +40,9 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
   const [quizFeedback, setQuizFeedback] = useState<QuizFeedback[]>([]);
   const [timeRemaining, setTimeRemaining] = useState<number>(0);
   const [quizStarted, setQuizStarted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   // Save quiz progress to localStorage
   const saveQuizProgress = useCallback((completedSession: QuizSession) => {
@@ -96,6 +101,48 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
     localStorage.setItem('page-analytics-quiz', JSON.stringify(pageAnalytics));
   }, []);
 
+  // Submit quiz to backend and update progress
+  const submitQuizToBackend = useCallback(async (completedSession: QuizSession) => {
+    try {
+      // Prepare answers in API format
+      const answers: { [question_id: string]: string } = {};
+      
+      Object.entries(completedSession.answers).forEach(([questionId, answerIndex]) => {
+        // Map answer index to letter (0 → A, 1 → B, etc.)
+        const answerLetter = String.fromCharCode(65 + answerIndex);
+        // Extract numeric ID from "api-X" format
+        const numericId = questionId.replace('api-', '');
+        answers[numericId] = answerLetter;
+      });
+
+      console.log('Submitting quiz:', { category: completedSession.category, answers });
+
+      // Submit to API
+      const result = await quizAPI.submitQuiz({
+        category: completedSession.category,
+        answers
+      });
+
+      console.log('Quiz submission result:', result);
+
+      // Update progress
+      await progressAPI.updateProgress({
+        concept_id: `quiz-${completedSession.category}`,
+        status: 'completed',
+        score: result.percentage
+      });
+
+      console.log('Progress updated successfully');
+
+      return result;
+    } catch (error: any) {
+      console.error('Failed to submit quiz to backend:', error);
+      console.error('Error details:', error.response?.data);
+      // Don't throw - we still want to show results even if submission fails
+      return null;
+    }
+  }, []);
+
   // Timer effect for auto-advancing questions
   useEffect(() => {
     if (!currentSession || currentSession.completed || timeRemaining <= 0) return;
@@ -146,6 +193,9 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               setShowResults(true);
               setTimeRemaining(0);
               
+              // Submit quiz to backend
+              submitQuizToBackend(completedSession);
+              
               if (onQuizComplete) {
                 onQuizComplete(completedSession);
               }
@@ -180,6 +230,9 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               // Save progress to localStorage
               saveQuizProgress(completedSession);
               
+              // Submit quiz to backend
+              submitQuizToBackend(completedSession);
+              
               if (onQuizComplete) {
                 onQuizComplete(completedSession);
               }
@@ -199,9 +252,27 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentSession, timeRemaining, currentAnswer, multiSelectSelection, onQuizComplete, calculateQuizScore, generateQuizFeedback]);
+  }, [currentSession, timeRemaining, currentAnswer, multiSelectSelection, onQuizComplete, calculateQuizScore, generateQuizFeedback, saveQuizProgress, submitQuizToBackend]);
 
-  const startQuiz = useCallback(() => {
+  // Helper function to map API questions to local QuizQuestion format
+  const mapAPIQuestionToLocal = (apiQuestion: any, index: number): QuizQuestion => {
+    // Convert options object {"A": "text", "B": "text"} to array ["text", "text"]
+    const optionsArray = Object.values(apiQuestion.options) as string[];
+    
+    return {
+      id: `api-${apiQuestion.id}`,
+      text: apiQuestion.question,
+      question: apiQuestion.question,
+      options: optionsArray,
+      correctAnswer: -1, // We don't have this from the API initially
+      difficulty: apiQuestion.difficulty as 'beginner' | 'intermediate' | 'advanced',
+      category: apiQuestion.category || selectedCategory?.id || 'general',
+      timeEstimate: 60, // Default 60 seconds per question
+      adaptiveWeight: 1
+    };
+  };
+
+  const startQuiz = useCallback(async () => {
     console.log('startQuiz called', { 
       selectedPersona: selectedPersona?.id, 
       selectedCategory: selectedCategory?.id, 
@@ -211,85 +282,97 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
     // For topic-based quizzes, we don't need a persona, but for persona-based quizzes we do
     if (!selectedCategory && !selectedPersona) {
       console.error('Neither category nor persona selected');
+      setError('Please select a category or persona to start the quiz');
       return;
     }
 
-    let questions: QuizQuestion[] = [];
-    
-    if (selectedCategory) {
-      // Category-specific quiz
-      console.log('Getting questions by category:', selectedCategory.id, selectedDifficulty);
-      questions = getQuizzesByCategory(selectedCategory.id, selectedDifficulty);
-      console.log('Found questions:', questions.length);
-    } else if (selectedPersona) {
-      // Persona-adaptive quiz - use the first focus area as category
-      const primaryCategory = selectedPersona.focusAreas[0] || 'core-concepts';
-      console.log('Using persona adaptive quiz with category:', primaryCategory);
-      questions = generateAdaptiveQuiz(
-        selectedPersona.id, 
-        primaryCategory, 
-        selectedDifficulty, 
-        15
-      );
-    }
+    setLoading(true);
+    setError(null);
 
-    if (questions.length === 0) {
-      console.log('No questions found, trying without difficulty filter');
-      // If no questions found for the selected difficulty, try to get questions from all difficulty levels
-      if (selectedCategory) {
-        questions = getQuizzesByCategory(selectedCategory.id);
-        console.log('Found questions without difficulty filter:', questions.length);
-      } else if (selectedPersona) {
-        // For persona-based quiz, try without difficulty filter
-        const primaryCategory = selectedPersona.focusAreas[0] || 'core-concepts';
-        questions = generateAdaptiveQuiz(
-          selectedPersona.id, 
-          primaryCategory, 
-          'beginner', // fallback to beginner
-          15
-        );
+    try {
+      // Check if user is authenticated
+      if (!authAPI.isAuthenticated()) {
+        setLoading(false);
+        setShowLoginModal(true);
+        return;
       }
-    }
 
-    if (questions.length === 0) {
-      console.error('No questions found for selected criteria:', {
-        persona: selectedPersona?.id,
-        category: selectedCategory?.id,
-        difficulty: selectedDifficulty
-      });
-      return;
-    }
+      let questions: QuizQuestion[] = [];
+      
+      if (selectedCategory) {
+        // Category-specific quiz - try API first, fallback to static
+        console.log('Fetching questions from API:', selectedCategory.id, selectedDifficulty);
+        
+        try {
+          const apiQuestions = await quizAPI.getQuestions(selectedCategory.id, 15);
+          questions = apiQuestions.map(mapAPIQuestionToLocal);
+          console.log('✅ Fetched questions from API:', questions.length);
+        } catch (apiError: any) {
+          console.warn('⚠️ API unavailable, falling back to static quiz data:', apiError.message);
+          // Fallback to static quiz questions
+          questions = getStaticQuestionsByCategory(selectedCategory.id, 15);
+          console.log('✅ Using static fallback questions:', questions.length);
+        }
+      } else if (selectedPersona) {
+        // Persona-adaptive quiz - try API first, fallback to static
+        const primaryCategory = selectedPersona.focusAreas[0] || 'patterns';
+        console.log('Fetching questions for persona with category:', primaryCategory);
+        
+        try {
+          const apiQuestions = await quizAPI.getQuestions(primaryCategory, 15);
+          questions = apiQuestions.map(mapAPIQuestionToLocal);
+          console.log('✅ Fetched questions from API:', questions.length);
+        } catch (apiError: any) {
+          console.warn('⚠️ API unavailable for persona quiz, using static data:', apiError.message);
+          // Fallback to static quiz questions
+          questions = getStaticQuestionsByCategory(primaryCategory, 15);
+          console.log('✅ Using static fallback questions:', questions.length);
+        }
+      }
 
-    console.log('Starting quiz with', questions.length, 'questions');
+      if (questions.length === 0) {
+        console.error('No questions received from API');
+        setError('No questions available for this category. Please try another category.');
+        setLoading(false);
+        return;
+      }
 
-    // Shuffle questions
-    questions = questions.sort(() => Math.random() - 0.5);
+      console.log('Starting quiz with', questions.length, 'questions');
 
-    const session: QuizSession = {
-      id: `quiz-${Date.now()}`,
-      persona: selectedPersona?.id || 'topic-based',
-      category: selectedCategory?.id || 'adaptive',
-      difficulty: selectedDifficulty,
-      questions: questions.slice(0, 10), // Limit to 10 questions
-      userAnswers: [],
-      currentQuestionIndex: 0,
-      answers: {},
-      score: 0,
-      timeStarted: Date.now(),
-      startTime: new Date(),
-      timeSpent: 0,
-      isCompleted: false,
-      completed: false
-    };
+      // Shuffle questions
+      questions = questions.sort(() => Math.random() - 0.5);
 
-    setCurrentSession(session);
-    setCurrentAnswer('');
-    setShowResults(false);
-    setQuizStarted(true);
-    
-    // Set timer for first question
-    if (session.questions.length > 0) {
-      setTimeRemaining(session.questions[0].timeEstimate);
+      const session: QuizSession = {
+        id: `quiz-${Date.now()}`,
+        persona: selectedPersona?.id || 'topic-based',
+        category: selectedCategory?.id || 'adaptive',
+        difficulty: selectedDifficulty,
+        questions: questions.slice(0, 10), // Limit to 10 questions
+        userAnswers: [],
+        currentQuestionIndex: 0,
+        answers: {},
+        score: 0,
+        timeStarted: Date.now(),
+        startTime: new Date(),
+        timeSpent: 0,
+        isCompleted: false,
+        completed: false
+      };
+
+      setCurrentSession(session);
+      setCurrentAnswer('');
+      setShowResults(false);
+      setQuizStarted(true);
+      setLoading(false);
+      
+      // Set timer for first question
+      if (session.questions.length > 0) {
+        setTimeRemaining(session.questions[0].timeEstimate || 60);
+      }
+    } catch (err: any) {
+      console.error('Error starting quiz:', err);
+      setError(err.message || 'Failed to start quiz. Please try again.');
+      setLoading(false);
     }
   }, [selectedPersona, selectedCategory, selectedDifficulty]);
 
@@ -614,7 +697,8 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
     const scorePercentage = currentSession.score;
     
     return (
-      <Card className="w-full max-w-4xl mx-auto quiz-results-container">
+      <>
+        <Card className="w-full max-w-4xl mx-auto quiz-results-container">
         <CardHeader className="print:border-b print:border-black">
           <CardTitle className="flex items-center gap-2">
             <Trophy size={24} className="text-primary" />
@@ -860,12 +944,27 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
           </div>
         </CardContent>
       </Card>
+      
+      {/* Login Modal */}
+      <LoginModal 
+        open={showLoginModal} 
+        onOpenChange={setShowLoginModal}
+        onSuccess={() => {
+          setShowLoginModal(false);
+          // Optionally auto-start quiz after login
+          if (selectedCategory || selectedPersona) {
+            startQuiz();
+          }
+        }}
+      />
+      </>
     );
   }
 
   // Setup screen
   return (
-    <Card className="w-full max-w-4xl mx-auto">
+    <>
+      <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <GraduationCap size={24} className="text-primary" />
@@ -950,11 +1049,33 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                   </div>
                 </div>
 
+                {/* Error message */}
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+                    <p className="font-medium">Error</p>
+                    <p className="text-sm">{error}</p>
+                  </div>
+                )}
+
                 <div className="text-center">
-                  <Button onClick={startQuiz} size="lg" className="min-w-32">
-                    <Play size={16} className="mr-2" />
-                    {selectedCategory ? 'Start Topic Quiz' : 'Start Adaptive Quiz'}
+                  <Button onClick={startQuiz} size="lg" className="min-w-32" disabled={loading || !authAPI.isAuthenticated()}>
+                    {loading ? (
+                      <>
+                        <Clock size={16} className="mr-2 animate-spin" />
+                        Loading...
+                      </>
+                    ) : (
+                      <>
+                        <Play size={16} className="mr-2" />
+                        {selectedCategory ? 'Start Topic Quiz' : 'Start Adaptive Quiz'}
+                      </>
+                    )}
                   </Button>
+                  {!authAPI.isAuthenticated() && (
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Please log in to take quizzes
+                    </p>
+                  )}
                 </div>
               </div>
             )}
@@ -1044,11 +1165,33 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                   </div>
                 </div>
 
+                {/* Error message */}
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+                    <p className="font-medium">Error</p>
+                    <p className="text-sm">{error}</p>
+                  </div>
+                )}
+
                 <div className="text-center">
-                  <Button onClick={startQuiz} size="lg" className="min-w-32">
-                    <Play size={16} className="mr-2" />
-                    Start Topic Quiz
+                  <Button onClick={startQuiz} size="lg" className="min-w-32" disabled={loading || !authAPI.isAuthenticated()}>
+                    {loading ? (
+                      <>
+                        <Clock size={16} className="mr-2 animate-spin" />
+                        Loading...
+                      </>
+                    ) : (
+                      <>
+                        <Play size={16} className="mr-2" />
+                        Start Topic Quiz
+                      </>
+                    )}
                   </Button>
+                  {!authAPI.isAuthenticated() && (
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Please log in to take quizzes
+                    </p>
+                  )}
                 </div>
               </div>
             )}
@@ -1056,6 +1199,20 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
         </Tabs>
       </CardContent>
     </Card>
+    
+    {/* Login Modal */}
+    <LoginModal 
+      open={showLoginModal} 
+      onOpenChange={setShowLoginModal}
+      onSuccess={() => {
+        setShowLoginModal(false);
+        // Optionally auto-start quiz after login
+        if (selectedCategory || selectedPersona) {
+          startQuiz();
+        }
+      }}
+    />
+  </>
   );
 };
 

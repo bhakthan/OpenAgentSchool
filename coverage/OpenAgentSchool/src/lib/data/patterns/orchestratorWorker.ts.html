@@ -1,0 +1,394 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for OpenAgentSchool/src/lib/data/patterns/orchestratorWorker.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">OpenAgentSchool/src/lib/data/patterns</a> orchestratorWorker.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/104</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/104</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { PatternData } from './types';</span></span></span>
+<span class="cstat-no" title="statement not covered" >import { SupportRouterVisual } from '@/components/visualization/business-use-cases/SupportRouterVisual';</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export const orchestratorWorkerPattern: PatternData = {</span>
+<span class="cstat-no" title="statement not covered" >  id: 'orchestrator-worker',</span>
+<span class="cstat-no" title="statement not covered" >  name: 'Orchestrator-Worker',</span>
+<span class="cstat-no" title="statement not covered" >  description: 'A central orchestrator agent manages and delegates tasks to a pool of specialized worker agents.',</span>
+<span class="cstat-no" title="statement not covered" >  category: 'Multi-Agent',</span>
+<span class="cstat-no" title="statement not covered" >  useCases: ['Customer Support', 'Data Processing Pipelines', 'Workflow Automation'],</span>
+<span class="cstat-no" title="statement not covered" >  whenToUse: 'Use this pattern for tasks that can be broken down into a series of steps, where each step can be handled by a specialized agent. It is ideal for creating robust, scalable, and maintainable multi-agent systems.',</span>
+<span class="cstat-no" title="statement not covered" >  businessUseCase: {</span>
+<span class="cstat-no" title="statement not covered" >    industry: 'Customer Support',</span>
+<span class="cstat-no" title="statement not covered" >    description: 'A customer support center uses an Orchestrator-Worker system. The Orchestrator agent receives all incoming customer queries. It then routes the query to the appropriate worker agent: a "Billing" agent for payment issues, a "Technical" agent for product problems, or a "General" agent for other questions. This ensures that each query is handled by the most qualified agent.',</span>
+<span class="cstat-no" title="statement not covered" >    visualization: SupportRouterVisual,</span>
+<span class="cstat-no" title="statement not covered" >    enlightenMePrompt: 'Provide a technical guide on implementing the Orchestrator-Worker pattern for AI agents.',</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  nodes: [</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'orchestrator', type: 'input', data: { label: 'Orchestrator' }, position: { x: 100, y: 200 } },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'worker1', type: 'default', data: { label: 'Worker 1' }, position: { x: 300, y: 150 } },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'worker2', type: 'default', data: { label: 'Worker 2' }, position: { x: 300, y: 250 } },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'output', type: 'output', data: { label: 'Task Result' }, position: { x: 500, y: 200 } }</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  edges: [</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'e1-2', source: 'orchestrator', target: 'worker1', animated: true, label: 'Task A' },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'e1-3', source: 'orchestrator', target: 'worker2', animated: true, label: 'Task B' },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'e2-4', source: 'worker1', target: 'output', animated: true },</span>
+<span class="cstat-no" title="statement not covered" >    { id: 'e3-4', source: 'worker2', target: 'output', animated: true }</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  codeExample: `// Orchestrator-Worker Pattern implementation...`,</span>
+<span class="cstat-no" title="statement not covered" >  pythonCodeExample: `import asyncio</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ># Assume llm_call is an async function that calls a language model</span>
+<span class="cstat-no" title="statement not covered" >class OrchestratorAgent:</span>
+<span class="cstat-no" title="statement not covered" >    def __init__(self, workers: dict):</span>
+<span class="cstat-no" title="statement not covered" >        self.workers = workers</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    async def route_task(self, task: str) -&gt; str:</span>
+<span class="cstat-no" title="statement not covered" >        """Routes a task to the appropriate worker agent."""</span>
+<span class="cstat-no" title="statement not covered" >        prompt = f"""</span>
+<span class="cstat-no" title="statement not covered" >        Based on the task "{task}", which of the following workers should handle it?</span>
+<span class="cstat-no" title="statement not covered" >        Workers: {list(self.workers.keys())}</span>
+<span class="cstat-no" title="statement not covered" >        Return only the name of the worker.</span>
+<span class="cstat-no" title="statement not covered" >        """</span>
+<span class="cstat-no" title="statement not covered" >        worker_name = await llm_call(prompt)</span>
+<span class="cstat-no" title="statement not covered" >        worker_name = worker_name.strip()</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        if worker_name in self.workers:</span>
+<span class="cstat-no" title="statement not covered" >            return await self.workers[worker_name].execute_task(task)</span>
+<span class="cstat-no" title="statement not covered" >        else:</span>
+<span class="cstat-no" title="statement not covered" >            return "Error: Could not find an appropriate worker for the task."</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >class WorkerAgent:</span>
+<span class="cstat-no" title="statement not covered" >    def __init__(self, name: str, specialty: str):</span>
+<span class="cstat-no" title="statement not covered" >        self.name = name</span>
+<span class="cstat-no" title="statement not covered" >        self.specialty = specialty</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    async def execute_task(self, task: str) -&gt; str:</span>
+<span class="cstat-no" title="statement not covered" >        """Executes a task based on the worker's specialty."""</span>
+<span class="cstat-no" title="statement not covered" >        prompt = f"""</span>
+<span class="cstat-no" title="statement not covered" >        You are a {self.name} agent specializing in {self.specialty}.</span>
+<span class="cstat-no" title="statement not covered" >        Execute the following task: "{task}"</span>
+<span class="cstat-no" title="statement not covered" >        """</span>
+<span class="cstat-no" title="statement not covered" >        return await llm_call(prompt)</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ># Example Usage</span>
+<span class="cstat-no" title="statement not covered" ># async def main():</span>
+<span class="cstat-no" title="statement not covered" >#     # Create worker agents</span>
+<span class="cstat-no" title="statement not covered" >#     billing_agent = WorkerAgent("BillingAgent", "handling payment and subscription issues")</span>
+<span class="cstat-no" title="statement not covered" >#     tech_support_agent = WorkerAgent("TechSupportAgent", "troubleshooting technical product problems")</span>
+<span class="cstat-no" title="statement not covered" >#     general_agent = WorkerAgent("GeneralAgent", "answering general questions")</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >#     # Create the orchestrator</span>
+<span class="cstat-no" title="statement not covered" >#     orchestrator = OrchestratorAgent({</span>
+<span class="cstat-no" title="statement not covered" >#         "Billing": billing_agent,</span>
+<span class="cstat-no" title="statement not covered" >#         "Technical": tech_support_agent,</span>
+<span class="cstat-no" title="statement not covered" >#         "General": general_agent,</span>
+<span class="cstat-no" title="statement not covered" >#     })</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >#     # Route tasks</span>
+<span class="cstat-no" title="statement not covered" >#     task1 = "I want to upgrade my subscription."</span>
+<span class="cstat-no" title="statement not covered" >#     response1 = await orchestrator.route_task(task1)</span>
+<span class="cstat-no" title="statement not covered" >#     print(f"Task: {task1}\nResponse: {response1}\n---")</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >#     task2 = "My device won't turn on."</span>
+<span class="cstat-no" title="statement not covered" >#     response2 = await orchestrator.route_task(task2)</span>
+<span class="cstat-no" title="statement not covered" >#     print(f"Task: {task2}\nResponse: {response2}\n---")</span>
+<span class="cstat-no" title="statement not covered" >`,</span>
+<span class="cstat-no" title="statement not covered" >  implementation: [],</span>
+<span class="cstat-no" title="statement not covered" >  advantages: [</span>
+<span class="cstat-no" title="statement not covered" >    'Facilitates clear separation of concerns between orchestration and execution.',</span>
+<span class="cstat-no" title="statement not covered" >    'Improves scalability by distributing tasks to workers.',</span>
+<span class="cstat-no" title="statement not covered" >    'Enhances fault tolerance through isolated task execution.'</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  limitations: [</span>
+<span class="cstat-no" title="statement not covered" >    'Requires robust communication and coordination mechanisms.',</span>
+<span class="cstat-no" title="statement not covered" >    'Increased complexity in managing worker states and dependencies.',</span>
+<span class="cstat-no" title="statement not covered" >    'Potential bottlenecks at the orchestrator level.'</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  relatedPatterns: [</span>
+<span class="cstat-no" title="statement not covered" >    'Task Decomposition',</span>
+<span class="cstat-no" title="statement not covered" >    'Parallelization',</span>
+<span class="cstat-no" title="statement not covered" >    'Feedback Loops'</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >};</span></pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-09-30T16:03:45.290Z
+            </div>
+        <script src="../../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
+    </body>
+</html>
+    
