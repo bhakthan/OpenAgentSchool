@@ -1,36 +1,27 @@
 /**
  * Offline Indicator Banner
  * Shows when user is offline or backend is unavailable
+ * Enhanced with network quality detection and cache stats
  */
 
 import { useState, useEffect } from 'react';
-import { WifiSlash, CloudSlash, X } from '@phosphor-icons/react';
+import { WifiSlash, CloudSlash, X, Database } from '@phosphor-icons/react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { API_CONFIG } from '@/lib/api/config';
+import { useNetworkStatus } from '@/hooks/useNetworkStatus';
+import { useOfflineCacheStats } from '@/hooks/useOfflineKnowledge';
 
 export function OfflineBanner() {
-  const [isOnline, setIsOnline] = useState(true);
+  const networkStatus = useNetworkStatus();
+  const { data: cacheStats } = useOfflineCacheStats();
   const [backendAvailable, setBackendAvailable] = useState(true);
   const [isDismissed, setIsDismissed] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [autoHideTimer, setAutoHideTimer] = useState<NodeJS.Timeout | null>(null);
 
-  // Check browser online status
-  useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    setIsOnline(navigator.onLine);
-    
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
+  const isOnline = networkStatus.online;
+  const isSlow = networkStatus.status === 'slow';
 
   // Check backend health
   useEffect(() => {
@@ -120,20 +111,34 @@ export function OfflineBanner() {
   return (
     <div className="fixed top-4 right-4 z-50 max-w-md animate-in slide-in-from-top-5 fade-in duration-300">
       <Alert 
-        variant={isNetworkIssue ? "destructive" : "default"}
+        variant={isNetworkIssue ? "destructive" : isSlow ? "default" : "default"}
         className="shadow-lg border-l-4"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-3 flex-1">
             {isNetworkIssue ? (
               <WifiSlash className="w-5 h-5 mt-0.5 flex-shrink-0" weight="bold" />
+            ) : isSlow ? (
+              <WifiSlash className="w-5 h-5 mt-0.5 flex-shrink-0 text-yellow-600" weight="bold" />
             ) : (
               <CloudSlash className="w-5 h-5 mt-0.5 flex-shrink-0 text-yellow-600" weight="bold" />
             )}
             <AlertDescription className="m-0 text-sm">
               {isNetworkIssue ? (
+                <div className="space-y-1">
+                  <div>
+                    <strong>You're offline.</strong> Some features may not be available.
+                  </div>
+                  {cacheStats && cacheStats.conceptCount > 0 && (
+                    <div className="flex items-center gap-1.5 text-xs opacity-80 mt-1">
+                      <Database className="w-3.5 h-3.5" />
+                      <span>{cacheStats.conceptCount} concepts cached for offline use</span>
+                    </div>
+                  )}
+                </div>
+              ) : isSlow ? (
                 <span>
-                  <strong>You're offline.</strong> Some features may not be available.
+                  <strong>Slow connection detected.</strong> Using cached content when possible.
                 </span>
               ) : (
                 <span>

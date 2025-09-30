@@ -9,6 +9,7 @@ import {
   getConceptsByCategory as mockGetConceptsByCategory,
   type MockConcept
 } from '@/data/mockConcepts';
+import { conceptsCache, searchCache } from '@/lib/db';
 
 // 🔧 TEMPORARY: Use mock data until Knowledge Service concept endpoints are ready
 // Set to false to test real API (currently returns empty results)
@@ -44,6 +45,7 @@ export const knowledgeKeys = {
 /**
  * Semantic Search Hook
  * Searches concepts using vector similarity
+ * Auto-caches results for offline access
  */
 export function useConceptSearch(query: string, limit = 10) {
   return useQuery({
@@ -52,38 +54,79 @@ export function useConceptSearch(query: string, limit = 10) {
       if (USE_MOCK_DATA) {
         // Use mock data - return array directly to match API
         const mockResults = mockSearchConcepts(query);
-        return mockResults.map(r => ({
+        const results = mockResults.map(r => ({
           concept: mockConceptToApiConcept(r.concept),
           score: r.similarity,
           highlights: [],
           similarity: r.similarity
         }));
+        
+        // Cache concepts and search result IDs for offline access
+        const conceptIds: string[] = [];
+        for (const result of results) {
+          await conceptsCache.set(result.concept);
+          conceptIds.push(result.concept.id);
+        }
+        await searchCache.set(query, conceptIds);
+        
+        return results;
       }
+      
       // Real API call
-      return knowledgeAPI.searchConcepts({ query, limit });
+      const results = await knowledgeAPI.searchConcepts({ query, limit });
+      
+      // Cache concepts and search result IDs for offline access
+      const conceptIds: string[] = [];
+      for (const result of results) {
+        await conceptsCache.set(result.concept);
+        conceptIds.push(result.concept.id);
+      }
+      await searchCache.set(query, conceptIds);
+      
+      return results;
     },
     enabled: query.length > 2, // Only search if query is 3+ chars
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: 1, // Only retry once for searches
+    // Use cached data when offline
+    placeholderData: (previousData) => previousData,
   });
 }
 
 /**
  * Get Single Concept by ID
+ * Auto-caches for offline access
  */
 export function useConceptById(id: string) {
   return useQuery({
     queryKey: knowledgeKeys.concept(id),
     queryFn: async () => {
+      // Try cache first when offline
+      const cached = await conceptsCache.get(id);
+      
       if (USE_MOCK_DATA) {
         const mockConcept = mockGetConceptById(id);
         if (!mockConcept) throw new Error('Concept not found');
-        return mockConceptToApiConcept(mockConcept);
+        const concept = mockConceptToApiConcept(mockConcept);
+        
+        // Cache the concept
+        await conceptsCache.set(concept);
+        
+        return concept;
       }
-      return knowledgeAPI.getConcept(id);
+      
+      // Real API call
+      const concept = await knowledgeAPI.getConcept(id);
+      
+      // Cache the concept
+      await conceptsCache.set(concept);
+      
+      return concept;
     },
     enabled: !!id,
     staleTime: 10 * 60 * 1000, // 10 minutes
+    // Use cached data when offline
+    placeholderData: (previousData) => previousData,
   });
 }
 

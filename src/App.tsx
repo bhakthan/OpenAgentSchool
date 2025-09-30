@@ -34,6 +34,10 @@ import { OfflineBanner } from './components/common/OfflineBanner';
 import { QueryProvider } from './lib/query/QueryProvider';
 import { AuthProvider } from './lib/auth/AuthContext';
 import { UserMenu } from './components/auth/UserMenu';
+import { InstallPWA } from './components/pwa/InstallPWA';
+import { useIOSBehaviors } from './hooks/useStandaloneMode';
+import { usePullToRefresh, getPullToRefreshStyles } from './hooks/usePullToRefresh';
+import { useQueryClient } from '@tanstack/react-query';
 
 // Lazy-loaded components
 const ConceptsExplorer = lazy(() => import('./components/concepts/ConceptsExplorer'));
@@ -77,9 +81,25 @@ function App() {
   const [showJourneyMap, setShowJourneyMap] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
+  
   // Initialize CTA variant assignment (redirect if needed before heavy renders)
   useCTAVariantAssigner();
   useAnalyticsCustomEventBridge();
+  
+  // iOS-specific behaviors (viewport fixes, bounce prevention)
+  useIOSBehaviors();
+  
+  // Pull-to-refresh for mobile (only on main content pages)
+  const isContentPage = ['/', '/concepts', '/patterns', '/ai-skills'].includes(location.pathname);
+  const { isPulling, pullDistance, pullProgress } = usePullToRefresh({
+    onRefresh: async () => {
+      // Invalidate all queries to refetch data
+      await queryClient.invalidateQueries();
+    },
+    enabled: isContentPage,
+    threshold: 80,
+  });
 
   // Scroll to top when route changes
   useEffect(() => {
@@ -110,6 +130,20 @@ function App() {
   // Fix hydration issues and set up error handling
   useEffect(() => {
     setMounted(true)
+    
+    // Initialize IndexedDB for offline support
+    import('@/lib/db').then(({ initializeDB }) => {
+      initializeDB().catch(error => {
+        console.warn('IndexedDB initialization failed:', error);
+      });
+    });
+    
+    // Register background sync for bookmarks
+    import('@/lib/sync/backgroundSync').then(({ registerBackgroundSync }) => {
+      registerBackgroundSync().catch(error => {
+        console.warn('Background sync registration failed:', error);
+      });
+    });
     
     // Apply global ReactFlow optimizations
     import('./lib/utils/preventResizeObserverErrors').then(module => {
@@ -265,6 +299,7 @@ function App() {
               </a>
               
               <OfflineBanner />
+              <InstallPWA />
               <div className="min-h-screen bg-background text-foreground flex flex-col">
           <header className="border-b border-border sticky top-0 z-10 bg-background" role="banner">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -432,6 +467,27 @@ function App() {
               })()}
             </div>
           </header>
+          
+          {/* Pull-to-refresh indicator */}
+          {isPulling && (
+            <div 
+              className="fixed top-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+              style={getPullToRefreshStyles(pullDistance)}
+            >
+              <div className="bg-primary text-primary-foreground px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+                <div 
+                  className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"
+                  style={{ 
+                    opacity: pullProgress,
+                    animationPlayState: pullProgress >= 1 ? 'running' : 'paused' 
+                  }}
+                />
+                <span className="text-sm font-medium">
+                  {pullProgress >= 1 ? 'Release to refresh' : 'Pull to refresh'}
+                </span>
+              </div>
+            </div>
+          )}
           
           <main id="main-content" className="flex-1 container mx-auto px-4 py-6" role="main">
             <Suspense fallback={<PageLoadingFallback />}>

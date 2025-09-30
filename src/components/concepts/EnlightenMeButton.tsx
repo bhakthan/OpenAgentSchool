@@ -15,11 +15,42 @@ import { useEnlightenMe } from '../enlighten/EnlightenMeProvider';
 import { useKV } from '@/hooks/useLocalStorage';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import { LlmProvider, callLlm } from '@/lib/llm';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useSEOContext } from '@/hooks/useSEOContext';
+
+// Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
+const syntaxTheme: { [key: string]: React.CSSProperties } = {
+  'code[class*="language-"]': {
+    color: '#abb2bf',
+    background: '#282c34',
+    fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
+    fontSize: '0.9em',
+    textAlign: 'left',
+    whiteSpace: 'pre',
+    wordSpacing: 'normal',
+    wordBreak: 'normal',
+    wordWrap: 'normal',
+    lineHeight: '1.5',
+    tabSize: 4,
+  },
+  'pre[class*="language-"]': {
+    color: '#abb2bf',
+    background: '#282c34',
+    padding: '1em',
+    margin: '0.5em 0',
+    overflow: 'auto',
+    borderRadius: '0.3em',
+  },
+  comment: { color: '#5c6370', fontStyle: 'italic' },
+  keyword: { color: '#c678dd' },
+  string: { color: '#98c379' },
+  function: { color: '#61afef' },
+  number: { color: '#d19a66' },
+  operator: { color: '#56b6c2' },
+  className: { color: '#e5c07b' },
+};
 
 // NOTE: "Ask AI" is an alias for "EnlightenMe Button" - this component provides AI-powered insights
 // It helps users understand complex concepts through interactive AI assistance and contextual prompting
@@ -164,7 +195,7 @@ Please provide:
           </Button>
         </div>
         <SyntaxHighlighter
-          style={oneDark}
+          style={syntaxTheme}
           language={language}
           PreTag="div"
           className="rounded-md text-sm"

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offline - Open Agent School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #009c84 0%, #007a68 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo svg {
+            width: 70px;
+            height: 70px;
+            fill: #009c84;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .features {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .features h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+        
+        .features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .retry-button {
+            display: inline-block;
+            background: white;
+            color: #009c84;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .retry-button:active {
+            transform: translateY(0);
+        }
+        
+        .status {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .pulse {
+            width: 12px;
+            height: 12px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .logo svg {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
+            </svg>
+        </div>
+        
+        <h1>You're Offline</h1>
+        <p>
+            It looks like you've lost your internet connection. Don't worry – some features are still available!
+        </p>
+        
+        <div class="features">
+            <h2>Available Offline</h2>
+            <ul>
+                <li>Previously viewed concepts</li>
+                <li>Cached learning materials</li>
+                <li>Study mode questions</li>
+                <li>Bookmarked content</li>
+            </ul>
+        </div>
+        
+        <button class="retry-button" onclick="window.location.reload()">
+            Try Again
+        </button>
+        
+        <div class="status">
+            <span class="pulse"></span>
+            <span id="status-text">Waiting for connection...</span>
+        </div>
+    </div>
+    
+    <script>
+        // Check connection status
+        function updateConnectionStatus() {
+            const statusText = document.getElementById('status-text');
+            const pulse = document.querySelector('.pulse');
+            
+            if (navigator.onLine) {
+                statusText.textContent = 'Connection restored!';
+                pulse.style.background = '#51cf66';
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                statusText.textContent = 'Waiting for connection...';
+                pulse.style.background = '#ff6b6b';
+            }
+        }
+        
+        // Listen for online/offline events
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+        
+        // Initial check
+        updateConnectionStatus();
+        
+        // Periodic check every 5 seconds
+        setInterval(updateConnectionStatus, 5000);
+    </script>
+</body>
+</html>

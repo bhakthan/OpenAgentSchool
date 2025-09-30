@@ -7,6 +7,7 @@ import react from "@vitejs/plugin-react-swc";
 import { defineConfig, PluginOption } from "vite";
 import { resolve } from 'path'
 import path from 'path';
+import { VitePWA } from 'vite-plugin-pwa';
 
 const extraPlugins: PluginOption[] = [];
 
@@ -20,6 +21,115 @@ export default defineConfig({
       // Standard React 18 configuration (automatic runtime by default)
     }),
     tailwindcss(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico', 'robots.txt', 'icons/*.png'],
+      manifest: {
+        name: 'Open Agent School',
+        short_name: 'Agent School',
+        description: 'Master AI agent architecture, patterns, and evaluation. Build production-ready agentic systems with hands-on learning.',
+        theme_color: '#009c84',
+        background_color: '#ffffff',
+        display: 'standalone',
+        orientation: 'portrait-primary',
+        scope: '/',
+        start_url: '/',
+        icons: [
+          {
+            src: '/icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any maskable'
+          },
+          {
+            src: '/icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable'
+          }
+        ]
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
+        navigateFallback: null, // We'll handle navigation fallback manually
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024, // 6 MB (large visualization files)
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'gstatic-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          },
+          {
+            urlPattern: /\/api\/v1\/concepts.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'api-concepts-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 // 24 hours
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              },
+              networkTimeoutSeconds: 10
+            }
+          },
+          {
+            urlPattern: ({ request }) => request.destination === 'document',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'pages-cache',
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 60 * 60 * 24 * 7 // 1 week
+              },
+              networkTimeoutSeconds: 10
+            }
+          },
+          {
+            urlPattern: ({ request }) => request.destination === 'image',
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'images-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          }
+        ]
+      },
+      devOptions: {
+        enabled: true,
+        type: 'module'
+      }
+    })
   ],
   define: {
     // ensure that you give these types in `src/vite-end.d.ts`
