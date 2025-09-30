@@ -97,18 +97,47 @@ class AuthAPIClient {
    * Login with email and password
    */
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
-    const { data } = await this.client.post<AuthResponse>('/api/auth/login', credentials);
-    this.setTokens(data.access_token, data.refresh_token);
-    return data;
+    const { data } = await this.client.post<{ access_token: string; token_type: string }>(
+      '/api/v1/users/login',
+      {
+        username: credentials.email, // Backend uses username field
+        password: credentials.password,
+      }
+    );
+    
+    const response: AuthResponse = {
+      access_token: data.access_token,
+      refresh_token: data.access_token, // No separate refresh token
+      token_type: data.token_type,
+      expires_in: 3600, // 60 minutes
+      user: {
+        id: credentials.email,
+        email: credentials.email,
+        name: credentials.email.split('@')[0],
+        created_at: new Date().toISOString(),
+      },
+    };
+    
+    this.setTokens(response.access_token, response.refresh_token);
+    return response;
   }
 
   /**
    * Signup new user
    */
   async signup(signupData: SignupData): Promise<AuthResponse> {
-    const { data } = await this.client.post<AuthResponse>('/api/auth/register', signupData);
-    this.setTokens(data.access_token, data.refresh_token);
-    return data;
+    // First create the user
+    await this.client.post('/api/v1/users/register', {
+      username: signupData.email,
+      email: signupData.email,
+      password: signupData.password,
+    });
+    
+    // Then login
+    return this.login({
+      email: signupData.email,
+      password: signupData.password,
+    });
   }
 
   /**
@@ -125,8 +154,26 @@ class AuthAPIClient {
    * Get current user profile
    */
   async getCurrentUser(): Promise<User> {
-    const { data } = await this.client.get<User>('/api/auth/me');
-    return data;
+    // For now, decode user from token since backend doesn't have /me endpoint
+    const token = this.getAccessToken();
+    if (!token) {
+      throw new Error('Not authenticated');
+    }
+    
+    try {
+      // Decode JWT payload (without verification - just for display)
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const username = payload.sub || 'user';
+      
+      return {
+        id: username,
+        email: username,
+        name: username.split('@')[0],
+        created_at: new Date().toISOString(),
+      };
+    } catch {
+      throw new Error('Invalid token');
+    }
   }
 
   /**

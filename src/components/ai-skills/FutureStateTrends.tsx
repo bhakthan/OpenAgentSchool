@@ -598,13 +598,14 @@ export default function FutureStateTrends({ onNavigate }: Props) {
                     <td className="p-2 font-medium">{row.task}</td>
                     {row.levels.map((on, i) => (
                       <td key={i} className="p-2">
-                        <span
+                        <div
+                          role="img"
                           className="inline-block w-5 h-5 rounded-sm"
                           style={{
                             backgroundColor: on ? 'var(--primary)' : 'transparent',
                             outline: '1px solid var(--border)'
                           }}
-                          aria-label={`${row.task} L${i}`}
+                          aria-label={`${row.task} L${i}${on ? ' enabled' : ' disabled'}`}
                         />
                       </td>
                     ))}

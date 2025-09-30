@@ -50,6 +50,7 @@ const AgentsConsole = lazy(() => import('./components/agents/AgentsConsole'));
 const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplorer'));
 const SCLDemo = lazy(() => import('./components/SuperCriticalLearning/SCLDemo'));
 const KnowledgeSearch = lazy(() => import('./components/search/KnowledgeSearch'));
+const KnowledgeBasePage = lazy(() => import('./pages/KnowledgeBasePage'));
 const BookmarksPage = lazy(() => import('./pages/BookmarksPage'));
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 // Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
@@ -253,15 +254,26 @@ function App() {
         <AuthProvider>
           <AudioNarrationProvider>
             <EnlightenMeProvider>
+              {/* Skip Link for Keyboard Users */}
+              <a 
+                href="#main-content" 
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 
+                           focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-md
+                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              >
+                Skip to main content
+              </a>
+              
               <OfflineBanner />
               <div className="min-h-screen bg-background text-foreground flex flex-col">
-          <header className="border-b border-border sticky top-0 z-10 bg-background">
+          <header className="border-b border-border sticky top-0 z-10 bg-background" role="banner">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <button 
                   onClick={() => navigate('/')}
-                  className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-                  aria-label="Go to home page"
+                  className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity
+                             focus:outline-none focus:ring-2 focus:ring-blue-500 focus:rounded-md"
+                  aria-label="Go to home page - Open Agent School"
                 >
                   <Logo size="small" showText={true} />
                 </button>
@@ -273,17 +285,19 @@ function App() {
                   size="sm"
                   onClick={() => setShowJourneyMap(true)}
                   className="flex items-center gap-2"
+                  aria-label="Open Learning Journey Map"
                 >
-                  <Path size={16} />
+                  <Path size={16} aria-hidden="true" />
                   <span className="hidden sm:inline">Journey Map</span>
                 </Button>
                 <Button
                   variant="default"
                   size="sm"
                   onClick={() => { try { window.dispatchEvent(new CustomEvent('analytics:ctaClick', { detail: { source: 'header-button', tier: 'get-started' } })); } catch {} ; navigate('/cta'); }}
-                  className="flex items-center gap-2 bg-primary text-primary-foreground"
+                  className="flex items-center gap-2 bg-primary text-white"
+                  aria-label="Get Started with Open Agent School"
                 >
-                  <Lightning size={16} />
+                  <Lightning size={16} aria-hidden="true" />
                   <span className="hidden sm:inline">Get Started</span>
                 </Button>
                 <AppTutorialButton />
@@ -419,7 +433,7 @@ function App() {
             </div>
           </header>
           
-          <main className="flex-1 container mx-auto px-4 py-6">
+          <main id="main-content" className="flex-1 container mx-auto px-4 py-6" role="main">
             <Suspense fallback={<PageLoadingFallback />}>
               <SEORouteWrapper>
                 <Routes>
@@ -430,6 +444,7 @@ function App() {
                   <Route path="/ai-skills" element={<AISkillsExplorer />} />
                   <Route path="/study-mode" element={<StudyMode />} />
                   <Route path="/knowledge-search" element={<KnowledgeSearch />} />
+                  <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
                   <Route path="/patterns/:patternId?" element={<PatternExplorer />} />
                   <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
                   <Route path="/quiz/:quizId?" element={<QuizSection />} />
