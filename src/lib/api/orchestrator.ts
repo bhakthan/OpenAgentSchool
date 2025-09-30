@@ -1,5 +1,40 @@
 import { API_CONFIG, withApiV1 } from './config';
 import { apiCache } from '@/lib/cache';
+import { io, Socket } from 'socket.io-client';
+
+// Agent execution types
+export interface AgentExecutionRequest {
+  query: string;
+  context?: string;
+  agents?: string[];
+  mode?: 'critical-thinking' | 'collaborative' | 'sequential';
+}
+
+export interface AgentExecutionResponse {
+  session_id: string;
+  status: 'initiated' | 'running' | 'completed' | 'failed';
+  agents_count: number;
+  estimated_duration?: number;
+}
+
+export interface AgentMessage {
+  id: string;
+  agent_name: string;
+  agent_role: string;
+  content: string;
+  timestamp: string;
+  metadata?: Record<string, any>;
+}
+
+export interface AgentExecutionStatus {
+  session_id: string;
+  status: 'running' | 'completed' | 'failed';
+  progress: number;
+  current_agent?: string;
+  messages: AgentMessage[];
+  result?: any;
+  error?: string;
+}
 
 export interface ExecuteTemplateParams {
   template: string; // e.g., 'scl'
@@ -105,4 +140,134 @@ export async function cancelWorkflow(workflowId: number, signal?: AbortSignal): 
     const text = await res.text().catch(() => '');
     throw new Error(`Orchestrator cancel error ${res.status}: ${text || res.statusText}`);
   }
+}
+
+/**
+ * Execute multi-agent pipeline
+ */
+export async function executeAgents(request: AgentExecutionRequest): Promise<AgentExecutionResponse> {
+  const base = withApiV1(API_CONFIG.orchestrator);
+  const res = await fetch(`${base}/agents/execute`, {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+      ...(getAuthHeader()),
+    },
+    body: JSON.stringify(request),
+  });
+  
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    throw new Error(`Agent execution error ${res.status}: ${text || res.statusText}`);
+  }
+  
+  return res.json();
+}
+
+/**
+ * Get agent execution status
+ */
+export async function getAgentExecutionStatus(sessionId: string): Promise<AgentExecutionStatus> {
+  const base = withApiV1(API_CONFIG.orchestrator);
+  const res = await fetch(`${base}/agents/status/${sessionId}`, {
+    headers: getAuthHeader(),
+  });
+  
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    throw new Error(`Get status error ${res.status}: ${text || res.statusText}`);
+  }
+  
+  return res.json();
+}
+
+/**
+ * WebSocket Agent Streaming Client
+ */
+class AgentWebSocketClient {
+  private socket: Socket | null = null;
+  private eventHandlers: Map<string, Set<Function>> = new Map();
+
+  connect(sessionId: string): void {
+    if (this.socket?.connected) {
+      this.socket.disconnect();
+    }
+
+    const wsUrl = API_CONFIG.orchestrator || 'http://localhost:8002';
+    this.socket = io(wsUrl, {
+      path: '/ws/socket.io',
+      transports: ['websocket', 'polling'],
+      auth: {
+        token: this.getAccessToken(),
+      },
+    });
+
+    this.socket.on('connect', () => {
+      console.log('🔌 WebSocket connected');
+      this.socket?.emit('join_session', { session_id: sessionId });
+      this.emit('connected', { sessionId });
+    });
+
+    this.socket.on('disconnect', () => {
+      console.log('🔌 WebSocket disconnected');
+      this.emit('disconnected', { sessionId });
+    });
+
+    this.socket.on('agent_message', (message: AgentMessage) => {
+      this.emit('message', message);
+    });
+
+    this.socket.on('execution_update', (update: Partial<AgentExecutionStatus>) => {
+      this.emit('update', update);
+    });
+
+    this.socket.on('execution_complete', (result: any) => {
+      this.emit('complete', result);
+    });
+
+    this.socket.on('execution_error', (error: any) => {
+      this.emit('error', error);
+    });
+  }
+
+  disconnect(): void {
+    if (this.socket) {
+      this.socket.disconnect();
+      this.socket = null;
+    }
+  }
+
+  on(event: string, handler: Function): void {
+    if (!this.eventHandlers.has(event)) {
+      this.eventHandlers.set(event, new Set());
+    }
+    this.eventHandlers.get(event)?.add(handler);
+  }
+
+  off(event: string, handler: Function): void {
+    this.eventHandlers.get(event)?.delete(handler);
+  }
+
+  private emit(event: string, data: any): void {
+    const handlers = this.eventHandlers.get(event);
+    if (handlers) {
+      handlers.forEach((handler) => handler(data));
+    }
+  }
+
+  private getAccessToken(): string | null {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('access_token');
+    }
+    return null;
+  }
+}
+
+// Export singleton WebSocket client
+export const agentWebSocket = new AgentWebSocketClient();
+
+// Helper to get auth header
+function getAuthHeader(): Record<string, string> {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }

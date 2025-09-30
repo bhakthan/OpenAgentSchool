@@ -14,6 +14,7 @@ export function OfflineBanner() {
   const [backendAvailable, setBackendAvailable] = useState(true);
   const [isDismissed, setIsDismissed] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
+  const [autoHideTimer, setAutoHideTimer] = useState<NodeJS.Timeout | null>(null);
 
   // Check browser online status
   useEffect(() => {
@@ -84,10 +85,31 @@ export function OfflineBanner() {
     }
   }, [isOnline, backendAvailable]);
 
-  // Show/hide banner logic
+  // Show/hide banner logic with auto-dismiss
   useEffect(() => {
     const shouldShow = (!isOnline || !backendAvailable) && !isDismissed;
     setShowBanner(shouldShow);
+
+    // Auto-hide after 8 seconds for backend issues (less critical)
+    if (shouldShow && !isOnline === false && !backendAvailable) {
+      // Clear any existing timer
+      if (autoHideTimer) {
+        clearTimeout(autoHideTimer);
+      }
+      
+      // Set new timer to auto-dismiss
+      const timer = setTimeout(() => {
+        setIsDismissed(true);
+      }, 8000);
+      
+      setAutoHideTimer(timer);
+    }
+
+    return () => {
+      if (autoHideTimer) {
+        clearTimeout(autoHideTimer);
+      }
+    };
   }, [isOnline, backendAvailable, isDismissed]);
 
   if (!showBanner) return null;
@@ -96,24 +118,27 @@ export function OfflineBanner() {
   const isBackendIssue = isOnline && !backendAvailable;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 animate-in slide-in-from-top">
-      <Alert variant="destructive" className="rounded-none border-x-0 border-t-0">
-        <div className="container mx-auto flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+    <div className="fixed top-4 right-4 z-50 max-w-md animate-in slide-in-from-top-5 fade-in duration-300">
+      <Alert 
+        variant={isNetworkIssue ? "destructive" : "default"}
+        className="shadow-lg border-l-4"
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-start gap-3 flex-1">
             {isNetworkIssue ? (
-              <WifiSlash className="w-5 h-5" weight="bold" />
+              <WifiSlash className="w-5 h-5 mt-0.5 flex-shrink-0" weight="bold" />
             ) : (
-              <CloudSlash className="w-5 h-5" weight="bold" />
+              <CloudSlash className="w-5 h-5 mt-0.5 flex-shrink-0 text-yellow-600" weight="bold" />
             )}
-            <AlertDescription className="m-0">
+            <AlertDescription className="m-0 text-sm">
               {isNetworkIssue ? (
-                <>
+                <span>
                   <strong>You're offline.</strong> Some features may not be available.
-                </>
+                </span>
               ) : (
-                <>
+                <span>
                   <strong>Backend unavailable.</strong> Using static fallback mode. Some features are limited.
-                </>
+                </span>
               )}
             </AlertDescription>
           </div>
@@ -121,7 +146,8 @@ export function OfflineBanner() {
             variant="ghost"
             size="icon"
             onClick={() => setIsDismissed(true)}
-            className="text-white hover:bg-red-600"
+            className="h-6 w-6 flex-shrink-0 hover:bg-gray-100 dark:hover:bg-gray-800"
+            aria-label="Dismiss notification"
           >
             <X className="w-4 h-4" />
           </Button>

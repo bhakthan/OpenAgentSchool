@@ -31,6 +31,9 @@ import { SEORouteWrapper } from './components/seo/SEORouteWrapper';
 import { QRCodeModal } from './components/ui/QRCodeModal';
 import { PageLoadingFallback } from './components/common/LoadingSpinner';
 import { OfflineBanner } from './components/common/OfflineBanner';
+import { QueryProvider } from './lib/query/QueryProvider';
+import { AuthProvider } from './lib/auth/AuthContext';
+import { UserMenu } from './components/auth/UserMenu';
 
 // Lazy-loaded components
 const ConceptsExplorer = lazy(() => import('./components/concepts/ConceptsExplorer'));
@@ -48,6 +51,7 @@ const AISkillsExplorer = lazy(() => import('./components/ai-skills/AISkillsExplo
 const SCLDemo = lazy(() => import('./components/SuperCriticalLearning/SCLDemo'));
 const KnowledgeSearch = lazy(() => import('./components/search/KnowledgeSearch'));
 const BookmarksPage = lazy(() => import('./pages/BookmarksPage'));
+const AuthPage = lazy(() => import('./pages/AuthPage'));
 // Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
 const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
 const CTALandingPageVariant = lazy(() => import('@/components/pages/CTALandingPageVariant'));
@@ -244,11 +248,13 @@ function App() {
   useGAPageViews();
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="azure-ai-agent-theme">
-      <AudioNarrationProvider>
-        <EnlightenMeProvider>
-          <OfflineBanner />
-          <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <QueryProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="azure-ai-agent-theme">
+        <AuthProvider>
+          <AudioNarrationProvider>
+            <EnlightenMeProvider>
+              <OfflineBanner />
+              <div className="min-h-screen bg-background text-foreground flex flex-col">
           <header className="border-b border-border sticky top-0 z-10 bg-background">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -285,6 +291,7 @@ function App() {
                   <ThemeToggle />
                   <span className="text-xs text-muted-foreground hidden md:inline-block">Theme</span>
                 </div>
+                <UserMenu />
                 <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
@@ -433,6 +440,7 @@ function App() {
                   <Route path="/deep-dive-taxonomy" element={<DeepDiveTaxonomyPage />} />
                   <Route path="/community" element={<CommunitySharing />} />
                   <Route path="/bookmarks" element={<BookmarksPage />} />
+                  <Route path="/auth" element={<AuthPage />} />
                   <Route path="/api-docs" element={<ApiDocsPage />} />
                   <Route path="/cta-alt" element={<CTALandingPageVariant />} />
                   <Route path="/cta" element={<CTALandingPage />} />
@@ -535,7 +543,9 @@ function App() {
         </div>
       </EnlightenMeProvider>
       </AudioNarrationProvider>
+      </AuthProvider>
     </ThemeProvider>
+    </QueryProvider>
   );
 }
 
