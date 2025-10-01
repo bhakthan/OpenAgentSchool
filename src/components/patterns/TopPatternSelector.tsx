@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { MagnifyingGlass, Robot, GraduationCap, Lightbulb, BookmarkSimple, X } from '@phosphor-icons/react';
 import { agentPatterns, PatternData } from '@/lib/data/patterns/index';
 import { cn } from '@/lib/utils';
@@ -95,7 +96,7 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
     <div className="flex items-center gap-2 flex-1 min-w-0">
       {/* Current Pattern Display */}
       <div className="flex items-center gap-2 min-w-0 flex-1">
-        <span className="text-sm text-muted-foreground whitespace-nowrap">Pattern:</span>
+        <span className="text-sm text-foreground/70 whitespace-nowrap">Pattern:</span>
         <Button
           variant="outline"
           className="justify-start flex-1 min-w-0"
@@ -112,14 +113,34 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
 
       {/* Pattern Browser Dialog */}
       <Dialog open={isOpen} onOpenChange={handleDialogOpen}>
-        <DialogTrigger asChild>
-          <Button variant="ghost" size="sm" className="shrink-0">
-            <MagnifyingGlass size={16} />
-          </Button>
-        </DialogTrigger>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DialogTrigger asChild>
+                <Button variant="ghost" size="sm" className="shrink-0 gap-1.5">
+                  <MagnifyingGlass size={16} />
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0 h-5">
+                    {agentPatterns.length}
+                  </Badge>
+                </Button>
+              </DialogTrigger>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Browse all {agentPatterns.length} agent patterns</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <DialogContent className="w-[85vw] !max-w-[1400px] max-h-[90vh] overflow-hidden p-0 sm:!max-w-[1400px]">
           <DialogHeader className="p-6 pb-0">
-            <DialogTitle>Select Agent Pattern</DialogTitle>
+            <div className="flex items-center justify-between gap-4">
+              <DialogTitle>Select Agent Pattern</DialogTitle>
+              <Badge variant="secondary" className="text-sm px-3 py-1">
+                {filteredPatterns.length} {filteredPatterns.length === 1 ? 'pattern' : 'patterns'}
+                {(searchQuery || selectedCategory !== 'all') && (
+                  <span className="text-muted-foreground ml-1">/ {agentPatterns.length} total</span>
+                )}
+              </Badge>
+            </div>
           </DialogHeader>
           
           <div className="flex flex-col min-h-0 max-h-[calc(90vh-80px)]">
@@ -129,7 +150,7 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
                 <div className="flex flex-col sm:flex-row gap-4">
                   {/* Search Input */}
                   <div className="relative flex-1 min-w-0">
-                    <MagnifyingGlass size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                    <MagnifyingGlass size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/50" />
                     <Input
                       placeholder="Search patterns..."
                       value={searchQuery}
@@ -149,7 +170,7 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
                   </div>
 
                   {/* Results Count */}
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground whitespace-nowrap">
+                  <div className="flex items-center gap-2 text-sm text-foreground/60 whitespace-nowrap">
                     {isLimitedAllView ? (
                       <span>
                         Showing {filteredPatterns.length} of {allFilteredPatterns.length} patterns
@@ -234,14 +255,18 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
               </div>
                 {/* Show More Button for "All" category */}
                 {selectedCategory === 'all' && !showAllPatterns && !searchQuery && allFilteredPatterns.length > 10 && (
-                  <div className="sticky bottom-0 pt-3 pb-3 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t">
-                    <div className="flex justify-center">
+                  <div className="sticky bottom-0 pt-3 pb-3 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                    <div className="flex flex-col items-center gap-2 px-6">
+                      <p className="text-xs text-foreground/60">
+                        Showing 10 of {allFilteredPatterns.length} patterns
+                      </p>
                       <Button 
                         variant="outline" 
                         onClick={() => setShowAllPatterns(true)}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 shadow-sm hover:shadow-md transition-shadow"
                       >
-                        Show {allFilteredPatterns.length - 10} More Patterns
+                        <MagnifyingGlass size={16} />
+                        Show All {allFilteredPatterns.length} Patterns
                       </Button>
                     </div>
                   </div>
@@ -249,9 +274,9 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
 
                 {filteredPatterns.length === 0 && (
                   <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <MagnifyingGlass size={48} className="text-muted-foreground mb-4" />
+                    <MagnifyingGlass size={48} className="text-foreground/40 mb-4" />
                     <h3 className="text-lg font-medium mb-2">No patterns found</h3>
-                    <p className="text-muted-foreground mb-4">
+                    <p className="text-foreground/60 mb-4">
                       Try adjusting your search or category filter
                     </p>
                     <Button variant="outline" onClick={() => {
