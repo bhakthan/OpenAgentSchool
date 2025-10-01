@@ -22,7 +22,6 @@ export { deepResearcherPattern } from './deepResearcher';
 export { deepAgentsPattern } from './deep-agents';
 export { agentEvaluationPattern } from './agentEvaluation';
 export { autogenPattern } from './autogen';
-export { autogenMultiAgentPattern } from './autogenMultiAgent';
 export { swarmIntelligencePattern } from './swarm-intelligence';
 export { sensoryReasoningEnhancementPattern } from './sensory-reasoning-enhancement';
 export { socraticCoachPattern } from './socraticCoach';
@@ -73,7 +72,6 @@ import { deepResearcherPattern } from './deepResearcher';
 import { deepAgentsPattern } from './deep-agents';
 import { agentEvaluationPattern } from './agentEvaluation';
 import { autogenPattern } from './autogen';
-import { autogenMultiAgentPattern } from './autogenMultiAgent';
 import { swarmIntelligencePattern } from './swarm-intelligence';
 import { sensoryReasoningEnhancementPattern } from './sensory-reasoning-enhancement';
 import { socraticCoachPattern } from './socraticCoach';
@@ -154,7 +152,6 @@ export const agentPatterns = [
   adaptiveLabTechnicianPattern,
   inventoryGuardianPattern,
   emergencyResponseMatePattern,
-  // autogenMultiAgentPattern,
 ];
 
 for (const pattern of agentPatterns) {

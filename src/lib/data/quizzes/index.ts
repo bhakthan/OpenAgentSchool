@@ -394,8 +394,8 @@ export const quizCategories: QuizCategory[] = [
       },
       {
         id: 'autogen-framework',
-        name: 'AutoGen Framework',
-        description: 'Microsoft AutoGen for multi-agent conversations',
+        name: 'Agent Framework',
+        description: 'Microsoft Agent Framework for multi-agent conversations',
         prerequisites: ['fundamentals'],
         questions: multiAgentSystemsQuestions.filter(q => q.subCategory === 'autogen-framework')
       }

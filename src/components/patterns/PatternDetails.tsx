@@ -5,7 +5,7 @@ import { PatternData, PatternEvaluationProfile } from '@/lib/data/patterns/types
 import { coreEvaluationMetrics, evaluationCohortGuidance, evaluationJourneySteps, evaluationPrinciples, supportingEvaluationMetrics } from '@/lib/data/patterns/evaluationRegistry';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { ListChecks, Info, Code, Briefcase, PuzzlePiece, ArrowsOut, ArrowsIn, CopySimple, Check, Target, Gauge, Database } from "@phosphor-icons/react";
+import { ListChecks, Info, Code, Briefcase, PuzzlePiece, ArrowsOut, ArrowsIn, CopySimple, Check, Target, Gauge, Database, Sparkle } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { PatternDemoSVG } from '../interactive-demos';
@@ -392,7 +392,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
       </CardHeader>
     <CardContent className="pt-6">
   <Tabs defaultValue={hasBusinessUseCase ? "business-use-case" : "details"} className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             {hasBusinessUseCase && (
               <TabsTrigger value="business-use-case" className="flex items-center gap-2">
                 <Briefcase size={16} /> Business Use Case
@@ -452,6 +452,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             {pattern.id === 'autogen-multi-agent' && (
               <TabsTrigger value="live-runner-autogen-multi" className="flex items-center gap-2">
                 <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'autogen-multi-agent' && pattern.codeVisualizer && (
+              <TabsTrigger value="code-visualizer-mem0" className="flex items-center gap-2">
+                <Sparkle size={16} /> Mem0 Memory
               </TabsTrigger>
             )}
             {pattern.id === 'parallelization' && (
@@ -1015,6 +1020,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 patternName={pattern.name}
                 steps={autogenMultiAgentExecutionSteps as any}
               />
+            </TabsContent>
+          )}
+          {pattern.id === 'autogen-multi-agent' && pattern.codeVisualizer && (
+            <TabsContent value="code-visualizer-mem0" className="pt-4">
+              {React.createElement(pattern.codeVisualizer)}
             </TabsContent>
           )}
           {pattern.id === 'parallelization' && (

@@ -674,19 +674,19 @@ export const references: ReferencesData = {
         name: "Official Documentation",
         references: [
           {
-            title: "Autogen",
-            url: "https://microsoft.github.io/autogen/stable/",
-            description: "Microsoft AutoGen framework for building multi-agent conversational AI systems"
+            title: "Microsoft Agent Framework",
+            url: "https://aka.ms/agentframework",
+            description: "Unified Microsoft framework combining Semantic Kernel (production) and AutoGen (prototyping) for multi-agent orchestration"
           },
           {
-            title: "Semantic Kernel Quick start",
-            url: "https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide?pivots=programming-language-python",
-            description: "Quick start guide for Microsoft Semantic Kernel with Python"
+            title: "Agent Framework Documentation",
+            url: "https://learn.microsoft.com/agent-framework/",
+            description: "Official Microsoft Agent Framework documentation with tutorials and API reference"
           },
           {
-            title: "Semantic Kernel Agent Framework",
-            url: "https://learn.microsoft.com/en-us/semantic-kernel/frameworks/agent/?pivots=programming-language-python",
-            description: "Learn about building agents with Semantic Kernel framework"
+            title: "Agent Framework Quick Start",
+            url: "https://learn.microsoft.com/agent-framework/tutorials/quick-start",
+            description: "Get started with Microsoft Agent Framework in Python or .NET"
           }
         ]
       },
@@ -695,9 +695,19 @@ export const references: ReferencesData = {
         name: "Code Samples",
         references: [
           {
-            title: "Autogen Framework Examples",
-            url: "https://github.com/microsoft/autogen/",
-            description: "Official GitHub repository with AutoGen framework examples and samples"
+            title: "Microsoft Agent Framework GitHub",
+            url: "https://github.com/microsoft/agent-framework/",
+            description: "Official GitHub repository with Agent Framework examples, samples, and workflow patterns"
+          },
+          {
+            title: "Agent Framework Python Samples",
+            url: "https://github.com/microsoft/agent-framework/tree/main/python/samples",
+            description: "Python samples for agents, workflows, and multi-agent orchestration"
+          },
+          {
+            title: "Agent Framework .NET Samples",
+            url: "https://github.com/microsoft/agent-framework/tree/main/dotnet/samples",
+            description: ".NET samples demonstrating Agent Framework capabilities"
           }
         ]
       }
@@ -1330,30 +1340,30 @@ export const references: ReferencesData = {
       }
     ],
 
-    "semantic-kernel": [
+    "agent-framework": [
       {
         id: "documentation",
         name: "Documentation",
         references: [
           {
-            title: "Semantic Kernel Overview",
-            url: "https://learn.microsoft.com/en-us/semantic-kernel/overview/",
-            description: "Official documentation for Microsoft Semantic Kernel"
+            title: "Microsoft Agent Framework Overview",
+            url: "https://learn.microsoft.com/agent-framework/overview/agent-framework-overview",
+            description: "Official documentation for Microsoft Agent Framework - unified framework for multi-agent systems"
           },
           {
-            title: "Semantic Kernel Concepts",
-            url: "https://learn.microsoft.com/en-us/semantic-kernel/concepts/",
-            description: "Core concepts and terminology for Semantic Kernel"
+            title: "Agent Framework Concepts",
+            url: "https://learn.microsoft.com/agent-framework/concepts/",
+            description: "Core concepts including agents, workflows, and memory management"
           },
           {
-            title: "Semantic Kernel Agents",
-            url: "https://learn.microsoft.com/en-us/semantic-kernel/concepts/agents",
-            description: "Building AI agents with Semantic Kernel"
+            title: "Agent Framework Workflows",
+            url: "https://learn.microsoft.com/agent-framework/concepts/workflows",
+            description: "Graph-based workflow orchestration for multi-agent systems"
           },
           {
-            title: "Semantic Kernel Planners",
-            url: "https://learn.microsoft.com/en-us/semantic-kernel/concepts/planning",
-            description: "Using planners for goal-directed AI behavior"
+            title: "Agent Framework Memory",
+            url: "https://learn.microsoft.com/agent-framework/concepts/agent-thread",
+            description: "Agent Thread concept for short-term and long-term memory"
           }
         ]
       },
@@ -1362,24 +1372,19 @@ export const references: ReferencesData = {
         name: "Code Samples",
         references: [
           {
-            title: "Semantic Kernel Python Getting Started",
-            url: "https://github.com/microsoft/semantic-kernel/tree/main/python/samples/getting_started_with_agents",
-            description: "Official getting started samples for Semantic Kernel agents in Python"
+            title: "Agent Framework Python Samples",
+            url: "https://github.com/microsoft/agent-framework/tree/main/python/samples",
+            description: "Official Python samples for agents, workflows, and multi-agent patterns"
           },
           {
-            title: "Semantic Kernel C# Samples",
-            url: "https://github.com/microsoft/semantic-kernel/tree/main/dotnet/samples",
-            description: "Comprehensive C# samples for Semantic Kernel"
+            title: "Agent Framework .NET Samples",
+            url: "https://github.com/microsoft/agent-framework/tree/main/dotnet/samples",
+            description: "Comprehensive .NET samples for Agent Framework"
           },
           {
-            title: "Semantic Kernel Python Samples",
-            url: "https://github.com/microsoft/semantic-kernel/tree/main/python/samples",
-            description: "Python samples demonstrating Semantic Kernel capabilities"
-          },
-          {
-            title: "Semantic Kernel Java Samples",
-            url: "https://github.com/microsoft/semantic-kernel/tree/main/java/samples",
-            description: "Java samples for Semantic Kernel integration"
+            title: "Agent Framework Workflow Samples",
+            url: "https://github.com/microsoft/agent-framework/tree/main/workflow-samples",
+            description: "Advanced workflow patterns and multi-agent orchestration examples"
           }
         ]
       },
@@ -1388,19 +1393,19 @@ export const references: ReferencesData = {
         name: "SDKs & APIs",
         references: [
           {
-            title: "Semantic Kernel Python SDK",
-            url: "https://pypi.org/project/semantic-kernel/",
-            description: "Python SDK for Semantic Kernel"
+            title: "Agent Framework Python SDK",
+            url: "https://pypi.org/project/agent-framework/",
+            description: "Python SDK for Microsoft Agent Framework"
           },
           {
-            title: "Semantic Kernel .NET SDK",
-            url: "https://www.nuget.org/packages/Microsoft.SemanticKernel/",
-            description: ".NET SDK for Semantic Kernel"
+            title: "Agent Framework .NET SDK",
+            url: "https://www.nuget.org/packages/Microsoft.Agents.AI/",
+            description: ".NET SDK for Microsoft Agent Framework"
           },
           {
-            title: "Semantic Kernel Java SDK",
-            url: "https://central.sonatype.com/artifact/com.microsoft.semantic-kernel/semantickernel-core",
-            description: "Java SDK for Semantic Kernel"
+            title: "Agent Framework GitHub Repository",
+            url: "https://github.com/microsoft/agent-framework",
+            description: "Official GitHub repository with source code, samples, and documentation"
           }
         ]
       }

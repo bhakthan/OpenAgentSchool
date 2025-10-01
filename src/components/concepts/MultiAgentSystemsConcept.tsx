@@ -399,98 +399,106 @@ class AgentAuction {
       )
     },
     {
-      id: 'autogen-framework',
-      title: 'AutoGen Framework',
-      description: 'Microsoft AutoGen for multi-agent conversations',
+      id: 'agent-framework',
+      title: 'Microsoft Agent Framework',
+      description: 'Unified framework combining Semantic Kernel and AutoGen',
       icon: <Users className="w-4 h-4" />,
       level: 'architecture' as const,
       content: (
         <div className="space-y-6">
-          {/* AutoGen Overview */}
+          {/* Agent Framework Overview */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="w-5 h-5" />
-                Microsoft AutoGen Framework
+                <a 
+                  href="https://aka.ms/agentframework" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+                >
+                  Microsoft Agent Framework
+                </a>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-base leading-relaxed">
-                AutoGen is a framework that enables creation of LLM applications using multiple agents that can 
-                converse with each other to solve tasks. It simplifies the orchestration of multi-agent workflows 
-                and provides patterns for agent collaboration, making it easier to build complex AI systems.
+                Microsoft Agent Framework is a unified framework that combines the strengths of Semantic Kernel 
+                (production workloads) and AutoGen (rapid prototyping). It enables creation of multi-agent 
+                applications with graph-based workflows, built-in observability, and enterprise-ready features.
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <h4 className="font-semibold text-green-600">Key Features</h4>
                   <ul className="space-y-1 text-base">
-                    <li>• Conversational AI with multiple agents</li>
-                    <li>• Customizable agent roles and behaviors</li>
+                    <li>• Graph-based workflow orchestration</li>
+                    <li>• Python & .NET support</li>
+                    <li>• Built-in observability & tracing</li>
                     <li>• Human-in-the-loop capabilities</li>
-                    <li>• Integration with various LLM providers</li>
-                    <li>• Code execution and validation</li>
+                    <li>• Agent memory management</li>
+                    <li>• Middleware system for custom pipelines</li>
                   </ul>
                 </div>
                 <div className="space-y-2">
                   <h4 className="font-semibold text-blue-600">Use Cases</h4>
                   <ul className="space-y-1 text-base">
-                    <li>• Collaborative problem solving</li>
-                    <li>• Code generation and review</li>
-                    <li>• Research and analysis tasks</li>
-                    <li>• Educational content creation</li>
+                    <li>• Enterprise multi-agent systems</li>
                     <li>• Complex workflow automation</li>
+                    <li>• Rapid prototyping & production</li>
+                    <li>• Research and analysis tasks</li>
+                    <li>• Code generation and validation</li>
                   </ul>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          {/* AutoGen Architecture */}
+          {/* Agent Framework Architecture */}
           <Card>
             <CardHeader>
-              <CardTitle>AutoGen Architecture Components</CardTitle>
+              <CardTitle>Agent Framework Architecture Components</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 <Card className="border-blue-200">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-blue-600 text-lg">Conversable Agents</CardTitle>
+                    <CardTitle className="text-blue-600 text-lg">AI Agents</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-base mb-3">Base class for agents that can send and receive messages</p>
+                    <p className="text-base mb-3">Core agent abstraction with chat capabilities</p>
                     <ul className="text-base space-y-1">
-                      <li>• Message handling</li>
-                      <li>• Conversation management</li>
-                      <li>• Role-based behavior</li>
+                      <li>• Multiple provider support</li>
+                      <li>• Tool integration</li>
+                      <li>• Streaming responses</li>
                     </ul>
                   </CardContent>
                 </Card>
 
                 <Card className="border-green-200">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-green-600 text-lg">Assistant Agents</CardTitle>
+                    <CardTitle className="text-green-600 text-lg">Workflows</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-base mb-3">AI-powered agents with LLM capabilities</p>
+                    <p className="text-base mb-3">Graph-based orchestration of agent workflows</p>
                     <ul className="text-base space-y-1">
-                      <li>• LLM integration</li>
-                      <li>• Function calling</li>
-                      <li>• Code generation</li>
+                      <li>• Deterministic execution</li>
+                      <li>• Checkpointing</li>
+                      <li>• Time-travel debugging</li>
                     </ul>
                   </CardContent>
                 </Card>
 
                 <Card className="border-purple-200">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-purple-600 text-lg">User Proxy Agents</CardTitle>
+                    <CardTitle className="text-purple-600 text-lg">Agent Thread</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-base mb-3">Agents that represent human users in conversations</p>
+                    <p className="text-base mb-3">Unified memory management for agents</p>
                     <ul className="text-base space-y-1">
-                      <li>• Human input solicitation</li>
-                      <li>• Code execution</li>
-                      <li>• Approval workflows</li>
+                      <li>• Short-term (chat history)</li>
+                      <li>• Long-term (preferences)</li>
+                      <li>• External storage support</li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -498,41 +506,39 @@ class AgentAuction {
 
               <div className={conceptSurfaceSoft("p-4 space-y-3")}
               >
-                <h4 className="font-semibold">Basic AutoGen Implementation</h4>
-                <pre className={conceptCodeBlock("text-base p-4 overflow-x-auto")}>{`import autogen
+                <h4 className="font-semibold">Basic Agent Framework Implementation</h4>
+                <pre className={conceptCodeBlock("text-base p-4 overflow-x-auto")}>{`from agent_framework.azure import AzureOpenAIResponsesClient
+from azure.identity import AzureCliCredential
 
-# Configure LLM
-config_list = [{
-    "model": "gpt-4",
-    "api_key": "your_api_key"
-}]
-
-# Create assistant agent
-assistant = autogen.AssistantAgent(
+# Create agent with Azure OpenAI
+agent = AzureOpenAIResponsesClient(
+    credential=AzureCliCredential()
+).create_agent(
     name="assistant",
-    llm_config={"config_list": config_list}
+    instructions="You are a helpful AI assistant."
 )
 
-# Create user proxy agent
-user_proxy = autogen.UserProxyAgent(
-    name="user_proxy",
-    human_input_mode="NEVER",
-    code_execution_config={"work_dir": "coding"}
-)
+# Run agent
+result = await agent.run("Help me solve this problem step by step")
 
-# Start conversation
-user_proxy.initiate_chat(
-    assistant,
-    message="Help me solve this problem step by step"
-)`}</pre>
+# Multi-agent workflow
+from agent_framework.workflows import Workflow
+
+workflow = Workflow()
+researcher = workflow.add_agent("researcher", instructions="Research specialist")
+analyst = workflow.add_agent("analyst", instructions="Data analyst")
+
+# Connect agents in graph
+workflow.connect(researcher, analyst)
+result = await workflow.run("Analyze market trends")`}</pre>
               </div>
             </CardContent>
           </Card>
 
-          {/* AutoGen vs Other Frameworks */}
+          {/* Agent Framework vs Other Frameworks */}
           <Card>
             <CardHeader>
-              <CardTitle>AutoGen vs Other Multi-Agent Frameworks</CardTitle>
+              <CardTitle>Microsoft Agent Framework vs Other Multi-Agent Frameworks</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
@@ -540,21 +546,21 @@ user_proxy.initiate_chat(
                   <thead>
                     <tr className="bg-muted/70 text-foreground">
                       <th className="border border-border/60 p-2 text-left font-semibold">Feature</th>
-                      <th className="border border-border/60 p-2 text-center font-semibold">AutoGen</th>
+                      <th className="border border-border/60 p-2 text-center font-semibold">Agent Framework</th>
                       <th className="border border-border/60 p-2 text-center font-semibold">CrewAI</th>
                       <th className="border border-border/60 p-2 text-center font-semibold">LangGraph</th>
                     </tr>
                   </thead>
                   <tbody className="text-base">
                     <tr>
-                      <td className="border border-border/60 p-2 font-medium">Conversation Focus</td>
-                      <td className="border border-border/60 p-2 text-center">✅ High</td>
-                      <td className="border border-border/60 p-2 text-center">🔶 Medium</td>
-                      <td className="border border-border/60 p-2 text-center">🔶 Medium</td>
+                      <td className="border border-border/60 p-2 font-medium">Graph Workflows</td>
+                      <td className="border border-border/60 p-2 text-center">✅ Native</td>
+                      <td className="border border-border/60 p-2 text-center">🔶 Limited</td>
+                      <td className="border border-border/60 p-2 text-center">✅ Native</td>
                     </tr>
                     <tr>
-                      <td className="border border-border/60 p-2 font-medium">Code Execution</td>
-                      <td className="border border-border/60 p-2 text-center">✅ Built-in</td>
+                      <td className="border border-border/60 p-2 font-medium">Built-in Observability</td>
+                      <td className="border border-border/60 p-2 text-center">✅ OpenTelemetry</td>
                       <td className="border border-border/60 p-2 text-center">🔶 Custom</td>
                       <td className="border border-border/60 p-2 text-center">🔶 Custom</td>
                     </tr>
@@ -563,6 +569,12 @@ user_proxy.initiate_chat(
                       <td className="border border-border/60 p-2 text-center">✅ Native</td>
                       <td className="border border-border/60 p-2 text-center">❌ Limited</td>
                       <td className="border border-border/60 p-2 text-center">🔶 Custom</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-border/60 p-2 font-medium">Multi-Language</td>
+                      <td className="border border-border/60 p-2 text-center">✅ Python & .NET</td>
+                      <td className="border border-border/60 p-2 text-center">🔶 Python only</td>
+                      <td className="border border-border/60 p-2 text-center">🔶 Python only</td>
                     </tr>
                     <tr>
                       <td className="border border-border/60 p-2 font-medium">Microsoft Integration</td>
@@ -576,23 +588,23 @@ user_proxy.initiate_chat(
             </CardContent>
           </Card>
 
-          {/* AutoGen Conversation Patterns */}
+          {/* Agent Framework Patterns */}
           <Card>
             <CardHeader>
-              <CardTitle>AutoGen Conversation Patterns</CardTitle>
+              <CardTitle>Agent Framework Workflow Patterns</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <Card className="border-indigo-200">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-indigo-600 text-lg">Two-Agent Chat</CardTitle>
+                    <CardTitle className="text-indigo-600 text-lg">Sequential Workflow</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-base mb-3">Direct conversation between two agents</p>
+                    <p className="text-base mb-3">Agents execute in deterministic order</p>
                     <ul className="text-base space-y-1">
-                      <li>• Question-answer format</li>
-                      <li>• Code review scenarios</li>
-                      <li>• Problem-solving dialogue</li>
+                      <li>• Step-by-step processing</li>
+                      <li>• Data passing between agents</li>
+                      <li>• Checkpointing support</li>
                     </ul>
                   </CardContent>
                 </Card>

@@ -53,49 +53,49 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
     subCategory: 'architecture-patterns',
     timeEstimate: 55
   },
-  // AutoGen Framework questions
+  // Microsoft Agent Framework questions
   {
     id: 'multi-agent-autogen-b1',
-    text: '',
-    question: 'What is Microsoft AutoGen and how does it facilitate multi-agent conversations?',
+    text: 'What is Microsoft Agent Framework and how does it facilitate multi-agent conversations?',
+    question: 'What is Microsoft Agent Framework and how does it facilitate multi-agent conversations?',
+    type: 'multiple-choice',
+    difficulty: 'beginner',
+    category: 'multi-agent-systems',
+    subCategory: 'agent-framework',
     options: [
       'A single AI model',
-      'A framework for enabling multiple AI agents to collaborate and converse automatically',
+      'A unified framework for enabling multiple AI agents to collaborate and converse automatically, combining AutoGen (prototyping) and Semantic Kernel (production)',
       'A data storage system',
       'A web framework'
     ],
     correctAnswer: 1,
-    explanation: 'Microsoft AutoGen is a framework that enables multiple AI agents to collaborate through structured conversations, with each agent having specialized roles and capabilities for complex problem-solving.',
-    difficulty: 'beginner',
-    category: 'multi-agent-systems',
-    subCategory: 'autogen-framework',
-    relatedConcepts: ['autogen-framework', 'multi-agent-conversations', 'collaborative-ai'],
-    persona: ['business-leader', 'agent-designer', 'ai-enthusiast', 'agent-developer'],
-    timeEstimate: 40
+    explanation: 'Microsoft Agent Framework is a unified framework that enables multiple AI agents to collaborate through structured conversations, with each agent having specialized roles and capabilities for complex problem-solving. It combines the strengths of AutoGen (prototyping) and Semantic Kernel (production).',
+    tags: ['agent-framework', 'multi-agent', 'microsoft', 'collaboration'],
+    relatedConcepts: ['agent-framework', 'multi-agent-conversations', 'collaborative-ai']
   },
   {
     id: 'multi-agent-autogen-i2',
     text: '',
-    question: 'Which agent types are commonly used in AutoGen multi-agent workflows?',
+    question: 'Which components are commonly used in Agent Framework multi-agent workflows?',
     options: [
-      'Only AssistantAgent',
-      'AssistantAgent, UserProxyAgent, and GroupChatManager',
+      'Only a single agent type',
+      'Multiple AI Agents with workflows, memory providers, and tools',
       'Only databases',
       'Only web servers'
     ],
     correctAnswer: 1,
-    explanation: 'AutoGen typically uses AssistantAgent for AI-powered responses, UserProxyAgent for human interaction and code execution, and GroupChatManager for orchestrating multi-agent conversations.',
+    explanation: 'Agent Framework uses AI Agents for intelligent responses, workflows for orchestration, memory providers for context persistence, and tools for external capabilities. It unifies AutoGen (prototyping) and Semantic Kernel (production) patterns.',
     difficulty: 'intermediate',
     category: 'multi-agent-systems',
-    subCategory: 'autogen-framework',
-    relatedConcepts: ['agent-types', 'conversation-orchestration', 'human-in-loop'],
+    subCategory: 'agent-framework',
+    relatedConcepts: ['agent-types', 'conversation-orchestration', 'memory-providers'],
     persona: ['agent-developer', 'ai-engineer', 'agent-architect'],
     timeEstimate: 45
   },
   {
     id: 'multi-agent-autogen-a3',
     text: '',
-    question: 'How should you design AutoGen workflows for complex enterprise scenarios?',
+    question: 'How should you design Agent Framework workflows for complex enterprise scenarios?',
     options: [
       'Use only one agent',
       'Design specialized agents with clear roles, implement robust conversation flows, and integrate with enterprise systems',
@@ -103,10 +103,10 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
       'Avoid any customization'
     ],
     correctAnswer: 1,
-    explanation: 'Enterprise AutoGen workflows require specialized agents (analyst, executor, reviewer), well-defined conversation patterns, integration with enterprise APIs, and proper error handling for production reliability.',
+    explanation: 'Enterprise Agent Framework workflows require specialized agents (analyst, executor, reviewer), well-defined conversation patterns, integration with enterprise systems (APIs, databases), memory providers for context persistence, and proper error handling for production reliability. The framework unifies AutoGen patterns for prototyping with Semantic Kernel patterns for production.',
     difficulty: 'advanced',
     category: 'multi-agent-systems',
-    subCategory: 'autogen-framework',
+    subCategory: 'agent-framework',
     relatedConcepts: ['enterprise-architecture', 'workflow-design', 'system-integration'],
     persona: ['agent-architect', 'ai-engineer', 'ai-ops-engineer'],
     timeEstimate: 55
@@ -190,11 +190,11 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
     persona: ['agent-developer', 'ai-engineer', 'agent-architect'],
     timeEstimate: 50
   },
-  // AutoGen Framework questions
+  // Microsoft Agent Framework questions
   {
     id: 'autogen-b1',
-    text: 'What is Microsoft AutoGen framework primarily designed for?',
-    question: 'What is Microsoft AutoGen framework primarily designed for?',
+    text: 'What is Microsoft Agent Framework primarily designed for?',
+    question: 'What is Microsoft Agent Framework primarily designed for?',
     options: [
       'Single-agent LLM applications',
       'Multi-agent conversational AI systems',
@@ -202,10 +202,10 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
       'Web development'
     ],
     correctAnswer: 1,
-    explanation: 'AutoGen is specifically designed to enable creation of LLM applications using multiple agents that can converse with each other to solve complex tasks.',
+    explanation: 'Microsoft Agent Framework is specifically designed to enable creation of LLM applications using multiple agents that can converse with each other to solve complex tasks. It unifies AutoGen (prototyping) and Semantic Kernel (production).',
     difficulty: 'beginner',
     category: 'multi-agent-systems',
-    subCategory: 'autogen-framework',
+    subCategory: 'agent-framework',
     relatedTopics: ['conversational-ai', 'multi-agent-systems', 'microsoft-frameworks'],
     relatedConcepts: ['conversational-ai', 'multi-agent-systems', 'microsoft-frameworks'],
     persona: ['business-leader', 'agent-designer', 'ai-enthusiast', 'agent-developer'],
@@ -213,8 +213,8 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
   },
   {
     id: 'autogen-i1',
-    text: 'Which types of agents are core components in AutoGen framework?',
-    question: 'Which types of agents are core components in AutoGen framework?',
+    text: 'Which types of agents are core components in Agent Framework?',
+    question: 'Which types of agents are core components in Agent Framework?',
     options: [
       'Only AI agents',
       'Conversable agents, Assistant agents, and User proxy agents',
@@ -222,10 +222,10 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
       'Only web scraping agents'
     ],
     correctAnswer: 1,
-    explanation: 'AutoGen provides three main agent types: Conversable agents (base class), Assistant agents (AI-powered), and User proxy agents (human representation).',
+    explanation: 'Agent Framework provides AI Agents for intelligent responses, Workflows for orchestration, and Agent Thread for managing conversation state and memory.',
     difficulty: 'intermediate',
     category: 'multi-agent-systems',
-    subCategory: 'autogen-framework',
+    subCategory: 'agent-framework',
     relatedTopics: ['agent-architecture', 'conversation-patterns', 'human-in-loop'],
     relatedConcepts: ['agent-architecture', 'conversation-patterns', 'human-in-loop'],
     persona: ['agent-developer', 'ai-engineer', 'agent-architect'],
@@ -233,8 +233,8 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
   },
   {
     id: 'autogen-a1',
-    text: 'How does AutoGen integrate with Azure AI Services for enterprise deployments?',
-    question: 'How does AutoGen integrate with Azure AI Services for enterprise deployments?',
+    text: 'How does Microsoft Agent Framework integrate with Azure AI Services for enterprise deployments?',
+    question: 'How does Microsoft Agent Framework integrate with Azure AI Services for enterprise deployments?',
     options: [
       'No integration possible',
       'Through Azure OpenAI, Azure AI Search, and Azure Container Apps for scalable multi-agent systems',
@@ -242,10 +242,10 @@ export const multiAgentSystemsQuestions: QuizQuestion[] = [
       'Only for development environments'
     ],
     correctAnswer: 1,
-    explanation: 'AutoGen integrates seamlessly with Azure ecosystem including Azure OpenAI for models, Azure AI Search for RAG, and Azure Container Apps for scalable deployment.',
+    explanation: 'Microsoft Agent Framework integrates seamlessly with Azure ecosystem including Azure OpenAI for models, Azure AI Search for RAG, Azure Container Apps for scalable deployment, and supports both AutoGen (prototyping) and Semantic Kernel (production) patterns.',
     difficulty: 'advanced',
     category: 'multi-agent-systems',
-    subCategory: 'autogen-framework',
+    subCategory: 'agent-framework',
     relatedTopics: ['azure-integration', 'scalable-deployment', 'enterprise-architecture'],
     relatedConcepts: ['azure-integration', 'scalable-deployment', 'enterprise-architecture'],
     persona: ['agent-architect', 'ai-engineer', 'ai-ops-engineer'],

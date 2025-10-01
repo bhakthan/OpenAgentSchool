@@ -180,7 +180,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
         { 
           name: "Workflow Oriented", 
           description: "Sequential and conditional workflows", 
-          examples: ["CrewAI", "AutoGen", "Sequential Chains", "Pipeline Orchestration", "Event-Driven Workflows"],
+          examples: ["CrewAI", "Microsoft Agent Framework", "Sequential Chains", "Pipeline Orchestration", "Event-Driven Workflows"],
           icon: <ChartLine className="w-4 h-4" />
         },
         { 
@@ -971,40 +971,41 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
   // Enhanced content sections
   const frameworkComparisons = [
     {
-      name: "Semantic Kernel",
-      strengths: ["Enterprise integration", "Plugin ecosystem", "Memory management"],
-      useCases: ["Enterprise apps", "Skill orchestration", "Knowledge work"],
-      architecture: "Plugin-based"
-    },
-    {
-      name: "AutoGen",
-      strengths: ["Multi-agent conversations", "Code generation", "Debugging"],
-      useCases: ["Software development", "Code review", "Problem solving"],
-      architecture: "Conversational"
+      name: "Microsoft Agent Framework",
+      strengths: ["Unified framework", "Graph-based workflows", "Production-ready", "DevUI", "Multi-language support"],
+      useCases: ["Enterprise workloads", "Multi-agent orchestration", "Rapid prototyping", "Complex workflows"],
+      architecture: "Unified",
+      description: "Combines Semantic Kernel (production) and AutoGen (prototyping) into a single framework",
+      link: "https://aka.ms/agentframework",
+      features: ["Python & .NET", "Built-in observability", "Human-in-the-loop", "Agent memory", "Middleware system"]
     },
     {
       name: "OpenAI SDK",
       strengths: ["Native GPT integration", "Function calling", "Assistant API"],
       useCases: ["AI assistants", "Function execution", "Tool integration"],
-      architecture: "API-driven"
+      architecture: "API-driven",
+      link: "https://openai.github.io/openai-agents-python/"
     },
     {
       name: "Google ADK",
       strengths: ["Gemini integration", "Multi-modal agents", "Google ecosystem"],
       useCases: ["Multi-modal AI", "Google services", "Enterprise solutions"],
-      architecture: "Platform-native"
+      architecture: "Platform-native",
+      link: "https://google.github.io/adk-docs/"
     },
     {
       name: "LangGraph",
       strengths: ["Graph workflows", "State management", "Conditional logic"],
       useCases: ["Complex workflows", "Decision trees", "Multi-step processes"],
-      architecture: "Graph-based"
+      architecture: "Graph-based",
+      link: "https://www.langchain.com/langgraph"
     },
     {
       name: "CrewAI",
       strengths: ["Role-based agents", "Sequential workflows", "Easy setup"],
       useCases: ["Business automation", "Content creation", "Research tasks"],
-      architecture: "Workflow-oriented"
+      architecture: "Workflow-oriented",
+      link: "https://github.com/crewAIInc/crewAI"
     }
   ]
 
@@ -1208,9 +1209,39 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                 {frameworkComparisons.map((framework, index) => (
                   <div key={index} className="p-4 border rounded-lg space-y-3">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-semibold">{framework.name}</h3>
+                      <h3 className="font-semibold">
+                        {framework.link ? (
+                          <a 
+                            href={framework.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                          >
+                            {framework.name}
+                          </a>
+                        ) : (
+                          framework.name
+                        )}
+                      </h3>
                       <Badge variant="outline" className="ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">{framework.architecture}</Badge>
                     </div>
+                    {framework.description && (
+                      <p className="text-sm text-muted-foreground italic">
+                        {framework.description}
+                      </p>
+                    )}
+                    {framework.features && (
+                      <div>
+                        <h4 className="text-sm font-medium text-purple-600 dark:text-purple-400">Key Features</h4>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {framework.features.map((feature, idx) => (
+                            <Badge key={idx} variant="outline" className="text-xs ring-1 bg-[var(--badge-purple-bg)] ring-[var(--badge-purple-ring)] text-[var(--badge-purple-text)]">
+                              {feature}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                     <div>
                       <h4 className="text-sm font-medium text-green-600 dark:text-green-400">Strengths</h4>
                       <div className="flex flex-wrap gap-1 mt-1">
@@ -1505,21 +1536,66 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                 <h3 className="font-medium">Leading Frameworks</h3>
                 <div className="space-y-3">
                   <div className="p-3 bg-secondary rounded-lg">
-                    <h4 className="font-medium text-sm">CrewAI & LangGraph</h4>
+                    <h4 className="font-medium text-sm">
+                      <a 
+                        href="https://aka.ms/agentframework" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        Microsoft Agent Framework
+                      </a>
+                    </h4>
+                    <p className="text-xs text-muted-foreground">
+                      Unified production & prototyping, multi-agent orchestration, enterprise-ready workflows
+                    </p>
+                  </div>
+                  <div className="p-3 bg-secondary rounded-lg">
+                    <h4 className="font-medium text-sm">
+                      <a 
+                        href="https://github.com/crewAIInc/crewAI" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        CrewAI
+                      </a>
+                      {" & "}
+                      <a 
+                        href="https://www.langchain.com/langgraph" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        LangGraph
+                      </a>
+                    </h4>
                     <p className="text-xs text-muted-foreground">
                       Business automation, risk management, workflow orchestration
                     </p>
                   </div>
                   <div className="p-3 bg-secondary rounded-lg">
-                    <h4 className="font-medium text-sm">AutoGen & MetaGPT</h4>
+                    <h4 className="font-medium text-sm">
+                      <a 
+                        href="https://openai.github.io/openai-agents-python/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        OpenAI SDK
+                      </a>
+                      {" & "}
+                      <a 
+                        href="https://google.github.io/adk-docs/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        Google ADK
+                      </a>
+                    </h4>
                     <p className="text-xs text-muted-foreground">
-                      Multi-agent collaboration, code generation, software development
-                    </p>
-                  </div>
-                  <div className="p-3 bg-secondary rounded-lg">
-                    <h4 className="font-medium text-sm">Semantic Kernel & Google ADK</h4>
-                    <p className="text-xs text-muted-foreground">
-                      Enterprise integration, adaptive assistants, scalable orchestration
+                      Native platform integration, AI assistants, multi-modal capabilities
                     </p>
                   </div>
                 </div>

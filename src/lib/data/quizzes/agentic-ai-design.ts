@@ -26,14 +26,14 @@ export const agenticAIDesignQuestions: QuizQuestion[] = [
     options: [
       'CrewAI',
       'LangGraph', 
-      'Semantic Kernel',
-      'AutoGen'
+      'Microsoft Agent Framework (unified Semantic Kernel + AutoGen)',
+      'Custom implementation'
     ],
     correctAnswer: 2,
-    explanation: 'Semantic Kernel is specifically designed with a plugin-based architecture to facilitate enterprise integration and skill orchestration. Choosing the right framework for enterprise integration is critical for successful AI deployment.',
+    explanation: 'Microsoft Agent Framework (which unified Semantic Kernel and AutoGen) is specifically designed with a plugin-based architecture to facilitate enterprise integration and skill orchestration. Semantic Kernel provided the production-grade plugin system, while AutoGen contributed prototyping patterns. Choosing the right framework for enterprise integration is critical for successful AI deployment.',
     difficulty: 'beginner',
     category: 'agentic-ai-design',
-    subCategory: 'agentic-ai-design',
+    subCategory: 'agent-framework',
     timeEstimate: 45
   },
 

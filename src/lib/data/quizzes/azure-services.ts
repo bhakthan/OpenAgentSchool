@@ -180,11 +180,11 @@ export const azureServicesQuestions: QuizQuestion[] = [
     persona: ['ai-engineer', 'agent-architect', 'ai-ops-engineer'],
     timeEstimate: 60
   },
-  // AutoGen Azure Integration questions
+  // Agent Framework Azure Integration questions
   {
     id: 'autogen-azure-b1',
-    text: 'How does AutoGen framework integrate with Azure OpenAI Service?',
-    question: 'How does AutoGen framework integrate with Azure OpenAI Service?',
+    text: 'How does Microsoft Agent Framework integrate with Azure OpenAI Service?',
+    question: 'How does Microsoft Agent Framework integrate with Azure OpenAI Service?',
     options: [
       'No integration available',
       'Through Azure OpenAI REST APIs and SDKs for multi-agent conversations',
@@ -192,19 +192,19 @@ export const azureServicesQuestions: QuizQuestion[] = [
       'Only through third-party connectors'
     ],
     correctAnswer: 1,
-    explanation: 'AutoGen seamlessly integrates with Azure OpenAI Service using REST APIs and SDKs, enabling multi-agent conversations powered by Azure-hosted models with enterprise security.',
+    explanation: 'Microsoft Agent Framework seamlessly integrates with Azure OpenAI Service using REST APIs and SDKs, enabling multi-agent conversations powered by Azure-hosted models with enterprise security.',
     difficulty: 'beginner',
     category: 'azure-services',
     subCategory: 'azure-openai',
-    relatedTopics: ['autogen-framework', 'azure-integration', 'multi-agent'],
-    relatedConcepts: ['autogen-framework', 'azure-integration', 'multi-agent'],
+    relatedTopics: ['agent-framework', 'azure-integration', 'multi-agent'],
+    relatedConcepts: ['agent-framework', 'azure-integration', 'multi-agent'],
     persona: ['business-leader', 'agent-developer', 'ai-enthusiast'],
     timeEstimate: 35
   },
   {
     id: 'autogen-azure-i1',
-    text: 'What Azure services complement AutoGen for enterprise multi-agent deployments?',
-    question: 'What Azure services complement AutoGen for enterprise multi-agent deployments?',
+    text: 'What Azure services complement Microsoft Agent Framework for enterprise multi-agent deployments?',
+    question: 'What Azure services complement Microsoft Agent Framework for enterprise multi-agent deployments?',
     options: [
       'Only Azure OpenAI',
       'Azure OpenAI, Azure AI Search, Azure Container Apps, and Azure Functions',
@@ -212,7 +212,7 @@ export const azureServicesQuestions: QuizQuestion[] = [
       'Only Azure Networking'
     ],
     correctAnswer: 1,
-    explanation: 'Enterprise AutoGen deployments leverage Azure OpenAI for models, Azure AI Search for RAG capabilities, Azure Container Apps for scalable hosting, and Azure Functions for serverless execution.',
+    explanation: 'Enterprise Agent Framework deployments leverage Azure OpenAI for models, Azure AI Search for RAG capabilities, Azure Container Apps for scalable hosting, and Azure Functions for serverless execution. The framework supports both AutoGen (prototyping) and Semantic Kernel (production) patterns.',
     difficulty: 'intermediate',
     category: 'azure-services',
     subCategory: 'azure-openai',
@@ -223,8 +223,8 @@ export const azureServicesQuestions: QuizQuestion[] = [
   },
   {
     id: 'autogen-azure-a1',
-    text: 'How do you implement secure, scalable AutoGen systems using Azure best practices?',
-    question: 'How do you implement secure, scalable AutoGen systems using Azure best practices?',
+    text: 'How do you implement secure, scalable Agent Framework systems using Azure best practices?',
+    question: 'How do you implement secure, scalable Agent Framework systems using Azure best practices?',
     options: [
       'Use only basic authentication',
       'Implement Azure Key Vault, managed identities, private endpoints, and Azure Monitor for comprehensive security and observability',
@@ -232,10 +232,10 @@ export const azureServicesQuestions: QuizQuestion[] = [
       'Implement custom security only'
     ],
     correctAnswer: 1,
-    explanation: 'Secure AutoGen implementations use Azure Key Vault for secrets, managed identities for authentication, private endpoints for network security, and Azure Monitor for comprehensive observability.',
+    explanation: 'Secure Agent Framework implementations use Azure Key Vault for secrets, managed identities for authentication, private endpoints for network security, and Azure Monitor for comprehensive observability. The framework supports both AutoGen (prototyping) and Semantic Kernel (production) deployment patterns.',
     difficulty: 'advanced',
     category: 'azure-services',
-    subCategory: 'azure-openai',
+    subCategory: 'agent-framework',
     relatedTopics: ['azure-key-vault', 'managed-identities', 'private-endpoints', 'azure-monitor'],
     relatedConcepts: ['azure-key-vault', 'managed-identities', 'private-endpoints', 'azure-monitor'],
     persona: ['agent-architect', 'ai-engineer', 'ai-ops-engineer'],

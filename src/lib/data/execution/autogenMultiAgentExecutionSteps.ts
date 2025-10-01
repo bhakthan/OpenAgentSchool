@@ -1,4 +1,10 @@
-// Execution steps for AutoGen Multi-Agent pattern (TypeScript codeExample line mapping)
+// NOTE: These execution steps demonstrate multi-agent conversation patterns that are now part of 
+// Microsoft Agent Framework (https://aka.ms/agentframework), which unifies AutoGen (prototyping)
+// and Semantic Kernel (production) into a single framework with graph-based workflows, built-in
+// observability, and enterprise-ready features. For production implementations, see:
+// https://github.com/microsoft/agent-framework
+
+// Execution steps for Multi-Agent Conversation pattern (TypeScript codeExample line mapping)
 export interface ExecutionStep {
   id: string;
   title: string;

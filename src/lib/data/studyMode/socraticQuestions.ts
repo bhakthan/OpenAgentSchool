@@ -2086,11 +2086,11 @@ export const agenticAIDesignTaxonomySocraticQuestions: StudyModeQuestion[] = [
       "Enterprise frameworks prioritize integration and compliance"
     ],
     hints: [
-      "Think about AutoGen's strength in multi-agent conversations",
+      "Think about Microsoft Agent Framework's unified approach combining production & prototyping",
       "Consider LangGraph's graph-based workflow capabilities", 
-      "Reflect on Semantic Kernel's enterprise plugin architecture"
+      "Reflect on Agent Framework's built-in observability and enterprise features"
     ],
-    explanation: "This exploration demonstrates how different frameworks serve different architectural patterns, and the choice should align with your specific use case requirements.",
+    explanation: "This exploration demonstrates how different frameworks serve different architectural patterns. Microsoft Agent Framework now combines the strengths of both conversational AI (formerly AutoGen) and enterprise integration (formerly Semantic Kernel) into a single unified solution.",
     relatedConcepts: ['framework-selection', 'multi-agent-systems', 'enterprise-integration'],
     timeEstimate: 15,
     successCriteria: [

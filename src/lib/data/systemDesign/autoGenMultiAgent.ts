@@ -1,11 +1,16 @@
 import { SystemDesignPattern } from './types';
 
+// NOTE: This pattern demonstrates multi-agent conversation concepts that are now part of 
+// Microsoft Agent Framework (https://aka.ms/agentframework), which unifies AutoGen (prototyping)
+// and Semantic Kernel (production) into a single framework with enhanced capabilities including
+// graph-based workflows, built-in observability, and enterprise-ready features.
+
 export const autoGenMultiAgentSystemDesign: SystemDesignPattern = {
   id: 'autogen-multi-agent',
-  name: 'AutoGen Multi-Agent System Design',
-  overview: 'A comprehensive system design for building sophisticated multi-agent conversation systems inspired by Microsoft AutoGen, enabling automated agent discussions, role-based collaboration, and complex problem-solving through conversational workflows.',
+  name: 'Multi-Agent Conversation System Design',
+  overview: 'A comprehensive system design for building sophisticated multi-agent conversation systems using Microsoft Agent Framework, enabling automated agent discussions, role-based collaboration, and complex problem-solving through conversational workflows and graph-based orchestration.',
   problemStatement: 'How to design systems that orchestrate multiple AI agents in structured conversations to solve complex problems through automated discussion, debate, and collaborative reasoning while maintaining conversation quality and goal achievement.',
-  solution: 'Implement an AutoGen-inspired multi-agent conversation system with role specialization, conversation orchestration, automated discussion management, and quality control mechanisms.',
+  solution: 'Implement a multi-agent conversation system with role specialization, workflow orchestration, automated discussion management, and quality control mechanisms using Microsoft Agent Framework.',
   steps: [
     {
       id: 'autogen-conversation-prompting',

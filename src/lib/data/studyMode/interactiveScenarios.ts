@@ -1,6 +1,12 @@
 import { StudyModeQuestion, StudyScenario, ScenarioChallenge, ScenarioOutcome } from './types';
 
-// Interactive Scenarios for AutoGen Multi-Agent System
+// NOTE: These scenarios teach multi-agent conversation patterns that are now part of 
+// Microsoft Agent Framework (https://aka.ms/agentframework). The framework unifies 
+// AutoGen's conversational approach with Semantic Kernel's enterprise features, adding
+// graph-based workflows, built-in observability, and enhanced memory management.
+// Learn more: https://github.com/microsoft/agent-framework
+
+// Interactive Scenarios for Multi-Agent Systems
 export const autoGenScenarios: StudyModeQuestion[] = [
   {
     id: 'autogen-scenario-1',
@@ -12,19 +18,19 @@ export const autoGenScenarios: StudyModeQuestion[] = [
       id: 'code-review-system',
       title: 'Two-Agent Code Review Workflow',
       description: 'You need to build a system where one agent writes code and another reviews it. Let\'s build this step by step.',
-      context: 'Your team wants to automate code generation and review using AutoGen. You have two agent types available: AssistantAgent and UserProxyAgent.',
+      context: 'Your team wants to automate code generation and review using multi-agent systems. You need to understand agent types and their roles.',
       stakeholders: ['Development Team', 'Code Quality Team', 'Project Manager'],
       challenges: [
         {
           id: 'agent-selection',
           title: 'Choose the Right Agent Types',
           description: 'For the code writer role',
-          question: 'Which agent type from the AutoGen framework would be best for writing code, and why?',
+          question: 'Which agent type from Microsoft Agent Framework (formerly AutoGen) would be best for writing code, and why?',
           type: 'multiple-choice',
           options: [
-            'AssistantAgent - because it can generate content and code',
-            'UserProxyAgent - because it executes code',
-            'Both agents can write code equally well',
+            'Agent with code generation instructions - because it can generate content and code',
+            'Agent with execution capabilities - because it runs code',
+            'Both agent types can write code equally well',
             'Neither, you need a custom agent'
           ],
           correctAnswer: 0,
@@ -97,31 +103,34 @@ export const autoGenScenarios: StudyModeQuestion[] = [
           ]
         }
       ],
-      codeExample: `# Your AutoGen Code Review System
-import autogen
+      codeExample: `# Microsoft Agent Framework Code Review System
+# Note: Agent Framework unifies AutoGen (prototyping) and Semantic Kernel (production)
+from agent_framework.azure import AzureAIAgentClient
+from azure.identity import AzureCliCredential
 
-# Code Writer Agent
-code_writer = autogen.AssistantAgent(
-    name="CodeWriter",
-    system_message="You are an expert Python developer. Write clean, well-documented code based on requirements.",
-    llm_config={"config_list": config_list}
-)
-
-# Code Reviewer Agent  
-code_reviewer = autogen.AssistantAgent(
-    name="CodeReviewer", 
-    system_message="You are a senior code reviewer. Analyze code for bugs, style, and best practices. End with APPROVED or REJECTED.",
-    llm_config={"config_list": config_list}
-)
-
-# Human proxy for oversight
-user_proxy = autogen.UserProxyAgent(
-    name="Manager",
-    human_input_mode="TERMINATE",
-    is_termination_msg=lambda x: "APPROVED" in x.get("content", "") or "REJECTED" in x.get("content", "")
-)`,
+async def code_review_workflow():
+    credential = AzureCliCredential()
+    
+    async with AzureAIAgentClient(async_credential=credential) as client:
+        # Code Writer Agent
+        code_writer = await client.create_agent(
+            name="CodeWriter",
+            instructions="You are an expert Python developer. Write clean, well-documented code based on requirements.",
+            model="gpt-4"
+        )
+        
+        # Code Reviewer Agent  
+        code_reviewer = await client.create_agent(
+            name="CodeReviewer",
+            instructions="You are a senior code reviewer. Analyze code for bugs, style, and best practices. End with APPROVED or REJECTED.",
+            model="gpt-4"
+        )
+        
+        # Review workflow
+        code_result = await code_writer.run("Write a function to validate email addresses")
+        review_result = await code_reviewer.run(f"Review this code: {code_result}")`,
       resources: [
-        'AutoGen Framework Documentation',
+        'Microsoft Agent Framework Documentation',
         'Multi-Agent Design Patterns',
         'Code Review Best Practices'
       ],
@@ -135,7 +144,7 @@ user_proxy = autogen.UserProxyAgent(
       ]
     },
     explanation: 'This scenario helps you understand how to design multi-agent systems by making practical decisions about agent roles, interaction patterns, and termination conditions.',
-    relatedConcepts: ['autogen', 'agent-roles', 'conversation-design'],
+    relatedConcepts: ['agent-framework', 'agent-roles', 'conversation-design'],
     timeEstimate: 25,
     successCriteria: [
       'Correctly identifies agent types for different roles',
@@ -227,47 +236,41 @@ user_proxy = autogen.UserProxyAgent(
           ]
         }
       ],
-      codeExample: `# Enterprise Multi-Agent Business Analysis System
-import autogen
-import redis
+      codeExample: `# Microsoft Agent Framework - Enterprise Multi-Agent Business Analysis
+# Unified framework combining AutoGen (prototyping) + Semantic Kernel (production)
+from agent_framework.azure import AzureAIAgentClient
+from agent_framework.memory import SharedMemoryProvider
+from azure.identity import AzureCliCredential
+import asyncio
 
-# Shared state management
-shared_cache = redis.Redis(host='localhost', port=6379, db=0)
-
-# Specialized agents with clear expertise
-data_analyst = autogen.AssistantAgent(
-    name="DataAnalyst",
-    system_message="You are a data analyst expert. Focus on data patterns, statistics, and quantitative insights.",
-    llm_config={"config_list": config_list}
-)
-
-market_researcher = autogen.AssistantAgent(
-    name="MarketResearcher", 
-    system_message="You are a market research expert. Focus on market trends, competitive analysis, and customer insights.",
-    llm_config={"config_list": config_list}
-)
-
-# Custom speaker selection based on conversation context
-def custom_speaker_selection(last_speaker, group_chat):
-    last_message = group_chat.messages[-1]["content"].lower()
+async def enterprise_analysis_system():
+    credential = AzureCliCredential()
     
-    if "data" in last_message or "statistics" in last_message:
-        return data_analyst
-    elif "market" in last_message or "competition" in last_message:
-        return market_researcher
-    # ... additional logic
+    # Shared state management with Agent Framework memory
+    shared_memory = SharedMemoryProvider(connection_string="redis://localhost:6379")
     
-    return None  # Let AutoGen decide
-
-# GroupChat with intelligent coordination
-group_chat = autogen.GroupChat(
-    agents=[data_analyst, market_researcher, financial_analyst, report_writer],
-    messages=[],
-    max_round=20,
-    speaker_selection_method=custom_speaker_selection
-)`,
+    async with AzureAIAgentClient(async_credential=credential) as client:
+        # Specialized agents with clear expertise
+        data_analyst = await client.create_agent(
+            name="DataAnalyst",
+            instructions="You are a data analyst expert. Focus on data patterns, statistics, and quantitative insights.",
+            model="gpt-4",
+            memory=shared_memory
+        )
+        
+        market_researcher = await client.create_agent(
+            name="MarketResearcher",
+            instructions="You are a market research expert. Focus on market trends, competitive analysis, and customer insights.",
+            model="gpt-4",
+            memory=shared_memory
+        )
+        
+        # Multi-agent collaboration with intelligent coordination
+        # Agents share context through memory provider
+        data_result = await data_analyst.run("Analyze Q4 sales data patterns")
+        market_result = await market_researcher.run(f"Given this data analysis: {data_result}, what are the market implications?")`,
       resources: [
-        'AutoGen GroupChat Documentation',
+        'Microsoft Agent Framework Documentation',
         'Enterprise Multi-Agent Architecture',
         'Business Analysis Workflows'
       ],

@@ -99,7 +99,7 @@ const taxonomy = {
         ]},
         { name: "Workflow oriented", children: [
           { name: "CrewAI" },
-          { name: "AutoGen" },
+          { name: "Microsoft Agent Framework" },
           { name: "Sequential Chains" },
         ]},
         { name: "Modular", children: [

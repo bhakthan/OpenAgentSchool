@@ -444,25 +444,34 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
       )
     },
     {
-      id: 'autogen-integration',
-      title: 'AutoGen Integration',
-      description: 'Integrating AutoGen with Azure AI Services',
+      id: 'agent-framework-integration',
+      title: 'Microsoft Agent Framework Integration',
+      description: 'Integrating Microsoft Agent Framework with Azure AI Services',
       icon: <CloudArrowUp className="w-4 h-4" />,
       level: 'advanced' as const,
       content: (
         <div className="space-y-6">
-          {/* AutoGen + Azure Integration */}
+          {/* Agent Framework + Azure Integration */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <CloudArrowUp className="w-5 h-5" />
-                AutoGen with Azure AI Services
+                Microsoft Agent Framework with Azure AI Services
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-lg leading-relaxed">
-                AutoGen can be seamlessly integrated with Azure AI Services to leverage Azure OpenAI, 
-                Azure AI Search, and other Azure cognitive services for enhanced multi-agent capabilities.
+                <a 
+                  href="https://aka.ms/agentframework" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-semibold"
+                >
+                  Microsoft Agent Framework
+                </a>
+                {" "}seamlessly integrates with Azure AI Services, combining the best of Semantic Kernel 
+                (production workloads) and AutoGen (rapid prototyping) into a unified framework. It leverages 
+                Azure OpenAI, Azure AI Search, and other Azure cognitive services for enhanced multi-agent capabilities.
               </p>
 
               <div className={conceptSurfaceSoft("p-4 space-y-4")}>
@@ -490,51 +499,50 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                 </div>
               </div>
 
-              <CodeBlock language="python">{`import autogen
+              <CodeBlock language="python">{`from agent_framework.azure import AzureOpenAIResponsesClient
 from azure.identity import DefaultAzureCredential
 
 # Azure OpenAI configuration
-azure_config = {
-    "model": "gpt-4",
-    "api_type": "azure",
-    "api_base": "https://your-resource.openai.azure.com/",
-    "api_version": "2024-02-15-preview",
-    "api_key": "your_api_key"
-}
+endpoint = "https://your-resource.openai.azure.com/"
+deployment_name = "gpt-4"
 
-# Create agents with Azure OpenAI
-assistant = autogen.AssistantAgent(
+# Create agent with Azure OpenAI
+agent = AzureOpenAIResponsesClient(
+    credential=DefaultAzureCredential()
+).create_agent(
     name="azure_assistant",
-    llm_config={
-        "config_list": [azure_config],
-        "temperature": 0.7
-    },
-    system_message="You are an AI assistant powered by Azure OpenAI."
+    instructions="You are an AI assistant powered by Azure OpenAI.",
+    model=deployment_name
 )
 
-# Research agent with Azure AI Search integration
-researcher = autogen.AssistantAgent(
-    name="researcher",
-    llm_config={"config_list": [azure_config]},
-    system_message="""You are a research specialist. 
-    Use Azure AI Search to find relevant information."""
+# Run agent task
+result = await agent.run("Analyze this data using Azure AI services")
+
+# Multi-agent workflow with graph orchestration
+from agent_framework.workflows import Workflow
+
+workflow = Workflow()
+
+# Define agents
+researcher = workflow.add_agent(
+    "researcher",
+    instructions="Research specialist using Azure AI Search",
+    model=deployment_name
 )
 
-# Group chat for collaboration
-groupchat = autogen.GroupChat(
-    agents=[assistant, researcher, user_proxy],
-    messages=[],
-    max_round=10
+analyst = workflow.add_agent(
+    "analyst", 
+    instructions="Data analysis specialist",
+    model=deployment_name
 )
 
-manager = autogen.GroupChatManager(
-    groupchat=groupchat,
-    llm_config={"config_list": [azure_config]}
-)`}</CodeBlock>
+# Connect agents in workflow
+workflow.connect(researcher, analyst)
+result = await workflow.run("Research and analyze market trends")`}</CodeBlock>
             </CardContent>
           </Card>
 
-          {/* AutoGen Enterprise Deployment */}
+          {/* Agent Framework Enterprise Deployment */}
           <Card>
             <CardHeader>
               <CardTitle>Enterprise Deployment with Azure</CardTitle>
@@ -589,7 +597,7 @@ manager = autogen.GroupChatManager(
 apiVersion: app/v1
 kind: ContainerApp
 metadata:
-  name: autogen-multi-agent
+  name: agent-framework-multi-agent
 spec:
   configuration:
     ingress:
@@ -600,8 +608,8 @@ spec:
       value: "your-secret-key"
   template:
     containers:
-    - image: your-registry/autogen-agent:latest
-      name: autogen-agent
+    - image: your-registry/agent-framework:latest
+      name: agent-framework-service
       env:
       - name: AZURE_OPENAI_ENDPOINT
         value: "https://your-resource.openai.azure.com/"
@@ -616,10 +624,10 @@ spec:
             </CardContent>
           </Card>
 
-          {/* AutoGen Best Practices */}
+          {/* Agent Framework Best Practices */}
           <Card>
             <CardHeader>
-              <CardTitle>AutoGen Best Practices with Azure</CardTitle>
+              <CardTitle>Microsoft Agent Framework Best Practices with Azure</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
