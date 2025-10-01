@@ -1058,7 +1058,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                 )}
 
                 <div className="text-center">
-                  <Button onClick={startQuiz} size="lg" className="min-w-32" disabled={loading || !authAPI.isAuthenticated()}>
+                  <Button onClick={startQuiz} size="lg" className="min-w-32" disabled={loading}>
                     {loading ? (
                       <>
                         <Clock size={16} className="mr-2 animate-spin" />
@@ -1073,7 +1073,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                   </Button>
                   {!authAPI.isAuthenticated() && (
                     <p className="text-sm text-muted-foreground mt-2">
-                      Please log in to take quizzes
+                      Running in offline mode - progress saved locally. Log in to sync across devices.
                     </p>
                   )}
                 </div>
@@ -1174,7 +1174,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                 )}
 
                 <div className="text-center">
-                  <Button onClick={startQuiz} size="lg" className="min-w-32" disabled={loading || !authAPI.isAuthenticated()}>
+                  <Button onClick={startQuiz} size="lg" className="min-w-32" disabled={loading}>
                     {loading ? (
                       <>
                         <Clock size={16} className="mr-2 animate-spin" />
@@ -1189,7 +1189,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                   </Button>
                   {!authAPI.isAuthenticated() && (
                     <p className="text-sm text-muted-foreground mt-2">
-                      Please log in to take quizzes
+                      Running in offline mode - progress saved locally. Log in to sync across devices.
                     </p>
                   )}
                 </div>
