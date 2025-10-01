@@ -261,7 +261,7 @@ print(f"Agent: {result}")`,
             <li>✓ User-specific context (user_id association)</li>
             <li>✓ No need to repeat preferences</li>
             <li>✓ Works with any Agent Framework agent</li>
-            <li>✓ Install: <code className="text-xs bg-white dark:bg-gray-800 px-1 rounded">pip install agent-framework-mem0</code></li>
+            <li>✓ Install: <code className="text-xs bg-white dark:bg-gray-800 px-1 rounded">pip install agent-framework[all]</code></li>
           </ul>
         </Card>
       )}

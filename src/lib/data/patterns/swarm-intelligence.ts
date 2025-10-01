@@ -17,7 +17,7 @@ export const swarmIntelligencePattern: PatternData = {
   
   businessUseCase: {
     industry: 'Logistics and Supply Chain',
-    description: 'A fleet of delivery drones uses swarm intelligence to optimize routes and delivery times in real-time, responding to changing weather and traffic conditions. Each drone follows simple local rules but collectively creates efficient, adaptive delivery networks without central coordination.',
+    description: 'A fleet of delivery drones uses swarm intelligence with Agent Framework Context Providers for collective memory. Each drone accesses shared discoveries (optimal routes, obstacle locations) through SwarmMemory, while Redis persistence maintains knowledge across sessions. The drones deposit pheromone-like signals when discovering efficient paths, creating stigmergy-based coordination. This memory-enhanced swarm adapts to changing weather and traffic conditions without central control, achieving emergent route optimization through collective learning.',
     visualization: SwarmLogisticsVisual,
     enlightenMePrompt: `
       Provide a comprehensive technical guide for implementing a swarm intelligence-based drone delivery system.
@@ -67,68 +67,229 @@ export const swarmIntelligencePattern: PatternData = {
     { id: 'e4-5', source: '4', target: '5' },
   ],
   
-  codeExample: `
-    class Agent:
-        def __init__(self, environment):
-            self.env = environment
+  codeExample: `# Microsoft Agent Framework - Swarm Intelligence with Shared Memory
+# LiveRunner: Execute this code to see swarm agents learning collectively
+# Requires: pip install agent-framework[all]
 
-        def update(self):
-            # Agent senses the environment and acts
-            pass
+import asyncio
+from agent_framework.azure import AzureAIAgentClient
+from agent_framework.redis import RedisChatMessageStore
+from agent_framework import ContextProvider, Context
+from azure.identity import AzureCliCredential
+import random
 
-    class Swarm:
-        def __init__(self, num_agents):
-            self.agents = [Agent(self) for _ in range(num_agents)]
+class SwarmMemory(ContextProvider):
+    """
+    Shared memory for swarm agents - tracks collective discoveries.
+    Agents can learn from each other's experiences.
+    """
+    def __init__(self):
+        self.discovered_routes = {}  # Shared knowledge base
+        self.obstacle_locations = set()
+        self.best_performers = {}
 
-        def run(self):
-            for agent in self.agents:
-                agent.update()
-  `,
-  pythonCodeExample: `
-    import random
+    async def invoking(self, messages, **kwargs) -> Context:
+        """Inject swarm knowledge before each agent action."""
+        if self.discovered_routes:
+            best_route = min(self.discovered_routes.items(), key=lambda x: x[1])
+            knowledge = f"Swarm Knowledge: Best route found by agent {best_route[0][0]} to {best_route[0][1]} in {best_route[1]} steps."
+            if self.obstacle_locations:
+                knowledge += f" Known obstacles: {list(self.obstacle_locations)[:5]}"
+            return Context(instructions=knowledge)
+        return Context()
 
-    class Agent:
-        def __init__(self, swarm, agent_id):
-            self.swarm = swarm
-            self.id = agent_id
-            self.position = (random.uniform(0, 100), random.uniform(0, 100))
+    def share_discovery(self, agent_id: str, destination: str, steps: int):
+        """Agent shares its discovery with the swarm."""
+        self.discovered_routes[(agent_id, destination)] = steps
 
-        def update(self):
-            # Simple movement rule: move towards the center of the swarm
-            avg_x = sum(a.position[0] for a in self.swarm.agents) / len(self.swarm.agents)
-            avg_y = sum(a.position[1] for a in self.swarm.agents) / len(self.swarm.agents)
+async def swarm_delivery_system():
+    """
+    Drone delivery swarm with collective memory.
+    Agents learn optimal routes and share knowledge.
+    """
+    print("=== Swarm Intelligence with Collective Memory ===\\n")
+    
+    credential = AzureCliCredential()
+    swarm_memory = SwarmMemory()
+    
+    # Redis for persistent swarm coordination
+    def create_redis_store(agent_id: str):
+        return RedisChatMessageStore(
+            redis_url="redis://localhost:6379",
+            thread_id=f"swarm_{agent_id}",
+            max_messages=50
+        )
+    
+    async with AzureAIAgentClient(async_credential=credential) as client:
+        # Create swarm of 5 delivery drones
+        swarm_agents = []
+        for i in range(5):
+            agent = await client.create_agent(
+                name=f"DroneAgent_{i}",
+                instructions=f"""You are Drone {i} in a delivery swarm.
+                Learn from other drones' experiences. Optimize routes.
+                Report discoveries: optimal paths, obstacles, delivery times.
+                Coordinate with swarm memory to improve collective performance.""",
+                model="gpt-4",
+                context_providers=swarm_memory,  # Shared memory
+                chat_message_store_factory=lambda: create_redis_store(f"drone_{i}")
+            )
+            swarm_agents.append((f"Drone_{i}", agent))
+        
+        # Simulation: Each drone attempts delivery
+        destinations = ["Downtown", "Airport", "Harbor", "Suburbs", "Industrial"]
+        
+        print("=== Round 1: Initial Exploration ===")
+        for drone_name, drone_agent in swarm_agents[:3]:  # First 3 drones
+            dest = random.choice(destinations)
+            print(f"\\n{drone_name} attempting delivery to {dest}...")
+            response = await drone_agent.run(
+                f"Find optimal route to {dest}. Report obstacles and estimated time."
+            )
+            print(f"{drone_name}: {response[:200]}...")
             
-            # Move a small step towards the average position
-            step_x = (avg_x - self.position[0]) * 0.1
-            step_y = (avg_y - self.position[1]) * 0.1
-            self.position = (self.position[0] + step_x, self.position[1] + step_y)
-            print(f"Agent {self.id} moved to {self.position}")
+            # Simulate learning and sharing
+            steps = random.randint(50, 150)
+            swarm_memory.share_discovery(drone_name, dest, steps)
+        
+        print("\\n\\n=== Round 2: Learning from Swarm Memory ===")
+        for drone_name, drone_agent in swarm_agents[3:]:  # Remaining drones
+            dest = random.choice(destinations)
+            print(f"\\n{drone_name} attempting delivery to {dest}...")
+            print(f"  (Has access to {len(swarm_memory.discovered_routes)} shared routes)")
+            response = await drone_agent.run(
+                f"Find optimal route to {dest}. Use swarm knowledge to improve."
+            )
+            print(f"{drone_name}: {response[:200]}...")
+        
+        print("\\n\\n=== Swarm Intelligence Benefits ===")
+        print("✓ Agents learn from collective experiences")
+        print("✓ Redis persists coordination across sessions")
+        print("✓ Shared memory enables emergent optimization")
+        print(f"✓ {len(swarm_memory.discovered_routes)} routes discovered collectively")
 
-    class Swarm:
-        def __init__(self, num_agents):
-            self.agents = [Agent(self, i) for i in range(num_agents)]
+asyncio.run(swarm_delivery_system())
+  `,
+  pythonCodeExample: `# Microsoft Agent Framework - Advanced Swarm with Memory
+# Shows how swarm agents use Context Providers for collective learning
 
-        def run_simulation(self, steps):
-            for step in range(steps):
-                print(f"--- Step {step + 1} ---")
-                for agent in self.agents:
-                    agent.update()
+import asyncio
+from agent_framework import ChatAgent, ContextProvider, Context, ChatMessage
+from agent_framework.openai import OpenAIChatClient
+from agent_framework.redis import RedisChatMessageStore
+from collections.abc import MutableSequence, Sequence
+from typing import Any
+import random
 
-    # Example usage
-    swarm = Swarm(num_agents=5)
-    swarm.run_simulation(steps=3)
+class PheromoneTrails(ContextProvider):
+    """
+    Mimics ant colony pheromone trails using memory.
+    Agents deposit 'pheromones' about good routes.
+    """
+    def __init__(self):
+        self.trails = {}  # {(start, end): strength}
+        self.evaporation_rate = 0.95
+    
+    async def invoking(self, messages: ChatMessage | MutableSequence[ChatMessage], **kwargs: Any) -> Context:
+        # Provide strongest pheromone trails to agent
+        if self.trails:
+            sorted_trails = sorted(self.trails.items(), key=lambda x: x[1], reverse=True)[:3]
+            trail_info = "; ".join([f"{k[0]}→{k[1]}: strength {v:.2f}" for k, v in sorted_trails])
+            return Context(instructions=f"Strongest trails: {trail_info}")
+        return Context()
+    
+    async def invoked(
+        self,
+        request_messages: ChatMessage | Sequence[ChatMessage],
+        response_messages: ChatMessage | Sequence[ChatMessage] | None = None,
+        invoke_exception: Exception | None = None,
+        **kwargs: Any,
+    ) -> None:
+        # Evaporate all pheromones
+        for key in self.trails:
+            self.trails[key] *= self.evaporation_rate
+    
+    def deposit_pheromone(self, start: str, end: str, quality: float):
+        """Agent deposits pheromone on successful route."""
+        key = (start, end)
+        self.trails[key] = self.trails.get(key, 0) + quality
+
+class SwarmAgent:
+    """Individual agent with memory and coordination."""
+    def __init__(self, agent_id: int, chat_agent: ChatAgent, pheromones: PheromoneTrails):
+        self.id = agent_id
+        self.agent = chat_agent
+        self.pheromones = pheromones
+        self.position = (random.uniform(0, 100), random.uniform(0, 100))
+        self.discoveries = []
+    
+    async def explore(self, target_location: str) -> dict:
+        """Agent explores and learns from swarm memory."""
+        response = await self.agent.run(
+            f"Navigate from {self.position} to {target_location}. "
+            f"Consider pheromone trails from other agents."
+        )
+        
+        # Simulate route quality
+        quality = random.uniform(0.5, 1.0)
+        self.pheromones.deposit_pheromone(
+            str(self.position), target_location, quality
+        )
+        
+        return {
+            "agent_id": self.id,
+            "route_quality": quality,
+            "response": response
+        }
+
+async def run_swarm_simulation():
+    """Run swarm with collective memory."""
+    print("=== Swarm Intelligence Simulation ===\\n")
+    
+    # Shared pheromone memory
+    pheromones = PheromoneTrails()
+    
+    # Create swarm
+    swarm = []
+    for i in range(5):
+        agent = ChatAgent(
+            chat_client=OpenAIChatClient(),
+            instructions=f"You are Agent {i} in a swarm. Learn from collective trails.",
+            context_providers=pheromones  # Shared memory
+        )
+        swarm.append(SwarmAgent(i, agent, pheromones))
+    
+    # Simulate exploration
+    targets = ["Target_A", "Target_B", "Target_C"]
+    for round_num in range(3):
+        print(f"\\n--- Round {round_num + 1} ---")
+        for agent in swarm:
+            target = random.choice(targets)
+            result = await agent.explore(target)
+            print(f"Agent {result['agent_id']}: quality {result['route_quality']:.2f} to {target}")
+        
+        print(f"Pheromone trails: {len(pheromones.trails)} routes discovered")
+
+asyncio.run(run_swarm_simulation())
   `,
   implementation: [
     'Define the agent\'s behavior and rules for interaction.',
     'Create a shared environment for agents to operate in.',
-    'Instantiate multiple agents to form the swarm.',
+    'Implement Context Providers for collective memory (pheromone trails, shared discoveries).',
+    'Configure Redis or other persistent storage for swarm coordination.',
+    'Instantiate multiple agents to form the swarm with shared memory access.',
+    'Enable agents to deposit and read from collective memory (stigmergy pattern).',
     'Run the simulation and observe the emergent collective behavior.',
+    'Monitor memory usage and optimize pheromone evaporation rates.',
   ],
   
   advantages: [
     'Scalable and robust to individual agent failures.',
     'Adaptable to dynamic and unpredictable environments.',
     'Can solve complex problems that are difficult to model centrally.',
+    'Shared memory enables collective learning and optimization.',
+    'Context Providers allow stigmergy (indirect coordination through environment).',
+    'Redis persistence maintains swarm knowledge across sessions.',
   ],
   limitations: [
     'Difficult to predict and control the emergent behavior.',

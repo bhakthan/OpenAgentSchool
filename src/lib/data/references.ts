@@ -680,8 +680,8 @@ export const references: ReferencesData = {
           },
           {
             title: "Agent Framework Documentation",
-            url: "https://learn.microsoft.com/agent-framework/",
-            description: "Official Microsoft Agent Framework documentation with tutorials and API reference"
+            url: "https://learn.microsoft.com/agent-framework/overview/agent-framework-overview",
+            description: "Official Microsoft Agent Framework overview - unified framework combining Semantic Kernel and AutoGen capabilities"
           },
           {
             title: "Agent Framework Quick Start",

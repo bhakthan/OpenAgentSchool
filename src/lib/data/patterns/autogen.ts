@@ -77,7 +77,7 @@ export const autogenPattern: PatternData = {
   },
   codeExample: `# Microsoft Agent Framework + Mem0 - Supply Chain with Persistent Memory
 # LiveRunner: Execute this code to see agents remembering preferences across conversations
-# Requires: pip install agent-framework agent-framework-mem0
+# Requires: pip install agent-framework[all]
 
 import asyncio
 from agent_framework.azure import AzureAIAgentClient
@@ -157,7 +157,7 @@ if __name__ == "__main__":
     asyncio.run(supply_chain_with_memory())`,
   pythonCodeExample: `# Microsoft Agent Framework + Mem0 - Supply Chain with Persistent Memory
 # LiveRunner: Execute this code to see agents remembering preferences across conversations
-# Requires: pip install agent-framework agent-framework-mem0
+# Requires: pip install agent-framework[all]
 
 import asyncio
 from agent_framework.azure import AzureAIAgentClient
@@ -241,6 +241,10 @@ if __name__ == "__main__":
     'Create AI agents with appropriate model configurations',
     'Set up workflow graphs or sequential conversation patterns',
     'Implement tool execution capabilities and function calling',
+    'Configure memory systems: In-Memory (default), Redis, or Mem0 for persistence',
+    'Use ChatMessageStore for basic conversation history persistence',
+    'Implement Context Providers for dynamic memory and user preferences',
+    'Enable thread serialization for cross-session conversation continuity',
     'Add human-in-the-loop controls for critical decisions',
     'Configure workflow termination conditions',
     'Implement observability and monitoring for agent interactions',
@@ -251,7 +255,10 @@ if __name__ == "__main__":
     "Facilitates complex problem-solving by enabling collaboration between specialized agents.",
     "The conversational nature of agent interaction is intuitive and powerful.",
     "Supports human-in-the-loop, allowing for human oversight and intervention.",
-    "Can automate complex workflows that require multiple steps and different skills."
+    "Can automate complex workflows that require multiple steps and different skills.",
+    "Flexible memory systems: from simple in-memory to Redis and Mem0 for persistence.",
+    "Context Providers enable dynamic memory injection and user preference tracking.",
+    "Thread serialization allows conversation continuity across application restarts."
   ],
   limitations: [
     "Managing complex multi-agent conversations can be challenging.",
@@ -460,6 +467,70 @@ if __name__ == "__main__":
 
 
 # ============================================================================
+# MEMORY SYSTEMS IN AGENT FRAMEWORK
+# ============================================================================
+# The Agent Framework supports multiple memory mechanisms for different use cases:
+#
+# 1. IN-MEMORY STORAGE (Default)
+#    - Simplest form, conversation history stored in memory during runtime
+#    - No additional configuration needed
+#    - Lost when application restarts
+#
+# 2. REDIS MESSAGE STORE (Production Persistent)
+#    - For production applications requiring persistent storage
+#    - Example:
+#      from agent_framework.redis import RedisChatMessageStore
+#      
+#      def create_redis_store():
+#          return RedisChatMessageStore(
+#              redis_url="redis://localhost:6379",
+#              thread_id="user_session_123",
+#              max_messages=100  # Keep last 100 messages
+#          )
+#      
+#      agent = ChatAgent(
+#          chat_client=OpenAIChatClient(),
+#          chat_message_store_factory=create_redis_store
+#      )
+#
+# 3. CONTEXT PROVIDERS (Dynamic Memory)
+#    - Inject relevant context before each agent invocation
+#    - Extract and store information from conversations
+#    - Example for user preferences:
+#      from agent_framework import ContextProvider, Context
+#      
+#      class UserPreferencesMemory(ContextProvider):
+#          def __init__(self):
+#              self.preferences = {}
+#          
+#          async def invoking(self, messages, **kwargs) -> Context:
+#              if self.preferences:
+#                  prefs = ", ".join([f"{k}: {v}" for k, v in self.preferences.items()])
+#                  return Context(instructions=f"User preferences: {prefs}")
+#              return Context()
+#
+# 4. THREAD SERIALIZATION (Cross-Session Persistence)
+#    - Save entire conversation threads to disk/database
+#    - Restore conversations across application restarts
+#    - Example:
+#      # Save thread
+#      serialized = await thread.serialize()
+#      with open("thread.json", "w") as f:
+#          json.dump(serialized, f)
+#      
+#      # Restore thread
+#      with open("thread.json", "r") as f:
+#          thread_data = json.load(f)
+#      restored_thread = await agent.deserialize_thread(thread_data)
+#
+# 5. MEM0 PROVIDER (Advanced External Memory)
+#    - Specialized memory service for semantic memory
+#    - Remembers facts, preferences, and context across sessions
+#    - See example below
+# ============================================================================
+
+
+# ============================================================================
 # BONUS: Agent Framework with Mem0 Persistent Memory
 # ============================================================================
 # Demonstrates how agents remember user preferences across conversations
@@ -527,7 +598,7 @@ async def agent_with_memory_example():
 # 4. Persistent memory survives across sessions
 
 # Quick Start:
-# Install: pip install agent-framework-mem0
+# Install: pip install agent-framework[all]
 # Set environment: export MEM0_API_KEY=your_key
 # Run: asyncio.run(agent_with_memory_example())
 

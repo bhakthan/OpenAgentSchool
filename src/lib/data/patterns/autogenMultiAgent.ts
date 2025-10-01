@@ -42,7 +42,7 @@ export const autogenMultiAgentPattern: PatternData = {
   edges: [],
   codeExample: `# Microsoft Agent Framework - Multi-Agent Collaboration
 # LiveRunner: Execute this code to see multi-agent conversation in action
-# Requires: pip install agent-framework
+# Requires: pip install agent-framework[all]
 
 import asyncio
 from agent_framework.azure import AzureAIAgentClient

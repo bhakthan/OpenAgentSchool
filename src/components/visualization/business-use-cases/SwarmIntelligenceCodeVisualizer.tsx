@@ -8,7 +8,8 @@ import {
   Drone,
   MapPin,
   Target,
-  Lightning
+  Lightning,
+  Database
 } from '@phosphor-icons/react';
 
 interface Agent {
@@ -19,6 +20,8 @@ interface Agent {
   targetY: number;
   color: string;
   status: string;
+  discoveries: string[];
+  memorySize: number;
 }
 
 export const SwarmIntelligenceCodeVisualizer = () => {
@@ -30,63 +33,71 @@ export const SwarmIntelligenceCodeVisualizer = () => {
   // Initialize agents
   useEffect(() => {
     const initialAgents: Agent[] = [
-      { id: 1, x: 50, y: 100, targetX: 200, targetY: 150, color: 'bg-blue-500', status: 'Searching' },
-      { id: 2, x: 100, y: 50, targetX: 250, targetY: 100, color: 'bg-green-500', status: 'Searching' },
-      { id: 3, x: 150, y: 120, targetX: 180, targetY: 200, color: 'bg-purple-500', status: 'Searching' },
-      { id: 4, x: 80, y: 150, targetX: 220, targetY: 120, color: 'bg-orange-500', status: 'Searching' },
+      { id: 1, x: 50, y: 100, targetX: 200, targetY: 150, color: 'bg-blue-500', status: 'Searching', discoveries: [], memorySize: 0 },
+      { id: 2, x: 100, y: 50, targetX: 250, targetY: 100, color: 'bg-green-500', status: 'Searching', discoveries: [], memorySize: 0 },
+      { id: 3, x: 150, y: 120, targetX: 180, targetY: 200, color: 'bg-purple-500', status: 'Searching', discoveries: [], memorySize: 0 },
+      { id: 4, x: 80, y: 150, targetX: 220, targetY: 120, color: 'bg-orange-500', status: 'Searching', discoveries: [], memorySize: 0 },
     ];
     setAgents(initialAgents);
   }, []);
 
   const steps = [
-    "Initialize swarm with 4 autonomous agents",
-    "Agents perceive local environment and nearby agents",
-    "Apply local rules: separation, alignment, cohesion",
-    "Agents communicate through stigmergy (environmental signals)",
-    "Emergent flocking behavior emerges",
-    "Swarm adapts to obstacles and reaches targets collectively"
+    "Initialize swarm with 4 agents + shared memory (Context Provider)",
+    "Agents perceive local environment and read collective memory",
+    "Apply local rules + deposit discoveries to shared memory",
+    "Memory-enhanced stigmergy: agents follow pheromone trails",
+    "Redis persistence maintains swarm knowledge across sessions",
+    "Emergent optimization: collective learning from shared memory"
   ];
 
   const codeSteps = [
-    `class SwarmAgent {
-  constructor(id, x, y) {
-    this.id = id;
-    this.position = { x, y };
-    this.velocity = { x: 0, y: 0 };
-    this.neighbors = [];
+    `# Agent Framework with Memory
+from azure.ai.agents import Agent, ContextProvider
+from azure.ai.agents.stores import RedisChatMessageStore
+
+class SwarmMemory(ContextProvider):
+  def __init__(self):
+    self.discovered_routes = {}
+    self.obstacle_locations = set()`,
+    `async def invoking(self, messages, **kwargs):
+  # Inject collective memory before agent acts
+  context = {
+    "best_route": self.get_best_route(),
+    "known_obstacles": list(self.obstacle_locations),
+    "swarm_discoveries": self.discovered_routes
   }
-}`,
-    `perceiveEnvironment() {
-  this.neighbors = this.swarm.agents
-    .filter(agent => agent.id !== this.id)
-    .filter(agent => this.distanceTo(agent) < 50);
-}`,
-    `applySwarmRules() {
-  const separation = this.separate();
-  const alignment = this.align();
-  const cohesion = this.cohere();
-  
-  this.velocity = this.combine(separation, alignment, cohesion);
-}`,
-    `depositPheromone() {
-  // Leave environmental signals
-  this.swarm.environment.addSignal(
-    this.position.x, 
-    this.position.y, 
-    'path_marker'
-  );
-}`,
-    `update() {
-  this.perceiveEnvironment();
-  this.applySwarmRules();
-  this.depositPheromone();
-  this.move();
-}`,
-    `// Swarm coordination complete
-// Emergent behavior achieved:
-// - Optimal pathfinding
-// - Collision avoidance  
-// - Adaptive formation`
+  return Context(context)`,
+    `def share_discovery(self, agent_id, route, quality):
+  # Deposit discovery to collective memory
+  if route not in self.discovered_routes:
+    self.discovered_routes[route] = {
+      "quality": quality,
+      "discovered_by": agent_id,
+      "pheromone_strength": 1.0
+    }`,
+    `# Create swarm agents with Redis persistence
+swarm_memory = SwarmMemory()
+agents = [
+  Agent(
+    name=f"drone_{i}",
+    memory=RedisChatMessageStore(
+      thread_id=f"swarm_{i}"
+    ),
+    context_providers=[swarm_memory]
+  ) for i in range(5)
+]`,
+    `# Run swarm coordination with memory
+for round in range(2):
+  for agent in agents:
+    response = await agent.run(
+      "Explore and optimize delivery route"
+    )
+    # Memory automatically shared via Context Provider`,
+    `# Emergent collective intelligence achieved
+# - Agents learn from each other's discoveries
+# - Redis maintains knowledge across sessions
+# - Pheromone trails guide optimization
+# - No central coordinator needed`
   ];
 
   useEffect(() => {
@@ -97,7 +108,7 @@ export const SwarmIntelligenceCodeVisualizer = () => {
         setStep(prev => {
           const nextStep = (prev + 1) % steps.length;
           
-          // Simulate agent movement and behavior
+          // Simulate agent movement and behavior with memory
           setAgents(prevAgents => 
             prevAgents.map(agent => {
               const progress = nextStep / steps.length;
@@ -105,15 +116,41 @@ export const SwarmIntelligenceCodeVisualizer = () => {
               const newY = agent.y + (agent.targetY - agent.y) * 0.1;
               
               let status = 'Searching';
-              if (progress > 0.3) status = 'Coordinating';
-              if (progress > 0.6) status = 'Converging';
-              if (progress > 0.8) status = 'Target Reached';
+              let memorySize = 0;
+              let discoveries: string[] = [];
+              
+              if (progress > 0.15) {
+                status = 'Reading Memory';
+                memorySize = 1;
+              }
+              if (progress > 0.3) {
+                status = 'Coordinating';
+                memorySize = 2;
+                discoveries = ['Route A'];
+              }
+              if (progress > 0.5) {
+                status = 'Learning';
+                memorySize = 3;
+                discoveries = ['Route A', 'Obstacle B'];
+              }
+              if (progress > 0.7) {
+                status = 'Optimizing';
+                memorySize = 5;
+                discoveries = ['Route A', 'Obstacle B', 'Best Path'];
+              }
+              if (progress > 0.85) {
+                status = 'Target Reached';
+                memorySize = 7;
+                discoveries = ['Route A', 'Obstacle B', 'Best Path', 'Saved to Redis'];
+              }
               
               return {
                 ...agent,
                 x: newX,
                 y: newY,
-                status
+                status,
+                memorySize,
+                discoveries
               };
             })
           );
@@ -142,7 +179,9 @@ export const SwarmIntelligenceCodeVisualizer = () => {
       ...agent,
       x: [50, 100, 150, 80][i],
       y: [100, 50, 120, 150][i],
-      status: 'Searching'
+      status: 'Searching',
+      discoveries: [],
+      memorySize: 0
     })));
   };
 
@@ -169,7 +208,7 @@ export const SwarmIntelligenceCodeVisualizer = () => {
           </div>
           
           <p className="text-sm text-muted-foreground">
-            Watch autonomous agents coordinate without central control using local rules and environmental signals.
+            Watch autonomous agents coordinate using Agent Framework Context Providers for shared memory and Redis for persistence. Observe how collective learning emerges through stigmergy (pheromone trails) without central control.
           </p>
         </CardContent>
       </Card>
@@ -223,12 +262,20 @@ export const SwarmIntelligenceCodeVisualizer = () => {
             </div>
             
             <div className="mt-4 space-y-2">
-              <h4 className="font-semibold text-sm">Agent Status:</h4>
-              <div className="grid grid-cols-2 gap-2">
+              <h4 className="font-semibold text-sm">Agent Status & Memory:</h4>
+              <div className="grid grid-cols-1 gap-2">
                 {agents.map((agent) => (
-                  <div key={agent.id} className="flex items-center gap-2 text-xs">
-                    <div className={`w-3 h-3 ${agent.color} rounded-full`}></div>
-                    <span>Agent {agent.id}: {agent.status}</span>
+                  <div key={agent.id} className="flex items-center gap-2 text-xs p-2 bg-muted/40 rounded">
+                    <div className={`w-3 h-3 ${agent.color} rounded-full flex-shrink-0`}></div>
+                    <div className="flex-1">
+                      <div className="font-medium">Agent {agent.id}: {agent.status}</div>
+                      <div className="text-muted-foreground">
+                        Memory: {agent.memorySize} items
+                        {agent.discoveries.length > 0 && (
+                          <span className="ml-2">| Discoveries: {agent.discoveries.slice(0, 2).join(', ')}</span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -258,6 +305,62 @@ export const SwarmIntelligenceCodeVisualizer = () => {
         </Card>
       </div>
 
+      {/* Collective Memory Pool */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Database size={20} className="text-purple-500" />
+            Collective Memory Pool (SwarmMemory Context Provider)
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            <div className="flex items-start gap-3 p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800">
+              <div className="flex-1">
+                <div className="font-semibold text-sm mb-1">Shared Discoveries</div>
+                <div className="text-xs text-muted-foreground">
+                  Total memory items: {Math.max(...agents.map(a => a.memorySize))}
+                  {step > 2 && <span className="ml-2">| Active pheromone trails: {agents.filter(a => a.discoveries.length > 0).length}</span>}
+                </div>
+              </div>
+            </div>
+            
+            {step > 1 && (
+              <div className="grid grid-cols-2 gap-2">
+                <div className="p-2 bg-blue-50 dark:bg-blue-950/30 rounded border border-blue-200 dark:border-blue-800">
+                  <div className="text-xs font-medium mb-1">Best Routes</div>
+                  <div className="text-xs text-muted-foreground">
+                    {step > 2 ? '3 routes discovered' : 'Learning...'}
+                  </div>
+                </div>
+                <div className="p-2 bg-orange-50 dark:bg-orange-950/30 rounded border border-orange-200 dark:border-orange-800">
+                  <div className="text-xs font-medium mb-1">Known Obstacles</div>
+                  <div className="text-xs text-muted-foreground">
+                    {step > 3 ? '2 obstacles mapped' : 'Scanning...'}
+                  </div>
+                </div>
+                <div className="p-2 bg-green-50 dark:bg-green-950/30 rounded border border-green-200 dark:border-green-800">
+                  <div className="text-xs font-medium mb-1">Redis Persistence</div>
+                  <div className="text-xs text-muted-foreground">
+                    {step > 4 ? 'Active (4 threads)' : 'Standby'}
+                  </div>
+                </div>
+                <div className="p-2 bg-purple-50 dark:bg-purple-950/30 rounded border border-purple-200 dark:border-purple-800">
+                  <div className="text-xs font-medium mb-1">Pheromone Trails</div>
+                  <div className="text-xs text-muted-foreground">
+                    {step > 3 ? 'Evaporating (0.95)' : 'Inactive'}
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <div className="text-xs text-muted-foreground italic">
+              💡 Context Providers inject this shared memory before each agent action, enabling stigmergy-based coordination without direct communication.
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Current Step Info */}
       <Card>
         <CardContent className="pt-4">
@@ -266,12 +369,12 @@ export const SwarmIntelligenceCodeVisualizer = () => {
             <span className="font-semibold">Step {step + 1}: {steps[step]}</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            {step === 0 && "Four autonomous agents are created, each with independent local decision-making capabilities."}
-            {step === 1 && "Each agent scans its local neighborhood to detect nearby agents and environmental conditions."}
-            {step === 2 && "Agents apply Craig Reynolds' three rules: separation (avoid crowding), alignment (steer towards average heading), and cohesion (steer towards average position)."}
-            {step === 3 && "Agents leave environmental signals (pheromones) that other agents can detect and follow, enabling indirect coordination."}
-            {step === 4 && "Without any central controller, the agents naturally form flocking behavior and coordinate their movements."}
-            {step === 5 && "The swarm demonstrates emergent intelligence: optimal pathfinding, obstacle avoidance, and adaptive formations emerge from simple local rules."}
+            {step === 0 && "Four autonomous agents are created with Agent Framework. Each agent has a Context Provider for shared memory and Redis persistence for long-term storage."}
+            {step === 1 && "Each agent reads from the SwarmMemory Context Provider to access collective discoveries (routes, obstacles, best paths) made by other agents."}
+            {step === 2 && "Agents apply local rules AND deposit their discoveries into shared memory using the share_discovery() method, enabling indirect coordination."}
+            {step === 3 && "Memory-enhanced stigmergy: agents follow pheromone trails stored in collective memory. Trail strength decays over time (evaporation pattern)."}
+            {step === 4 && "Redis persistence ensures swarm knowledge survives across sessions. Each agent has its own thread (swarm_0, swarm_1, etc.) for conversation history."}
+            {step === 5 && "Emergent collective intelligence achieved: agents optimize routes by learning from shared discoveries, demonstrating swarm intelligence with memory."}
           </p>
         </CardContent>
       </Card>
