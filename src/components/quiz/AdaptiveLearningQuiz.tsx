@@ -290,13 +290,6 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
     setError(null);
 
     try {
-      // Check if user is authenticated
-      if (!authAPI.isAuthenticated()) {
-        setLoading(false);
-        setShowLoginModal(true);
-        return;
-      }
-
       let questions: QuizQuestion[] = [];
       
       if (selectedCategory) {
