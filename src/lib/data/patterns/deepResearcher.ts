@@ -196,5 +196,19 @@ export async function runDeepResearch(initialQuery: string) {
     "agentic-rag",
     "react-agent",
     "self-reflection"
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '3-5 days',
+    complexityReduction: 'Medium - Requires orchestration of multiple tools (search, scraping, synthesis) but LangChain provides framework',
+    reusabilityScore: 7,
+    learningCurve: 'steep',
+    velocityPractices: [
+      'Pattern Fluency - Advanced research pattern for market analysis, due diligence, competitive intelligence, academic research',
+      'Architecture Templates - LangChain and Microsoft Agent Framework provide multi-step research workflows',
+      'Failure Scenario Libraries - Search failures, infinite question loops, synthesis quality issues documented',
+      'Evaluation Automation - Report completeness, source diversity, and factual accuracy metrics standard'
+    ]
+  }
 };

@@ -27,6 +27,21 @@ export const peerReviewSimulatorPattern: PatternData = {
   advantages: ['Improves quality', 'Faster reviews', 'Consistency with standards'],
   limitations: ['May over‑flag without context'],
   relatedPatterns: ['Evaluator-Optimizer', 'Self-Reflection'],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '3-6 hours',
+    complexityReduction: 'Medium - Automates code review workflows, reduces PR review time by 50-70% via structured feedback',
+    reusabilityScore: 9,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Code quality pattern for CI/CD pipelines, PR automation, team collaboration, educational code grading',
+      'Architecture Templates - GitHub Actions + Azure OpenAI provide automated PR comment generation',
+      'Failure Scenario Libraries - Over-flagging, false positives, missing context issues documented with mitigation strategies',
+      'Evaluation Automation - Review quality metrics (precision, recall, developer satisfaction) standard'
+    ]
+  },
+
   codeExample: `// Simple review function (TypeScript)
 type Review = { decision: 'block' | 'approve'; comments: string[] };
 export function reviewDiff(diff: string, standards: string[]): Review {

@@ -29,6 +29,21 @@ export const errorWhispererPattern: PatternData = {
   advantages: ['Teaches debugging mental models', 'Faster incident resolution'],
   limitations: ['Needs good log/context quality'],
   relatedPatterns: ['Evaluator-Optimizer', 'Self-Reflection'],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '4-8 hours',
+    complexityReduction: 'Medium - Reduces debugging time from hours to minutes via structured root-cause analysis and minimal diffs',
+    reusabilityScore: 8,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Debugging assistance pattern for educational platforms, developer tools, automated incident response',
+      'Architecture Templates - Microsoft Agent Framework + prompt engineering for stack trace analysis',
+      'Failure Scenario Libraries - Log parsing failures, incorrect hypotheses, context insufficiency documented',
+      'Evaluation Automation - Root-cause accuracy, fix validity, student learning outcomes metrics'
+    ]
+  },
+
   businessUseCase: {
     industry: 'EdTech',
     description: 'An online IDE integrates Error Whisperer to turn stack traces into teachable moments. Learners get concise root-cause hypotheses, minimal diffs, and prevention tips, accelerating debugging skills.',

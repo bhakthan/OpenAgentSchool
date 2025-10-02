@@ -21,6 +21,19 @@ export const perceptionNormalizationPattern: PatternData = {
     'query-intent-structured-access',
     'strategy-memory-replay'
   ],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '4-8 hours',
+    complexityReduction: 'Medium - Standardizes heterogeneous data inputs, reduces downstream processing complexity by 40-60%',
+    reusabilityScore: 8,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Data preprocessing pattern for multi-source integrations, sensor fusion, API aggregation',
+      'Architecture Templates - Azure Functions + schema validation libraries provide input normalization pipelines',
+      'Evaluation Automation - Schema compliance rate, validation error rate, downstream task success improvement metrics'
+    ]
+  },
   businessUseCase: {
     industry: 'Healthcare Analytics',
     description: 'Before generating cohort risk stratification workflows, the agent assembles a compact InfoBox summarizing patient encounter tables, lab result distributions, PHI sensitivity tags, and freshness windows to ground safe planning.',

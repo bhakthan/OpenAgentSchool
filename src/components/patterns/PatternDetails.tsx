@@ -14,6 +14,7 @@ import { ShareButton } from '@/components/ui/ShareButton';
 import AutoGenPatternVisualizer from '../visualization/AutoGenPatternVisualizer';
 import LivePatternRunner from './LivePatternRunner';
 import { pageSEOConfigs } from '@/components/seo/SEO';
+import { VelocityProfile } from './VelocityProfile';
 import { reactAgentExecutionSteps } from '@/lib/data/execution/reactAgentExecutionSteps';
 import { agenticRAGExecutionSteps } from '@/lib/data/execution/agenticRAGExecutionSteps';
 import { selfReflectionExecutionSteps } from '@/lib/data/execution/selfReflectionExecutionSteps';
@@ -402,10 +403,15 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
       </CardHeader>
     <CardContent className="pt-6">
   <Tabs defaultValue={hasBusinessUseCase ? "business-use-case" : "details"} className="w-full">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             {hasBusinessUseCase && (
               <TabsTrigger value="business-use-case" className="flex items-center gap-2">
                 <Briefcase size={16} /> Business Use Case
+              </TabsTrigger>
+            )}
+            {pattern.velocityProfile && (
+              <TabsTrigger value="velocity" className="flex items-center gap-2">
+                <Sparkle size={16} /> Velocity
               </TabsTrigger>
             )}
             <TabsTrigger value="details" className="flex items-center gap-2">
@@ -645,6 +651,12 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                   </div>
                 )}
               </Card>
+            </TabsContent>
+          )}
+
+          {pattern.velocityProfile && (
+            <TabsContent value="velocity" className="pt-4">
+              <VelocityProfile profile={pattern.velocityProfile} />
             </TabsContent>
           )}
 

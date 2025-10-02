@@ -7,6 +7,21 @@ export const dataQualityFeedbackLoopPattern: PatternData = {
   description: 'Closed-loop anomaly detection → profiling → candidate repair → validation cycle to restore data reliability.',
   category: 'Data Autonomy',
   relatedPatterns: ['perception-normalization', 'action-grounding-verification', 'budget-constrained-execution'],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '1-2 weeks',
+    complexityReduction: 'Medium - Automates data quality repair workflows but requires domain-specific profiling and validation logic',
+    reusabilityScore: 7,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Data quality pattern for supply chain analytics, ETL pipelines, data warehouse maintenance',
+      'Architecture Templates - Azure Data Factory + Azure OpenAI provide anomaly detection and repair strategy generation',
+      'Failure Scenario Libraries - False positive repairs, downstream KPI impact, validation failures documented',
+      'Evaluation Automation - Anomaly detection precision/recall, repair strategy success rate, data quality improvement metrics'
+    ]
+  },
+
   businessUseCase: {
     industry: 'Supply Chain Analytics',
     description: 'Daily inbound SKU feed develops spike in null weights. Loop detects anomaly, profiles impacted columns, synthesizes conditional fill strategy, validates downstream KPI stability, and records repair artifact.',

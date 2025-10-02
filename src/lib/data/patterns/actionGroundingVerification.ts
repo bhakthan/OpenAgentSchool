@@ -19,6 +19,20 @@ export const actionGroundingVerificationPattern: PatternData = {
     'query-intent-structured-access',
     'strategy-memory-replay'
   ],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '1-2 days',
+    complexityReduction: 'Medium - Reduces execution failures via preflight validation, but requires comprehensive tool schema definitions',
+    reusabilityScore: 7,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Safety pattern for data pipelines, API orchestration, autonomous operations requiring validation',
+      'Architecture Templates - Microsoft Agent Framework + Azure Functions provide tool call validation and dry-run execution',
+      'Failure Scenario Libraries - Tool call failures, schema mismatches, permission errors documented with retry strategies',
+      'Evaluation Automation - Preflight success rate, action validation accuracy, execution safety metrics'
+    ]
+  },
   businessUseCase: {
     industry: 'Financial Data Engineering',
     description: 'Before altering a risk factor table, the agent generates a candidate SQL repair script, validates schema + policy (no PII leakage, no full table scans), dry-runs, then emits an approved action artifact.',

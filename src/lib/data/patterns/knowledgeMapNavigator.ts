@@ -60,5 +60,19 @@ def build_path(goal: str, current: List[str]) -> Dict[str, object]:
         "sequence": ["Foundations", "Core", "Projects"],
         "checkpoints": ["Quiz 1", "Mini-Project", "Capstone"],
     }
-`
+`,
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '1-2 days',
+    complexityReduction: 'High - GPT-4 knowledge graph reasoning eliminates manual curriculum design and prerequisite mapping',
+    reusabilityScore: 8,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Essential educational pattern for personalized learning, skill gap analysis, curriculum planning',
+      'Architecture Templates - Knowledge graph libraries (Neo4j, NetworkX) + LLM reasoning provide prerequisite detection',
+      'Evaluation Automation - Learning path completion rate and knowledge retention metrics standard',
+      'Operational Instrumentation - Prerequisite coverage and skill mastery tracking dashboards critical'
+    ]
+  }
 };

@@ -574,5 +574,19 @@ class VoiceAgent:
     "prompt-chaining",
     "routing",
     "agent-to-agent"
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '1-2 weeks',
+    complexityReduction: 'High - Azure Speech Services and OpenAI provide STT/TTS/NLU pipelines, eliminating custom audio processing',
+    reusabilityScore: 8,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Core voice interface pattern for customer service, accessibility, hands-free workflows, IoT devices',
+      'Architecture Templates - Azure Speech SDK + Microsoft Agent Framework provide end-to-end voice orchestration',
+      'Failure Scenario Libraries - Noise interference, accent handling, latency tolerance, fallback to text well-documented',
+      'Evaluation Automation - Speech recognition accuracy, intent classification precision, response latency metrics standard'
+    ]
+  }
 };

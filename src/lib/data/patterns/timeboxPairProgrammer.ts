@@ -25,6 +25,20 @@ export const timeboxPairProgrammerPattern: PatternData = {
   advantages: ['Reduces procrastination', 'Frequent feedback'],
   limitations: ['May feel rigid if overused'],
   relatedPatterns: ['Self‑Remediation Loop', 'Reflection Journaler'],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '2-4 hours',
+    complexityReduction: 'Low - Simple timer + reflection loop, but improves focus and reduces context switching',
+    reusabilityScore: 9,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Productivity pattern for IDE extensions, developer tools, remote work tools, focus apps',
+      'Architecture Templates - VS Code extension + Azure OpenAI for reflection prompts',
+      'Evaluation Automation - Task completion rate, blocker capture frequency, developer satisfaction metrics'
+    ]
+  },
+
   businessUseCase: {
     industry: 'Engineering Productivity',
     description: 'Internal developer experience teams embed Time-box Pair Programmer into IDE co-pilots so engineers run focused 20-minute cycles, capture blockers, and ship incremental value without losing context.',

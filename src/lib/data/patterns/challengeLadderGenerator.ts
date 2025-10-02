@@ -53,4 +53,18 @@ def ladder(goal: str):
         [{ 'title': 'Hello API', 'prereqs': ['Setup env'] }],
     ]
 `,
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '3-5 hours',
+    complexityReduction: 'High - GPT-4 curriculum generation eliminates manual learning path design',
+    reusabilityScore: 7,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Educational pattern for bootcamps, tutorials, skill progression systems, onboarding',
+      'Architecture Templates - Structured output and dependency graphs simplify curriculum scaffolding',
+      'Evaluation Automation - Learner progression rate and completion metrics track curriculum effectiveness',
+      'Operational Instrumentation - Difficulty calibration and drop-off points monitored for optimization'
+    ]
+  }
 };

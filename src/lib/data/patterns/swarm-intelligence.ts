@@ -302,4 +302,18 @@ asyncio.run(run_swarm_simulation())
     'emergent-behavior',
   ],
   codeVisualizer: SwarmIntelligenceCodeVisualizer,
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '1-2 weeks',
+    complexityReduction: 'Medium - Requires distributed state management and emergent behavior design, but LangChain Context Providers simplify coordination',
+    reusabilityScore: 6,
+    learningCurve: 'steep',
+    velocityPractices: [
+      'Pattern Fluency - Specialized swarm pattern for logistics, fleet management, distributed optimization, parallel task allocation',
+      'Architecture Templates - LangChain Context Providers + Redis enable stigmergy and shared memory',
+      'Failure Scenario Libraries - Swarm convergence failures, memory consistency issues, emergent behavior unpredictability',
+      'Operational Instrumentation - Swarm metrics (agent utilization, collective progress, memory churn) critical for debugging'
+    ]
+  }
 };

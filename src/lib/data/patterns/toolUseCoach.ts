@@ -28,6 +28,20 @@ export const toolUseCoachPattern: PatternData = {
   advantages: ['Reduces retries', 'Promotes best practices', 'Improves reproducibility'],
   limitations: ['Tool docs drift over time'],
   relatedPatterns: ['Modern Tool Use', 'Routing'],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '3-6 hours',
+    complexityReduction: 'Medium - Reduces tool usage errors and retries, standardizes internal API consumption',
+    reusabilityScore: 9,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Developer enablement pattern for CLI tools, internal APIs, platform services, DevOps pipelines',
+      'Architecture Templates - Azure OpenAI + tool schema validation for usage guidance',
+      'Evaluation Automation - Retry reduction rate, policy compliance, developer satisfaction metrics'
+    ]
+  },
+
   businessUseCase: {
     industry: 'Developer Enablement',
     description: 'Platform teams embed the Tool-Use Coach to review internal CLI/API usage before merge. Engineers paste commands, receive guardrail checks, and log policy-compliant exemplars for future teammates.',

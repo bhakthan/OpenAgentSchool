@@ -25,6 +25,20 @@ export const reflectionJournalerPattern: PatternData = {
   advantages: ['Metacognitive gains', 'Better retention'],
   limitations: ['Quality depends on notes'],
   relatedPatterns: ['Misconception Detector'],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '2-4 hours',
+    complexityReduction: 'Low - Reduces manual journaling workflow but requires careful prompt engineering for metacognitive insights',
+    reusabilityScore: 8,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Reflection pattern for educational platforms, employee training, professional development, therapy apps',
+      'Architecture Templates - Azure OpenAI + prompt chaining for What/Why/How/Next structured reflection',
+      'Evaluation Automation - Sentiment analysis accuracy, misconception detection rate, student engagement metrics'
+    ]
+  },
+
   businessUseCase: {
     industry: 'EdTech',
     description: 'K‑12 LMS adds Reflection Journaler as a weekly check-in to capture highlights, confusions, and next steps, improving metacognition and guiding teacher interventions.',

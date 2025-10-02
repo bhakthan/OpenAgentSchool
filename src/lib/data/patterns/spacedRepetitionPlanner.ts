@@ -28,6 +28,20 @@ export const spacedRepetitionPlannerPattern: PatternData = {
   advantages: ['Long-term retention', 'Adaptive difficulty'],
   limitations: ['Requires daily consistency'],
   relatedPatterns: ['Knowledge Map Navigator'],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '6-10 hours',
+    complexityReduction: 'Medium - Implements proven SM-2 algorithm but requires careful scheduling and prompt generation logic',
+    reusabilityScore: 8,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Learning retention pattern for language apps, certification prep, onboarding programs, skill maintenance',
+      'Architecture Templates - Azure Functions + Azure Cosmos DB provide scheduling and state tracking',
+      'Evaluation Automation - Retention rate, engagement consistency, difficulty calibration metrics'
+    ]
+  },
+
   businessUseCase: {
     industry: 'EdTech',
     description: 'Language learning apps integrate Spaced Repetition Planner to schedule adaptive reviews and generate varied prompts, improving long‑term retention and daily engagement.',

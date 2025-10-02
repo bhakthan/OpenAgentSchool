@@ -120,6 +120,21 @@ export async function reconcileReading(reading: SensorPacket) {
     'Needs tight integration with procurement and workforce management systems.'
   ],
   relatedPatterns: ['data-quality-feedback-loop', 'strategy-memory-replay', 'policy-gated-tool-invocation'],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '2-3 weeks',
+    complexityReduction: 'Medium - Azure Digital Twins and IoT Hub provide sensor integration, but requires custom anomaly detection and workflow logic',
+    reusabilityScore: 7,
+    learningCurve: 'steep',
+    velocityPractices: [
+      'Pattern Fluency - IoT monitoring pattern for supply chain, facilities management, smart building operations',
+      'Architecture Templates - Azure Digital Twins + Azure Functions provide telemetry processing and digital twin state management',
+      'Failure Scenario Libraries - Sensor failures, false positives, network latency issues documented with mitigation strategies',
+      'Operational Instrumentation - Anomaly detection precision/recall, time-to-recovery, SLA compliance metrics critical'
+    ]
+  },
+
   evaluation: 'Track variance detection precision/recall, time-to-recovery, SLA breach avoidance, and the percentage of auto-executed tasks that complete without manual correction.',
   completeCode: `import { createAgent } from '@openagentschool/operations';
 import { InventoryTwin } from '@openagentschool/digital-twin';

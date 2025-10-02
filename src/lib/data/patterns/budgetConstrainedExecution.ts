@@ -115,5 +115,19 @@ def execute_plan(plan, ground, evaluator, budgets):
             queue.extend(plan['dependents'].get(step_id, []))
     return { 'status': 'partial', 'results': results }
 `,
-  completeCode: ''
+  completeCode: '',
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '6-10 hours',
+    complexityReduction: 'Medium - Azure AI Evaluation SDK provides cost tracking, but budget enforcement requires custom circuit breakers',
+    reusabilityScore: 8,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Operational Instrumentation - Cost tracking, latency monitoring, and token usage dashboards critical for budget optimization',
+      'Failure Scenario Libraries - Budget exhaustion, quality degradation, and timeout scenarios documented',
+      'Evaluation Automation - Cost-per-query and quality-at-budget-level metrics standard for optimization',
+      'Pattern Fluency - Essential pattern for production agents with SLAs, cost constraints, and latency requirements'
+    ]
+  }
 };

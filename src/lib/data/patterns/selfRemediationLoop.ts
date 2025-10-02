@@ -30,6 +30,21 @@ export const selfRemediationLoopPattern: PatternData = {
   advantages: ['Improves reliability', 'Teaches testing discipline'],
   limitations: ['Sandbox required to run tests safely'],
   relatedPatterns: ['Evaluator-Optimizer', 'Self-Reflection'],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '4-8 hours',
+    complexityReduction: 'High - Automates test-driven debugging, reduces manual test writing by 60-80%',
+    reusabilityScore: 9,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Testing pattern for code generation, educational platforms, CI/CD pipelines, automated grading',
+      'Architecture Templates - GitHub Actions + Azure OpenAI provide test generation and fix application',
+      'Evaluation Automation - Test pass rate, fix validity, student learning outcomes, code quality improvement metrics',
+      'Failure Scenario Libraries - Infinite loops, unsafe fixes, sandbox escapes documented with mitigation'
+    ]
+  },
+
   businessUseCase: {
     industry: 'EdTech',
     description: 'University autograders adopt Self‑Remediation Loop to generate failing tests from specs and guide students to green via minimal patches, improving test literacy and code robustness.',

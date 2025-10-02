@@ -46,4 +46,18 @@ export function detect(text: string) {
 def detect(text: str):
     return [{ 'label': 'Confusing precision vs recall', 'fix': 'Work through example confusion matrix.' }]
 `,
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '4-8 hours',
+    complexityReduction: 'High - GPT-4 reasoning with few-shot examples eliminates manual misconception taxonomy creation',
+    reusabilityScore: 7,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Educational pattern for tutoring systems, formative assessment, adaptive learning platforms',
+      'Architecture Templates - OpenAI structured outputs provide typed misconception detection responses',
+      'Evaluation Automation - Detection precision/recall and corrective lesson effectiveness metrics standard',
+      'Failure Scenario Libraries - False positives, overgeneralization, cultural bias in misconception labeling documented'
+    ]
+  }
 };

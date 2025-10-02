@@ -11,6 +11,21 @@ export const policyGatedInvocationPattern: PatternData = {
   description: 'Mediates tool/API calls through intent parsing, capability mapping, risk scoring, and policy lattice evaluation before signed execution.',
   category: 'Data Autonomy',
   relatedPatterns: ['action-grounding-verification', 'budget-constrained-execution', 'perception-normalization'],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '1-2 days',
+    complexityReduction: 'High - Eliminates manual approval workflows for tool invocations, reduces risk via automated policy evaluation',
+    reusabilityScore: 8,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Security pattern for enterprise integrations, API orchestration, multi-tenant SaaS, regulated industries',
+      'Architecture Templates - Azure Policy + Microsoft Agent Framework provide intent parsing and policy lattice evaluation',
+      'Failure Scenario Libraries - Policy false positives, capability mapping errors, risk scoring edge cases documented',
+      'Evaluation Automation - Policy enforcement accuracy, false positive/negative rates, approval latency metrics standard'
+    ]
+  },
+
   businessUseCase: {
     industry: 'Enterprise Integrations',
     description: 'Before an agent calls a downstream CRM bulk update API, the invocation request is parsed, mapped to allowed capability surfaces, risk scored, evaluated through policy lattice, and only then signed for execution.',

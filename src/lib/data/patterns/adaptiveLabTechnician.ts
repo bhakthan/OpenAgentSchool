@@ -200,5 +200,19 @@ Cover:
 - Scientist console workflows for approvals, overrides, and audit signatures.
 - Metrics proving readiness before expanding to additional lab lines.
 `
+  },
+
+  velocityProfile: {
+    impact: 'low',
+    timeToImplement: '2-4 weeks',
+    complexityReduction: 'Low - Requires custom hardware integration, LIMS APIs, and regulatory compliance validation',
+    reusabilityScore: 5,
+    learningCurve: 'steep',
+    velocityPractices: [
+      'Operational Instrumentation - Critical for CLIA/ISO compliance; sensor telemetry, audit trails, and escalation alerts required',
+      'Failure Scenario Libraries - Equipment failures, reagent depletion, calibration drift extensively documented for safety',
+      'Pattern Fluency - Specialized robotics pattern for automated labs, biotech manufacturing, pharmaceutical QC',
+      'Evaluation Automation - Assay success rate, batch quality metrics, and regulatory audit compliance tracked'
+    ]
   }
 };

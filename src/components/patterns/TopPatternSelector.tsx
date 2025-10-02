@@ -10,6 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { MagnifyingGlass, Robot, GraduationCap, Lightbulb, BookmarkSimple, X } from '@phosphor-icons/react';
 import { agentPatterns, PatternData } from '@/lib/data/patterns/index';
 import { cn } from '@/lib/utils';
+import { VelocityBadge } from './VelocityBadge';
 
 interface TopPatternSelectorProps {
   selectedPattern: PatternData | null;
@@ -235,6 +236,11 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
                       <p className="text-sm text-muted-foreground line-clamp-3">
                         {pattern.description}
                       </p>
+                      {pattern.velocityProfile && (
+                        <div className="mt-2">
+                          <VelocityBadge impact={pattern.velocityProfile.impact} size="sm" showLabel={false} />
+                        </div>
+                      )}
                       {pattern.useCases && pattern.useCases.length > 0 && (
                         <div className="mt-1 flex flex-wrap gap-1">
                           {pattern.useCases.slice(0, 2).map((useCase, i) => (

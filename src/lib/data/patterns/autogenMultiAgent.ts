@@ -198,5 +198,19 @@ print(f"Agents involved: {result.agents_used}")`,
   advantages: [],
   limitations: [],
   relatedPatterns: [],
-  codeVisualizer: Mem0AgentMemoryVisual
+  codeVisualizer: Mem0AgentMemoryVisual,
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '2-4 days',
+    complexityReduction: 'High - Microsoft Agent Framework workflow orchestration eliminates manual agent coordination code',
+    reusabilityScore: 8,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Multi-agent workflow pattern for software development, content creation, complex analysis',
+      'Architecture Templates - Microsoft Agent Framework provides workflow DAGs, sequential/parallel execution',
+      'Operational Instrumentation - Workflow duration, agent utilization, and handoff metrics built-in',
+      'Evaluation Automation - Workflow success rate and task quality metrics tracked automatically'
+    ]
+  }
 };

@@ -61,5 +61,19 @@ def build_project_brief(concept: str, level: str, timebox_hrs: int) -> Dict[str,
         "rubric": ["Completeness", "Clarity", "Demoability"],
         "timeboxHrs": timebox_hrs,
     }
-`
+`,
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '2-4 hours',
+    complexityReduction: 'High - GPT-4 project scaffolding eliminates manual project brief creation and milestone planning',
+    reusabilityScore: 9,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Project-based learning pattern for bootcamps, capstone courses, hackathons, portfolio building',
+      'Architecture Templates - Structured output ensures consistent project brief format with rubrics and milestones',
+      'Evaluation Automation - Project completion rate and learning objective coverage metrics tracked',
+      'Operational Instrumentation - Timebox adherence and milestone completion dashboards monitor progress'
+    ]
+  }
 };

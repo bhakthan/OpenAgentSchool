@@ -7,6 +7,21 @@ export const queryIntentStructuredAccessPattern: PatternData = {
   description: 'Maps NL analytical queries to canonical structured access plans with entity binding, parameter validation, and policy checks.',
   category: 'Data Autonomy',
   relatedPatterns: ['perception-normalization', 'schema-aware-decomposition', 'action-grounding-verification'],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '1-2 days',
+    complexityReduction: 'High - Eliminates SQL hallucination errors, reduces query debugging time by 70-80% via entity binding',
+    reusabilityScore: 8,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Data access pattern for analytics platforms, BI tools, data warehouses, self-service analytics',
+      'Architecture Templates - Azure OpenAI + semantic layer provide NL-to-SQL with entity resolution',
+      'Failure Scenario Libraries - Join hallucinations, metric misalignment, filter logic errors documented',
+      'Evaluation Automation - Query correctness rate, execution success rate, result accuracy metrics standard'
+    ]
+  },
+
   businessUseCase: {
     industry: 'Marketing Analytics',
     description: 'User asks: “Compare last quarter conversion lift by channel excluding trial-only cohorts.” Pattern produces structured plan with validated entities, metrics, and filters before generation.',

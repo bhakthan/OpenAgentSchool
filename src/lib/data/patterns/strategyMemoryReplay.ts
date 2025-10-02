@@ -7,6 +7,21 @@ export const strategyMemoryReplayPattern: PatternData = {
   description: 'Retrieves & adapts historical execution strategies to guide current decomposition & execution for efficiency.',
   category: 'Data Autonomy',
   relatedPatterns: ['schema-aware-decomposition', 'budget-constrained-execution', 'perception-normalization'],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '2-3 days',
+    complexityReduction: 'Very High - Reduces investigation time by 60% and token costs by 40% via strategy reuse',
+    reusabilityScore: 8,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Memory pattern for data investigations, financial research, diagnostics workflows, incident response',
+      'Architecture Templates - Microsoft Agent Framework Context Providers + Redis provide strategy memory and retrieval',
+      'Failure Scenario Libraries - Strategy mismatch, embedding drift, replay failures documented',
+      'Operational Instrumentation - Strategy relevance score, execution efficiency gain, token cost reduction metrics'
+    ]
+  },
+
   businessUseCase: {
     industry: 'Financial Research Automation',
     description: 'A financial analytics team uses Agent Framework Context Providers to maintain a memory of successful investigation strategies. When a new VaR (Value at Risk) anomaly occurs, the StrategyMemory Context Provider retrieves similar past cases from Redis, adapts the proven feature extraction steps, and replays the validated diagnostics workflow. The agent\'s memory includes embedding vectors for strategy matching, execution metrics for quality scoring, and full conversation history for audit trails. This memory-driven approach reduces investigation time by 60% and token costs by 40% while maintaining consistency across analysts.',

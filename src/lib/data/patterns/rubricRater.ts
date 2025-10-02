@@ -29,6 +29,21 @@ export const rubricRaterPattern: PatternData = {
   advantages: ['Consistent scoring', 'Actionable feedback'],
   limitations: ['Subjectivity in edge cases'],
   relatedPatterns: ['Evaluator-Optimizer'],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '3-6 hours',
+    complexityReduction: 'High - Eliminates manual grading workflows, reduces instructor time by 60-80% for rubric-based assignments',
+    reusabilityScore: 9,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Evaluation pattern for bootcamps, universities, corporate training, code review automation',
+      'Architecture Templates - Azure OpenAI + structured output mode for criterion-based scoring with rationale',
+      'Evaluation Automation - Inter-rater reliability (human vs AI), grading consistency, feedback quality metrics standard',
+      'Failure Scenario Libraries - Edge case handling, rubric ambiguity, bias detection documented'
+    ]
+  },
+
   businessUseCase: {
     industry: 'EdTech',
     description: 'Bootcamps use Rubric Rater to auto-score submissions with transparent criteria and provide concrete deltas. Instructors get consistency; learners get actionable next steps.',

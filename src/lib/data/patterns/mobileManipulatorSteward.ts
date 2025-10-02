@@ -138,6 +138,21 @@ export async function fulfillAmenity(request: GuestRequest) {
     'Policy tuning needed to avoid over-cautious halts in crowded spaces.'
   ],
   relatedPatterns: ['autonomous-workflow', 'agent-ops', 'architecture-platform-operations'],
+
+  velocityProfile: {
+    impact: 'low',
+    timeToImplement: '3-6 months',
+    complexityReduction: 'Low - Requires extensive robotics infrastructure (ROS, navigation stacks, manipulation libraries) and domain-specific calibration',
+    reusabilityScore: 4,
+    learningCurve: 'steep',
+    velocityPractices: [
+      'Pattern Fluency - Specialized embodied AI pattern for hospitality, healthcare, warehousing, facility services',
+      'Architecture Templates - ROS 2 + Azure IoT Edge + Gemini multimodal provide sensor fusion and task planning',
+      'Failure Scenario Libraries - Navigation failures, manipulation errors, safety stop triggers, human-robot interaction edge cases',
+      'Operational Instrumentation - Task success rate, teleop ratio, safety stop frequency, guest satisfaction metrics critical'
+    ]
+  },
+
   evaluation: 'Track task success (autonomous vs assisted), safety stop frequency, teleop ratio, and guest satisfaction follow-up scores.',
   completeCode: `import { createEmbodiedAgent, registerMissionWatcher } from '@openagentschool/robotics';
 import { GeminiGuardPolicy } from '@openagentschool/robotics/safety';

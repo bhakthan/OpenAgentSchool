@@ -43,6 +43,20 @@ export const socraticCoachPattern: PatternData = {
     'May frustrate in time-critical contexts'
   ],
   relatedPatterns: ['Evaluator-Optimizer', 'Self-Reflection'],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '3-6 hours',
+    complexityReduction: 'Low - Shifts from answer delivery to question scaffolding, requires careful prompt engineering',
+    reusabilityScore: 8,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Pedagogical pattern for coding labs, tutoring systems, interview prep, professional development',
+      'Architecture Templates - Azure OpenAI + conversation history for progressive hint scaffolding',
+      'Evaluation Automation - Student mastery improvement, hint effectiveness, engagement metrics, pass rate changes'
+    ]
+  },
+
   businessUseCase: {
     industry: 'EdTech',
     description: 'A university LMS integrates Socratic Coach in coding labs to nudge students with targeted questions instead of solutions. This reduces plagiarism, increases conceptual mastery, and improves pass rates in intro CS courses.',

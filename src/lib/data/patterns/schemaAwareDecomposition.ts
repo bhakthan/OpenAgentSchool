@@ -20,6 +20,21 @@ export const schemaAwareDecompositionPattern: PatternData = {
     'query-intent-structured-access',
     'strategy-memory-replay'
   ],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '1-2 days',
+    complexityReduction: 'Medium - Structures complex data tasks into manageable subtasks, reduces planning errors by 50%',
+    reusabilityScore: 7,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Task planning pattern for data pipelines, analytics workflows, ETL orchestration',
+      'Architecture Templates - LangChain + schema validators provide task decomposition with dependency ordering',
+      'Failure Scenario Libraries - Schema violations, dependency errors, resource allocation failures documented',
+      'Evaluation Automation - Subtask validity rate, dependency correctness, workflow success metrics'
+    ]
+  },
+
   businessUseCase: {
     industry: 'Finance - Risk Analytics',
     description: 'Risk team asks: “Generate a daily VaR anomaly investigation workflow.” Schema-aware decomposition expands this into validated feature extraction, aggregation, residual analysis, and reporting subtasks referencing only approved fact tables.',

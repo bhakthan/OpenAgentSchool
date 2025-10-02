@@ -400,7 +400,21 @@ export class DeepAgentOrchestrator {
     { id: "e8", source: "critique-agent", target: "file-system", label: "Review Files" },
     { id: "e9", source: "file-system", target: "main-agent", label: "Retrieved State" },
     { id: "e10", source: "main-agent", target: "final-output", label: "Generated Report" }
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '1-2 weeks',
+    complexityReduction: 'Very High - LangGraph provides hierarchical agent orchestration, persistent state, and sub-agent coordination out-of-box',
+    reusabilityScore: 8,
+    learningCurve: 'steep',
+    velocityPractices: [
+      'Pattern Fluency - Advanced hierarchical pattern for research, enterprise workflows, complex analysis requiring specialized sub-tasks',
+      'Architecture Templates - LangGraph and Microsoft Agent Framework provide deep agent scaffolding with state persistence',
+      'Failure Scenario Libraries - State management failures, sub-agent coordination issues, recursion limit problems documented',
+      'Evaluation Automation - Task completion quality, sub-agent efficiency, and overall workflow metrics standard'
+    ]
+  }
 }
 
 export default deepAgentsPattern;
