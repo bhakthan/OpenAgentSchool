@@ -2,7 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        xsi:schemaLocation="http://www.sit    <!-- Patterns Explorer -->
+    <url>
+        <loc>https://www.openagentschool.org/patterns</loc>
+        <lastmod>2025-10-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Individual Pattern Pages -->/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
     <!-- Homepage -->
@@ -308,6 +316,20 @@
     <url>
         <loc>https://www.openagentschool.org/patterns/mobile-manipulator-steward</loc>
         <lastmod>2025-09-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/patterns/contextual-onboarding-orchestrator</loc>
+        <lastmod>2025-10-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/patterns/hierarchical-document-intelligence</loc>
+        <lastmod>2025-10-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
