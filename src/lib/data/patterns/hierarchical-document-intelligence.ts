@@ -18,14 +18,14 @@ export const hierarchicalDocumentIntelligencePattern: PatternData = {
 
   nodes: [
     { id: 'input', type: 'input', data: { label: 'Dense PDF Document', nodeType: 'input' }, position: { x: 50, y: 200 } },
-    { id: 'preprocessor', type: 'default', data: { label: 'Preprocessor Agent', description: 'Intelligent chunking', nodeType: 'planner' }, position: { x: 250, y: 100 } },
-    { id: 'visual', type: 'default', data: { label: 'Visual Extractor', description: 'Vision model', nodeType: 'tool' }, position: { x: 250, y: 200 } },
-    { id: 'domain', type: 'default', data: { label: 'Domain Expert', description: 'Standards knowledge', nodeType: 'llm' }, position: { x: 250, y: 300 } },
-    { id: 'context', type: 'default', data: { label: 'Context Manager', description: 'Vector + Graph Memory', nodeType: 'tool' }, position: { x: 480, y: 150 } },
-    { id: 'xref', type: 'default', data: { label: 'Cross-Ref Resolver', description: 'Link sections', nodeType: 'evaluator' }, position: { x: 480, y: 250 } },
-    { id: 'synthesizer', type: 'default', data: { label: 'Hierarchical Synthesizer', description: 'Multi-level understanding', nodeType: 'aggregator' }, position: { x: 700, y: 200 } },
-    { id: 'query', type: 'default', data: { label: 'Query Handler', description: 'Semantic search + reasoning', nodeType: 'llm' }, position: { x: 920, y: 150 } },
-    { id: 'output', type: 'output', data: { label: 'Analysis + Q&A', nodeType: 'output' }, position: { x: 920, y: 250 } }
+    { id: 'preprocessor', type: 'default', data: { label: 'Preprocessor Agent', description: 'Intelligent chunking', nodeType: 'planner' }, position: { x: 300, y: 100 } },
+    { id: 'visual', type: 'default', data: { label: 'Visual Extractor', description: 'Vision model', nodeType: 'tool' }, position: { x: 300, y: 200 } },
+    { id: 'domain', type: 'default', data: { label: 'Domain Expert', description: 'Standards knowledge', nodeType: 'llm' }, position: { x: 300, y: 300 } },
+    { id: 'context', type: 'default', data: { label: 'Context Manager', description: 'Vector + Graph Memory', nodeType: 'tool' }, position: { x: 600, y: 150 } },
+    { id: 'xref', type: 'default', data: { label: 'Cross-Ref Resolver', description: 'Link sections', nodeType: 'evaluator' }, position: { x: 600, y: 250 } },
+    { id: 'synthesizer', type: 'default', data: { label: 'Hierarchical Synthesizer', description: 'Multi-level understanding', nodeType: 'aggregator' }, position: { x: 900, y: 200 } },
+    { id: 'query', type: 'default', data: { label: 'Query Handler', description: 'Semantic search + reasoning', nodeType: 'llm' }, position: { x: 1150, y: 150 } },
+    { id: 'output', type: 'output', data: { label: 'Analysis + Q&A', nodeType: 'output' }, position: { x: 1150, y: 250 } }
   ],
 
   edges: [

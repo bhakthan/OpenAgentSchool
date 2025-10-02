@@ -48,6 +48,7 @@ export { dataQualityFeedbackLoopPattern } from './dataQualityFeedbackLoop';
 export { queryIntentStructuredAccessPattern } from './queryIntentStructuredAccess';
 export { strategyMemoryReplayPattern } from './strategyMemoryReplay';
 export { hierarchicalDocumentIntelligencePattern } from './hierarchical-document-intelligence';
+export { contextualOnboardingOrchestratorPattern } from './contextual-onboarding-orchestrator';
 export { mobileManipulatorStewardPattern } from './mobileManipulatorSteward';
 export { adaptiveLabTechnicianPattern } from './adaptiveLabTechnician';
 export { inventoryGuardianPattern } from './inventoryGuardian';
@@ -99,6 +100,7 @@ import { dataQualityFeedbackLoopPattern } from './dataQualityFeedbackLoop';
 import { queryIntentStructuredAccessPattern } from './queryIntentStructuredAccess';
 import { strategyMemoryReplayPattern } from './strategyMemoryReplay';
 import { hierarchicalDocumentIntelligencePattern } from './hierarchical-document-intelligence';
+import { contextualOnboardingOrchestratorPattern } from './contextual-onboarding-orchestrator';
 import { mobileManipulatorStewardPattern } from './mobileManipulatorSteward';
 import { adaptiveLabTechnicianPattern } from './adaptiveLabTechnician';
 import { inventoryGuardianPattern } from './inventoryGuardian';
@@ -151,6 +153,7 @@ export const agentPatterns = [
   queryIntentStructuredAccessPattern,
   strategyMemoryReplayPattern,
   hierarchicalDocumentIntelligencePattern,
+  contextualOnboardingOrchestratorPattern,
   mobileManipulatorStewardPattern,
   adaptiveLabTechnicianPattern,
   inventoryGuardianPattern,

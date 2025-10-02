@@ -630,6 +630,152 @@ export const dataAutonomySocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Socratic Questions for Hierarchical Document Intelligence Pattern
+export const hierarchicalDocumentIntelligenceSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'hierarchical-doc-q1',
+    type: 'socratic',
+    conceptId: 'hierarchical-document-intelligence',
+    title: 'Context Window Limits vs Document Depth',
+    level: 'beginner',
+    socratiQuestion: 'A 200-page technical schematic exceeds your LLM context window by 4x. Why might naive chunking (split at page 50, 100, 150) break the system\'s ability to answer cross-reference questions?',
+    followUpQuestions: [
+      'What relationships exist in technical documents that span multiple pages?',
+      'How do diagrams and tables complicate fixed-size chunking?',
+      'What information would you need to preserve across chunk boundaries?'
+    ],
+    expectedInsights: [
+      'Technical documents have semantic units (sections, diagrams, tables) that shouldn\'t be split',
+      'Cross-references and callouts create dependencies between distant pages',
+      'Context preservation requires overlap and relationship tracking'
+    ],
+    hints: ['Think about table continuations', 'Consider detail callouts', 'Focus on semantic boundaries'],
+    explanation: 'Hierarchical chunking preserves semantic units while managing context limits through intelligent boundary detection.',
+    relatedConcepts: ['context-management', 'semantic-chunking', 'multi-modal-processing'],
+    timeEstimate: 12,
+    successCriteria: ['Identifies cross-reference dependencies', 'Explains semantic boundary importance']
+  },
+  {
+    id: 'hierarchical-doc-q2',
+    type: 'socratic',
+    conceptId: 'hierarchical-document-intelligence',
+    title: 'Agent Specialization Trade-offs',
+    level: 'intermediate',
+    socratiQuestion: 'The pattern uses 6 specialized agents (preprocessor, visual extractor, domain expert, cross-ref resolver, synthesizer, query handler). What failures might emerge if you collapsed this into 2 generalist agents?',
+    followUpQuestions: [
+      'Which agent skills would degrade first with fewer specialists?',
+      'How does specialization affect error isolation and debugging?',
+      'What coordination overhead do you gain vs lose?'
+    ],
+    expectedInsights: [
+      'Visual extraction and domain interpretation require different model capabilities',
+      'Generalist agents often excel at one task while underperforming at others',
+      'Specialization enables targeted optimization and clear failure attribution'
+    ],
+    hints: ['Consider vision vs text models', 'Think about prompt complexity', 'Focus on debugging clarity'],
+    explanation: 'Agent specialization enables expert-level performance per task while maintaining system composability.',
+    relatedConcepts: ['multi-agent-systems', 'agent-specialization', 'system-modularity'],
+    timeEstimate: 15,
+    successCriteria: ['Identifies specialization benefits', 'Describes coordination trade-offs']
+  },
+  {
+    id: 'hierarchical-doc-q3',
+    type: 'socratic',
+    conceptId: 'hierarchical-document-intelligence',
+    title: 'Hierarchical Synthesis Validation',
+    level: 'advanced',
+    socratiQuestion: 'The hierarchical synthesizer builds understanding at component → subsystem → system levels. How would you detect when synthesis hallucinates relationships not present in source documents?',
+    followUpQuestions: [
+      'What audit trail would prove each synthesized claim traces to source pages?',
+      'How do you balance synthesis creativity vs strict citation requirements?',
+      'When should human-in-loop verification trigger?'
+    ],
+    expectedInsights: [
+      'Every synthesis claim needs source page citations for verification',
+      'Confidence scores and provenance chains enable selective human review',
+      'High-stakes inferences (safety, compliance) require explicit approval gates'
+    ],
+    hints: ['Think about citation graphs', 'Consider confidence thresholds', 'Focus on compliance domains'],
+    explanation: 'Synthesis validation requires provenance tracking and confidence-based human escalation to prevent hallucination.',
+    relatedConcepts: ['provenance-tracking', 'confidence-scoring', 'human-in-loop'],
+    timeEstimate: 18,
+    successCriteria: ['Proposes audit trail structure', 'Defines escalation triggers']
+  }
+];
+
+// Socratic Questions for Contextual Onboarding Orchestrator Pattern
+export const contextualOnboardingOrchestratorSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'contextual-onboarding-q1',
+    type: 'socratic',
+    conceptId: 'contextual-onboarding-orchestrator',
+    title: 'Multi-Day Memory Challenges',
+    level: 'beginner',
+    socratiQuestion: 'An employee onboarding assistant converses over 5 days with 30+ turns total. If you send the full conversation history on turn 31, what problems emerge?',
+    followUpQuestions: [
+      'How does token cost scale with conversation length?',
+      'What happens when history exceeds the context window?',
+      'Which information from early turns is still relevant on day 5?'
+    ],
+    expectedInsights: [
+      'Full history causes exponential token cost growth and eventual context overflow',
+      'Most historical details become irrelevant after a few turns',
+      'Key profile information (role, department, goals) stays relevant long-term'
+    ],
+    hints: ['Think about cumulative token costs', 'Consider context window limits', 'Focus on information decay'],
+    explanation: 'Persistent memory requires selective retention and summarization to balance context preservation with efficiency.',
+    relatedConcepts: ['context-management', 'memory-systems', 'token-optimization'],
+    timeEstimate: 10,
+    successCriteria: ['Calculates token cost scaling', 'Identifies information relevance patterns']
+  },
+  {
+    id: 'contextual-onboarding-q2',
+    type: 'socratic',
+    conceptId: 'contextual-onboarding-orchestrator',
+    title: 'Agent Routing Precision',
+    level: 'intermediate',
+    socratiQuestion: 'The system routes questions to 4 specialist agents (HR, DevOps, Compliance, SkillGrowth). An employee asks "How do I get access to the Jenkins server to deploy my app?" Which agent should answer, and why might this be ambiguous?',
+    followUpQuestions: [
+      'What context about the employee would help routing decisions?',
+      'How do you handle questions that span multiple domains?',
+      'What happens when the wrong agent answers?'
+    ],
+    expectedInsights: [
+      'Routing needs employee context (role, seniority) not just question text',
+      'Multi-domain questions may require agent collaboration or sequential routing',
+      'Misrouting causes poor answers and erodes user trust'
+    ],
+    hints: ['Consider role-based permissions', 'Think about composite questions', 'Focus on user experience'],
+    explanation: 'Effective routing combines question classification with employee profile context to ensure relevant specialist answers.',
+    relatedConcepts: ['agent-routing', 'context-awareness', 'domain-specialization'],
+    timeEstimate: 14,
+    successCriteria: ['Explains routing ambiguity', 'Proposes context-enhanced classification']
+  },
+  {
+    id: 'contextual-onboarding-q3',
+    type: 'socratic',
+    conceptId: 'contextual-onboarding-orchestrator',
+    title: 'Human-in-Loop Escalation Design',
+    level: 'advanced',
+    socratiQuestion: 'The pattern includes manager approval for policy exceptions. How do you decide which requests require human approval vs autonomous agent authorization?',
+    followUpQuestions: [
+      'What risk factors should trigger escalation?',
+      'How do you minimize manager interruptions without compromising safety?',
+      'What audit trail is needed for compliance?'
+    ],
+    expectedInsights: [
+      'Risk-based escalation considers policy sensitivity, employee seniority, and request novelty',
+      'Confidence thresholds and explicit policy boundaries reduce unnecessary escalations',
+      'Full audit logs with manager approval timestamps meet compliance requirements'
+    ],
+    hints: ['Think about risk scoring', 'Consider precedent matching', 'Focus on compliance needs'],
+    explanation: 'Escalation design balances autonomy with safety through risk assessment and clear policy boundaries.',
+    relatedConcepts: ['human-in-loop', 'risk-assessment', 'compliance-governance'],
+    timeEstimate: 16,
+    successCriteria: ['Defines escalation criteria', 'Proposes audit trail structure']
+  }
+];
+
 export const contextCuratorQuestions: StudyModeQuestion[] = [
   {
     id: 'context-curator-q1',
@@ -3896,9 +4042,11 @@ export const socraticQuestionLibrary = {
   'agent-deployment': agentDeploymentSocraticQuestions,
   'swarm-intelligence': swarmIntelligenceSocraticQuestions,
   'agentic-ai-design-taxonomy': agenticAIDesignTaxonomySocraticQuestions,
-  'sensory-reasoning-enhancement': sensoryReasoningEnhancementSocraticQuestions
-  ,
-  'agentic-commerce-ap2': agenticCommerceAp2SocraticQuestions
+  'sensory-reasoning-enhancement': sensoryReasoningEnhancementSocraticQuestions,
+  'agentic-commerce-ap2': agenticCommerceAp2SocraticQuestions,
+  // Data Autonomy Patterns
+  'hierarchical-document-intelligence': hierarchicalDocumentIntelligenceSocraticQuestions,
+  'contextual-onboarding-orchestrator': contextualOnboardingOrchestratorSocraticQuestions
 };
 
 // Helper function to get socratic questions by concept and level

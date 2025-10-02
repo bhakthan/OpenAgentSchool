@@ -5198,7 +5198,7 @@ responseMate.handleSignal(async signal => {
       learningOutcomes: [
         'Deduplicate high-noise incident feeds with confidence scoring',
         'Coordinate multi-channel responder tasking with accountability',
-        'Maintain an operating picture commanders can trust under stress'
+        'Maintains an operating picture commanders can trust under stress'
       ]
     },
     explanation: 'Prepares teams to rely on the response mate during high-stakes, multi-channel incidents.',
@@ -5211,6 +5211,281 @@ responseMate.handleSignal(async signal => {
     ]
   }
 ];
+
+// Interactive Scenarios for Hierarchical Document Intelligence Pattern
+export const hierarchicalDocIntelligenceScenarios: StudyModeQuestion[] = [
+  {
+    id: 'hierarchical-doc-scn-1',
+    type: 'scenario',
+    conceptId: 'hierarchical-document-intelligence',
+    title: 'Engineering Schematic Analysis System',
+    level: 'intermediate',
+    scenario: {
+      id: 'hierarchical-doc-engineering',
+      title: 'Building a 200-Page P&ID Analyzer',
+      description: 'Your engineering firm needs to analyze dense 200+ page P&ID diagrams that exceed LLM context windows. Design a hierarchical document intelligence system.',
+      context: 'Engineers spend 40+ hours manually cross-referencing piping details, valve specs, and safety interlocks across diagram sheets. The system must handle visual elements (symbols, connections) and text annotations while preserving cross-page relationships.',
+      stakeholders: ['Engineering Team', 'Safety Compliance', 'Project Managers'],
+      challenges: [
+        {
+          id: 'chunking-strategy',
+          title: 'Smart Chunking Design',
+          description: 'Context window is 50K tokens but documents are 2M+ tokens',
+          question: 'How should you chunk the document to preserve semantic relationships?',
+          type: 'multiple-choice',
+          options: [
+            'Fixed 50-page chunks regardless of content',
+            'Content-aware chunking that preserves diagram sheets and cross-references with overlap',
+            'Split by file size to keep chunks equal',
+            'Process entire document without chunking'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Content-aware chunking preserves diagrams, tables, and cross-references by respecting semantic boundaries while maintaining overlap for context preservation.',
+          hints: [
+            'Consider what happens if a diagram is split mid-content',
+            'Think about cross-references between pages'
+          ]
+        },
+        {
+          id: 'agent-specialization',
+          title: 'Multi-Agent Architecture',
+          description: 'Different processing needs for text, diagrams, and standards',
+          question: 'Which agent architecture best handles visual + textual + domain knowledge needs?',
+          type: 'multiple-choice',
+          options: [
+            'Single generalist agent handles everything',
+            'Specialized agents: Visual Extractor (symbols), Domain Expert (standards), Cross-Ref Resolver (links)',
+            'Two agents: one for text, one for images',
+            'Just use OCR then standard text processing'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Specialized agents enable targeted optimization: vision models for symbols, domain experts for engineering standards, and resolvers for cross-page references.',
+          hints: [
+            'Consider the different skill sets needed',
+            'Think about optimization opportunities per task type'
+          ]
+        },
+        {
+          id: 'synthesis-validation',
+          title: 'Hierarchical Synthesis with Provenance',
+          description: 'System must build component → subsystem → system understanding',
+          question: 'How do you prevent synthesis hallucination when aggregating insights?',
+          type: 'multiple-choice',
+          options: [
+            'Trust the LLM output without validation',
+            'Require all synthesis claims cite source pages with confidence scores and human review for high-stakes inferences',
+            'Compare outputs from multiple models',
+            'Use rule-based validation only'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! Citation requirements, confidence scoring, and selective human review create an audit trail that prevents hallucination while enabling verification.',
+          hints: [
+            'Think about traceability requirements',
+            'Consider safety-critical vs routine claims'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'successful-system',
+          condition: 'All challenges completed correctly',
+          result: '90% reduction in manual review time with full traceability',
+          explanation: 'Your design preserves context through smart chunking, leverages specialized agents for optimal processing, and maintains provenance chains for verification.',
+          nextSteps: [
+            'Add BOM generation from extracted components',
+            'Implement standards compliance validation',
+            'Build query interface for engineer questions'
+          ]
+        },
+        {
+          id: 'partial-system',
+          condition: 'Some challenges incomplete',
+          result: 'System works but has accuracy or scalability issues',
+          explanation: 'Review feedback to understand implications of design choices on context preservation and synthesis quality.',
+          nextSteps: [
+            'Revisit chunking strategy for cross-references',
+            'Add more specialized agents for specific tasks',
+            'Implement provenance tracking'
+          ]
+        }
+      ],
+      codeExample: `// Hierarchical processing pseudocode
+const preprocessor = new ChunkingAgent({ boundaryDetection: 'semantic' });
+const visualAgent = new VisionModel({ task: 'symbol_extraction' });
+const domainAgent = new LLM({ system: 'Electrical engineering standards expert' });
+const synthesizer = new HierarchicalAgent({ 
+  levels: ['component', 'subsystem', 'system'],
+  citationRequired: true 
+});
+
+const chunks = await preprocessor.chunk(document);
+const elements = await visualAgent.extract(chunks);
+const interpretations = await domainAgent.analyze(elements);
+const synthesis = await synthesizer.build(interpretations);`,
+      resources: ['Multi-Modal Document Processing', 'Agent Specialization Patterns', 'Provenance Tracking'],
+      conceptId: 'hierarchical-document-intelligence',
+      difficulty: 'intermediate',
+      estimatedTime: '12-15m',
+      learningOutcomes: [
+        'Design content-aware chunking strategies',
+        'Architect specialized agent systems',
+        'Implement synthesis with provenance tracking'
+      ]
+    },
+    hints: ['Consider semantic boundaries', 'Think about agent specialization benefits', 'Focus on verification needs'],
+    explanation: 'Teaches hierarchical processing of documents exceeding context limits through intelligent chunking and specialized agents.',
+    relatedConcepts: ['multi-agent-systems', 'context-management', 'provenance-tracking'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Designs content-aware chunking',
+      'Architectures specialized multi-agent system',
+      'Implements provenance-tracked synthesis'
+    ]
+  }
+];
+
+// Interactive Scenarios for Contextual Onboarding Orchestrator Pattern
+export const contextualOnboardingScenarios: StudyModeQuestion[] = [
+  {
+    id: 'contextual-onboarding-scn-1',
+    type: 'scenario',
+    conceptId: 'contextual-onboarding-orchestrator',
+    title: 'Multi-Day Employee Onboarding Assistant',
+    level: 'intermediate',
+    scenario: {
+      id: 'contextual-onboarding-system',
+      title: 'Building a Persistent Memory Onboarding Bot',
+      description: 'Your company needs an onboarding assistant that remembers employee context across days and routes questions to specialist agents (HR, DevOps, Compliance, SkillGrowth).',
+      context: 'New employees ask 50+ questions over their first week. Currently no memory exists between sessions, forcing repetitive re-introduction. Questions span multiple domains requiring specialized knowledge.',
+      stakeholders: ['HR Team', 'New Employees', 'IT Operations', 'Compliance Officers'],
+      challenges: [
+        {
+          id: 'memory-strategy',
+          title: 'Persistent Memory Design',
+          description: 'Conversation spans 5 days with 30+ turns',
+          question: 'What memory strategy balances context preservation with token efficiency?',
+          type: 'multiple-choice',
+          options: [
+            'Send full conversation history every time (30+ turns)',
+            'No memory, treat each question independently',
+            'Hybrid: Summarize old turns + keep recent turns + maintain employee profile',
+            'Store everything in vector database and retrieve randomly'
+          ],
+          correctAnswer: 2,
+          feedback: 'Excellent! Hybrid memory combines summarization for old context, full retention of recent turns, and persistent employee profile to balance efficiency with context preservation.',
+          hints: [
+            'Consider token costs of full history',
+            'Think about what information stays relevant long-term'
+          ]
+        },
+        {
+          id: 'routing-logic',
+          title: 'Intelligent Agent Routing',
+          description: 'Questions span HR, DevOps, Compliance, and SkillGrowth domains',
+          question: 'An employee asks "How do I get Jenkins access to deploy my team\'s app?" Which routing strategy works best?',
+          type: 'multiple-choice',
+          options: [
+            'Always route to HR since it\'s onboarding',
+            'Route to DevOps based purely on keywords ("Jenkins", "deploy")',
+            'Use question + employee context (role, seniority) to route to DevOps with IT compliance awareness',
+            'Ask employee which agent they want'
+          ],
+          correctAnswer: 2,
+          feedback: 'Perfect! Context-aware routing uses both question content AND employee profile (role, team) to route to the right specialist while flagging potential policy needs.',
+          hints: [
+            'Consider what context helps routing decisions',
+            'Think about composite questions spanning domains'
+          ]
+        },
+        {
+          id: 'escalation-design',
+          title: 'Human-in-Loop Escalation',
+          description: 'Some requests need manager approval',
+          question: 'What triggers human escalation vs autonomous agent answers?',
+          type: 'multiple-choice',
+          options: [
+            'Escalate everything to be safe',
+            'Never escalate, agents answer everything',
+            'Escalate based on risk factors: policy exceptions, sensitive data access, high-privilege requests',
+            'Escalate only on agent errors'
+          ],
+          correctAnswer: 2,
+          feedback: 'Correct! Risk-based escalation considers policy sensitivity, access level, and request novelty to determine when manager approval is needed, balancing autonomy with safety.',
+          hints: [
+            'Think about what makes requests high-risk',
+            'Consider compliance requirements'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'successful-onboarding',
+          condition: 'All challenges completed correctly',
+          result: '70% reduction in onboarding questions to HR, employees feel remembered',
+          explanation: 'Your design preserves context across days, routes intelligently to specialists, and escalates appropriately for high-risk requests.',
+          nextSteps: [
+            'Add proactive onboarding tips based on role',
+            'Implement feedback loop for agent improvements',
+            'Track escalation patterns for policy updates'
+          ]
+        },
+        {
+          id: 'partial-onboarding',
+          condition: 'Some challenges incomplete',
+          result: 'System works but has memory gaps or routing errors',
+          explanation: 'Review feedback to understand trade-offs in memory management and routing strategies.',
+          nextSteps: [
+            'Refine summarization triggers',
+            'Add employee context to routing',
+            'Define clearer escalation criteria'
+          ]
+        }
+      ],
+      codeExample: `// Onboarding orchestrator pseudocode
+const orchestrator = new OnboardingOrchestrator({
+  memory: {
+    strategy: 'hybrid',
+    summaryTrigger: 10, // turns
+    profileFields: ['role', 'team', 'seniority']
+  },
+  agents: {
+    hr: new HRAgent(),
+    devops: new DevOpsAgent(),
+    compliance: new ComplianceAgent(),
+    skillGrowth: new SkillGrowthAgent()
+  },
+  escalation: {
+    triggers: ['policy_exception', 'high_privilege', 'unknown_policy'],
+    approvers: ['manager', 'hr_lead']
+  }
+});
+
+const response = await orchestrator.handleQuestion({
+  question: "How do I get Jenkins access?",
+  employee: { role: 'engineer', team: 'platform', day: 3 }
+});`,
+      resources: ['Persistent Memory Patterns', 'Agent Routing Strategies', 'Human-in-Loop Design'],
+      conceptId: 'contextual-onboarding-orchestrator',
+      difficulty: 'intermediate',
+      estimatedTime: '10-12m',
+      learningOutcomes: [
+        'Design hybrid memory systems',
+        'Implement context-aware agent routing',
+        'Create risk-based escalation flows'
+      ]
+    },
+    hints: ['Consider long-term context needs', 'Think about routing with employee profile', 'Focus on risk-based escalation'],
+    explanation: 'Teaches persistent memory management and intelligent orchestration for multi-day conversational systems.',
+    relatedConcepts: ['multi-agent-systems', 'memory-management', 'human-in-loop'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Designs hybrid memory strategy',
+      'Implements context-aware routing',
+      'Creates risk-based escalation logic'
+    ]
+  }
+];
+
 // Export all scenarios organized by concept
 export const scenarioLibrary = {
   'multi-agent-systems': autoGenScenarios,
@@ -5236,6 +5511,9 @@ export const scenarioLibrary = {
   'adaptive-lab-technician': adaptiveLabTechnicianScenarios,
   'inventory-guardian': inventoryGuardianScenarios,
   'emergency-response-mate': emergencyResponseMateScenarios,
+  // Data Autonomy Patterns
+  'hierarchical-document-intelligence': hierarchicalDocIntelligenceScenarios,
+  'contextual-onboarding-orchestrator': contextualOnboardingScenarios,
   // New Perspectives (MVP Scenarios)
   'agent-ops': [
     {

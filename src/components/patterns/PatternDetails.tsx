@@ -494,6 +494,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 <Code size={16} /> Live Runner
               </TabsTrigger>
             )}
+            {pattern.id === 'contextual-onboarding-orchestrator' && (
+              <TabsTrigger value="live-runner-contextual-onboarding" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
             {pattern.id === 'sensory-reasoning-enhancement' && (
               <TabsTrigger value="live-runner-sensory" className="flex items-center gap-2">
                 <Code size={16} /> Live Runner
@@ -1083,6 +1088,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
           )}
           {pattern.id === 'hierarchical-document-intelligence' && (
             <TabsContent value="live-runner-hierarchical-doc" className="pt-4">
+              {pattern.codeVisualizer && React.createElement(pattern.codeVisualizer)}
+            </TabsContent>
+          )}
+          {pattern.id === 'contextual-onboarding-orchestrator' && (
+            <TabsContent value="live-runner-contextual-onboarding" className="pt-4">
               {pattern.codeVisualizer && React.createElement(pattern.codeVisualizer)}
             </TabsContent>
           )}

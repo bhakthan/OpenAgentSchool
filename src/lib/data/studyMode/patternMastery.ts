@@ -10,7 +10,7 @@ export interface PatternMasteryBand {
   upgradeCriteria: string[];   // Deterministic gates to advance
 }
 
-// Core nine Data Autonomy patterns
+// Core Data Autonomy patterns + Multi-Agent Orchestration patterns
 const patterns = [
   'perception-normalization',
   'schema-aware-decomposition',
@@ -20,7 +20,8 @@ const patterns = [
   'data-quality-feedback-repair-loop',
   'query-intent-structured-access',
   'strategy-memory-replay',
-  'hierarchical-document-intelligence'
+  'hierarchical-document-intelligence',
+  'contextual-onboarding-orchestrator'
 ];
 
 // Helper to compose bands quickly
@@ -245,7 +246,81 @@ export const patternMasteryBands: PatternMasteryBand[] = [
   ], [
     'Opaque reuse with no criteria logged'
   ], [
-    'Produces reuse decision record example'] )
+    'Produces reuse decision record example'] ),
+
+  // Hierarchical Document Intelligence
+  mk('hierarchical-document-intelligence', 'recognition', [
+    'Identifies when documents exceed context limits but require deep relationships',
+    'Recognizes value of specialized extraction agents (visual, domain, cross-ref)'
+  ], [
+    'Assumes single-pass reading suffices for complex technical documents',
+    'Believes one agent can handle all aspects equally (text, diagrams, standards)'
+  ], [
+    'Can explain why intelligent chunking preserves context across boundaries'] ),
+  mk('hierarchical-document-intelligence', 'application', [
+    'Implements multi-agent parsing with preprocessor, visual extractor, domain expert',
+    'Uses hierarchical synthesis (component → subsystem → system)',
+    'Maintains context through vector search + graph-based memory'
+  ], [
+    'Loses cross-references between document sections',
+    'Cannot answer questions spanning multiple pages'
+  ], [
+    'Demonstrates successful extraction from 100+ page technical document'] ),
+  mk('hierarchical-document-intelligence', 'optimization', [
+    'Optimizes chunk boundaries to preserve semantic units',
+    'Minimizes redundant processing through smart caching',
+    'Reduces query latency via indexed cross-references'
+  ], [
+    'Re-processes entire document for each question',
+    'Uses fixed-size chunks that split tables/diagrams mid-content'
+  ], [
+    'Achieves 80%+ accuracy on cross-reference questions spanning 10+ pages'] ),
+  mk('hierarchical-document-intelligence', 'governance', [
+    'Tracks agent contributions in synthesis audit trail',
+    'Logs confidence scores for extracted elements',
+    'Links interpretations to source pages for human verification'
+  ], [
+    'Cannot trace which agent produced specific claims',
+    'No citations for synthesized insights'
+  ], [
+    'Produces complete provenance chain from answer to source section'] ),
+
+  // Contextual Onboarding Orchestrator
+  mk('contextual-onboarding-orchestrator', 'recognition', [
+    'Identifies need for persistent memory across multi-day onboarding',
+    'Recognizes value of specialized domain agents'
+  ], [
+    'Assumes single-turn responses suffice for onboarding',
+    'Believes one generalist agent can handle all domains equally well'
+  ], [
+    'Can explain why context summarization matters for long sessions'] ),
+  mk('contextual-onboarding-orchestrator', 'application', [
+    'Implements hybrid memory (summarization + trimming)',
+    'Routes questions to appropriate specialist agents',
+    'Maintains session state across interactions'
+  ], [
+    'Loses context after 5+ turns',
+    'Routes all questions to single agent regardless of domain'
+  ], [
+    'Demonstrates memory preservation after 10+ turn conversation'] ),
+  mk('contextual-onboarding-orchestrator', 'optimization', [
+    'Optimizes token usage through smart summarization triggers',
+    'Reduces latency via parallel agent calls when appropriate',
+    'Caches employee profile to avoid redundant summarization'
+  ], [
+    'Re-summarizes on every turn unnecessarily',
+    'Makes sequential agent calls when parallel execution possible'
+  ], [
+    'Achieves 50%+ token reduction vs naive full-history approach'] ),
+  mk('contextual-onboarding-orchestrator', 'governance', [
+    'Tracks routing decisions for audit compliance',
+    'Logs human-in-loop escalations with manager approval trails',
+    'Links onboarding progress to compliance checkpoints'
+  ], [
+    'Cannot trace which agent answered specific questions',
+    'No audit trail for manager approvals'
+  ], [
+    'Produces complete audit log with routing + escalation decisions'] )
 ];
 
 // Quick index by patternId + tier for lookup

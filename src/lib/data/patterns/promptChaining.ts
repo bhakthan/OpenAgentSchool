@@ -5,7 +5,7 @@ export const promptChainingPattern: PatternData = {
   id: 'prompt-chaining',
   name: 'Prompt Chaining',
   description: 'Breaks down a complex task into a series of smaller, interconnected prompts, where the output of one prompt is the input for the next.',
-  category: 'Orchestration',
+  category: 'Multi-Agent',
   useCases: ['Creative Writing', 'Complex Problem Solving', 'Code Generation'],
   whenToUse: 'Use this pattern when a single prompt is not sufficient to achieve the desired output. It is ideal for tasks that require a sequence of reasoning steps, transformations, or creative expansions.',
   businessUseCase: {

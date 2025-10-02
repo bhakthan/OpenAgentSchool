@@ -4642,6 +4642,242 @@ export const productManagementDebugChallenges: StudyModeQuestion[] = [
       'Adds sensitivity or confidence framing',
       'Proposes feedback recalibration loop'
     ]
+  },
+  // Debug Challenges for Hierarchical Document Intelligence Pattern
+  {
+    id: 'hierarchical-doc-debug-1',
+    type: 'debug',
+    conceptId: 'hierarchical-document-intelligence',
+    title: 'Cross-Reference Resolution Failure',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'hierarchical-doc-xref-failure',
+      title: 'Missing Detail Callout Links',
+      description: 'Engineer asks "What are the specs for valve V-101?" System returns "Valve not found" despite V-101 appearing on page 47 with detail callout to page 125.',
+      problemDescription: 'Cross-reference resolver fails to link main diagram symbols to detail sheets, causing queries about specific components to fail.',
+      brokenCode: `// Problem: chunking breaks cross-reference relationships
+const preprocessor = new ChunkingAgent({
+  strategy: 'fixed',  // Fixed-size chunking
+  chunkSize: 50       // Pages
+});
+
+const chunks = await preprocessor.chunk(document); // 200-page doc → 4 chunks
+const elements = await visualExtractor.extract(chunks);
+
+// Query: "Specs for valve V-101?"
+const results = await vectorSearch.query("valve V-101 specifications");
+// Returns: No results (detail on page 125, main ref on page 47, different chunks)`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'preprocessor', message: 'Chunked 200-page document into 4 fixed chunks', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'visual-extractor', message: 'Extracted 247 symbols across chunks', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'xref-resolver', message: 'Processed 0 cross-page references', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'query-handler', message: 'Query failed: valve V-101 not found in indexed content', type: 'error' }
+      ],
+      expectedBehavior: 'Cross-reference resolver should link callouts across chunks, enabling queries to traverse from main diagram to detail sheets.',
+      commonIssues: [
+        { 
+          issue: 'Fixed chunking breaks relationships', 
+          symptoms: ['Cross-page queries fail', 'Detail callouts unresolved'], 
+          diagnosis: 'Chunk boundaries split related content', 
+          fix: 'Use semantic chunking with overlap + explicit cross-ref extraction phase' 
+        },
+        { 
+          issue: 'No cross-reference extraction', 
+          symptoms: ['Callouts not indexed', 'Graph has isolated nodes'], 
+          diagnosis: 'Missing dedicated cross-ref agent', 
+          fix: 'Add CrossRefResolver agent to build page-to-page link graph' 
+        }
+      ],
+      hints: ['Check chunk boundaries vs callout locations', 'Look for cross-ref extraction step', 'Verify graph has edges between pages'],
+      solution: 'Implement semantic chunking with overlap + dedicated CrossRefResolver agent that builds page-link graph before synthesis.',
+      explanation: 'Cross-reference preservation requires content-aware chunking and explicit relationship extraction.'
+    },
+    expectedInsights: ['Need semantic boundaries', 'Cross-refs require dedicated extraction', 'Graph structure enables traversal'],
+    hints: ['Review chunking strategy', 'Check for relationship extraction', 'Verify graph connectivity'],
+    explanation: 'Teaches importance of relationship preservation in hierarchical document processing.',
+    relatedConcepts: ['semantic-chunking', 'graph-based-memory', 'multi-agent-systems'],
+    timeEstimate: 12,
+    successCriteria: ['Identifies chunking problem', 'Proposes cross-ref extraction', 'Suggests graph-based solution']
+  },
+  {
+    id: 'hierarchical-doc-debug-2',
+    type: 'debug',
+    conceptId: 'hierarchical-document-intelligence',
+    title: 'Synthesis Hallucination',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'hierarchical-doc-synthesis-hallucination',
+      title: 'Invented Safety Interlock',
+      description: 'Synthesis report claims "Emergency shutdown requires simultaneous activation of valves V-101 AND V-205" but engineers find no such requirement in source document.',
+      problemDescription: 'Hierarchical synthesizer invents relationships not present in source, creating safety compliance risk.',
+      brokenCode: `// Problem: no provenance tracking, aggressive synthesis
+const synthesizer = new HierarchicalSynthesizer({
+  levels: ['component', 'subsystem', 'system'],
+  citationRequired: false,  // ❌ No provenance
+  creativityMode: 'high'     // ❌ Too aggressive
+});
+
+const synthesis = await synthesizer.build({
+  components: extractedElements,
+  relationships: discoveredLinks
+});
+
+// Output: "Emergency shutdown interlock: V-101 AND V-205"
+// Reality: Document specifies V-101 OR V-205 (not AND)`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'domain-expert', message: 'Interpreted valve functions from standards', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'synthesizer', message: 'Built system-level safety model', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'human-reviewer', message: 'ERROR: Synthesis claims AND logic but source shows OR', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'audit', message: 'No citation trail for interlock claim', type: 'error' }
+      ],
+      expectedBehavior: 'All synthesis claims must cite source pages with confidence scores. High-stakes safety claims require human verification.',
+      commonIssues: [
+        { 
+          issue: 'No provenance tracking', 
+          symptoms: ['Uncheckable claims', 'Cannot trace to source'], 
+          diagnosis: 'citationRequired=false', 
+          fix: 'Require all synthesis output to cite source pages' 
+        },
+        { 
+          issue: 'Overly creative synthesis', 
+          symptoms: ['Invented relationships', 'Hallucinated logic'], 
+          diagnosis: 'High creativity + no validation', 
+          fix: 'Add confidence scoring + human-in-loop for low-confidence safety claims' 
+        }
+      ],
+      hints: ['Check citation requirements', 'Look for validation gates', 'Review confidence thresholds'],
+      solution: 'Enable citation requirements, add confidence scoring, implement human escalation for safety-critical inferences.',
+      explanation: 'Safety-critical synthesis requires strict provenance tracking and selective human verification.'
+    },
+    expectedInsights: ['Citations prevent hallucination', 'Confidence scores gate claims', 'Human review for high-stakes'],
+    hints: ['Enable provenance tracking', 'Add validation layer', 'Define escalation triggers'],
+    explanation: 'Teaches synthesis validation through provenance and confidence-based escalation.',
+    relatedConcepts: ['provenance-tracking', 'confidence-scoring', 'human-in-loop'],
+    timeEstimate: 15,
+    successCriteria: ['Enables citation tracking', 'Adds confidence scoring', 'Defines escalation policy']
+  },
+  // Debug Challenges for Contextual Onboarding Orchestrator Pattern
+  {
+    id: 'contextual-onboarding-debug-1',
+    type: 'debug',
+    conceptId: 'contextual-onboarding-orchestrator',
+    title: 'Context Amnesia After Day 2',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'contextual-onboarding-memory-loss',
+      title: 'Employee Must Re-Introduce Themselves',
+      description: 'On day 3, employee asks follow-up question about their team\'s Jenkins setup. System responds "I don\'t have information about your team or role. Can you provide more context?"',
+      problemDescription: 'Memory system loses employee profile between sessions despite earlier conversations where employee introduced themselves.',
+      brokenCode: `// Problem: no summarization, history trimmed without preserving profile
+const orchestrator = new OnboardingOrchestrator({
+  memory: {
+    strategy: 'simple-trim',  // ❌ Naive trimming
+    maxTurns: 10              // ❌ Keeps only last 10 turns
+  },
+  profile: {
+    persistence: false        // ❌ Not saved between sessions
+  }
+});
+
+// Day 1: Employee introduces themselves
+await orchestrator.chat("Hi, I'm Alex, joining as Senior Platform Engineer on the DevOps team");
+// Response: "Welcome Alex! How can I help you today?"
+
+// Day 3: Follow-up question (session 2, turn 3)
+await orchestrator.chat("What's our team's Jenkins deployment process?");
+// Response: "I don't have context about your team. What team are you on?"
+// ❌ Profile lost because Day 1 conversation trimmed`,
+      conversationLogs: [
+        { timestamp: '2024-01-15T09:00:00Z', agent: 'orchestrator', message: 'Session 1 started', type: 'info' },
+        { timestamp: '2024-01-15T09:01:00Z', agent: 'orchestrator', message: 'Learned: role=Senior Platform Engineer, team=DevOps', type: 'info' },
+        { timestamp: '2024-01-15T09:15:00Z', agent: 'orchestrator', message: 'Session 1 ended, history trimmed to last 10 turns', type: 'info' },
+        { timestamp: '2024-01-17T10:00:00Z', agent: 'orchestrator', message: 'Session 2 started, no profile found', type: 'warning' },
+        { timestamp: '2024-01-17T10:05:00Z', agent: 'user', message: 'Why doesn\'t it remember me?', type: 'error' }
+      ],
+      expectedBehavior: 'Profile information (role, team, seniority) persists across sessions via separate profile storage + summarization.',
+      commonIssues: [
+        { 
+          issue: 'Naive history trimming', 
+          symptoms: ['Profile lost after N turns', 'Must re-introduce self'], 
+          diagnosis: 'No separation between ephemeral chat and persistent profile', 
+          fix: 'Maintain separate profile storage + summarize old turns instead of deleting' 
+        },
+        { 
+          issue: 'No cross-session persistence', 
+          symptoms: ['New session has zero context'], 
+          diagnosis: 'profile.persistence=false', 
+          fix: 'Enable profile persistence with session resumption' 
+        }
+      ],
+      hints: ['Check memory strategy', 'Look for profile storage', 'Verify cross-session loading'],
+      solution: 'Implement hybrid memory: persistent profile storage + turn summarization + recent turn retention.',
+      explanation: 'Long-term context requires separating persistent profile from ephemeral conversation history.'
+    },
+    expectedInsights: ['Need persistent profile', 'Summarization preserves old context', 'Hybrid memory balances efficiency'],
+    hints: ['Separate profile from chat history', 'Add summarization', 'Enable session resume'],
+    explanation: 'Teaches persistent memory design for multi-day conversational systems.',
+    relatedConcepts: ['memory-management', 'context-preservation', 'session-management'],
+    timeEstimate: 10,
+    successCriteria: ['Separates profile storage', 'Implements summarization', 'Enables session resume']
+  },
+  {
+    id: 'contextual-onboarding-debug-2',
+    type: 'debug',
+    conceptId: 'contextual-onboarding-orchestrator',
+    title: 'HR Agent Answers DevOps Questions',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'contextual-onboarding-misrouting',
+      title: 'Question Routed to Wrong Specialist',
+      description: 'Employee asks "How do I configure CI/CD pipelines for our team?" and receives generic HR answer about training resources instead of DevOps-specific guidance.',
+      problemDescription: 'Routing logic fails to direct technical questions to appropriate specialist agents.',
+      brokenCode: `// Problem: routing based only on keywords, no employee context
+const router = new QuestionRouter({
+  strategy: 'keyword-only',  // ❌ Ignores employee profile
+  agents: {
+    hr: { keywords: ['benefits', 'policy', 'leave', 'training'] },
+    devops: { keywords: ['deploy', 'ci', 'cd', 'pipeline'] },
+    compliance: { keywords: ['security', 'data', 'access'] }
+  }
+});
+
+// Employee profile: role=Marketing Analyst (not engineer!)
+const question = "How do I configure CI/CD pipelines for our team?";
+const route = await router.selectAgent(question, employeeProfile);
+
+// Routed to: devops agent ❌
+// Should route to: HR agent (marketing analysts don't need CI/CD, likely asking about campaign workflows)`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'router', message: 'Detected keywords: ci, cd, pipeline', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'router', message: 'Routed to: devops agent', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'devops', message: 'Provided technical Jenkins setup guide', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'user', message: 'This is too technical, I meant our campaign workflow tool', type: 'error' }
+      ],
+      expectedBehavior: 'Routing combines question analysis with employee context (role, team, seniority) to select appropriate specialist.',
+      commonIssues: [
+        { 
+          issue: 'Context-blind routing', 
+          symptoms: ['Wrong agent answers', 'User confusion'], 
+          diagnosis: 'Router ignores employee profile', 
+          fix: 'Include role, team, seniority in routing decision' 
+        },
+        { 
+          issue: 'Keyword-only classification', 
+          symptoms: ['Same words different meanings'], 
+          diagnosis: 'No semantic understanding', 
+          fix: 'Use embedding similarity + profile context for routing' 
+        }
+      ],
+      hints: ['Check if router uses employee profile', 'Look for context incorporation', 'Verify routing logic'],
+      solution: 'Enhance router to combine question semantics + employee profile (role, team) for context-aware agent selection.',
+      explanation: 'Effective routing requires both question understanding and employee context awareness.'
+    },
+    expectedInsights: ['Routing needs employee context', 'Same words mean different things', 'Profile disambiguates intent'],
+    hints: ['Add profile to routing input', 'Use semantic similarity', 'Define role-based rules'],
+    explanation: 'Teaches context-aware routing that considers both question and asker profile.',
+    relatedConcepts: ['agent-routing', 'context-awareness', 'intent-classification'],
+    timeEstimate: 12,
+    successCriteria: ['Adds profile to routing', 'Implements context-aware logic', 'Handles ambiguity']
   }
 ];
 
@@ -4656,6 +4892,9 @@ export const debugChallengeLibrary = {
   'agentic-rag': debugChallenges.filter(c => c.conceptId === 'agentic-rag'),
   'modern-tool-use': debugChallenges.filter(c => c.conceptId === 'modern-tool-use'),
   'deep-agents': debugChallenges.filter(c => c.conceptId === 'deep-agents'),
+  // Data Autonomy Patterns
+  'hierarchical-document-intelligence': debugChallenges.filter(c => c.conceptId === 'hierarchical-document-intelligence'),
+  'contextual-onboarding-orchestrator': debugChallenges.filter(c => c.conceptId === 'contextual-onboarding-orchestrator'),
   // New Perspectives
   'agent-ops': [
     {

@@ -74,7 +74,7 @@ const calculateArchitecturePositions = (nodes: any[]) => {
   
   nodes.forEach((node, index) => {
     const layer = ARCHITECTURE_LAYERS[index % ARCHITECTURE_LAYERS.length];
-    const xPosition = 100 + (index * 150) % 600;
+    const xPosition = 80 + (index * 200) % 800; // Increased spacing from 150 to 200, reduced start from 100 to 80
     
     positions[node.id] = {
       x: xPosition,
@@ -277,13 +277,13 @@ export const FlowArchitectureVisualizer: React.FC<FlowArchitectureVisualizerProp
           
           <TabsContent value="visualization" className="space-y-4">
             {/* Architecture Visualization */}
-            <div className="border rounded-lg p-4 bg-background">
+            <div className="border rounded-lg p-4 bg-background overflow-x-auto">
               <svg 
-                width="800" 
-                height="450" 
-                viewBox="0 0 800 450"
+                width="1300" 
+                height="600" 
+                viewBox="0 0 1300 600"
                 className="w-full h-auto"
-                style={{ backgroundColor: colors.background }}
+                style={{ backgroundColor: colors.background, minWidth: '1300px' }}
               >
                 {/* Define markers */}
                 <defs>
@@ -321,7 +321,7 @@ export const FlowArchitectureVisualizer: React.FC<FlowArchitectureVisualizerProp
                     <rect
                       x="20"
                       y={layer.y - 25}
-                      width="760"
+                      width="1260"
                       height="80"
                       fill={colors.layer.background}
                       stroke={colors.layer.border}
