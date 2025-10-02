@@ -61,6 +61,11 @@ const AuthPage = lazy(() => import('./pages/AuthPage'));
 // Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
 const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
 const CTALandingPageVariant = lazy(() => import('@/components/pages/CTALandingPageVariant'));
+// Agent Velocity Engineering components
+const VelocityScoreDashboard = lazy(() => import('./components/velocity/VelocityScoreDashboard'));
+const PatternMasteryTracker = lazy(() => import('./components/velocity/PatternMasteryTracker'));
+const VelocityCaseStudies = lazy(() => import('./components/velocity/VelocityCaseStudies'));
+const AVEWorkshopCurriculum = lazy(() => import('./components/velocity/AVEWorkshopCurriculum'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -504,6 +509,11 @@ function App() {
                   <Route path="/knowledge-search" element={<KnowledgeSearch />} />
                   <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
                   <Route path="/patterns/:patternId?" element={<PatternExplorer />} />
+                  {/* Agent Velocity Engineering routes */}
+                  <Route path="/velocity/dashboard" element={<VelocityScoreDashboard />} />
+                  <Route path="/velocity/tracker" element={<PatternMasteryTracker />} />
+                  <Route path="/velocity/case-studies" element={<VelocityCaseStudies />} />
+                  <Route path="/velocity/workshop" element={<AVEWorkshopCurriculum />} />
                   <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
                   <Route path="/quiz/:quizId?" element={<QuizSection />} />
                   <Route path="/tree-view" element={<TreeVisualizationPage />} />

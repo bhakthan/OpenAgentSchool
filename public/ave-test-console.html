@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AVE Features Test Console</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #667eea;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 2rem;
+    }
+    .section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+    .section h2 {
+      margin-top: 0;
+      color: #333;
+      font-size: 1.2rem;
+    }
+    .button-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    button {
+      padding: 0.75rem 1rem;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    button:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    button.secondary {
+      background: #48bb78;
+    }
+    button.secondary:hover {
+      background: #38a169;
+    }
+    button.danger {
+      background: #f56565;
+    }
+    button.danger:hover {
+      background: #e53e3e;
+    }
+    .log {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+    .log-entry {
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+    }
+    .log-entry.success {
+      background: #c6f6d5;
+      color: #22543d;
+    }
+    .log-entry.info {
+      background: #bee3f8;
+      color: #2c5282;
+    }
+    .log-entry.warning {
+      background: #feebc8;
+      color: #7c2d12;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .stat-card {
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    .feature-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+    .feature-list a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .feature-list a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 Agent Velocity Engineering - Test Console</h1>
+    <p class="subtitle">Quick access to all AVE features and test data utilities</p>
+
+    <!-- Feature Navigation -->
+    <div class="section">
+      <h2>📍 Feature Navigation</h2>
+      <ul class="feature-list">
+        <li><a href="/ai-skills" target="_blank">Feature 2: AI Skills Module → Agent Velocity Engineering</a></li>
+        <li><a href="/velocity/case-studies" target="_blank">Feature 3: Case Studies</a></li>
+        <li><a href="/velocity/dashboard" target="_blank">Feature 4: Velocity Score Dashboard</a></li>
+        <li><a href="/velocity/tracker" target="_blank">Feature 4: Pattern Mastery Tracker</a></li>
+        <li><a href="/velocity/workshop" target="_blank">Feature 5: Workshop Curriculum</a></li>
+        <li><a href="/patterns" target="_blank">Feature 1: Patterns with Velocity Badges</a></li>
+      </ul>
+    </div>
+
+    <!-- Test Data Controls -->
+    <div class="section">
+      <h2>🧪 Test Data Generator</h2>
+      <p>Populate localStorage with sample velocity data for testing</p>
+      <div class="button-group">
+        <button onclick="generateSample()">Generate Proficient User</button>
+        <button onclick="generateBeginner()" class="secondary">Generate Beginner User</button>
+        <button onclick="generateExpert()" class="secondary">Generate Expert User</button>
+        <button onclick="clearData()" class="danger">Clear All Data</button>
+      </div>
+    </div>
+
+    <!-- Current Stats -->
+    <div class="section">
+      <h2>📊 Current Velocity Stats</h2>
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-value" id="patterns-completed">0</div>
+          <div class="stat-label">Patterns Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="assessment-score">0</div>
+          <div class="stat-label">Assessment Score</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="practice-coverage">0</div>
+          <div class="stat-label">Practice Coverage</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="velocity-score">0</div>
+          <div class="stat-label">Velocity Score</div>
+        </div>
+      </div>
+      <div class="button-group" style="margin-top: 1rem;">
+        <button onclick="refreshStats()">Refresh Stats</button>
+      </div>
+    </div>
+
+    <!-- Activity Log -->
+    <div class="section">
+      <h2>📝 Activity Log</h2>
+      <div class="log" id="activity-log">
+        <div class="log-entry info">Ready to test AVE features...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function log(message, type = 'info') {
+      const logDiv = document.getElementById('activity-log');
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      logDiv.insertBefore(entry, logDiv.firstChild);
+    }
+
+    function generateSample() {
+      const sampleData = {
+        completedPatterns: [
+          'prompt-chaining', 'routing', 'parallelization', 'modern-tool-use',
+          'structured-output', 'react-agent', 'orchestrator-workers', 'evaluator-optimizer',
+          'agentic-rag', 'hierarchical-agent', 'self-reflection', 'human-in-the-loop'
+        ],
+        implementationTimes: {
+          'prompt-chaining': 1.5, 'routing': 3.0, 'parallelization': 4.5,
+          'modern-tool-use': 2.0, 'structured-output': 1.0, 'react-agent': 4.0,
+          'orchestrator-workers': 5.5, 'evaluator-optimizer': 6.0, 'agentic-rag': 8.0,
+          'hierarchical-agent': 10.0, 'self-reflection': 3.5, 'human-in-the-loop': 2.5
+        },
+        assessmentScore: 73,
+        practiceExperience: {
+          'pattern-fluency': 'proficient',
+          'architecture-templates': 'learning',
+          'failure-libraries': 'learning',
+          'evaluation-automation': 'proficient',
+          'operational-instrumentation': 'expert'
+        },
+        lastUpdated: new Date().toISOString()
+      };
+      
+      localStorage.setItem('user_velocity_data', JSON.stringify(sampleData));
+      log('✅ Generated Proficient user data (12 patterns, 73% score)', 'success');
+      refreshStats();
+    }
+
+    function generateBeginner() {
+      const beginnerData = {
+        completedPatterns: ['prompt-chaining', 'structured-output'],
+        implementationTimes: {
+          'prompt-chaining': 3.0,
+          'structured-output': 2.5
+        },
+        assessmentScore: 35,
+        practiceExperience: {
+          'pattern-fluency': 'learning',
+          'architecture-templates': 'none',
+          'failure-libraries': 'none',
+          'evaluation-automation': 'none',
+          'operational-instrumentation': 'learning'
+        },
+        lastUpdated: new Date().toISOString()
+      };
+      
+      localStorage.setItem('user_velocity_data', JSON.stringify(beginnerData));
+      log('✅ Generated Beginner user data (2 patterns, 35% score)', 'success');
+      refreshStats();
+    }
+
+    function generateExpert() {
+      const allPatterns = Array.from({length: 42}, (_, i) => `pattern-${i + 1}`);
+      const expertData = {
+        completedPatterns: allPatterns,
+        implementationTimes: Object.fromEntries(
+          allPatterns.map(p => [p, Math.random() * 3 + 0.5])
+        ),
+        assessmentScore: 95,
+        practiceExperience: {
+          'pattern-fluency': 'expert',
+          'architecture-templates': 'expert',
+          'failure-libraries': 'proficient',
+          'evaluation-automation': 'expert',
+          'operational-instrumentation': 'expert'
+        },
+        lastUpdated: new Date().toISOString()
+      };
+      
+      localStorage.setItem('user_velocity_data', JSON.stringify(expertData));
+      log('✅ Generated Expert user data (42 patterns, 95% score)', 'success');
+      refreshStats();
+    }
+
+    function clearData() {
+      localStorage.removeItem('user_velocity_data');
+      log('🗑️ Cleared all velocity data', 'warning');
+      refreshStats();
+    }
+
+    function refreshStats() {
+      const data = localStorage.getItem('user_velocity_data');
+      if (data) {
+        const parsed = JSON.parse(data);
+        
+        const patternsCompleted = parsed.completedPatterns?.length || 0;
+        const assessmentScore = parsed.assessmentScore || 0;
+        const practiceCount = Object.values(parsed.practiceExperience || {})
+          .filter(level => level !== 'none').length;
+        
+        // Calculate velocity score
+        const patternScore = (patternsCompleted / 48) * 40;
+        const assessmentContribution = (assessmentScore / 100) * 30;
+        const experienceLevels = { none: 0, learning: 0.33, proficient: 0.66, expert: 1 };
+        const practiceSum = Object.values(parsed.practiceExperience || {})
+          .reduce((sum, level) => sum + (experienceLevels[level] || 0), 0);
+        const practiceScore = (practiceSum / 5) * 30;
+        const velocityScore = Math.round(patternScore + assessmentContribution + practiceScore);
+        
+        document.getElementById('patterns-completed').textContent = `${patternsCompleted}/48`;
+        document.getElementById('assessment-score').textContent = `${assessmentScore}/100`;
+        document.getElementById('practice-coverage').textContent = `${practiceCount}/5`;
+        document.getElementById('velocity-score').textContent = `${velocityScore}/100`;
+        
+        log(`📊 Stats refreshed: ${patternsCompleted} patterns, ${velocityScore} velocity score`, 'info');
+      } else {
+        document.getElementById('patterns-completed').textContent = '0/48';
+        document.getElementById('assessment-score').textContent = '0/100';
+        document.getElementById('practice-coverage').textContent = '0/5';
+        document.getElementById('velocity-score').textContent = '0/100';
+        log('ℹ️ No velocity data found - generate sample data to begin', 'info');
+      }
+    }
+
+    // Auto-refresh stats on load
+    window.addEventListener('load', refreshStats);
+  </script>
+</body>
+</html>

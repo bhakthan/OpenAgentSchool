@@ -17,11 +17,11 @@ export const VelocityProfile: React.FC<VelocityProfileProps> = ({ profile }) => 
   const learningCurve = learningCurveConfig[profile.learningCurve];
 
   return (
-    <div className="space-y-6 p-6 bg-gradient-to-br from-purple-50/50 to-blue-50/50 dark:from-purple-900/10 dark:to-blue-900/10 rounded-xl border border-purple-200/50 dark:border-purple-800/30">
+    <div className="space-y-6 p-6 bg-gray-50 dark:from-purple-900/10 dark:to-blue-900/10 dark:bg-gradient-to-br rounded-xl border border-gray-200 dark:border-purple-800/30">
       <div className="flex items-start justify-between">
         <div>
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-            <Zap className="w-5 h-5 text-purple-600" />
+            <Zap className="w-5 h-5 text-gray-700 dark:text-purple-600" />
             Agent Velocity Engineering Profile
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -67,7 +67,7 @@ export const VelocityProfile: React.FC<VelocityProfileProps> = ({ profile }) => 
         {/* Learning Curve */}
         <div className="bg-white/60 dark:bg-gray-800/60 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2 mb-2">
-            <BookOpen className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+            <BookOpen className="w-4 h-4 text-gray-600 dark:text-purple-400" />
             <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Learning Curve</span>
           </div>
           <p className={`text-lg font-bold ${learningCurve.color} flex items-center gap-2`}>
@@ -89,7 +89,7 @@ export const VelocityProfile: React.FC<VelocityProfileProps> = ({ profile }) => 
       {/* Velocity Practices */}
       <div>
         <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-          <Zap className="w-4 h-4 text-purple-600" />
+          <Zap className="w-4 h-4 text-gray-700 dark:text-purple-600" />
           Agent Velocity Engineering Practices
         </h4>
         <div className="space-y-2">
@@ -100,13 +100,13 @@ export const VelocityProfile: React.FC<VelocityProfileProps> = ({ profile }) => 
             return (
               <div
                 key={idx}
-                className="flex items-start gap-3 p-3 bg-white/80 dark:bg-gray-800/80 rounded-lg border border-purple-200/50 dark:border-purple-800/30"
+                className="flex items-start gap-3 p-3 bg-white/80 dark:bg-gray-800/80 rounded-lg border border-gray-300 dark:border-purple-800/30"
               >
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-500/20 dark:bg-purple-400/20 flex items-center justify-center text-xs font-bold text-purple-700 dark:text-purple-300">
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-200 dark:bg-purple-400/20 flex items-center justify-center text-xs font-bold text-gray-700 dark:text-purple-300">
                   {idx + 1}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-purple-700 dark:text-purple-300">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-purple-300">
                     {pillar}
                   </p>
                   {description && (

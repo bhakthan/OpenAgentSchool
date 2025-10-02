@@ -14,6 +14,7 @@ import FrontierFirmAssessment from "./FrontierFirmAssessment"
 import HumanAgentRatioCalculator from "./HumanAgentRatioCalculator"
 import CodeUnderstandingSkills from "./CodeUnderstandingSkills"
 import DevelopmentVelocitySkills from "./DevelopmentVelocitySkills"
+import { AgentVelocityEngineering } from "./AgentVelocityEngineering"
 import CrossTeamCollaborationSkills from "./CrossTeamCollaborationSkills"
 import NovelOrganizationalPatterns from "./NovelOrganizationalPatterns"
 import FutureStateTrends from "./FutureStateTrends"
@@ -203,7 +204,16 @@ export default function AISkillsExplorer() {
       description: "Rapid scaffolding & async workflows",
       icon: <Rocket className="w-4 h-4" />,
       level: "Advanced",
-  component: <DevelopmentVelocitySkills onNavigate={() => completeAndNavigate("development-velocity","observability")} />
+  component: <DevelopmentVelocitySkills onNavigate={() => completeAndNavigate("development-velocity","agent-velocity-engineering")} />
+    },
+    // 5b. Agent Velocity Engineering
+    {
+      id: "agent-velocity-engineering",
+      title: "Agent Velocity Engineering",
+      description: "Master the 5 practices that 10x your agent development speed",
+      icon: <Rocket className="w-4 h-4" />,
+      level: "Advanced",
+      component: <AgentVelocityEngineering />
     },
     // 6. Observability & EvalOps
     {

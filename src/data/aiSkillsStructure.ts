@@ -29,7 +29,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'build',
     title: 'Build Acceleration',
     description: 'Understanding code & shipping faster with confidence',
-    moduleIds: ['code-understanding','development-velocity']
+    moduleIds: ['code-understanding','development-velocity','agent-velocity-engineering']
   },
   {
     id: 'operate',
@@ -70,6 +70,7 @@ export const skillModules: SkillModuleMeta[] = [
   { id: 'interactive-visualizations', title: 'Interactive Visualizations', category: 'foundations' },
   { id: 'code-understanding', title: 'Code Understanding', category: 'build' },
   { id: 'development-velocity', title: 'Development Velocity', category: 'build' },
+  { id: 'agent-velocity-engineering', title: 'Agent Velocity Engineering', category: 'build', summary: 'Master the 5 practices that 10x your agent development speed: Pattern Fluency, Architecture Templates, Failure Libraries, Evaluation Automation, and Operational Instrumentation' },
   { id: 'observability', title: 'Observability & EvalOps', category: 'operate' },
   { id: 'promptops', title: 'PromptOps & Tooling', category: 'operate' },
   { id: 'safety', title: 'Safety & Governance', category: 'govern-optimize' },
