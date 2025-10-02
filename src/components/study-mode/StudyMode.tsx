@@ -18,6 +18,7 @@ import {
   CheckCircle, Clock, Star, ArrowRight, Play, BookOpen, DownloadSimple
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
+import { ShareButton } from '@/components/ui/ShareButton';
 
 // Import Study Mode components
 import ReactLazy = React.lazy;
@@ -517,7 +518,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
         {lastCompletionMessage || ''}
       </div>
       {/* Header */}
-      <div className="text-center">
+      <div className="text-center relative">
         <h1 className="text-3xl font-bold flex items-center justify-center gap-2 mb-2">
           <Lightbulb size={32} className="text-primary" />
           Study Mode
@@ -525,6 +526,16 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
         <p className="text-lg text-muted-foreground">
           Learn through Socratic questioning, interactive scenarios, debugging and super critical learning challenges
         </p>
+        <div className="absolute top-0 right-0">
+          <ShareButton
+            url={`${window.location.origin}/study-mode${conceptId ? `?concept=${conceptId}` : ''}`}
+            title="Study Mode - Open Agent School"
+            description="Learn through Socratic questioning, interactive scenarios, debugging and super critical learning challenges"
+            variant="outline"
+            size="sm"
+            analyticsCategory="Study Mode Share"
+          />
+        </div>
       </div>
 
       <Tabs value={activeTab} onValueChange={(value) => {

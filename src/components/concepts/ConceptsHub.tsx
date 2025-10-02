@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot } from "@phosphor-icons/react"
+import { ShareButton } from "@/components/ui/ShareButton"
 import AIAgentsConcept from "./AIAgentsConcept"
 import A2ACommunicationConcept from "./A2ACommunicationConcept"
 import MCPConcept from "./MCPConcept"
@@ -716,9 +717,25 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
                       </div>
                     </div>
                   </div>
-                  {!isLocked && (
-                    <ArrowRight className="w-5 h-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
-                  )}
+                  <div className="flex items-center gap-1">
+                    {!isLocked && (
+                      <>
+                        <div onClick={(e) => e.stopPropagation()}>
+                          <ShareButton
+                            url={`${window.location.origin}/concepts/${concept.id}`}
+                            title={concept.title}
+                            description={concept.description}
+                            variant="ghost"
+                            size="sm"
+                            iconOnly
+                            analyticsCategory="Concept Share"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity"
+                          />
+                        </div>
+                        <ArrowRight className="w-5 h-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                      </>
+                    )}
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>

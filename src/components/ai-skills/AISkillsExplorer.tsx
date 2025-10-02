@@ -3,6 +3,7 @@ import { trackEvent } from '@/lib/analytics/ga'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { ShareButton } from '@/components/ui/ShareButton'
 // Tabs UI retained (import) only if we need to fall back; currently phased out in favor of section rendering
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Brain, Code, Users, Lightbulb, Rocket, ChartBar, Target, Calculator, Gauge, Wrench, Shield, CurrencyCircleDollar, Database, Network, BookOpen, CheckCircle, ArrowsOutSimple, ArrowsInSimple, CaretLeft, CaretRight, ArrowSquareOut } from "@phosphor-icons/react"
@@ -448,10 +449,22 @@ export default function AISkillsExplorer() {
         {/* Learning Path Overview */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Learning Path Overview</CardTitle>
-            <CardDescription>
-              Progressive skill development from understanding AI-native mindset to implementing revolutionary organizational patterns. Now enhanced with Microsoft's 2025 Work Trend Index insights and interactive assessment tools.
-            </CardDescription>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <CardTitle>Learning Path Overview</CardTitle>
+                <CardDescription>
+                  Progressive skill development from understanding AI-native mindset to implementing revolutionary organizational patterns. Now enhanced with Microsoft's 2025 Work Trend Index insights and interactive assessment tools.
+                </CardDescription>
+              </div>
+              <ShareButton
+                url={`${window.location.origin}/ai-skills`}
+                title="AI Skills - Open Agent School"
+                description="Progressive skill development from understanding AI-native mindset to implementing revolutionary organizational patterns"
+                variant="outline"
+                size="sm"
+                analyticsCategory="AI Skills Share"
+              />
+            </div>
             <div className="mt-2 flex items-center gap-2">
               <div className="text-sm text-muted-foreground">
                 Progress: {Object.values(progress).filter(Boolean).length}/{totalModules} modules completed

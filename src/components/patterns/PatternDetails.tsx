@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { PatternDemoSVG } from '../interactive-demos';
 import { EnlightenMeButton } from '@/components/enlighten/EnlightenMeButton';
+import { ShareButton } from '@/components/ui/ShareButton';
 import AutoGenPatternVisualizer from '../visualization/AutoGenPatternVisualizer';
 import LivePatternRunner from './LivePatternRunner';
 import { pageSEOConfigs } from '@/components/seo/SEO';
@@ -383,7 +384,15 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
               {pattern.description}
             </CardDescription>
           </div>
-          <div className="flex-shrink-0 ml-4">
+          <div className="flex items-center gap-2 flex-shrink-0 ml-4">
+            <ShareButton
+              url={`${window.location.origin}/patterns/${pattern.id}`}
+              title={pattern.name}
+              description={pattern.description}
+              variant="outline"
+              size="sm"
+              analyticsCategory="Pattern Share"
+            />
             <EnlightenMeButton
               title={`${pattern.name} Pattern`}
               contextDescription={`${pattern.description}. ${agentPatternsContext}`}
