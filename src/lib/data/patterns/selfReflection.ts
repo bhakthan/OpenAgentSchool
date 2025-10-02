@@ -167,5 +167,19 @@ export async function runSelfReflectingClinicalScribe(transcript: string, maxIte
     'react-agent',
     'agent-evaluation',
     'prompt-chaining'
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '3-5 hours',
+    complexityReduction: 'High - LangChain and Microsoft Agent Framework provide reflection patterns with built-in iteration limits',
+    reusabilityScore: 9,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Critical quality pattern for content generation, code review, report writing, creative work',
+      'Architecture Templates - Microsoft Agent Framework and LangChain offer self-critique loops with guardrails',
+      'Failure Scenario Libraries - Infinite loops, quality plateaus, and convergence failures well-documented',
+      'Evaluation Automation - Improvement delta metrics and iteration count tracking standard'
+    ]
+  }
 };

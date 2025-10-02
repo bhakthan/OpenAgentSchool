@@ -701,5 +701,19 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 `,
-  codeVisualizer: ContextualOnboardingLiveRunner
+  codeVisualizer: ContextualOnboardingLiveRunner,
+  
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '2-3 days',
+    complexityReduction: 'High - Microsoft Agent Framework handles orchestration, checkpointing, and telemetry out-of-box',
+    reusabilityScore: 9,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Architecture Templates - Microsoft Agent Framework provides pre-built orchestration',
+      'Pattern Fluency - Multi-agent routing pattern applicable across domains',
+      'Operational Instrumentation - Built-in OpenTelemetry traces',
+      'Evaluation Automation - Framework supports A/B testing and metric collection'
+    ]
+  }
 };

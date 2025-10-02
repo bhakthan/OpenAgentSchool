@@ -710,5 +710,19 @@ if __name__ == "__main__":
     'Create performance tracking and history',
     'Implement convergence detection',
     'Add customizable evaluation metrics'
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '2-4 days',
+    complexityReduction: 'High - Azure AI Evaluation SDK and LangSmith provide evaluation harnesses and metrics tracking',
+    reusabilityScore: 8,
+    learningCurve: 'steep',
+    velocityPractices: [
+      'Evaluation Automation - Core pattern for continuous quality improvement across marketing, content, code generation',
+      'Pattern Fluency - Advanced optimization pattern combining self-reflection with metric-driven iteration',
+      'Operational Instrumentation - Azure AI Evaluation provides quality metrics, A/B testing, and improvement tracking',
+      'Failure Scenario Libraries - Metric plateau, overfitting to evaluator, and local optima well-documented'
+    ]
+  }
 };

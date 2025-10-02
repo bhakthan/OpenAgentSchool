@@ -49,4 +49,18 @@ export function handoff(log: string): Brief {
 def handoff(log: str):
     return { 'decisions': ['Adopt approach A'], 'blockers': ['API limit'], 'next': ['Implement retry'] }
 `,
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '2-4 hours',
+    complexityReduction: 'Medium - GPT-4 summarization with structured output eliminates manual handoff documentation',
+    reusabilityScore: 9,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Essential team collaboration pattern for shift handoffs, async teams, student projects',
+      'Architecture Templates - OpenAI structured outputs and Pydantic models provide type-safe brief generation',
+      'Operational Instrumentation - Handoff completeness scores and usage metrics track adoption',
+      'Evaluation Automation - Summary quality and information retention metrics standard'
+    ]
+  }
 };

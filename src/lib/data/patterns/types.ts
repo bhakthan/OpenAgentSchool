@@ -5,6 +5,17 @@ export type EvaluationCohortId =
   | 'communication-interface'
   | 'cognitive-sensing'
 
+export type VelocityImpact = 'high' | 'medium' | 'low'
+
+export interface VelocityProfile {
+  impact: VelocityImpact
+  timeToImplement: string // e.g., "1-2 hours", "1-2 days"
+  complexityReduction: string // e.g., "High - reduces 200 LOC to 20 LOC"
+  reusabilityScore: number // 1-10
+  learningCurve: 'gentle' | 'moderate' | 'steep'
+  velocityPractices: string[] // Which AVE practices this pattern exemplifies
+}
+
 export interface PatternEvaluationProfile {
   scenarioFocus: string
   criticalMetrics: string[]
@@ -64,6 +75,7 @@ export interface PatternData {
   codeVisualizer?: React.ComponentType;
   evaluation?: string;
   evaluationProfile?: PatternEvaluationProfile;
+  velocityProfile?: VelocityProfile;
 }
 
 export type PatternType = 

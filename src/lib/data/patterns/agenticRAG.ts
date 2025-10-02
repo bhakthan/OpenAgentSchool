@@ -267,5 +267,19 @@ class AgenticRAGPolicyAssistant:
     "react-agent",
     "deep-researcher",
     "self-reflection"
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '1-2 days',
+    complexityReduction: 'Very High - Azure AI Search and LangChain provide production-ready retrieval, chunking, and vector indexing out-of-box',
+    reusabilityScore: 10,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Most widely adopted agent pattern for knowledge retrieval, Q&A, documentation search, customer support',
+      'Architecture Templates - Microsoft Agent Framework, LangChain, LlamaIndex provide complete RAG implementations',
+      'Operational Instrumentation - Azure AI Search provides retrieval latency, relevance scores, and cache hit rate metrics',
+      'Evaluation Automation - Answer correctness, retrieval precision/recall, and hallucination detection metrics standard'
+    ]
+  }
 };

@@ -484,5 +484,19 @@ class ComputerUseAgent:
     'Implement feedback loops and error recovery',
     'Add safety constraints and fail-safes',
     'Create task completion validation'
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '1-2 weeks',
+    complexityReduction: 'Medium - Anthropic Computer Use API provides vision + action primitives, but requires extensive safety guardrails',
+    reusabilityScore: 6,
+    learningCurve: 'steep',
+    velocityPractices: [
+      'Pattern Fluency - Emerging pattern for RPA automation, UI testing, web scraping, application integration',
+      'Failure Scenario Libraries - Infinite loops, unintended actions, screen misinterpretation extensively documented',
+      'Operational Instrumentation - Screenshot logging and action replay critical for debugging failures',
+      'Architecture Templates - Anthropic provides reference implementation with safety constraints'
+    ]
+  }
 };

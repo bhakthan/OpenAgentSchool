@@ -88,5 +88,18 @@ async def generate_ad_copy(messages: str, product_description: str) -> str:
     'Parallelization',
     'Autonomous Agents',
     'Task Decomposition'
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '1-2 hours',
+    complexityReduction: 'Very High - transforms 500+ LOC traditional pipeline into 3-5 sequential prompts',
+    reusabilityScore: 10,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Most foundational multi-agent pattern, recognizable across all domains',
+      'Architecture Templates - Simple linear workflow reusable for content, data transformation, analysis',
+      'Failure Scenario Libraries - Each stage isolated and testable independently'
+    ]
+  }
 };

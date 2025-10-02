@@ -135,6 +135,11 @@ export const conceptCues: Record<string, ConceptCue> = {
     cue: "Measurement drives improvement - you can't optimize what you can't quantify effectively",
     criticalThinkingQuestion: "How would you design a comprehensive evaluation framework for AI agents that measures not just performance metrics but also ethical behavior, user satisfaction, and long-term value creation?"
   },
+  'agent-velocity-engineering': {
+    id: 'agent-velocity-engineering',
+    cue: 'Systematic velocity beats ad-hoc speed - pattern fluency, architecture templates, and automation compound to exponential acceleration',
+    criticalThinkingQuestion: 'How would you build an Agent Velocity Engineering practice that balances rapid iteration with reliability, ensuring teams ship faster without accumulating technical debt or compromising safety?'
+  },
   'fine-tuning': {
     id: 'fine-tuning',
     cue: 'Alignment is iterative - each stage should justify its added complexity through measurable gain',

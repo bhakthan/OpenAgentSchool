@@ -830,5 +830,19 @@ asyncio.run(main())
 `,
 
   completeCode: '',
-  codeVisualizer: HierarchicalDocumentIntelligenceLiveRunner
+  codeVisualizer: HierarchicalDocumentIntelligenceLiveRunner,
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '2-4 days',
+    complexityReduction: 'Very High - Azure AI Document Intelligence handles PDF parsing, layout detection, and entity extraction automatically',
+    reusabilityScore: 9,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Architecture Templates - Azure Document Intelligence + multi-layer RAG provides production-ready document processing',
+      'Pattern Fluency - Hierarchical chunking pattern applicable to legal, medical, technical documentation',
+      'Operational Instrumentation - Azure Monitor integration provides real-time extraction metrics',
+      'Evaluation Automation - Confidence scores and uncertainty quantification built-in'
+    ]
+  }
 };

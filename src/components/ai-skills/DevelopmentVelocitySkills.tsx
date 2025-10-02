@@ -23,11 +23,63 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
       {/* Hero Section */}
     <Card className="bg-card border">
         <CardHeader>
-      <CardTitle className="text-xl">Exponential Development Velocity</CardTitle>
+      <CardTitle className="text-xl">Agent Velocity Engineering</CardTitle>
       <CardDescription className="text-base">
-            AI-native practices that dramatically accelerate development speed while maintaining quality
+            Systematic practices to accelerate agent development cycles through pattern fluency, architecture templates, failure scenario libraries, evaluation automation, and operational instrumentation
           </CardDescription>
         </CardHeader>
+      </Card>
+
+      {/* AVE Principles Card */}
+      <Card className="bg-gradient-to-br from-primary/5 to-violet-500/5 border-primary/20">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Rocket className="w-5 h-5 text-primary" />
+            Agent Velocity Engineering: Core Principles
+          </CardTitle>
+          <CardDescription>
+            Five systematic practices that compound to deliver exponential development acceleration
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4">
+            {[
+              {
+                icon: <Star className="w-5 h-5 text-yellow-500" />,
+                title: 'Pattern Fluency',
+                desc: 'Master 27+ proven agent patterns to recognize and apply architectural solutions instantly'
+              },
+              {
+                icon: <GitMerge className="w-5 h-5 text-blue-500" />,
+                title: 'Architecture Templates',
+                desc: 'Pre-validated scaffolds for common agent workflows reduce setup time from days to hours'
+              },
+              {
+                icon: <ArrowsClockwise className="w-5 h-5 text-purple-500" />,
+                title: 'Failure Scenario Libraries',
+                desc: 'Curated catalog of edge cases and failure modes enables proactive resilience design'
+              },
+              {
+                icon: <CheckCircle className="w-5 h-5 text-green-500" />,
+                title: 'Evaluation Automation',
+                desc: 'Continuous testing harnesses catch regressions early and enable confident iteration'
+              },
+              {
+                icon: <Timer className="w-5 h-5 text-orange-500" />,
+                title: 'Operational Instrumentation',
+                desc: 'Real-time observability and metrics dashboards surface performance bottlenecks instantly'
+              }
+            ].map((principle, idx) => (
+              <div key={idx} className="flex gap-3 p-4 rounded-lg border bg-card/60 hover:bg-card transition-colors">
+                <div className="flex-shrink-0 mt-1">{principle.icon}</div>
+                <div>
+                  <h3 className="font-semibold mb-1">{principle.title}</h3>
+                  <p className="text-sm text-muted-foreground">{principle.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
       </Card>
 
       {/* OpenAI Velocity Practices */}
@@ -38,8 +90,8 @@ export default function DevelopmentVelocitySkills({ onNavigate }: Props) {
               <span className="text-white font-bold">O</span>
             </div>
             <div>
-              <CardTitle>OpenAI Codex: Velocity Acceleration</CardTitle>
-              <CardDescription>More output under time pressure through intelligent automation</CardDescription>
+              <CardTitle>OpenAI Codex: Velocity Acceleration in Practice</CardTitle>
+              <CardDescription>Real-world examples of Agent Velocity Engineering principles</CardDescription>
             </div>
           </div>
         </CardHeader>

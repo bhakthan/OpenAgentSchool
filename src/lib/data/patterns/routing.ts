@@ -141,5 +141,19 @@ export const routingPattern: PatternData = {
     "orchestrator-worker",
     "prompt-chaining",
     "multi-agent-systems"
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '4-6 hours',
+    complexityReduction: 'High - Microsoft Agent Framework / LangChain routing eliminates manual if/else logic for domain classification',
+    reusabilityScore: 9,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Pattern Fluency - Essential multi-agent pattern for customer service, IT helpdesk, domain-specific Q&A',
+      'Architecture Templates - Semantic routing built into Microsoft Agent Framework and LangChain',
+      'Failure Scenario Libraries - Misrouting metrics and fallback strategies well-documented',
+      'Evaluation Automation - Router accuracy (precision/recall per domain) standard evaluation metric'
+    ]
+  }
 };

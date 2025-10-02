@@ -386,5 +386,19 @@ class ModernToolUseAgent:
     'Create tool chaining and dependency management',
     'Add logging and monitoring capabilities',
     'Implement adaptive tool selection based on context'
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '4-8 hours',
+    complexityReduction: 'Very High - OpenAI function calling, Anthropic tool use, and Microsoft Agent Framework eliminate manual JSON parsing and tool orchestration',
+    reusabilityScore: 10,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Universal pattern for extending LLM capabilities with APIs, databases, calculators, search engines',
+      'Architecture Templates - Microsoft Agent Framework, LangChain, and major LLM providers offer native tool calling support',
+      'Failure Scenario Libraries - Tool timeout, invalid parameters, API errors well-documented with retry strategies',
+      'Evaluation Automation - Tool call success rate, parameter validation accuracy, execution latency metrics standard'
+    ]
+  }
 };

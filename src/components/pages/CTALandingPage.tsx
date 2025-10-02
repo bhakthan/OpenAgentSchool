@@ -52,8 +52,8 @@ const CTALandingPage: React.FC = () => {
           Accelerate Your AI-Agent Mastery & Organizational Transformation
         </h1>
         <p className="max-w-4xl mx-auto text-xl md:text-2xl text-muted-foreground leading-relaxed font-light">
-          Build durable agent ecosystems—not prompt toys. Operationalize architecture discipline, evaluation rigor,
-          resilience patterns, and AI-native organizational leverage so initiatives ship faster, fail safer, and compound.
+          Build durable agent ecosystems—not prompt toys. Operationalize architecture discipline, Agent Velocity Engineering,
+          evaluation rigor, resilience patterns, and AI-native organizational leverage so initiatives ship faster, fail safer, and compound.
         </p>
         <AnchorConfidenceRow />
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
@@ -83,7 +83,7 @@ const CTALandingPage: React.FC = () => {
             {
               title: 'Engineering / Platform Teams',
               icon: <ChartLineUp size={28} className="text-primary" />,
-              points: ['Architecture & reliability practices', 'Agent safety, evaluation, & ops discipline', 'Velocity & cost efficiency frameworks']
+              points: ['Architecture & reliability practices', 'Agent Velocity Engineering: ship faster, fail safer', 'Agent safety, evaluation, & ops discipline']
             },
             {
               title: 'Enterprise & Leadership',
@@ -148,6 +148,10 @@ const CTALandingPage: React.FC = () => {
             {
               title: 'Systems > Surface Prompts',
               body: 'We focus on modular orchestration, evaluation harnesses, reliability patterns, latency/cost trade-offs, and economic design—so you build resilient agent ecosystems.'
+            },
+            {
+              title: 'Agent Velocity Engineering',
+              body: 'Systematic practices to accelerate agent development cycles: pattern fluency, architecture templates, failure scenario libraries, evaluation automation, and operational instrumentation.'
             },
             {
               title: 'Failure-Informed Curriculum',
@@ -226,7 +230,7 @@ const CTALandingPage: React.FC = () => {
       {/* Final CTA */}
       <section className="text-center pb-8">
         <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Build Durable Agent Capability</h2>
-        <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed font-light">Escape incremental demo loops. Institutionalize architecture clarity, evaluation harnesses, reliability drills, and economic guardrails so each new deployment compounds—not resets.</p>
+        <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed font-light">Escape incremental demo loops. Institutionalize Agent Velocity Engineering, architecture clarity, evaluation harnesses, reliability drills, and economic guardrails so each new deployment compounds—not resets.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" onClick={() => openExternal('https://github.com/bhakthan/openagentschool', 'individual', 'final-cta')}>Start Free</Button>
           <Button size="lg" variant="secondary" onClick={() => openExternal('https://forms.gle/gpcekkK6KGqTNJGZ8', 'cohort', 'final-cta')}>Apply Cohort</Button>
@@ -332,7 +336,7 @@ export const MicroCtaRibbon: React.FC = () => {
   if (!visible) return null;
   return (
     <div className="micro-cta-ribbon">
-      <span className="hidden sm:inline">Architect → Evaluate → Operationalize</span>
+      <span className="hidden sm:inline">Agent Velocity Engineering → Architect → Evaluate → Operationalize</span>
       <button className="cta-btn" onClick={() => { try { window.dispatchEvent(new CustomEvent('analytics:ctaClick',{ detail:{ tier:'ribbon', source:'micro-ribbon'} })); } catch {}; window.location.href = '/cta'; }}>Get Clarity</button>
       <button className="dismiss-btn" aria-label="Dismiss" onClick={() => setVisible(false)}>×</button>
     </div>

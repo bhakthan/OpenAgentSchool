@@ -58,4 +58,18 @@ def curate(task: str, corpus: List[str]) -> List[Dict[str, str]]:
     ranked = candidates[:5]
     return [{ 'title': f'Doc {i+1}', 'url': url, 'why': 'Relevant to key API in task.' } for i, url in enumerate(ranked)]
 `,
+
+  velocityProfile: {
+    impact: 'medium',
+    timeToImplement: '4-8 hours',
+    complexityReduction: 'High - Azure AI Search and LlamaIndex reranking eliminate manual relevance scoring and context selection',
+    reusabilityScore: 8,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Essential context management pattern for reducing token costs and improving response quality',
+      'Architecture Templates - LangChain and LlamaIndex provide semantic reranking and context compression utilities',
+      'Evaluation Automation - Context relevance scores and token reduction metrics tracked automatically',
+      'Operational Instrumentation - Azure AI Search provides retrieval latency and cache hit rate monitoring'
+    ]
+  }
 };

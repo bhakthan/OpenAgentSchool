@@ -303,5 +303,19 @@ Previous steps:
     "self-reflection",
     "prompt-chaining",
     "modern-tool-use"
-  ]
+  ],
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '3-5 hours',
+    complexityReduction: 'High - ReAct pattern eliminates complex state machines, replacing 800+ LOC orchestration with iterative reasoning loop',
+    reusabilityScore: 10,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Pattern Fluency - Core reasoning pattern applicable to research, customer service, data analysis, diagnostics',
+      'Architecture Templates - LangChain/LlamaIndex/AutoGen provide production ReAct implementations',
+      'Failure Scenario Libraries - Well-documented failure modes (infinite loops, tool errors) with mitigation strategies',
+      'Evaluation Automation - Trajectory evaluation and tool call success rate metrics standard in frameworks'
+    ]
+  }
 };
