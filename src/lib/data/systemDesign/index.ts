@@ -43,6 +43,7 @@ import { policyGatedInvocationSystemDesign } from './policyGatedInvocation';
 import { dataQualityFeedbackLoopSystemDesign } from './dataQualityFeedbackLoop';
 import { queryIntentStructuredAccessSystemDesign } from './queryIntentStructuredAccess';
 import { strategyMemoryReplaySystemDesign } from './strategyMemoryReplay';
+import { hierarchicalDocumentIntelligenceSystemDesign } from './hierarchicalDocumentIntelligence';
 import { mobileManipulatorStewardSystemDesign } from './mobileManipulatorSteward';
 import { adaptiveLabTechnicianSystemDesign } from './adaptiveLabTechnician';
 import { inventoryGuardianSystemDesign } from './inventoryGuardian';
@@ -90,6 +91,7 @@ export { policyGatedInvocationSystemDesign } from './policyGatedInvocation';
 export { dataQualityFeedbackLoopSystemDesign } from './dataQualityFeedbackLoop';
 export { queryIntentStructuredAccessSystemDesign } from './queryIntentStructuredAccess';
 export { strategyMemoryReplaySystemDesign } from './strategyMemoryReplay';
+export { hierarchicalDocumentIntelligenceSystemDesign } from './hierarchicalDocumentIntelligence';
 export { mobileManipulatorStewardSystemDesign } from './mobileManipulatorSteward';
 export { adaptiveLabTechnicianSystemDesign } from './adaptiveLabTechnician';
 export { inventoryGuardianSystemDesign } from './inventoryGuardian';
@@ -139,6 +141,7 @@ export const systemDesignPatterns = {
   'data-quality-feedback-repair-loop': dataQualityFeedbackLoopSystemDesign,
   'query-intent-structured-access': queryIntentStructuredAccessSystemDesign,
   'strategy-memory-replay': strategyMemoryReplaySystemDesign,
+  'hierarchical-document-intelligence': hierarchicalDocumentIntelligenceSystemDesign,
   'mobile-manipulator-steward': mobileManipulatorStewardSystemDesign,
   'adaptive-lab-technician': adaptiveLabTechnicianSystemDesign,
   'inventory-guardian': inventoryGuardianSystemDesign,

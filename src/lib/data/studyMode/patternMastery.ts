@@ -10,7 +10,7 @@ export interface PatternMasteryBand {
   upgradeCriteria: string[];   // Deterministic gates to advance
 }
 
-// Core eight Data Autonomy patterns
+// Core nine Data Autonomy patterns
 const patterns = [
   'perception-normalization',
   'schema-aware-decomposition',
@@ -19,7 +19,8 @@ const patterns = [
   'policy-gated-tool-invocation',
   'data-quality-feedback-repair-loop',
   'query-intent-structured-access',
-  'strategy-memory-replay'
+  'strategy-memory-replay',
+  'hierarchical-document-intelligence'
 ];
 
 // Helper to compose bands quickly

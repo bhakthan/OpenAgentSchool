@@ -566,7 +566,7 @@ export const SCLDemo: React.FC = () => {
                 Data Autonomy Mastery Control Center
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                Explore mastery rubrics, failure mode panels, adaptive heuristics, and fusion challenges across all eight Data Autonomy patterns.
+                Explore mastery rubrics, failure mode panels, adaptive heuristics, and fusion challenges across all nine Data Autonomy patterns.
               </p>
             </CardHeader>
             <CardContent className="space-y-4">

@@ -14,7 +14,8 @@ describe('Data Autonomy pattern registry integrity', () => {
     'policy-gated-tool-invocation',
     'data-quality-feedback-repair-loop',
     'query-intent-structured-access',
-    'strategy-memory-replay'
+    'strategy-memory-replay',
+    'hierarchical-document-intelligence'
   ];
 
   test('all expected pattern IDs exist in agentPatterns', () => {

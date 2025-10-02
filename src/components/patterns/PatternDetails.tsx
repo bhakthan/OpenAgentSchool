@@ -45,6 +45,7 @@ import { policyGatedInvocationExecutionSteps } from '@/lib/data/execution/policy
 import { perceptionNormalizationExecutionSteps } from '@/lib/data/execution/perceptionNormalizationExecutionSteps';
 import { budgetConstrainedExecutionExecutionSteps } from '@/lib/data/execution/budgetConstrainedExecutionExecutionSteps';
 import { actionGroundingVerificationExecutionSteps } from '@/lib/data/execution/actionGroundingVerificationExecutionSteps';
+import { hierarchicalDocumentIntelligenceExecutionSteps } from '@/lib/data/execution/hierarchicalDocumentIntelligenceExecutionSteps';
 import { getAlgorithmVisualization } from '@/lib/utils/algorithmVisualization';
 import { agentToAgentPythonExecutionSteps } from '@/lib/data/execution/agentToAgentPythonExecutionSteps';
 import { mobileManipulatorStewardExecutionSteps } from '@/lib/data/execution/mobileManipulatorStewardExecutionSteps';
@@ -476,6 +477,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             )}
             {pattern.id === 'swarm-intelligence' && (
               <TabsTrigger value="live-runner-swarm" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
+              </TabsTrigger>
+            )}
+            {pattern.id === 'hierarchical-document-intelligence' && (
+              <TabsTrigger value="live-runner-hierarchical-doc" className="flex items-center gap-2">
                 <Code size={16} /> Live Runner
               </TabsTrigger>
             )}
@@ -1063,6 +1069,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
           )}
           {pattern.id === 'swarm-intelligence' && (
             <TabsContent value="live-runner-swarm" className="pt-4">
+              {pattern.codeVisualizer && React.createElement(pattern.codeVisualizer)}
+            </TabsContent>
+          )}
+          {pattern.id === 'hierarchical-document-intelligence' && (
+            <TabsContent value="live-runner-hierarchical-doc" className="pt-4">
               {pattern.codeVisualizer && React.createElement(pattern.codeVisualizer)}
             </TabsContent>
           )}

@@ -41,7 +41,7 @@ Open Agent School is a **comprehensive educational platform** designed to help d
 
 ###  Interactive Learning Experience
 
-- **35+ Agent Patterns** with code examples and visualizations
+- **52+ Agent Patterns** with code examples and visualizations
 - **Learning Atlas** - Interactive taxonomy tree with exportable diagrams
 - **Study Mode** - Socratic questioning and discovery-based learning
 - **Critical Thinking Challenges** - Real-world scenarios with AI-powered assessment

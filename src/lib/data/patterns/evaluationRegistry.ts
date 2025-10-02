@@ -616,6 +616,38 @@ export const patternEvaluationRegistry: Record<string, PatternEvaluationProfile>
     dataNeeds: ['Embedded strategy memory store with quality labels.', 'Benchmark tasks containing both historical strategies and baseline runs.'],
     cohort: 'advanced-automation'
   },
+  'hierarchical-document-intelligence': {
+    scenarioFocus: 'Multi-agent parsing of dense technical documents (2M+ tokens) with vision analysis, domain knowledge, and hierarchical synthesis.',
+    criticalMetrics: ['Extraction accuracy (components, connections)', 'Cross-reference resolution rate', 'Synthesis coherence score', 'Query answer precision', 'Processing latency', 'Cost per document'],
+    evaluationNotes: [
+      'Evaluate chunking quality: boundary preservation, overlap effectiveness, context retention across splits.',
+      'Measure vision extraction accuracy against ground truth (symbols, connections, text annotations).',
+      'Assess domain expert accuracy: standards compliance, terminology correctness, interpretation quality.',
+      'Test cross-reference resolution: detail callout linking, page reference accuracy, dependency mapping.',
+      'Validate hierarchical synthesis: component-level accuracy, subsystem coherence, system-level understanding.',
+      'Benchmark query performance: semantic retrieval precision, graph traversal efficiency, answer quality.',
+      'Monitor context window usage: token budget compliance, memory efficiency, Redis persistence reliability.'
+    ],
+    readinessSignals: [
+      'Extraction accuracy exceeds 95% for visual elements (symbols, connections) verified against annotated diagrams.',
+      'Domain interpretation achieves 90%+ accuracy on standards compliance and component specifications.',
+      'Cross-reference resolution correctly links 85%+ of detail callouts and page references.',
+      'Hierarchical synthesis produces coherent multi-level summaries validated by domain experts.',
+      'Query answers match expert responses with 85%+ precision on technical questions.',
+      'Processing stays within 50K token context windows while accessing full 2M+ token documents.',
+      'End-to-end latency for 200-page document analysis completes within acceptable SLA (e.g., <10 minutes).',
+      'Cost per document stays within budget constraints (track GPT-4V vision calls, embedding generation).'
+    ],
+    dataNeeds: [
+      'Annotated engineering diagrams with ground truth labels (electrical schematics, P&ID, mechanical drawings).',
+      'Expert-validated component specifications, standards references (IEC, ANSI, IEEE), and BOM lists.',
+      'Cross-reference mapping datasets showing detail callouts, page links, and drawing dependencies.',
+      'Hierarchical analysis benchmarks with component → subsystem → system breakdowns.',
+      'Technical Q&A pairs validated by subject matter experts for query evaluation.',
+      'Token usage telemetry and cost tracking across all 6 agent stages.'
+    ],
+    cohort: 'advanced-automation'
+  },
   'swarm-intelligence': {
     scenarioFocus: 'Collective agent swarms',
     criticalMetrics: ['Consensus accuracy', 'System stability', 'Resource usage'],
