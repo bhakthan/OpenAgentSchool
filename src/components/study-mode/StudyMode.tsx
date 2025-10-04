@@ -762,7 +762,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                 <MasteryPanel patternId="strategy-memory-replay" currentTier={computeMasteryTier('strategy-memory-replay', []) || undefined} />
                 <FailureModesPanel patternId="strategy-memory-replay" />
                 <div className="space-y-4">
-                  <h4 className="text-base font-semibold text-indigo-900 dark:text-indigo-200">Fusion Challenges</h4>
+                  <h4 className="text-base font-semibold text-gray-900 dark:text-indigo-200">Fusion Challenges</h4>
                   <TransferChallengesView onLaunchScenario={(id) => {
                     const fusion = allQuestions.find(q => q.id === 'fusion-replay-perception');
                     if (fusion) {
