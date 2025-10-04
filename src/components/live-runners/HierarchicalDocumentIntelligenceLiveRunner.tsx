@@ -402,9 +402,9 @@ const HierarchicalDocumentIntelligenceLiveRunner: React.FC = () => {
       )}
 
       {/* Educational Notes */}
-      <Card className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 border-indigo-200 dark:border-indigo-800">
+      <Card className="border border-border bg-card text-card-foreground shadow-sm transition-colors">
         <CardHeader>
-          <CardTitle className="text-sm">💡 Pattern Insights</CardTitle>
+          <CardTitle className="text-sm font-semibold text-foreground">💡 Pattern Insights</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm text-muted-foreground">
           <p>

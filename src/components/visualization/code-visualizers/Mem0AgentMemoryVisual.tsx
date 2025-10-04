@@ -93,45 +93,45 @@ print(f"Agent: {result}")`,
   return (
     <div className="w-full space-y-4 p-4">
       {/* Business Use Case Context */}
-      <Card className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border-blue-200 dark:border-blue-800">
-        <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white text-2xl">
+      <Card className="border border-border bg-card text-card-foreground shadow-sm">
+        <div className="flex flex-col gap-4 p-6 lg:flex-row">
+          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground text-2xl">
             🧠
           </div>
-          <div className="flex-1">
-            <h3 className="text-lg font-semibold mb-2 text-blue-900 dark:text-blue-100">
+          <div className="flex-1 space-y-3">
+            <h3 className="text-lg font-semibold">
               Why Mem0 Matters for Multi-Agent Systems
             </h3>
-            <p className="text-sm text-blue-800 dark:text-blue-200 mb-3">
+            <p className="text-sm text-muted-foreground">
               In the Supply Chain Disruption Manager example, imagine if every time a new disruption occurs, the system had to re-learn your shipping preferences, carrier priorities, and notification requirements. Mem0 solves this by giving agents persistent memory across conversations.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
-              <div className="flex items-start gap-2">
-                <span className="text-green-600 dark:text-green-400 font-bold">✓</span>
-                <div>
-                  <p className="text-sm font-medium text-blue-900 dark:text-blue-100">Business Value</p>
-                  <p className="text-xs text-blue-700 dark:text-blue-300">Reduce repetitive questions, faster response times, personalized service</p>
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+              <div className="flex items-start gap-2 rounded-lg border border-border/60 bg-muted/40 p-3">
+                <span className="text-sm font-semibold text-emerald-500">✓</span>
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-foreground">Business Value</p>
+                  <p className="text-xs text-muted-foreground">Reduce repetitive questions, faster response times, personalized service</p>
                 </div>
               </div>
-              <div className="flex items-start gap-2">
-                <span className="text-green-600 dark:text-green-400 font-bold">✓</span>
-                <div>
-                  <p className="text-sm font-medium text-blue-900 dark:text-blue-100">Technical Benefit</p>
-                  <p className="text-xs text-blue-700 dark:text-blue-300">Context persists across threads, sessions, and agent restarts</p>
+              <div className="flex items-start gap-2 rounded-lg border border-border/60 bg-muted/40 p-3">
+                <span className="text-sm font-semibold text-emerald-500">✓</span>
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-foreground">Technical Benefit</p>
+                  <p className="text-xs text-muted-foreground">Context persists across threads, sessions, and agent restarts</p>
                 </div>
               </div>
-              <div className="flex items-start gap-2">
-                <span className="text-green-600 dark:text-green-400 font-bold">✓</span>
-                <div>
-                  <p className="text-sm font-medium text-blue-900 dark:text-blue-100">Real-World Example</p>
-                  <p className="text-xs text-blue-700 dark:text-blue-300">Logistics team's preferences remembered: priority carriers, cost thresholds, notification rules</p>
+              <div className="flex items-start gap-2 rounded-lg border border-border/60 bg-muted/40 p-3">
+                <span className="text-sm font-semibold text-emerald-500">✓</span>
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-foreground">Real-World Example</p>
+                  <p className="text-xs text-muted-foreground">Logistics team's preferences remembered: priority carriers, cost thresholds, notification rules</p>
                 </div>
               </div>
-              <div className="flex items-start gap-2">
-                <span className="text-green-600 dark:text-green-400 font-bold">✓</span>
-                <div>
-                  <p className="text-sm font-medium text-blue-900 dark:text-blue-100">User Experience</p>
-                  <p className="text-xs text-blue-700 dark:text-blue-300">"Just like I taught you last time" - agents remember without re-prompting</p>
+              <div className="flex items-start gap-2 rounded-lg border border-border/60 bg-muted/40 p-3">
+                <span className="text-sm font-semibold text-emerald-500">✓</span>
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-foreground">User Experience</p>
+                  <p className="text-xs text-muted-foreground">"Just like I taught you last time" - agents remember without re-prompting</p>
                 </div>
               </div>
             </div>
@@ -149,7 +149,7 @@ print(f"Agent: {result}")`,
       </div>
 
       {/* Navigation Controls - Moved to Top */}
-      <Card className="p-4 bg-white dark:bg-gray-900">
+      <Card className="border border-border bg-card p-4 shadow-sm">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <Button
             onClick={handlePrev}
@@ -194,8 +194,8 @@ print(f"Agent: {result}")`,
         {steps.map((s, idx) => (
           <div
             key={idx}
-            className={`flex-1 h-2 mx-1 rounded transition-colors ${
-              idx <= step ? 'bg-blue-500' : 'bg-gray-200 dark:bg-gray-700'
+            className={`mx-1 h-2 flex-1 rounded transition-colors ${
+              idx <= step ? 'bg-primary' : 'bg-muted'
             }`}
           />
         ))}
@@ -203,20 +203,20 @@ print(f"Agent: {result}")`,
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Code Panel */}
-        <Card className="lg:col-span-2 p-4">
-          <h4 className="font-semibold mb-2">{currentStep.title}</h4>
-          <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm overflow-x-auto">
+        <Card className="lg:col-span-2 border border-border bg-card p-4 shadow-sm">
+          <h4 className="mb-2 font-semibold text-foreground">{currentStep.title}</h4>
+          <pre className="overflow-x-auto rounded border border-border/60 bg-muted/60 p-4 text-sm text-muted-foreground">
             <code>{currentStep.code}</code>
           </pre>
           <p className="mt-4 text-sm text-muted-foreground">
             {currentStep.explanation}
           </p>
           {currentStep.agentResponse && (
-            <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950 rounded border border-blue-200 dark:border-blue-800">
-              <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
+            <div className="mt-4 rounded border border-primary/30 bg-primary/10 p-3">
+              <p className="text-sm font-semibold text-primary">
                 Agent Response:
               </p>
-              <p className="text-sm text-blue-800 dark:text-blue-200 mt-1">
+              <p className="mt-1 text-sm text-muted-foreground">
                 {currentStep.agentResponse}
               </p>
             </div>
@@ -224,10 +224,10 @@ print(f"Agent: {result}")`,
         </Card>
 
         {/* Memory State Panel */}
-        <Card className="p-4">
-          <h4 className="font-semibold mb-3">Mem0 Memory State</h4>
+        <Card className="border border-border bg-card p-4 shadow-sm">
+          <h4 className="mb-3 font-semibold text-foreground">Mem0 Memory State</h4>
           {memories.length === 0 ? (
-            <div className="text-center text-muted-foreground py-8">
+            <div className="py-8 text-center text-muted-foreground">
               <p className="text-sm">No memories stored yet</p>
             </div>
           ) : (
@@ -235,16 +235,14 @@ print(f"Agent: {result}")`,
               {memories.map((memory, idx) => (
                 <div
                   key={idx}
-                  className="p-2 bg-green-50 dark:bg-green-950 rounded border border-green-200 dark:border-green-800"
+                  className="rounded border border-emerald-500/30 bg-emerald-500/10 p-2 text-emerald-600 dark:text-emerald-300"
                 >
-                  <p className="text-sm text-green-800 dark:text-green-200">
-                    ✓ {memory}
-                  </p>
+                  <p className="text-sm">✓ {memory}</p>
                 </div>
               ))}
             </div>
           )}
-          <div className="mt-4 pt-4 border-t">
+          <div className="mt-4 border-t border-border/60 pt-4">
             <p className="text-xs text-muted-foreground">
               💡 Memories persist across threads and conversations
             </p>
@@ -254,14 +252,14 @@ print(f"Agent: {result}")`,
 
       {/* Key Features */}
       {step === steps.length - 1 && (
-        <Card className="p-4 mt-4 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950 dark:to-blue-950">
-          <h4 className="font-semibold mb-2">✨ Key Features</h4>
-          <ul className="text-sm space-y-1">
+        <Card className="mt-4 border border-border bg-card p-4 shadow-sm">
+          <h4 className="mb-2 font-semibold text-foreground">✨ Key Features</h4>
+          <ul className="space-y-1 text-sm text-muted-foreground">
             <li>✓ Persistent memory across threads using Mem0</li>
             <li>✓ User-specific context (user_id association)</li>
             <li>✓ No need to repeat preferences</li>
             <li>✓ Works with any Agent Framework agent</li>
-            <li>✓ Install: <code className="text-xs bg-white dark:bg-gray-800 px-1 rounded">pip install agent-framework[all]</code></li>
+            <li>✓ Install: <code className="rounded bg-muted px-1 text-xs">pip install agent-framework[all]</code></li>
           </ul>
         </Card>
       )}

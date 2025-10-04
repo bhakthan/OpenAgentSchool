@@ -1,5 +1,6 @@
 import { PatternData } from './types';
 import { SupportRouterVisual } from '@/components/visualization/business-use-cases/SupportRouterVisual';
+import OrchestratorWorkerLiveRunner from '@/components/live-runners/OrchestratorWorkerLiveRunner';
 
 export const orchestratorWorkerPattern: PatternData = {
   id: 'orchestrator-worker',
@@ -14,6 +15,7 @@ export const orchestratorWorkerPattern: PatternData = {
     visualization: SupportRouterVisual,
     enlightenMePrompt: 'Provide a technical guide on implementing the Orchestrator-Worker pattern for AI agents.',
   },
+  codeVisualizer: OrchestratorWorkerLiveRunner,
   nodes: [
     { id: 'orchestrator', type: 'input', data: { label: 'Orchestrator' }, position: { x: 100, y: 200 } },
     { id: 'worker1', type: 'default', data: { label: 'Worker 1' }, position: { x: 300, y: 150 } },

@@ -402,7 +402,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
         </div>
       </CardHeader>
     <CardContent className="pt-6">
-  <Tabs defaultValue={hasBusinessUseCase ? "business-use-case" : "details"} className="w-full">
+  <Tabs
+        key={pattern.id}
+        defaultValue={hasBusinessUseCase ? "business-use-case" : "details"}
+        className="w-full"
+      >
           <TabsList className="grid w-full grid-cols-7">
             {hasBusinessUseCase && (
               <TabsTrigger value="business-use-case" className="flex items-center gap-2">
@@ -473,6 +477,11 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             {pattern.id === 'autogen-multi-agent' && pattern.codeVisualizer && (
               <TabsTrigger value="code-visualizer-mem0" className="flex items-center gap-2">
                 <Sparkle size={16} /> Mem0 Memory
+              </TabsTrigger>
+            )}
+            {pattern.id === 'orchestrator-worker' && (
+              <TabsTrigger value="live-runner-orchestrator-worker" className="flex items-center gap-2">
+                <Code size={16} /> Live Runner
               </TabsTrigger>
             )}
             {pattern.id === 'parallelization' && (
@@ -1057,6 +1066,19 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
           {pattern.id === 'autogen-multi-agent' && pattern.codeVisualizer && (
             <TabsContent value="code-visualizer-mem0" className="pt-4">
               {React.createElement(pattern.codeVisualizer)}
+            </TabsContent>
+          )}
+          {pattern.id === 'orchestrator-worker' && (
+            <TabsContent value="live-runner-orchestrator-worker" className="pt-4">
+              {pattern.codeVisualizer ? React.createElement(pattern.codeVisualizer) : (
+                <LivePatternRunner
+                  code={pattern.codeExample}
+                  pythonCode={pattern.pythonCodeExample}
+                  patternId={pattern.id}
+                  patternName={pattern.name}
+                  steps={autogenMultiAgentExecutionSteps as any}
+                />
+              )}
             </TabsContent>
           )}
           {pattern.id === 'parallelization' && (
