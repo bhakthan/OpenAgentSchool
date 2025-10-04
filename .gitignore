@@ -123,6 +123,9 @@ docs/
 docs/*.md
 PROJECT_OVERVIEW.md
 WORKSPACE_GUIDE.md
+ADOPTION_*.md
+AGENT_*.md
+PATTERN_*.md
 
 
 # Local specifications (drafts not for commit)

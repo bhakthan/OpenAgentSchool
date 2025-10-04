@@ -605,14 +605,14 @@ export default function AISkillsExplorer() {
                 <button
                   key={mid}
                   onClick={() => scrollToModule(mid)}
-                  className="group text-left border rounded-md p-2 bg-card/30 hover:bg-card/60 transition flex flex-col gap-1 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                  className="group text-left border rounded-md p-3 bg-card/30 hover:bg-primary/10 hover:border-primary/50 hover:shadow-md transition-all duration-200 flex flex-col gap-1.5 focus:outline-none focus:ring-2 focus:ring-primary/40 hover:scale-[1.02]"
                 >
-                  <span className="flex items-center gap-1 text-xs font-medium">
+                  <span className="flex items-center gap-1.5 text-xs font-semibold group-hover:text-primary transition-colors">
                     {t.icon}
                     {t.title}
                     {isCompleted(mid) && <CheckCircle className="w-3 h-3 text-green-600" />}
                   </span>
-                  <span className="text-[10px] text-muted-foreground line-clamp-2 leading-tight">{t.description}</span>
+                  <span className="text-sm text-muted-foreground group-hover:text-foreground/80 line-clamp-2 leading-snug transition-colors">{t.description}</span>
                 </button>
               )
             })}
@@ -692,10 +692,20 @@ export default function AISkillsExplorer() {
                           </div>
                         )}
                         <div className="mb-4">
-                          <div className="flex items-center gap-2 mb-2">
-                            {t.icon}
-                            <h3 className="text-xl font-semibold">{t.title}</h3>
-                            <Badge className={getLevelColor(t.level)} variant="secondary">{t.level}</Badge>
+                          <div className="flex items-center justify-between gap-2 mb-2">
+                            <div className="flex items-center gap-2">
+                              {t.icon}
+                              <h3 className="text-xl font-semibold">{t.title}</h3>
+                              <Badge className={getLevelColor(t.level)} variant="secondary">{t.level}</Badge>
+                            </div>
+                            <ShareButton
+                              url={`${window.location.origin}/ai-skills#${moduleId}`}
+                              title={`${t.title} - Applied AI Skills`}
+                              description={t.description}
+                              variant="outline"
+                              size="sm"
+                              analyticsCategory="AI Skills Module Share"
+                            />
                           </div>
                           <p className="text-sm text-muted-foreground max-w-2xl">{t.description}</p>
                         </div>
@@ -720,10 +730,20 @@ export default function AISkillsExplorer() {
                             id={pid}
                             className={`border rounded-lg p-5 bg-card/60 relative transition-colors duration-700 ${lastActivatedLens === pid ? 'ring-2 ring-primary/60 bg-primary/5' : ''}`}
                           >
-                            <div className="flex items-center gap-2 mb-2">
-                              {pTab.icon}
-                              <h3 className="text-lg font-semibold">{pTab.title} Pillars</h3>
-                              <Badge className={getLevelColor(pTab.level)} variant="secondary">{pTab.level}</Badge>
+                            <div className="flex items-center justify-between gap-2 mb-2">
+                              <div className="flex items-center gap-2">
+                                {pTab.icon}
+                                <h3 className="text-lg font-semibold">{pTab.title} Pillars</h3>
+                                <Badge className={getLevelColor(pTab.level)} variant="secondary">{pTab.level}</Badge>
+                              </div>
+                              <ShareButton
+                                url={`${window.location.origin}/ai-skills#${pid}`}
+                                title={`${pTab.title} Pillars - Applied AI Skills`}
+                                description={pTab.description}
+                                variant="outline"
+                                size="sm"
+                                analyticsCategory="AI Skills Perspective Share"
+                              />
                             </div>
                             {lastActivatedLens === pid && (
                               <div className="absolute -top-2 left-3 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 rounded shadow">Activated</div>

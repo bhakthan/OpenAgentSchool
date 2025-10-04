@@ -182,9 +182,12 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
     const printContent = `
       <html>
         <head>
-          <title>AI Assessment - Debug Challenge</title>
+          <title>Open Agent School - AI Assessment</title>
           <style>
             body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+            .branding { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e5e7eb; }
+            .branding-title { font-size: 20px; font-weight: bold; color: #3b82f6; margin-bottom: 5px; }
+            .branding-url { font-size: 12px; color: #6b7280; }
             .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #3b82f6; padding-bottom: 15px; }
             .score { font-size: 24px; color: #3b82f6; font-weight: bold; }
             .section { margin: 20px 0; }
@@ -202,6 +205,10 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
           </style>
         </head>
         <body>
+          <div class="branding">
+            <div class="branding-title">Open Agent School</div>
+            <div class="branding-url">openagentschool.org</div>
+          </div>
           <div class="header">
             <h1>🐛 AI Assessment - Debug Challenge</h1>
             <div>Phase: ${currentPhase.charAt(0).toUpperCase() + currentPhase.slice(1)}</div>
@@ -243,7 +250,8 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
           ` : ''}
 
           <div style="margin-top: 30px; text-align: center; color: #6b7280; font-size: 12px;">
-            Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
+            Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}<br/>
+            Open Agent School - openagentschool.org
           </div>
         </body>
       </html>

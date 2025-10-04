@@ -5,6 +5,8 @@ import { PatternData, PatternEvaluationProfile } from '@/lib/data/patterns/types
 import { coreEvaluationMetrics, evaluationCohortGuidance, evaluationJourneySteps, evaluationPrinciples, supportingEvaluationMetrics } from '@/lib/data/patterns/evaluationRegistry';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { ListChecks, Info, Code, Briefcase, PuzzlePiece, ArrowsOut, ArrowsIn, CopySimple, Check, Target, Gauge, Database, Sparkle } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -628,37 +630,43 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
 
           {hasBusinessUseCase && (
             <TabsContent value="business-use-case" className="pt-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg text-primary">{pattern.businessUseCase.industry}</CardTitle>
+              <Card className="border border-border bg-card text-card-foreground shadow-sm">
+                <CardHeader className="space-y-1 border-b border-border/60 bg-muted/40">
+                  <CardTitle className="text-lg font-semibold text-foreground">
+                    {pattern.businessUseCase.industry}
+                  </CardTitle>
+                  <CardDescription className="text-sm text-muted-foreground">
+                    {pattern.name} — business flow snapshot
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="prose max-w-none">
-                    <p className="text-base">{pattern.businessUseCase.description}</p>
+                  <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p className="text-base text-foreground">{pattern.businessUseCase.description}</p>
                   </div>
-                  <div>
-                    {pattern.businessUseCase.visualization ? (() => {
-                      const Vis = pattern.businessUseCase!.visualization as any;
-                      // Provide helpful defaults to any visualization
-                      const baseProps: any = {
-                        title: `${pattern.name} — Business Flow`,
-                        description: pattern.businessUseCase!.description,
-                      };
-                      // If this is the AlgorithmVisualizer, pass contextual steps
-                      if (Vis?.name === 'AlgorithmVisualizer') {
-                        const { steps } = getAlgorithmVisualization(pattern.id, pattern.id);
-                        baseProps.steps = steps;
-                      }
-                      return React.createElement(Vis, baseProps);
-                    })() : null}
-                  </div>
-                </CardContent>
-                {/* Move the dynamic visualization below, full width */}
-                {pattern.id === 'autogen-multi-agent' && (
-                  <div className="w-full mt-6">
+                  {pattern.businessUseCase.visualization ? (() => {
+                    const Vis = pattern.businessUseCase!.visualization as any;
+                    const baseProps: any = {
+                      title: `${pattern.name} — Business Flow`,
+                      description: pattern.businessUseCase!.description,
+                    };
+                    if (Vis?.name === 'AlgorithmVisualizer') {
+                      const { steps } = getAlgorithmVisualization(pattern.id, pattern.id);
+                      baseProps.steps = steps;
+                    }
+                    return (
+                      <div className="rounded-lg border border-border/60 bg-muted/30 p-4">
+                        {React.createElement(Vis, baseProps)}
+                      </div>
+                    );
+                  })() : (
+                    <div className="rounded-lg border border-dashed border-border/60 bg-muted/20 p-4 text-sm text-muted-foreground">
+                      Business visualization coming soon.
+                    </div>
+                  )}
+                  {pattern.id === 'autogen-multi-agent' && (
                     <DynamicAutoGenBusinessVisualization />
-                  </div>
-                )}
+                  )}
+                </CardContent>
               </Card>
             </TabsContent>
           )}
@@ -1395,6 +1403,7 @@ const parseAgentsAndInteractions = (input: string) => {
 };
 
 const DynamicAutoGenBusinessVisualization: React.FC = () => {
+  const textareaId = React.useId();
   const [input, setInput] = React.useState('Agent A assigns task to Agent B\nAgent B shares data with Agent C');
   const [agents, setAgents] = React.useState<any[]>([]);
   const [interactions, setInteractions] = React.useState<any[]>([]);
@@ -1408,32 +1417,47 @@ const DynamicAutoGenBusinessVisualization: React.FC = () => {
   };
 
   return (
-    <div className="mt-4 p-3 border rounded bg-muted/30">
-      <label className="block mb-2 font-semibold">Enter agent interactions (e.g., "Agent A assigns task to Agent B"):</label>
-      <textarea
-        className="w-full border rounded p-2 mb-2 text-base"
-        rows={3}
-        value={input}
-        onChange={e => setInput(e.target.value)}
-      />
-      <button
-        className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/80"
-        onClick={handleGenerate}
-        type="button"
-      >
-        Generate Visualization
-      </button>
-      {showVis && (
-        agents.length > 0 && interactions.length > 0 ? (
-          <div className="mt-4">
-            <AutoGenPatternVisualizer agents={agents} interactions={interactions} />
-          </div>
+    <div className="rounded-xl border border-border/60 bg-background/70 p-4 shadow-sm">
+      <div className="space-y-2">
+        <Label htmlFor={textareaId} className="text-sm font-medium text-foreground">
+          Define agent handoffs
+        </Label>
+        <Textarea
+          id={textareaId}
+          value={input}
+          onChange={(event) => setInput(event.target.value)}
+          rows={4}
+          className="min-h-[120px]"
+        />
+        <p className="text-xs text-muted-foreground">
+          One interaction per line. Example: <span className="font-medium text-foreground">Agent A assigns task to Agent B</span>
+        </p>
+      </div>
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <Button onClick={handleGenerate} type="button" className="w-full sm:w-auto">
+          Generate visualization
+        </Button>
+        <p className="text-xs text-muted-foreground">
+          We'll auto-draw agent nodes and arrows based on your script.
+        </p>
+      </div>
+      <div className="mt-4">
+        {showVis ? (
+          agents.length > 0 && interactions.length > 0 ? (
+            <div className="rounded-lg border border-border/60 bg-card p-4">
+              <AutoGenPatternVisualizer agents={agents} interactions={interactions} />
+            </div>
+          ) : (
+            <div className="rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
+              No valid agent interactions detected. Use the format: “Agent A assigns task to Agent B”.
+            </div>
+          )
         ) : (
-          <div className="mt-4 text-red-600 font-semibold">
-            No valid agent interactions found. Please use the format: "Agent A assigns task to Agent B".
+          <div className="rounded-lg border border-dashed border-border/60 bg-muted/20 p-4 text-sm text-muted-foreground">
+            Generated graph will appear here after you map interactions.
           </div>
-        )
-      )}
+        )}
+      </div>
     </div>
   );
 };

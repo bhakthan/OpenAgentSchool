@@ -18,6 +18,7 @@ import { GraduationCap } from '@phosphor-icons/react/dist/ssr/GraduationCap';
 import { Tree } from '@phosphor-icons/react/dist/ssr/Tree';
 import { Lightning } from '@phosphor-icons/react/dist/ssr/Lightning';
 import { DotsThree } from '@phosphor-icons/react/dist/ssr/DotsThree';
+import { Compass } from '@phosphor-icons/react/dist/ssr/Compass';
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtils';
 import { setupReactFlowErrorHandling } from './lib/utils/reactFlowUtils';
@@ -58,6 +59,10 @@ const KnowledgeSearch = lazy(() => import('./components/search/KnowledgeSearch')
 const KnowledgeBasePage = lazy(() => import('./pages/KnowledgeBasePage'));
 const BookmarksPage = lazy(() => import('./pages/BookmarksPage'));
 const AuthPage = lazy(() => import('./pages/AuthPage'));
+const AgenticAdoptionPlaybook = lazy(() => import('./components/pages/AgenticAdoptionPlaybook'));
+const ExecutiveAlignmentCharterForm = lazy(() => import('./components/adoption/ExecutiveAlignmentCharterForm'));
+const PortfolioHeatmapCanvasForm = lazy(() => import('./components/adoption/PortfolioHeatmapCanvasForm'));
+const BoardReadyBriefingPackForm = lazy(() => import('./components/adoption/BoardReadyBriefingPackForm'));
 // Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
 const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
 const CTALandingPageVariant = lazy(() => import('@/components/pages/CTALandingPageVariant'));
@@ -410,6 +415,7 @@ function App() {
                   { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} /> },
                   { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" /> },
                   { to: '/ai-skills', label: 'Applied AI Skills', icon: <Lightning size={16} weight="duotone" /> },
+                  { to: '/adoption-playbook', label: 'Adoption Playbook', icon: <Compass size={16} weight="duotone" /> },
                   { to: '/azure-services', label: 'Azure Services', icon: <StackSimple size={16} weight="duotone" /> },
                   { to: '/tree-view', label: 'Learning Atlas', icon: <Tree size={16} weight="duotone" /> },
                   { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" /> },
@@ -522,6 +528,10 @@ function App() {
                   <Route path="/references" element={<ReferencesSection />} />
                   <Route path="/deep-dive-taxonomy" element={<DeepDiveTaxonomyPage />} />
                   <Route path="/community" element={<CommunitySharing />} />
+                  <Route path="/adoption-playbook" element={<AgenticAdoptionPlaybook />} />
+                  <Route path="/adoption/charter" element={<ExecutiveAlignmentCharterForm />} />
+                  <Route path="/adoption/canvas" element={<PortfolioHeatmapCanvasForm />} />
+                  <Route path="/adoption/briefing" element={<BoardReadyBriefingPackForm />} />
                   <Route path="/bookmarks" element={<BookmarksPage />} />
                   <Route path="/auth" element={<AuthPage />} />
                   <Route path="/api-docs" element={<ApiDocsPage />} />

@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ArrowLeft, Target, Lightning, Copy, Printer, Brain } from '@phosphor-icons/react';
 import { SCLControls } from './SCLControls';
 import { Badge } from '@/components/ui/badge';
+import { ShareButton } from '@/components/ui/ShareButton';
 import { z } from 'zod';
 
 interface SuperCriticalLearningProps {
@@ -643,6 +644,14 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               </div>
             </div>
             <div className="flex items-center gap-2 print:hidden">
+              <ShareButton
+                url={`${window.location.origin}/study-mode?tab=scl`}
+                title="Super Critical Learning (SCL) - Study Mode"
+                description="Deep analysis of cascading effects and second-order thinking for agentic systems"
+                variant="outline"
+                size="sm"
+                analyticsCategory="Study Mode SCL Share"
+              />
               <Button variant="outline" size="sm" onClick={handleCopy} className="gap-2">
                 <Copy className="h-4 w-4" /> {copied ? 'Copied' : 'Copy Analysis'}
               </Button>

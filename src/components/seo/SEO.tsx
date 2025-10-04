@@ -224,6 +224,12 @@ export const pageSEOConfigs = {
     keywords: 'AI agents, artificial intelligence education, MCP, Model Context Protocol, A2A communication, multi-agent systems, agent architecture, interactive learning',
     image: DEFAULT_SEO.image
   },
+  '/adoption-playbook': {
+    title: 'Agentic Adoption Playbook - Orchestrate AI-Native Transformation | Open Agent School',
+    description: 'Lead a full-stack agentic adoption journey with mission brief canvases, transformation roadmaps, operating system blueprints, and 90-day activation kits tailored for business and technical leaders.',
+    keywords: 'agentic adoption, ai transformation, operating system blueprint, mission brief, activation plan, ai governance, enterprise ai strategy',
+    image: DEFAULT_SEO.image
+  },
   '/concepts': {
     title: 'Core Concepts - AI Agent Fundamentals | Open Agent School',
     description: 'Master 22 fundamental AI agent concepts through interactive visualizations and hands-on learning. Core concepts include: AI Agents (autonomous software systems), Agent Architecture (design patterns and components), Multi-Agent Systems (coordination and collaboration), Agent Security (protection and validation), Model Context Protocol (MCP for secure tool integration), Agent-to-Agent Communication (A2A protocols), Agent Communication Protocol (ACP for interoperability), Agent Orchestration (coordination patterns), Agent Tools (external integrations), Agent Memory (context management), Agent Planning (goal-directed behavior), Agent Reasoning (decision-making processes), Agent Learning (adaptation mechanisms), Agent Evaluation (performance assessment), Agent Safety (risk mitigation), Agent Governance (compliance and oversight), Human-Agent Interaction (collaboration interfaces), Agent Deployment (production strategies), Agent Monitoring (observability), Agent Scaling (performance optimization), Agent Integration (enterprise systems), and Agentic AI Design Taxonomy (comprehensive classification framework). Each concept includes theoretical foundations, practical implementations, code examples, Azure integration patterns, and real-world use cases.',

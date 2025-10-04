@@ -694,12 +694,22 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                 </CardTitle>
                 <CardDescription>Download canvases and playbooks that extend each strategic theme into action.</CardDescription>
               </div>
-              <Button asChild variant="outline" size="sm" className="gap-2">
-                <a href="/toolkits/strategic-toolkit-library.xlsx" download>
-                  <DownloadSimple size={16} />
-                  <span>Download Excel Library</span>
-                </a>
-              </Button>
+              <div className="flex gap-2">
+                <Button asChild variant="outline" size="sm" className="gap-2">
+                  <a href="/toolkits/strategic-toolkit-library.xlsx" download>
+                    <DownloadSimple size={16} />
+                    <span>Download Excel Library</span>
+                  </a>
+                </Button>
+                <ShareButton
+                  url={`${window.location.origin}/study-mode`}
+                  title="Strategy Toolkits Library - Study Mode"
+                  description="Download canvases and playbooks that extend each strategic theme into action."
+                  variant="outline"
+                  size="sm"
+                  analyticsCategory="Study Mode Library Share"
+                />
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -712,17 +722,25 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                         <span>{toolkit.description}</span>
                       </div>
                     </div>
-                    <div className="mt-4 flex flex-col sm:flex-row gap-2">
-                      <Button size="sm" variant="ghost" className="justify-center gap-2" onClick={() => handleOpenToolkitInline(toolkit)}>
+                    <div className="mt-4 flex gap-2">
+                      <Button size="sm" variant="ghost" className="flex-1 justify-center gap-2" onClick={() => handleOpenToolkitInline(toolkit)}>
                         <BookOpen size={16} />
                         <span>Open Inline</span>
                       </Button>
-                      <Button asChild variant="outline" size="sm" className="justify-center gap-2">
+                      <Button asChild variant="outline" size="sm" className="flex-1 justify-center gap-2">
                         <a href={toolkit.href} download={toolkit.downloadName}>
                           <DownloadSimple size={16} />
                           <span>Download</span>
                         </a>
                       </Button>
+                      <ShareButton
+                        url={`${window.location.origin}${toolkit.href}`}
+                        title={toolkit.title}
+                        description={toolkit.description}
+                        variant="outline"
+                        size="sm"
+                        analyticsCategory="Study Mode Toolkit Share"
+                      />
                     </div>
                   </div>
                 ))}
@@ -828,13 +846,25 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           </div>
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Brain size={24} className="text-primary" />
-                Socratic Discovery
-              </CardTitle>
-              <CardDescription>
-                Learn by discovering concepts through guided questioning
-              </CardDescription>
+              <div className="flex items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <CardTitle className="flex items-center gap-2">
+                    <Brain size={24} className="text-primary" />
+                    Socratic Discovery
+                  </CardTitle>
+                  <CardDescription>
+                    Learn by discovering concepts through guided questioning
+                  </CardDescription>
+                </div>
+                <ShareButton
+                  url={`${window.location.origin}/study-mode?tab=socratic`}
+                  title="Socratic Discovery - Study Mode"
+                  description="Learn by discovering concepts through guided questioning"
+                  variant="outline"
+                  size="sm"
+                  analyticsCategory="Study Mode Socratic Share"
+                />
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -860,13 +890,25 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           </div>
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <PuzzlePiece size={24} className="text-primary" />
-                Interactive Scenarios
-              </CardTitle>
-              <CardDescription>
-                Build systems step-by-step through realistic implementation challenges
-              </CardDescription>
+              <div className="flex items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <CardTitle className="flex items-center gap-2">
+                    <PuzzlePiece size={24} className="text-primary" />
+                    Interactive Scenarios
+                  </CardTitle>
+                  <CardDescription>
+                    Build systems step-by-step through realistic implementation challenges
+                  </CardDescription>
+                </div>
+                <ShareButton
+                  url={`${window.location.origin}/study-mode?tab=scenario`}
+                  title="Interactive Scenarios - Study Mode"
+                  description="Build systems step-by-step through realistic implementation challenges"
+                  variant="outline"
+                  size="sm"
+                  analyticsCategory="Study Mode Scenario Share"
+                />
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -892,13 +934,25 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           </div>
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Bug size={24} className="text-primary" />
-                Debug Challenges
-              </CardTitle>
-              <CardDescription>
-                Analyze broken systems and learn by fixing real-world problems
-              </CardDescription>
+              <div className="flex items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <CardTitle className="flex items-center gap-2">
+                    <Bug size={24} className="text-primary" />
+                    Debug Challenges
+                  </CardTitle>
+                  <CardDescription>
+                    Analyze broken systems and learn by fixing real-world problems
+                  </CardDescription>
+                </div>
+                <ShareButton
+                  url={`${window.location.origin}/study-mode?tab=debug`}
+                  title="Debug Challenges - Study Mode"
+                  description="Analyze broken systems and learn by fixing real-world problems"
+                  variant="outline"
+                  size="sm"
+                  analyticsCategory="Study Mode Debug Share"
+                />
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

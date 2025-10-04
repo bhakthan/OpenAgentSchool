@@ -201,13 +201,14 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
     const dataStr = JSON.stringify({
       session,
       exportedAt: new Date().toISOString(),
+      exportedFrom: 'Open Agent School - openagentschool.org',
     }, null, 2);
     
     const dataBlob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(dataBlob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `scl-session-${session.id}.json`;
+    a.download = `openagentschool-scl-session-${session.id}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

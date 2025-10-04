@@ -1,5 +1,5 @@
 import { useState, useEffect, Suspense, lazy } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { agentPatterns, PatternData } from '@/lib/data/patterns/index'
 import PatternDetails from './PatternDetails'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -30,6 +30,16 @@ const VisualizationLoader = () => (
 
 const PatternExplorer = () => {
   const { patternId } = useParams();
+  const [searchParams] = useSearchParams();
+  
+  // Get initial tab from URL parameter, default to 'flow-diagram'
+  const getInitialTab = () => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam && ['flow-diagram', 'details', 'implementation'].includes(tabParam)) {
+      return tabParam;
+    }
+    return 'flow-diagram';
+  };
   
   // Find initial pattern based on URL parameter, default to ReAct Agent
   const getInitialPattern = () => {
@@ -44,7 +54,7 @@ const PatternExplorer = () => {
   const [selectedPattern, setSelectedPattern] = useState(getInitialPattern());
   const [viewMode, setViewMode] = useState<'single' | 'compare'>('single');
   const [isModalOpen, setModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('flow-diagram');
+  const [activeTab, setActiveTab] = useState(getInitialTab());
   const [isFullscreenVis, setIsFullscreenVis] = useState(false);
   
   // Update selected pattern when URL parameter changes
@@ -194,7 +204,7 @@ const PatternExplorer = () => {
       {viewMode === 'single' ? (
         selectedPattern ? (
           <div className="w-full">
-            <Tabs defaultValue="flow-diagram" className="w-full" onValueChange={setActiveTab}>
+            <Tabs value={activeTab} defaultValue="flow-diagram" className="w-full" onValueChange={setActiveTab}>
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="flow-diagram" className="flex items-center gap-2" data-tab="flow-diagram">
                   <ChartLine size={16} /> Flow Diagram

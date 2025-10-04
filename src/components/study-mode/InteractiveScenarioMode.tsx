@@ -103,7 +103,12 @@ const InteractiveScenarioMode: React.FC<InteractiveScenarioModeProps> = ({
   const handleCopyFeedback = () => {
     if (!llmJudgeResponse) return;
 
-    const formattedFeedback = `🎯 AI Assessment - Interactive Scenario
+    const formattedFeedback = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Open Agent School - AI Assessment
+openagentschool.org
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 Interactive Scenario Assessment
 ${isLastChallenge ? 'Final Results' : `Step ${currentStep + 1}`}
 Score: ${llmJudgeResponse.score}%
 
@@ -120,7 +125,11 @@ ${llmJudgeResponse.suggestions.map(suggestion => `• ${suggestion}`).join('\n')
 ${llmJudgeResponse.insights.map(insight => `• ${insight}`).join('\n')}
 
 ` : ''}${llmJudgeResponse.improvements.length > 0 ? `📈 Areas for Improvement:
-${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\n')}` : ''}`;
+${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\n')}
+
+` : ''}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Generated: ${new Date().toLocaleString()}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
     navigator.clipboard.writeText(formattedFeedback);
     
@@ -138,9 +147,12 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
     const printContent = `
       <html>
         <head>
-          <title>AI Assessment - Interactive Scenario</title>
+          <title>Open Agent School - AI Assessment</title>
           <style>
             body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+            .branding { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e5e7eb; }
+            .branding-title { font-size: 24px; color: #3b82f6; font-weight: bold; margin-bottom: 5px; }
+            .branding-url { font-size: 12px; color: #6b7280; font-style: italic; }
             .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #3b82f6; padding-bottom: 15px; }
             .score { font-size: 24px; color: #3b82f6; font-weight: bold; }
             .section { margin: 20px 0; }
@@ -158,6 +170,11 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
           </style>
         </head>
         <body>
+          <div class="branding">
+            <div class="branding-title">Open Agent School</div>
+            <div class="branding-url">openagentschool.org</div>
+          </div>
+          
           <div class="header">
             <h1>🎯 AI Assessment - Interactive Scenario</h1>
             <div>${isLastChallenge ? 'Final Results' : `Step ${currentStep + 1}`}</div>
@@ -198,8 +215,9 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
           </div>
           ` : ''}
 
-          <div style="margin-top: 30px; text-align: center; color: #6b7280; font-size: 12px;">
-            Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
+          <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 12px;">
+            <div style="margin-bottom: 5px;">Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</div>
+            <div style="font-style: italic;">Open Agent School - openagentschool.org</div>
           </div>
         </body>
       </html>

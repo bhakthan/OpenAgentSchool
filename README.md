@@ -156,6 +156,20 @@ npm run dev
 
 ##  Learning Paths
 
+### **Navigation Design Philosophy**
+
+The platform's top navigation follows a deliberate learning progression:
+
+1. **Core Concepts** → Foundation first (agents, prompting, evaluation, security)
+2. **Agent Patterns** → Architectural patterns and best practices  
+3. **Applied AI Skills** → Hands-on skills application
+4. **Adoption Playbook** → Organizational transformation strategies (*after* learning the concepts)
+5. **Azure Services** → Platform-specific implementation tooling
+6. **Learning Atlas** → Visual reference and taxonomy
+7. **Study Mode** → Practice and Socratic discovery
+
+**Rationale**: Learners progress from **Learn** (concepts) → **Build** (patterns) → **Apply** (skills) → **Adopt** (organizational strategy) → **Implement** (platform) → **Practice** (study/quiz). The Adoption Playbook is positioned after foundational learning so that strategic thinking is grounded in technical understanding.
+
 ###  **Beginner Path** (Start Here)
 1. Core Concepts  Agent Fundamentals
 2. Learning Journey Map (interactive progression)
@@ -173,6 +187,13 @@ npm run dev
 2. Critical Thinking Challenges
 3. Production Operations & Monitoring
 4. Strategy Toolkits (downloadable canvases)
+
+### **🆕 Organizational Adoption Path**
+1. Adoption Playbook → Mission Brief (discovery questions)
+2. Transformation Journey (5-phase roadmap)
+3. Operating System Design (governance, platform, culture)
+4. Activation Plan (first 90 days)
+5. Study Mode: Adoption Strategy challenges
 
 ---
 

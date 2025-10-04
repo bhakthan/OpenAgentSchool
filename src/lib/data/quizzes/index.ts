@@ -24,6 +24,7 @@ import { agenticCommerceAp2Questions } from './agentic-commerce-ap2';
 import { agentOpsQuestions } from './agent-ops';
 import { dataAutonomyPatternsQuestions } from './data-autonomy-patterns.ts';
 import { agenticRoboticsIntegrationQuestions } from './agentic-robotics';
+import { adoptionPlaybookQuestions } from './adoption-playbook';
 // New Phase 1 foundation quizzes
 import { llmFundamentalsQuiz } from './llm-fundamentals';
 import { gettingStartedAgentsQuiz } from './getting-started-agents';
@@ -48,6 +49,7 @@ const allQuestions = [
   ...agentIntegrationQuestions,
   ...advancedProtocolsQuestions,
   ...agentEvaluationQuestions,
+  ...adoptionPlaybookQuestions,
   ...businessUseCasesQuestions,
   ...systemDesignQuestions,
   ...promptingOptimizationQuestions,

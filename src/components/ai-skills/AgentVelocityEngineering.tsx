@@ -426,7 +426,7 @@ export function AgentVelocityEngineering() {
             Explore Patterns
           </a>
           <a
-            href="/code-playbook"
+            href="/patterns?tab=implementation"
             className="px-6 py-3 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-600 transition-colors border border-purple-500"
           >
             View Code Templates

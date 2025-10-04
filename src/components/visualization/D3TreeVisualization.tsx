@@ -611,11 +611,32 @@ export default function D3TreeVisualization({
         const pdf = new jsPDFCtor!({ orientation, unit: 'pt', format: 'a4' });
         const pageW = pdf.internal.pageSize.getWidth();
         const pageH = pdf.internal.pageSize.getHeight();
-        const scale = Math.min(pageW / vbW, pageH / vbH);
+        
+        // Add branding header
+        pdf.setFontSize(18);
+        pdf.setTextColor(59, 130, 246); // Blue
+        pdf.setFont('helvetica', 'bold');
+        pdf.text('Open Agent School', pageW / 2, 30, { align: 'center' });
+        
+        pdf.setFontSize(10);
+        pdf.setTextColor(107, 114, 128); // Gray
+        pdf.setFont('helvetica', 'italic');
+        pdf.text('openagentschool.org', pageW / 2, 45, { align: 'center' });
+        
+        pdf.setFontSize(12);
+        pdf.setTextColor(31, 41, 55); // Dark gray
+        pdf.setFont('helvetica', 'normal');
+        pdf.text('Learning Atlas', pageW / 2, 62, { align: 'center' });
+        
+        // Adjust y position for image to account for header
+        const headerHeight = 80;
+        const availableHeight = pageH - headerHeight - 20;
+        const scale = Math.min(pageW / vbW, availableHeight / vbH);
         const drawW = vbW * scale;
         const drawH = vbH * scale;
         const x = (pageW - drawW) / 2;
-        const y = (pageH - drawH) / 2;
+        const y = headerHeight + (availableHeight - drawH) / 2;
+        
         const canvas = document.createElement('canvas');
         canvas.width = vbW; canvas.height = vbH;
         const ctx = canvas.getContext('2d');
@@ -627,7 +648,14 @@ export default function D3TreeVisualization({
           ctx.drawImage(img, 0, 0, vbW, vbH);
           const dataUrl = canvas.toDataURL('image/png');
           pdf.addImage(dataUrl, 'PNG', x, y, drawW, drawH);
-          pdf.save('open-agent-learning-tree.pdf');
+          
+          // Add footer
+          pdf.setFontSize(8);
+          pdf.setTextColor(156, 163, 175); // Light gray
+          pdf.setFont('helvetica', 'italic');
+          pdf.text(`Generated on ${new Date().toLocaleDateString()}`, pageW / 2, pageH - 15, { align: 'center' });
+          
+          pdf.save('open-agent-school-learning-atlas.pdf');
           try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'pdf' } })); } catch {}
         }
         URL.revokeObjectURL(url);
