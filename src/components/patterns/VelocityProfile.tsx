@@ -2,6 +2,7 @@ import React from 'react';
 import { VelocityProfile as VelocityProfileType } from '@/lib/data/patterns/types';
 import { VelocityBadge } from './VelocityBadge';
 import { Clock, Zap, TrendingUp, BookOpen, Target } from 'lucide-react';
+import './velocity-profile.css';
 
 interface VelocityProfileProps {
   profile: VelocityProfileType;
@@ -15,40 +16,42 @@ export const VelocityProfile: React.FC<VelocityProfileProps> = ({ profile }) => 
   };
 
   const learningCurve = learningCurveConfig[profile.learningCurve];
+  const metricCardClass =
+    'rounded-lg border border-border bg-card p-4 shadow-sm transition-colors dark:bg-secondary/60 dark:border-border/80';
 
   return (
-    <div className="space-y-6 p-6 bg-gray-50 dark:from-purple-900/10 dark:to-blue-900/10 dark:bg-gradient-to-br rounded-xl border border-gray-200 dark:border-purple-800/30">
+    <div className="space-y-6 rounded-xl border border-border bg-card p-6 text-card-foreground shadow-md transition-colors">
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-            <Zap className="w-5 h-5 text-gray-700 dark:text-purple-600" />
+          <h3 className="mb-2 flex items-center gap-2 text-xl font-bold text-foreground">
+            <Zap className="h-5 w-5 text-primary" />
             Agent Velocity Engineering Profile
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             Implementation velocity metrics and acceleration practices
           </p>
         </div>
         <VelocityBadge impact={profile.impact} size="lg" />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {/* Time to Implement */}
-        <div className="bg-white/60 dark:bg-gray-800/60 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className={metricCardClass}>
           <div className="flex items-center gap-2 mb-2">
-            <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Time to Implement</span>
+            <Clock className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <span className="text-sm font-semibold text-foreground">Time to Implement</span>
           </div>
-          <p className="text-lg font-bold text-gray-900 dark:text-white">{profile.timeToImplement}</p>
+          <p className="text-lg font-bold text-foreground">{profile.timeToImplement}</p>
         </div>
 
         {/* Reusability Score */}
-        <div className="bg-white/60 dark:bg-gray-800/60 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className={metricCardClass}>
           <div className="flex items-center gap-2 mb-2">
-            <TrendingUp className="w-4 h-4 text-green-600 dark:text-green-400" />
-            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Reusability Score</span>
+            <TrendingUp className="h-4 w-4 text-green-600 dark:text-green-400" />
+            <span className="text-sm font-semibold text-foreground">Reusability Score</span>
           </div>
           <div className="flex items-center gap-2">
-            <p className="text-lg font-bold text-gray-900 dark:text-white">{profile.reusabilityScore}/10</p>
+            <p className="text-lg font-bold text-foreground">{profile.reusabilityScore}/10</p>
             <div className="flex gap-0.5">
               {Array.from({ length: 10 }).map((_, i) => (
                 <div
@@ -65,52 +68,49 @@ export const VelocityProfile: React.FC<VelocityProfileProps> = ({ profile }) => 
         </div>
 
         {/* Learning Curve */}
-        <div className="bg-white/60 dark:bg-gray-800/60 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className={metricCardClass}>
           <div className="flex items-center gap-2 mb-2">
-            <BookOpen className="w-4 h-4 text-gray-600 dark:text-purple-400" />
-            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Learning Curve</span>
+            <BookOpen className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+            <span className="text-sm font-semibold text-foreground">Learning Curve</span>
           </div>
-          <p className={`text-lg font-bold ${learningCurve.color} flex items-center gap-2`}>
+          <p className={`flex items-center gap-2 text-lg font-bold ${learningCurve.color}`}>
             <span>{learningCurve.icon}</span>
             <span>{learningCurve.label}</span>
           </p>
         </div>
 
         {/* Complexity Reduction */}
-        <div className="bg-white/60 dark:bg-gray-800/60 p-4 rounded-lg border border-gray-200 dark:border-gray-700 md:col-span-2">
+        <div className={`${metricCardClass} md:col-span-2`}>
           <div className="flex items-center gap-2 mb-2">
-            <Target className="w-4 h-4 text-orange-600 dark:text-orange-400" />
-            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Complexity Reduction</span>
+            <Target className="h-4 w-4 text-orange-600 dark:text-orange-400" />
+            <span className="text-sm font-semibold text-foreground">Complexity Reduction</span>
           </div>
-          <p className="text-sm text-gray-700 dark:text-gray-300">{profile.complexityReduction}</p>
+          <p className="text-sm text-muted-foreground">{profile.complexityReduction}</p>
         </div>
       </div>
 
       {/* Velocity Practices */}
-      <div>
-        <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-          <Zap className="w-4 h-4 text-gray-700 dark:text-purple-600" />
+      <div className="velocity-practices-section">
+        <h4 className="velocity-practices-heading">
+          <Zap className="h-4 w-4" />
           Agent Velocity Engineering Practices
         </h4>
-        <div className="space-y-2">
+        <div className="velocity-practices-list">
           {profile.velocityPractices.map((practice, idx) => {
             const [pillar, ...descParts] = practice.split(' - ');
             const description = descParts.join(' - ');
             
             return (
-              <div
-                key={idx}
-                className="flex items-start gap-3 p-3 bg-white/80 dark:bg-gray-800/80 rounded-lg border border-gray-300 dark:border-purple-800/30"
-              >
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-200 dark:bg-purple-400/20 flex items-center justify-center text-xs font-bold text-gray-700 dark:text-purple-300">
+              <div key={idx} className="velocity-practice-card">
+                <div className="velocity-practice-index">
                   {idx + 1}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-gray-900 dark:text-purple-300">
+                <div className="velocity-practice-content">
+                  <p className="velocity-practice-title">
                     {pillar}
                   </p>
                   {description && (
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+                    <p className="velocity-practice-desc">
                       {description}
                     </p>
                   )}
@@ -123,11 +123,9 @@ export const VelocityProfile: React.FC<VelocityProfileProps> = ({ profile }) => 
 
       {/* Quick Win Indicator */}
       {profile.impact === 'high' && profile.timeToImplement.includes('hour') && (
-        <div className="p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-lg">
-          <p className="text-sm font-semibold text-green-700 dark:text-green-400 flex items-center gap-2">
-            <span>✨</span>
-            <span>Quick Win Pattern - High impact with rapid implementation!</span>
-          </p>
+        <div className="velocity-quick-win">
+          <span>✨</span>
+          <span>Quick Win Pattern - High impact with rapid implementation!</span>
         </div>
       )}
     </div>
