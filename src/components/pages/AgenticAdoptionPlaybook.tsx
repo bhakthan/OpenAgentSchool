@@ -539,7 +539,7 @@ const JOURNEY_BLUEPRINTS: StrategyTemplate[] = [
     description: 'Step-by-step guide for week-long learn-and-align sprints with cross-functional squads.',
     outcome: 'Validated user stories, telemetry instrumentation plan, and decision log.',
     ctaLabel: 'Open Playbook',
-    ctaHref: '#',
+    ctaHref: '/adoption/charter',
     icon: <Compass size={18} className="text-primary" />,
   },
   {
@@ -547,7 +547,7 @@ const JOURNEY_BLUEPRINTS: StrategyTemplate[] = [
     description: 'Checklist covering evaluation harness, safety approvals, and change enablement.',
     outcome: 'Pilots only launch with protective guardrails and success metrics in place.',
     ctaLabel: 'View Checklist',
-    ctaHref: '#',
+    ctaHref: '/adoption/canvas',
     icon: <Lightning size={18} className="text-primary" />,
   },
   {
@@ -555,7 +555,7 @@ const JOURNEY_BLUEPRINTS: StrategyTemplate[] = [
     description: 'Financial model template connecting pilot evidence to rollout funding.',
     outcome: 'Stage-gated investment plan rooted in telemetry and ROI scenarios.',
     ctaLabel: 'Download Model',
-    ctaHref: '#',
+    ctaHref: '/adoption/briefing',
     icon: <ChartLineUp size={18} className="text-primary" />,
   },
 ];
@@ -653,6 +653,76 @@ const AgenticAdoptionPlaybook: React.FC = () => {
 
   return (
     <div className="space-y-10">
+      {/* Marketing Hero Section */}
+      <section className="relative overflow-hidden rounded-3xl border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-violet-500/5 to-fuchsia-500/5 p-10 md:p-16">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-violet-500/10 to-transparent rounded-full blur-3xl -z-10" />
+        
+        <div className="max-w-4xl mx-auto text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-violet-600/20 border border-primary/30 mb-2">
+            <Buildings size={20} className="text-primary" />
+            <span className="text-sm font-bold text-primary">Executive Playbook</span>
+          </div>
+          
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.05]">
+            <span className="bg-gradient-to-r from-primary via-violet-500 to-fuchsia-500 text-transparent bg-clip-text">
+              From Pilot Chaos
+            </span>
+            <br />
+            <span className="text-foreground">
+              to Production Velocity
+            </span>
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed font-light max-w-3xl mx-auto">
+            Most AI initiatives stall in <strong className="text-foreground">pilot purgatory</strong>—endless demos, unclear ROI, fragmented ownership. 
+            This playbook embeds <strong className="text-foreground">evaluation harnesses, governance guardrails, and velocity metrics</strong> from day one 
+            so expansion doesn't amplify fragility.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-4 pt-4">
+            {[
+              { icon: <ChartLineUp size={24} />, label: 'Stakeholder Alignment', value: 'Weeks, not quarters' },
+              { icon: <ShieldCheck size={24} />, label: 'Risk Mitigation', value: 'Governance-ready' },
+              { icon: <RocketLaunch size={24} />, label: 'Value Proof', value: 'Measurable ROI' }
+            ].map(item => (
+              <div key={item.label} className="p-4 rounded-xl border bg-card/60 backdrop-blur-sm flex flex-col items-center gap-2">
+                <div className="text-primary">{item.icon}</div>
+                <div className="font-semibold text-sm">{item.label}</div>
+                <div className="text-xs text-muted-foreground">{item.value}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <Button 
+              size="lg" 
+              className="group shadow-lg"
+              onClick={handleViewJourney}
+            >
+              <Compass className="mr-2" size={20} />
+              Start Adoption Journey
+              <Lightning className="ml-2 h-5 w-5 transition-transform group-hover:rotate-12" />
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              onClick={() => {
+                const element = document.getElementById('journey-blueprints');
+                element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+            >
+              <FileArrowDown className="mr-2" size={20} />
+              Download Templates
+            </Button>
+          </div>
+
+          <p className="text-xs text-muted-foreground uppercase tracking-wide pt-2">
+            Interactive Charter Builder • Portfolio Heatmap • Board Briefing Pack • AI-Powered Scoring
+          </p>
+        </div>
+      </section>
+
       <header className="grid gap-6 rounded-3xl border border-border bg-card p-8 shadow-lg shadow-primary/5 lg:grid-cols-[2fr,1fr]">
         <div className="space-y-4">
           <div className="flex items-start justify-between gap-4">
@@ -1073,7 +1143,7 @@ const AgenticAdoptionPlaybook: React.FC = () => {
             </Tabs>
           </section>
 
-          <section className="space-y-4">
+          <section id="journey-blueprints" className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="space-y-2">
                 <h3 className="text-xl font-semibold text-foreground">Journey Blueprint Library</h3>

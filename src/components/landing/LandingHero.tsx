@@ -140,6 +140,37 @@ export const LandingHero: React.FC = () => {
               </Button>
             </div>
 
+            {/* Executive Track CTA */}
+            <div className="mt-8 p-6 rounded-xl border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-violet-500/5 to-fuchsia-500/5 backdrop-blur-sm">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-violet-600 flex items-center justify-center shadow-lg">
+                  <Target className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-bold text-lg">For Business Leaders</h3>
+                    <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
+                      Executive Track
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    Turn AI ambition into operational capability. Get charter templates, portfolio heatmaps, and board-ready briefing packs with AI scoring—institutionalize agent capability in weeks, not quarters.
+                  </p>
+                  <Button 
+                    size="sm" 
+                    className="group"
+                    onClick={() => {
+                      navigate('/adoption');
+                      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+                    }}
+                  >
+                    Access Adoption Playbook
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+
             {/* Learning Path Preview */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8">
               <Card className="group hover:shadow-md transition-all cursor-pointer" onClick={() => handleLevelClick('foundation')}>

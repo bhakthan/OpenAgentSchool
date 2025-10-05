@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
-import { Lightning, GraduationCap, Users, RocketLaunch, ChartLineUp, HeadCircuit, Buildings, Handshake } from '@phosphor-icons/react';
+import { Lightning, GraduationCap, Users, RocketLaunch, ChartLineUp, HeadCircuit, Buildings, Handshake, ArrowRight } from '@phosphor-icons/react';
 import { PROOF_SIGNALS } from '@/components/marketing/proofSignals';
 
 /**
@@ -101,6 +101,98 @@ const CTALandingPage: React.FC = () => {
               </ul>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Agentic Adoption Playbook - Executive Showcase */}
+      <section className="relative overflow-hidden rounded-3xl border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-violet-600/10 to-fuchsia-600/10 p-8 md:p-12">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-violet-500/20 to-transparent rounded-full blur-3xl -z-10" />
+        
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-violet-600/20 border border-primary/30 mb-4">
+            <Handshake size={20} className="text-primary" />
+            <span className="text-sm font-bold text-primary">Executive Playbook</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+            From Pilot Chaos to Production Velocity
+          </h2>
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
+            Stop re-learning per project. <strong>Institutionalize agent capability</strong> with interactive charter builders, portfolio heatmaps, and board-ready briefing packs—architected for executives who ship.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
+          {[
+            {
+              icon: <ChartLineUp size={32} className="text-primary" />,
+              title: 'Discovery Sprint Playbook',
+              desc: 'Collapse alignment cycles: executive charter builder with AI-powered stakeholder mapping, risk scoring, and value quantification.',
+              metric: '6-week clarity path',
+              href: '/adoption/charter'
+            },
+            {
+              icon: <HeadCircuit size={32} className="text-primary" />,
+              title: 'Portfolio Heatmap Canvas',
+              desc: '3D workflow prioritization (Value × Feasibility × Risk) with quadrant classification and Excel export for roadmap planning.',
+              metric: 'Visual prioritization',
+              href: '/adoption/canvas'
+            },
+            {
+              icon: <Buildings size={32} className="text-primary" />,
+              title: 'Board-Ready Briefing Pack',
+              desc: 'Role-specific executive briefs (CEO, CFO, CTO, CISO, COO, Board) with compliance summaries and Word/Excel export.',
+              metric: 'C-suite alignment',
+              href: '/adoption/briefing'
+            }
+          ].map(card => (
+            <div key={card.title} className="group p-6 rounded-xl border-2 border-border bg-card/80 backdrop-blur-sm hover:border-primary/50 hover:shadow-xl transition-all cursor-pointer" onClick={() => { track('adoption', `playbook-${card.title}`); window.location.href = card.href; }}>
+              <div className="mb-4">{card.icon}</div>
+              <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">{card.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{card.desc}</p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-primary/70 uppercase tracking-wide">{card.metric}</span>
+                <ArrowRight size={16} className="text-primary group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="p-5 rounded-xl border bg-card/60 backdrop-blur-sm">
+            <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
+              <span className="text-2xl">⚡</span> Why This Matters
+            </h4>
+            <p className="text-muted-foreground leading-relaxed">
+              Most AI initiatives stall in <strong>pilot purgatory</strong>—endless demos, unclear ROI, fragmented ownership. Our playbook embeds <strong>evaluation harnesses, governance guardrails, and velocity metrics</strong> from day one so expansion doesn't amplify fragility.
+            </p>
+          </div>
+          <div className="p-5 rounded-xl border bg-card/60 backdrop-blur-sm">
+            <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
+              <span className="text-2xl">🎯</span> Measurable Outcomes
+            </h4>
+            <ul className="text-muted-foreground space-y-1 leading-relaxed">
+              <li>✓ Stakeholder alignment in weeks, not quarters</li>
+              <li>✓ Quantified value cases with risk mitigation</li>
+              <li>✓ Production-ready architecture blueprints</li>
+              <li>✓ Board-level confidence & governance clarity</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Button 
+            size="lg" 
+            className="group shadow-lg hover:shadow-xl transition-shadow"
+            onClick={() => { track('adoption', 'playbook-cta'); window.location.href = '/adoption'; }}
+          >
+            <Handshake className="mr-2" size={20} />
+            Explore Adoption Playbook
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Button>
+          <p className="text-xs text-muted-foreground mt-4 uppercase tracking-wide">
+            Interactive Templates • AI Scoring • Excel/Word Export • Governance-Ready
+          </p>
         </div>
       </section>
 

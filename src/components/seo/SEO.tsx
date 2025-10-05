@@ -11,9 +11,9 @@ interface SEOProps {
 }
 
 const DEFAULT_SEO = {
-  title: 'Open Agent School - Where AI Agent Concepts Come to Life',
-  description: 'Open Agent School is the most comprehensive interactive educational platform for mastering AI agents and AI-native organizational practices. We provide hands-on learning experiences covering 35 core AI concepts, 49+ proven agent design patterns (including ReAct, CodeAct, Orchestrator-Worker, Multi-Agent Systems, Deep Researcher, Autonomous Workflow, Swarm Intelligence, Hierarchical Document Intelligence), comprehensive Azure AI Services integration, AI-native skills development, Frontier Firm assessment methodologies, development velocity optimization techniques, cross-team collaboration frameworks, novel practice patterns, AI transformation strategies, ratio calculators for measuring AI ROI, productivity metrics, and collaborative AI frameworks. Our platform serves enterprise leaders, AI engineers, software architects, and organizations seeking to become AI-first through practical, implementable knowledge and assessment tools.',
-  keywords: 'AI agents, AI-native practices, Frontier Firm assessment, development velocity, cross-team collaboration, novel practice patterns, AI transformation, artificial intelligence education, MCP, Model Context Protocol, A2A communication, multi-agent systems, agent architecture, interactive learning, AI tutorials, agent security, OpenAI, Microsoft Azure AI, LLM agents, agentic AI, agent orchestration, AI ROI calculator, AI productivity metrics, AI-first organizations, collaborative AI frameworks, enterprise AI transformation, organizational AI maturity, AI-powered collaboration, intelligent decision frameworks, automated workflow orchestration',
+  title: 'Open Agent School - Building the agentic future',
+  description: 'Learn, Build, Transform together — From concepts to production-ready agents. Open Agent School is the most comprehensive platform for mastering AI agents and AI-native organizational transformation. We serve individual builders learning core concepts and patterns, engineering teams building production-ready agentic systems, and business leaders orchestrating enterprise AI transformation. Our platform covers 35+ core AI concepts, 49+ proven agent design patterns (ReAct, CodeAct, Orchestrator-Worker, Multi-Agent Systems, Deep Researcher, Autonomous Workflow, Swarm Intelligence), comprehensive Azure AI Services integration, Agent Velocity Engineering methodologies, Agentic Adoption Playbooks with interactive charter builders, portfolio heatmaps, and board-ready briefing packs. Transform from pilot chaos to production velocity with evaluation harnesses, governance guardrails, and velocity metrics embedded from day one.',
+  keywords: 'AI agents, agentic AI, AI transformation, production-ready agents, AI-native organizations, agent design patterns, multi-agent systems, agent architecture, Agent Velocity Engineering, agentic adoption playbook, enterprise AI transformation, AI governance, evaluation harnesses, MCP, Model Context Protocol, A2A communication, agent orchestration, interactive learning, AI tutorials, agent security, OpenAI, Microsoft Azure AI, LLM agents, AI ROI, executive AI strategy, AI maturity models, organizational transformation, from concepts to production, AI-first organizations',
   image: 'https://www.openagentschool.org/images/og-image.png',
   type: 'website' as const,
   author: 'Srikanth Bhakthan'
@@ -219,15 +219,15 @@ function updateJsonLdScript(id: string, json: Record<string, any>) {
 // Page-specific SEO configurations
 export const pageSEOConfigs = {
   '/': {
-    title: 'Open Agent School - Where AI Agent Concepts Come to Life',
-    description: 'Interactive educational platform for mastering AI agents, MCP, A2A communication, and multi-agent systems through hands-on learning and visualizations.',
-    keywords: 'AI agents, artificial intelligence education, MCP, Model Context Protocol, A2A communication, multi-agent systems, agent architecture, interactive learning',
+    title: 'Open Agent School - Building the agentic future',
+    description: 'Learn, Build, Transform together — From concepts to production-ready agents. Master AI agents through interactive learning, proven design patterns, and executive adoption playbooks. For builders, engineers, and business leaders.',
+    keywords: 'AI agents, agentic AI, building agentic future, production-ready agents, AI transformation, agent design patterns, multi-agent systems, MCP, Model Context Protocol, interactive learning, executive AI adoption',
     image: DEFAULT_SEO.image
   },
   '/adoption-playbook': {
-    title: 'Agentic Adoption Playbook - Orchestrate AI-Native Transformation | Open Agent School',
-    description: 'Lead a full-stack agentic adoption journey with mission brief canvases, transformation roadmaps, operating system blueprints, and 90-day activation kits tailored for business and technical leaders.',
-    keywords: 'agentic adoption, ai transformation, operating system blueprint, mission brief, activation plan, ai governance, enterprise ai strategy',
+    title: 'Agentic Adoption Playbook - From Pilot Chaos to Production Velocity | Open Agent School',
+    description: 'Transform from pilot purgatory to production velocity. Interactive charter builders, portfolio heatmaps, and board-ready briefing packs with AI scoring. Embed evaluation harnesses, governance guardrails, and velocity metrics from day one. For business and technical leaders.',
+    keywords: 'agentic adoption, AI transformation, pilot to production, production velocity, AI governance, executive AI strategy, charter builder, portfolio heatmap, board briefing, evaluation harness, velocity metrics, enterprise AI, organizational transformation',
     image: DEFAULT_SEO.image
   },
   '/concepts': {
