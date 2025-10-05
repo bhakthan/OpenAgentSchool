@@ -35,101 +35,115 @@
     "order": 4
   },
   {
+    "id": "agent-velocity-engineering",
+    "title": "Agent Velocity Engineering",
+    "description": "Master the 5 practices that 10x your agent development speed",
+    "level": "Advanced",
+    "order": 5
+  },
+  {
     "id": "observability",
     "title": "Observability & EvalOps",
     "description": "Traces, evals, and quality gates for reliable agents",
     "level": "Advanced",
-    "order": 5
+    "order": 6
   },
   {
     "id": "promptops",
     "title": "PromptOps & Tooling",
     "description": "Versioned prompts, canaries, guardrails, golden sets",
     "level": "Advanced",
-    "order": 6
+    "order": 7
   },
   {
     "id": "safety",
     "title": "Safety & Governance",
     "description": "Adversarial testing, policies, and approvals",
     "level": "Advanced",
-    "order": 7
+    "order": 8
   },
   {
     "id": "cost-perf",
     "title": "Cost & Performance",
     "description": "Latency, routing, and spend optimization",
     "level": "Advanced",
-    "order": 8
+    "order": 9
   },
   {
     "id": "security-data",
     "title": "Security & Data Boundaries",
     "description": "Zero-trust patterns for LLMs and tools",
     "level": "Advanced",
-    "order": 9
+    "order": 10
+  },
+  {
+    "id": "agent-payments-ap2",
+    "title": "Agentic Commerce & AP2",
+    "description": "Mandates & verifiable credentials for trusted agent payments",
+    "level": "Advanced",
+    "order": 11
   },
   {
     "id": "rag",
     "title": "RAG Systems",
     "description": "Hybrid retrieval, re-ranking, and grounding",
     "level": "Advanced",
-    "order": 10
+    "order": 12
   },
   {
     "id": "multi-agent",
     "title": "Multi-Agent",
     "description": "Supervisor/specialist patterns and safety",
     "level": "Advanced",
-    "order": 11
+    "order": 13
   },
   {
     "id": "org-playbooks",
     "title": "Org Playbooks",
     "description": "Standardize and scale AI-native excellence",
     "level": "Advanced",
-    "order": 12
+    "order": 14
   },
   {
     "id": "cross-team",
     "title": "Cross-Team Collaboration",
     "description": "Non-technical teams using AI",
     "level": "Advanced",
-    "order": 13
+    "order": 15
   },
   {
     "id": "novel-patterns",
     "title": "Novel Patterns",
     "description": "Revolutionary organizational practices",
     "level": "Expert",
-    "order": 14
+    "order": 16
   },
   {
     "id": "assessment",
     "title": "Frontier Assessment",
     "description": "Evaluate your organization's AI readiness",
     "level": "Intermediate",
-    "order": 15
+    "order": 17
   },
   {
     "id": "calculator",
     "title": "Ratio Calculator",
     "description": "Optimize human-agent ratios",
     "level": "Intermediate",
-    "order": 16
+    "order": 18
   },
   {
     "id": "future-state",
     "title": "Future State",
     "description": "Where AI‑native practices are heading",
     "level": "Expert",
-    "order": 17
+    "order": 19
   },
   {
     "id": "hands-on-studios",
     "title": "Hands‑On Studios",
     "description": "Interactive labs with evals, cost, HITL, RAG, and orchestration",
     "level": "Advanced",
-    "order": 18
+    "order": 20
   }
 ]

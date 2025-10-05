@@ -2,7 +2,7 @@
   {
     "id": "agentic-ai-design-taxonomy",
     "name": "Agentic AI Design Taxonomy",
-    "description": "Comprehensive framework for understanding architectural patterns, design principles, and implementation challenges in Agentic AI systems",
+    "description": "A mental map of every major agent pattern—so you always know what you're building, why, and what's next.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -12,7 +12,7 @@
   {
     "id": "agentic-prompting-fundamentals",
     "name": "Agentic Prompting Fundamentals",
-    "description": "Master the core principles of prompting AI agents for optimal performance and reliability",
+    "description": "Learn the 20% prompting moves that unlock 80% of agent reliability and control.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -22,7 +22,7 @@
   {
     "id": "prompt-optimization-patterns",
     "name": "Prompt Optimization Patterns",
-    "description": "Learn systematic approaches to eliminate contradictions and improve prompt effectiveness",
+    "description": "Turn brittle prompts into stable systems using repeatable refactor patterns—not guesswork.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -32,7 +32,7 @@
   {
     "id": "agent-instruction-design",
     "name": "Agent Instruction Design",
-    "description": "Design effective instruction hierarchies and steerability controls for reliable agent behavior",
+    "description": "Shape agent behavior with layered instruction scaffolds that stay steerable under real-world drift.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -42,7 +42,7 @@
   {
     "id": "agentic-workflow-control",
     "name": "Agentic Workflow Control",
-    "description": "Advanced workflow patterns, timing control, and multi-tool coordination strategies",
+    "description": "Orchestrate multi-step, multi-tool flows without timing chaos or context bleed.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -52,7 +52,7 @@
   {
     "id": "agent-evaluation-methodologies",
     "name": "Agent Evaluation Methodologies",
-    "description": "Comprehensive evaluation frameworks using quantitative metrics and LLM-as-judge techniques",
+    "description": "Know when your agent is actually improving—quant + LLM-as-judge + failure pattern surfacing.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -62,7 +62,7 @@
   {
     "id": "agent-architecture",
     "name": "Agent Architecture & Lifecycle",
-    "description": "Understanding the fundamental building blocks and lifecycle of AI agents",
+    "description": "See how perception, reasoning, memory, and action really fit—and where failures usually emerge.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -72,7 +72,7 @@
   {
     "id": "agent-security",
     "name": "Agent Security & Trust",
-    "description": "Security mechanisms and trust models for AI agent systems",
+    "description": "Build agents that can’t silently exfiltrate, escalate, or hallucinate authority.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -82,7 +82,7 @@
   {
     "id": "multi-agent-systems",
     "name": "Multi-Agent Systems",
-    "description": "Coordination, collaboration, and emergent behavior in multi-agent systems",
+    "description": "Design agent teams that collaborate intentionally—no emergent spaghetti.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -92,7 +92,7 @@
   {
     "id": "agent-ethics",
     "name": "Agent Ethics & Governance",
-    "description": "Ethical principles, bias mitigation, and regulatory compliance for AI agents",
+    "description": "Embed guardrails that adapt across contexts without freezing innovation.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -102,7 +102,7 @@
   {
     "id": "ai-agents",
     "name": "AI Agents",
-    "description": "Learn about autonomous AI systems that can perceive, decide, and act",
+    "description": "What truly separates an “agent” from a chat wrapper—and how to cross that line.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -112,7 +112,27 @@
   {
     "id": "ai-safety-governance",
     "name": "AI Safety and Governance",
-    "description": "Responsible AI pillars, safety, risk monitoring, guardrails, tracing, and governance with Azure Foundry",
+    "description": "Shift from reactive patching to proactive tracing, containment, and escalation design.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "program-setup-north-star",
+    "name": "Program Setup & North Star",
+    "description": "Align mission, metrics, and maturity before scaling agent initiatives across the organization.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "responsible-ai-governance",
+    "name": "Responsible AI Governance Playbooks",
+    "description": "Operationalize policies, risk reviews, and escalation paths that keep agents compliant day-to-day.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -122,7 +142,7 @@
   {
     "id": "a2a-communication",
     "name": "A2A Communication",
-    "description": "How AI agents communicate and coordinate with each other",
+    "description": "Move from message passing to meaningful shared intent and negotiated roles.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -132,7 +152,7 @@
   {
     "id": "mcp",
     "name": "Model Context Protocol",
-    "description": "Secure tool integration protocol for AI agents",
+    "description": "Standardize tool access so adding capability doesn’t add fragility.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -142,7 +162,7 @@
   {
     "id": "flow-visualization",
     "name": "Flow Visualization",
-    "description": "Interactive visualization of agent flows and interactions",
+    "description": "Make invisible reasoning paths and coordination bottlenecks obvious at a glance.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -152,7 +172,17 @@
   {
     "id": "agent-evaluation",
     "name": "Agent Evaluation",
-    "description": "Systematic assessment of agent performance, reliability, safety, and alignment using automated frameworks and benchmarks",
+    "description": "Instrument architecture-level signals before user complaints become your metrics.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "strategy-portfolio-management",
+    "name": "Strategy & Portfolio Management",
+    "description": "Prioritize the right agent investments with living roadmaps and defensible ROI models.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -162,7 +192,7 @@
   {
     "id": "acp",
     "name": "Agent Communication Protocol",
-    "description": "Advanced protocols for enterprise-scale agent coordination",
+    "description": "A resilient contract so heterogeneous agents interoperate without version drama.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -172,7 +202,7 @@
   {
     "id": "mcp-a2a-integration",
     "name": "MCP x A2A Integration",
-    "description": "Integrate Model Context Protocol with Agent-to-Agent communication",
+    "description": "Fuse tool invocation and agent dialogue into one coherent capability fabric.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -182,7 +212,17 @@
   {
     "id": "data-visualization",
     "name": "Data Visualization",
-    "description": "Advanced data visualization techniques for AI agent systems",
+    "description": "Turn raw telemetry into decision stories—spot drift, dead branches, and latent potential.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "data-knowledge-operations",
+    "name": "Data & Knowledge Operations",
+    "description": "Engineer trustworthy data supply chains and knowledge governance for durable agent context.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -192,7 +232,7 @@
   {
     "id": "agent-deployment",
     "name": "Agent Deployment & Operations",
-    "description": "Containerization, monitoring, scaling, and DevOps for AI agents",
+    "description": "Ship agents like services: reproducible, observable, roll-forward safe.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -202,7 +242,7 @@
   {
     "id": "agent-learning",
     "name": "Agent Learning & Adaptation",
-    "description": "Reinforcement learning, online learning, transfer learning, and meta-learning",
+    "description": "Improve behavior without catastrophic forgetting or runaway drift.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -212,7 +252,97 @@
   {
     "id": "agent-integration",
     "name": "Agent Integration Patterns",
-    "description": "API integration, event-driven architecture, microservices, and legacy systems",
+    "description": "Thread agents into legacy and event-driven stacks without creating hidden coupling.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "fine-tuning",
+    "name": "Fine-Tuning Methods (SFT, DPO, RFT)",
+    "description": "Stop overtraining—choose the lowest intervention (SFT → DPO → RFT) that proves incremental lift.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agentic-commerce-ap2",
+    "name": "Agentic Commerce & AP2",
+    "description": "Chained mandate credentials (Intent → Cart → Payment) enabling trustworthy agent-led purchases.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "product-management",
+    "name": "AI Product Management",
+    "description": "Design metrics, experiments & calibrated confidence signals that compound user trust and retention.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-ops",
+    "name": "Agent Ops & Reliability",
+    "description": "Operational excellence: golden signals, graceful degradation, failure containment & resilience patterns.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agentic-robotics-integration",
+    "name": "Agentic Robotics Integration",
+    "description": "Fuse Gemini Robotics perception, planning, and safety pipelines into embodied agent programs.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "architecture-platform-operations",
+    "name": "Architecture & Platform Operations",
+    "description": "Scale shared platform services, guardrails, and reference architectures for enterprise-grade agents.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "experimentation-continuous-improvement",
+    "name": "Experimentation & Continuous Improvement",
+    "description": "Stand up evaluation pipelines and feedback loops that keep agents improving after launch.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "ecosystem-partnerships",
+    "name": "Ecosystem & Partnerships",
+    "description": "Evaluate vendors and community alliances with shared value, compliance, and interoperability in mind.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "organizational-enablement",
+    "name": "Organizational Enablement",
+    "description": "Design operating models, talent pathways, and incentives that make agent adoption stick.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",

@@ -195,6 +195,232 @@
     }
   },
   {
+    "id": "adaptive-lab-technician",
+    "name": "Adaptive Lab Technician",
+    "description": "Instrument-aware agent that prepares samples, orchestrates assays, and flags anomalies before they compromise lab throughput.",
+    "category": "Advanced",
+    "useCases": [
+      "Automated sample prep with guardrailed tool control",
+      "Daily instrument readiness sweeps and calibration handoffs",
+      "Adaptive assay execution with mid-run parameter tuning"
+    ],
+    "whenToUse": "Adopt when your wet labs run complex assay queues that need responsive scheduling, tool orchestration, and compliance-grade audit trails without adding headcount.",
+    "advantages": [
+      "Balances throughput gains with compliance-grade traceability and human oversight.",
+      "Adapts assay steps mid-run based on telemetry rather than rerunning entire batches.",
+      "Reuses core orchestration primitives across multiple lab lines or shifts."
+    ],
+    "limitations": [
+      "Requires high-fidelity digital twin and vendor API coverage for instruments.",
+      "Policy tuning must prevent over-sensitive halts that stall production.",
+      "Change management needed to trust automated plan adjustments."
+    ],
+    "relatedPatterns": [
+      "mobile-manipulator-steward",
+      "action-grounding-verification",
+      "policy-gated-tool-invocation"
+    ],
+    "implementation": [
+      "Connect the LIMS queue, scheduling constraints, and assay recipes to the planning context.",
+      "Expose calibrated instrument APIs (pipettors, incubators, sequencers) with dry-run modes for validation.",
+      "Stream temperature, vibration, and reagent telemetry into an evaluator that can halt or retune parameters.",
+      "Provide a scientist console for approvals, overrides, and audit signature capture.",
+      "Archive every run with provenance: plan version, sensor timelines, and anomaly decisions."
+    ],
+    "codeExample": "// Adaptive Lab Technician pseudocode (TypeScript)\nimport { createAgent } from '@openagentschool/automation';\n\nconst labTech = createAgent({\n  id: 'lab-tech-01',\n  planner: 'gemini-1.5-pro',\n  tools: {\n    lims: createLimsClient(),\n    robotics: createRoboticsController(),\n    sensors: createSensorBus()\n  },\n  guardrails: ['policy:iso-17025', 'fail-safe:halt-on-temp-drift']\n});\n\nexport async function runAssay(sampleId: string) {\n  const assayPlan = await labTech.plan({\n    goal: `Process sample ${sampleId}`,\n    context: await labTech.tools.lims.fetchSample(sampleId)\n  });\n\n  return labTech.execute(assayPlan, {\n    onTelemetry: event => labTech.tools.lims.log(event),\n    onPolicyBreach: alert => notifyScientist(alert)\n  });\n}\n",
+    "completeCode": "import { createAgent } from '@openagentschool/automation';\nimport type { AssayPlan, PolicyBreach, TelemetryEvent } from './types';\n\nconst labTechnician = createAgent({\n  id: 'lab-tech-automation',\n  planner: 'gemini-1.5-pro',\n  memory: {\n    episodic: 'vertex-vector-store://lab/runs',\n    policies: 'vertex-vector-store://lab/policies'\n  },\n  tools: {\n    lims: createLimsClient(),\n    robotics: createRoboticsController({ dryRun: true }),\n    sensors: createSensorBus()\n  },\n  guardrails: ['policy:iso-17025', 'fail-safe:halt-on-temp-drift']\n});\n\nasync function composeAssayPlan(sampleId: string): Promise<AssayPlan> {\n  const sample = await labTechnician.tools.lims.fetchSample(sampleId);\n  return labTechnician.plan({\n  goal: `Process sample ${sampleId}`,\n    context: {\n      queuePosition: sample.queuePosition,\n      assayRecipeId: sample.recipeId,\n      calibrationBaseline: await labTechnician.tools.lims.fetchCalibration(sample.instrumentId)\n    }\n  });\n}\n\nexport async function runAssay(sampleId: string) {\n  const plan = await composeAssayPlan(sampleId);\n  const execution = await labTechnician.execute(plan, {\n    onTelemetry: (event: TelemetryEvent) => labTechnician.tools.lims.log(event),\n  onPolicyBreach: async (breach: PolicyBreach) => {\n      await notifyScientist(breach);\n      return 'halt-and-await-instructions';\n    },\n    onPlanAdjustment: update => labTechnician.tools.lims.log({ type: 'plan-adjustment', update })\n  });\n\n  await labTechnician.tools.lims.archiveRun({\n    sampleId,\n    planVersion: plan.version,\n    telemetry: execution.telemetry,\n    anomalies: execution.anomalies\n  });\n\n  return execution.summary;\n}\n\nexport async function reconcileCalibration(sampleId: string, metric: string) {\n  const diagnostics = await labTechnician.tools.sensors.getDiagnostics(metric);\n  if (diagnostics.withinLimits) return 'calibration-ok';\n\n  const correctivePlan = await labTechnician.plan({\n  goal: `Recalibrate instrument for ${sampleId}`,\n    context: { diagnostics }\n  });\n\n  return labTechnician.execute(correctivePlan, {\n    onTelemetry: event => labTechnician.tools.lims.log(event),\n    onPolicyBreach: notifyScientist\n  });\n}\n\nasync function notifyScientist(alert: PolicyBreach) {\n  await labTechnician.tools.lims.createEscalation({\n    alert,\n    channel: 'scientist-console',\n    createdAt: new Date().toISOString()\n  });\n}\n",
+    "evaluation": "Score autonomous assay completion, calibration drift detection, human intervention frequency, and compliance audit completeness.",
+    "evaluationProfile": {
+      "scenarioFocus": "Orchestrating assay workflows across lab instruments with telemetry-driven adaptation and compliance guardrails.",
+      "criticalMetrics": [
+        "Autonomous assay completion rate",
+        "Calibration drift detection latency",
+        "Policy halt precision",
+        "Human intervention frequency"
+      ],
+      "evaluationNotes": [
+        "Run digital-twin simulations with seeded sensor drift and reagent issues to verify adaptive tuning and halt logic.",
+        "Validate that every run produces complete provenance artifacts (plan version, telemetry timeline, approvals).",
+        "Stress-test changeover scenarios (new assay recipes, instrument maintenance) for safe plan regeneration."
+      ],
+      "readinessSignals": [
+        "≥ 95% of assays complete within tolerance bands without manual correction across evaluation batches.",
+        "Safety halts triggered during seeded faults are acknowledged by scientists within the target SLA.",
+        "Compliance exports satisfy ISO 17025/CLIA evidence requirements without manual patching."
+      ],
+      "dataNeeds": [
+        "Digital twin datasets covering instrument telemetry, reagent metadata, and historical deviations.",
+        "Annotated policy library defining halt criteria and escalation paths for each assay class."
+      ],
+      "cohort": "cognitive-sensing"
+    },
+    "nodes": [
+      {
+        "id": "sample-intake",
+        "type": "input",
+        "data": {
+          "label": "Sample Intake",
+          "nodeType": "input",
+          "description": "Barcodes + chain of custody"
+        },
+        "position": {
+          "x": 60,
+          "y": 220
+        }
+      },
+      {
+        "id": "lab-orchestrator",
+        "type": "default",
+        "data": {
+          "label": "Lab Orchestrator",
+          "nodeType": "planner",
+          "description": "LLM plans assay steps + tool usage"
+        },
+        "position": {
+          "x": 300,
+          "y": 160
+        }
+      },
+      {
+        "id": "instrument-hub",
+        "type": "default",
+        "data": {
+          "label": "Instrument Hub",
+          "nodeType": "tool",
+          "description": "Drivers + digital twin of lab assets"
+        },
+        "position": {
+          "x": 300,
+          "y": 320
+        }
+      },
+      {
+        "id": "assay-runner",
+        "type": "default",
+        "data": {
+          "label": "Assay Runner",
+          "nodeType": "executor",
+          "description": "Robotic pipettor / incubator control"
+        },
+        "position": {
+          "x": 560,
+          "y": 220
+        }
+      },
+      {
+        "id": "quality-guardian",
+        "type": "default",
+        "data": {
+          "label": "Quality Guardian",
+          "nodeType": "evaluator",
+          "description": "Sensor fusion + policy checks"
+        },
+        "position": {
+          "x": 800,
+          "y": 160
+        }
+      },
+      {
+        "id": "human-review",
+        "type": "default",
+        "data": {
+          "label": "Scientist Console",
+          "nodeType": "aggregator",
+          "description": "Interventions + approvals"
+        },
+        "position": {
+          "x": 800,
+          "y": 320
+        }
+      },
+      {
+        "id": "lab-ledger",
+        "type": "output",
+        "data": {
+          "label": "Lab Ledger Update",
+          "nodeType": "output",
+          "description": "Results + compliance log"
+        },
+        "position": {
+          "x": 1040,
+          "y": 220
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge-intake-orchestrator",
+        "source": "sample-intake",
+        "target": "lab-orchestrator",
+        "animated": true
+      },
+      {
+        "id": "edge-intake-hub",
+        "source": "sample-intake",
+        "target": "instrument-hub",
+        "animated": true
+      },
+      {
+        "id": "edge-orchestrator-runner",
+        "source": "lab-orchestrator",
+        "target": "assay-runner",
+        "animated": true
+      },
+      {
+        "id": "edge-hub-runner",
+        "source": "instrument-hub",
+        "target": "assay-runner",
+        "animated": true,
+        "label": "Tool commands"
+      },
+      {
+        "id": "edge-runner-quality",
+        "source": "assay-runner",
+        "target": "quality-guardian",
+        "animated": true,
+        "label": "Telemetry"
+      },
+      {
+        "id": "edge-quality-orchestrator",
+        "source": "quality-guardian",
+        "target": "lab-orchestrator",
+        "animated": true,
+        "label": "Parameter tuning"
+      },
+      {
+        "id": "edge-quality-human",
+        "source": "quality-guardian",
+        "target": "human-review",
+        "animated": true,
+        "label": "Escalations"
+      },
+      {
+        "id": "edge-human-runner",
+        "source": "human-review",
+        "target": "assay-runner",
+        "animated": true,
+        "label": "Overrides"
+      },
+      {
+        "id": "edge-quality-ledger",
+        "source": "quality-guardian",
+        "target": "lab-ledger",
+        "animated": true
+      },
+      {
+        "id": "edge-runner-ledger",
+        "source": "assay-runner",
+        "target": "lab-ledger",
+        "animated": true
+      }
+    ],
+    "businessUseCase": {
+      "industry": "Biopharma & Diagnostics",
+      "description": "A CLIA/ISO-accredited lab deploys the adaptive technician to prep oncology assay batches overnight. Gemini orchestrates pipetting, incubation, and QC telemetry while operators receive escalation packets when sensors breach tolerances.",
+      "enlightenMePrompt": "\nDesign a deployment plan for the Adaptive Lab Technician in a genomics lab.\n\nCover:\n- Integration steps to sync LIMS queues, assay recipes, and calibration baselines.\n- Guardrail configuration that enforces compliance policies and halts on drift signals.\n- Scientist console workflows for approvals, overrides, and audit signatures.\n- Metrics proving readiness before expanding to additional lab lines.\n"
+    }
+  },
+  {
     "id": "agent-evaluation",
     "name": "Agent Evaluation",
     "description": "Comprehensive evaluation framework for agent performance, capabilities, and behavior assessment.",
@@ -810,8 +1036,8 @@
   },
   {
     "id": "autogen-multi-agent",
-    "name": "AutoGen Multi-Agent",
-    "description": "Microsoft AutoGen framework for building multi-agent conversational AI systems with role-based collaboration.",
+    "name": "Multi-Agent Collaboration",
+    "description": "Multi-agent framework for building conversational AI systems with role-based collaboration, now unified in Microsoft Agent Framework.",
     "category": "Multi-Agent",
     "useCases": [
       "Collaborative Problem Solving",
@@ -819,12 +1045,15 @@
       "Research and Analysis",
       "Complex Workflow Automation"
     ],
-    "whenToUse": "Use AutoGen when you need multiple AI agents to collaborate through natural conversation, especially for complex tasks that benefit from different agent specializations, code execution capabilities, and human-in-the-loop interactions.",
+    "whenToUse": "Use multi-agent frameworks when you need multiple AI agents to collaborate through natural conversation, especially for complex tasks that benefit from different agent specializations, code execution capabilities, and human-in-the-loop interactions.",
     "advantages": [
       "Facilitates complex problem-solving by enabling collaboration between specialized agents.",
       "The conversational nature of agent interaction is intuitive and powerful.",
       "Supports human-in-the-loop, allowing for human oversight and intervention.",
-      "Can automate complex workflows that require multiple steps and different skills."
+      "Can automate complex workflows that require multiple steps and different skills.",
+      "Flexible memory systems: from simple in-memory to Redis and Mem0 for persistence.",
+      "Context Providers enable dynamic memory injection and user preference tracking.",
+      "Thread serialization allows conversation continuity across application restarts."
     ],
     "limitations": [
       "Managing complex multi-agent conversations can be challenging.",
@@ -838,19 +1067,24 @@
       "multi-agent-systems"
     ],
     "implementation": [
-      "Install AutoGen framework and configure Azure OpenAI connection",
-      "Define agent roles and system messages for specialized behaviors",
-      "Create conversable agents with appropriate LLM configurations",
-      "Set up group chat or sequential conversation patterns",
-      "Implement code execution capabilities for user proxy agents",
+      "Install Microsoft Agent Framework and configure Azure OpenAI connection",
+      "Define agent roles and instructions for specialized behaviors",
+      "Create AI agents with appropriate model configurations",
+      "Set up workflow graphs or sequential conversation patterns",
+      "Implement tool execution capabilities and function calling",
+      "Configure memory systems: In-Memory (default), Redis, or Mem0 for persistence",
+      "Use ChatMessageStore for basic conversation history persistence",
+      "Implement Context Providers for dynamic memory and user preferences",
+      "Enable thread serialization for cross-session conversation continuity",
       "Add human-in-the-loop controls for critical decisions",
-      "Configure conversation termination conditions",
-      "Implement logging and monitoring for agent interactions",
+      "Configure workflow termination conditions",
+      "Implement observability and monitoring for agent interactions",
       "Deploy to Azure Container Apps for scalable execution",
       "Set up CI/CD pipelines for agent system updates"
     ],
-    "pythonCodeExample": "# AutoGen Multi-Agent Implementation...",
-    "completeCode": "# Complete Code Example\n\n# This is a placeholder for the complete code example.",
+    "codeExample": "# Microsoft Agent Framework + Mem0 - Supply Chain with Persistent Memory\n# LiveRunner: Execute this code to see agents remembering preferences across conversations\n# Requires: pip install agent-framework[all]\n\nimport asyncio\nfrom agent_framework.azure import AzureAIAgentClient\nfrom agent_framework_mem0 import Mem0MemoryProvider\nfrom azure.identity import AzureCliCredential\n\nasync def supply_chain_with_memory():\n    \"\"\"\n    Supply Chain Disruption Manager with persistent memory.\n    Agent remembers user preferences across conversations using Mem0.\n    \"\"\"\n    print(\"=== Supply Chain Agent with Mem0 Memory ===\\n\")\n    \n    # Authenticate with Azure\n    credential = AzureCliCredential()\n    \n    # Initialize Mem0 memory provider\n    memory = Mem0MemoryProvider(\n        api_key=\"your-mem0-api-key\",\n        user_id=\"logistics_team_001\"\n    )\n    \n    async with AzureAIAgentClient(async_credential=credential) as client:\n        # Create Supply Chain Agent with Mem0 memory\n        agent = await client.create_agent(\n            name=\"SupplyChainManager\",\n            instructions=\"\"\"You are a Supply Chain Disruption Manager.\n            Help logistics teams handle shipping delays and disruptions.\n            Remember user preferences and provide personalized recommendations.\"\"\",\n            model=\"gpt-4\",\n            memory=memory  # Attach Mem0 memory provider\n        )\n        \n        print(\"=== First Conversation (Teaching Preferences) ===\")\n        \n        # User teaches their preferences\n        response1 = await agent.run(\n            \"We have a shipment delay from Shanghai. \"\n            \"For future reference, always prioritize air freight for urgent orders, \"\n            \"and notify our warehouse team immediately.\"\n        )\n        print(f\"Agent: {response1}\\n\")\n        \n        print(\"=== Second Conversation (Same Thread) ===\")\n        \n        # Agent uses memory from same conversation\n        response2 = await agent.run(\n            \"Another delay from Hong Kong. What should we do?\"\n        )\n        print(f\"Agent: {response2}\\n\")\n        \n        print(\"=== Third Conversation (New Thread - Memory Persists!) ===\")\n        \n        # Create a NEW thread to demonstrate cross-thread memory\n        agent2 = await client.create_agent(\n            name=\"SupplyChainManager\",\n            instructions=\"\"\"You are a Supply Chain Disruption Manager.\n            Help logistics teams handle shipping delays and disruptions.\n            Remember user preferences and provide personalized recommendations.\"\"\",\n            model=\"gpt-4\",\n            memory=memory  # Same Mem0 memory provider\n        )\n        \n        response3 = await agent2.run(\n            \"We have a shipment delay from Tokyo. What's our procedure?\"\n        )\n        print(f\"Agent (New Thread): {response3}\\n\")\n        \n        print(\"=== Memory Demo Complete ===\")\n        print(\"✓ Agent remembered: Air freight preference\")\n        print(\"✓ Agent remembered: Warehouse notification requirement\")\n        print(\"✓ Memory persisted across different conversation threads\")\n        print(\"✓ No need to repeat preferences!\")\n\n# Run the memory demo\nif __name__ == \"__main__\":\n    asyncio.run(supply_chain_with_memory())",
+    "pythonCodeExample": "# Microsoft Agent Framework + Mem0 - Supply Chain with Persistent Memory\n# LiveRunner: Execute this code to see agents remembering preferences across conversations\n# Requires: pip install agent-framework[all]\n\nimport asyncio\nfrom agent_framework.azure import AzureAIAgentClient\nfrom agent_framework_mem0 import Mem0MemoryProvider\nfrom azure.identity import AzureCliCredential\n\nasync def supply_chain_with_memory():\n    \"\"\"\n    Supply Chain Disruption Manager with persistent memory.\n    Agent remembers user preferences across conversations using Mem0.\n    \"\"\"\n    print(\"=== Supply Chain Agent with Mem0 Memory ===\\n\")\n    \n    # Authenticate with Azure\n    credential = AzureCliCredential()\n    \n    # Initialize Mem0 memory provider\n    memory = Mem0MemoryProvider(\n        api_key=\"your-mem0-api-key\",\n        user_id=\"logistics_team_001\"\n    )\n    \n    async with AzureAIAgentClient(async_credential=credential) as client:\n        # Create Supply Chain Agent with Mem0 memory\n        agent = await client.create_agent(\n            name=\"SupplyChainManager\",\n            instructions=\"\"\"You are a Supply Chain Disruption Manager.\n            Help logistics teams handle shipping delays and disruptions.\n            Remember user preferences and provide personalized recommendations.\"\"\",\n            model=\"gpt-4\",\n            memory=memory  # Attach Mem0 memory provider\n        )\n        \n        print(\"=== First Conversation (Teaching Preferences) ===\")\n        \n        # User teaches their preferences\n        response1 = await agent.run(\n            \"We have a shipment delay from Shanghai. \"\n            \"For future reference, always prioritize air freight for urgent orders, \"\n            \"and notify our warehouse team immediately.\"\n        )\n        print(f\"Agent: {response1}\\n\")\n        \n        print(\"=== Second Conversation (Same Thread) ===\")\n        \n        # Agent uses memory from same conversation\n        response2 = await agent.run(\n            \"Another delay from Hong Kong. What should we do?\"\n        )\n        print(f\"Agent: {response2}\\n\")\n        \n        print(\"=== Third Conversation (New Thread - Memory Persists!) ===\")\n        \n        # Create a NEW thread to demonstrate cross-thread memory\n        agent2 = await client.create_agent(\n            name=\"SupplyChainManager\",\n            instructions=\"\"\"You are a Supply Chain Disruption Manager.\n            Help logistics teams handle shipping delays and disruptions.\n            Remember user preferences and provide personalized recommendations.\"\"\",\n            model=\"gpt-4\",\n            memory=memory  # Same Mem0 memory provider\n        )\n        \n        response3 = await agent2.run(\n            \"We have a shipment delay from Tokyo. What's our procedure?\"\n        )\n        print(f\"Agent (New Thread): {response3}\\n\")\n        \n        print(\"=== Memory Demo Complete ===\")\n        print(\"✓ Agent remembered: Air freight preference\")\n        print(\"✓ Agent remembered: Warehouse notification requirement\")\n        print(\"✓ Memory persisted across different conversation threads\")\n        print(\"✓ No need to repeat preferences!\")\n\n# Run the memory demo\nif __name__ == \"__main__\":\n    asyncio.run(supply_chain_with_memory())",
+    "completeCode": "# Complete Microsoft Agent Framework Multi-Agent Example\n# Supply Chain Disruption Manager - Production-Ready Implementation\n\nfrom agent_framework.azure import AzureOpenAIResponsesClient\nfrom agent_framework.workflows import Workflow, WorkflowNode, WorkflowDecision\nfrom agent_framework.memory import AgentThread\nfrom azure.identity import DefaultAzureCredential\nfrom azure.eventhub import EventHubConsumerClient\nimport logging\n\n# Configure logging and observability\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(__name__)\n\nclass SupplyChainDisruptionManager:\n    \"\"\"\n    Production multi-agent system for handling supply chain disruptions.\n    Uses Microsoft Agent Framework with Azure OpenAI.\n    \"\"\"\n    \n    def __init__(self, azure_openai_endpoint: str):\n        # Initialize Azure OpenAI client with managed identity\n        self.credential = DefaultAzureCredential()\n        self.client = AzureOpenAIResponsesClient(\n            endpoint=azure_openai_endpoint,\n            credential=self.credential\n        )\n        \n        # Create specialized agents\n        self.monitor_agent = self.client.create_agent(\n            name=\"MonitorAgent\",\n            instructions=\"\"\"You are a Monitoring Agent. Parse incoming disruption events \n            and provide a clear, structured summary including: event type, location, \n            severity, and immediate impact.\"\"\",\n            model=\"gpt-4\"\n        )\n        \n        self.planner_agent = self.client.create_agent(\n            name=\"PlannerAgent\",\n            instructions=\"\"\"You are a Logistics Planning Expert. Analyze disruption data \n            and propose 2-3 alternative transportation routes with estimated costs, \n            transit times, and risk assessments.\"\"\",\n            model=\"gpt-4\"\n        )\n        \n        self.logistics_agent = self.client.create_agent(\n            name=\"LogisticsAgent\",\n            instructions=\"\"\"You are a Logistics Operations Agent. Use the provided tools \n            to check route feasibility, get real carrier costs, and verify transit times. \n            Always use tools - never speculate.\"\"\",\n            model=\"gpt-4\",\n            tools=[\n                self._get_route_feasibility_tool(),\n                self._get_carrier_costs_tool(),\n                self._get_transit_times_tool()\n            ]\n        )\n        \n        self.communications_agent = self.client.create_agent(\n            name=\"CommunicationsAgent\",\n            instructions=\"\"\"You are a Customer Communications Specialist. Draft clear, \n            professional notifications for affected customers based on the approved plan. \n            Include: what happened, how we're addressing it, new timeline, and contact info.\"\"\",\n            model=\"gpt-4\"\n        )\n        \n        # Create workflow\n        self.workflow = self._build_workflow()\n        \n    def _build_workflow(self) -> Workflow:\n        \"\"\"Build the agent workflow graph.\"\"\"\n        workflow = Workflow(name=\"DisruptionResponseWorkflow\")\n        \n        # Monitor -> Planner -> Logistics -> Communications\n        monitor_node = WorkflowNode(\n            id=\"monitor\",\n            agent=self.monitor_agent,\n            next_nodes=[\"planner\"]\n        )\n        \n        planner_node = WorkflowNode(\n            id=\"planner\",\n            agent=self.planner_agent,\n            next_nodes=[\"logistics\"]\n        )\n        \n        logistics_node = WorkflowNode(\n            id=\"logistics\",\n            agent=self.logistics_agent,\n            next_nodes=[\"decision\"]\n        )\n        \n        # Decision point: approve plan or re-plan\n        decision_node = WorkflowDecision(\n            id=\"decision\",\n            condition=lambda context: context.get(\"plan_approved\", False),\n            true_node=\"communications\",\n            false_node=\"planner\"  # Loop back if plan not viable\n        )\n        \n        communications_node = WorkflowNode(\n            id=\"communications\",\n            agent=self.communications_agent,\n            next_nodes=[]  # End of workflow\n        )\n        \n        workflow.add_node(monitor_node)\n        workflow.add_node(planner_node)\n        workflow.add_node(logistics_node)\n        workflow.add_node(decision_node)\n        workflow.add_node(communications_node)\n        \n        return workflow\n    \n    def _get_route_feasibility_tool(self):\n        \"\"\"Tool for checking route feasibility via carrier APIs.\"\"\"\n        def check_route_feasibility(origin: str, destination: str, cargo_type: str):\n            # In production: call real carrier API\n            logger.info(f\"Checking feasibility: {origin} -> {destination}\")\n            return {\"feasible\": True, \"restrictions\": []}\n        \n        return check_route_feasibility\n    \n    def _get_carrier_costs_tool(self):\n        \"\"\"Tool for getting real-time carrier costs.\"\"\"\n        def get_carrier_costs(origin: str, destination: str, weight_kg: float):\n            # In production: call pricing APIs\n            logger.info(f\"Getting costs for {weight_kg}kg: {origin} -> {destination}\")\n            return {\"cost_usd\": 2500, \"carrier\": \"GlobalShip\"}\n        \n        return get_carrier_costs\n    \n    def _get_transit_times_tool(self):\n        \"\"\"Tool for estimating transit times.\"\"\"\n        def get_transit_times(origin: str, destination: str, mode: str):\n            # In production: call routing APIs\n            logger.info(f\"Getting transit time: {origin} -> {destination} via {mode}\")\n            return {\"transit_days\": 5, \"confidence\": 0.9}\n        \n        return get_transit_times\n    \n    def handle_disruption(self, event_data: dict):\n        \"\"\"\n        Handle a supply chain disruption event.\n        \n        Args:\n            event_data: Disruption event details (port closure, delay, etc.)\n        \"\"\"\n        logger.info(f\"Processing disruption: {event_data.get('type')}\")\n        \n        # Create conversation thread for this disruption\n        thread = AgentThread(name=f\"Disruption-{event_data.get('id')}\")\n        \n        # Run workflow with observability\n        try:\n            result = self.workflow.run(\n                start_node=\"monitor\",\n                initial_message=f\"New disruption event: {event_data}\",\n                thread=thread,\n                max_iterations=10\n            )\n            \n            logger.info(f\"Workflow completed in {result.duration_ms}ms\")\n            logger.info(f\"Agents involved: {result.agents_used}\")\n            logger.info(f\"Total cost: {result.total_cost_usd} USD\")\n            \n            return {\n                \"success\": True,\n                \"customer_notification\": result.final_output,\n                \"execution_time_ms\": result.duration_ms\n            }\n            \n        except Exception as e:\n            logger.error(f\"Workflow failed: {e}\")\n            return {\"success\": False, \"error\": str(e)}\n\n# Usage Example\nif __name__ == \"__main__\":\n    manager = SupplyChainDisruptionManager(\n        azure_openai_endpoint=\"https://your-endpoint.openai.azure.com\"\n    )\n    \n    # Simulate disruption event\n    event = {\n        \"id\": \"DISRUPT-2025-001\",\n        \"type\": \"port_closure\",\n        \"location\": \"Port of Los Angeles\",\n        \"severity\": \"high\",\n        \"affected_shipments\": 15\n    }\n    \n    result = manager.handle_disruption(event)\n    print(f\"Response: {result}\")\n\n\n# ============================================================================\n# MEMORY SYSTEMS IN AGENT FRAMEWORK\n# ============================================================================\n# The Agent Framework supports multiple memory mechanisms for different use cases:\n#\n# 1. IN-MEMORY STORAGE (Default)\n#    - Simplest form, conversation history stored in memory during runtime\n#    - No additional configuration needed\n#    - Lost when application restarts\n#\n# 2. REDIS MESSAGE STORE (Production Persistent)\n#    - For production applications requiring persistent storage\n#    - Example:\n#      from agent_framework.redis import RedisChatMessageStore\n#      \n#      def create_redis_store():\n#          return RedisChatMessageStore(\n#              redis_url=\"redis://localhost:6379\",\n#              thread_id=\"user_session_123\",\n#              max_messages=100  # Keep last 100 messages\n#          )\n#      \n#      agent = ChatAgent(\n#          chat_client=OpenAIChatClient(),\n#          chat_message_store_factory=create_redis_store\n#      )\n#\n# 3. CONTEXT PROVIDERS (Dynamic Memory)\n#    - Inject relevant context before each agent invocation\n#    - Extract and store information from conversations\n#    - Example for user preferences:\n#      from agent_framework import ContextProvider, Context\n#      \n#      class UserPreferencesMemory(ContextProvider):\n#          def __init__(self):\n#              self.preferences = {}\n#          \n#          async def invoking(self, messages, **kwargs) -> Context:\n#              if self.preferences:\n#                  prefs = \", \".join([f\"{k}: {v}\" for k, v in self.preferences.items()])\n#                  return Context(instructions=f\"User preferences: {prefs}\")\n#              return Context()\n#\n# 4. THREAD SERIALIZATION (Cross-Session Persistence)\n#    - Save entire conversation threads to disk/database\n#    - Restore conversations across application restarts\n#    - Example:\n#      # Save thread\n#      serialized = await thread.serialize()\n#      with open(\"thread.json\", \"w\") as f:\n#          json.dump(serialized, f)\n#      \n#      # Restore thread\n#      with open(\"thread.json\", \"r\") as f:\n#          thread_data = json.load(f)\n#      restored_thread = await agent.deserialize_thread(thread_data)\n#\n# 5. MEM0 PROVIDER (Advanced External Memory)\n#    - Specialized memory service for semantic memory\n#    - Remembers facts, preferences, and context across sessions\n#    - See example below\n# ============================================================================\n\n\n# ============================================================================\n# BONUS: Agent Framework with Mem0 Persistent Memory\n# ============================================================================\n# Demonstrates how agents remember user preferences across conversations\n\nimport asyncio\nimport uuid\nfrom agent_framework.azure import AzureAIAgentClient\nfrom agent_framework.context import Mem0Provider\nfrom azure.identity import AzureCliCredential\n\nasync def agent_with_memory_example():\n    \"\"\"\n    Example of memory usage with Mem0 context provider.\n    Agent remembers user preferences across threads and sessions.\n    \"\"\"\n    print(\"=== Mem0 Context Provider Example ===\\n\")\n\n    # Each record in Mem0 should be associated with user_id\n    # This enables user-specific memory across all conversations\n    user_id = str(uuid.uuid4())\n\n    # For Azure authentication, run 'az login' in terminal\n    # For Mem0 authentication, set MEM0_API_KEY environment variable\n    async with (\n        AzureCliCredential() as credential,\n        AzureAIAgentClient(async_credential=credential).create_agent(\n            name=\"FriendlyAssistant\",\n            instructions=\"You are a friendly assistant.\",\n            tools=retrieve_company_report,  # Your custom tool function\n            context_providers=Mem0Provider(user_id=user_id),\n        ) as agent,\n    ):\n        # First ask the agent to retrieve a company report with no previous context\n        query = \"Please retrieve my company report\"\n        print(f\"User: {query}\")\n        result = await agent.run(query)\n        print(f\"Agent: {result}\\n\")\n        # Agent will ask for company code and format since nothing is stored yet\n\n        # Now tell the agent your preferences - it will store them in Mem0\n        query = \"I always work with CNTS and I always want a detailed report format. Please remember and retrieve it.\"\n        print(f\"User: {query}\")\n        result = await agent.run(query)\n        print(f\"Agent: {result}\\n\")\n        # Agent stores: company=CNTS, format=detailed\n\n        print(\"\\nRequest within a new thread:\")\n        # Create a new thread for the agent\n        thread = agent.get_new_thread()\n\n        # Since we have the Mem0 component in the thread, the agent should be able to\n        # retrieve the company report without asking for clarification, as it will\n        # be able to remember the user preferences from Mem0 component\n        query = \"Please retrieve my company report\"\n        print(f\"User: {query}\")\n        result = await agent.run(query, thread=thread)\n        print(f\"Agent: {result}\\n\")\n        # Agent remembers company=CNTS and format=detailed from Mem0!\n        # No need to ask again - memory persists across threads\n\n# How it works:\n# 1. Agent with Mem0 context provider associates memory with user_id\n# 2. User teaches the agent preferences (company code, report format)\n# 3. Agent retrieves info using remembered context across NEW threads\n# 4. Persistent memory survives across sessions\n\n# Quick Start:\n# Install: pip install agent-framework[all]\n# Set environment: export MEM0_API_KEY=your_key\n# Run: asyncio.run(agent_with_memory_example())\n\n# Other Mem0 Examples in GitHub:\n# - mem0_oss.py: Open source Mem0 usage\n# - mem0_threads.py: Advanced thread management\n# See: https://github.com/microsoft/agent-framework/tree/main/examples/mem0\n\nif __name__ == \"__main__\":\n    asyncio.run(agent_with_memory_example())",
     "evaluation": "Evaluating an AutoGen system goes beyond individual agent performance and focuses on the system's collective output and collaboration dynamics.\n- **System-Level Goal Completion:** Did the group of agents successfully solve the user's high-level task? This is the most critical metric.\n- **Collaboration Efficiency:** Analyze the conversation logs. Was the communication efficient? Did agents get stuck in loops? Metrics include the number of rounds to completion and the cost (token usage).\n- **Role Adherence:** Did each agent stick to its designated role (e.g., did the Coder only write code, and the Critic only provide feedback)? This can be scored by an \"LLM as Judge\".\n- **Solution Quality:** The final artifact (e.g., code, report) should be evaluated for quality. For code, this involves running tests, static analysis, and checking for bugs (similar to the SWE-bench benchmark).\n- **Contribution Analysis:** Assess the impact of each agent on the final solution. Was any agent redundant or counter-productive?",
     "evaluationProfile": {
       "scenarioFocus": "AutoGen-driven orchestration",
@@ -966,8 +1200,8 @@
     ],
     "businessUseCase": {
       "industry": "Logistics & Supply Chain",
-      "description": "A global logistics company implements a \"Supply Chain Disruption Manager\" using the AutoGen framework. When a \"Monitoring Agent\" detects a disruption (e.g., a port closure) from a live data feed, it initiates a group chat. A \"Planner Agent\" analyzes the situation and proposes alternative routes. A \"Logistics Agent\" checks the feasibility and cost of the new routes by calling external carrier APIs. Finally, a \"Communications Agent\" drafts and sends notifications to affected clients. This multi-agent collaboration allows the company to react to disruptions in minutes instead of hours, minimizing delays and improving customer satisfaction.",
-      "enlightenMePrompt": "\n      Provide a deep-technical guide for an AI Architect on implementing a resilient \"Supply Chain Disruption Manager\" using the AutoGen framework on Azure.\n\n      Your response should be structured with the following sections, using Markdown for formatting:\n\n      ### 1. Architectural Blueprint\n      - Provide a detailed architecture diagram.\n      - Components: Azure Event Hub to ingest real-time disruption data, an Azure Function App to trigger the AutoGen system, a pool of agents running in Azure Container Apps for scalability, and Azure Service Bus for reliable inter-agent communication.\n      - Show how the GroupChatManager orchestrates the conversation flow.\n\n      ### 2. Agent Roles & System Messages\n      - Provide the detailed system messages for four key agents:\n        1.  **MonitorAgent:** \"Your sole job is to parse incoming events and initiate the group chat with a clear summary of the disruption.\"\n        2.  **PlannerAgent:** \"You are a logistics expert. Your job is to create and evaluate alternative transportation plans.\"\n        3.  **LogisticsAgent:** \"You are a tool-using agent. You must use the provided APIs to check route feasibility, cost, and transit times. Do not speculate.\"\n        4.  **CommunicationsAgent:** \"You are a communications specialist. Draft clear, concise notifications for customers based on the final, approved plan.\"\n\n      ### 3. Inter-Agent Communication & State Management\n      - Explain how to manage the shared state of the group chat, potentially using an external Redis cache connected to the Azure Container Apps.\n      - Discuss the importance of the `speaker_selection_method` in the GroupChat to control the conversation flow (e.g., using a custom function instead of round-robin).\n\n      ### 4. Evaluation Strategy for Multi-Agent Systems\n      - Detail the evaluation plan for this collaborative system.\n      - **System-Level Success:** Did the system produce a viable and cost-effective new logistics plan? (Binary outcome).\n      - **Collaboration Metrics:** Track the number of conversation turns, the sentiment of the conversation (was there confusion?), and the time to resolution.\n      - **Role-Specific Metrics:** For the LogisticsAgent, measure its Tool Call Accuracy. For the CommunicationsAgent, use an LLM-as-Judge to score the quality of its final notification.\n\n      ### 5. Reliability and Scalability\n      - Discuss how to make the system resilient to individual agent failures.\n      - Explain how to use Azure Container Apps to scale the number of agent instances based on the volume of disruption events.\n    "
+      "description": "A global logistics company implements a \"Supply Chain Disruption Manager\" using a multi-agent framework. When a \"Monitoring Agent\" detects a disruption (e.g., a port closure) from a live data feed, it initiates a group chat. A \"Planner Agent\" analyzes the situation and proposes alternative routes. A \"Logistics Agent\" checks the feasibility and cost of the new routes by calling external carrier APIs. Finally, a \"Communications Agent\" drafts and sends notifications to affected clients. This multi-agent collaboration allows the company to react to disruptions in minutes instead of hours, minimizing delays and improving customer satisfaction.",
+      "enlightenMePrompt": "\n      Provide a deep-technical guide for an AI Architect on implementing a resilient \"Supply Chain Disruption Manager\" using Microsoft Agent Framework on Azure.\n\n      Your response should be structured with the following sections, using Markdown for formatting:\n\n      ### 1. Architectural Blueprint\n      - Provide a detailed architecture diagram.\n      - Components: Azure Event Hub to ingest real-time disruption data, an Azure Function App to trigger the AutoGen system, a pool of agents running in Azure Container Apps for scalability, and Azure Service Bus for reliable inter-agent communication.\n      - Show how the GroupChatManager orchestrates the conversation flow.\n\n      ### 2. Agent Roles & System Messages\n      - Provide the detailed system messages for four key agents:\n        1.  **MonitorAgent:** \"Your sole job is to parse incoming events and initiate the group chat with a clear summary of the disruption.\"\n        2.  **PlannerAgent:** \"You are a logistics expert. Your job is to create and evaluate alternative transportation plans.\"\n        3.  **LogisticsAgent:** \"You are a tool-using agent. You must use the provided APIs to check route feasibility, cost, and transit times. Do not speculate.\"\n        4.  **CommunicationsAgent:** \"You are a communications specialist. Draft clear, concise notifications for customers based on the final, approved plan.\"\n\n      ### 3. Inter-Agent Communication & State Management\n      - Explain how to manage the shared state of the group chat, potentially using an external Redis cache connected to the Azure Container Apps.\n      - Discuss the importance of the `speaker_selection_method` in the GroupChat to control the conversation flow (e.g., using a custom function instead of round-robin).\n\n      ### 4. Evaluation Strategy for Multi-Agent Systems\n      - Detail the evaluation plan for this collaborative system.\n      - **System-Level Success:** Did the system produce a viable and cost-effective new logistics plan? (Binary outcome).\n      - **Collaboration Metrics:** Track the number of conversation turns, the sentiment of the conversation (was there confusion?), and the time to resolution.\n      - **Role-Specific Metrics:** For the LogisticsAgent, measure its Tool Call Accuracy. For the CommunicationsAgent, use an LLM-as-Judge to score the quality of its final notification.\n\n      ### 5. Reliability and Scalability\n      - Discuss how to make the system resilient to individual agent failures.\n      - Explain how to use Azure Container Apps to scale the number of agent instances based on the volume of disruption events.\n    "
     }
   },
   {
@@ -2067,6 +2301,368 @@
     }
   },
   {
+    "id": "contextual-onboarding-orchestrator",
+    "name": "Contextual Onboarding Orchestrator with Persistent Memory",
+    "description": "Multi-agent workflow using Microsoft Agent Framework with hybrid memory management (context summarization + trimming) to guide enterprise employees through weeks-long onboarding with preserved context, specialized domain agents, and human-in-the-loop checkpointing.",
+    "category": "Multi-Agent",
+    "useCases": [
+      "Enterprise knowledge worker onboarding (engineering, product, sales)",
+      "Executive onboarding with strategic context",
+      "Customer success rep training with product + CRM knowledge",
+      "Healthcare clinician orientation with compliance + EHR systems",
+      "Academic faculty onboarding with institutional knowledge",
+      "Retail manager training with operations + systems",
+      "Manufacturing technician training with safety + equipment"
+    ],
+    "whenToUse": "Use when onboarding spans multiple days/weeks, requires context from previous sessions, involves multiple knowledge domains (HR, tech, culture, projects), needs human approvals/escalations, and requires analytics on common pain points. Ideal when employee profiles must be preserved long-term but recent troubleshooting can be trimmed.",
+    "advantages": [
+      "Hybrid memory: summarized profiles + trimmed recent Q&A balances context retention and token efficiency",
+      "Microsoft Agent Framework provides graph-based orchestration with built-in checkpointing",
+      "Multi-agent specialization improves accuracy (HR agent uses policy RAG, DevOps uses runbooks)",
+      "Human-in-the-loop for critical approvals (PTO requests, access grants) with preserved context",
+      "Time-travel debugging lets HR review entire onboarding journey for process improvements",
+      "OpenTelemetry traces provide analytics: common questions, bottlenecks, agent success rates",
+      "Checkpoint/resume enables async onboarding (employee asks questions over days/weeks)",
+      "Structured memory prevents \"forgetting\" employee role, department, preferences",
+      "Graph workflows enable complex routing logic (escalation paths, conditional branches)",
+      "Observable via DevUI for real-time debugging during development"
+    ],
+    "limitations": [
+      "Requires Microsoft Agent Framework infrastructure (graph executor, checkpoint stores)",
+      "Summarization can lose nuance in edge cases (hallucination control needed)",
+      "Initial setup complexity: 4+ specialized agents + routing logic",
+      "Human-in-the-loop adds latency for approval-required actions",
+      "Context summarization refresh costs tokens periodically",
+      "Needs careful prompt engineering for summarizer to preserve critical details",
+      "Graph workflow design requires understanding of data flow patterns",
+      "OpenTelemetry infrastructure for production observability"
+    ],
+    "relatedPatterns": [
+      "session-based-orchestrator",
+      "task-specialist-swarm",
+      "human-in-the-loop-verification",
+      "hierarchical-document-intelligence"
+    ],
+    "implementation": [
+      "Step 1: Install Microsoft Agent Framework (`pip install agent-framework --prerelease=allow`) and set up Azure OpenAI endpoint.",
+      "Step 2: Design hybrid memory session: use context summarization for employee profile (role, department, completed onboarding steps, preferences) and context trimming for recent Q&A (keep last 3 turns).",
+      "Step 3: Create Memory Manager agent with SummarizingSession (keep_last_n_turns=3, context_limit=5) using structured summary prompt (Employee Profile, Completed Steps, Current Blockers, Next Recommended Action).",
+      "Step 4: Build Routing Agent with question classification prompt and routing logic to specialized agents (HR, DevOps, Project, Culture).",
+      "Step 5: Implement HR Policy Agent with RAG (vector search over HR documents) + generation.",
+      "Step 6: Implement DevOps Setup Agent with environment-specific tool installation runbooks.",
+      "Step 7: Implement Project Context Agent with team document summaries and current sprint goals.",
+      "Step 8: Implement Culture Agent with company values, team norms, and cultural FAQs.",
+      "Step 9: Design graph workflow using Agent Framework's workflow engine: route → memory load → specialized agent → human approval (if needed) → response → memory update → checkpoint.",
+      "Step 10: Add checkpoint stores (Redis or file-based) for session resumption across days.",
+      "Step 11: Implement human-in-the-loop nodes for manager approvals (PTO, access requests).",
+      "Step 12: Configure OpenTelemetry for distributed tracing (question classification accuracy, agent latency, human approval times).",
+      "Step 13: Add time-travel debugging: store all workflow states for HR to review.",
+      "Step 14: Test with real onboarding scenarios: multi-day sessions, context preservation, escalation paths.",
+      "Step 15: Deploy with DevUI for monitoring and live debugging during rollout."
+    ],
+    "codeExample": "// Microsoft Agent Framework - Contextual Onboarding Orchestrator\nimport asyncio\nfrom agent_framework.azure import AzureOpenAIResponsesClient\nfrom agent_framework.workflow import Workflow, Node, Edge\nfrom agent_framework.checkpoints import RedisCheckpointStore\nfrom azure.identity import AzureCliCredential\nimport logging\n\n# Configure telemetry\nlogging.basicConfig(level=logging.INFO)\n\n# ============= MEMORY MANAGEMENT =============\n\nclass SummarizingSession:\n    \"\"\"\n    Hybrid memory: summarize old context (employee profile) + trim recent Q&A.\n    Based on OpenAI Agents SDK session memory patterns.\n    \"\"\"\n    def __init__(self, keep_last_n_turns=3, context_limit=5, employee_id=None):\n        self.keep_last_n_turns = keep_last_n_turns\n        self.context_limit = context_limit\n        self.employee_id = employee_id\n        self._history = []  # Full history\n        self._profile_summary = None  # Structured employee profile\n        \n    async def add_turn(self, user_msg: str, assistant_msg: str):\n        \"\"\"Add a conversation turn and trigger summarization if needed.\"\"\"\n        self._history.append({\"role\": \"user\", \"content\": user_msg})\n        self._history.append({\"role\": \"assistant\", \"content\": assistant_msg})\n        \n        # Count user turns\n        user_turns = sum(1 for msg in self._history if msg[\"role\"] == \"user\")\n        \n        # Trigger summarization when exceeding context_limit\n        if user_turns > self.context_limit:\n            await self._summarize_profile()\n    \n    async def _summarize_profile(self):\n        \"\"\"\n        Compress older turns into structured employee profile summary.\n        Keep last N turns verbatim.\n        \"\"\"\n        user_turns = [i for i, msg in enumerate(self._history) if msg[\"role\"] == \"user\"]\n        \n        if len(user_turns) <= self.keep_last_n_turns:\n            return  # Nothing to summarize yet\n        \n        # Find boundary: keep last N turns, summarize everything before\n        boundary_idx = user_turns[-self.keep_last_n_turns]\n        old_context = self._history[:boundary_idx]\n        \n        # Summarization prompt (OpenAI cookbook pattern)\n        summary_prompt = \"\"\"\nYou are an onboarding assistant manager. Compress the employee's onboarding history into a structured profile.\n\n**Employee Profile Summary Format:**\n• **Role & Department:** [Title, team, manager name]\n• **Completed Onboarding Steps:** [Bullet list of finished tasks with dates]\n• **Current Blockers:** [Issues preventing progress]\n• **Preferences & Notes:** [Communication style, timezone, special accommodations]\n• **Next Recommended Action:** [Single most important next step]\n\n**Conversation History:**\n{history}\n\n**Rules:**\n- Be concise, use bullets\n- Preserve critical details (names, dates, access IDs)\n- Note blockers explicitly\n- Do not hallucinate; mark uncertain info as \"UNVERIFIED\"\n\"\"\"\n        \n        history_text = \"\\n\".join([f\"{msg['role'].upper()}: {msg['content']}\" for msg in old_context])\n        \n        # Call LLM to summarize (simplified - use actual Azure OpenAI client)\n        # self._profile_summary = await llm_call(summary_prompt.format(history=history_text))\n        self._profile_summary = \"[Summarized profile placeholder]\"\n        \n        # Replace old context with summary\n        self._history = [\n            {\"role\": \"user\", \"content\": \"Summarize my onboarding progress so far.\"},\n            {\"role\": \"assistant\", \"content\": self._profile_summary}\n        ] + self._history[boundary_idx:]\n    \n    async def get_context(self):\n        \"\"\"Return context for LLM: summary + recent turns.\"\"\"\n        return self._history\n\n\n# ============= SPECIALIZED AGENTS =============\n\nasync def create_routing_agent(client):\n    \"\"\"Routing Agent: Classifies questions and routes to specialists.\"\"\"\n    return client.create_agent(\n        name=\"RoutingAgent\",\n        instructions=\"\"\"You are an onboarding routing assistant.\n        \nClassify the employee's question into ONE category:\n- HR: Benefits, PTO, compliance, payroll, policies\n- DEVOPS: Tool installations, access requests, system setup, credentials\n- PROJECT: Team goals, codebase, current work, sprint planning\n- CULTURE: Company values, team norms, communication styles, unwritten rules\n\nRespond with ONLY the category name (HR, DEVOPS, PROJECT, or CULTURE).\n\"\"\"\n    )\n\n\nasync def create_hr_agent(client):\n    \"\"\"HR Policy Agent: Answers benefits, PTO, compliance questions.\"\"\"\n    return client.create_agent(\n        name=\"HRPolicyAgent\",\n        instructions=\"\"\"You are an HR policy expert with access to company benefits docs.\n        \nWhen answering:\n1. Cite specific policy sections\n2. For PTO requests, calculate available days and check manager approval needed\n3. For compliance questions, reference exact regulations\n4. Be empathetic and clear\n5. Escalate to manager if: PTO >5 days, special accommodations, salary questions\n\nFormat responses with:\n- Direct answer\n- Policy reference (cite section/page)\n- Next steps (if action required)\n\"\"\"\n    )\n\n\nasync def create_devops_agent(client):\n    \"\"\"DevOps Setup Agent: Guides tool installations.\"\"\"\n    return client.create_agent(\n        name=\"DevOpsAgent\",\n        instructions=\"\"\"You are a DevOps specialist helping with tool setup.\n        \nWhen helping with installations:\n1. Provide OS-specific steps (Windows/Mac/Linux)\n2. Include troubleshooting for common errors\n3. Generate temporary access credentials (notify security team)\n4. Verify environment prerequisites\n5. Link to detailed runbooks for complex setups\n\nAlways include:\n- Step-by-step instructions\n- Expected output at each step\n- Links to internal docs\n- Who to contact if blocked (with @ mentions)\n\"\"\"\n    )\n\n\nasync def create_project_agent(client):\n    \"\"\"Project Context Agent: Explains team goals, codebase.\"\"\"\n    return client.create_agent(\n        name=\"ProjectContextAgent\",\n        instructions=\"\"\"You are a project onboarding guide.\n        \nHelp new team members understand:\n1. Team mission and current OKRs\n2. Codebase architecture (repos, services, dependencies)\n3. Current sprint goals and priorities\n4. How their role fits into the bigger picture\n5. Key stakeholders and communication channels\n\nFor codebase questions:\n- Link to architecture docs\n- Suggest starter issues (good first issues)\n- Explain testing/deployment processes\n- Point to code walkthroughs or videos\n\"\"\"\n    )\n\n\nasync def create_culture_agent(client):\n    \"\"\"Culture Agent: Shares company values, unwritten norms.\"\"\"\n    return client.create_agent(\n        name=\"CultureAgent\",\n        instructions=\"\"\"You are a culture guide sharing company DNA.\n        \nTopics you cover:\n1. Core values and how they show up daily\n2. Communication norms (email vs Slack vs meetings)\n3. Work-life balance expectations\n4. Team traditions and rituals\n5. Unwritten rules (e.g., meeting etiquette, Friday happy hours)\n6. Diversity & inclusion practices\n\nBe warm, authentic, and share real examples (anonymized).\n\"\"\"\n    )\n\n\n# ============= WORKFLOW ORCHESTRATION =============\n\nasync def build_onboarding_workflow():\n    \"\"\"Build graph-based workflow with Microsoft Agent Framework.\"\"\"\n    \n    # Initialize Azure OpenAI client\n    client = AzureOpenAIResponsesClient(\n        endpoint=\"https://your-endpoint.openai.azure.com/\",\n        deployment_name=\"gpt-5\",\n        api_version=\"2025-03-01-preview\",\n        credential=AzureCliCredential(),\n    )\n    \n    # Create specialized agents\n    router = await create_routing_agent(client)\n    hr_agent = await create_hr_agent(client)\n    devops_agent = await create_devops_agent(client)\n    project_agent = await create_project_agent(client)\n    culture_agent = await create_culture_agent(client)\n    \n    # Memory session (hybrid: summarize profile + trim Q&A)\n    memory = SummarizingSession(\n        keep_last_n_turns=3,\n        context_limit=5,\n        employee_id=\"emp_12345\"\n    )\n    \n    # Checkpoint store for session persistence\n    checkpoint_store = RedisCheckpointStore(\n        redis_url=\"redis://localhost:6379\",\n        session_id=\"onboarding_emp_12345\"\n    )\n    \n    # Workflow graph\n    workflow = Workflow(name=\"ContextualOnboarding\")\n    \n    # Nodes\n    workflow.add_node(\"input\", type=\"input\")\n    workflow.add_node(\"router\", agent=router)\n    workflow.add_node(\"hr\", agent=hr_agent)\n    workflow.add_node(\"devops\", agent=devops_agent)\n    workflow.add_node(\"project\", agent=project_agent)\n    workflow.add_node(\"culture\", agent=culture_agent)\n    workflow.add_node(\"human_approval\", type=\"human_in_the_loop\")  # For manager approvals\n    workflow.add_node(\"output\", type=\"output\")\n    \n    # Edges (data flow)\n    workflow.add_edge(\"input\", \"router\")\n    workflow.add_conditional_edge(\n        \"router\",\n        route_by_category,  # Function that routes based on classification\n        {\n            \"HR\": \"hr\",\n            \"DEVOPS\": \"devops\",\n            \"PROJECT\": \"project\",\n            \"CULTURE\": \"culture\"\n        }\n    )\n    workflow.add_edge(\"hr\", \"human_approval\", condition=\"requires_manager_approval\")\n    workflow.add_edge(\"hr\", \"output\", condition=\"no_approval_needed\")\n    workflow.add_edge(\"devops\", \"output\")\n    workflow.add_edge(\"project\", \"output\")\n    workflow.add_edge(\"culture\", \"output\")\n    workflow.add_edge(\"human_approval\", \"output\")\n    \n    # Checkpoint edges (save/resume)\n    workflow.add_checkpoint(\"output\", checkpoint_store)\n    \n    return workflow, memory\n\n\ndef route_by_category(state):\n    \"\"\"Route to appropriate specialist based on classification.\"\"\"\n    category = state.get(\"category\", \"CULTURE\")  # Default to culture if unclear\n    return category\n\n\n# ============= MAIN EXECUTION =============\n\nasync def main():\n    workflow, memory = await build_onboarding_workflow()\n    \n    # Employee question (could be resumed from checkpoint)\n    employee_question = \"I need to take 3 days of PTO next month. How do I request it?\"\n    \n    # Load context from memory\n    context = await memory.get_context()\n    \n    # Execute workflow\n    result = await workflow.run({\n        \"question\": employee_question,\n        \"context\": context,\n        \"employee_id\": \"emp_12345\"\n    })\n    \n    # Update memory with new turn\n    await memory.add_turn(employee_question, result[\"response\"])\n    \n    print(f\"Response: {result['response']}\")\n    print(f\"Agent Used: {result['agent_used']}\")\n    print(f\"Requires Manager Approval: {result.get('needs_approval', False)}\")\n    \n    # Telemetry (OpenTelemetry traces auto-collected by Agent Framework)\n\n\nif __name__ == \"__main__\":\n    asyncio.run(main())",
+    "completeCode": "\"\"\"\nContextual Onboarding Orchestrator - Complete Implementation\nMicrosoft Agent Framework with Hybrid Memory Management\n\nArchitecture:\n- Memory Manager: Hybrid (summarized profile + trimmed recent Q&A)\n- 4 Specialist Agents: HR, DevOps, Project, Culture\n- Routing Agent: Question classifier\n- Human-in-the-Loop: Manager approvals\n- Checkpoint/Resume: Multi-day session persistence\n- OpenTelemetry: Observability and analytics\n\"\"\"\n\nimport asyncio\nfrom typing import Dict, List, Optional\nfrom azure.ai.agent import (\n    AzureOpenAIResponsesClient,\n    SummarizingSession,\n    Workflow,\n    Agent\n)\nfrom azure.identity import AzureCliCredential\nfrom redis import Redis\n\n\n# ============= MEMORY MANAGEMENT =============\n\nclass HybridMemoryManager:\n    \"\"\"\n    Hybrid memory: Summarized employee profile + trimmed recent Q&A\n    \n    Profile Layer: Persistent structured summary\n    - Role, department, seniority\n    - Completed onboarding steps\n    - Current blockers\n    - Preferences\n    \n    Conversation Layer: Recent turns only (keep last 3)\n    - Full question + answer pairs\n    - Context for immediate follow-ups\n    - Auto-trim after threshold\n    \"\"\"\n    \n    def __init__(self, employee_id: str, redis_client: Redis):\n        self.employee_id = employee_id\n        self.redis = redis_client\n        self.profile_key = f\"profile:{employee_id}\"\n        self.turns_key = f\"turns:{employee_id}\"\n        \n    async def get_context(self) -> Dict:\n        \"\"\"Load hybrid context: profile + recent turns.\"\"\"\n        profile = self.redis.hgetall(self.profile_key) or {}\n        recent_turns = self.redis.lrange(self.turns_key, -3, -1)  # Last 3 turns\n        \n        return {\n            \"profile\": {\n                \"role\": profile.get(\"role\", \"Unknown\"),\n                \"department\": profile.get(\"department\", \"Unknown\"),\n                \"completed_steps\": eval(profile.get(\"completed_steps\", \"[]\")),\n                \"current_blocker\": profile.get(\"current_blocker\", \"\"),\n                \"preferences\": eval(profile.get(\"preferences\", \"{}\"))\n            },\n            \"recent_turns\": [eval(turn) for turn in recent_turns]\n        }\n    \n    async def add_turn(self, question: str, answer: str):\n        \"\"\"Add new Q&A turn, trim if needed.\"\"\"\n        turn = {\"question\": question, \"answer\": answer, \"timestamp\": asyncio.get_event_loop().time()}\n        self.redis.rpush(self.turns_key, str(turn))\n        \n        # Trim to last 3 turns\n        turn_count = self.redis.llen(self.turns_key)\n        if turn_count > 3:\n            self.redis.ltrim(self.turns_key, -3, -1)\n    \n    async def update_profile(self, updates: Dict):\n        \"\"\"Update employee profile summary.\"\"\"\n        for key, value in updates.items():\n            self.redis.hset(self.profile_key, key, str(value))\n\n\n# ============= SPECIALIZED AGENTS =============\n\nasync def create_routing_agent(client):\n    \"\"\"Routing Agent: Classifies questions and routes to specialists.\"\"\"\n    return client.create_agent(\n        name=\"RoutingAgent\",\n        instructions=\"\"\"You are an onboarding routing assistant.\n        \nClassify the employee's question into ONE category:\n- HR: Benefits, PTO, compliance, payroll, policies\n- DEVOPS: Tool installations, access requests, system setup, credentials\n- PROJECT: Team goals, codebase, current work, sprint planning\n- CULTURE: Company values, team norms, communication styles, unwritten rules\n\nRespond with ONLY the category name (HR, DEVOPS, PROJECT, or CULTURE).\n\"\"\"\n    )\n\n\nasync def create_hr_agent(client):\n    \"\"\"HR Policy Agent: Answers benefits, PTO, compliance questions.\"\"\"\n    return client.create_agent(\n        name=\"HRPolicyAgent\",\n        instructions=\"\"\"You are an HR policy expert with access to company benefits docs.\n        \nWhen answering:\n1. Cite specific policy sections\n2. For PTO requests, calculate available days and check manager approval needed\n3. For compliance questions, reference exact regulations\n4. Be empathetic and clear\n5. Escalate to manager if: PTO >5 days, special accommodations, salary questions\n\nFormat responses with:\n- Direct answer\n- Policy reference (cite section/page)\n- Next steps (if action required)\n\"\"\"\n    )\n\n\nasync def create_devops_agent(client):\n    \"\"\"DevOps Setup Agent: Guides tool installations.\"\"\"\n    return client.create_agent(\n        name=\"DevOpsAgent\",\n        instructions=\"\"\"You are a DevOps specialist helping with tool setup.\n        \nWhen helping with installations:\n1. Provide OS-specific steps (Windows/Mac/Linux)\n2. Include troubleshooting for common errors\n3. Generate temporary access credentials (notify security team)\n4. Verify environment prerequisites\n5. Link to detailed runbooks for complex setups\n\nAlways include:\n- Step-by-step instructions\n- Expected output at each step\n- Links to internal docs\n- Who to contact if blocked (with @ mentions)\n\"\"\"\n    )\n\n\nasync def create_project_agent(client):\n    \"\"\"Project Context Agent: Explains team goals, codebase.\"\"\"\n    return client.create_agent(\n        name=\"ProjectContextAgent\",\n        instructions=\"\"\"You are a project onboarding guide.\n        \nHelp new team members understand:\n1. Team mission and current OKRs\n2. Codebase architecture (repos, services, dependencies)\n3. Current sprint goals and priorities\n4. How their role fits into the bigger picture\n5. Key stakeholders and communication channels\n\nFor codebase questions:\n- Link to architecture docs\n- Suggest starter issues (good first issues)\n- Explain testing/deployment processes\n- Point to code walkthroughs or videos\n\"\"\"\n    )\n\n\nasync def create_culture_agent(client):\n    \"\"\"Culture Agent: Shares company values, unwritten norms.\"\"\"\n    return client.create_agent(\n        name=\"CultureAgent\",\n        instructions=\"\"\"You are a culture guide sharing company DNA.\n        \nTopics you cover:\n1. Core values and how they show up daily\n2. Communication norms (email vs Slack vs meetings)\n3. Work-life balance expectations\n4. Team traditions and rituals\n5. Unwritten rules (e.g., meeting etiquette, Friday happy hours)\n6. Diversity & inclusion practices\n\nBe warm, authentic, and share real examples (anonymized).\n\"\"\"\n    )\n\n\n# ============= WORKFLOW ORCHESTRATION =============\n\nasync def build_onboarding_workflow():\n    \"\"\"Build graph-based workflow with Microsoft Agent Framework.\"\"\"\n    \n    # Initialize Azure OpenAI client\n    client = AzureOpenAIResponsesClient(\n        endpoint=\"https://your-endpoint.openai.azure.com/\",\n        deployment_name=\"gpt-5\",\n        api_version=\"2025-03-01-preview\",\n        credential=AzureCliCredential(),\n    )\n    \n    # Create specialized agents\n    router = await create_routing_agent(client)\n    hr_agent = await create_hr_agent(client)\n    devops_agent = await create_devops_agent(client)\n    project_agent = await create_project_agent(client)\n    culture_agent = await create_culture_agent(client)\n    \n    # Memory manager (hybrid: profile + recent turns)\n    redis_client = Redis(host='localhost', port=6379, decode_responses=True)\n    memory = HybridMemoryManager(employee_id=\"emp_12345\", redis_client=redis_client)\n    \n    # Workflow graph\n    workflow = Workflow(name=\"ContextualOnboarding\")\n    \n    # Nodes\n    workflow.add_node(\"input\", type=\"input\")\n    workflow.add_node(\"router\", agent=router)\n    workflow.add_node(\"hr\", agent=hr_agent)\n    workflow.add_node(\"devops\", agent=devops_agent)\n    workflow.add_node(\"project\", agent=project_agent)\n    workflow.add_node(\"culture\", agent=culture_agent)\n    workflow.add_node(\"human_approval\", type=\"human_in_the_loop\")  # For manager approvals\n    workflow.add_node(\"output\", type=\"output\")\n    \n    # Edges (data flow)\n    workflow.add_edge(\"input\", \"router\")\n    workflow.add_conditional_edge(\n        \"router\",\n        route_by_category,  # Function that routes based on classification\n        {\n            \"HR\": \"hr\",\n            \"DEVOPS\": \"devops\",\n            \"PROJECT\": \"project\",\n            \"CULTURE\": \"culture\"\n        }\n    )\n    workflow.add_edge(\"hr\", \"human_approval\", condition=\"requires_manager_approval\")\n    workflow.add_edge(\"hr\", \"output\", condition=\"no_approval_needed\")\n    workflow.add_edge(\"devops\", \"output\")\n    workflow.add_edge(\"project\", \"output\")\n    workflow.add_edge(\"culture\", \"output\")\n    workflow.add_edge(\"human_approval\", \"output\")\n    \n    return workflow, memory\n\n\ndef route_by_category(state):\n    \"\"\"Route to appropriate specialist based on classification.\"\"\"\n    category = state.get(\"category\", \"CULTURE\")  # Default to culture if unclear\n    return category\n\n\n# ============= MAIN EXECUTION =============\n\nasync def main():\n    workflow, memory = await build_onboarding_workflow()\n    \n    # Employee question (could be resumed from checkpoint)\n    employee_question = \"I need to take 3 days of PTO next month. How do I request it?\"\n    \n    # Load context from memory\n    context = await memory.get_context()\n    \n    print(f\"\\n=== Employee Profile ===\")\n    print(f\"Role: {context['profile']['role']}\")\n    print(f\"Department: {context['profile']['department']}\")\n    print(f\"Completed Steps: {', '.join(context['profile']['completed_steps'])}\")\n    print(f\"Recent Turns: {len(context['recent_turns'])}\\n\")\n    \n    # Execute workflow\n    result = await workflow.run({\n        \"question\": employee_question,\n        \"context\": context,\n        \"employee_id\": \"emp_12345\"\n    })\n    \n    # Update memory with new turn\n    await memory.add_turn(employee_question, result[\"response\"])\n    \n    # Update profile if new steps completed\n    if \"PTO request\" in result[\"response\"]:\n        await memory.update_profile({\n            \"completed_steps\": context['profile']['completed_steps'] + [\"PTO request process\"]\n        })\n    \n    print(f\"\\n=== Response ===\")\n    print(f\"Agent: {result['agent_used']}\")\n    print(f\"Response: {result['response']}\")\n    print(f\"Requires Manager Approval: {result.get('needs_approval', False)}\\n\")\n    \n    # Telemetry (OpenTelemetry traces auto-collected by Agent Framework)\n    print(\"✅ Telemetry logged to OpenTelemetry collector\")\n\n\nif __name__ == \"__main__\":\n    asyncio.run(main())\n",
+    "nodes": [
+      {
+        "id": "input",
+        "type": "input",
+        "data": {
+          "label": "Employee Question",
+          "nodeType": "input"
+        },
+        "position": {
+          "x": 50,
+          "y": 300
+        }
+      },
+      {
+        "id": "memory",
+        "type": "default",
+        "data": {
+          "label": "Memory Manager",
+          "description": "Hybrid summarization + trimming",
+          "nodeType": "tool"
+        },
+        "position": {
+          "x": 300,
+          "y": 100
+        }
+      },
+      {
+        "id": "router",
+        "type": "default",
+        "data": {
+          "label": "Routing Agent",
+          "description": "Question classifier",
+          "nodeType": "planner"
+        },
+        "position": {
+          "x": 300,
+          "y": 300
+        }
+      },
+      {
+        "id": "checkpoint",
+        "type": "default",
+        "data": {
+          "label": "Checkpoint Store",
+          "description": "Session persistence",
+          "nodeType": "tool"
+        },
+        "position": {
+          "x": 300,
+          "y": 500
+        }
+      },
+      {
+        "id": "hr",
+        "type": "default",
+        "data": {
+          "label": "HR Policy Agent",
+          "description": "Benefits, PTO, compliance",
+          "nodeType": "llm"
+        },
+        "position": {
+          "x": 600,
+          "y": 100
+        }
+      },
+      {
+        "id": "devops",
+        "type": "default",
+        "data": {
+          "label": "DevOps Agent",
+          "description": "Tool setup, access",
+          "nodeType": "llm"
+        },
+        "position": {
+          "x": 600,
+          "y": 200
+        }
+      },
+      {
+        "id": "project",
+        "type": "default",
+        "data": {
+          "label": "Project Context Agent",
+          "description": "Team goals, codebase",
+          "nodeType": "llm"
+        },
+        "position": {
+          "x": 600,
+          "y": 300
+        }
+      },
+      {
+        "id": "culture",
+        "type": "default",
+        "data": {
+          "label": "Culture Agent",
+          "description": "Norms, values",
+          "nodeType": "llm"
+        },
+        "position": {
+          "x": 600,
+          "y": 400
+        }
+      },
+      {
+        "id": "human",
+        "type": "default",
+        "data": {
+          "label": "Human-in-Loop",
+          "description": "Manager approval",
+          "nodeType": "evaluator"
+        },
+        "position": {
+          "x": 900,
+          "y": 250
+        }
+      },
+      {
+        "id": "telemetry",
+        "type": "default",
+        "data": {
+          "label": "Telemetry",
+          "description": "OpenTelemetry traces",
+          "nodeType": "tool"
+        },
+        "position": {
+          "x": 900,
+          "y": 400
+        }
+      },
+      {
+        "id": "output",
+        "type": "output",
+        "data": {
+          "label": "Contextual Response",
+          "nodeType": "output"
+        },
+        "position": {
+          "x": 1150,
+          "y": 250
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "input",
+        "target": "router",
+        "animated": true
+      },
+      {
+        "id": "e2",
+        "source": "router",
+        "target": "memory",
+        "label": "load context",
+        "animated": true
+      },
+      {
+        "id": "e3",
+        "source": "memory",
+        "target": "hr",
+        "label": "profile + recent Q&A",
+        "animated": true
+      },
+      {
+        "id": "e4",
+        "source": "memory",
+        "target": "devops",
+        "label": "profile + recent Q&A",
+        "animated": true
+      },
+      {
+        "id": "e5",
+        "source": "memory",
+        "target": "project",
+        "label": "profile + recent Q&A",
+        "animated": true
+      },
+      {
+        "id": "e6",
+        "source": "memory",
+        "target": "culture",
+        "label": "profile + recent Q&A",
+        "animated": true
+      },
+      {
+        "id": "e7",
+        "source": "router",
+        "target": "hr",
+        "label": "HR query",
+        "animated": true
+      },
+      {
+        "id": "e8",
+        "source": "router",
+        "target": "devops",
+        "label": "tech query",
+        "animated": true
+      },
+      {
+        "id": "e9",
+        "source": "router",
+        "target": "project",
+        "label": "project query",
+        "animated": true
+      },
+      {
+        "id": "e10",
+        "source": "router",
+        "target": "culture",
+        "label": "culture query",
+        "animated": true
+      },
+      {
+        "id": "e11",
+        "source": "hr",
+        "target": "human",
+        "label": "PTO approval",
+        "animated": true,
+        "style": {
+          "strokeDasharray": "5 5"
+        }
+      },
+      {
+        "id": "e12",
+        "source": "human",
+        "target": "output",
+        "animated": true
+      },
+      {
+        "id": "e13",
+        "source": "devops",
+        "target": "output",
+        "animated": true
+      },
+      {
+        "id": "e14",
+        "source": "project",
+        "target": "output",
+        "animated": true
+      },
+      {
+        "id": "e15",
+        "source": "culture",
+        "target": "output",
+        "animated": true
+      },
+      {
+        "id": "e16",
+        "source": "hr",
+        "target": "output",
+        "animated": true
+      },
+      {
+        "id": "e17",
+        "source": "output",
+        "target": "memory",
+        "label": "update",
+        "animated": true,
+        "style": {
+          "strokeDasharray": "5 5"
+        }
+      },
+      {
+        "id": "e18",
+        "source": "output",
+        "target": "checkpoint",
+        "label": "save state",
+        "animated": true,
+        "style": {
+          "strokeDasharray": "5 5"
+        }
+      },
+      {
+        "id": "e19",
+        "source": "router",
+        "target": "telemetry",
+        "label": "track",
+        "animated": true,
+        "style": {
+          "strokeDasharray": "5 5"
+        }
+      },
+      {
+        "id": "e20",
+        "source": "checkpoint",
+        "target": "router",
+        "label": "resume session",
+        "animated": true,
+        "style": {
+          "strokeDasharray": "5 5"
+        }
+      }
+    ],
+    "businessUseCase": {
+      "industry": "Enterprise HR & Knowledge Management",
+      "description": "A Fortune 500 technology company onboards 500+ knowledge workers annually across engineering, product, and sales. The Contextual Onboarding Orchestrator uses Microsoft Agent Framework with persistent memory to guide new hires through 2-4 week onboarding journeys. (1) **Memory Manager Agent** maintains employee profile summaries (role, department, completed steps, preferences) via context summarization while trimming recent Q&A turns, (2) **Routing Agent** classifies questions and routes to specialized agents, (3) **HR Policy Agent** answers benefits, PTO, compliance questions with policy document RAG, (4) **DevOps Setup Agent** guides tool installations with environment-specific instructions, (5) **Project Context Agent** explains team goals, codebases, and current initiatives, (6) **Culture Agent** shares company values, team dynamics, and unwritten norms. Framework features include: graph-based workflow orchestration, checkpoint/resume for multi-day sessions, human-in-the-loop for manager approvals, time-travel debugging for HR to review problematic onboarding journeys, and OpenTelemetry traces for analytics. **Business impact:** 60% reduction in manager onboarding time, 40% faster time-to-first-commit for engineers, 85% employee satisfaction, and data-driven insights into onboarding bottlenecks.",
+      "enlightenMePrompt": "Explain how hybrid memory management (summarization + trimming) and multi-agent orchestration solve the challenge of long-running, multi-domain onboarding conversations spanning weeks while staying within context limits."
+    }
+  },
+  {
     "id": "data-quality-feedback-repair-loop",
     "name": "Data Quality Feedback & Repair Loop",
     "description": "Closed-loop anomaly detection → profiling → candidate repair → validation cycle to restore data reliability.",
@@ -2724,6 +3320,228 @@
     }
   },
   {
+    "id": "emergency-response-mate",
+    "name": "Emergency Response Mate",
+    "description": "Incident co-pilot that fuses alerts, situational intelligence, and multi-channel messaging to coordinate responders under pressure.",
+    "category": "Advanced",
+    "useCases": [
+      "Manufacturing floor incidents with hazmat escalation",
+      "Campus security alert routing and triage",
+      "Critical infrastructure outage response war-rooms"
+    ],
+    "whenToUse": "Use when responders juggle fragmented telemetry and communication channels, and every minute of delay increases risk.",
+    "advantages": [
+      "Shrinks response time by eliminating manual triage and routing.",
+      "Keeps responders and command in sync with a living operating picture.",
+      "Delivers auditable after-action packages for compliance and learning."
+    ],
+    "limitations": [
+      "Reliant on resilient connectivity; degraded networks require offline fallbacks.",
+      "Policy guardrails must prevent premature public alerts or sensitive data leakage.",
+      "Needs rigorous incident simulation to calibrate severity thresholds."
+    ],
+    "relatedPatterns": [
+      "routing",
+      "autonomous-workflow",
+      "strategy-memory-replay"
+    ],
+    "implementation": [
+      "Aggregate IoT sensors, camera analytics, 911 feeds, and manual reports into a single incident intake queue.",
+      "Classify incidents by severity and required disciplines, attaching SOP references and evacuation maps.",
+      "Auto-generate responder task lists with acknowledgement tracking and escalation timers.",
+      "Maintain multi-channel comms (SMS, radio transcripts, Teams/Slack) and synchronize updates to command dashboards.",
+      "Compile after-action reports with timeline, interventions, and recommended remediations."
+    ],
+    "codeExample": "// Emergency Response Mate orchestrator (TypeScript)\nimport { createCrisisAgent } from '@openagentschool/response';\n\nconst responseMate = createCrisisAgent({\n  id: 'response-mate',\n  planner: 'gemini-1.5-pro',\n  channels: ['sms', 'radio-bridge', 'slack'],\n  knowledgeBases: ['sop://safety', 'map://campus', 'inventory://ppe']\n});\n\nexport async function handleIncident(alert: IncidentSignal) {\n  const classification = await responseMate.triage(alert);\n  const playbook = await responseMate.composePlan({\n    incident: classification,\n    context: await responseMate.loadContext(alert.location)\n  });\n\n  await responseMate.broadcast(playbook.assignment);\n  return responseMate.captureAfterAction(playbook.id);\n}\n",
+    "completeCode": "import { createCrisisAgent } from '@openagentschool/response';\nimport type { IncidentSignal, IncidentClassification } from './types';\n\nconst responseMate = createCrisisAgent({\n  id: 'response-mate-global',\n  planner: 'gemini-1.5-pro',\n  channels: ['sms', 'radio-bridge', 'teams'],\n  knowledgeBases: ['sop://safety', 'map://campus', 'inventory://ppe'],\n  guardrails: ['policy:critical-incident']\n});\n\nexport async function handleIncident(alert: IncidentSignal) {\n  const classification = await classifyIncident(alert);\n  const playbook = await composePlaybook(classification);\n\n  await responseMate.broadcast(playbook.assignment, {\n    acknowledgementTimeoutSeconds: 45,\n    escalationChannel: 'command-ops'\n  });\n\n  const afterAction = await responseMate.captureAfterAction(playbook.id);\n  await archiveIncident({ classification, playbook, afterAction });\n\n  return afterAction.summary;\n}\n\nasync function classifyIncident(alert: IncidentSignal): Promise<IncidentClassification> {\n  return responseMate.triage(alert, {\n    attachContext: true,\n    enrichments: ['weather', 'on-call-roster']\n  });\n}\n\nasync function composePlaybook(classification: IncidentClassification) {\n  return responseMate.composePlan({\n    incident: classification,\n    context: await responseMate.loadContext(classification.location),\n    policies: ['sms-before-radio', 'ack-required']\n  });\n}\n\nasync function archiveIncident(payload: { classification: IncidentClassification; playbook: any; afterAction: any }) {\n  await responseMate.storeIncident({\n    ...payload,\n    storedAt: new Date().toISOString()\n  });\n}\n",
+    "evaluation": "Measure alert-to-ack latency, completion rate of critical tasks, escalation accuracy, and fidelity of after-action reconstructions compared to ground truth logs.",
+    "evaluationProfile": {
+      "scenarioFocus": "Coordinating multi-channel emergency response with shared situational awareness and audit-ready timelines.",
+      "criticalMetrics": [
+        "Alert-to-acknowledgement latency",
+        "Task completion rate within SLA",
+        "Escalation accuracy",
+        "After-action fidelity"
+      ],
+      "evaluationNotes": [
+        "Simulate concurrent incidents and degraded networks to ensure the agent maintains synchronized comms across channels.",
+        "Review generated tasking against human gold playbooks for correctness and tone appropriateness.",
+        "Cross-check after-action packages against ground-truth incident logs to verify completeness and provenance."
+      ],
+      "readinessSignals": [
+        "Critical alerts acknowledged within target SLA in ≥ 95% of evaluation drills.",
+        "Escalations route to the correct command tier with zero misrouted cases across stress scenarios.",
+        "After-action reports capture mandatory regulatory fields without manual editing."
+      ],
+      "dataNeeds": [
+        "Historical incident transcripts with timing metadata and responder roles.",
+        "SOP and communication policy corpus tagged by severity, location, and responsible unit."
+      ],
+      "cohort": "communication-interface"
+    },
+    "nodes": [
+      {
+        "id": "incident-alert",
+        "type": "input",
+        "data": {
+          "label": "Incident Alert",
+          "nodeType": "input",
+          "description": "IoT / human-reported signal"
+        },
+        "position": {
+          "x": 40,
+          "y": 200
+        }
+      },
+      {
+        "id": "signal-triage",
+        "type": "default",
+        "data": {
+          "label": "Signal Triage",
+          "nodeType": "llm",
+          "description": "Deduplicate + classify incident"
+        },
+        "position": {
+          "x": 260,
+          "y": 140
+        }
+      },
+      {
+        "id": "context-hub",
+        "type": "default",
+        "data": {
+          "label": "Context Hub",
+          "nodeType": "aggregator",
+          "description": "Maps, floor plans, SOPs"
+        },
+        "position": {
+          "x": 260,
+          "y": 260
+        }
+      },
+      {
+        "id": "response-planner",
+        "type": "default",
+        "data": {
+          "label": "Response Planner",
+          "nodeType": "planner",
+          "description": "Generates playbooks + tasks"
+        },
+        "position": {
+          "x": 520,
+          "y": 200
+        }
+      },
+      {
+        "id": "responder-loop",
+        "type": "default",
+        "data": {
+          "label": "Responder Loop",
+          "nodeType": "aggregator",
+          "description": "Chat + acknowledgement tracking"
+        },
+        "position": {
+          "x": 780,
+          "y": 160
+        }
+      },
+      {
+        "id": "command-ops",
+        "type": "default",
+        "data": {
+          "label": "Command Ops",
+          "nodeType": "aggregator",
+          "description": "Command center oversight"
+        },
+        "position": {
+          "x": 780,
+          "y": 320
+        }
+      },
+      {
+        "id": "after-action",
+        "type": "output",
+        "data": {
+          "label": "After Action Package",
+          "nodeType": "output",
+          "description": "Timeline + follow-ups"
+        },
+        "position": {
+          "x": 1040,
+          "y": 220
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge-alert-triage",
+        "source": "incident-alert",
+        "target": "signal-triage",
+        "animated": true
+      },
+      {
+        "id": "edge-alert-context",
+        "source": "incident-alert",
+        "target": "context-hub",
+        "animated": true
+      },
+      {
+        "id": "edge-triage-planner",
+        "source": "signal-triage",
+        "target": "response-planner",
+        "animated": true,
+        "label": "Severity + type"
+      },
+      {
+        "id": "edge-context-planner",
+        "source": "context-hub",
+        "target": "response-planner",
+        "animated": true,
+        "label": "Operating picture"
+      },
+      {
+        "id": "edge-planner-responder",
+        "source": "response-planner",
+        "target": "responder-loop",
+        "animated": true,
+        "label": "Tasking"
+      },
+      {
+        "id": "edge-planner-command",
+        "source": "response-planner",
+        "target": "command-ops",
+        "animated": true,
+        "label": "Escalation brief"
+      },
+      {
+        "id": "edge-responder-command",
+        "source": "responder-loop",
+        "target": "command-ops",
+        "animated": true,
+        "label": "Acknowledgements"
+      },
+      {
+        "id": "edge-responder-after",
+        "source": "responder-loop",
+        "target": "after-action",
+        "animated": true,
+        "label": "Field logs"
+      },
+      {
+        "id": "edge-command-after",
+        "source": "command-ops",
+        "target": "after-action",
+        "animated": true,
+        "label": "Decisions + metrics"
+      }
+    ],
+    "businessUseCase": {
+      "industry": "Campus & Industrial Safety",
+      "description": "A university emergency operations center deploys the response mate to triage alarms, coordinate facilities/security teams, and assemble evidence-rich after-action packets for compliance and learning loops.",
+      "enlightenMePrompt": "\nCreate an incident response blueprint using Emergency Response Mate for a chemical lab spill.\n\nDetail:\n- Intake channels and data needed to classify severity within 60 seconds.\n- Playbook generation that assigns tasks to facilities, security, and comms teams.\n- Multi-channel messaging plan (radio, SMS, Teams) with acknowledgement tracking.\n- After-action package structure fed to compliance and safety training programs.\n"
+    }
+  },
+  {
     "id": "error-whisperer",
     "name": "Error Whisperer",
     "description": "Diagnoses errors and teaches the why behind fixes to build debugging intuition.",
@@ -3119,6 +3937,518 @@
     }
   },
   {
+    "id": "hierarchical-document-intelligence",
+    "name": "Hierarchical Document Intelligence",
+    "description": "Multi-agent system that parses dense technical documents through specialized agents with hierarchical synthesis, managing context limits through intelligent chunking and memory.",
+    "category": "Data Autonomy",
+    "useCases": [
+      "Engineering schematic analysis (electrical, P&ID, mechanical)",
+      "Legal contract review with clause cross-referencing",
+      "Medical research paper synthesis with citation graphs",
+      "Technical manual question answering",
+      "Regulatory compliance document analysis"
+    ],
+    "whenToUse": "Use when documents exceed LLM context limits (>100K tokens) but require deep understanding of relationships, cross-references, and hierarchical structure. Ideal for technical documents with diagrams, tables, and complex interdependencies.",
+    "advantages": [
+      "Handles multi-million token documents within 50K context windows",
+      "Preserves context through intelligent overlapping chunks",
+      "Multi-modal analysis (text + vision) for diagrams and schematics",
+      "Vector search + graph traversal for semantic memory",
+      "Agent specialization improves accuracy (domain expert, visual extractor)",
+      "Hierarchical synthesis creates multi-level understanding",
+      "Context Providers enable efficient memory management",
+      "Redis persistence maintains document knowledge across sessions"
+    ],
+    "limitations": [
+      "Higher latency than single-pass approaches (6 agent passes)",
+      "Requires vector database and graph database infrastructure",
+      "Chunking may split critical context if boundaries are poorly chosen",
+      "Vision model costs for diagram-heavy documents",
+      "Complexity in orchestrating multiple agents"
+    ],
+    "relatedPatterns": [
+      "strategy-memory-replay",
+      "schema-aware-decomposition",
+      "query-intent-structured-access"
+    ],
+    "implementation": [
+      "Step 1: Design DocumentChunker Context Provider with overlap strategy (15-20% overlap between chunks).",
+      "Step 2: Implement visual element extraction agent using GPT-4V or similar vision model.",
+      "Step 3: Create DomainExpert Context Provider that injects standards and terminology knowledge.",
+      "Step 4: Build ContextManager with ChromaDB for vector search and NetworkX for relationship graphs.",
+      "Step 5: Implement cross-reference resolver to link callouts, detail views, and page references.",
+      "Step 6: Create HierarchicalSynthesizer agent that builds component → subsystem → system understanding.",
+      "Step 7: Implement QueryHandler with semantic retrieval + graph traversal for question answering.",
+      "Step 8: Use Redis to persist chunk metadata, embeddings, and synthesis results.",
+      "Step 9: Orchestrate agents with asyncio for parallel processing where possible.",
+      "Step 10: Add token counting and budget management to stay within context limits."
+    ],
+    "codeExample": "// Agent Framework - Hierarchical Document Intelligence\nimport { Agent, ContextProvider, Context } from '@azure/ai-agents';\nimport { RedisChatMessageStore } from '@azure/ai-agents/stores';\nimport { OpenAIChatClient } from '@azure/ai-agents/clients';\nimport chromadb from 'chromadb';\nimport { Graph } from 'graphlib';\n\n// Context Provider: Intelligent Document Chunker\nclass DocumentChunker extends ContextProvider {\n  private chunkSize = 8000; // tokens\n  private overlap = 0.15;\n  \n  async invoking(messages: any[], kwargs: any): Promise<Context> {\n    const document = kwargs.document;\n    const chunks = this.createOverlappingChunks(document);\n    \n    // Store chunks in vector DB\n    await this.storeChunks(chunks);\n    \n    // Inject current chunk with neighbor context\n    const currentChunk = kwargs.chunkId || chunks[0].id;\n    const context = this.getChunkWithNeighbors(currentChunk, chunks);\n    \n    return new Context({\n      current_chunk: context,\n      total_chunks: chunks.length,\n      chunk_metadata: this.getMetadata(currentChunk)\n    });\n  }\n  \n  private createOverlappingChunks(document: string) {\n    const chunks = [];\n    const overlapSize = Math.floor(this.chunkSize * this.overlap);\n    \n    for (let i = 0; i < document.length; i += (this.chunkSize - overlapSize)) {\n      const chunk = {\n        id: `chunk_${chunks.length}`,\n        content: document.slice(i, i + this.chunkSize),\n        startPos: i,\n        endPos: Math.min(i + this.chunkSize, document.length)\n      };\n      chunks.push(chunk);\n    }\n    \n    return chunks;\n  }\n  \n  private getChunkWithNeighbors(chunkId: string, chunks: any[]) {\n    const idx = chunks.findIndex(c => c.id === chunkId);\n    const prev = idx > 0 ? chunks[idx - 1].content.slice(-500) : '';\n    const next = idx < chunks.length - 1 ? chunks[idx + 1].content.slice(0, 500) : '';\n    \n    return {\n      previous_context: prev,\n      main_content: chunks[idx].content,\n      next_context: next\n    };\n  }\n}\n\n// Context Manager: Vector + Graph Memory\nclass ContextManager extends ContextProvider {\n  private vectorDB: any;\n  private graph: Graph;\n  private redis: RedisChatMessageStore;\n  \n  constructor() {\n    super();\n    this.vectorDB = new chromadb.Client();\n    this.graph = new Graph({ directed: true });\n    this.redis = new RedisChatMessageStore({\n      redis_url: \"redis://localhost:6379\",\n      thread_id: \"doc_memory\"\n    });\n  }\n  \n  async invoking(messages: any[], kwargs: any): Promise<Context> {\n    const query = kwargs.query;\n    \n    // Semantic search in vector DB\n    const similarChunks = await this.vectorDB.query({\n      queryTexts: [query],\n      nResults: 5\n    });\n    \n    // Graph traversal for related chunks\n    const relatedChunks = this.traverseGraph(similarChunks[0].id, 2);\n    \n    // Combine and rank\n    const context = this.rankAndMerge(similarChunks, relatedChunks);\n    \n    return new Context({\n      relevant_chunks: context,\n      retrieval_strategy: 'hybrid_semantic_graph',\n      total_tokens: this.countTokens(context)\n    });\n  }\n  \n  private traverseGraph(startNode: string, depth: number): string[] {\n    const visited = new Set<string>();\n    const queue: [string, number][] = [[startNode, 0]];\n    const results: string[] = [];\n    \n    while (queue.length > 0) {\n      const [node, currentDepth] = queue.shift()!;\n      \n      if (visited.has(node) || currentDepth > depth) continue;\n      \n      visited.add(node);\n      results.push(node);\n      \n      // Add neighbors\n      const neighbors = this.graph.successors(node) || [];\n      neighbors.forEach(n => queue.push([n, currentDepth + 1]));\n    }\n    \n    return results;\n  }\n}\n\n// Agent: Visual Element Extractor\nconst visualExtractor = new Agent({\n  name: \"visual_element_extractor\",\n  instructions: `You are an expert at analyzing engineering diagrams.\n  \n  Extract ALL visual elements:\n  - Symbols (electrical, mechanical, P&ID)\n  - Connection lines (pipes, wires, linkages)\n  - Text annotations (labels, callouts, dimensions)\n  - Tables and legends\n  - Coordinate positions (as % of page)\n  \n  Output structured JSON with element type, coordinates, properties, connections.`,\n  \n  model: \"gpt-4-vision\",\n  \n  context_providers: [new DocumentChunker()],\n  \n  memory: new RedisChatMessageStore({\n    thread_id: \"visual_extraction\"\n  })\n});\n\n// Agent: Domain Expert Interpreter\nclass DomainExpert extends ContextProvider {\n  private domain: string;\n  \n  constructor(domain: 'electrical' | 'mechanical' | 'pid' | 'civil') {\n    super();\n    this.domain = domain;\n  }\n  \n  async invoking(messages: any[], kwargs: any): Promise<Context> {\n    // Inject domain-specific knowledge\n    const standards = this.getRelevantStandards(this.domain);\n    const terminology = this.loadTerminology(this.domain);\n    const commonPatterns = this.getCommonPatterns(this.domain);\n    \n    return new Context({\n      domain: this.domain,\n      applicable_standards: standards,\n      terminology_guide: terminology,\n      pattern_library: commonPatterns,\n      failure_modes_database: this.getFailureModes(this.domain)\n    });\n  }\n  \n  private getRelevantStandards(domain: string): string[] {\n    const standardsDB = {\n      electrical: ['IEC 60617', 'ANSI Y32.2', 'IEEE 315'],\n      mechanical: ['ISO 128', 'ASME Y14.5', 'ISO 1101'],\n      pid: ['ISA-5.1', 'ISO 14617', 'ANSI/ISA-5.1'],\n      civil: ['ISO 4172', 'BS 1192', 'ACI 315']\n    };\n    return standardsDB[domain] || [];\n  }\n}\n\nconst domainExpert = new Agent({\n  name: \"domain_expert_interpreter\",\n  instructions: `You are a senior engineer with 20+ years experience.\n  \n  For each component identified:\n  1. Explain its function in the system\n  2. List key specifications (voltage, pressure, load, etc.)\n  3. Identify relevant standards\n  4. Note potential failure modes\n  5. Describe interactions with other components\n  \n  Apply deep reasoning: trace signal/material/energy flows, identify control loops.`,\n  \n  context_providers: [\n    new DocumentChunker(),\n    new DomainExpert('electrical')\n  ],\n  \n  memory: new RedisChatMessageStore({\n    thread_id: \"domain_interpretation\"\n  })\n});\n\n// Agent: Hierarchical Synthesizer\nconst synthesizer = new Agent({\n  name: \"hierarchical_synthesizer\",\n  instructions: `Synthesize multi-agent findings into hierarchical understanding:\n  \n  Level 1 - Components: Individual parts with specs\n  Level 2 - Subsystems: Functional groupings\n  Level 3 - System: Overall operation and purpose\n  Level 4 - Meta: Document quality, ambiguities, recommendations\n  \n  Output structured JSON with all levels.`,\n  \n  context_providers: [new ContextManager()],\n  \n  memory: new RedisChatMessageStore({\n    thread_id: \"synthesis\"\n  })\n});\n\n// Orchestrator: Coordinate all agents\nclass DiagramOrchestrator {\n  private agents: {\n    preprocessor: Agent;\n    visualExtractor: Agent;\n    domainExpert: Agent;\n    synthesizer: Agent;\n    queryHandler: Agent;\n  };\n  \n  private contextManager: ContextManager;\n  \n  constructor() {\n    this.contextManager = new ContextManager();\n    this.agents = {\n      preprocessor: this.createPreprocessor(),\n      visualExtractor: visualExtractor,\n      domainExpert: domainExpert,\n      synthesizer: synthesizer,\n      queryHandler: this.createQueryHandler()\n    };\n  }\n  \n  async analyzeDocument(pdfPath: string, domain: string) {\n    console.log('🔍 Stage 1: Preprocessing & chunking...');\n    const chunks = await this.agents.preprocessor.run(\n      `Process PDF: ${pdfPath}`\n    );\n    \n    console.log('👁️  Stage 2: Visual element extraction...');\n    const visualElements = await Promise.all(\n      chunks.map(chunk => \n        this.agents.visualExtractor.run(`Extract elements from chunk: ${chunk.id}`)\n      )\n    );\n    \n    console.log('🧠 Stage 3: Domain expert interpretation...');\n    const interpretations = await Promise.all(\n      chunks.map((chunk, i) => \n        this.agents.domainExpert.run(\n          `Interpret components in chunk: ${chunk.id}`,\n          { visualElements: visualElements[i] }\n        )\n      )\n    );\n    \n    console.log('🎯 Stage 4: Hierarchical synthesis...');\n    const synthesis = await this.agents.synthesizer.run(\n      'Synthesize all findings',\n      { chunks, visualElements, interpretations }\n    );\n    \n    console.log('✅ Analysis complete!');\n    return synthesis;\n  }\n  \n  async askQuestion(question: string) {\n    return await this.agents.queryHandler.run(question);\n  }\n}\n\n// Usage\nconst orchestrator = new DiagramOrchestrator();\n\n// Analyze engineering diagram\nconst result = await orchestrator.analyzeDocument(\n  'electrical_schematic.pdf',\n  'electrical'\n);\n\nconsole.log('System overview:', result.executive_summary);\nconsole.log('Components found:', result.components.length);\n\n// Ask questions\nconst answer = await orchestrator.askQuestion(\n  'What are the safety systems present?'\n);\n\nconsole.log('Answer:', answer.answer);\nconsole.log('Evidence:', answer.evidence);\n",
+    "pythonCodeExample": "# Agent Framework - Hierarchical Document Intelligence\nfrom azure.ai.agents import Agent, ContextProvider, Context\nfrom azure.ai.agents.stores import RedisChatMessageStore\nfrom azure.ai.agents.clients import OpenAIChatClient\nfrom typing import List, Dict, Any, Optional\nimport chromadb\nimport networkx as nx\nimport asyncio\nimport fitz  # PyMuPDF\nimport base64\n\n# Context Provider: Document Chunker with Overlap\nclass DocumentChunker(ContextProvider):\n    \"\"\"Intelligent chunking with overlap preservation.\"\"\"\n    \n    def __init__(self, chunk_size: int = 8000, overlap: float = 0.15):\n        super().__init__()\n        self.chunk_size = chunk_size\n        self.overlap = overlap\n    \n    async def invoking(self, messages: List[Dict], **kwargs) -> Context:\n        document = kwargs.get('document', '')\n        chunks = self.create_overlapping_chunks(document)\n        \n        # Store chunks with metadata\n        await self.store_chunks(chunks)\n        \n        # Get current chunk with neighbor context\n        chunk_id = kwargs.get('chunk_id', chunks[0]['id'])\n        context = self.get_chunk_with_neighbors(chunk_id, chunks)\n        \n        return Context({\n            \"current_chunk\": context,\n            \"total_chunks\": len(chunks),\n            \"chunk_metadata\": self.get_metadata(chunk_id)\n        })\n    \n    def create_overlapping_chunks(self, document: str) -> List[Dict]:\n        \"\"\"Create chunks with overlapping boundaries.\"\"\"\n        chunks = []\n        overlap_size = int(self.chunk_size * self.overlap)\n        \n        for i in range(0, len(document), self.chunk_size - overlap_size):\n            chunk = {\n                'id': f\"chunk_{len(chunks)}\",\n                'content': document[i:i + self.chunk_size],\n                'start_pos': i,\n                'end_pos': min(i + self.chunk_size, len(document))\n            }\n            chunks.append(chunk)\n        \n        return chunks\n    \n    def get_chunk_with_neighbors(self, chunk_id: str, chunks: List[Dict]) -> Dict:\n        \"\"\"Get chunk with previous and next context.\"\"\"\n        idx = next(i for i, c in enumerate(chunks) if c['id'] == chunk_id)\n        \n        prev_context = chunks[idx-1]['content'][-500:] if idx > 0 else ''\n        main_content = chunks[idx]['content']\n        next_context = chunks[idx+1]['content'][:500] if idx < len(chunks)-1 else ''\n        \n        return {\n            'previous_context': prev_context,\n            'main_content': main_content,\n            'next_context': next_context\n        }\n\n\n# Context Provider: Vector + Graph Memory Manager\nclass ContextManager(ContextProvider):\n    \"\"\"Hybrid vector search + graph traversal memory.\"\"\"\n    \n    def __init__(self, redis_url: str = \"redis://localhost:6379\"):\n        super().__init__()\n        self.chroma_client = chromadb.Client()\n        self.collection = self.chroma_client.create_collection(\"doc_chunks\")\n        self.graph = nx.DiGraph()\n        self.redis = RedisChatMessageStore(\n            redis_url=redis_url,\n            thread_id=\"doc_memory\"\n        )\n    \n    async def invoking(self, messages: List[Dict], **kwargs) -> Context:\n        query = kwargs.get('query', '')\n        \n        # Semantic search in vector DB\n        results = self.collection.query(\n            query_texts=[query],\n            n_results=5\n        )\n        \n        similar_chunks = results['ids'][0] if results['ids'] else []\n        \n        # Graph traversal for related chunks\n        related_chunks = []\n        for chunk_id in similar_chunks[:2]:\n            related = self.traverse_graph(chunk_id, depth=2)\n            related_chunks.extend(related)\n        \n        # Combine and rank\n        all_chunks = list(set(similar_chunks + related_chunks))\n        context = self.retrieve_chunks(all_chunks[:10])\n        \n        return Context({\n            \"relevant_chunks\": context,\n            \"retrieval_strategy\": \"hybrid_semantic_graph\",\n            \"total_chunks\": len(context)\n        })\n    \n    def traverse_graph(self, start_node: str, depth: int) -> List[str]:\n        \"\"\"BFS traversal of relationship graph.\"\"\"\n        visited = set()\n        queue = [(start_node, 0)]\n        results = []\n        \n        while queue:\n            node, current_depth = queue.pop(0)\n            \n            if node in visited or current_depth > depth:\n                continue\n            \n            visited.add(node)\n            results.append(node)\n            \n            # Add neighbors\n            if self.graph.has_node(node):\n                neighbors = list(self.graph.successors(node))\n                queue.extend((n, current_depth + 1) for n in neighbors)\n        \n        return results\n    \n    def add_chunk(self, chunk_id: str, content: str, embedding: List[float], metadata: Dict):\n        \"\"\"Add chunk to vector DB and graph.\"\"\"\n        self.collection.add(\n            ids=[chunk_id],\n            documents=[content],\n            embeddings=[embedding],\n            metadatas=[metadata]\n        )\n        \n        self.graph.add_node(chunk_id, **metadata)\n        \n        # Add edges for dependencies\n        for dep in metadata.get('dependencies', []):\n            if self.graph.has_node(dep):\n                self.graph.add_edge(chunk_id, dep, relation='depends_on')\n\n\n# Context Provider: Domain Expert Knowledge\nclass DomainExpert(ContextProvider):\n    \"\"\"Inject domain-specific knowledge (standards, terminology).\"\"\"\n    \n    def __init__(self, domain: str = 'general'):\n        super().__init__()\n        self.domain = domain\n        self.standards_db = self.load_standards()\n        self.terminology = self.load_terminology()\n    \n    async def invoking(self, messages: List[Dict], **kwargs) -> Context:\n        # Inject relevant domain knowledge\n        standards = self.get_relevant_standards(self.domain)\n        terms = self.terminology.get(self.domain, {})\n        patterns = self.get_common_patterns(self.domain)\n        \n        return Context({\n            \"domain\": self.domain,\n            \"applicable_standards\": standards,\n            \"terminology_guide\": terms,\n            \"pattern_library\": patterns,\n            \"failure_modes\": self.get_failure_modes(self.domain)\n        })\n    \n    def load_standards(self) -> Dict[str, List[str]]:\n        return {\n            'electrical': ['IEC 60617', 'ANSI Y32.2', 'IEEE 315'],\n            'mechanical': ['ISO 128', 'ASME Y14.5', 'ISO 1101'],\n            'pid': ['ISA-5.1', 'ISO 14617', 'ANSI/ISA-5.1'],\n            'civil': ['ISO 4172', 'BS 1192', 'ACI 315']\n        }\n    \n    def get_relevant_standards(self, domain: str) -> List[str]:\n        return self.standards_db.get(domain, [])\n\n\n# Agent: Visual Element Extractor\nvisual_extractor = Agent(\n    name=\"visual_element_extractor\",\n    instructions=\"\"\"You are an expert at analyzing engineering diagrams.\n    \n    Extract ALL visual elements systematically:\n    1. SYMBOLS: Electrical, mechanical, P&ID symbols\n    2. CONNECTIONS: Lines (pipes, wires, linkages)\n    3. TEXT: Labels, callouts, dimensions, notes\n    4. TABLES: Parts lists, legends, specifications\n    5. COORDINATES: Position as % of page (x, y, width, height)\n    \n    For each element, identify:\n    - Element type (symbol, line, text, table, legend)\n    - Precise coordinates\n    - Properties (line type, color, thickness)\n    - Connections to other elements (by ID)\n    - Text content if applicable\n    \n    Output structured JSON array of all elements.\"\"\",\n    \n    model=\"gpt-4-vision\",\n    \n    context_providers=[DocumentChunker()],\n    \n    memory=RedisChatMessageStore(thread_id=\"visual_extraction\")\n)\n\n# Agent: Domain Expert Interpreter\ndomain_expert = Agent(\n    name=\"domain_expert_interpreter\",\n    instructions=\"\"\"You are a principal engineer with 20+ years experience.\n    \n    For each component identified, provide expert analysis:\n    \n    1. FUNCTION: What does this component do in the system?\n    2. SPECIFICATIONS: Key parameters (voltage, pressure, flow, load)\n    3. STANDARDS: Which codes/regulations govern this?\n    4. FAILURE MODES: What are common failures and maintenance needs?\n    5. INTERACTIONS: How does it connect with other components?\n    \n    Think systematically:\n    - Trace signal/material/energy flows\n    - Identify control loops and feedback\n    - Note safety systems and redundancy\n    - Flag design choices needing clarification\n    \n    Output JSON with detailed technical interpretation.\"\"\",\n    \n    context_providers=[\n        DocumentChunker(),\n        DomainExpert('electrical')\n    ],\n    \n    memory=RedisChatMessageStore(thread_id=\"domain_interpretation\")\n)\n\n# Agent: Hierarchical Synthesizer\nsynthesizer = Agent(\n    name=\"hierarchical_synthesizer\",\n    instructions=\"\"\"Synthesize multi-agent findings into hierarchical understanding.\n    \n    LEVEL 1 - Component Detail:\n    For each component: function, specs, connections, location\n    \n    LEVEL 2 - Subsystem Understanding:\n    Group components into functional subsystems with purpose and interactions\n    \n    LEVEL 3 - System Integration:\n    Overall function, operational modes, key parameters, control philosophy\n    \n    LEVEL 4 - Meta-Analysis:\n    Document quality, ambiguities, confidence levels, recommendations\n    \n    Output comprehensive JSON with all hierarchy levels.\"\"\",\n    \n    context_providers=[ContextManager()],\n    \n    memory=RedisChatMessageStore(thread_id=\"synthesis\")\n)\n\n# Agent: Query Handler\nquery_handler = Agent(\n    name=\"query_handler\",\n    instructions=\"\"\"Answer questions about analyzed diagrams with expert precision.\n    \n    Process:\n    1. Clarify what's being asked\n    2. Retrieve relevant context (semantic + graph)\n    3. Show reasoning chain with evidence\n    4. Provide comprehensive answer with caveats\n    5. Suggest follow-up questions\n    \n    Always cite sources (chunk IDs, page numbers, locations).\"\"\",\n    \n    context_providers=[ContextManager()],\n    \n    memory=RedisChatMessageStore(thread_id=\"query_handling\")\n)\n\n\n# Orchestrator: Coordinate All Agents\nclass DiagramOrchestrator:\n    \"\"\"Orchestrates 6-agent pipeline for document analysis.\"\"\"\n    \n    def __init__(self):\n        self.context_manager = ContextManager()\n        self.agents = {\n            'preprocessor': self.create_preprocessor(),\n            'visual': visual_extractor,\n            'domain': domain_expert,\n            'synthesizer': synthesizer,\n            'query': query_handler\n        }\n        self.results = {}\n    \n    async def analyze_document(self, pdf_path: str, domain: str = 'general'):\n        \"\"\"Full analysis pipeline.\"\"\"\n        print(f\"🔍 Analyzing {pdf_path}\\n\")\n        \n        # Stage 1: Preprocessing\n        print(\"📄 Stage 1: Preprocessing & chunking...\")\n        chunks = await self.preprocess_pdf(pdf_path)\n        print(f\"   ✓ Created {len(chunks)} chunks\\n\")\n        \n        # Stage 2: Visual extraction (parallel)\n        print(\"👁️  Stage 2: Visual element extraction...\")\n        visual_tasks = [\n            self.agents['visual'].run(f\"Extract elements from chunk {c['id']}\")\n            for c in chunks\n        ]\n        visual_results = await asyncio.gather(*visual_tasks)\n        total_elements = sum(len(v.get('elements', [])) for v in visual_results)\n        print(f\"   ✓ Extracted {total_elements} visual elements\\n\")\n        \n        # Stage 3: Domain interpretation (parallel)\n        print(\"🧠 Stage 3: Domain expert interpretation...\")\n        interp_tasks = [\n            self.agents['domain'].run(\n                f\"Interpret components in chunk {c['id']}\",\n                visual_elements=visual_results[i]\n            )\n            for i, c in enumerate(chunks)\n        ]\n        interp_results = await asyncio.gather(*interp_tasks)\n        total_interps = sum(len(i.get('interpretations', [])) for i in interp_results)\n        print(f\"   ✓ Generated {total_interps} interpretations\\n\")\n        \n        # Stage 4: Build context index\n        print(\"💾 Stage 4: Building context index...\")\n        for chunk in chunks:\n            embedding = await self.generate_embedding(chunk['content'])\n            self.context_manager.add_chunk(\n                chunk['id'],\n                chunk['content'],\n                embedding,\n                chunk['metadata']\n            )\n        print(\"   ✓ Context index ready\\n\")\n        \n        # Stage 5: Synthesis\n        print(\"🎯 Stage 5: Hierarchical synthesis...\")\n        synthesis = await self.agents['synthesizer'].run(\n            \"Synthesize all findings\",\n            chunks=chunks,\n            visual_elements=visual_results,\n            interpretations=interp_results\n        )\n        print(\"   ✓ Synthesis complete\\n\")\n        \n        self.results['synthesis'] = synthesis\n        \n        print(\"✅ Analysis complete!\\n\")\n        return synthesis\n    \n    async def ask_question(self, question: str):\n        \"\"\"Query the analyzed document.\"\"\"\n        if not self.results.get('synthesis'):\n            return {\"error\": \"No document analyzed yet\"}\n        \n        print(f\"❓ Question: {question}\")\n        answer = await self.agents['query'].run(\n            question,\n            synthesis=self.results['synthesis']\n        )\n        \n        print(f\"✅ Answer: {answer['answer'][:200]}...\\n\")\n        return answer\n    \n    async def preprocess_pdf(self, pdf_path: str) -> List[Dict]:\n        \"\"\"Extract and chunk PDF.\"\"\"\n        doc = fitz.open(pdf_path)\n        chunks = []\n        \n        for page_num in range(len(doc)):\n            page = doc[page_num]\n            text = page.get_text()\n            \n            # Convert to image for vision\n            pix = page.get_pixmap(matrix=fitz.Matrix(2, 2))\n            img_data = base64.b64encode(pix.tobytes(\"png\")).decode()\n            \n            chunks.append({\n                'id': f\"chunk_{page_num}\",\n                'content': text,\n                'image': img_data,\n                'metadata': {\n                    'page': page_num,\n                    'dependencies': []\n                }\n            })\n        \n        return chunks\n    \n    async def generate_embedding(self, text: str) -> List[float]:\n        \"\"\"Generate embedding (placeholder).\"\"\"\n        import numpy as np\n        return np.random.rand(1536).tolist()\n\n\n# === USAGE EXAMPLE ===\n\nasync def main():\n    # Initialize orchestrator\n    orchestrator = DiagramOrchestrator()\n    \n    # Analyze engineering schematic\n    result = await orchestrator.analyze_document(\n        'electrical_schematic.pdf',\n        domain='electrical'\n    )\n    \n    print(\"=== ANALYSIS RESULTS ===\")\n    print(f\"Executive Summary: {result.get('executive_summary', 'N/A')}\")\n    print(f\"Components Found: {len(result.get('components', []))}\")\n    print(f\"Subsystems: {len(result.get('subsystems', []))}\")\n    \n    # Ask questions\n    print(\"\\n=== Q&A SESSION ===\")\n    \n    questions = [\n        \"What are the main components in this system?\",\n        \"What safety systems are present?\",\n        \"What is the primary power supply specification?\",\n        \"Are there any redundant systems?\"\n    ]\n    \n    for q in questions:\n        answer = await orchestrator.ask_question(q)\n        print(f\"\\nQ: {q}\")\n        print(f\"A: {answer['answer']}\")\n        print(f\"Confidence: {answer.get('confidence', 0):.2%}\")\n\n# Run\nasyncio.run(main())\n",
+    "completeCode": "",
+    "evaluationProfile": {
+      "scenarioFocus": "Multi-agent parsing of dense technical documents (2M+ tokens) with vision analysis, domain knowledge, and hierarchical synthesis.",
+      "criticalMetrics": [
+        "Extraction accuracy (components, connections)",
+        "Cross-reference resolution rate",
+        "Synthesis coherence score",
+        "Query answer precision",
+        "Processing latency",
+        "Cost per document"
+      ],
+      "evaluationNotes": [
+        "Evaluate chunking quality: boundary preservation, overlap effectiveness, context retention across splits.",
+        "Measure vision extraction accuracy against ground truth (symbols, connections, text annotations).",
+        "Assess domain expert accuracy: standards compliance, terminology correctness, interpretation quality.",
+        "Test cross-reference resolution: detail callout linking, page reference accuracy, dependency mapping.",
+        "Validate hierarchical synthesis: component-level accuracy, subsystem coherence, system-level understanding.",
+        "Benchmark query performance: semantic retrieval precision, graph traversal efficiency, answer quality.",
+        "Monitor context window usage: token budget compliance, memory efficiency, Redis persistence reliability."
+      ],
+      "readinessSignals": [
+        "Extraction accuracy exceeds 95% for visual elements (symbols, connections) verified against annotated diagrams.",
+        "Domain interpretation achieves 90%+ accuracy on standards compliance and component specifications.",
+        "Cross-reference resolution correctly links 85%+ of detail callouts and page references.",
+        "Hierarchical synthesis produces coherent multi-level summaries validated by domain experts.",
+        "Query answers match expert responses with 85%+ precision on technical questions.",
+        "Processing stays within 50K token context windows while accessing full 2M+ token documents.",
+        "End-to-end latency for 200-page document analysis completes within acceptable SLA (e.g., <10 minutes).",
+        "Cost per document stays within budget constraints (track GPT-4V vision calls, embedding generation)."
+      ],
+      "dataNeeds": [
+        "Annotated engineering diagrams with ground truth labels (electrical schematics, P&ID, mechanical drawings).",
+        "Expert-validated component specifications, standards references (IEC, ANSI, IEEE), and BOM lists.",
+        "Cross-reference mapping datasets showing detail callouts, page links, and drawing dependencies.",
+        "Hierarchical analysis benchmarks with component → subsystem → system breakdowns.",
+        "Technical Q&A pairs validated by subject matter experts for query evaluation.",
+        "Token usage telemetry and cost tracking across all 6 agent stages."
+      ],
+      "cohort": "advanced-automation"
+    },
+    "nodes": [
+      {
+        "id": "input",
+        "type": "input",
+        "data": {
+          "label": "Dense PDF Document",
+          "nodeType": "input"
+        },
+        "position": {
+          "x": 50,
+          "y": 200
+        }
+      },
+      {
+        "id": "preprocessor",
+        "type": "default",
+        "data": {
+          "label": "Preprocessor Agent",
+          "description": "Intelligent chunking",
+          "nodeType": "planner"
+        },
+        "position": {
+          "x": 300,
+          "y": 100
+        }
+      },
+      {
+        "id": "visual",
+        "type": "default",
+        "data": {
+          "label": "Visual Extractor",
+          "description": "Vision model",
+          "nodeType": "tool"
+        },
+        "position": {
+          "x": 300,
+          "y": 200
+        }
+      },
+      {
+        "id": "domain",
+        "type": "default",
+        "data": {
+          "label": "Domain Expert",
+          "description": "Standards knowledge",
+          "nodeType": "llm"
+        },
+        "position": {
+          "x": 300,
+          "y": 300
+        }
+      },
+      {
+        "id": "context",
+        "type": "default",
+        "data": {
+          "label": "Context Manager",
+          "description": "Vector + Graph Memory",
+          "nodeType": "tool"
+        },
+        "position": {
+          "x": 600,
+          "y": 150
+        }
+      },
+      {
+        "id": "xref",
+        "type": "default",
+        "data": {
+          "label": "Cross-Ref Resolver",
+          "description": "Link sections",
+          "nodeType": "evaluator"
+        },
+        "position": {
+          "x": 600,
+          "y": 250
+        }
+      },
+      {
+        "id": "synthesizer",
+        "type": "default",
+        "data": {
+          "label": "Hierarchical Synthesizer",
+          "description": "Multi-level understanding",
+          "nodeType": "aggregator"
+        },
+        "position": {
+          "x": 900,
+          "y": 200
+        }
+      },
+      {
+        "id": "query",
+        "type": "default",
+        "data": {
+          "label": "Query Handler",
+          "description": "Semantic search + reasoning",
+          "nodeType": "llm"
+        },
+        "position": {
+          "x": 1150,
+          "y": 150
+        }
+      },
+      {
+        "id": "output",
+        "type": "output",
+        "data": {
+          "label": "Analysis + Q&A",
+          "nodeType": "output"
+        },
+        "position": {
+          "x": 1150,
+          "y": 250
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1",
+        "source": "input",
+        "target": "preprocessor",
+        "animated": true
+      },
+      {
+        "id": "e2",
+        "source": "input",
+        "target": "visual",
+        "animated": true
+      },
+      {
+        "id": "e3",
+        "source": "input",
+        "target": "domain",
+        "animated": true
+      },
+      {
+        "id": "e4",
+        "source": "preprocessor",
+        "target": "context",
+        "label": "chunks",
+        "animated": true
+      },
+      {
+        "id": "e5",
+        "source": "visual",
+        "target": "context",
+        "label": "elements",
+        "animated": true
+      },
+      {
+        "id": "e6",
+        "source": "domain",
+        "target": "context",
+        "label": "interpretations",
+        "animated": true
+      },
+      {
+        "id": "e7",
+        "source": "context",
+        "target": "xref",
+        "animated": true
+      },
+      {
+        "id": "e8",
+        "source": "xref",
+        "target": "synthesizer",
+        "animated": true
+      },
+      {
+        "id": "e9",
+        "source": "context",
+        "target": "synthesizer",
+        "animated": true
+      },
+      {
+        "id": "e10",
+        "source": "synthesizer",
+        "target": "output",
+        "animated": true
+      },
+      {
+        "id": "e11",
+        "source": "synthesizer",
+        "target": "query",
+        "animated": true
+      },
+      {
+        "id": "e12",
+        "source": "query",
+        "target": "output",
+        "label": "answers",
+        "animated": true
+      },
+      {
+        "id": "e13",
+        "source": "query",
+        "target": "context",
+        "label": "retrieve",
+        "animated": true,
+        "style": {
+          "strokeDasharray": "5 5"
+        }
+      }
+    ],
+    "businessUseCase": {
+      "industry": "Engineering & Manufacturing",
+      "description": "An engineering firm processes 200+ page electrical schematics and P&ID diagrams. The Hierarchical Document Intelligence system uses 6 specialized agents: (1) Document Preprocessor chunks PDFs while preserving context boundaries, (2) Visual Element Extractor identifies symbols and connections using vision models, (3) Domain Expert Interpreter applies electrical/mechanical standards knowledge, (4) Cross-Reference Resolver links detail callouts across pages, (5) Hierarchical Synthesizer creates multi-level understanding (component → subsystem → system), and (6) Query Handler answers engineer questions using vector search + graph traversal. Context Providers manage 50K token windows while accessing 2M+ token documents through semantic chunking and Redis-backed memory. Result: 90% reduction in manual review time, automatic BOM generation, and standards compliance validation.",
+      "enlightenMePrompt": "Explain how hierarchical agents with context management enable analysis of documents exceeding context limits."
+    }
+  },
+  {
+    "id": "inventory-guardian",
+    "name": "Inventory Guardian",
+    "description": "Fusion of IoT signals, digital twins, and LLM reasoning to keep warehouse stock accurate and proactively trigger replenishment and recovery actions.",
+    "category": "Advanced",
+    "useCases": [
+      "Cycle counting across mixed-automation warehouses",
+      "Vendor-managed inventory with SLA alerts",
+      "Cold chain monitoring with spoilage prevention"
+    ],
+    "whenToUse": "Deploy when manual counts lag behind demand, shrinkage erodes margins, or replenishment signals are trapped in siloed systems.",
+    "advantages": [
+      "Reduces manual counts and shrinkage through continuous sensing.",
+      "Provides explainable recommendations tied to telemetry and policy.",
+      "Closes the loop from detection to action with human-confirmed guardrails."
+    ],
+    "limitations": [
+      "Sensor gaps or unreliable data feeds can erode detection confidence.",
+      "High-volume facilities require cost-aware streaming infrastructure.",
+      "Needs tight integration with procurement and workforce management systems."
+    ],
+    "relatedPatterns": [
+      "data-quality-feedback-loop",
+      "strategy-memory-replay",
+      "policy-gated-tool-invocation"
+    ],
+    "implementation": [
+      "Collect telemetry feeds (RFID, PLCs, WMS events) and normalize into a continuously updated inventory twin.",
+      "Define variance heuristics and LLM prompts that explain anomalies with evidence instead of raw deltas.",
+      "Automate replenishment playbooks (PO drafts, cycle count tasks) with policy gates before execution.",
+      "Surface ranked hypotheses and recommended actions in an operator console for quick adjudication.",
+      "Log every intervention and auto-action to improve future drift detection and trust."
+    ],
+    "codeExample": "// Inventory Guardian anomaly triage (TypeScript)\nimport { createAgent } from '@openagentschool/operations';\nimport { InventoryTwin } from '@openagentschool/digital-twin';\n\nconst twin = new InventoryTwin();\nconst guardian = createAgent({\n  id: 'inventory-guardian',\n  planner: 'gemini-1.5-pro',\n  memory: { episodic: 'vertex-vector-store://inventory/events' },\n  tools: {\n    workOrders: createWorkOrderClient(),\n    messaging: createNotificationClient()\n  }\n});\n\nguardian.on('anomaly', insight => {\n  guardian.tools.messaging.notifyTeam('inventory-ops', insight.summary);\n});\n\nexport async function reconcileReading(reading: SensorPacket) {\n  await twin.update(reading);\n  const insight = await guardian.reason({\n    prompt: 'Investigate stock variance',\n    context: twin.snapshot(reading.location)\n  });\n\n  if (insight.requiresAction) {\n    return guardian.executePlan({\n      plan: insight.recoveryPlan,\n      fallback: 'route-to-human'\n    });\n  }\n\n  return insight;\n}\n",
+    "completeCode": "import { createAgent } from '@openagentschool/operations';\nimport { InventoryTwin } from '@openagentschool/digital-twin';\n\nconst twin = new InventoryTwin();\n\nconst guardian = createAgent({\n  id: 'inventory-guardian-main',\n  planner: 'gemini-1.5-pro',\n  memory: {\n    episodic: 'vertex-vector-store://inventory/events',\n    policies: 'vertex-vector-store://inventory/policies'\n  },\n  tools: {\n    workOrders: createWorkOrderClient(),\n    messaging: createNotificationClient(),\n    analytics: createAnalyticsClient()\n  }\n});\n\nguardian.on('anomaly', insight => {\n  guardian.tools.messaging.notifyTeam('inventory-ops', insight.summary);\n  guardian.tools.analytics.record('inventory/anomaly', insight);\n});\n\nexport async function reconcileSensorPacket(reading: SensorPacket) {\n  await twin.update(reading);\n  const context = twin.snapshot(reading.location);\n\n  const insight = await guardian.reason({\n    prompt: 'Investigate stock variance',\n    context,\n    policies: ['halt-if-spoilage-risk', 'notify-on-cycle-miss']\n  });\n\n  if (!insight.requiresAction) {\n    return guardian.tools.analytics.record('inventory/stable', { location: reading.location });\n  }\n\n  const result = await guardian.executePlan({\n    plan: insight.recoveryPlan,\n    fallback: 'route-to-human'\n  });\n\n  await guardian.tools.workOrders.logCompletion({\n    readingId: reading.id,\n    planId: insight.recoveryPlan?.id,\n    result\n  });\n\n  return result;\n}\n\nexport async function refreshTwin(locationId: string) {\n  const telemetry = await collectTelemetry(locationId);\n  await Promise.all(telemetry.map(packet => twin.update(packet)));\n  return twin.snapshot(locationId);\n}\n\nasync function collectTelemetry(locationId: string) {\n  return guardian.tools.analytics.fetchStream('telemetry', { locationId });\n}\n",
+    "evaluation": "Track variance detection precision/recall, time-to-recovery, SLA breach avoidance, and the percentage of auto-executed tasks that complete without manual correction.",
+    "evaluationProfile": {
+      "scenarioFocus": "Continuous inventory reconciliation that pairs sensor fusion with LLM reasoning and replenishment automation.",
+      "criticalMetrics": [
+        "Variance detection precision",
+        "Recovery time to stock accuracy",
+        "Auto-action success rate",
+        "Shrinkage reduction"
+      ],
+      "evaluationNotes": [
+        "Inject synthetic variance scenarios (mis-scans, spoilage, mis-shipments) to benchmark detection and recommended actions.",
+        "Replay historical replenishment incidents to confirm guardrails prevent duplicate or conflicting orders.",
+        "Audit operator console logs to ensure hypotheses and actions are explainable and traceable."
+      ],
+      "readinessSignals": [
+        "Net shrinkage delta improves versus baseline over a full evaluation cycle.",
+        "Auto-generated tasks close successfully without manual correction ≥ 90% of the time.",
+        "Operators rate explanations as “actionable” in calibration sessions at least 4/5 on average."
+      ],
+      "dataNeeds": [
+        "Sensor and WMS event logs with labelled variance root causes.",
+        "Procurement and workforce management connectors for closed-loop task execution."
+      ],
+      "cohort": "advanced-automation"
+    },
+    "nodes": [
+      {
+        "id": "sensor-network",
+        "type": "input",
+        "data": {
+          "label": "Sensor Network",
+          "nodeType": "input",
+          "description": "RFID, weight pads, environmental monitors"
+        },
+        "position": {
+          "x": 40,
+          "y": 220
+        }
+      },
+      {
+        "id": "ingestion-pipeline",
+        "type": "default",
+        "data": {
+          "label": "Streaming Ingestion",
+          "nodeType": "tool",
+          "description": "Streams + normalization"
+        },
+        "position": {
+          "x": 260,
+          "y": 220
+        }
+      },
+      {
+        "id": "inventory-twin",
+        "type": "default",
+        "data": {
+          "label": "Inventory Twin",
+          "nodeType": "aggregator",
+          "description": "Unified stock model"
+        },
+        "position": {
+          "x": 480,
+          "y": 220
+        }
+      },
+      {
+        "id": "guardian-analyst",
+        "type": "default",
+        "data": {
+          "label": "Guardian Analyst",
+          "nodeType": "llm",
+          "description": "LLM detects drift + root cause"
+        },
+        "position": {
+          "x": 700,
+          "y": 160
+        }
+      },
+      {
+        "id": "recovery-orchestrator",
+        "type": "default",
+        "data": {
+          "label": "Recovery Orchestrator",
+          "nodeType": "planner",
+          "description": "Plans replenishment + tasks"
+        },
+        "position": {
+          "x": 700,
+          "y": 320
+        }
+      },
+      {
+        "id": "ops-console",
+        "type": "default",
+        "data": {
+          "label": "Ops Console",
+          "nodeType": "aggregator",
+          "description": "Human validation + notes"
+        },
+        "position": {
+          "x": 920,
+          "y": 220
+        }
+      },
+      {
+        "id": "action-center",
+        "type": "output",
+        "data": {
+          "label": "Action Center",
+          "nodeType": "output",
+          "description": "Tasks, purchase orders, alerts"
+        },
+        "position": {
+          "x": 1140,
+          "y": 220
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge-sensor-ingest",
+        "source": "sensor-network",
+        "target": "ingestion-pipeline",
+        "animated": true
+      },
+      {
+        "id": "edge-ingest-twin",
+        "source": "ingestion-pipeline",
+        "target": "inventory-twin",
+        "animated": true
+      },
+      {
+        "id": "edge-twin-analyst",
+        "source": "inventory-twin",
+        "target": "guardian-analyst",
+        "animated": true
+      },
+      {
+        "id": "edge-analyst-orchestrator",
+        "source": "guardian-analyst",
+        "target": "recovery-orchestrator",
+        "animated": true,
+        "label": "Playbooks"
+      },
+      {
+        "id": "edge-orchestrator-ops",
+        "source": "recovery-orchestrator",
+        "target": "ops-console",
+        "animated": true
+      },
+      {
+        "id": "edge-analyst-ops",
+        "source": "guardian-analyst",
+        "target": "ops-console",
+        "animated": true,
+        "label": "Assumptions"
+      },
+      {
+        "id": "edge-ops-action",
+        "source": "ops-console",
+        "target": "action-center",
+        "animated": true
+      },
+      {
+        "id": "edge-orchestrator-action",
+        "source": "recovery-orchestrator",
+        "target": "action-center",
+        "animated": true,
+        "label": "Auto-exec tasks"
+      }
+    ],
+    "businessUseCase": {
+      "industry": "Omnichannel Fulfillment",
+      "description": "A retailer uses the guardian to reconcile stock across automated DCs and micro-fulfillment stores. Sensor drift, shrinkage anomalies, and supplier delays feed recovery actions, while operators adjudicate edge cases from a unified console.",
+      "enlightenMePrompt": "\nOutline the architecture for Inventory Guardian across three regional distribution centers.\n\nInclude:\n- Telemetry ingestion, normalization, and digital twin refresh cadence.\n- LLM Guardian analyst prompts that explain variance with rank-ordered hypotheses.\n- Auto-recovery playbooks for replenishment, cycle counts, and spoilage prevention with human approval gates.\n- Metrics + dashboards used by operations leads to accept or iterate on the pattern.\n"
+    }
+  },
+  {
     "id": "knowledge-map-navigator",
     "name": "Knowledge Map Navigator",
     "description": "Builds a personalized curriculum map with prerequisites, branches, and checkpoints.",
@@ -3336,6 +4666,250 @@
       "industry": "EdTech",
       "description": "Assessment platforms run Misconception Detector after quizzes to catch systematic misunderstandings and instantly push micro-lessons plus spaced review cards to learners and instructors.",
       "enlightenMePrompt": "Plan a misconception detection service for quiz pipelines.\n\nCover:\n- Mapping responses to misconception taxonomy and confidence\n- Generating corrective micro-lessons + formative checks\n- Integrations with LMS gradebook & spaced repetition queues\n- Precision/recall monitoring and human override tools"
+    }
+  },
+  {
+    "id": "mobile-manipulator-steward",
+    "name": "Mobile Manipulator Steward",
+    "description": "Gemini Robotics-powered concierge that navigates dynamic spaces, performs light manipulation, and keeps humans in the loop.",
+    "category": "Advanced",
+    "useCases": [
+      "Hotel amenity delivery and guest support",
+      "Hospital supply runs with safety validation",
+      "Campus reception and guided tours"
+    ],
+    "whenToUse": "Adopt when you need semi-autonomous mobile manipulation with natural-language supervision, consistent safety guardrails, and telemetry-rich audit trails.",
+    "advantages": [
+      "Blends autonomy with human-in-the-loop oversight for high-trust environments.",
+      "Reusable across hospitality, healthcare, and corporate campuses with minimal skill tweaks.",
+      "Creates auditable telemetry that feeds reliability and training loops."
+    ],
+    "limitations": [
+      "Requires high-fidelity facility maps and reliable connectivity for telemetry.",
+      "Physical skill libraries demand calibration per robot platform.",
+      "Policy tuning needed to avoid over-cautious halts in crowded spaces."
+    ],
+    "relatedPatterns": [
+      "autonomous-workflow",
+      "agent-ops",
+      "architecture-platform-operations"
+    ],
+    "implementation": [
+      "Instrument indoor maps and digital twin data for Gemini perception grounding.",
+      "Catalog manipulation skills (open doors, press elevator buttons, place trays) and store as reusable graphs.",
+      "Wire Gemini Guard robotics policies to runtime controllers with configurable halt actions.",
+      "Stream status, video snippets, and telemetry for human validation and after-action review.",
+      "Define task success rubrics spanning task completion, guest satisfaction, and safety interventions."
+    ],
+    "codeExample": "// Pseudo-code for mobile manipulator steward workflow\nconst steward = createEmbodiedAgent({\n  perception: new GeminiPerception({ streams: ['rgbd', 'force', 'audio'] }),\n  planner: new SkillGraphPlanner(['navigate_to_room', 'call_elevator', 'handoff_item']),\n  executors: {\n    navigation: new FleetNavigator({ map: 'hotel_digital_twin' }),\n    manipulation: new ManipulatorController({ robot: 'rise-torso-arm' })\n  },\n  safety: new SafetyGuardian({\n    policy: 'gemini-guard-robotics',\n    envelopes: ['human-proximity', 'torque-limit', 'geo-fence']\n  }),\n  reporter: new LiveNarrator({ channel: 'ops-slack' })\n});\n\nexport async function fulfillAmenity(request: GuestRequest) {\n  const context = await steward.perception.observeScene(request.origin);\n  const plan = await steward.planner.composePlan({ request, context });\n  await steward.reporter.broadcastStart(plan.summary);\n\n  for (const step of plan.steps) {\n    await steward.execute(step, {\n      onSafetyIntervention: (event) => steward.reporter.broadcastAlert(event),\n      onHumanOverride: (directive) => steward.handleOverride(directive)\n    });\n  }\n\n  const proof = await steward.reporter.collectArtifacts();\n  return steward.reporter.broadcastCompletion({ requestId: request.id, proof });\n}",
+    "completeCode": "import { createEmbodiedAgent, registerMissionWatcher } from '@openagentschool/robotics';\nimport { GeminiGuardPolicy } from '@openagentschool/robotics/safety';\nimport { publishOpsEvent } from '@openagentschool/telemetry';\n\nconst steward = createEmbodiedAgent({\n  id: 'mobile-steward-01',\n  perception: {\n    inputs: ['rgb_camera_fov120', 'depth_camera', 'force_torque_wrist', 'mic_array'],\n    fusion: {\n      pipeline: 'gemini-1.5-pro-vision',\n      samplingRateHz: 15,\n      digitalTwin: 'hospitality-tower'\n    }\n  },\n  cognition: {\n    planner: 'gemini-1.5-pro',\n    memory: {\n      episodic: 'vertex-vector-store://robotics/amenities',\n      spatial: 'warehouse-digital-twin/hotel-tower'\n    },\n    skillGraph: {\n      entrySkill: 'amenity_delivery',\n      nodes: [\n        'navigate_to_room',\n        'call_elevator',\n        'align_with_door',\n        'handoff_item',\n        'return_to_base'\n      ]\n    }\n  },\n  actuation: {\n    navigation: {\n      controller: 'diff_drive_mpc',\n      safetyEnvelope: {\n        minClearanceMeters: 0.6,\n        humanOverrideChannel: 'ops-console://steward'\n      }\n    },\n    manipulation: {\n      controller: 'ros2_moveit',\n      arms: ['torso-lift', '7dof-gripper'],\n      graspLibrary: ['tray_pick', 'bottle_grip', 'envelope_slide']\n    }\n  },\n  safety: new GeminiGuardPolicy({\n    policyId: 'gemini-guard-robotics',\n    envelopes: ['human_proximity', 'force_limit', 'geo_fence'],\n    haltActions: ['drop_to_safe_pose', 'notify_operator']\n  }),\n  telemetry: {\n    stream: event => publishOpsEvent('robotics/steward', event),\n    capture: ['video_thumbnail', 'mission_summary', 'intervention_log']\n  }\n});\n\nregisterMissionWatcher({\n  agent: steward,\n  onMissionStart(mission) {\n    publishOpsEvent('robotics/steward', {\n      type: 'mission.start',\n      missionId: mission.id,\n      guest: mission.metadata.guestName,\n      destination: mission.destination\n    });\n  },\n  onIntervention(event) {\n    publishOpsEvent('robotics/steward', {\n      type: 'mission.intervention',\n      severity: event.severity,\n      reason: event.reason,\n      action: event.action\n    });\n  },\n  onComplete(result) {\n    publishOpsEvent('robotics/steward', {\n      type: 'mission.complete',\n      missionId: result.missionId,\n      success: result.status === 'success',\n      durationSeconds: result.durationSeconds,\n      interventions: result.interventions\n    });\n  }\n});\n\nexport async function dispatchAmenityMission(request: AmenityRequest) {\n  const context = await steward.observe({ location: request.origin });\n  const plan = await steward.plan({\n    goal: `Deliver ${request.item} to room ${request.roomNumber}`,\n    constraints: {\n      priority: request.priority,\n      guestPreference: request.preferences?.tone ?? 'warm'\n    },\n    context\n  });\n\n  for (const step of plan.steps) {\n    await steward.execute(step, {\n      onSafetyHalt: async halt => {\n        await steward.requestHumanReview({ halt, plan, request });\n      },\n      onLiveNarration: payload => publishOpsEvent('robotics/steward', payload)\n    });\n  }\n\n  const proofs = await steward.collectMissionArtifacts(plan.id);\n  return {\n    missionId: plan.id,\n    status: 'delivered',\n    proofs\n  };\n}\n",
+    "evaluation": "Track task success (autonomous vs assisted), safety stop frequency, teleop ratio, and guest satisfaction follow-up scores.",
+    "evaluationProfile": {
+      "scenarioFocus": "Embodied concierge navigating dynamic facilities, performing light manipulation, and coordinating with humans.",
+      "criticalMetrics": [
+        "Autonomous task success rate",
+        "Safety intervention frequency",
+        "Teleoperation-to-autonomy ratio",
+        "Guest CSAT proxy"
+      ],
+      "evaluationNotes": [
+        "Exercise skill graphs in ER-15 or digital twin sandboxes with seeded obstructions before live pilots.",
+        "Stress-test proximity, torque, and geo-fence guardrails with human actors and moving obstacles.",
+        "Archive narrated status updates, telemetry clips, and halt events for after-action review."
+      ],
+      "readinessSignals": [
+        "≥90% of pilot runs complete without takeover across representative delivery routes.",
+        "Safety guardrails halt or slow the platform within policy thresholds (≤ 1s reaction) in seeded incidents.",
+        "Telemetry packets (video, narration, metrics) deliver within target latency for operator audits."
+      ],
+      "dataNeeds": [
+        "Semantic facility maps",
+        "Synthetic obstacle libraries for simulation",
+        "Guest feedback or CSAT collection hooks"
+      ],
+      "cohort": "advanced-automation"
+    },
+    "nodes": [
+      {
+        "id": "guest-intent",
+        "type": "input",
+        "data": {
+          "label": "Guest Intent",
+          "nodeType": "input",
+          "description": "Voice/text request or operator command"
+        },
+        "position": {
+          "x": 100,
+          "y": 260
+        }
+      },
+      {
+        "id": "scene-perception",
+        "type": "default",
+        "data": {
+          "label": "Scene Perception",
+          "nodeType": "llm",
+          "description": "Gemini vision-language grounding of environment"
+        },
+        "position": {
+          "x": 320,
+          "y": 140
+        }
+      },
+      {
+        "id": "task-planner",
+        "type": "default",
+        "data": {
+          "label": "Task Planner",
+          "nodeType": "planner",
+          "description": "Skill graph sequencing & policy selection"
+        },
+        "position": {
+          "x": 320,
+          "y": 360
+        }
+      },
+      {
+        "id": "nav-controller",
+        "type": "default",
+        "data": {
+          "label": "Navigation Controller",
+          "nodeType": "executor",
+          "description": "Trajectory generation with safety bubble"
+        },
+        "position": {
+          "x": 560,
+          "y": 200
+        }
+      },
+      {
+        "id": "manipulator-controller",
+        "type": "default",
+        "data": {
+          "label": "Manipulator Controller",
+          "nodeType": "executor",
+          "description": "Gripper + arm motion primitives"
+        },
+        "position": {
+          "x": 560,
+          "y": 380
+        }
+      },
+      {
+        "id": "safety-guardian",
+        "type": "default",
+        "data": {
+          "label": "Safety Guardian",
+          "nodeType": "evaluator",
+          "description": "Gemini Guard + proximity and torque checks"
+        },
+        "position": {
+          "x": 780,
+          "y": 260
+        }
+      },
+      {
+        "id": "status-reporter",
+        "type": "default",
+        "data": {
+          "label": "Status Reporter",
+          "nodeType": "aggregator",
+          "description": "Narrated updates to operator & guest"
+        },
+        "position": {
+          "x": 980,
+          "y": 260
+        }
+      },
+      {
+        "id": "task-complete",
+        "type": "output",
+        "data": {
+          "label": "Fulfillment Complete",
+          "nodeType": "output",
+          "description": "Delivery confirmation + telemetry archive"
+        },
+        "position": {
+          "x": 1180,
+          "y": 260
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge-intent-perception",
+        "source": "guest-intent",
+        "target": "scene-perception",
+        "animated": true
+      },
+      {
+        "id": "edge-intent-planner",
+        "source": "guest-intent",
+        "target": "task-planner",
+        "animated": true
+      },
+      {
+        "id": "edge-perception-planner",
+        "source": "scene-perception",
+        "target": "task-planner",
+        "animated": true,
+        "label": "Context memory"
+      },
+      {
+        "id": "edge-planner-nav",
+        "source": "task-planner",
+        "target": "nav-controller",
+        "animated": true
+      },
+      {
+        "id": "edge-planner-manipulator",
+        "source": "task-planner",
+        "target": "manipulator-controller",
+        "animated": true
+      },
+      {
+        "id": "edge-nav-safety",
+        "source": "nav-controller",
+        "target": "safety-guardian",
+        "animated": true
+      },
+      {
+        "id": "edge-manipulator-safety",
+        "source": "manipulator-controller",
+        "target": "safety-guardian",
+        "animated": true
+      },
+      {
+        "id": "edge-safety-nav",
+        "source": "safety-guardian",
+        "target": "nav-controller",
+        "animated": true,
+        "label": "Halt / reroute"
+      },
+      {
+        "id": "edge-safety-manipulator",
+        "source": "safety-guardian",
+        "target": "manipulator-controller",
+        "animated": true,
+        "label": "Adjust grip"
+      },
+      {
+        "id": "edge-safety-status",
+        "source": "safety-guardian",
+        "target": "status-reporter",
+        "animated": true
+      },
+      {
+        "id": "edge-status-complete",
+        "source": "status-reporter",
+        "target": "task-complete",
+        "animated": true
+      }
+    ],
+    "businessUseCase": {
+      "industry": "Hospitality & Care Robotics",
+      "description": "A guest services operations team deploys a mobile manipulator steward to deliver amenities, escort visitors, and replenish supplies across a hotel tower. Gemini grounds perception across cameras, force sensors, and facility maps, while operators receive narrated status updates, safety interventions, and override controls so every mission stays auditable and on-policy.",
+      "enlightenMePrompt": "\nOutline the technical design for launching the Mobile Manipulator Steward in a hospitality tower.\n\nProvide:\n- Core services and data plane required to orchestrate perception, skill-graph planning, and navigation/manipulation controllers.\n- Gemini Guard robotics policy configuration, halt/replan behaviors, and telemetry retention plan.\n- Human-in-the-loop console flows for safety interventions, overrides, and after-action review packages.\n- A staged rollout plan covering simulation, shadow trials, and guest-facing pilots with success metrics.\n"
     }
   },
   {
@@ -4465,7 +6039,7 @@
     "id": "prompt-chaining",
     "name": "Prompt Chaining",
     "description": "Breaks down a complex task into a series of smaller, interconnected prompts, where the output of one prompt is the input for the next.",
-    "category": "Orchestration",
+    "category": "Multi-Agent",
     "useCases": [
       "Creative Writing",
       "Complex Problem Solving",
@@ -6378,14 +7952,21 @@
     ],
     "whenToUse": "Use when tasks exhibit structural recurrence and prior strategies are auditable.",
     "advantages": [
-      "Lowers token & latency cost",
-      "Improves plan quality via proven patterns",
-      "Enables meta-learning without fine-tuning"
+      "Reduces token cost by 40-60% through strategy reuse",
+      "Lowers latency with cached execution plans",
+      "Improves plan quality via proven patterns from successful executions",
+      "Enables meta-learning without model fine-tuning",
+      "Context Providers provide clean separation between memory and agent logic",
+      "Redis persistence maintains strategy knowledge across sessions",
+      "Embedding-based retrieval ensures semantic similarity matching",
+      "Automatic strategy adaptation reduces manual prompt engineering"
     ],
     "limitations": [
-      "Cold start (no history)",
-      "Risk of stale strategy reuse",
-      "Requires embedding + storage infra"
+      "Cold start problem when no historical strategies exist",
+      "Risk of stale strategy reuse if task context shifts significantly",
+      "Requires embedding model and vector storage infrastructure",
+      "Similarity scoring may miss nuanced differences between tasks",
+      "Strategy adaptation logic requires domain expertise"
     ],
     "relatedPatterns": [
       "schema-aware-decomposition",
@@ -6393,14 +7974,18 @@
       "perception-normalization"
     ],
     "implementation": [
-      "Step 1: Compute task signature embedding (intent + entities + constraints).",
-      "Step 2: Retrieve top-k prior strategies (plan graphs + metrics).",
-      "Step 3: Adapt by merging overlapping subgraphs & mutating outdated nodes.",
-      "Step 4: Score candidates (coverage uplift, cost reduction estimate).",
-      "Step 5: Select replay strategy & annotate provenance for traceability."
+      "Step 1: Create StrategyMemory Context Provider extending ContextProvider base class.",
+      "Step 2: Implement invoking() to retrieve similar strategies before agent acts (vector similarity search).",
+      "Step 3: Adapt historical strategies to current task context (template mutation, step blending).",
+      "Step 4: Calculate confidence scores using embedding similarity (cosine distance).",
+      "Step 5: Inject adapted strategy into agent context for guided execution.",
+      "Step 6: Implement invoked() to store successful strategies after execution completes.",
+      "Step 7: Use Redis for persistent strategy storage with embedding vectors.",
+      "Step 8: Configure agent with both conversation memory (RedisChatMessageStore) and strategy memory (Context Provider).",
+      "Step 9: Track reuse metrics (success rate, cost reduction, time savings) for continuous improvement."
     ],
-    "codeExample": "// TypeScript strategy memory replay skeleton\ninterface Strategy { id: string; plan: any; metrics: { coverage: number; cost: number }; }\n\nexport async function replayStrategy(task: string, embed: any, store: any, scorer: any): Promise<Strategy | null> {\n  const sig = embed.vector(task);\n  const prior: Strategy[] = await store.similar(sig, { k: 5 });\n  if (!prior.length) return null;\n  const adapted = prior.map(p => ({ ...p, plan: mutate(p.plan, task) }));\n  return scorer.best(adapted);\n}\nfunction mutate(plan: any, task: string) { /* domain-specific merge/mutation */ return plan; }\n",
-    "pythonCodeExample": "# Python strategy memory replay skeleton\ndef replay_strategy(task, embed, store, scorer):\n    sig = embed.vector(task)\n    prior = store.similar(sig, k=5)\n    if not prior:\n        return None\n    adapted = []\n    for p in prior:\n        p['plan'] = mutate(p['plan'], task)\n        adapted.append(p)\n    return scorer.best(adapted)\n\ndef mutate(plan, task):\n    return plan\n",
+    "codeExample": "// Agent Framework with Strategy Memory Context Provider\nimport { Agent, ContextProvider, Context } from '@azure/ai-agents';\nimport { RedisChatMessageStore } from '@azure/ai-agents/stores';\nimport { OpenAIChatClient } from '@azure/ai-agents/clients';\n\ninterface Strategy {\n  id: string;\n  taskSignature: string;\n  plan: string[];\n  metrics: { coverage: number; cost: number; successRate: number };\n  embedding: number[];\n  timestamp: Date;\n}\n\nclass StrategyMemory extends ContextProvider {\n  private strategies: Map<string, Strategy> = new Map();\n  \n  constructor(private redisStore: RedisChatMessageStore) {\n    super();\n  }\n  \n  // Called before each agent invocation\n  async invoking(messages: any[], kwargs: any): Promise<Context> {\n    const taskSignature = this.extractTaskSignature(messages);\n    const embedding = await this.embedTask(taskSignature);\n    \n    // Retrieve top-k similar strategies from memory\n    const similarStrategies = await this.retrieveSimilar(embedding, 5);\n    \n    if (similarStrategies.length > 0) {\n      // Adapt best strategy to current task\n      const adapted = this.adaptStrategy(similarStrategies[0], taskSignature);\n      \n      return new Context({\n        strategy_replay: {\n          source: similarStrategies[0].id,\n          adapted_plan: adapted.plan,\n          confidence: this.calculateSimilarity(embedding, similarStrategies[0].embedding),\n          historical_metrics: similarStrategies[0].metrics\n        }\n      });\n    }\n    \n    return new Context({ strategy_replay: null });\n  }\n  \n  // Called after agent completes\n  async invoked(messages: any[], response: any, kwargs: any): Promise<void> {\n    // Store successful strategy for future replay\n    if (response.success) {\n      const strategy: Strategy = {\n        id: crypto.randomUUID(),\n        taskSignature: this.extractTaskSignature(messages),\n        plan: response.execution_steps,\n        metrics: {\n          coverage: response.coverage,\n          cost: response.token_cost,\n          successRate: 1.0\n        },\n        embedding: await this.embedTask(this.extractTaskSignature(messages)),\n        timestamp: new Date()\n      };\n      \n      await this.storeStrategy(strategy);\n    }\n  }\n  \n  private async retrieveSimilar(embedding: number[], k: number): Promise<Strategy[]> {\n    // Vector similarity search in Redis\n    const stored = Array.from(this.strategies.values());\n    return stored\n      .map(s => ({ strategy: s, score: this.calculateSimilarity(embedding, s.embedding) }))\n      .sort((a, b) => b.score - a.score)\n      .slice(0, k)\n      .map(x => x.strategy);\n  }\n  \n  private adaptStrategy(strategy: Strategy, newTask: string): Strategy {\n    // Mutate plan steps to match new task context\n    const adapted = { ...strategy };\n    adapted.plan = strategy.plan.map(step => \n      step.replace(/{{task}}/, newTask)\n    );\n    return adapted;\n  }\n  \n  private calculateSimilarity(a: number[], b: number[]): number {\n    // Cosine similarity\n    const dot = a.reduce((sum, val, i) => sum + val * b[i], 0);\n    const magA = Math.sqrt(a.reduce((sum, val) => sum + val * val, 0));\n    const magB = Math.sqrt(b.reduce((sum, val) => sum + val * val, 0));\n    return dot / (magA * magB);\n  }\n  \n  private async embedTask(task: string): Promise<number[]> {\n    // Use OpenAI embeddings (simplified)\n    return Array(1536).fill(0).map(() => Math.random());\n  }\n  \n  private extractTaskSignature(messages: any[]): string {\n    return messages[messages.length - 1]?.content || '';\n  }\n  \n  private async storeStrategy(strategy: Strategy): Promise<void> {\n    this.strategies.set(strategy.id, strategy);\n    // Persist to Redis in production\n  }\n}\n\n// Create agent with strategy memory\nconst strategyMemory = new StrategyMemory(\n  new RedisChatMessageStore({\n    redis_url: \"redis://localhost:6379\",\n    thread_id: \"strategy_memory\",\n    max_messages: 100\n  })\n);\n\nconst analyst = new Agent({\n  name: \"financial_analyst\",\n  instructions: \"Analyze VaR anomalies using historical strategies when available\",\n  memory: new RedisChatMessageStore({\n    thread_id: \"analyst_session\",\n  }),\n  context_providers: [strategyMemory]  // Inject strategy memory\n});\n\n// Execute with automatic strategy replay\nasync function investigateAnomaly(anomalyDescription: string) {\n  const response = await analyst.run(\n    `Investigate this VaR anomaly: ${anomalyDescription}`\n  );\n  \n  // Strategy automatically injected via Context Provider\n  console.log(\"Strategy used:\", response.context?.strategy_replay);\n  return response;\n}\n",
+    "pythonCodeExample": "# Agent Framework Strategy Memory Context Provider\nfrom azure.ai.agents import Agent, ContextProvider, Context\nfrom azure.ai.agents.stores import RedisChatMessageStore\nfrom azure.ai.agents.clients import OpenAIChatClient\nfrom typing import List, Dict, Any, Optional\nimport numpy as np\nfrom datetime import datetime\nimport json\n\nclass StrategyMemory(ContextProvider):\n    \"\"\"Context Provider for strategy replay with memory.\"\"\"\n    \n    def __init__(self, redis_url: str = \"redis://localhost:6379\"):\n        super().__init__()\n        self.redis_store = RedisChatMessageStore(\n            redis_url=redis_url,\n            thread_id=\"strategy_memory\"\n        )\n        self.strategies: Dict[str, Dict] = {}\n    \n    async def invoking(self, messages: List[Dict], **kwargs) -> Context:\n        \"\"\"Inject historical strategy before agent acts.\"\"\"\n        task_signature = self._extract_task_signature(messages)\n        embedding = await self._embed_task(task_signature)\n        \n        # Retrieve similar strategies from memory\n        similar = await self._retrieve_similar(embedding, k=5)\n        \n        if similar:\n            # Adapt best matching strategy\n            best_strategy = similar[0]\n            adapted = self._adapt_strategy(best_strategy, task_signature)\n            similarity = self._cosine_similarity(embedding, best_strategy['embedding'])\n            \n            return Context({\n                \"strategy_replay\": {\n                    \"source_id\": best_strategy['id'],\n                    \"adapted_plan\": adapted['plan'],\n                    \"confidence\": float(similarity),\n                    \"historical_metrics\": best_strategy['metrics'],\n                    \"original_task\": best_strategy['taskSignature'],\n                    \"reuse_count\": best_strategy.get('reuse_count', 0) + 1\n                }\n            })\n        \n        return Context({\"strategy_replay\": None})\n    \n    async def invoked(self, messages: List[Dict], response: Any, **kwargs) -> None:\n        \"\"\"Store successful strategy after execution.\"\"\"\n        if hasattr(response, 'success') and response.success:\n            task_sig = self._extract_task_signature(messages)\n            strategy = {\n                'id': f\"strategy_{len(self.strategies)}\",\n                'taskSignature': task_sig,\n                'plan': response.execution_steps,\n                'metrics': {\n                    'coverage': response.coverage,\n                    'cost': response.token_cost,\n                    'successRate': 1.0,\n                    'execution_time': response.duration\n                },\n                'embedding': await self._embed_task(task_sig),\n                'timestamp': datetime.now().isoformat(),\n                'reuse_count': 0\n            }\n            \n            await self._store_strategy(strategy)\n            print(f\"✓ Strategy {strategy['id']} stored in memory\")\n    \n    async def _retrieve_similar(self, embedding: np.ndarray, k: int) -> List[Dict]:\n        \"\"\"Vector similarity search.\"\"\"\n        stored = list(self.strategies.values())\n        if not stored:\n            return []\n        \n        # Calculate similarities\n        scored = []\n        for strategy in stored:\n            sim = self._cosine_similarity(embedding, strategy['embedding'])\n            scored.append((strategy, sim))\n        \n        # Sort by similarity descending\n        scored.sort(key=lambda x: x[1], reverse=True)\n        return [s[0] for s in scored[:k]]\n    \n    def _adapt_strategy(self, strategy: Dict, new_task: str) -> Dict:\n        \"\"\"Adapt historical strategy to new task context.\"\"\"\n        adapted = strategy.copy()\n        # Mutate plan steps for new context\n        adapted['plan'] = [\n            step.replace(\"{{task}}\", new_task) \n            for step in strategy['plan']\n        ]\n        return adapted\n    \n    def _cosine_similarity(self, a: np.ndarray, b: np.ndarray) -> float:\n        \"\"\"Calculate cosine similarity between embeddings.\"\"\"\n        return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))\n    \n    async def _embed_task(self, task: str) -> np.ndarray:\n        \"\"\"Generate embedding for task signature.\"\"\"\n        # Use OpenAI embeddings in production\n        return np.random.rand(1536)  # Simplified for demo\n    \n    def _extract_task_signature(self, messages: List[Dict]) -> str:\n        \"\"\"Extract task signature from messages.\"\"\"\n        return messages[-1].get('content', '') if messages else ''\n    \n    async def _store_strategy(self, strategy: Dict) -> None:\n        \"\"\"Persist strategy to memory.\"\"\"\n        self.strategies[strategy['id']] = strategy\n        # Persist to Redis in production\n\n\n# Create agent with strategy memory\nstrategy_memory = StrategyMemory(redis_url=\"redis://localhost:6379\")\n\nanalyst = Agent(\n    name=\"financial_analyst\",\n    instructions=\"Analyze VaR anomalies using historical strategies when available\",\n    memory=RedisChatMessageStore(\n        thread_id=\"analyst_session\",\n        max_messages=50\n    ),\n    context_providers=[strategy_memory]  # Enable strategy replay\n)\n\n# Execute with automatic memory replay\nasync def investigate_anomaly(description: str):\n    \"\"\"Investigate with strategy memory.\"\"\"\n    print(f\"\\n=== Investigating: {description} ===\")\n    \n    response = await analyst.run(\n        f\"Investigate this VaR anomaly: {description}\"\n    )\n    \n    # Check if strategy was replayed\n    if response.context and response.context.get('strategy_replay'):\n        replay = response.context['strategy_replay']\n        print(f\"📚 Replayed strategy {replay['source_id']}\")\n        print(f\"   Confidence: {replay['confidence']:.2%}\")\n        print(f\"   Historical success rate: {replay['historical_metrics']['successRate']:.2%}\")\n        print(f\"   Adapted plan: {len(replay['adapted_plan'])} steps\")\n    else:\n        print(\"🆕 No similar strategy found - creating new approach\")\n    \n    return response\n\n\n# Example usage with memory learning\nasync def demo_strategy_memory():\n    \"\"\"Demonstrate strategy memory over multiple cases.\"\"\"\n    \n    # Case 1: First investigation (no memory)\n    await investigate_anomaly(\"Treasury bond volatility spike\")\n    \n    # Case 2: Similar case (should replay strategy)\n    await investigate_anomaly(\"Government bond volatility increase\")\n    \n    # Case 3: Different case (new strategy)\n    await investigate_anomaly(\"Equity market correlation breakdown\")\n    \n    # Case 4: Similar to Case 3 (replay equity strategy)\n    await investigate_anomaly(\"Stock market correlation anomaly\")\n\n# Run demonstration\nimport asyncio\nasyncio.run(demo_strategy_memory())\n",
     "completeCode": "",
     "evaluationProfile": {
       "scenarioFocus": "Replaying and adapting historical strategies for similar tasks.",
@@ -6545,7 +8130,7 @@
     ],
     "businessUseCase": {
       "industry": "Financial Research Automation",
-      "description": "Recurring VaR anomaly investigations reuse prior validated feature extraction + residual diagnostics strategy, accelerating new case turnaround and lowering token cost.",
+      "description": "A financial analytics team uses Agent Framework Context Providers to maintain a memory of successful investigation strategies. When a new VaR (Value at Risk) anomaly occurs, the StrategyMemory Context Provider retrieves similar past cases from Redis, adapts the proven feature extraction steps, and replays the validated diagnostics workflow. The agent's memory includes embedding vectors for strategy matching, execution metrics for quality scoring, and full conversation history for audit trails. This memory-driven approach reduces investigation time by 60% and token costs by 40% while maintaining consistency across analysts.",
       "enlightenMePrompt": "Explain how strategy similarity embedding improves replay relevance."
     }
   },
@@ -6564,7 +8149,10 @@
     "advantages": [
       "Scalable and robust to individual agent failures.",
       "Adaptable to dynamic and unpredictable environments.",
-      "Can solve complex problems that are difficult to model centrally."
+      "Can solve complex problems that are difficult to model centrally.",
+      "Shared memory enables collective learning and optimization.",
+      "Context Providers allow stigmergy (indirect coordination through environment).",
+      "Redis persistence maintains swarm knowledge across sessions."
     ],
     "limitations": [
       "Difficult to predict and control the emergent behavior.",
@@ -6579,11 +8167,15 @@
     "implementation": [
       "Define the agent's behavior and rules for interaction.",
       "Create a shared environment for agents to operate in.",
-      "Instantiate multiple agents to form the swarm.",
-      "Run the simulation and observe the emergent collective behavior."
+      "Implement Context Providers for collective memory (pheromone trails, shared discoveries).",
+      "Configure Redis or other persistent storage for swarm coordination.",
+      "Instantiate multiple agents to form the swarm with shared memory access.",
+      "Enable agents to deposit and read from collective memory (stigmergy pattern).",
+      "Run the simulation and observe the emergent collective behavior.",
+      "Monitor memory usage and optimize pheromone evaporation rates."
     ],
-    "codeExample": "\n    class Agent:\n        def __init__(self, environment):\n            self.env = environment\n\n        def update(self):\n            # Agent senses the environment and acts\n            pass\n\n    class Swarm:\n        def __init__(self, num_agents):\n            self.agents = [Agent(self) for _ in range(num_agents)]\n\n        def run(self):\n            for agent in self.agents:\n                agent.update()\n  ",
-    "pythonCodeExample": "\n    import random\n\n    class Agent:\n        def __init__(self, swarm, agent_id):\n            self.swarm = swarm\n            self.id = agent_id\n            self.position = (random.uniform(0, 100), random.uniform(0, 100))\n\n        def update(self):\n            # Simple movement rule: move towards the center of the swarm\n            avg_x = sum(a.position[0] for a in self.swarm.agents) / len(self.swarm.agents)\n            avg_y = sum(a.position[1] for a in self.swarm.agents) / len(self.swarm.agents)\n            \n            # Move a small step towards the average position\n            step_x = (avg_x - self.position[0]) * 0.1\n            step_y = (avg_y - self.position[1]) * 0.1\n            self.position = (self.position[0] + step_x, self.position[1] + step_y)\n            print(f\"Agent {self.id} moved to {self.position}\")\n\n    class Swarm:\n        def __init__(self, num_agents):\n            self.agents = [Agent(self, i) for i in range(num_agents)]\n\n        def run_simulation(self, steps):\n            for step in range(steps):\n                print(f\"--- Step {step + 1} ---\")\n                for agent in self.agents:\n                    agent.update()\n\n    # Example usage\n    swarm = Swarm(num_agents=5)\n    swarm.run_simulation(steps=3)\n  ",
+    "codeExample": "# Microsoft Agent Framework - Swarm Intelligence with Shared Memory\n# LiveRunner: Execute this code to see swarm agents learning collectively\n# Requires: pip install agent-framework[all]\n\nimport asyncio\nfrom agent_framework.azure import AzureAIAgentClient\nfrom agent_framework.redis import RedisChatMessageStore\nfrom agent_framework import ContextProvider, Context\nfrom azure.identity import AzureCliCredential\nimport random\n\nclass SwarmMemory(ContextProvider):\n    \"\"\"\n    Shared memory for swarm agents - tracks collective discoveries.\n    Agents can learn from each other's experiences.\n    \"\"\"\n    def __init__(self):\n        self.discovered_routes = {}  # Shared knowledge base\n        self.obstacle_locations = set()\n        self.best_performers = {}\n\n    async def invoking(self, messages, **kwargs) -> Context:\n        \"\"\"Inject swarm knowledge before each agent action.\"\"\"\n        if self.discovered_routes:\n            best_route = min(self.discovered_routes.items(), key=lambda x: x[1])\n            knowledge = f\"Swarm Knowledge: Best route found by agent {best_route[0][0]} to {best_route[0][1]} in {best_route[1]} steps.\"\n            if self.obstacle_locations:\n                knowledge += f\" Known obstacles: {list(self.obstacle_locations)[:5]}\"\n            return Context(instructions=knowledge)\n        return Context()\n\n    def share_discovery(self, agent_id: str, destination: str, steps: int):\n        \"\"\"Agent shares its discovery with the swarm.\"\"\"\n        self.discovered_routes[(agent_id, destination)] = steps\n\nasync def swarm_delivery_system():\n    \"\"\"\n    Drone delivery swarm with collective memory.\n    Agents learn optimal routes and share knowledge.\n    \"\"\"\n    print(\"=== Swarm Intelligence with Collective Memory ===\\n\")\n    \n    credential = AzureCliCredential()\n    swarm_memory = SwarmMemory()\n    \n    # Redis for persistent swarm coordination\n    def create_redis_store(agent_id: str):\n        return RedisChatMessageStore(\n            redis_url=\"redis://localhost:6379\",\n            thread_id=f\"swarm_{agent_id}\",\n            max_messages=50\n        )\n    \n    async with AzureAIAgentClient(async_credential=credential) as client:\n        # Create swarm of 5 delivery drones\n        swarm_agents = []\n        for i in range(5):\n            agent = await client.create_agent(\n                name=f\"DroneAgent_{i}\",\n                instructions=f\"\"\"You are Drone {i} in a delivery swarm.\n                Learn from other drones' experiences. Optimize routes.\n                Report discoveries: optimal paths, obstacles, delivery times.\n                Coordinate with swarm memory to improve collective performance.\"\"\",\n                model=\"gpt-4\",\n                context_providers=swarm_memory,  # Shared memory\n                chat_message_store_factory=lambda: create_redis_store(f\"drone_{i}\")\n            )\n            swarm_agents.append((f\"Drone_{i}\", agent))\n        \n        # Simulation: Each drone attempts delivery\n        destinations = [\"Downtown\", \"Airport\", \"Harbor\", \"Suburbs\", \"Industrial\"]\n        \n        print(\"=== Round 1: Initial Exploration ===\")\n        for drone_name, drone_agent in swarm_agents[:3]:  # First 3 drones\n            dest = random.choice(destinations)\n            print(f\"\\n{drone_name} attempting delivery to {dest}...\")\n            response = await drone_agent.run(\n                f\"Find optimal route to {dest}. Report obstacles and estimated time.\"\n            )\n            print(f\"{drone_name}: {response[:200]}...\")\n            \n            # Simulate learning and sharing\n            steps = random.randint(50, 150)\n            swarm_memory.share_discovery(drone_name, dest, steps)\n        \n        print(\"\\n\\n=== Round 2: Learning from Swarm Memory ===\")\n        for drone_name, drone_agent in swarm_agents[3:]:  # Remaining drones\n            dest = random.choice(destinations)\n            print(f\"\\n{drone_name} attempting delivery to {dest}...\")\n            print(f\"  (Has access to {len(swarm_memory.discovered_routes)} shared routes)\")\n            response = await drone_agent.run(\n                f\"Find optimal route to {dest}. Use swarm knowledge to improve.\"\n            )\n            print(f\"{drone_name}: {response[:200]}...\")\n        \n        print(\"\\n\\n=== Swarm Intelligence Benefits ===\")\n        print(\"✓ Agents learn from collective experiences\")\n        print(\"✓ Redis persists coordination across sessions\")\n        print(\"✓ Shared memory enables emergent optimization\")\n        print(f\"✓ {len(swarm_memory.discovered_routes)} routes discovered collectively\")\n\nasyncio.run(swarm_delivery_system())\n  ",
+    "pythonCodeExample": "# Microsoft Agent Framework - Advanced Swarm with Memory\n# Shows how swarm agents use Context Providers for collective learning\n\nimport asyncio\nfrom agent_framework import ChatAgent, ContextProvider, Context, ChatMessage\nfrom agent_framework.openai import OpenAIChatClient\nfrom agent_framework.redis import RedisChatMessageStore\nfrom collections.abc import MutableSequence, Sequence\nfrom typing import Any\nimport random\n\nclass PheromoneTrails(ContextProvider):\n    \"\"\"\n    Mimics ant colony pheromone trails using memory.\n    Agents deposit 'pheromones' about good routes.\n    \"\"\"\n    def __init__(self):\n        self.trails = {}  # {(start, end): strength}\n        self.evaporation_rate = 0.95\n    \n    async def invoking(self, messages: ChatMessage | MutableSequence[ChatMessage], **kwargs: Any) -> Context:\n        # Provide strongest pheromone trails to agent\n        if self.trails:\n            sorted_trails = sorted(self.trails.items(), key=lambda x: x[1], reverse=True)[:3]\n            trail_info = \"; \".join([f\"{k[0]}→{k[1]}: strength {v:.2f}\" for k, v in sorted_trails])\n            return Context(instructions=f\"Strongest trails: {trail_info}\")\n        return Context()\n    \n    async def invoked(\n        self,\n        request_messages: ChatMessage | Sequence[ChatMessage],\n        response_messages: ChatMessage | Sequence[ChatMessage] | None = None,\n        invoke_exception: Exception | None = None,\n        **kwargs: Any,\n    ) -> None:\n        # Evaporate all pheromones\n        for key in self.trails:\n            self.trails[key] *= self.evaporation_rate\n    \n    def deposit_pheromone(self, start: str, end: str, quality: float):\n        \"\"\"Agent deposits pheromone on successful route.\"\"\"\n        key = (start, end)\n        self.trails[key] = self.trails.get(key, 0) + quality\n\nclass SwarmAgent:\n    \"\"\"Individual agent with memory and coordination.\"\"\"\n    def __init__(self, agent_id: int, chat_agent: ChatAgent, pheromones: PheromoneTrails):\n        self.id = agent_id\n        self.agent = chat_agent\n        self.pheromones = pheromones\n        self.position = (random.uniform(0, 100), random.uniform(0, 100))\n        self.discoveries = []\n    \n    async def explore(self, target_location: str) -> dict:\n        \"\"\"Agent explores and learns from swarm memory.\"\"\"\n        response = await self.agent.run(\n            f\"Navigate from {self.position} to {target_location}. \"\n            f\"Consider pheromone trails from other agents.\"\n        )\n        \n        # Simulate route quality\n        quality = random.uniform(0.5, 1.0)\n        self.pheromones.deposit_pheromone(\n            str(self.position), target_location, quality\n        )\n        \n        return {\n            \"agent_id\": self.id,\n            \"route_quality\": quality,\n            \"response\": response\n        }\n\nasync def run_swarm_simulation():\n    \"\"\"Run swarm with collective memory.\"\"\"\n    print(\"=== Swarm Intelligence Simulation ===\\n\")\n    \n    # Shared pheromone memory\n    pheromones = PheromoneTrails()\n    \n    # Create swarm\n    swarm = []\n    for i in range(5):\n        agent = ChatAgent(\n            chat_client=OpenAIChatClient(),\n            instructions=f\"You are Agent {i} in a swarm. Learn from collective trails.\",\n            context_providers=pheromones  # Shared memory\n        )\n        swarm.append(SwarmAgent(i, agent, pheromones))\n    \n    # Simulate exploration\n    targets = [\"Target_A\", \"Target_B\", \"Target_C\"]\n    for round_num in range(3):\n        print(f\"\\n--- Round {round_num + 1} ---\")\n        for agent in swarm:\n            target = random.choice(targets)\n            result = await agent.explore(target)\n            print(f\"Agent {result['agent_id']}: quality {result['route_quality']:.2f} to {target}\")\n        \n        print(f\"Pheromone trails: {len(pheromones.trails)} routes discovered\")\n\nasyncio.run(run_swarm_simulation())\n  ",
     "evaluationProfile": {
       "scenarioFocus": "Collective agent swarms",
       "criticalMetrics": [
@@ -6683,7 +8275,7 @@
     ],
     "businessUseCase": {
       "industry": "Logistics and Supply Chain",
-      "description": "A fleet of delivery drones uses swarm intelligence to optimize routes and delivery times in real-time, responding to changing weather and traffic conditions. Each drone follows simple local rules but collectively creates efficient, adaptive delivery networks without central coordination.",
+      "description": "A fleet of delivery drones uses swarm intelligence with Agent Framework Context Providers for collective memory. Each drone accesses shared discoveries (optimal routes, obstacle locations) through SwarmMemory, while Redis persistence maintains knowledge across sessions. The drones deposit pheromone-like signals when discovering efficient paths, creating stigmergy-based coordination. This memory-enhanced swarm adapts to changing weather and traffic conditions without central control, achieving emergent route optimization through collective learning.",
       "enlightenMePrompt": "\n      Provide a comprehensive technical guide for implementing a swarm intelligence-based drone delivery system.\n\n      Your response should be structured with the following sections, using Markdown for formatting:\n\n      ### 1. Swarm Intelligence Architecture\n      - Decentralized agent design principles\n      - Local rule sets for individual drones\n      - Stigmergy-based communication mechanisms\n      - Emergent behavior optimization\n\n      ### 2. Technical Implementation\n      - Python code for swarm agent coordination\n      - Route optimization algorithms (Ant Colony Optimization)\n      - Real-time collision avoidance systems\n      - Environmental signal processing (weather, traffic)\n\n      ### 3. Scalability and Performance\n      - Horizontal scaling strategies for large drone fleets\n      - Performance metrics and monitoring\n      - Fault tolerance and self-healing mechanisms\n      - Load balancing and resource allocation\n\n      ### 4. Real-world Deployment Considerations\n      - Regulatory compliance and safety protocols\n      - Integration with existing logistics systems\n      - Cost-benefit analysis and ROI projections\n      - Maintenance and operational challenges\n\n      Focus on the technical aspects of how simple local interactions between autonomous agents can lead to complex, optimized global behaviors without centralized control.\n    "
     }
   },
