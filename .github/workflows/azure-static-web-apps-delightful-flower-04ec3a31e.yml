@@ -60,6 +60,9 @@ jobs:
           # VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
           # VITE_ANTHROPIC_API_URL: ${{ secrets.VITE_ANTHROPIC_API_URL }}
           # VITE_ANTHROPIC_MODEL: ${{ secrets.VITE_ANTHROPIC_MODEL }}
+          VITE_CORE_API_URL: ${{ secrets.VITE_CORE_API_URL }}
+          VITE_ORCHESTRATOR_SERVICE_URL: ${{ secrets.VITE_ORCHESTRATOR_SERVICE_URL }}
+          VITE_KNOWLEDGE_SERVICE_URL: ${{ secrets.VITE_KNOWLEDGE_SERVICE_URL }}
         run: |
           npm run build
       
