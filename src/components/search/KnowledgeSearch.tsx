@@ -30,8 +30,8 @@ interface KnowledgeSearchProps {
 
 export const KnowledgeSearch: React.FC<KnowledgeSearchProps> = ({ onSelectConcept }) => {
   const [query, setQuery] = useState('');
-  const [category, setCategory] = useState<string>('');
-  const [difficulty, setDifficulty] = useState<string>('');
+  const [category, setCategory] = useState<string>('all');
+  const [difficulty, setDifficulty] = useState<string>('all');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [selectedConcept, setSelectedConcept] = useState<Concept | null>(null);
   const [relatedConcepts, setRelatedConcepts] = useState<Concept[]>([]);
@@ -52,8 +52,8 @@ export const KnowledgeSearch: React.FC<KnowledgeSearchProps> = ({ onSelectConcep
       try {
         const searchResults = await knowledgeAPI.searchConcepts({
           query: searchQuery,
-          category: cat || undefined,
-          difficulty: (diff as 'beginner' | 'intermediate' | 'advanced') || undefined,
+          category: cat && cat !== 'all' ? cat : undefined,
+          difficulty: (diff && diff !== 'all' ? diff : undefined) as 'beginner' | 'intermediate' | 'advanced' | undefined,
           limit: 10,
           min_similarity: 0.5
         });
@@ -154,7 +154,7 @@ export const KnowledgeSearch: React.FC<KnowledgeSearchProps> = ({ onSelectConcep
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 <SelectItem value="agent-architecture">Agent Architecture</SelectItem>
                 <SelectItem value="multi-agent">Multi-Agent</SelectItem>
                 <SelectItem value="protocols">Protocols</SelectItem>
@@ -167,7 +167,7 @@ export const KnowledgeSearch: React.FC<KnowledgeSearchProps> = ({ onSelectConcep
                 <SelectValue placeholder="All Levels" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Levels</SelectItem>
+                <SelectItem value="all">All Levels</SelectItem>
                 <SelectItem value="beginner">Beginner</SelectItem>
                 <SelectItem value="intermediate">Intermediate</SelectItem>
                 <SelectItem value="advanced">Advanced</SelectItem>
