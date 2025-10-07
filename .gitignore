@@ -116,6 +116,7 @@ scripts/classification-debug.log
 scripts/video-helper.ps1
 scripts/VIDEO_CLASSIFICATION.md
 scripts/VIDEO_CLASSIFICATION_COMPLETE.md
+scripts/merge-output.txt
 
 # Scripts directory - utilities and maintenance scripts
 # Previously the whole scripts/ folder was ignored which prevented new utility scripts

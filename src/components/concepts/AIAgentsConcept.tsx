@@ -99,7 +99,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
           {/* Interactive Demo */}
           <ChatbotToAgentTransition />
 
-          <ReferenceSection type="concept" itemId="agents" />
+          <ReferenceSection type="concept" itemId="ai-agents" />
         </div>
       )
     },

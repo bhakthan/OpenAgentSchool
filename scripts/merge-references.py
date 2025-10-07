@@ -43,7 +43,7 @@ class ReferenceMerger:
         """Create backup of references.ts"""
         with open(BACKUP_FILE, 'w', encoding='utf-8') as f:
             f.write(self.references_content)
-        print(f"✅ Backup created: {BACKUP_FILE}")
+        print(f"[OK] Backup created: {BACKUP_FILE}")
     
     def merge_mappings(self, mappings_file: Path):
         """Merge mappings from a JSON file"""
@@ -69,7 +69,7 @@ class ReferenceMerger:
         new_content = self.references_content
         
         for (cat_type, cat_id), videos in grouped.items():
-            print(f"\n📂 {cat_type}/{cat_id}: {len(videos)} videos")
+            print(f"\n[CAT] {cat_type}/{cat_id}: {len(videos)} videos")
             
             # Find the section in references.ts
             section_name = self._get_section_name(cat_type)
@@ -87,19 +87,19 @@ class ReferenceMerger:
                 )
             
             for video in videos:
-                status = "🔍 DRY RUN" if self.dry_run else "✅ MERGED"
+                status = "[DRY]" if self.dry_run else "[OK]"
                 print(f"  {status}: {video['video_title'][:60]}")
         
         # Save changes
         if self.dry_run:
-            print("\n🔍 DRY RUN MODE - No changes written")
+            print("\n[DRY] DRY RUN MODE - No changes written")
             print(f"Preview saved to: {OUTPUT_DIR / 'references-preview.ts'}")
             with open(OUTPUT_DIR / 'references-preview.ts', 'w', encoding='utf-8') as f:
                 f.write(new_content)
         else:
             with open(REFERENCES_FILE, 'w', encoding='utf-8') as f:
                 f.write(new_content)
-            print(f"\n✅ Successfully merged {len(mappings)} mappings into {REFERENCES_FILE}")
+            print(f"\n[OK] Successfully merged {len(mappings)} mappings into {REFERENCES_FILE}")
             print(f"   Backup saved to: {BACKUP_FILE}")
     
     def _get_section_name(self, category_type: str) -> str:
@@ -232,16 +232,59 @@ class ReferenceMerger:
       }
     ],"""
         
-        # Find the section and add the new category
-        pattern = rf'({section}:\s*{{)([^}}]*)(}})'
-        match = re.search(pattern, content, re.DOTALL)
+        # IMPORTANT: Search for section AFTER "export const references"
+        # to avoid matching the type definition at the top of the file
+        export_pattern = r'export\s+const\s+references.*?=\s*{'
+        export_match = re.search(export_pattern, content, re.DOTALL)
         
-        if not match:
-            print(f"  ⚠️  Could not find {section} section")
+        if not export_match:
+            print(f"  ⚠️  Could not find 'export const references'")
             return content
         
-        # Insert at the end of the section (before the closing brace)
-        new_content = content[:match.end(2)] + category_entry + '\n  ' + content[match.start(3):]
+        # Search for the section AFTER the export statement
+        search_start = export_match.end()
+        section_pattern = rf'({section}:\s*{{)'
+        match = re.search(section_pattern, content[search_start:], re.DOTALL)
+        
+        if not match:
+            print(f"  ⚠️  Could not find {section} section after export")
+            return content
+        
+        # Adjust match positions to account for offset
+        actual_start = search_start + match.start()
+        actual_end = search_start + match.end()
+        
+        # Find the closing brace for this section
+        # We need to find where the section ends (before the next top-level key)
+        section_start = actual_end
+        brace_count = 1
+        i = section_start
+        while i < len(content) and brace_count > 0:
+            if content[i] == '{':
+                brace_count += 1
+            elif content[i] == '}':
+                brace_count -= 1
+            i += 1
+        
+        # Insert the new category just before the closing brace
+        section_end = i - 1
+        
+        # Check if we need to add a comma before the new category
+        # Look backwards from section_end to find the last non-whitespace character
+        insert_pos = section_end
+        while insert_pos > 0 and content[insert_pos-1] in ' \t\n\r':
+            insert_pos -= 1
+        
+        # If the last character is a closing bracket or brace, we need a comma
+        needs_comma = insert_pos > 0 and content[insert_pos-1] in ']})'
+        
+        # Build the insertion
+        if needs_comma:
+            insertion = ',' + category_entry + '\n  '
+        else:
+            insertion = category_entry + '\n  '
+        
+        new_content = content[:section_end] + insertion + content[section_end:]
         return new_content
     
     def _escape_string(self, text: str) -> str:
