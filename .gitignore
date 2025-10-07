@@ -109,6 +109,14 @@ backend/debug/
 # Ignore test files (if not needed in version control)
 backend/test_*.py
 
+# Ignore all script output files (classification results, previews, etc.)
+scripts/output/
+scripts/.venv/
+scripts/classification-debug.log
+scripts/video-helper.ps1
+scripts/VIDEO_CLASSIFICATION.md
+scripts/VIDEO_CLASSIFICATION_COMPLETE.md
+
 # Scripts directory - utilities and maintenance scripts
 # Previously the whole scripts/ folder was ignored which prevented new utility scripts
 # (like verify-routing.js) from being picked up in CI. We now allow JS/MJS files

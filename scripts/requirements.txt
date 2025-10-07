@@ -1,0 +1,2 @@
+# Python dependencies for video classification scripts
+openai>=1.0.0

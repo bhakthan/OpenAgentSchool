@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Mapping Review - Open Agent School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .controls {
+            padding: 1.5rem 2rem;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-approve {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-approve:hover {
+            background: #059669;
+        }
+        
+        .btn-reject {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .btn-reject:hover {
+            background: #dc2626;
+        }
+        
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #475569;
+        }
+        
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        select, input {
+            padding: 0.5rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .mappings-grid {
+            padding: 2rem;
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .mapping-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.2s;
+        }
+        
+        .mapping-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+        
+        .mapping-card.approved {
+            background: #f0fdf4;
+            border-color: #10b981;
+        }
+        
+        .mapping-card.rejected {
+            background: #fef2f2;
+            border-color: #ef4444;
+            opacity: 0.6;
+        }
+        
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .video-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        
+        .video-link:hover {
+            text-decoration: underline;
+        }
+        
+        .category-info {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-concept {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .badge-pattern {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .badge-adoption {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+        
+        .confidence {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .confidence-bar {
+            width: 100px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981);
+            transition: width 0.3s;
+        }
+        
+        .reasoning {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin: 0.75rem 0;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-left: 3px solid #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        .description {
+            color: #475569;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #64748b;
+        }
+        
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: #64748b;
+        }
+        
+        .spinner {
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 Video Mapping Review</h1>
+            <p>Review and approve AI-suggested video classifications</p>
+            <div class="stats">
+                <div class="stat">
+                    <span>Total:</span>
+                    <span class="stat-value" id="total-count">0</span>
+                </div>
+                <div class="stat">
+                    <span>Approved:</span>
+                    <span class="stat-value" style="color: #10b981;" id="approved-count">0</span>
+                </div>
+                <div class="stat">
+                    <span>Rejected:</span>
+                    <span class="stat-value" style="color: #ef4444;" id="rejected-count">0</span>
+                </div>
+                <div class="stat">
+                    <span>Pending:</span>
+                    <span class="stat-value" style="color: #f59e0b;" id="pending-count">0</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="controls">
+            <div class="filter-group">
+                <label>Filter:</label>
+                <select id="filter-type">
+                    <option value="all">All</option>
+                    <option value="pending">Pending Only</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Category:</label>
+                <select id="filter-category">
+                    <option value="all">All Categories</option>
+                    <option value="concept">Concepts</option>
+                    <option value="pattern">Patterns</option>
+                    <option value="adoption">Adoption</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Search:</label>
+                <input type="text" id="search" placeholder="Search videos...">
+            </div>
+            
+            <div style="flex: 1;"></div>
+            
+            <button class="btn-approve" onclick="approveAll()">Approve All Pending</button>
+            <button class="btn-secondary" onclick="exportApproved()">Export Approved</button>
+            <button class="btn-secondary" onclick="loadMappings()">Reload</button>
+        </div>
+        
+        <div id="mappings-container" class="mappings-grid">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Loading mappings...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let mappings = [];
+        let approvedSet = new Set();
+        let rejectedSet = new Set();
+        
+        async function loadMappings() {
+            try {
+                const response = await fetch('video-mappings-review.json');
+                mappings = await response.json();
+                renderMappings();
+            } catch (error) {
+                document.getElementById('mappings-container').innerHTML = `
+                    <div class="empty-state">
+                        <h2>No Review Mappings Found</h2>
+                        <p>Run classify-videos.py first to generate mappings.</p>
+                        <p style="margin-top: 1rem; color: #94a3b8;">
+                            <code>python scripts/classify-videos.py --csv path/to/YTLinks.csv</code>
+                        </p>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderMappings() {
+            const container = document.getElementById('mappings-container');
+            const filterType = document.getElementById('filter-type').value;
+            const filterCategory = document.getElementById('filter-category').value;
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            
+            let filtered = mappings.filter(m => {
+                const statusMatch = filterType === 'all' || 
+                    (filterType === 'approved' && approvedSet.has(getKey(m))) ||
+                    (filterType === 'rejected' && rejectedSet.has(getKey(m))) ||
+                    (filterType === 'pending' && !approvedSet.has(getKey(m)) && !rejectedSet.has(getKey(m)));
+                
+                const categoryMatch = filterCategory === 'all' || m.category_type === filterCategory;
+                
+                const searchMatch = !searchTerm || 
+                    m.video_title.toLowerCase().includes(searchTerm) ||
+                    m.category_name.toLowerCase().includes(searchTerm);
+                
+                return statusMatch && categoryMatch && searchMatch;
+            });
+            
+            updateStats();
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>No Mappings Match Filters</h2>
+                        <p>Try adjusting your filters or search term.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filtered.map(m => createMappingCard(m)).join('');
+        }
+        
+        function getKey(mapping) {
+            return `${mapping.video_url}:${mapping.category_id}`;
+        }
+        
+        function createMappingCard(mapping) {
+            const key = getKey(mapping);
+            const isApproved = approvedSet.has(key);
+            const isRejected = rejectedSet.has(key);
+            const status = isApproved ? 'approved' : (isRejected ? 'rejected' : '');
+            
+            const badgeClass = `badge-${mapping.category_type}`;
+            
+            return `
+                <div class="mapping-card ${status}">
+                    <div class="video-title">
+                        ${mapping.video_title}
+                        ${isApproved ? '✅' : ''}
+                        ${isRejected ? '❌' : ''}
+                    </div>
+                    <a href="${mapping.video_url}" target="_blank" class="video-link">
+                        🔗 Watch Video
+                    </a>
+                    
+                    <div class="category-info">
+                        <span class="badge ${badgeClass}">
+                            ${mapping.category_type.toUpperCase()}
+                        </span>
+                        <span style="color: #475569; font-weight: 600;">
+                            ${mapping.category_name}
+                        </span>
+                        <div class="confidence">
+                            <span style="font-size: 0.9rem; color: #64748b;">Confidence:</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: ${mapping.confidence}%"></div>
+                            </div>
+                            <span style="font-weight: 600; color: #1e293b;">${mapping.confidence}%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="reasoning">
+                        <strong>Reasoning:</strong> ${mapping.reasoning}
+                    </div>
+                    
+                    <div class="description">
+                        "${mapping.suggested_description}"
+                    </div>
+                    
+                    <div class="actions">
+                        ${!isApproved && !isRejected ? `
+                            <button class="btn-approve" onclick="approve('${key.replace(/'/g, "\\'")}')">
+                                ✓ Approve
+                            </button>
+                            <button class="btn-reject" onclick="reject('${key.replace(/'/g, "\\'")}')">
+                                ✗ Reject
+                            </button>
+                        ` : ''}
+                        ${isApproved ? `
+                            <button class="btn-secondary" onclick="unapprove('${key.replace(/'/g, "\\'")}')">
+                                Undo Approve
+                            </button>
+                        ` : ''}
+                        ${isRejected ? `
+                            <button class="btn-secondary" onclick="unreject('${key.replace(/'/g, "\\'")}')">
+                                Undo Reject
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function approve(key) {
+            approvedSet.add(key);
+            rejectedSet.delete(key);
+            renderMappings();
+        }
+        
+        function reject(key) {
+            rejectedSet.add(key);
+            approvedSet.delete(key);
+            renderMappings();
+        }
+        
+        function unapprove(key) {
+            approvedSet.delete(key);
+            renderMappings();
+        }
+        
+        function unreject(key) {
+            rejectedSet.delete(key);
+            renderMappings();
+        }
+        
+        function approveAll() {
+            mappings.forEach(m => {
+                const key = getKey(m);
+                if (!rejectedSet.has(key)) {
+                    approvedSet.add(key);
+                }
+            });
+            renderMappings();
+        }
+        
+        function updateStats() {
+            document.getElementById('total-count').textContent = mappings.length;
+            document.getElementById('approved-count').textContent = approvedSet.size;
+            document.getElementById('rejected-count').textContent = rejectedSet.size;
+            document.getElementById('pending-count').textContent = 
+                mappings.length - approvedSet.size - rejectedSet.size;
+        }
+        
+        function exportApproved() {
+            const approved = mappings.filter(m => approvedSet.has(getKey(m)));
+            const blob = new Blob([JSON.stringify(approved, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'approved-mappings.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // Event listeners
+        document.getElementById('filter-type').addEventListener('change', renderMappings);
+        document.getElementById('filter-category').addEventListener('change', renderMappings);
+        document.getElementById('search').addEventListener('input', renderMappings);
+        
+        // Load on page load
+        loadMappings();
+    </script>
+</body>
+</html>
