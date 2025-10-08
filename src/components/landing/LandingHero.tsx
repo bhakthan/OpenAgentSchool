@@ -160,7 +160,7 @@ export const LandingHero: React.FC = () => {
                     size="sm" 
                     className="group"
                     onClick={() => {
-                      navigate('/adoption');
+                      navigate('/adoption-playbook');
                       setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
                     }}
                   >
