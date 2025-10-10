@@ -1,12 +1,14 @@
 import React, { useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 
+// Direct assignment so Vite can statically analyze and bundle the env vars
+const CORE_API_URL = import.meta.env.VITE_CORE_API_URL as string | undefined
+
 function guessBackendBase(): string[] {
   const origin = window.location.origin
   const hrefs: string[] = []
   // prefer env-configured core API when provided (supports split repos/backends)
-  const envCore = (import.meta as any)?.env?.VITE_CORE_API_URL as string | undefined
-  if (envCore) hrefs.push(envCore)
+  if (CORE_API_URL) hrefs.push(CORE_API_URL)
   // same-origin (works when frontend is reverse-proxying backend)
   hrefs.push(origin)
   // localhost:8000 as fallback for dev
