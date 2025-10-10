@@ -1,8 +1,9 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowRight, GithubLogo, ArrowUpRight, Flask, Atom, Graph, Lightbulb, CheckCircle, Dna, Planet, Cpu, Brain, SolarPanel } from '@phosphor-icons/react';
+import { ArrowRight, GithubLogo, ArrowUpRight, Flask, Atom, Graph, Lightbulb, CheckCircle, Dna, Planet, Cpu, Brain, SolarPanel, YoutubeLogo, Sparkle, GoogleLogo } from '@phosphor-icons/react';
 import { HypothesisEvolutionDemo } from '@/components/science/HypothesisEvolutionDemo';
 import { LiteratureSynthesisDemo } from '@/components/science/LiteratureSynthesisDemo';
 
@@ -749,6 +750,184 @@ export default function AgentsForScience() {
                   onClick={() => window.open('https://github.com/liugangcode/deepevolve', '_blank')}
                 >
                   View Repository <ArrowUpRight size={14} className="ml-1" />
+                </Button>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+              <YoutubeLogo size={24} className="flex-shrink-0 text-red-600 dark:text-red-400 mt-1" weight="duotone" />
+              <div className="flex-1">
+                <h5 className="font-semibold mb-1">Deep Evolve - Scientific Algorithm Discovery</h5>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Video explanation of how DeepEvolve combines AlphaEvolve's evolutionary algorithms with Deep Research's multi-agent literature synthesis for augmenting scientific discovery
+                </p>
+                <Button 
+                  variant="link" 
+                  size="sm" 
+                  className="p-0 h-auto"
+                  onClick={() => window.open('https://youtu.be/oFKLFfxWfmA', '_blank')}
+                >
+                  Watch Video <ArrowUpRight size={14} className="ml-1" />
+                </Button>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+              <Sparkle size={24} className="flex-shrink-0 text-cyan-600 dark:text-cyan-400 mt-1" weight="duotone" />
+              <div className="flex-1">
+                <h5 className="font-semibold mb-1">Azure AI Labs - AI for Science Models</h5>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Microsoft's AI for Science initiative featuring cutting-edge foundation models for materials discovery, molecular simulation, climate forecasting, and multi-agent systems
+                </p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://labs.ai.azure.com/projects/mattersim/', '_blank')}
+                  >
+                    MatterSim
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://labs.ai.azure.com/projects/skala/', '_blank')}
+                  >
+                    Skala
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://labs.ai.azure.com/projects/mattergen/', '_blank')}
+                  >
+                    MatterGen
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://labs.ai.azure.com/projects/aurora/', '_blank')}
+                  >
+                    Aurora
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://labs.ai.azure.com/projects/bioemu/', '_blank')}
+                  >
+                    BioEmu-1
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://labs.ai.azure.com/projects/tamgen/', '_blank')}
+                  >
+                    TamGen
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://labs.ai.azure.com/projects/magentic-one/', '_blank')}
+                  >
+                    Magentic-One
+                  </Button>
+                </div>
+                <Button 
+                  variant="link" 
+                  size="sm" 
+                  className="p-0 h-auto"
+                  onClick={() => window.open('https://labs.ai.azure.com/', '_blank')}
+                >
+                  Explore AI Labs <ArrowUpRight size={14} className="ml-1" />
+                </Button>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+              <GoogleLogo size={24} className="flex-shrink-0 text-blue-600 dark:text-blue-400 mt-1" weight="duotone" />
+              <div className="flex-1">
+                <h5 className="font-semibold mb-1">Google DeepMind Science - AI for Scientific Discovery</h5>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Google DeepMind's groundbreaking AI systems advancing biology, mathematics, climate science, and fundamental physics research
+                </p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://deepmind.google/science/alphafold/', '_blank')}
+                  >
+                    AlphaFold
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://deepmind.google/discover/blog/alphagenome-ai-for-better-understanding-the-genome/', '_blank')}
+                  >
+                    AlphaGenome
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://deepmind.google/research/projects/alphamissense/', '_blank')}
+                  >
+                    AlphaMissense
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://deepmind.google/discover/blog/alphaproteo-generates-novel-proteins-for-biology-and-health-research/', '_blank')}
+                  >
+                    AlphaProteo
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/', '_blank')}
+                  >
+                    AlphaEvolve
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/', '_blank')}
+                  >
+                    AlphaProof
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/', '_blank')}
+                  >
+                    AlphaGeometry
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    className="text-xs h-6 px-2"
+                    onClick={() => window.open('https://deepmind.google/science/weathernext/', '_blank')}
+                  >
+                    WeatherNext
+                  </Button>
+                </div>
+                <Button 
+                  variant="link" 
+                  size="sm" 
+                  className="p-0 h-auto"
+                  onClick={() => window.open('https://deepmind.google/science/', '_blank')}
+                >
+                  Explore DeepMind Science <ArrowUpRight size={14} className="ml-1" />
                 </Button>
               </div>
             </div>

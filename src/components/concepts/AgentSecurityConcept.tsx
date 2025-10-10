@@ -1,7 +1,8 @@
 import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Shield, Lock, Eye, UserCheck, Warning, CheckCircle } from "@phosphor-icons/react"
+import { Button } from "@/components/ui/button"
+import { Shield, Lock, Eye, UserCheck, Warning, CheckCircle, BookOpen, YoutubeLogo, ArrowUpRight } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 import { SecurityVisualization } from "@/components/visualization/SecurityVisualization";
@@ -289,6 +290,43 @@ class TrustNetwork {
             title="Privacy Protection"
             contextDescription="Safeguarding sensitive data in agent systems"
           />
+        </div>
+      )
+    },
+    {
+      id: 'references',
+      title: 'References & Resources',
+      description: 'Research papers, videos, and additional learning materials',
+      icon: <BookOpen className="w-4 h-4" />,
+      level: 'fundamentals' as const,
+      content: (
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>References & Resources</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+                  <YoutubeLogo size={24} className="flex-shrink-0 text-red-600 dark:text-red-400 mt-1" weight="duotone" />
+                  <div className="flex-1">
+                    <h5 className="font-semibold mb-1">Agentic Security: Applications, Threats and Defenses</h5>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Comprehensive overview of security challenges in agentic AI systems, covering authentication, trust networks, threat models, and defensive strategies
+                    </p>
+                    <Button 
+                      variant="link" 
+                      size="sm" 
+                      className="p-0 h-auto"
+                      onClick={() => window.open('https://youtu.be/0HPOeFJkecY', '_blank')}
+                    >
+                      Watch Video <ArrowUpRight size={14} className="ml-1" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       )
     }
