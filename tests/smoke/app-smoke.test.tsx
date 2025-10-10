@@ -16,7 +16,7 @@ const createTestQueryClient = () => new QueryClient({
 });
 
 describe('App Smoke Test', () => {
-  it('renders navigation tabs', () => {
+  it('renders navigation menu categories', () => {
     const queryClient = createTestQueryClient();
     
     render(
@@ -27,7 +27,15 @@ describe('App Smoke Test', () => {
       </QueryClientProvider>
     );
     
-    const tabs = screen.getAllByText(/Core Concepts/i);
-    expect(tabs.length).toBeGreaterThan(0);
+    // Check for the header with the logo
+    expect(screen.getByRole('banner')).toBeDefined();
+    
+    // Check for the main navigation categories - use getAllByText since some text appears multiple times
+    const learnElements = screen.getAllByText(/Learn/i);
+    expect(learnElements.length).toBeGreaterThan(0);
+    
+    // Check for unique navigation elements
+    expect(screen.getByText(/Journey Map/i)).toBeDefined();
+    expect(screen.getByText(/Get Started/i)).toBeDefined();
   });
 });
