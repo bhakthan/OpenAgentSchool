@@ -10,10 +10,11 @@ type AgentInfo = {
   tools?: string[]
 }
 
-const getBaseUrl = () => import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL as string | undefined
-const getKnowledgeUrl = () => import.meta.env.VITE_KNOWLEDGE_SERVICE_URL as string | undefined
-const getKnowledgeIngestPath = () => (import.meta.env.VITE_KNOWLEDGE_INGEST_PATH as string | undefined) || '/api/v1/documents/upload'
-const getKnowledgeBaseId = () => (import.meta.env.VITE_KNOWLEDGE_BASE_ID as string | undefined)
+// Direct assignment so Vite can statically analyze and bundle the env vars
+const ORCHESTRATOR_BASE_URL = import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL as string | undefined
+const KNOWLEDGE_BASE_URL = import.meta.env.VITE_KNOWLEDGE_SERVICE_URL as string | undefined
+const KNOWLEDGE_INGEST_PATH = (import.meta.env.VITE_KNOWLEDGE_INGEST_PATH as string | undefined) || '/api/v1/documents/upload'
+const KNOWLEDGE_BASE_ID = import.meta.env.VITE_KNOWLEDGE_BASE_ID as string | undefined
 
 // Example payloads for common agents to speed up testing
 const EXAMPLES: Record<string, any> = {
@@ -58,7 +59,7 @@ const EXAMPLES: Record<string, any> = {
 }
 
 export default function AgentsConsole() {
-  const baseUrl = useMemo(() => getBaseUrl(), [])
+  const baseUrl = ORCHESTRATOR_BASE_URL
   const [agents, setAgents] = useState<AgentInfo[] | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [selected, setSelected] = useState<string>('')
@@ -67,9 +68,9 @@ export default function AgentsConsole() {
   const enabled = !!baseUrl
   const selectedAgent: AgentInfo | undefined = useMemo(() => agents?.find(a => a.id === selected), [agents, selected])
   const [speak, setSpeak] = useState<boolean>(false)
-  const knowledgeBase = useMemo(() => getKnowledgeUrl(), [])
-  const knowledgeIngestPath = useMemo(() => getKnowledgeIngestPath(), [])
-  const knowledgeBaseId = useMemo(() => getKnowledgeBaseId(), [])
+  const knowledgeBase = KNOWLEDGE_BASE_URL
+  const knowledgeIngestPath = KNOWLEDGE_INGEST_PATH
+  const knowledgeBaseId = KNOWLEDGE_BASE_ID
 
   // TTS helpers
   const stripSSML = (s: string) => s.replace(/<[^>]+>/g, ' ')
