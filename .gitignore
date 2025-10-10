@@ -127,6 +127,12 @@ scripts/*.md
 # Allow the deployment verification script to be tracked
 !scripts/verify-routing.js
 
+# Deployment verification scripts (local testing only)
+verify-deployment.ps1
+check-backend.ps1
+fix-port80.ps1
+monitor-cert.ps1
+
 #docs
 docs/
 docs/*.md
