@@ -1,0 +1,102 @@
+name: Azure Static Web Apps CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
+
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    environment: production
+    steps:
+      - name: Checkout repository
+        run: |
+          git clone --depth=1 ${{ github.server_url }}/${{ github.repository }}.git .
+          git checkout ${{ github.sha }}
+      
+      - name: Setup Node.js
+        run: |
+          curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+      
+      - name: Install dependencies
+        run: |
+          npm ci
+      - name: Run unit tests
+        run: |
+          npm run test
+      
+      - name: Build application
+        env:
+          VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
+          # # OpenAI
+          # VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
+          # VITE_OPENAI_API_URL: ${{ secrets.VITE_OPENAI_API_URL }}
+          # VITE_OPENAI_MODEL: ${{ secrets.VITE_OPENAI_MODEL }}
+          # # Azure OpenAI
+          # VITE_AZURE_OPENAI_API_KEY: ${{ secrets.VITE_AZURE_OPENAI_API_KEY }}
+          # VITE_AZURE_OPENAI_API_URL: ${{ secrets.VITE_AZURE_OPENAI_API_URL }}
+          # VITE_AZURE_OPENAI_MODEL: ${{ secrets.VITE_AZURE_OPENAI_MODEL }}
+          # # Google Gemini
+          # VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+          # VITE_GEMINI_API_URL: ${{ secrets.VITE_GEMINI_API_URL }}
+          # VITE_GEMINI_MODEL: ${{ secrets.VITE_GEMINI_MODEL }}
+          # # HuggingFace
+          # VITE_HUGGINGFACE_API_KEY: ${{ secrets.VITE_HUGGINGFACE_API_KEY }}
+          # VITE_HUGGINGFACE_API_URL: ${{ secrets.VITE_HUGGINGFACE_API_URL }}
+          # VITE_HUGGINGFACE_MODEL: ${{ secrets.VITE_HUGGINGFACE_MODEL }}
+          # OpenRouter (this is what you specifically need!)
+          VITE_OPENROUTER_API_KEY: ${{ secrets.VITE_OPENROUTER_API_KEY }}
+          VITE_OPENROUTER_API_URL: ${{ secrets.VITE_OPENROUTER_API_URL }}
+          VITE_OPENROUTER_MODEL: ${{ secrets.VITE_OPENROUTER_MODEL }}
+          # # Anthropic Claude
+          # VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
+          # VITE_ANTHROPIC_API_URL: ${{ secrets.VITE_ANTHROPIC_API_URL }}
+          # VITE_ANTHROPIC_MODEL: ${{ secrets.VITE_ANTHROPIC_MODEL }}
+          VITE_CORE_API_URL: ${{ secrets.VITE_CORE_API_URL }}
+          VITE_ORCHESTRATOR_SERVICE_URL: ${{ secrets.VITE_ORCHESTRATOR_SERVICE_URL }}
+          VITE_KNOWLEDGE_SERVICE_URL: ${{ secrets.VITE_KNOWLEDGE_SERVICE_URL }}
+        run: |
+          npm run build
+      
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      
+      - name: Install Static Web Apps CLI
+        run: |
+          npm install -g @azure/static-web-apps-cli
+      
+      - name: Deploy to Azure Static Web Apps
+        env:
+          SWA_CLI_DEPLOYMENT_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_POND_041017F10 }}
+        run: |
+          npx swa deploy ./dist --deployment-token $SWA_CLI_DEPLOYMENT_TOKEN --env production
+
+  close_pull_request_job:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Close Pull Request Job
+    steps:
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      
+      - name: Install Static Web Apps CLI
+        run: |
+          npm install -g @azure/static-web-apps-cli
+      
+      - name: Close Pull Request Environment
+        env:
+          SWA_CLI_DEPLOYMENT_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_POND_041017F10 }}
+        run: |
+          echo "Pull request closed - cleaning up preview environment"
+          # Note: The SWA CLI doesn't have a direct "close" command like the action
+          # Preview environments are automatically cleaned up when PRs are closed
