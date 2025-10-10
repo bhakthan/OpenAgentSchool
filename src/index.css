@@ -689,3 +689,29 @@ code, pre {
 
 .micro-cta-ribbon button.cta-btn:hover { filter: brightness(1.08); }
 .micro-cta-ribbon button.dismiss-btn:hover { background: rgba(255,255,255,0.06); }
+
+/* Agents for Science page - Light mode text fixes */
+.agents-for-science-card .use-case-description {
+  color: oklch(0.23 0.02 240) !important; /* Dark text for light mode */
+}
+
+.dark .agents-for-science-card .use-case-description {
+  color: oklch(0.85 0.02 240) !important; /* Light text for dark mode */
+}
+
+/* Example boxes in use case cards - ensure readability */
+.agents-for-science-card .example-box-label {
+  color: oklch(0.2 0.05 240) !important; /* Very dark for light mode */
+}
+
+.dark .agents-for-science-card .example-box-label {
+  color: oklch(0.95 0.02 240) !important; /* Very light for dark mode */
+}
+
+.agents-for-science-card .example-box-text {
+  color: oklch(0.25 0.05 240) !important; /* Dark for light mode */
+}
+
+.dark .agents-for-science-card .example-box-text {
+  color: oklch(0.9 0.02 240) !important; /* Light for dark mode */
+}

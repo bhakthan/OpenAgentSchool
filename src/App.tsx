@@ -19,6 +19,7 @@ import { Tree } from '@phosphor-icons/react/dist/ssr/Tree';
 import { Lightning } from '@phosphor-icons/react/dist/ssr/Lightning';
 import { DotsThree } from '@phosphor-icons/react/dist/ssr/DotsThree';
 import { Compass } from '@phosphor-icons/react/dist/ssr/Compass';
+import { Atom } from '@phosphor-icons/react/dist/ssr/Atom';
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtils';
 import { setupReactFlowErrorHandling } from './lib/utils/reactFlowUtils';
@@ -63,6 +64,7 @@ const AgenticAdoptionPlaybook = lazy(() => import('./components/pages/AgenticAdo
 const ExecutiveAlignmentCharterForm = lazy(() => import('./components/adoption/ExecutiveAlignmentCharterForm'));
 const PortfolioHeatmapCanvasForm = lazy(() => import('./components/adoption/PortfolioHeatmapCanvasForm'));
 const BoardReadyBriefingPackForm = lazy(() => import('./components/adoption/BoardReadyBriefingPackForm'));
+const AgentsForScience = lazy(() => import('./pages/AgentsForScience'));
 // Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
 const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
 const CTALandingPageVariant = lazy(() => import('@/components/pages/CTALandingPageVariant'));
@@ -411,69 +413,142 @@ function App() {
             {/* Navigation tabs */}
             <div className="container mx-auto px-4 pb-1">
               {(() => {
-                const allTabs = [
-                  { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} /> },
-                  { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" /> },
-                  { to: '/ai-skills', label: 'Applied AI Skills', icon: <Lightning size={16} weight="duotone" /> },
-                  { to: '/adoption-playbook', label: 'Adoption Playbook', icon: <Compass size={16} weight="duotone" /> },
-                  { to: '/azure-services', label: 'Azure Services', icon: <StackSimple size={16} weight="duotone" /> },
-                  { to: '/tree-view', label: 'Learning Atlas', icon: <Tree size={16} weight="duotone" /> },
-                  { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" /> },
-                  // Knowledge Search only shown if backend available
-                  ...(import.meta.env.VITE_KNOWLEDGE_SERVICE_URL ? [{ to: '/knowledge-search', label: 'Knowledge Search', icon: <Code size={16} weight="duotone" /> }] : []),
-                  { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} /> },
-                  { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" /> },
-                  { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" /> },
-                  { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" /> },
-                  ...(import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL ? [{ to: '/agents', label: 'Agents', icon: <Plugs size={16} weight="duotone" /> }] : []),
+                // Hierarchical mega-menu structure with 4 top-level categories
+                const navCategories = [
+                  {
+                    label: 'Learn',
+                    icon: <GraduationCap size={16} weight="duotone" />,
+                    items: [
+                      { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} />, description: 'Foundational AI agent concepts' },
+                      { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" />, description: 'Reusable design patterns' },
+                      { to: '/tree-view', label: 'Learning Atlas', icon: <Tree size={16} weight="duotone" />, description: 'Visual concept taxonomy' },
+                      { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" />, description: 'Papers, videos, and resources' },
+                    ]
+                  },
+                  {
+                    label: 'Apply',
+                    icon: <Lightning size={16} weight="duotone" />,
+                    items: [
+                      { to: '/agents-for-science', label: 'Agents for Science', icon: <Atom size={16} weight="duotone" />, description: 'AI-accelerated scientific discovery' },
+                      { to: '/adoption-playbook', label: 'Adoption Playbook', icon: <Compass size={16} weight="duotone" />, description: 'Enterprise adoption strategies' },
+                      { to: '/ai-skills', label: 'Applied AI Skills', icon: <Lightning size={16} weight="duotone" />, description: 'Practical AI implementation skills' },
+                      { to: '/azure-services', label: 'Azure Services', icon: <StackSimple size={16} weight="duotone" />, description: 'Cloud platform services' },
+                    ]
+                  },
+                  {
+                    label: 'Practice',
+                    icon: <Code size={16} weight="duotone" />,
+                    items: [
+                      { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" />, description: 'Interactive learning exercises' },
+                      { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} />, description: 'Test your understanding' },
+                      ...(import.meta.env.VITE_KNOWLEDGE_SERVICE_URL ? [{ to: '/knowledge-search', label: 'Knowledge Search', icon: <Code size={16} weight="duotone" />, description: 'Search documentation' }] : []),
+                      { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" />, description: 'Share and collaborate' },
+                    ]
+                  },
+                  {
+                    label: 'Tools',
+                    icon: <Plugs size={16} weight="duotone" />,
+                    items: [
+                      { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" />, description: 'Technical documentation' },
+                      ...(import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL ? [{ to: '/agents', label: 'Agents Console', icon: <Plugs size={16} weight="duotone" />, description: 'Multi-agent orchestration' }] : []),
+                    ]
+                  },
                 ];
-                const primaryMobileTabs = allTabs.slice(0, 3);
-                const overflowMobileTabs = allTabs.slice(3);
-                const isOverflowActive = overflowMobileTabs.some(t => location.pathname === t.to);
+
+                // Helper to check if any item in a category is active
+                const isCategoryActive = (category: typeof navCategories[0]) => 
+                  category.items.some(item => location.pathname === item.to);
 
                 return (
                   <>
-                    {/* Desktop / md+ — keep full scrollable tabs */}
+                    {/* Desktop mega-menu */}
                     <div className="hidden md:block">
-                      <ScrollArea className="w-full">
-                        <div className="flex space-x-4">
-                          {allTabs.map(t => (
-                            <TabLink key={t.to} to={t.to} icon={t.icon} label={t.label} />
+                      <NavigationMenu>
+                        <NavigationMenuList className="flex space-x-1">
+                          {navCategories.map(category => (
+                            <NavigationMenuItem key={category.label}>
+                              <NavigationMenuTrigger 
+                                className={cn(
+                                  "bg-transparent h-10",
+                                  isCategoryActive(category) && "bg-accent text-accent-foreground"
+                                )}
+                              >
+                                <span className="flex items-center gap-2">
+                                  {category.icon}
+                                  {category.label}
+                                </span>
+                              </NavigationMenuTrigger>
+                              <NavigationMenuContent>
+                                <ul className="grid gap-2 p-4 w-[500px] md:grid-cols-2">
+                                  {category.items.map(item => (
+                                    <li key={item.to}>
+                                      <NavigationMenuLink asChild>
+                                        <Link
+                                          to={item.to}
+                                          className={cn(
+                                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
+                                            "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                                            location.pathname === item.to && "bg-accent text-accent-foreground"
+                                          )}
+                                        >
+                                          <div className="flex items-center gap-2 text-sm font-medium leading-none mb-1">
+                                            {item.icon}
+                                            {item.label}
+                                          </div>
+                                          <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
+                                            {item.description}
+                                          </p>
+                                        </Link>
+                                      </NavigationMenuLink>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </NavigationMenuContent>
+                            </NavigationMenuItem>
                           ))}
-                        </div>
-                      </ScrollArea>
+                        </NavigationMenuList>
+                      </NavigationMenu>
                     </div>
 
-                    {/* Mobile — show first few and a More (… ) menu */}
+                    {/* Mobile navigation - show all categories in dropdown */}
                     <div className="md:hidden">
-                      <div className="flex items-center space-x-2">
-                        {primaryMobileTabs.map(t => (
-                          <TabLink key={t.to} to={t.to} icon={t.icon} label={t.label} />
-                        ))}
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              variant={isOverflowActive ? 'secondary' : 'ghost'}
-                              size="default"
-                              className="h-10 px-3"
-                              aria-label="More tabs"
-                            >
-                              <DotsThree size={20} weight="bold" />
-                              <span className="sr-only">More</span>
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="start" className="min-w-[12rem]">
-                            {overflowMobileTabs.map(t => (
-                              <DropdownMenuItem key={t.to} asChild>
-                                <Link to={t.to} className="flex items-center gap-2">
-                                  {t.icon}
-                                  <span>{t.label}</span>
-                                </Link>
-                              </DropdownMenuItem>
-                            ))}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="outline"
+                            size="default"
+                            className="h-10 px-4"
+                            aria-label="Navigation menu"
+                          >
+                            <DotsThree size={20} weight="bold" className="mr-2" />
+                            <span>Menu</span>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="start" className="w-[280px] max-h-[70vh] overflow-y-auto">
+                          {navCategories.map(category => (
+                            <div key={category.label} className="mb-2">
+                              <div className="px-2 py-1.5 text-sm font-semibold text-muted-foreground flex items-center gap-2">
+                                {category.icon}
+                                {category.label}
+                              </div>
+                              {category.items.map(item => (
+                                <DropdownMenuItem key={item.to} asChild>
+                                  <Link 
+                                    to={item.to} 
+                                    className={cn(
+                                      "flex items-center gap-2 pl-6",
+                                      location.pathname === item.to && "bg-accent text-accent-foreground"
+                                    )}
+                                  >
+                                    {item.icon}
+                                    <span>{item.label}</span>
+                                  </Link>
+                                </DropdownMenuItem>
+                              ))}
+                            </div>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </>
                 );
@@ -529,6 +604,7 @@ function App() {
                   <Route path="/deep-dive-taxonomy" element={<DeepDiveTaxonomyPage />} />
                   <Route path="/community" element={<CommunitySharing />} />
                   <Route path="/adoption-playbook" element={<AgenticAdoptionPlaybook />} />
+                  <Route path="/agents-for-science" element={<AgentsForScience />} />
                   <Route path="/adoption/charter" element={<ExecutiveAlignmentCharterForm />} />
                   <Route path="/adoption/canvas" element={<PortfolioHeatmapCanvasForm />} />
                   <Route path="/adoption/briefing" element={<BoardReadyBriefingPackForm />} />
