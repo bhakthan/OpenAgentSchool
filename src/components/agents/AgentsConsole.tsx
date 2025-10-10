@@ -134,9 +134,10 @@ export default function AgentsConsole() {
         const r = await fetch(`${urlBase}/api/v1/agents/`, { signal: abort.signal })
         if (!r.ok) throw new Error(String(r.status))
         const data = await r.json()
-        // If it looks like numeric agents (objects with numeric id), fall back to registry catalog
+        // If empty or looks like numeric agents (objects with numeric id), fall back to registry catalog
         const numeric = Array.isArray(data) && data.length > 0 && (typeof data[0]?.id === 'number')
-        if (numeric) throw new Error('numeric-agents')
+        const empty = Array.isArray(data) && data.length === 0
+        if (numeric || empty) throw new Error('numeric-agents-or-empty')
         setAgents(data as AgentInfo[])
     setError(null)
         if (data.length && !selected) {
