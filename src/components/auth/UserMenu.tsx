@@ -75,6 +75,9 @@ export function UserMenu() {
         <DropdownMenuItem onClick={() => navigate('/bookmarks')}>
           Bookmarks
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => navigate('/achievements')}>
+          Achievements
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => navigate('/agents')}>
           Agent Console
         </DropdownMenuItem>

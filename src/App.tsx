@@ -61,6 +61,7 @@ const SCLDemo = lazy(() => import('./components/SuperCriticalLearning/SCLDemo'))
 const KnowledgeSearch = lazy(() => import('./components/search/KnowledgeSearch'));
 const KnowledgeBasePage = lazy(() => import('./pages/KnowledgeBasePage'));
 const BookmarksPage = lazy(() => import('./pages/BookmarksPage'));
+const AchievementsPage = lazy(() => import('./pages/AchievementsPage'));
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 const OAuthCallbackPage = lazy(() => import('./pages/OAuthCallbackPage'));
 const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
@@ -632,6 +633,7 @@ function App() {
                   <Route path="/adoption/canvas" element={<PortfolioHeatmapCanvasForm />} />
                   <Route path="/adoption/briefing" element={<BoardReadyBriefingPackForm />} />
                   <Route path="/bookmarks" element={<BookmarksPage />} />
+                  <Route path="/achievements" element={<AchievementsPage />} />
                   <Route path="/auth" element={<AuthPage />} />
                   <Route path="/auth/callback/:provider" element={<OAuthCallbackPage />} />
                   <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />

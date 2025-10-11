@@ -43,9 +43,11 @@ export async function getUserAchievements(): Promise<UserAchievement[]> {
   const response = await client.get('/api/v1/achievements/user');
   
   return response.data.map((item: any) => ({
-    ...item.achievement,
+    id: item.id,
+    achievement_id: item.achievement_id,
     unlocked_at: new Date(item.unlocked_at),
     metadata: item.metadata,
+    achievement: item.achievement,
   }));
 }
 

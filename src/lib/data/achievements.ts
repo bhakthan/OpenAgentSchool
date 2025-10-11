@@ -28,9 +28,15 @@ export interface Achievement {
   certificate_eligible: boolean;
 }
 
-export interface UserAchievement extends Achievement {
+/**
+ * User's unlocked achievement (from backend API)
+ */
+export interface UserAchievement {
+  id: number;
+  achievement_id: string;
   unlocked_at: Date;
-  metadata?: Record<string, any>;
+  metadata: Record<string, any>;
+  achievement: Achievement;
 }
 
 export interface AchievementProgress {
