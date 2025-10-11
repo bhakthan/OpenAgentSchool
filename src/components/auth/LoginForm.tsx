@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { SignIn, Eye, EyeSlash } from '@phosphor-icons/react';
 import { toast } from 'sonner';
+import { OAuthButtons } from './OAuthButtons';
 
 interface LoginFormProps {
   onSuccess?: () => void;
@@ -102,6 +103,8 @@ export function LoginForm({ onSuccess, onSwitchToSignup }: LoginFormProps) {
           </>
         )}
       </Button>
+
+      <OAuthButtons onSuccess={onSuccess} />
 
       {onSwitchToSignup && (
         <p className="text-sm text-center text-gray-600 dark:text-gray-400">

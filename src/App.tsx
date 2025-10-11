@@ -60,6 +60,7 @@ const KnowledgeSearch = lazy(() => import('./components/search/KnowledgeSearch')
 const KnowledgeBasePage = lazy(() => import('./pages/KnowledgeBasePage'));
 const BookmarksPage = lazy(() => import('./pages/BookmarksPage'));
 const AuthPage = lazy(() => import('./pages/AuthPage'));
+const OAuthCallbackPage = lazy(() => import('./pages/OAuthCallbackPage'));
 const AgenticAdoptionPlaybook = lazy(() => import('./components/pages/AgenticAdoptionPlaybook'));
 const ExecutiveAlignmentCharterForm = lazy(() => import('./components/adoption/ExecutiveAlignmentCharterForm'));
 const PortfolioHeatmapCanvasForm = lazy(() => import('./components/adoption/PortfolioHeatmapCanvasForm'));
@@ -610,6 +611,7 @@ function App() {
                   <Route path="/adoption/briefing" element={<BoardReadyBriefingPackForm />} />
                   <Route path="/bookmarks" element={<BookmarksPage />} />
                   <Route path="/auth" element={<AuthPage />} />
+                  <Route path="/auth/callback/:provider" element={<OAuthCallbackPage />} />
                   <Route path="/api-docs" element={<ApiDocsPage />} />
                   <Route path="/cta-alt" element={<CTALandingPageVariant />} />
                   <Route path="/cta" element={<CTALandingPage />} />
