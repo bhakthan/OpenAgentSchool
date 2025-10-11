@@ -1,18 +1,23 @@
 """
 Seed Quiz Questions to Core API Database
 
-This script seeds the Core API DuckDB database with sample quiz questions.
+This script seeds the Core API PostgreSQL database with sample quiz questions.
 """
 
 import os
 import sys
 from pathlib import Path
 
-# Add core-api to path
-core_api_path = Path("C:/code/openagent-backend/core-api")
+# Add core-api to path (relative to this script's location)
+script_dir = Path(__file__).parent
+# Assumes openagent-backend is sibling to OpenAgentSchool
+core_api_path = script_dir.parent.parent / "openagent-backend" / "core-api"
+if not core_api_path.exists():
+    # Fallback: try absolute path if running from different location
+    core_api_path = Path(__file__).parent.parent.parent / "openagent-backend" / "core-api"
 sys.path.insert(0, str(core_api_path))
 
-from app.database.duckdb_repository import DuckDBRepository
+from app.database.postgres_repository import PostgresRepository
 from app.models.models import QuizQuestion
 
 def seed_quiz_database():
@@ -23,7 +28,7 @@ def seed_quiz_database():
     print()
     
     # Create repository
-    repo = DuckDBRepository()
+    repo = PostgresRepository()
     session = repo.get_session()
     
     try:

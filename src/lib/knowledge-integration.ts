@@ -181,9 +181,9 @@ export class KnowledgeIntegrationService {
   } {
     return {
       backend: `
-        DuckDB Implementation:
-        - Users, CommunityPosts, QuizQuestions stored in DuckDB
-        - Located: backend/app/database/duckdb_repository.py
+        PostgreSQL Implementation:
+        - Users, CommunityPosts, QuizQuestions stored in PostgreSQL
+        - Located: backend/app/database/postgres_repository.py
         - Provides: User progress, quiz data, community features
       `,
       frontend: `
@@ -195,7 +195,7 @@ export class KnowledgeIntegrationService {
       integration: `
         Hybrid Approach:
         - Static data for concepts/patterns (fast access)
-        - DuckDB for user data/progress (persistent storage)
+        - PostgreSQL for user data/progress (persistent storage)
         - SCL uses static data as knowledge base
         - User sessions stored separately
       `
