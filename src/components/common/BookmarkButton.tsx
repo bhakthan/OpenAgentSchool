@@ -9,6 +9,10 @@ import { Button } from '@/components/ui/button';
 import { bookmarkManager, Bookmark as BookmarkType } from '@/lib/bookmarks';
 import { toast } from 'sonner';
 import { trackEvent } from '@/lib/analytics/ga';
+import { useAuth } from '@/lib/auth/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
+const MAX_GUEST_BOOKMARKS = 5; // Allow 5 bookmarks before requiring auth
 
 interface BookmarkButtonProps {
   id: string;
@@ -36,6 +40,8 @@ export function BookmarkButton({
   className = '',
 }: BookmarkButtonProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsBookmarked(bookmarkManager.has(id));
@@ -56,6 +62,35 @@ export function BookmarkButton({
         });
       }
     } else {
+      // Check if user has reached guest limit
+      const currentBookmarks = bookmarkManager.getAll();
+      if (!isAuthenticated && currentBookmarks.length >= MAX_GUEST_BOOKMARKS) {
+        // Show auth prompt
+        toast.warning('Sign in to save more bookmarks', {
+          description: `You've reached the guest limit of ${MAX_GUEST_BOOKMARKS} bookmarks. Sign in to save unlimited bookmarks across all your devices!`,
+          duration: 7000,
+          action: {
+            label: 'Sign In',
+            onClick: () => {
+              trackEvent({
+                action: 'bookmark_limit_auth_prompt',
+                category: 'auth',
+                label: 'bookmarks_full',
+              });
+              navigate(`/auth?return=${encodeURIComponent(url)}`);
+            },
+          },
+        });
+        
+        trackEvent({
+          action: 'bookmark_limit_reached',
+          category: 'engagement',
+          value: currentBookmarks.length,
+        });
+        
+        return; // Don't add bookmark
+      }
+      
       const added = bookmarkManager.add({
         id,
         type,

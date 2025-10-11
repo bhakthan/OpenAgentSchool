@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // Ambient window flag typing
 declare global {
@@ -87,6 +87,7 @@ interface StudyModeProps {
 
 const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, isAuthenticated } = useAuth();
   
   const [activeTab, setActiveTab] = useState<'overview' | StudyModeType>('overview');
@@ -102,6 +103,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [toolkitError, setToolkitError] = useState<string | null>(null);
   const [showAuthPrompt, setShowAuthPrompt] = useState<boolean>(false);
   const [pendingQuestion, setPendingQuestion] = useState<StudyModeQuestion | null>(null);
+  const [showAssessmentAfterAuth, setShowAssessmentAfterAuth] = useState<boolean>(false);
   
   // Live region for announcing session completion
   const [lastCompletionMessage, setLastCompletionMessage] = useState<string | null>(null);
@@ -190,6 +192,32 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       cancelled = true;
     };
   }, [inlineToolkit]);
+
+  // Handle return URL parameter (?showAssessment=true) after authentication
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const shouldShowAssessment = searchParams.get('showAssessment') === 'true';
+    
+    if (shouldShowAssessment && isAuthenticated) {
+      // User just returned from authentication
+      setShowAssessmentAfterAuth(true);
+      
+      // Clear the URL parameter
+      searchParams.delete('showAssessment');
+      const newSearch = searchParams.toString();
+      const newUrl = newSearch ? `${location.pathname}?${newSearch}` : location.pathname;
+      navigate(newUrl, { replace: true });
+      
+      // Note: The actual assessment modal opening will be handled by the
+      // individual Study Mode components (SocraticQuestionMode, etc.)
+      // which check for pendingQuestion or use their own state management
+      
+      toast({
+        title: "Welcome back!",
+        description: "You're now authenticated. Continue your Study Mode session.",
+      });
+    }
+  }, [location.search, isAuthenticated, navigate]);
 
   // Deep-link + event handler effect (runs when dataBundle first appears)
   useEffect(() => {

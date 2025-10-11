@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -41,6 +41,7 @@ const DebugChallengeMode: React.FC<DebugChallengeModeProps> = ({
 }) => {
   // Auth hooks
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const { user, isAuthenticated } = useAuth();
 
@@ -60,6 +61,23 @@ const DebugChallengeMode: React.FC<DebugChallengeModeProps> = ({
   const [showLlmFeedbackModal, setShowLlmFeedbackModal] = useState(false);
   const [showCopyTooltip, setShowCopyTooltip] = useState(false);
   const [showPrintTooltip, setShowPrintTooltip] = useState(false);
+
+  // Auto-open assessment modal if returning from authentication
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const shouldShowAssessment = searchParams.get('showAssessment') === 'true';
+    
+    if (shouldShowAssessment && isAuthenticated && llmJudgeResponse) {
+      // User returned from auth and assessment is ready
+      setShowLlmFeedbackModal(true);
+      
+      // Clear the parameter (handled by parent StudyMode component, but belt-and-suspenders)
+      searchParams.delete('showAssessment');
+      const newSearch = searchParams.toString();
+      const newUrl = newSearch ? `${location.pathname}?${newSearch}` : location.pathname;
+      navigate(newUrl, { replace: true });
+    }
+  }, [location.search, isAuthenticated, llmJudgeResponse, navigate]);
 
   // Enhanced markdown components following EnlightenMe approach
   const markdownComponents = {

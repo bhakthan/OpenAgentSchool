@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import LlmConfigurationNotice from './LlmConfigurationNotice'
 import { Button } from "@/components/ui/button";
@@ -41,6 +41,7 @@ const InteractiveScenarioMode: React.FC<InteractiveScenarioModeProps> = ({
 }) => {
   // Auth hooks
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const { user, isAuthenticated } = useAuth();
 
@@ -63,6 +64,23 @@ const InteractiveScenarioMode: React.FC<InteractiveScenarioModeProps> = ({
   // Hold pending finalization so users can read feedback before completing
   const [pendingFinalResponses, setPendingFinalResponses] = useState<StudyModeResponse[] | null>(null);
   const [pendingFinalResults, setPendingFinalResults] = useState<ChallengeResult[] | null>(null);
+
+  // Auto-open assessment modal if returning from authentication
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const shouldShowAssessment = searchParams.get('showAssessment') === 'true';
+    
+    if (shouldShowAssessment && isAuthenticated && (llmJudgeResponse || finalLlmJudgment)) {
+      // User returned from auth and assessment is ready
+      setShowLlmFeedbackModal(true);
+      
+      // Clear the parameter (handled by parent StudyMode component, but belt-and-suspenders)
+      searchParams.delete('showAssessment');
+      const newSearch = searchParams.toString();
+      const newUrl = newSearch ? `${location.pathname}?${newSearch}` : location.pathname;
+      navigate(newUrl, { replace: true });
+    }
+  }, [location.search, isAuthenticated, llmJudgeResponse, finalLlmJudgment, navigate]);
 
   // Reset function to allow retaking the same scenario
   const resetToStart = () => {

@@ -41,6 +41,8 @@ import { InstallAppMenuItem } from './components/pwa/InstallAppMenuItem';
 import { useIOSBehaviors } from './hooks/useStandaloneMode';
 import { usePullToRefresh, getPullToRefreshStyles } from './hooks/usePullToRefresh';
 import { useQueryClient } from '@tanstack/react-query';
+import { useStudyModeMigration } from './lib/hooks/useStudyModeMigration';
+import { useBookmarksMigration } from './lib/hooks/useBookmarksMigration';
 
 // Lazy-loaded components
 const ConceptsExplorer = lazy(() => import('./components/concepts/ConceptsExplorer'));
@@ -91,6 +93,21 @@ import { useAnalyticsCustomEventBridge } from '@/lib/analytics/customEventsBridg
 
 // Placeholder component (disabled)
 const AppTutorialButton = () => null;
+
+/**
+ * Inner component that requires AuthProvider context
+ * This component uses hooks that depend on AuthContext
+ */
+function AppContent() {
+  // Sync localStorage Study Mode sessions to backend on login
+  // This hook uses useAuth() so must be inside AuthProvider
+  useStudyModeMigration();
+  
+  // Sync localStorage bookmarks to backend on login
+  useBookmarksMigration();
+  
+  return null; // Just handles side effects
+}
 
 function App() {
   const [mounted, setMounted] = useState(false)
@@ -301,6 +318,9 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="azure-ai-agent-theme">
       <AuthProvider>
+        {/* Side effects that require AuthProvider context */}
+        <AppContent />
+        
         <AudioNarrationProvider>
           <EnlightenMeProvider>
             {/* Skip Link for Keyboard Users */}
