@@ -232,6 +232,47 @@ Keep narrative coherence: each new concept should reduce uncertainty about “ho
 Maintained by contributors at `openagentschool.org` (see LICENSE). Built collaboratively with AI assistance and human review.
 
 ---
+ 
+## Docs Routing Policy
+
+Automated agents, scripts, and build steps MUST place generated markdown and documentation artifacts into the separate `openagent-wiki` project at the workspace root. This keeps documentation out of the frontend's `.gitignored` `docs/` folder and allows the wiki to be version-controlled and published independently.
+
+Paths:
+
+- Frontend-generated markdown: `../openagent-wiki/frontend/`
+- Backend-generated markdown: `../openagent-wiki/backend/`
+
+Recommendations:
+
+- Add a CI step (GitHub Actions) named `sync-docs-to-wiki` that runs after build and copies generated markdown files to the matching `openagent-wiki` subfolder, commits, and pushes to the private `openagent-wiki` repository.
+- Use the GitHub CLI (`gh`) or a service account token to authenticate the automated push. Store credentials as secrets in the CI.
+- Keep `openagent-wiki` minimal (markdown + assets). Avoid committing build artifacts or secrets.
+
+Example workflow snippet (high level):
+
+```yaml
+name: Sync Docs to Wiki
+on: push
+jobs:
+	sync-docs:
+		runs-on: ubuntu-latest
+		steps:
+			- uses: actions/checkout@v4
+			- name: Build frontend
+				run: npm ci && npm run build
+			- name: Copy frontend docs to wiki
+				run: |
+					mkdir -p ../openagent-wiki/frontend
+					cp -R ./dist/docs/* ../openagent-wiki/frontend/ || true
+			- name: Commit & Push to wiki
+				run: |
+					cd ../openagent-wiki
+					git add .
+					git commit -m "chore(docs): sync from frontend" || true
+					git push origin main
+```
+
+Enforcement: Agents that generate documentation should validate that the target file path matches the policy above and fail the run if not.
 
 Happy automating! Optimize for clarity, stability, and learner value.
- -->
+-->
