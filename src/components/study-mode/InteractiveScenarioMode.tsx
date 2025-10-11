@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import LlmConfigurationNotice from './LlmConfigurationNotice'
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger
 } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 import { 
   PlayCircle, ArrowLeft, CheckCircle, ArrowRight, X,
   Clock, Target, TrendUp, Code, Monitor, Lightbulb, Copy, Printer
@@ -22,6 +24,7 @@ import remarkGfm from 'remark-gfm';
 import { StudyScenario, StudyModeSession, StudyModeResponse, ScenarioChallenge, ChallengeResult } from '@/lib/data/studyMode/types';
 import { saveStudyModeProgress } from '@/lib/data/studyMode/progress';
 import { scenarioJudge, LlmJudgeResponse } from '@/lib/llmJudge';
+import { useAuth } from '@/lib/auth/AuthContext';
 
 interface InteractiveScenarioModeProps {
   scenario: StudyScenario;
@@ -36,6 +39,11 @@ const InteractiveScenarioMode: React.FC<InteractiveScenarioModeProps> = ({
   onBack,
   onRetake // <-- accept onRetake
 }) => {
+  // Auth hooks
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { user, isAuthenticated } = useAuth();
+
   const [currentStep, setCurrentStep] = useState(0);
   const [userResponse, setUserResponse] = useState('');
   const [responses, setResponses] = useState<StudyModeResponse[]>([]);
@@ -253,6 +261,32 @@ Generated: ${new Date().toLocaleString()}
     setIsGettingJudgment(true);
 
     try {
+      // Auth gate for AI assessment - premium feature
+      if (!isAuthenticated) {
+        setIsGettingJudgment(false);
+        
+        // Track analytics for gated feature
+        window.dispatchEvent(new CustomEvent('analytics:llmAssessmentAuthGate', {
+          detail: {
+            questionId: scenario.id,
+            conceptId: scenario.conceptId,
+            type: 'scenario',
+            challengeNumber: currentStep + 1,
+            timestamp: new Date().toISOString()
+          }
+        }));
+
+        toast({
+          title: "Sign in to view AI assessment",
+          description: "Get personalized learning insights powered by AI. It's free!",
+          duration: 5000,
+        });
+
+        const returnUrl = `/study-mode?qid=${scenario.id}&showAssessment=true`;
+        navigate(`/auth?return=${encodeURIComponent(returnUrl)}`);
+        return;
+      }
+
       // Get LLM judgment for current step
       const judgeRequest = {
         scenarioTitle: scenario.title,
@@ -278,6 +312,20 @@ Generated: ${new Date().toLocaleString()}
 
       const judgment = await scenarioJudge(judgeRequest);
       setLlmJudgeResponse(judgment);
+      
+      // Track analytics for successful assessment view
+      window.dispatchEvent(new CustomEvent('analytics:llmAssessmentViewed', {
+        detail: {
+          questionId: scenario.id,
+          conceptId: scenario.conceptId,
+          type: 'scenario',
+          challengeNumber: currentStep + 1,
+          score: judgment.score,
+          userEmail: user?.email || 'unknown',
+          timestamp: new Date().toISOString()
+        }
+      }));
+
       // Only auto-open the feedback modal on the last challenge; otherwise let users open it manually
       if (isLastChallenge) {
         setShowLlmFeedbackModal(true);
@@ -374,6 +422,33 @@ Generated: ${new Date().toLocaleString()}
   // Handle final completion with comprehensive LLM assessment
   const handleFinalCompletion = async (finalResponses: StudyModeResponse[], results: ChallengeResult[]) => {
     try {
+      // Auth gate for final comprehensive AI assessment - premium feature
+      if (!isAuthenticated) {
+        // Track analytics for gated feature
+        window.dispatchEvent(new CustomEvent('analytics:llmAssessmentAuthGate', {
+          detail: {
+            questionId: scenario.id,
+            conceptId: scenario.conceptId,
+            type: 'scenario',
+            phase: 'final-comprehensive',
+            timestamp: new Date().toISOString()
+          }
+        }));
+
+        toast({
+          title: "Sign in to view comprehensive AI assessment",
+          description: "Get a complete learning analysis across all challenges. It's free!",
+          duration: 5000,
+        });
+
+        const returnUrl = `/study-mode?qid=${scenario.id}&showAssessment=true`;
+        navigate(`/auth?return=${encodeURIComponent(returnUrl)}`);
+        
+        // Fallback to completion without final LLM assessment
+        completeSession(finalResponses, results);
+        return;
+      }
+
       // Get final comprehensive LLM judgment
       const finalJudgeRequest = {
         scenarioTitle: scenario.title,
@@ -395,6 +470,19 @@ Generated: ${new Date().toLocaleString()}
 
       const finalJudgment = await scenarioJudge(finalJudgeRequest);
       setFinalLlmJudgment(finalJudgment);
+
+      // Track analytics for successful final assessment view
+      window.dispatchEvent(new CustomEvent('analytics:llmAssessmentViewed', {
+        detail: {
+          questionId: scenario.id,
+          conceptId: scenario.conceptId,
+          type: 'scenario',
+          phase: 'final-comprehensive',
+          score: finalJudgment.score,
+          userEmail: user?.email || 'unknown',
+          timestamp: new Date().toISOString()
+        }
+      }));
 
       // Complete session with enhanced scoring
       const session: StudyModeSession = {

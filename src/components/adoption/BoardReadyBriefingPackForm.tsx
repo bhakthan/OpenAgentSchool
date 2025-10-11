@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Download, FileText, Sparkles, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
@@ -7,6 +8,8 @@ import { Label } from '../ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Alert, AlertDescription } from '../ui/alert';
+import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/lib/auth/AuthContext';
 import * as XLSX from 'xlsx';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, PageBreak, AlignmentType } from 'docx';
 import { saveAs } from 'file-saver';
@@ -38,6 +41,10 @@ const emptyBriefing = (): StakeholderBriefing => ({
 });
 
 export function BoardReadyBriefingPackForm() {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { user, isAuthenticated } = useAuth();
+
   const [formData, setFormData] = useState<BriefingPackData>({
     organizationName: '',
     documentDate: new Date().toISOString().split('T')[0],
@@ -69,6 +76,28 @@ export function BoardReadyBriefingPackForm() {
   };
 
   const exportToExcel = () => {
+    // Require authentication for business template downloads
+    if (!isAuthenticated) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to download this board briefing pack. It's free!",
+      });
+      navigate('/auth?return=/adoption/board-briefing');
+      return;
+    }
+
+    // Track authenticated download
+    if (user?.email) {
+      window.dispatchEvent(new CustomEvent('analytics:templateDownload', {
+        detail: {
+          template: 'Board-Ready Briefing Pack',
+          format: 'Excel',
+          userEmail: user.email,
+          timestamp: new Date().toISOString()
+        }
+      }));
+    }
+
     const wb = XLSX.utils.book_new();
 
     // Summary tab
@@ -156,6 +185,28 @@ export function BoardReadyBriefingPackForm() {
   };
 
   const exportToWord = async () => {
+    // Require authentication for business template downloads
+    if (!isAuthenticated) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to download this board briefing pack. It's free!",
+      });
+      navigate('/auth?return=/adoption/board-briefing');
+      return;
+    }
+
+    // Track authenticated download
+    if (user?.email) {
+      window.dispatchEvent(new CustomEvent('analytics:templateDownload', {
+        detail: {
+          template: 'Board-Ready Briefing Pack',
+          format: 'Word',
+          userEmail: user.email,
+          timestamp: new Date().toISOString()
+        }
+      }));
+    }
+
     const roles = [
       { key: 'ceo', title: 'CEO/President Briefing - Strategic Value & Competitive Positioning' },
       { key: 'cfo', title: 'CFO Briefing - Financial Returns & ROI Model' },

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Download, FileText, Sparkles, Plus, Trash2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
@@ -7,6 +8,8 @@ import { Label } from '../ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Alert, AlertDescription } from '../ui/alert';
 import { Slider } from '../ui/slider';
+import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/lib/auth/AuthContext';
 import * as XLSX from 'xlsx';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, Table, TableRow, TableCell, WidthType, AlignmentType } from 'docx';
 import { saveAs } from 'file-saver';
@@ -58,6 +61,10 @@ function getQuadrantColor(quadrant: Quadrant): string {
 }
 
 export function PortfolioHeatmapCanvasForm() {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { user, isAuthenticated } = useAuth();
+  
   const [workflows, setWorkflows] = useState<Workflow[]>([
     {
       id: crypto.randomUUID(),
@@ -102,6 +109,28 @@ export function PortfolioHeatmapCanvasForm() {
   };
 
   const exportToExcel = () => {
+    // Require authentication for business template downloads
+    if (!isAuthenticated) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to download this business planning template. It's free!",
+      });
+      navigate('/auth?return=/adoption/portfolio');
+      return;
+    }
+
+    // Track authenticated download
+    if (user?.email) {
+      window.dispatchEvent(new CustomEvent('analytics:templateDownload', {
+        detail: {
+          template: 'Portfolio Heatmap Canvas',
+          format: 'Excel',
+          userEmail: user.email,
+          timestamp: new Date().toISOString()
+        }
+      }));
+    }
+
     const wb = XLSX.utils.book_new();
 
     // Portfolio Summary Tab
@@ -322,6 +351,28 @@ export function PortfolioHeatmapCanvasForm() {
   };
 
   const exportToWord = async () => {
+    // Require authentication for business template downloads
+    if (!isAuthenticated) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to download this business planning template. It's free!",
+      });
+      navigate('/auth?return=/adoption/portfolio');
+      return;
+    }
+
+    // Track authenticated download
+    if (user?.email) {
+      window.dispatchEvent(new CustomEvent('analytics:templateDownload', {
+        detail: {
+          template: 'Portfolio Heatmap Canvas',
+          format: 'Word',
+          userEmail: user.email,
+          timestamp: new Date().toISOString()
+        }
+      }));
+    }
+
     const doc = new Document({
       sections: [{
         properties: {},

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +11,7 @@ import {
   Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger
 } from "@/components/ui/dialog";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useToast } from "@/components/ui/use-toast";
 import { 
   Brain, ArrowLeft, Lightbulb, CheckCircle, ArrowRight,
   Clock, Target, TrendUp, Copy, Printer, Users
@@ -24,6 +26,7 @@ import LlmConfigurationNotice from './LlmConfigurationNotice';
 import EnhancedSocraticElicitation from './EnhancedSocraticElicitation';
 import { generateDynamicFollowUps, extractEnhancedInsights, detectMisconceptions, UserContext } from '@/lib/socraticElicitation';
 import { orchestratorAPI, SocraticQuestion as OrchestratorSocraticQuestion } from '@/services/api';
+import { useAuth } from '@/lib/auth/AuthContext';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -38,6 +41,11 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
   onComplete, 
   onBack 
 }) => {
+  // Auth hooks
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { user, isAuthenticated } = useAuth();
+
   // Elicitation phase state
   const [showElicitation, setShowElicitation] = useState(true);
   const [userContext, setUserContext] = useState<UserContext | null>(null);
@@ -468,6 +476,32 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
     setIsGettingJudgment(true);
     
     try {
+      // Auth gate for AI assessment - premium feature
+      if (!isAuthenticated) {
+        setIsGettingJudgment(false);
+        
+        // Track analytics for gated feature
+        window.dispatchEvent(new CustomEvent('analytics:llmAssessmentAuthGate', {
+          detail: {
+            questionId: question.id,
+            conceptId: question.conceptId,
+            type: 'socratic',
+            responsesCompleted: finalResponses.length,
+            timestamp: new Date().toISOString()
+          }
+        }));
+
+        toast({
+          title: "Sign in to view AI assessment",
+          description: "Get personalized learning insights powered by AI. It's free!",
+          duration: 5000,
+        });
+
+        const returnUrl = `/study-mode?qid=${question.id}&showAssessment=true`;
+        navigate(`/auth?return=${encodeURIComponent(returnUrl)}`);
+        return;
+      }
+
       // Prepare comprehensive data for LLM judge with ALL questions and responses
       const comprehensiveJudgeRequest = {
         question: question.socratiQuestion!,
@@ -501,6 +535,18 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
       
       setLlmJudgeResponse(judgment);
       setShowLlmFeedbackModal(true);
+
+      // Track analytics for successful assessment view
+      window.dispatchEvent(new CustomEvent('analytics:llmAssessmentViewed', {
+        detail: {
+          questionId: question.id,
+          conceptId: question.conceptId,
+          type: 'socratic',
+          score: judgment.score,
+          userEmail: user?.email || 'unknown',
+          timestamp: new Date().toISOString()
+        }
+      }));
 
       // Create session with enhanced score and insights
       const session: StudyModeSession = {

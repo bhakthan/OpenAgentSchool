@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Download, FileText, Sparkles, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
@@ -7,6 +8,8 @@ import { Label } from '../ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Alert, AlertDescription } from '../ui/alert';
+import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/lib/auth/AuthContext';
 import * as XLSX from 'xlsx';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
 import { saveAs } from 'file-saver';
@@ -57,6 +60,10 @@ interface CharterFormData {
 }
 
 export function ExecutiveAlignmentCharterForm() {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { user, isAuthenticated } = useAuth();
+
   const [formData, setFormData] = useState<CharterFormData>({
     organizationName: '',
     documentDate: new Date().toISOString().split('T')[0],
@@ -92,6 +99,28 @@ export function ExecutiveAlignmentCharterForm() {
   };
 
   const exportToExcel = () => {
+    // Require authentication for business template downloads
+    if (!isAuthenticated) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to download this executive alignment charter. It's free!",
+      });
+      navigate('/auth?return=/adoption/executive-alignment');
+      return;
+    }
+
+    // Track authenticated download
+    if (user?.email) {
+      window.dispatchEvent(new CustomEvent('analytics:templateDownload', {
+        detail: {
+          template: 'Executive Alignment Charter',
+          format: 'Excel',
+          userEmail: user.email,
+          timestamp: new Date().toISOString()
+        }
+      }));
+    }
+
     const wb = XLSX.utils.book_new();
 
     // Overview Tab
@@ -316,6 +345,28 @@ export function ExecutiveAlignmentCharterForm() {
   };
 
   const exportToWord = async () => {
+    // Require authentication for business template downloads
+    if (!isAuthenticated) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to download this executive alignment charter. It's free!",
+      });
+      navigate('/auth?return=/adoption/executive-alignment');
+      return;
+    }
+
+    // Track authenticated download
+    if (user?.email) {
+      window.dispatchEvent(new CustomEvent('analytics:templateDownload', {
+        detail: {
+          template: 'Executive Alignment Charter',
+          format: 'Word',
+          userEmail: user.email,
+          timestamp: new Date().toISOString()
+        }
+      }));
+    }
+
     const doc = new Document({
       sections: [{
         properties: {},

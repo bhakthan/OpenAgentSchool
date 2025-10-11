@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger
 } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 import { 
   Bug, ArrowLeft, CheckCircle, ArrowRight, X, Warning,
   Clock, Target, TrendUp, Code, Terminal, FileText, Lightbulb,
@@ -21,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { DebugChallenge, StudyModeSession, StudyModeResponse, DebugLog, DebugIssue } from '@/lib/data/studyMode/types';
 import { saveStudyModeProgress } from '@/lib/data/studyMode/progress';
 import { debugJudge, LlmJudgeResponse } from '@/lib/llmJudge';
+import { useAuth } from '@/lib/auth/AuthContext';
 import LlmConfigurationNotice from './LlmConfigurationNotice';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -36,6 +39,11 @@ const DebugChallengeMode: React.FC<DebugChallengeModeProps> = ({
   onComplete, 
   onBack 
 }) => {
+  // Auth hooks
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { user, isAuthenticated } = useAuth();
+
   const [currentPhase, setCurrentPhase] = useState<'analysis' | 'diagnosis' | 'solution'>('analysis');
   const [analysisResponse, setAnalysisResponse] = useState('');
   const [diagnosisResponse, setDiagnosisResponse] = useState('');
@@ -283,6 +291,32 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
     setIsGettingJudgment(true);
     
     try {
+      // Auth gate for AI assessment - premium feature
+      if (!isAuthenticated) {
+        setIsGettingJudgment(false);
+        
+        // Track analytics for gated feature
+        window.dispatchEvent(new CustomEvent('analytics:llmAssessmentAuthGate', {
+          detail: {
+            questionId: challenge.id,
+            conceptId: 'debug-challenge',
+            type: 'debug',
+            phase: currentPhase,
+            timestamp: new Date().toISOString()
+          }
+        }));
+
+        toast({
+          title: "Sign in to view AI assessment",
+          description: "Get personalized debugging insights powered by AI. It's free!",
+          duration: 5000,
+        });
+
+        const returnUrl = `/study-mode?qid=${challenge.id}&showAssessment=true`;
+        navigate(`/auth?return=${encodeURIComponent(returnUrl)}`);
+        return;
+      }
+
       // Get LLM judgment for current phase with comprehensive context
       const judgeRequest = {
         phase: currentPhase,
@@ -314,6 +348,19 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
       const judgment = await debugJudge(judgeRequest);
       setLlmJudgeResponse(judgment);
       setShowLlmFeedbackModal(true);
+
+      // Track analytics for successful assessment view
+      window.dispatchEvent(new CustomEvent('analytics:llmAssessmentViewed', {
+        detail: {
+          questionId: challenge.id,
+          conceptId: 'debug-challenge',
+          type: 'debug',
+          phase: currentPhase,
+          score: judgment.score,
+          userEmail: user?.email || 'unknown',
+          timestamp: new Date().toISOString()
+        }
+      }));
 
       // Create response with LLM feedback
       const newResponse: StudyModeResponse = {

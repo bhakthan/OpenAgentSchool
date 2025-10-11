@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Ambient window flag typing
 declare global {
@@ -15,10 +16,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { 
   Brain, PuzzlePiece, Bug, Lightbulb, Target, TrendUp,
-  CheckCircle, Clock, Star, ArrowRight, Play, BookOpen, DownloadSimple
+  CheckCircle, Clock, Star, ArrowRight, Play, BookOpen, DownloadSimple, SignIn, DeviceMobile
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { ShareButton } from '@/components/ui/ShareButton';
+import { useAuth } from '@/lib/auth/AuthContext';
 
 // Import Study Mode components
 import ReactLazy = React.lazy;
@@ -84,6 +86,9 @@ interface StudyModeProps {
 }
 
 const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
+  const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
+  
   const [activeTab, setActiveTab] = useState<'overview' | StudyModeType>('overview');
   const [selectedQuestion, setSelectedQuestion] = useState<StudyModeQuestion | null>(null);
   const [sessions, setSessions] = useState<StudyModeSession[]>([]);
@@ -95,6 +100,9 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [toolkitMarkdown, setToolkitMarkdown] = useState<string>('');
   const [loadingToolkit, setLoadingToolkit] = useState<boolean>(false);
   const [toolkitError, setToolkitError] = useState<string | null>(null);
+  const [showAuthPrompt, setShowAuthPrompt] = useState<boolean>(false);
+  const [pendingQuestion, setPendingQuestion] = useState<StudyModeQuestion | null>(null);
+  
   // Live region for announcing session completion
   const [lastCompletionMessage, setLastCompletionMessage] = useState<string | null>(null);
   const liveRegionRef = useRef<HTMLDivElement | null>(null);
@@ -288,9 +296,85 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       try { window.dispatchEvent(new CustomEvent('analytics:gatingBlocked', { detail: { attempted: question.type } })); } catch {}
       return;
     }
+    
+    // Soft auth prompt: Encourage sign in to save progress
+    if (!isAuthenticated) {
+      // Check if user has dismissed the prompt before (using localStorage flag)
+      const dismissedAuthPrompt = localStorage.getItem('studyMode:dismissedAuthPrompt');
+      
+      // Show prompt on first session start (unless previously dismissed)
+      if (!dismissedAuthPrompt || sessions.length === 0) {
+        setPendingQuestion(question);
+        setShowAuthPrompt(true);
+        
+        // Track auth prompt shown
+        try {
+          window.dispatchEvent(new CustomEvent('analytics:authPromptShown', {
+            detail: { context: 'study_mode_start', questionId: question.id }
+          }));
+        } catch {}
+        return;
+      }
+    }
+    
+    // Proceed with starting the session
+    startQuestion(question);
+  };
+  
+  const startQuestion = (question: StudyModeQuestion) => {
     setSelectedQuestion(question);
     setActiveTab(question.type);
-    try { window.dispatchEvent(new CustomEvent('analytics:questionStart', { detail: { id: question.id, type: question.type } })); } catch {}
+    
+    // Track session start with user context if authenticated
+    try {
+      window.dispatchEvent(new CustomEvent('analytics:studyModeSessionStart', {
+        detail: {
+          questionId: question.id,
+          type: question.type,
+          level: question.level,
+          conceptId: question.conceptId,
+          userEmail: isAuthenticated ? user?.email : null,
+          isAuthenticated
+        }
+      }));
+    } catch {}
+  };
+  
+  const handleAuthPromptSignIn = () => {
+    setShowAuthPrompt(false);
+    
+    // Track auth prompt conversion
+    try {
+      window.dispatchEvent(new CustomEvent('analytics:authPromptAction', {
+        detail: { action: 'sign_in', context: 'study_mode' }
+      }));
+    } catch {}
+    
+    // Navigate to auth with return URL
+    const returnUrl = pendingQuestion 
+      ? `/study-mode?qid=${pendingQuestion.id}`
+      : '/study-mode';
+    navigate(`/auth?return=${encodeURIComponent(returnUrl)}`);
+  };
+  
+  const handleAuthPromptContinue = () => {
+    setShowAuthPrompt(false);
+    
+    // Track dismissal
+    try {
+      window.dispatchEvent(new CustomEvent('analytics:authPromptAction', {
+        detail: { action: 'continue_guest', context: 'study_mode' }
+      }));
+    } catch {}
+    
+    // Mark as dismissed (won't show again this session)
+    localStorage.setItem('studyMode:dismissedAuthPrompt', 'true');
+    
+    // Start the pending question
+    if (pendingQuestion) {
+      startQuestion(pendingQuestion);
+      setPendingQuestion(null);
+    }
   };
 
   const handleOpenToolkitInline = (toolkit: StrategicToolkit) => {
@@ -307,13 +391,31 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   };
 
   const handleSessionComplete = (session: StudyModeSession) => {
-  const updatedSessions = [...sessions, session];
+    const updatedSessions = [...sessions, session];
     setSessions(updatedSessions);
     setProgress(calculateStudyModeProgress(updatedSessions));
     setSelectedQuestion(null);
-  setActiveTab('overview');
-  try { window.dispatchEvent(new CustomEvent('analytics:sessionComplete', { detail: { type: session.type, score: session.score } })); } catch {}
-  try { emitTelemetry({ kind: 'pattern_attempt', patternId: session.conceptId, challengeId: session.questionId }); } catch {}
+    setActiveTab('overview');
+    
+    // Track session completion with authentication context
+    try {
+      window.dispatchEvent(new CustomEvent('analytics:studyModeSessionComplete', {
+        detail: {
+          type: session.type,
+          score: session.score,
+          questionId: session.questionId,
+          conceptId: session.conceptId,
+          userEmail: isAuthenticated ? user?.email : null,
+          isAuthenticated,
+          insights: session.insights?.length || 0,
+          duration: session.endTime && session.startTime 
+            ? (new Date(session.endTime).getTime() - new Date(session.startTime).getTime()) / 1000
+            : null
+        }
+      }));
+    } catch {}
+    
+    try { emitTelemetry({ kind: 'pattern_attempt', patternId: session.conceptId, challengeId: session.questionId }); } catch {}
 
     // Multi-dimensional scoring (#11) – derive simple proxies
     const correctness = (session.score || 0) / 100;
@@ -517,6 +619,61 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       >
         {lastCompletionMessage || ''}
       </div>
+      
+      {/* Auth Prompt Dialog */}
+      <Dialog open={showAuthPrompt} onOpenChange={setShowAuthPrompt}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-xl">
+              <Brain size={24} className="text-primary" />
+              Save Your Learning Progress
+            </DialogTitle>
+            <DialogDescription className="pt-4 space-y-4">
+              <p className="text-base">
+                Sign in to unlock powerful learning features:
+              </p>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-3">
+                  <DeviceMobile size={20} className="text-primary mt-0.5 flex-shrink-0" />
+                  <span><strong>Sync across devices</strong> - Continue your learning anywhere</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle size={20} className="text-green-600 mt-0.5 flex-shrink-0" />
+                  <span><strong>Track your progress</strong> - See your mastery levels and achievements</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Target size={20} className="text-blue-600 mt-0.5 flex-shrink-0" />
+                  <span><strong>AI-powered insights</strong> - Get personalized learning assessments</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Star size={20} className="text-yellow-600 mt-0.5 flex-shrink-0" />
+                  <span><strong>Earn achievements</strong> - Build your learning portfolio</span>
+                </li>
+              </ul>
+              <p className="text-xs text-muted-foreground pt-2">
+                It's completely free! No credit card required.
+              </p>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-3 pt-4">
+            <Button
+              onClick={handleAuthPromptSignIn}
+              className="w-full flex items-center justify-center gap-2"
+            >
+              <SignIn size={20} />
+              Sign In to Save Progress
+            </Button>
+            <Button
+              onClick={handleAuthPromptContinue}
+              variant="outline"
+              className="w-full"
+            >
+              Continue as Guest
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+      
       {/* Header */}
       <div className="text-center relative">
         <h1 className="text-3xl font-bold flex items-center justify-center gap-2 mb-2">
