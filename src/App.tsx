@@ -61,6 +61,8 @@ const KnowledgeBasePage = lazy(() => import('./pages/KnowledgeBasePage'));
 const BookmarksPage = lazy(() => import('./pages/BookmarksPage'));
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 const OAuthCallbackPage = lazy(() => import('./pages/OAuthCallbackPage'));
+const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
+const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage'));
 const AgenticAdoptionPlaybook = lazy(() => import('./components/pages/AgenticAdoptionPlaybook'));
 const ExecutiveAlignmentCharterForm = lazy(() => import('./components/adoption/ExecutiveAlignmentCharterForm'));
 const PortfolioHeatmapCanvasForm = lazy(() => import('./components/adoption/PortfolioHeatmapCanvasForm'));
@@ -612,6 +614,8 @@ function App() {
                   <Route path="/bookmarks" element={<BookmarksPage />} />
                   <Route path="/auth" element={<AuthPage />} />
                   <Route path="/auth/callback/:provider" element={<OAuthCallbackPage />} />
+                  <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
+                  <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
                   <Route path="/api-docs" element={<ApiDocsPage />} />
                   <Route path="/cta-alt" element={<CTALandingPageVariant />} />
                   <Route path="/cta" element={<CTALandingPage />} />
