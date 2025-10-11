@@ -237,10 +237,14 @@ Maintained by contributors at `openagentschool.org` (see LICENSE). Built collabo
 
 Automated agents, scripts, and build steps MUST place generated markdown and documentation artifacts into the separate `openagent-wiki` project at the workspace root. This keeps documentation out of the frontend's `.gitignored` `docs/` folder and allows the wiki to be version-controlled and published independently.
 
-Paths:
+Authoritative locations (current):
 
 - Frontend-generated markdown: `../openagent-wiki/frontend/`
-- Backend-generated markdown: `../openagent-wiki/backend/`
+- Backend-generated markdown: `../openagent-wiki/backend/`  <-- authoritative source for backend documentation
+
+Notes:
+
+- A timestamped backup of the previous `openagent-backend` markdown has been archived into the wiki under `openagent-wiki/backups/` for historical reference. Keep backups if you need to restore older iterations. The current wiki commit that imported backend docs is `82ecb7972c06f9afd1839dff27854c3b36b7b5eb` (and a subsequent backup zip commit `e4b9276` contains the archived originals).
 
 Recommendations:
 
@@ -265,6 +269,9 @@ jobs:
 					mkdir -p ../openagent-wiki/frontend
 					cp -R ./dist/docs/* ../openagent-wiki/frontend/ || true
 			- name: Commit & Push to wiki
+				env:
+					GIT_AUTHOR_NAME: github-actions
+					GIT_AUTHOR_EMAIL: actions@github.com
 				run: |
 					cd ../openagent-wiki
 					git add .
