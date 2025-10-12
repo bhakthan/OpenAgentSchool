@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Play, Pause, RotateCcw, Users, Database, Shield, GitCompare } from 'lucide-react';
+import { YoutubeLogo, ArrowUpRight } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock } from './conceptStyles';
 
@@ -21,7 +22,11 @@ const A2AMultiAgentSystem: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [showArchitecture, setShowArchitecture] = useState(false);
-  const [showRagComparison, setShowRagComparison] = useState(false);
+  const [showRagComparison, setShowRagComparison] = useState(true);
+  
+  // RAG Evolution animation state
+  const [isRagPlaying, setIsRagPlaying] = useState(false);
+  const [currentRagStep, setCurrentRagStep] = useState(0);
 
   const animationSteps: AnimationStep[] = [
     {
@@ -100,6 +105,52 @@ const A2AMultiAgentSystem: React.FC = () => {
     }
   ];
 
+  // RAG Evolution animation steps
+  const ragAnimationSteps = [
+    {
+      id: 'user-query-rag',
+      title: 'User Query',
+      description: 'User sends query to the Agentic RAG system',
+      duration: 2000,
+      highlight: ['user-component-agentic', 'user-query-path']
+    },
+    {
+      id: 'orchestrator-receives',
+      title: 'Orchestrator Receives',
+      description: 'Orchestrator Agent receives and analyzes the query',
+      duration: 2500,
+      highlight: ['orchestrator-component', 'user-query-path']
+    },
+    {
+      id: 'context-sourcing',
+      title: 'Parallel Context Sourcing',
+      description: 'Orchestrator delegates to specialized agents via A2A and MCP protocols',
+      duration: 3000,
+      highlight: ['orchestrator-component', 'context-sources', 'sourcing-paths']
+    },
+    {
+      id: 'agents-respond',
+      title: 'Agents Gather Context',
+      description: 'Product Agent, KB Agent, and OMS Tool Agent return relevant context',
+      duration: 3000,
+      highlight: ['context-sources', 'return-paths']
+    },
+    {
+      id: 'context-engineering',
+      title: 'Context Engineering',
+      description: 'Re-rank, filter, summarize, and transform raw context into precision-engineered prompts',
+      duration: 3500,
+      highlight: ['orchestrator-component', 'engineering-pipeline']
+    },
+    {
+      id: 'generate-response',
+      title: 'Generate Response',
+      description: 'Generate high-quality response with engineered context and send to user',
+      duration: 2500,
+      highlight: ['orchestrator-component', 'response-path']
+    }
+  ];
+
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isPlaying && currentStep < animationSteps.length - 1) {
@@ -112,6 +163,19 @@ const A2AMultiAgentSystem: React.FC = () => {
     }
     return () => clearTimeout(timer);
   }, [isPlaying, currentStep, animationSteps]);
+
+  // RAG Evolution animation effect
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isRagPlaying && currentRagStep < ragAnimationSteps.length - 1) {
+      timer = setTimeout(() => {
+        setCurrentRagStep(prev => prev + 1);
+      }, ragAnimationSteps[currentRagStep].duration);
+    } else if (currentRagStep >= ragAnimationSteps.length - 1) {
+      setIsRagPlaying(false);
+    }
+    return () => clearTimeout(timer);
+  }, [isRagPlaying, currentRagStep, ragAnimationSteps]);
 
   const handlePlay = () => {
     setIsPlaying(!isPlaying);
@@ -128,7 +192,17 @@ const A2AMultiAgentSystem: React.FC = () => {
     setShowRagComparison(!showRagComparison);
   };
 
+  const handleRagPlay = () => {
+    setIsRagPlaying(!isRagPlaying);
+  };
+
+  const handleRagReset = () => {
+    setIsRagPlaying(false);
+    setCurrentRagStep(0);
+  };
+
   const currentStepData = animationSteps[currentStep];
+  const currentRagStepData = ragAnimationSteps[currentRagStep];
 
   return (
     <Card className="w-full max-w-7xl mx-auto">
@@ -171,56 +245,59 @@ const A2AMultiAgentSystem: React.FC = () => {
           {/* Main Animation Area */}
           <div className="relative">
             <svg
-              viewBox="0 0 1400 950"
+              viewBox="0 0 1400 970"
               className="w-full h-auto border rounded-lg bg-muted text-foreground"
             >
               {/* Define styles for the multi-agent system */}
               <defs>
                 <style>
                   {`
-                    /* Main containers and boxes */
-                    .box { stroke-width: 1.5; stroke-opacity: 0.8; rx: 8; ry: 8; }
-                    .azure-box { fill: #f0f6ff; stroke: #0078d4; }
-                    .google-box { fill: #f1f8e9; stroke: #34a853; }
-                    .user-box { fill: #f3e5f5; stroke: #8e24aa; }
-                    .mcp-box { fill: #fff3e0; stroke: #ff9800; }
+                    /* Main containers and boxes - Light mode: monochrome */
+                    .box { stroke-width: 2.5; rx: 8; ry: 8; }
+                    .azure-box { fill: #f8fafc; stroke: #1e293b; stroke-width: 2.5; }
+                    .google-box { fill: #f8fafc; stroke: #1e293b; stroke-width: 2.5; }
+                    .user-box { fill: #f8fafc; stroke: #1e293b; stroke-width: 2.5; }
+                    .mcp-box { fill: #f8fafc; stroke: #1e293b; stroke-width: 2.5; }
 
-                    /* Cloud shapes */
-                    .cloud { fill-opacity: 0.1; stroke-width: 1.5; stroke-dasharray: 4 2; }
-                    .azure-cloud { fill: #0078d4; stroke: #0078d4; }
-                    .google-cloud { fill: #34a853; stroke: #34a853; }
+                    /* Cloud shapes - Light mode: subtle gray */
+                    .cloud { fill: #ffffff; fill-opacity: 0.8; stroke-width: 2; stroke-dasharray: 4 2; }
+                    .azure-cloud { stroke: #475569; }
+                    .google-cloud { stroke: #475569; }
 
-                    /* Text styles */
-                    .title { font-size: 20px; font-weight: 600; fill: rgb(30 41 59); }
-                    .subtitle { font-size: 16px; font-weight: 600; fill: rgb(30 41 59); }
-                    .label { font-size: 13px; fill: #333; }
-                    .icon-label { font-size: 12px; font-weight: 500; fill: #333; }
-                    .flow-step-text { font-size: 14px; font-weight: 500; fill: #1a1a1a; }
-                    .protocol-label { font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; }
+                    /* Text styles - Light mode: larger, bolder, high contrast */
+                    .title { font-size: 26px; font-weight: 700; fill: #0f172a; }
+                    .subtitle { font-size: 20px; font-weight: 600; fill: #0f172a; }
+                    .label { font-size: 18px; font-weight: 600; fill: #0f172a; }
+                    .icon-label { font-size: 18px; font-weight: 600; fill: #0f172a; }
+                    .flow-step-text { font-size: 22px; font-weight: 700; fill: #0f172a; }
+                    .protocol-label { font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #0f172a; }
                     
-                    /* Paths and arrows */
-                    .flow-path { fill: none; stroke: #555; stroke-width: 2; stroke-linecap: round; }
-                    .a2a-arrow { stroke: #d73d33; }
-                    .mcp-arrow { stroke: #0078d4; }
-                    .internal-arrow { stroke: #34a853; stroke-dasharray: 4 2; }
+                    /* Paths and arrows - Light mode: dark gray */
+                    .flow-path { fill: none; stroke: #334155; stroke-width: 2.5; stroke-linecap: round; }
+                    .a2a-arrow { stroke: #dc2626; }
+                    .mcp-arrow { stroke: #2563eb; }
+                    .internal-arrow { stroke: #16a34a; stroke-dasharray: 4 2; }
 
                     /* Animation ping */
                     .ping { stroke-width: 2; r: 6; }
-                    .a2a-ping { fill: #d73d33; stroke: #fff; }
-                    .mcp-ping { fill: #0078d4; stroke: #fff; }
-                    .genai-ping { fill: #ffca28; stroke: #fff; }
+                    .a2a-ping { fill: #dc2626; stroke: #fff; }
+                    .mcp-ping { fill: #2563eb; stroke: #fff; }
+                    .genai-ping { fill: #eab308; stroke: #fff; }
 
-                    /* Dark mode overrides */
+                    /* Dark mode overrides - keep colors */
                     @media (prefers-color-scheme: dark) {
-                      .title { fill: rgb(248 250 252); }
-                      .subtitle { fill: rgb(248 250 252); }
-                      .label { fill: rgb(226 232 240); }
-                      .icon-label { fill: rgb(226 232 240); }
-                      .flow-step-text { fill: rgb(226 232 240); }
+                      .title { fill: #f1f5f9; }
+                      .subtitle { fill: #e2e8f0; }
+                      .label { fill: #cbd5e1; }
+                      .icon-label { fill: #cbd5e1; }
+                      .flow-step-text { fill: #e2e8f0; }
                       .azure-box { fill: #1e3a8a; stroke: #60a5fa; }
                       .google-box { fill: #166534; stroke: #4ade80; }
-                      .user-box { fill: #581c87; stroke: #c084fc; }
+                      .user-box { fill: #334155; stroke: #94a3b8; }
                       .mcp-box { fill: #92400e; stroke: #fbbf24; }
+                      .cloud { fill: #1e293b; fill-opacity: 0.3; }
+                      .azure-cloud { stroke: #60a5fa; }
+                      .google-cloud { stroke: #4ade80; }
                     }
                   `}
                 </style>
@@ -261,6 +338,7 @@ const A2AMultiAgentSystem: React.FC = () => {
               </defs>
 
               {/* Main Title */}
+              <rect x="100" y="10" width="1200" height="40" fill="white" fillOpacity="0.9" rx="4" className="dark:fill-slate-800 dark:fill-opacity-90" />
               <text x="700" y="35" textAnchor="middle" className="title">
                 E-commerce Multi-Agent System: A2A, GenAI-processors, and MCP in Action
               </text>
@@ -463,20 +541,20 @@ const A2AMultiAgentSystem: React.FC = () => {
               )}
               
               {/* Legend */}
-              <g transform="translate(20, 880)">
-                <text x="0" y="15" fontWeight="bold" fontSize="14" className="label">Legend:</text>
-                <use href="#icon-a2a" x="80" y="0" width="20" height="20" />
-                <text x="105" y="15" className="label">A2A Protocol</text>
-                <use href="#icon-genai-proc" x="220" y="0" width="20" height="20" />
-                <text x="245" y="15" className="label">GenAI-processors</text>
-                <use href="#icon-mcp" x="380" y="0" width="20" height="20" />
-                <text x="405" y="15" className="label">Model Context Protocol (MCP)</text>
-                <rect x="580" y="5" width="20" height="10" className="user-box" strokeWidth="1"/>
-                <text x="605" y="15" className="label">User/Client Components</text>
-                <rect x="760" y="5" width="20" height="10" className="azure-box" strokeWidth="1"/>
-                <text x="785" y="15" className="label">Azure Components</text>
-                <rect x="920" y="5" width="20" height="10" className="google-box" strokeWidth="1"/>
-                <text x="945" y="15" className="label">Google Components</text>
+              <g transform="translate(20, 920)">
+                <text x="0" y="15" fontWeight="bold" fontSize="20" className="label">Legend:</text>
+                <use href="#icon-a2a" x="90" y="0" width="24" height="24" />
+                <text x="120" y="15" className="label" fontSize="18">A2A Protocol</text>
+                <use href="#icon-genai-proc" x="260" y="0" width="24" height="24" />
+                <text x="290" y="15" className="label" fontSize="18">GenAI-processors</text>
+                <use href="#icon-mcp" x="460" y="0" width="24" height="24" />
+                <text x="490" y="15" className="label" fontSize="18">Model Context Protocol (MCP)</text>
+                <rect x="720" y="3" width="28" height="14" className="user-box" strokeWidth="2"/>
+                <text x="755" y="15" className="label" fontSize="18">User/Client Components</text>
+                <rect x="990" y="3" width="28" height="14" className="azure-box" strokeWidth="2"/>
+                <text x="1025" y="15" className="label" fontSize="18">Azure Components</text>
+                <rect x="1210" y="3" width="28" height="14" className="google-box" strokeWidth="2"/>
+                <text x="1245" y="15" className="label" fontSize="18">Google Components</text>
               </g>
             </svg>
           </div>
@@ -539,6 +617,38 @@ const A2AMultiAgentSystem: React.FC = () => {
                     </p>
                   </CardHeader>
                   <CardContent>
+                    {/* RAG Animation Controls */}
+                    <div className="space-y-4 mb-6">
+                      <div className="flex gap-2 justify-center">
+                        <Button onClick={handleRagPlay} variant="outline" size="sm">
+                          {isRagPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                          {isRagPlaying ? 'Pause' : 'Play'} Animation
+                        </Button>
+                        <Button onClick={handleRagReset} variant="outline" size="sm">
+                          <RotateCcw className="w-4 h-4" />
+                          Reset
+                        </Button>
+                      </div>
+
+                      {/* Progress Indicator */}
+                      <div className="w-full bg-muted text-foreground rounded-full h-2">
+                        <div 
+                          className="bg-amber-600 h-2 rounded-full transition-all duration-500"
+                          style={{ width: `${((currentRagStep + 1) / ragAnimationSteps.length) * 100}%` }}
+                        />
+                      </div>
+
+                      {/* Current Step Info */}
+                      <div className="text-center space-y-1">
+                        <div className="text-sm font-semibold text-amber-600">
+                          Step {currentRagStep + 1} of {ragAnimationSteps.length}: {currentRagStepData.title}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {currentRagStepData.description}
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="relative">
                       <svg
                         width="1600"
@@ -550,29 +660,30 @@ const A2AMultiAgentSystem: React.FC = () => {
                         <defs>
                           <style>
                             {`
-                              .box { stroke-width: 1.5; stroke-opacity: 0.8; rx: 8; ry: 8; }
-                              .azure-box { fill: #f0f6ff; stroke: #0078d4; }
-                              .google-box { fill: #f1f8e9; stroke: #34a853; }
-                              .user-box { fill: #fdf2f2; stroke: #b91c1c; }
-                              .rag-box { fill: #fefce8; stroke: #ca8a04; }
-                              .mono-box { fill: #f5f5f5; stroke: #757575; }
+                              /* Light mode - monochrome, high contrast */
+                              .box { stroke-width: 2.5; rx: 8; ry: 8; }
+                              .azure-box { fill: #f8fafc; stroke: #1e293b; }
+                              .google-box { fill: #f8fafc; stroke: #1e293b; }
+                              .user-box { fill: #f8fafc; stroke: #1e293b; }
+                              .rag-box { fill: #f8fafc; stroke: #1e293b; }
+                              .mono-box { fill: #f8fafc; stroke: #1e293b; }
 
-                              /* Text styles */
-                              .main-title { font-size: 24px; font-weight: 600; text-anchor: middle; fill: #003e83; }
-                              .section-title { font-size: 20px; font-weight: 600; text-anchor: middle; }
-                              .subtitle { font-size: 16px; font-weight: 600; }
-                              .label { font-size: 13px; fill: #333; }
-                              .sub-label { font-size: 11px; fill: #555; }
-                              .icon-label { font-size: 12px; font-weight: 500; }
-                              .flow-step-text { font-size: 14px; font-weight: 500; fill: #1a1a1a; opacity: 0; }
-                              .protocol-label { font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; }
+                              /* Text styles - larger and bolder */
+                              .main-title { font-size: 26px; font-weight: 700; text-anchor: middle; fill: #0f172a; }
+                              .section-title { font-size: 22px; font-weight: 700; text-anchor: middle; fill: #0f172a; }
+                              .subtitle { font-size: 18px; font-weight: 600; fill: #0f172a; }
+                              .label { font-size: 18px; font-weight: 600; fill: #0f172a; }
+                              .sub-label { font-size: 16px; font-weight: 500; fill: #0f172a; }
+                              .icon-label { font-size: 18px; font-weight: 600; fill: #0f172a; }
+                              .flow-step-text { font-size: 22px; font-weight: 700; fill: #0f172a; }
+                              .protocol-label { font-family: 'Courier New', monospace; font-size: 18px; font-weight: bold; fill: #0f172a; }
                               
-                              /* Paths and arrows */
-                              .flow-path { fill: none; stroke: #555; stroke-width: 2; stroke-linecap: round; marker-end: url(#arrowhead-rag); }
-                              .a2a-arrow { stroke: #d73d33; }
-                              .mcp-arrow { stroke: #0078d4; }
-                              .internal-arrow { stroke: #4ade80; }
-                              .rag-arrow { stroke: #ca8a04; stroke-dasharray: 4 2; }
+                              /* Paths and arrows - dark gray */
+                              .flow-path { fill: none; stroke: #334155; stroke-width: 2.5; stroke-linecap: round; marker-end: url(#arrowhead-rag); }
+                              .a2a-arrow { stroke: #dc2626; }
+                              .mcp-arrow { stroke: #2563eb; }
+                              .internal-arrow { stroke: #16a34a; }
+                              .rag-arrow { stroke: #64748b; stroke-dasharray: 4 2; }
 
                               /* Animation ping */
                               .ping { stroke-width: 2.5; }
@@ -580,18 +691,18 @@ const A2AMultiAgentSystem: React.FC = () => {
                               .rag-ping { fill: #f59e0b; stroke: #fff; }
                               .genai-ping { fill: #10b981; stroke: #fff; }
 
-                              /* Dark mode overrides */
+                              /* Dark mode overrides - keep colors */
                               @media (prefers-color-scheme: dark) {
-                                .main-title { fill: rgb(248 250 252); }
-                                .section-title { fill: rgb(248 250 252); }
-                                .subtitle { fill: rgb(248 250 252); }
-                                .label { fill: rgb(226 232 240); }
-                                .sub-label { fill: rgb(148 163 184); }
-                                .icon-label { fill: rgb(226 232 240); }
-                                .flow-step-text { fill: rgb(226 232 240); }
+                                .main-title { fill: #f1f5f9; }
+                                .section-title { fill: #e2e8f0; }
+                                .subtitle { fill: #cbd5e1; }
+                                .label { fill: #94a3b8; }
+                                .sub-label { fill: #64748b; }
+                                .icon-label { fill: #cbd5e1; }
+                                .flow-step-text { fill: #e2e8f0; }
                                 .azure-box { fill: #1e3a8a; stroke: #60a5fa; }
                                 .google-box { fill: #166534; stroke: #4ade80; }
-                                .user-box { fill: #7f1d1d; stroke: #f87171; }
+                                .user-box { fill: #334155; stroke: #94a3b8; }
                                 .rag-box { fill: #92400e; stroke: #fbbf24; }
                                 .mono-box { fill: #374151; stroke: #9ca3af; }
                               }
@@ -626,30 +737,32 @@ const A2AMultiAgentSystem: React.FC = () => {
                         </defs>
 
                         {/* Main Title */}
+                        <rect x="100" y="10" width="1400" height="50" fill="white" fillOpacity="0.95" rx="4" className="dark:fill-slate-800 dark:fill-opacity-90" />
                         <text x="800" y="40" className="main-title">The Evolution of RAG: From Monolithic Chatbots to Agentic Ecosystems</text>
-                        <line x1="10" y1="70" x2="1590" y2="70" stroke="#d1d5db" strokeWidth="1.5"/>
-                        <line x1="800" y1="70" x2="800" y2="980" stroke="#d1d5db" strokeWidth="1.5"/>
+                        <line x1="10" y1="70" x2="1590" y2="70" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5"/>
+                        <line x1="800" y1="70" x2="800" y2="980" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5"/>
 
                         {/* LEFT SIDE: Traditional RAG */}
                         <g id="traditional-rag">
+                          <rect x="50" y="85" width="700" height="35" fill="white" fillOpacity="0.9" rx="4" className="dark:fill-slate-800 dark:fill-opacity-80" />
                           <text x="400" y="110" className="section-title">THEN: Traditional RAG</text>
                           
                           {/* Components */}
                           <rect x="50" y="200" width="150" height="70" className="box user-box"/>
                           <use href="#icon-user-rag" x="65" y="215" width="24" height="24"/>
-                          <text x="125" y="240" textAnchor="middle" className="subtitle">User</text>
+                          <text x="125" y="240" textAnchor="middle" className="subtitle" fontSize="20">User</text>
 
                           <rect x="325" y="300" width="250" height="180" className="box mono-box"/>
-                          <text x="450" y="325" textAnchor="middle" className="subtitle">Monolithic RAG Chatbot</text>
-                          <text x="450" y="360" textAnchor="middle" className="label">1. Retrieve from DB</text>
-                          <text x="450" y="380" textAnchor="middle" className="label">2. Simple Context Stuffing</text>
-                          <text x="450" y="400" textAnchor="middle" className="label">3. Generate Answer</text>
-                          <text x="450" y="435" textAnchor="middle" className="sub-label" fill="#e11d48">✗ Limited sources</text>
-                          <text x="450" y="450" textAnchor="middle" className="sub-label" fill="#e11d48">✗ Noisy context, prone to errors</text>
+                          <text x="450" y="325" textAnchor="middle" className="subtitle" fontSize="20">Monolithic RAG Chatbot</text>
+                          <text x="450" y="360" textAnchor="middle" className="label" fontSize="18">1. Retrieve from DB</text>
+                          <text x="450" y="380" textAnchor="middle" className="label" fontSize="18">2. Simple Context Stuffing</text>
+                          <text x="450" y="400" textAnchor="middle" className="label" fontSize="18">3. Generate Answer</text>
+                          <text x="450" y="435" textAnchor="middle" className="sub-label" fontSize="17" style={{fill: '#dc2626'}}>✗ Limited sources</text>
+                          <text x="450" y="450" textAnchor="middle" className="sub-label" fontSize="17" style={{fill: '#dc2626'}}>✗ Noisy context, prone to errors</text>
 
                           <rect x="50" y="550" width="150" height="70" className="box rag-box"/>
                           <use href="#icon-db-rag" x="65" y="565" width="24" height="24"/>
-                          <text x="125" y="590" textAnchor="middle" className="subtitle">Vector DB</text>
+                          <text x="125" y="590" textAnchor="middle" className="subtitle" fontSize="20">Vector DB</text>
 
                           {/* Flow Paths */}
                           <path className="flow-path rag-arrow" d="M 125,275 V 360 C 125,400 250,420 320,420"/>
@@ -658,90 +771,115 @@ const A2AMultiAgentSystem: React.FC = () => {
                           <path className="flow-path rag-arrow" d="M 320,380 C 250,380 125,360 125,360 V 275"/>
                           
                           {/* Static Labels */}
-                          <text className="label" x="240" y="300" textAnchor="middle">1. User sends query</text>
-                          <text className="label" x="240" y="490" textAnchor="middle">2. Naive retrieval</text>
-                          <text className="label" x="240" y="340" textAnchor="middle">3. Generate & Reply</text>
+                          <text className="label" x="240" y="300" textAnchor="middle" fontSize="18">1. User sends query</text>
+                          <text className="label" x="240" y="490" textAnchor="middle" fontSize="18">2. Naive retrieval</text>
+                          <text className="label" x="240" y="340" textAnchor="middle" fontSize="18">3. Generate & Reply</text>
                         </g>
 
                         {/* RIGHT SIDE: Agentic RAG */}
                         <g id="agentic-rag">
+                          <rect x="850" y="85" width="700" height="35" fill="white" fillOpacity="0.9" rx="4" className="dark:fill-slate-800 dark:fill-opacity-80" />
                           <text x="1200" y="110" className="section-title">NOW: Agentic RAG with Context Engineering</text>
 
                           {/* Components */}
-                          <g id="user-component-agentic">
-                            <rect x="850" y="200" width="150" height="70" className="box user-box"/>
+                          <g id="user-component-agentic" opacity={currentRagStepData.highlight.includes('user-component-agentic') ? 1 : 0.4}>
+                            <rect x="850" y="200" width="150" height="70" className="box user-box"
+                              stroke={currentRagStepData.highlight.includes('user-component-agentic') ? '#f59e0b' : undefined}
+                              strokeWidth={currentRagStepData.highlight.includes('user-component-agentic') ? '3.5' : undefined}
+                            />
                             <use href="#icon-user-rag" x="865" y="215" width="24" height="24"/>
-                            <text x="925" y="240" textAnchor="middle" className="subtitle">User</text>
+                            <text x="925" y="240" textAnchor="middle" className="subtitle" fontSize="20">User</text>
                           </g>
                           
-                          <g id="orchestrator-component">
-                            <rect x="1050" y="280" width="300" height="400" className="box azure-box"/>
+                          <g id="orchestrator-component" opacity={currentRagStepData.highlight.includes('orchestrator-component') ? 1 : 0.4}>
+                            <rect x="1050" y="280" width="300" height="400" className="box azure-box"
+                              stroke={currentRagStepData.highlight.includes('orchestrator-component') ? '#f59e0b' : undefined}
+                              strokeWidth={currentRagStepData.highlight.includes('orchestrator-component') ? '3.5' : undefined}
+                            />
                             <use href="#icon-azure-rag" x="1060" y="290" width="24" height="24"/>
-                            <text x="1200" y="310" textAnchor="middle" className="subtitle">Orchestrator Agent</text>
-                            <text x="1200" y="330" textAnchor="middle" className="sub-label">(e.g., Azure AI Agent Service)</text>
+                            <text x="1200" y="310" textAnchor="middle" className="subtitle" fontSize="20">Orchestrator Agent</text>
+                            <text x="1200" y="330" textAnchor="middle" className="sub-label" fontSize="17">(e.g., Azure AI Agent Service)</text>
 
-                            <rect x="1070" y="350" width="260" height="310" fill="#fff" className="box azure-box" strokeDasharray="3 3"/>
-                            <text x="1200" y="370" textAnchor="middle" className="label" fontWeight="bold">Context Engineering Pipeline</text>
+                            <rect id="engineering-pipeline" x="1070" y="350" width="260" height="310" fill="#fff" className="box azure-box" strokeDasharray="3 3"
+                              stroke={currentRagStepData.highlight.includes('engineering-pipeline') ? '#f59e0b' : undefined}
+                              strokeWidth={currentRagStepData.highlight.includes('engineering-pipeline') ? '3.5' : undefined}
+                            />
+                            <text x="1200" y="370" textAnchor="middle" className="label" fontSize="18" fontWeight="bold">Context Engineering Pipeline</text>
                             <use href="#icon-genai-proc-rag" x="1075" y="352" width="24" height="24"/>
-                            <text x="1105" y="368" className="icon-label" fill="#10b981">GenAI-processors</text>
+                            <text x="1105" y="368" className="icon-label" fontSize="18" fill="#10b981">GenAI-processors</text>
 
-                            <text x="1080" y="405" className="label" fontWeight="600">1. Context Sourcing:</text>
-                            <text x="1090" y="425" className="sub-label">- Delegate to Agents (A2A)</text>
-                            <text x="1090" y="440" className="sub-label">- Call Secure Tools (MCP)</text>
+                            <text x="1080" y="405" className="label" fontSize="18" fontWeight="600">1. Context Sourcing:</text>
+                            <text x="1090" y="425" className="sub-label" fontSize="17">- Delegate to Agents (A2A)</text>
+                            <text x="1090" y="440" className="sub-label" fontSize="17">- Call Secure Tools (MCP)</text>
                             
-                            <text x="1080" y="475" className="label" fontWeight="600">2. Context Engineering:</text>
-                            <rect x="1090" y="495" width="220" height="120" fill="#f0f6ff" className="box azure-box" rx="4" />
-                            <text x="1200" y="515" textAnchor="middle" className="sub-label">Re-rank & Filter</text>
-                            <text x="1200" y="535" textAnchor="middle" className="sub-label">Summarize & Condense</text>
-                            <text x="1200" y="555" textAnchor="middle" className="sub-label">Transform (e.g., to JSON)</text>
-                            <text x="1200" y="575" textAnchor="middle" className="sub-label">Add Negative Evidence</text>
+                            <text x="1080" y="475" className="label" fontSize="18" fontWeight="600">2. Context Engineering:</text>
+                            <rect x="1090" y="495" width="220" height="120" className="box azure-box" rx="4" fillOpacity="0.3" />
+                            <text x="1200" y="515" textAnchor="middle" className="sub-label" fontSize="17">Re-rank & Filter</text>
+                            <text x="1200" y="535" textAnchor="middle" className="sub-label" fontSize="17">Summarize & Condense</text>
+                            <text x="1200" y="555" textAnchor="middle" className="sub-label" fontSize="17">Transform (e.g., to JSON)</text>
+                            <text x="1200" y="575" textAnchor="middle" className="sub-label" fontSize="17">Add Negative Evidence</text>
                             
-                            <text x="1080" y="640" className="label" fontWeight="600">3. Generate w/ LLM</text>
+                            <text x="1080" y="640" className="label" fontSize="18" fontWeight="600">3. Generate w/ LLM</text>
                           </g>
 
-                          <g id="context-sources">
-                            <rect x="850" y="720" width="700" height="230" fill="rgba(200,200,200,0.05)" stroke="#ccc" strokeDasharray="4 4" rx="8"/>
-                            <text x="1200" y="745" textAnchor="middle" className="subtitle">Context Sources</text>
+                          <g id="context-sources" opacity={currentRagStepData.highlight.includes('context-sources') ? 1 : 0.4}>
+                            <rect x="850" y="720" width="700" height="230" className="box" fill="transparent" strokeOpacity="0.2" strokeDasharray="4 4" rx="8"
+                              stroke={currentRagStepData.highlight.includes('context-sources') ? '#f59e0b' : 'currentColor'}
+                              strokeWidth={currentRagStepData.highlight.includes('context-sources') ? '3' : '1'}
+                            />
+                            <text x="1200" y="745" textAnchor="middle" className="subtitle" fontSize="20">Context Sources</text>
 
                             <rect x="870" y="770" width="200" height="150" className="box google-box"/>
                             <use href="#icon-google-rag" x="880" y="780" width="24" height="24"/>
-                            <text x="970" y="795" textAnchor="middle" className="label">Product Agent</text>
-                            <text x="970" y="810" textAnchor="middle" className="sub-label">(Google AI Foundry)</text>
+                            <text x="970" y="795" textAnchor="middle" className="label" fontSize="18">Product Agent</text>
+                            <text x="970" y="810" textAnchor="middle" className="sub-label" fontSize="17">(Google AI Foundry)</text>
                             <use href="#icon-a2a-rag" x="960" y="830" width="20" height="20" />
-                            <text x="970" y="860" textAnchor="middle" className="protocol-label a2a-arrow">A2A</text>
+                            <text x="970" y="860" textAnchor="middle" className="protocol-label a2a-arrow" fontSize="18">A2A</text>
 
                             <rect x="1100" y="770" width="200" height="150" className="box azure-box"/>
                             <use href="#icon-azure-rag" x="1110" y="780" width="24" height="24"/>
-                            <text x="1200" y="795" textAnchor="middle" className="label">KB Agent</text>
-                            <text x="1200" y="810" textAnchor="middle" className="sub-label">(Azure AI Search)</text>
+                            <text x="1200" y="795" textAnchor="middle" className="label" fontSize="18">KB Agent</text>
+                            <text x="1200" y="810" textAnchor="middle" className="sub-label" fontSize="17">(Azure AI Search)</text>
                             <use href="#icon-a2a-rag" x="1190" y="830" width="20" height="20" />
-                            <text x="1200" y="860" textAnchor="middle" className="protocol-label a2a-arrow">A2A</text>
+                            <text x="1200" y="860" textAnchor="middle" className="protocol-label a2a-arrow" fontSize="18">A2A</text>
                             
                             <rect x="1330" y="770" width="200" height="150" className="box azure-box"/>
                             <use href="#icon-azure-rag" x="1340" y="780" width="24" height="24"/>
-                            <text x="1430" y="795" textAnchor="middle" className="label">OMS Tool Agent</text>
-                            <text x="1430" y="810" textAnchor="middle" className="sub-label">(Azure Functions)</text>
+                            <text x="1430" y="795" textAnchor="middle" className="label" fontSize="18">OMS Tool Agent</text>
+                            <text x="1430" y="810" textAnchor="middle" className="sub-label" fontSize="17">(Azure Functions)</text>
                             <use href="#icon-mcp-rag" x="1420" y="830" width="20" height="20" />
-                            <text x="1430" y="860" textAnchor="middle" className="protocol-label mcp-arrow">MCP</text>
+                            <text x="1430" y="860" textAnchor="middle" className="protocol-label mcp-arrow" fontSize="18">MCP</text>
                           </g>
 
                           {/* Agentic Flow Paths */}
-                          <path className="flow-path a2a-arrow" d="M 925,275 V 350 C 925,400 1000,410 1065,410"/>
-                          <path className="flow-path a2a-arrow" d="M 1200,685 V 770 H 970"/>
-                          <path className="flow-path a2a-arrow" d="M 1200,685 V 770"/>
-                          <path className="flow-path mcp-arrow" d="M 1200,685 V 770 H 1430"/>
-                          <path className="flow-path a2a-arrow" d="M 970,770 H 1200 V 685"/>
-                          <path className="flow-path a2a-arrow" d="M 1200,770 V 685"/>
-                          <path className="flow-path mcp-arrow" d="M 1430,770 H 1200 V 685"/>
-                          <path className="flow-path internal-arrow" d="M 1200,565 V 630"/>
-                          <path className="flow-path a2a-arrow" d="M 1065,410 C 1000,410 925,420 925,470 V 275"/>
+                          <g id="user-query-path" opacity={currentRagStepData.highlight.includes('user-query-path') ? 1 : 0.3}>
+                            <path className="flow-path a2a-arrow" d="M 925,275 V 350 C 925,400 1000,410 1065,410"/>
+                          </g>
+                          
+                          <g id="sourcing-paths" opacity={currentRagStepData.highlight.includes('sourcing-paths') ? 1 : 0.3}>
+                            <path className="flow-path a2a-arrow" d="M 1200,685 V 770 H 970"/>
+                            <path className="flow-path a2a-arrow" d="M 1200,685 V 770"/>
+                            <path className="flow-path mcp-arrow" d="M 1200,685 V 770 H 1430"/>
+                          </g>
+                          
+                          <g id="return-paths" opacity={currentRagStepData.highlight.includes('return-paths') ? 1 : 0.3}>
+                            <path className="flow-path a2a-arrow" d="M 970,770 H 1200 V 685"/>
+                            <path className="flow-path a2a-arrow" d="M 1200,770 V 685"/>
+                            <path className="flow-path mcp-arrow" d="M 1430,770 H 1200 V 685"/>
+                          </g>
+                          
+                          <path className="flow-path internal-arrow" d="M 1200,565 V 630" opacity={currentRagStepData.highlight.includes('engineering-pipeline') ? 1 : 0.3}/>
+                          
+                          <g id="response-path" opacity={currentRagStepData.highlight.includes('response-path') ? 1 : 0.3}>
+                            <path className="flow-path a2a-arrow" d="M 1065,410 C 1000,410 925,420 925,470 V 275"/>
+                          </g>
 
                           {/* Static Labels */}
-                          <text className="label" x="980" y="320">1. User sends query</text>
-                          <text className="label" x="1200" y="700" textAnchor="middle">2. Context Sourcing (Parallel)</text>
-                          <text className="label" x="1200" y="465" textAnchor="middle">3. Context Engineering</text>
-                          <text className="label" x="1200" y="670" textAnchor="middle">4. Precision-Engineered Prompt</text>
-                          <text className="label" x="980" y="370">5. Generate & Reply</text>
+                          <text className="label" x="980" y="320" fontSize="18" opacity={currentRagStepData.highlight.includes('user-query-path') ? 1 : 0.5}>1. User sends query</text>
+                          <text className="label" x="1200" y="700" textAnchor="middle" fontSize="18" opacity={currentRagStepData.highlight.includes('sourcing-paths') ? 1 : 0.5}>2. Context Sourcing (Parallel)</text>
+                          <text className="label" x="1200" y="465" textAnchor="middle" fontSize="18" opacity={currentRagStepData.highlight.includes('engineering-pipeline') ? 1 : 0.5}>3. Context Engineering</text>
+                          <text className="label" x="1200" y="670" textAnchor="middle" fontSize="18" opacity={currentRagStepData.highlight.includes('engineering-pipeline') ? 1 : 0.5}>4. Precision-Engineered Prompt</text>
+                          <text className="label" x="980" y="370" fontSize="18" opacity={currentRagStepData.highlight.includes('response-path') ? 1 : 0.5}>5. Generate & Reply</text>
                         </g>
                       </svg>
                     </div>
@@ -801,6 +939,203 @@ const A2AMultiAgentSystem: React.FC = () => {
                       </Card>
                     </div>
 
+                    {/* Agentic Context Engineering Framework */}
+                    <div className="mt-6 space-y-4">
+                      <Card className="border-violet-200 dark:border-violet-800">
+                        <CardHeader>
+                          <CardTitle className="flex items-center gap-2 text-violet-600 dark:text-violet-400">
+                            <Database className="w-5 h-5" />
+                            Agentic Context Engineering: Evolving Playbooks
+                          </CardTitle>
+                          <p className="text-sm text-muted-foreground mt-2">
+                            A framework that treats contexts as living, evolving playbooks rather than static prompts. 
+                            ACE improves model behavior by changing inputs (context adaptation) instead of model weights.
+                          </p>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                          {/* Core Problem */}
+                          <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
+                            <h4 className="font-semibold text-destructive mb-3">⚠️ The Context Collapse Problem</h4>
+                            <div className="space-y-2 text-sm">
+                              <div className="flex items-start gap-2">
+                                <Badge variant="destructive" className="mt-0.5">Brevity Bias</Badge>
+                                <p className="flex-1 text-muted-foreground">
+                                  Optimized prompts shrink and lose practical domain detail, favoring conciseness over comprehensiveness
+                                </p>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <Badge variant="destructive" className="mt-0.5">Context Collapse</Badge>
+                                <p className="flex-1 text-muted-foreground">
+                                  Repeated rewriting compresses context and erodes knowledge over time
+                                </p>
+                              </div>
+                              <div className="p-3 bg-background border border-destructive/20 rounded mt-3">
+                                <p className="text-xs font-mono text-muted-foreground">
+                                  Real case: 18,282 tokens → 122 tokens | Accuracy: 66.7% → 57.1% ❌
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Three-Agent Framework */}
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <Card className="border-blue-200 dark:border-blue-800">
+                              <CardHeader className="pb-3">
+                                <CardTitle className="text-sm text-blue-600 dark:text-blue-400">1. Generator</CardTitle>
+                              </CardHeader>
+                              <CardContent className="space-y-2 text-sm">
+                                <p className="text-muted-foreground">Explores tasks and surfaces patterns</p>
+                                <ul className="space-y-1 text-xs text-muted-foreground">
+                                  <li>• Executes tasks with reasoning traces</li>
+                                  <li>• Captures successes & failures</li>
+                                  <li>• Collects execution feedback</li>
+                                  <li>• Documents edge cases</li>
+                                </ul>
+                              </CardContent>
+                            </Card>
+
+                            <Card className="border-purple-200 dark:border-purple-800">
+                              <CardHeader className="pb-3">
+                                <CardTitle className="text-sm text-purple-600 dark:text-purple-400">2. Reflector</CardTitle>
+                              </CardHeader>
+                              <CardContent className="space-y-2 text-sm">
+                                <p className="text-muted-foreground">Analyzes and extracts lessons</p>
+                                <ul className="space-y-1 text-xs text-muted-foreground">
+                                  <li>• Identifies what worked/failed</li>
+                                  <li>• Extracts concrete patterns</li>
+                                  <li>• Creates reusable strategies</li>
+                                  <li>• Tags helpful vs harmful</li>
+                                </ul>
+                              </CardContent>
+                            </Card>
+
+                            <Card className="border-green-200 dark:border-green-800">
+                              <CardHeader className="pb-3">
+                                <CardTitle className="text-sm text-green-600 dark:text-green-400">3. Curator</CardTitle>
+                              </CardHeader>
+                              <CardContent className="space-y-2 text-sm">
+                                <p className="text-muted-foreground">Maintains playbook integrity</p>
+                                <ul className="space-y-1 text-xs text-muted-foreground">
+                                  <li>• Incremental delta updates</li>
+                                  <li>• Merge duplicates</li>
+                                  <li>• Prune redundancy</li>
+                                  <li>• Grow & refine content</li>
+                                </ul>
+                              </CardContent>
+                            </Card>
+                          </div>
+
+                          {/* Playbook Structure */}
+                          <div className="p-4 bg-green-500/10 dark:bg-green-500/20 border border-green-500/30 rounded-lg">
+                            <h4 className="font-semibold text-green-700 dark:text-green-300 mb-3">📚 What is a Playbook?</h4>
+                            <p className="text-sm text-muted-foreground mb-3">
+                              A structured, growing collection of strategies, code snippets, examples, and cautions with simple metadata
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                              <div className="space-y-1">
+                                <Badge variant="outline" className="bg-background">Itemized Bullets</Badge>
+                                <p className="text-xs text-muted-foreground">Each lesson is a discrete, traceable item</p>
+                              </div>
+                              <div className="space-y-1">
+                                <Badge variant="outline" className="bg-background">Simple Metadata</Badge>
+                                <p className="text-xs text-muted-foreground">Tags track helpful/harmful patterns</p>
+                              </div>
+                              <div className="space-y-1">
+                                <Badge variant="outline" className="bg-background">Delta Updates</Badge>
+                                <p className="text-xs text-muted-foreground">Add/edit only relevant bullets, no full rewrites</p>
+                              </div>
+                              <div className="space-y-1">
+                                <Badge variant="outline" className="bg-background">Grow & Refine</Badge>
+                                <p className="text-xs text-muted-foreground">Continuously expand without context collapse</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Example Lessons */}
+                          <div className="p-4 bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/30 rounded-lg">
+                            <h4 className="font-semibold text-blue-700 dark:text-blue-300 mb-3">💡 Example Lessons from Execution</h4>
+                            <div className="space-y-2">
+                              <div className="p-2 bg-background rounded border border-blue-500/20">
+                                <p className="text-sm font-mono text-green-700 dark:text-green-400">
+                                  ✓ Paginate API calls until no results remain (prevents incomplete data)
+                                </p>
+                              </div>
+                              <div className="p-2 bg-background rounded border border-blue-500/20">
+                                <p className="text-sm font-mono text-green-700 dark:text-green-400">
+                                  ✓ Resolve identities from trusted contact records, not fragile text heuristics
+                                </p>
+                              </div>
+                              <div className="p-2 bg-background rounded border border-blue-500/20">
+                                <p className="text-sm font-mono text-destructive">
+                                  ✗ Avoid full context rewrites that compress domain knowledge
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Performance Results */}
+                          <div className="p-4 bg-violet-500/10 dark:bg-violet-500/20 border border-violet-500/30 rounded-lg">
+                            <h4 className="font-semibold text-violet-700 dark:text-violet-300 mb-3">📊 Proven Results</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <div className="flex items-baseline gap-2 mb-1">
+                                  <span className="text-2xl font-bold text-violet-600 dark:text-violet-400">+10.6%</span>
+                                  <span className="text-xs text-muted-foreground">avg improvement</span>
+                                </div>
+                                <p className="text-sm text-muted-foreground">Interactive agent tasks (AppWorld)</p>
+                              </div>
+                              <div>
+                                <div className="flex items-baseline gap-2 mb-1">
+                                  <span className="text-2xl font-bold text-violet-600 dark:text-violet-400">+8.6%</span>
+                                  <span className="text-xs text-muted-foreground">avg improvement</span>
+                                </div>
+                                <p className="text-sm text-muted-foreground">Financial analysis (XBRL tasks)</p>
+                              </div>
+                              <div>
+                                <div className="flex items-baseline gap-2 mb-1">
+                                  <span className="text-2xl font-bold text-violet-600 dark:text-violet-400">-86.9%</span>
+                                  <span className="text-xs text-muted-foreground">latency reduction</span>
+                                </div>
+                                <p className="text-sm text-muted-foreground">Adaptation time with fewer runs</p>
+                              </div>
+                              <div>
+                                <div className="flex items-baseline gap-2 mb-1">
+                                  <span className="text-2xl font-bold text-violet-600 dark:text-violet-400">🏆 #1</span>
+                                  <span className="text-xs text-muted-foreground">leaderboard rank</span>
+                                </div>
+                                <p className="text-sm text-muted-foreground">Matched top agent with smaller model</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Key Insights */}
+                          <div className="space-y-2">
+                            <h4 className="font-semibold text-sm">Key Insights</h4>
+                            <div className="grid grid-cols-1 gap-2">
+                              <div className="flex items-start gap-2 p-2 bg-muted rounded">
+                                <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+                                <p className="text-sm text-muted-foreground">
+                                  Can improve without labeled answers by leveraging natural execution feedback (unit tests, tool outcomes)
+                                </p>
+                              </div>
+                              <div className="flex items-start gap-2 p-2 bg-muted rounded">
+                                <Shield className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+                                <p className="text-sm text-muted-foreground">
+                                  Performance degrades when feedback is weak/noisy—misleading signals pollute the playbook
+                                </p>
+                              </div>
+                              <div className="flex items-start gap-2 p-2 bg-muted rounded">
+                                <Shield className="w-4 h-4 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                                <p className="text-sm text-muted-foreground">
+                                  Long contexts are efficient with caching and compression, avoiding repeated processing
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+
                     {/* Context Engineering Deep Dive */}
                     <div className="mt-6 p-4 rounded-lg bg-muted text-foreground ring-1 ring-border">
                       <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
@@ -834,6 +1169,60 @@ const A2AMultiAgentSystem: React.FC = () => {
                           </p>
                         </div>
                       </div>
+                    </div>
+
+                    {/* YouTube Reference */}
+                    <div className="mt-6">
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-lg">Learn More</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+                            <YoutubeLogo size={24} className="flex-shrink-0 text-red-600 dark:text-red-400 mt-1" weight="duotone" />
+                            <div className="flex-1">
+                              <h5 className="font-semibold mb-1">Agentic Context Engineering</h5>
+                              <p className="text-sm text-muted-foreground mb-2">
+                                Deep dive into context engineering techniques for agentic systems, covering sourcing, transformation, and optimization strategies
+                              </p>
+                              <Button 
+                                variant="link" 
+                                size="sm" 
+                                className="p-0 h-auto"
+                                onClick={() => window.open('https://youtu.be/XPOQ0dlxbnA', '_blank')}
+                              >
+                                Watch Video <ArrowUpRight size={14} className="ml-1" />
+                              </Button>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+                            <Badge variant="outline" className="mt-1 flex-shrink-0 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-700">
+                              arXiv
+                            </Badge>
+                            <div className="flex-1">
+                              <h5 className="font-semibold mb-1">Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models</h5>
+                              <p className="text-sm text-muted-foreground mb-2">
+                                Research paper introducing ACE framework that treats contexts as evolving playbooks. Shows +10.6% improvement on agents 
+                                and +8.6% on finance tasks while reducing adaptation latency by 86.9%.
+                              </p>
+                              <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                                <span>Zhang et al., 2025</span>
+                                <span>•</span>
+                                <span>cs.LG, cs.AI, cs.CL</span>
+                              </div>
+                              <Button 
+                                variant="link" 
+                                size="sm" 
+                                className="p-0 h-auto"
+                                onClick={() => window.open('https://arxiv.org/abs/2510.04618', '_blank')}
+                              >
+                                Read Paper <ArrowUpRight size={14} className="ml-1" />
+                              </Button>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
                     </div>
                   </CardContent>
                 </Card>
