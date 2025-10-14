@@ -74,7 +74,7 @@ const learningPaths: LearningPath[] = [
       'agentic-workflow-control', 'agent-evaluation-methodologies',
       // Tier 1: Foundational Concepts
       'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance',
-      'program-setup-north-star', 'responsible-ai-governance',
+      'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework',
       // Tier 2: Architecture Concepts  
       'a2a-communication', 'mcp', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management',
       // Tier 3: Implementation Concepts
@@ -279,6 +279,20 @@ const learningPaths: LearningPath[] = [
         estimatedTime: '35-45 min',
         prerequisites: ['program-setup-north-star'],
         skills: ['Policy Enforcement', 'Risk Assessment', 'Escalation Design'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'ai-product-framework',
+        title: 'AI Product Framework (8 Pillars)',
+        description: 'Trust-centric design from PM lens—turn ethics into KPIs with interactive visualization.',
+        icon: <Target size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '40-50 min',
+        prerequisites: ['responsible-ai-governance'],
+        skills: ['Trust Engineering', 'Memory Governance', 'Integration Stewardship', 'Human-AI Synergy'],
         completionRate: 0,
         isCompleted: false,
         isUnlocked: false,
@@ -679,7 +693,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
   ];
   const tiers = [
     ['agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'],
-    ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance', 'program-setup-north-star', 'responsible-ai-governance'],
+    ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance', 'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework'],
     ['a2a-communication', 'mcp', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management'],
     ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations'],
     ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'agentic-commerce-ap2', 'product-management', 'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement']

@@ -17,6 +17,7 @@ export const CORE_CONCEPT_IDS = [
   'ai-safety-governance',
   'program-setup-north-star',
   'responsible-ai-governance',
+  'ai-product-framework',
   'a2a-communication',
   'mcp',
   'flow-visualization',

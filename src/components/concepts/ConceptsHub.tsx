@@ -1,8 +1,9 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target } from "@phosphor-icons/react"
 import { ShareButton } from "@/components/ui/ShareButton"
 import AIAgentsConcept from "./AIAgentsConcept"
 import A2ACommunicationConcept from "./A2ACommunicationConcept"
@@ -41,17 +42,19 @@ import ArchitecturePlatformOperationsConcept from "./ArchitecturePlatformOperati
 import ExperimentationContinuousImprovementConcept from "./ExperimentationContinuousImprovementConcept"
 import EcosystemPartnershipsConcept from "./EcosystemPartnershipsConcept"
 import OrganizationalEnablementConcept from "./OrganizationalEnablementConcept"
+import AIProductFrameworkConcept from "./AIProductFrameworkConcept"
 
 interface ConceptInfo {
   id: string
   title: string
   description: string
-  level: 'fundamentals' | 'architecture' | 'implementation' | 'advanced'
+  level: 'fundamentals' | 'architecture' | 'implementation' | 'advanced' | 'applied'
   icon: React.ReactNode
   color: string
   estimatedTime: string
   prerequisites: string[]
-  component: React.ComponentType<{ onMarkComplete?: () => void; onNavigateToNext?: (nextConceptId: string) => void }>
+  component?: React.ComponentType<{ onMarkComplete?: () => void; onNavigateToNext?: (nextConceptId: string) => void }>
+  externalPath?: string
 }
 
 const concepts: ConceptInfo[] = [
@@ -219,6 +222,17 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '35-45 min',
     prerequisites: ['ai-safety-governance', 'agent-ethics'],
     component: ResponsibleAIGovernanceConcept
+  },
+  {
+    id: 'ai-product-framework',
+    title: 'AI Product Framework (8 Pillars)',
+    description: 'Trust-centric design from PM lens—turn ethics into KPIs with interactive visualization.',
+    level: 'applied',
+    icon: <Target className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-purple-900/20 dark:text-purple-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['responsible-ai-governance'],
+    component: AIProductFrameworkConcept
   },
   // Tier 2: Architecture Concepts
   {
@@ -476,6 +490,8 @@ function getLevelBadgeClass(level: ConceptInfo['level']): string {
   return 'ring-1 bg-[var(--badge-implementation-bg)] ring-[var(--badge-implementation-ring)] text-[var(--badge-implementation-text)] dark:text-[var(--badge-implementation-text)]';
     case 'advanced':
   return 'ring-1 bg-[var(--badge-advanced-bg)] ring-[var(--badge-advanced-ring)] text-[var(--badge-advanced-text)] dark:text-[var(--badge-advanced-text)]';
+    case 'applied':
+  return 'ring-1 bg-purple-100 ring-purple-300 text-purple-900 dark:bg-purple-900/30 dark:ring-purple-600 dark:text-purple-200';
     default:
   return 'ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] dark:text-[var(--badge-gray-text)]';
   }
@@ -492,6 +508,8 @@ function getIconColorClass(level: ConceptInfo['level']): string {
       return 'text-amber-600 dark:text-amber-300'
     case 'advanced':
       return 'text-purple-600 dark:text-purple-300'
+    case 'applied':
+      return 'text-purple-600 dark:text-purple-300'
     default:
       return 'text-foreground'
   }
@@ -506,8 +524,17 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
   const [selectedConcept, setSelectedConcept] = useState<string | null>(initialConcept || null)
   const [completedConcepts, setCompletedConcepts] = useState<Set<string>>(new Set())
   const [isModalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleConceptSelect = (conceptId: string) => {
+    const concept = concepts.find(c => c.id === conceptId)
+    
+    // If concept has an external path, navigate there instead
+    if (concept?.externalPath) {
+      navigate(concept.externalPath)
+      return
+    }
+    
     setSelectedConcept(conceptId);
     onSelectConcept(conceptId);
     
@@ -588,7 +615,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
 
   if (selectedConcept) {
     const concept = concepts.find(c => c.id === selectedConcept)
-    if (concept) {
+    if (concept && concept.component) {
       const ConceptComponent = concept.component
       return (
         <div className="space-y-4">

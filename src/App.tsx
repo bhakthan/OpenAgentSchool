@@ -71,6 +71,7 @@ const ExecutiveAlignmentCharterForm = lazy(() => import('./components/adoption/E
 const PortfolioHeatmapCanvasForm = lazy(() => import('./components/adoption/PortfolioHeatmapCanvasForm'));
 const BoardReadyBriefingPackForm = lazy(() => import('./components/adoption/BoardReadyBriefingPackForm'));
 const AgentsForScience = lazy(() => import('./pages/AgentsForScience'));
+const AIProductFrameworkPage = lazy(() => import('./pages/AIProductFrameworkPage'));
 // Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
 const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
 const CTALandingPageVariant = lazy(() => import('@/components/pages/CTALandingPageVariant'));
@@ -610,6 +611,7 @@ function App() {
                   {/* Alias path for rebrand; record analytics then redirect */}
                   <Route path="/applied-ai-skills" element={<AliasAISkillsRedirect />} />
                   <Route path="/ai-skills" element={<AISkillsExplorer />} />
+                  <Route path="/ai-product-framework" element={<AIProductFrameworkPage />} />
                   <Route path="/study-mode" element={<StudyMode />} />
                   <Route path="/knowledge-search" element={<KnowledgeSearch />} />
                   <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
