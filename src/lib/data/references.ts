@@ -3580,6 +3580,26 @@ export const references: ReferencesData = {
             description: "Empirical insights on ChatGPT’s effects on student performance and cognition to inform ethical, responsible use in educational contexts."
           },
           {
+            title: "Reasoning Bank: Scaling Agent Self-Evolving with Reasoning Memory #google",
+            url: "https://youtu.be/pDvjwfWKP0s",
+            description: "Demonstrates how agents can scale self-evolution and reliability by building and leveraging a persistent reasoning memory bank. Covers agentic reasoning traces, memory architectures, and self-improvement cycles."
+          },
+          {
+            title: "Agent Learning via Early Experience #meta",
+            url: "https://youtu.be/eBNRwKXTXVk",
+            description: "Explores how agents learn from early experiences, adapt strategies, and build foundational reasoning patterns. Highlights curriculum learning, agent bootstrapping, and transfer of early knowledge."
+          },
+          {
+            title: "Tensor Logic: The Language of AI #universityofwashington",
+            url: "https://youtu.be/oPxrC_F_CVs",
+            description: "Introduces tensor logic as a formal language for agent reasoning and decision-making. Explains how tensor-based representations enable scalable, interpretable logic in agentic systems."
+          },
+          {
+            title: "Cell2Sentence (C2S) #deepmind #google #yale",
+            url: "https://youtu.be/96gb8VhH2tw",
+            description: "Presents Cell2Sentence, a method for translating cellular data into natural language for agentic reasoning and discovery. See also: https://blog.google/technology/ai/google-gemma-ai-cancer-therapy-discovery/ for the related research blog."
+          },
+          {
             title: "AI with Emotions: Exploring Emotional Expressions in Large Language Models",
             url: "https://www.youtube.com/watch?v=GIx5Qw9zmFQ",
             description: "Guidance on ethical considerations and governance for agents that display or simulate emotions."
