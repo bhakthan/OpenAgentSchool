@@ -425,8 +425,8 @@ class EnterpriseDataFederation {
         <div className="w-full overflow-x-auto">
           <svg
             width="800"
-            height="400"
-            viewBox="0 0 800 400"
+            height="280"
+            viewBox="0 0 800 280"
             className="w-full h-auto border rounded-lg"
             style={{ backgroundColor: colors.background }}
           >
@@ -456,272 +456,221 @@ class EnterpriseDataFederation {
 
             {/* User */}
             <g>
-              <circle cx="80" cy="150" r="30" fill={colors.user} stroke={colors.border} strokeWidth="2"/>
-              <text x="80" y="155" textAnchor="middle" fill={colors.background} className="text-sm font-medium">
+              <circle cx="80" cy="110" r="30" fill={colors.user} stroke={colors.border} strokeWidth="2"/>
+              <text x="80" y="115" textAnchor="middle" fill={colors.background} className="text-sm font-medium">
                 USER
               </text>
-              <text x="80" y="200" textAnchor="middle" fill={colors.text} className="text-xs">
+              <text x="80" y="160" textAnchor="middle" fill={colors.text} className="text-xs">
                 (Me)
               </text>
             </g>
 
-            {/* Frontend Clients Section */}
+            {/* Frontend Clients Section - SIMPLIFIED */}
             <g>
-              <rect x="150" y="50" width="180" height="200" rx="10" fill="none" stroke={colors.border} strokeWidth="2" strokeDasharray="5,5"/>
-              <text x="240" y="40" textAnchor="middle" fill={colors.text} className="text-sm font-semibold">
-                My Front End Clients (HOST)
+              {/* Single unified MCP Client box */}
+              <rect 
+                x="150" 
+                y="60" 
+                width="150" 
+                height="120" 
+                rx="10" 
+                fill={colors.client} 
+                fillOpacity="0.9"
+                stroke={colors.border} 
+                strokeWidth={isComponentActive('client') ? "4" : "2"}
+                filter={isComponentActive('client') ? "url(#glow)" : "none"}
+                className={isComponentActive('client') ? "animate-pulse" : ""}
+              />
+              
+              <text x="225" y="90" textAnchor="middle" fill={colors.background} className="text-lg font-bold">
+                MCP CLIENTS
+              </text>
+              
+              <text x="225" y="115" textAnchor="middle" fill={colors.background} className="text-xs opacity-90">
+                Claude • LLM Apps
+              </text>
+              <text x="225" y="130" textAnchor="middle" fill={colors.background} className="text-xs opacity-90">
+                IDEs • Agents
+              </text>
+              <text x="225" y="145" textAnchor="middle" fill={colors.background} className="text-xs opacity-90">
+                Custom Tools
               </text>
               
               {/* Micro-learning trigger for Clients */}
               <circle
-                cx="320"
-                cy="30"
-                r="8"
+                cx="290"
+                cy="70"
+                r="10"
                 fill={colors.accent}
-                stroke={colors.border}
-                strokeWidth="1"
+                stroke={colors.background}
+                strokeWidth="2"
                 className="cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => showMicroLesson('clients')}
               />
               <text
-                x="320"
-                y="35"
+                x="290"
+                y="76"
                 textAnchor="middle"
                 fill={colors.background}
-                className="text-xs font-bold pointer-events-none"
+                className="text-sm font-bold pointer-events-none"
               >
                 ?
               </text>
-              
-              {/* Claude Client */}
-              <rect 
-                x="160" 
-                y="70" 
-                width="80" 
-                height="50" 
-                rx="5" 
-                fill={colors.client} 
-                stroke={colors.border} 
-                strokeWidth={isComponentActive('client') ? "3" : "1"}
-                filter={isComponentActive('client') ? "url(#glow)" : "none"}
-                className={isComponentActive('client') ? "animate-pulse" : ""}
-              />
-              <text x="200" y="90" textAnchor="middle" fill={colors.background} className="text-xs font-medium">Claude</text>
-              <text x="200" y="105" textAnchor="middle" fill={colors.background} className="text-xs">MCP Client</text>
-              
-              {/* LLM Application */}
-              <rect 
-                x="160" 
-                y="140" 
-                width="80" 
-                height="50" 
-                rx="5" 
-                fill={colors.client} 
-                stroke={colors.border} 
-                strokeWidth={isComponentActive('client') ? "3" : "1"}
-                filter={isComponentActive('client') ? "url(#glow)" : "none"}
-                className={isComponentActive('client') ? "animate-pulse" : ""}
-              />
-              <text x="200" y="155" textAnchor="middle" fill={colors.background} className="text-xs font-medium">LLM</text>
-              <text x="200" y="165" textAnchor="middle" fill={colors.background} className="text-xs">Application</text>
-              <text x="200" y="175" textAnchor="middle" fill={colors.background} className="text-xs">MCP Client</text>
-              
-              {/* IDE */}
-              <rect 
-                x="250" 
-                y="140" 
-                width="70" 
-                height="50" 
-                rx="5" 
-                fill={colors.client} 
-                stroke={colors.border} 
-                strokeWidth={isComponentActive('client') ? "3" : "1"}
-                filter={isComponentActive('client') ? "url(#glow)" : "none"}
-                className={isComponentActive('client') ? "animate-pulse" : ""}
-              />
-              <text x="285" y="155" textAnchor="middle" fill={colors.background} className="text-xs font-medium">IDE</text>
-              <text x="285" y="165" textAnchor="middle" fill={colors.background} className="text-xs">(e.g. VS Code)</text>
-              <text x="285" y="175" textAnchor="middle" fill={colors.background} className="text-xs">MCP Client</text>
-              
-              {/* Other Client */}
-              <rect 
-                x="160" 
-                y="210" 
-                width="60" 
-                height="30" 
-                rx="5" 
-                fill={colors.client} 
-                stroke={colors.border} 
-                strokeWidth={isComponentActive('client') ? "3" : "1"}
-                filter={isComponentActive('client') ? "url(#glow)" : "none"}
-                className={isComponentActive('client') ? "animate-pulse" : ""}
-              />
-              <text x="190" y="220" textAnchor="middle" fill={colors.background} className="text-xs">Other</text>
-              <text x="190" y="230" textAnchor="middle" fill={colors.background} className="text-xs">Clients</text>
             </g>
 
-            {/* MCP Servers */}
+            {/* MCP Servers - CENTERED */}
             <g>
               <rect 
-                x="400" 
-                y="120" 
-                width="120" 
-                height="80" 
+                x="360" 
+                y="60" 
+                width="130" 
+                height="120" 
                 rx="10" 
                 fill={colors.server} 
+                fillOpacity="0.95"
                 stroke={colors.border} 
                 strokeWidth={isComponentActive('server') ? "4" : "2"}
                 filter={isComponentActive('server') ? "url(#glow)" : "none"}
                 className={isComponentActive('server') ? "animate-pulse" : ""}
               />
-              <text x="460" y="140" textAnchor="middle" fill={colors.background} className="text-lg font-bold">MCP</text>
-              <text x="460" y="160" textAnchor="middle" fill={colors.background} className="text-lg font-bold">SERVERS</text>
+              
+              <text x="425" y="105" textAnchor="middle" fill={colors.background} className="text-xl font-bold">
+                MCP
+              </text>
+              <text x="425" y="130" textAnchor="middle" fill={colors.background} className="text-xl font-bold">
+                SERVERS
+              </text>
+              
+              <text x="425" y="155" textAnchor="middle" fill={colors.background} className="text-xs opacity-80">
+                Protocol Layer
+              </text>
               
               {/* Micro-learning trigger for MCP Servers */}
               <circle
-                cx="510"
-                cy="130"
-                r="8"
+                cx="480"
+                cy="70"
+                r="10"
                 fill={colors.accent}
-                stroke={colors.border}
-                strokeWidth="1"
+                stroke={colors.background}
+                strokeWidth="2"
                 className="cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => showMicroLesson('mcp_servers')}
               />
               <text
-                x="510"
-                y="135"
+                x="480"
+                y="76"
                 textAnchor="middle"
                 fill={colors.background}
-                className="text-xs font-bold pointer-events-none"
+                className="text-sm font-bold pointer-events-none"
               >
                 ?
               </text>
             </g>
 
-            {/* Data Sources Section */}
+            {/* Data Sources Section - SIMPLIFIED */}
             <g>
-              <rect x="580" y="50" width="180" height="200" rx="10" fill="none" stroke={colors.border} strokeWidth="2" strokeDasharray="5,5"/>
-              <text x="670" y="40" textAnchor="middle" fill={colors.text} className="text-sm font-semibold">
-                My Data Sources
+              {/* Single unified Data Sources box */}
+              <rect 
+                x="550" 
+                y="60" 
+                width="160" 
+                height="120" 
+                rx="10" 
+                fill={colors.data}
+                fillOpacity="0.9"
+                stroke={colors.border} 
+                strokeWidth={isComponentActive('data') ? "4" : "2"}
+                filter={isComponentActive('data') ? "url(#glow)" : "none"}
+                className={isComponentActive('data') ? "animate-pulse" : ""}
+              />
+              
+              <text x="630" y="90" textAnchor="middle" fill={colors.background} className="text-lg font-bold">
+                DATA SOURCES
               </text>
-              <text x="720" y="55" textAnchor="middle" fill={colors.secondary} className="text-xs">
-                on-prem, external
+              
+              <text x="630" y="115" textAnchor="middle" fill={colors.background} className="text-xs opacity-90">
+                Files • Databases
+              </text>
+              <text x="630" y="130" textAnchor="middle" fill={colors.background} className="text-xs opacity-90">
+                APIs • Cloud Services
+              </text>
+              <text x="630" y="145" textAnchor="middle" fill={colors.background} className="text-xs opacity-90">
+                SaaS • On-Prem
               </text>
               
               {/* Micro-learning trigger for Data Sources */}
               <circle
-                cx="750"
-                cy="30"
-                r="8"
+                cx="700"
+                cy="70"
+                r="10"
                 fill={colors.accent}
-                stroke={colors.border}
-                strokeWidth="1"
+                stroke={colors.background}
+                strokeWidth="2"
                 className="cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => showMicroLesson('data_sources')}
               />
               <text
-                x="750"
-                y="35"
+                x="700"
+                y="76"
                 textAnchor="middle"
                 fill={colors.background}
-                className="text-xs font-bold pointer-events-none"
+                className="text-sm font-bold pointer-events-none"
               >
                 ?
               </text>
-              
-              {/* NFS/Local Files */}
-              <rect 
-                x="590" 
-                y="80" 
-                width="70" 
-                height="50" 
-                rx="5" 
-                fill={colors.data} 
-                stroke={colors.border} 
-                strokeWidth={isComponentActive('data') ? "3" : "1"}
-                filter={isComponentActive('data') ? "url(#glow)" : "none"}
-                className={isComponentActive('data') ? "animate-pulse" : ""}
-              />
-              <text x="625" y="95" textAnchor="middle" fill={colors.background} className="text-xs font-medium">NFS</text>
-              <text x="625" y="105" textAnchor="middle" fill={colors.background} className="text-xs">Local</text>
-              <text x="625" y="115" textAnchor="middle" fill={colors.background} className="text-xs">Files/Links</text>
-              
-              {/* Database */}
-              <rect 
-                x="680" 
-                y="80" 
-                width="70" 
-                height="50" 
-                rx="5" 
-                fill={colors.data} 
-                stroke={colors.border} 
-                strokeWidth={isComponentActive('data') ? "3" : "1"}
-                filter={isComponentActive('data') ? "url(#glow)" : "none"}
-                className={isComponentActive('data') ? "animate-pulse" : ""}
-              />
-              <text x="715" y="100" textAnchor="middle" fill={colors.background} className="text-xs font-medium">Data</text>
-              <text x="715" y="115" textAnchor="middle" fill={colors.background} className="text-xs">Base</text>
-              
-              {/* Cloud Service */}
-              <ellipse 
-                cx="670" 
-                cy="180" 
-                rx="60" 
-                ry="30" 
-                fill={colors.data} 
-                stroke={colors.border} 
-                strokeWidth={isComponentActive('data') ? "3" : "1"}
-                filter={isComponentActive('data') ? "url(#glow)" : "none"}
-                className={isComponentActive('data') ? "animate-pulse" : ""}
-              />
-              <text x="670" y="175" textAnchor="middle" fill={colors.background} className="text-xs font-medium">Cloud</text>
-              <text x="670" y="185" textAnchor="middle" fill={colors.background} className="text-xs">Service</text>
-              
-              {/* SaaS */}
-              <ellipse 
-                cx="625" 
-                cy="220" 
-                rx="40" 
-                ry="20" 
-                fill={colors.data} 
-                stroke={colors.border} 
-                strokeWidth={isComponentActive('data') ? "3" : "1"}
-                filter={isComponentActive('data') ? "url(#glow)" : "none"}
-                className={isComponentActive('data') ? "animate-pulse" : ""}
-              />
-              <text x="625" y="215" textAnchor="middle" fill={colors.background} className="text-xs font-medium">Slack</text>
-              <text x="625" y="225" textAnchor="middle" fill={colors.background} className="text-xs">SaaS</text>
-              <text x="715" y="240" textAnchor="middle" fill={colors.secondary} className="text-xs">CRM</text>
             </g>
 
-            {/* Connection Arrows and Labels */}
+            {/* Connection Arrows and Labels - SIMPLIFIED */}
             
             {/* User to Clients */}
-            <line x1="110" y1="150" x2="150" y2="150" stroke={colors.secondary} strokeWidth="2" markerEnd="url(#arrowhead)"/>
+            <line 
+              x1="110" 
+              y1="110" 
+              x2="150" 
+              y2="120" 
+              stroke={colors.secondary} 
+              strokeWidth="3" 
+              markerEnd="url(#arrowhead)"
+              opacity="0.7"
+            />
             
-            {/* Clients to MCP Servers */}
-            <line x1="330" y1="120" x2="400" y2="140" stroke={colors.secondary} strokeWidth="2" markerEnd="url(#arrowhead)"/>
-            <text x="350" y="115" fill={colors.text} className="text-xs">MCP Protocol</text>
+            {/* Clients to MCP Servers - CENTER FLOW */}
+            <path
+              d="M 300 120 L 360 120"
+              stroke={colors.primary}
+              strokeWidth="4"
+              markerEnd="url(#arrowhead)"
+              opacity="0.8"
+            />
+            <text x="315" y="110" fill={colors.text} className="text-sm font-semibold">
+              MCP Protocol
+            </text>
             
-            <line x1="330" y1="165" x2="400" y2="160" stroke={colors.secondary} strokeWidth="2" markerEnd="url(#arrowhead)"/>
-            
-            {/* MCP Servers to Data Sources */}
-            <line x1="520" y1="140" x2="580" y2="105" stroke={colors.secondary} strokeWidth="2" markerEnd="url(#arrowhead)"/>
-            <text x="535" y="110" fill={colors.text} className="text-xs">TCP</text>
-            
-            <line x1="520" y1="160" x2="580" y2="160" stroke={colors.secondary} strokeWidth="2" markerEnd="url(#arrowhead)"/>
-            <text x="535" y="155" fill={colors.text} className="text-xs">HTTPS</text>
-            
-            <line x1="520" y1="180" x2="580" y2="200" stroke={colors.secondary} strokeWidth="2" markerEnd="url(#arrowhead)"/>
-            <text x="535" y="205" fill={colors.text} className="text-xs">API</text>
+            {/* MCP Servers to Data Sources - CENTER FLOW */}
+            <path
+              d="M 490 120 L 550 120"
+              stroke={colors.accent}
+              strokeWidth="4"
+              markerEnd="url(#arrowhead)"
+              opacity="0.8"
+            />
+            <text x="505" y="110" fill={colors.text} className="text-sm font-semibold">
+              Access Layer
+            </text>
 
-            {/* Protocol Labels */}
-            <text x="400" y="320" fill={colors.text} className="text-sm font-semibold">Key Benefits:</text>
-            <text x="400" y="340" fill={colors.text} className="text-sm">• Standardized communication between AI tools and data sources</text>
-            <text x="400" y="355" fill={colors.text} className="text-sm">• Context preservation across interactions</text>
-            <text x="400" y="370" fill={colors.text} className="text-sm">• Secure access to local and remote resources</text>
-            <text x="400" y="385" fill={colors.text} className="text-sm">• Easy integration with existing infrastructure</text>
+            {/* Flow indicators - COMPACT */}
+            <text x="400" y="210" fill={colors.text} className="text-base font-semibold">
+              Simplified Architecture Flow
+            </text>
+            <text x="400" y="230" fill={colors.text} className="text-sm">
+              • Clean 3-layer design: Clients → MCP Servers → Data Sources
+            </text>
+            <text x="400" y="247" fill={colors.text} className="text-sm">
+              • Standardized protocol for all client types (Claude, IDEs, Custom Apps)
+            </text>
+            <text x="400" y="264" fill={colors.text} className="text-sm">
+              • Unified access to any data source (Files, DBs, APIs, Cloud, SaaS)
+            </text>
           </svg>
         </div>
         
