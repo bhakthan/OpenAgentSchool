@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { CheckCircle2, Circle, Filter, Search, TrendingUp } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { VelocityBadge } from '../patterns/VelocityBadge'
+import { agentPatterns } from '@/lib/data/patterns'
 
 // Simplified pattern data structure (would import from actual pattern files in production)
 interface PatternMasteryItem {
@@ -109,7 +110,7 @@ export default function PatternMasteryTracker() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Pattern Mastery Tracker</h1>
         <p className="text-gray-600">
-          Track your progress across all 48 agent patterns. Mark patterns as complete to boost your velocity score.
+          Track your progress across all {agentPatterns.length} agent patterns. Mark patterns as complete to boost your velocity score.
         </p>
       </div>
 

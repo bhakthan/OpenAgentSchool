@@ -53,6 +53,12 @@ export { mobileManipulatorStewardPattern } from './mobileManipulatorSteward';
 export { adaptiveLabTechnicianPattern } from './adaptiveLabTechnician';
 export { inventoryGuardianPattern } from './inventoryGuardian';
 export { emergencyResponseMatePattern } from './emergencyResponseMate';
+export { quantumEnhancedNavigatorPattern } from './quantumEnhancedNavigator';
+export { embodiedPerceptionActionPattern } from './embodiedPerceptionAction';
+export { humanRobotCollaborationPattern } from './humanRobotCollaboration';
+export { hybridQuantumClassicalPattern } from './hybridQuantumClassical';
+export { quantumSensingPattern } from './quantumSensing';
+export { quantumAcceleratedSearchPattern } from './quantumAcceleratedSearch';
 
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
@@ -105,6 +111,12 @@ import { mobileManipulatorStewardPattern } from './mobileManipulatorSteward';
 import { adaptiveLabTechnicianPattern } from './adaptiveLabTechnician';
 import { inventoryGuardianPattern } from './inventoryGuardian';
 import { emergencyResponseMatePattern } from './emergencyResponseMate';
+import { quantumEnhancedNavigatorPattern } from './quantumEnhancedNavigator';
+import { embodiedPerceptionActionPattern } from './embodiedPerceptionAction';
+import { humanRobotCollaborationPattern } from './humanRobotCollaboration';
+import { hybridQuantumClassicalPattern } from './hybridQuantumClassical';
+import { quantumSensingPattern } from './quantumSensing';
+import { quantumAcceleratedSearchPattern } from './quantumAcceleratedSearch';
 import { patternEvaluationRegistry } from './evaluationRegistry';
 
 export const agentPatterns = [
@@ -158,6 +170,12 @@ export const agentPatterns = [
   adaptiveLabTechnicianPattern,
   inventoryGuardianPattern,
   emergencyResponseMatePattern,
+  quantumEnhancedNavigatorPattern,
+  embodiedPerceptionActionPattern,
+  humanRobotCollaborationPattern,
+  hybridQuantumClassicalPattern,
+  quantumSensingPattern,
+  quantumAcceleratedSearchPattern,
 ];
 
 for (const pattern of agentPatterns) {

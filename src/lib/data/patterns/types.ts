@@ -95,4 +95,10 @@ export type PatternType =
   | 'agentic-rag'
   | 'modern-tool-use'
   | 'mcp'
-  | 'agent-to-agent';
+  | 'agent-to-agent'
+  | 'quantum-enhanced-navigator'
+  | 'embodied-perception-action'
+  | 'human-robot-collaboration'
+  | 'hybrid-quantum-classical-agent'
+  | 'quantum-sensing-agent'
+  | 'quantum-accelerated-search';
