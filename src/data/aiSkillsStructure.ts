@@ -53,7 +53,7 @@ export const skillCategories: SkillCategory[] = [
     id: 'strategy-future',
     title: 'Strategy & Future States',
     description: 'Org design, emerging patterns, and frontier readiness',
-    moduleIds: ['org-playbooks','cross-team','frontier-firm-assessment','novel-organizational-patterns','future-state-trends']
+    moduleIds: ['org-playbooks','cross-team','frontier-firm-assessment','novel-organizational-patterns','future-state-trends','frontier-agent-patterns']
   },
   {
     id: 'applied-tools',
@@ -83,7 +83,8 @@ export const skillModules: SkillModuleMeta[] = [
   { id: 'cross-team', title: 'Cross-Team Collaboration', category: 'strategy-future' },
   { id: 'frontier-firm-assessment', title: 'Frontier Firm Assessment', category: 'strategy-future' },
   { id: 'novel-organizational-patterns', title: 'Novel Organizational Patterns', category: 'strategy-future' },
-  { id: 'future-state-trends', title: 'Future State Trends', category: 'strategy-future' }
+  { id: 'future-state-trends', title: 'Future State Trends', category: 'strategy-future' },
+  { id: 'frontier-agent-patterns', title: 'Frontier Agent Patterns', category: 'strategy-future', summary: 'Quantum computing, robotics integration, and advanced sensing patterns for next-generation agentic systems. Includes quantum optimization, vision-guided manipulation, human-robot collaboration, and ultra-precise quantum sensing.' }
   ,
   { id: 'calculator', title: 'Human-Agent Ratio Calculator', category: 'applied-tools' },
   { id: 'hands-on-studios', title: 'Hands-On Studios', category: 'applied-tools' }

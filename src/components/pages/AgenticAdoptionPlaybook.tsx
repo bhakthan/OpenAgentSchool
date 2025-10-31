@@ -23,6 +23,7 @@ import {
   UsersThree,
   WaveTriangle,
 } from '@phosphor-icons/react';
+import FrontierCapabilitiesCallout from './FrontierCapabilitiesCallout';
 
 interface JourneyPhase {
   id: string;
@@ -1093,6 +1094,11 @@ const AgenticAdoptionPlaybook: React.FC = () => {
                       </CardContent>
                     </Card>
                   </div>
+
+                  {/* Show Frontier Capabilities in Scale & Operate phase */}
+                  {phase.id === 'scale-operate' && (
+                    <FrontierCapabilitiesCallout />
+                  )}
 
                   <div className="grid gap-4 lg:grid-cols-[2fr,1fr]">
                     <Card className="border border-border bg-background/70">

@@ -18,6 +18,7 @@ import { AgentVelocityEngineering } from "./AgentVelocityEngineering"
 import CrossTeamCollaborationSkills from "./CrossTeamCollaborationSkills"
 import NovelOrganizationalPatterns from "./NovelOrganizationalPatterns"
 import FutureStateTrends from "./FutureStateTrends"
+import FrontierAgentPatterns from "./FrontierAgentPatterns"
 import ObservabilityEvalOps from "./ObservabilityEvalOps"
 import PromptOpsTooling from "./PromptOpsTooling"
 import SafetyRiskGovernance from "./SafetyRiskGovernance"
@@ -338,15 +339,24 @@ export default function AISkillsExplorer() {
     },
     // 13. Future State (end)
     {
-      id: "future-state",
-      title: "Future State",
+      id: "future-state-trends",
+      title: "Future State Trends",
       description: "Where AI‑native practices are heading",
       icon: <Rocket className="w-4 h-4" />,
       level: "Expert",
       component: <FutureStateTrends onNavigate={undefined} />
+    },
+    // 14. Frontier Agent Patterns
+    {
+      id: "frontier-agent-patterns",
+      title: "Frontier Agent Patterns",
+      description: "Quantum computing, robotics & advanced sensing",
+      icon: <Rocket className="w-4 h-4" />,
+      level: "Expert",
+      component: <FrontierAgentPatterns onComplete={() => completeAndNavigate("frontier-agent-patterns", "hands-on-studios")} />
     }
     ,
-    // 14. Hands-On Studios (renders CurriculumTabs)
+    // 15. Hands-On Studios (renders CurriculumTabs)
     {
       id: "hands-on-studios",
       title: "Hands‑On Studios",
