@@ -551,6 +551,14 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'swarm-intelligence': 'SwarmIntelligence',
         'plan-act': 'PlanActPattern',
         
+        // Quantum & Robotics Agent Patterns (kebab-case IDs to PascalCase audio files)
+        'quantum-enhanced-navigator': 'QuantumEnhancedNavigator',
+        'embodied-perception-action': 'EmbodiedPerceptionAction',
+        'human-robot-collaboration': 'HumanRobotCollaboration',
+        'hybrid-quantum-classical-agent': 'HybridQuantumClassical',
+        'quantum-sensing-agent': 'QuantumSensing',
+        'quantum-accelerated-search': 'QuantumAcceleratedSearch',
+        
         // Educational Agent Patterns (kebab-case IDs to PascalCase audio files)
         'socratic-coach': 'SocraticCoach',
         'concept-to-project-builder': 'ConceptToProjectBuilder',
