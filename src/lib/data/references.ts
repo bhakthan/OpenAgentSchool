@@ -105,6 +105,112 @@ export const references: ReferencesData = {
             description: "OpenAI's guide to effective prompt engineering"
           }
         ]
+      },
+      {
+        id: "youtube-research",
+        name: "YouTube Research",
+        references: [
+          {
+            title: "Deep Think with Confidence  #meta",
+            url: "https://www.youtube.com/watch?v=sogeEC1xkiY",
+            description: "Prompting technique to drive deeper reasoning while having the model report calibrated confidence."
+          },
+          {
+            title: "Thinking in Blocks   Adaptive Reasoning",
+            url: "https://www.youtube.com/watch?v=zZolGueW6nY",
+            description: "Introduces prompting techniques that scaffold block-based, adaptive stepwise reasoning."
+          },
+          {
+            title: "Self-Questioning Language Models",
+            url: "https://www.youtube.com/watch?v=4wlRhmw2VcM",
+            description: "Explains how prompting LMs to ask and answer their own sub-questions can improve reasoning quality and controllability."
+          },
+          {
+            title: "A Survey of Context Engineering for Large Language Models",
+            url: "https://www.youtube.com/watch?v=Dh_SPv55UA8",
+            description: "Overview of core prompt and context structuring techniques that improve LLM reliability and control."
+          },
+          {
+            title: "Which prompting techniques should I use in Software Engineering Tasks?",
+            url: "https://www.youtube.com/watch?v=Jwsu1Y1y5AQ",
+            description: "Overview of effective prompting moves for coding tasks to improve reliability in software engineering workflows."
+          },
+          {
+            title: "AI with Emotions: Exploring Emotional Expressions in Large Language Models",
+            url: "https://www.youtube.com/watch?v=GIx5Qw9zmFQ",
+            description: "Foundational prompting moves to evoke, modulate, and constrain emotional expressions in model outputs."
+          },
+          {
+            title: "A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason and Agentic Systems",
+            url: "https://www.youtube.com/watch?v=lkkKqGwvvvo",
+            description: "Survey of test-time prompting techniques that scale inference to improve LLM reasoning performance."
+          },
+          {
+            title: "MetaScale: Test-time Scaling with Evolving Meta-Thoughts #microsoftresearch",
+            url: "https://www.youtube.com/watch?v=F2epOG3nD0o",
+            description: "Research talk on using evolving meta-thought prompts to scale test-time reasoning and improve agent reliability."
+          },
+          {
+            title: "Structured Outputs Enable General-Purpose LLMs to be Medical Experts",
+            url: "https://www.youtube.com/watch?v=iMxinkiI9Rw",
+            description: "Explains how enforcing structured outputs (e.g., schemas or function-calling) can make general-purpose LLMs reliably perform clinical reasoning and medical workflows without fine-tuning."
+          },
+          {
+            title: "Inference Time Scaling for Medical Reasoning in LLMs - o1 Replication Journey",
+            url: "https://www.youtube.com/watch?v=c0L-y_mAgtM",
+            description: "Explores inference-time prompting strategies to boost LLM medical reasoning, drawing lessons from an o1-style replication."
+          },
+          {
+            title: "Imagine while Reasoning in Space: Multimodal Visualization-of-Thought #microsoft",
+            url: "https://www.youtube.com/watch?v=6UD5OsWCRL8",
+            description: "Foundational prompting methods that elicit explicit, controllable reasoning, including visual chain-of-thought."
+          },
+          {
+            title: "Meta Chain of Thought Reasoning in LLMs #stanforduniversity #ucberkeley",
+            url: "https://www.youtube.com/watch?v=GJdeF9cpKsg",
+            description: "Explores meta chain-of-thought prompting and when to invoke step-by-step reasoning to improve LLM reliability."
+          },
+          {
+            title: "Prompting Strategies for LLMs to Infer Causation from Correlation",
+            url: "https://www.youtube.com/watch?v=fdW8wDeS66U",
+            description: "Practical prompting moves to elicit causal reasoning and avoid correlation traps in LLM outputs."
+          },
+          {
+            title: "Reverse Enhanced Thinking for Stronger LLMs #deepmind",
+            url: "https://www.youtube.com/watch?v=7vhjdt2gyhk",
+            description: "Overview of reverse-style reasoning prompts to elicit stronger step-by-step thinking from LLMs."
+          },
+          {
+            title: "From Medprompt to o1: Exploration of Run-Time Strategies for Medical Challenge Problems and Beyond",
+            url: "https://www.youtube.com/watch?v=GQffo1yUE_g",
+            description: "Overview of foundational prompting moves and strategies used to boost LLM performance on medical challenge problems."
+          },
+          {
+            title: "#microsoft SMART: Self-learning Meta-strategy Agent for Reasoning Tasks",
+            url: "https://www.youtube.com/watch?v=7Ykbc6JBSKw",
+            description: "Explores how meta-strategy selection leverages prompting moves to stabilize and strengthen LLM reasoning."
+          },
+          {
+            title: "Thinking LLMs - : GENERAL INSTRUCTION FOLLOWING WITH THOUGHT GENERATION",
+            url: "https://www.youtube.com/watch?v=PA0Obt1gWa0",
+            description: "Techniques to elicit model 'thinking' and dependable instruction adherence through structured prompts."
+          },
+          {
+            title: "Tell me what you don't know - Role Playing Agents",
+            url: "https://www.youtube.com/watch?v=N8fIzrQL8pE",
+            description: "Use reflective prompting to elicit uncertainty and assumptions, improving agent clarity and control."
+          },
+          {
+            title: "How People Use ChatGPT #openai",
+            url: "https://www.youtube.com/watch?v=s7Pt8i2ATHY",
+            description: "Overview of common ChatGPT use cases with basic prompting moves to elicit better results."
+          },
+          {
+            title: "Zero Search",
+            url: "https://www.youtube.com/watch?v=iOUDaGSsZyQ",
+            description: "Prompting techniques that direct agents to answer from local context or memory without calling web search."
+          }
+        ]
       }
     ],
     
@@ -203,6 +309,134 @@ export const references: ReferencesData = {
             title: "Building Next-Generation Physical Agents with Gemini Robotics ER-15",
             url: "https://developers.googleblog.com/en/building-the-next-generation-of-physical-agents-with-gemini-robotics-er-15/",
             description: "Developer guidance on ER-15 sandboxes, safety, and robotics deployment best practices."
+          }
+        ]
+      }
+    ],
+
+    "quantum-ai-robotics": [
+      {
+        id: "quantum-foundations",
+        name: "Quantum Computing Foundations",
+        references: [
+          {
+            title: "IBM Quantum Learning",
+            url: "https://learning.quantum.ibm.com/",
+            description: "Interactive tutorials on quantum computing fundamentals and Qiskit programming."
+          },
+          {
+            title: "Azure Quantum Documentation",
+            url: "https://learn.microsoft.com/en-us/azure/quantum/",
+            description: "Microsoft's quantum development kit and Q# programming guide."
+          },
+          {
+            title: "Quantum Computing for the Very Curious",
+            url: "https://quantum.country/qcvc",
+            description: "Mnemonic medium exploring quantum computing concepts with interactive exercises."
+          },
+          {
+            title: "Qiskit Textbook",
+            url: "https://qiskit.org/textbook/",
+            description: "Open-source quantum computing textbook with executable code examples."
+          }
+        ]
+      },
+      {
+        id: "quantum-ml",
+        name: "Quantum Machine Learning",
+        references: [
+          {
+            title: "PennyLane: Quantum ML Framework",
+            url: "https://pennylane.ai/",
+            description: "Open-source library for quantum machine learning and differentiable quantum programming."
+          },
+          {
+            title: "TensorFlow Quantum",
+            url: "https://www.tensorflow.org/quantum",
+            description: "Google's framework for building hybrid quantum-classical ML models."
+          },
+          {
+            title: "Quantum Machine Learning (Schuld & Petruccione)",
+            url: "https://www.springer.com/gp/book/9783319964232",
+            description: "Comprehensive textbook on QML algorithms and applications."
+          },
+          {
+            title: "Variational Quantum Algorithms (Nature Review)",
+            url: "https://www.nature.com/articles/s42254-021-00348-9",
+            description: "Review of variational quantum circuits and their applications to machine learning."
+          }
+        ]
+      },
+      {
+        id: "quantum-robotics",
+        name: "Quantum Applications in Robotics",
+        references: [
+          {
+            title: "Quantum Optimization for Robot Path Planning",
+            url: "https://arxiv.org/abs/2103.15409",
+            description: "Research paper demonstrating QAOA for multi-robot path planning scenarios."
+          },
+          {
+            title: "D-Wave Ocean SDK Documentation",
+            url: "https://docs.ocean.dwavesys.com/",
+            description: "Tools for formulating and solving optimization problems on D-Wave quantum annealers."
+          },
+          {
+            title: "Quantum Sensing for Autonomous Systems",
+            url: "https://www.nature.com/articles/s41586-021-03480-w",
+            description: "Nature article on quantum sensors for navigation and environmental monitoring."
+          },
+          {
+            title: "QAOA for Combinatorial Optimization",
+            url: "https://arxiv.org/abs/1411.4028",
+            description: "Original QAOA paper by Farhi et al., foundational for quantum optimization algorithms."
+          }
+        ]
+      },
+      {
+        id: "quantum-sensing",
+        name: "Quantum Sensing Technologies",
+        references: [
+          {
+            title: "Nitrogen-Vacancy Centers in Diamond",
+            url: "https://www.nature.com/articles/s42254-020-0209-2",
+            description: "Review of NV-diamond quantum sensors for magnetometry and navigation."
+          },
+          {
+            title: "Quantum Sensing with Atomic Systems",
+            url: "https://www.nature.com/articles/s42254-021-00396-z",
+            description: "Overview of atom-based quantum sensors for inertial measurement and gravity mapping."
+          },
+          {
+            title: "Qnami ProteusQ Quantum Sensor",
+            url: "https://www.qnami.ch/proteusq/",
+            description: "Commercial NV-diamond quantum magnetometer specifications and applications."
+          }
+        ]
+      },
+      {
+        id: "quantum-tools",
+        name: "Quantum Development Tools",
+        references: [
+          {
+            title: "AWS Braket Documentation",
+            url: "https://docs.aws.amazon.com/braket/",
+            description: "Amazon's quantum computing service with access to multiple hardware platforms."
+          },
+          {
+            title: "Google Cirq Framework",
+            url: "https://quantumai.google/cirq",
+            description: "Python library for writing, simulating, and running quantum circuits on Google quantum processors."
+          },
+          {
+            title: "Xanadu Strawberry Fields",
+            url: "https://strawberryfields.ai/",
+            description: "Python library for photonic quantum computing and continuous-variable quantum algorithms."
+          },
+          {
+            title: "IonQ Quantum Cloud",
+            url: "https://ionq.com/quantum-cloud",
+            description: "Access to trapped-ion quantum computers via cloud APIs."
           }
         ]
       }
@@ -2351,1900 +2585,6 @@ export const references: ReferencesData = {
       }
     ],
   
-    "agent-instruction-design": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Effective Context Engineering #anthropic",
-            url: "https://www.youtube.com/watch?v=oTGsfiBhVHU",
-            description: "Guidance on designing layered instructions and contextual scaffolds to steer LLM behavior effectively."
-          },
-          {
-            title: "Towards an AI Augmented Textbook #google",
-            url: "https://www.youtube.com/watch?v=IMypm62inVw",
-            description: "Design principles for embedding agent scaffolds that deliver stable, guided learning experiences within textbook content."
-          },
-          {
-            title: "Paper2Agent: Reimagining Research Papers AsInteractive and Reliable AI Agents #stanford",
-            url: "https://www.youtube.com/watch?v=y23MXVESIfA",
-            description: "Design approaches to convert research papers into layered instructions that make agents interactive and steerable."
-          },
-          {
-            title: "Psychologically Enhanced AI Agents",
-            url: "https://www.youtube.com/watch?v=403tSlNnlm0",
-            description: "Designing instruction scaffolds that express persona, traits, and motivations to align agent behavior with psychological models."
-          },
-          {
-            title: "Momento: Fine tuning Agents without fine tuning LLMs",
-            url: "https://www.youtube.com/watch?v=Y0meQjKbFdo",
-            description: "Designing layered prompts and role scaffolds to steer agent behavior as an alternative to model fine-tuning."
-          },
-          {
-            title: "A Survey of Context Engineering for Large Language Models",
-            url: "https://www.youtube.com/watch?v=Dh_SPv55UA8",
-            description: "Guidance on designing instruction layers and scaffolds that reliably steer LLM outputs via context."
-          },
-          {
-            title: "Learning to Teach than to Solve - Reinforcement Learned Teacher #sakana",
-            url: "https://www.youtube.com/watch?v=jwo-HTsS2oA",
-            description: "Shows how learned teaching prompts and hints can steer a student agent more effectively than direct solutions."
-          },
-          {
-            title: "Design patterns for securing LLM Agents against prompt injections #microsoft #google #ibm",
-            url: "https://www.youtube.com/watch?v=-y3DIcLZrNc",
-            description: "Techniques for crafting resilient system and tool prompts that resist prompt injections while maintaining controllable behavior."
-          },
-          {
-            title: "AI with Emotions: Exploring Emotional Expressions in Large Language Models",
-            url: "https://www.youtube.com/watch?v=GIx5Qw9zmFQ",
-            description: "Techniques for crafting instruction scaffolds to steer an agent’s emotional tone and communicative style."
-          },
-          {
-            title: "Structured Outputs Enable General-Purpose LLMs to be Medical Experts",
-            url: "https://www.youtube.com/watch?v=iMxinkiI9Rw",
-            description: "Shows how instruction scaffolds and structured output constraints guide general LLMs to deliver dependable, domain-specific medical outputs."
-          },
-          {
-            title: "SOP Agent: A Standard Operational Procedure Guided AI Agent",
-            url: "https://www.youtube.com/watch?v=hYTQJxa_g6A",
-            description: "Shows how to encode SOPs into instruction scaffolds so an agent reliably follows defined procedures."
-          },
-          {
-            title: "Meta Chain of Thought Reasoning in LLMs #stanforduniversity #ucberkeley",
-            url: "https://www.youtube.com/watch?v=GJdeF9cpKsg",
-            description: "Covers instruction scaffolds that guide models to choose appropriate reasoning strategies based on problem type."
-          },
-          {
-            title: "Challenges in Human-Agent Communication #microsoft",
-            url: "https://www.youtube.com/watch?v=__7GubPh_l0",
-            description: "Explores pitfalls and design approaches for clearer, more controllable human-agent instructions and interactions."
-          },
-          {
-            title: "Thinking LLMs - : GENERAL INSTRUCTION FOLLOWING WITH THOUGHT GENERATION",
-            url: "https://www.youtube.com/watch?v=PA0Obt1gWa0",
-            description: "Design patterns for scaffolding instructions that trigger reasoning traces while keeping outputs on-spec."
-          },
-          {
-            title: "Is Larger and more instructable language models become less reliable?",
-            url: "https://www.youtube.com/watch?v=kJLAo1hO_U8",
-            description: "Design approaches for instruction scaffolds that balance instructability with consistent, reliable behavior."
-          },
-          {
-            title: "Financial Analysis with super assistant analyst LLM",
-            url: "https://www.youtube.com/watch?v=FgjuYwfHUUw",
-            description: "Designing the analyst persona and constraints so an LLM consistently performs financial analysis tasks."
-          },
-          {
-            title: "Tell me what you don't know - Role Playing Agents",
-            url: "https://www.youtube.com/watch?v=N8fIzrQL8pE",
-            description: "Design role and behavior scaffolds so agents reliably inhabit and execute distinct personas."
-          },
-          {
-            title: "Exploring Expert Failures - LLM  Agent tuning #openai",
-            url: "https://www.youtube.com/watch?v=5bCje470-2E",
-            description: "Covers refining agent instructions to mitigate expert failures and improve reliability."
-          }
-        ]
-      }
-    ],
-  
-    "prompt-optimization-patterns": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Effective Context Engineering #anthropic",
-            url: "https://www.youtube.com/watch?v=oTGsfiBhVHU",
-            description: "Techniques and patterns for organizing context and prompt structure to improve LLM reliability."
-          },
-          {
-            title: "Momento: Fine tuning Agents without fine tuning LLMs",
-            url: "https://www.youtube.com/watch?v=Y0meQjKbFdo",
-            description: "Applying systematic prompt refactors to increase reliability and control without retraining the model."
-          },
-          {
-            title: "Self-Questioning Language Models",
-            url: "https://www.youtube.com/watch?v=4wlRhmw2VcM",
-            description: "Demonstrates a prompt refactor pattern where models decompose tasks via self-questions to boost accuracy and stability."
-          },
-          {
-            title: "A Survey of Context Engineering for Large Language Models",
-            url: "https://www.youtube.com/watch?v=Dh_SPv55UA8",
-            description: "Survey of repeatable context and prompt refactor patterns to stabilize model outputs."
-          },
-          {
-            title: "Which prompting techniques should I use in Software Engineering Tasks?",
-            url: "https://www.youtube.com/watch?v=Jwsu1Y1y5AQ",
-            description: "Guidance on selecting prompt patterns that stabilize code generation, debugging, and refactoring tasks."
-          },
-          {
-            title: "PromptPex #microsoftresearch",
-            url: "https://www.youtube.com/watch?v=IRPLlqQxl9E",
-            description: "Techniques and tooling to iteratively refine prompts into robust, repeatable configurations."
-          },
-          {
-            title: "Mind Evolution: Evolving Large Language Model Inference #deepmind #ucsandiego #universityofalberta",
-            url: "https://www.youtube.com/watch?v=8FhbVXE9KLQ",
-            description: "Explores how evolutionary search can refine prompts and reasoning structures to stabilize and improve LLM performance."
-          },
-          {
-            title: "Inference Time Scaling for Medical Reasoning in LLMs - o1 Replication Journey",
-            url: "https://www.youtube.com/watch?v=c0L-y_mAgtM",
-            description: "Practical patterns for test-time compute scaling and structured prompts that improve complex medical reasoning performance."
-          },
-          {
-            title: "Meta Chain of Thought Reasoning in LLMs #stanforduniversity #ucberkeley",
-            url: "https://www.youtube.com/watch?v=GJdeF9cpKsg",
-            description: "Demonstrates how meta-level prompts can modulate chain-of-thought to enhance reasoning accuracy and stability."
-          },
-          {
-            title: "Prompting Strategies for LLMs to Infer Causation from Correlation",
-            url: "https://www.youtube.com/watch?v=fdW8wDeS66U",
-            description: "Structured refactor patterns to improve prompts for causal inference and reliability."
-          },
-          {
-            title: "Reverse Enhanced Thinking for Stronger LLMs #deepmind",
-            url: "https://www.youtube.com/watch?v=7vhjdt2gyhk",
-            description: "How reverse enhanced thinking can be applied as a prompt pattern to stabilize and improve LLM reasoning outputs."
-          },
-          {
-            title: "From Medprompt to o1: Exploration of Run-Time Strategies for Medical Challenge Problems and Beyond",
-            url: "https://www.youtube.com/watch?v=GQffo1yUE_g",
-            description: "Patterns for refining prompts and run-time tactics to stabilize and improve performance on domain-specific challenges."
-          },
-          {
-            title: "Search Verify and Feedback - Verifier Engineering for Foundation Models",
-            url: "https://www.youtube.com/watch?v=TpfUSyuUSMY",
-            description: "Demonstrates a pattern-driven approach to wrap prompts with verifiers and feedback for higher-quality, more reliable outputs."
-          }
-        ]
-      }
-    ],
-  
-    "agentic-workflow-control": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "GeoEvolve: Automating Geospatial Model Discovery via Multi-Agent Large Language Models #mit",
-            url: "https://www.youtube.com/watch?v=wjsCVvLFW7w",
-            description: "Design and orchestration of multi-step agent workflows for automated model discovery."
-          },
-          {
-            title: "Deep Researcher with Test-Time Diffusion (TTD-DR) #deepmind",
-            url: "https://www.youtube.com/watch?v=7U1PodHCxq0",
-            description: "Orchestration of multi-step research loops and iteration control enhanced by test-time diffusion."
-          },
-          {
-            title: "Web Researcher: Unbounded Reasoning Capabilities in Long Horizon Agents",
-            url: "https://www.youtube.com/watch?v=8cshoLZX_H4",
-            description: "Design and orchestration of multi-step web research loops that manage iterative reasoning and tool invocation."
-          },
-          {
-            title: "MoMA â€“ A Generalized Router for Models and Agents",
-            url: "https://www.youtube.com/watch?v=ZGibXO7pUQM",
-            description: "Demonstrates dynamic task routing and dispatch policies that stabilize multi-step, multi-tool agent workflows."
-          },
-          {
-            title: "REFRAG â€” Rethinking RAG-based Decoding #meta",
-            url: "https://www.youtube.com/watch?v=dPPMNRjGdaA",
-            description: "Techniques for coordinating retrieval and generation during decoding to reduce context bleed and improve relevance."
-          },
-          {
-            title: "Chain of Agents and Agent Foundation Models",
-            url: "https://www.youtube.com/watch?v=BNAiFZGn9Ig",
-            description: "Techniques to orchestrate sequential agent handoffs and control multi-step, multi-tool flows."
-          },
-          {
-            title: "Prompt Orchestration Markup Language - POML  #microsoft",
-            url: "https://www.youtube.com/watch?v=S11lNSs9cQo",
-            description: "Explains how POML structures and sequences prompts and tool calls to orchestrate reliable multi-step agent workflows."
-          },
-          {
-            title: "ASearcher - Beyond Ten Turns - Long Horizon Agentic Search",
-            url: "https://www.youtube.com/watch?v=0Xq7FmkMQes",
-            description: "How to orchestrate long-horizon, multi-turn agentic search loops that sustain context and control beyond typical interaction limits."
-          },
-          {
-            title: "Magentic-UI: Towards Human-in-the-Loop Agentic Systems #microsoft",
-            url: "https://www.youtube.com/watch?v=_VkqTst4NBs",
-            description: "Designing human-in-the-loop control surfaces to steer and intervene in multi-step agent workflows."
-          },
-          {
-            title: "SciToolAgent -  A Knowledge Graphâ€“Driven Scientific Agent for Multi-Tool Integration",
-            url: "https://www.youtube.com/watch?v=UDLaVHNcXY0",
-            description: "Demonstrates how a knowledge graph guides multi-step, multi-tool orchestration in a scientific agent."
-          },
-          {
-            title: "ARAG - Agentic Retrieval-Augmented Generation for Personalized Recommendation #walmart",
-            url: "https://www.youtube.com/watch?v=sIDy_3PN84g",
-            description: "Demonstrates orchestration of multi-step retrieval and generation flows for recommendation."
-          },
-          {
-            title: "AI Research Agents for Machine Learning #meta",
-            url: "https://www.youtube.com/watch?v=EaxqTCGMIq0",
-            description: "Orchestrating iterative machine learning research pipelines with reliable, multi-step agent workflows."
-          },
-          {
-            title: "The path to medical superintelligence - Sequential Diagnosis with Language Models #microsoft",
-            url: "https://www.youtube.com/watch?v=TcuzW4btYso",
-            description: "Demonstrates LLM-driven sequential diagnostic decision-making as a controlled multi-step workflow."
-          },
-          {
-            title: "Real world Industry scenario - Failure Analysis Agent",
-            url: "https://www.youtube.com/watch?v=sNg0U04qB1c",
-            description: "Design and coordinate multi-step diagnostic flows so agents can run reliable failure analyses end to end."
-          },
-          {
-            title: "MCPxA2A - Technical Analysis for Business Workflow Multi-agents #samsung",
-            url: "https://www.youtube.com/watch?v=EP4jQuWAbkM",
-            description: "Techniques to orchestrate multi-step, multi-tool flows across cooperating agents without context bleed."
-          },
-          {
-            title: "Continuous Thought Machines #sakana",
-            url: "https://www.youtube.com/watch?v=m6ZkbX3y2SQ",
-            description: "Design and orchestration techniques for multi-step, continuous reasoning and control loops in agents."
-          },
-          {
-            title: "Zero Search",
-            url: "https://www.youtube.com/watch?v=iOUDaGSsZyQ",
-            description: "Strategy for controlling tool usage so agents avoid unnecessary search and maintain fast, reliable execution."
-          },
-          {
-            title: "Procedural Knowledge Ontology (PKO)",
-            url: "https://www.youtube.com/watch?v=gUmzjqqKDNc",
-            description: "Overview of representing task procedures so agents can execute multi-step workflows with clear preconditions and outcomes."
-          },
-          {
-            title: "Why Do Multi-Agent LLM Systems Fail?",
-            url: "https://www.youtube.com/watch?v=tCCj064B_tA",
-            description: "Highlights orchestration pitfalls—timing, context management, and handoffs—that make multi-agent LLM workflows brittle."
-          },
-          {
-            title: "L1: Controlling How Long A Reasoning Model Thinks with RL #carnegiemellonuniversity",
-            url: "https://www.youtube.com/watch?v=zkacnMne-do",
-            description: "Methods to control agent reasoning steps and timing to prevent overthinking or unnecessary compute."
-          },
-          {
-            title: "CoRAG - Chain-of-Retrieval Augmented Generation #microsoft",
-            url: "https://www.youtube.com/watch?v=WoRQ1krraXQ",
-            description: "Explains CoRAG as an orchestration pattern that sequences iterative retrieval and reasoning to build stronger context for generation."
-          },
-          {
-            title: "PC Agent: A Cognitive Framework for Digital Work #gair",
-            url: "https://www.youtube.com/watch?v=Hclz-CUjss4",
-            description: "Covers orchestration techniques for multi-step, tool-using agent workflows in desktop environments."
-          },
-          {
-            title: "Agentic Retrieval Augmented Generation - Agentic RAG Survey",
-            url: "https://www.youtube.com/watch?v=ndNiBYoC8_g",
-            description: "Overview of controlling iterative retrieval-generation loops and tool calls in agentic RAG workflows."
-          },
-          {
-            title: "Mind Evolution: Evolving Large Language Model Inference #deepmind #ucsandiego #universityofalberta",
-            url: "https://www.youtube.com/watch?v=8FhbVXE9KLQ",
-            description: "Research talk on evolutionary approaches to control and improve multi-step LLM reasoning and inference-time scaffolds."
-          },
-          {
-            title: "SOP Agent: A Standard Operational Procedure Guided AI Agent",
-            url: "https://www.youtube.com/watch?v=hYTQJxa_g6A",
-            description: "Demonstrates orchestrating multi-step SOP workflows to ensure predictable, controllable agent execution."
-          },
-          {
-            title: "Search-o1: Augmenting Large Reasoning Models with Agentic Search #tsinghua #agenticai #search",
-            url: "https://www.youtube.com/watch?v=N7y41_V0qMo",
-            description: "Techniques for coordinating multi-step search loops with reasoning to form reliable agentic workflows."
-          },
-          {
-            title: "Agent Laboratory : An Autonomous LLM Based Research Framework #amd #johnhopkins",
-            url: "https://www.youtube.com/watch?v=mIlyM_qtO9I",
-            description: "How the framework sequences and controls multi-step research tasks for reliable autonomy."
-          },
-          {
-            title: "InternLM-XComposer2.5-OmniLive: Long-term Streaming Video and Audio Interactions",
-            url: "https://www.youtube.com/watch?v=sYEpy9Fmi-Y",
-            description: "Orchestration patterns for real-time, long-duration multimodal streams that maintain timing stability and contextual coherence."
-          },
-          {
-            title: "AsyncLM:  Asynchronous Large Language Model Function Calling #yaleuniversity",
-            url: "https://www.youtube.com/watch?v=XNBP2OcSRSs",
-            description: "AsyncLM introduces asynchronous function-calling for LLM agents to coordinate concurrent tool invocations without blocking."
-          },
-          {
-            title: "The importance of visual modelling languages in generative software engineering",
-            url: "https://www.youtube.com/watch?v=rdQbmElaZp0",
-            description: "Using visual models to specify and orchestrate multi-step generative workflows and maintain reliable process control."
-          },
-          {
-            title: "From Medprompt to o1: Exploration of Run-Time Strategies for Medical Challenge Problems and Beyond",
-            url: "https://www.youtube.com/watch?v=GQffo1yUE_g",
-            description: "Techniques for controlling multi-step reasoning and decision flows at run time to tackle complex medical tasks."
-          },
-          {
-            title: "The Dawn of GUI Agent: A Preliminary Case Study with Claude 3.5 Computer Use",
-            url: "https://www.youtube.com/watch?v=rcQRS08ml2w",
-            description: "Demonstrates multi-step GUI task orchestration with Claude 3.5 Computer Use, highlighting control strategies for reliable execution."
-          },
-          {
-            title: "FinRobot - AI Agent for Equity Research and Valuation with Large Language Models #arxiv",
-            url: "https://www.youtube.com/watch?v=No7GHxqxB24",
-            description: "How the agent sequences research tasks into a controlled multi-step valuation workflow."
-          },
-          {
-            title: "Microsoft RD-Agent - Automatic Research and Development Agent",
-            url: "https://www.youtube.com/watch?v=MfXoAKBmExc",
-            description: "Designing and controlling multi-step tool-driven workflows for autonomous R&D cycles."
-          },
-          {
-            title: "Financial Analysis with super assistant analyst LLM",
-            url: "https://www.youtube.com/watch?v=FgjuYwfHUUw",
-            description: "Orchestrating multi-step analysis flows for an LLM-based financial assistant."
-          }
-        ]
-      }
-    ],
-  
-    "ai-agents": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Gemini Robotics 1.5 Model #deepmind",
-            url: "https://www.youtube.com/watch?v=COT9Ijp9avM",
-            description: "Demonstrates how Gemini Robotics 1.5 functions as a real-world agent capable of interpreting inputs and executing physical actions."
-          },
-          {
-            title: "Scientific Large Language Models: From Data Foundations to Agent Frontiers",
-            url: "https://www.youtube.com/watch?v=jwkczow1T2Y",
-            description: "How scientific LLMs evolve into agents and what truly separates an agent from a simple chat model."
-          },
-          {
-            title: "The Anatomy of a Personal Health Agent #google #deepmind",
-            url: "https://www.youtube.com/watch?v=Oac-RTXijj4",
-            description: "Overview of what makes a personal health agent an actual agent and how it differs from simple chat wrappers."
-          },
-          {
-            title: "FROGENT - Drug-Discovery Agent",
-            url: "https://www.youtube.com/watch?v=P36UxMm4kJE",
-            description: "Overview or demo of an AI agent designed to support drug discovery workflows and tasks."
-          },
-          {
-            title: "Agentic AI Frameworks (listen in 12 languages)",
-            url: "https://www.youtube.com/watch?v=gqjWko6yMME",
-            description: "Foundational concepts defining AI agents and how frameworks implement core agent capabilities."
-          },
-          {
-            title: "Embodied AI Agents: Modeling the World #meta",
-            url: "https://www.youtube.com/watch?v=KfP9aME4Xyg",
-            description: "Foundations of agentic behavior illustrated through embodied, environment-interacting agents."
-          },
-          {
-            title: "Agent Distill",
-            url: "https://www.youtube.com/watch?v=-eGY1APaA-Q",
-            description: "An overview distilling key ideas and practices around building and understanding AI agents."
-          },
-          {
-            title: "Future of Work with AI Agents #stanford",
-            url: "https://www.youtube.com/watch?v=TmFRbWi-Zu4",
-            description: "Stanford discussion on what AI agents are and how they could reshape workplace roles and workflows."
-          },
-          {
-            title: "AI Agents & Agentic AI #cornell",
-            url: "https://www.youtube.com/watch?v=jASlnNWQO7E",
-            description: "Introductory talk on the fundamentals of AI agents and the core principles of agentic AI."
-          },
-          {
-            title: "LLMs are greedy agents #deepmind",
-            url: "https://www.youtube.com/watch?v=yVlB5A6RLbA",
-            description: "DeepMind perspective on LLMs as agents and how 'greedy' decision tendencies shape their capabilities and limitations."
-          },
-          {
-            title: "Towards Super Agent",
-            url: "https://www.youtube.com/watch?v=XhAkXrfEIdI",
-            description: "Defines what makes an AI system a true agent and outlines steps toward building a more powerful 'super' agent."
-          },
-          {
-            title: "A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason and Agentic Systems",
-            url: "https://www.youtube.com/watch?v=lkkKqGwvvvo",
-            description: "Survey of how modern LLMs are used in agentic systems and what distinguishes true agents from simple chat wrappers."
-          },
-          {
-            title: "200th episode - Foundation Agents",
-            url: "https://www.youtube.com/watch?v=Uw5EbLgdLiw",
-            description: "Overview of what defines AI agents and how they differ from simple chatbots."
-          },
-          {
-            title: "Magma: A foundation model for multimodal AI agents across digital and physical worlds #microsoft",
-            url: "https://www.youtube.com/watch?v=7vHUcnZ10uI",
-            description: "Discussion of how a foundation model enables true agent capabilities beyond chat, spanning digital and physical settings."
-          },
-          {
-            title: "Agent Laboratory : An Autonomous LLM Based Research Framework #amd #johnhopkins",
-            url: "https://www.youtube.com/watch?v=mIlyM_qtO9I",
-            description: "Overview of an autonomous LLM-driven research agent and what makes it an agent versus a chat wrapper."
-          },
-          {
-            title: "Large Language Models and Artificial General Intelligence",
-            url: "https://www.youtube.com/watch?v=2AcIhKcOgCU",
-            description: "Explores how LLM capabilities relate to AGI and what agentic features distinguish true agents from simple chat wrappers."
-          },
-          {
-            title: "Scaling semiconductor expertise with Llama-powered Domain-Expert Agents #meta",
-            url: "https://www.youtube.com/watch?v=sX7lHiOIWkY",
-            description: "How Meta applies Llama-based domain-expert agents to scale semiconductor expertise beyond basic chat use cases."
-          },
-          {
-            title: "Building Effective LLMs Agents #anthropic",
-            url: "https://www.youtube.com/watch?v=hYKLA9JPOC8",
-            description: "Overview of defining and building LLM-driven agents that move beyond simple chat wrappers."
-          },
-          {
-            title: "AI Agents and Applications - Part 2 #microsoft #azure",
-            url: "https://www.youtube.com/watch?v=NWvSV43cgVI",
-            description: "Overview of what defines an AI agent and how agent capabilities translate into real-world applications."
-          },
-          {
-            title: "AI Agents & Applications - Part1 - #azure #microsoft",
-            url: "https://www.youtube.com/watch?v=xwOzS-DzHes",
-            description: "Fundamentals of AI agents and how they differ from simple chat wrappers, with practical application examples."
-          },
-          {
-            title: "ShowUI: A Vision Language Action Model for GUI Visual Agents #microsoft",
-            url: "https://www.youtube.com/watch?v=npol4c0LwUM",
-            description: "Demonstrates agents that perceive user interfaces and take actions, clarifying what makes an AI system an agent rather than a chat tool."
-          },
-          {
-            title: "Large Language Model Brained GUI Agents: A Survey #arxiv #microsoft",
-            url: "https://www.youtube.com/watch?v=TOXMkotNUTE",
-            description: "Overview of what defines LLM-based GUI agents and how they differ from basic chat wrappers."
-          },
-          {
-            title: "LangChain's State of AI Agents Report",
-            url: "https://www.youtube.com/watch?v=b0MCpq2eZCU",
-            description: "Overview of current AI agent capabilities, definitions, and practical distinctions from chat-based systems."
-          },
-          {
-            title: "The Dawn of GUI Agent: A Preliminary Case Study with Claude 3.5 Computer Use",
-            url: "https://www.youtube.com/watch?v=rcQRS08ml2w",
-            description: "Explains and demos a GUI agent that operates a computer, illustrating the difference between chat and true agents."
-          },
-          {
-            title: "FinRobot - AI Agent for Equity Research and Valuation with Large Language Models #arxiv",
-            url: "https://www.youtube.com/watch?v=No7GHxqxB24",
-            description: "Overview of a domain-specific LLM-powered agent for equity research and valuation."
-          },
-          {
-            title: "Microsoft RD-Agent - Automatic Research and Development Agent",
-            url: "https://www.youtube.com/watch?v=MfXoAKBmExc",
-            description: "Introduction to a production-grade AI agent that autonomously conducts research and development."
-          },
-          {
-            title: "Position Paper Agent AI Towards Holistic Intelligence",
-            url: "https://www.youtube.com/watch?v=VCIYH0S-LtU",
-            description: "Position paper outlining the role and defining capabilities of agentic AI on the path to holistic intelligence."
-          },
-          {
-            title: "Ferret UI - Multimodal LLM - Grounded Mobile UI",
-            url: "https://www.youtube.com/watch?v=WAoGssQnv0w",
-            description: "Overview of how UI-grounded multimodal models enable agent-like behavior on mobile devices."
-          },
-          {
-            title: "Open Questions about Time and Self-reference in Living Systems",
-            url: "https://www.youtube.com/watch?v=qY5WWLDtHqU",
-            description: "Foundational ideas about agency and self-reference in living systems that inform criteria for what makes an AI system an agent."
-          }
-        ]
-      }
-    ],
-  
-    "a2a-communication": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Anemoi - A Semi-Centralized Multiâ€‘Agent System based on A2A Communication (Coral Protocol MCP)",
-            url: "https://www.youtube.com/watch?v=x9RWbaElPHk",
-            description: "Explains how Anemoi uses agent-to-agent communication to coordinate roles and shared intent."
-          },
-          {
-            title: "Collaborative Document Editing with Multiple Users and AI Agents",
-            url: "https://www.youtube.com/watch?v=DZ4Zk-IQdh0",
-            description: "Agent-to-agent coordination and role negotiation methods for conflict-free collaborative editing."
-          },
-          {
-            title: "Survey on AI Agent Communication Protocols, Security Risks & Defense Countermeasures",
-            url: "https://www.youtube.com/watch?v=jwt_qwyPykU",
-            description: "Survey of how agents communicate, comparing protocol designs, semantics, and coordination patterns."
-          },
-          {
-            title: "MCPxA2A - Technical Analysis for Business Workflow Multi-agents #samsung",
-            url: "https://www.youtube.com/watch?v=EP4jQuWAbkM",
-            description: "Patterns for agents to share intent and negotiate roles during collaborative tasks."
-          },
-          {
-            title: "A Survey of Agent Protocols - A2A, MCP, ACP, ANP",
-            url: "https://www.youtube.com/watch?v=P5YWZ7fuy-4",
-            description: "A concise survey explaining how A2A enables structured agent-to-agent dialogue and when to use it versus other protocols."
-          },
-          {
-            title: "A survey of AI Agent protocols",
-            url: "https://www.youtube.com/watch?v=JuSh0GBBuRA",
-            description: "Overview of messaging and shared-intent protocols used for agent-to-agent coordination."
-          },
-          {
-            title: "Agent2Agent Protocol (A2A) #google",
-            url: "https://www.youtube.com/watch?v=cTmKL_rw0ss",
-            description: "Overview of Google's Agent2Agent protocol and how agents share intent and coordinate via A2A."
-          },
-          {
-            title: "Why Do Multi-Agent LLM Systems Fail?",
-            url: "https://www.youtube.com/watch?v=tCCj064B_tA",
-            description: "Examines how naive message passing and unnegotiated roles lead to breakdowns in multi-agent LLM systems."
-          },
-          {
-            title: "Generative Emergent Communication and Large Language Models - EmCom #ieee",
-            url: "https://www.youtube.com/watch?v=Ai4AdZzzmKQ",
-            description: "Explores how LLM agents develop emergent languages and shared intent for effective inter-agent communication."
-          },
-          {
-            title: "LLM Adaptation in Multi Agent Contexts - Can Large Language Models Adapt to Other Agents In-Context?",
-            url: "https://www.youtube.com/watch?v=1fL3UoJw1p0",
-            description: "Focuses on agent-to-agent signaling and shared intent formation needed for in-context adaptation."
-          },
-          {
-            title: "DAWN  Distributed Agents in a Worldwide Network",
-            url: "https://www.youtube.com/watch?v=nUSXj5samkE",
-            description: "Approaches for agent-to-agent messaging, shared intent, and role negotiation across a global network."
-          },
-          {
-            title: "Language Understanding as a Constraint on Consensus Size in LLM Societies",
-            url: "https://www.youtube.com/watch?v=qTnH9_CeON8",
-            description: "Examines how agent language understanding impacts consensus-building dynamics and communication efficacy among LLM agents."
-          }
-        ]
-      }
-    ],
-  
-    "mcp": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Anemoi - A Semi-Centralized Multiâ€‘Agent System based on A2A Communication (Coral Protocol MCP)",
-            url: "https://www.youtube.com/watch?v=x9RWbaElPHk",
-            description: "Details how Coral Protocol leverages the Model Context Protocol to standardize tool access across agents."
-          },
-          {
-            title: "Live MCP-101 #dukeuniversity #zoom",
-            url: "https://www.youtube.com/watch?v=uL9_Hp0roLQ",
-            description: "Live introductory session on the Model Context Protocol (MCP) and how it standardizes tool access for AI agents."
-          },
-          {
-            title: "A Survey of Agent Protocols - A2A, MCP, ACP, ANP",
-            url: "https://www.youtube.com/watch?v=P5YWZ7fuy-4",
-            description: "Overview of MCP within the broader protocol landscape, highlighting how it standardizes tool access for agent systems."
-          },
-          {
-            title: "A survey of AI Agent protocols",
-            url: "https://www.youtube.com/watch?v=JuSh0GBBuRA",
-            description: "Explores model context and tool invocation protocols like MCP in the agent ecosystem."
-          },
-          {
-            title: "MCP - Model Context Protocol #anthropic #agenticai",
-            url: "https://www.youtube.com/watch?v=OayEkDbjqOY",
-            description: "Overview of Anthropic's Model Context Protocol (MCP) and how it standardizes tool access for agentic AI."
-          }
-        ]
-      }
-    ],
-  
-    "mcp-a2a-integration": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Anemoi - A Semi-Centralized Multiâ€‘Agent System based on A2A Communication (Coral Protocol MCP)",
-            url: "https://www.youtube.com/watch?v=x9RWbaElPHk",
-            description: "Shows how MCP capabilities are woven into A2A dialogues to create a unified interaction fabric."
-          },
-          {
-            title: "MCPxA2A - Technical Analysis for Business Workflow Multi-agents #samsung",
-            url: "https://www.youtube.com/watch?v=EP4jQuWAbkM",
-            description: "Deep dive on integrating MCP tool invocation with A2A dialogue to power coordinated business workflows."
-          }
-        ]
-      }
-    ],
-  
-    "ai-safety-governance": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "The Illusion of Readiness: Stress Testing Large Frontier Models on Multimodal Medical Benchmarks",
-            url: "https://www.youtube.com/watch?v=92SQJPTqiW0",
-            description: "Safety and governance considerations for deploying frontier models in high-stakes medical settings."
-          },
-          {
-            title: "Emotional Manipulation By AI Companions #harvard",
-            url: "https://www.youtube.com/watch?v=pYgFTne8WT8",
-            description: "Safety and governance strategies to identify, mitigate, and oversee risks like emotional manipulation in AI systems."
-          },
-          {
-            title: "Taxonomy of Transcendence - How model outperforms the experts who trained them #harvard",
-            url: "https://www.youtube.com/watch?v=IUHOglNi74E",
-            description: "Governance considerations for supervising and containing models that may exceed human expert capabilities."
-          },
-          {
-            title: "Claude Opus 4.1 â€‘ System Card #anthropicai",
-            url: "https://www.youtube.com/watch?v=aMaYgJ87XJ0",
-            description: "Overview of Claude 4.1’s system card focusing on safety evaluations, risk assessments, and governance considerations."
-          },
-          {
-            title: "Chain of Thought Monitorability (summary)",
-            url: "https://www.youtube.com/watch?v=HeRBKAHsKoE",
-            description: "Overview of how chain-of-thought monitorability enables traceability and oversight for safer, governable agents."
-          },
-          {
-            title: "How much do language models memorize? #meta #deepmind #nvidia #cornell",
-            url: "https://www.youtube.com/watch?v=iuXyxV_dhTE",
-            description: "Explores the safety and governance implications of LLM memorization, including privacy risks and containment strategies."
-          },
-          {
-            title: "A framework to report AI Flaws",
-            url: "https://www.youtube.com/watch?v=sKvLRCJ_aNw",
-            description: "Outlines how structured flaw reporting supports safety escalation and containment across AI systems."
-          },
-          {
-            title: "Dive in to future - Critical-Thinking and Co-existing at work with Super Intelligent AI",
-            url: "https://www.youtube.com/watch?v=zTS-1fBLpuM",
-            description: "Frameworks to anticipate, trace, and contain risks from advanced agents in real-world workplaces."
-          },
-          {
-            title: "AI Tools in Society: Impacts on Cognitive Offloading and the future of Critical Thinking #lse #sbs",
-            url: "https://www.youtube.com/watch?v=zIa3H7NvfJU",
-            description: "Explores the societal and governance implications of AI tools on cognitive processes and the future of critical thinking."
-          },
-          {
-            title: "Examining Arguments Against AI Existential Risk",
-            url: "https://www.youtube.com/watch?v=ooPfHMnNXw4",
-            description: "Critical examination of AI existential risk debates and their implications for safety strategy and governance design."
-          },
-          {
-            title: "The Road to Artificial SuperIntelligence - ASI - Survey on Superalignment",
-            url: "https://www.youtube.com/watch?v=ePolyu4ZPG4",
-            description: "Survey of superalignment approaches and governance strategies for aligning superhuman AI systems on the road to ASI."
-          },
-          {
-            title: "Deliberative Alignment  Safer Language Models through Reasoning #openai",
-            url: "https://www.youtube.com/watch?v=yE4_qXzn3rw",
-            description: "Talk on aligning language models through deliberative reasoning to improve safety outcomes and reduce harmful behavior."
-          },
-          {
-            title: "US & UK AISI OpenAI o1 Model Evaluation",
-            url: "https://www.youtube.com/watch?v=a_-dtJmjhKs",
-            description: "How national AI Safety Institutes use model evaluations to inform governance, risk assessment, and safety oversight."
-          },
-          {
-            title: "Japanese version AI Podcast - æ—¥æœ¬èªž - o1 Model System Card #openai",
-            url: "https://www.youtube.com/watch?v=fvL9cl3zKmI",
-            description: "Discussion of the o1 system card’s safety evaluations, risk mitigations, and governance decisions."
-          },
-          {
-            title: "o1 Model System Card:  Evaluations and Findings #openai",
-            url: "https://www.youtube.com/watch?v=GB4sLygDvus",
-            description: "Review of the o1 system card’s safety evaluations, mitigations, and governance considerations."
-          },
-          {
-            title: "Large Language Models and Algorithmic Collusion #arxiv",
-            url: "https://www.youtube.com/watch?v=S-eB4OkUaGk",
-            description: "Safety and governance considerations for preventing and containing collusive behaviors in agent ecosystems."
-          },
-          {
-            title: "A Taxonomy of Systemic Risks from General Purpose AI",
-            url: "https://www.youtube.com/watch?v=sf0CdtQwEpc",
-            description: "A talk outlining a risk taxonomy for general-purpose AI and its implications for proactive safety and governance."
-          },
-          {
-            title: "Scenario Planning for an AGI Future - Adapating AI and Economics Impact #imf",
-            url: "https://www.youtube.com/watch?v=e6BYGNtlEHw",
-            description: "Session exploring AGI scenario planning, associated risks, and governance approaches in the context of macroeconomic impacts."
-          },
-          {
-            title: "JAMA Network:  Large Language Model Influence on Diagnostic Reasoning",
-            url: "https://www.youtube.com/watch?v=SCJhYbGECCw",
-            description: "JAMA discussion on how LLM recommendations affect clinical diagnosis and the safety controls required for responsible use."
-          },
-          {
-            title: "What Should Be Internationalised in AI Governance? #oxford",
-            url: "https://www.youtube.com/watch?v=vMtszQRCB_w",
-            description: "Oxford discussion on which aspects of AI governance should be standardized internationally and the implications for safety, oversight, and coordination."
-          },
-          {
-            title: "Taking AI welfare seriously",
-            url: "https://www.youtube.com/watch?v=ARsIYsoq9ew",
-            description: "Discusses safety and governance implications of recognizing and addressing AI welfare in advanced systems."
-          },
-          {
-            title: "gpt-4o system card",
-            url: "https://www.youtube.com/watch?v=dDOLcniA8ro",
-            description: "Overview of GPT-4o safety evaluations, risk mitigations, and governance transparency."
-          },
-          {
-            title: "Risk and Challenges to adoption of generative AI in the workplace",
-            url: "https://www.youtube.com/watch?v=lhLDsU2x430",
-            description: "Core principles for proactive AI safety, tracing, containment, and escalation to manage generative AI risks."
-          },
-          {
-            title: "Ethical Challenges of AI",
-            url: "https://www.youtube.com/watch?v=WZt5T_T3GFQ",
-            description: "Frames ethical challenges through safety and governance lenses, including proactive tracing, containment, and escalation design."
-          },
-          {
-            title: "SecurityLLM FoundationAI #cisco",
-            url: "https://www.youtube.com/watch?v=4e3ubR-gx00",
-            description: "Discussion of governance and safety considerations for deploying foundation AI models in security contexts."
-          },
-          {
-            title: "AI at cross roads",
-            url: "https://www.youtube.com/watch?v=_NvjxtqkE_Y",
-            description: "Discussion on AI’s inflection point and the governance and safety decisions shaping its future."
-          }
-        ]
-      }
-    ],
-  
-    "agent-evaluation-methodologies": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "The Illusion of Readiness: Stress Testing Large Frontier Models on Multimodal Medical Benchmarks",
-            url: "https://www.youtube.com/watch?v=92SQJPTqiW0",
-            description: "Methodologies and benchmarks for assessing model reliability and limitations in multimodal medical tasks."
-          },
-          {
-            title: "The Illusion of Diminishing Returns:Measuring Long Horizon Execution in LLMs",
-            url: "https://www.youtube.com/watch?v=UaSLyHJeb9w",
-            description: "Evaluating long-horizon LLM/agent execution to avoid misinterpreting 'diminishing returns' in performance."
-          },
-          {
-            title: "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity #metr",
-            url: "https://www.youtube.com/watch?v=4paBeYVrKt0",
-            description: "Methods and metrics for rigorously quantifying how early-2025 AI tools affect experienced open-source developer productivity."
-          },
-          {
-            title: "Do generative video models understand physical principles? #deepmind",
-            url: "https://www.youtube.com/watch?v=vW1_CaM4sPY",
-            description: "Methods and benchmarks for testing whether generative models encode physical principles, informing robust capability evaluations."
-          },
-          {
-            title: "Taxonomy of Transcendence - How model outperforms the experts who trained them #harvard",
-            url: "https://www.youtube.com/watch?v=IUHOglNi74E",
-            description: "Methods to detect, quantify, and verify when AI systems surpass human experts, including benchmark design and failure mode surfacing."
-          },
-          {
-            title: "InMind: Evaluating LLMs in Capturing and Applying Individual Human Reasoning Styles",
-            url: "https://www.youtube.com/watch?v=OcePiID7XWc",
-            description: "Research talk on methods and metrics for evaluating if LLMs can model and apply user-specific reasoning styles."
-          },
-          {
-            title: "Generative Medical Event Models Improve with Scale - COMET #yale #microsoft",
-            url: "https://www.youtube.com/watch?v=OYpt3-ha7v8",
-            description: "Research on scaling laws and evaluation practices for generative medical event models, focusing on how performance is measured as model size grows."
-          },
-          {
-            title: "Beyond Binary Rewards - LMs to Reason About Their Uncertainty #mit",
-            url: "https://www.youtube.com/watch?v=2evp7dhJZqI",
-            description: "Explores uncertainty-aware approaches that enable graded signals and better failure surfacing in agent evaluation."
-          },
-          {
-            title: "Frontier LLMs Still Struggle with Simple Reasoning Tasks #deepmind",
-            url: "https://www.youtube.com/watch?v=DN7kVuOtRT0",
-            description: "Empirical findings on frontier LLMs' simple reasoning failures and how to measure and surface these issues."
-          },
-          {
-            title: "Chain of Thought Monitorability (summary)",
-            url: "https://www.youtube.com/watch?v=HeRBKAHsKoE",
-            description: "Summary of techniques for assessing and auditing a model’s chain-of-thought to surface failure patterns and improve oversight."
-          },
-          {
-            title: "Answer Matching Outperforms Multiple Choice for Language Model Evaluation",
-            url: "https://www.youtube.com/watch?v=pRRySAZEZp0",
-            description: "Why free-form answer matching can be a more reliable evaluation signal than multiple choice for assessing language model performance."
-          },
-          {
-            title: "Darwin GÃ¶del Machine - Openâ€Ended, Selfâ€“Improving AI Systems",
-            url: "https://www.youtube.com/watch?v=MFPQaln6xSo",
-            description: "Methodologies to verify and quantify whether autonomous self-improvements are actually beneficial and reliable."
-          },
-          {
-            title: "How much do language models memorize? #meta #deepmind #nvidia #cornell",
-            url: "https://www.youtube.com/watch?v=iuXyxV_dhTE",
-            description: "Research discussion on measuring LLM memorization and what evaluation techniques reveal about overfitting and data leakage."
-          },
-          {
-            title: "J1: Incentivizing thinking LLM-as-a-judge via reinforcement learning #meta",
-            url: "https://www.youtube.com/watch?v=9cCQiZtVV44",
-            description: "Explores using LLM-as-judge signals to assess and shape model reasoning quality."
-          },
-          {
-            title: "Reasoning Models Donâ€™t Always Say What They Think",
-            url: "https://www.youtube.com/watch?v=dsilYU3HIe4",
-            description: "How to evaluate and detect when a model’s stated answers diverge from its internal reasoning or beliefs."
-          },
-          {
-            title: "HealthBench #openai",
-            url: "https://www.youtube.com/watch?v=OSXLCGUTzks",
-            description: "Overview of HealthBench as a framework for systematically evaluating AI agents on health-related tasks."
-          },
-          {
-            title: "How Well Can General Vision-Language Models Learn Medicine By Watching Public Educational Videos?",
-            url: "https://www.youtube.com/watch?v=O--lGK_B7vw",
-            description: "Methods for rigorously assessing how multimodal models learn from public video content and improve on domain-specific tasks."
-          },
-          {
-            title: "LLM Reasoning Length - between underthinking and overthinking #cornell #adobe",
-            url: "https://www.youtube.com/watch?v=Ky0H-oA7ETc",
-            description: "Research-driven evaluation of how reasoning length affects LLM accuracy and failure modes."
-          },
-          {
-            title: "The leaderboard Illusion",
-            url: "https://www.youtube.com/watch?v=047oveJ95Ic",
-            description: "Why leaderboard metrics can mislead and how to design more robust, reality-aligned agent evaluation methods."
-          },
-          {
-            title: "Taxonomy of Failure Modes in Agentic AI Systems #microsoft",
-            url: "https://www.youtube.com/watch?v=6AFt3bLPM_k",
-            description: "Outlines a structured failure-mode taxonomy to inform measurement, LLM-as-judge setups, and targeted evaluation strategies."
-          },
-          {
-            title: "Vending-Bench: A Benchmark for Long-Term Coherenceof Autonomous Agents",
-            url: "https://www.youtube.com/watch?v=-dABYPxGRkA",
-            description: "A research benchmark proposing methods to measure long-term coherence and reliability in autonomous agents."
-          },
-          {
-            title: "Leveraging LLMs as Meta-Judges #mcgilluniversity",
-            url: "https://www.youtube.com/watch?v=qyDIBTZVgI4",
-            description: "Talk on leveraging LLMs as meta-judges to assess model outputs and agent behavior with structured evaluation methods."
-          },
-          {
-            title: "Exploring Expert Failures - LLM  Agent tuning #openai",
-            url: "https://www.youtube.com/watch?v=5bCje470-2E",
-            description: "Explores how to identify and measure expert failure patterns and use evaluation to guide LLM agent tuning."
-          },
-          {
-            title: "Inference-Time Scaling for Generalist Reward Modeling #deepseek",
-            url: "https://www.youtube.com/watch?v=Yh6dgP-t-oQ",
-            description: "Techniques for using reward models as evaluators at inference time to rank and select higher-quality agent outputs across diverse tasks."
-          },
-          {
-            title: "Reasoning models don't always say what they think #anthropic",
-            url: "https://www.youtube.com/watch?v=31N23aKjGTM",
-            description: "How to evaluate when model reasoning diverges from stated outputs, surfacing honesty gaps and failure modes."
-          },
-          {
-            title: "Large Language Models Pass the Turing Test",
-            url: "https://www.youtube.com/watch?v=6Bm0yihfa08",
-            description: "Explores LLM performance on Turing-style evaluations and implications for capability and behavior assessment."
-          },
-          {
-            title: "Survey on Evaluation of LLM-based Agents",
-            url: "https://www.youtube.com/watch?v=H4QLHJ-Z0G8",
-            description: "Survey of methods and benchmarks for evaluating LLM-based agents, including metrics, LLM-as-judge, and task-based assessments."
-          },
-          {
-            title: "Measuring AI Ability to Complete Long Tasks - a.k.a Agents",
-            url: "https://www.youtube.com/watch?v=PJ0vYK2rZs0",
-            description: "Overview of approaches and metrics for assessing agent performance on long, multi-step tasks."
-          },
-          {
-            title: "PromptPex #microsoftresearch",
-            url: "https://www.youtube.com/watch?v=IRPLlqQxl9E",
-            description: "Research approach for systematically testing and measuring prompt and agent behavior to surface failure modes and improvements."
-          },
-          {
-            title: "Measuring AI Agent Autonomy #microsoft #github",
-            url: "https://www.youtube.com/watch?v=uwSnw0cPt0Q",
-            description: "Frameworks and metrics for quantifying AI agent autonomy and assessing capability maturity."
-          },
-          {
-            title: "Optimizing Model Selection for Compound AI Systems - how should one decide which LLM to use?",
-            url: "https://www.youtube.com/watch?v=zk5YxeZ2KGc",
-            description: "How to rigorously evaluate and compare LLMs for specific agent tasks using quantitative and LLM-as-judge methods."
-          },
-          {
-            title: "Large Language Models for Reasoning: A Survey #emoryuniversity #tsinghua  #hkust",
-            url: "https://www.youtube.com/watch?v=kMfNiV7bzQU",
-            description: "Overview of LLM reasoning benchmarks and evaluation methods used to assess and compare reasoning performance."
-          },
-          {
-            title: "Benchmarking AI  OpenAI's o3 and the Quest for AGI #lab42",
-            url: "https://www.youtube.com/watch?v=4HE--Xifr9E",
-            description: "Explores approaches and metrics for benchmarking advanced AI models like o3, highlighting rigorous evaluation methodologies."
-          },
-          {
-            title: "rStar-Math: Small LLMs Can Master Math Reasoning with Self-Evolved Deep Thinking #microsoft",
-            url: "https://www.youtube.com/watch?v=YQ1vQVgwlPE",
-            description: "Evaluation protocols and benchmarks used to measure reasoning gains in small LLMs trained for mathematics."
-          },
-          {
-            title: "MultiCodeBench: Evaluating LLMs' Code Generation Across Domains",
-            url: "https://www.youtube.com/watch?v=GWz1TjILx4A",
-            description: "A cross-domain benchmark and methodology for evaluating LLM code generation performance and comparative reliability."
-          },
-          {
-            title: "Agents are not enough - Agents + Sims + Assistant - a Trifecta for real-world scenarios #microsoft",
-            url: "https://www.youtube.com/watch?v=tQlzyX-eumI",
-            description: "Explores leveraging simulations to evaluate and improve agent reliability in realistic scenarios."
-          },
-          {
-            title: "The Agent Company: Benchmarking LLMs on Real World Tasks #carnegiemellonuniversity",
-            url: "https://www.youtube.com/watch?v=VtsWoq7TggQ",
-            description: "Methods for rigorously benchmarking LLMs and agents on practical tasks to measure true improvements."
-          },
-          {
-            title: "US & UK AISI OpenAI o1 Model Evaluation",
-            url: "https://www.youtube.com/watch?v=a_-dtJmjhKs",
-            description: "AISI-led evaluation approaches for OpenAI’s o1, highlighting methods, metrics, and surfaced failure modes."
-          },
-          {
-            title: "o1 Model System Card:  Evaluations and Findings #openai",
-            url: "https://www.youtube.com/watch?v=GB4sLygDvus",
-            description: "Summary of the evaluation approaches used in the o1 system card and key findings across capability and safety tests."
-          },
-          {
-            title: "Large Language Models: Architectures, Benchmarks, Challenges & Empowering Business",
-            url: "https://www.youtube.com/watch?v=nwwx3hevBJg",
-            description: "Overview of LLM benchmarking approaches, evaluation pitfalls, and how to measure real-world performance."
-          },
-          {
-            title: "Meta's PARTNR: A Human Robot Collaboration Benchmark",
-            url: "https://www.youtube.com/watch?v=8Me9HFA6idc",
-            description: "Meta's PARTNR benchmark for assessing human-robot collaboration with standardized tasks, datasets, and evaluation metrics."
-          },
-          {
-            title: "The Two Hop Curse in LLMs - Can LLMs perform two-hop reasoning?",
-            url: "https://www.youtube.com/watch?v=DAQeyM5vXw8",
-            description: "Evaluates LLMs' ability to perform two-hop reasoning and discusses methods to surface and measure this capability."
-          },
-          {
-            title: "Large Language Model Brained GUI Agents: A Survey #arxiv #microsoft",
-            url: "https://www.youtube.com/watch?v=TOXMkotNUTE",
-            description: "Compilation of benchmarks and methods used to assess GUI agent performance and reliability."
-          },
-          {
-            title: "Human-Centric Large Language Models: A Survey",
-            url: "https://www.youtube.com/watch?v=KebQ25G8_GU",
-            description: "Review of evaluation frameworks for measuring human-centered LLM behavior, preference alignment, and reliability."
-          },
-          {
-            title: "LangChain's State of AI Agents Report",
-            url: "https://www.youtube.com/watch?v=b0MCpq2eZCU",
-            description: "Summary of emerging evaluation methods, benchmarks, and reliability insights for AI agents."
-          },
-          {
-            title: "AI Augmented Science  Evidence from Materials Discovery #massachusettsinstituteoftechnology",
-            url: "https://www.youtube.com/watch?v=KdQLkCriHZ4",
-            description: "Empirical assessment of AI-augmented materials discovery and how to measure performance uplift in scientific workflows."
-          },
-          {
-            title: "An Empirical Study on LLM based Agents for Automated Bug Fixing",
-            url: "https://www.youtube.com/watch?v=a3PO-0fjWrs",
-            description: "Benchmark-driven evaluation of LLM agents for automated bug repair, including metrics and failure analysis."
-          },
-          {
-            title: "Search Verify and Feedback - Verifier Engineering for Foundation Models",
-            url: "https://www.youtube.com/watch?v=TpfUSyuUSMY",
-            description: "Explains search–verify–feedback pipelines and LLM-as-judge techniques to assess and improve foundation model reliability."
-          },
-          {
-            title: "Rationality of large language models in game theoretic contexts",
-            url: "https://www.youtube.com/watch?v=Eo95y9GJwZo",
-            description: "Methods for testing LLM agent rationality and decision-making using game-theoretic evaluations."
-          },
-          {
-            title: "Route LLM - Learning to Route LLMs with Preference Data",
-            url: "https://www.youtube.com/watch?v=-XInK1s8QM4",
-            description: "Preference-based evaluation to compare LLMs and derive reliable routing signals."
-          },
-          {
-            title: "Mining Causality: AI-Assisted Search for Instrumental Variables",
-            url: "https://www.youtube.com/watch?v=_JGtt6CFn80",
-            description: "Explores AI-assisted causal inference techniques (instrumental variable discovery) that can strengthen quantitative agent evaluation."
-          },
-          {
-            title: "Is Larger and more instructable language models become less reliable?",
-            url: "https://www.youtube.com/watch?v=kJLAo1hO_U8",
-            description: "Methods to assess and compare agent/model reliability across sizes and instruction-following regimes."
-          },
-          {
-            title: "o1 reasoning patterns study",
-            url: "https://www.youtube.com/watch?v=YzErCZ01ZZc",
-            description: "Study of o1 reasoning traces and pattern-surfacing methods to evaluate reasoning quality and failure modes."
-          },
-          {
-            title: "Nature Magazine - Larger and more instructable language models become less reliable",
-            url: "https://www.youtube.com/watch?v=0vr_eUfM6fI",
-            description: "Research indicating reliability regressions with scale and instructability, underscoring the need for robust, quantitative evaluation methods."
-          },
-          {
-            title: "MEGA bench - Scaling Multimodal Evaluation to over 500 Real-World Tasks",
-            url: "https://www.youtube.com/watch?v=hcCtxOxnxoQ",
-            description: "Overview of MEGA-bench, a large-scale multimodal benchmark for evaluating performance across 500+ real-world tasks."
-          }
-        ]
-      }
-    ],
-  
-    "agent-integration": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Autonomous Data Agents",
-            url: "https://www.youtube.com/watch?v=KdhQuDNVERA",
-            description: "Patterns for connecting autonomous agents to data systems and services without introducing hidden coupling."
-          },
-          {
-            title: "LLM Agents for Interactive Workflow Provenance - Edge-Cloud-HPC Continuum #oakridge #argonne",
-            url: "https://www.youtube.com/watch?v=_SE4EVsMsds",
-            description: "Patterns for wiring LLM agents into edge, cloud, and HPC workflows while avoiding hidden coupling."
-          },
-          {
-            title: "Interpretable Robot Control and LLM - ROS2",
-            url: "https://www.youtube.com/watch?v=Ur9XRE9_7Tc",
-            description: "Patterns for connecting LLM agents to ROS2 nodes, topics, and services for reliable, decoupled robot control."
-          },
-          {
-            title: "SciToolAgent -  A Knowledge Graphâ€“Driven Scientific Agent for Multi-Tool Integration",
-            url: "https://www.youtube.com/watch?v=UDLaVHNcXY0",
-            description: "Presents patterns for integrating and selecting among multiple scientific tools within a single agent."
-          },
-          {
-            title: "Real world Industry scenario - Failure Analysis Agent",
-            url: "https://www.youtube.com/watch?v=sNg0U04qB1c",
-            description: "Patterns for wiring agents into industrial data systems and tools without brittle coupling."
-          },
-          {
-            title: "PC Agent: A Cognitive Framework for Digital Work #gair",
-            url: "https://www.youtube.com/watch?v=Hclz-CUjss4",
-            description: "Shows how to connect agents to desktop apps and OS capabilities without creating brittle coupling."
-          },
-          {
-            title: "LlamaRestTest: Efficient REST API Testing with Small Language Models #georgiatech #ibm",
-            url: "https://www.youtube.com/watch?v=d79-br8D1nU",
-            description: "Practical patterns for reliably connecting agents to RESTful services, including request construction, authentication, retries, and structured response handling."
-          },
-          {
-            title: "AsyncLM:  Asynchronous Large Language Model Function Calling #yaleuniversity",
-            url: "https://www.youtube.com/watch?v=XNBP2OcSRSs",
-            description: "Shows how to integrate LLMs with external tools via asynchronous invocation to improve responsiveness and throughput."
-          },
-          {
-            title: "LLMs and manufacturing #arxiv",
-            url: "https://www.youtube.com/watch?v=D3d-BmyTduk",
-            description: "How LLM-driven agents connect to manufacturing systems and toolchains without adding fragile coupling."
-          }
-        ]
-      }
-    ],
-  
-    "agent-security": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Position: Enterprise AI Must Enforce Participant Aware Access Control #microsoft",
-            url: "https://www.youtube.com/watch?v=nNCLRgBHGG4",
-            description: "Security patterns to bind agent capabilities to verified participant identities and enforce least-privilege access."
-          },
-          {
-            title: "Survey on AI Agent Communication Protocols, Security Risks & Defense Countermeasures",
-            url: "https://www.youtube.com/watch?v=jwt_qwyPykU",
-            description: "Overview of security threats in agent ecosystems and practical defense countermeasures for resilient agents."
-          },
-          {
-            title: "Design patterns for securing LLM Agents against prompt injections #microsoft #google #ibm",
-            url: "https://www.youtube.com/watch?v=-y3DIcLZrNc",
-            description: "Practical design patterns to harden LLM agents against prompt injection attacks through threat modeling, context isolation, tool gating, and trust boundaries."
-          },
-          {
-            title: "Reasoning Models Donâ€™t Always Say What They Think",
-            url: "https://www.youtube.com/watch?v=dsilYU3HIe4",
-            description: "Implications of the say–think gap for agent trustworthiness, deception risks, and safety controls."
-          },
-          {
-            title: "SecurityLLM FoundationAI #cisco",
-            url: "https://www.youtube.com/watch?v=4e3ubR-gx00",
-            description: "Overview of a security-focused LLM and approaches to securing AI behaviors and trust in enterprise environments."
-          }
-        ]
-      }
-    ],
-  
-    "responsible-ai-governance": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Position: Enterprise AI Must Enforce Participant Aware Access Control #microsoft",
-            url: "https://www.youtube.com/watch?v=nNCLRgBHGG4",
-            description: "Governance playbooks for implementing participant-aware policies and auditable access controls in enterprise AI."
-          },
-          {
-            title: "The Maturation Path of Agentic AI - Moving from Prototype to Governed Ecosystems #azure",
-            url: "https://www.youtube.com/watch?v=5k54qs56qxE",
-            description: "Playbooks for instituting governance, risk reviews, and compliance as agent systems mature from pilots to enterprise ecosystems."
-          },
-          {
-            title: "A framework to report AI Flaws",
-            url: "https://www.youtube.com/watch?v=sKvLRCJ_aNw",
-            description: "Proposes a standardized process to report and triage AI model failures and vulnerabilities for accountable governance."
-          },
-          {
-            title: "Cross Cultural Fears of AI in the Workplace - Multi-Country Study #apa",
-            url: "https://www.youtube.com/watch?v=TZfsrfxAuUs",
-            description: "Findings to shape culturally aware AI governance policies, risk reviews, and compliance communication across regions."
-          },
-          {
-            title: "How CxOs should think through Large Action Models - LAM",
-            url: "https://www.youtube.com/watch?v=IAnW7wxUFtM",
-            description: "Playbook for operationalizing governance, risk reviews, and compliance for action-capable agents."
-          },
-          {
-            title: "Japanese version AI Podcast - æ—¥æœ¬èªž - o1 Model System Card #openai",
-            url: "https://www.youtube.com/watch?v=fvL9cl3zKmI",
-            description: "How system cards serve as operational governance artifacts for policy, risk review, and compliance."
-          },
-          {
-            title: "World Economic Forum - Generative AI: Augmenting Jobs and Productivity",
-            url: "https://www.youtube.com/watch?v=ixQjAC1bmp0",
-            description: "Playbooks for operationalizing AI governance to manage risks and ensure responsible, compliant use of generative AI."
-          },
-          {
-            title: "A Taxonomy of Systemic Risks from General Purpose AI",
-            url: "https://www.youtube.com/watch?v=sf0CdtQwEpc",
-            description: "How a systemic risk taxonomy can guide practical governance controls, risk reviews, and compliance operations."
-          },
-          {
-            title: "gpt-4o system card",
-            url: "https://www.youtube.com/watch?v=dDOLcniA8ro",
-            description: "How GPT-4o’s system card operationalizes responsible AI policies and compliance reporting."
-          },
-          {
-            title: "Risk and Challenges to adoption of generative AI in the workplace",
-            url: "https://www.youtube.com/watch?v=lhLDsU2x430",
-            description: "Operational playbooks for assessing and mitigating AI risks, enforcing policies, and maintaining compliance during enterprise adoption."
-          },
-          {
-            title: "How should we govern digital innovation? A Venture Capitalist Perspective",
-            url: "https://www.youtube.com/watch?v=cF40ai9FFnI",
-            description: "Operational playbooks for governing digital innovation and AI responsibly—policy design, risk reviews, and compliance execution."
-          }
-        ]
-      }
-    ],
-  
-    "agent-ethics": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "The Maturation Path of Agentic AI - Moving from Prototype to Governed Ecosystems #azure",
-            url: "https://www.youtube.com/watch?v=5k54qs56qxE",
-            description: "Approaches to embed adaptive guardrails and governance so scaling agents remain aligned without limiting innovation."
-          },
-          {
-            title: "Emotional Manipulation By AI Companions #harvard",
-            url: "https://www.youtube.com/watch?v=pYgFTne8WT8",
-            description: "Ethical frameworks and guardrails to prevent manipulative behaviors in AI companions and maintain user well-being."
-          },
-          {
-            title: "The effect of ChatGPT on students' learning performance, learning perception & higher-order thinking",
-            url: "https://www.youtube.com/watch?v=cwp6Ud7OhOg",
-            description: "Empirical insights on ChatGPT’s effects on student performance and cognition to inform ethical, responsible use in educational contexts."
-          },
-          {
-            title: "Reasoning Bank: Scaling Agent Self-Evolving with Reasoning Memory #google",
-            url: "https://youtu.be/pDvjwfWKP0s",
-            description: "Demonstrates how agents can scale self-evolution and reliability by building and leveraging a persistent reasoning memory bank. Covers agentic reasoning traces, memory architectures, and self-improvement cycles."
-          },
-          {
-            title: "Agent Learning via Early Experience #meta",
-            url: "https://youtu.be/eBNRwKXTXVk",
-            description: "Explores how agents learn from early experiences, adapt strategies, and build foundational reasoning patterns. Highlights curriculum learning, agent bootstrapping, and transfer of early knowledge."
-          },
-          {
-            title: "Tensor Logic: The Language of AI #universityofwashington",
-            url: "https://youtu.be/oPxrC_F_CVs",
-            description: "Introduces tensor logic as a formal language for agent reasoning and decision-making. Explains how tensor-based representations enable scalable, interpretable logic in agentic systems."
-          },
-          {
-            title: "Cell2Sentence (C2S) #deepmind #google #yale",
-            url: "https://youtu.be/96gb8VhH2tw",
-            description: "Presents Cell2Sentence, a method for translating cellular data into natural language for agentic reasoning and discovery. See also: https://blog.google/technology/ai/google-gemma-ai-cancer-therapy-discovery/ for the related research blog."
-          },
-          {
-            title: "AI with Emotions: Exploring Emotional Expressions in Large Language Models",
-            url: "https://www.youtube.com/watch?v=GIx5Qw9zmFQ",
-            description: "Guidance on ethical considerations and governance for agents that display or simulate emotions."
-          },
-          {
-            title: "Reasoning models don't always say what they think #anthropic",
-            url: "https://www.youtube.com/watch?v=31N23aKjGTM",
-            description: "Highlights ethical and alignment risks when models withhold or misstate internal reasoning."
-          },
-          {
-            title: "Dive in to future - Critical-Thinking and Co-existing at work with Super Intelligent AI",
-            url: "https://www.youtube.com/watch?v=zTS-1fBLpuM",
-            description: "Principles and guardrails for ethically aligning agents with human goals and workplace norms."
-          },
-          {
-            title: "AI Tools in Society: Impacts on Cognitive Offloading and the future of Critical Thinking #lse #sbs",
-            url: "https://www.youtube.com/watch?v=zIa3H7NvfJU",
-            description: "A talk examining how AI-enabled cognitive offloading affects critical thinking and the ethical governance needed to protect human judgment."
-          },
-          {
-            title: "Cross Cultural Fears of AI in the Workplace - Multi-Country Study #apa",
-            url: "https://www.youtube.com/watch?v=TZfsrfxAuUs",
-            description: "Explores ethical concerns and trust issues around workplace AI across cultures and implications for guardrail design."
-          },
-          {
-            title: "Deliberative Alignment  Safer Language Models through Reasoning #openai",
-            url: "https://www.youtube.com/watch?v=yE4_qXzn3rw",
-            description: "Explores ethical alignment techniques that use structured reasoning to curb harmful outputs and improve responsible behavior."
-          },
-          {
-            title: "Large Language Models and Algorithmic Collusion #arxiv",
-            url: "https://www.youtube.com/watch?v=S-eB4OkUaGk",
-            description: "Ethical frameworks and guardrails to discourage and prevent market-harming collusive agent behavior."
-          },
-          {
-            title: "World Economic Forum - Generative AI: Augmenting Jobs and Productivity",
-            url: "https://www.youtube.com/watch?v=ixQjAC1bmp0",
-            description: "Principles and guardrails for ethically deploying AI that affects work, productivity, and societal outcomes."
-          },
-          {
-            title: "Human-Centric Large Language Models: A Survey",
-            url: "https://www.youtube.com/watch?v=KebQ25G8_GU",
-            description: "Survey of principles and practices for aligning LLMs with human values, trust, and responsible deployment."
-          },
-          {
-            title: "JAMA Network:  Large Language Model Influence on Diagnostic Reasoning",
-            url: "https://www.youtube.com/watch?v=SCJhYbGECCw",
-            description: "Explores ethical implications of LLM-assisted medical diagnosis and corresponding governance considerations."
-          },
-          {
-            title: "Taking AI welfare seriously",
-            url: "https://www.youtube.com/watch?v=ARsIYsoq9ew",
-            description: "Explores ethical frameworks and governance considerations for AI systems’ welfare and moral status."
-          },
-          {
-            title: "Ethical Challenges of AI",
-            url: "https://www.youtube.com/watch?v=WZt5T_T3GFQ",
-            description: "Explores ethical dilemmas in AI and strategies to embed context-adaptive guardrails and governance."
-          },
-          {
-            title: "How should we govern digital innovation? A Venture Capitalist Perspective",
-            url: "https://www.youtube.com/watch?v=cF40ai9FFnI",
-            description: "Principles for embedding adaptive guardrails that balance innovation with ethical oversight in digital technologies and AI agents."
-          },
-          {
-            title: "Canaries in the AI coal mine - 6 facts about employment effects on AI #stanford",
-            url: "https://www.youtube.com/watch?v=LKjYE7HMJpw",
-            description: "Evidence-based overview of AI’s labor-market effects with implications for ethical deployment and governance decisions."
-          }
-        ]
-      }
-    ],
-  
-    "flow-visualization": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "LLM Agents for Interactive Workflow Provenance - Edge-Cloud-HPC Continuum #oakridge #argonne",
-            url: "https://www.youtube.com/watch?v=_SE4EVsMsds",
-            description: "Techniques to visualize and interact with provenance and workflow graphs to reveal lineage and bottlenecks."
-          },
-          {
-            title: "Imagine while Reasoning in Space: Multimodal Visualization-of-Thought #microsoft",
-            url: "https://www.youtube.com/watch?v=6UD5OsWCRL8",
-            description: "Approaches to visualize an agent’s reasoning steps and pathways for clarity, debugging, and coordination insight."
-          },
-          {
-            title: "The importance of visual modelling languages in generative software engineering",
-            url: "https://www.youtube.com/watch?v=rdQbmElaZp0",
-            description: "How visual modelling languages help clarify and communicate generative system flows, decisions, and coordination."
-          },
-          {
-            title: "A Taxonomy of AgentOps for Enabling Observability of Foundation Model based Agents",
-            url: "https://www.youtube.com/watch?v=y1Elc-Olgvk",
-            description: "Visual techniques to trace agent reasoning and action flows for clearer observability and debugging."
-          }
-        ]
-      }
-    ],
-  
-    "agent-evaluation": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "The Illusion of Diminishing Returns:Measuring Long Horizon Execution in LLMs",
-            url: "https://www.youtube.com/watch?v=UaSLyHJeb9w",
-            description: "Measurement signals and metrics for robust assessment of long-horizon agent behavior."
-          },
-          {
-            title: "Vending-Bench: A Benchmark for Long-Term Coherenceof Autonomous Agents",
-            url: "https://www.youtube.com/watch?v=-dABYPxGRkA",
-            description: "Evaluation focus on how to assess agent performance and consistency across extended tasks and time horizons."
-          },
-          {
-            title: "A Taxonomy of AgentOps for Enabling Observability of Foundation Model based Agents",
-            url: "https://www.youtube.com/watch?v=y1Elc-Olgvk",
-            description: "How to instrument and measure agent behavior so observability drives meaningful performance and reliability insights."
-          }
-        ]
-      }
-    ],
-  
-    "experimentation-continuous-improvement": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity #metr",
-            url: "https://www.youtube.com/watch?v=4paBeYVrKt0",
-            description: "Designing experiments and evaluation pipelines to measure and iterate on developer productivity gains from AI tools."
-          },
-          {
-            title: "Experimental AI & Human in the discussion Podcast: OpenThoughts - Data Receipes for Reasoning Models",
-            url: "https://www.youtube.com/watch?v=GuLQ8f3fYt0",
-            description: "How to build evaluation pipelines and run iterative experiments to improve reasoning performance."
-          },
-          {
-            title: "Optimizing Model Selection for Compound AI Systems - how should one decide which LLM to use?",
-            url: "https://www.youtube.com/watch?v=zk5YxeZ2KGc",
-            description: "Set up experiments and evaluation pipelines to compare LLMs and safely roll out model selection changes."
-          },
-          {
-            title: "8 Big Lessons from building 100 Generative AI products #microsoft",
-            url: "https://www.youtube.com/watch?v=UDfRFYUlQaw",
-            description: "Practical takeaways on experimentation frameworks and iterative improvement drawn from building 100 generative AI products."
-          },
-          {
-            title: "The Agent Company: Benchmarking LLMs on Real World Tasks #carnegiemellonuniversity",
-            url: "https://www.youtube.com/watch?v=VtsWoq7TggQ",
-            description: "Operationalizing real-world benchmarks into ongoing evaluation pipelines for iterative model and agent improvement."
-          },
-          {
-            title: "O1 Replication Journey:  A Generative AI Progress Report",
-            url: "https://www.youtube.com/watch?v=JFs8S4O9xLc",
-            description: "Progress update on iterative experiments to replicate o1-style generative AI, emphasizing evaluation and incremental improvements."
-          },
-          {
-            title: "Mining Causality: AI-Assisted Search for Instrumental Variables",
-            url: "https://www.youtube.com/watch?v=_JGtt6CFn80",
-            description: "Applies AI-driven instrumental variable search to enhance experimentation pipelines and causal learning for continuous improvement."
-          }
-        ]
-      }
-    ],
-  
-    "agent-ops": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Defeating Nondeterminism in LLM Inference #thinkingmachines",
-            url: "https://www.youtube.com/watch?v=yCDjgImQOA8",
-            description: "Techniques to make LLM inference deterministic—controlling seeds, decoding, and kernels—to improve agent reliability."
-          },
-          {
-            title: "Paper2Agent: Reimagining Research Papers AsInteractive and Reliable AI Agents #stanford",
-            url: "https://www.youtube.com/watch?v=y23MXVESIfA",
-            description: "Operational practices to ensure reliability and resilience in agents built from research papers."
-          },
-          {
-            title: "Taxonomy of Failure Modes in Agentic AI Systems #microsoft",
-            url: "https://www.youtube.com/watch?v=6AFt3bLPM_k",
-            description: "Translates common agent failure modes into operational implications for detection, containment, and graceful degradation."
-          },
-          {
-            title: "Agent Infrastructure for AI Systems",
-            url: "https://www.youtube.com/watch?v=VKbWBUcYeak",
-            description: "Operational reliability patterns for agents, from golden signals to failure containment."
-          },
-          {
-            title: "A Taxonomy of AgentOps for Enabling Observability of Foundation Model based Agents",
-            url: "https://www.youtube.com/watch?v=y1Elc-Olgvk",
-            description: "A structured overview of AgentOps practices to make foundation-model agents observable and reliable."
-          },
-          {
-            title: "Speed always wins - 7 efficient architectures for LLMs (listen in 12 languages)",
-            url: "https://www.youtube.com/watch?v=s5PYQn_Q4GQ",
-            description: "Operational patterns to keep LLM-powered systems fast and reliable under real-world load."
-          }
-        ]
-      }
-    ],
-  
-    "strategy-portfolio-management": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Staying ahead in the age of AI #openai",
-            url: "https://www.youtube.com/watch?v=faw-hjXHoeA",
-            description: "Strategic guidance on prioritizing AI and agent initiatives, roadmaps, and ROI to stay competitive in a fast-evolving landscape."
-          },
-          {
-            title: "Deep Research Agents - A Systemic Examination and Roadmap",
-            url: "https://www.youtube.com/watch?v=qmabepUNDdk",
-            description: "Roadmapping guidance for prioritizing and sequencing deep research agent capabilities and investments."
-          },
-          {
-            title: "Pioneering AI-First Mindset - Large Enterprise Journey to build an AI Native Subsidary",
-            url: "https://www.youtube.com/watch?v=Z_8O0df4R3Q",
-            description: "Frameworks to prioritize AI investments and manage a roadmap for an AI-native business unit."
-          },
-          {
-            title: "How to think through starting an AI subsidary from existing Big Enterprise",
-            url: "https://www.youtube.com/watch?v=q8yKysIRwds",
-            description: "Guidance on prioritizing AI bets, building a defensible roadmap, and modeling ROI for an enterprise AI subsidiary."
-          },
-          {
-            title: "8 Big Lessons from building 100 Generative AI products #microsoft",
-            url: "https://www.youtube.com/watch?v=UDfRFYUlQaw",
-            description: "Insights on scaling a generative AI portfolio—prioritization, roadmapping, and investment decisions."
-          },
-          {
-            title: "Gen AI Applications: People, Ideas and Machines -Business impact based Gen AI Applications Framework",
-            url: "https://www.youtube.com/watch?v=tKAKhrbJirI",
-            description: "Frameworks to prioritize GenAI use cases by business impact and build a defensible investment roadmap."
-          },
-          {
-            title: "Future of Jobs Report 2025: Key Findings and Trends #worldeconomicforum",
-            url: "https://www.youtube.com/watch?v=vySuVF6Il6E",
-            description: "Use labor market and technology trend signals to prioritize agent initiatives and refine investment roadmaps."
-          },
-          {
-            title: "How CxOs should think through Large Action Models - LAM",
-            url: "https://www.youtube.com/watch?v=IAnW7wxUFtM",
-            description: "Executive guidance on prioritizing LAM initiatives, building roadmaps, and modeling ROI."
-          },
-          {
-            title: "Multi LLM Agent Systems:  Techniques and Business Perspectives",
-            url: "https://www.youtube.com/watch?v=NaXW16fzzFw",
-            description: "Business cases, ROI, and prioritization guidance for investing in multi-LLM agent systems."
-          },
-          {
-            title: "Data, AI and Multi-Product - Economics, Moats and Value",
-            url: "https://www.youtube.com/watch?v=OpJDIoQy8EU",
-            description: "Frameworks for prioritizing AI/agent investments across a portfolio with clear ROI and defensibility."
-          },
-          {
-            title: "AI and Finance : A Technology Shock to Firms and Research",
-            url: "https://www.youtube.com/watch?v=Q_ObdKIoM7k",
-            description: "Insights on AI’s economic impact on firms and research that can guide roadmap prioritization and ROI modeling for AI initiatives."
-          },
-          {
-            title: "Is AI Truly Disruptive?",
-            url: "https://www.youtube.com/watch?v=80Ap3JkuBIg",
-            description: "Frameworks to assess AI’s disruptive potential and prioritize investments with defensible ROI."
-          }
-        ]
-      }
-    ],
-  
-    "agentic-prompting-fundamentals": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Deep Think with Confidence  #meta",
-            url: "https://www.youtube.com/watch?v=sogeEC1xkiY",
-            description: "Prompting technique to drive deeper reasoning while having the model report calibrated confidence."
-          },
-          {
-            title: "Thinking in Blocks   Adaptive Reasoning",
-            url: "https://www.youtube.com/watch?v=zZolGueW6nY",
-            description: "Introduces prompting techniques that scaffold block-based, adaptive stepwise reasoning."
-          },
-          {
-            title: "Self-Questioning Language Models",
-            url: "https://www.youtube.com/watch?v=4wlRhmw2VcM",
-            description: "Explains how prompting LMs to ask and answer their own sub-questions can improve reasoning quality and controllability."
-          },
-          {
-            title: "A Survey of Context Engineering for Large Language Models",
-            url: "https://www.youtube.com/watch?v=Dh_SPv55UA8",
-            description: "Overview of core prompt and context structuring techniques that improve LLM reliability and control."
-          },
-          {
-            title: "Which prompting techniques should I use in Software Engineering Tasks?",
-            url: "https://www.youtube.com/watch?v=Jwsu1Y1y5AQ",
-            description: "Overview of effective prompting moves for coding tasks to improve reliability in software engineering workflows."
-          },
-          {
-            title: "AI with Emotions: Exploring Emotional Expressions in Large Language Models",
-            url: "https://www.youtube.com/watch?v=GIx5Qw9zmFQ",
-            description: "Foundational prompting moves to evoke, modulate, and constrain emotional expressions in model outputs."
-          },
-          {
-            title: "A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason and Agentic Systems",
-            url: "https://www.youtube.com/watch?v=lkkKqGwvvvo",
-            description: "Survey of test-time prompting techniques that scale inference to improve LLM reasoning performance."
-          },
-          {
-            title: "MetaScale: Test-time Scaling with Evolving Meta-Thoughts #microsoftresearch",
-            url: "https://www.youtube.com/watch?v=F2epOG3nD0o",
-            description: "Research talk on using evolving meta-thought prompts to scale test-time reasoning and improve agent reliability."
-          },
-          {
-            title: "Structured Outputs Enable General-Purpose LLMs to be Medical Experts",
-            url: "https://www.youtube.com/watch?v=iMxinkiI9Rw",
-            description: "Explains how enforcing structured outputs (e.g., schemas or function-calling) can make general-purpose LLMs reliably perform clinical reasoning and medical workflows without fine-tuning."
-          },
-          {
-            title: "Inference Time Scaling for Medical Reasoning in LLMs - o1 Replication Journey",
-            url: "https://www.youtube.com/watch?v=c0L-y_mAgtM",
-            description: "Explores inference-time prompting strategies to boost LLM medical reasoning, drawing lessons from an o1-style replication."
-          },
-          {
-            title: "Imagine while Reasoning in Space: Multimodal Visualization-of-Thought #microsoft",
-            url: "https://www.youtube.com/watch?v=6UD5OsWCRL8",
-            description: "Foundational prompting methods that elicit explicit, controllable reasoning, including visual chain-of-thought."
-          },
-          {
-            title: "Meta Chain of Thought Reasoning in LLMs #stanforduniversity #ucberkeley",
-            url: "https://www.youtube.com/watch?v=GJdeF9cpKsg",
-            description: "Explores meta chain-of-thought prompting and when to invoke step-by-step reasoning to improve LLM reliability."
-          },
-          {
-            title: "Prompting Strategies for LLMs to Infer Causation from Correlation",
-            url: "https://www.youtube.com/watch?v=fdW8wDeS66U",
-            description: "Practical prompting moves to elicit causal reasoning and avoid correlation traps in LLM outputs."
-          },
-          {
-            title: "Reverse Enhanced Thinking for Stronger LLMs #deepmind",
-            url: "https://www.youtube.com/watch?v=7vhjdt2gyhk",
-            description: "Overview of reverse-style reasoning prompts to elicit stronger step-by-step thinking from LLMs."
-          },
-          {
-            title: "From Medprompt to o1: Exploration of Run-Time Strategies for Medical Challenge Problems and Beyond",
-            url: "https://www.youtube.com/watch?v=GQffo1yUE_g",
-            description: "Overview of foundational prompting moves and strategies used to boost LLM performance on medical challenge problems."
-          },
-          {
-            title: "#microsoft SMART: Self-learning Meta-strategy Agent for Reasoning Tasks",
-            url: "https://www.youtube.com/watch?v=7Ykbc6JBSKw",
-            description: "Explores how meta-strategy selection leverages prompting moves to stabilize and strengthen LLM reasoning."
-          },
-          {
-            title: "Thinking LLMs - : GENERAL INSTRUCTION FOLLOWING WITH THOUGHT GENERATION",
-            url: "https://www.youtube.com/watch?v=PA0Obt1gWa0",
-            description: "Techniques to elicit model 'thinking' and dependable instruction adherence through structured prompts."
-          },
-          {
-            title: "Tell me what you don't know - Role Playing Agents",
-            url: "https://www.youtube.com/watch?v=N8fIzrQL8pE",
-            description: "Use reflective prompting to elicit uncertainty and assumptions, improving agent clarity and control."
-          },
-          {
-            title: "How People Use ChatGPT #openai",
-            url: "https://www.youtube.com/watch?v=s7Pt8i2ATHY",
-            description: "Overview of common ChatGPT use cases with basic prompting moves to elicit better results."
-          },
-          {
-            title: "Zero Search",
-            url: "https://www.youtube.com/watch?v=iOUDaGSsZyQ",
-            description: "Prompting techniques that direct agents to answer from local context or memory without calling web search."
-          }
-        ]
-      }
-    ],
-  
-    "data-knowledge-operations": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Generative Medical Event Models Improve with Scale - COMET #yale #microsoft",
-            url: "https://www.youtube.com/watch?v=OYpt3-ha7v8",
-            description: "Explores the data engineering and knowledge operations needed to build and train large-scale generative models on structured medical event data."
-          },
-          {
-            title: "Experimental AI & Human in the discussion Podcast: OpenThoughts - Data Receipes for Reasoning Models",
-            url: "https://www.youtube.com/watch?v=GuLQ8f3fYt0",
-            description: "Approaches to curating, governing, and operationalizing datasets and knowledge for robust reasoning models."
-          },
-          {
-            title: "Procedural Knowledge Ontology (PKO)",
-            url: "https://www.youtube.com/watch?v=gUmzjqqKDNc",
-            description: "Using procedural ontologies to operationalize knowledge graphs and govern task knowledge for agent systems."
-          },
-          {
-            title: "Data Architectures for the intelligence age - A less technical guide to fast track AI in Business",
-            url: "https://www.youtube.com/watch?v=sXZtNN6jKVY",
-            description: "Practical guidance on structuring data and knowledge supply chains to make AI initiatives production-ready faster."
-          },
-          {
-            title: "Generative AI for Disentangled Metadata Modeling #igdore",
-            url: "https://www.youtube.com/watch?v=JtZxEtMl4GA",
-            description: "Using generative AI to build disentangled metadata models that strengthen knowledge graphs and operational data governance."
-          },
-          {
-            title: "Data Modeling Maturity : A Guide for Organizations building data products",
-            url: "https://www.youtube.com/watch?v=6qd36Yot76E",
-            description: "A practical guide to data modeling maturity frameworks and operational best practices for organizations building reliable data products."
-          },
-          {
-            title: "Accelerating Knowledge Graph and Ontology Engineering with Large Language Models #arxiv",
-            url: "https://www.youtube.com/watch?v=rhuYA3waNkQ",
-            description: "Talk on using LLMs to accelerate pipelines for knowledge graph and ontology engineering."
-          }
-        ]
-      }
-    ],
-  
-    "responsible-ai-governance": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Claude Opus 4.1 â€‘ System Card #anthropicai",
-            url: "https://www.youtube.com/watch?v=aMaYgJ87XJ0",
-            description: "Walkthrough of governance practices and disclosures in Anthropic’s Claude 4.1 system card."
-          }
-        ]
-      }
-    ],
-  
-    "product-management": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Beyond Binary Rewards - LMs to Reason About Their Uncertainty #mit",
-            url: "https://www.youtube.com/watch?v=2evp7dhJZqI",
-            description: "Highlights how uncertainty-aware models produce calibrated confidence signals that enhance product reliability and user trust."
-          },
-          {
-            title: "8 Big Lessons from building 100 Generative AI products #microsoft",
-            url: "https://www.youtube.com/watch?v=UDfRFYUlQaw",
-            description: "Key product lessons from launching numerous generative AI experiences, emphasizing metrics, user value, and trust."
-          },
-          {
-            title: "Gen AI Applications: People, Ideas and Machines -Business impact based Gen AI Applications Framework",
-            url: "https://www.youtube.com/watch?v=tKAKhrbJirI",
-            description: "Approaches to translate GenAI opportunities into product strategy, metrics, and validated use-case roadmaps."
-          },
-          {
-            title: "LLM Powered - Explainable E-commerce Recommendations #ebay",
-            url: "https://www.youtube.com/watch?v=5mLpTLoHbQA",
-            description: "Designing and shipping explainable LLM-driven recommendation features that improve user trust and measurable outcomes."
-          },
-          {
-            title: "Large Language Models: Architectures, Benchmarks, Challenges & Empowering Business",
-            url: "https://www.youtube.com/watch?v=nwwx3hevBJg",
-            description: "How to turn LLM capabilities into business value with clear metrics, experiments, and product decision frameworks."
-          },
-          {
-            title: "Data, AI and Multi-Product - Economics, Moats and Value",
-            url: "https://www.youtube.com/watch?v=OpJDIoQy8EU",
-            description: "Principles for designing AI products with metrics, experiments, and trust-building mechanisms."
-          }
-        ]
-      }
-    ],
-  
-    "agentic-ai-design-taxonomy": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Deep Research Agents - A Systemic Examination and Roadmap",
-            url: "https://www.youtube.com/watch?v=qmabepUNDdk",
-            description: "Pattern-level mapping of deep research agent designs within an overarching agent taxonomy."
-          },
-          {
-            title: "Evolution of \"proactive\" Reasoning Models + Search + Business AI Agents",
-            url: "https://www.youtube.com/watch?v=NcYmSr3Q1A4",
-            description: "A survey of evolving proactive reasoning patterns and how they map to common agent design approaches for business use cases."
-          },
-          {
-            title: "Agentic Retrieval Augmented Generation - Agentic RAG Survey",
-            url: "https://www.youtube.com/watch?v=ndNiBYoC8_g",
-            description: "Survey of agentic RAG patterns positioned within a broader agent design taxonomy."
-          }
-        ]
-      }
-    ],
-  
-    "acp": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Survey on AI Agent Communication Protocols, Security Risks & Defense Countermeasures",
-            url: "https://www.youtube.com/watch?v=jwt_qwyPykU",
-            description: "Discussion of interoperable protocol contracts enabling reliable, version-safe agent-to-agent interaction."
-          },
-          {
-            title: "A Survey of Agent Protocols - A2A, MCP, ACP, ANP",
-            url: "https://www.youtube.com/watch?v=P5YWZ7fuy-4",
-            description: "Explains ACP as a resilient interoperability contract for heterogeneous agents and compares it to A2A and MCP."
-          },
-          {
-            title: "A survey of AI Agent protocols",
-            url: "https://www.youtube.com/watch?v=JuSh0GBBuRA",
-            description: "Survey of standardized agent-to-agent communication contracts and how they enable interoperable AI agents."
-          },
-          {
-            title: "Agent2Agent Protocol (A2A) #google",
-            url: "https://www.youtube.com/watch?v=cTmKL_rw0ss",
-            description: "Explains a formal protocol for robust agent-to-agent messaging and role negotiation."
-          }
-        ]
-      }
-    ],
-  
-    "organizational-enablement": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Future of Work with AI Agents #stanford",
-            url: "https://www.youtube.com/watch?v=TmFRbWi-Zu4",
-            description: "Implications for change management, training, and org design as AI agents enter day-to-day work."
-          },
-          {
-            title: "Pioneering AI-First Mindset - Large Enterprise Journey to build an AI Native Subsidary",
-            url: "https://www.youtube.com/watch?v=Z_8O0df4R3Q",
-            description: "Practical approaches to upskilling, change management, and culture shift for AI-first transformation."
-          },
-          {
-            title: "How to think through starting an AI subsidary from existing Big Enterprise",
-            url: "https://www.youtube.com/watch?v=q8yKysIRwds",
-            description: "Playbooks for change management, capability building, and org design when spinning up an AI subsidiary."
-          },
-          {
-            title: "Future of Jobs Report 2025: Key Findings and Trends #worldeconomicforum",
-            url: "https://www.youtube.com/watch?v=vySuVF6Il6E",
-            description: "Guidance to translate labor market and skills trends into reskilling plans, change management, and training for agent-era adoption."
-          },
-          {
-            title: "Cross Cultural Fears of AI in the Workplace - Multi-Country Study #apa",
-            url: "https://www.youtube.com/watch?v=TZfsrfxAuUs",
-            description: "Cross-cultural research on employee fears about workplace AI to inform change management, communication, and training plans."
-          },
-          {
-            title: "World Economic Forum - Generative AI: Augmenting Jobs and Productivity",
-            url: "https://www.youtube.com/watch?v=ixQjAC1bmp0",
-            description: "Guidance on preparing teams and processes to effectively adopt AI for job augmentation and productivity gains."
-          },
-          {
-            title: "Risk and Challenges to adoption of generative AI in the workplace",
-            url: "https://www.youtube.com/watch?v=lhLDsU2x430",
-            description: "Guidance for change management, training, and organizational readiness to integrate generative AI safely and effectively."
-          },
-          {
-            title: "The Short-Term Effects of Generative Artificial Intelligence on Employment",
-            url: "https://www.youtube.com/watch?v=4XOs57OoV8c",
-            description: "Guidance for preparing your workforce and managing change in response to near-term AI-driven role shifts and reskilling needs."
-          }
-        ]
-      }
-    ],
-  
-    "strategy-portfolio-management": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Ten Principles of Agent Economics",
-            url: "https://www.youtube.com/watch?v=XCtvBF1AJc4",
-            description: "Key economic principles to inform ROI modeling and portfolio decisions for agent initiatives."
-          }
-        ]
-      }
-    ],
-  
-    "program-setup-north-star": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Pioneering AI-First Mindset - Large Enterprise Journey to build an AI Native Subsidary",
-            url: "https://www.youtube.com/watch?v=Z_8O0df4R3Q",
-            description: "How to define mission, metrics, and guardrails for launching an AI-native initiative in a large enterprise."
-          },
-          {
-            title: "How to think through starting an AI subsidary from existing Big Enterprise",
-            url: "https://www.youtube.com/watch?v=q8yKysIRwds",
-            description: "Frameworks for defining the mission, metrics, and operating model when launching an AI-focused unit within a big enterprise."
-          },
-          {
-            title: "Gen AI Applications: People, Ideas and Machines -Business impact based Gen AI Applications Framework",
-            url: "https://www.youtube.com/watch?v=tKAKhrbJirI",
-            description: "Guidance on aligning GenAI initiatives to clear goals, metrics, and scope before broad rollout."
-          },
-          {
-            title: "How CxOs should think through Large Action Models - LAM",
-            url: "https://www.youtube.com/watch?v=IAnW7wxUFtM",
-            description: "Framework for aligning mission and success metrics to guide LAM adoption and scale."
-          }
-        ]
-      }
-    ],
-  
-    "data-visualization": [
-      {
-        id: "youtube-research",
-        name: "YouTube Research",
-        references: [
-          {
-            title: "Microsoft Data Formulator",
-            url: "https://www.youtube.com/watch?v=4YeqUAGlqDA",
-            description: "Overview of Microsoft's Data Formulator for creating visual insights and charts from data."
-          }
-        ]
-      }
-    ],
-  },
-  
-  patterns: {
     // Each pattern follows the pattern IDs from the existing code
     "routing": [
       {
@@ -4820,10 +3160,10 @@ export const references: ReferencesData = {
           }
         ]
       }
-    ],
+    ]
   },
   
-  azureServices: {
+  patterns: {
     "azure-openai": [
       {
         id: "documentation",

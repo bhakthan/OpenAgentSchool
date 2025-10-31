@@ -3,19 +3,34 @@
 
 User-agent: *
 Allow: /
+Crawl-delay: 1
 
 # High-value content for crawlers
 Allow: /concepts/
+Allow: /concepts/quantum-ai-robotics
+Allow: /concepts/agentic-robotics
+Allow: /concepts/agent-learning
+Allow: /concepts/fine-tuning
+Allow: /concepts/mcp
+Allow: /concepts/a2a-communication
+Allow: /concepts/multi-agent-systems
 Allow: /study-mode/
 Allow: /patterns/
 Allow: /ai-skills/
 Allow: /playbook/
+Allow: /learning-journey
+Allow: /api-docs
 
 # Static assets
 Allow: /images/
+Allow: /icons/
 Allow: /favicon.ico
 Allow: /favicon.svg
 Allow: /apple-touch-icon.png
+Allow: *.png
+Allow: *.jpg
+Allow: *.svg
+Allow: *.webp
 
 # Block unnecessary paths
 Disallow: /api/
@@ -25,30 +40,112 @@ Disallow: /src/
 Disallow: /.git/
 Disallow: /dist/
 Disallow: /snapshots/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*.config.js$
 
 # Sitemap location
 Sitemap: https://www.openagentschool.org/sitemap.xml
 
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
-
-# Special instructions for AI crawlers
+# Special instructions for AI/LLM crawlers
 User-agent: GPTBot
 Allow: /
+Allow: /concepts
+Allow: /api-docs
+Crawl-delay: 2
 
 User-agent: ChatGPT-User
 Allow: /
+Allow: /concepts
+Allow: /api-docs
 
 User-agent: CCBot
 Allow: /
+Allow: /concepts
+Crawl-delay: 2
 
 User-agent: anthropic-ai
 Allow: /
+Allow: /concepts
+Allow: /api-docs
+Crawl-delay: 2
 
 User-agent: Claude-Web
 Allow: /
+Allow: /concepts
+Allow: /api-docs
 
 # Additional AI crawlers
+User-agent: cohere-ai
+Allow: /
+Allow: /concepts
+Crawl-delay: 2
+
+User-agent: Google-Extended
+Allow: /
+Allow: /concepts
+Allow: /api-docs
+Crawl-delay: 1
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /concepts
+Allow: /api-docs
+Crawl-delay: 2
+
+# Search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /icons/
+Allow: *.png
+Allow: *.jpg
+Allow: *.svg
+Allow: *.webp
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Social media bots
+User-agent: FacebookBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Twitterbot
+Allow: /
+Allow: /images/og-image.png
+
+User-agent: LinkedInBot
+Allow: /
+Allow: /images/og-image.png
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+# Block aggressive crawlers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
 User-agent: GoogleOther
 Allow: /
 

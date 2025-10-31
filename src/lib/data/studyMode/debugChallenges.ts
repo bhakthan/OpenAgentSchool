@@ -4881,6 +4881,457 @@ const route = await router.selectAgent(question, employeeProfile);
   }
 ];
 
+// Debug Challenges for Quantum-Enhanced AI & Robotics
+export const quantumAIRoboticsDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'quantum-debug-1',
+    type: 'debug',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Quantum Circuit Depth Explosion',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'qaoa-depth-explosion',
+      title: 'QAOA Circuit Depth Exceeds Hardware Coherence Time',
+      description: 'A QAOA circuit for multi-robot task allocation produces correct results in simulation but fails on real quantum hardware with high error rates.',
+      problemDescription: 'The circuit depth is 180 layers, but the IBM quantum hardware has a coherence time that supports only ~50 layers before decoherence dominates.',
+      brokenCode: `from qiskit import QuantumCircuit
+from qiskit.algorithms import QAOA
+from qiskit.primitives import Sampler
+from qiskit_optimization import QuadraticProgram
+
+# Define QUBO for 10 robots, 50 tasks
+qp = QuadraticProgram()
+for i in range(50):
+    qp.binary_var(f'task_{i}')
+
+# Add objective: minimize travel time
+for i in range(50):
+    for j in range(50):
+        qp.minimize(linear={f'task_{i}': distances[i]}, 
+                   quadratic={(f'task_{i}', f'task_{j}'): penalties[i][j]})
+
+# QAOA with default parameters
+qaoa = QAOA(sampler=Sampler(), reps=10)  # 10 repetitions = deep circuit
+result = qaoa.compute_minimum_eigenvalue(qp)
+
+# Result: Works in simulation, fails on hardware with >90% error rate`,
+      conversationLogs: [
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'quantum-planner',
+          message: 'Submitting QAOA circuit to IBM Quantum backend...',
+          type: 'info'
+        },
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'ibm-backend',
+          message: 'Circuit depth: 180 layers. Hardware coherence: ~50 layers.',
+          type: 'warning'
+        },
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'quantum-planner',
+          message: 'Results show 92% error rate. Solution quality poor.',
+          type: 'error'
+        },
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'classical-fallback',
+          message: 'Falling back to simulated annealing...',
+          type: 'info'
+        }
+      ],
+      agentConfigs: [
+        {
+          name: 'quantum-planner',
+          role: 'QAOA Optimizer',
+          systemPrompt: 'Execute quantum optimization for robot task allocation',
+          tools: ['qiskit', 'ibm-quantum-backend'],
+          parameters: { reps: 10, backend: 'ibmq_manila' }
+        }
+      ],
+      expectedBehavior: 'Circuit should be shallow enough to execute within hardware coherence time. Use fewer QAOA repetitions or hybrid approach.',
+      commonIssues: [
+        {
+          issue: 'Excessive circuit depth',
+          symptoms: ['High error rates on hardware', 'Results worse than random'],
+          diagnosis: 'QAOA repetitions too high for NISQ hardware',
+          fix: 'Reduce reps to 2-3, use error mitigation, or hybrid solver'
+        },
+        {
+          issue: 'No coherence time check',
+          symptoms: ['Circuit submitted without validation'],
+          diagnosis: 'Missing hardware capability check',
+          fix: 'Query backend coherence time before submission'
+        }
+      ],
+      hints: [
+        'Check the relationship between circuit depth and coherence time',
+        'How many QAOA layers can fit in 50-layer budget?',
+        'Consider hybrid classical-quantum decomposition'
+      ],
+      solution: `# Fixed version with depth awareness
+from qiskit.providers import Backend
+
+# Check hardware capabilities
+backend = provider.get_backend('ibmq_manila')
+coherence_time = backend.configuration().t2  # ~100 microseconds
+gate_time = 0.5  # microseconds per 2-qubit gate
+max_layers = int(coherence_time / gate_time / 10)  # Conservative estimate
+
+# Adaptive QAOA with shallow circuits
+reps = min(3, max_layers // qp.get_num_vars())  # 2-3 reps max
+qaoa = QAOA(sampler=Sampler(), reps=reps)
+
+# Add error mitigation
+from qiskit.utils.mitigation import CompleteMeasFitter
+result = qaoa.compute_minimum_eigenvalue(qp)
+
+# Hybrid approach: use quantum for small subproblems
+if qp.get_num_vars() > 20:
+    # Decompose into smaller chunks, solve quantum, merge classically
+    results = solve_hybrid(qp, qaoa, chunk_size=15)`,
+      explanation: 'NISQ-era quantum hardware has limited coherence time. Circuit depth must be minimized through shallow QAOA, problem decomposition, or hybrid solvers.'
+    },
+    expectedInsights: [
+      'Circuit depth is constrained by hardware coherence time',
+      'Fewer QAOA repetitions trade solution quality for executable circuits',
+      'Hybrid approaches decompose problems for shallow quantum circuits'
+    ],
+    hints: [
+      'Calculate maximum circuit depth from T2 coherence time',
+      'Use reps=2-3 for NISQ hardware',
+      'Consider problem decomposition or D-Wave annealing'
+    ],
+    explanation: 'Teaches practical constraints of NISQ quantum hardware and hybrid solution strategies.',
+    relatedConcepts: ['quantum-hardware-limits', 'qaoa', 'hybrid-solvers', 'coherence-time'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Identifies coherence time as limiting factor',
+      'Proposes shallow circuit strategy',
+      'Mentions error mitigation or hybrid approach'
+    ]
+  },
+  {
+    id: 'quantum-debug-2',
+    type: 'debug',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Quantum Sensor Calibration Drift',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'nv-diamond-drift',
+      title: 'NV-Diamond Magnetometer Calibration Degradation',
+      description: 'A warehouse robot using NV-diamond magnetometer for indoor navigation shows increasing position errors over time despite stable magnetic environment.',
+      problemDescription: 'Position errors grow from 5cm to 50cm over 2 hours of operation. Classical LiDAR SLAM remains accurate. Quantum sensor readings show systematic drift.',
+      brokenCode: `import numpy as np
+from quantum_sensors import NVDiamondMagnetometer
+from sensor_fusion import ExtendedKalmanFilter
+
+# Initialize quantum sensor
+nv_sensor = NVDiamondMagnetometer(
+    laser_power=100,  # mW
+    sampling_rate=1000  # Hz
+)
+
+# Sensor fusion with classical IMU
+ekf = ExtendedKalmanFilter(state_dim=6)
+
+while robot.is_running():
+    # Read quantum magnetometer
+    mag_field = nv_sensor.read_field()  # Returns [Bx, By, Bz] in nT
+    
+    # Read classical IMU
+    imu_data = imu.read()
+    
+    # Fuse measurements
+    ekf.predict(imu_data)
+    ekf.update(mag_field)
+    
+    position = ekf.get_position()
+    robot.navigate_to(position)
+    
+    time.sleep(0.001)  # 1kHz loop
+
+# Issue: Position error grows from 5cm to 50cm over 2 hours
+# NV sensor drift not being compensated`,
+      conversationLogs: [
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'navigation-system',
+          message: 'Starting navigation with quantum-enhanced sensing...',
+          type: 'info'
+        },
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'sensor-monitor',
+          message: 'NV-diamond temperature: 24°C, rising to 28°C over 30 minutes',
+          type: 'warning'
+        },
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'kalman-filter',
+          message: 'Innovation sequence shows systematic bias in magnetic readings',
+          type: 'warning'
+        },
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'position-validator',
+          message: 'Position error exceeds 20cm threshold. Ground truth mismatch.',
+          type: 'error'
+        }
+      ],
+      agentConfigs: [
+        {
+          name: 'quantum-sensor-agent',
+          role: 'NV-Diamond Reader',
+          systemPrompt: 'Read and calibrate quantum magnetometer',
+          tools: ['nv-diamond-api', 'temperature-monitor'],
+          parameters: { sampling_rate: 1000, laser_power: 100 }
+        }
+      ],
+      expectedBehavior: 'Quantum sensors require temperature compensation and periodic recalibration. Drift should be < 1nT/hour with proper calibration.',
+      commonIssues: [
+        {
+          issue: 'Temperature-induced drift',
+          symptoms: ['Systematic bias grows with temperature', 'Correlation with laser heating'],
+          diagnosis: 'NV-diamond sensitivity changes with temperature (0.1 nT/°C)',
+          fix: 'Active temperature control or temperature compensation model'
+        },
+        {
+          issue: 'Missing zero-field calibration',
+          symptoms: ['Absolute field readings drift', 'Relative measurements stable'],
+          diagnosis: 'No periodic zero-field reference',
+          fix: 'Recalibrate against known zero-field region every 15 minutes'
+        },
+        {
+          issue: 'Laser power fluctuation',
+          symptoms: ['Signal-to-noise degrades', 'Readout fidelity drops'],
+          diagnosis: 'Laser power not stabilized',
+          fix: 'Add feedback loop for laser power stabilization'
+        }
+      ],
+      hints: [
+        'Check temperature correlation with position error',
+        'NV-diamond centers shift with temperature',
+        'When was the last calibration performed?'
+      ],
+      solution: `# Fixed version with drift compensation
+import numpy as np
+from quantum_sensors import NVDiamondMagnetometer
+from sensor_fusion import ExtendedKalmanFilter
+
+# Initialize with temperature monitoring
+nv_sensor = NVDiamondMagnetometer(
+    laser_power=100,
+    sampling_rate=1000,
+    temp_compensation=True,  # Enable temp model
+    temp_coefficient=-0.1    # nT per °C
+)
+
+# Periodic calibration schedule
+last_calibration = time.time()
+calibration_interval = 900  # 15 minutes
+
+# Adaptive noise model
+ekf = ExtendedKalmanFilter(state_dim=6)
+
+while robot.is_running():
+    # Periodic zero-field calibration
+    if time.time() - last_calibration > calibration_interval:
+        robot.move_to_calibration_zone()  # Known zero-field area
+        nv_sensor.calibrate_zero_field()
+        last_calibration = time.time()
+    
+    # Read with temperature compensation
+    mag_field_raw = nv_sensor.read_field()
+    temperature = nv_sensor.get_temperature()
+    mag_field = nv_sensor.compensate_temperature(mag_field_raw, temperature)
+    
+    # Adaptive noise based on temperature stability
+    temp_stability = nv_sensor.get_temp_stability()
+    measurement_noise = base_noise * (1 + temp_stability)
+    
+    ekf.set_measurement_noise(measurement_noise)
+    ekf.update(mag_field)
+    
+    position = ekf.get_position()
+    robot.navigate_to(position)
+
+# Result: Position error stays < 5cm over 8 hours`,
+      explanation: 'Quantum sensors have unique calibration requirements due to temperature sensitivity and zero-point drift. Production systems need active compensation.'
+    },
+    expectedInsights: [
+      'Quantum sensors drift with temperature unlike classical sensors',
+      'Periodic recalibration is essential for long-duration operation',
+      'Adaptive noise models improve fusion with classical sensors'
+    ],
+    hints: [
+      'Monitor temperature correlation with drift',
+      'Implement periodic zero-field calibration',
+      'Use temperature compensation models from literature'
+    ],
+    explanation: 'Prepares students for real-world quantum sensor integration challenges: drift, calibration, and temperature effects.',
+    relatedConcepts: ['quantum-sensing', 'sensor-calibration', 'temperature-compensation', 'sensor-fusion'],
+    timeEstimate: 22,
+    successCriteria: [
+      'Identifies temperature as root cause',
+      'Proposes calibration schedule',
+      'Implements compensation model'
+    ]
+  },
+  {
+    id: 'quantum-debug-3',
+    type: 'debug',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Quantum ML Kernel Dimension Mismatch',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'qml-kernel-mismatch',
+      title: 'Quantum Kernel Classifier Fails on High-Dimensional Tactile Data',
+      description: 'A quantum kernel classifier for robot grasp classification works with 4D features but crashes when scaling to realistic 16D tactile sensor data.',
+      problemDescription: 'The quantum feature map was designed for 4 qubits but tactile sensor provides 16-dimensional force/torque vectors. Error: "Qubit count mismatch".',
+      brokenCode: `from qiskit_machine_learning.kernels import FidelityQuantumKernel
+from qiskit.circuit.library import ZZFeatureMap
+from sklearn.svm import SVC
+import numpy as np
+
+# Feature map for 4 qubits (original prototype)
+feature_map = ZZFeatureMap(feature_dimension=4, reps=2)
+
+# Quantum kernel
+qkernel = FidelityQuantumKernel(feature_map=feature_map)
+
+# Load tactile sensor data: 16D (6 forces + 6 torques + 4 contact points)
+X_train, y_train = load_tactile_dataset()  # Shape: (1000, 16)
+X_test, y_test = load_tactile_test()       # Shape: (200, 16)
+
+# Train quantum SVM
+qsvc = SVC(kernel=qkernel.evaluate)
+qsvc.fit(X_train, y_train)  # ERROR: Feature dimension mismatch
+
+# Expected: 4D input, received: 16D`,
+      conversationLogs: [
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'grasp-classifier',
+          message: 'Loading 16D tactile features from sensor array...',
+          type: 'info'
+        },
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'quantum-kernel',
+          message: 'ERROR: Feature map expects 4D input, received 16D',
+          type: 'error'
+        },
+        {
+          timestamp: new Date().toISOString(),
+          agent: 'grasp-classifier',
+          message: 'Cannot compute quantum kernel matrix. Aborting training.',
+          type: 'error'
+        }
+      ],
+      agentConfigs: [
+        {
+          name: 'quantum-ml-agent',
+          role: 'Quantum Kernel Classifier',
+          systemPrompt: 'Train grasp classifier with quantum kernels',
+          tools: ['qiskit-ml', 'pennylane'],
+          parameters: { feature_dim: 4, backend: 'aer_simulator' }
+        }
+      ],
+      expectedBehavior: 'Quantum feature map should either: 1) Scale to 16 qubits, 2) Use dimensionality reduction, or 3) Use classical feature selection.',
+      commonIssues: [
+        {
+          issue: 'Qubit count too low for feature dimension',
+          symptoms: ['Dimension mismatch error', 'Cannot encode all features'],
+          diagnosis: 'Hardware has only 4-16 qubits available',
+          fix: 'PCA to reduce features or use amplitude encoding'
+        },
+        {
+          issue: 'No feature engineering',
+          symptoms: ['Raw sensor data used directly'],
+          diagnosis: 'Not all 16D features may be informative',
+          fix: 'Feature selection or classical preprocessing'
+        },
+        {
+          issue: 'Ignoring classical baseline',
+          symptoms: ['No comparison with classical kernel SVM'],
+          diagnosis: 'Quantum used without justification',
+          fix: 'Benchmark against RBF/polynomial kernels first'
+        }
+      ],
+      hints: [
+        'How many qubits does your quantum hardware have?',
+        'Can you reduce feature dimensionality with PCA?',
+        'Would classical kernels work as well for this problem?'
+      ],
+      solution: `# Solution 1: Dimensionality reduction
+from sklearn.decomposition import PCA
+
+# Reduce 16D to 8D (fits on 8-qubit hardware)
+pca = PCA(n_components=8)
+X_train_reduced = pca.fit_transform(X_train)
+X_test_reduced = pca.transform(X_test)
+
+# Use 8-qubit feature map
+feature_map = ZZFeatureMap(feature_dimension=8, reps=2)
+qkernel = FidelityQuantumKernel(feature_map=feature_map)
+
+qsvc = SVC(kernel=qkernel.evaluate)
+qsvc.fit(X_train_reduced, y_train)
+
+# Solution 2: Feature selection (domain knowledge)
+# Keep only the 6 most informative features (force magnitudes)
+important_features = [0, 1, 2, 6, 7, 8]  # Force vectors
+X_train_selected = X_train[:, important_features]
+
+feature_map = ZZFeatureMap(feature_dimension=6, reps=2)
+qkernel = FidelityQuantumKernel(feature_map=feature_map)
+
+# Solution 3: Hybrid approach
+# Use classical preprocessing + quantum kernel on reduced space
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+
+# Classical feature extraction
+classical_features = extract_grasp_features(X_train_scaled)  # 16D -> 4D
+
+# Then quantum kernel on engineered features
+feature_map = ZZFeatureMap(feature_dimension=4, reps=3)
+qkernel = FidelityQuantumKernel(feature_map=feature_map)
+
+# Always benchmark against classical baseline!
+classical_svc = SVC(kernel='rbf')
+classical_svc.fit(X_train, y_train)
+classical_acc = classical_svc.score(X_test, y_test)
+
+quantum_acc = qsvc.score(X_test_reduced, y_test)
+print(f"Classical: {classical_acc:.3f}, Quantum: {quantum_acc:.3f}")`,
+      explanation: 'Quantum ML requires careful feature engineering due to qubit limitations. Always compare to classical baselines before deploying quantum solutions.'
+    },
+    expectedInsights: [
+      'Qubit count limits feature dimensionality in quantum ML',
+      'Dimensionality reduction (PCA, feature selection) is essential',
+      'Classical baselines often competitive with NISQ-era quantum ML'
+    ],
+    hints: [
+      'Use PCA to reduce dimensions to fit available qubits',
+      'Select most informative features using domain knowledge',
+      'Always benchmark against classical kernels (RBF, polynomial)'
+    ],
+    explanation: 'Teaches practical quantum ML deployment: feature engineering, hardware constraints, and classical baseline comparison.',
+    relatedConcepts: ['quantum-machine-learning', 'feature-engineering', 'dimensionality-reduction', 'classical-baselines'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Identifies qubit limitation as root cause',
+      'Proposes dimensionality reduction strategy',
+      'Mentions classical baseline comparison'
+    ]
+  }
+];
+
 
 // Export debug challenges organized by concept
 export const debugChallengeLibrary = {
@@ -5134,6 +5585,8 @@ export const debugChallengeLibrary = {
   'swarm-intelligence': swarmIntelligenceDebugChallenges,
   'agentic-ai-design-taxonomy': debugChallenges.filter(c => c.conceptId === 'agentic-ai-design-taxonomy')
   ,
+  // Quantum-Enhanced AI & Robotics
+  'quantum-ai-robotics': quantumAIRoboticsDebugChallenges,
   // Agentic Commerce & AP2
   'agentic-commerce-ap2': [
     {

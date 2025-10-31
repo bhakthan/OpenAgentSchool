@@ -825,6 +825,203 @@ export const contextCuratorQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Socratic Questions for Quantum-Enhanced AI & Robotics
+export const quantumAIRoboticsSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'quantum-socratic-1',
+    type: 'socratic',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Understanding Quantum Advantage',
+    level: 'beginner',
+    socratiQuestion: 'Imagine you need to search through a million possible robot paths to find the optimal one. A classical computer checks paths one-by-one or in batches. How might a quantum computer approach this differently, and why might that be faster?',
+    followUpQuestions: [
+      'What if the quantum computer could somehow "try many paths at once"?',
+      'How does this relate to the concept of superposition?',
+      'What kinds of robotics problems might benefit most from this approach?'
+    ],
+    expectedInsights: [
+      'Quantum superposition allows exploring multiple possibilities simultaneously',
+      'Quantum advantage appears in optimization and search problems',
+      'Not all problems benefit equally from quantum approaches'
+    ],
+    hints: [
+      'Think about parallel exploration of solution space',
+      'Consider combinatorial explosion in path planning',
+      'Reflect on when exhaustive search becomes impractical'
+    ],
+    explanation: 'This exploration helps students discover why quantum computing offers potential speedups for specific robotics challenges like path planning and task allocation.',
+    relatedConcepts: ['quantum-superposition', 'optimization-problems', 'search-algorithms'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Understands parallel exploration concept',
+      'Identifies suitable problem types',
+      'Recognizes limitations of quantum advantage'
+    ]
+  },
+  {
+    id: 'quantum-socratic-2',
+    type: 'socratic',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Hybrid Architecture Design',
+    level: 'intermediate',
+    socratiQuestion: 'A warehouse robot needs to perceive its environment (cameras, LiDAR), plan routes, and control motors—all in real-time. Given that quantum computers are good at optimization but slow at classical tasks, where would you integrate quantum processing, and what would stay classical?',
+    followUpQuestions: [
+      'Which tasks have tight real-time requirements (milliseconds)?',
+      'Which tasks involve complex optimization (route planning, task allocation)?',
+      'How would you handle quantum hardware being unavailable or slow to respond?'
+    ],
+    expectedInsights: [
+      'Quantum co-processors best suited for optimization subproblems',
+      'Classical systems handle perception, control, and real-time tasks',
+      'Hybrid architectures need fallback strategies',
+      'Latency considerations dictate architecture choices'
+    ],
+    hints: [
+      'Consider the time scale of different robot tasks',
+      'Think about which problems have exponential complexity',
+      'Plan for graceful degradation'
+    ],
+    explanation: 'This helps students design practical hybrid classical-quantum robotics systems, understanding where each technology fits best.',
+    relatedConcepts: ['hybrid-architectures', 'real-time-systems', 'optimization', 'fault-tolerance'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Identifies optimization vs real-time task separation',
+      'Proposes fallback strategies',
+      'Understands latency constraints'
+    ]
+  },
+  {
+    id: 'quantum-socratic-3',
+    type: 'socratic',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Quantum Sensing Practicality',
+    level: 'intermediate',
+    socratiQuestion: 'Quantum sensors like NV-diamond magnetometers can detect magnetic fields with incredible precision but are expensive and fragile. For an indoor warehouse robot that needs to navigate without GPS, how would you decide whether to use quantum sensing versus classical alternatives like LiDAR SLAM?',
+    followUpQuestions: [
+      'What are the failure modes of classical SLAM in warehouse environments?',
+      'How would magnetic field-based navigation complement or replace vision-based systems?',
+      'What trade-offs exist between sensor cost, accuracy, and robustness?'
+    ],
+    expectedInsights: [
+      'Quantum sensors offer unique capabilities but have practical limitations',
+      'Sensor fusion combines strengths of different modalities',
+      'Cost-benefit analysis drives sensor selection',
+      'Environmental factors affect sensor effectiveness'
+    ],
+    hints: [
+      'Consider warehouse-specific challenges (dust, lighting, reflective surfaces)',
+      'Think about sensor fusion strategies',
+      'Evaluate total cost of ownership, not just hardware price'
+    ],
+    explanation: 'This guides students through practical decision-making for integrating quantum sensing into real robotics systems.',
+    relatedConcepts: ['quantum-sensing', 'sensor-fusion', 'navigation', 'cost-benefit-analysis'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Identifies environmental constraints',
+      'Proposes hybrid sensing approach',
+      'Evaluates trade-offs systematically'
+    ]
+  },
+  {
+    id: 'quantum-socratic-4',
+    type: 'socratic',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Algorithm Selection Strategy',
+    level: 'advanced',
+    socratiQuestion: 'You need to allocate 50 tasks among 10 robots in a fleet, minimizing travel time and battery usage. You have access to classical solvers (genetic algorithms, simulated annealing) and quantum options (D-Wave annealer, QAOA on gate-based hardware). How would you decide which approach to use, and what experiments would you run?',
+    followUpQuestions: [
+      'What problem size makes quantum algorithms competitive?',
+      'How would you benchmark solution quality versus runtime?',
+      'What if the problem structure changes frequently (dynamic task allocation)?'
+    ],
+    expectedInsights: [
+      'Problem size and structure determine algorithm suitability',
+      'Empirical benchmarking is essential for quantum vs classical decisions',
+      'Dynamic problems may favor fast heuristics over optimal quantum solutions',
+      'Hybrid approaches can combine benefits of both paradigms'
+    ],
+    hints: [
+      'Consider the crossover point where quantum becomes advantageous',
+      'Think about solution latency requirements',
+      'Design experiments with realistic problem instances'
+    ],
+    explanation: 'This advanced question helps students develop rigorous methodology for quantum algorithm evaluation in robotics contexts.',
+    relatedConcepts: ['algorithm-selection', 'benchmarking', 'optimization', 'QAOA', 'quantum-annealing'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Proposes systematic benchmarking approach',
+      'Identifies problem characteristics affecting algorithm choice',
+      'Considers practical constraints (latency, accuracy, cost)'
+    ]
+  },
+  {
+    id: 'quantum-socratic-5',
+    type: 'socratic',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Error Mitigation in Production',
+    level: 'advanced',
+    socratiQuestion: 'Quantum computers in the NISQ era have error rates of 0.1-1% per gate operation. For a critical robotics planning task (like path planning near humans), how would you ensure quantum-computed plans are safe and reliable enough for deployment?',
+    followUpQuestions: [
+      'What validation steps would you add before executing a quantum-generated plan?',
+      'How would you detect when quantum errors have corrupted a solution?',
+      'What role should human oversight play in quantum-assisted robotics?'
+    ],
+    expectedInsights: [
+      'Safety-critical systems require validation layers',
+      'Error detection can use classical verification of quantum solutions',
+      'Multiple solution attempts with statistical consensus improve reliability',
+      'Human-in-the-loop for high-stakes decisions',
+      'Fallback to classical solvers when quantum confidence is low'
+    ],
+    hints: [
+      'Consider classical validators for quantum solutions',
+      'Think about statistical methods for error detection',
+      'Plan safety margins and conservative assumptions'
+    ],
+    explanation: 'This question prepares students to deploy quantum-enhanced robotics systems responsibly in safety-critical environments.',
+    relatedConcepts: ['error-mitigation', 'safety-critical-systems', 'validation', 'human-in-the-loop'],
+    timeEstimate: 22,
+    successCriteria: [
+      'Proposes multi-layer validation approach',
+      'Identifies error detection strategies',
+      'Addresses safety and ethical considerations'
+    ]
+  },
+  {
+    id: 'quantum-socratic-6',
+    type: 'socratic',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Quantum ML Versus Classical ML',
+    level: 'advanced',
+    socratiQuestion: 'Quantum machine learning kernels promise exponential speedups for certain classification tasks, but current implementations are slow and resource-intensive. Given a robot perception task (classifying objects from tactile sensor data), how would you determine if quantum ML is worth pursuing versus well-optimized classical neural networks?',
+    followUpQuestions: [
+      'What characteristics of the data or problem favor quantum kernels?',
+      'How do training time, inference time, and accuracy trade off?',
+      'What does the quantum vs classical timeline look like (prototype → production)?'
+    ],
+    expectedInsights: [
+      'Theoretical speedups don\'t always translate to practical advantages',
+      'Hardware maturity and availability affect real-world performance',
+      'Classical baselines with modern hardware (GPUs) are formidable',
+      'Quantum ML may excel in specific high-dimensional, structured problems',
+      'Long-term investment requires forward-looking hardware roadmaps'
+    ],
+    hints: [
+      'Consider the current state of quantum hardware',
+      'Think about problem dimensions and structure',
+      'Evaluate end-to-end system requirements, not just algorithm complexity'
+    ],
+    explanation: 'This question develops critical thinking about when quantum ML makes sense versus being an over-engineered solution.',
+    relatedConcepts: ['quantum-machine-learning', 'classical-baselines', 'technology-readiness', 'benchmarking'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Compares theoretical vs practical performance',
+      'Considers hardware maturity timelines',
+      'Proposes decision framework for quantum ML adoption'
+    ]
+  }
+];
+
 export const rubricRaterQuestions: StudyModeQuestion[] = [
   {
     id: 'rubric-rater-q1',
@@ -4046,7 +4243,9 @@ export const socraticQuestionLibrary = {
   'agentic-commerce-ap2': agenticCommerceAp2SocraticQuestions,
   // Data Autonomy Patterns
   'hierarchical-document-intelligence': hierarchicalDocumentIntelligenceSocraticQuestions,
-  'contextual-onboarding-orchestrator': contextualOnboardingOrchestratorSocraticQuestions
+  'contextual-onboarding-orchestrator': contextualOnboardingOrchestratorSocraticQuestions,
+  // Quantum-Enhanced AI & Robotics
+  'quantum-ai-robotics': quantumAIRoboticsSocraticQuestions
 };
 
 // Helper function to get socratic questions by concept and level

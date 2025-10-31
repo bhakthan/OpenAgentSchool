@@ -1,10 +1,13 @@
+import { useEffect, useState } from "react"
 import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Brain, Robot, MapPin, ShieldCheck, FlowArrow, ChartBar, Lightning, Eye, GearSix, ArrowsClockwise, Notebook, ArrowRight } from "@phosphor-icons/react"
+import { Brain, Robot, MapPin, ShieldCheck, FlowArrow, ChartBar, Lightning, Eye, GearSix, ArrowsClockwise, Notebook, ArrowRight, Play, Pause, ArrowCounterClockwise } from "@phosphor-icons/react"
 import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock, conceptPill } from "./conceptStyles"
 import ReferenceSection from "@/components/references/ReferenceSection"
+import { motion, AnimatePresence } from "framer-motion"
 
 interface AgenticRoboticsConceptProps {
   onMarkComplete?: () => void
@@ -16,6 +19,37 @@ const capabilityPill = (label: string) => (
 )
 
 export default function AgenticRoboticsConcept({ onMarkComplete, onNavigateToNext }: AgenticRoboticsConceptProps) {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentStep, setCurrentStep] = useState(0)
+
+  const animationSteps = [
+    { id: 'multimodal', label: 'Multimodal Grounding', duration: 3000 },
+    { id: 'task-seq', label: 'Task Sequencing', duration: 3000 },
+    { id: 'telepresence', label: 'Interactive Telepresence', duration: 3000 },
+    { id: 'safety', label: 'Safety Guardrails', duration: 3500 },
+  ]
+
+  useEffect(() => {
+    if (isPlaying) {
+      const timer = setTimeout(() => {
+        if (currentStep < animationSteps.length - 1) {
+          setCurrentStep(currentStep + 1)
+        } else {
+          setIsPlaying(false)
+          setCurrentStep(0)
+        }
+      }, animationSteps[currentStep].duration)
+      
+      return () => clearTimeout(timer)
+    }
+  }, [isPlaying, currentStep])
+
+  const handlePlayPause = () => setIsPlaying(!isPlaying)
+  const handleReset = () => {
+    setIsPlaying(false)
+    setCurrentStep(0)
+  }
+
   const tabs = [
     {
       id: "foundation",
@@ -25,68 +59,143 @@ export default function AgenticRoboticsConcept({ onMarkComplete, onNavigateToNex
       level: "advanced" as const,
       content: (
         <div className="space-y-6">
-          <Card>
+          {/* Animation Controls */}
+          <Card className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border-2 border-primary/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Robot className="w-5 h-5" />
-                Embodied Agent Fundamentals
+                <Lightning className="w-5 h-5 text-yellow-500" />
+                Step-by-Step Animation Controls
               </CardTitle>
               <CardDescription>
-                Gemini Robotics 1.5 fuses multimodal understanding, grounded reasoning, and motion primitives into one stack.
+                Watch the embodied agent capabilities unfold sequentially
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className={conceptSurface("p-4 space-y-2")}
+              <div className="flex items-center gap-3">
+                <Button 
+                  onClick={handlePlayPause} 
+                  variant="default"
+                  size="sm"
+                  className="gap-2"
                 >
-                  <h4 className="font-semibold">Multimodal Grounding</h4>
-                  <p className="text-muted-foreground text-lg">
-                    Native perception over RGB, depth, language, and force signals—understands a scene, not just text prompts.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {capabilityPill("Visual QA")}
-                    {capabilityPill("Spatial Reasoning")}
-                    {capabilityPill("Scene Memory")}
-                  </div>
-                </div>
-                <div className={conceptSurface("p-4 space-y-2")}
+                  {isPlaying ? (
+                    <>
+                      <Pause className="w-4 h-4" />
+                      Pause
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-4 h-4" />
+                      Play
+                    </>
+                  )}
+                </Button>
+                <Button 
+                  onClick={handleReset} 
+                  variant="outline"
+                  size="sm"
+                  className="gap-2"
                 >
-                  <h4 className="font-semibold">Task Sequencing</h4>
-                  <p className="text-muted-foreground text-lg">
-                    Language-to-action models translate high-level goals into kinesthetic plans and tool invocations.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {capabilityPill("Policy Distillation")}
-                    {capabilityPill("Skill Libraries")}
-                    {capabilityPill("Closed-loop Control")}
+                  <ArrowCounterClockwise className="w-4 h-4" />
+                  Reset
+                </Button>
+                <div className="flex-1" />
+                <Badge variant={isPlaying ? "default" : "secondary"}>
+                  {isPlaying ? "Playing" : "Paused"}
+                </Badge>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {animationSteps.map((step, idx) => (
+                  <div
+                    key={step.id}
+                    className={`p-3 rounded-lg border-2 transition-all ${
+                      currentStep === idx
+                        ? 'border-primary bg-primary/10 shadow-lg'
+                        : 'border-muted bg-muted/20'
+                    }`}
+                  >
+                    <div className="text-xs font-semibold text-muted-foreground">
+                      Step {idx + 1}
+                    </div>
+                    <div className="text-sm font-medium mt-1">{step.label}</div>
                   </div>
-                </div>
-                <div className={conceptSurface("p-4 space-y-2")}
-                >
-                  <h4 className="font-semibold">Interactive Telepresence</h4>
-                  <p className="text-muted-foreground text-lg">
-                    Natural-language teleoperation lets humans hand off intent, audit execution, and request live summaries.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {capabilityPill("Mixed Initiative")}
-                    {capabilityPill("Realtime QA")}
-                  </div>
-                </div>
-                <div className={conceptSurface("p-4 space-y-2")}
-                >
-                  <h4 className="font-semibold">Safety Guardrails</h4>
-                  <p className="text-muted-foreground text-lg">
-                    Gemini Guard plus ER-15 sandboxing enforce no-go zones, object verification, and fail-safe motions.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {capabilityPill("Geo-fencing")}
-                    {capabilityPill("Risk Scoring")}
-                    {capabilityPill("Self-halt")}
-                  </div>
-                </div>
+                ))}
               </div>
             </CardContent>
           </Card>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Robot className="w-5 h-5" />
+                    Embodied Agent Fundamentals
+                  </CardTitle>
+                  <CardDescription>
+                    Gemini Robotics 1.5 fuses multimodal understanding, grounded reasoning, and motion primitives into one stack.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className={conceptSurface(`p-4 space-y-2 ${currentStep === 0 ? 'ring-2 ring-blue-500' : ''}`)}
+                    >
+                      <h4 className="font-semibold">Multimodal Grounding</h4>
+                      <p className="text-muted-foreground text-lg">
+                        Native perception over RGB, depth, language, and force signals—understands a scene, not just text prompts.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {capabilityPill("Visual QA")}
+                        {capabilityPill("Spatial Reasoning")}
+                        {capabilityPill("Scene Memory")}
+                      </div>
+                    </div>
+                    <div className={conceptSurface(`p-4 space-y-2 ${currentStep === 1 ? 'ring-2 ring-purple-500' : ''}`)}
+                    >
+                      <h4 className="font-semibold">Task Sequencing</h4>
+                      <p className="text-muted-foreground text-lg">
+                        Language-to-action models translate high-level goals into kinesthetic plans and tool invocations.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {capabilityPill("Policy Distillation")}
+                        {capabilityPill("Skill Libraries")}
+                        {capabilityPill("Closed-loop Control")}
+                      </div>
+                    </div>
+                    <div className={conceptSurface(`p-4 space-y-2 ${currentStep === 2 ? 'ring-2 ring-pink-500' : ''}`)}
+                    >
+                      <h4 className="font-semibold">Interactive Telepresence</h4>
+                      <p className="text-muted-foreground text-lg">
+                        Natural-language teleoperation lets humans hand off intent, audit execution, and request live summaries.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {capabilityPill("Mixed Initiative")}
+                        {capabilityPill("Realtime QA")}
+                      </div>
+                    </div>
+                    <div className={conceptSurface(`p-4 space-y-2 ${currentStep === 3 ? 'ring-2 ring-green-500' : ''}`)}
+                    >
+                      <h4 className="font-semibold">Safety Guardrails</h4>
+                      <p className="text-muted-foreground text-lg">
+                        Gemini Guard plus ER-15 sandboxing enforce no-go zones, object verification, and fail-safe motions.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {capabilityPill("Geo-fencing")}
+                        {capabilityPill("Risk Scoring")}
+                        {capabilityPill("Self-halt")}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
 
           <Card>
             <CardHeader>

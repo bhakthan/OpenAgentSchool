@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom } from "@phosphor-icons/react"
 import { ShareButton } from "@/components/ui/ShareButton"
 import AIAgentsConcept from "./AIAgentsConcept"
 import A2ACommunicationConcept from "./A2ACommunicationConcept"
@@ -25,6 +25,7 @@ import AgenticCommerceAP2Concept from "./AgenticCommerceAP2Concept"
 import ProductManagementConcept from "./ProductManagementConcept"
 import AgentOpsConcept from "./AgentOpsConcept"
 import AgenticRoboticsConcept from "./AgenticRoboticsConcept"
+import QuantumAIRoboticsConcept from "./QuantumAIRoboticsConcept"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
 import AzureAISafetyAndGovernance from "./AzureAISafetyAndGovernance"
@@ -428,6 +429,18 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '45-60 min',
     prerequisites: ['agent-architecture', 'agent-integration'],
     component: AgenticRoboticsConcept
+  }
+  ,
+  {
+    id: 'quantum-ai-robotics',
+    title: 'Quantum-Enhanced AI & Robotics',
+    description: 'Harness quantum phenomena for next-gen perception, planning, and learning in embodied AI systems.',
+    level: 'advanced',
+    icon: <Atom className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-violet-900/20 dark:text-violet-300',
+    estimatedTime: '60-75 min',
+    prerequisites: ['agent-learning', 'agentic-robotics-integration', 'agent-architecture'],
+    component: QuantumAIRoboticsConcept
   }
   ,
   {

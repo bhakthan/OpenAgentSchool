@@ -29,6 +29,7 @@ import { ChartBar } from "@phosphor-icons/react/dist/ssr/ChartBar";
 import { Lock } from "@phosphor-icons/react/dist/ssr/Lock";
 import { Package } from "@phosphor-icons/react/dist/ssr/Package";
 import { Scales } from "@phosphor-icons/react/dist/ssr/Scales";
+import { Lightning } from "@phosphor-icons/react/dist/ssr/Lightning";
 import { cn } from "@/lib/utils";
 import { useTheme } from '@/components/theme/ThemeProvider';
 
@@ -80,7 +81,7 @@ const learningPaths: LearningPath[] = [
       // Tier 3: Implementation Concepts
       'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations',
       // Tier 4: Advanced Concepts
-  'agent-deployment', 'agent-learning', 'agent-integration', 'agentic-robotics-integration', 'fine-tuning', 'agentic-commerce-ap2', 'product-management',
+  'agent-deployment', 'agent-learning', 'agent-integration', 'agentic-robotics-integration', 'fine-tuning', 'quantum-ai-robotics', 'agentic-commerce-ap2', 'product-management',
       'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement'
     ],
     totalProgress: 0,
@@ -473,6 +474,20 @@ const learningPaths: LearningPath[] = [
         path: '/concepts'
       },
       {
+        id: 'quantum-ai-robotics',
+        title: 'Quantum-Enhanced AI & Robotics',
+        description: 'Harness quantum phenomena for next-gen perception, planning, and learning in embodied AI systems.',
+        icon: <Lightning size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '60-75 min',
+        prerequisites: ['agent-learning', 'fine-tuning', 'agentic-robotics-integration'],
+        skills: ['Quantum Computing', 'QAOA Optimization', 'Quantum Sensing', 'Hybrid Architectures', 'VQE Algorithms'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
         id: 'agent-integration',
         title: 'Agent Integration Patterns',
         description: 'Integration patterns for enterprise AI agent systems',
@@ -696,7 +711,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance', 'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework'],
     ['a2a-communication', 'mcp', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management'],
     ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations'],
-    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'agentic-commerce-ap2', 'product-management', 'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement']
+    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'agentic-commerce-ap2', 'product-management', 'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement']
   ];
   const supplementalResourceIds = ['azure-services', 'references', 'community', 'patterns', 'quiz'];
 

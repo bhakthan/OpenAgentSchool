@@ -6006,8 +6006,376 @@ export const agenticCommerceAp2Scenarios: StudyModeQuestion[] = [
   }
 ];
 
+// Interactive Scenarios for Quantum-Enhanced AI & Robotics
+export const quantumAIRoboticsScenarios: StudyModeQuestion[] = [
+  {
+    id: 'quantum-scenario-1',
+    type: 'scenario',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Warehouse Robot Fleet Optimization',
+    level: 'intermediate',
+    scenario: {
+      id: 'quantum-fleet-optimization',
+      title: 'Choosing Between Classical and Quantum Solvers',
+      description: 'You manage a fleet of 20 warehouse robots that need to collaboratively complete 100 pick-and-place tasks. Should you use quantum or classical optimization?',
+      context: 'Your warehouse operations team wants to minimize total task completion time. You have access to D-Wave quantum annealer and classical solvers (genetic algorithms, simulated annealing).',
+      stakeholders: ['Operations Manager', 'Robotics Team', 'IT Infrastructure'],
+      challenges: [
+        {
+          id: 'problem-size-assessment',
+          title: 'Assess Problem Complexity',
+          description: 'Evaluating if quantum advantage applies',
+          question: 'With 20 robots and 100 tasks, how many decision variables does this optimization problem have?',
+          type: 'multiple-choice',
+          options: [
+            'About 100 binary variables (one per task)',
+            'About 2,000 binary variables (robot-task assignments)',
+            'About 20 variables (one per robot)',
+            'It depends on task dependencies'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Each robot-task pair needs a binary decision variable (assigned or not), resulting in 20 × 100 = 2,000 variables. This is in the sweet spot for quantum annealing.',
+          hints: [
+            'Think about all possible robot-task pairings',
+            'Each pairing is a binary decision'
+          ]
+        },
+        {
+          id: 'solver-selection',
+          title: 'Choose the Right Solver',
+          description: 'Comparing quantum and classical approaches',
+          question: 'For this 2,000-variable problem, which approach is most appropriate?',
+          type: 'multiple-choice',
+          options: [
+            'D-Wave quantum annealer - proven production-ready for this problem size',
+            'Gate-based quantum (QAOA) - best for combinatorial optimization',
+            'Classical genetic algorithm - quantum won\'t help',
+            'Try quantum first, fall back to classical if it fails'
+          ],
+          correctAnswer: 0,
+          feedback: 'Excellent! D-Wave annealers are production-ready for QUBO problems at this scale. QAOA on gate-based hardware would have too much circuit depth for NISQ devices.',
+          hints: [
+            'Consider which quantum technology is production-ready',
+            'Think about circuit depth limitations of QAOA'
+          ]
+        },
+        {
+          id: 'hybrid-strategy',
+          title: 'Design Hybrid Architecture',
+          description: 'Planning the full system',
+          question: 'How should you integrate quantum optimization into the robot control system?',
+          type: 'multiple-choice',
+          options: [
+            'Run quantum solver in the control loop (real-time, <100ms)',
+            'Solve offline once and use fixed task assignment',
+            'Re-solve with quantum every 30-60 seconds, use classical planner between updates',
+            'Replace all planning with quantum algorithms'
+          ],
+          correctAnswer: 2,
+          feedback: 'Perfect! Quantum cloud API calls take 100-500ms, too slow for real-time control. Periodic re-planning (30-60s) balances optimization quality with responsiveness.',
+          hints: [
+            'Consider quantum solver latency (cloud API calls)',
+            'Think about how often task priorities change',
+            'Real-time control needs <100ms response'
+          ]
+        },
+        {
+          id: 'validation-strategy',
+          title: 'Validate Quantum Solutions',
+          description: 'Ensuring solution quality',
+          question: 'How would you validate that the quantum solution is actually better than classical?',
+          type: 'multiple-choice',
+          options: [
+            'Trust the quantum solver output without comparison',
+            'Run both solvers, compare solution quality and solve time',
+            'Only use quantum if it\'s 10× faster',
+            'Quantum is always better for optimization'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Always benchmark against classical baselines. Quantum may find better solutions or solve faster, but validation is essential.',
+          hints: [
+            'Never deploy without empirical comparison',
+            'Measure both solution quality and runtime',
+            'Classical solvers are well-optimized competitors'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'successful-deployment',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve designed a production-ready hybrid quantum-classical system',
+          explanation: 'Your design uses D-Wave for periodic task optimization with classical planning for real-time control and validation.',
+          nextSteps: [
+            'Implement A/B testing: quantum vs classical solver',
+            'Monitor solution quality and latency metrics',
+            'Scale to larger fleets (50+ robots) where quantum advantage grows'
+          ]
+        },
+        {
+          id: 'needs-refinement',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Your design has gaps that could cause production issues',
+          explanation: 'Review the feedback to understand solver selection, latency constraints, and validation requirements.',
+          nextSteps: [
+            'Study D-Wave vs QAOA trade-offs',
+            'Learn about hybrid quantum-classical architectures',
+            'Practice benchmarking methodology'
+          ]
+        }
+      ],
+      codeExample: `# Production-ready hybrid architecture
+from dwave.system import DWaveSampler, EmbeddingComposite
+import time
+
+# Formulate QUBO
+bqm = build_task_allocation_qubo(robots=20, tasks=100)
+
+# Quantum solver with fallback
+def solve_task_allocation(bqm, timeout=5):
+    try:
+        sampler = EmbeddingComposite(DWaveSampler())
+        response = sampler.sample(bqm, num_reads=1000)
+        quantum_solution = response.first.sample
+        quantum_energy = response.first.energy
+        
+        # Classical baseline
+        classical_solution, classical_energy = simulated_annealing(bqm)
+        
+        # Use better solution
+        if quantum_energy < classical_energy:
+            return quantum_solution, "quantum"
+        else:
+            return classical_solution, "classical"
+    except Exception as e:
+        # Fallback to classical
+        return simulated_annealing(bqm), "classical_fallback"
+
+# Periodic re-optimization loop
+last_solve = time.time()
+while True:
+    if time.time() - last_solve > 30:  # Re-solve every 30s
+        solution, solver_used = solve_task_allocation(bqm)
+        update_robot_assignments(solution)
+        log_metrics(solver_used, solution_quality)
+        last_solve = time.time()
+    
+    # Classical real-time control continues
+    execute_local_planning()`,
+      resources: ['D-Wave Ocean SDK', 'Quantum Annealing Tutorial', 'Hybrid Quantum-Classical Patterns'],
+      conceptId: 'quantum-ai-robotics',
+      difficulty: 'intermediate',
+      estimatedTime: '12-15m',
+      learningOutcomes: [
+        'Assess problem size for quantum advantage',
+        'Choose appropriate quantum technology (annealing vs gate-based)',
+        'Design hybrid systems with latency awareness',
+        'Validate quantum solutions against classical baselines'
+      ]
+    },
+    hints: [
+      'Calculate decision variables as robots × tasks',
+      'D-Wave is production-ready, QAOA is still experimental for this scale',
+      'Quantum cloud latency is 100-500ms'
+    ],
+    explanation: 'Teaches practical decision-making for deploying quantum optimization in robotics: problem sizing, technology selection, hybrid architecture, and validation.',
+    relatedConcepts: ['quantum-optimization', 'd-wave-annealing', 'hybrid-architectures', 'benchmarking'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Correctly sizes problem (2,000 variables)',
+      'Chooses D-Wave over QAOA',
+      'Designs periodic re-optimization with classical fallback',
+      'Proposes validation methodology'
+    ]
+  },
+  {
+    id: 'quantum-scenario-2',
+    type: 'scenario',
+    conceptId: 'quantum-ai-robotics',
+    title: 'Quantum Sensor Integration for Autonomous Vehicle',
+    level: 'advanced',
+    scenario: {
+      id: 'quantum-sensor-integration',
+      title: 'Adding NV-Diamond Magnetometer to Autonomous Car',
+      description: 'Your team is building an autonomous vehicle and considering adding a quantum magnetometer for improved navigation. Is it worth the cost and complexity?',
+      context: 'Current navigation stack: GPS, IMU, LiDAR SLAM, wheel odometry. Proposal: Add NV-diamond magnetometer ($50k) for indoor/GPS-denied navigation.',
+      stakeholders: ['Autonomous Driving Team', 'Sensors Lead', 'Product Manager', 'Finance'],
+      challenges: [
+        {
+          id: 'use-case-justification',
+          title: 'Identify Value Proposition',
+          description: 'When does quantum sensing add value?',
+          question: 'In which scenario does NV-diamond magnetometry provide the most value over classical sensors?',
+          type: 'multiple-choice',
+          options: [
+            'Highway driving with clear GPS signal',
+            'Parking garage or underground tunnel with no GPS',
+            'Urban canyon with intermittent GPS',
+            'Rural roads with weak cellular coverage'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Underground/indoor environments with zero GPS are where quantum magnetometry shines. Classical SLAM may drift without absolute position reference.',
+          hints: [
+            'Where do classical sensors fail completely?',
+            'Think about magnetic field mapping as an absolute reference'
+          ]
+        },
+        {
+          id: 'sensor-fusion-design',
+          title: 'Design Fusion Architecture',
+          description: 'Integrating quantum with classical sensors',
+          question: 'How should you fuse NV-diamond readings with existing sensors?',
+          type: 'multiple-choice',
+          options: [
+            'Replace GPS entirely with quantum magnetometer',
+            'Use Extended Kalman Filter to fuse quantum + classical sensors',
+            'Use quantum only when GPS signal is lost',
+            'Run quantum and classical in parallel, choose the better one'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! EKF fuses all sensors with appropriate weights based on uncertainty, providing robust navigation across all environments.',
+          hints: [
+            'Think about probabilistic sensor fusion',
+            'Consider how to weight different sensors based on reliability'
+          ]
+        },
+        {
+          id: 'calibration-planning',
+          title: 'Plan Calibration Strategy',
+          description: 'Maintaining quantum sensor accuracy',
+          question: 'What calibration approach ensures long-term accuracy?',
+          type: 'multiple-choice',
+          options: [
+            'Calibrate once at factory, never again',
+            'Recalibrate monthly in a zero-field chamber',
+            'Continuous temperature compensation + periodic zero-field calibration',
+            'Quantum sensors don\'t need calibration'
+          ],
+          correctAnswer: 2,
+          feedback: 'Perfect! Temperature compensation prevents drift, while periodic zero-field calibration maintains absolute accuracy. Both are essential for production vehicles.',
+          hints: [
+            'NV-diamond centers drift with temperature',
+            'Zero-point calibration corrects systematic bias'
+          ]
+        },
+        {
+          id: 'cost-benefit-analysis',
+          title: 'Evaluate ROI',
+          description: 'Business case for quantum sensing',
+          question: 'Given the $50k sensor cost, when is the investment justified?',
+          type: 'multiple-choice',
+          options: [
+            'Always justified - quantum is the future',
+            'Only for vehicles operating primarily in GPS-denied environments',
+            'Never - classical LiDAR SLAM is good enough',
+            'Only if the quantum sensor is free'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Quantum sensing justifies its cost for applications with significant GPS-denied operation (mining, underground logistics, parking structures).',
+          hints: [
+            'Calculate % of operation time in GPS-denied zones',
+            'Compare quantum cost to alternative solutions (beacon systems, etc.)'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'justified-integration',
+          condition: 'All challenges answered correctly',
+          result: 'You\'ve built a compelling case for quantum sensor integration',
+          explanation: 'Your analysis shows quantum magnetometry adds value for GPS-denied environments with proper fusion, calibration, and cost justification.',
+          nextSteps: [
+            'Prototype with borrowed quantum sensor',
+            'Collect data in target environments',
+            'Build business case with measured performance improvements'
+          ]
+        },
+        {
+          id: 'needs-more-analysis',
+          condition: 'Some challenges answered incorrectly',
+          result: 'Your integration plan has gaps',
+          explanation: 'Review feedback on sensor fusion, calibration, and cost-benefit analysis before proceeding.',
+          nextSteps: [
+            'Study EKF sensor fusion techniques',
+            'Research quantum sensor calibration procedures',
+            'Analyze operational environment mix'
+          ]
+        }
+      ],
+      codeExample: `# Sensor fusion with quantum magnetometer
+import numpy as np
+from filterpy.kalman import ExtendedKalmanFilter
+
+class QuantumAugmentedNavigation:
+    def __init__(self):
+        self.ekf = ExtendedKalmanFilter(dim_x=9, dim_z=9)
+        self.nv_sensor = NVDiamondMagnetometer(temp_compensation=True)
+        self.last_calibration = time.time()
+        
+    def fuse_measurements(self, gps, imu, lidar_slam, quantum_mag):
+        # Adaptive weighting based on sensor confidence
+        gps_available = gps.signal_quality > 0.5
+        
+        if gps_available:
+            # GPS-aided: quantum provides complementary info
+            weights = {'gps': 0.6, 'lidar': 0.2, 'quantum': 0.2}
+        else:
+            # GPS-denied: quantum becomes primary absolute reference
+            weights = {'gps': 0.0, 'lidar': 0.5, 'quantum': 0.5}
+        
+        # Temperature-compensated quantum reading
+        mag_field = self.nv_sensor.read_compensated()
+        
+        # Periodic calibration
+        if time.time() - self.last_calibration > 900:  # 15 minutes
+            self.nv_sensor.zero_field_calibration()
+            self.last_calibration = time.time()
+        
+        # EKF fusion
+        measurement = np.array([
+            gps.lat if gps_available else np.nan,
+            gps.lon if gps_available else np.nan,
+            imu.accel, imu.gyro,
+            lidar_slam.position,
+            mag_field.x, mag_field.y, mag_field.z
+        ])
+        
+        # Adaptive covariance based on environment
+        R = self.compute_measurement_covariance(weights)
+        
+        self.ekf.update(measurement, HJacobian, R)
+        return self.ekf.x  # Fused state estimate`,
+      resources: ['Quantum Sensing for Navigation', 'EKF Tutorial', 'Sensor Fusion Best Practices'],
+      conceptId: 'quantum-ai-robotics',
+      difficulty: 'advanced',
+      estimatedTime: '15-18m',
+      learningOutcomes: [
+        'Identify use cases where quantum sensing adds value',
+        'Design sensor fusion architecture',
+        'Plan calibration and maintenance strategies',
+        'Perform cost-benefit analysis for quantum technology adoption'
+      ]
+    },
+    hints: [
+      'GPS-denied environments are the key use case',
+      'EKF with adaptive weighting handles all scenarios',
+      'Temperature compensation + periodic calibration'
+    ],
+    explanation: 'Teaches systematic evaluation of quantum sensor integration: use case analysis, technical design, and business justification.',
+    relatedConcepts: ['quantum-sensing', 'sensor-fusion', 'navigation', 'cost-benefit-analysis'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Identifies GPS-denied as primary use case',
+      'Proposes EKF-based fusion architecture',
+      'Plans comprehensive calibration strategy',
+      'Justifies investment with operational analysis'
+    ]
+  }
+];
+
 // Register AP2 scenario set into existing library so standard getters can access it
 (scenarioLibrary as any)['agentic-commerce-ap2'] = agenticCommerceAp2Scenarios;
+(scenarioLibrary as any)['quantum-ai-robotics'] = quantumAIRoboticsScenarios;
 
 // Helper function to get scenarios by concept and level
 export function getScenarios(
