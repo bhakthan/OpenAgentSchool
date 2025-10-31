@@ -44,6 +44,11 @@ export const references: ReferencesData = {
             description: "Introduction to AI agents and their capabilities"
           },
           {
+            title: "Google Agent Development Kit (ADK)",
+            url: "https://google.github.io/adk-docs/",
+            description: "Flexible, modular framework for developing and deploying AI agents - optimized for Gemini"
+          },
+          {
             title: "Azure AI Overview",
             url: "https://learn.microsoft.com/azure/ai-services/",
             description: "Official Microsoft documentation on Azure AI Services"
@@ -57,6 +62,32 @@ export const references: ReferencesData = {
             title: "Building Intelligent Agents",
             url: "https://learn.microsoft.com/training",
             description: "Microsoft Learn training path for developing AI agents"
+          }
+        ]
+      },
+      {
+        id: "frameworks",
+        name: "Agent Development Frameworks",
+        references: [
+          {
+            title: "Google ADK Documentation",
+            url: "https://google.github.io/adk-docs/",
+            description: "Complete guide to Google's Agent Development Kit"
+          },
+          {
+            title: "Google ADK Python SDK",
+            url: "https://github.com/google/adk-python",
+            description: "Python SDK for Google Agent Development Kit"
+          },
+          {
+            title: "Google ADK Java SDK",
+            url: "https://github.com/google/adk-java",
+            description: "Java SDK for Google Agent Development Kit"
+          },
+          {
+            title: "Azure AI Agent Framework",
+            url: "https://learn.microsoft.com/azure/ai-studio/concepts/agents-guides",
+            description: "Microsoft's agent development framework for Azure"
           }
         ]
       },
@@ -680,6 +711,315 @@ export const references: ReferencesData = {
       }
     ],
     
+    // Google Agent Development Kit (ADK)
+    "google-adk": [
+      {
+        id: "official-docs",
+        name: "Official Documentation",
+        references: [
+          {
+            title: "Google Agent Development Kit (ADK)",
+            url: "https://google.github.io/adk-docs/",
+            description: "Official Google ADK documentation - Flexible and modular framework for developing and deploying AI agents, optimized for Gemini"
+          },
+          {
+            title: "ADK Technical Overview",
+            url: "https://google.github.io/adk-docs/get-started/about/",
+            description: "Comprehensive technical overview of ADK architecture and design philosophy"
+          },
+          {
+            title: "ADK Python Documentation",
+            url: "https://google.github.io/adk-docs/api-reference/python/",
+            description: "Python API reference for Google ADK"
+          },
+          {
+            title: "ADK Java Documentation",
+            url: "https://google.github.io/adk-docs/api-reference/java/",
+            description: "Java API reference for Google ADK"
+          }
+        ]
+      },
+      {
+        id: "getting-started",
+        name: "Getting Started",
+        references: [
+          {
+            title: "ADK Python Quick Start",
+            url: "https://google.github.io/adk-docs/get-started/python/",
+            description: "Get started building agents with ADK in Python"
+          },
+          {
+            title: "ADK Java Quick Start",
+            url: "https://google.github.io/adk-docs/get-started/java/",
+            description: "Get started building agents with ADK in Java"
+          },
+          {
+            title: "Multi-Tool Agent Tutorial",
+            url: "https://google.github.io/adk-docs/get-started/quickstart/",
+            description: "Build your first multi-tool agent with ADK"
+          },
+          {
+            title: "Streaming Agent Tutorial",
+            url: "https://google.github.io/adk-docs/get-started/streaming/",
+            description: "Build streaming agents with real-time responses"
+          }
+        ]
+      },
+      {
+        id: "agent-types",
+        name: "Agent Types & Architecture",
+        references: [
+          {
+            title: "LLM Agents",
+            url: "https://google.github.io/adk-docs/agents/llm-agents/",
+            description: "Build LLM-powered agents with dynamic routing and tool calling"
+          },
+          {
+            title: "Workflow Agents",
+            url: "https://google.github.io/adk-docs/agents/workflow-agents/",
+            description: "Define predictable pipelines with Sequential, Parallel, and Loop agents"
+          },
+          {
+            title: "Sequential Agents",
+            url: "https://google.github.io/adk-docs/agents/workflow-agents/sequential-agents/",
+            description: "Chain agents in sequential workflows"
+          },
+          {
+            title: "Parallel Agents",
+            url: "https://google.github.io/adk-docs/agents/workflow-agents/parallel-agents/",
+            description: "Execute multiple agents in parallel for concurrent processing"
+          },
+          {
+            title: "Loop Agents",
+            url: "https://google.github.io/adk-docs/agents/workflow-agents/loop-agents/",
+            description: "Create iterative agent workflows with loop controls"
+          },
+          {
+            title: "Multi-Agent Systems",
+            url: "https://google.github.io/adk-docs/agents/multi-agents/",
+            description: "Build modular, hierarchical multi-agent architectures"
+          },
+          {
+            title: "Custom Agents",
+            url: "https://google.github.io/adk-docs/agents/custom-agents/",
+            description: "Create custom agent implementations for specialized use cases"
+          }
+        ]
+      },
+      {
+        id: "tools",
+        name: "Tools & Capabilities",
+        references: [
+          {
+            title: "Tools for Agents",
+            url: "https://google.github.io/adk-docs/tools/",
+            description: "Overview of ADK's rich tool ecosystem for agent capabilities"
+          },
+          {
+            title: "Built-in Tools",
+            url: "https://google.github.io/adk-docs/tools/built-in-tools/",
+            description: "Pre-built tools including Search, Code Execution, and Computer Use"
+          },
+          {
+            title: "Computer Use Tools",
+            url: "https://google.github.io/adk-docs/tools/gemini-api/computer-use/",
+            description: "Enable agents to interact with computers through UI automation"
+          },
+          {
+            title: "Custom Function Tools",
+            url: "https://google.github.io/adk-docs/tools/function-tools/",
+            description: "Create custom Python/Java functions as agent tools"
+          },
+          {
+            title: "MCP Tools Integration",
+            url: "https://google.github.io/adk-docs/tools/mcp-tools/",
+            description: "Integrate Model Context Protocol tools with ADK agents"
+          },
+          {
+            title: "OpenAPI Tools",
+            url: "https://google.github.io/adk-docs/tools-custom/openapi-tools/",
+            description: "Auto-generate tools from OpenAPI specifications"
+          },
+          {
+            title: "Third-Party Tools",
+            url: "https://google.github.io/adk-docs/tools/third-party/",
+            description: "Integrate tools from Exa, Firecrawl, GitHub, Hugging Face, and more"
+          },
+          {
+            title: "Tool Performance Optimization",
+            url: "https://google.github.io/adk-docs/tools/performance/",
+            description: "Best practices for optimizing tool calling performance"
+          }
+        ]
+      },
+      {
+        id: "deployment",
+        name: "Deployment & Production",
+        references: [
+          {
+            title: "Deployment Guide",
+            url: "https://google.github.io/adk-docs/deploy/",
+            description: "Deploy ADK agents to production environments"
+          },
+          {
+            title: "Vertex AI Agent Engine",
+            url: "https://google.github.io/adk-docs/deploy/agent-engine/",
+            description: "Deploy and scale agents with Vertex AI Agent Engine"
+          },
+          {
+            title: "Cloud Run Deployment",
+            url: "https://google.github.io/adk-docs/deploy/cloud-run/",
+            description: "Containerize and deploy agents on Google Cloud Run"
+          },
+          {
+            title: "GKE Deployment",
+            url: "https://google.github.io/adk-docs/deploy/gke/",
+            description: "Deploy agents to Google Kubernetes Engine for orchestration"
+          }
+        ]
+      },
+      {
+        id: "evaluation",
+        name: "Evaluation & Testing",
+        references: [
+          {
+            title: "Agent Evaluation Framework",
+            url: "https://google.github.io/adk-docs/evaluate/",
+            description: "Built-in evaluation system for response quality and execution trajectories"
+          },
+          {
+            title: "Evaluation Criteria",
+            url: "https://google.github.io/adk-docs/evaluate/criteria/",
+            description: "Define custom evaluation criteria for agent performance"
+          },
+          {
+            title: "Testing Guide",
+            url: "https://google.github.io/adk-docs/get-started/testing/",
+            description: "Best practices for testing ADK agents"
+          }
+        ]
+      },
+      {
+        id: "observability",
+        name: "Observability & Monitoring",
+        references: [
+          {
+            title: "Logging",
+            url: "https://google.github.io/adk-docs/observability/logging/",
+            description: "Configure structured logging for agent execution traces"
+          },
+          {
+            title: "Cloud Trace Integration",
+            url: "https://google.github.io/adk-docs/observability/cloud-trace/",
+            description: "Distributed tracing with Google Cloud Trace"
+          },
+          {
+            title: "AgentOps Integration",
+            url: "https://google.github.io/adk-docs/observability/agentops/",
+            description: "Monitor agents with AgentOps platform"
+          },
+          {
+            title: "Arize Phoenix Integration",
+            url: "https://google.github.io/adk-docs/observability/phoenix/",
+            description: "LLM observability with Arize Phoenix"
+          },
+          {
+            title: "W&B Weave Integration",
+            url: "https://google.github.io/adk-docs/observability/weave/",
+            description: "Track agent experiments with Weights & Biases Weave"
+          }
+        ]
+      },
+      {
+        id: "advanced",
+        name: "Advanced Features",
+        references: [
+          {
+            title: "Sessions & Memory",
+            url: "https://google.github.io/adk-docs/sessions/",
+            description: "Manage conversation sessions and persistent memory"
+          },
+          {
+            title: "State Management",
+            url: "https://google.github.io/adk-docs/sessions/state/",
+            description: "Handle agent state across multiple interactions"
+          },
+          {
+            title: "Memory Systems",
+            url: "https://google.github.io/adk-docs/sessions/memory/",
+            description: "Implement short-term and long-term memory for agents"
+          },
+          {
+            title: "Callbacks & Events",
+            url: "https://google.github.io/adk-docs/callbacks/",
+            description: "Hook into agent lifecycle with callbacks and event handlers"
+          },
+          {
+            title: "Context Management",
+            url: "https://google.github.io/adk-docs/context/",
+            description: "Manage context windows and context compression"
+          },
+          {
+            title: "Bidi-Streaming (Live API)",
+            url: "https://google.github.io/adk-docs/streaming/",
+            description: "Real-time bidirectional streaming with Vertex AI Live API"
+          },
+          {
+            title: "Grounding with Google Search",
+            url: "https://google.github.io/adk-docs/grounding/google_search_grounding/",
+            description: "Ground agent responses in real-time web search results"
+          },
+          {
+            title: "Safety & Security",
+            url: "https://google.github.io/adk-docs/safety/",
+            description: "Build safe and secure agents with best practices"
+          },
+          {
+            title: "A2A Protocol Support",
+            url: "https://google.github.io/adk-docs/a2a/",
+            description: "Implement Agent-to-Agent communication with A2A protocol"
+          }
+        ]
+      },
+      {
+        id: "samples",
+        name: "Code Samples",
+        references: [
+          {
+            title: "ADK Code Samples Repository",
+            url: "https://github.com/google/adk-samples",
+            description: "Official Google ADK code samples and example projects"
+          },
+          {
+            title: "Agent Team Tutorial",
+            url: "https://google.github.io/adk-docs/tutorials/agent-team/",
+            description: "Build collaborative multi-agent teams"
+          }
+        ]
+      },
+      {
+        id: "repositories",
+        name: "GitHub Repositories",
+        references: [
+          {
+            title: "ADK Python SDK",
+            url: "https://github.com/google/adk-python",
+            description: "Official Python SDK for Google Agent Development Kit"
+          },
+          {
+            title: "ADK Java SDK",
+            url: "https://github.com/google/adk-java",
+            description: "Official Java SDK for Google Agent Development Kit"
+          },
+          {
+            title: "ADK Documentation Source",
+            url: "https://github.com/google/adk-docs",
+            description: "Source repository for ADK documentation"
+          }
+        ]
+      }
+    ],
+    
     // Agent to Agent (A2A) concept
     a2a: [
       {
@@ -695,6 +1035,16 @@ export const references: ReferencesData = {
             title: "A2A Python SDK",
             url: "https://github.com/a2aproject/a2a-python",
             description: "Python SDK for implementing Agent to Agent communication protocols"
+          },
+          {
+            title: "Google ADK A2A Protocol Support",
+            url: "https://google.github.io/adk-docs/a2a/",
+            description: "Google Agent Development Kit implementation of A2A protocol"
+          },
+          {
+            title: "A2A Protocol Documentation (Google ADK)",
+            url: "https://a2a-protocol.org/",
+            description: "Official A2A protocol spec referenced by Google ADK"
           },
           {
             title: "Azure AI Agent Framework Documentation",
@@ -716,6 +1066,16 @@ export const references: ReferencesData = {
             title: "A2A Samples",
             url: "https://github.com/a2aproject/a2a-samples/tree/main/samples",
             description: "Sample code for A2A projects"
+          },
+          {
+            title: "Google ADK A2A Quick Start (Exposing)",
+            url: "https://google.github.io/adk-docs/a2a/quickstart-exposing/",
+            description: "Expose agents via A2A protocol using Google ADK"
+          },
+          {
+            title: "Google ADK A2A Quick Start (Consuming)",
+            url: "https://google.github.io/adk-docs/a2a/quickstart-consuming/",
+            description: "Consume A2A-enabled agents using Google ADK"
           },
           {
             title: "Azure OpenAI Samples Repository",
@@ -778,6 +1138,16 @@ export const references: ReferencesData = {
             title: "MCP Specification",
             url: "https://modelcontextprotocol.io/specification",
             description: "Technical specification of the Model Context Protocol"
+          },
+          {
+            title: "Google ADK MCP Tools Integration",
+            url: "https://google.github.io/adk-docs/tools/mcp-tools/",
+            description: "Integrate Model Context Protocol tools with Google ADK agents"
+          },
+          {
+            title: "Google ADK MCP Support",
+            url: "https://google.github.io/adk-docs/mcp/",
+            description: "Full MCP implementation guide for Google Agent Development Kit"
           },
           {
             title: "Azure MCP GitHub Repository",
@@ -1053,6 +1423,32 @@ export const references: ReferencesData = {
     ]
   ,
     "multi-agent-systems": [
+      {
+        id: "frameworks",
+        name: "Multi-Agent Frameworks",
+        references: [
+          {
+            title: "Google ADK Multi-Agent Systems",
+            url: "https://google.github.io/adk-docs/agents/multi-agents/",
+            description: "Build modular, hierarchical multi-agent architectures with Google Agent Development Kit"
+          },
+          {
+            title: "Google ADK Agent Team Tutorial",
+            url: "https://google.github.io/adk-docs/tutorials/agent-team/",
+            description: "Step-by-step tutorial for building collaborative multi-agent teams"
+          },
+          {
+            title: "Google ADK Workflow Agents",
+            url: "https://google.github.io/adk-docs/agents/workflow-agents/",
+            description: "Orchestrate agents with Sequential, Parallel, and Loop patterns"
+          },
+          {
+            title: "Azure AI Agent Framework Multi-Agent",
+            url: "https://learn.microsoft.com/azure/ai-studio/concepts/agents-guides",
+            description: "Multi-agent coordination with Azure AI Agent Framework"
+          }
+        ]
+      },
       {
         id: "youtube-research",
         name: "YouTube Research",
@@ -3119,6 +3515,27 @@ export const references: ReferencesData = {
     ],
   
     "agent-evaluation": [
+      {
+        id: "frameworks",
+        name: "Evaluation Frameworks",
+        references: [
+          {
+            title: "Google ADK Agent Evaluation",
+            url: "https://google.github.io/adk-docs/evaluate/",
+            description: "Built-in evaluation framework for response quality and execution trajectories in Google ADK"
+          },
+          {
+            title: "Google ADK Evaluation Criteria",
+            url: "https://google.github.io/adk-docs/evaluate/criteria/",
+            description: "Define custom evaluation criteria for agent performance assessment"
+          },
+          {
+            title: "Google ADK Testing Guide",
+            url: "https://google.github.io/adk-docs/get-started/testing/",
+            description: "Best practices for testing and validating ADK agents"
+          }
+        ]
+      },
       {
         id: "youtube-research",
         name: "YouTube Research",
