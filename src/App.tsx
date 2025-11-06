@@ -412,6 +412,17 @@ function App() {
                       </a>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
+                      <a
+                        href="https://deepwiki.com/bhakthan/OpenAgentSchool"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                        title="Visit Open Agent School Wiki on DeepWiki"
+                      >
+                        <Article className="mr-1" size={16} /> Wiki
+                      </a>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
                       <InstallAppMenuItem />
                     </NavigationMenuItem>
                     <NavigationMenuItem>
