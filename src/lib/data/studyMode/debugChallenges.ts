@@ -5621,6 +5621,112 @@ export const debugChallengeLibrary = {
       timeEstimate: 9,
       successCriteria: ['Identifies improper mutation','Proposes freeze/clone fix']
     }
+  ],
+  // Deep Research Agent Pattern Debug Challenges
+  'deep-research-agent': [
+    {
+      id: 'deep-research-agent-debug-1',
+      type: 'debug',
+      conceptId: 'deep-research-agent',
+      title: 'Infinite Research Loop Without Termination',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'deep-research-infinite-loop',
+        title: 'Missing Termination Condition in Research Planner',
+        description: 'The Deep Research Agent keeps spawning new search queries indefinitely, never producing a final report. Token costs spiral and the task times out.',
+        problemDescription: 'Research planner generates follow-up queries based on knowledge gaps but has no termination condition. Gap detection always finds something new to explore.',
+        brokenCode: `async function researchLoop(query) {
+  let findings = [];
+  while (true) { // No termination!
+    const results = await search(query);
+    findings.push(...results);
+    const gaps = identifyKnowledgeGaps(findings);
+    if (gaps.length > 0) {
+      query = generateFollowUpQuery(gaps[0]);
+    }
+    // Missing: break condition when gaps are negligible
+  }
+  return synthesize(findings);
+}`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'research-planner', message: 'Identified 3 knowledge gaps, generating follow-up query', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'research-planner', message: 'Query iteration 47: still finding gaps', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'system', message: 'Token budget exceeded (150k tokens)', type: 'error' }
+        ],
+        expectedBehavior: 'Research loop should terminate when: (1) diminishing returns threshold reached, (2) max iterations hit, (3) confidence threshold exceeded, or (4) budget exhausted gracefully.',
+        commonIssues: [
+          { issue: 'No iteration limit', symptoms: ['Unbounded queries'], diagnosis: 'Missing maxIterations guard', fix: 'Add iteration counter with configurable max' },
+          { issue: 'No diminishing returns check', symptoms: ['Trivial gaps explored'], diagnosis: 'Gap significance not scored', fix: 'Score gap importance; skip below threshold' },
+          { issue: 'No budget awareness', symptoms: ['Token overspend'], diagnosis: 'No cost tracking', fix: 'Track tokens; trigger early synthesis when budget low' }
+        ],
+        hints: ['Look for while(true) or missing break conditions', 'Check if gap importance is scored', 'Is there budget awareness?'],
+        solution: 'Add multi-signal termination: (1) maxIterations = 10, (2) gapSignificanceThreshold = 0.3, (3) budgetReserve for synthesis. Exit when any triggered.',
+        explanation: 'Deep Research Agents need disciplined termination to balance thoroughness with cost and time constraints.'
+      },
+      expectedInsights: [
+        'Research loops need multiple termination signals',
+        'Gap significance scoring prevents infinite exploration',
+        'Budget reserves ensure synthesis can complete'
+      ],
+      hints: ['Check loop termination conditions', 'Is gap importance evaluated?', 'What triggers the final synthesis?'],
+      explanation: 'Teaches the importance of bounded research loops in autonomous research agents.',
+      relatedConcepts: ['research-planning', 'budget-constraints', 'termination-conditions'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Identifies missing termination conditions',
+        'Proposes multi-signal exit criteria',
+        'Adds budget-aware early synthesis'
+      ]
+    },
+    {
+      id: 'deep-research-agent-debug-2',
+      type: 'debug',
+      conceptId: 'deep-research-agent',
+      title: 'Citation Hallucination in Report Synthesis',
+      level: 'advanced',
+      debugChallenge: {
+        id: 'deep-research-citation-hallucination',
+        title: 'Fabricated Sources in Final Report',
+        description: 'The research report cites studies that don\'t exist. Users verify citations and find 404 errors or misattributed claims.',
+        problemDescription: 'Synthesis model generates plausible-sounding citations without grounding them in actual retrieved documents. No citation verification step exists.',
+        brokenCode: `async function synthesizeReport(findings) {
+  const prompt = \`Based on these findings, write a comprehensive report with citations:
+  \${JSON.stringify(findings)}
+  Include academic-style citations for all claims.\`;
+  
+  // Problem: Model generates citations freely, not constrained to findings
+  return await llm.generate(prompt);
+}`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'synthesizer', message: 'Generated report with 23 citations', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'qa-reviewer', message: 'Citation verification: 8/23 sources not found in search results', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'qa-reviewer', message: 'Citation "Smith et al. 2023" appears fabricated', type: 'error' }
+        ],
+        expectedBehavior: 'Every citation in the report must reference a document ID from the retrieval results. Post-synthesis verification should flag ungrounded claims.',
+        commonIssues: [
+          { issue: 'Unconstrained citation generation', symptoms: ['Fake sources'], diagnosis: 'Model invents citations', fix: 'Provide explicit source list; constrain to retrieved docs' },
+          { issue: 'No verification step', symptoms: ['Bad citations reach output'], diagnosis: 'Missing post-synthesis check', fix: 'Verify each citation against source index' },
+          { issue: 'Claim-source binding unclear', symptoms: ['Misattributed claims'], diagnosis: 'Model loses source provenance', fix: 'Use structured output with explicit source IDs' }
+        ],
+        hints: ['How are citations constrained to retrieved documents?', 'Is there a verification step?', 'Are source IDs preserved through synthesis?'],
+        solution: 'Use structured output format with explicit docId references. Post-synthesis: verify every citation exists in source index; flag ungrounded claims for human review.',
+        explanation: 'Citation grounding is critical for research agents—hallucinated sources destroy trust and can cause compliance failures.'
+      },
+      expectedInsights: [
+        'Citations must be constrained to retrieved documents',
+        'Post-synthesis verification catches hallucinations',
+        'Structured output preserves source provenance'
+      ],
+      hints: ['Are citations constrained to the source list?', 'Is there post-synthesis verification?', 'How is provenance tracked?'],
+      explanation: 'Teaches citation grounding techniques essential for trustworthy research outputs.',
+      relatedConcepts: ['citation-verification', 'hallucination-detection', 'source-provenance'],
+      timeEstimate: 16,
+      successCriteria: [
+        'Identifies unconstrained citation generation',
+        'Proposes structured output with docId binding',
+        'Adds post-synthesis verification step'
+      ]
+    }
   ]
 };
 

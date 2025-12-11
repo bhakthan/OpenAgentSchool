@@ -28,7 +28,7 @@ const velocityPractices: VelocityPractice[] = [
       'Create personal pattern cheat sheet with when/why/how'
     ],
     deepDivePoints: [
-      'All 48 patterns in Pattern Explorer with velocity profiles',
+      'All 65 patterns in Pattern Explorer with velocity profiles',
       'Pattern combinations for complex workflows',
       'Anti-patterns and failure modes to avoid'
     ]
@@ -415,7 +415,7 @@ export function AgentVelocityEngineering() {
       <div className="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 rounded-2xl p-8 text-white">
         <h2 className="text-2xl font-bold mb-4">Ready to 10x Your Agent Velocity?</h2>
         <p className="text-purple-100 mb-6 text-lg">
-          Start with Pattern Fluency: Explore our 48 patterns with velocity profiles in the Pattern Explorer.
+          Start with Pattern Fluency: Explore our 65 patterns with velocity profiles in the Pattern Explorer.
           Each pattern shows impact level, time-to-implement, and velocity practice mappings.
         </p>
         <div className="flex gap-4">

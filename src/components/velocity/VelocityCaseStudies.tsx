@@ -252,7 +252,7 @@ export default function VelocityCaseStudies() {
         <h2 className="text-2xl font-bold mb-4">Ready to Achieve Similar Results?</h2>
         <p className="text-purple-100 mb-6 text-lg">
           Start with our Agent Velocity Engineering assessment to identify your biggest opportunities.
-          Then explore the 48 patterns with velocity profiles to build your team's practice.
+          Then explore the 65 patterns with velocity profiles to build your team's practice.
         </p>
         <div className="flex gap-4">
           <a

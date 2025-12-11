@@ -4245,7 +4245,103 @@ export const socraticQuestionLibrary = {
   'hierarchical-document-intelligence': hierarchicalDocumentIntelligenceSocraticQuestions,
   'contextual-onboarding-orchestrator': contextualOnboardingOrchestratorSocraticQuestions,
   // Quantum-Enhanced AI & Robotics
-  'quantum-ai-robotics': quantumAIRoboticsSocraticQuestions
+  'quantum-ai-robotics': quantumAIRoboticsSocraticQuestions,
+  // Deep Research Agent Pattern
+  'deep-research-agent': [
+    {
+      id: 'deep-research-agent-socratic-1',
+      type: 'socratic',
+      conceptId: 'deep-research-agent',
+      title: 'Why Iterate Over a Single Query?',
+      level: 'beginner',
+      socratiQuestion: 'When searching for complex information, why might sending one big query to a search engine produce worse results than sending a series of smaller, refined queries?',
+      followUpQuestions: [
+        'What happens when a question has multiple sub-parts that conflict or require different sources?',
+        'How might you discover that your initial query missed important aspects of the problem?',
+        'When would you know you have enough information to stop searching?'
+      ],
+      expectedInsights: [
+        'Complex questions often have hidden sub-questions that surface only after initial research',
+        'Knowledge gaps become visible when you attempt synthesis—triggering new queries',
+        'Iterative refinement improves recall and precision compared to single-shot retrieval'
+      ],
+      hints: [
+        'Think about how a journalist researches a story over days',
+        'Consider how one source often references another you hadn\'t considered',
+        'Reflect on when you\'ve revised a search after reading initial results'
+      ],
+      explanation: 'Deep Research Agents succeed because they treat information gathering as a multi-turn conversation with knowledge sources, not a one-time retrieval.',
+      relatedConcepts: ['agentic-rag', 'query-refinement', 'knowledge-synthesis'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Understands iterative query refinement value',
+        'Recognizes knowledge gap discovery during synthesis',
+        'Identifies stopping criteria for research loops'
+      ]
+    },
+    {
+      id: 'deep-research-agent-socratic-2',
+      type: 'socratic',
+      conceptId: 'deep-research-agent',
+      title: 'Parallel Trajectories vs Sequential Search',
+      level: 'intermediate',
+      socratiQuestion: 'If you could explore 5 different research paths simultaneously and pick the best one, how would that differ from exploring them one-by-one? What are the trade-offs?',
+      followUpQuestions: [
+        'How do you determine which trajectory produced the best answer?',
+        'What happens when different trajectories find contradictory information?',
+        'When might sequential be better than parallel exploration?'
+      ],
+      expectedInsights: [
+        'Parallel exploration (pass@k) increases likelihood of finding comprehensive answers',
+        'Trajectories need evaluation criteria—comprehensiveness, citation quality, factual consistency',
+        'Contradiction detection reveals nuance and uncertainty in the research domain'
+      ],
+      hints: [
+        'Think about how research teams divide work then synthesize findings',
+        'Consider how parallel paths might explore different aspects of the same question',
+        'Reflect on costs of compute vs. costs of missed information'
+      ],
+      explanation: 'Pass@k strategies in Deep Research Agents trade compute cost for answer quality by exploring multiple reasoning paths and selecting the best outcome.',
+      relatedConcepts: ['pass-at-k', 'multi-trajectory', 'answer-verification'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Explains parallel trajectory benefits',
+        'Proposes evaluation criteria for trajectory selection',
+        'Identifies when sequential is preferable'
+      ]
+    },
+    {
+      id: 'deep-research-agent-socratic-3',
+      type: 'socratic',
+      conceptId: 'deep-research-agent',
+      title: 'Comprehensiveness as a Metric',
+      level: 'advanced',
+      socratiQuestion: 'Traditional QA benchmarks measure if the model got the right answer. For deep research tasks, why might "got the right answer" be insufficient, and what would you measure instead?',
+      followUpQuestions: [
+        'How do you define "comprehensive" when the complete answer set is unknown?',
+        'What role do citation chains and causal reasoning play in evaluation?',
+        'How does the DeepSearchQA benchmark approach this problem?'
+      ],
+      expectedInsights: [
+        'Comprehensiveness requires measuring recall against an exhaustive set of valid answer components',
+        'Causal chain reconstruction tests deep reasoning, not just surface retrieval',
+        'Citation quality and source triangulation indicate research depth'
+      ],
+      hints: [
+        'Consider how due diligence reports are judged—completeness matters',
+        'Think about what "I found 8 of 12 relevant facts" means for reliability',
+        'Reflect on why multiple supporting sources build confidence'
+      ],
+      explanation: 'DeepSearchQA introduces comprehensiveness metrics that evaluate whether research agents capture the full scope of answer-worthy content, not just a single correct fact.',
+      relatedConcepts: ['deepsearchqa', 'comprehensiveness-metrics', 'evaluation-harnesses'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Distinguishes accuracy from comprehensiveness',
+        'Describes causal chain evaluation',
+        'References benchmark approaches like DeepSearchQA'
+      ]
+    }
+  ]
 };
 
 // Helper function to get socratic questions by concept and level

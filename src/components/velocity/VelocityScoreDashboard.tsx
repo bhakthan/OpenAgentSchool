@@ -195,7 +195,7 @@ export default function VelocityScoreDashboard() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Velocity Score Dashboard</h1>
         <p className="text-gray-600">
-          Track your agent development velocity and mastery across 48 patterns and 5 AVE practices
+          Track your agent development velocity and mastery across 65 patterns and 5 AVE practices
         </p>
       </div>
 
@@ -291,7 +291,7 @@ export default function VelocityScoreDashboard() {
             to="/patterns"
             className="inline-flex items-center gap-2 px-6 py-3 bg-white text-purple-900 rounded-lg font-medium hover:bg-purple-50 transition-colors"
           >
-            Explore 48 Patterns
+            Explore 65 Patterns
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link

@@ -101,4 +101,5 @@ export type PatternType =
   | 'human-robot-collaboration'
   | 'hybrid-quantum-classical-agent'
   | 'quantum-sensing-agent'
-  | 'quantum-accelerated-search';
+  | 'quantum-accelerated-search'
+  | 'deep-research-agent';

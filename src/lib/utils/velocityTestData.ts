@@ -99,7 +99,7 @@ export function generateExpertData() {
   ]
 
   const expertData = {
-    completedPatterns: allPatterns.slice(0, 42), // 42/48 patterns
+    completedPatterns: allPatterns.slice(0, 42), // 42/65 patterns
     implementationTimes: Object.fromEntries(
       allPatterns.slice(0, 42).map(pattern => [pattern, Math.random() * 3 + 0.5])
     ),
@@ -117,7 +117,7 @@ export function generateExpertData() {
   localStorage.setItem('user_velocity_data', JSON.stringify(expertData))
   console.log('✅ Expert velocity data created!')
   console.log('📊 Dashboard Stats:')
-  console.log(`  - Completed Patterns: ${expertData.completedPatterns.length}/48`)
+  console.log(`  - Completed Patterns: ${expertData.completedPatterns.length}/65`)
   console.log(`  - Assessment Score: ${expertData.assessmentScore}/100 (Expert)`)
   console.log(`  - Practice Coverage: 5/5 (all expert/proficient)`)
   

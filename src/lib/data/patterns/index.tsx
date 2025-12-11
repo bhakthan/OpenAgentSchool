@@ -117,6 +117,7 @@ import { humanRobotCollaborationPattern } from './humanRobotCollaboration';
 import { hybridQuantumClassicalPattern } from './hybridQuantumClassical';
 import { quantumSensingPattern } from './quantumSensing';
 import { quantumAcceleratedSearchPattern } from './quantumAcceleratedSearch';
+import { deepResearchAgentPattern } from './deepResearchAgent';
 import { patternEvaluationRegistry } from './evaluationRegistry';
 
 export const agentPatterns = [
@@ -176,6 +177,7 @@ export const agentPatterns = [
   hybridQuantumClassicalPattern,
   quantumSensingPattern,
   quantumAcceleratedSearchPattern,
+  deepResearchAgentPattern,
 ];
 
 for (const pattern of agentPatterns) {

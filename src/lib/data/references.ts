@@ -982,6 +982,42 @@ export const references: ReferencesData = {
         ]
       },
       {
+        id: "interactions-api",
+        name: "Interactions API",
+        references: [
+          {
+            title: "Interactions API Overview",
+            url: "https://ai.google.dev/gemini-api/docs/agentic/interactions",
+            description: "Unified interface for models and agents with optional server-side state, background execution, and remote MCP tool support"
+          },
+          {
+            title: "Server-Side State Management",
+            url: "https://ai.google.dev/gemini-api/docs/agentic/interactions#state",
+            description: "Optional stateful sessions that persist context server-side, eliminating client-managed conversation history"
+          },
+          {
+            title: "Background Execution",
+            url: "https://ai.google.dev/gemini-api/docs/agentic/interactions#background",
+            description: "Run long-running agent tasks asynchronously with polling or streaming updates on progress"
+          },
+          {
+            title: "Remote MCP Tool Support",
+            url: "https://ai.google.dev/gemini-api/docs/agentic/interactions#mcp",
+            description: "Integrate Model Context Protocol servers as remote tool providers in agent workflows"
+          },
+          {
+            title: "Composable Data Model",
+            url: "https://ai.google.dev/gemini-api/docs/agentic/interactions#data-model",
+            description: "Interpretable and composable data structures enabling flexible agent-model orchestration patterns"
+          },
+          {
+            title: "Standard REST Interface",
+            url: "https://ai.google.dev/gemini-api/docs/agentic/interactions#rest",
+            description: "Consistent RESTful API for both model inference and agent execution with unified request/response schemas"
+          }
+        ]
+      },
+      {
         id: "samples",
         name: "Code Samples",
         references: [
@@ -1751,6 +1787,31 @@ export const references: ReferencesData = {
             title: "Deep Research Agents - A Systemic Examination and Roadmap",
             url: "https://www.youtube.com/watch?v=qmabepUNDdk",
             description: "Architecture-focused overview of how deep research agents are built and where their lifecycle tends to break."
+          },
+          {
+            title: "Gemini Deep Research Agent - Google Blog",
+            url: "https://blog.google/technology/developers/deep-research-agent-gemini-api/",
+            description: "Official Google blog post on Gemini Deep Research agent architecture, Interactions API, and DeepSearchQA benchmark."
+          },
+          {
+            title: "DeepSearchQA Starter Code - Kaggle",
+            url: "https://www.kaggle.com/code/andrewmingwang/deepsearchqa-starter-code",
+            description: "Starter implementation code for the DeepSearchQA benchmark using Gemini API for deep research evaluation."
+          },
+          {
+            title: "DeepSearchQA Benchmark Dataset",
+            url: "https://www.kaggle.com/datasets/deepmind/deepsearchqa",
+            description: "900 hand-crafted causal chain research tasks across 17 fields for evaluating deep research agent comprehensiveness."
+          },
+          {
+            title: "DeepSearchQA Benchmark Leaderboard",
+            url: "https://www.kaggle.com/benchmarks/google/dsqa/leaderboard",
+            description: "Leaderboard tracking state-of-the-art performance on the DeepSearchQA multi-step research benchmark."
+          },
+          {
+            title: "Gemini Deep Research Documentation",
+            url: "https://ai.google.dev/gemini-api/docs/deep-research",
+            description: "Official developer documentation for building with Gemini Deep Research agent via the Interactions API."
           },
           {
             title: "MemOS - A Memory Operating System for AI Systems",

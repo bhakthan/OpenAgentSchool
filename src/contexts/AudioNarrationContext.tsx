@@ -559,6 +559,9 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'quantum-sensing-agent': 'QuantumSensing',
         'quantum-accelerated-search': 'QuantumAcceleratedSearch',
         
+        // Deep Research Agent Pattern
+        'deep-research-agent': 'DeepResearchAgent',
+        
         // Educational Agent Patterns (kebab-case IDs to PascalCase audio files)
         'socratic-coach': 'SocraticCoach',
         'concept-to-project-builder': 'ConceptToProjectBuilder',

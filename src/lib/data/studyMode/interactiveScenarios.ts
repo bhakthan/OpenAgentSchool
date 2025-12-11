@@ -6376,6 +6376,101 @@ class QuantumAugmentedNavigation:
 // Register AP2 scenario set into existing library so standard getters can access it
 (scenarioLibrary as any)['agentic-commerce-ap2'] = agenticCommerceAp2Scenarios;
 (scenarioLibrary as any)['quantum-ai-robotics'] = quantumAIRoboticsScenarios;
+// Deep Research Agent Pattern Scenarios
+(scenarioLibrary as any)['deep-research-agent'] = [
+  {
+    id: 'deep-research-agent-scenario-1',
+    type: 'scenario',
+    conceptId: 'deep-research-agent',
+    title: 'Investment Due Diligence Under Time Pressure',
+    level: 'intermediate',
+    scenario: {
+      id: 'deep-research-due-diligence',
+      description: 'An investment team needs comprehensive due diligence on a Series B startup within 48 hours. The analyst has access to web search, SEC filings, news archives, and internal deal memos.',
+      context: 'Traditional due diligence takes 2 weeks; the deal closes in 3 days. Missing material risks could expose the firm to losses; over-researching delays the decision past the window.',
+      decisionPoints: [
+        'How many parallel research trajectories should run simultaneously?',
+        'What sources should be prioritized vs. explored opportunistically?',
+        'When is the research "good enough" to make an investment recommendation?'
+      ],
+      options: [
+        'Run one deep sequential investigation covering all aspects',
+        'Spawn 8 parallel trajectories, each exploring different risk domains, then synthesize',
+        'Use cached answers from similar past deals without new research'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Sequential is too slow for the 48-hour window',
+      'Parallel trajectories maximize coverage across risk domains (market, regulatory, team, IP, financials)',
+      'Cached answers may be stale and miss company-specific risks'
+    ],
+    followUpQuestions: [
+      'How do you ensure parallel trajectories don\'t duplicate effort?',
+      'What citation quality signals indicate reliable research?',
+      'How do you handle contradictory findings across trajectories?'
+    ],
+    expectedInsights: [
+      'Parallel exploration with domain specialization accelerates comprehensive research',
+      'Synthesis requires explicit conflict resolution and source ranking',
+      'Time budgets should allocate reserves for gap-filling queries'
+    ],
+    businessContext: 'Investment firms using Deep Research Agents can evaluate more deals faster while maintaining research quality standards.',
+    relatedConcepts: ['pass-at-k', 'source-triangulation', 'time-bounded-research'],
+    timeEstimate: 16,
+    successCriteria: [
+      'Chooses parallel multi-trajectory approach',
+      'Plans for synthesis and conflict resolution',
+      'Defines stopping criteria for time-bounded research'
+    ]
+  },
+  {
+    id: 'deep-research-agent-scenario-2',
+    type: 'scenario',
+    conceptId: 'deep-research-agent',
+    title: 'Medical Literature Review with Citation Chains',
+    level: 'advanced',
+    scenario: {
+      id: 'deep-research-medical-lit',
+      description: 'A pharmaceutical company needs a comprehensive literature review on a novel drug target. The review must trace evidence chains from basic research to clinical outcomes.',
+      context: 'Regulatory submission requires demonstrating thorough review of safety signals across 50+ years of literature. Missing a key study could delay approval by months.',
+      decisionPoints: [
+        'How do you handle papers that contradict each other?',
+        'What constitutes sufficient citation depth for regulatory confidence?',
+        'How do you identify gaps in the literature that need flagging?'
+      ],
+      options: [
+        'Search top 100 papers by citation count and summarize',
+        'Build forward/backward citation chains, identify methodological clusters, synthesize with gap analysis',
+        'Rely on existing meta-analyses without primary source verification'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Citation count misses recent critical findings and niche safety signals',
+      'Citation chain analysis reveals research lineage and identifies methodological evolution',
+      'Meta-analyses may be outdated or have inclusion biases'
+    ],
+    followUpQuestions: [
+      'How does the agent decide when a citation chain is exhausted?',
+      'What metadata helps distinguish high-quality from low-quality sources?',
+      'How do you present uncertainty to regulatory reviewers?'
+    ],
+    expectedInsights: [
+      'Deep research requires understanding research provenance, not just content',
+      'Gap analysis is as valuable as finding existing answers',
+      'Regulatory contexts demand explicit uncertainty quantification'
+    ],
+    businessContext: 'Pharmaceutical companies use Deep Research Agents to accelerate literature reviews while maintaining regulatory-grade documentation.',
+    relatedConcepts: ['citation-chains', 'gap-analysis', 'regulatory-documentation'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Selects citation chain approach',
+      'Plans gap analysis and uncertainty reporting',
+      'Addresses regulatory documentation needs'
+    ]
+  }
+];
 
 // Helper function to get scenarios by concept and level
 export function getScenarios(

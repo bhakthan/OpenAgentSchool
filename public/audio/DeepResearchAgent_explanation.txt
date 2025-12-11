@@ -1,0 +1,111 @@
+# Deep Research Agent - Audio Narration Explanation
+
+## Pattern ID: deep-research-agent
+
+---
+
+## Beginner Explanation
+
+A Deep Research Agent is like having a tireless research assistant that can investigate complex questions on your behalf. Instead of you spending hours searching the web, reading documents, and taking notes, the agent does this automatically.
+
+Here's how it works: You give the agent a complex question - something that needs information from many sources. The agent then plans its investigation by breaking your question into smaller sub-questions. It searches the web, reads through documents you provide, and synthesizes what it finds.
+
+The key difference from simple search is iteration. The agent doesn't just search once - it reads results, identifies what information is still missing, and searches again. This continues until it has comprehensive coverage of your topic.
+
+Finally, it generates a detailed report with citations, so you can verify every claim. This is especially valuable for business research, due diligence, or any task requiring thorough, verified information gathering.
+
+---
+
+## Intermediate Explanation
+
+Deep Research Agent implements an autonomous multi-step research workflow using iterative planning, search, synthesis, and gap detection. The architecture is based on Google's Gemini Deep Research agent, which achieves state-of-the-art results on research benchmarks.
+
+The workflow has three main phases:
+
+**Phase 1 - Research Planning**: The agent decomposes your complex query into 3-7 sub-questions with a search strategy (breadth-first for exploration, depth-first for specific data).
+
+**Phase 2 - Iterative Search**: For each sub-question, the agent formulates search queries, executes web and document searches, extracts findings with source attribution, and detects knowledge gaps. If gaps exist, it generates refined queries and searches again. This loop continues until coverage is comprehensive or max iterations reached.
+
+**Phase 3 - Synthesis**: All findings are aggregated, cross-referenced for consistency, and synthesized into a structured report with inline citations, confidence scores, and remaining knowledge gaps.
+
+Key technical capabilities include:
+- **Multi-tool integration**: Web search and document RAG in a unified workflow
+- **Parallel trajectory exploration**: Running multiple search paths (pass@k) for answer verification
+- **Structured output**: JSON schema support for downstream application integration
+- **Deep web navigation**: Going beyond surface results to extract specific data from within sites
+
+The pattern uses Google's Interactions API, which provides a stateful interface for long-running agent tasks with streaming updates on planning, searching, and synthesis stages.
+
+---
+
+## Advanced Explanation
+
+Deep Research Agent represents the frontier of autonomous information-seeking systems, achieving 46.4% on Humanity's Last Exam, 66.1% on DeepSearchQA, and 59.2% on BrowseComp. The architecture scales multi-step reinforcement learning for search, enabling autonomous navigation of complex information landscapes.
+
+**Architectural Innovations:**
+
+1. **Causal Chain Task Handling**: DeepSearchQA benchmark features 900 hand-crafted tasks where each step depends on prior analysis. The agent maintains a reasoning trajectory that accumulates context across search iterations, enabling multi-hop reasoning.
+
+2. **Inference Time Scaling**: Performance improves significantly with more search iterations and reasoning steps. The pass@8 vs pass@1 comparison demonstrates value of exploring multiple parallel trajectories for answer verification.
+
+3. **Comprehensiveness Metrics**: Unlike traditional fact-based benchmarks, DeepSearchQA measures recall over exhaustive answer sets. This evaluates both research precision (correct findings) and retrieval recall (comprehensive coverage).
+
+**Implementation Considerations:**
+
+- **Cost Optimization**: Balance between search depth (iterations), token usage (context window), and time-to-completion. Use incremental caching of intermediate findings to reduce redundant searches.
+
+- **Verification Strategy**: Critical findings should trigger parallel verification trajectories with alternative queries. Compare findings for consistency; flag contradictions for human review.
+
+- **Document Integration**: File Search tool enables RAG over uploaded PDFs, CSVs, and docs. Large context windows (1M+ tokens in Gemini) allow extensive background information directly in prompts.
+
+- **Citation Chain Validation**: Implement citation accuracy checking by sampling and verifying source URLs match attributed claims. Track citation freshness (age of sources).
+
+**Evaluation Framework:**
+
+Deploy DeepSearchQA benchmark for systematic evaluation:
+- Access dataset at kaggle.com/datasets/deepmind/deepsearchqa
+- Use starter code for baseline implementation
+- Compare against BrowseComp and Humanity's Last Exam for general reasoning
+
+Monitor inference time scaling curves - if quality plateaus before max iterations, reduce search depth to optimize cost. If quality continues improving, consider increasing iteration limits for high-stakes queries.
+
+**Production Deployment:**
+
+For enterprise deployment, integrate MCP (Model Context Protocol) for custom data source connectivity. Future releases will include native chart generation for visual analytical reports. Consider Vertex AI deployment for enterprise governance requirements.
+
+---
+
+## References
+
+- Google Blog: Deep Research Agent with Gemini API
+  https://blog.google/technology/developers/deep-research-agent-gemini-api/
+
+- DeepSearchQA Starter Code (Kaggle)
+  https://www.kaggle.com/code/andrewmingwang/deepsearchqa-starter-code
+
+- DeepSearchQA Dataset
+  https://www.kaggle.com/datasets/deepmind/deepsearchqa
+
+- DeepSearchQA Benchmark Leaderboard
+  https://www.kaggle.com/benchmarks/google/dsqa/leaderboard
+
+- DeepSearchQA Technical Report
+  https://storage.googleapis.com/deepmind-media/DeepSearchQA/DeepSearchQA_benchmark_paper.pdf
+
+- Gemini Deep Research Documentation
+  https://ai.google.dev/gemini-api/docs/deep-research
+
+- Interactions API Documentation
+  https://blog.google/technology/developers/interactions-api
+
+---
+
+## Key Terminology
+
+- **DeepSearchQA**: Google's benchmark for evaluating deep research agents on multi-step information-seeking tasks
+- **Causal Chain Tasks**: Questions where each step depends on prior analysis, requiring iterative reasoning
+- **Pass@k Evaluation**: Running k parallel trajectories and measuring if any produces correct answer
+- **Comprehensiveness**: Measuring recall over exhaustive answer sets, not just single correct answers
+- **Inference Time Scaling**: Improving quality by allowing more search and reasoning iterations
+- **Knowledge Gap Detection**: Identifying missing information that requires additional search
+- **Citation Granularity**: Source attribution at the claim level, not just document level
