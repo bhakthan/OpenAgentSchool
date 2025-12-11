@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { trackEvent } from '@/lib/analytics/ga'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -48,7 +48,26 @@ export default function AISkillsExplorer() {
   const [viewMode, setViewMode] = useState<'tabs' | 'sections'>('sections')
   const [compactTabs, setCompactTabs] = useState(false)
   const [showTabScrollHints, setShowTabScrollHints] = useState(false)
+  const [isVideoOpen, setIsVideoOpen] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const STORAGE_KEY = 'oas.aiSkillsProgress.v2' // bump key to avoid collision with legacy progress map
+
+  const closeVideo = () => {
+    setIsVideoOpen(false)
+    if (videoRef.current) {
+      videoRef.current.pause()
+      videoRef.current.currentTime = 0
+    }
+  }
+
+  // Escape key handler for video modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isVideoOpen) closeVideo()
+    }
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [isVideoOpen])
 
   const benchmarkReferenceGroups = references.concepts['applied-ai-skills'] ?? []
   const benchmarkReferences = benchmarkReferenceGroups.flatMap(group =>
@@ -494,6 +513,25 @@ export default function AISkillsExplorer() {
                 {viewMode === 'tabs' ? 'Switch to Sections View' : 'Switch to Tabs View'}
               </Button>
             </div>
+            {/* Video Preview Section */}
+            <div className="mt-4 pt-4 border-t border-border/50">
+              <button
+                onClick={() => setIsVideoOpen(true)}
+                className="group relative w-full max-w-md rounded-xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+              >
+                <div className="aspect-video bg-gradient-to-br from-primary/20 via-background to-accent/20 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                  <div className="relative z-10 flex flex-col items-center gap-3">
+                    <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                      <svg className="w-7 h-7 text-primary-foreground ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-medium text-foreground/90 bg-background/80 px-3 py-1 rounded-full">See Agents in Action</span>
+                  </div>
+                </div>
+              </button>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="text-sm text-muted-foreground">
@@ -825,6 +863,35 @@ export default function AISkillsExplorer() {
           </section>
         )}
       </div>
+
+      {/* Video Modal */}
+      {isVideoOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={closeVideo}
+        >
+          <div className="relative w-full max-w-4xl mx-4" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={closeVideo}
+              className="absolute -top-12 right-0 text-white hover:text-primary transition-colors"
+              aria-label="Close video"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <video
+              ref={videoRef}
+              className="w-full rounded-xl shadow-2xl"
+              controls
+              autoPlay
+              src="/video/Agentic_Processes_in_Action_version_1.mp4"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

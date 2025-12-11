@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -644,6 +644,25 @@ const REFERENCE_LIBRARY: ReferenceLink[] = [
 
 const AgenticAdoptionPlaybook: React.FC = () => {
   const [activeSection, setActiveSection] = React.useState<string>(TOP_NAV_SECTIONS[0].id);
+  const [isEfficiencyVideoOpen, setIsEfficiencyVideoOpen] = useState(false);
+  const efficiencyVideoRef = useRef<HTMLVideoElement>(null);
+
+  const closeEfficiencyVideo = () => {
+    setIsEfficiencyVideoOpen(false);
+    if (efficiencyVideoRef.current) {
+      efficiencyVideoRef.current.pause();
+      efficiencyVideoRef.current.currentTime = 0;
+    }
+  };
+
+  // Escape key handler for video modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isEfficiencyVideoOpen) closeEfficiencyVideo();
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isEfficiencyVideoOpen]);
 
   const handleViewJourney = React.useCallback(() => {
     setActiveSection('transformation-journey');
@@ -1097,7 +1116,30 @@ const AgenticAdoptionPlaybook: React.FC = () => {
 
                   {/* Show Frontier Capabilities in Scale & Operate phase */}
                   {phase.id === 'scale-operate' && (
-                    <FrontierCapabilitiesCallout />
+                    <>
+                      <FrontierCapabilitiesCallout />
+                      
+                      {/* Drive Verifiable Efficiency Video */}
+                      <div className="mt-6 mb-4">
+                        <button
+                          onClick={() => setIsEfficiencyVideoOpen(true)}
+                          className="group relative w-full max-w-lg mx-auto rounded-xl overflow-hidden border border-primary/30 hover:border-primary/60 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 block"
+                        >
+                          <div className="aspect-video bg-gradient-to-br from-emerald-500/20 via-primary/10 to-teal-500/20 flex items-center justify-center">
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                            <div className="relative z-10 flex flex-col items-center gap-3">
+                              <div className="w-16 h-16 rounded-full bg-emerald-500/90 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                                <svg className="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M8 5v14l11-7z" />
+                                </svg>
+                              </div>
+                              <span className="text-sm font-medium text-foreground bg-background/80 px-3 py-1 rounded-full">Drive Verifiable Efficiency</span>
+                            </div>
+                          </div>
+                        </button>
+                        <p className="text-center text-xs text-muted-foreground mt-2">See how teams achieve measurable ROI with agentic workflows</p>
+                      </div>
+                    </>
                   )}
 
                   <div className="grid gap-4 lg:grid-cols-[2fr,1fr]">
@@ -1493,6 +1535,35 @@ const AgenticAdoptionPlaybook: React.FC = () => {
           </section>
         </TabsContent>
       </Tabs>
+
+      {/* Efficiency Video Modal */}
+      {isEfficiencyVideoOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={closeEfficiencyVideo}
+        >
+          <div className="relative w-full max-w-4xl mx-4" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={closeEfficiencyVideo}
+              className="absolute -top-12 right-0 text-white hover:text-primary transition-colors"
+              aria-label="Close video"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <video
+              ref={efficiencyVideoRef}
+              className="w-full rounded-xl shadow-2xl"
+              controls
+              autoPlay
+              src="/video/Drive_Verifiable_Efficiency_version_1.mp4"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

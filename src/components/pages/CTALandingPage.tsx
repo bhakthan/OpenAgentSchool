@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
-import { Lightning, GraduationCap, Users, RocketLaunch, ChartLineUp, HeadCircuit, Buildings, Handshake, ArrowRight } from '@phosphor-icons/react';
+import { Lightning, GraduationCap, Users, RocketLaunch, ChartLineUp, HeadCircuit, Buildings, Handshake, ArrowRight, Play, X } from '@phosphor-icons/react';
 import { PROOF_SIGNALS } from '@/components/marketing/proofSignals';
 
 /**
@@ -16,6 +16,9 @@ import { PROOF_SIGNALS } from '@/components/marketing/proofSignals';
  *  - Final CTA
  */
 const CTALandingPage: React.FC = () => {
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const track = (tier: string, source: string) => {
     try { window.dispatchEvent(new CustomEvent('analytics:ctaClick', { detail: { tier, source } })); } catch {}
   };
@@ -43,6 +46,40 @@ const CTALandingPage: React.FC = () => {
       window.dispatchEvent(new CustomEvent('analytics:abVariant', { detail: { variant: 'primary', source: 'stored', timestamp: Date.now() } }));
     } catch {}
   }, []);
+
+  // Handle escape key to close video modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsVideoOpen(false);
+      }
+    };
+
+    if (isVideoOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isVideoOpen]);
+
+  // Auto-play video when modal opens
+  useEffect(() => {
+    if (isVideoOpen && videoRef.current) {
+      videoRef.current.play();
+    }
+  }, [isVideoOpen]);
+
+  const handleCloseVideo = () => {
+    setIsVideoOpen(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
 
   return (
     <div className="space-y-24">
@@ -194,6 +231,84 @@ const CTALandingPage: React.FC = () => {
             Interactive Templates • AI Scoring • Excel/Word Export • Governance-Ready
           </p>
         </div>
+
+        {/* Video Preview Section */}
+        <div className="mt-10 pt-8 border-t border-primary/20">
+          <div className="text-center mb-6">
+            <p className="text-sm font-semibold text-primary/80 uppercase tracking-wide mb-2">See the Vision</p>
+            <h3 className="text-2xl font-bold">Deploying the Agentic Workforce</h3>
+          </div>
+          <div 
+            className="relative mx-auto max-w-3xl rounded-xl overflow-hidden border-2 border-primary/30 cursor-pointer group shadow-lg hover:shadow-2xl transition-all"
+            onClick={() => { track('video', 'agentic-workforce'); setIsVideoOpen(true); }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && setIsVideoOpen(true)}
+            aria-label="Watch Deploying the Agentic Workforce video"
+          >
+            {/* Video thumbnail/preview - first frame or poster */}
+            <div className="aspect-video bg-gradient-to-br from-primary/20 via-violet-600/20 to-fuchsia-600/20 flex items-center justify-center relative">
+              <video 
+                src="/video/Deploying_the_Agentic_Workforce_version_1.mp4" 
+                className="w-full h-full object-cover"
+                muted
+                playsInline
+                preload="metadata"
+              />
+              {/* Play overlay */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
+                <div className="bg-primary/90 rounded-full p-5 shadow-xl transform group-hover:scale-110 transition-transform duration-300">
+                  <Play className="h-12 w-12 text-primary-foreground" weight="fill" />
+                </div>
+              </div>
+              {/* Duration badge */}
+              <div className="absolute bottom-3 right-3 bg-background/80 backdrop-blur-sm rounded-full px-3 py-1.5 flex items-center gap-1.5 text-xs font-medium shadow-md">
+                <Play className="h-3.5 w-3.5" weight="fill" />
+                <span>Watch Overview</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Video Modal */}
+        {isVideoOpen && (
+          <div 
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
+            onClick={handleCloseVideo}
+          >
+            <div 
+              className="relative w-full max-w-5xl mx-4 animate-in zoom-in-95 duration-200"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button */}
+              <button
+                onClick={handleCloseVideo}
+                className="absolute -top-12 right-0 text-white/80 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                aria-label="Close video"
+              >
+                <X className="h-8 w-8" />
+              </button>
+              
+              {/* Video container */}
+              <div className="relative rounded-xl overflow-hidden shadow-2xl bg-black">
+                <video
+                  ref={videoRef}
+                  src="/video/Deploying_the_Agentic_Workforce_version_1.mp4"
+                  controls
+                  className="w-full aspect-video"
+                  playsInline
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              
+              {/* Video title */}
+              <p className="text-center text-white/70 mt-4 text-sm">
+                Deploying the Agentic Workforce — Open Agent School
+              </p>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Program Paths */}
