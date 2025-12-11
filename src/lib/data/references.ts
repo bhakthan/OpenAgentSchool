@@ -85,9 +85,9 @@ export const references: ReferencesData = {
             description: "Java SDK for Google Agent Development Kit"
           },
           {
-            title: "Azure AI Agent Framework",
-            url: "https://learn.microsoft.com/azure/ai-studio/concepts/agents-guides",
-            description: "Microsoft's agent development framework for Azure"
+            title: "Azure AI Foundry (Agent Framework)",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: "Microsoft's unified AI platform for building agents, models, and AI applications on Azure"
           }
         ]
       },
@@ -1083,9 +1083,9 @@ export const references: ReferencesData = {
             description: "Official A2A protocol spec referenced by Google ADK"
           },
           {
-            title: "Azure AI Agent Framework Documentation",
-            url: "https://learn.microsoft.com/azure/ai-studio/concepts/agents-guides",
-            description: "Introduction to Azure AI Agent Framework"
+            title: "Azure AI Foundry Documentation",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: "Official documentation for Azure AI Foundry - Microsoft's unified AI development platform"
           },
           {
             title: "Multi-Agent Systems in Azure",
@@ -1479,9 +1479,9 @@ export const references: ReferencesData = {
             description: "Orchestrate agents with Sequential, Parallel, and Loop patterns"
           },
           {
-            title: "Azure AI Agent Framework Multi-Agent",
-            url: "https://learn.microsoft.com/azure/ai-studio/concepts/agents-guides",
-            description: "Multi-agent coordination with Azure AI Agent Framework"
+            title: "Azure AI Foundry Multi-Agent",
+            url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
+            description: "Build multi-agent systems with Azure AI Foundry's unified platform"
           }
         ]
       },
