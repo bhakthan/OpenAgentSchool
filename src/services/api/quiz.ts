@@ -10,10 +10,12 @@ export const quizAPI = {
   /**
    * Get quiz questions for a category
    */
-  async getQuestions(category: string, limit: number = 10): Promise<QuizQuestion[]> {
-    return apiClient.get<QuizQuestion[]>(`/quiz/questions/${category}`, {
-      params: { limit }
-    });
+  async getQuestions(category: string, limit: number = 10, difficulty?: 'beginner' | 'intermediate' | 'advanced'): Promise<QuizQuestion[]> {
+    const params: Record<string, any> = { limit };
+    if (difficulty) {
+      params.difficulty = difficulty;
+    }
+    return apiClient.get<QuizQuestion[]>(`/quiz/questions/${category}`, { params });
   },
   
   /**

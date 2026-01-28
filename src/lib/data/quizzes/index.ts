@@ -1144,13 +1144,24 @@ export const generateQuizFeedback = (session: QuizSession): QuizFeedback[] => {
 /**
  * Get static quiz questions by category (for fallback when API unavailable)
  */
-export const getStaticQuestionsByCategory = (categoryId: string, limit: number = 15): QuizQuestion[] => {
-  const categoryQuestions = allQuestions.filter(q => q.category === categoryId);
+export const getStaticQuestionsByCategory = (categoryId: string, limit: number = 15, difficulty?: 'beginner' | 'intermediate' | 'advanced'): QuizQuestion[] => {
+  let categoryQuestions = allQuestions.filter(q => q.category === categoryId);
   
   if (categoryQuestions.length === 0) {
     // If exact category not found, try to find by subcategory
-    const subCategoryQuestions = allQuestions.filter(q => q.subCategory === categoryId);
-    return subCategoryQuestions.slice(0, limit);
+    categoryQuestions = allQuestions.filter(q => q.subCategory === categoryId);
+  }
+  
+  // Filter by difficulty if specified
+  if (difficulty) {
+    const filteredByDifficulty = categoryQuestions.filter(q => q.difficulty === difficulty);
+    // If we have enough questions at the specified difficulty, use them
+    if (filteredByDifficulty.length >= Math.min(limit, 5)) {
+      return filteredByDifficulty.slice(0, limit);
+    }
+    // Otherwise, prioritize the specified difficulty but include others
+    const otherQuestions = categoryQuestions.filter(q => q.difficulty !== difficulty);
+    return [...filteredByDifficulty, ...otherQuestions].slice(0, limit);
   }
   
   return categoryQuestions.slice(0, limit);

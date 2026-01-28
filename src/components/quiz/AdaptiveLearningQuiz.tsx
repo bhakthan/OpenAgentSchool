@@ -297,28 +297,28 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
         console.log('Fetching questions from API:', selectedCategory.id, selectedDifficulty);
         
         try {
-          const apiQuestions = await quizAPI.getQuestions(selectedCategory.id, 15);
+          const apiQuestions = await quizAPI.getQuestions(selectedCategory.id, 15, selectedDifficulty);
           questions = apiQuestions.map(mapAPIQuestionToLocal);
           console.log('✅ Fetched questions from API:', questions.length);
         } catch (apiError: any) {
           console.warn('⚠️ API unavailable, falling back to static quiz data:', apiError.message);
-          // Fallback to static quiz questions
-          questions = getStaticQuestionsByCategory(selectedCategory.id, 15);
+          // Fallback to static quiz questions with difficulty filter
+          questions = getStaticQuestionsByCategory(selectedCategory.id, 15, selectedDifficulty);
           console.log('✅ Using static fallback questions:', questions.length);
         }
       } else if (selectedPersona) {
         // Persona-adaptive quiz - try API first, fallback to static
         const primaryCategory = selectedPersona.focusAreas[0] || 'patterns';
-        console.log('Fetching questions for persona with category:', primaryCategory);
+        console.log('Fetching questions for persona with category:', primaryCategory, 'difficulty:', selectedDifficulty);
         
         try {
-          const apiQuestions = await quizAPI.getQuestions(primaryCategory, 15);
+          const apiQuestions = await quizAPI.getQuestions(primaryCategory, 15, selectedDifficulty);
           questions = apiQuestions.map(mapAPIQuestionToLocal);
           console.log('✅ Fetched questions from API:', questions.length);
         } catch (apiError: any) {
           console.warn('⚠️ API unavailable for persona quiz, using static data:', apiError.message);
-          // Fallback to static quiz questions
-          questions = getStaticQuestionsByCategory(primaryCategory, 15);
+          // Fallback to static quiz questions with difficulty filter
+          questions = getStaticQuestionsByCategory(primaryCategory, 15, selectedDifficulty);
           console.log('✅ Using static fallback questions:', questions.length);
         }
       }
