@@ -3638,6 +3638,68 @@ export const references: ReferencesData = {
           }
         ]
       }
+    ],
+
+    // Agent Skills - Modular expertise extensions for AI agents
+    "agent-skills": [
+      {
+        id: "official-resources",
+        name: "Official Agent Skills Resources",
+        references: [
+          {
+            title: "Skills.sh - Agent Skills Platform",
+            url: "https://skills.sh",
+            description: "Official platform for discovering and sharing Agent Skills"
+          },
+          {
+            title: "Claude Skills (Anthropic)",
+            url: "https://github.com/anthropics/skills/tree/main/skills",
+            description: "Official Agent Skills repository from Anthropic for Claude - includes document processing, PDF, Excel, and more"
+          },
+          {
+            title: "GitHub Copilot Skills",
+            url: "https://github.com/github/awesome-copilot/tree/main/skills",
+            description: "Curated collection of skills for GitHub Copilot CLI and agent mode"
+          },
+          {
+            title: "Agent Skills Specification",
+            url: "https://agentskills.io/specification",
+            description: "Open specification for portable, interoperable agent skills"
+          }
+        ]
+      },
+      {
+        id: "community-resources",
+        name: "Community Skills Collections",
+        references: [
+          {
+            title: "Awesome Claude Skills",
+            url: "https://github.com/ComposioHQ/awesome-claude-skills",
+            description: "Community-curated collection of useful Claude Skills"
+          },
+          {
+            title: "Skill Creator Meta-Skill",
+            url: "https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md",
+            description: "Anthropic's official skill for creating new skills - learn the 6-step process"
+          }
+        ]
+      },
+      {
+        id: "documentation",
+        name: "Skills Documentation",
+        references: [
+          {
+            title: "Claude Skills Documentation",
+            url: "https://docs.anthropic.com/en/docs/build-with-claude/claude-code/skills",
+            description: "Official Anthropic documentation on creating and using skills with Claude"
+          },
+          {
+            title: "Agent Skills Standard",
+            url: "https://agentskills.io",
+            description: "The open standard for agent skills - format, metadata, and best practices"
+          }
+        ]
+      }
     ]
   },
   

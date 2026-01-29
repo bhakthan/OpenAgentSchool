@@ -349,6 +349,394 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
       )
     },
     {
+      id: 'create-skill',
+      title: 'Create Your First Skill',
+      description: 'Hands-on walkthrough: building a practical skill',
+      icon: <Sparkle className="w-4 h-4" />,
+      level: 'implementation' as const,
+      content: (
+        <div className="space-y-6">
+          {/* Introduction */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Sparkle className="w-5 h-5 text-purple-600" />
+                Skill Creation Walkthrough
+              </CardTitle>
+              <CardDescription>
+                Build a "git-commit-messages" skill that writes meaningful commits
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg leading-relaxed">
+                Let's create a practical skill from scratch: a <strong>git-commit-messages</strong> skill 
+                that helps Claude write consistent, meaningful commit messages following 
+                conventional commits format. This walkthrough follows the 6-step process 
+                from Anthropic's skill-creator meta-skill.
+              </p>
+
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 p-4 rounded-md border border-purple-200 dark:border-purple-800">
+                <h4 className="font-semibold mb-2">The 6-Step Skill Creation Process</h4>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-purple-600 text-white text-xs flex items-center justify-center">1</span>
+                    <span>Understand</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-purple-600 text-white text-xs flex items-center justify-center">2</span>
+                    <span>Plan</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-purple-600 text-white text-xs flex items-center justify-center">3</span>
+                    <span>Initialize</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-purple-600 text-white text-xs flex items-center justify-center">4</span>
+                    <span>Edit</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-purple-600 text-white text-xs flex items-center justify-center">5</span>
+                    <span>Package</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-purple-600 text-white text-xs flex items-center justify-center">6</span>
+                    <span>Iterate</span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Step 1: Understand */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <span className="w-7 h-7 rounded-full bg-purple-600 text-white text-sm flex items-center justify-center">1</span>
+                Understand the Skill
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg">
+                First, deeply understand what the skill should do. List concrete examples 
+                of user requests that should trigger this skill.
+              </p>
+
+              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
+                <h5 className="font-semibold mb-3">Example User Requests</h5>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-500">💬</span>
+                    <span className="text-sm italic">"Write a commit message for these changes"</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-500">💬</span>
+                    <span className="text-sm italic">"Help me write a conventional commit for this feature"</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-500">💬</span>
+                    <span className="text-sm italic">"Format my commit message using conventional commits"</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-500">💬</span>
+                    <span className="text-sm italic">"I just finished the auth refactor, what should I commit?"</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+                <h5 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">Key Insight: Description is Primary Trigger</h5>
+                <p className="text-sm text-muted-foreground">
+                  The skill's <code>description</code> is the main way Claude matches user requests to skills. 
+                  Include concrete scenarios and keywords users would actually say.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Step 2: Plan */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <span className="w-7 h-7 rounded-full bg-purple-600 text-white text-sm flex items-center justify-center">2</span>
+                Plan the Skill Contents
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg">
+                Decide what resources the skill needs: scripts, references, assets. 
+                Remember: progressive disclosure means Claude only loads what's needed.
+              </p>
+
+              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg font-mono text-sm">
+                <pre>{`writing-git-commits/
+├── SKILL.md              # Instructions + conventional format
+├── references/
+│   └── EXAMPLES.md       # Real-world commit examples
+└── scripts/
+    └── analyze_diff.py   # Parse git diff for context`}</pre>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                <div className="border border-green-200 dark:border-green-700 p-3 rounded-lg bg-green-50 dark:bg-green-900/20">
+                  <h5 className="font-semibold text-green-800 dark:text-green-200 mb-1">SKILL.md</h5>
+                  <p className="text-xs text-muted-foreground">
+                    Conventional commits format, commit types, scopes, body guidelines
+                  </p>
+                </div>
+                <div className="border border-blue-200 dark:border-blue-700 p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20">
+                  <h5 className="font-semibold text-blue-800 dark:text-blue-200 mb-1">references/</h5>
+                  <p className="text-xs text-muted-foreground">
+                    Examples of good commits, edge cases, multi-line bodies
+                  </p>
+                </div>
+                <div className="border border-purple-200 dark:border-purple-700 p-3 rounded-lg bg-purple-50 dark:bg-purple-900/20">
+                  <h5 className="font-semibold text-purple-800 dark:text-purple-200 mb-1">scripts/</h5>
+                  <p className="text-xs text-muted-foreground">
+                    Optional: parse diffs, extract file names, detect change type
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Step 3 & 4: Initialize & Edit */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <span className="w-7 h-7 rounded-full bg-purple-600 text-white text-sm flex items-center justify-center">3</span>
+                <span className="mr-2">Initialize</span>
+                <span className="w-7 h-7 rounded-full bg-purple-600 text-white text-sm flex items-center justify-center">4</span>
+                <span>Edit the Skill</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg">
+                Create the skill directory and write the SKILL.md file. This is the heart of your skill.
+              </p>
+
+              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <h5 className="font-semibold mb-3 flex items-center gap-2">
+                  <FileCode className="w-4 h-4" />
+                  Complete SKILL.md Example
+                </h5>
+                <pre className="bg-slate-100 dark:bg-slate-800 p-4 rounded text-sm overflow-x-auto whitespace-pre">
+                  <code>{`---
+name: writing-git-commits
+description: >
+  Write conventional commit messages for Git. Use when the user asks
+  to write a commit message, format a commit, or needs help with
+  conventional commits. Analyzes staged changes to suggest appropriate
+  commit type, scope, and description.
+---
+
+# Writing Git Commit Messages
+
+Generate commit messages using conventional commits format.
+
+## Format
+
+\`\`\`
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+\`\`\`
+
+## Commit Types
+
+| Type | Purpose |
+|------|---------|
+| feat | New feature |
+| fix | Bug fix |
+| docs | Documentation only |
+| style | Formatting, no code change |
+| refactor | Restructure without behavior change |
+| perf | Performance improvement |
+| test | Add or update tests |
+| chore | Build, config, dependency updates |
+
+## Process
+
+1. Examine staged changes with \`git diff --staged\`
+2. Identify the primary change type
+3. Determine scope from changed files/modules
+4. Write a concise imperative description (50 chars max)
+5. Add body for complex changes (wrap at 72 chars)
+
+## Examples
+
+See [references/EXAMPLES.md](references/EXAMPLES.md) for real-world examples.
+
+## Rules
+
+- Use imperative mood: "add feature" not "added feature"
+- No period at end of subject line
+- Capitalize first letter of description
+- One logical change per commit`}</code>
+                </pre>
+              </div>
+
+              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
+                <div className="flex items-center gap-2 mb-2">
+                  <Warning className="w-5 h-5 text-amber-600" />
+                  <h5 className="font-semibold text-amber-800 dark:text-amber-200">Keep It Concise</h5>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  SKILL.md body should stay under 500 lines. Use references/ for detailed 
+                  documentation that Claude loads only when needed.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Step 5: Package */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <span className="w-7 h-7 rounded-full bg-purple-600 text-white text-sm flex items-center justify-center">5</span>
+                Package the Skill
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg">
+                Install the skill where Claude can find it. Location depends on your Claude environment.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
+                  <h5 className="font-semibold mb-2">Claude Code (Local)</h5>
+                  <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-sm overflow-x-auto">
+                    <code>{`# Copy to project skills folder
+cp -r writing-git-commits/ \\
+  .claude/skills/
+
+# Or to global skills
+cp -r writing-git-commits/ \\
+  ~/.claude/skills/`}</code>
+                  </pre>
+                </div>
+
+                <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
+                  <h5 className="font-semibold mb-2">Claude API</h5>
+                  <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-sm overflow-x-auto">
+                    <code>{`# Zip the skill directory
+zip -r commit-skill.zip \\
+  writing-git-commits/
+
+# Upload via API
+curl -X POST \\
+  https://api.anthropic.com/v1/skills \\
+  -H "x-api-key: $KEY" \\
+  -F "file=@commit-skill.zip"`}</code>
+                  </pre>
+                </div>
+              </div>
+
+              <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700 mt-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                  <h5 className="font-semibold text-green-800 dark:text-green-200">Test Your Skill</h5>
+                </div>
+                <p className="text-sm text-muted-foreground mb-2">
+                  After installation, test with the trigger phrases you identified in Step 1:
+                </p>
+                <code className="text-sm bg-green-100 dark:bg-green-800 px-2 py-1 rounded">
+                  "Help me write a commit message for these changes"
+                </code>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Step 6: Iterate */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <span className="w-7 h-7 rounded-full bg-purple-600 text-white text-sm flex items-center justify-center">6</span>
+                Iterate Based on Usage
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg">
+                Real usage reveals gaps. Refine your skill based on actual interactions.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold mb-2 flex items-center gap-2">
+                    <ArrowsClockwise className="w-4 h-4" />
+                    Common Iterations
+                  </h5>
+                  <ul className="text-sm space-y-1 text-muted-foreground">
+                    <li>• Add missing trigger keywords to description</li>
+                    <li>• Include edge cases that came up</li>
+                    <li>• Add scripts for automation</li>
+                    <li>• Split into multiple skills if scope creeps</li>
+                  </ul>
+                </div>
+
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold mb-2 flex items-center gap-2">
+                    <BookOpen className="w-4 h-4" />
+                    For This Skill
+                  </h5>
+                  <ul className="text-sm space-y-1 text-muted-foreground">
+                    <li>• Added monorepo scope patterns</li>
+                    <li>• Script to parse PR descriptions</li>
+                    <li>• Breaking change footer examples</li>
+                    <li>• Team-specific type prefixes</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 p-4 rounded-lg mt-4">
+                <h5 className="font-semibold mb-2">🎉 You've Created a Skill!</h5>
+                <p className="text-sm text-muted-foreground">
+                  Your <code>writing-git-commits</code> skill now automatically activates 
+                  when users ask for commit message help. Claude will follow your format 
+                  guidelines and reference your examples—every time.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* More Skill Ideas */}
+          <Card>
+            <CardHeader>
+              <CardTitle>More Skill Ideas to Try</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold mb-2">🔍 reviewing-code</h5>
+                  <p className="text-sm text-muted-foreground">
+                    Team code review conventions, common anti-patterns, security checks
+                  </p>
+                </div>
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold mb-2">📝 writing-api-docs</h5>
+                  <p className="text-sm text-muted-foreground">
+                    OpenAPI style, request/response examples, error code formatting
+                  </p>
+                </div>
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold mb-2">🧪 generating-tests</h5>
+                  <p className="text-sm text-muted-foreground">
+                    Test framework conventions, mocking patterns, coverage expectations
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <EnlightenMeButton
+            title="Creating Agent Skills"
+            contextDescription="Hands-on skill creation walkthrough"
+          />
+        </div>
+      )
+    },
+    {
       id: 'copilot-skills',
       title: 'Copilot Skills',
       description: 'Skills for GitHub Copilot CLI',
