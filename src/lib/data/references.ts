@@ -3700,6 +3700,63 @@ export const references: ReferencesData = {
           }
         ]
       }
+    ],
+
+    // Client Coding Agents - Terminal-based AI coding assistants
+    "client-coding-agents": [
+      {
+        id: "open-source-agents",
+        name: "Open Source Coding Agents",
+        references: [
+          {
+            title: "OpenCode",
+            url: "https://github.com/anomalyco/opencode",
+            description: "100% open source AI coding agent with TUI, provider-agnostic (Claude, OpenAI, Google, local), LSP support, and client/server architecture"
+          },
+          {
+            title: "OpenAI Codex CLI",
+            url: "https://github.com/openai/codex-cli",
+            description: "Open source Rust-based terminal coding agent from OpenAI"
+          },
+          {
+            title: "Google Gemini CLI",
+            url: "https://github.com/google/gemini-cli",
+            description: "Open source AI agent (Apache 2.0) with Gemini models and 1M token context"
+          }
+        ]
+      },
+      {
+        id: "commercial-agents",
+        name: "Commercial Coding Agents",
+        references: [
+          {
+            title: "GitHub Copilot CLI",
+            url: "https://githubnext.com/projects/copilot-cli",
+            description: "AI-powered command-line interface with deep GitHub integration"
+          },
+          {
+            title: "Claude Code",
+            url: "https://docs.anthropic.com/en/docs/build-with-claude/claude-code",
+            description: "Anthropic's terminal-native agentic coding environment"
+          }
+        ]
+      },
+      {
+        id: "context-files",
+        name: "Context File Standards",
+        references: [
+          {
+            title: "AGENTS.md Specification",
+            url: "https://opencode.ai/docs/agents",
+            description: "Standard for project context files honored by multiple coding agents"
+          },
+          {
+            title: "Claude Code Configuration",
+            url: "https://docs.anthropic.com/en/docs/build-with-claude/claude-code/configuration",
+            description: "CLAUDE.md and project configuration for Claude Code"
+          }
+        ]
+      }
     ]
   },
   

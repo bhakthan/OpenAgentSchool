@@ -2,7 +2,8 @@ import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
-import { PuzzlePiece, FileCode, FolderOpen, Robot, Lightning, Code, BookOpen, ArrowsClockwise, Sparkle, CheckCircle, Warning } from "@phosphor-icons/react"
+import SubagentSkillsMCPComparison from "../visualization/SubagentSkillsMCPComparison"
+import { PuzzlePiece, FileCode, FolderOpen, Robot, Lightning, Code, BookOpen, ArrowsClockwise, Sparkle, CheckCircle, Warning, Brain } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
@@ -87,7 +88,7 @@ export default function AgentSkillsConcept({ onMarkComplete, onNavigateToNext }:
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
                 <pre>{`my-skill/
 ├── SKILL.md          # Required: instructions + metadata
 ├── scripts/          # Optional: executable code
@@ -96,7 +97,7 @@ export default function AgentSkillsConcept({ onMarkComplete, onNavigateToNext }:
               </div>
 
               {/* SKILL.md Structure */}
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <FileCode className="w-4 h-4" />
                   The SKILL.md File
@@ -176,9 +177,116 @@ Use this skill when the user needs to work with PDF files...
             </CardContent>
           </Card>
 
+          <ReferenceSection type="concept" itemId="agent-skills" />
+
           <EnlightenMeButton
             title="What Are Agent Skills?"
             contextDescription="Understanding modular expertise extensions for AI agents"
+          />
+        </div>
+      )
+    },
+    {
+      id: 'comparison',
+      title: 'Skills vs Subagents vs MCP',
+      description: 'Understand how these patterns complement each other',
+      icon: <Brain className="w-4 h-4" />,
+      level: 'fundamentals' as const,
+      content: (
+        <div className="space-y-6">
+          {/* Interactive Comparison Visualization */}
+          <SubagentSkillsMCPComparison autoPlay={false} />
+
+          {/* When to Use Each */}
+          <Card>
+            <CardHeader>
+              <CardTitle>When to Use Each Pattern</CardTitle>
+              <CardDescription>
+                Choose the right tool for the job
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="border border-amber-200 dark:border-amber-700 rounded-lg p-4 bg-amber-50 dark:bg-amber-900/20">
+                  <h5 className="font-semibold mb-2 text-amber-800 dark:text-amber-200">🤖 Use Subagents When...</h5>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Complex research needs parallel exploration</li>
+                    <li>• Task requires separate conversation context</li>
+                    <li>• You want to keep main context clean</li>
+                    <li>• Multiple independent investigations needed</li>
+                  </ul>
+                </div>
+                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
+                  <h5 className="font-semibold mb-2 text-green-800 dark:text-green-200">🧩 Use Skills When...</h5>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• You have reusable domain expertise</li>
+                    <li>• Workflows should trigger automatically</li>
+                    <li>• Context should be added on-demand</li>
+                    <li>• You want consistent behavior patterns</li>
+                  </ul>
+                </div>
+                <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-blue-50 dark:bg-blue-900/20">
+                  <h5 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">🔌 Use MCP When...</h5>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Agent needs external data or APIs</li>
+                    <li>• Standardized tool access is required</li>
+                    <li>• Multiple agents share the same tools</li>
+                    <li>• You need secure, typed tool interfaces</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Composing Patterns */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ArrowsClockwise className="w-5 h-5" />
+                Composing Patterns Together
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg">
+                These patterns aren't mutually exclusive—they compose beautifully:
+              </p>
+              
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
+                <pre>{`User: "Research competitor APIs and draft integration plan"
+
+┌─────────────────────────────────────────────────────┐
+│ Main Agent (with integration-planning SKILL)        │
+│   ├── Spawns Subagent for competitor research      │
+│   │     └── Uses MCP to query web/docs             │
+│   ├── Skill guides structured output format        │
+│   └── Uses MCP to write plan to filesystem         │
+└─────────────────────────────────────────────────────┘`}</pre>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold mb-2">Example: Code Review Workflow</h5>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li><strong>Skill:</strong> code-review SKILL.md defines review criteria</li>
+                    <li><strong>MCP:</strong> Git MCP server accesses repo/diff</li>
+                    <li><strong>Subagent:</strong> Parallel security analysis</li>
+                  </ul>
+                </div>
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold mb-2">Example: Documentation Generation</h5>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li><strong>Skill:</strong> docs-generator SKILL.md defines format</li>
+                    <li><strong>MCP:</strong> Filesystem MCP reads source code</li>
+                    <li><strong>Subagent:</strong> Parallel API reference extraction</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <EnlightenMeButton
+            title="Skills vs Subagents vs MCP"
+            contextDescription="Understanding how these agent extension patterns work together"
           />
         </div>
       )
@@ -262,7 +370,7 @@ Use this skill when the user needs to work with PDF files...
               </div>
 
               {/* Claude Code Skills */}
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Code className="w-4 h-4" />
                   Creating Skills in Claude Code
@@ -287,7 +395,7 @@ EOF`}</code>
               </div>
 
               {/* Workflow Skills */}
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-3">Workflow Skills with Arguments</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Define repeatable workflows you invoke directly with <code>/skill-name args</code>:
@@ -467,7 +575,7 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
                 Remember: progressive disclosure means Claude only loads what's needed.
               </p>
 
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
                 <pre>{`writing-git-commits/
 ├── SKILL.md              # Instructions + conventional format
 ├── references/
@@ -514,7 +622,7 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
                 Create the skill directory and write the SKILL.md file. This is the heart of your skill.
               </p>
 
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h5 className="font-semibold mb-3 flex items-center gap-2">
                   <FileCode className="w-4 h-4" />
                   Complete SKILL.md Example
@@ -604,7 +712,7 @@ See [references/EXAMPLES.md](references/EXAMPLES.md) for real-world examples.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+                <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
                   <h5 className="font-semibold mb-2">Claude Code (Local)</h5>
                   <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                     <code>{`# Copy to project skills folder
@@ -617,7 +725,7 @@ cp -r writing-git-commits/ \\
                   </pre>
                 </div>
 
-                <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+                <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
                   <h5 className="font-semibold mb-2">Claude API</h5>
                   <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                     <code>{`# Zip the skill directory
@@ -805,7 +913,7 @@ curl -X POST \\
               </div>
 
               {/* Creating Copilot Skills */}
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-3">Creating a Copilot Skill</h4>
                 <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                   <code>{`# Structure
@@ -1020,7 +1128,7 @@ libraries available...`}</code>
                 Keep the main file under 500 lines.
               </p>
 
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
                 <h5 className="font-semibold mb-2">Pattern: High-level Guide with References</h5>
                 <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                   <code>{`# PDF Processing

@@ -2,7 +2,7 @@ import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
-import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, Key } from "@phosphor-icons/react"
+import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, Key, Sparkle } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
@@ -199,6 +199,8 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
             </CardContent>
           </Card>
 
+          <ReferenceSection type="concept" itemId="client-coding-agents" />
+
           <EnlightenMeButton
             title="CLI Coding Agents Overview"
             contextDescription="Understanding the shift to terminal-native AI coding agents"
@@ -232,7 +234,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Installation
@@ -370,7 +372,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                   alt="Error Handling pattern with try-catch, retries, and fallback strategies" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-red-200 dark:border-red-800">
+                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-red-200 dark:border-red-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
                   <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 
@@ -421,7 +423,7 @@ with CopilotClient() as client:
                   alt="Multiple Sessions pattern showing parallel model conversations" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-blue-200 dark:border-blue-800">
+                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-blue-200 dark:border-blue-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
                   <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 
@@ -472,7 +474,7 @@ client.stop()`}</code></pre>
                   alt="File Management pattern with AI-powered organization" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-green-200 dark:border-green-800">
+                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-green-200 dark:border-green-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
                   <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 import os
@@ -530,7 +532,7 @@ client.stop()`}</code></pre>
                   alt="PR Visualization pattern with GitHub MCP integration" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-purple-200 dark:border-purple-800">
+                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-purple-200 dark:border-purple-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
                   <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 import os
@@ -595,7 +597,7 @@ distribution. Save as "pr-age-chart.png".
                   alt="Session Persistence pattern for building chatbots with memory" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-amber-200 dark:border-amber-800">
+                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-amber-200 dark:border-amber-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
                   <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 
@@ -760,7 +762,7 @@ client.delete_session("user-123-conversation")`}</code></pre>
                   </div>
                 </div>
                 
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-pink-200 dark:border-pink-800">
+                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-pink-200 dark:border-pink-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
                   <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`import asyncio
 from copilot import CopilotClient
@@ -848,7 +850,7 @@ asyncio.run(parallel_multi_stack())`}</code></pre>
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Get Started in 30 Seconds
@@ -912,6 +914,23 @@ claude`}</code>
                 </div>
               </div>
 
+              {/* Subagents vs Skills vs MCP Callout */}
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800 mt-4">
+                <h4 className="font-semibold mb-2 flex items-center gap-2">
+                  <span className="text-lg">🧠</span>
+                  Subagents vs Skills vs MCP
+                </h4>
+                <p className="text-sm text-muted-foreground mb-2">
+                  These three patterns complement each other: <strong>Subagents</strong> spawn 
+                  parallel LLM instances for research, <strong>Skills</strong> add reusable 
+                  expertise on-demand, and <strong>MCP</strong> provides standardized tool access.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  See the interactive comparison in the <a href="/concepts/agent-skills" className="text-primary underline font-medium">Agent Skills</a> concept 
+                  for an animated walkthrough of how these patterns work together.
+                </p>
+              </div>
+
               {/* CLAUDE.md */}
               <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700 mt-4">
                 <h4 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">📋 CLAUDE.md Context File</h4>
@@ -941,7 +960,7 @@ claude`}</code>
                 Claude Code scales horizontally with headless mode, parallel sessions, 
                 and fan-out patterns.
               </p>
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
                 <pre className="text-sm overflow-x-auto">
                   <code>{`# Headless mode for CI/scripts
 claude -p "Explain what this project does"
@@ -992,7 +1011,7 @@ done`}</code>
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Installation
@@ -1063,7 +1082,7 @@ codex`}</code>
               </div>
 
               {/* AGENTS.md */}
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-2">📋 AGENTS.md Support</h4>
                 <p className="text-sm text-muted-foreground">
                   Codex honors AGENTS.md files for project context and coding guidelines. 
@@ -1126,7 +1145,7 @@ codex`}</code>
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Installation
@@ -1204,7 +1223,7 @@ gemini`}</code>
               </div>
 
               {/* GEMINI.md */}
-              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-2">📋 GEMINI.md Context File</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Custom context files to tailor behavior for your projects. 
@@ -1272,6 +1291,206 @@ gemini -m gemini-2.5-flash`}</code>
       )
     },
     {
+      id: 'opencode',
+      title: 'OpenCode',
+      description: '100% open source, provider-agnostic, TUI-focused',
+      icon: <Code className="w-4 h-4" />,
+      level: 'implementation' as const,
+      content: (
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Code className="w-5 h-5 text-cyan-600" />
+                OpenCode
+              </CardTitle>
+              <CardDescription>
+                The open source AI coding agent — provider-agnostic, TUI-native
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg leading-relaxed">
+                OpenCode is a 100% open source (MIT) AI coding agent with 90k+ stars. 
+                Unlike vendor-locked alternatives, OpenCode works with any provider—Claude, 
+                OpenAI, Google, or local models. Built by neovim users with a focus on 
+                terminal UI excellence and a client/server architecture.
+              </p>
+
+              {/* Installation */}
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <h4 className="font-semibold mb-3 flex items-center gap-2">
+                  <Command className="w-4 h-4" />
+                  Installation
+                </h4>
+                <div className="space-y-2">
+                  <pre className="bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 p-2 rounded text-sm overflow-x-auto">
+                    <code>{`# YOLO install
+curl -fsSL https://opencode.ai/install | bash
+
+# npm / bun / pnpm / yarn
+npm i -g opencode-ai@latest
+
+# macOS/Linux (Homebrew)
+brew install anomalyco/tap/opencode
+
+# Windows (Scoop / Chocolatey)
+scoop install opencode
+choco install opencode
+
+# Arch Linux
+paru -S opencode-bin`}</code>
+                  </pre>
+                </div>
+              </div>
+
+              {/* Key Differentiators */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div className="border border-cyan-200 dark:border-cyan-700 rounded-lg p-4 bg-cyan-50 dark:bg-cyan-900/20">
+                  <h5 className="font-semibold mb-2">🔓 100% Open Source</h5>
+                  <p className="text-sm text-muted-foreground">
+                    MIT licensed, 660+ contributors, fully auditable. 
+                    No vendor lock-in, no telemetry concerns.
+                  </p>
+                </div>
+                <div className="border border-purple-200 dark:border-purple-700 rounded-lg p-4 bg-purple-50 dark:bg-purple-900/20">
+                  <h5 className="font-semibold mb-2">🔀 Provider Agnostic</h5>
+                  <p className="text-sm text-muted-foreground">
+                    Use Claude, OpenAI, Google, or local models. 
+                    Switch providers as pricing and capabilities evolve.
+                  </p>
+                </div>
+                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
+                  <h5 className="font-semibold mb-2">🔧 Built-in LSP</h5>
+                  <p className="text-sm text-muted-foreground">
+                    Out-of-the-box Language Server Protocol support. 
+                    Better code intelligence than competitors.
+                  </p>
+                </div>
+                <div className="border border-amber-200 dark:border-amber-700 rounded-lg p-4 bg-amber-50 dark:bg-amber-900/20">
+                  <h5 className="font-semibold mb-2">📱 Client/Server</h5>
+                  <p className="text-sm text-muted-foreground">
+                    Run on your machine, control remotely from mobile. 
+                    TUI is just one possible frontend.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Built-in Agents */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Built-in Agents</CardTitle>
+              <CardDescription>
+                Switch between agents with Tab key
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="border border-border rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge className="bg-green-500">build</Badge>
+                    <span className="text-sm font-medium">Default Agent</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Full access agent for development work. Can read, write, 
+                    and execute—the workhorse for getting things done.
+                  </p>
+                </div>
+                <div className="border border-border rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge className="bg-blue-500">plan</Badge>
+                    <span className="text-sm font-medium">Read-Only Agent</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Read-only for analysis and exploration. Denies file edits, 
+                    asks permission for bash. Perfect for unfamiliar codebases.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+                <h5 className="font-semibold mb-2">@general Subagent</h5>
+                <p className="text-sm text-muted-foreground">
+                  Invoke with <code>@general</code> for complex searches and multi-step 
+                  tasks. Used internally by the main agents for delegation.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Desktop App */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Desktop App (Beta)</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg">
+                OpenCode is also available as a native desktop application:
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="border border-border rounded-lg p-3 text-center">
+                  <span className="text-2xl">🍎</span>
+                  <p className="text-sm font-medium mt-1">macOS</p>
+                  <code className="text-xs text-muted-foreground">.dmg</code>
+                </div>
+                <div className="border border-border rounded-lg p-3 text-center">
+                  <span className="text-2xl">🪟</span>
+                  <p className="text-sm font-medium mt-1">Windows</p>
+                  <code className="text-xs text-muted-foreground">.exe</code>
+                </div>
+                <div className="border border-border rounded-lg p-3 text-center">
+                  <span className="text-2xl">🐧</span>
+                  <p className="text-sm font-medium mt-1">Linux</p>
+                  <code className="text-xs text-muted-foreground">.deb/.rpm</code>
+                </div>
+                <div className="border border-border rounded-lg p-3 text-center">
+                  <span className="text-2xl">📦</span>
+                  <p className="text-sm font-medium mt-1">AppImage</p>
+                  <code className="text-xs text-muted-foreground">portable</code>
+                </div>
+              </div>
+              <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
+                <code>{`# macOS (Homebrew Cask)
+brew install --cask opencode-desktop
+
+# Windows (Scoop)
+scoop bucket add extras
+scoop install extras/opencode-desktop`}</code>
+              </pre>
+            </CardContent>
+          </Card>
+
+          {/* OpenCode Zen */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Sparkle className="w-5 h-5 text-purple-500" />
+                OpenCode Zen
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg">
+                Optional managed service at <code>opencode.ai/zen</code> for those 
+                who want curated models without managing API keys.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">Curated Models</Badge>
+                <Badge variant="secondary">No API Key Needed</Badge>
+                <Badge variant="secondary">Usage-Based Pricing</Badge>
+              </div>
+            </CardContent>
+          </Card>
+
+          <ReferenceSection type="concept" itemId="client-coding-agents" />
+
+          <EnlightenMeButton
+            title="OpenCode"
+            contextDescription="100% open source provider-agnostic AI coding agent"
+          />
+        </div>
+      )
+    },
+    {
       id: 'best-practices',
       title: 'Best Practices',
       description: 'Maximize effectiveness with CLI coding agents',
@@ -1286,7 +1505,7 @@ gemini -m gemini-2.5-flash`}</code>
                 CLI Agent Best Practices
               </CardTitle>
               <CardDescription>
-                Patterns that work across all four major CLI coding agents
+                Patterns that work across all five major CLI coding agents
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -1346,7 +1565,7 @@ gemini -m gemini-2.5-flash`}</code>
               {/* Context File Patterns */}
               <div className="space-y-4 mt-6">
                 <h4 className="font-semibold text-lg">Context File Patterns</h4>
-                <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+                <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
                   <p className="text-sm text-muted-foreground mb-3">
                     All four agents honor markdown context files. Use consistent patterns:
                   </p>
