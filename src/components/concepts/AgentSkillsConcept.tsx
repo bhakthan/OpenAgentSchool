@@ -46,7 +46,7 @@ export default function AgentSkillsConcept({ onMarkComplete, onNavigateToNext }:
               {/* Hero image */}
               <div className="my-4">
                 <img 
-                  src="/images/agent-skills.jpg" 
+                  src="/images/agent_skills.jpg" 
                   alt="Agent Skills architecture diagram showing modular skill components" 
                   className="w-full rounded-lg shadow-md border border-slate-200 dark:border-slate-700"
                 />
