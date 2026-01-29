@@ -7,6 +7,8 @@ Crawl-delay: 1
 
 # High-value content for crawlers
 Allow: /concepts/
+Allow: /concepts/agent-skills
+Allow: /concepts/client-coding-agents
 Allow: /concepts/quantum-ai-robotics
 Allow: /concepts/agentic-robotics
 Allow: /concepts/agent-learning
@@ -52,28 +54,38 @@ Sitemap: https://www.openagentschool.org/sitemap.xml
 User-agent: GPTBot
 Allow: /
 Allow: /concepts
+Allow: /concepts/agent-skills
+Allow: /concepts/client-coding-agents
 Allow: /api-docs
 Crawl-delay: 2
 
 User-agent: ChatGPT-User
 Allow: /
 Allow: /concepts
+Allow: /concepts/agent-skills
+Allow: /concepts/client-coding-agents
 Allow: /api-docs
 
 User-agent: CCBot
 Allow: /
 Allow: /concepts
+Allow: /concepts/agent-skills
+Allow: /concepts/client-coding-agents
 Crawl-delay: 2
 
 User-agent: anthropic-ai
 Allow: /
 Allow: /concepts
+Allow: /concepts/agent-skills
+Allow: /concepts/client-coding-agents
 Allow: /api-docs
 Crawl-delay: 2
 
 User-agent: Claude-Web
 Allow: /
 Allow: /concepts
+Allow: /concepts/agent-skills
+Allow: /concepts/client-coding-agents
 Allow: /api-docs
 
 # Additional AI crawlers
