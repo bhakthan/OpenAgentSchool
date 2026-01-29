@@ -89,9 +89,10 @@ export default defineConfig({
       workbox: {
         clientsClaim: true,
         skipWaiting: true,
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
+        globPatterns: ['**/*.{js,css,html,ico,svg,woff,woff2}'],
+        globIgnores: ['**/images/Agent_Skills_Tool_MCP_SubAgents.png'],  // Exclude large infographic (9MB)
         navigateFallback: null, // We'll handle navigation fallback manually
-        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024, // 6 MB (large visualization files)
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10 MB (large visualization and infographic files)
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

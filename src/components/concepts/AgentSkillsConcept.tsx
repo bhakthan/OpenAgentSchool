@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
 import SubagentSkillsMCPComparison from "../visualization/SubagentSkillsMCPComparison"
-import { PuzzlePiece, FileCode, FolderOpen, Robot, Lightning, Code, BookOpen, ArrowsClockwise, Sparkle, CheckCircle, Warning, Brain } from "@phosphor-icons/react"
+import { PuzzlePiece, FileCode, FolderOpen, Robot, Lightning, Code, BookOpen, ArrowsClockwise, Sparkle, CheckCircle, Warning, Brain, Image } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
@@ -294,6 +294,25 @@ Use this skill when the user needs to work with PDF files...
               </div>
             </CardContent>
           </Card>
+
+          {/* Infographic Visual */}
+          <div className="mt-8 bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <Image size={24} className="text-purple-500" />
+              Visual Reference: The Four Powers of AI Agents
+            </h3>
+            <p className="text-muted-foreground mb-4">
+              This quadrant-based infographic summarizes the key differences between Skills, Tools, Subagents, and MCP—helping you remember when to use each pattern.
+            </p>
+            <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+              <img 
+                src="/images/Agent_Skills_Tool_MCP_SubAgents.png" 
+                alt="Infographic comparing Subagents, Skills, Tools, and MCP - showing their unique capabilities, integration points, and use cases in AI agent architectures"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
+          </div>
 
           <EnlightenMeButton
             title="Skills vs Subagents vs Tools vs MCP"
