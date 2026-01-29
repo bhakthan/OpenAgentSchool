@@ -3731,7 +3731,7 @@ export const references: ReferencesData = {
         references: [
           {
             title: "GitHub Copilot CLI",
-            url: "https://githubnext.com/projects/copilot-cli",
+            url: "https://github.com/features/copilot/cli",
             description: "AI-powered command-line interface with deep GitHub integration"
           },
           {
