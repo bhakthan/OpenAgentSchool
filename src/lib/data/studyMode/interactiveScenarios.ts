@@ -6382,93 +6382,321 @@ class QuantumAugmentedNavigation:
     id: 'deep-research-agent-scenario-1',
     type: 'scenario',
     conceptId: 'deep-research-agent',
-    title: 'Investment Due Diligence Under Time Pressure',
+    title: 'Technology Landscape Analysis with Pass@k',
     level: 'intermediate',
     scenario: {
-      id: 'deep-research-due-diligence',
-      description: 'An investment team needs comprehensive due diligence on a Series B startup within 48 hours. The analyst has access to web search, SEC filings, news archives, and internal deal memos.',
-      context: 'Traditional due diligence takes 2 weeks; the deal closes in 3 days. Missing material risks could expose the firm to losses; over-researching delays the decision past the window.',
+      id: 'deep-research-tech-landscape',
+      description: 'A venture capital firm needs comprehensive analysis of emerging AI chip startups. The research must cover technical differentiation, funding history, team backgrounds, and competitive positioning.',
+      context: 'Investment memo deadline is 48 hours. Missing a key competitor or misrepresenting technical claims could lead to poor investment decisions.',
       decisionPoints: [
-        'How many parallel research trajectories should run simultaneously?',
-        'What sources should be prioritized vs. explored opportunistically?',
-        'When is the research "good enough" to make an investment recommendation?'
+        'How many parallel research trajectories should you run?',
+        'How do you synthesize potentially conflicting information from different sources?',
+        'What stopping criteria prevent endless research loops?'
       ],
       options: [
-        'Run one deep sequential investigation covering all aspects',
-        'Spawn 8 parallel trajectories, each exploring different risk domains, then synthesize',
-        'Use cached answers from similar past deals without new research'
+        'Single deep-dive: research one startup thoroughly, then move to next',
+        'Parallel pass@k: spawn 5 trajectories each exploring different aspects, synthesize best findings',
+        'Breadth-first: gather surface information on all startups before any deep analysis'
       ]
     },
     correctOption: 1,
     rationales: [
-      'Sequential is too slow for the 48-hour window',
-      'Parallel trajectories maximize coverage across risk domains (market, regulatory, team, IP, financials)',
-      'Cached answers may be stale and miss company-specific risks'
+      'Sequential approach may miss connections between startups',
+      'Parallel exploration maximizes coverage within time constraint, synthesis identifies strongest findings',
+      'Surface-only analysis lacks the depth needed for investment decisions'
     ],
     followUpQuestions: [
-      'How do you ensure parallel trajectories don\'t duplicate effort?',
-      'What citation quality signals indicate reliable research?',
-      'How do you handle contradictory findings across trajectories?'
+      'How do you allocate compute budget across trajectories?',
+      'What signals indicate a trajectory should be abandoned early?',
+      'How do you handle contradictory findings between trajectories?'
     ],
     expectedInsights: [
-      'Parallel exploration with domain specialization accelerates comprehensive research',
-      'Synthesis requires explicit conflict resolution and source ranking',
-      'Time budgets should allocate reserves for gap-filling queries'
+      'Pass@k increases likelihood of finding non-obvious connections',
+      'Time-bounded research needs explicit stopping criteria',
+      'Synthesis must reconcile conflicting sources'
     ],
-    businessContext: 'Investment firms using Deep Research Agents can evaluate more deals faster while maintaining research quality standards.',
-    relatedConcepts: ['pass-at-k', 'source-triangulation', 'time-bounded-research'],
+    businessContext: 'Venture capital firms increasingly use Deep Research Agents to accelerate due diligence while maintaining analytical rigor.',
+    relatedConcepts: ['pass-at-k', 'synthesis-strategies', 'time-bounded-research'],
     timeEstimate: 16,
     successCriteria: [
       'Chooses parallel multi-trajectory approach',
       'Plans for synthesis and conflict resolution',
       'Defines stopping criteria for time-bounded research'
     ]
+  }
+];
+
+// Client Coding Agents Scenarios
+(scenarioLibrary as any)['client-coding-agents'] = [
+  {
+    id: 'client-coding-agents-scenario-1',
+    type: 'scenario',
+    conceptId: 'client-coding-agents',
+    title: 'Choosing the Right CLI Agent for a Refactoring Task',
+    level: 'beginner',
+    scenario: {
+      id: 'cca-agent-selection',
+      title: 'Select CLI Agent for Legacy Codebase Migration',
+      description: 'You need to migrate a 50,000 line Python 2 codebase to Python 3. The codebase has minimal tests, inconsistent style, and uses deprecated libraries.',
+      context: 'Team has access to GitHub Copilot, Claude Code, Codex CLI, and Gemini CLI. Budget allows 2 weeks of focused effort.',
+      stakeholders: ['Engineering Team', 'Product Owner', 'QA'],
+      challenges: [
+        {
+          id: 'agent-selection',
+          title: 'Which CLI agent is best suited for this task?',
+          description: 'Consider the scope, risk level, and need for human oversight.',
+          question: 'What is your primary CLI agent recommendation?',
+          type: 'multiple-choice',
+          options: [
+            'Codex CLI in full-auto mode for fastest execution',
+            'Claude Code with careful CLAUDE.md conventions and incremental commits',
+            'Gemini CLI for its multimodal ability to understand code screenshots',
+            'GitHub Copilot suggest mode for each file individually'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Claude Code with careful configuration balances automation with oversight for high-risk migrations.',
+          hints: [
+            'Consider the risk of autonomous changes to untested code',
+            'Think about rollback and incremental progress',
+            'What level of human review is appropriate?'
+          ]
+        }
+      ],
+      outcomes: [
+        { id: 'safe-migration', condition: 'Correct agent and approach', result: 'Successful incremental migration with rollback points', explanation: 'Claude Code with conventions enables confident autonomous work with human checkpoints' }
+      ],
+      conceptId: 'client-coding-agents',
+      difficulty: 'beginner',
+      estimatedTime: '10 minutes',
+      learningOutcomes: ['Agent selection for task scope', 'Risk-appropriate autonomy levels', 'Configuration importance']
+    },
+    expectedInsights: ['Match agent autonomy to task risk', 'Configuration is critical for large changes', 'Incremental progress beats big-bang'],
+    hints: ['What is the rollback story?', 'How do you verify correctness?', 'What oversight level fits?'],
+    explanation: 'High-risk migrations require agents configured for incremental, verifiable progress rather than maximum autonomy.',
+    relatedConcepts: ['approval-modes', 'risk-management', 'incremental-delivery'],
+    timeEstimate: 10,
+    successCriteria: ['Selects appropriate agent', 'Justifies autonomy level', 'Plans verification approach']
   },
   {
-    id: 'deep-research-agent-scenario-2',
+    id: 'client-coding-agents-scenario-2',
     type: 'scenario',
-    conceptId: 'deep-research-agent',
-    title: 'Medical Literature Review with Citation Chains',
-    level: 'advanced',
+    conceptId: 'client-coding-agents',
+    title: 'Setting Up Multi-Agent Development Workflow',
+    level: 'intermediate',
     scenario: {
-      id: 'deep-research-medical-lit',
-      description: 'A pharmaceutical company needs a comprehensive literature review on a novel drug target. The review must trace evidence chains from basic research to clinical outcomes.',
-      context: 'Regulatory submission requires demonstrating thorough review of safety signals across 50+ years of literature. Missing a key study could delay approval by months.',
+      id: 'cca-multi-agent-workflow',
+      description: 'Your team uses Claude Code for backend work, Copilot for frontend, and Gemini CLI for documentation. Code style and conventions keep drifting.',
+      context: 'Each developer has different context file configurations. PR reviews show inconsistent formatting, naming conventions, and documentation styles.',
       decisionPoints: [
-        'How do you handle papers that contradict each other?',
-        'What constitutes sufficient citation depth for regulatory confidence?',
-        'How do you identify gaps in the literature that need flagging?'
+        'How do you establish shared conventions across agents?',
+        'What enforcement mechanism prevents drift?',
+        'How do team members onboard to the multi-agent workflow?'
       ],
       options: [
-        'Search top 100 papers by citation count and summarize',
-        'Build forward/backward citation chains, identify methodological clusters, synthesize with gap analysis',
-        'Rely on existing meta-analyses without primary source verification'
+        'Let each developer configure their preferred agent independently',
+        'Create shared .editorconfig/.prettierrc, reference from all context files, enforce via CI',
+        'Standardize on a single CLI agent for the entire team'
       ]
     },
     correctOption: 1,
     rationales: [
-      'Citation count misses recent critical findings and niche safety signals',
-      'Citation chain analysis reveals research lineage and identifies methodological evolution',
-      'Meta-analyses may be outdated or have inclusion biases'
+      'Independent configuration leads to ongoing drift and review friction',
+      'Shared tool-agnostic config with CI enforcement creates consistency while allowing agent choice',
+      'Single agent limits flexibility and may not suit all task types'
     ],
     followUpQuestions: [
-      'How does the agent decide when a citation chain is exhausted?',
-      'What metadata helps distinguish high-quality from low-quality sources?',
-      'How do you present uncertainty to regulatory reviewers?'
+      'How do you update shared conventions without breaking existing context files?',
+      'What happens when an agent cannot support a required convention?',
+      'How do new team members learn the multi-agent workflow?'
     ],
     expectedInsights: [
-      'Deep research requires understanding research provenance, not just content',
-      'Gap analysis is as valuable as finding existing answers',
-      'Regulatory contexts demand explicit uncertainty quantification'
+      'Tool-agnostic config is the source of truth',
+      'Agent context files reference, not duplicate, conventions',
+      'CI enforcement catches violations regardless of agent used'
     ],
-    businessContext: 'Pharmaceutical companies use Deep Research Agents to accelerate literature reviews while maintaining regulatory-grade documentation.',
-    relatedConcepts: ['citation-chains', 'gap-analysis', 'regulatory-documentation'],
-    timeEstimate: 20,
-    successCriteria: [
-      'Selects citation chain approach',
-      'Plans gap analysis and uncertainty reporting',
-      'Addresses regulatory documentation needs'
-    ]
+    businessContext: 'Teams adopting multiple CLI agents need governance strategies that allow flexibility while maintaining consistency.',
+    relatedConcepts: ['configuration-management', 'ci-cd', 'team-workflow'],
+    timeEstimate: 12,
+    successCriteria: ['Proposes shared config approach', 'Plans enforcement mechanism', 'Addresses onboarding']
+  },
+  {
+    id: 'client-coding-agents-scenario-3',
+    type: 'scenario',
+    conceptId: 'client-coding-agents',
+    title: 'Debugging Autonomous Agent Gone Wrong',
+    level: 'advanced',
+    scenario: {
+      id: 'cca-autonomous-debug',
+      description: 'Codex CLI in auto-edit mode was tasked with "refactor database access layer." It made changes to 73 files including production configs, deleted test fixtures, and modified the CI pipeline.',
+      context: 'Changes are committed but not pushed. Some modified files were outside the expected scope. Team discovered the issue during code review.',
+      decisionPoints: [
+        'How do you assess the blast radius?',
+        'What is your recovery strategy?',
+        'What guardrails would have prevented this?'
+      ],
+      options: [
+        'Reset to previous commit, lose all changes, start over with manual coding',
+        'Cherry-pick only intended database changes, investigate unintended modifications, add scope constraints',
+        'Push changes and fix issues in subsequent PRs'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Losing all changes wastes significant valid work',
+      'Selective recovery preserves good work while addressing scope creep',
+      'Pushing known-bad changes violates review principles'
+    ],
+    followUpQuestions: [
+      'How would you scope future prompts to prevent this?',
+      'What file/directory constraints could limit agent access?',
+      'How should CI detect out-of-scope changes?'
+    ],
+    expectedInsights: [
+      'Prompt specificity constrains agent scope',
+      'Filesystem constraints (allowlists/blocklists) provide hard boundaries',
+      'Diff review before commit catches scope violations'
+    ],
+    businessContext: 'As CLI agents gain autonomy, teams must implement guardrails that constrain scope without limiting useful capability.',
+    relatedConcepts: ['scope-management', 'guardrails', 'recovery-strategies'],
+    timeEstimate: 15,
+    successCriteria: ['Plans selective recovery', 'Proposes scope constraints', 'Designs prevention strategy']
+  }
+];
+
+// Agent Skills Scenarios
+(scenarioLibrary as any)['agent-skills'] = [
+  {
+    id: 'agent-skills-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-skills',
+    title: 'Designing a Skill for API Documentation',
+    level: 'beginner',
+    scenario: {
+      id: 'as-api-docs-skill',
+      title: 'Create SKILL.md for API Documentation Generation',
+      description: 'Your team frequently generates OpenAPI documentation from code. You want to create a skill that Claude can use to help with this task.',
+      context: 'The skill should work across Python FastAPI, Node Express, and Go Gin frameworks. It needs to handle different documentation styles.',
+      stakeholders: ['Developers', 'API Consumers', 'Documentation Team'],
+      challenges: [
+        {
+          id: 'description-design',
+          title: 'Write an effective skill description',
+          description: 'The description determines when this skill activates.',
+          question: 'Which description is most effective for skill discovery?',
+          type: 'multiple-choice',
+          options: [
+            'Helps with API stuff',
+            'Generate OpenAPI/Swagger documentation from code. Use when working with REST APIs, endpoint documentation, or schema generation for FastAPI, Express, or Gin.',
+            'I can create documentation for your APIs',
+            'OpenAPI generator for Python applications'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! This description includes key terms users would mention, specifies capabilities, and lists supported frameworks.',
+          hints: [
+            'What terms would users actually say?',
+            'Does it explain both what AND when?',
+            'Is it specific enough to avoid false positives?'
+          ]
+        }
+      ],
+      outcomes: [
+        { id: 'discoverable-skill', condition: 'Effective description', result: 'Skill activates reliably for API documentation tasks', explanation: 'Good descriptions match user vocabulary and include trigger conditions' }
+      ],
+      conceptId: 'agent-skills',
+      difficulty: 'beginner',
+      estimatedTime: '8 minutes',
+      learningOutcomes: ['Effective description writing', 'Trigger term selection', 'Avoiding over/under-specificity']
+    },
+    expectedInsights: ['Descriptions are discovery interfaces', 'Include user vocabulary', 'Balance specificity'],
+    hints: ['What would users say?', 'Is it too narrow?', 'Too broad?'],
+    explanation: 'Skill descriptions determine activation accuracy. They need terms that match how users describe tasks.',
+    relatedConcepts: ['skill-discovery', 'metadata-design', 'user-intent'],
+    timeEstimate: 8,
+    successCriteria: ['Identifies effective description', 'Explains why alternatives fail']
+  },
+  {
+    id: 'agent-skills-scenario-2',
+    type: 'scenario',
+    conceptId: 'agent-skills',
+    title: 'Structuring a Complex Skill with Progressive Disclosure',
+    level: 'intermediate',
+    scenario: {
+      id: 'as-progressive-disclosure',
+      description: 'You are building a skill for database migration best practices. The content includes 3000 lines of migration patterns, rollback procedures, and framework-specific guides.',
+      context: 'If loaded entirely, the skill would consume significant context. Most queries only need a subset of the information.',
+      decisionPoints: [
+        'How do you structure the skill for efficient loading?',
+        'What goes in SKILL.md vs referenced files?',
+        'How does the agent know when to load additional content?'
+      ],
+      options: [
+        'Put everything in SKILL.md for simplicity',
+        'SKILL.md with overview + decision tree, separate files for framework-specific details, agent loads on demand',
+        'Multiple separate skills, one per framework'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Monolithic file wastes context on irrelevant content',
+      'Overview + references enables progressive disclosure while maintaining skill coherence',
+      'Separate skills fragment related knowledge and complicate discovery'
+    ],
+    followUpQuestions: [
+      'How do you phrase references so the agent knows when to load them?',
+      'What happens if the agent loads all references anyway?',
+      'How do you test that progressive disclosure works correctly?'
+    ],
+    expectedInsights: [
+      'SKILL.md is an entry point, not an encyclopedia',
+      'References should include clear trigger conditions',
+      'Testing requires verifying partial loading behavior'
+    ],
+    businessContext: 'Enterprise skills often contain extensive domain knowledge that must be structured for efficient context usage.',
+    relatedConcepts: ['progressive-disclosure', 'context-efficiency', 'skill-architecture'],
+    timeEstimate: 12,
+    successCriteria: ['Chooses progressive disclosure', 'Plans file structure', 'Addresses loading triggers']
+  },
+  {
+    id: 'agent-skills-scenario-3',
+    type: 'scenario',
+    conceptId: 'agent-skills',
+    title: 'Evaluating Third-Party Skill Security',
+    level: 'advanced',
+    scenario: {
+      id: 'as-security-evaluation',
+      description: 'Your team found a highly-rated "kubernetes-deployment" skill on a community repository. Before installing it for production use, you need to evaluate its security.',
+      context: 'The skill claims to automate K8s deployments including secret management and cluster configuration. It has 500+ stars but unknown maintainer.',
+      decisionPoints: [
+        'What security concerns should you evaluate?',
+        'How do you audit the skill content?',
+        'What restrictions should you apply even if the skill passes review?'
+      ],
+      options: [
+        'Install directly - community stars indicate trustworthiness',
+        'Full audit: review all files, check for external URLs, verify scope matches claims, sandbox test before production',
+        'Fork the skill and remove any networking code'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Stars do not guarantee security - popular packages have been compromised',
+      'Comprehensive audit catches malicious or overly-broad instructions before production exposure',
+      'Removing code without understanding it may break functionality or miss other issues'
+    ],
+    followUpQuestions: [
+      'What specific patterns in skill instructions are red flags?',
+      'How do you restrict what tools the skill can invoke?',
+      'What ongoing monitoring would you implement?'
+    ],
+    expectedInsights: [
+      'Skills can direct harmful actions without executing code themselves',
+      'External URL references are high-risk vectors',
+      'Tool invocation scope should be constrained'
+    ],
+    businessContext: 'As skill ecosystems grow, organizations need security review processes analogous to software dependency management.',
+    relatedConcepts: ['supply-chain-security', 'skill-auditing', 'least-privilege'],
+    timeEstimate: 14,
+    successCriteria: ['Plans comprehensive audit', 'Identifies key risk factors', 'Proposes restrictions']
   }
 ];
 

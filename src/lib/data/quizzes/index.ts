@@ -25,6 +25,7 @@ import { agentOpsQuestions } from './agent-ops';
 import { dataAutonomyPatternsQuestions } from './data-autonomy-patterns.ts';
 import { agenticRoboticsIntegrationQuestions } from './agentic-robotics';
 import { adoptionPlaybookQuestions } from './adoption-playbook';
+import { clientCodingAgentsQuestions, agentSkillsQuestions, clientCodingAgentsTime, agentSkillsTime } from './client-coding-agents';
 // New Phase 1 foundation quizzes
 import { llmFundamentalsQuiz } from './llm-fundamentals';
 import { gettingStartedAgentsQuiz } from './getting-started-agents';
@@ -64,7 +65,9 @@ const allQuestions = [
   ...agenticCommerceAp2Questions,
   ...agentOpsQuestions,
   ...dataAutonomyPatternsQuestions,
-  ...agenticRoboticsIntegrationQuestions
+  ...agenticRoboticsIntegrationQuestions,
+  ...clientCodingAgentsQuestions,
+  ...agentSkillsQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -94,6 +97,89 @@ const agenticRoboticsTime = calculateTotalTime(agenticRoboticsIntegrationQuestio
 
 // Quiz categories configuration
 export const quizCategories: QuizCategory[] = [
+  {
+    id: 'client-coding-agents',
+    name: 'Client Coding Agents',
+    description: 'CLI-native AI coding agents: Copilot CLI, Claude Code, Codex CLI, Gemini CLI',
+    icon: 'Terminal',
+    totalQuestions: clientCodingAgentsQuestions.length,
+    estimatedTime: clientCodingAgentsTime,
+    subCategories: [
+      {
+        id: 'cli-fundamentals',
+        name: 'CLI Agent Fundamentals',
+        description: 'Core concepts of terminal-native AI coding agents',
+        prerequisites: ['mcp'],
+        questions: clientCodingAgentsQuestions.filter(q => q.subCategory === 'cli-fundamentals')
+      },
+      {
+        id: 'copilot-cli',
+        name: 'GitHub Copilot CLI',
+        description: 'Command suggestions and explanations with gh copilot',
+        prerequisites: ['cli-fundamentals'],
+        questions: clientCodingAgentsQuestions.filter(q => q.subCategory === 'copilot-cli')
+      },
+      {
+        id: 'claude-code',
+        name: 'Claude Code',
+        description: 'Anthropic\'s agentic coding assistant with CLAUDE.md configuration',
+        prerequisites: ['cli-fundamentals'],
+        questions: clientCodingAgentsQuestions.filter(q => q.subCategory === 'claude-code')
+      },
+      {
+        id: 'codex-cli',
+        name: 'OpenAI Codex CLI',
+        description: 'OpenAI\'s terminal agent with approval modes',
+        prerequisites: ['cli-fundamentals'],
+        questions: clientCodingAgentsQuestions.filter(q => q.subCategory === 'codex-cli')
+      },
+      {
+        id: 'gemini-cli',
+        name: 'Gemini CLI',
+        description: 'Google\'s multimodal CLI agent',
+        prerequisites: ['cli-fundamentals'],
+        questions: clientCodingAgentsQuestions.filter(q => q.subCategory === 'gemini-cli')
+      }
+    ]
+  },
+  {
+    id: 'agent-skills',
+    name: 'Agent Skills',
+    description: 'Modular SKILL.md expertise extending agent capabilities',
+    icon: 'PuzzlePiece',
+    totalQuestions: agentSkillsQuestions.length,
+    estimatedTime: agentSkillsTime,
+    subCategories: [
+      {
+        id: 'skills-fundamentals',
+        name: 'Skills Fundamentals',
+        description: 'Core concepts of Agent Skills and progressive disclosure',
+        prerequisites: ['client-coding-agents'],
+        questions: agentSkillsQuestions.filter(q => q.subCategory === 'skills-fundamentals')
+      },
+      {
+        id: 'skill-structure',
+        name: 'SKILL.md Structure',
+        description: 'Authoring effective SKILL.md files with proper metadata',
+        prerequisites: ['skills-fundamentals'],
+        questions: agentSkillsQuestions.filter(q => q.subCategory === 'skill-structure')
+      },
+      {
+        id: 'claude-skills',
+        name: 'Claude Skills',
+        description: 'Pre-built and custom skills for Claude Code and API',
+        prerequisites: ['skill-structure'],
+        questions: agentSkillsQuestions.filter(q => q.subCategory === 'claude-skills')
+      },
+      {
+        id: 'skill-authoring',
+        name: 'Skill Authoring',
+        description: 'Best practices for writing effective agent skills',
+        prerequisites: ['skill-structure'],
+        questions: agentSkillsQuestions.filter(q => q.subCategory === 'skill-authoring' || q.subCategory === 'best-practices')
+      }
+    ]
+  },
   {
     id: 'data-autonomy',
     name: 'Data Autonomy Patterns',

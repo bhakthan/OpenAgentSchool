@@ -90,6 +90,8 @@ export default function D3TreeVisualization({
           children: collapsedNodes.has('architecture') ? [] : [
             { id: 'a2a-communication', name: 'A2A Communication', type: 'concept' as const },
             { id: 'mcp', name: 'Model Context Protocol', type: 'concept' as const },
+            { id: 'client-coding-agents', name: 'Client Coding Agents', type: 'concept' as const, novel: true },
+            { id: 'agent-skills', name: 'Agent Skills', type: 'concept' as const, novel: true },
             { id: 'flow-visualization', name: 'Flow Visualization', type: 'concept' as const },
             { id: 'agent-evaluation', name: 'Agent Evaluation', type: 'concept' as const },
             { id: 'a2a-communication-patterns', name: 'A2A Communication Patterns', type: 'concept' as const, novel: true },

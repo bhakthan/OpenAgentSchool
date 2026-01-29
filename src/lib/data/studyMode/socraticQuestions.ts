@@ -4341,6 +4341,198 @@ export const socraticQuestionLibrary = {
         'References benchmark approaches like DeepSearchQA'
       ]
     }
+  ],
+  // Client Coding Agents
+  'client-coding-agents': [
+    {
+      id: 'client-coding-agents-socratic-1',
+      type: 'socratic',
+      conceptId: 'client-coding-agents',
+      title: 'Terminal vs IDE: When Does the Shift Make Sense?',
+      level: 'beginner',
+      socratiQuestion: 'Why might developers choose a CLI-based coding agent over an IDE-integrated assistant, and what tradeoffs come with that choice?',
+      followUpQuestions: [
+        'What capabilities does terminal access unlock that IDE plugins cannot easily provide?',
+        'When would an IDE-based approach still be preferable?',
+        'How do context files like CLAUDE.md or AGENTS.md change the workflow compared to inline prompts?'
+      ],
+      expectedInsights: [
+        'CLI agents have direct filesystem and shell access for autonomous multi-file operations',
+        'IDE assistants excel at inline suggestions and smaller, focused edits',
+        'Context files create persistent project memory versus ephemeral chat sessions'
+      ],
+      hints: [
+        'Consider what happens when you need to run tests, deploy, or modify build configs',
+        'Think about how long-running refactoring tasks differ from quick autocompletes',
+        'Reflect on session continuity and project-specific customization'
+      ],
+      explanation: 'CLI coding agents represent a shift toward autonomous, terminal-native workflows that can execute complex multi-step operations, while IDE assistants remain optimal for interactive, focused development.',
+      relatedConcepts: ['terminal-workflows', 'autonomous-agents', 'context-files'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Identifies shell/filesystem access as key differentiator',
+        'Recognizes use cases for each approach',
+        'Understands role of context files'
+      ]
+    },
+    {
+      id: 'client-coding-agents-socratic-2',
+      type: 'socratic',
+      conceptId: 'client-coding-agents',
+      title: 'Approval Modes and Trust Boundaries',
+      level: 'intermediate',
+      socratiQuestion: 'Codex CLI offers suggest, auto-edit, and full-auto modes. How would you decide which mode to use, and what guardrails would you add for each?',
+      followUpQuestions: [
+        'What risks emerge in full-auto mode that dont exist in suggest mode?',
+        'How might you sandbox autonomous execution to limit blast radius?',
+        'When does the productivity gain of full-auto outweigh the review cost of suggest mode?'
+      ],
+      expectedInsights: [
+        'Higher autonomy requires stronger guardrails: sandboxing, auditing, rollback capability',
+        'Suggest mode adds review overhead but catches errors before execution',
+        'Context and task familiarity should influence autonomy level'
+      ],
+      hints: [
+        'Think about testing environments versus production systems',
+        'Consider how reversible each operation is',
+        'Reflect on how you currently review code from human collaborators'
+      ],
+      explanation: 'Choosing an approval mode is a trust calibration exercise—matching agent autonomy to your confidence in the task scope, reversibility, and your ability to detect errors.',
+      relatedConcepts: ['approval-workflows', 'trust-calibration', 'sandboxing'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Maps autonomy levels to risk profiles',
+        'Proposes guardrails for higher autonomy',
+        'Identifies factors influencing mode selection'
+      ]
+    },
+    {
+      id: 'client-coding-agents-socratic-3',
+      type: 'socratic',
+      conceptId: 'client-coding-agents',
+      title: 'Multi-Agent Context Strategy',
+      level: 'advanced',
+      socratiQuestion: 'If your team uses Claude Code, Copilot CLI, and Gemini CLI across different workflows, how would you design a unified context strategy that works across all three?',
+      followUpQuestions: [
+        'What should be shared across CLAUDE.md, AGENTS.md, and GEMINI.md versus agent-specific?',
+        'How do you prevent conflicting instructions when agents have different capabilities?',
+        'What happens when one agent modifies files that another agent relies on for context?'
+      ],
+      expectedInsights: [
+        'Shared conventions (coding style, commit format) belong in all context files',
+        'Agent-specific capabilities (multimodal for Gemini, MCP for Claude) need dedicated sections',
+        'Context conflicts require coordination strategy or single-agent-per-task boundaries'
+      ],
+      hints: [
+        'Consider a layered approach: base conventions + agent overlays',
+        'Think about how teams manage multiple IDEs or editors today',
+        'Reflect on merge conflicts as an analogy for context conflicts'
+      ],
+      explanation: 'Multi-agent context strategy requires balancing shared conventions with agent-specific optimizations, plus coordination rules to prevent conflicting modifications.',
+      relatedConcepts: ['context-management', 'multi-agent', 'conventions'],
+      timeEstimate: 16,
+      successCriteria: [
+        'Proposes layered context architecture',
+        'Addresses capability differences',
+        'Describes conflict prevention strategy'
+      ]
+    }
+  ],
+  // Agent Skills
+  'agent-skills': [
+    {
+      id: 'agent-skills-socratic-1',
+      type: 'socratic',
+      conceptId: 'agent-skills',
+      title: 'Why Progressive Disclosure Matters',
+      level: 'beginner',
+      socratiQuestion: 'Agent Skills load metadata at startup but full instructions only when triggered. Why is this two-stage approach valuable, and what problems does it solve?',
+      followUpQuestions: [
+        'What happens to agent performance if you load all skill content at startup?',
+        'How does the agent decide when a skill is relevant without reading its full content?',
+        'What is the cost of a skill that never gets triggered?'
+      ],
+      expectedInsights: [
+        'Context windows are finite—loading everything bloats prompts and degrades quality',
+        'Metadata (name, description) provides enough signal for skill discovery',
+        'Untriggered skills have near-zero cost with progressive disclosure'
+      ],
+      hints: [
+        'Think about how search engines index vs. retrieve full documents',
+        'Consider memory management in software: lazy loading',
+        'Reflect on how you decide which reference docs to open'
+      ],
+      explanation: 'Progressive disclosure treats the context window as a shared resource, loading only what is needed when it is needed, enabling agents to have access to far more expertise than could fit in a single prompt.',
+      relatedConcepts: ['context-efficiency', 'lazy-loading', 'skill-discovery'],
+      timeEstimate: 10,
+      successCriteria: [
+        'Explains context window constraints',
+        'Describes metadata role in discovery',
+        'Identifies cost model for skills'
+      ]
+    },
+    {
+      id: 'agent-skills-socratic-2',
+      type: 'socratic',
+      conceptId: 'agent-skills',
+      title: 'Writing Effective Skill Descriptions',
+      level: 'intermediate',
+      socratiQuestion: 'The description field determines when a skill gets activated. What makes a description effective, and what common mistakes reduce skill usefulness?',
+      followUpQuestions: [
+        'How specific should the description be? What happens if too vague or too narrow?',
+        'Should descriptions mention what the skill does OR when to use it OR both?',
+        'How would you test if your description triggers at the right times?'
+      ],
+      expectedInsights: [
+        'Descriptions need key terms that match how users describe tasks',
+        'Both capability AND trigger conditions improve activation accuracy',
+        'Testing requires diverse prompts to verify recall and precision'
+      ],
+      hints: [
+        'Think about how search engine optimization works for discoverability',
+        'Consider false positives (triggers when shouldnt) vs false negatives (misses relevant tasks)',
+        'Reflect on third-person voice: "Use when..." not "I can..."'
+      ],
+      explanation: 'Skill descriptions are the discovery interface—they must contain the terms and conditions that connect user intent to skill capability without being so broad they trigger inappropriately.',
+      relatedConcepts: ['skill-discovery', 'activation-triggers', 'metadata-design'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Lists qualities of effective descriptions',
+        'Identifies common mistakes',
+        'Proposes testing approach'
+      ]
+    },
+    {
+      id: 'agent-skills-socratic-3',
+      type: 'socratic',
+      conceptId: 'agent-skills',
+      title: 'Skills Security Model',
+      level: 'advanced',
+      socratiQuestion: 'Skills provide instructions that guide agent behavior, including tool invocation. What security considerations should you evaluate before using a third-party skill?',
+      followUpQuestions: [
+        'How could a malicious skill cause harm even without executing code directly?',
+        'What audit steps would you perform before adding a skill to production agents?',
+        'How do skills compare to software dependencies in terms of supply chain risk?'
+      ],
+      expectedInsights: [
+        'Skills can direct agents to invoke tools in harmful ways without executing code themselves',
+        'Audit should cover: all files, external URL references, instruction scope',
+        'Skills are analogous to software packages—trusted sources and review matter'
+      ],
+      hints: [
+        'Consider prompt injection through skill instructions',
+        'Think about what tools the agent has access to and what skills can request',
+        'Reflect on how you evaluate npm packages or pip dependencies'
+      ],
+      explanation: 'Skills extend the attack surface of agents by providing instructions that can manipulate tool usage. Treating skills with the same rigor as software dependencies is essential for production safety.',
+      relatedConcepts: ['skill-security', 'supply-chain', 'prompt-injection'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Identifies indirect harm vectors',
+        'Describes audit process',
+        'Connects to software supply chain concepts'
+      ]
+    }
   ]
 };
 

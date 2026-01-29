@@ -77,7 +77,7 @@ const learningPaths: LearningPath[] = [
       'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance',
       'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework',
       // Tier 2: Architecture Concepts  
-      'a2a-communication', 'mcp', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management',
+      'a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management',
       // Tier 3: Implementation Concepts
       'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations',
       // Tier 4: Advanced Concepts
@@ -324,6 +324,34 @@ const learningPaths: LearningPath[] = [
         estimatedTime: '30-40 min',
         prerequisites: ['agent-security'],
         skills: ['MCP Protocol', 'Tool Integration', 'Security Patterns'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'client-coding-agents',
+        title: 'Client Coding Agents',
+        description: 'CLI-native AI agents: Copilot CLI, Claude Code, Codex CLI, Gemini CLI',
+        icon: <Robot size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '45-55 min',
+        prerequisites: ['mcp', 'agent-architecture'],
+        skills: ['CLI Tools', 'Terminal Workflows', 'Context Files', 'Agent Configuration'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'agent-skills',
+        title: 'Agent Skills',
+        description: 'Modular SKILL.md expertise that extends agent capabilities on demand',
+        icon: <PuzzlePiece size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '40-50 min',
+        prerequisites: ['client-coding-agents', 'mcp'],
+        skills: ['SKILL.md Format', 'Progressive Disclosure', 'Skills Authoring', 'Claude Skills'],
         completionRate: 0,
         isCompleted: false,
         isUnlocked: false,

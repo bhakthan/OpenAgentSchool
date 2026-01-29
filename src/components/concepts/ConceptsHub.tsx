@@ -44,6 +44,8 @@ import ExperimentationContinuousImprovementConcept from "./ExperimentationContin
 import EcosystemPartnershipsConcept from "./EcosystemPartnershipsConcept"
 import OrganizationalEnablementConcept from "./OrganizationalEnablementConcept"
 import AIProductFrameworkConcept from "./AIProductFrameworkConcept"
+import ClientCodingAgentsConcept from "./ClientCodingAgentsConcept"
+import AgentSkillsConcept from "./AgentSkillsConcept"
 
 interface ConceptInfo {
   id: string
@@ -257,6 +259,28 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '30-40 min',
     prerequisites: ['agent-security'],
     component: MCPConcept
+  },
+  {
+    id: 'client-coding-agents',
+    title: 'Client Coding Agents',
+    description: 'Master CLI-native AI agents—Copilot CLI, Claude Code, Codex CLI, Gemini CLI—the 2026 shift from vibe coding to terminal-first development.',
+    level: 'architecture',
+    icon: <Robot className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-purple-900/20 dark:text-purple-300',
+    estimatedTime: '45-55 min',
+    prerequisites: ['mcp', 'agent-architecture'],
+    component: ClientCodingAgentsConcept
+  },
+  {
+    id: 'agent-skills',
+    title: 'Agent Skills',
+    description: 'Extend agents with modular SKILL.md files—reusable expertise that loads on demand without bloating context.',
+    level: 'architecture',
+    icon: <Stack className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-cyan-900/20 dark:text-cyan-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['client-coding-agents', 'mcp'],
+    component: AgentSkillsConcept
   },
   {
     id: 'flow-visualization',
