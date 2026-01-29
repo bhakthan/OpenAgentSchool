@@ -87,7 +87,7 @@ export default function AgentSkillsConcept({ onMarkComplete, onNavigateToNext }:
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg font-mono text-sm">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
                 <pre>{`my-skill/
 ├── SKILL.md          # Required: instructions + metadata
 ├── scripts/          # Optional: executable code
@@ -96,12 +96,12 @@ export default function AgentSkillsConcept({ onMarkComplete, onNavigateToNext }:
               </div>
 
               {/* SKILL.md Structure */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <FileCode className="w-4 h-4" />
                   The SKILL.md File
                 </h4>
-                <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                   <code>{`---
 name: pdf-processing
 description: Extract text and tables from PDF files, 
@@ -262,12 +262,12 @@ Use this skill when the user needs to work with PDF files...
               </div>
 
               {/* Claude Code Skills */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg mt-4">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Code className="w-4 h-4" />
                   Creating Skills in Claude Code
                 </h4>
-                <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                   <code>{`# Create skill directory
 mkdir -p .claude/skills/api-conventions
 
@@ -287,12 +287,12 @@ EOF`}</code>
               </div>
 
               {/* Workflow Skills */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg mt-4">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-3">Workflow Skills with Arguments</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Define repeatable workflows you invoke directly with <code>/skill-name args</code>:
                 </p>
-                <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                   <code>{`---
 name: fix-issue
 description: Fix a GitHub issue
@@ -324,7 +324,7 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
               <p className="text-lg">
                 Install skills from the Anthropic skills repository or community sources:
               </p>
-              <pre className="bg-slate-100 dark:bg-slate-800 p-4 rounded text-sm overflow-x-auto">
+              <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded text-sm overflow-x-auto">
                 <code>{`# Add marketplace in Claude Code
 /plugin marketplace add anthropics/skills
 
@@ -421,24 +421,24 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
                 of user requests that should trigger this skill.
               </p>
 
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
-                <h5 className="font-semibold mb-3">Example User Requests</h5>
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+                <h5 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Example User Requests</h5>
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
                     <span className="text-green-500">💬</span>
-                    <span className="text-sm italic">"Write a commit message for these changes"</span>
+                    <span className="text-sm italic text-slate-700 dark:text-slate-300">"Write a commit message for these changes"</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-green-500">💬</span>
-                    <span className="text-sm italic">"Help me write a conventional commit for this feature"</span>
+                    <span className="text-sm italic text-slate-700 dark:text-slate-300">"Help me write a conventional commit for this feature"</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-green-500">💬</span>
-                    <span className="text-sm italic">"Format my commit message using conventional commits"</span>
+                    <span className="text-sm italic text-slate-700 dark:text-slate-300">"Format my commit message using conventional commits"</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-green-500">💬</span>
-                    <span className="text-sm italic">"I just finished the auth refactor, what should I commit?"</span>
+                    <span className="text-sm italic text-slate-700 dark:text-slate-300">"I just finished the auth refactor, what should I commit?"</span>
                   </div>
                 </div>
               </div>
@@ -467,7 +467,7 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
                 Remember: progressive disclosure means Claude only loads what's needed.
               </p>
 
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg font-mono text-sm">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
                 <pre>{`writing-git-commits/
 ├── SKILL.md              # Instructions + conventional format
 ├── references/
@@ -514,12 +514,12 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
                 Create the skill directory and write the SKILL.md file. This is the heart of your skill.
               </p>
 
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h5 className="font-semibold mb-3 flex items-center gap-2">
                   <FileCode className="w-4 h-4" />
                   Complete SKILL.md Example
                 </h5>
-                <pre className="bg-slate-100 dark:bg-slate-800 p-4 rounded text-sm overflow-x-auto whitespace-pre">
+                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded text-sm overflow-x-auto whitespace-pre">
                   <code>{`---
 name: writing-git-commits
 description: >
@@ -604,9 +604,9 @@ See [references/EXAMPLES.md](references/EXAMPLES.md) for real-world examples.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
+                <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
                   <h5 className="font-semibold mb-2">Claude Code (Local)</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-sm overflow-x-auto">
+                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                     <code>{`# Copy to project skills folder
 cp -r writing-git-commits/ \\
   .claude/skills/
@@ -617,9 +617,9 @@ cp -r writing-git-commits/ \\
                   </pre>
                 </div>
 
-                <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
+                <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
                   <h5 className="font-semibold mb-2">Claude API</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-sm overflow-x-auto">
+                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                     <code>{`# Zip the skill directory
 zip -r commit-skill.zip \\
   writing-git-commits/
@@ -762,8 +762,8 @@ curl -X POST \\
               </p>
 
               {/* Available Skills */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
-                <h4 className="font-semibold mb-3">Community Skills (github/awesome-copilot)</h4>
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+                <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Community Skills (github/awesome-copilot)</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   <div className="border border-border rounded p-3">
                     <h5 className="font-medium text-sm">agentic-eval</h5>
@@ -805,9 +805,9 @@ curl -X POST \\
               </div>
 
               {/* Creating Copilot Skills */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg mt-4">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-3">Creating a Copilot Skill</h4>
-                <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                   <code>{`# Structure
 skills/
 └── my-skill/
@@ -971,8 +971,8 @@ libraries available...`}</code>
               </div>
 
               {/* Description Guidelines */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg mt-6">
-                <h4 className="font-semibold mb-3">Writing Effective Descriptions</h4>
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-6">
+                <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Writing Effective Descriptions</h4>
                 <p className="text-sm text-muted-foreground mb-3">
                   The description enables skill discovery. Always write in third person. 
                   Include both what the skill does AND when to use it.
@@ -994,8 +994,8 @@ libraries available...`}</code>
               </div>
 
               {/* Naming Conventions */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg mt-4">
-                <h4 className="font-semibold mb-3">Naming Conventions</h4>
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+                <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Naming Conventions</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Use gerund form (verb + -ing) for skill names. Lowercase letters, numbers, and hyphens only.
                 </p>
@@ -1020,9 +1020,9 @@ libraries available...`}</code>
                 Keep the main file under 500 lines.
               </p>
 
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
                 <h5 className="font-semibold mb-2">Pattern: High-level Guide with References</h5>
-                <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                   <code>{`# PDF Processing
 
 ## Quick start
@@ -1146,8 +1146,8 @@ Extract text with pdfplumber: [code example]
               </p>
 
               {/* Key Spec Elements */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
-                <h4 className="font-semibold mb-3">SKILL.md Frontmatter Requirements</h4>
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+                <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">SKILL.md Frontmatter Requirements</h4>
                 <div className="space-y-3">
                   <div>
                     <code className="text-sm font-semibold">name</code>
@@ -1219,8 +1219,8 @@ Extract text with pdfplumber: [code example]
               </div>
 
               {/* Reference Library */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg mt-4">
-                <h4 className="font-semibold mb-2">Reference Implementation</h4>
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+                <h4 className="font-semibold mb-2 text-slate-900 dark:text-slate-100">Reference Implementation</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Use the reference library to validate skills and generate prompt XML:
                 </p>

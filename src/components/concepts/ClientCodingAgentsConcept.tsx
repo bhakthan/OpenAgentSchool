@@ -232,7 +232,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Installation
@@ -240,19 +240,19 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                 <div className="space-y-2">
                   <div>
                     <span className="text-sm text-muted-foreground">Windows (WinGet):</span>
-                    <pre className="bg-slate-100 dark:bg-slate-800 p-2 rounded mt-1 text-sm overflow-x-auto">
+                    <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded mt-1 text-sm overflow-x-auto">
                       <code>winget install GitHub.Copilot</code>
                     </pre>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">macOS/Linux (Homebrew):</span>
-                    <pre className="bg-slate-100 dark:bg-slate-800 p-2 rounded mt-1 text-sm overflow-x-auto">
+                    <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded mt-1 text-sm overflow-x-auto">
                       <code>brew install copilot-cli</code>
                     </pre>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">npm (cross-platform):</span>
-                    <pre className="bg-slate-100 dark:bg-slate-800 p-2 rounded mt-1 text-sm overflow-x-auto">
+                    <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded mt-1 text-sm overflow-x-auto">
                       <code>npm install -g @github/copilot</code>
                     </pre>
                   </div>
@@ -370,9 +370,9 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                   alt="Error Handling pattern with try-catch, retries, and fallback strategies" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 border-t border-red-200 dark:border-red-800">
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-red-200 dark:border-red-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
+                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 
 # Context manager for automatic cleanup
 with CopilotClient() as client:
@@ -421,9 +421,9 @@ with CopilotClient() as client:
                   alt="Multiple Sessions pattern showing parallel model conversations" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 border-t border-blue-200 dark:border-blue-800">
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-blue-200 dark:border-blue-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
+                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 
 client = CopilotClient()
 client.start()
@@ -472,9 +472,9 @@ client.stop()`}</code></pre>
                   alt="File Management pattern with AI-powered organization" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 border-t border-green-200 dark:border-green-800">
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-green-200 dark:border-green-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
+                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 import os
 
 client = CopilotClient()
@@ -530,9 +530,9 @@ client.stop()`}</code></pre>
                   alt="PR Visualization pattern with GitHub MCP integration" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 border-t border-purple-200 dark:border-purple-800">
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-purple-200 dark:border-purple-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
+                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 import os
 
 client = CopilotClient(log_level="error")
@@ -595,9 +595,9 @@ distribution. Save as "pr-age-chart.png".
                   alt="Session Persistence pattern for building chatbots with memory" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 border-t border-amber-200 dark:border-amber-800">
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-amber-200 dark:border-amber-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
+                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 
 # === First run: Create session ===
 client = CopilotClient()
@@ -760,9 +760,9 @@ client.delete_session("user-123-conversation")`}</code></pre>
                   </div>
                 </div>
                 
-                <div className="p-4 bg-slate-50 dark:bg-slate-900 border-t border-pink-200 dark:border-pink-800">
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-t border-pink-200 dark:border-pink-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-xs overflow-x-auto"><code>{`import asyncio
+                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`import asyncio
 from copilot import CopilotClient
 
 async def build_stack(session, stack_name: str, prompt: str):
@@ -848,12 +848,12 @@ asyncio.run(parallel_multi_stack())`}</code></pre>
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Get Started in 30 Seconds
                 </h4>
-                <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
                   <code>{`# macOS/Linux/WSL
 curl -fsSL https://claude.ai/install.sh | bash
 
@@ -941,7 +941,7 @@ claude`}</code>
                 Claude Code scales horizontally with headless mode, parallel sessions, 
                 and fan-out patterns.
               </p>
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
                 <pre className="text-sm overflow-x-auto">
                   <code>{`# Headless mode for CI/scripts
 claude -p "Explain what this project does"
@@ -992,13 +992,13 @@ done`}</code>
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Installation
                 </h4>
                 <div className="space-y-2">
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-2 rounded text-sm overflow-x-auto">
+                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded text-sm overflow-x-auto">
                     <code>{`# Install via npm
 npm i -g @openai/codex
 
@@ -1063,7 +1063,7 @@ codex`}</code>
               </div>
 
               {/* AGENTS.md */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg mt-4">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-2">📋 AGENTS.md Support</h4>
                 <p className="text-sm text-muted-foreground">
                   Codex honors AGENTS.md files for project context and coding guidelines. 
@@ -1126,13 +1126,13 @@ codex`}</code>
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Installation
                 </h4>
                 <div className="space-y-2">
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-2 rounded text-sm overflow-x-auto">
+                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded text-sm overflow-x-auto">
                     <code>{`# Run instantly with npx (no install)
 npx @google/gemini-cli
 
@@ -1204,13 +1204,13 @@ gemini`}</code>
               </div>
 
               {/* GEMINI.md */}
-              <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg mt-4">
+              <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-2">📋 GEMINI.md Context File</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Custom context files to tailor behavior for your projects. 
                   Similar to CLAUDE.md and AGENTS.md patterns.
                 </p>
-                <pre className="bg-slate-100 dark:bg-slate-800 p-2 rounded text-xs overflow-x-auto">
+                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded text-xs overflow-x-auto">
                   <code>{`# Project: My App
 - Use TypeScript strict mode
 - Run tests with: npm test
@@ -1346,7 +1346,7 @@ gemini -m gemini-2.5-flash`}</code>
               {/* Context File Patterns */}
               <div className="space-y-4 mt-6">
                 <h4 className="font-semibold text-lg">Context File Patterns</h4>
-                <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
+                <div className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
                   <p className="text-sm text-muted-foreground mb-3">
                     All four agents honor markdown context files. Use consistent patterns:
                   </p>
@@ -1368,7 +1368,7 @@ gemini -m gemini-2.5-flash`}</code>
                 <p className="text-sm text-muted-foreground">
                   All agents support non-interactive mode for CI, pre-commit hooks, and scripts:
                 </p>
-                <pre className="bg-slate-100 dark:bg-slate-800 p-4 rounded text-sm overflow-x-auto">
+                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded text-sm overflow-x-auto">
                   <code>{`# Claude Code
 claude -p "Fix lint errors" --output-format json
 
