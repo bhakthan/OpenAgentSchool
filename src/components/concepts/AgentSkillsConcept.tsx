@@ -314,6 +314,25 @@ Use this skill when the user needs to work with PDF files...
             </div>
           </div>
 
+          {/* Decision Framework Image */}
+          <div className="mt-8 bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <Image size={24} className="text-blue-500" />
+              Decision Framework: Choosing the Right Pattern
+            </h3>
+            <p className="text-muted-foreground mb-4">
+              Use this decision flowchart to quickly determine which agent architecture pattern fits your specific use case.
+            </p>
+            <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+              <img 
+                src="/images/Agent_Architecture_Decision_Framework.jpg" 
+                alt="Decision framework flowchart for choosing between Skills, Tools, Subagents, and MCP based on requirements"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
           <EnlightenMeButton
             title="Skills vs Subagents vs Tools vs MCP"
             contextDescription="Understanding how these four agent extension patterns work together"
