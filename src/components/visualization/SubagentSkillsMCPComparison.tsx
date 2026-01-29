@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Play, Pause, ArrowClockwise, Robot, PuzzlePiece, Plugs, ArrowRight, Brain, Lightning } from "@phosphor-icons/react";
+import { Play, Pause, ArrowClockwise, Robot, PuzzlePiece, Plugs, ArrowRight, Brain, Lightning, Wrench } from "@phosphor-icons/react";
 import { useTheme } from '@/components/theme/ThemeProvider';
 
 interface SubagentSkillsMCPComparisonProps {
@@ -10,7 +10,7 @@ interface SubagentSkillsMCPComparisonProps {
   className?: string;
 }
 
-type ComparisonMode = 'subagent' | 'skill' | 'mcp';
+type ComparisonMode = 'subagent' | 'skill' | 'tool' | 'mcp';
 
 interface AnimationPhase {
   id: number;
@@ -33,10 +33,10 @@ const SubagentSkillsMCPComparison: React.FC<SubagentSkillsMCPComparisonProps> = 
   const colors = {
     subagent: isDarkMode ? '#F59E0B' : '#D97706',
     skill: isDarkMode ? '#10B981' : '#059669',
+    tool: isDarkMode ? '#6366F1' : '#4F46E5',
     mcp: isDarkMode ? '#3B82F6' : '#2563EB',
     agent: isDarkMode ? '#A463F2' : '#8B5CF6',
     user: isDarkMode ? '#EC4899' : '#DB2777',
-    tool: isDarkMode ? '#6366F1' : '#4F46E5',
     flow: isDarkMode ? '#9CA3AF' : '#6B7280',
     flowActive: isDarkMode ? '#60A5FA' : '#3B82F6',
     bg: isDarkMode ? '#1F2937' : '#F9FAFB',
@@ -61,6 +61,13 @@ const SubagentSkillsMCPComparison: React.FC<SubagentSkillsMCPComparisonProps> = 
       { id: 2, title: "Context Applied", description: "Skill instructions guide agent behavior", activeNodes: ['agent', 'skill-context'], activeConnections: ['skill-agent'] },
       { id: 3, title: "Scripts Execute", description: "Optional bundled scripts run for file ops", activeNodes: ['skill-context', 'scripts'], activeConnections: ['skill-scripts'] },
       { id: 4, title: "Result Returned", description: "Agent responds using skill-guided approach", activeNodes: ['agent', 'user'], activeConnections: ['agent-user'] },
+    ],
+    tool: [
+      { id: 0, title: "Action Needed", description: "Agent determines a specific action is required", activeNodes: ['agent'], activeConnections: [] },
+      { id: 1, title: "Tool Selected", description: "Agent selects appropriate tool from available set", activeNodes: ['agent', 'tool-schema'], activeConnections: ['agent-schema'] },
+      { id: 2, title: "Parameters Built", description: "Agent constructs structured input per schema", activeNodes: ['agent', 'params'], activeConnections: ['agent-params'] },
+      { id: 3, title: "Tool Executed", description: "Function runs with provided parameters", activeNodes: ['tool-fn', 'external'], activeConnections: ['tool-external'] },
+      { id: 4, title: "Result Parsed", description: "Agent receives structured output for reasoning", activeNodes: ['tool-fn', 'agent'], activeConnections: ['tool-agent'] },
     ],
     mcp: [
       { id: 0, title: "Tool Request", description: "Agent needs external data or action", activeNodes: ['agent'], activeConnections: [] },
@@ -344,15 +351,90 @@ const SubagentSkillsMCPComparison: React.FC<SubagentSkillsMCPComparisonProps> = 
     </svg>
   );
 
+  const renderToolDiagram = () => (
+    <svg viewBox="0 0 600 300" className="w-full h-auto" style={{ minHeight: 280 }}>
+      <rect x="0" y="0" width="600" height="300" fill={colors.bg} rx="8" />
+      
+      {/* Agent */}
+      <g transform="translate(80, 150)">
+        <rect x="-45" y="-35" width="90" height="70" rx="8" 
+          fill={isNodeActive('agent') ? colors.agent : colors.border}
+          className={`transition-all duration-500 ${isNodeActive('agent') ? 'opacity-100' : 'opacity-50'}`} />
+        <text y="-5" textAnchor="middle" fill={colors.bgCard} fontSize="20">🧠</text>
+        <text y="15" textAnchor="middle" fill={colors.bgCard} fontSize="10" fontWeight="bold">AI Agent</text>
+      </g>
+
+      {/* Tool Schema */}
+      <g transform="translate(220, 80)">
+        <rect x="-45" y="-25" width="90" height="50" rx="6" 
+          fill={isNodeActive('tool-schema') ? colors.tool : colors.border}
+          className={`transition-all duration-500 ${isNodeActive('tool-schema') ? 'opacity-100' : 'opacity-40'}`} />
+        <text y="-3" textAnchor="middle" fill={colors.bgCard} fontSize="11">📋</text>
+        <text y="12" textAnchor="middle" fill={colors.bgCard} fontSize="9" fontWeight="bold">Tool Schema</text>
+        <text y="45" textAnchor="middle" fill={colors.text} fontSize="8">(name, params, returns)</text>
+      </g>
+
+      {/* Parameters */}
+      <g transform="translate(220, 180)">
+        <rect x="-40" y="-25" width="80" height="50" rx="6" 
+          fill={isNodeActive('params') ? colors.tool : colors.border}
+          className={`transition-all duration-500 ${isNodeActive('params') ? 'opacity-100' : 'opacity-40'}`} />
+        <text y="-3" textAnchor="middle" fill={colors.bgCard} fontSize="11">{`{ }`}</text>
+        <text y="12" textAnchor="middle" fill={colors.bgCard} fontSize="9" fontWeight="bold">Parameters</text>
+      </g>
+
+      {/* Tool Function */}
+      <g transform="translate(380, 150)">
+        <rect x="-55" y="-40" width="110" height="80" rx="8" 
+          fill={isNodeActive('tool-fn') ? colors.tool : colors.border}
+          stroke={colors.tool} strokeWidth="2"
+          className={`transition-all duration-500 ${isNodeActive('tool-fn') ? 'opacity-100' : 'opacity-40'}`} />
+        <text y="-10" textAnchor="middle" fill={colors.bgCard} fontSize="18">🔧</text>
+        <text y="10" textAnchor="middle" fill={colors.bgCard} fontSize="10" fontWeight="bold">Tool Function</text>
+        <text y="25" textAnchor="middle" fill={colors.bgCard} fontSize="8">Discrete Action</text>
+      </g>
+
+      {/* External System */}
+      <g transform="translate(530, 150)">
+        <rect x="-40" y="-35" width="80" height="70" rx="6" 
+          fill={isNodeActive('external') ? `${colors.tool}` : colors.border}
+          className={`transition-all duration-500 ${isNodeActive('external') ? 'opacity-100' : 'opacity-30'}`} />
+        <text y="-5" textAnchor="middle" fill={colors.bgCard} fontSize="14">🌐</text>
+        <text y="12" textAnchor="middle" fill={colors.bgCard} fontSize="9" fontWeight="bold">External</text>
+        <text y="24" textAnchor="middle" fill={colors.bgCard} fontSize="8">API/DB/FS</text>
+      </g>
+
+      {/* Connections */}
+      <line x1="125" y1="130" x2="175" y2="90" stroke={isConnectionActive('agent-schema') ? colors.flowActive : colors.flow} 
+        strokeWidth={isConnectionActive('agent-schema') ? 3 : 2} className="transition-all duration-300" />
+      <line x1="125" y1="165" x2="180" y2="175" stroke={isConnectionActive('agent-params') ? colors.flowActive : colors.flow} 
+        strokeWidth={isConnectionActive('agent-params') ? 3 : 2} className="transition-all duration-300" />
+      <line x1="260" y1="165" x2="325" y2="155" stroke={isConnectionActive('params-tool') ? colors.flowActive : colors.flow} 
+        strokeWidth={isConnectionActive('params-tool') ? 3 : 2} className="transition-all duration-300" />
+      <line x1="435" y1="150" x2="490" y2="150" stroke={isConnectionActive('tool-external') ? colors.flowActive : colors.flow} 
+        strokeWidth={isConnectionActive('tool-external') ? 3 : 2} className="transition-all duration-300" />
+      <line x1="325" y1="145" x2="125" y2="145" stroke={isConnectionActive('tool-agent') ? colors.tool : colors.flow} 
+        strokeWidth={isConnectionActive('tool-agent') ? 3 : 2} className="transition-all duration-300" strokeDasharray="5 3" />
+
+      {/* Labels */}
+      <text x="300" y="25" textAnchor="middle" fill={colors.tool} fontSize="14" fontWeight="bold">
+        Tool Pattern
+      </text>
+      <text x="300" y="285" textAnchor="middle" fill={colors.textMuted} fontSize="10">
+        Discrete function with typed schema • Input → Action → Output
+      </text>
+    </svg>
+  );
+
   return (
     <Card className={`${className}`}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Brain className="w-5 h-5" />
-          Subagents vs Skills vs MCP
+          Subagents vs Skills vs Tools vs MCP
         </CardTitle>
         <CardDescription>
-          Three complementary patterns for extending agent capabilities
+          Four complementary patterns for extending agent capabilities
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -383,6 +465,19 @@ const SubagentSkillsMCPComparison: React.FC<SubagentSkillsMCPComparisonProps> = 
           >
             <PuzzlePiece size={16} />
             Skills
+          </Button>
+          <Button 
+            variant={selectedMode === 'tool' ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => handleModeChange('tool')}
+            className="gap-2"
+            style={{ 
+              backgroundColor: selectedMode === 'tool' ? colors.tool : undefined,
+              borderColor: colors.tool 
+            }}
+          >
+            <Wrench size={16} />
+            Tools
           </Button>
           <Button 
             variant={selectedMode === 'mcp' ? 'default' : 'outline'}
@@ -448,6 +543,7 @@ const SubagentSkillsMCPComparison: React.FC<SubagentSkillsMCPComparisonProps> = 
         <div className="border border-border rounded-lg overflow-hidden">
           {selectedMode === 'subagent' && renderSubagentDiagram()}
           {selectedMode === 'skill' && renderSkillDiagram()}
+          {selectedMode === 'tool' && renderToolDiagram()}
           {selectedMode === 'mcp' && renderMCPDiagram()}
         </div>
 
@@ -458,65 +554,118 @@ const SubagentSkillsMCPComparison: React.FC<SubagentSkillsMCPComparisonProps> = 
             <table className="w-full text-sm border border-border rounded-lg overflow-hidden">
               <thead>
                 <tr className="bg-slate-100 dark:bg-slate-800">
-                  <th className="p-3 text-left font-semibold">Aspect</th>
-                  <th className="p-3 text-center" style={{ color: colors.subagent }}>
-                    <Robot className="inline w-4 h-4 mr-1" />Subagent
+                  <th className="p-2 text-left font-semibold text-xs">Aspect</th>
+                  <th className="p-2 text-center text-xs" style={{ color: colors.subagent }}>
+                    <Robot className="inline w-3 h-3 mr-1" />Subagent
                   </th>
-                  <th className="p-3 text-center" style={{ color: colors.skill }}>
-                    <PuzzlePiece className="inline w-4 h-4 mr-1" />Skill
+                  <th className="p-2 text-center text-xs" style={{ color: colors.skill }}>
+                    <PuzzlePiece className="inline w-3 h-3 mr-1" />Skill
                   </th>
-                  <th className="p-3 text-center" style={{ color: colors.mcp }}>
-                    <Plugs className="inline w-4 h-4 mr-1" />MCP
+                  <th className="p-2 text-center text-xs" style={{ color: colors.tool }}>
+                    <Wrench className="inline w-3 h-3 mr-1" />Tool
+                  </th>
+                  <th className="p-2 text-center text-xs" style={{ color: colors.mcp }}>
+                    <Plugs className="inline w-3 h-3 mr-1" />MCP
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-t border-border">
-                  <td className="p-3 font-medium">Purpose</td>
-                  <td className="p-3 text-center text-xs">Parallel LLM work</td>
-                  <td className="p-3 text-center text-xs">Reusable expertise</td>
-                  <td className="p-3 text-center text-xs">External tool access</td>
+                  <td className="p-2 font-medium text-xs">What It Is</td>
+                  <td className="p-2 text-center text-xs">Separate LLM</td>
+                  <td className="p-2 text-center text-xs">Instructions + context</td>
+                  <td className="p-2 text-center text-xs">Single function</td>
+                  <td className="p-2 text-center text-xs">Access protocol</td>
                 </tr>
                 <tr className="border-t border-border bg-slate-50 dark:bg-slate-800/50">
-                  <td className="p-3 font-medium">Context</td>
-                  <td className="p-3 text-center text-xs">Separate</td>
-                  <td className="p-3 text-center text-xs">Same (enhanced)</td>
-                  <td className="p-3 text-center text-xs">N/A (protocol)</td>
+                  <td className="p-2 font-medium text-xs">Purpose</td>
+                  <td className="p-2 text-center text-xs">Parallel work</td>
+                  <td className="p-2 text-center text-xs">Guide behavior</td>
+                  <td className="p-2 text-center text-xs">Execute action</td>
+                  <td className="p-2 text-center text-xs">Expose tools</td>
                 </tr>
                 <tr className="border-t border-border">
-                  <td className="p-3 font-medium">LLM Calls</td>
-                  <td className="p-3 text-center text-xs">New LLM instance</td>
-                  <td className="p-3 text-center text-xs">Same instance</td>
-                  <td className="p-3 text-center text-xs">Same instance</td>
+                  <td className="p-2 font-medium text-xs">Scope</td>
+                  <td className="p-2 text-center text-xs">Multi-step tasks</td>
+                  <td className="p-2 text-center text-xs">Domain workflows</td>
+                  <td className="p-2 text-center text-xs">One operation</td>
+                  <td className="p-2 text-center text-xs">Tool collection</td>
                 </tr>
                 <tr className="border-t border-border bg-slate-50 dark:bg-slate-800/50">
-                  <td className="p-3 font-medium">Cost</td>
-                  <td className="p-3 text-center text-xs">High (extra tokens)</td>
-                  <td className="p-3 text-center text-xs">Low (on-demand)</td>
-                  <td className="p-3 text-center text-xs">Medium (tool calls)</td>
+                  <td className="p-2 font-medium text-xs">Context</td>
+                  <td className="p-2 text-center text-xs">Separate</td>
+                  <td className="p-2 text-center text-xs">Same (enhanced)</td>
+                  <td className="p-2 text-center text-xs">Stateless</td>
+                  <td className="p-2 text-center text-xs">N/A</td>
                 </tr>
                 <tr className="border-t border-border">
-                  <td className="p-3 font-medium">Use When</td>
-                  <td className="p-3 text-center text-xs">Complex research</td>
-                  <td className="p-3 text-center text-xs">Domain workflows</td>
-                  <td className="p-3 text-center text-xs">External systems</td>
+                  <td className="p-2 font-medium text-xs">LLM Needed</td>
+                  <td className="p-2 text-center text-xs">Yes (new)</td>
+                  <td className="p-2 text-center text-xs">No (same)</td>
+                  <td className="p-2 text-center text-xs">No</td>
+                  <td className="p-2 text-center text-xs">No</td>
+                </tr>
+                <tr className="border-t border-border bg-slate-50 dark:bg-slate-800/50">
+                  <td className="p-2 font-medium text-xs">Example</td>
+                  <td className="p-2 text-center text-xs">Research task</td>
+                  <td className="p-2 text-center text-xs">code-review.md</td>
+                  <td className="p-2 text-center text-xs">read_file()</td>
+                  <td className="p-2 text-center text-xs">filesystem MCP</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
+        {/* Skills vs Tools Clarification */}
+        <div className="bg-gradient-to-r from-green-50 to-indigo-50 dark:from-green-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800 mt-4">
+          <h4 className="font-semibold mb-3 flex items-center gap-2">
+            <PuzzlePiece className="w-4 h-4" style={{ color: colors.skill }} />
+            vs
+            <Wrench className="w-4 h-4" style={{ color: colors.tool }} />
+            Skills vs Tools: The Key Difference
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div className="border-l-4 pl-3" style={{ borderColor: colors.skill }}>
+              <h5 className="font-semibold mb-1" style={{ color: colors.skill }}>Skills = HOW to approach</h5>
+              <p className="text-muted-foreground text-xs">
+                Skills provide <strong>instructions and context</strong> that guide agent reasoning. 
+                A skill tells the agent "when you encounter X, follow these steps and consider these factors."
+                Skills enhance the agent's decision-making within the same LLM context.
+              </p>
+              <p className="text-xs mt-2 italic text-muted-foreground">
+                Example: A code-review skill teaches the agent to check for security issues, 
+                performance patterns, and style consistency.
+              </p>
+            </div>
+            <div className="border-l-4 pl-3" style={{ borderColor: colors.tool }}>
+              <h5 className="font-semibold mb-1" style={{ color: colors.tool }}>Tools = WHAT to execute</h5>
+              <p className="text-muted-foreground text-xs">
+                Tools are <strong>discrete functions</strong> that perform specific actions. 
+                A tool has a typed schema (inputs/outputs) and executes a single operation 
+                like reading a file, querying a database, or calling an API.
+              </p>
+              <p className="text-xs mt-2 italic text-muted-foreground">
+                Example: read_file(path) returns file contents, search_web(query) returns results.
+              </p>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground mt-3 border-t border-border pt-3">
+            💡 <strong>They compose:</strong> A skill can instruct the agent to use specific tools in a particular way. 
+            The skill provides the expertise, the tools provide the capabilities.
+          </p>
+        </div>
+
         {/* Key Insight */}
         <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800 mt-4">
           <h4 className="font-semibold mb-2 flex items-center gap-2">
             <Lightning className="w-4 h-4" />
-            Key Insight: These Patterns Compose
+            Key Insight: All Four Patterns Compose
           </h4>
           <p className="text-sm text-muted-foreground">
             An agent using <strong>Skills</strong> for domain expertise can spawn a <strong>Subagent</strong> for 
-            parallel research, while both use <strong>MCP</strong> to access external tools and data. 
-            Skills enhance agent behavior, Subagents enable parallel work, and MCP provides the 
-            standardized protocol layer for tool integration.
+            parallel research, both calling <strong>Tools</strong> for discrete actions, while <strong>MCP</strong> provides 
+            the standardized protocol layer connecting tools to agents.
           </p>
         </div>
       </CardContent>

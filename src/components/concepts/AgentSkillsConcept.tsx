@@ -188,7 +188,7 @@ Use this skill when the user needs to work with PDF files...
     },
     {
       id: 'comparison',
-      title: 'Skills vs Subagents vs MCP',
+      title: 'Skills vs Subagents vs Tools vs MCP',
       description: 'Understand how these patterns complement each other',
       icon: <Brain className="w-4 h-4" />,
       level: 'fundamentals' as const,
@@ -225,13 +225,22 @@ Use this skill when the user needs to work with PDF files...
                     <li>• You want consistent behavior patterns</li>
                   </ul>
                 </div>
+                <div className="border border-indigo-200 dark:border-indigo-700 rounded-lg p-4 bg-indigo-50 dark:bg-indigo-900/20">
+                  <h5 className="font-semibold mb-2 text-indigo-800 dark:text-indigo-200">🔧 Use Tools When...</h5>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• A discrete action is needed (read, write, query)</li>
+                    <li>• Operation has typed inputs/outputs</li>
+                    <li>• Agent needs to interact with external systems</li>
+                    <li>• Stateless, one-shot execution is appropriate</li>
+                  </ul>
+                </div>
                 <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-blue-50 dark:bg-blue-900/20">
                   <h5 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">🔌 Use MCP When...</h5>
                   <ul className="text-sm text-muted-foreground space-y-1">
-                    <li>• Agent needs external data or APIs</li>
-                    <li>• Standardized tool access is required</li>
+                    <li>• You want standardized tool exposure</li>
                     <li>• Multiple agents share the same tools</li>
-                    <li>• You need secure, typed tool interfaces</li>
+                    <li>• You need secure, protocol-based access</li>
+                    <li>• Tools should be discoverable and typed</li>
                   </ul>
                 </div>
               </div>
@@ -257,9 +266,9 @@ Use this skill when the user needs to work with PDF files...
 ┌─────────────────────────────────────────────────────┐
 │ Main Agent (with integration-planning SKILL)        │
 │   ├── Spawns Subagent for competitor research      │
-│   │     └── Uses MCP to query web/docs             │
+│   │     └── Calls Tools: search_web, read_docs     │
 │   ├── Skill guides structured output format        │
-│   └── Uses MCP to write plan to filesystem         │
+│   └── Calls Tools via MCP: write_file(plan.md)    │
 └─────────────────────────────────────────────────────┘`}</pre>
               </div>
 
@@ -268,15 +277,17 @@ Use this skill when the user needs to work with PDF files...
                   <h5 className="font-semibold mb-2">Example: Code Review Workflow</h5>
                   <ul className="text-sm text-muted-foreground space-y-1">
                     <li><strong>Skill:</strong> code-review SKILL.md defines review criteria</li>
-                    <li><strong>MCP:</strong> Git MCP server accesses repo/diff</li>
-                    <li><strong>Subagent:</strong> Parallel security analysis</li>
+                    <li><strong>Tools:</strong> read_file(), get_diff(), add_comment()</li>
+                    <li><strong>MCP:</strong> Git MCP server exposes tools to agent</li>
+                    <li><strong>Subagent:</strong> Parallel security analysis in separate context</li>
                   </ul>
                 </div>
                 <div className="border border-border rounded-lg p-4">
                   <h5 className="font-semibold mb-2">Example: Documentation Generation</h5>
                   <ul className="text-sm text-muted-foreground space-y-1">
                     <li><strong>Skill:</strong> docs-generator SKILL.md defines format</li>
-                    <li><strong>MCP:</strong> Filesystem MCP reads source code</li>
+                    <li><strong>Tools:</strong> read_file(), write_file(), list_dir()</li>
+                    <li><strong>MCP:</strong> Filesystem MCP provides the tools</li>
                     <li><strong>Subagent:</strong> Parallel API reference extraction</li>
                   </ul>
                 </div>
@@ -285,8 +296,8 @@ Use this skill when the user needs to work with PDF files...
           </Card>
 
           <EnlightenMeButton
-            title="Skills vs Subagents vs MCP"
-            contextDescription="Understanding how these agent extension patterns work together"
+            title="Skills vs Subagents vs Tools vs MCP"
+            contextDescription="Understanding how these four agent extension patterns work together"
           />
         </div>
       )
