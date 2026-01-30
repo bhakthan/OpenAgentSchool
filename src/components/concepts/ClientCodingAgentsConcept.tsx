@@ -2,7 +2,7 @@ import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
-import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, Key, Sparkle } from "@phosphor-icons/react"
+import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, Key, Sparkle, Plugs } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
@@ -1486,6 +1486,315 @@ scoop install extras/opencode-desktop`}</code>
           <EnlightenMeButton
             title="OpenCode"
             contextDescription="100% open source provider-agnostic AI coding agent"
+          />
+        </div>
+      )
+    },
+    {
+      id: 'agent-client-protocol',
+      title: 'Agent Client Protocol (ACP)',
+      description: 'Standardizing editor-to-agent communication',
+      icon: <Plugs className="w-4 h-4" />,
+      level: 'architecture' as const,
+      content: (
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Plugs className="w-5 h-5 text-indigo-600" />
+                Agent Client Protocol (ACP)
+              </CardTitle>
+              <CardDescription>
+                The open standard for connecting any editor to any coding agent
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg leading-relaxed">
+                The <strong>Agent Client Protocol (ACP)</strong> standardizes communication between code 
+                editors/IDEs and coding agents. Think of it as the <strong>Language Server Protocol (LSP) 
+                for AI agents</strong>—enabling any ACP-compatible agent to work with any ACP-compatible editor.
+              </p>
+
+              {/* Infographic */}
+              <div className="my-6">
+                <img 
+                  src="/images/Agent_Client_Protocol_Any_Editor_Any_Agent.png" 
+                  alt="Agent Client Protocol: Any Editor, Any Agent - Infographic showing how ACP standardizes communication between code editors and coding agents"
+                  className="w-full max-w-4xl mx-auto rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
+                />
+                <p className="text-center text-sm text-muted-foreground mt-2">
+                  ACP enables seamless integration between any compatible editor and any compatible agent
+                </p>
+              </div>
+
+              {/* Why ACP? */}
+              <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-4 rounded-md border border-indigo-200 dark:border-indigo-800">
+                <h4 className="font-semibold mb-3 text-indigo-900 dark:text-indigo-200">Why ACP?</h4>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2"></span>
+                    <span><strong>Integration Overhead:</strong> Without ACP, every new agent-editor combination requires custom work</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
+                    <span><strong>Limited Compatibility:</strong> Agents only work with a subset of available editors</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2"></span>
+                    <span><strong>Developer Lock-in:</strong> Choosing an agent often means accepting limited interfaces</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
+                    <span><strong>ACP Solution:</strong> Standardized protocol lets both sides innovate independently</span>
+                  </li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Architecture */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Architecture</CardTitle>
+              <CardDescription>
+                How ACP connects editors to agents
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Design Principles */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="border border-indigo-200 dark:border-indigo-700 rounded-lg p-4 bg-indigo-50 dark:bg-indigo-900/20">
+                  <h5 className="font-semibold mb-2 text-indigo-800 dark:text-indigo-200">🔗 MCP-Friendly</h5>
+                  <p className="text-sm text-muted-foreground">
+                    Built on JSON-RPC, reuses MCP types where possible. Integrators don't need 
+                    to build yet-another representation for common data types.
+                  </p>
+                </div>
+                <div className="border border-purple-200 dark:border-purple-700 rounded-lg p-4 bg-purple-50 dark:bg-purple-900/20">
+                  <h5 className="font-semibold mb-2 text-purple-800 dark:text-purple-200">🎨 UX-First</h5>
+                  <p className="text-sm text-muted-foreground">
+                    Designed to solve UX challenges of interacting with AI agents. Includes 
+                    custom types for agentic UX elements like displaying diffs.
+                  </p>
+                </div>
+                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
+                  <h5 className="font-semibold mb-2 text-green-800 dark:text-green-200">🔐 Trusted</h5>
+                  <p className="text-sm text-muted-foreground">
+                    Works when using a code editor to talk to a trusted model. Agent gets access 
+                    to local files and MCP servers with controlled tool calls.
+                  </p>
+                </div>
+              </div>
+
+              {/* Setup Diagram */}
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
+                <h5 className="font-semibold mb-3">Local Agent Setup</h5>
+                <pre className="overflow-x-auto">{`┌─────────────────┐    JSON-RPC     ┌─────────────────┐
+│   Code Editor   │ ◄──────────────► │   Agent Process │
+│  (VS Code, Zed, │    (stdin/out)   │  (Local/Remote) │
+│   JetBrains)    │                  │                 │
+└────────┬────────┘                  └────────┬────────┘
+         │                                    │
+         │  MCP Config                        │  MCP Client
+         ▼                                    ▼
+┌─────────────────┐                  ┌─────────────────┐
+│   MCP Servers   │ ◄─────────────── │   Tool Calls    │
+│  (User Config)  │                  │                 │
+└─────────────────┘                  └─────────────────┘`}</pre>
+              </div>
+
+              <div className="text-sm text-muted-foreground">
+                <strong>Key insight:</strong> ACP makes heavy use of JSON-RPC notifications to stream 
+                updates to the UI in real-time. It also uses bidirectional requests to allow agents 
+                to request permissions from the editor (e.g., for tool calls).
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Local vs Remote */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Local & Remote Agents</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
+                  <h5 className="font-semibold mb-2 text-green-800 dark:text-green-200">🖥️ Local Agents</h5>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Run as sub-processes of the code editor, communicating via JSON-RPC over stdio.
+                  </p>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Low latency, direct file access</li>
+                    <li>• No network dependencies</li>
+                    <li>• Editor manages agent lifecycle</li>
+                  </ul>
+                </div>
+                <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-blue-50 dark:bg-blue-900/20">
+                  <h5 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">☁️ Remote Agents</h5>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Hosted in the cloud or on separate infrastructure, communicating over HTTP/WebSocket.
+                  </p>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Team-shared agents</li>
+                    <li>• Persistent context across sessions</li>
+                    <li>• Heavy compute offloading</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg border border-amber-200 dark:border-amber-700">
+                <p className="text-sm text-amber-800 dark:text-amber-200">
+                  <strong>Note:</strong> Full support for remote agents is a work in progress. 
+                  The protocol team is actively collaborating with agentic platforms to address 
+                  cloud-hosted and remote deployment scenarios.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* SDKs */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Official SDKs</CardTitle>
+              <CardDescription>Implement ACP in your preferred language</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="border border-border rounded-lg p-3 text-center hover:border-indigo-400 transition-colors">
+                  <span className="text-2xl">🦀</span>
+                  <p className="text-sm font-medium mt-1">Rust</p>
+                  <code className="text-xs text-muted-foreground">crates.io</code>
+                </div>
+                <div className="border border-border rounded-lg p-3 text-center hover:border-indigo-400 transition-colors">
+                  <span className="text-2xl">🐍</span>
+                  <p className="text-sm font-medium mt-1">Python</p>
+                  <code className="text-xs text-muted-foreground">python-sdk</code>
+                </div>
+                <div className="border border-border rounded-lg p-3 text-center hover:border-indigo-400 transition-colors">
+                  <span className="text-2xl">📘</span>
+                  <p className="text-sm font-medium mt-1">TypeScript</p>
+                  <code className="text-xs text-muted-foreground">npm</code>
+                </div>
+                <div className="border border-border rounded-lg p-3 text-center hover:border-indigo-400 transition-colors">
+                  <span className="text-2xl">☕</span>
+                  <p className="text-sm font-medium mt-1">Kotlin</p>
+                  <code className="text-xs text-muted-foreground">JVM</code>
+                </div>
+              </div>
+
+              {/* Code Example */}
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+                <h5 className="font-semibold mb-2">TypeScript Example</h5>
+                <pre className="text-sm overflow-x-auto"><code>{`import { ACPServer } from '@agentclientprotocol/sdk';
+
+const server = new ACPServer({
+  name: 'my-coding-agent',
+  version: '1.0.0'
+});
+
+server.onSession(async (session) => {
+  // Handle incoming prompts from editor
+  session.onPrompt(async (prompt) => {
+    // Process and stream responses back
+    await session.streamText("Analyzing your code...");
+    // Request tool permissions
+    const approved = await session.requestToolCall({
+      name: 'edit_file',
+      params: { path: 'src/index.ts' }
+    });
+  });
+});
+
+server.listen();`}</code></pre>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* MCP Integration */}
+          <Card>
+            <CardHeader>
+              <CardTitle>MCP Integration</CardTitle>
+              <CardDescription>
+                How ACP works with Model Context Protocol
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg">
+                Editors typically have user-configured MCP servers. When forwarding prompts, 
+                the editor passes MCP configuration to the agent, allowing direct connections.
+              </p>
+
+              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
+                <pre className="overflow-x-auto">{`┌─────────────┐                    ┌─────────────┐
+│   Editor    │ ─── ACP ───────► │    Agent    │
+│             │                    │             │
+│  MCP Config │                    │ MCP Client  │
+└──────┬──────┘                    └──────┬──────┘
+       │                                  │
+       │ (optional proxy)                 │ (direct connect)
+       ▼                                  ▼
+┌─────────────────────────────────────────────────┐
+│                  MCP Servers                    │
+│  (filesystem, git, database, custom tools...)  │
+└─────────────────────────────────────────────────┘`}</pre>
+              </div>
+
+              <div className="text-sm text-muted-foreground">
+                <strong>Editor-provided tools:</strong> The editor can also export its own MCP-based tools. 
+                Since agents may only support MCP over stdio, the editor can provide a small proxy 
+                that tunnels requests back to itself.
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Agents & Clients Registry */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Ecosystem</CardTitle>
+              <CardDescription>ACP-compatible agents and clients</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold mb-2">🤖 Compatible Agents</h5>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Agents that implement the ACP specification:
+                  </p>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Zed AI Agent (built-in)</li>
+                    <li>• Claude Code (via ACP adapter)</li>
+                    <li>• Community agents (growing)</li>
+                  </ul>
+                </div>
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold mb-2">📝 Compatible Clients</h5>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Editors/IDEs with ACP support:
+                  </p>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Zed (native support)</li>
+                    <li>• JetBrains IDEs (plugin)</li>
+                    <li>• VS Code (community extension)</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="text-center">
+                <a 
+                  href="https://agentclientprotocol.com/overview/agents" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 dark:text-indigo-400 hover:underline text-sm"
+                >
+                  View full registry at agentclientprotocol.com →
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+
+          <ReferenceSection type="concept" itemId="client-coding-agents" categoryFilter="acp-protocol" />
+
+          <EnlightenMeButton
+            title="Agent Client Protocol"
+            contextDescription="Standardized protocol for connecting code editors to AI coding agents"
           />
         </div>
       )

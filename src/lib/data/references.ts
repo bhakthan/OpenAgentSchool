@@ -3756,6 +3756,47 @@ export const references: ReferencesData = {
             description: "CLAUDE.md and project configuration for Claude Code"
           }
         ]
+      },
+      {
+        id: "acp-protocol",
+        name: "Agent Client Protocol (ACP)",
+        references: [
+          {
+            title: "Agent Client Protocol - Introduction",
+            url: "https://agentclientprotocol.com/get-started/introduction",
+            description: "Official ACP documentation - standardizing communication between code editors and AI coding agents"
+          },
+          {
+            title: "ACP GitHub Repository",
+            url: "https://github.com/agentclientprotocol/agent-client-protocol",
+            description: "Open source protocol specification with official SDKs for Rust, Python, TypeScript, and Kotlin"
+          },
+          {
+            title: "ACP Architecture",
+            url: "https://agentclientprotocol.com/get-started/architecture",
+            description: "Design philosophy and technical architecture of the Agent Client Protocol"
+          },
+          {
+            title: "ACP TypeScript SDK",
+            url: "https://www.npmjs.com/package/@agentclientprotocol/sdk",
+            description: "Official TypeScript/JavaScript SDK for implementing ACP agents and clients"
+          },
+          {
+            title: "ACP Python SDK",
+            url: "https://github.com/agentclientprotocol/python-sdk",
+            description: "Official Python SDK with examples for building ACP-compatible agents"
+          },
+          {
+            title: "ACP Agents Registry",
+            url: "https://agentclientprotocol.com/overview/agents",
+            description: "Directory of ACP-compatible agents"
+          },
+          {
+            title: "ACP Clients Registry",
+            url: "https://agentclientprotocol.com/overview/clients",
+            description: "Directory of ACP-compatible editors and IDEs"
+          }
+        ]
       }
     ]
   },
