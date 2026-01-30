@@ -256,7 +256,7 @@ export default function FineTuningConcept({ onMarkComplete, onNavigateToNext }: 
               <div className="text-xs text-muted-foreground ml-1">Practical example of preparing data & evaluating a QA fine-tune.</div>
             </li>
             <li>
-              <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/fine-tuning-overview" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Azure AI Foundry: Fine-Tuning Overview</a>
+              <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/fine-tuning-overview" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Microsoft Foundry: Fine-Tuning Overview</a>
               <div className="text-xs text-muted-foreground ml-1">Conceptual foundations, supported models, governance considerations.</div>
             </li>
             <li>

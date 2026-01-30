@@ -85,7 +85,7 @@ export const references: ReferencesData = {
             description: "Java SDK for Google Agent Development Kit"
           },
           {
-            title: "Azure AI Foundry (Agent Framework)",
+            title: "Microsoft Foundry (Agent Framework)",
             url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
             description: "Microsoft's unified AI platform for building agents, models, and AI applications on Azure"
           }
@@ -490,7 +490,7 @@ export const references: ReferencesData = {
             description: "Official Microsoft documentation on Azure AI Services"
           },
           {
-            title: "Azure AI Foundry",
+            title: "Microsoft Foundry",
             url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
             description: "Create, evaluate and deploy AI solutions"
           },
@@ -536,14 +536,14 @@ export const references: ReferencesData = {
             description: "Microsoft's comprehensive course for beginners learning generative AI concepts and applications"
           },
           {
-            title: "Azure AI Foundry",
+            title: "Microsoft Foundry",
             url: "https://learn.microsoft.com/en-us/azure/ai-foundry/what-is-azure-ai-foundry",
-            description: "Learn about Azure AI Foundry and how to build AI solutions with it"
+            description: "Learn about Microsoft Foundry and how to build AI solutions with it"
           },
           {
-            title: "Getting Started with Azure AI Foundry",
+            title: "Getting Started with Microsoft Foundry",
             url: "https://learn.microsoft.com/en-us/azure/ai-foundry/quickstarts/get-started-code?tabs=azure-ai-foundry&pivots=fdp-project",
-            description: "Step-by-step guide to getting started with Azure AI Foundry"
+            description: "Step-by-step guide to getting started with Microsoft Foundry"
           },
           {
             title: "Azure AI Agent Tutorials",
@@ -613,9 +613,9 @@ export const references: ReferencesData = {
             description: "Three Ingredients for Building Reliable LLM Agents"
           },
           {
-            title: "Azure OpenAI on Azure AI Foundry",
+            title: "Azure OpenAI on Microsoft Foundry",
             url: "https://www.youtube.com/watch?v=DUdRdeUtuZQ&t=2s",
-            description: "Microsoft official demo of Azure AI Foundry - BRK155"
+            description: "Microsoft official demo of Microsoft Foundry - BRK155"
           },
           {
             title: "Google Gemini AI: Multi-Agent Systems",
@@ -1083,9 +1083,9 @@ export const references: ReferencesData = {
             description: "Official A2A protocol spec referenced by Google ADK"
           },
           {
-            title: "Azure AI Foundry Documentation",
+            title: "Microsoft Foundry Documentation",
             url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
-            description: "Official documentation for Azure AI Foundry - Microsoft's unified AI development platform"
+            description: "Official documentation for Microsoft Foundry - Microsoft's unified AI development platform"
           },
           {
             title: "Multi-Agent Systems in Azure",
@@ -1479,9 +1479,9 @@ export const references: ReferencesData = {
             description: "Orchestrate agents with Sequential, Parallel, and Loop patterns"
           },
           {
-            title: "Azure AI Foundry Multi-Agent",
+            title: "Microsoft Foundry Multi-Agent",
             url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
-            description: "Build multi-agent systems with Azure AI Foundry's unified platform"
+            description: "Build multi-agent systems with Microsoft Foundry's unified platform"
           }
         ]
       },
@@ -3298,7 +3298,7 @@ export const references: ReferencesData = {
           {
             title: "Azure AI Self-Critique Framework",
             url: "https://learn.microsoft.com/en-us/azure/ai-foundry/",
-            description: "Check out Azure AI Foundry"
+            description: "Check out Microsoft Foundry"
           }
         ]
       },
@@ -3807,9 +3807,9 @@ export const references: ReferencesData = {
         name: "Documentation",
         references: [
           {
-            title: "Azure AI Foundry Overview",
+            title: "Microsoft Foundry Overview",
             url: "https://learn.microsoft.com/azure/ai-studio/",
-            description: "Overview of Azure AI Foundry"
+            description: "Overview of Microsoft Foundry"
           }
         ]
       }
@@ -3892,14 +3892,14 @@ export const references: ReferencesData = {
         name: "Documentation",
         references: [
           {
-            title: "Azure AI Foundry Documentation",
+            title: "Microsoft Foundry Documentation",
             url: "https://learn.microsoft.com/azure/ai-studio/",
-            description: "Official documentation for Azure AI Foundry"
+            description: "Official documentation for Microsoft Foundry"
           },
           {
-            title: "Azure AI Foundry Tutorials",
+            title: "Microsoft Foundry Tutorials",
             url: "https://learn.microsoft.com/azure/ai-studio/tutorials/",
-            description: "Step-by-step tutorials for Azure AI Foundry"
+            description: "Step-by-step tutorials for Microsoft Foundry"
           }
         ]
       }

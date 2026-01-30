@@ -105,8 +105,8 @@ export const coreConceptsQuestions: QuizQuestion[] = [
   },
   {
     id: 'core-azure-content-filter',
-    text: 'What is the primary purpose of Azure AI Foundry content filters?',
-    question: 'What is the primary purpose of Azure AI Foundry content filters?',
+    text: 'What is the primary purpose of Microsoft Foundry content filters?',
+    question: 'What is the primary purpose of Microsoft Foundry content filters?',
     options: [
       'Speed up model inference',
       'Detect and block harmful or unsafe outputs',
@@ -145,8 +145,8 @@ export const coreConceptsQuestions: QuizQuestion[] = [
   },
   {
     id: 'core-azure-guardrails',
-    text: 'Which of the following is a function of guardrails in Azure AI Foundry?',
-    question: 'Which of the following is a function of guardrails in Azure AI Foundry?',
+    text: 'Which of the following is a function of guardrails in Microsoft Foundry?',
+    question: 'Which of the following is a function of guardrails in Microsoft Foundry?',
     options: [
       'Restrict model behavior and enforce policies',
       'Increase GPU speed',

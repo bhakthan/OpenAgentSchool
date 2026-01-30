@@ -98,7 +98,7 @@ async function setupAgent(client, deploymentName, systemMessage) {
       ]
     },
     {
-      name: 'Azure AI Foundry',
+      name: 'Microsoft Foundry',
       icon: <Lightning size={24} className="text-primary" />,
       description: 'A unified platform for building, evaluating, and deploying AI models and agents with a comprehensive toolset for the entire AI application lifecycle.',
       keyFeatures: [

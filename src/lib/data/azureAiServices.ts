@@ -73,8 +73,8 @@ export const azureAIServices: AzureAIService[] = [
   },
   {
     id: "azure-ai-foundry",
-    name: "Azure AI Foundry",
-    description: "Azure AI Foundry is a collection of tools and services for building, deploying, and managing AI models on Azure.",
+    name: "Microsoft Foundry",
+    description: "Microsoft Foundry is a collection of tools and services for building, deploying, and managing AI models on Azure.",
     capabilities: [
       "Model development workspace",
       "Simplified model deployment",

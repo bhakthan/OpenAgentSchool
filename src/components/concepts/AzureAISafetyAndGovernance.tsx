@@ -57,14 +57,14 @@ export default function AzureAISafetyAndGovernance() {
               <li>Transparency: Clear, understandable AI decision-making.</li>
               <li>Accountability: Human oversight and responsibility.</li>
             </ul>
-            <p className="mt-4 text-muted-foreground">These pillars are implemented in Azure AI Foundry through integrated tools and controls.</p>
+            <p className="mt-4 text-muted-foreground">These pillars are implemented in Microsoft Foundry through integrated tools and controls.</p>
           </div>
         </TabsContent>
         <TabsContent value="content-filter">
           <AzureContentFilterVisualization />
           <div className="mt-4">
             <h3 className="text-lg font-semibold mb-2">Content Filters</h3>
-            <p className="text-base">Azure AI Foundry provides advanced content filtering to detect and block harmful, unsafe, or inappropriate outputs. These filters use ML models and rule-based systems to ensure compliance and safety.</p>
+            <p className="text-base">Microsoft Foundry provides advanced content filtering to detect and block harmful, unsafe, or inappropriate outputs. These filters use ML models and rule-based systems to ensure compliance and safety.</p>
             <ul className="list-disc pl-6 mt-2 text-base">
               <li>Real-time filtering of generated content</li>
               <li>Customizable filter rules</li>
@@ -88,7 +88,7 @@ export default function AzureAISafetyAndGovernance() {
           <AzureGuardrailsVisualization />
           <div className="mt-4">
             <h3 className="text-lg font-semibold mb-2">Guardrails & Controls</h3>
-            <p className="text-base">Azure AI Foundry enables the configuration of guardrails to restrict model behavior, enforce policies, and prevent misuse. Controls can be set for input validation, output constraints, and operational boundaries.</p>
+            <p className="text-base">Microsoft Foundry enables the configuration of guardrails to restrict model behavior, enforce policies, and prevent misuse. Controls can be set for input validation, output constraints, and operational boundaries.</p>
             <ul className="list-disc pl-6 mt-2 text-base">
               <li>Input/output validation</li>
               <li>Policy enforcement</li>
