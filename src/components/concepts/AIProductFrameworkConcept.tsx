@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Target, ArrowsOutSimple, ArrowsInSimple, Eye, EyeSlash, CheckCircle, ArrowRight } from "@phosphor-icons/react"
+import { Target, ArrowsOutSimple, ArrowsInSimple, Eye, EyeSlash, CheckCircle, ArrowRight, X, CornersOut, CornersIn } from "@phosphor-icons/react"
 import { useTheme } from '@/components/theme/ThemeProvider'
 
 // Data structure for the 8 pillars framework
@@ -225,7 +225,17 @@ export default function AIProductFrameworkConcept({ onMarkComplete, onNavigateTo
   const [showDetails, setShowDetails] = useState(true)
   const [layoutMode, setLayoutMode] = useState<'large' | 'compact'>('compact')
   const [renderTrigger, setRenderTrigger] = useState(0)
+  const [isFullscreen, setIsFullscreen] = useState(false)
   const rootDataRef = useRef<any>(null)
+
+  // Re-render when fullscreen changes
+  useEffect(() => {
+    // Small delay to let DOM update, then trigger re-render
+    const timer = setTimeout(() => {
+      setRenderTrigger(prev => prev + 1)
+    }, 50)
+    return () => clearTimeout(timer)
+  }, [isFullscreen])
 
   // Debug log
   console.log('Component render:', { showDetails, selectedPillar: selectedPillar?.name })
@@ -250,10 +260,27 @@ export default function AIProductFrameworkConcept({ onMarkComplete, onNavigateTo
     if (!svgRef.current || !containerRef.current || !rootDataRef.current) return
 
     const svgElement = svgRef.current
-    const containerWidth = svgElement.parentElement?.clientWidth || 1200
+    const containerWidth = isFullscreen ? window.innerWidth - 100 : (svgElement.parentElement?.clientWidth || 1200)
     const width = containerWidth
-    const height = 600
-    const margin = { top: 20, right: 90, bottom: 30, left: 90 }
+    
+    // Calculate dynamic height based on visible nodes
+    const countVisibleNodes = (node: any): number => {
+      if (!node) return 0
+      let count = 1
+      if (node.children) {
+        node.children.forEach((child: any) => {
+          count += countVisibleNodes(child)
+        })
+      }
+      return count
+    }
+    const visibleNodes = countVisibleNodes(rootDataRef.current)
+    const nodeSpacing = layoutMode === 'large' ? 50 : 32
+    const baseHeight = isFullscreen ? window.innerHeight - 150 : 600
+    const calculatedHeight = Math.max(baseHeight, visibleNodes * nodeSpacing + 100)
+    const height = Math.min(calculatedHeight, isFullscreen ? window.innerHeight - 150 : 1500)
+    
+    const margin = { top: 20, right: 200, bottom: 30, left: 150 }
 
     const svg = d3.select(svgElement)
     svg.selectAll('*').remove()
@@ -268,13 +295,17 @@ export default function AIProductFrameworkConcept({ onMarkComplete, onNavigateTo
 
     const isDark = theme === 'dark'
 
-    // Compute tree layout
-    const verticalSpacing = layoutMode === 'large' ? 100 : 70
-    const horizontalSpacing = layoutMode === 'large' ? 280 : 220
+    // Compute tree layout - tighter spacing for compact view
+    const verticalSpacing = isFullscreen 
+      ? (layoutMode === 'large' ? 45 : 28)
+      : (layoutMode === 'large' ? 50 : 32)
+    const horizontalSpacing = isFullscreen
+      ? (layoutMode === 'large' ? 320 : 260)
+      : (layoutMode === 'large' ? 240 : 180)
 
     const tree = d3.tree()
       .nodeSize([verticalSpacing, horizontalSpacing])
-      .separation((a, b) => (a.parent === b.parent ? 1 : 1.3))
+      .separation((a, b) => (a.parent === b.parent ? 1 : 1.1))
 
     const root = tree(rootDataRef.current)
 
@@ -366,24 +397,34 @@ export default function AIProductFrameworkConcept({ onMarkComplete, onNavigateTo
       .attr('x', (d: any) => (d.children || d._children) ? -16 : 16)
       .style('text-anchor', (d: any) => (d.children || d._children) ? 'end' : 'start')
       .style('font-size', (d: any) => {
-        if (d.depth === 0) return '13px'
-        if (d.depth === 1) return '11px'
-        if (d.depth === 2) return '10px'
-        return '9px'
+        // Larger fonts, especially in fullscreen
+        if (isFullscreen) {
+          if (d.depth === 0) return '16px'
+          if (d.depth === 1) return '14px'
+          if (d.depth === 2) return '13px'
+          return '12px'
+        }
+        if (d.depth === 0) return '14px'
+        if (d.depth === 1) return '12px'
+        if (d.depth === 2) return '11px'
+        return '10px'
       })
       .style('font-weight', (d: any) => d.depth <= 1 ? 'bold' : 'normal')
       .style('fill', (d: any) => {
-        if (d.depth === 0) return '#fff'
-        if (d.depth === 1) return isDark ? '#fff' : '#1f2d3a'
-        if (d.data.leaf) return isDark ? '#8de6b0' : '#1d5a33'
-        return isDark ? '#e3eef4' : '#1f2d3a'
+        // Light theme needs darker, more visible colors
+        // Text is positioned outside circles, so needs to contrast with background
+        if (d.depth === 0) return isDark ? '#fff' : '#c0392b'  // Root - red text on light, white on dark
+        if (d.depth === 1) return isDark ? '#e0e0e0' : '#1a1a2e'  // Pillars
+        if (d.depth === 2) return isDark ? '#b8d4e8' : '#2d3748'  // Categories (Actions/Outcomes/Impact)
+        if (d.data.leaf) return isDark ? '#a8e6cf' : '#22543d'  // Leaf nodes - darker green for light theme
+        return isDark ? '#d0e8f0' : '#2d3748'  // Default
       })
       .text((d: any) => {
-        const maxLen = d.depth === 0 ? 30 : (d.depth === 1 ? 22 : 35)
+        const maxLen = d.depth === 0 ? 30 : (d.depth === 1 ? 22 : (isFullscreen ? 60 : 35))
         return d.data.name.length > maxLen ? d.data.name.substring(0, maxLen) + '...' : d.data.name
       })
 
-  }, [theme, layoutMode, renderTrigger])
+  }, [theme, layoutMode, renderTrigger, isFullscreen])
 
   const handleExpandAll = useCallback(() => {
     if (!rootDataRef.current) return
@@ -480,13 +521,22 @@ export default function AIProductFrameworkConcept({ onMarkComplete, onNavigateTo
               {showDetails ? <EyeSlash className="w-4 h-4 mr-2" /> : <Eye className="w-4 h-4 mr-2" />}
               {showDetails ? 'Hide Details' : 'Show Details'}
             </Button>
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => setIsFullscreen(true)}
+              className="bg-primary hover:bg-primary/90"
+            >
+              <CornersOut className="w-4 h-4 mr-2" />
+              Fullscreen
+            </Button>
           </div>
         </CardHeader>
         <CardContent>
           <div className={`grid gap-6 ${showDetails ? 'grid-cols-1 xl:grid-cols-[1.5fr,1fr]' : 'grid-cols-1'}`}>
             {/* Tree Visualization */}
             <div className="space-y-4">
-              <div ref={containerRef} className="w-full overflow-x-auto bg-gradient-to-br from-muted/30 to-muted/10 rounded-lg border-2 border-muted p-6 shadow-inner">
+              <div ref={containerRef} className="w-full overflow-auto bg-gradient-to-br from-muted/30 to-muted/10 rounded-lg border-2 border-muted p-6 shadow-inner max-h-[700px]">
                 <svg ref={svgRef}></svg>
               </div>
 
@@ -658,6 +708,68 @@ export default function AIProductFrameworkConcept({ onMarkComplete, onNavigateTo
           <ArrowRight className="w-4 h-4" />
         </Button>
       </div>
+
+      {/* Fullscreen Overlay */}
+      {isFullscreen && (
+        <div className="fixed inset-0 z-50 bg-background/98 backdrop-blur-sm overflow-auto">
+          <div className="sticky top-0 z-10 flex items-center justify-between p-4 bg-background/90 border-b">
+            <h2 className="text-xl font-bold">AI Product Framework: 8 Pillars (Fullscreen View)</h2>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleExpandAll}
+              >
+                <ArrowsOutSimple className="w-4 h-4 mr-2" />
+                Expand All
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleCollapseAll}
+              >
+                <ArrowsInSimple className="w-4 h-4 mr-2" />
+                Collapse All
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setLayoutMode(prev => prev === 'large' ? 'compact' : 'large')}
+              >
+                {layoutMode === 'compact' ? '🔎 Large' : '🧩 Compact'}
+              </Button>
+              <Button
+                variant="default"
+                size="sm"
+                onClick={() => setIsFullscreen(false)}
+              >
+                <CornersIn className="w-4 h-4 mr-2" />
+                Exit Fullscreen
+              </Button>
+            </div>
+          </div>
+          <div className="p-6">
+            <div className="bg-gradient-to-br from-muted/30 to-muted/10 rounded-lg border-2 border-muted p-6 shadow-inner overflow-auto">
+              <svg ref={svgRef}></svg>
+            </div>
+            {/* Legend in fullscreen */}
+            <div className="flex justify-center gap-6 text-sm bg-card rounded-lg border p-3 mt-4">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-[#e74c3c] ring-2 ring-[#c0392b]"></div>
+                <span className="font-medium">Framework Root</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-[#3498db] ring-2 ring-[#2980b9]"></div>
+                <span className="font-medium">Pillars & Categories</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full bg-[#2ecc71] ring-2 ring-[#27ae60]"></div>
+                <span className="font-medium">Leaf Nodes (Actions/Outcomes/Impact)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
