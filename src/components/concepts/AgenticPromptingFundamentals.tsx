@@ -141,6 +141,17 @@ const AgenticPromptingFundamentals: React.FC<AgenticPromptingFundamentalsProps> 
           Master the core principles of prompting AI agents for optimal performance, predictability, and control
         </p>
       </div>
+
+      {/* Prompt Engineering Diagram */}
+      <Card>
+        <CardContent className="pt-6">
+          <img 
+            src="/images/Prompt_Engineering_for_Agents.png" 
+            alt="Prompt Engineering for AI Agents - Core principles, techniques, and best practices for crafting effective agent prompts"
+            className="w-full rounded-lg border border-border/50"
+          />
+        </CardContent>
+      </Card>
       
   <PromptLifecycleDiagram />
 
