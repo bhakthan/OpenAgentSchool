@@ -560,6 +560,22 @@ export default function AgentObservabilityConcept() {
         {/* Interactive Visualization */}
         <ObservabilityViz autoPlay={true} />
 
+        {/* Observability Dashboard Infographic */}
+        <div className="rounded-xl border bg-muted/30 p-4">
+          <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+            <Activity className="w-4 h-4" /> Agent Observability Dashboard
+          </h3>
+          <img 
+            src="/images/Agent_Observability_Dashboard.png" 
+            alt="Agent Observability Dashboard: Traces, Metrics, Logs, and Alerts in a unified view" 
+            className="w-full rounded-lg shadow-sm border"
+            loading="lazy"
+          />
+          <p className="text-xs text-muted-foreground mt-2 text-center">
+            The four pillars of observability: Traces → Metrics → Logs → Alerts
+          </p>
+        </div>
+
         <Tabs defaultValue="pillars" className="w-full">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="pillars">Observability Pillars</TabsTrigger>

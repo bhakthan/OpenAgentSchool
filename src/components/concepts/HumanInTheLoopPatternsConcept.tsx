@@ -633,6 +633,22 @@ export default function HumanInTheLoopPatternsConcept() {
         {/* Interactive Visualization */}
         <HITLViz autoPlay={true} />
 
+        {/* Human-in-the-Loop Patterns Infographic */}
+        <div className="rounded-xl border bg-muted/30 p-4">
+          <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+            <Users className="w-4 h-4" /> Human-in-the-Loop Patterns Overview
+          </h3>
+          <img 
+            src="/images/Human_in_the_loop_Patterns.png" 
+            alt="Human-in-the-Loop Patterns: Approval gates, confidence thresholds, feedback loops, and graceful handoff" 
+            className="w-full rounded-lg shadow-sm border"
+            loading="lazy"
+          />
+          <p className="text-xs text-muted-foreground mt-2 text-center">
+            From full manual control to supervised autonomy: Building trust through oversight
+          </p>
+        </div>
+
         <Tabs defaultValue="patterns" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="patterns">HITL Patterns</TabsTrigger>
