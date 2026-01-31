@@ -52,24 +52,47 @@ These prompts are designed for AI image generation tools to create visually stun
 
 ## Concepts Covered
 
-1. **Agent Reasoning Patterns** - CoT, ToT, GoT, Reflexion thinking strategies
-2. **Agent Memory Systems** - Working, short-term, long-term memory hierarchy
-3. **Agent Observability** - Tracing, metrics, logs, alerting pipeline
-4. **Agent Testing & Benchmarks** - Evaluation methods and CI/CD integration
-5. **Agent Cost Optimization** - Token budgets, caching, model routing
-6. **Human-in-the-Loop Patterns** - Approval workflows and escalation
-7. **Prompt Injection Defense** - Security layers and attack mitigation
-8. **MCP Apps** - SEP-1865 interactive UI extension for Model Context Protocol
+### Foundational Concepts
+1. **AI Agents (Fundamentals)** - What is an AI agent, core components, agent vs chatbot
+2. **Agent Architecture** - Core components and building blocks of AI agents
+3. **Prompt Engineering** - Crafting effective prompts for agent behaviors
+4. **Tool Use & Function Calling** - Modern tool integration patterns
+
+### Reasoning & Memory
+5. **Agent Reasoning Patterns** - CoT, ToT, GoT, Reflexion thinking strategies
+6. **ReAct Pattern** - Reasoning + Acting loop for agent decision-making
+7. **Agent Memory Systems** - Working, short-term, long-term memory hierarchy
+8. **Agentic RAG** - Beyond naive retrieval with intelligent search strategies
+
+### Protocols & Communication
 9. **Model Context Protocol (MCP)** - Universal standard for AI tool integration
-10. **A2A Communication** - Agent-to-Agent protocol for multi-agent collaboration
-11. **Multi-Agent Systems** - Orchestration patterns and agent team architectures
-12. **Fine-Tuning LLMs** - SFT, DPO, RFT decision framework and workflows
-13. **Agentic RAG** - Beyond naive retrieval with intelligent search strategies
-14. **ReAct Pattern** - Reasoning + Acting loop for agent decision-making
-15. **Agent Evaluation** - Multi-dimensional quality measurement and benchmarks
-16. **Agent Architecture** - Core components and building blocks of AI agents
-17. **Tool Use & Function Calling** - Modern tool integration patterns
-18. **Prompt Engineering** - Crafting effective prompts for agent behaviors
+10. **MCP Apps** - SEP-1865 interactive UI extension for Model Context Protocol
+11. **A2A Communication** - Agent-to-Agent protocol for multi-agent collaboration
+12. **Agent Communication Protocol (ACP)** - Real-time streaming for multi-agent systems
+
+### Multi-Agent & Skills
+13. **Multi-Agent Systems** - Orchestration patterns and agent team architectures
+14. **Agent Skills & Capabilities** - Building blocks of intelligent agent behavior
+15. **Client Coding Agents** - Copilot, Cursor, Windsurf, and AI development tools
+
+### Security & Safety
+16. **Agent Security** - Protecting autonomous AI systems from threats
+17. **Prompt Injection Defense** - Security layers and attack mitigation
+18. **Agent Red Teaming** - Adversarial testing to strengthen AI agents
+19. **Agent Ethics** - Building responsible and trustworthy AI agents
+20. **AI Safety & Governance** - Enterprise frameworks for safe and compliant AI
+
+### Operations & Deployment
+21. **Agent Ops (AgentOps)** - Operating AI agents in production at scale
+22. **Agent Deployment** - From development to production-ready agents
+23. **Agent Observability** - Tracing, metrics, logs, alerting pipeline
+24. **Agent Testing & Benchmarks** - Evaluation methods and CI/CD integration
+25. **Agent Evaluation** - Multi-dimensional quality measurement and benchmarks
+
+### Optimization
+26. **Agent Cost Optimization** - Token budgets, caching, model routing
+27. **Human-in-the-Loop Patterns** - Approval workflows and escalation
+28. **Fine-Tuning LLMs** - SFT, DPO, RFT decision framework and workflows
 
 ## Usage
 
