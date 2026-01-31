@@ -23,6 +23,15 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Agent Communication Protocol (ACP) - Unified agent interoperability
 - MCP-A2A Integration Patterns
 
+### MCP Apps & Agent UI (January 2026)
+- MCP Apps Extension (SEP-1865) - Interactive UI standard for AI agents
+- ui:// Resource Pattern - HTML templates with text/html;profile=mcp-app MIME type
+- Tool UI Annotations - _meta.ui.resourceUri links tools to renderable UIs
+- Host ↔ App Communication - ui/initialize, ui/notifications/tool-input, ui/message
+- Security Model - Sandboxed iframes, template pre-auditing, user consent
+- Cross-Platform - Write once for Claude, ChatGPT, VS Code, Goose
+- SDK: @modelcontextprotocol/ext-apps, @mcp-ui/client, @mcp-ui/server
+
 ### CLI Coding Agents
 - Copilot CLI - GitHub's command suggestions
 - Claude Code - Anthropic's agentic coding with CLAUDE.md
@@ -147,6 +156,13 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Prompt Injection Defense: https://www.openagentschool.org/concepts/prompt-injection-defense
 - Human-in-the-Loop Patterns: https://www.openagentschool.org/concepts/human-in-the-loop-patterns
 - Agent Cost Optimization: https://www.openagentschool.org/concepts/agent-cost-optimization
+
+## MCP Apps & Agent UI URLs (January 2026)
+
+- MCP Apps & Agent UI: https://www.openagentschool.org/concepts/data-visualization
+- MCP Apps Extension (SEP-1865): https://github.com/modelcontextprotocol/ext-apps
+- MCP Apps Playground: https://github.com/digitarald/mcp-apps-playground
+- MCP-UI Reference: https://mcpui.dev/
 
 ## Interactive Infographics
 

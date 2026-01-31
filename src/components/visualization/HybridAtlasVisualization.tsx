@@ -95,7 +95,7 @@ function buildAtlasData(): AtlasNode {
         children: [
           { id: 'acp', name: 'Agent Communication Protocol', type: 'concept', path: '/concepts/acp' },
           { id: 'mcp-a2a-integration', name: 'MCP × A2A Integration', type: 'concept', path: '/concepts/mcp-a2a-integration' },
-          { id: 'data-visualization', name: 'Data Visualization', type: 'concept', path: '/concepts/data-visualization' },
+          { id: 'data-visualization', name: 'MCP Apps & Agent UI', type: 'concept', novel: true, path: '/concepts/data-visualization' },
           { id: 'data-knowledge-operations', name: 'Knowledge Operations', type: 'concept', novel: true, path: '/concepts/data-knowledge-operations' },
           { id: 'fine-tuning', name: 'Fine-Tuning (SFT/DPO/RFT)', type: 'concept', novel: true, path: '/concepts/fine-tuning' },
           { id: 'agent-red-teaming', name: 'Red Teaming', type: 'concept', novel: true, path: '/concepts/agent-red-teaming' },

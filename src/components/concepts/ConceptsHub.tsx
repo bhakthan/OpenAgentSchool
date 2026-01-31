@@ -353,14 +353,15 @@ const concepts: ConceptInfo[] = [
   },
   {
     id: 'data-visualization',
-    title: 'Data Visualization',
-  description: 'Turn raw telemetry into decision stories—spot drift, dead branches, and latent potential.',
+    title: 'MCP Apps & Agent UI',
+    description: 'Build interactive UIs agents can render in chat—the 2026 standard for human-AI collaboration.',
     level: 'implementation',
     icon: <ChartBar className="w-6 h-6" />,
-  color: 'bg-background text-foreground/80 dark:bg-indigo-900/20 dark:text-indigo-300',
+    color: 'bg-background text-foreground/80 dark:bg-indigo-900/20 dark:text-indigo-300',
     estimatedTime: '35-45 min',
     prerequisites: ['flow-visualization'],
-    component: DataVisualizationConcept
+    component: DataVisualizationConcept,
+    isNew: true
   },
   {
     id: 'data-knowledge-operations',

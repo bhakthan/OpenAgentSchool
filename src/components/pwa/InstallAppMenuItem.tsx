@@ -76,10 +76,11 @@ export function InstallAppMenuItem() {
     <>
       <button
         onClick={handleClick}
-        className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="group inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+        title="Install App"
+        aria-label="Install Open Agent School as an app"
       >
-        <Download className="mr-2" size={16} />
-        Install App
+        <Download size={18} />
       </button>
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>

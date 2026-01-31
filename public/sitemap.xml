@@ -222,9 +222,12 @@
     <url>
         <loc>https://www.openagentschool.org/concepts/data-visualization</loc>
         <lastmod>2026-01-31</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
     </url>
+
+    <!-- MCP Apps & Agent UI (January 2026) - Interactive UI standard for AI agents -->
+    <!-- Covers: ui:// resources, tool annotations, sandboxed iframes, cross-platform -->
 
     <!-- Learning and Deployment Concepts -->
     <url>

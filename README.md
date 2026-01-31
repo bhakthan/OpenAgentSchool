@@ -130,6 +130,15 @@ npm run dev
 
 ### New Concepts
 
+🆕 **MCP Apps & Agent UI**
+- Interactive UI standard for AI agents (SEP-1865)
+- `ui://` resource pattern with `text/html;profile=mcp-app` MIME type
+- Tool UI annotations via `_meta.ui.resourceUri`
+- Host ↔ App communication: `ui/initialize`, `ui/notifications/tool-input`, `ui/message`
+- Security model: sandboxed iframes, template pre-auditing, user consent
+- Cross-platform: Write once for Claude, ChatGPT, VS Code, Goose
+- SDKs: `@modelcontextprotocol/ext-apps`, `@mcp-ui/client`, `@mcp-ui/server`
+
  **CLI Coding Agents**
 - Comprehensive module covering Copilot CLI, Claude Code, Codex CLI, and Gemini CLI
 - AGENTS.md and CLAUDE.md configuration patterns

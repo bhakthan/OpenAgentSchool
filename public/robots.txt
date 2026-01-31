@@ -49,6 +49,10 @@ Allow: /concepts/quantum-ai-robotics
 Allow: /concepts/agentic-robotics
 Allow: /concepts/agent-learning
 Allow: /concepts/fine-tuning
+Allow: /concepts/data-visualization
+
+# MCP Apps & Agent UI (January 2026)
+# Interactive UI standard for AI agents (SEP-1865)
 Allow: /concepts/mcp
 Allow: /concepts/a2a-communication
 Allow: /concepts/acp

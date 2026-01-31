@@ -50,6 +50,9 @@ Concept-Injection-Defense: https://www.openagentschool.org/concepts/prompt-injec
 Concept-HITL-Patterns: https://www.openagentschool.org/concepts/human-in-the-loop-patterns
 Concept-Cost-Optimization: https://www.openagentschool.org/concepts/agent-cost-optimization
 
+# MCP Apps & Agent UI (January 2026)
+Concept-MCP-Apps: https://www.openagentschool.org/concepts/data-visualization
+
 # Fine-Tuning & Model Optimization
 Concept-Fine-Tuning: https://www.openagentschool.org/concepts/fine-tuning
 Concept-RLHF: https://www.openagentschool.org/concepts/rlhf
