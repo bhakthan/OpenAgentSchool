@@ -1,5 +1,7 @@
 import { QuizQuestion } from './types';
 
+// Agentic Commerce: UCP & AP2 Quiz Questions
+// References: https://ucp.dev | https://developers.google.com/merchant/ucp | https://developers.googleblog.com/under-the-hood-universal-commerce-protocol-ucp/
 export const agenticCommerceAp2Questions: QuizQuestion[] = [
   {
     id: 'ap2-1',
@@ -112,5 +114,80 @@ export const agenticCommerceAp2Questions: QuizQuestion[] = [
     explanation: 'Hash-linked mandate chain = verifiable path proving delegation & cart integrity.',
     relatedConcepts: ['agent-security','agentic-commerce-ap2'],
     timeEstimate: 45
+  },
+  // UCP-specific questions (2026 update)
+  {
+    id: 'ucp-1',
+    text: 'Where do agents discover merchant capabilities in UCP?',
+    question: 'Where do agents discover merchant capabilities in the Universal Commerce Protocol (UCP)?',
+    options: [
+      '/api/capabilities',
+      '/.well-known/ucp',
+      '/ucp/manifest.json',
+      '/commerce/discovery'
+    ],
+    correctAnswer: 1,
+    difficulty: 'beginner',
+    category: 'agentic-commerce-ap2',
+    subCategory: 'ucp-discovery',
+    explanation: 'UCP uses the /.well-known/ucp manifest endpoint for standardized capability discovery, enabling N×1 integration.',
+    relatedConcepts: ['mcp','a2a-communication','agentic-commerce-ap2'],
+    timeEstimate: 30
+  },
+  {
+    id: 'ucp-2',
+    text: 'Which transports does UCP support?',
+    question: 'Which transport protocols does UCP support for commerce interactions? (Select all that apply)',
+    options: [
+      'A2A (Agent-to-Agent)',
+      'MCP (Model Context Protocol)',
+      'REST APIs',
+      'GraphQL only',
+      'SOAP'
+    ],
+    correctAnswer: -1,
+    correctAnswers: [0,1,2],
+    difficulty: 'intermediate',
+    category: 'agentic-commerce-ap2',
+    subCategory: 'ucp-transports',
+    explanation: 'UCP supports A2A for agent sessions, MCP for tool invocation, and REST APIs for traditional integration. This flexibility allows any agent framework to integrate.',
+    relatedConcepts: ['mcp','a2a-communication','agentic-commerce-ap2'],
+    timeEstimate: 45
+  },
+  {
+    id: 'ucp-3',
+    text: 'What is the relationship between UCP and AP2?',
+    question: 'What is the relationship between UCP (Universal Commerce Protocol) and AP2 (Agent Payments Protocol)?',
+    options: [
+      'UCP replaces AP2 entirely',
+      'AP2 is a subset of UCP for discovery',
+      'UCP is compatible with AP2 for secure payment authorization',
+      'They are competing standards from different vendors'
+    ],
+    correctAnswer: 2,
+    difficulty: 'beginner',
+    category: 'agentic-commerce-ap2',
+    subCategory: 'ucp-relationship',
+    explanation: 'UCP is the commerce lifecycle protocol (discovery → checkout → fulfillment) that integrates with AP2 for secure agentic payment authorization using mandate chains.',
+    relatedConcepts: ['agentic-commerce-ap2'],
+    timeEstimate: 35
+  },
+  {
+    id: 'ucp-4',
+    text: 'Which UCP capability handles applying promo codes?',
+    question: 'Which UCP capability is responsible for applying promotional codes and calculating discounts?',
+    options: [
+      'dev.ucp.shopping.checkout',
+      'dev.ucp.shopping.discount',
+      'dev.ucp.shopping.fulfillment',
+      'dev.ucp.shopping.identity'
+    ],
+    correctAnswer: 1,
+    difficulty: 'beginner',
+    category: 'agentic-commerce-ap2',
+    subCategory: 'ucp-capabilities',
+    explanation: 'The dev.ucp.shopping.discount capability handles promo codes, automatic discounts, and member benefits within UCP.',
+    relatedConcepts: ['agentic-commerce-ap2'],
+    timeEstimate: 30
   }
 ];

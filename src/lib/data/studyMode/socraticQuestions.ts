@@ -1581,7 +1581,8 @@ export const agenticRAGSocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
-// Socratic Questions for Agentic Commerce & AP2
+// Socratic Questions for Agentic Commerce: UCP & AP2
+// References: https://ucp.dev | https://developers.google.com/merchant/ucp | https://developers.googleblog.com/under-the-hood-universal-commerce-protocol-ucp/
 export const agenticCommerceAp2SocraticQuestions: StudyModeQuestion[] = [
   {
     id: 'agentic-commerce-ap2-socratic-1',
@@ -1596,7 +1597,7 @@ export const agenticCommerceAp2SocraticQuestions: StudyModeQuestion[] = [
       'Prevents silent mutation of cart contents'
     ],
     hints: [ 'Consider post-hoc dispute investigation', 'Think about tampering vs binding' ],
-    explanation: 'Isolation + cryptographic linkage localizes compromise and yields strong forensic evidence.',
+    explanation: 'Isolation + cryptographic linkage localizes compromise and yields strong forensic evidence. UCP uses AP2 mandates for payment authorization within its checkout flow.',
     relatedConcepts: ['agent-security','mcp-a2a-integration','agentic-commerce-ap2'],
     timeEstimate: 60
   },
@@ -1638,6 +1639,32 @@ export const agenticCommerceAp2SocraticQuestions: StudyModeQuestion[] = [
     explanation: 'Adaptive governance shrinks attack window by revoking at detection time rather than waiting for expiry.',
     relatedConcepts: ['agent-security','agent-ops','governance','agentic-commerce-ap2'],
     timeEstimate: 75
+  },
+  {
+    id: 'agentic-commerce-ap2-socratic-5',
+    type: 'socratic',
+    conceptId: 'agentic-commerce-ap2',
+    title: 'UCP Discovery & N×1 Integration',
+    level: 'intermediate',
+    socratiQuestion: 'Why does UCP use a /.well-known/ucp manifest for capability discovery, and how does this create N×1 integration instead of N×N?',
+    expectedInsights: [ 'Standardized discovery endpoint', 'Agents integrate once with UCP, merchants expose capabilities', 'Reduces integration complexity exponentially' ],
+    hints: [ 'Think about how many integrations would be needed without a standard', 'Consider what capabilities the manifest advertises' ],
+    explanation: 'UCP\'s discovery manifest enables any agent to find checkout, discount, fulfillment, and identity capabilities from any participating merchant via a single protocol — turning O(n²) integrations into O(n).',
+    relatedConcepts: ['mcp','a2a-communication','agentic-commerce-ap2'],
+    timeEstimate: 65
+  },
+  {
+    id: 'agentic-commerce-ap2-socratic-6',
+    type: 'socratic',
+    conceptId: 'agentic-commerce-ap2',
+    title: 'UCP Transport Flexibility',
+    level: 'beginner',
+    socratiQuestion: 'UCP supports A2A, MCP, and REST transports. When would an agent choose MCP tools vs A2A sessions for commerce interactions?',
+    expectedInsights: [ 'MCP for structured tool calls (search, pricing)', 'A2A for conversational negotiation', 'REST for traditional API integration' ],
+    hints: [ 'Consider the interaction pattern: request-response vs dialogue', 'Think about which is better for product discovery vs complex negotiations' ],
+    explanation: 'MCP tools excel at discrete operations (search products, check inventory) while A2A sessions enable multi-turn negotiation with merchant agents. UCP unifies both under one commerce protocol.',
+    relatedConcepts: ['mcp','a2a-communication','agentic-commerce-ap2'],
+    timeEstimate: 55
   }
 ];
 

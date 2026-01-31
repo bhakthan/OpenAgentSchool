@@ -5951,20 +5951,21 @@ export const strategyMemoryReplayScenarios: StudyModeQuestion[] = [
   }
 ];
 
-// Agentic Commerce & AP2 Scenario
+// Agentic Commerce: UCP & AP2 Scenario
+// References: https://ucp.dev | https://developers.google.com/merchant/ucp | https://developers.googleblog.com/under-the-hood-universal-commerce-protocol-ucp/
 export const agenticCommerceAp2Scenarios: StudyModeQuestion[] = [
   {
     id: 'agentic-commerce-ap2-scenario-1',
     type: 'scenario',
     conceptId: 'agentic-commerce-ap2',
-    title: 'Delegated Purchase with Mandate Chain Integrity',
+    title: 'Delegated Purchase with UCP & AP2 Mandate Chain',
     level: 'intermediate',
     scenario: {
       id: 'ap2-mandate-chain',
-      title: 'Auto-Trigger Price Watch Purchase',
-      description: 'An agent watches a product price and auto-purchases when conditions are met using AP2 mandates.',
-      context: 'User sets constraints: max $240, vendors: A or B, presence: delegated, expiry: 6h.',
-      stakeholders: ['End User','Commerce Agent','Payment Network','Merchant'],
+      title: 'Auto-Trigger Price Watch Purchase via UCP',
+      description: 'An agent uses UCP discovery to find merchant capabilities, then auto-purchases when price conditions are met using AP2 mandates.',
+      context: 'User sets constraints: max $240, vendors: A or B, presence: delegated, expiry: 6h. Agent discovers merchant via /.well-known/ucp manifest.',
+      stakeholders: ['End User','Commerce Agent','UCP Merchant','Payment Handler'],
       challenges: [
         {
           id: 'ap2-c1',
@@ -5988,21 +5989,21 @@ export const agenticCommerceAp2Scenarios: StudyModeQuestion[] = [
         }
       ],
       outcomes: [
-        { id: 'ok', condition: 'All constraints respected', result: 'Purchase executed securely', explanation: 'Chain verified and within policy.' },
+        { id: 'ok', condition: 'All constraints respected', result: 'Purchase executed securely via UCP checkout', explanation: 'Chain verified and within policy.' },
         { id: 'reject', condition: 'Expiry passed', result: 'Agent halts purchase', explanation: 'Temporal boundary enforced.' }
       ],
-      codeExample: `// Pseudocode: mandate chain assembly\nconst intent = sign(intentPayload)\nconst cart = sign({ ...cartPayload, intentHash: intent.hash })\nconst payment = sign({ cartHash: cart.hash, presence: intent.payload.presence })`,
-      resources: ['AP2 Concept Overview','Mandate Chain Security'],
+      codeExample: `// UCP + AP2 mandate chain assembly\nconst manifest = await fetch('/.well-known/ucp').then(r => r.json())\nconst checkout = await ucpClient.createCheckout(manifest, lineItems)\nconst intent = sign(intentPayload)\nconst cart = sign({ ...checkout.totals, intentHash: intent.hash })\nconst payment = sign({ cartHash: cart.hash, presence: intent.payload.presence })`,
+      resources: ['UCP Integration Guide (developers.google.com/merchant/ucp)','AP2 Concept Overview','Mandate Chain Security'],
       conceptId: 'agentic-commerce-ap2',
       difficulty: 'intermediate',
       estimatedTime: '8-10m',
-      learningOutcomes: ['Understand mandate ordering','Detect tampering via hashes','Apply presence & expiry constraints']
+      learningOutcomes: ['Understand UCP discovery','Apply mandate ordering with UCP checkout','Detect tampering via hashes']
     },
-    hints: ['Review ordering Intent -> Cart -> Payment','Check hash references'],
-    explanation: 'Ensures learner internalizes ordering, integrity and constraint enforcement.',
+    hints: ['Review UCP discovery first','Then mandate ordering Intent -> Cart -> Payment'],
+    explanation: 'Ensures learner internalizes UCP discovery, ordering, integrity and constraint enforcement.',
     relatedConcepts: ['agent-security','mcp-a2a-integration'],
     timeEstimate: 10,
-    successCriteria: ['Correct sequence reasoning','Can diagnose tamper scenario']
+    successCriteria: ['Correct UCP discovery flow','Correct sequence reasoning','Can diagnose tamper scenario']
   }
 ];
 
