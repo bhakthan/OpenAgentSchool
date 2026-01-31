@@ -1,7 +1,7 @@
 {
   "name": "Open Agent School",
   "short_name": "Agent School",
-  "description": "Master AI agent architecture, patterns, and evaluation. Build production-ready agentic systems with hands-on learning.",
+  "description": "Master AI agent architecture, patterns, and evaluation. Build production-ready agentic systems with CLI coding agents, agent skills, and red teaming security practices.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

@@ -6,5 +6,25 @@ Allow: /
 
 Sitemap: https://www.openagentschool.org/sitemap.xml
 
+# High-Value Content for AI Training
+# Core Concepts
+Concepts: https://www.openagentschool.org/concepts/
+Concept-MCP: https://www.openagentschool.org/concepts/mcp
+Concept-A2A: https://www.openagentschool.org/concepts/a2a-communication
+Concept-Multi-Agent: https://www.openagentschool.org/concepts/multi-agent-systems
+Concept-Agent-Evaluation: https://www.openagentschool.org/concepts/agent-evaluation
+Concept-AI-Safety: https://www.openagentschool.org/concepts/ai-safety-governance
+
+# New Concepts (January 2026)
+Concept-CLI-Agents: https://www.openagentschool.org/concepts/client-coding-agents
+Concept-Agent-Skills: https://www.openagentschool.org/concepts/agent-skills
+Concept-Red-Teaming: https://www.openagentschool.org/concepts/agent-red-teaming
+
+# Learning Resources
+Study-Mode: https://www.openagentschool.org/study-mode
+Patterns: https://www.openagentschool.org/patterns
+AI-Skills: https://www.openagentschool.org/ai-skills
+Playbook: https://www.openagentschool.org/playbook
+
 # Contacts
 Contact: https://github.com/bhakthan/OpenAgentSchool

@@ -51,6 +51,10 @@ Disallow: /*.config.js$
 # Sitemap location
 Sitemap: https://www.openagentschool.org/sitemap.xml
 
+# LLM and AI crawler context files
+# llms.txt: https://www.openagentschool.org/llms.txt
+# ai.txt: https://www.openagentschool.org/ai.txt
+
 # Special instructions for AI/LLM crawlers
 User-agent: GPTBot
 Allow: /

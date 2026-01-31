@@ -1,0 +1,80 @@
+# Open Agent School - llms.txt
+# https://llmstxt.org/ - A standard for providing context to LLMs
+
+> Open Agent School is a comprehensive educational platform for mastering AI agents,
+> from foundational concepts to production-ready agentic systems.
+
+## About
+
+Open Agent School teaches developers, architects, and product managers to build
+AI agents through interactive learning, hands-on practice, and real-world patterns.
+
+## Core Topics
+
+### Agent Fundamentals
+- AI Agent Architecture & Lifecycle
+- Agent Reasoning & Tool Use
+- Memory Systems & Context Management
+
+### Communication Protocols
+- Model Context Protocol (MCP) - Context and tool standardization
+- Agent-to-Agent (A2A) Communication - Inter-agent messaging
+- Agent Communication Protocol (ACP) - Unified agent interoperability
+
+### CLI Coding Agents (NEW)
+- Copilot CLI - GitHub's command suggestions
+- Claude Code - Anthropic's agentic coding with CLAUDE.md
+- Codex CLI - OpenAI's terminal agent with approval modes
+- Gemini CLI - Google's multimodal CLI agent
+- AGENTS.md configuration for project context
+
+### Agent Skills (NEW)
+- SKILL.md specification for modular agent expertise
+- Progressive disclosure for context efficiency
+- Skill discovery and activation triggers
+- Security considerations for third-party skills
+
+### Agent Red Teaming (NEW)
+- Proactive AI security testing methodology
+- PyRIT (Python Risk Identification Tool) framework
+- Attack types: Direct Injection, Metaprompt Extraction, Multi-turn (Crescendo), XPIA, Guardrail Bypass
+- Risk categories: 7 model+agent risks, 3 agent-specific risks
+- Attack Success Rate (ASR) metrics
+- NIST AI RMF: Map → Measure → Manage
+
+### Evaluation & Safety
+- Agent Evaluation Methodologies
+- AI Safety & Governance (Azure AI Content Safety, Responsible AI)
+- Critical Thinking Frameworks (Bloom's, Paul-Elder)
+
+### Advanced Topics
+- Multi-Agent Systems & Orchestration
+- Data Autonomy Patterns
+- Fine-Tuning Methods (SFT, DPO, RFT)
+- Quantum-Enhanced AI & Robotics
+- Agentic Commerce & Enterprise Applications
+
+## Key URLs
+
+- Homepage: https://www.openagentschool.org/
+- Concepts Hub: https://www.openagentschool.org/concepts/
+- Agent Patterns: https://www.openagentschool.org/patterns/
+- Study Mode: https://www.openagentschool.org/study-mode/
+- AI Skills Explorer: https://www.openagentschool.org/ai-skills/
+
+## New Concept URLs (January 2026)
+
+- CLI Coding Agents: https://www.openagentschool.org/concepts/client-coding-agents
+- Agent Skills: https://www.openagentschool.org/concepts/agent-skills
+- Agent Red Teaming: https://www.openagentschool.org/concepts/agent-red-teaming
+
+## Technical Stack
+
+- Frontend: React 18 + TypeScript + Vite + TailwindCSS
+- Visualizations: D3.js for interactive diagrams
+- Backend (optional): Python FastAPI microservices
+
+## Contact
+
+- GitHub: https://github.com/bhakthan/OpenAgentSchool
+- Website: https://www.openagentschool.org
