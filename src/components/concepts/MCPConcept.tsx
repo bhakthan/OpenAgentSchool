@@ -72,6 +72,17 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
             </CardContent>
           </Card>
 
+          {/* MCP Architecture Infographic */}
+          <Card>
+            <CardContent className="pt-6">
+              <img 
+                src="/images/MCP.png" 
+                alt="Model Context Protocol Architecture - The USB-C for AI Agents showing tool integration and data flow"
+                className="w-full rounded-lg border border-border/50"
+              />
+            </CardContent>
+          </Card>
+
           {/* Problem it Solves */}
           <Card>
             <CardHeader>

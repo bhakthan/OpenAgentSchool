@@ -88,6 +88,17 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
               </div>
             </CardContent>
           </Card>
+
+          {/* MCP Apps UI Infographic */}
+          <Card>
+            <CardContent className="pt-6">
+              <img 
+                src="/images/MCP_Apps_UI.png" 
+                alt="MCP Apps Architecture - Interactive UI for AI Agents showing the flow from LLM to rendered interface"
+                className="w-full rounded-lg border border-border/50"
+              />
+            </CardContent>
+          </Card>
           
           {/* Cross-Platform Vision */}
           <Card>
