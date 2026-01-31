@@ -450,43 +450,52 @@ function App() {
             <div className="container mx-auto px-4 pb-1">
               {(() => {
                 // Hierarchical mega-menu structure with 4 top-level categories
+                // Color-coded to match Learning Atlas visualization
                 const navCategories = [
                   {
                     label: 'Learn',
                     icon: <GraduationCap size={16} weight="duotone" />,
+                    color: 'from-blue-500 to-cyan-500',
+                    hoverBg: 'hover:bg-blue-500/10 dark:hover:bg-blue-400/10',
                     items: [
-                      { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} />, description: 'Foundational AI agent concepts' },
-                      { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" />, description: 'Reusable design patterns' },
-                      { to: '/tree-view', label: 'Learning Atlas', icon: <Tree size={16} weight="duotone" />, description: 'Visual concept taxonomy' },
-                      { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" />, description: 'Papers, videos, and resources' },
+                      { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} />, description: 'Foundational AI agent concepts', isNew: false },
+                      { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" />, description: 'Reusable design patterns', isNew: false },
+                      { to: '/tree-view', label: 'Learning Atlas', icon: <Tree size={16} weight="duotone" />, description: 'Visual concept taxonomy', isNew: true },
+                      { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" />, description: 'Papers, videos, and resources', isNew: false },
                     ]
                   },
                   {
                     label: 'Apply',
                     icon: <Lightning size={16} weight="duotone" />,
+                    color: 'from-amber-500 to-orange-500',
+                    hoverBg: 'hover:bg-amber-500/10 dark:hover:bg-amber-400/10',
                     items: [
-                      { to: '/agents-for-science', label: 'Agents for Science', icon: <Atom size={16} weight="duotone" />, description: 'AI-accelerated scientific discovery' },
-                      { to: '/adoption-playbook', label: 'Adoption Playbook', icon: <Compass size={16} weight="duotone" />, description: 'Enterprise adoption strategies' },
-                      { to: '/ai-skills', label: 'Applied AI Skills', icon: <Lightning size={16} weight="duotone" />, description: 'Practical AI implementation skills' },
-                      { to: '/azure-services', label: 'Azure Services', icon: <StackSimple size={16} weight="duotone" />, description: 'Cloud platform services' },
+                      { to: '/agents-for-science', label: 'Agents for Science', icon: <Atom size={16} weight="duotone" />, description: 'AI-accelerated scientific discovery', isNew: true },
+                      { to: '/adoption-playbook', label: 'Adoption Playbook', icon: <Compass size={16} weight="duotone" />, description: 'Enterprise adoption strategies', isNew: true },
+                      { to: '/ai-skills', label: 'Applied AI Skills', icon: <Lightning size={16} weight="duotone" />, description: 'Practical AI implementation skills', isNew: false },
+                      { to: '/azure-services', label: 'Azure Services', icon: <StackSimple size={16} weight="duotone" />, description: 'Cloud platform services', isNew: false },
                     ]
                   },
                   {
                     label: 'Practice',
                     icon: <Code size={16} weight="duotone" />,
+                    color: 'from-emerald-500 to-teal-500',
+                    hoverBg: 'hover:bg-emerald-500/10 dark:hover:bg-emerald-400/10',
                     items: [
-                      { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" />, description: 'Interactive learning exercises' },
-                      { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} />, description: 'Test your understanding' },
-                      ...(import.meta.env.VITE_KNOWLEDGE_SERVICE_URL ? [{ to: '/knowledge-search', label: 'Knowledge Search', icon: <Code size={16} weight="duotone" />, description: 'Search documentation' }] : []),
-                      { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" />, description: 'Share and collaborate' },
+                      { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" />, description: 'Interactive learning exercises', isNew: false },
+                      { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} />, description: 'Test your understanding', isNew: false },
+                      ...(import.meta.env.VITE_KNOWLEDGE_SERVICE_URL ? [{ to: '/knowledge-search', label: 'Knowledge Search', icon: <Code size={16} weight="duotone" />, description: 'Search documentation', isNew: false }] : []),
+                      { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" />, description: 'Share and collaborate', isNew: false },
                     ]
                   },
                   {
                     label: 'Tools',
                     icon: <Plugs size={16} weight="duotone" />,
+                    color: 'from-violet-500 to-purple-500',
+                    hoverBg: 'hover:bg-violet-500/10 dark:hover:bg-violet-400/10',
                     items: [
-                      { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" />, description: 'Technical documentation' },
-                      ...(import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL ? [{ to: '/agents', label: 'Agents Console', icon: <Plugs size={16} weight="duotone" />, description: 'Multi-agent orchestration' }] : []),
+                      { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" />, description: 'Technical documentation', isNew: false },
+                      ...(import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL ? [{ to: '/agents', label: 'Agents Console', icon: <Plugs size={16} weight="duotone" />, description: 'Multi-agent orchestration', isNew: true }] : []),
                     ]
                   },
                 ];
@@ -494,6 +503,10 @@ function App() {
                 // Helper to check if any item in a category is active
                 const isCategoryActive = (category: typeof navCategories[0]) => 
                   category.items.some(item => location.pathname === item.to);
+                
+                // Check if category has any new items
+                const hasNewItems = (category: typeof navCategories[0]) =>
+                  category.items.some(item => item.isNew);
 
                 return (
                   <>
@@ -505,33 +518,54 @@ function App() {
                             <NavigationMenuItem key={category.label}>
                               <NavigationMenuTrigger 
                                 className={cn(
-                                  "bg-transparent h-10",
-                                  isCategoryActive(category) && "bg-accent text-accent-foreground"
+                                  "bg-transparent h-10 relative transition-all duration-200",
+                                  category.hoverBg,
+                                  isCategoryActive(category) && "bg-accent text-accent-foreground font-semibold"
                                 )}
                               >
                                 <span className="flex items-center gap-2">
                                   {category.icon}
                                   {category.label}
+                                  {hasNewItems(category) && (
+                                    <span className="absolute -top-1 -right-1 flex h-2 w-2">
+                                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                                      <span className="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+                                    </span>
+                                  )}
                                 </span>
                               </NavigationMenuTrigger>
                               <NavigationMenuContent>
-                                <ul className="grid gap-2 p-4 w-[500px] md:grid-cols-2">
+                                <div className={cn(
+                                  "absolute top-0 left-0 right-0 h-1 bg-gradient-to-r rounded-t-md",
+                                  category.color
+                                )} />
+                                <ul className="grid gap-2 p-4 pt-5 w-[520px] md:grid-cols-2">
                                   {category.items.map(item => (
                                     <li key={item.to}>
                                       <NavigationMenuLink asChild>
                                         <Link
                                           to={item.to}
                                           className={cn(
-                                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
-                                            "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                                            location.pathname === item.to && "bg-accent text-accent-foreground"
+                                            "group block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200",
+                                            "bg-white dark:bg-gray-900",
+                                            "hover:bg-gray-50 dark:hover:bg-gray-800 hover:translate-x-0.5 hover:shadow-sm",
+                                            "focus:bg-gray-50 dark:focus:bg-gray-800",
+                                            "border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700",
+                                            location.pathname === item.to && "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
                                           )}
                                         >
-                                          <div className="flex items-center gap-2 text-sm font-medium leading-none mb-1">
-                                            {item.icon}
-                                            {item.label}
+                                          <div className="flex items-center gap-2 text-sm font-medium leading-none mb-1.5">
+                                            <span className="text-gray-700 dark:text-gray-300 transition-transform group-hover:scale-110">
+                                              {item.icon}
+                                            </span>
+                                            <span className="text-gray-900 dark:text-white">{item.label}</span>
+                                            {item.isNew && (
+                                              <span className="ml-auto px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 rounded-full">
+                                                New
+                                              </span>
+                                            )}
                                           </div>
-                                          <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
+                                          <p className="line-clamp-2 text-xs leading-snug text-gray-500 dark:text-gray-400">
                                             {item.description}
                                           </p>
                                         </Link>
@@ -546,38 +580,66 @@ function App() {
                       </NavigationMenu>
                     </div>
 
-                    {/* Mobile navigation - show all categories in dropdown */}
+                    {/* Mobile navigation - enhanced with colors and badges */}
                     <div className="md:hidden">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button
                             variant="outline"
                             size="default"
-                            className="h-10 px-4"
+                            className="h-10 px-4 relative"
                             aria-label="Navigation menu"
                           >
                             <DotsThree size={20} weight="bold" className="mr-2" />
                             <span>Menu</span>
+                            {/* New indicator dot */}
+                            <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-yellow-500"></span>
+                            </span>
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="start" className="w-[280px] max-h-[70vh] overflow-y-auto">
+                        <DropdownMenuContent align="start" className="w-[300px] max-h-[75vh] overflow-y-auto p-2">
                           {navCategories.map(category => (
-                            <div key={category.label} className="mb-2">
-                              <div className="px-2 py-1.5 text-sm font-semibold text-muted-foreground flex items-center gap-2">
-                                {category.icon}
-                                {category.label}
+                            <div key={category.label} className="mb-3 last:mb-0">
+                              {/* Category header with gradient underline */}
+                              <div className="px-2 py-1.5 text-sm font-semibold flex items-center gap-2 relative">
+                                <span className={cn(
+                                  "bg-gradient-to-r bg-clip-text text-transparent",
+                                  category.color
+                                )}>
+                                  {category.icon}
+                                </span>
+                                <span className={cn(
+                                  "bg-gradient-to-r bg-clip-text text-transparent font-bold",
+                                  category.color
+                                )}>
+                                  {category.label}
+                                </span>
+                                {hasNewItems(category) && (
+                                  <span className="ml-1 px-1.5 py-0.5 text-[9px] font-bold uppercase bg-yellow-500 text-gray-900 rounded-full">
+                                    New
+                                  </span>
+                                )}
                               </div>
+                              <div className={cn("h-0.5 mx-2 mb-1 rounded-full bg-gradient-to-r opacity-30", category.color)} />
                               {category.items.map(item => (
                                 <DropdownMenuItem key={item.to} asChild>
                                   <Link 
                                     to={item.to} 
                                     className={cn(
-                                      "flex items-center gap-2 pl-6",
+                                      "flex items-center gap-2 pl-4 py-2 rounded-md mx-1 transition-all duration-150",
+                                      "hover:translate-x-0.5",
                                       location.pathname === item.to && "bg-accent text-accent-foreground"
                                     )}
                                   >
                                     {item.icon}
-                                    <span>{item.label}</span>
+                                    <span className="flex-1">{item.label}</span>
+                                    {item.isNew && (
+                                      <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 rounded-full">
+                                        New
+                                      </span>
+                                    )}
                                   </Link>
                                 </DropdownMenuItem>
                               ))}
