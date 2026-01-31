@@ -149,8 +149,43 @@ export const conceptCues: Record<string, ConceptCue> = {
   'agentic-commerce-ap2': {
     id: 'agentic-commerce-ap2',
     cue: 'Delegated trust requires cryptographic proof – mandates turn “the agent did it” into verifiable evidence.',
-    criticalThinkingQuestion: 'How would you design a mandate lifecycle (Intent → Cart → Payment) that enables autonomous purchasing while minimizing fraud, overreach, and dispute friction in a multi-rail commerce ecosystem?'
-  }
+    criticalThinkingQuestion: 'How would you design a mandate lifecycle (Intent → Cart → Payment) that enables autonomous purchasing while minimizing fraud, overreach, and dispute friction in a multi-rail commerce ecosystem?'  },
+
+  // Production Foundations (January 2026)
+  'agent-reasoning-patterns': {
+    id: 'agent-reasoning-patterns',
+    cue: 'Reasoning is architecture — CoT, ToT, GoT, and ReAct each unlock different problem spaces through structured thinking.',
+    criticalThinkingQuestion: 'How would you choose between Chain-of-Thought, Tree-of-Thought, and ReAct for a complex research task, and what termination conditions prevent infinite exploration?'
+  },
+  'agent-memory-systems': {
+    id: 'agent-memory-systems',
+    cue: 'Memory makes context — short-term holds the thread, long-term holds the world, episodic holds the story.',
+    criticalThinkingQuestion: 'How would you design a memory architecture that balances recency with relevance, prevents hallucinated memories, and scales across millions of user interactions?'
+  },
+  'agent-observability': {
+    id: 'agent-observability',
+    cue: 'You can only debug what you can see — traces, spans, and semantic logs make agent reasoning visible.',
+    criticalThinkingQuestion: 'How would you instrument a multi-agent system so that any failure can be traced to its root cause within minutes, while protecting user privacy and managing log volume?'
+  },
+  'agent-testing-benchmarks': {
+    id: 'agent-testing-benchmarks',
+    cue: 'Benchmarks prove capability — SWE-Bench for code, GAIA for reasoning, determinism for reliability.',
+    criticalThinkingQuestion: 'How would you design an evaluation suite that catches regressions, prevents contamination, and provides statistically significant results for agent deployments?'
+  },
+  'prompt-injection-defense': {
+    id: 'prompt-injection-defense',
+    cue: 'Data is not instructions — separating what the agent reads from what it executes is the first line of defense.',
+    criticalThinkingQuestion: 'How would you protect a RAG agent from indirect injection attacks hidden in retrieved documents while maintaining useful context extraction?'
+  },
+  'human-in-the-loop-patterns': {
+    id: 'human-in-the-loop-patterns',
+    cue: 'Autonomy is earned — tiered approval, escalation triggers, and graceful degradation balance speed with oversight.',
+    criticalThinkingQuestion: 'How would you design a HITL system that scales with volume, learns from approval patterns, and gracefully handles reviewer unavailability?'
+  },
+  'agent-cost-optimization': {
+    id: 'agent-cost-optimization',
+    cue: 'Efficiency is architecture — caching, model routing, and token budgets turn good agents into sustainable ones.',
+    criticalThinkingQuestion: 'How would you implement semantic caching and model routing to cut costs 80% without degrading user experience or increasing latency?'  }
 };
 
 // Helper function to get concept cue

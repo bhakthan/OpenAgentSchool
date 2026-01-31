@@ -3041,7 +3041,292 @@ export const references: ReferencesData = {
         ]
       }
     ],
-  
+
+    // Production Foundations Concepts (January 2026)
+    "agent-reasoning-patterns": [
+      {
+        id: "documentation",
+        name: "Reasoning Pattern Fundamentals",
+        references: [
+          {
+            title: "Chain-of-Thought Prompting Elicits Reasoning",
+            url: "https://arxiv.org/abs/2201.11903",
+            description: "Seminal paper introducing Chain-of-Thought prompting for complex reasoning tasks"
+          },
+          {
+            title: "Tree of Thoughts: Deliberate Problem Solving",
+            url: "https://arxiv.org/abs/2305.10601",
+            description: "Tree-of-Thought framework for exploring multiple reasoning paths with backtracking"
+          },
+          {
+            title: "Graph of Thoughts: Solving Elaborate Problems",
+            url: "https://arxiv.org/abs/2308.09687",
+            description: "Graph-based reasoning allowing merging and refinement of thought branches"
+          },
+          {
+            title: "ReAct: Synergizing Reasoning and Acting",
+            url: "https://arxiv.org/abs/2210.03629",
+            description: "Interleaving reasoning traces with actions for grounded problem-solving"
+          }
+        ]
+      },
+      {
+        id: "implementations",
+        name: "Implementation Guides",
+        references: [
+          {
+            title: "LangChain Agents Documentation",
+            url: "https://python.langchain.com/docs/modules/agents/",
+            description: "Production-ready agent implementations with various reasoning patterns"
+          },
+          {
+            title: "Azure AI Agent Service",
+            url: "https://learn.microsoft.com/azure/ai-services/agents/",
+            description: "Microsoft's managed agent service with built-in reasoning capabilities"
+          }
+        ]
+      }
+    ],
+    "agent-memory-systems": [
+      {
+        id: "documentation",
+        name: "Memory Architecture Patterns",
+        references: [
+          {
+            title: "Generative Agents: Interactive Simulacra",
+            url: "https://arxiv.org/abs/2304.03442",
+            description: "Stanford's seminal work on memory, reflection, and planning in generative agents"
+          },
+          {
+            title: "MemGPT: Operating Systems for LLMs",
+            url: "https://arxiv.org/abs/2310.08560",
+            description: "Virtual context management inspired by operating system memory hierarchies"
+          },
+          {
+            title: "LangChain Memory Documentation",
+            url: "https://python.langchain.com/docs/modules/memory/",
+            description: "Practical memory implementations for conversational AI"
+          }
+        ]
+      },
+      {
+        id: "vector-stores",
+        name: "Vector Database Integration",
+        references: [
+          {
+            title: "Azure AI Search Vector Store",
+            url: "https://learn.microsoft.com/azure/search/vector-search-overview",
+            description: "Enterprise vector search for agent memory systems"
+          },
+          {
+            title: "Pinecone Vector Database",
+            url: "https://docs.pinecone.io/",
+            description: "Managed vector database for semantic memory retrieval"
+          }
+        ]
+      }
+    ],
+    "agent-observability": [
+      {
+        id: "documentation",
+        name: "Observability Fundamentals",
+        references: [
+          {
+            title: "OpenTelemetry for LLM Applications",
+            url: "https://opentelemetry.io/docs/languages/python/",
+            description: "Industry-standard observability framework for distributed tracing"
+          },
+          {
+            title: "LangSmith Tracing",
+            url: "https://docs.smith.langchain.com/",
+            description: "Production tracing and debugging for LangChain applications"
+          },
+          {
+            title: "Azure Monitor for AI",
+            url: "https://learn.microsoft.com/azure/azure-monitor/",
+            description: "Enterprise monitoring and diagnostics for AI workloads"
+          }
+        ]
+      },
+      {
+        id: "best-practices",
+        name: "Best Practices",
+        references: [
+          {
+            title: "Observability Best Practices for GenAI",
+            url: "https://www.honeycomb.io/blog/observability-for-ai",
+            description: "Practical patterns for instrumenting generative AI applications"
+          },
+          {
+            title: "Weights & Biases LLM Monitoring",
+            url: "https://wandb.ai/site/traces",
+            description: "Experiment tracking and production monitoring for AI systems"
+          }
+        ]
+      }
+    ],
+    "agent-testing-benchmarks": [
+      {
+        id: "benchmarks",
+        name: "Industry Benchmarks",
+        references: [
+          {
+            title: "SWE-Bench: Can LLMs Write Real Software?",
+            url: "https://www.swebench.com/",
+            description: "Benchmark for evaluating agents on real GitHub issues"
+          },
+          {
+            title: "GAIA: General AI Assistants Benchmark",
+            url: "https://arxiv.org/abs/2311.12983",
+            description: "Multi-step reasoning benchmark requiring tool use and web browsing"
+          },
+          {
+            title: "HumanEval and MBPP",
+            url: "https://github.com/openai/human-eval",
+            description: "Code generation benchmarks for evaluating programming ability"
+          }
+        ]
+      },
+      {
+        id: "evaluation-frameworks",
+        name: "Evaluation Frameworks",
+        references: [
+          {
+            title: "Azure AI Evaluation SDK",
+            url: "https://learn.microsoft.com/azure/ai-studio/how-to/evaluate-generative-ai-app",
+            description: "Microsoft's framework for evaluating generative AI applications"
+          },
+          {
+            title: "LangChain Evaluation",
+            url: "https://python.langchain.com/docs/guides/evaluation/",
+            description: "Evaluation tools for LangChain applications"
+          },
+          {
+            title: "RAGAS: RAG Assessment",
+            url: "https://docs.ragas.io/",
+            description: "Framework for evaluating RAG pipelines"
+          }
+        ]
+      }
+    ],
+    "prompt-injection-defense": [
+      {
+        id: "documentation",
+        name: "Security Fundamentals",
+        references: [
+          {
+            title: "OWASP LLM Top 10",
+            url: "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+            description: "OWASP security risks for LLM applications including prompt injection"
+          },
+          {
+            title: "Microsoft Prompt Injection Guidance",
+            url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/red-teaming",
+            description: "Red teaming and security testing for Azure OpenAI"
+          },
+          {
+            title: "Anthropic's Constitutional AI",
+            url: "https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback",
+            description: "Training AI systems to be helpful, harmless, and honest"
+          }
+        ]
+      },
+      {
+        id: "defense-patterns",
+        name: "Defense Patterns",
+        references: [
+          {
+            title: "Azure AI Content Safety",
+            url: "https://learn.microsoft.com/azure/ai-services/content-safety/",
+            description: "Microsoft's content filtering and safety service"
+          },
+          {
+            title: "Guardrails AI",
+            url: "https://docs.guardrailsai.com/",
+            description: "Open-source framework for adding guardrails to LLM applications"
+          },
+          {
+            title: "NeMo Guardrails",
+            url: "https://docs.nvidia.com/nemo/guardrails/",
+            description: "NVIDIA's toolkit for adding safety and control to LLM applications"
+          }
+        ]
+      }
+    ],
+    "human-in-the-loop-patterns": [
+      {
+        id: "documentation",
+        name: "HITL Fundamentals",
+        references: [
+          {
+            title: "Human-in-the-Loop Machine Learning",
+            url: "https://www.oreilly.com/library/view/human-in-the-loop-machine/9781617296741/",
+            description: "Comprehensive guide to HITL patterns in ML systems"
+          },
+          {
+            title: "Azure Machine Learning HITL",
+            url: "https://learn.microsoft.com/azure/machine-learning/how-to-use-managed-identities",
+            description: "Implementing human review workflows in Azure ML"
+          }
+        ]
+      },
+      {
+        id: "workflow-patterns",
+        name: "Workflow Patterns",
+        references: [
+          {
+            title: "Temporal Workflow Orchestration",
+            url: "https://temporal.io/",
+            description: "Durable workflow engine for long-running approval processes"
+          },
+          {
+            title: "Azure Logic Apps",
+            url: "https://learn.microsoft.com/azure/logic-apps/",
+            description: "Low-code workflow automation with human approval steps"
+          }
+        ]
+      }
+    ],
+    "agent-cost-optimization": [
+      {
+        id: "documentation",
+        name: "Cost Optimization Strategies",
+        references: [
+          {
+            title: "Azure OpenAI Cost Management",
+            url: "https://learn.microsoft.com/azure/ai-services/openai/concepts/cost-management",
+            description: "Best practices for managing Azure OpenAI costs"
+          },
+          {
+            title: "Token Optimization Techniques",
+            url: "https://platform.openai.com/docs/guides/prompt-engineering",
+            description: "OpenAI's guide to efficient prompting and token usage"
+          }
+        ]
+      },
+      {
+        id: "caching-routing",
+        name: "Caching & Model Routing",
+        references: [
+          {
+            title: "GPTCache: Semantic Caching",
+            url: "https://github.com/zilliztech/GPTCache",
+            description: "Open-source semantic cache for LLM applications"
+          },
+          {
+            title: "RouteLLM: Model Routing",
+            url: "https://github.com/lm-sys/RouteLLM",
+            description: "Cost-effective LLM routing framework"
+          },
+          {
+            title: "Azure API Management for AI",
+            url: "https://learn.microsoft.com/azure/api-management/api-management-ai-overview",
+            description: "API gateway patterns for AI cost control"
+          }
+        ]
+      }
+    ],
+
     // Each pattern follows the pattern IDs from the existing code
     "routing": [
       {
