@@ -47,6 +47,11 @@ import AIProductFrameworkConcept from "./AIProductFrameworkConcept"
 import ClientCodingAgentsConcept from "./ClientCodingAgentsConcept"
 import AgentSkillsConcept from "./AgentSkillsConcept"
 import AgentRedTeamingConcept from "./AgentRedTeamingConcept"
+import AgentTroubleshootingPlaybook from "./AgentTroubleshootingPlaybook"
+import AgentEconomicsConcept from "./AgentEconomicsConcept"
+import AgentCareerPathsConcept from "./AgentCareerPathsConcept"
+import IndustryAgentsConcept from "./IndustryAgentsConcept"
+import AgentTemplatesHub from "./AgentTemplatesHub"
 
 interface ConceptInfo {
   id: string
@@ -526,6 +531,62 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '35-45 min',
     prerequisites: ['program-setup-north-star'],
     component: OrganizationalEnablementConcept
+  },
+  // Tier 5: Applied (Enterprise Adoption & Career Growth)
+  {
+    id: 'agent-troubleshooting',
+    title: 'Agent Troubleshooting Playbook',
+    description: 'Systematic debugging when production agents fail—from context collapse to tool timeouts.',
+    level: 'applied',
+    icon: <Target className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-red-900/20 dark:text-red-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['agent-ops', 'agent-deployment'],
+    component: AgentTroubleshootingPlaybook
+  },
+  {
+    id: 'agent-economics',
+    title: 'Agent Economics',
+    description: 'Build business cases: cost models, pricing strategies, ROI frameworks that secure budgets.',
+    level: 'applied',
+    icon: <ChartBar className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-green-900/20 dark:text-green-300',
+    estimatedTime: '35-45 min',
+    prerequisites: ['strategy-portfolio-management'],
+    component: AgentEconomicsConcept
+  },
+  {
+    id: 'agent-career-paths',
+    title: 'Agent Career Paths',
+    description: 'Navigate AI agent roles—skills, certifications, salaries, and growth trajectories.',
+    level: 'applied',
+    icon: <Users className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-blue-900/20 dark:text-blue-300',
+    estimatedTime: '30-40 min',
+    prerequisites: [],
+    component: AgentCareerPathsConcept
+  },
+  {
+    id: 'industry-agents',
+    title: 'Industry-Specific Agents',
+    description: 'Patterns for Healthcare, Finance, Legal, Education, Manufacturing—regulations and use cases.',
+    level: 'applied',
+    icon: <Stack className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-teal-900/20 dark:text-teal-300',
+    estimatedTime: '45-55 min',
+    prerequisites: ['agent-architecture', 'agent-security'],
+    component: IndustryAgentsConcept
+  },
+  {
+    id: 'agent-templates-hub',
+    title: 'Agent Templates Hub',
+    description: 'Ready-to-use starters, boilerplates, and quickstart guides—ship your first agent today.',
+    level: 'applied',
+    icon: <Stack className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-indigo-900/20 dark:text-indigo-300',
+    estimatedTime: '20-30 min',
+    prerequisites: [],
+    component: AgentTemplatesHub
   }
 ]
 
