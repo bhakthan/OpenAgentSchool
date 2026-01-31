@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Rocket, Lightbulb, BracketsCurly, Users, GearSix, ShieldCheck, TrendUp, Brain } from "@phosphor-icons/react"
+import { Rocket, Lightbulb, BracketsCurly, Users, GearSix, ShieldCheck, TrendUp, Brain, Scales } from "@phosphor-icons/react"
 import FutureStateTree from "./FutureStateTree"
 import TranslateButton from '@/components/ai/TranslateButton'
 
@@ -135,6 +135,9 @@ export default function FutureStateTrends({ onNavigate }: Props) {
               <li>• <span className="font-medium">Automated UX</span> adapts based on usage; humans review agent work</li>
               <li>• AI is already in daily workflows and will have <span className="font-medium">societal impact</span></li>
               <li>• Prefer <span className="font-medium">model diversity</span> (ensembles) over single‑model bets</li>
+              <li>• <span className="font-medium">AI governance</span> becomes table stakes; compliance frameworks mature globally</li>
+              <li>• <span className="font-medium">Constitutional AI</span> and alignment techniques scale for autonomous agents</li>
+              <li>• <span className="font-medium">Multi-agent orchestration</span> requires A2A trust boundaries and mesh architectures</li>
             </ul>
             <div className="mt-3">
               <TranslateButton
@@ -466,6 +469,28 @@ export default function FutureStateTrends({ onNavigate }: Props) {
             practice: [
               { label: 'Scenario: Policy Engine', href: '/study-mode', kind: 'Study' }
             ]
+          },
+          {
+            title: "Constitutional AI & Alignment",
+            summary: "Shift from RLHF to Constitutional AI for scalable value alignment; interpretability tooling matures.",
+            takeaway: "Adopt Constitutional AI principles for autonomous agents; invest in interpretability and alignment testing.",
+            horizon: 'Now',
+            confidence: 'High',
+            practice: [
+              { label: 'Socratic: Alignment Techniques', href: '/study-mode', kind: 'Study' },
+              { label: 'Recipe: Value Alignment Tests', href: '/playbook', kind: 'Playbook' }
+            ]
+          },
+          {
+            title: "Multi-Agent Trust Boundaries",
+            summary: "Agent-to-agent (A2A) authentication, authorization policies, and cascade failure prevention become critical.",
+            takeaway: "Implement inter-agent authorization, circuit breakers, and collaboration audit trails for regulatory evidence.",
+            horizon: '6–12m',
+            confidence: 'High',
+            practice: [
+              { label: 'Scenario: A2A Governance', href: '/study-mode', kind: 'Study' },
+              { label: 'Recipe: Agent Trust Mesh', href: '/playbook', kind: 'Playbook' }
+            ]
           }
         ]}
       />
@@ -503,6 +528,27 @@ export default function FutureStateTrends({ onNavigate }: Props) {
             practice: [
               { label: 'Recipe: Provider Abstraction', href: '/playbook', kind: 'Playbook' }
             ]
+          },
+          {
+            title: "AI Liability & Insurance",
+            summary: "Product liability frameworks expand to cover agent actions; AI-specific insurance products emerge.",
+            takeaway: "Review indemnification clauses; establish audit trails for liability attribution; explore AI insurance coverage.",
+            horizon: '6–12m',
+            confidence: 'Med',
+            practice: [
+              { label: 'Socratic: AI Liability Frameworks', href: '/study-mode', kind: 'Study' },
+              { label: 'Recipe: Liability Audit Trail', href: '/playbook', kind: 'Playbook' }
+            ]
+          },
+          {
+            title: "AI Sustainability Mandates",
+            summary: "Regulatory and ESG pressure drives carbon-aware inference routing and efficiency reporting.",
+            takeaway: "Measure inference carbon footprint; implement green routing policies; prepare for scope 3 AI emissions reporting.",
+            horizon: '24–36m',
+            confidence: 'Low',
+            practice: [
+              { label: 'Scenario: Green AI Routing', href: '/study-mode', kind: 'Study' }
+            ]
           }
         ]}
       />
@@ -532,9 +578,72 @@ export default function FutureStateTrends({ onNavigate }: Props) {
               { label: 'Socratic: Domain Data', href: '/study-mode', kind: 'Study' },
               { label: 'Recipe: Task Evals', href: '/playbook', kind: 'Playbook' }
             ]
+          },
+          {
+            title: "ACP & MCP Protocol Convergence",
+            summary: "Agent Client Protocol and Model Context Protocol compete; enterprise tool catalogs standardize.",
+            takeaway: "Abstract tool definitions behind protocol adapters; maintain vendor-neutral tool registries.",
+            horizon: '6–12m',
+            confidence: 'Med',
+            practice: [
+              { label: 'Socratic: ACP vs MCP', href: '/study-mode', kind: 'Study' },
+              { label: 'Recipe: Protocol Adapter', href: '/playbook', kind: 'Playbook' }
+            ]
+          },
+          {
+            title: "Agent Mesh Architecture",
+            summary: "Service mesh patterns emerge for 1000+ agents with distributed tracing, discovery, and cross-domain coordination.",
+            takeaway: "Evaluate agent mesh infrastructure for enterprise-scale multi-agent systems with observability and fault tolerance.",
+            horizon: '24–36m',
+            confidence: 'Med',
+            practice: [
+              { label: 'Scenario: Agent Mesh Design', href: '/study-mode', kind: 'Study' },
+              { label: 'Recipe: Agent Discovery', href: '/playbook', kind: 'Playbook' }
+            ]
           }
         ]}
-  />
+      />
+
+      {/* Regulatory Landscape - New Section */}
+      <Section
+        title="Regulatory Landscape"
+        icon={<Scales className="w-5 h-5" />}
+        items={[
+          {
+            title: "EU AI Act Compliance",
+            summary: "Risk-based classification requires conformity assessments for high-risk AI systems; enforcement begins.",
+            takeaway: "Classify all AI use cases by risk tier; implement required documentation and human oversight for high-risk systems.",
+            horizon: 'Now',
+            confidence: 'High',
+            practice: [
+              { label: 'Socratic: AI Risk Classification', href: '/study-mode', kind: 'Study' },
+              { label: 'Recipe: Conformity Assessment', href: '/playbook', kind: 'Playbook' }
+            ]
+          },
+          {
+            title: "Global Regulatory Fragmentation",
+            summary: "US state laws (Colorado, Illinois), APAC frameworks, and UK principles create compliance patchwork.",
+            takeaway: "Build modular compliance frameworks; map jurisdictional requirements per deployment region.",
+            horizon: '6–12m',
+            confidence: 'High',
+            practice: [
+              { label: 'Scenario: Multi-Jurisdiction Compliance', href: '/study-mode', kind: 'Study' },
+              { label: 'Recipe: Compliance Matrix', href: '/playbook', kind: 'Playbook' }
+            ]
+          },
+          {
+            title: "AI Transparency Requirements",
+            summary: "Disclosure obligations for AI-generated content and automated decision-making expand across jurisdictions.",
+            takeaway: "Implement AI content labeling; document decision logic for consumer-facing AI systems.",
+            horizon: '6–12m',
+            confidence: 'Med',
+            practice: [
+              { label: 'Socratic: Transparency Obligations', href: '/study-mode', kind: 'Study' },
+              { label: 'Recipe: AI Disclosure', href: '/playbook', kind: 'Playbook' }
+            ]
+          }
+        ]}
+      />
 
       {/* Visual Map */}
       <Card>
@@ -639,14 +748,17 @@ export default function FutureStateTrends({ onNavigate }: Props) {
                 <li>• Data quality and coverage matter more than prompts.</li>
                 <li>• Evals and telemetry are mandatory to ship safely.</li>
                 <li>• Privacy, provenance, and consent are table stakes.</li>
+                <li>• Human oversight for high-stakes decisions remains essential.</li>
+                <li>• Alignment and safety testing scale with autonomy level.</li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-2">Unknowns</h4>
               <ul className="space-y-2 text-muted-foreground">
-                <li>• Regulatory pace and global fragmentation.</li>
-                <li>• Energy constraints and inference economics.</li>
-                <li>• IP/watermarking standards and enforcement.</li>
+                <li>• Protocol winner (ACP vs MCP vs hybrid) still evolving.</li>
+                <li>• Energy constraints and inference economics trajectory.</li>
+                <li>• IP/watermarking standards and global enforcement.</li>
+                <li>• Agent liability attribution in multi-agent chains.</li>
               </ul>
             </div>
             <div>
@@ -655,6 +767,8 @@ export default function FutureStateTrends({ onNavigate }: Props) {
                 <li>• Safety incidents or data leaks—pause and review.</li>
                 <li>• Cost spikes—enable stricter routing + caching.</li>
                 <li>• Model regressions—roll back via canary gates.</li>
+                <li>• Regulatory enforcement actions—review compliance posture immediately.</li>
+                <li>• Multi-agent cascade failures—enable circuit breakers.</li>
               </ul>
             </div>
           </div>
