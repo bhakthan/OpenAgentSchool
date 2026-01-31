@@ -5105,6 +5105,481 @@ export const socraticQuestionLibrary = {
         'Considers contribution model'
       ]
     }
+  ],
+  'skill-augmented-agent': [
+    {
+      id: 'skill-augmented-agent-socratic-1',
+      type: 'socratic',
+      conceptId: 'skill-augmented-agent',
+      title: 'Discovering Skill Files',
+      level: 'beginner',
+      socratiQuestion: 'If you wanted to give an AI agent specialized knowledge about a specific codebase, framework, or domain, how would you provide that context without retraining the model?',
+      followUpQuestions: [
+        'What format would be most natural for domain experts to author?',
+        'How would the agent know which skills are relevant to the current task?',
+        'What happens if skills contradict each other?'
+      ],
+      expectedInsights: [
+        'Markdown files (like SKILL.md) provide human-readable, version-controlled context',
+        'Skill discovery should be automatic based on workspace structure',
+        'Skill priority and conflict resolution rules prevent contradictions'
+      ],
+      hints: [
+        'Think about how documentation is typically written and maintained',
+        'Consider how copilot-instructions.md files work in VS Code',
+        'Reflect on hierarchical configuration systems (local overrides global)'
+      ],
+      explanation: 'SKILL.md files emerged as a lightweight way to inject domain expertise into agents without fine-tuning. They leverage the agent\'s existing reasoning capabilities while adding project-specific context.',
+      relatedConcepts: ['mcp', 'agentic-ide', 'context-management'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Identifies skill file concept',
+        'Understands automatic discovery',
+        'Recognizes priority/conflict handling'
+      ]
+    },
+    {
+      id: 'skill-augmented-agent-socratic-2',
+      type: 'socratic',
+      conceptId: 'skill-augmented-agent',
+      title: 'Skill Capability Design',
+      level: 'intermediate',
+      socratiQuestion: 'A SKILL.md file can define capabilities, constraints, and forbidden actions. Why would you explicitly list what an agent CAN\'T do, not just what it can do?',
+      followUpQuestions: [
+        'How do you prevent an agent from violating domain-specific rules?',
+        'What role do examples play in skill definitions?',
+        'How do you test that skills are being followed correctly?'
+      ],
+      expectedInsights: [
+        'Explicit constraints prevent the agent from using general knowledge inappropriately',
+        'Forbidden actions create hard boundaries for safety-critical domains',
+        'Examples demonstrate correct reasoning patterns, not just syntax'
+      ],
+      hints: [
+        'Consider what happens when general training conflicts with domain rules',
+        'Think about regulatory or safety requirements',
+        'Reflect on few-shot prompting principles'
+      ],
+      explanation: 'Skill files work bidirectionally: capabilities expand what the agent can do, while constraints and forbidden actions narrow it down. This is critical for regulated industries and safety-critical applications.',
+      relatedConcepts: ['guardrails-layer', 'responsible-ai-governance', 'evaluation'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Explains capability vs constraint balance',
+        'Identifies safety use cases',
+        'Proposes testing strategy'
+      ]
+    },
+    {
+      id: 'skill-augmented-agent-socratic-3',
+      type: 'socratic',
+      conceptId: 'skill-augmented-agent',
+      title: 'Skill Composition Architecture',
+      level: 'advanced',
+      socratiQuestion: 'You have a monorepo with 50 packages, each with its own SKILL.md. How do you compose these skills efficiently without overwhelming the agent\'s context window?',
+      followUpQuestions: [
+        'Should all skills be loaded upfront, or discovered on-demand?',
+        'How do you handle cross-package skill dependencies?',
+        'What caching and invalidation strategies apply?'
+      ],
+      expectedInsights: [
+        'Lazy loading based on detected file patterns prevents context bloat',
+        'Skill indexes enable fast lookup without loading full content',
+        'Hierarchical composition (package → workspace → global) enables scaling'
+      ],
+      hints: [
+        'Consider how IDEs handle project-specific settings across workspaces',
+        'Think about dependency resolution in package managers',
+        'Reflect on cache invalidation when skills are updated'
+      ],
+      explanation: 'Large-scale skill composition requires lazy loading, indexing, and hierarchical override systems. The agent should load minimal context initially and expand as needed during task execution.',
+      relatedConcepts: ['mcp-server-orchestration', 'context-management', 'architecture'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Proposes lazy loading strategy',
+        'Designs hierarchical composition',
+        'Addresses caching concerns'
+      ]
+    }
+  ],
+  'mcp-server-orchestration': [
+    {
+      id: 'mcp-server-orchestration-socratic-1',
+      type: 'socratic',
+      conceptId: 'mcp-server-orchestration',
+      title: 'Multi-Server Discovery',
+      level: 'beginner',
+      socratiQuestion: 'An agent needs to use tools from 5 different MCP servers: filesystem, database, web search, GitHub, and Slack. How should it discover what tools are available without manually configuring each one?',
+      followUpQuestions: [
+        'What protocol features enable automatic tool discovery?',
+        'How do you handle servers that are temporarily unavailable?',
+        'What security considerations arise with multiple servers?'
+      ],
+      expectedInsights: [
+        'MCP\'s tools/list method enables runtime discovery of available tools',
+        'Health checks and fallback servers handle availability issues',
+        'Each server connection requires separate authentication and trust'
+      ],
+      hints: [
+        'Think about how service discovery works in microservices',
+        'Consider what happens when a server restarts mid-conversation',
+        'Reflect on trust boundaries between different tool providers'
+      ],
+      explanation: 'MCP server orchestration requires dynamic discovery, health monitoring, and unified schema management. The agent sees a single tool catalog while the orchestrator handles routing to appropriate servers.',
+      relatedConcepts: ['mcp', 'tool-use', 'multi-agent-systems'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Understands tool discovery',
+        'Identifies availability handling',
+        'Recognizes security boundaries'
+      ]
+    },
+    {
+      id: 'mcp-server-orchestration-socratic-2',
+      type: 'socratic',
+      conceptId: 'mcp-server-orchestration',
+      title: 'Tool Routing Decisions',
+      level: 'intermediate',
+      socratiQuestion: 'Two MCP servers both expose a "search" tool - one searches files, one searches the web. How does the orchestrator decide which to use when the agent calls "search"?',
+      followUpQuestions: [
+        'Should tool names be globally unique or namespace-qualified?',
+        'What context helps disambiguate similar tools?',
+        'Can an orchestrator call multiple tools in parallel for the same request?'
+      ],
+      expectedInsights: [
+        'Namespacing (server:tool) or semantic disambiguation prevents collisions',
+        'Tool descriptions and parameter schemas help distinguish similar tools',
+        'Parallel execution can provide comprehensive results from multiple sources'
+      ],
+      hints: [
+        'Consider how DNS resolves similar names in different domains',
+        'Think about how function overloading works in programming',
+        'Reflect on search aggregation patterns'
+      ],
+      explanation: 'Tool routing in multi-server environments requires clear disambiguation strategies. Namespacing, semantic routing, or explicit server targeting all solve the collision problem differently.',
+      relatedConcepts: ['multi-llm-routing', 'tool-use', 'architecture'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Proposes disambiguation strategy',
+        'Considers semantic routing',
+        'Evaluates parallel execution'
+      ]
+    },
+    {
+      id: 'mcp-server-orchestration-socratic-3',
+      type: 'socratic',
+      conceptId: 'mcp-server-orchestration',
+      title: 'Federation vs Aggregation',
+      level: 'advanced',
+      socratiQuestion: 'Should an MCP orchestrator present a federated view (each server\'s tools exposed separately) or an aggregated view (all tools merged into one catalog)? What are the trade-offs?',
+      followUpQuestions: [
+        'How does each approach affect error attribution?',
+        'What happens when server schemas evolve independently?',
+        'How do you handle rate limits across federated servers?'
+      ],
+      expectedInsights: [
+        'Federation preserves provenance and simplifies debugging',
+        'Aggregation simplifies the agent\'s decision-making but obscures sources',
+        'Schema versioning and rate limit aggregation are harder with federation'
+      ],
+      hints: [
+        'Consider how GraphQL federation handles similar problems',
+        'Think about error messages that say "search failed" vs "github:search failed"',
+        'Reflect on consolidated rate limiting across multiple APIs'
+      ],
+      explanation: 'Orchestration architecture choices affect debugging, schema management, and operational complexity. Most production systems use hybrid approaches with namespaced aggregation.',
+      relatedConcepts: ['observability', 'architecture', 'agent-ops'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Compares federation vs aggregation',
+        'Identifies debugging implications',
+        'Proposes hybrid approach'
+      ]
+    }
+  ],
+  'multi-llm-routing': [
+    {
+      id: 'multi-llm-routing-socratic-1',
+      type: 'socratic',
+      conceptId: 'multi-llm-routing',
+      title: 'When to Route',
+      level: 'beginner',
+      socratiQuestion: 'GPT-4 costs 30x more than GPT-3.5 but is only marginally better for simple tasks. How would you decide which model to use for each request to optimize cost without sacrificing quality?',
+      followUpQuestions: [
+        'What task characteristics suggest a simple vs complex model?',
+        'How do you measure if the cheaper model is "good enough"?',
+        'What happens if the initial routing decision was wrong?'
+      ],
+      expectedInsights: [
+        'Task complexity, required accuracy, and token count drive model selection',
+        'A/B testing and quality metrics validate routing decisions',
+        'Fallback to stronger models handles initial mis-routing'
+      ],
+      hints: [
+        'Consider the difference between "summarize this email" and "write legal contract"',
+        'Think about how you\'d measure if GPT-3.5 output is acceptable',
+        'Reflect on progressive enhancement patterns'
+      ],
+      explanation: 'Multi-LLM routing optimizes cost-quality trade-offs by matching task complexity to model capability. Smart routing can reduce costs 60-80% while maintaining quality for most requests.',
+      relatedConcepts: ['agent-economics', 'evaluation', 'architecture'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Identifies routing criteria',
+        'Proposes quality validation',
+        'Understands fallback patterns'
+      ]
+    },
+    {
+      id: 'multi-llm-routing-socratic-2',
+      type: 'socratic',
+      conceptId: 'multi-llm-routing',
+      title: 'Task Classification',
+      level: 'intermediate',
+      socratiQuestion: 'Before routing to a model, you need to classify the task complexity. But classification itself requires an LLM call! How do you avoid the "meta-routing" cost paradox?',
+      followUpQuestions: [
+        'Can you classify without calling an LLM?',
+        'What lightweight signals indicate task complexity?',
+        'When is expensive pre-classification worth it?'
+      ],
+      expectedInsights: [
+        'Heuristics (token count, keyword detection, regex patterns) avoid LLM calls',
+        'Embedding similarity to known task categories enables fast classification',
+        'Pre-classification pays off when routing decisions have high cost differentials'
+      ],
+      hints: [
+        'Consider what you can determine from the prompt before any LLM call',
+        'Think about keyword-based routing rules',
+        'Reflect on when a small classification model is cheaper than always using the big model'
+      ],
+      explanation: 'Efficient task classification uses lightweight heuristics first, falling back to embedding-based or LLM-based classification only when heuristics are uncertain. The goal is to minimize total cost including classification overhead.',
+      relatedConcepts: ['architecture', 'optimization', 'evaluation'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Proposes heuristic-first approach',
+        'Identifies classification signals',
+        'Calculates classification ROI'
+      ]
+    },
+    {
+      id: 'multi-llm-routing-socratic-3',
+      type: 'socratic',
+      conceptId: 'multi-llm-routing',
+      title: 'Model Registry Design',
+      level: 'advanced',
+      socratiQuestion: 'New models release weekly. How do you design a model registry that can add new models, update pricing, and adjust routing rules without code changes or service restarts?',
+      followUpQuestions: [
+        'What metadata does the registry need for each model?',
+        'How do you test new models before full production routing?',
+        'What observability helps validate routing changes?'
+      ],
+      expectedInsights: [
+        'Dynamic configuration (database or config service) enables hot updates',
+        'Capability tags, pricing tiers, and performance benchmarks drive routing',
+        'Shadow testing and gradual rollout validate new model additions'
+      ],
+      hints: [
+        'Consider how feature flag systems handle dynamic configuration',
+        'Think about what you need to know to route to a new model',
+        'Reflect on canary deployment patterns'
+      ],
+      explanation: 'Model registries should support dynamic updates with shadow testing capabilities. Metadata includes capabilities, pricing, rate limits, latency benchmarks, and quality scores from evaluation datasets.',
+      relatedConcepts: ['agent-ops', 'evaluation', 'deployment'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Designs dynamic registry',
+        'Specifies required metadata',
+        'Proposes testing strategy'
+      ]
+    }
+  ],
+  'agentic-ide': [
+    {
+      id: 'agentic-ide-socratic-1',
+      type: 'socratic',
+      conceptId: 'agentic-ide',
+      title: 'Workspace Context',
+      level: 'beginner',
+      socratiQuestion: 'A coding agent needs to understand your project to make useful edits. What information about your workspace does it need, and how should it gather it without reading every file?',
+      followUpQuestions: [
+        'What files are most important for understanding project structure?',
+        'How do you avoid overwhelming the agent with irrelevant files?',
+        'What role do configuration files play in context?'
+      ],
+      expectedInsights: [
+        'Package.json, tsconfig, README, and directory structure provide high-value context',
+        'Gitignore patterns and file-type filtering reduce noise',
+        'Configuration files reveal project conventions and dependencies'
+      ],
+      hints: [
+        'Consider what a new developer would read first when joining a project',
+        'Think about what files you never want the agent to read (node_modules)',
+        'Reflect on how project conventions differ from general coding practices'
+      ],
+      explanation: 'Agentic IDEs gather context hierarchically: project structure first, then relevant configuration, then specific files as needed. Smart filtering prevents context window overflow while maintaining understanding.',
+      relatedConcepts: ['skill-augmented-agent', 'context-management', 'tool-use'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Identifies high-value context sources',
+        'Proposes filtering strategy',
+        'Understands progressive loading'
+      ]
+    },
+    {
+      id: 'agentic-ide-socratic-2',
+      type: 'socratic',
+      conceptId: 'agentic-ide',
+      title: 'Safe File Editing',
+      level: 'intermediate',
+      socratiQuestion: 'An IDE agent can create, edit, and delete files. How do you ensure it doesn\'t accidentally break your project with a bad edit?',
+      followUpQuestions: [
+        'What validation should run before applying edits?',
+        'How do you handle partial failures (some files edited, others failed)?',
+        'What undo/recovery mechanisms are essential?'
+      ],
+      expectedInsights: [
+        'Type checking, linting, and test execution validate edits before commit',
+        'Atomic transactions or explicit checkpoints handle partial failures',
+        'Git-based undo, shadow copies, or explicit snapshots enable recovery'
+      ],
+      hints: [
+        'Consider what happens if an edit introduces a syntax error',
+        'Think about multi-file refactoring where only some files succeed',
+        'Reflect on how you\'d manually recover from a bad agent edit'
+      ],
+      explanation: 'Safe agentic editing requires pre-validation, atomic operations, and recovery mechanisms. The agent should verify edits compile and pass tests before considering them complete.',
+      relatedConcepts: ['guardrails-layer', 'agent-ops', 'evaluation'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Proposes validation pipeline',
+        'Handles partial failures',
+        'Designs recovery mechanism'
+      ]
+    },
+    {
+      id: 'agentic-ide-socratic-3',
+      type: 'socratic',
+      conceptId: 'agentic-ide',
+      title: 'Tool Composition',
+      level: 'advanced',
+      socratiQuestion: 'VS Code exposes 100+ APIs (file system, terminal, diagnostics, SCM, etc.). How do you design a tool layer that gives the agent comprehensive capability without overwhelming its decision-making?',
+      followUpQuestions: [
+        'Should tools be fine-grained (read_line) or coarse-grained (refactor_function)?',
+        'How do you handle tools that have dangerous side effects?',
+        'What tool combinations should be exposed as composite actions?'
+      ],
+      expectedInsights: [
+        'Mid-level tools (read_file with range, replace_in_file) balance power and safety',
+        'Dangerous tools require confirmation or operate in preview mode',
+        'Common workflows (find-and-replace-all, run-tests-then-commit) become compound tools'
+      ],
+      hints: [
+        'Consider why Unix commands are designed at a specific granularity',
+        'Think about rm -rf vs requiring confirmation for destructive operations',
+        'Reflect on how you\'d build a macro system for common multi-step operations'
+      ],
+      explanation: 'IDE tool design balances capability, safety, and decision complexity. Tools should be atomic enough to compose but semantic enough to reduce tool-call overhead. Dangerous operations need guardrails.',
+      relatedConcepts: ['mcp-server-orchestration', 'tool-use', 'guardrails-layer'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Proposes tool granularity',
+        'Identifies dangerous operations',
+        'Designs composite tools'
+      ]
+    }
+  ],
+  'guardrails-layer': [
+    {
+      id: 'guardrails-layer-socratic-1',
+      type: 'socratic',
+      conceptId: 'guardrails-layer',
+      title: 'Input vs Output Filtering',
+      level: 'beginner',
+      socratiQuestion: 'An agent processes user requests and generates responses. Where should safety filters run: on the input (user request), the output (agent response), or both? Why?',
+      followUpQuestions: [
+        'What threats are caught by input filtering vs output filtering?',
+        'Can input filtering alone guarantee safe outputs?',
+        'What performance implications does double-filtering have?'
+      ],
+      expectedInsights: [
+        'Input filtering blocks prompt injection and malicious requests early',
+        'Output filtering catches hallucinations and policy violations the model generates',
+        'Both are needed: input filtering is defense-in-depth, output filtering is the last line'
+      ],
+      hints: [
+        'Consider what happens if a clever prompt bypasses input filtering',
+        'Think about model hallucinations that weren\'t in the input',
+        'Reflect on latency vs safety trade-offs'
+      ],
+      explanation: 'Production guardrails require both input and output filtering. Input filtering is preventive (stop bad requests early), while output filtering is corrective (catch model failures). Neither alone is sufficient.',
+      relatedConcepts: ['responsible-ai-governance', 'agent-security', 'architecture'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Explains input vs output filtering',
+        'Identifies threat coverage',
+        'Understands defense-in-depth'
+      ]
+    },
+    {
+      id: 'guardrails-layer-socratic-2',
+      type: 'socratic',
+      conceptId: 'guardrails-layer',
+      title: 'PII Detection Accuracy',
+      level: 'intermediate',
+      socratiQuestion: 'Your guardrail needs to detect and redact PII (names, emails, SSNs) before logging or sending to external APIs. How do you balance false positives (blocking legitimate content) vs false negatives (leaking PII)?',
+      followUpQuestions: [
+        'What PII detection approaches exist and what are their trade-offs?',
+        'How do you handle context-dependent PII (is "John" a name or a product?)?',
+        'What regulations affect your accuracy requirements?'
+      ],
+      expectedInsights: [
+        'Regex catches structured PII (SSN, email), NER models catch unstructured (names)',
+        'Context and confidence scores help disambiguate borderline cases',
+        'GDPR/CCPA/HIPAA have different requirements; some mandate conservative detection'
+      ],
+      hints: [
+        'Consider why regex alone fails for names but works for SSNs',
+        'Think about how "Amazon" could be a company or a river',
+        'Reflect on whether you\'d rather over-redact or under-redact'
+      ],
+      explanation: 'PII detection combines pattern matching (high precision for structured data) with NER models (high recall for unstructured data). Regulatory requirements often demand conservative (high recall) detection.',
+      relatedConcepts: ['responsible-ai-governance', 'compliance', 'evaluation'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Compares detection approaches',
+        'Handles ambiguous cases',
+        'Considers regulatory requirements'
+      ]
+    },
+    {
+      id: 'guardrails-layer-socratic-3',
+      type: 'socratic',
+      conceptId: 'guardrails-layer',
+      title: 'Guardrail Architecture',
+      level: 'advanced',
+      socratiQuestion: 'You need guardrails that are fast (<50ms), accurate (>99%), and updatable without code deploys. How do you architect a guardrail system that meets all three requirements?',
+      followUpQuestions: [
+        'What components should run in-process vs as external services?',
+        'How do you update detection rules without restarting the service?',
+        'What observability helps you know if guardrails are working?'
+      ],
+      expectedInsights: [
+        'Fast checks (regex, blocklists) run in-process; expensive checks (NER) run async or as sidecars',
+        'Rule engines with hot-reload or feature flags enable no-deploy updates',
+        'Guardrail dashboards showing trigger rates, latency, and false positive reports'
+      ],
+      hints: [
+        'Consider the latency budget and what fits within it',
+        'Think about how WAFs (Web Application Firewalls) handle rule updates',
+        'Reflect on how you\'d know if a guardrail is causing user complaints'
+      ],
+      explanation: 'Production guardrail architecture separates fast-path checks (in-process) from expensive checks (async). Hot-reloadable rule engines and comprehensive observability enable safe, rapid iteration.',
+      relatedConcepts: ['agent-ops', 'architecture', 'observability'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Proposes layered architecture',
+        'Designs update mechanism',
+        'Specifies observability needs'
+      ]
+    }
   ]
 };
 

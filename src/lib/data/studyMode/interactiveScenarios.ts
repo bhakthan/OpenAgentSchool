@@ -7482,6 +7482,392 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// 2026 Pattern Scenarios
+(scenarioLibrary as any)['skill-augmented-agent'] = [
+  {
+    id: 'skill-augmented-agent-scenario-1',
+    type: 'scenario',
+    conceptId: 'skill-augmented-agent',
+    title: 'Creating Your First SKILL.md',
+    level: 'beginner',
+    scenario: {
+      title: 'Defining Project-Specific Agent Capabilities',
+      description: 'Your team uses a custom React component library with specific patterns. You want the coding agent to follow these patterns automatically.',
+      context: 'Internal component library with custom hooks, naming conventions, and testing requirements.',
+      stakeholders: ['Development Team', 'Code Reviewers', 'New Developers'],
+      systemState: { activeAgents: 1, errorRate: 0.15, averageLatency: 2000 },
+      challenges: ['Inconsistent code generation', 'Agents use generic React patterns', 'Manual code review burden'],
+      decisionPoints: ['What goes in the SKILL.md?', 'Where should it be placed?', 'How specific should constraints be?'],
+      options: [
+        'Add examples of every component to the skill file',
+        'Define naming conventions, required patterns, and common mistakes to avoid; include 2-3 canonical examples',
+        'Just link to existing documentation'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Exhaustive examples bloat context and may conflict',
+      'Concise rules with illustrative examples provide guidance without overwhelming',
+      'Links require additional retrieval and may not be followed'
+    ],
+    followUpQuestions: ['How do you update skills as patterns evolve?', 'How do you test skill compliance?', 'What happens when skills conflict?'],
+    expectedInsights: [
+      'Skills are version-controlled with code; PRs update both',
+      'Skill compliance tests compare agent output against linting rules',
+      'Hierarchical skills: package-level overrides workspace-level'
+    ],
+    businessContext: 'SKILL.md files encode institutional knowledge, reducing code review burden and onboarding time.',
+    relatedConcepts: ['agentic-ide', 'code-review', 'documentation'],
+    timeEstimate: 15,
+    successCriteria: ['Writes effective SKILL.md', 'Places appropriately', 'Balances detail vs brevity']
+  },
+  {
+    id: 'skill-augmented-agent-scenario-2',
+    type: 'scenario',
+    conceptId: 'skill-augmented-agent',
+    title: 'Skill Discovery in Monorepo',
+    level: 'intermediate',
+    scenario: {
+      title: 'Scaling Skills Across 50 Packages',
+      description: 'Your monorepo has packages with different conventions. The agent needs package-specific context without loading all 50 skill files.',
+      context: 'Nx monorepo with shared libs, apps, and domain-specific packages.',
+      stakeholders: ['Platform Team', 'Feature Teams', 'DevOps'],
+      systemState: { activeAgents: 5, errorRate: 0.08, averageLatency: 3500 },
+      challenges: ['Context window limits', 'Cross-package skill conflicts', 'Slow skill loading'],
+      decisionPoints: ['Eager vs lazy loading?', 'How to resolve conflicts?', 'Caching strategy?'],
+      options: [
+        'Load all skills at startup, cache indefinitely',
+        'Lazy-load based on open files and detected imports; hierarchical override (local beats workspace beats global); file-watcher invalidation',
+        'Only load skills when explicitly referenced in prompts'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Eager loading wastes context on irrelevant skills',
+      'Lazy loading with hierarchy balances relevance and performance',
+      'Explicit references burden the user and miss implicit context'
+    ],
+    followUpQuestions: ['How do you profile skill loading performance?', 'What triggers skill reload?', 'How do you debug skill conflicts?'],
+    expectedInsights: [
+      'Trace logs show which skills were loaded and why',
+      'File system watchers + debounced reload handle updates',
+      'Skill conflict logs with priority resolution explanations'
+    ],
+    businessContext: 'Efficient skill management scales to large codebases while maintaining context relevance.',
+    relatedConcepts: ['mcp-server-orchestration', 'performance', 'architecture'],
+    timeEstimate: 18,
+    successCriteria: ['Designs lazy loading', 'Implements hierarchy', 'Handles invalidation']
+  }
+];
+
+(scenarioLibrary as any)['mcp-server-orchestration'] = [
+  {
+    id: 'mcp-server-orchestration-scenario-1',
+    type: 'scenario',
+    conceptId: 'mcp-server-orchestration',
+    title: 'Connecting Multiple MCP Servers',
+    level: 'beginner',
+    scenario: {
+      title: 'Building a Unified Tool Catalog',
+      description: 'Your agent needs filesystem access, database queries, and web search. Each capability comes from a different MCP server.',
+      context: 'VS Code extension using filesystem-mcp, postgres-mcp, and brave-search-mcp servers.',
+      stakeholders: ['Extension Developer', 'End Users', 'Security Team'],
+      systemState: { activeAgents: 1, errorRate: 0.05, averageLatency: 800 },
+      challenges: ['Server configuration management', 'Tool name collisions', 'Error propagation'],
+      decisionPoints: ['How to configure servers?', 'How to namespace tools?', 'How to handle server failures?'],
+      options: [
+        'Hardcode server connections in extension code',
+        'Configuration file (mcp.json) with server definitions; namespace tools by server name; graceful degradation for offline servers',
+        'Let users configure each server manually'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Hardcoding prevents user customization and requires code changes',
+      'Configuration-driven approach with graceful degradation handles real-world variability',
+      'Manual configuration is error-prone and inconsistent'
+    ],
+    followUpQuestions: ['How do you validate server configurations?', 'What happens when a server is slow?', 'How do you add new servers?'],
+    expectedInsights: [
+      'Schema validation + test connections on startup',
+      'Timeout handling + async tool calls prevent blocking',
+      'Hot reload of configuration without extension restart'
+    ],
+    businessContext: 'MCP orchestration enables modular tool ecosystems where servers can be added, removed, or replaced independently.',
+    relatedConcepts: ['mcp', 'tool-use', 'architecture'],
+    timeEstimate: 15,
+    successCriteria: ['Designs configuration schema', 'Implements namespacing', 'Handles failures gracefully']
+  },
+  {
+    id: 'mcp-server-orchestration-scenario-2',
+    type: 'scenario',
+    conceptId: 'mcp-server-orchestration',
+    title: 'Parallel Tool Execution',
+    level: 'intermediate',
+    scenario: {
+      title: 'Optimizing Multi-Server Queries',
+      description: 'A research task requires searching docs, code, and web simultaneously. Sequential execution is too slow.',
+      context: 'Agent orchestrating docs-search, github-search, and web-search MCP servers.',
+      stakeholders: ['Research Team', 'Platform Team'],
+      systemState: { activeAgents: 3, errorRate: 0.03, averageLatency: 4500 },
+      challenges: ['Sequential latency accumulation', 'Result aggregation', 'Partial failure handling'],
+      decisionPoints: ['When to parallelize?', 'How to aggregate results?', 'What if one server times out?'],
+      options: [
+        'Always execute tools sequentially for predictability',
+        'Parallel execution for independent tools; merge results with source attribution; timeout with partial results for slow servers',
+        'Fastest-response-wins strategy, discard slow results'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Sequential execution wastes time when tools are independent',
+      'Parallel with graceful degradation maximizes both speed and completeness',
+      'Discarding slow results loses potentially valuable information'
+    ],
+    followUpQuestions: ['How do you detect tool independence?', 'How do you rank merged results?', 'What SLO for partial results?'],
+    expectedInsights: [
+      'Static analysis of tool dependencies or explicit dependency declarations',
+      'Source-weighted ranking or interleaved results',
+      'Return partial results after 80% of timeout, complete in background'
+    ],
+    businessContext: 'Parallel tool execution dramatically reduces latency for multi-source queries while maintaining result quality.',
+    relatedConcepts: ['multi-llm-routing', 'performance', 'observability'],
+    timeEstimate: 18,
+    successCriteria: ['Implements parallel execution', 'Designs aggregation', 'Handles timeouts']
+  }
+];
+
+(scenarioLibrary as any)['multi-llm-routing'] = [
+  {
+    id: 'multi-llm-routing-scenario-1',
+    type: 'scenario',
+    conceptId: 'multi-llm-routing',
+    title: 'Setting Up Cost-Based Routing',
+    level: 'beginner',
+    scenario: {
+      title: 'Reducing LLM Costs by 60%',
+      description: 'Your agent uses GPT-4 for everything, costing $10K/month. Most queries are simple and could use a cheaper model.',
+      context: 'Customer service agent handling FAQs, order status, and complex complaints.',
+      stakeholders: ['Finance', 'Product', 'Engineering'],
+      systemState: { activeAgents: 1, errorRate: 0.02, averageLatency: 1200 },
+      challenges: ['Cost reduction without quality loss', 'Determining query complexity', 'Handling edge cases'],
+      decisionPoints: ['How to classify queries?', 'Which models to use?', 'How to validate routing?'],
+      options: [
+        'Route everything to the cheapest model',
+        'Keyword-based classification for FAQs and status; GPT-3.5 for simple, GPT-4 for complex; A/B test quality scores',
+        'Let users choose which model to use'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Cheapest model will fail on complex queries, degrading user experience',
+      'Classification with validation balances cost and quality',
+      'Users don\'t know model capabilities and will over-select expensive options'
+    ],
+    followUpQuestions: ['What keywords indicate complexity?', 'How do you measure quality?', 'What is the fallback strategy?'],
+    expectedInsights: [
+      'Legal, refund, complaint keywords trigger GPT-4; FAQ patterns trigger GPT-3.5',
+      'CSAT scores, resolution rates, escalation rates per model',
+      'Automatic escalation to GPT-4 if GPT-3.5 response fails validation'
+    ],
+    businessContext: 'Smart routing typically reduces costs 50-70% while maintaining or improving quality for stratified workloads.',
+    relatedConcepts: ['agent-economics', 'evaluation', 'architecture'],
+    timeEstimate: 15,
+    successCriteria: ['Designs classifier', 'Selects model tiers', 'Plans validation']
+  },
+  {
+    id: 'multi-llm-routing-scenario-2',
+    type: 'scenario',
+    conceptId: 'multi-llm-routing',
+    title: 'Dynamic Model Selection',
+    level: 'intermediate',
+    scenario: {
+      title: 'Adapting to Model Releases',
+      description: 'A new model (Claude 3.5 Sonnet) offers better price-performance. How do you add it to your routing without disruption?',
+      context: 'Production routing serving 100K requests/day across GPT-4, GPT-3.5, and Llama 3.',
+      stakeholders: ['ML Team', 'SRE', 'Product'],
+      systemState: { activeAgents: 10, errorRate: 0.01, averageLatency: 950 },
+      challenges: ['Testing new models safely', 'Gradual rollout', 'Rollback capability'],
+      decisionPoints: ['How to test new models?', 'What rollout strategy?', 'When to fully adopt?'],
+      options: [
+        'Replace existing model immediately based on benchmarks',
+        'Shadow testing (run new model in parallel, compare outputs), then 5% canary, then gradual rollout with automatic rollback on quality regression',
+        'Wait 6 months for others to find bugs'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Benchmarks don\'t capture production edge cases; immediate replacement is risky',
+      'Shadow + canary + gradual rollout with rollback provides safe adoption path',
+      'Waiting too long sacrifices potential cost/quality improvements'
+    ],
+    followUpQuestions: ['How long should shadow testing run?', 'What metrics trigger rollback?', 'How do you handle provider outages?'],
+    expectedInsights: [
+      'Shadow test for 1 week minimum, covering all request categories',
+      'Quality score drop >5%, error rate increase >2x, latency increase >50%',
+      'Multi-provider routing with automatic failover to secondary provider'
+    ],
+    businessContext: 'Dynamic model management enables continuous optimization as the model landscape evolves rapidly.',
+    relatedConcepts: ['agent-ops', 'deployment', 'observability'],
+    timeEstimate: 18,
+    successCriteria: ['Designs testing strategy', 'Plans gradual rollout', 'Specifies rollback triggers']
+  }
+];
+
+(scenarioLibrary as any)['agentic-ide'] = [
+  {
+    id: 'agentic-ide-scenario-1',
+    type: 'scenario',
+    conceptId: 'agentic-ide',
+    title: 'Building a File Editing Agent',
+    level: 'beginner',
+    scenario: {
+      title: 'Implementing replace_in_file Tool',
+      description: 'Your IDE agent needs to edit files safely. Design a tool that modifies files without breaking code.',
+      context: 'VS Code extension with file system access building a Copilot-like experience.',
+      stakeholders: ['Extension Users', 'Extension Developers'],
+      systemState: { activeAgents: 1, errorRate: 0.08, averageLatency: 500 },
+      challenges: ['Accurate string matching', 'Handling merge conflicts', 'Preserving formatting'],
+      decisionPoints: ['Search-replace vs diff-apply?', 'How to handle ambiguity?', 'What validation to run?'],
+      options: [
+        'Full file rewrite on every edit',
+        'Search-replace with unique context matching; error on ambiguous matches; run linter/type-check after edit',
+        'Line-number based edits'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Full rewrite risks losing concurrent edits and is expensive for large files',
+      'Context-aware search-replace with validation catches errors early',
+      'Line numbers are fragile across edits and hard for agents to track'
+    ],
+    followUpQuestions: ['How much context ensures uniqueness?', 'What if the search string doesn\'t exist?', 'How do you handle binary files?'],
+    expectedInsights: [
+      '3-5 lines of context typically ensures uniqueness; error if multiple matches',
+      'Return clear error with file excerpt showing available content',
+      'Skip binary files or provide specialized tools for specific binary formats'
+    ],
+    businessContext: 'Robust file editing is the foundation of agentic IDEs. Precision prevents frustrating failures.',
+    relatedConcepts: ['tool-use', 'guardrails-layer', 'developer-experience'],
+    timeEstimate: 15,
+    successCriteria: ['Designs search-replace', 'Handles edge cases', 'Implements validation']
+  },
+  {
+    id: 'agentic-ide-scenario-2',
+    type: 'scenario',
+    conceptId: 'agentic-ide',
+    title: 'Multi-File Refactoring',
+    level: 'intermediate',
+    scenario: {
+      title: 'Renaming a Function Across 50 Files',
+      description: 'User asks to rename a function. The agent must find all usages and update them atomically.',
+      context: 'TypeScript project with imports, re-exports, and test files.',
+      stakeholders: ['Developers', 'Code Reviewers'],
+      systemState: { activeAgents: 1, errorRate: 0.05, averageLatency: 2000 },
+      challenges: ['Finding all references', 'Atomic multi-file edits', 'Handling indirect references'],
+      decisionPoints: ['How to find all usages?', 'How to ensure atomicity?', 'What if some edits fail?'],
+      options: [
+        'Grep for the function name and replace all matches',
+        'Use LSP references API for accurate usage detection; batch edits with rollback on any failure; type-check entire project after refactor',
+        'Edit files one by one, hope nothing breaks'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Grep misses type-aware references and catches false positives (comments, strings)',
+      'LSP provides accurate semantic references; atomic operations prevent partial refactors',
+      'Sequential edits leave broken state if interrupted'
+    ],
+    followUpQuestions: ['What if LSP misses dynamic references?', 'How do you preview changes?', 'What about external consumers?'],
+    expectedInsights: [
+      'Warn user about dynamic/reflection usage that LSP can\'t track',
+      'Generate diff preview in markdown before applying',
+      'Flag exports as potentially breaking external consumers; require confirmation'
+    ],
+    businessContext: 'Reliable refactoring requires semantic understanding beyond text matching.',
+    relatedConcepts: ['mcp', 'tool-use', 'code-analysis'],
+    timeEstimate: 18,
+    successCriteria: ['Uses LSP correctly', 'Implements atomic edits', 'Handles edge cases']
+  }
+];
+
+(scenarioLibrary as any)['guardrails-layer'] = [
+  {
+    id: 'guardrails-layer-scenario-1',
+    type: 'scenario',
+    conceptId: 'guardrails-layer',
+    title: 'Implementing PII Redaction',
+    level: 'beginner',
+    scenario: {
+      title: 'Protecting User Data in Agent Logs',
+      description: 'Your agent logs conversations for debugging. Logs must not contain PII (names, emails, phone numbers).',
+      context: 'Customer support agent with conversation logging to cloud storage.',
+      stakeholders: ['Privacy Team', 'Legal', 'DevOps'],
+      systemState: { activeAgents: 5, errorRate: 0.02, averageLatency: 300 },
+      challenges: ['Detecting all PII types', 'Balancing redaction vs utility', 'Performance impact'],
+      decisionPoints: ['Which detection method?', 'Redact or mask?', 'Inline or async?'],
+      options: [
+        'Simple regex for email/phone, skip names',
+        'Regex for structured PII (email, phone, SSN); NER model for unstructured (names, addresses); mask with consistent tokens for debugging',
+        'Don\'t log anything to avoid PII risk'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Skipping names violates most privacy regulations',
+      'Combined approach catches both structured and unstructured PII while maintaining debuggability',
+      'No logging prevents debugging and incident response'
+    ],
+    followUpQuestions: ['What masking format?', 'How to handle false positives?', 'Audit requirements?'],
+    expectedInsights: [
+      '[EMAIL_1], [NAME_1] format enables correlation without exposure',
+      'Low-confidence detections logged with original for manual review (secure access)',
+      'Retention policies, access logs, and periodic PII audits'
+    ],
+    businessContext: 'PII redaction is mandatory for GDPR/CCPA compliance. Well-designed redaction preserves debugging capability.',
+    relatedConcepts: ['responsible-ai-governance', 'compliance', 'observability'],
+    timeEstimate: 15,
+    successCriteria: ['Combines detection methods', 'Designs masking', 'Considers audit needs']
+  },
+  {
+    id: 'guardrails-layer-scenario-2',
+    type: 'scenario',
+    conceptId: 'guardrails-layer',
+    title: 'Blocking Prompt Injection',
+    level: 'intermediate',
+    scenario: {
+      title: 'Defending Against Malicious Inputs',
+      description: 'Users are trying to jailbreak your agent with prompt injections. You need input-side guardrails.',
+      context: 'Public-facing agent where any user can send arbitrary input.',
+      stakeholders: ['Security Team', 'Product', 'Trust & Safety'],
+      systemState: { activeAgents: 10, errorRate: 0.01, averageLatency: 200 },
+      challenges: ['Detecting injection attempts', 'Minimizing false positives', 'Keeping up with new techniques'],
+      decisionPoints: ['Detection approach?', 'Block vs warn?', 'Update mechanism?'],
+      options: [
+        'Block any input containing "ignore", "system", or "pretend"',
+        'ML classifier trained on injection examples + rule-based heuristics for known patterns; soft block with human review for borderline cases; daily retraining on new attacks',
+        'Trust the model\'s built-in safety'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Simple keyword blocking has massive false positives ("ignore my previous order status")',
+      'ML + rules provides better accuracy; soft blocking reduces false positive impact; continuous learning handles evolution',
+      'Model safety alone is insufficient for determined attackers'
+    ],
+    followUpQuestions: ['Training data sources?', 'Soft block workflow?', 'How to measure effectiveness?'],
+    expectedInsights: [
+      'Public jailbreak datasets + internal incident reports + red team exercises',
+      'Queue for human review, respond with "I\'ll have a human follow up" message',
+      'Injection success rate from red team tests + user reports + model behavior anomalies'
+    ],
+    businessContext: 'Prompt injection is the #1 security risk for public-facing agents. Defense-in-depth is essential.',
+    relatedConcepts: ['agent-security', 'agent-red-teaming', 'evaluation'],
+    timeEstimate: 18,
+    successCriteria: ['Designs layered detection', 'Plans update process', 'Specifies metrics']
+  }
+];
+
 // Helper function to get scenarios by concept and level
 export function getScenarios(
   conceptId: string, 

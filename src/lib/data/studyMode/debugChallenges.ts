@@ -6514,6 +6514,515 @@ from langchain.chains import LLMChain  # Import path changed!
       timeEstimate: 14,
       successCriteria: ['Identifies version conflict', 'Proposes pinning strategy', 'Recommends testing workflow']
     }
+  ],
+  'skill-augmented-agent': [
+    {
+      id: 'skill-augmented-agent-debug-1',
+      type: 'debug',
+      conceptId: 'skill-augmented-agent',
+      title: 'Skill Not Being Applied',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'skill-not-loading',
+        title: 'SKILL.md Ignored by Agent',
+        description: 'You created a SKILL.md file but the agent keeps generating code that violates your defined conventions.',
+        problemDescription: 'The skill file exists but the agent generates generic React patterns instead of using your custom hooks.',
+        brokenCode: `# SKILL.md (in project root)
+## Capabilities
+- Use custom hooks from @company/hooks
+- Follow atomic design patterns
+
+## Constraints  
+- Never use useState directly, use useCompanyState
+- All components must have data-testid
+
+# Agent generates this (WRONG):
+import { useState } from 'react';
+
+export function Counter() {
+  const [count, setCount] = useState(0);  // Violates constraint!
+  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;  // Missing data-testid!
+}`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Creating Counter component...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'System', message: 'No skill files detected in context', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Generated standard React component', type: 'info' }
+        ],
+        expectedBehavior: 'Agent should detect SKILL.md, parse constraints, and generate compliant code.',
+        commonIssues: [
+          { issue: 'Wrong file location', symptoms: ['Skill file not discovered'], diagnosis: 'SKILL.md not in workspace root or package directory', fix: 'Move to root or add to discovery paths' },
+          { issue: 'File not loaded', symptoms: ['System shows "no skill files"'], diagnosis: 'Skill loader not running or file excluded', fix: 'Check skill discovery configuration, remove from gitignore' },
+          { issue: 'Parsing failure', symptoms: ['Skill loaded but not applied'], diagnosis: 'Malformed SKILL.md structure', fix: 'Follow SKILL.md schema with proper headers' }
+        ],
+        hints: ['Check where skill discovery looks for files', 'Verify the file is not gitignored or excluded', 'Validate SKILL.md follows expected format'],
+        solution: 'Ensure SKILL.md is in a discovered location (workspace root, package root, or .github/). Verify file is loaded in skill discovery logs. Follow standard SKILL.md structure with ## headers for Capabilities, Constraints, Forbidden.',
+        explanation: 'Skill loading requires correct file placement, proper discovery configuration, and valid file structure.'
+      },
+      expectedInsights: ['Skill discovery has specific search paths', 'File structure must follow schema', 'Logs reveal loading status'],
+      hints: ['Where does skill discovery look?', 'Is the file format correct?', 'Check discovery logs'],
+      explanation: 'Teaches skill file placement and validation.',
+      relatedConcepts: ['configuration', 'debugging', 'file-structure'],
+      timeEstimate: 12,
+      successCriteria: ['Identifies loading issue', 'Fixes file location or format', 'Verifies skill application']
+    },
+    {
+      id: 'skill-augmented-agent-debug-2',
+      type: 'debug',
+      conceptId: 'skill-augmented-agent',
+      title: 'Skill Conflict Resolution',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'skill-conflict',
+        title: 'Contradictory Skills Causing Errors',
+        description: 'Two SKILL.md files have conflicting constraints. The agent fails or produces inconsistent output.',
+        problemDescription: 'Workspace skill says "use Tailwind", package skill says "use CSS Modules". Agent alternates randomly.',
+        brokenCode: `# /SKILL.md (workspace root)
+## Constraints
+- Use Tailwind CSS for all styling
+- No inline styles
+
+# /packages/legacy-ui/SKILL.md (package)
+## Constraints
+- Use CSS Modules for styling
+- Tailwind is forbidden in this package
+
+# Agent output varies:
+// Sometimes generates Tailwind:
+<div className="flex items-center p-4">
+
+// Sometimes generates CSS Modules:
+import styles from './Component.module.css';
+<div className={styles.container}>`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'SkillLoader', message: 'Loaded workspace skill: use Tailwind', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'SkillLoader', message: 'Loaded package skill: use CSS Modules', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Conflicting styling constraints detected', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Using workspace-level constraint (random selection)', type: 'error' }
+        ],
+        expectedBehavior: 'Package-level skills should override workspace-level for files in that package.',
+        commonIssues: [
+          { issue: 'No hierarchy', symptoms: ['Random constraint selection'], diagnosis: 'Skill loader treats all skills equally', fix: 'Implement local-overrides-global hierarchy' },
+          { issue: 'Ambiguous scope', symptoms: ['Wrong skill applied'], diagnosis: 'File not correctly mapped to package', fix: 'Use file path to determine applicable skills' },
+          { issue: 'Missing override syntax', symptoms: ['Conflicts not resolved'], diagnosis: 'No explicit override mechanism', fix: 'Add "overrides" section to package skill' }
+        ],
+        hints: ['Which skill should win for a file in the package?', 'How do you determine skill scope?', 'Is there explicit override syntax?'],
+        solution: 'Implement hierarchical skill resolution: package-level > workspace-level > global. Skills should include an "overrides" section when intentionally replacing parent constraints. Log resolution decisions for debugging.',
+        explanation: 'Skill conflicts require clear precedence rules and explicit override mechanisms.'
+      },
+      expectedInsights: ['Hierarchy determines precedence', 'File path determines scope', 'Explicit overrides clarify intent'],
+      hints: ['Think CSS cascade', 'Which file is the agent editing?', 'Can skills explicitly override?'],
+      explanation: 'Teaches hierarchical skill composition and conflict resolution.',
+      relatedConcepts: ['architecture', 'configuration', 'debugging'],
+      timeEstimate: 15,
+      successCriteria: ['Identifies conflict source', 'Implements hierarchy', 'Adds override mechanism']
+    }
+  ],
+  'mcp-server-orchestration': [
+    {
+      id: 'mcp-server-orchestration-debug-1',
+      type: 'debug',
+      conceptId: 'mcp-server-orchestration',
+      title: 'Server Connection Timeout',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'mcp-timeout',
+        title: 'MCP Server Fails to Connect',
+        description: 'The orchestrator cannot establish connection to one of the configured MCP servers.',
+        problemDescription: 'Filesystem MCP server works, but database MCP server times out on every connection attempt.',
+        brokenCode: `// mcp.json configuration
+{
+  "servers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["@anthropic/mcp-filesystem", "/workspace"]
+    },
+    "postgres": {
+      "command": "npx", 
+      "args": ["@anthropic/mcp-postgres"],
+      "env": {
+        "DATABASE_URL": "postgresql://user:pass@localhost:5432/db"
+      }
+    }
+  }
+}
+
+// Error in logs:
+// [MCP] Connecting to postgres server...
+// [MCP] Timeout after 30000ms waiting for server initialization
+// [MCP] Failed to connect to postgres: Connection timed out`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'MCP', message: 'Starting filesystem server...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'MCP', message: 'filesystem server connected', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'MCP', message: 'Starting postgres server...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'MCP', message: 'Timeout after 30000ms', type: 'error' }
+        ],
+        expectedBehavior: 'Both servers should connect within timeout. Orchestrator should continue with available servers.',
+        commonIssues: [
+          { issue: 'Database not running', symptoms: ['Connection timeout'], diagnosis: 'PostgreSQL service not started', fix: 'Start PostgreSQL or use docker-compose' },
+          { issue: 'Wrong connection string', symptoms: ['Auth failures after timeout'], diagnosis: 'Incorrect credentials or host', fix: 'Verify DATABASE_URL matches running database' },
+          { issue: 'Network issues', symptoms: ['Intermittent timeouts'], diagnosis: 'Firewall or Docker networking', fix: 'Check network connectivity, use host.docker.internal' }
+        ],
+        hints: ['Is the database actually running?', 'Can you connect with psql using the same credentials?', 'Is there a firewall blocking the port?'],
+        solution: 'Verify PostgreSQL is running and accessible. Test connection string with psql or a database client. Check for Docker networking issues if running in containers. Configure graceful degradation so orchestrator works with available servers.',
+        explanation: 'MCP server failures often stem from underlying service availability issues.'
+      },
+      expectedInsights: ['Servers depend on external services', 'Test connections independently', 'Graceful degradation is essential'],
+      hints: ['Test the database connection directly', 'Check if the service is running', 'Review network configuration'],
+      explanation: 'Teaches MCP server debugging and dependency management.',
+      relatedConcepts: ['mcp', 'debugging', 'infrastructure'],
+      timeEstimate: 12,
+      successCriteria: ['Diagnoses connection issue', 'Fixes underlying problem', 'Implements graceful degradation']
+    },
+    {
+      id: 'mcp-server-orchestration-debug-2',
+      type: 'debug',
+      conceptId: 'mcp-server-orchestration',
+      title: 'Tool Name Collision',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'mcp-tool-collision',
+        title: 'Ambiguous Tool Calls Fail',
+        description: 'Two MCP servers expose tools with the same name. The orchestrator doesn\'t know which to call.',
+        problemDescription: 'Both file-search MCP and web-search MCP have a "search" tool. Agent calls fail with "ambiguous tool" error.',
+        brokenCode: `// Orchestrator tool catalog:
+{
+  "tools": [
+    { "name": "search", "server": "file-search", "description": "Search files" },
+    { "name": "search", "server": "web-search", "description": "Search the web" }
+  ]
+}
+
+// Agent tool call:
+{
+  "name": "search",
+  "arguments": { "query": "authentication implementation" }
+}
+
+// Error:
+// [Orchestrator] Ambiguous tool call: 'search' matches 2 servers
+// [Orchestrator] Unable to route tool call`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Calling search tool...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Orchestrator', message: 'Tool "search" found in multiple servers', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Orchestrator', message: 'Ambiguous tool call failed', type: 'error' }
+        ],
+        expectedBehavior: 'Orchestrator should namespace tools or disambiguate based on context.',
+        commonIssues: [
+          { issue: 'No namespacing', symptoms: ['Ambiguous tool errors'], diagnosis: 'Tools merged without qualification', fix: 'Prefix tools with server name: file-search:search' },
+          { issue: 'No semantic routing', symptoms: ['Wrong server selected'], diagnosis: 'Orchestrator cannot infer intent', fix: 'Use tool descriptions and query context to disambiguate' },
+          { issue: 'Agent not trained', symptoms: ['Agent uses unqualified names'], diagnosis: 'Agent doesn\'t know namespacing scheme', fix: 'Update agent prompt with tool naming convention' }
+        ],
+        hints: ['How should tools from different servers be named?', 'Can context help choose?', 'Does the agent know the naming scheme?'],
+        solution: 'Implement tool namespacing: server:tool format. Update tool catalog to expose namespaced names. Optionally add semantic routing that uses query context to disambiguate when namespace is omitted.',
+        explanation: 'Multi-server orchestration requires clear tool identification strategies.'
+      },
+      expectedInsights: ['Namespacing prevents collisions', 'Semantic routing adds flexibility', 'Agent must understand naming'],
+      hints: ['Use server:tool naming', 'Consider query context', 'Update agent prompts'],
+      explanation: 'Teaches tool naming and disambiguation in multi-server environments.',
+      relatedConcepts: ['tool-use', 'architecture', 'naming-conventions'],
+      timeEstimate: 15,
+      successCriteria: ['Implements namespacing', 'Updates agent prompts', 'Optionally adds semantic routing']
+    }
+  ],
+  'multi-llm-routing': [
+    {
+      id: 'multi-llm-routing-debug-1',
+      type: 'debug',
+      conceptId: 'multi-llm-routing',
+      title: 'Routing to Wrong Model',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'wrong-model-routing',
+        title: 'Complex Queries Routed to Cheap Model',
+        description: 'The router sends complex legal questions to GPT-3.5, resulting in poor quality responses.',
+        problemDescription: 'Users complain about wrong legal advice. Investigation shows complex queries being routed to the cheap tier.',
+        brokenCode: `# Routing logic
+def route_query(query: str) -> str:
+    # Simple keyword-based routing
+    if len(query) < 100:
+        return "gpt-3.5-turbo"  # Short = simple
+    else:
+        return "gpt-4"  # Long = complex
+
+# This query gets routed to GPT-3.5:
+query = "Can I sue?"  # 10 chars -> GPT-3.5
+# But it's actually a complex legal question!
+
+# GPT-3.5 response:
+"Yes, you can sue for many reasons. Consult a lawyer."
+# Missing: jurisdiction, statute of limitations, standing, damages...`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Router', message: 'Query length: 10 chars', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Router', message: 'Routing to gpt-3.5-turbo', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'User', message: 'This advice is too vague!', type: 'error' }
+        ],
+        expectedBehavior: 'Router should detect that legal questions require GPT-4 regardless of length.',
+        commonIssues: [
+          { issue: 'Length-only heuristic', symptoms: ['Short complex queries misrouted'], diagnosis: 'Length doesn\'t correlate with complexity', fix: 'Add topic/domain detection' },
+          { issue: 'Missing domain keywords', symptoms: ['Domain queries not recognized'], diagnosis: 'No keyword detection for high-stakes topics', fix: 'Add keyword lists for legal, medical, financial' },
+          { issue: 'No quality feedback', symptoms: ['Persistent misrouting'], diagnosis: 'No signal when routing is wrong', fix: 'Track quality scores per route, adjust thresholds' }
+        ],
+        hints: ['What makes a query complex besides length?', 'What topics always need the best model?', 'How do you know routing was wrong?'],
+        solution: 'Implement multi-factor routing: domain keywords (legal, medical, financial) always route to GPT-4; add topic classification; track quality scores and adjust routing based on feedback. Length is a weak signal, use it only as a tiebreaker.',
+        explanation: 'Effective routing considers topic complexity, not just query length.'
+      },
+      expectedInsights: ['Length is a poor complexity proxy', 'Domain keywords indicate high stakes', 'Quality feedback improves routing'],
+      hints: ['Add domain detection', 'Track quality per route', 'Consider topic, not just length'],
+      explanation: 'Teaches multi-factor routing beyond simple heuristics.',
+      relatedConcepts: ['evaluation', 'classification', 'observability'],
+      timeEstimate: 12,
+      successCriteria: ['Adds domain detection', 'Implements feedback loop', 'Fixes misrouting']
+    },
+    {
+      id: 'multi-llm-routing-debug-2',
+      type: 'debug',
+      conceptId: 'multi-llm-routing',
+      title: 'Fallback Cascade Failure',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'fallback-failure',
+        title: 'All Models Fail, No Graceful Handling',
+        description: 'Primary model is rate-limited, fallback model is down. User sees cryptic error.',
+        problemDescription: 'During peak traffic, GPT-4 hits rate limits. Fallback to Claude fails due to provider outage. Users see "Internal Server Error".',
+        brokenCode: `async def generate(prompt: str) -> str:
+    try:
+        return await call_gpt4(prompt)
+    except RateLimitError:
+        return await call_claude(prompt)  # No error handling here!
+    
+# During outage:
+# GPT-4: RateLimitError
+# Claude: ConnectionError
+# Result: Unhandled exception -> 500 Internal Server Error
+
+# User sees:
+# "Something went wrong. Please try again."`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Router', message: 'GPT-4 rate limited, falling back to Claude', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Router', message: 'Claude connection failed', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'System', message: 'Unhandled ConnectionError', type: 'error' }
+        ],
+        expectedBehavior: 'Fallback chain should handle all failure modes with graceful degradation to cached/static responses.',
+        commonIssues: [
+          { issue: 'Single fallback', symptoms: ['Total failure on second model'], diagnosis: 'Only one fallback configured', fix: 'Add multiple fallback models' },
+          { issue: 'No final fallback', symptoms: ['Cryptic errors on total failure'], diagnosis: 'No graceful degradation path', fix: 'Return cached response or helpful error message' },
+          { issue: 'No circuit breaker', symptoms: ['Repeated failed calls'], diagnosis: 'Keeps calling failed models', fix: 'Implement circuit breaker pattern' }
+        ],
+        hints: ['What happens when all models fail?', 'Can you return a cached response?', 'How do you stop hammering a dead endpoint?'],
+        solution: 'Implement fallback chain with 3+ models. Add circuit breakers to stop calling failing endpoints. Final fallback returns cached response or helpful message ("Our AI is temporarily unavailable, here\'s what you can do..."). Log all failures for monitoring.',
+        explanation: 'Robust fallback handling requires multiple levels and graceful final degradation.'
+      },
+      expectedInsights: ['Multiple fallbacks needed', 'Circuit breakers prevent cascade', 'Final fallback must be static'],
+      hints: ['Add more fallback models', 'Implement circuit breakers', 'Design graceful final state'],
+      explanation: 'Teaches resilient multi-model fallback patterns.',
+      relatedConcepts: ['reliability', 'circuit-breaker', 'observability'],
+      timeEstimate: 15,
+      successCriteria: ['Adds multiple fallbacks', 'Implements circuit breaker', 'Designs final fallback']
+    }
+  ],
+  'agentic-ide': [
+    {
+      id: 'agentic-ide-debug-1',
+      type: 'debug',
+      conceptId: 'agentic-ide',
+      title: 'Edit Applied to Wrong Location',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'wrong-edit-location',
+        title: 'Search String Matches Multiple Places',
+        description: 'The replace_in_file tool edited the wrong occurrence of a code pattern.',
+        problemDescription: 'Agent tried to fix a bug in function A but accidentally edited identical code in function B.',
+        brokenCode: `// File: utils.ts
+function validateEmail(email: string) {
+  return email.includes('@');  // Line 5 - Bug here
+}
+
+function validateUsername(username: string) {
+  return username.includes('@');  // Line 10 - Should NOT be changed
+}
+
+// Agent edit command:
+{
+  "tool": "replace_in_file",
+  "oldString": "return email.includes('@');",
+  "newString": "return email.match(/^[^@]+@[^@]+\\.[^@]+$/) !== null;"
+}
+
+// Result: Line 10 was edited instead of Line 5!
+// (First match in file happened to be line 10 due to file reading order)`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Fixing email validation regex...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Editor', message: 'Found match at line 10', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Editor', message: 'Applied replacement', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'User', message: 'Wrong function was edited!', type: 'error' }
+        ],
+        expectedBehavior: 'Edit should include enough context to uniquely identify the target location.',
+        commonIssues: [
+          { issue: 'Insufficient context', symptoms: ['Wrong occurrence edited'], diagnosis: 'Search string matches multiple locations', fix: 'Include 3-5 lines of surrounding context' },
+          { issue: 'No uniqueness check', symptoms: ['Silent wrong edits'], diagnosis: 'Tool doesn\'t verify unique match', fix: 'Error if multiple matches found' },
+          { issue: 'No preview', symptoms: ['User surprised by edit'], diagnosis: 'Edit applied without confirmation', fix: 'Show diff preview before applying' }
+        ],
+        hints: ['How do you make the search string unique?', 'What should happen with multiple matches?', 'Should edits be previewed?'],
+        solution: 'Include surrounding context (function name, preceding lines) to ensure unique match. Tool should error on multiple matches, requiring more specific search string. Always verify edited location in response.',
+        explanation: 'Precise edits require unique identification through context inclusion.'
+      },
+      expectedInsights: ['Context ensures uniqueness', 'Multiple matches should error', 'Preview prevents mistakes'],
+      hints: ['Include function name in search', 'Add lines before/after', 'Verify match is unique'],
+      explanation: 'Teaches precise file editing with sufficient context.',
+      relatedConcepts: ['tool-use', 'debugging', 'code-editing'],
+      timeEstimate: 12,
+      successCriteria: ['Includes sufficient context', 'Handles multiple matches', 'Verifies edit location']
+    },
+    {
+      id: 'agentic-ide-debug-2',
+      type: 'debug',
+      conceptId: 'agentic-ide',
+      title: 'Terminal Command Hangs',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'terminal-hang',
+        title: 'Agent Blocked by Interactive Command',
+        description: 'The agent runs a command that prompts for input, blocking all further progress.',
+        problemDescription: 'Agent ran npm install which triggered an interactive prompt. Agent is stuck waiting for response.',
+        brokenCode: `// Agent action:
+{
+  "tool": "run_terminal",
+  "command": "npm install some-package"
+}
+
+// Terminal output:
+// ? Do you want to proceed? (y/n)
+// [cursor blinking, waiting for input...]
+
+// Agent state:
+// - Waiting for command to complete
+// - Timeout not triggered yet
+// - Cannot send "y" to stdin
+// - All subsequent actions blocked`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Installing package...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Terminal', message: 'Do you want to proceed? (y/n)', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: '[Waiting for command completion...]', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'System', message: 'Agent blocked for 5 minutes', type: 'error' }
+        ],
+        expectedBehavior: 'Commands should run non-interactively or agent should detect and handle prompts.',
+        commonIssues: [
+          { issue: 'Interactive prompts', symptoms: ['Command hangs indefinitely'], diagnosis: 'Command requires user input', fix: 'Use --yes flags or CI environment variables' },
+          { issue: 'No timeout', symptoms: ['Agent stuck forever'], diagnosis: 'No command timeout configured', fix: 'Set reasonable timeout (30-60s) with kill on timeout' },
+          { issue: 'No stdin handling', symptoms: ['Cannot respond to prompts'], diagnosis: 'Terminal tool is output-only', fix: 'Detect prompts and fail fast with guidance' }
+        ],
+        hints: ['How do you make npm non-interactive?', 'What should happen after a timeout?', 'Can you detect prompts?'],
+        solution: 'Use non-interactive flags: npm install --yes, apt-get -y, git commit --no-edit. Set CI=true environment variable. Configure command timeout (60s default). Detect common prompt patterns and fail with helpful message.',
+        explanation: 'Agentic terminal usage requires non-interactive execution with proper timeout handling.'
+      },
+      expectedInsights: ['Use --yes flags', 'Set CI environment', 'Timeout prevents blocking'],
+      hints: ['Check for --yes or -y flags', 'Set CI=true', 'Configure timeouts'],
+      explanation: 'Teaches non-interactive terminal usage for agents.',
+      relatedConcepts: ['automation', 'ci-cd', 'error-handling'],
+      timeEstimate: 15,
+      successCriteria: ['Uses non-interactive flags', 'Sets environment variables', 'Configures timeouts']
+    }
+  ],
+  'guardrails-layer': [
+    {
+      id: 'guardrails-layer-debug-1',
+      type: 'debug',
+      conceptId: 'guardrails-layer',
+      title: 'False Positive Blocking',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'guardrail-false-positive',
+        title: 'Legitimate Queries Blocked as Injection',
+        description: 'Users are reporting that normal questions are being blocked by the security guardrails.',
+        problemDescription: 'A user asking "Ignore my previous order, I want to cancel" is blocked as prompt injection.',
+        brokenCode: `# Injection detection rules
+INJECTION_PATTERNS = [
+    r"ignore.*previous",  # Catches "Ignore my previous order"!
+    r"forget.*instructions",
+    r"you are now",
+    r"pretend to be"
+]
+
+def check_injection(text: str) -> bool:
+    for pattern in INJECTION_PATTERNS:
+        if re.search(pattern, text.lower()):
+            return True  # BLOCKED!
+    return False
+
+# User query: "Ignore my previous order, I want to cancel"
+# Result: BLOCKED as injection attempt
+# User is frustrated!`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'User', message: 'Ignore my previous order, I want to cancel', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Guardrail', message: 'Pattern match: ignore.*previous', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'System', message: 'Request blocked: potential injection', type: 'error' }
+        ],
+        expectedBehavior: 'Guardrails should distinguish legitimate phrases from actual injection attempts.',
+        commonIssues: [
+          { issue: 'Overly broad patterns', symptoms: ['Many false positives'], diagnosis: 'Regex too permissive', fix: 'Add context requirements (e.g., must be at start of message)' },
+          { issue: 'No confidence scoring', symptoms: ['Binary block/allow'], diagnosis: 'Single pattern match triggers block', fix: 'Require multiple signals or high confidence' },
+          { issue: 'No business context', symptoms: ['Domain phrases blocked'], diagnosis: 'Patterns don\'t account for domain vocabulary', fix: 'Allowlist common business phrases' }
+        ],
+        hints: ['How is "ignore my order" different from "ignore previous instructions"?', 'Should one pattern match cause a block?', 'What domain-specific phrases are legitimate?'],
+        solution: 'Require context: "ignore.*previous" only triggers if followed by instruction-related words. Add confidence scoring: single pattern = low confidence = log only, multiple patterns = high confidence = block. Maintain allowlist of business phrases.',
+        explanation: 'Effective guardrails balance security with usability through context-aware detection.'
+      },
+      expectedInsights: ['Patterns need context', 'Confidence scoring reduces false positives', 'Allowlists handle domain vocabulary'],
+      hints: ['Add context requirements', 'Implement confidence scoring', 'Create business phrase allowlist'],
+      explanation: 'Teaches balanced guardrail tuning to reduce false positives.',
+      relatedConcepts: ['security', 'user-experience', 'regex'],
+      timeEstimate: 12,
+      successCriteria: ['Adds pattern context', 'Implements scoring', 'Creates allowlist']
+    },
+    {
+      id: 'guardrails-layer-debug-2',
+      type: 'debug',
+      conceptId: 'guardrails-layer',
+      title: 'PII Leak in Error Messages',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'pii-in-errors',
+        title: 'Redacted PII Appears in Error Logs',
+        description: 'PII is correctly redacted in responses but leaks through error messages and stack traces.',
+        problemDescription: 'When an error occurs, the original unredacted input appears in the error log.',
+        brokenCode: `async def process_request(request: dict):
+    # PII redaction on input
+    redacted_input = redact_pii(request["message"])
+    
+    try:
+        response = await agent.run(redacted_input)
+        return redact_pii(response)  # PII redaction on output
+    except Exception as e:
+        # BUG: Original request logged, not redacted!
+        logger.error(f"Error processing request: {request}")
+        raise
+
+# When error occurs:
+# ERROR: Error processing request: {"message": "My SSN is 123-45-6789", ...}
+# PII is now in logs!`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Guardrail', message: 'Input redacted: [SSN_1]', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Processing...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Error: Model timeout', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'Logger', message: 'Error processing request: {"message": "My SSN is 123-45-6789"}', type: 'error' }
+        ],
+        expectedBehavior: 'PII redaction should apply to all outputs including error logs.',
+        commonIssues: [
+          { issue: 'Unredacted error logging', symptoms: ['PII in logs on errors'], diagnosis: 'Error handlers bypass redaction', fix: 'Redact before logging in error handler' },
+          { issue: 'Stack traces', symptoms: ['PII in exception tracebacks'], diagnosis: 'Stack includes variable values', fix: 'Sanitize exceptions before logging' },
+          { issue: 'Third-party logging', symptoms: ['PII sent to monitoring service'], diagnosis: 'External tools receive raw data', fix: 'Wrap logging to always redact' }
+        ],
+        hints: ['Where is redaction NOT applied?', 'What data appears in exceptions?', 'Do monitoring services see raw data?'],
+        solution: 'Wrap all logging calls with redaction: logger = RedactingLogger(base_logger). Sanitize exceptions before raising. Create custom exception types that don\'t include sensitive data. Audit all logging paths for PII exposure.',
+        explanation: 'PII redaction must be comprehensive, covering happy paths, error paths, and third-party integrations.'
+      },
+      expectedInsights: ['Error paths bypass normal redaction', 'Logging wrappers ensure coverage', 'Exceptions need sanitization'],
+      hints: ['Wrap logger with redaction', 'Sanitize before raising', 'Audit all logging paths'],
+      explanation: 'Teaches comprehensive PII protection across all code paths.',
+      relatedConcepts: ['security', 'logging', 'error-handling'],
+      timeEstimate: 15,
+      successCriteria: ['Wraps all logging', 'Sanitizes exceptions', 'Audits third-party integrations']
+    }
   ]
 };
 
