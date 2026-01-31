@@ -380,35 +380,13 @@ function App() {
                 <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
-                      <NavigationMenuTrigger className="bg-transparent">Resources</NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                          <ListItem href="https://agentcommunicationprotocol.dev/" title="Agent Communication Protocol">
-                            Open protocol for agent interoperability
-                          </ListItem>
-                          <ListItem href="https://modelcontextprotocol.io/" title="Model Context Protocol">
-                            Protocol for efficient AI model interaction
-                          </ListItem>
-                          <ListItem href="https://cookbook.openai.com/" title="OpenAI Cookbook">
-                            Code examples and guides for OpenAI APIs
-                          </ListItem>
-                          <ListItem href="https://learn.microsoft.com/azure/ai-services/" title="Azure AI Services">
-                            Documentation for Azure AI Services
-                          </ListItem>
-                          <ListItem href="https://learn.microsoft.com/azure/machine-learning/" title="Azure AI Platform">
-                            Microsoft's comprehensive AI platform
-                          </ListItem>
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
                       <a
                         href="https://github.com/bhakthan/openagentschool"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                       >
-                        <GithubLogo className="mr-1" size={16} /> GitHub Repo
+                        <GithubLogo className="mr-1" size={16} /> GitHub
                       </a>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
