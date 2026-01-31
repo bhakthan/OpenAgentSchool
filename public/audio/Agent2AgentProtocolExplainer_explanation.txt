@@ -1,17 +1,124 @@
 Agent2AgentProtocolExplainer Explanation
 --------------------------------------------------------------------------------
 
-Beginner Explanation
+Beginner Explanation (Start Here!)
 --------------------------------------------------------------------------------
-Welcome to the Agent2Agent Protocol explainer. In simple terms, this is a guide to the "language" that AI agents use to talk to each other. Just like people use standard languages to communicate, agents need a common protocol to work together, especially if they were built by different teams. On this page, you'll learn the five core principles that make this protocol effective, like being simple to use and ready for business needs. You'll also see the basic building blocks, like "Tasks" and "Messages," that agents use in their conversations.
+Welcome to the Agent2Agent Protocol explainer! Let me make this simple with the "Restaurant Kitchen" analogy.
+
+Imagine a busy restaurant kitchen. The head chef can't do everything alone, so they have a team: a sous chef, a pastry chef, a grill master. These chefs communicate constantly:
+
+"Sous chef, start the appetizers!"
+"Pastry chef, the dessert needs to be ready in 10 minutes!"
+"Behind you! Hot pan coming through!"
+
+This is A2A - Agent-to-Agent communication. It's how AI "chefs" (agents) coordinate with each other.
+
+But each chef also uses their own tools: ovens, mixers, grills, timers. The grill master knows exactly how to use the grill. The pastry chef knows the mixer settings.
+
+This is MCP - Model Context Protocol. It's how each agent connects to its tools.
+
+Here's the key insight: A2A is for agents talking to agents. MCP is for agents using tools. They work together beautifully - just like a well-run kitchen!
+
+On this page, you'll learn:
+- The five core principles that make A2A work
+- How "Agent Cards" act like digital business cards
+- The difference between A2A and MCP (and when to use each)
+
+A2A is now an open standard under the Linux Foundation, with major companies like Google, Microsoft, IBM, AWS, and Salesforce working together. In August 2025, IBM's Agent Communication Protocol (ACP) merged into A2A, creating one unified standard.
 
 --------------------------------------------------------------------------------
 Intermediate Explanation
 --------------------------------------------------------------------------------
-This page provides a deeper look into the Agent2Agent (A2A) Protocol. As you explore the tabs, you'll see the five core principles, such as "Async First," which allows for long-running tasks, and "Opaque Execution," which means an agent can use another's services without needing to know its internal workings. In the "Building Blocks" tab, you'll learn about the "Agent Card," a digital business card that advertises an agent's skills. You'll also see the distinction between A2A, which is for agent-to-agent collaboration, and MCP, which is for an agent to use a specific tool. The "Complete Workflow" tab provides a step-by-step example of how these two protocols work together to solve a user's query.
+This page provides a deeper look into the Agent2Agent (A2A) Protocol v1.0 Release Candidate. 
+
+The Restaurant Kitchen Mental Model:
+- A2A = Chef-to-Chef: "Sous chef, prepare the steak" (delegation, collaboration, autonomous decisions)
+- MCP = Chef-to-Tool: "Oven, preheat to 400 degrees" (tool invocation, data access, API calls)
+- Together: The head chef coordinates the team (A2A), and each chef uses their tools (MCP)
+
+Ask yourself: "Can the other party THINK?" If yes, use A2A. If no, use MCP.
+
+As you explore the tabs, you'll see the five core principles:
+- "Simple" - Built on familiar web standards like HTTP
+- "Enterprise Ready" - Security, privacy, and audit logging built-in
+- "Async First" - Designed for long-running tasks and workflows
+- "Modality Agnostic" - Supports text, audio, forms, and more
+- "Opaque Execution" - You don't need to know HOW an agent works, just WHAT it can do
+
+In the "Building Blocks" tab, you'll learn about the "Agent Card" - a digital business card that advertises an agent's skills. The v1.0 schema includes:
+- supportedInterfaces: Which protocol bindings the agent supports
+- capabilities: Streaming, push notifications, extended agent card
+- securitySchemes: OAuth2 or API key authentication
+
+The new "Protocol Bindings" tab shows the 3-layer architecture:
+1. Protocol Buffers (canonical data model)
+2. Abstract Operations (binding-agnostic logic)
+3. Concrete bindings: JSON-RPC 2.0, gRPC, HTTP+JSON/REST
 
 --------------------------------------------------------------------------------
 Advanced Explanation
 --------------------------------------------------------------------------------
-This Agent2AgentProtocolExplainer component is a detailed, tabbed interface built with React and ShadCN UI components. It breaks down the A2A protocol into five key sections: Core Principles, Building Blocks, A2A vs MCP, a Complete Workflow example, and a Business Use Case. The "Building Blocks" tab includes a JSON snippet showing the structure of an "Agent Card," which is crucial for agent discovery. The "Complete Workflow" tab is particularly insightful, as it programmatically details a sequence of eight steps, showing the interplay between user requests, A2A delegation, and MCP tool calls, complete with example JSON payloads for both A2A task creation and MCP function calls. This demonstrates a sophisticated understanding of how different agent-related protocols form a cohesive, functional ecosystem.
+This Agent2AgentProtocolExplainer component is a detailed, tabbed interface built with React and ShadCN UI components. It breaks down the A2A Protocol v1.0 RC into six key sections.
 
+Technical Architecture (3-Layer Model):
+Layer 1 - Canonical Data Model (Protocol Buffers):
+- Task: Core work unit with state tracking (8 states)
+- Message: Communication payload with Parts
+- AgentCard: Capability advertisement and endpoint discovery
+- Part: Content units (text, files, structured data)
+- Artifact: Task outputs and deliverables
+- Extension: Custom capability extensions
+
+Layer 2 - Abstract Operations:
+- SendMessage: Initiate or continue task communication
+- GetTask: Retrieve task status and results
+- ListTasks: Query tasks with filtering
+- CancelTask: Request task cancellation
+- SubscribeToTask: Real-time task updates (streaming)
+- Push Notification Configuration: Webhook setup for async updates
+
+Layer 3 - Concrete Protocol Bindings:
+- JSON-RPC 2.0: HTTP with SSE for streaming
+- gRPC: High-performance binary protocol with server streaming
+- HTTP+JSON/REST: Simple RESTful API for basic integrations
+
+Agent Card v1.0 Schema:
+- supportedInterfaces: Array specifying protocolBinding and protocolVersion
+- capabilities: Object with streaming, pushNotifications, extendedAgentCard
+- defaultInputModes/defaultOutputModes: Content type negotiation
+- securitySchemes: OAuth2 authorization code flows or API key authentication
+
+Task States (Full Lifecycle):
+SUBMITTED -> WORKING -> COMPLETED (happy path)
+SUBMITTED -> WORKING -> INPUT_REQUIRED -> WORKING -> COMPLETED (interactive)
+SUBMITTED -> WORKING -> AUTH_REQUIRED -> WORKING -> COMPLETED (auth flow)
+SUBMITTED -> REJECTED / FAILED / CANCELED (error paths)
+
+Breaking Changes from Earlier Versions:
+- "kind" discriminator removed from union types (now using wrapper objects)
+- extendedAgentCard relocated from supportsExtendedAgentCard to capabilities.extendedAgentCard
+
+Official SDKs at github.com/a2aproject:
+- Python (a2a-python), JavaScript (a2a-js), Java (a2a-java), C#/.NET (a2a-dotnet), Go (a2a-go)
+
+--------------------------------------------------------------------------------
+The Key Mental Model (Expert Summary)
+--------------------------------------------------------------------------------
+For experts: Think of A2A as the "inter-service communication layer" and MCP as the "tool execution layer." 
+
+An A2A network is like a distributed system of microservices, where each agent is a service with its own capabilities. Agent Cards are like service registries. Task states are like transaction states. contextId enables distributed tracing.
+
+MCP is like the adapter pattern - each agent has adapters (MCP connections) to external systems (databases, APIs, file systems).
+
+When an A2A coordinator receives a request, it:
+1. Reasons about which specialists to involve (orchestration)
+2. Sends A2A messages to delegate tasks (inter-agent)
+3. Each specialist uses MCP to access tools needed for their work (tool layer)
+4. Results flow back through A2A to the coordinator
+5. The coordinator synthesizes and returns the final result
+
+This separation of concerns (A2A for coordination, MCP for tools) enables:
+- Horizontal scaling (add more specialist agents)
+- Fault isolation (one agent's MCP failure doesn't crash others)
+- Security boundaries (MCP auth at tool level, A2A auth at agent level)
+- Technology heterogeneity (Python agent can delegate to TypeScript agent)

@@ -2,7 +2,7 @@ import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import MCPxA2AIntegrationFlow from "../visualization/MCPxA2AIntegrationFlow"
-import { ArrowsHorizontal, Shield, LinkSimple, Sparkle } from "@phosphor-icons/react"
+import { ArrowsHorizontal, Shield, LinkSimple, Sparkle, Info, Lightbulb, ChefHat, Toolbox, CheckCircle, XCircle, ArrowRight, Question, Users, Database, Brain } from "@phosphor-icons/react"
 
 interface MCPxA2AIntegrationConceptProps {
   onMarkComplete?: () => void
@@ -19,6 +19,155 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
       level: 'fundamentals' as const,
       content: (
         <div className="space-y-6">
+          {/* THE BIG PICTURE - Restaurant Kitchen Analogy */}
+          <div className="p-6 rounded-xl border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/5 to-teal-500/5">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-full bg-emerald-500/10">
+                <Lightbulb className="w-6 h-6 text-emerald-600 dark:text-emerald-400" weight="duotone" />
+              </div>
+              <div className="space-y-4 flex-1">
+                <div>
+                  <h3 className="text-lg font-bold text-emerald-800 dark:text-emerald-200">🍳 The Restaurant Kitchen Analogy</h3>
+                  <p className="text-sm text-muted-foreground mt-1">Understanding when to use A2A vs MCP</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-lg bg-white/50 dark:bg-gray-800/50 border border-orange-200 dark:border-orange-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <ChefHat className="w-5 h-5 text-orange-500" weight="duotone" />
+                      <h4 className="font-semibold text-sm text-orange-700 dark:text-orange-300">A2A = Chef-to-Chef</h4>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      "Sous chef, I need you to prepare the appetizers while I focus on the main course."
+                    </p>
+                    <ul className="text-xs space-y-1 text-muted-foreground">
+                      <li className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-green-500" /> Peer collaboration</li>
+                      <li className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-green-500" /> Task delegation</li>
+                      <li className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-green-500" /> Autonomous decisions</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="p-4 rounded-lg bg-white/50 dark:bg-gray-800/50 border border-blue-200 dark:border-blue-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Toolbox className="w-5 h-5 text-blue-500" weight="duotone" />
+                      <h4 className="font-semibold text-sm text-blue-700 dark:text-blue-300">MCP = Chef-to-Tool</h4>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      "Oven, preheat to 400°F. Timer, set for 20 minutes."
+                    </p>
+                    <ul className="text-xs space-y-1 text-muted-foreground">
+                      <li className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-green-500" /> Tool invocation</li>
+                      <li className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-green-500" /> Data access</li>
+                      <li className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-green-500" /> API calls</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* WHEN TO USE WHICH - Decision Guide */}
+          <Card className="border-2 border-amber-200 dark:border-amber-800">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
+                <Question className="w-5 h-5" weight="duotone" />
+                When to Use Which? (Decision Guide)
+              </CardTitle>
+              <CardDescription>Ask yourself these questions</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Use A2A */}
+                <div className="p-4 rounded-lg border-2 border-orange-300 dark:border-orange-700 bg-orange-50 dark:bg-orange-900/20">
+                  <h4 className="font-bold text-orange-800 dark:text-orange-200 mb-3 flex items-center gap-2">
+                    <Users className="w-5 h-5" /> Use A2A When...
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <ArrowRight className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                      <span>You need <strong>another agent's expertise</strong> (research, analysis, specialized knowledge)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <ArrowRight className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                      <span>The task requires <strong>autonomous decision-making</strong></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <ArrowRight className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                      <span>You want to <strong>delegate and forget</strong> (async, long-running)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <ArrowRight className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                      <span>The other party can <strong>reason and adapt</strong> to unexpected situations</span>
+                    </li>
+                  </ul>
+                  <div className="mt-3 p-2 rounded bg-orange-100 dark:bg-orange-800/30 text-xs">
+                    <strong>Example:</strong> "Research Agent, analyze market trends for Q4 and give me recommendations"
+                  </div>
+                </div>
+
+                {/* Use MCP */}
+                <div className="p-4 rounded-lg border-2 border-blue-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20">
+                  <h4 className="font-bold text-blue-800 dark:text-blue-200 mb-3 flex items-center gap-2">
+                    <Database className="w-5 h-5" /> Use MCP When...
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <ArrowRight className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                      <span>You need <strong>data from a database</strong> or API</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <ArrowRight className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                      <span>The operation is <strong>deterministic</strong> (same input → same output)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <ArrowRight className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                      <span>You need to <strong>call a function/tool</strong> with specific parameters</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <ArrowRight className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                      <span>The tool <strong>can't think</strong> - it just executes commands</span>
+                    </li>
+                  </ul>
+                  <div className="mt-3 p-2 rounded bg-blue-100 dark:bg-blue-800/30 text-xs">
+                    <strong>Example:</strong> "Database, SELECT * FROM orders WHERE date {'>'} '2024-01-01'"
+                  </div>
+                </div>
+              </div>
+
+              {/* The Key Insight */}
+              <div className="p-4 rounded-lg bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-300 dark:border-purple-700">
+                <div className="flex items-start gap-3">
+                  <Brain className="w-6 h-6 text-purple-600 flex-shrink-0" weight="duotone" />
+                  <div>
+                    <h4 className="font-bold text-purple-800 dark:text-purple-200">💡 The Key Insight</h4>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      <strong>Can the other party THINK?</strong> If yes → A2A. If no → MCP.
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      An A2A agent often uses MCP internally. When Research Agent analyzes market trends (A2A task), 
+                      it might query databases, call APIs, and search the web (MCP tools) to complete the work.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Protocol Relationship Clarification */}
+          <div className="p-4 rounded-lg border border-blue-500/30 bg-blue-500/5">
+            <div className="flex items-start gap-3">
+              <Info className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+              <div>
+                <p className="font-semibold text-sm mb-1">Complementary Protocols (Not Competing)</p>
+                <p className="text-sm text-muted-foreground">
+                  <strong>A2A</strong> = Agent-to-Agent (peer collaboration between autonomous agents)<br/>
+                  <strong>MCP</strong> = Agent-to-Tool (connecting agents to tools, APIs, data sources)<br/>
+                  An A2A agent may use MCP internally to access tools needed to complete tasks.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Integration Overview */}
           <Card>
             <CardHeader>
@@ -30,8 +179,8 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
             <CardContent className="space-y-4">
               <p className="text-base leading-relaxed">
                 The integration of Model Context Protocol (MCP) with Agent-to-Agent (A2A) communication 
-                creates a powerful framework where agents can securely share tools and resources while 
-                maintaining proper isolation and security boundaries.
+                creates a powerful framework where agents can collaborate with peers (A2A) while 
+                securely accessing external tools and resources (MCP).
               </p>
               
               <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md">
@@ -39,19 +188,19 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
-                    <span><strong>Secure Tool Sharing:</strong> Agents can access tools from other agents securely</span>
+                    <span><strong>Layered Architecture:</strong> A2A for agent coordination, MCP for tool access</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
-                    <span><strong>Resource Optimization:</strong> Avoid duplicate tool implementations</span>
+                    <span><strong>Secure Tool Sharing:</strong> Agents can expose MCP tools to A2A peers</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-purple-500 mt-2"></span>
-                    <span><strong>Capability Discovery:</strong> Agents can discover and use remote capabilities</span>
+                    <span><strong>Capability Discovery:</strong> Agent Cards advertise available MCP tools</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
-                    <span><strong>Standardized Interface:</strong> Consistent way to access distributed tools</span>
+                    <span><strong>Unified Security:</strong> Consistent auth across both protocol layers</span>
                   </li>
                 </ul>
               </div>

@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ArrowRight, PuzzlePiece, Wrench, Gear, BracketsCurly, Code } from "@phosphor-icons/react";
+import { ArrowRight, PuzzlePiece, Wrench, Gear, BracketsCurly, Code, Lightbulb, Users, CookingPot, Phone, ChefHat, Toolbox, ArrowsLeftRight } from "@phosphor-icons/react";
 import BusinessUseCaseSection from "./BusinessUseCaseSection";
 import { Clipboard } from "@phosphor-icons/react";
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
@@ -27,6 +27,115 @@ const Agent2AgentProtocolExplainer = () => {
           />
         </CardHeader>
         <CardContent className="space-y-6">
+          {/* v1.0 Release Candidate Notice */}
+          <div className="p-4 rounded-lg border-2 border-blue-500/30 bg-blue-500/5">
+            <div className="flex items-start gap-3">
+              <Badge className="ring-1 bg-blue-100 ring-blue-300 text-blue-800 dark:bg-blue-900/30 dark:ring-blue-700 dark:text-blue-300">v1.0 RC</Badge>
+              <div className="space-y-1">
+                <p className="font-semibold text-sm">A2A Protocol v1.0 Release Candidate - Now Under Linux Foundation</p>
+                <p className="text-sm text-muted-foreground">
+                  The A2A Protocol is now governed by the Linux Foundation with a Technical Steering Committee including 
+                  representatives from Google, Microsoft, IBM, AWS, Cisco, Salesforce, ServiceNow, and SAP. 
+                  <strong className="text-foreground"> IBM's Agent Communication Protocol (ACP) has officially merged into A2A</strong>, 
+                  bringing together the best of both protocols for unified agent interoperability.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* THE BIG PICTURE - New Section for Beginners */}
+          <div className="p-6 rounded-xl border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/5 to-teal-500/5">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-full bg-emerald-500/10">
+                <Lightbulb className="w-6 h-6 text-emerald-600 dark:text-emerald-400" weight="duotone" />
+              </div>
+              <div className="space-y-4 flex-1">
+                <div>
+                  <h3 className="text-lg font-bold text-emerald-800 dark:text-emerald-200">🍳 The Restaurant Kitchen Analogy</h3>
+                  <p className="text-sm text-muted-foreground mt-1">The simplest way to understand A2A and MCP</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-lg bg-white/50 dark:bg-gray-800/50 border border-emerald-200 dark:border-emerald-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <ChefHat className="w-5 h-5 text-orange-500" weight="duotone" />
+                      <h4 className="font-semibold text-sm">A2A = Chefs Talking</h4>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      The <strong>head chef</strong> delegates to the <strong>sous chef</strong>, who coordinates with the <strong>pastry chef</strong>. 
+                      They communicate using professional kitchen language ("Fire table 5!", "Behind you!").
+                    </p>
+                    <div className="mt-2 text-xs bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 px-2 py-1 rounded">
+                      Agent → Agent collaboration
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 rounded-lg bg-white/50 dark:bg-gray-800/50 border border-emerald-200 dark:border-emerald-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Toolbox className="w-5 h-5 text-blue-500" weight="duotone" />
+                      <h4 className="font-semibold text-sm">MCP = Chefs Using Tools</h4>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Each chef uses their <strong>specific tools</strong>: the grill, the mixer, the oven. 
+                      They know how to operate their equipment safely and efficiently.
+                    </p>
+                    <div className="mt-2 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
+                      Agent → Tool connection
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-lg bg-gradient-to-r from-orange-100 to-blue-100 dark:from-orange-900/20 dark:to-blue-900/20 border border-emerald-200 dark:border-emerald-700">
+                  <div className="flex items-center gap-2 mb-2">
+                    <ArrowsLeftRight className="w-5 h-5 text-purple-600" weight="duotone" />
+                    <h4 className="font-semibold text-sm text-purple-800 dark:text-purple-200">Together: A Functioning Kitchen</h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    The <strong>head chef (coordinator agent)</strong> receives an order and uses <strong>A2A</strong> to delegate: 
+                    "Sous chef, prepare the steak. Pastry chef, make the dessert." Each chef then uses <strong>MCP</strong> to access 
+                    their tools: the grill, the oven, the mixer. The result? A complete meal prepared by specialists working together.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Mental Model */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="border-2 border-orange-200 dark:border-orange-800 bg-orange-50/50 dark:bg-orange-900/10">
+              <CardContent className="pt-4">
+                <div className="text-center space-y-2">
+                  <Users className="w-8 h-8 mx-auto text-orange-600" weight="duotone" />
+                  <h4 className="font-bold text-orange-800 dark:text-orange-200">A2A</h4>
+                  <p className="text-xs text-muted-foreground">Agent ↔ Agent</p>
+                  <p className="text-sm">"Hey Research Agent, can you look this up for me?"</p>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-2 border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-900/10">
+              <CardContent className="pt-4">
+                <div className="text-center space-y-2">
+                  <Toolbox className="w-8 h-8 mx-auto text-blue-600" weight="duotone" />
+                  <h4 className="font-bold text-blue-800 dark:text-blue-200">MCP</h4>
+                  <p className="text-xs text-muted-foreground">Agent → Tool</p>
+                  <p className="text-sm">"Database, give me all orders from last week"</p>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-2 border-purple-200 dark:border-purple-800 bg-purple-50/50 dark:bg-purple-900/10">
+              <CardContent className="pt-4">
+                <div className="text-center space-y-2">
+                  <ArrowsLeftRight className="w-8 h-8 mx-auto text-purple-600" weight="duotone" />
+                  <h4 className="font-bold text-purple-800 dark:text-purple-200">Together</h4>
+                  <p className="text-xs text-muted-foreground">Complementary</p>
+                  <p className="text-sm">A2A agent uses MCP to access its tools internally</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           <div className="prose max-w-none">
             <p>
               The Agent2Agent (A2A) Protocol is a framework that enables different AI agents to communicate, delegate tasks, 
@@ -43,9 +152,10 @@ const Agent2AgentProtocolExplainer = () => {
           <Separator />
           
           <Tabs defaultValue="core-principles">
-            <TabsList className="grid grid-cols-5">
+            <TabsList className="grid grid-cols-6">
               <TabsTrigger value="core-principles">Core Principles</TabsTrigger>
               <TabsTrigger value="building-blocks">Building Blocks</TabsTrigger>
+              <TabsTrigger value="protocol-bindings">Protocol Bindings</TabsTrigger>
               <TabsTrigger value="a2a-vs-mcp">A2A vs MCP</TabsTrigger>
               <TabsTrigger value="workflow">Complete Workflow</TabsTrigger>
               <TabsTrigger value="business-use-case">Business Use Case</TabsTrigger>
@@ -150,33 +260,57 @@ const Agent2AgentProtocolExplainer = () => {
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-base">The Agent Card</CardTitle>
-                    <CardDescription>An agent's digital business card</CardDescription>
+                    <CardDescription>An agent's digital business card (v1.0 Schema)</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <p className="text-sm">
                       The Agent Card is a standardized metadata file (usually JSON) that an agent publishes to advertise its capabilities.
-                      It tells other agents who it is, what it does, and how to contact it.
+                      It tells other agents who it is, what it does, how to contact it, and what protocols it supports.
                     </p>
                     
                     <div className={conceptSurfaceSoft("p-4 space-y-2")}
                     >
-                      <p className="text-xs font-medium text-muted-foreground">Example Agent Card:</p>
+                      <p className="text-xs font-medium text-muted-foreground">Example Agent Card (v1.0 Schema):</p>
                       <pre className={conceptCodeBlock("text-xs p-3 overflow-x-auto")}> 
 {`{
   "name": "StockInfoAgent",
   "description": "Provides current stock price information.",
-  "url": "http://stock-info.example.com/a2a",
+  "url": "https://stock-info.example.com/a2a",
   "provider": { "organization": "ABCorp" },
   "version": "1.0.0",
-  "skills": [
-    {
-      "id": "get_stock_price_skill",
-      "name": "Get Stock Price",
-      "description": "Retrieves current stock price for a company"
-    }
-  ]
+  "supportedInterfaces": [{
+    "protocolBinding": "jsonrpc",
+    "protocolVersion": "1.0"
+  }],
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "extendedAgentCard": true
+  },
+  "defaultInputModes": ["text/plain", "application/json"],
+  "defaultOutputModes": ["text/plain", "application/json"],
+  "securitySchemes": [{
+    "type": "oauth2",
+    "flows": { "clientCredentials": { "tokenUrl": "/oauth/token" } }
+  }],
+  "skills": [{
+    "id": "get_stock_price_skill",
+    "name": "Get Stock Price",
+    "description": "Retrieves current stock price for a company",
+    "inputModes": ["text/plain"],
+    "outputModes": ["application/json"]
+  }]
 }`}
                       </pre>
+                    </div>
+
+                    {/* v1.0 Breaking Changes Callout */}
+                    <div className="p-3 rounded-md border border-amber-500/30 bg-amber-500/5">
+                      <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1">⚠️ v1.0 Breaking Changes</p>
+                      <ul className="text-xs text-muted-foreground space-y-1">
+                        <li>• <strong>Kind discriminator removed:</strong> Union types now use wrapper objects with field names as discriminators</li>
+                        <li>• <strong>extendedAgentCard relocated:</strong> Moved from <code>supportsExtendedAgentCard</code> to <code>capabilities.extendedAgentCard</code></li>
+                      </ul>
                     </div>
                   </CardContent>
                 </Card>
@@ -184,17 +318,23 @@ const Agent2AgentProtocolExplainer = () => {
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-base">A2A Workflow Components</CardTitle>
-                    <CardDescription>Tasks, Messages, and Artifacts</CardDescription>
+                    <CardDescription>Tasks, Messages, Artifacts, and Context</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                       <div className={conceptSurface("p-4 space-y-2")}
                       >
                         <h4 className="font-medium mb-2">Tasks</h4>
                         <p className="text-sm">
-                          The fundamental unit of work. A client agent initiates a <strong>task</strong> when it wants 
-                          another agent to do something. Each task has a unique ID and is stateful, meaning you can 
-                          check its status (working, completed, failed) over time.
+                          The fundamental unit of work with a unique ID and lifecycle states: 
+                          <code className="text-xs bg-muted px-1 mx-1">submitted</code>
+                          <code className="text-xs bg-muted px-1 mx-1">working</code>
+                          <code className="text-xs bg-muted px-1 mx-1">completed</code>
+                          <code className="text-xs bg-muted px-1 mx-1">failed</code>
+                          <code className="text-xs bg-muted px-1 mx-1">canceled</code>
+                          <code className="text-xs bg-muted px-1 mx-1">input_required</code>
+                          <code className="text-xs bg-muted px-1 mx-1">auth_required</code>
+                          <code className="text-xs bg-muted px-1 mx-1">rejected</code>
                         </p>
                       </div>
                       
@@ -202,9 +342,8 @@ const Agent2AgentProtocolExplainer = () => {
                       >
                         <h4 className="font-medium mb-2">Messages</h4>
                         <p className="text-sm">
-                          Within a task, agents communicate using <strong>messages</strong>. These can be instructions, 
-                          status updates, or requests for more information. This ongoing dialogue enables complex, 
-                          back-and-forth collaboration.
+                          Communication turns with role (<code className="text-xs bg-muted px-1">user</code> or <code className="text-xs bg-muted px-1">agent</code>) 
+                          containing Parts (TextPart, FilePart, DataPart). Enables complex back-and-forth collaboration.
                         </p>
                       </div>
                       
@@ -212,9 +351,31 @@ const Agent2AgentProtocolExplainer = () => {
                       >
                         <h4 className="font-medium mb-2">Artifacts</h4>
                         <p className="text-sm">
-                          When a task is finished, the final, unchangeable result is delivered as an <strong>artifact</strong>. 
-                          This could be a piece of text, a file, or structured data.
+                          Output generated by an agent during task processing. Can be text, files, or structured data 
+                          delivered as the final result.
                         </p>
+                      </div>
+
+                      <div className={conceptSurface("p-4 space-y-2")}
+                      >
+                        <h4 className="font-medium mb-2">Context (contextId)</h4>
+                        <p className="text-sm">
+                          Server-generated ID to group related tasks. Enables multi-turn interactions and 
+                          maintains conversational continuity across task boundaries.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Core Operations */}
+                    <div className="mt-4">
+                      <h4 className="font-medium mb-3">Core Operations</h4>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                        <div className="p-2 rounded border text-xs"><strong>SendMessage</strong> - Initiate interaction</div>
+                        <div className="p-2 rounded border text-xs"><strong>SendStreamingMessage</strong> - Stream responses</div>
+                        <div className="p-2 rounded border text-xs"><strong>GetTask</strong> - Retrieve task state</div>
+                        <div className="p-2 rounded border text-xs"><strong>ListTasks</strong> - List all tasks</div>
+                        <div className="p-2 rounded border text-xs"><strong>CancelTask</strong> - Request cancellation</div>
+                        <div className="p-2 rounded border text-xs"><strong>SubscribeToTask</strong> - Stream task updates</div>
                       </div>
                     </div>
                   </CardContent>
@@ -222,8 +383,136 @@ const Agent2AgentProtocolExplainer = () => {
               </div>
             </TabsContent>
             
+            {/* NEW: Protocol Bindings Tab */}
+            <TabsContent value="protocol-bindings" className="space-y-4 pt-4">
+              <h3 className="text-lg font-semibold mb-3">Protocol Bindings (3-Layer Model)</h3>
+              
+              <p className="text-sm text-muted-foreground mb-4">
+                A2A v1.0 uses a 3-layer architecture: Canonical Data Model (Protocol Buffers), Abstract Operations, 
+                and Protocol Bindings. Here are the three official bindings:
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card>
+                  <CardHeader className="py-3">
+                    <CardTitle className="text-base">JSON-RPC 2.0</CardTitle>
+                    <CardDescription>Over HTTP(S) with SSE for streaming</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <pre className={conceptCodeBlock("text-xs p-3 overflow-x-auto")}>
+{`// JSON-RPC Request
+{
+  "jsonrpc": "2.0",
+  "method": "a2a.sendMessage",
+  "params": {
+    "message": {
+      "role": "user",
+      "parts": [{
+        "text": "Get stock price"
+      }]
+    }
+  },
+  "id": "req-123"
+}`}
+                    </pre>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="py-3">
+                    <CardTitle className="text-base">gRPC</CardTitle>
+                    <CardDescription>Using Protocol Buffers, server streaming</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <pre className={conceptCodeBlock("text-xs p-3 overflow-x-auto")}>
+{`// gRPC service definition
+service A2AService {
+  rpc SendMessage(
+    SendMessageRequest
+  ) returns (
+    SendMessageResponse
+  );
+  
+  rpc SubscribeToTask(
+    SubscribeRequest
+  ) returns (
+    stream TaskUpdate
+  );
+}`}
+                    </pre>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="py-3">
+                    <CardTitle className="text-base">HTTP+JSON/REST</CardTitle>
+                    <CardDescription>RESTful endpoints with SSE streaming</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <pre className={conceptCodeBlock("text-xs p-3 overflow-x-auto")}>
+{`// RESTful endpoints
+POST /tasks
+  → Create new task
+
+GET /tasks/{taskId}
+  → Get task status
+
+DELETE /tasks/{taskId}
+  → Cancel task
+
+GET /tasks/{taskId}/subscribe
+  → SSE stream for updates
+
+// Headers
+A2A-Version: 1.0
+Content-Type: application/a2a+json`}
+                    </pre>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Official SDKs */}
+              <Card className="mt-4">
+                <CardHeader>
+                  <CardTitle className="text-base">Official SDKs</CardTitle>
+                  <CardDescription>Available under the a2aproject GitHub organization</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline" className="text-xs">
+                      <a href="https://github.com/a2aproject/a2a-python" target="_blank" rel="noopener noreferrer">🐍 Python</a>
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      <a href="https://github.com/a2aproject/a2a-js" target="_blank" rel="noopener noreferrer">📦 JavaScript</a>
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      <a href="https://github.com/a2aproject/a2a-java" target="_blank" rel="noopener noreferrer">☕ Java</a>
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      <a href="https://github.com/a2aproject/a2a-dotnet" target="_blank" rel="noopener noreferrer">🔷 C#/.NET</a>
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      <a href="https://github.com/a2aproject/a2a-go" target="_blank" rel="noopener noreferrer">🐹 Go</a>
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
             <TabsContent value="a2a-vs-mcp" className="space-y-4 pt-4">
               <h3 className="text-lg font-semibold mb-3">Understanding A2A vs. MCP</h3>
+              
+              {/* ACP Merger Note */}
+              <div className="p-3 rounded-md border border-purple-500/30 bg-purple-500/5 mb-4">
+                <p className="text-sm">
+                  <strong className="text-purple-700 dark:text-purple-400">📢 ACP Merged into A2A:</strong>{" "}
+                  IBM's Agent Communication Protocol (ACP) officially merged with A2A under the Linux Foundation in August 2025. 
+                  ACP technology and expertise are now part of the unified A2A standard. BeeAI users can use{" "}
+                  <a href="https://framework.beeai.dev/integrations/a2a" target="_blank" rel="noopener noreferrer" className="underline">A2AServer</a> and{" "}
+                  <a href="https://framework.beeai.dev/integrations/a2a#a2a-agent-client" target="_blank" rel="noopener noreferrer" className="underline">A2AAgent</a>{" "}
+                  adapters for migration.
+                </p>
+              </div>
               
               <Card>
                 <CardContent className="p-6">
@@ -236,7 +525,7 @@ const Agent2AgentProtocolExplainer = () => {
                       
                       <div className="p-4 rounded-md bg-primary/5 border border-primary/10 text-sm">
                         <p>
-                          <strong>Purpose:</strong> Enables collaboration between autonomous agents.
+                          <strong>Purpose:</strong> Enables collaboration between autonomous agents (peer-to-peer).
                         </p>
                         <p className="mt-2">
                           <strong>Analogy:</strong> Like a manager delegating a complex project to a team member.
@@ -246,6 +535,7 @@ const Agent2AgentProtocolExplainer = () => {
                           <li>Focuses on agent discovery and collaboration</li>
                           <li>Handles task delegation and status tracking</li>
                           <li>Provides a framework for agent coordination</li>
+                          <li>Now includes ACP enterprise orchestration features</li>
                         </ul>
                       </div>
                     </div>
@@ -253,12 +543,12 @@ const Agent2AgentProtocolExplainer = () => {
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
                         <Badge className="ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)]">MCP Protocol</Badge>
-                        <span className="text-sm font-medium">Model-Tool Interaction</span>
+                        <span className="text-sm font-medium">Agent-to-Tool Interaction</span>
                       </div>
                       
                       <div className="p-4 rounded-md bg-secondary/5 border border-secondary/10 text-sm">
                         <p>
-                          <strong>Purpose:</strong> Standardizes how an agent uses a specific tool or function.
+                          <strong>Purpose:</strong> Standardizes how an agent connects to tools, APIs, and data sources.
                         </p>
                         <p className="mt-2">
                           <strong>Analogy:</strong> Like a mechanic using a standardized wrench to turn a bolt.

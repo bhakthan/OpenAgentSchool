@@ -16,7 +16,20 @@ interface AnimationStep {
   message?: string;
   techStack?: string;
   securityNote?: string;
+  taskState?: string;
 }
+
+// A2A v1.0 Task States
+const TASK_STATES = {
+  SUBMITTED: { label: 'Submitted', color: 'bg-blue-500', description: 'Task received, queued for processing' },
+  WORKING: { label: 'Working', color: 'bg-amber-500', description: 'Agent actively processing the task' },
+  INPUT_REQUIRED: { label: 'Input Required', color: 'bg-purple-500', description: 'Agent needs additional input from client' },
+  AUTH_REQUIRED: { label: 'Auth Required', color: 'bg-orange-500', description: 'Agent needs authentication/authorization' },
+  COMPLETED: { label: 'Completed', color: 'bg-green-500', description: 'Task finished successfully with artifacts' },
+  FAILED: { label: 'Failed', color: 'bg-red-500', description: 'Task failed with error' },
+  CANCELED: { label: 'Canceled', color: 'bg-gray-500', description: 'Task was canceled by client' },
+  REJECTED: { label: 'Rejected', color: 'bg-red-700', description: 'Task rejected by agent (not supported)' },
+} as const;
 
 const A2AMultiAgentSystem: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -35,15 +48,17 @@ const A2AMultiAgentSystem: React.FC = () => {
       description: 'Customer asks a complex question requiring both product research and order status',
       message: '"What are the eco-friendly features of the Aqua-Pure X1 water filter, and can you check my latest order status?"',
       duration: 3000,
-      highlight: ['user-app', 'customer-service']
+      highlight: ['user-app', 'customer-service'],
+      taskState: 'SUBMITTED'
     },
     {
       id: 'a2a-task-creation',
       title: 'A2A Task Creation',
-      description: 'Web app creates task with Customer Service Agent using A2A protocol',
-      techStack: 'A2A SDK - Task lifecycle management',
+      description: 'Web app creates task with Customer Service Agent using A2A protocol (v1.0 JSON-RPC binding)',
+      techStack: 'A2A SDK - Task lifecycle management with contextId',
       duration: 2500,
-      highlight: ['a2a-client', 'customer-service', 'a2a-server']
+      highlight: ['a2a-client', 'customer-service', 'a2a-server'],
+      taskState: 'SUBMITTED'
     },
     {
       id: 'genai-pipeline-start',
@@ -51,15 +66,17 @@ const A2AMultiAgentSystem: React.FC = () => {
       description: 'Customer Service Agent starts GenAI-processors pipeline for query analysis',
       techStack: 'GenAI-processors - Modular task breakdown',
       duration: 3000,
-      highlight: ['genai-pipeline', 'customer-service']
+      highlight: ['genai-pipeline', 'customer-service'],
+      taskState: 'WORKING'
     },
     {
       id: 'task-delegation',
       title: 'Task Delegation',
       description: 'Agent delegates product research to Google Gemini Agent and order lookup to OMS Tool Agent',
-      techStack: 'A2A Protocol - Inter-agent communication',
+      techStack: 'A2A Protocol - Inter-agent communication with shared contextId',
       duration: 3500,
-      highlight: ['customer-service', 'product-research', 'oms-tool', 'delegation-lines']
+      highlight: ['customer-service', 'product-research', 'oms-tool', 'delegation-lines'],
+      taskState: 'WORKING'
     },
     {
       id: 'product-research',
@@ -67,7 +84,8 @@ const A2AMultiAgentSystem: React.FC = () => {
       description: 'Google Gemini Agent researches eco-friendly features using external knowledge',
       techStack: 'Google Gemini - Advanced research capabilities',
       duration: 4000,
-      highlight: ['product-research', 'research-pipeline']
+      highlight: ['product-research', 'research-pipeline'],
+      taskState: 'WORKING'
     },
     {
       id: 'mcp-auth',
@@ -76,7 +94,8 @@ const A2AMultiAgentSystem: React.FC = () => {
       techStack: 'MCP Protocol - Secure tool authentication',
       securityNote: 'OAuth 2.0 PKCE flow with encrypted session keys',
       duration: 2500,
-      highlight: ['mcp-client', 'mcp-server', 'azure-apim']
+      highlight: ['mcp-client', 'mcp-server', 'azure-apim'],
+      taskState: 'AUTH_REQUIRED'
     },
     {
       id: 'secure-tool-call',
@@ -85,7 +104,8 @@ const A2AMultiAgentSystem: React.FC = () => {
       techStack: 'Azure API Management + Functions',
       securityNote: 'Backend endpoints never exposed publicly',
       duration: 3000,
-      highlight: ['mcp-server', 'azure-functions', 'order-db']
+      highlight: ['mcp-server', 'azure-functions', 'order-db'],
+      taskState: 'WORKING'
     },
     {
       id: 'response-synthesis',
@@ -93,15 +113,17 @@ const A2AMultiAgentSystem: React.FC = () => {
       description: 'Customer Service Agent combines research results and order data into comprehensive response',
       techStack: 'GenAI-processors - Response generation pipeline',
       duration: 3500,
-      highlight: ['genai-pipeline', 'customer-service', 'response-synthesis']
+      highlight: ['genai-pipeline', 'customer-service', 'response-synthesis'],
+      taskState: 'WORKING'
     },
     {
       id: 'final-response',
       title: 'A2A Response Delivery',
-      description: 'Complete response delivered to customer via A2A protocol',
+      description: 'Complete response delivered to customer via A2A protocol with artifact',
       message: '"The Aqua-Pure X1 features 99.9% plastic-free construction and energy-efficient filtration. Your order #12345 shipped yesterday - tracking: 1Z999AA10123456784"',
       duration: 4000,
-      highlight: ['customer-service', 'a2a-client', 'user-app', 'final-response']
+      highlight: ['customer-service', 'a2a-client', 'user-app', 'final-response'],
+      taskState: 'COMPLETED'
     }
   ];
 

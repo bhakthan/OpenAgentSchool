@@ -3,15 +3,42 @@ A2AMultiAgentSystem Explanation
 
 Beginner Explanation
 --------------------------------------------------------------------------------
-This demonstrates how multiple AI agents can work together as a team to solve complex problems. Think of it like a customer service team where different people have different skills. The Customer Service Agent is like the main receptionist who talks to customers, the Product Research Agent knows all about products and policies, and the Order Management Agent can look up orders and process returns. They use special communication methods to share information and work together to help customers better than any single agent could alone.
+This demonstrates how multiple AI agents can work together as a team to solve complex problems using the A2A Protocol v1.0. Think of it like a customer service team where different people have different skills. The Customer Service Agent is like the main receptionist who talks to customers, the Product Research Agent knows all about products and policies, and the Order Management Agent can look up orders and process returns. 
+
+As you watch the animation, notice the task states changing: "Submitted" when a request comes in, "Working" as agents process, "Auth Required" when authentication is needed, and "Completed" when results are delivered. They use special communication methods to share information and work together to help customers better than any single agent could alone.
+
+A2A is now an open standard under the Linux Foundation, with major companies like Google, Microsoft, IBM, and AWS working together to make it the universal language for AI agent collaboration.
 
 --------------------------------------------------------------------------------
 Intermediate Explanation
 --------------------------------------------------------------------------------
-This showcases Agent-to-Agent communication using the A2A protocol, where specialized AI agents coordinate to handle complex tasks. The Customer Service Agent acts as an orchestrator, using A2A messaging to delegate specific tasks to other agents. Each agent has its own expertise and data access, connected through GenAI processing pipelines that enable intelligent reasoning. The MCP provides secure connections to external tools and databases. You can see how they pass messages, share context, and combine their results into comprehensive solutions.
+This showcases Agent-to-Agent communication using the A2A Protocol v1.0 Release Candidate, where specialized AI agents coordinate to handle complex tasks. The Customer Service Agent acts as an orchestrator, using A2A messaging to delegate specific tasks to other agents. Each agent has its own expertise and data access, connected through GenAI processing pipelines that enable intelligent reasoning. The MCP provides secure connections to external tools and databases.
+
+Watch the animation to see the full task lifecycle in action:
+- SUBMITTED: When a new task is created
+- WORKING: While an agent processes the request
+- INPUT_REQUIRED: When the agent needs more information from the user
+- AUTH_REQUIRED: When authentication or authorization is needed
+- COMPLETED: When the task finishes successfully
+- FAILED/CANCELED/REJECTED: For error states
+
+The contextId feature allows related tasks to be grouped together for multi-turn conversations, maintaining continuity across multiple agent interactions. You can see how they pass messages, share context, and combine their results into comprehensive solutions.
 
 --------------------------------------------------------------------------------
 Advanced Explanation
 --------------------------------------------------------------------------------
-This implementation illustrates enterprise-grade multi-agent architecture patterns combining A2A protocol for inter-agent communication, GenAI processing pipelines for distributed reasoning, and MCP for secure tool integration. The system features sophisticated orchestration with proper context preservation, error handling, and distributed transaction management. Each agent maintains specialized knowledge bases and implements patterns like circuit breakers and graceful degradation for production reliability.
+This implementation illustrates enterprise-grade multi-agent architecture patterns using A2A Protocol v1.0 RC, combining the protocol's 3-layer architecture for inter-agent communication, GenAI processing pipelines for distributed reasoning, and MCP for secure tool integration.
+
+A2A v1.0 Technical Features Demonstrated:
+- Agent Cards with supportedInterfaces (JSON-RPC, gRPC, HTTP+JSON), capabilities (streaming, pushNotifications, extendedAgentCard), and securitySchemes
+- Full task state lifecycle: SUBMITTED → WORKING → AUTH_REQUIRED → WORKING → COMPLETED (with FAILED, CANCELED, INPUT_REQUIRED, REJECTED for error paths)
+- contextId for multi-turn conversation grouping
+- Abstract Operations: SendMessage, GetTask, ListTasks, CancelTask, SubscribeToTask
+- Protocol bindings: JSON-RPC 2.0 with SSE streaming, gRPC with server streaming, HTTP+JSON/REST
+
+The system features sophisticated orchestration with proper context preservation, error handling, and distributed transaction management. Each agent maintains specialized knowledge bases and implements enterprise patterns like circuit breakers and graceful degradation for production reliability.
+
+The A2A Protocol is now governed by the Linux Foundation with a Technical Steering Committee including Google, Microsoft, IBM, AWS, Cisco, Salesforce, ServiceNow, and SAP. IBM's Agent Communication Protocol (ACP) merged into A2A in August 2025, contributing enterprise orchestration patterns and the BeeAI platform's production-tested agent runtime.
+
+Official SDKs: Python (a2a-python), JavaScript (a2a-js), Java (a2a-java), C#/.NET (a2a-dotnet), Go (a2a-go) at github.com/a2aproject
 

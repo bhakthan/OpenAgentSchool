@@ -50,10 +50,20 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-lg leading-relaxed">
-                Agent-to-Agent (A2A) communication is a protocol that enables AI agents to communicate, 
-                coordinate, and collaborate with each other. Instead of working in isolation, agents can 
-                share information, delegate tasks, and combine their capabilities to solve complex problems.
+                Agent-to-Agent (A2A) communication is an open protocol, now under the Linux Foundation, 
+                that enables AI agents to communicate, coordinate, and collaborate with each other. 
+                Instead of working in isolation, agents can share information, delegate tasks, and 
+                combine their capabilities to solve complex problems.
               </p>
+
+              {/* v1.0 RC Banner */}
+              <div className="p-3 rounded-md border border-blue-500/30 bg-blue-500/5">
+                <p className="text-sm">
+                  <strong className="text-blue-700 dark:text-blue-400">🚀 A2A v1.0 Release Candidate:</strong>{" "}
+                  The protocol is now governed by the Linux Foundation with IBM's ACP merged in. 
+                  Features 3-layer architecture (Protocol Buffers, Abstract Operations, Protocol Bindings).
+                </p>
+              </div>
               
               <div className={conceptSurfaceSoft("p-4 space-y-2")}>
                 <h4 className="font-semibold">Why A2A Communication Matters:</h4>

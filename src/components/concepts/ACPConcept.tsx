@@ -6,10 +6,11 @@ import ProtocolComparison from "./ProtocolComparison"
 import SimpleACPDemo from "../interactive-demos/SimpleACPDemo"
 import ACPMCPComparison from "../interactive-demos/ACPMCPComparison"
 import ReferenceSection from "../references/ReferenceSection"
-import { Stack, Lightning, Rocket, Crown } from "@phosphor-icons/react"
+import { Stack, Lightning, Rocket, Crown, ArrowRight, Info } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 import { conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles";
+import { Link } from "react-router-dom";
 
 interface ACPConceptProps {
   onMarkComplete?: () => void
@@ -25,96 +26,161 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
   const tabs = [
     {
       id: 'fundamentals',
-      title: 'ACP Basics',
-      description: 'Learn about the Agent Communication Protocol',
+      title: 'ACP → A2A',
+      description: 'ACP has merged into A2A under the Linux Foundation',
       icon: <Stack className="w-4 h-4" />,
       level: 'fundamentals' as const,
       content: (
         <div className="space-y-6">
-          {/* Basic Definition */}
+          {/* Major Announcement Banner */}
+          <div className="p-6 rounded-lg border-2 border-purple-500/40 bg-gradient-to-r from-purple-500/10 to-blue-500/10">
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-full bg-purple-500/20">
+                <Info className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              </div>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-purple-600 text-white">August 2025</Badge>
+                  <h3 className="text-xl font-bold">ACP Joins Forces with A2A</h3>
+                </div>
+                <p className="text-base leading-relaxed">
+                  IBM's Agent Communication Protocol (ACP) has <strong>officially merged with the Agent2Agent (A2A) Protocol</strong> under 
+                  the Linux Foundation. This unification brings together the best of both protocols to create a single, 
+                  more powerful standard for AI agent communication.
+                </p>
+                <div className="flex items-center gap-4 pt-2">
+                  <Link 
+                    to="/concepts/a2a-communication" 
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                  >
+                    Learn A2A Protocol <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <a 
+                    href="https://github.com/orgs/i-am-bee/discussions/5" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-foreground underline"
+                  >
+                    Read the announcement →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* What This Means */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Stack className="w-5 h-5" />
-                What is Agent Communication Protocol (ACP)?
+                What This Means for You
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className={conceptSurfaceSoft("p-4 space-y-2 border-l-4 border-green-500")}>
+                  <h4 className="font-semibold text-green-600 dark:text-green-400">For New Projects</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Use A2A Protocol directly. ACP's advanced orchestration, workflow management, and enterprise 
+                    features are now integrated into the A2A v1.0 specification.
+                  </p>
+                </div>
+                <div className={conceptSurfaceSoft("p-4 space-y-2 border-l-4 border-amber-500")}>
+                  <h4 className="font-semibold text-amber-600 dark:text-amber-400">For Existing ACP Users</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Migration paths are available. BeeAI users can use the <code className="text-xs bg-muted px-1">A2AServer</code> adapter 
+                    to make agents A2A-compliant, and <code className="text-xs bg-muted px-1">A2AAgent</code> to integrate external A2A agents.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Historical Context */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Historical Context: What Was ACP?</CardTitle>
+              <CardDescription>Understanding the protocol that merged into A2A</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
               <p className="text-base leading-relaxed">
-                Agent Communication Protocol (ACP) is an advanced protocol stack that enables 
-                sophisticated communication and coordination between AI agents. It builds upon 
-                basic A2A communication to provide enterprise-grade features like orchestration, 
-                workflow management, and advanced coordination patterns.
+                Agent Communication Protocol (ACP) was an advanced protocol stack developed by IBM Research 
+                to power the <a href="https://github.com/i-am-bee/beeai-platform" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">BeeAI Platform</a>. 
+                It provided enterprise-grade features for multi-agent orchestration, workflow management, 
+                and advanced coordination patterns.
               </p>
               
               <div className={conceptSurfaceSoft("p-4 space-y-2")}>
-                <h4 className="font-semibold">Advanced Capabilities:</h4>
+                <h4 className="font-semibold">ACP's Key Contributions to A2A:</h4>
                 <ul className="space-y-2 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
-                    <span><strong>Orchestration:</strong> Coordinate complex multi-agent workflows</span>
+                    <span><strong>Orchestration:</strong> Complex multi-agent workflow coordination</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
-                    <span><strong>State Management:</strong> Track and synchronize agent states</span>
+                    <span><strong>State Management:</strong> Agent state tracking and synchronization</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-purple-500 mt-2"></span>
-                    <span><strong>Fault Tolerance:</strong> Handle agent failures gracefully</span>
+                    <span><strong>Fault Tolerance:</strong> Graceful handling of agent failures</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
-                    <span><strong>Performance:</strong> Optimize for enterprise-scale deployments</span>
+                    <span><strong>Enterprise Scale:</strong> Production-ready deployment patterns</span>
                   </li>
                 </ul>
               </div>
             </CardContent>
           </Card>
 
-          {/* Protocol Comparison */}
+          {/* Migration Guide */}
           <Card>
             <CardHeader>
-              <CardTitle>ACP vs Other Protocols</CardTitle>
+              <CardTitle>Migration Resources</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="border border-border rounded-lg p-4">
-                  <h4 className="font-semibold mb-2 text-green-700 dark:text-green-400">A2A</h4>
-                  <p className="text-xs text-muted-foreground mb-2">Basic Communication</p>
-                  <ul className="space-y-1 text-sm">
-                    <li>• Simple message passing</li>
-                    <li>• Basic request-response</li>
-                    <li>• Limited coordination</li>
-                  </ul>
-                </div>
-                <div className="border border-border rounded-lg p-4">
-                  <h4 className="font-semibold mb-2 text-blue-700 dark:text-blue-400">MCP</h4>
-                  <p className="text-xs text-muted-foreground mb-2">Tool Integration</p>
-                  <ul className="space-y-1 text-sm">
-                    <li>• Secure tool access</li>
-                    <li>• Standardized interfaces</li>
-                    <li>• External resource integration</li>
-                  </ul>
-                </div>
-                <div className="border border-border rounded-lg p-4">
-                  <h4 className="font-semibold mb-2 text-purple-700 dark:text-purple-400">ACP</h4>
-                  <p className="text-xs text-muted-foreground mb-2">Advanced Coordination</p>
-                  <ul className="space-y-1 text-sm">
-                    <li>• Workflow orchestration</li>
-                    <li>• Complex state management</li>
-                    <li>• Enterprise features</li>
-                  </ul>
-                </div>
+                <a 
+                  href="https://github.com/i-am-bee/beeai-platform/blob/main/docs/community-and-support/acp-a2a-migration-guide.mdx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-border rounded-lg p-4 hover:border-primary transition-colors"
+                >
+                  <h4 className="font-semibold mb-2">📖 Migration Guide</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Official BeeAI migration guide from ACP to A2A
+                  </p>
+                </a>
+                <a 
+                  href="https://framework.beeai.dev/integrations/a2a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-border rounded-lg p-4 hover:border-primary transition-colors"
+                >
+                  <h4 className="font-semibold mb-2">🔌 A2A Integration</h4>
+                  <p className="text-sm text-muted-foreground">
+                    BeeAI framework A2A integration documentation
+                  </p>
+                </a>
+                <a 
+                  href="https://a2a-protocol.org/latest/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-border rounded-lg p-4 hover:border-primary transition-colors"
+                >
+                  <h4 className="font-semibold mb-2">📚 A2A v1.0 Spec</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Full A2A Protocol v1.0 specification
+                  </p>
+                </a>
               </div>
             </CardContent>
           </Card>
 
-          {/* Simple Demo */}
-          <SimpleACPDemo />
-
           <EnlightenMeButton
-            title="ACP Basics"
-            contextDescription="Learn about the Agent Communication Protocol"
+            title="ACP to A2A Migration"
+            contextDescription="Understanding the merger of IBM's Agent Communication Protocol (ACP) into the A2A Protocol under Linux Foundation"
           />
 
           {/* References */}
@@ -124,12 +190,19 @@ export default function ACPConcept({ onMarkComplete, onNavigateToNext }: ACPConc
     },
     {
       id: 'architecture',
-      title: 'Protocol Stack',
-      description: 'Understand the ACP protocol architecture',
+      title: 'Legacy Architecture',
+      description: 'Original ACP protocol architecture (now part of A2A)',
       icon: <Lightning className="w-4 h-4" />,
       level: 'architecture' as const,
       content: (
         <div className="space-y-6">
+          {/* Deprecation Notice */}
+          <div className="p-4 rounded-lg border border-amber-500/30 bg-amber-500/5">
+            <p className="text-sm">
+              <strong className="text-amber-700 dark:text-amber-400">⚠️ Historical Reference:</strong>{" "}
+              This architecture represents the original ACP design. These concepts are now integrated into A2A v1.0.
+            </p>
+          </div>
           {/* Protocol Stack Diagram */}
           <ACPProtocolStack />
 

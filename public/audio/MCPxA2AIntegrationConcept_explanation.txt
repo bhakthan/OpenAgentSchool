@@ -1,17 +1,112 @@
 MCPxA2AIntegrationConcept Explanation
 --------------------------------------------------------------------------------
 
+QUICK ANSWER: When to Use Which?
+--------------------------------------------------------------------------------
+Ask yourself ONE question: "Can the other party THINK?"
+
+- If YES (it can reason, decide, adapt) -> Use A2A
+- If NO (it just executes commands) -> Use MCP
+
+Examples:
+- "Research Agent, analyze our competitors" -> A2A (agent can think)
+- "Database, get all users created today" -> MCP (tool just executes)
+
+They're COMPLEMENTARY, not competing. An A2A agent often uses MCP internally!
+
+--------------------------------------------------------------------------------
 Beginner Explanation
 --------------------------------------------------------------------------------
-This page explains how two key agent technologies, MCP and A2A, work together. Think of A2A as the communication system for a team of agents, allowing them to delegate big tasks. MCP is the system that lets an agent use a specific tool. By integrating them, you can build a team of agents where one agent can securely ask another agent to use its special tools. This allows for more powerful and flexible teams of agents.
+Welcome to the MCP x A2A Integration page! Let's use the Restaurant Kitchen analogy to make this crystal clear.
+
+THE RESTAURANT KITCHEN:
+- HEAD CHEF (Coordinator Agent) receives an order: "One steak dinner with dessert"
+- HEAD CHEF uses A2A to delegate: "Sous chef, prepare the steak. Pastry chef, make the creme brulee."
+- SOUS CHEF uses MCP to access tools: "Grill, set to 450 degrees. Timer, set for 8 minutes."
+- PASTRY CHEF uses MCP for their tools: "Torch, ignite. Oven, preheat."
+
+A2A = Chef talking to Chef (agent to agent)
+MCP = Chef using Tool (agent to tool)
+
+Together, they create a complete meal. Together, A2A and MCP create a complete AI system!
 
 --------------------------------------------------------------------------------
 Intermediate Explanation
 --------------------------------------------------------------------------------
-This page explores the integration of the Model Context Protocol (MCP) and the Agent-to-Agent (A2A) protocol. The "Integration Flow" tab features an interactive visualization that shows how an "Orchestrator Agent" can use A2A to send a task to a "Tool Agent." The Tool Agent then uses MCP to securely access a database. This demonstrates how A2A is used for high-level coordination between agents, while MCP is used for the low-level, secure execution of a specific tool or function.
+The "When to Use Which" Decision Guide:
+
+USE A2A WHEN:
+- You need another agent's EXPERTISE (research, analysis, specialized knowledge)
+- The task requires AUTONOMOUS DECISION-MAKING
+- You want to DELEGATE AND FORGET (async, long-running)
+- The other party can REASON and ADAPT to unexpected situations
+
+Example A2A: "Research Agent, analyze market trends for Q4 and give me recommendations"
+
+USE MCP WHEN:
+- You need DATA from a database or API
+- The operation is DETERMINISTIC (same input = same output)
+- You need to CALL A FUNCTION/TOOL with specific parameters
+- The tool CAN'T THINK - it just executes commands
+
+Example MCP: "Database, SELECT * FROM orders WHERE date > '2024-01-01'"
+
+THE KEY INSIGHT:
+An A2A agent often uses MCP internally. When the Research Agent analyzes market trends, 
+it might query databases (MCP), call APIs (MCP), and search the web (MCP) to complete 
+the A2A task you delegated.
 
 --------------------------------------------------------------------------------
 Advanced Explanation
 --------------------------------------------------------------------------------
-This MCPxA2AIntegrationConcept component explains the architectural pattern of composing A2A and MCP. The 'Implementation Guide' tab includes a JavaScript pseudo-code example for an MCPToA2ABridge class. This class shows how an A2A agent can discover the tools available on an MCP server and register them as capabilities in the A2A network. The invokeMCPTool method within the bridge acts as a proxy, translating an A2A capability request into a specific MCP tool call and returning the result, effectively and securely exposing an agent's tools to other agents in the network.
+This component explains the architectural pattern of composing A2A v1.0 and MCP for 
+enterprise multi-agent systems.
 
+LAYERED ARCHITECTURE:
+Layer 1: User/Orchestrator Layer
+- Receives requests and coordinates overall workflow
+- Uses A2A to delegate to specialist agents
+
+Layer 2: Agent Collaboration Layer (A2A)
+- Agent Cards advertise capabilities and endpoints
+- Task lifecycle: SUBMITTED -> WORKING -> COMPLETED
+- contextId groups related tasks for multi-turn conversations
+- Protocol bindings: JSON-RPC 2.0, gRPC, HTTP+JSON
+
+Layer 3: Tool Integration Layer (MCP)
+- Each agent connects to its specialized tools
+- Database connections, API clients, file systems
+- Authentication and authorization at tool level
+
+TECHNICAL INTEGRATION POINTS:
+- A2A Agent Card lists capabilities including MCP-exposed tools
+- supportedInterfaces defines protocol bindings
+- capabilities.extendedAgentCard allows custom MCP tool metadata
+- securitySchemes enables OAuth2 or API key auth for A2A connections
+
+EXAMPLE FLOW WITH BOTH PROTOCOLS:
+1. Orchestrator sends A2A SendMessage to Research Agent (contextId: "research-123")
+2. Research Agent receives task, state: SUBMITTED -> WORKING
+3. Research Agent invokes MCP tools:
+   - Query internal database (MCP: database tool)
+   - Search web (MCP: search tool)
+   - Fetch competitor websites (MCP: fetch tool)
+4. Research Agent synthesizes results, creates Artifact
+5. Task state -> COMPLETED, Artifact returned via A2A
+
+SEPARATION OF CONCERNS BENEFITS:
+- Horizontal Scaling: Add specialist agents without changing orchestrator
+- Fault Isolation: One agent's MCP tool failure doesn't crash the system
+- Security Boundaries: MCP auth at tool level, A2A auth at agent level
+- Technology Heterogeneity: Python agent can delegate to TypeScript agent
+- Independent Deployment: Update tools without updating agents
+
+THE MCPToA2ABridge PATTERN:
+This class enables an A2A agent to:
+1. Discover tools available on an MCP server
+2. Register MCP tools as A2A capabilities
+3. Translate A2A capability requests into MCP tool calls
+4. Return results back through A2A protocol
+
+This pattern effectively exposes an agent's tools to the entire A2A network while 
+maintaining security boundaries and proper authentication.

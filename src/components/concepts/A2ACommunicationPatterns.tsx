@@ -52,72 +52,166 @@ const A2ACommunicationPatterns: React.FC = () => {
 
   const communications = {
     direct: [
-      { from: 'research', to: 'writing', message: 'Research findings', color: colors.message },
-      { from: 'writing', to: 'analysis', message: 'Draft content', color: colors.message },
-      { from: 'analysis', to: 'research', message: 'Feedback request', color: colors.message }
+      { from: 'research', to: 'writing', message: 'Research findings', color: colors.message, contextId: 'ctx-001' },
+      { from: 'writing', to: 'analysis', message: 'Draft content', color: colors.message, contextId: 'ctx-001' },
+      { from: 'analysis', to: 'research', message: 'Feedback request', color: colors.message, contextId: 'ctx-001' }
     ],
     broadcast: [
-      { from: 'coordinator', to: 'data', message: 'Task assignment', color: colors.coordinator },
-      { from: 'coordinator', to: 'nlp', message: 'Task assignment', color: colors.coordinator },
-      { from: 'coordinator', to: 'vision', message: 'Task assignment', color: colors.coordinator },
-      { from: 'data', to: 'coordinator', message: 'Results', color: colors.specialist },
-      { from: 'nlp', to: 'coordinator', message: 'Results', color: colors.specialist },
-      { from: 'vision', to: 'coordinator', message: 'Results', color: colors.specialist }
+      { from: 'coordinator', to: 'data', message: 'Task assignment', color: colors.coordinator, contextId: 'ctx-002' },
+      { from: 'coordinator', to: 'nlp', message: 'Task assignment', color: colors.coordinator, contextId: 'ctx-002' },
+      { from: 'coordinator', to: 'vision', message: 'Task assignment', color: colors.coordinator, contextId: 'ctx-002' },
+      { from: 'data', to: 'coordinator', message: 'Results', color: colors.specialist, contextId: 'ctx-002' },
+      { from: 'nlp', to: 'coordinator', message: 'Results', color: colors.specialist, contextId: 'ctx-002' },
+      { from: 'vision', to: 'coordinator', message: 'Results', color: colors.specialist, contextId: 'ctx-002' }
     ],
     hierarchical: [
-      { from: 'master', to: 'sub1', message: 'Delegate task A', color: colors.coordinator },
-      { from: 'master', to: 'sub2', message: 'Delegate task B', color: colors.coordinator },
-      { from: 'sub1', to: 'worker1', message: 'Execute subtask', color: colors.primary },
-      { from: 'sub1', to: 'worker2', message: 'Execute subtask', color: colors.primary },
-      { from: 'sub2', to: 'worker3', message: 'Execute subtask', color: colors.primary },
-      { from: 'worker1', to: 'sub1', message: 'Subtask complete', color: colors.specialist },
-      { from: 'worker2', to: 'sub1', message: 'Subtask complete', color: colors.specialist },
-      { from: 'worker3', to: 'sub2', message: 'Subtask complete', color: colors.specialist },
-      { from: 'sub1', to: 'master', message: 'Task A complete', color: colors.active },
-      { from: 'sub2', to: 'master', message: 'Task B complete', color: colors.active }
+      { from: 'master', to: 'sub1', message: 'Delegate task A', color: colors.coordinator, contextId: 'ctx-003' },
+      { from: 'master', to: 'sub2', message: 'Delegate task B', color: colors.coordinator, contextId: 'ctx-003' },
+      { from: 'sub1', to: 'worker1', message: 'Execute subtask', color: colors.primary, contextId: 'ctx-003' },
+      { from: 'sub1', to: 'worker2', message: 'Execute subtask', color: colors.primary, contextId: 'ctx-003' },
+      { from: 'sub2', to: 'worker3', message: 'Execute subtask', color: colors.primary, contextId: 'ctx-003' },
+      { from: 'worker1', to: 'sub1', message: 'Subtask complete', color: colors.specialist, contextId: 'ctx-003' },
+      { from: 'worker2', to: 'sub1', message: 'Subtask complete', color: colors.specialist, contextId: 'ctx-003' },
+      { from: 'worker3', to: 'sub2', message: 'Subtask complete', color: colors.specialist, contextId: 'ctx-003' },
+      { from: 'sub1', to: 'master', message: 'Task A complete', color: colors.active, contextId: 'ctx-003' },
+      { from: 'sub2', to: 'master', message: 'Task B complete', color: colors.active, contextId: 'ctx-003' }
     ]
   };
 
-  // Micro-learning content for A2A patterns
+  // Micro-learning content for A2A patterns (v1.0 Updated)
   const microLearningContent = {
     direct: {
       beginner: {
         title: "Direct Communication - Peer-to-Peer",
-        content: "Agents communicate directly with each other as equals, like friends discussing a project.",
-        codeExample: `// Direct agent communication
-const researchAgent = new Agent("Research");
-const writingAgent = new Agent("Writing");
+        content: "Agents communicate directly with each other as equals, like friends discussing a project. In A2A v1.0, each conversation uses a contextId to group related tasks.",
+        codeExample: `// Direct agent communication (A2A v1.0)
+const researchAgent = new A2AClient("Research");
+const writingAgent = new A2AClient("Writing");
 
-// Direct message passing
-researchAgent.sendMessage(writingAgent, {
-  type: "findings",
-  data: researchResults
+// Direct message passing with context
+await researchAgent.sendMessage(writingAgent, {
+  contextId: "ctx-project-001",
+  message: {
+    role: "user",
+    parts: [{ text: researchResults }]
+  }
 });`,
-        keyPoints: ["Peer-to-peer communication", "No central authority", "Direct message passing", "Flexible interactions"],
+        keyPoints: ["Peer-to-peer communication", "Context-aware messaging (contextId)", "Direct message passing", "Flexible interactions"],
         useCases: ["Collaborative problem solving", "Distributed decision making", "Peer review systems"]
       },
       intermediate: {
         title: "Direct Communication Protocol",
-        content: "Agents use standardized protocols to exchange information, negotiate, and coordinate actions directly.",
-        codeExample: `// Protocol-based direct communication
-class DirectCommunicationProtocol {
-  async negotiate(agent1, agent2, proposal) {
-    const offer = await agent1.makeOffer(proposal);
-    const response = await agent2.evaluate(offer);
-    return this.resolveNegotiation(offer, response);
+        content: "Agents use standardized A2A protocol bindings (JSON-RPC, gRPC, HTTP+JSON) to exchange information and coordinate actions.",
+        codeExample: `// A2A v1.0 Protocol-based communication
+class A2ADirectCommunication {
+  async negotiate(agent1Card, agent2Card, proposal) {
+    // Discover agent capabilities from Agent Cards
+    const offer = await this.sendMessage(agent1Card.url, {
+      contextId: "negotiation-001",
+      message: { role: "user", parts: [{ data: proposal }] }
+    });
+    return this.subscribeToTask(offer.taskId);
   }
 }`,
-        keyPoints: ["Protocol standardization", "Negotiation mechanisms", "Conflict resolution", "Bilateral agreements"],
+        keyPoints: ["Protocol bindings (JSON-RPC, gRPC, REST)", "Agent Card discovery", "Task lifecycle management", "Streaming support"],
         useCases: ["Resource sharing", "Task allocation", "Consensus building"]
       },
       advanced: {
         title: "Advanced Direct Communication",
-        content: "Sophisticated direct communication with reputation systems, trust models, and adaptive protocols.",
-        codeExample: `// Advanced direct communication
-class AdvancedDirectComm {
-  constructor() {
-    this.trustModel = new TrustModel();
-    this.reputationSystem = new ReputationSystem();
+        content: "Sophisticated direct communication with security schemes, push notifications, and extended agent cards.",
+        codeExample: `// A2A v1.0 Advanced communication
+class AdvancedA2AComm {
+  constructor(agentCard) {
+    this.card = agentCard;
+    this.capabilities = agentCard.capabilities;
+  }
+  
+  async secureComm(targetAgent, message) {
+    // Use securitySchemes from Agent Card
+    const token = await this.authenticate(
+      targetAgent.securitySchemes
+    );
+    return this.sendMessage(targetAgent.url, message, {
+      headers: { Authorization: \`Bearer \${token}\` }
+    });
+  }
+}`,
+        keyPoints: ["Security schemes (OAuth2, API keys)", "Push notifications", "Extended Agent Cards", "Multi-turn contexts"],
+        useCases: ["Enterprise systems", "Secure collaboration", "Regulated industries"]
+      }
+    },
+    broadcast: {
+      beginner: {
+        title: "Broadcast Pattern - One-to-Many",
+        content: "One coordinator agent sends messages to multiple specialist agents, like a team leader giving assignments.",
+        codeExample: `// Broadcast communication (A2A v1.0)
+const coordinator = new A2AClient(coordinatorCard);
+const specialists = [dataAgent, nlpAgent, visionAgent];
+
+// Broadcast task with shared context
+const contextId = crypto.randomUUID();
+for (const agent of specialists) {
+  await coordinator.sendMessage(agent.url, {
+    contextId,
+    message: {
+      role: "user",
+      parts: [{ text: "Process document section" }]
+    }
+  });
+}`,
+        keyPoints: ["One-to-many communication", "Shared contextId", "Parallel task execution", "Efficient distribution"],
+        useCases: ["Task distribution", "Information dissemination", "Parallel processing"]
+      },
+      intermediate: {
+        title: "Coordinator-Specialist Architecture",
+        content: "A sophisticated coordinator manages multiple specialists using A2A's task lifecycle and streaming capabilities.",
+        codeExample: `// Advanced broadcast with A2A v1.0
+class SmartCoordinator {
+  async distributeTask(task, specialists) {
+    const contextId = crypto.randomUUID();
+    const tasks = await Promise.all(
+      specialists.map(agent => 
+        this.sendMessage(agent.url, {
+          contextId,
+          message: { role: "user", parts: [{ data: task }] }
+        })
+      )
+    );
+    
+    // Subscribe to all task updates
+    return this.subscribeToTasks(tasks.map(t => t.taskId));
+  }
+}`,
+        keyPoints: ["Task state management", "SubscribeToTask streaming", "Result aggregation", "Fault tolerance"],
+        useCases: ["Distributed computing", "Microservices", "Parallel data processing"]
+      },
+      advanced: {
+        title: "Dynamic Broadcast Networks",
+        content: "Self-organizing broadcast networks using A2A discovery and extended agent cards.",
+        codeExample: `// Dynamic A2A broadcast network
+class DynamicBroadcastNetwork {
+  async discoverAgents(capability) {
+    // Query agent registry for matching skills
+    const agents = await this.registry.findBySkill(capability);
+    return agents.filter(a => 
+      a.capabilities.streaming === true
+    );
+  }
+  
+  async optimizedBroadcast(message, requiredSkill) {
+    const agents = await this.discoverAgents(requiredSkill);
+    return this.parallelSend(agents, message);
+  }
+}`,
+        keyPoints: ["Agent discovery", "Capability-based routing", "Performance monitoring", "Network optimization"],
+        useCases: ["Cloud orchestration", "Edge computing", "Resilient systems"]
+      }
+    },
+    hierarchical: {
+      beginner: {
+        title: "Hierarchical Pattern - Chain of Command",
+        content: "Agents are organized in levels, like a company structure with managers and employees.",
+        codeExample: `// Hierarchical communication (A2A v1.0)
   }
   
   async communicateWithTrust(agent, message) {
@@ -582,6 +676,58 @@ class AdaptiveHierarchy {
                     <p className="text-sm text-muted-foreground">
                       Switch between different communication patterns using the tabs above to see how agents can coordinate differently. 
                       Each pattern has its own strengths depending on the task complexity and team size.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Check Your Understanding - Interactive Quiz */}
+              <div className="mt-6 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-700 bg-purple-50/50 dark:bg-purple-900/10">
+                <h4 className="font-bold text-purple-800 dark:text-purple-200 mb-3 flex items-center gap-2">
+                  🧠 Check Your Understanding
+                </h4>
+                <div className="space-y-4">
+                  <div className="p-3 rounded-lg bg-white dark:bg-gray-800 border border-purple-200 dark:border-purple-700">
+                    <p className="font-medium text-sm mb-2">Q: A customer service bot needs to query a database for order history. Should it use A2A or MCP?</p>
+                    <div className="flex gap-2 mt-2">
+                      <button 
+                        className="px-3 py-1 text-xs rounded-full border border-orange-300 hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors"
+                        onClick={() => alert('Think about it: Can a database THINK? No - it just executes queries. So use MCP!')}
+                      >
+                        A2A
+                      </button>
+                      <button 
+                        className="px-3 py-1 text-xs rounded-full border border-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                        onClick={() => alert('✅ Correct! The database is a TOOL that executes commands. It cannot think or make decisions. Use MCP to connect to tools.')}
+                      >
+                        MCP ✓
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="p-3 rounded-lg bg-white dark:bg-gray-800 border border-purple-200 dark:border-purple-700">
+                    <p className="font-medium text-sm mb-2">Q: You need a Research Agent to analyze competitor websites and summarize findings. A2A or MCP?</p>
+                    <div className="flex gap-2 mt-2">
+                      <button 
+                        className="px-3 py-1 text-xs rounded-full border border-orange-300 hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors"
+                        onClick={() => alert('✅ Correct! The Research Agent can THINK, REASON, and make decisions about what to analyze. Use A2A for agent-to-agent collaboration.')}
+                      >
+                        A2A ✓
+                      </button>
+                      <button 
+                        className="px-3 py-1 text-xs rounded-full border border-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                        onClick={() => alert('Think about it: The Research Agent can reason and adapt. It\'s not just executing a command - it\'s thinking. Use A2A!')}
+                      >
+                        MCP
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 border border-purple-200 dark:border-purple-700">
+                    <p className="text-sm text-muted-foreground">
+                      <strong>💡 The Key Question:</strong> "Can the other party THINK?"<br/>
+                      • Yes (reason, decide, adapt) → <strong className="text-orange-600">A2A</strong><br/>
+                      • No (execute commands) → <strong className="text-blue-600">MCP</strong>
                     </p>
                   </div>
                 </div>

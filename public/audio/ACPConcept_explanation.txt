@@ -1,17 +1,66 @@
-ACPConcept Explanation
+ACPConcept Explanation (Historical - Now Merged into A2A)
 --------------------------------------------------------------------------------
+
+Important Update - August 2025
+--------------------------------------------------------------------------------
+IBM's Agent Communication Protocol (ACP) has officially merged into the A2A Protocol under the Linux Foundation. This page now serves as historical reference and migration guidance. All new implementations should use A2A Protocol v1.0 RC.
 
 Beginner Explanation
 --------------------------------------------------------------------------------
-Welcome to the Agent Communication Protocol, or ACP. Think of ACP as the enterprise-level version of agent communication. If basic A2A is like a small team having a conversation, ACP is like the communication system for a whole corporation. It's designed for bigger, more complex tasks and includes features for managing complex workflows and ensuring everything runs smoothly and reliably, which is essential for businesses. On the screen, you can see how ACP compares to other protocols, showing that it's built for advanced coordination.
+Welcome to the Agent Communication Protocol, or ACP, history page. ACP was IBM's enterprise-focused protocol for agent communication, and here's the exciting news: it has now merged with Google's A2A Protocol! Think of it like two great approaches coming together to form one unified standard.
+
+If you're new to agent communication, the good news is you only need to learn one protocol now: A2A. All of ACP's best features - like enterprise workflow orchestration, reliability patterns, and multi-agent coordination - are now part of A2A v1.0 under the Linux Foundation.
+
+If you've been using ACP through IBM's BeeAI platform, don't worry! There are migration adapters (A2AServer and A2AAgent) that make the transition smooth.
 
 --------------------------------------------------------------------------------
 Intermediate Explanation
 --------------------------------------------------------------------------------
-This page introduces the Agent Communication Protocol (ACP), an advanced stack for multi-agent systems. As you can see in the "ACP vs Other Protocols" section, while A2A handles basic messaging and MCP handles secure tool use, ACP is designed for orchestrating complex workflows. When you click the "Protocol Stack" tab, you'll see that ACP is a layered system. It includes layers for the application, orchestration, communication, and transport, each handling a different part of the process. The interactive demos on this page will let you see a simplified ACP workflow in action and compare it directly with MCP.
+This page documents the Agent Communication Protocol (ACP) merger into A2A. In August 2025, IBM announced that ACP would join the A2A Protocol under the Linux Foundation's governance, creating a unified standard for agent interoperability.
+
+What ACP Contributed to A2A:
+- Enterprise orchestration patterns for complex workflows
+- Multi-agent coordination capabilities from BeeAI
+- Production-tested reliability patterns
+- Real-world deployment experience from enterprise customers
+
+Migration Path for BeeAI Users:
+- Use A2AServer adapter to expose existing agents as A2A-compliant endpoints
+- Use A2AAgent adapter to integrate external A2A agents into BeeAI workflows
+- Agent runtime semantics remain compatible, primarily an API surface change
+
+The merged protocol now has a Technical Steering Committee with representatives from Google, Microsoft, IBM, AWS, Cisco, Salesforce, ServiceNow, and SAP.
 
 --------------------------------------------------------------------------------
 Advanced Explanation
 --------------------------------------------------------------------------------
-The Agent Communication Protocol (ACP) is an advanced, layered communication stack designed for enterprise-grade multi-agent systems, emphasizing reliability and complex workflow orchestration. Unlike simpler protocols, ACP defines a formal protocol stack, typically including: 1) a Transport Layer (e.g., HTTP/S, gRPC) for data transmission, 2) a Communication Layer that formats messages using a defined schema, 3) an Orchestration Layer that manages multi-step, transactional workflows (often implementing patterns like the Saga pattern to handle distributed transactions without locking), and 4) an Application Layer where the specific business logic resides. A key feature of ACP is its built-in support for advanced software architecture patterns like Circuit Breakers, which prevent cascading failures, and Bulkheads, which isolate resources to prevent a single faulty agent from impacting the entire system. This makes ACP suitable for mission-critical applications where fault tolerance and transactional integrity are paramount.
+The Agent Communication Protocol (ACP) merger represents a significant consolidation in the agent interoperability space. IBM's decision to merge ACP into A2A under the Linux Foundation creates a single, vendor-neutral standard backed by major technology companies.
+
+Historical ACP Architecture (Now Integrated into A2A):
+ACP defined a formal protocol stack including:
+1) Transport Layer (HTTP/S, gRPC) for data transmission
+2) Communication Layer with formal message schemas
+3) Orchestration Layer for multi-step workflows (Saga pattern, distributed transactions)
+4) Application Layer for business logic
+
+Enterprise Patterns (Now in A2A v1.0):
+- Circuit Breakers for preventing cascading failures
+- Bulkheads for resource isolation
+- Transactional integrity for mission-critical applications
+- Complex workflow orchestration
+
+A2A v1.0 Technical Implementation:
+- 3-layer architecture: Protocol Buffers (canonical data model), Abstract Operations, Protocol Bindings
+- 8 task states: SUBMITTED, WORKING, COMPLETED, FAILED, CANCELED, INPUT_REQUIRED, AUTH_REQUIRED, REJECTED
+- contextId for multi-turn conversation support
+- Agent Card with supportedInterfaces, capabilities, securitySchemes
+- Protocol bindings: JSON-RPC 2.0, gRPC, HTTP+JSON/REST
+
+Migration Resources:
+- BeeAI A2A adapters: github.com/i-am-bee
+- A2A Python SDK: github.com/a2aproject/a2a-python
+- A2A JavaScript SDK: github.com/a2aproject/a2a-js
+- Linux Foundation A2A: a2aproject.org
+
+For new implementations, proceed directly to A2A Protocol v1.0 RC. This ACP page is maintained for historical reference and to support teams migrating from legacy ACP deployments.
 

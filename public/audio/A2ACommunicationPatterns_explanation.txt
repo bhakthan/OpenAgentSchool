@@ -1,28 +1,78 @@
 A2A Communication Patterns Explanation
 --------------------------------------------------------------------------------
 
+A2A Protocol v1.0 RC - Linux Foundation Standard
+--------------------------------------------------------------------------------
+The A2A Protocol is now an open standard under the Linux Foundation governance, with contributions from Google, Microsoft, IBM, AWS, Cisco, Salesforce, ServiceNow, and SAP. IBM's Agent Communication Protocol (ACP) merged into A2A in August 2025.
+
 Beginner Explanation
 --------------------------------------------------------------------------------
 Imagine a team of experts working on a big project. You have a project manager, a writer, a designer, and a researcher. They don't all work in isolation. The project manager gives tasks to everyone, and the team members talk to each other to get the job done. For example, the writer might ask the researcher for some data, and the designer might show the writer a new logo.
 
-Agent-to-Agent (A2A) Communication is just like that, but for AI agents. You have a team of specialized AI agents, and they can talk to each other to solve problems. One "coordinator" agent might break a big task into smaller pieces and assign them to "specialist" agents. These specialists can then work together, share information, and combine their results to complete the project. This is great for solving really complex problems that no single agent could handle on its own.
+Agent-to-Agent (A2A) Communication is just like that, but for AI agents. You have a team of specialized AI agents, and they can talk to each other to solve problems. One "coordinator" agent might break a big task into smaller pieces and assign them to "specialist" agents. These specialists can then work together, share information, and combine their results to complete the project.
+
+In A2A v1.0, each agent has an "Agent Card" - like a digital business card - that tells other agents what skills it has and how to communicate with it. The protocol tracks task status (Submitted, Working, Completed, etc.) so everyone knows what's happening.
 
 --------------------------------------------------------------------------------
 Intermediate Explanation
 --------------------------------------------------------------------------------
-Agent-to-Agent (A2A) Communication is a pattern used in multi-agent systems where multiple autonomous agents interact to achieve a common goal. This pattern involves establishing a communication protocol and a system for message passing between agents. A common setup includes a "coordinator" agent that decomposes a complex task and delegates sub-tasks to a team of "specialist" agents.
+Agent-to-Agent (A2A) Communication v1.0 RC is a standardized pattern for multi-agent systems where autonomous agents interact to achieve common goals. The protocol defines a 3-layer architecture:
+- Canonical Data Model (Protocol Buffers): Core structures like Task, Message, AgentCard, Part, Artifact
+- Abstract Operations: SendMessage, GetTask, ListTasks, CancelTask, SubscribeToTask
+- Protocol Bindings: JSON-RPC 2.0, gRPC, HTTP+JSON/REST
 
-Communication typically occurs over a "message bus" or through direct peer-to-peer messaging. Agents exchange structured messages, which might be requests, responses, or notifications. For example, the coordinator might send a "request" message to a research agent to find some data. The research agent would then process the request and send a "response" message back. In more advanced scenarios, agents can have peer-to-peer conversations, allowing for negotiation, collaboration, and knowledge sharing without a central coordinator. The final step often involves an "aggregator" that collects the results from all the specialist agents and synthesizes a final output.
+Communication patterns demonstrated include Direct (one-to-one), Broadcast (one-to-many), and Hierarchical (coordinator-to-workers). Each pattern now uses contextId for multi-turn conversation grouping. For example:
+
+```python
+client = A2AClient("https://research-agent.example.com")
+result = await client.send_message(
+    message={"content": "Find Q3 sales data"},
+    context_id="research-123",  # Groups related tasks
+    task_id="task-456"
+)
+```
+
+Task states in v1.0 include: SUBMITTED, WORKING, COMPLETED, FAILED, CANCELED, INPUT_REQUIRED, AUTH_REQUIRED, and REJECTED. The INPUT_REQUIRED and AUTH_REQUIRED states enable interactive, multi-turn workflows where agents can request additional information or authentication from users.
+
+Agent Cards advertise capabilities with new v1.0 fields: supportedInterfaces (protocol bindings), capabilities (streaming, pushNotifications, extendedAgentCard), and securitySchemes for OAuth2 or API key authentication.
 
 --------------------------------------------------------------------------------
 Advanced Explanation
 --------------------------------------------------------------------------------
-Agent-to-Agent (A2A) Communication is a fundamental pattern for building sophisticated multi-agent systems. The architecture is typically built around a message-oriented middleware or a custom communication system. This system manages a roster of registered agents, each with a unique ID, role, and defined capabilities.
+Agent-to-Agent (A2A) Communication v1.0 RC is a fundamental pattern for building sophisticated multi-agent systems under Linux Foundation governance. The architecture uses a 3-layer design ensuring interoperability across different implementations.
 
-Messages exchanged between agents are strongly typed and follow a defined protocol. A typical message might be a JSON object with fields for from_agent, to_agent, message_type (e.g., 'request', 'response', 'broadcast'), conversation_id, and a content payload. The communication system is responsible for routing these messages. It can support various communication patterns, including:
+Layer 1 - Canonical Data Model (Protocol Buffers):
+- Task: Core work unit with state tracking
+- Message: Communication payload with Parts
+- AgentCard: Capability advertisement and endpoint discovery
+- Part: Content units (text, files, structured data)
+- Artifact: Task outputs and deliverables
+- Extension: Custom capability extensions
 
-1.  Coordinator/Worker: A central agent dispatches tasks to a pool of worker agents. This is a form of centralized control.
-2.  Peer-to-Peer (P2P): Agents can discover and communicate with each other directly, allowing for decentralized and dynamic collaboration. This is often used for negotiation or information sharing between specialists.
-3.  Publish/Subscribe (Pub/Sub): Agents can subscribe to topics of interest, and other agents can publish messages to these topics. This allows for asynchronous and decoupled communication.
+Layer 2 - Abstract Operations:
+- SendMessage: Initiate or continue task communication
+- GetTask: Retrieve task status and results
+- ListTasks: Query tasks with filtering
+- CancelTask: Request task cancellation
+- SubscribeToTask: Real-time task updates (streaming)
+- Push Notification Configuration: Webhook setup for async updates
 
-A key component of an A2A system is the management of conversational state. Using a conversation_id, agents can maintain the context of an ongoing interaction, allowing for multi-turn dialogues. The implementation often involves asynchronous programming (e.g., using asyncio in Python) to handle concurrent message processing and avoid blocking while an agent is waiting for a response. Error handling and fault tolerance are also critical considerations to manage situations where an agent may become unresponsive.
+Layer 3 - Protocol Bindings:
+- JSON-RPC 2.0: HTTP with SSE for streaming, familiar web patterns
+- gRPC: High-performance binary protocol with server streaming
+- HTTP+JSON/REST: Simple RESTful API for basic integrations
+
+Communication patterns supported:
+1. Direct (P2P): One-to-one agent communication with context preservation
+2. Broadcast: One-to-many notification with topic-based routing
+3. Hierarchical: Coordinator/worker delegation with task decomposition
+
+Key v1.0 features:
+- contextId for multi-turn conversation grouping across task boundaries
+- 8 task states: SUBMITTED, WORKING, COMPLETED, FAILED, CANCELED, INPUT_REQUIRED, AUTH_REQUIRED, REJECTED
+- Agent Card schema with supportedInterfaces, capabilities, securitySchemes
+- Breaking changes: "kind" discriminator removed, extendedAgentCard moved to capabilities object
+
+Official SDKs at github.com/a2aproject: Python (a2a-python), JavaScript (a2a-js), Java (a2a-java), C#/.NET (a2a-dotnet), Go (a2a-go).
+
+Error handling patterns include circuit breakers, graceful degradation, and retry with exponential backoff. The protocol supports both synchronous request/response and asynchronous push notification workflows for long-running tasks.
