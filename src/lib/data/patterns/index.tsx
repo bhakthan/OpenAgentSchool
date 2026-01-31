@@ -60,6 +60,13 @@ export { hybridQuantumClassicalPattern } from './hybridQuantumClassical';
 export { quantumSensingPattern } from './quantumSensing';
 export { quantumAcceleratedSearchPattern } from './quantumAcceleratedSearch';
 
+// 2026 Patterns
+export { skillAugmentedAgentPattern } from './skillAugmentedAgent';
+export { mcpServerOrchestrationPattern } from './mcpServerOrchestration';
+export { multiLLMRoutingPattern } from './multiLLMRouting';
+export { agenticIDEPattern } from './agenticIDE';
+export { guardrailsLayerPattern } from './guardrailsLayer';
+
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
 import { parallelizationPattern } from './parallelization';
@@ -118,6 +125,12 @@ import { hybridQuantumClassicalPattern } from './hybridQuantumClassical';
 import { quantumSensingPattern } from './quantumSensing';
 import { quantumAcceleratedSearchPattern } from './quantumAcceleratedSearch';
 import { deepResearchAgentPattern } from './deepResearchAgent';
+// 2026 Patterns
+import { skillAugmentedAgentPattern } from './skillAugmentedAgent';
+import { mcpServerOrchestrationPattern } from './mcpServerOrchestration';
+import { multiLLMRoutingPattern } from './multiLLMRouting';
+import { agenticIDEPattern } from './agenticIDE';
+import { guardrailsLayerPattern } from './guardrailsLayer';
 import { patternEvaluationRegistry } from './evaluationRegistry';
 
 export const agentPatterns = [
@@ -178,6 +191,12 @@ export const agentPatterns = [
   quantumSensingPattern,
   quantumAcceleratedSearchPattern,
   deepResearchAgentPattern,
+  // 2026 Patterns
+  skillAugmentedAgentPattern,
+  mcpServerOrchestrationPattern,
+  multiLLMRoutingPattern,
+  agenticIDEPattern,
+  guardrailsLayerPattern,
 ];
 
 for (const pattern of agentPatterns) {
