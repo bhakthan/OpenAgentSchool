@@ -632,6 +632,7 @@ export default function AgentTestingBenchmarksConcept() {
 
   return (
     <ConceptLayout
+      conceptId="agent-testing-benchmarks"
       title="Agent Testing & Benchmarks"
       description="Evaluate agent quality: unit tests, LLM-as-judge, regression testing, benchmarks, and A/B testing"
       icon={<TestTube className="w-8 h-8" />}

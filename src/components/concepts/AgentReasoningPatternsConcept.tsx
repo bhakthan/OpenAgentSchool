@@ -5,39 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Brain, GitBranch, Network, RotateCcw, Lightbulb, Code, Target, Layers, ArrowRight, CheckCircle, AlertTriangle, Zap } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-
-// Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
-const syntaxTheme: { [key: string]: React.CSSProperties } = {
-  'code[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
-    fontSize: '0.9em',
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    wordWrap: 'normal',
-    lineHeight: '1.5',
-    tabSize: 4,
-  },
-  'pre[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    padding: '1em',
-    margin: '0.5em 0',
-    overflow: 'auto',
-    borderRadius: '0.3em',
-  },
-  comment: { color: '#5c6370', fontStyle: 'italic' },
-  keyword: { color: '#c678dd' },
-  string: { color: '#98c379' },
-  function: { color: '#61afef' },
-  number: { color: '#d19a66' },
-  operator: { color: '#56b6c2' },
-  className: { color: '#e5c07b' },
-};
+import CodeBlock from "@/components/ui/CodeBlock";
 
 interface ReasoningPattern {
   id: string;
@@ -464,6 +432,7 @@ export default function AgentReasoningPatternsConcept() {
 
   return (
     <ConceptLayout
+      conceptId="agent-reasoning-patterns"
       title="Agent Reasoning Patterns"
       description="Master the cognitive architectures that make AI agents think: Chain-of-Thought, Tree-of-Thought, Graph-of-Thought, and Reflexion"
       icon={<Brain className="w-8 h-8" />}
@@ -594,17 +563,9 @@ export default function AgentReasoningPatternsConcept() {
                   <h4 className="font-medium mb-2 flex items-center gap-2">
                     <Code className="w-4 h-4" /> Implementation
                   </h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{
-                      borderRadius: '0.5rem',
-                      fontSize: '0.8rem',
-                      maxHeight: '400px'
-                    }}
-                  >
+                  <CodeBlock language="python">
                     {selectedPattern.codeExample}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
               </CardContent>
             </Card>

@@ -555,6 +555,7 @@ export default function AgentObservabilityConcept() {
 
   return (
     <ConceptLayout
+      conceptId="agent-observability"
       title="Agent Observability"
       description="See everything your agents do: distributed tracing, structured logging, metrics, debugging, and cost tracking"
       icon={<Eye className="w-8 h-8" />}

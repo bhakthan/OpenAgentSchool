@@ -528,6 +528,7 @@ export default function AgentMemorySystemsConcept() {
 
   return (
     <ConceptLayout
+      conceptId="agent-memory-systems"
       title="Agent Memory Systems"
       description="Build agents that remember: working memory, short-term, long-term, episodic, and semantic memory architectures"
       icon={<Database className="w-8 h-8" />}

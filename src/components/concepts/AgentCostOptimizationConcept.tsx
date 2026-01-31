@@ -422,6 +422,7 @@ export default function AgentCostOptimizationConcept() {
 
   return (
     <ConceptLayout
+      conceptId="agent-cost-optimization"
       title="Agent Cost Optimization"
       description="Reduce LLM costs by 50-90%: token budgets, caching, model routing, and batch processing"
       icon={<DollarSign className="w-8 h-8" />}

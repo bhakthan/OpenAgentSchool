@@ -627,6 +627,7 @@ export default function HumanInTheLoopPatternsConcept() {
 
   return (
     <ConceptLayout
+      conceptId="human-in-the-loop-patterns"
       title="Human-in-the-Loop Patterns"
       description="Keep humans in control: approval workflows, escalation paths, feedback loops, and oversight dashboards"
       icon={<Users className="w-8 h-8" />}

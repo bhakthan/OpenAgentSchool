@@ -272,6 +272,7 @@ export default function PromptInjectionDefenseConcept() {
 
   return (
     <ConceptLayout
+      conceptId="prompt-injection-defense"
       title="Prompt Injection Defense"
       description="Protect agents from direct injection, indirect injection, data exfiltration, and jailbreaking attacks"
       icon={<Shield className="w-8 h-8" />}

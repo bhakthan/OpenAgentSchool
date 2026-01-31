@@ -26,7 +26,11 @@ interface ConceptLayoutProps {
   conceptId: string
   title: string
   description: string
-  tabs: ConceptTab[]
+  tabs?: ConceptTab[]
+  children?: React.ReactNode
+  icon?: React.ReactNode
+  concepts?: string[]
+  estimatedTime?: string
   nextConcept?: {
     id: string
     title: string
@@ -55,35 +59,81 @@ export default function ConceptLayout({
   conceptId, 
   title, 
   description, 
-  tabs, 
+  tabs,
+  children,
+  icon,
+  concepts,
+  estimatedTime,
   nextConcept, 
   onMarkComplete, 
   onNavigateToNext,
   enableAudioNarration = true 
 }: ConceptLayoutProps) {
-  const [activeTab, setActiveTab] = useState(tabs[0]?.id || '')
+  // If using children pattern (no tabs), render simple layout
+  if (children && (!tabs || tabs.length === 0)) {
+    return (
+      <div className="container mx-auto px-4 py-6 max-w-6xl">
+        <Card className="border-0 shadow-lg">
+          <CardHeader className="pb-4">
+            <div className="flex items-center gap-3">
+              {icon}
+              <div>
+                <CardTitle className="text-2xl md:text-3xl">{title}</CardTitle>
+                <CardDescription className="text-base mt-1">{description}</CardDescription>
+              </div>
+            </div>
+            {(concepts || estimatedTime) && (
+              <div className="flex flex-wrap items-center gap-4 mt-4">
+                {concepts && concepts.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {concepts.map((concept, i) => (
+                      <Badge key={i} variant="secondary" className="text-xs">
+                        {concept}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+                {estimatedTime && (
+                  <Badge variant="outline" className="text-xs">
+                    ⏱️ {estimatedTime}
+                  </Badge>
+                )}
+              </div>
+            )}
+          </CardHeader>
+          <CardContent>
+            {children}
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  // Original tabs-based layout
+  const [activeTab, setActiveTab] = useState(tabs?.[0]?.id || '')
   const [completedTabs, setCompletedTabs] = useState<Set<string>>(new Set())
   const [isConceptComplete, setIsConceptComplete] = useState(false)
 
-  const currentTabIndex = tabs.findIndex(tab => tab.id === activeTab)
-  const currentTab = tabs[currentTabIndex]
-  const progress = ((completedTabs.size) / tabs.length) * 100
+  const safeTabs = tabs || []
+  const currentTabIndex = safeTabs.findIndex(tab => tab.id === activeTab)
+  const currentTab = safeTabs[currentTabIndex]
+  const progress = safeTabs.length > 0 ? ((completedTabs.size) / safeTabs.length) * 100 : 0
 
   const handleTabComplete = (tabId: string) => {
     setCompletedTabs(prev => new Set([...prev, tabId]))
     
     // Check if all tabs are completed
     const newCompletedTabs = new Set([...completedTabs, tabId])
-    if (newCompletedTabs.size === tabs.length && !isConceptComplete) {
+    if (newCompletedTabs.size === safeTabs.length && !isConceptComplete) {
       setIsConceptComplete(true)
       onMarkComplete?.()
     }
   }
 
   const handleNext = () => {
-    if (currentTabIndex < tabs.length - 1) {
+    if (currentTabIndex < safeTabs.length - 1) {
       handleTabComplete(activeTab)
-      setActiveTab(tabs[currentTabIndex + 1].id)
+      setActiveTab(safeTabs[currentTabIndex + 1].id)
       
       // Scroll to the tabs area when moving to next tab
       setTimeout(() => {
@@ -97,7 +147,7 @@ export default function ConceptLayout({
 
   const handlePrevious = () => {
     if (currentTabIndex > 0) {
-      setActiveTab(tabs[currentTabIndex - 1].id)
+      setActiveTab(safeTabs[currentTabIndex - 1].id)
       
       // Scroll to the tabs area when moving to previous tab
       setTimeout(() => {
@@ -123,7 +173,7 @@ export default function ConceptLayout({
               <div className="text-sm text-muted-foreground mb-2">Learning Progress</div>
               <Progress value={progress} className="w-32" />
               <div className="text-xs text-muted-foreground mt-1">
-                {completedTabs.size} of {tabs.length} completed
+                {completedTabs.size} of {safeTabs.length} completed
               </div>
             </div>
           </div>
@@ -141,7 +191,7 @@ export default function ConceptLayout({
       {/* Tabbed Content */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-4 h-auto p-1">
-          {tabs.map((tab) => (
+          {safeTabs.map((tab) => (
             <TabsTrigger
               key={tab.id}
               value={tab.id}
@@ -163,7 +213,7 @@ export default function ConceptLayout({
           ))}
         </TabsList>
 
-        {tabs.map((tab) => (
+        {safeTabs.map((tab) => (
           <TabsContent key={tab.id} value={tab.id} className="space-y-6">
             {/* Tab Header */}
             <Card>
@@ -234,7 +284,7 @@ export default function ConceptLayout({
                       Mark as Complete
                     </Button>
 
-                    {currentTabIndex < tabs.length - 1 ? (
+                    {currentTabIndex < safeTabs.length - 1 ? (
                       <Button
                         onClick={handleNext}
                         className="flex items-center gap-2"
