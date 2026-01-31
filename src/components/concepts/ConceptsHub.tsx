@@ -52,6 +52,13 @@ import AgentEconomicsConcept from "./AgentEconomicsConcept"
 import AgentCareerPathsConcept from "./AgentCareerPathsConcept"
 import IndustryAgentsConcept from "./IndustryAgentsConcept"
 import AgentTemplatesHub from "./AgentTemplatesHub"
+import AgentReasoningPatternsConcept from "./AgentReasoningPatternsConcept"
+import AgentMemorySystemsConcept from "./AgentMemorySystemsConcept"
+import AgentObservabilityConcept from "./AgentObservabilityConcept"
+import AgentTestingBenchmarksConcept from "./AgentTestingBenchmarksConcept"
+import PromptInjectionDefenseConcept from "./PromptInjectionDefenseConcept"
+import HumanInTheLoopPatternsConcept from "./HumanInTheLoopPatternsConcept"
+import AgentCostOptimizationConcept from "./AgentCostOptimizationConcept"
 
 interface ConceptInfo {
   id: string
@@ -531,6 +538,84 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '35-45 min',
     prerequisites: ['program-setup-north-star'],
     component: OrganizationalEnablementConcept
+  },
+  // New 2026 Production Foundations
+  {
+    id: 'agent-reasoning-patterns',
+    title: 'Agent Reasoning Patterns',
+    description: 'Chain-of-Thought, Tree-of-Thought, Graph-of-Thought, Reflexion—teach agents to think, not just respond.',
+    level: 'advanced',
+    icon: <Brain className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-violet-900/20 dark:text-violet-300',
+    estimatedTime: '45-55 min',
+    prerequisites: ['agent-architecture', 'agentic-prompting-fundamentals'],
+    component: AgentReasoningPatternsConcept
+  },
+  {
+    id: 'agent-memory-systems',
+    title: 'Agent Memory Systems',
+    description: 'Working, short-term, long-term, episodic, semantic—build agents that remember across sessions.',
+    level: 'advanced',
+    icon: <Stack className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-cyan-900/20 dark:text-cyan-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['agent-architecture', 'data-knowledge-operations'],
+    component: AgentMemorySystemsConcept
+  },
+  {
+    id: 'agent-observability',
+    title: 'Agent Observability',
+    description: 'Tracing, logging, metrics, debugging, cost tracking—see everything your agents do in production.',
+    level: 'advanced',
+    icon: <ChartBar className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-emerald-900/20 dark:text-emerald-300',
+    estimatedTime: '45-55 min',
+    prerequisites: ['agent-ops', 'agent-deployment'],
+    component: AgentObservabilityConcept
+  },
+  {
+    id: 'agent-testing-benchmarks',
+    title: 'Agent Testing & Benchmarks',
+    description: 'Unit evals, LLM-as-judge, regression testing, benchmark suites—measure agent quality systematically.',
+    level: 'advanced',
+    icon: <CheckCircle className="w-6 h-6 text-green-600" />,
+    color: 'bg-background text-foreground/80 dark:bg-lime-900/20 dark:text-lime-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['agent-evaluation', 'agent-evaluation-methodologies'],
+    component: AgentTestingBenchmarksConcept
+  },
+  {
+    id: 'prompt-injection-defense',
+    title: 'Prompt Injection Defense',
+    description: 'Direct injection, indirect injection, data exfiltration, jailbreaking—protect agents from attacks.',
+    level: 'advanced',
+    icon: <Shield className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-red-900/20 dark:text-red-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['agent-security', 'agent-red-teaming'],
+    component: PromptInjectionDefenseConcept
+  },
+  {
+    id: 'human-in-the-loop-patterns',
+    title: 'Human-in-the-Loop Patterns',
+    description: 'Approval workflows, escalation paths, feedback loops, oversight dashboards—keep humans in control.',
+    level: 'advanced',
+    icon: <Users className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-indigo-900/20 dark:text-indigo-300',
+    estimatedTime: '45-55 min',
+    prerequisites: ['agent-ops', 'agent-ethics'],
+    component: HumanInTheLoopPatternsConcept
+  },
+  {
+    id: 'agent-cost-optimization',
+    title: 'Agent Cost Optimization',
+    description: 'Token budgets, caching, model routing, batch processing—reduce LLM costs by 50-90%.',
+    level: 'advanced',
+    icon: <ChartBar className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-green-900/20 dark:text-green-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['agent-deployment', 'agent-observability'],
+    component: AgentCostOptimizationConcept
   },
   // Tier 5: Applied (Enterprise Adoption & Career Growth)
   {

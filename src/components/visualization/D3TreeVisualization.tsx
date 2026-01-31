@@ -139,6 +139,20 @@ export default function D3TreeVisualization({
           ]
         },
         {
+          id: 'production-foundations',
+          name: 'Production Foundations',
+          type: 'category' as const,
+          children: collapsedNodes.has('production-foundations') ? [] : [
+            { id: 'agent-reasoning-patterns', name: 'Agent Reasoning Patterns', type: 'concept' as const, novel: true },
+            { id: 'agent-memory-systems', name: 'Agent Memory Systems', type: 'concept' as const, novel: true },
+            { id: 'agent-observability', name: 'Agent Observability', type: 'concept' as const, novel: true },
+            { id: 'agent-testing-benchmarks', name: 'Agent Testing & Benchmarks', type: 'concept' as const, novel: true },
+            { id: 'prompt-injection-defense', name: 'Prompt Injection Defense', type: 'concept' as const, novel: true },
+            { id: 'human-in-the-loop-patterns', name: 'Human-in-the-Loop Patterns', type: 'concept' as const, novel: true },
+            { id: 'agent-cost-optimization', name: 'Agent Cost Optimization', type: 'concept' as const, novel: true }
+          ]
+        },
+        {
           id: 'core-patterns',
           name: 'Core Patterns',
           type: 'category' as const,
