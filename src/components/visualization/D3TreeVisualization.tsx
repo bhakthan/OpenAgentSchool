@@ -183,6 +183,18 @@ export default function D3TreeVisualization({
           ]
         },
         {
+          id: '2026-patterns',
+          name: '2026 Agent Patterns',
+          type: 'category' as const,
+          children: collapsedNodes.has('2026-patterns') ? [] : [
+            { id: 'skill-augmented-agent', name: 'Skill-Augmented Agent', type: 'pattern' as const, novel: true },
+            { id: 'mcp-server-orchestration', name: 'MCP Server Orchestration', type: 'pattern' as const, novel: true },
+            { id: 'multi-llm-routing', name: 'Multi-LLM Routing', type: 'pattern' as const, novel: true },
+            { id: 'agentic-ide', name: 'Agentic IDE', type: 'pattern' as const, novel: true },
+            { id: 'guardrails-layer', name: 'Guardrails Layer', type: 'pattern' as const, novel: true }
+          ]
+        },
+        {
           id: 'azure-services',
           name: 'Azure AI Services',
           type: 'category' as const,

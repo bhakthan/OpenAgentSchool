@@ -25,6 +25,13 @@ Concept-Career-Paths: https://www.openagentschool.org/concepts/agent-career-path
 Concept-Industry-Agents: https://www.openagentschool.org/concepts/industry-agents
 Concept-Templates-Hub: https://www.openagentschool.org/concepts/agent-templates-hub
 
+# 2026 Agent Patterns (NEW)
+Pattern-Skill-Augmented: https://www.openagentschool.org/patterns/skill-augmented-agent
+Pattern-MCP-Orchestration: https://www.openagentschool.org/patterns/mcp-server-orchestration
+Pattern-Multi-LLM-Routing: https://www.openagentschool.org/patterns/multi-llm-routing
+Pattern-Agentic-IDE: https://www.openagentschool.org/patterns/agentic-ide
+Pattern-Guardrails: https://www.openagentschool.org/patterns/guardrails-layer
+
 # Learning Resources
 Study-Mode: https://www.openagentschool.org/study-mode
 Patterns: https://www.openagentschool.org/patterns

@@ -31,6 +31,7 @@ Open Agent School is a **comprehensive educational platform** designed to help d
 **Advanced Patterns**
 -  **Multi-Agent Systems** - Coordination, orchestration, and swarm intelligence
 -  **Data Autonomy Patterns** - Perception normalization, schema decomposition, action grounding
+-  **2026 Agent Patterns** - Skill-Augmented Agent, MCP Server Orchestration, Multi-LLM Routing, Agentic IDE, Guardrails Layer
 -  **Business Use Cases** - Commerce, robotics, healthcare, and enterprise applications
 -  **Educational Frameworks** - Socratic learning, adaptive tutoring, and skill assessment
 
@@ -173,6 +174,33 @@ npm run dev
 - Quickstart guides (5-45 minutes to running agent)
 - Recommended project structure and best practices
 
+### 2026 Agent Patterns (NEW)
+
+ **Skill-Augmented Agent**
+- SKILL.md capability extension for domain expertise
+- Progressive skill discovery and hierarchical composition
+- Constraint validation and security model
+
+ **MCP Server Orchestration**
+- Multi-MCP server federation with unified tool layer
+- Dynamic server discovery and schema federation
+- Parallel tool execution and result aggregation
+
+ **Multi-LLM Routing**
+- OpenRouter-style intelligent model routing by task/cost
+- Task classification and model registry management
+- Fallback chains and quality validation
+
+ **Agentic IDE**
+- VS Code/Cursor workspace agents with full IDE access
+- File tools, terminal execution, and diagnostics
+- Safe editing with validation and recovery
+
+ **Guardrails Layer**
+- Real-time safety filtering and policy enforcement
+- PII detection/redaction and prompt injection defense
+- Audit logging and observability integration
+
 ### Study Mode Enhancements
 - Added Socratic questions, debug challenges, and interactive scenarios for all 3 new concepts
 - Added SCL (composite scenarios) for multi-concept learning
@@ -271,7 +299,7 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 
 ##  Platform Stats
 
-- **65+ Agent Patterns** (Core + Educational + Data Autonomy + Quantum/Robotics + Deep Research)
+- **67+ Agent Patterns** (Core + Educational + Data Autonomy + Quantum/Robotics + Deep Research + 2026 Patterns)
 - **200+ Quiz Questions** across 15+ categories
 - **50+ Interactive Visualizations** (D3, React Flow, custom diagrams)
 - **8 Strategy Toolkits** (downloadable XLSX canvases)

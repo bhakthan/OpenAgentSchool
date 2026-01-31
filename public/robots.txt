@@ -16,6 +16,11 @@ Allow: /concepts/agent-career-paths
 Allow: /concepts/industry-agents
 Allow: /concepts/agent-templates-hub
 Allow: /concepts/quantum-ai-robotics
+Allow: /patterns/skill-augmented-agent
+Allow: /patterns/mcp-server-orchestration
+Allow: /patterns/multi-llm-routing
+Allow: /patterns/agentic-ide
+Allow: /patterns/guardrails-layer
 Allow: /concepts/agentic-robotics
 Allow: /concepts/agent-learning
 Allow: /concepts/fine-tuning
@@ -72,6 +77,11 @@ Allow: /concepts/agent-economics
 Allow: /concepts/agent-career-paths
 Allow: /concepts/industry-agents
 Allow: /concepts/agent-templates-hub
+Allow: /patterns/skill-augmented-agent
+Allow: /patterns/mcp-server-orchestration
+Allow: /patterns/multi-llm-routing
+Allow: /patterns/agentic-ide
+Allow: /patterns/guardrails-layer
 Allow: /api-docs
 Crawl-delay: 2
 
@@ -86,6 +96,11 @@ Allow: /concepts/agent-economics
 Allow: /concepts/agent-career-paths
 Allow: /concepts/industry-agents
 Allow: /concepts/agent-templates-hub
+Allow: /patterns/skill-augmented-agent
+Allow: /patterns/mcp-server-orchestration
+Allow: /patterns/multi-llm-routing
+Allow: /patterns/agentic-ide
+Allow: /patterns/guardrails-layer
 Allow: /api-docs
 
 User-agent: CCBot
@@ -112,6 +127,11 @@ Allow: /concepts/agent-economics
 Allow: /concepts/agent-career-paths
 Allow: /concepts/industry-agents
 Allow: /concepts/agent-templates-hub
+Allow: /patterns/skill-augmented-agent
+Allow: /patterns/mcp-server-orchestration
+Allow: /patterns/multi-llm-routing
+Allow: /patterns/agentic-ide
+Allow: /patterns/guardrails-layer
 Allow: /api-docs
 Crawl-delay: 2
 
@@ -126,6 +146,11 @@ Allow: /concepts/agent-economics
 Allow: /concepts/agent-career-paths
 Allow: /concepts/industry-agents
 Allow: /concepts/agent-templates-hub
+Allow: /patterns/skill-augmented-agent
+Allow: /patterns/mcp-server-orchestration
+Allow: /patterns/multi-llm-routing
+Allow: /patterns/agentic-ide
+Allow: /patterns/guardrails-layer
 Allow: /api-docs
 
 # Additional AI crawlers

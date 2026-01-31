@@ -47,6 +47,13 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - AI Safety & Governance (Azure AI Content Safety, Responsible AI)
 - Critical Thinking Frameworks (Bloom's, Paul-Elder)
 
+### 2026 Agent Patterns (NEW)
+- Skill-Augmented Agent - SKILL.md capability extension for domain expertise
+- MCP Server Orchestration - Multi-MCP server federation with unified tool layer
+- Multi-LLM Routing - OpenRouter-style intelligent model routing by task/cost
+- Agentic IDE - VS Code/Cursor workspace agents with full IDE access
+- Guardrails Layer - Real-time safety filtering and policy enforcement
+
 ### Advanced Topics
 - Multi-Agent Systems & Orchestration
 - Data Autonomy Patterns
@@ -68,6 +75,14 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Agent Patterns: https://www.openagentschool.org/patterns/
 - Study Mode: https://www.openagentschool.org/study-mode/
 - AI Skills Explorer: https://www.openagentschool.org/ai-skills/
+
+## New Pattern URLs (January 2026)
+
+- Skill-Augmented Agent: https://www.openagentschool.org/patterns/skill-augmented-agent
+- MCP Server Orchestration: https://www.openagentschool.org/patterns/mcp-server-orchestration
+- Multi-LLM Routing: https://www.openagentschool.org/patterns/multi-llm-routing
+- Agentic IDE: https://www.openagentschool.org/patterns/agentic-ide
+- Guardrails Layer: https://www.openagentschool.org/patterns/guardrails-layer
 
 ## New Concept URLs (January 2026)
 
