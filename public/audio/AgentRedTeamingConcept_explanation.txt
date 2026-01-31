@@ -1,0 +1,53 @@
+# Agent Red Teaming Concept - Audio Narration Script
+
+## Beginner Level Explanation
+
+Think of Agent Red Teaming like hiring a security company to test your building before opening day. These professionals try every door, window, and lock to find weaknesses before anyone with bad intentions does.
+
+In AI systems, red teaming means intentionally testing your agents and models to discover vulnerabilities before they reach real users. It's proactive security testing - finding problems before they become incidents.
+
+The key idea is simple: if you want to know how secure something is, try to break it yourself. Professional security auditors do this ethically, documenting everything they find so the vulnerabilities can be fixed.
+
+For AI agents, this means testing whether they can be tricked into revealing secrets, bypassing their safety guidelines, or performing actions they shouldn't. Finding these issues in a controlled environment protects everyone when the system goes live.
+
+## Intermediate Level Explanation
+
+Agent Red Teaming applies systematic adversarial testing to AI systems including language models, agents, and cloud-hosted AI services. Microsoft's AI Red Teaming Agent in Azure AI Foundry automates much of this process.
+
+There are five core attack types you should understand. Direct prompt injection attempts to override system instructions within a single message. Metaprompt extraction tries to reveal the hidden system prompt. Multi-turn attacks, also called Crescendo attacks, gradually escalate across conversation turns. Cross-prompt injection attacks, or XPIA, exploit connections to external data sources. Guardrail bypass attempts to trigger harmful content despite safety filters.
+
+The PyRIT framework, or Python Risk Identification Tool, provides the architecture for conducting these tests. It uses five key components: Targets are the AI systems being tested, Converters transform attacks into different formats like Base64 or different languages, Scorers evaluate if attacks succeeded, Memory tracks conversation history, and the Attack component orchestrates everything together.
+
+Risk categories fall into two groups. Traditional model risks include harmful content, violence, sexual content, discrimination, and fabricated information. Agent-specific risks add prohibited action execution where agents perform unauthorized operations, sensitive data leakage where agents expose private information, and task adherence failure where agents deviate from their intended purpose.
+
+## Advanced Level Explanation
+
+Enterprise red teaming follows the NIST AI Risk Management Framework with three phases: Map to identify system components and potential attack surfaces, Measure to conduct systematic tests and quantify vulnerabilities, and Manage to implement mitigations and continuous monitoring.
+
+Attack complexity exists on a spectrum. Easy attacks use simple encoding like Base64, ROT13, or Morse code to obfuscate malicious intent. Moderate attacks employ techniques like tense shifting or established jailbreak patterns. Difficult attacks combine multiple converters in sequence or use multi-turn escalation strategies like Crescendo.
+
+The primary success metric is Attack Success Rate, calculated as successful attacks divided by total attacks, multiplied by 100. A mature red teaming program targets a ceiling ASR across different attack categories, with higher-risk categories requiring lower thresholds.
+
+Multi-layer orchestration requires testing each component in isolation and in combination. An agent with tool access, memory, and planning capabilities creates compound attack surfaces where a weakness in one layer can cascade to others.
+
+PyRIT's architecture enables this through its PromptSendingOrchestrator for single-turn attacks and MultiTurnOrchestrator for conversation-based attacks. Converters can be composed, applying Base64 encoding followed by translation followed by character substitution, creating attack variants that test different detection boundaries.
+
+The AI Red Teaming Playground Labs provide structured challenges at increasing difficulty levels. These include Basic Prompt Injection starting at level 1, Text-to-SQL injection at level 2, multi-modal attacks at level 3, function abuse at level 4, and multi-agent security testing at level 5.
+
+Integration with your evaluation pipeline ensures red teaming happens continuously, not just during development. Connect ASR metrics to your agent evaluation dashboards and set thresholds that trigger alerts when attack success rates increase after updates.
+
+## Key Takeaways
+
+1. Red teaming is proactive security testing, finding vulnerabilities before attackers do
+2. Five attack types: Direct injection, Metaprompt extraction, Multi-turn, XPIA, Guardrail bypass
+3. PyRIT provides an open-source framework with Targets, Converters, Scorers, Memory, and Attacks
+4. Agent-specific risks include prohibited actions, data leakage, and task deviation
+5. Attack Success Rate is the primary metric, with thresholds varying by risk category
+6. The NIST AI RMF provides a Map-Measure-Manage structure for enterprise programs
+7. Continuous integration of red teaming with evaluation pipelines ensures ongoing security
+
+## Related Concepts
+
+- Agent Evaluation: Red teaming metrics feed into your broader evaluation framework
+- AI Safety and Governance: Red teaming validates that governance policies are enforceable
+- Agent Security: Red teaming is the offensive counterpart to defensive security measures

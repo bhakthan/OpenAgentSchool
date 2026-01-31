@@ -4533,6 +4533,102 @@ export const socraticQuestionLibrary = {
         'Connects to software supply chain concepts'
       ]
     }
+  ],
+  // Agent Red Teaming
+  'agent-red-teaming': [
+    {
+      id: 'agent-red-teaming-socratic-1',
+      type: 'socratic',
+      conceptId: 'agent-red-teaming',
+      title: 'Why Proactive Security Testing Matters',
+      level: 'beginner',
+      socratiQuestion: 'Imagine you built an AI agent that will be used by thousands of people. How would you find vulnerabilities before malicious users do, and why is waiting for real attacks a poor strategy?',
+      followUpQuestions: [
+        'What types of inputs might cause your agent to behave unexpectedly?',
+        'How is testing AI different from testing traditional software?',
+        'What could happen if a vulnerability is discovered in production?'
+      ],
+      expectedInsights: [
+        'Red teaming finds issues before they become incidents',
+        'AI systems have unique attack surfaces like prompt injection',
+        'Production exploits cause reputational, legal, and safety harms'
+      ],
+      hints: [
+        'Think about how security auditors test buildings before opening',
+        'Consider the difference between predictable code and probabilistic models',
+        'Reflect on the cost of breach vs cost of testing'
+      ],
+      explanation: 'Red teaming is proactive security testing—intentionally trying to break your system to find weaknesses before adversaries do. For AI systems, this includes testing for prompt injection, jailbreaks, and unintended behaviors.',
+      relatedConcepts: ['agent-security', 'prompt-injection', 'vulnerability-assessment'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Explains proactive vs reactive security',
+        'Identifies AI-specific vulnerabilities',
+        'Understands cost of production incidents'
+      ]
+    },
+    {
+      id: 'agent-red-teaming-socratic-2',
+      type: 'socratic',
+      conceptId: 'agent-red-teaming',
+      title: 'Understanding Attack Success Rate',
+      level: 'intermediate',
+      socratiQuestion: 'ASR (Attack Success Rate) is calculated as successful attacks divided by total attacks. Why is this metric valuable, and what ASR threshold would you set for different risk categories?',
+      followUpQuestions: [
+        'Should harmful content generation and prohibited action execution have the same threshold?',
+        'How do you balance false positives (blocking legitimate use) vs false negatives (allowing attacks)?',
+        'What happens if ASR increases after a model update?'
+      ],
+      expectedInsights: [
+        'Different risk categories require different tolerance levels',
+        'Agent-specific risks (tool execution) need stricter thresholds than content risks',
+        'ASR changes after updates indicate regression that requires investigation'
+      ],
+      hints: [
+        'Consider the severity of different failure modes',
+        'Think about how safety-critical industries set tolerance levels',
+        'Reflect on continuous monitoring vs one-time testing'
+      ],
+      explanation: 'ASR provides a quantifiable measure of system vulnerability. High-risk categories like prohibited actions might require ASR < 1%, while lower-risk categories might tolerate higher rates. Tracking ASR over time catches security regressions.',
+      relatedConcepts: ['security-metrics', 'risk-categorization', 'continuous-monitoring'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Explains ASR calculation and purpose',
+        'Differentiates thresholds by risk category',
+        'Connects to continuous evaluation'
+      ]
+    },
+    {
+      id: 'agent-red-teaming-socratic-3',
+      type: 'socratic',
+      conceptId: 'agent-red-teaming',
+      title: 'Multi-Turn Attack Strategies',
+      level: 'advanced',
+      socratiQuestion: 'Crescendo attacks gradually escalate harmful content across multiple conversation turns. Why are these harder to detect than single-turn attacks, and how would you design defenses?',
+      followUpQuestions: [
+        'How does conversation memory make agents vulnerable to multi-turn attacks?',
+        'What patterns indicate escalation across turns?',
+        'How do you test for multi-turn vulnerabilities at scale?'
+      ],
+      expectedInsights: [
+        'Each turn may seem benign in isolation but creates harmful context',
+        'Memory systems can be poisoned to influence future responses',
+        'Automated orchestration (like PyRIT) is needed for systematic multi-turn testing'
+      ],
+      hints: [
+        'Consider how individual requests "prime" the model context',
+        'Think about detecting cumulative harm vs per-message analysis',
+        'Reflect on the MITRE ATT&CK concept of attack chains'
+      ],
+      explanation: 'Crescendo attacks exploit the conversational nature of AI agents. Defenses require analyzing conversation trajectories, not just individual messages, and testing must simulate realistic multi-turn attack patterns.',
+      relatedConcepts: ['conversation-security', 'memory-safety', 'attack-orchestration'],
+      timeEstimate: 16,
+      successCriteria: [
+        'Explains multi-turn attack mechanics',
+        'Identifies memory as attack vector',
+        'Proposes conversation-level defenses'
+      ]
+    }
   ]
 };
 

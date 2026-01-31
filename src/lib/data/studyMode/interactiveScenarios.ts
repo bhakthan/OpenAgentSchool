@@ -6700,6 +6700,136 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// Agent Red Teaming Scenarios
+(scenarioLibrary as any)['agent-red-teaming'] = [
+  {
+    id: 'agent-red-teaming-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-red-teaming',
+    title: 'Building Your First Red Team Program',
+    level: 'beginner',
+    scenario: {
+      id: 'red-team-program-setup',
+      description: 'Your organization is launching an AI agent for customer service. Leadership wants a red team assessment before go-live. You need to design the testing program.',
+      context: 'The agent handles customer inquiries, can access order data, and can issue refunds up to $100. It uses a fine-tuned LLM with custom safety guardrails.',
+      decisionPoints: [
+        'What attack categories should you test?',
+        'Who should conduct the testing?',
+        'What success metrics will you report?'
+      ],
+      options: [
+        'Only test for prompt injection since that is the most common attack',
+        'Test all OWASP LLM Top 10 categories plus agent-specific risks like prohibited action execution',
+        'Focus on performance testing since security can be added later'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Prompt injection is critical but insufficient—agent-specific risks like unauthorized refunds are equally important',
+      'Comprehensive coverage ensures all attack surfaces are evaluated before production exposure',
+      'Security retrofitting is costly and risky—proactive testing is essential'
+    ],
+    followUpQuestions: [
+      'What agent-specific risks are unique to this refund-capable agent?',
+      'Should you use internal staff, external consultants, or automated tools?',
+      'How do you balance thoroughness with go-live timeline?'
+    ],
+    expectedInsights: [
+      'Agent capabilities (refunds) create unique attack surfaces',
+      'Combination of automated testing and expert review is optimal',
+      'Risk-based prioritization helps meet deadlines without compromising critical areas'
+    ],
+    businessContext: 'Organizations launching AI agents need security testing frameworks that cover both model-level and agent-level risks.',
+    relatedConcepts: ['security-assessment', 'risk-prioritization', 'owasp-llm-top10'],
+    timeEstimate: 10,
+    successCriteria: ['Identifies comprehensive test scope', 'Considers agent-specific risks', 'Plans measurement approach']
+  },
+  {
+    id: 'agent-red-teaming-scenario-2',
+    type: 'scenario',
+    conceptId: 'agent-red-teaming',
+    title: 'Choosing Attack Automation Tools',
+    level: 'intermediate',
+    scenario: {
+      id: 'red-team-tool-selection',
+      description: 'Your security team needs to select tools for automated AI red teaming. You have evaluated PyRIT, manual testing, and a commercial SaaS platform.',
+      context: 'Requirements: Must test prompt injection, multi-turn attacks, and converter-based evasion. Team has Python expertise. Budget is limited. Need to integrate with CI/CD.',
+      decisionPoints: [
+        'Which tool best fits your requirements?',
+        'How will you handle attack customization?',
+        'What integration approach works for CI/CD?'
+      ],
+      options: [
+        'Use only manual testing by security experts for highest quality',
+        'Deploy PyRIT for automation with custom converters and CI/CD integration via pytest',
+        'Purchase commercial SaaS despite budget constraints for compliance certification'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Manual testing is valuable but cannot scale for continuous testing or comprehensive coverage',
+      'PyRIT is open-source, highly customizable, and designed for CI/CD integration with pytest',
+      'Commercial tools may provide certifications but budget constraints make this impractical'
+    ],
+    followUpQuestions: [
+      'What PyRIT components would you use for multi-turn testing?',
+      'How would you customize converters for your specific attack scenarios?',
+      'What test frequency would you configure in CI/CD?'
+    ],
+    expectedInsights: [
+      'MultiTurnOrchestrator handles Crescendo-style attacks',
+      'Custom converters can be written in Python to match specific evasion techniques',
+      'Running on every PR is ideal; at minimum on main branch merges'
+    ],
+    businessContext: 'Tool selection for AI red teaming must balance automation capability, customization, and integration with development workflows.',
+    relatedConcepts: ['pyrit', 'automation', 'ci-cd-integration'],
+    timeEstimate: 12,
+    successCriteria: ['Matches tool to requirements', 'Plans customization approach', 'Designs CI/CD integration']
+  },
+  {
+    id: 'agent-red-teaming-scenario-3',
+    type: 'scenario',
+    conceptId: 'agent-red-teaming',
+    title: 'Responding to ASR Regression',
+    level: 'advanced',
+    scenario: {
+      id: 'red-team-asr-regression',
+      description: 'After a model update, your continuous red teaming dashboard shows ASR increased from 2% to 8% for "prohibited action" attacks. You need to decide how to respond.',
+      context: 'The update improved helpfulness metrics by 15% but appears to have weakened safety guardrails. Product team is eager to ship. Security policy requires ASR < 5% for this category.',
+      decisionPoints: [
+        'Should you block the release?',
+        'How do you investigate the regression?',
+        'What remediation approach do you recommend?'
+      ],
+      options: [
+        'Ship anyway since helpfulness improvement outweighs security regression',
+        'Block release, investigate specific attack patterns that now succeed, implement targeted mitigations',
+        'Revert entirely to previous model version'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Security policy exists for risk management—exceptions require formal risk acceptance',
+      'Investigation reveals what changed and enables targeted fixes rather than broad rollbacks',
+      'Full revert loses helpfulness gains; targeted mitigation preserves both where possible'
+    ],
+    followUpQuestions: [
+      'How do you analyze which specific attack patterns regressed?',
+      'What stakeholder communication is needed during the block?',
+      'How do you prevent similar regressions in future updates?'
+    ],
+    expectedInsights: [
+      'Compare attack logs before/after to identify specific vulnerable patterns',
+      'Security, product, and leadership need aligned communication on risk/timeline',
+      'Add regression tests for these specific patterns to CI/CD pipeline'
+    ],
+    businessContext: 'Continuous red teaming enables early detection of security regressions, but requires clear policies for response and remediation.',
+    relatedConcepts: ['asr-monitoring', 'release-gating', 'security-regression'],
+    timeEstimate: 14,
+    successCriteria: ['Follows security policy', 'Plans targeted investigation', 'Recommends prevention measures']
+  }
+];
+
 // Helper function to get scenarios by concept and level
 export function getScenarios(
   conceptId: string, 

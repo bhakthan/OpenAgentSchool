@@ -46,6 +46,7 @@ import OrganizationalEnablementConcept from "./OrganizationalEnablementConcept"
 import AIProductFrameworkConcept from "./AIProductFrameworkConcept"
 import ClientCodingAgentsConcept from "./ClientCodingAgentsConcept"
 import AgentSkillsConcept from "./AgentSkillsConcept"
+import AgentRedTeamingConcept from "./AgentRedTeamingConcept"
 
 interface ConceptInfo {
   id: string
@@ -429,6 +430,18 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '35-45 min',
     prerequisites: ['agentic-ai-design-taxonomy'],
     component: ProductManagementConcept
+  }
+  ,
+  {
+    id: 'agent-red-teaming',
+    title: 'Agent Red Teaming',
+    description: 'Proactive security testing: simulate adversarial attacks to find AI vulnerabilities before they\'re exploited.',
+    level: 'advanced',
+    icon: <Target className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-red-900/20 dark:text-red-300',
+    estimatedTime: '50-60 min',
+    prerequisites: ['agent-evaluation', 'agent-security', 'ai-safety-governance'],
+    component: AgentRedTeamingConcept
   }
   ,
   {

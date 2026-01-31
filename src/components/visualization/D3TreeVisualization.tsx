@@ -108,6 +108,7 @@ export default function D3TreeVisualization({
             { id: 'data-visualization', name: 'Data Visualization', type: 'concept' as const },
             { id: 'agentic-robotics-integration', name: 'Agentic Robotics Integration', type: 'concept' as const, novel: true },
             { id: 'fine-tuning', name: 'Fine-Tuning Methods (SFT, DPO, RFT)', type: 'concept' as const, novel: true },
+            { id: 'agent-red-teaming', name: 'Agent Red Teaming', type: 'concept' as const, novel: true },
             { id: 'data-knowledge-operations', name: 'Data & Knowledge Operations', type: 'concept' as const, novel: true }
           ]
         },

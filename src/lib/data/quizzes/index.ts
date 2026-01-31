@@ -26,6 +26,7 @@ import { dataAutonomyPatternsQuestions } from './data-autonomy-patterns.ts';
 import { agenticRoboticsIntegrationQuestions } from './agentic-robotics';
 import { adoptionPlaybookQuestions } from './adoption-playbook';
 import { clientCodingAgentsQuestions, agentSkillsQuestions, clientCodingAgentsTime, agentSkillsTime } from './client-coding-agents';
+import { agentRedTeamingQuestions, agentRedTeamingTime } from './agent-red-teaming';
 // New Phase 1 foundation quizzes
 import { llmFundamentalsQuiz } from './llm-fundamentals';
 import { gettingStartedAgentsQuiz } from './getting-started-agents';
@@ -67,7 +68,8 @@ const allQuestions = [
   ...dataAutonomyPatternsQuestions,
   ...agenticRoboticsIntegrationQuestions,
   ...clientCodingAgentsQuestions,
-  ...agentSkillsQuestions
+  ...agentSkillsQuestions,
+  ...agentRedTeamingQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -410,6 +412,70 @@ export const quizCategories: QuizCategory[] = [
         name: 'Data Protection',
         description: 'Protecting sensitive data in AI agent systems',
         prerequisites: ['enterprise-security'],
+      }
+    ]
+  },
+  {
+    id: 'agent-red-teaming',
+    name: 'Agent Red Teaming',
+    description: 'Proactive adversarial testing: PyRIT, attack types, risk categories',
+    icon: 'Target',
+    estimatedTime: agentRedTeamingTime,
+    totalQuestions: agentRedTeamingQuestions.length,
+    subCategories: [
+      {
+        id: 'red-team-fundamentals',
+        name: 'Red Teaming Fundamentals',
+        description: 'Core concepts of AI security testing',
+        prerequisites: ['agent-security'],
+      },
+      {
+        id: 'red-team-metrics',
+        name: 'Red Teaming Metrics',
+        description: 'Measuring attack success and vulnerability severity',
+        prerequisites: ['red-team-fundamentals'],
+      },
+      {
+        id: 'attack-types',
+        name: 'Attack Types',
+        description: 'Prompt injection, XPIA, Crescendo, and guardrail bypass',
+        prerequisites: ['red-team-fundamentals'],
+      },
+      {
+        id: 'pyrit-framework',
+        name: 'PyRIT Framework',
+        description: 'Python Risk Identification Tool architecture',
+        prerequisites: ['attack-types'],
+      },
+      {
+        id: 'risk-categories',
+        name: 'Risk Categories',
+        description: 'Model and agent-specific risk taxonomies',
+        prerequisites: ['attack-types'],
+      },
+      {
+        id: 'attack-strategies',
+        name: 'Attack Strategies',
+        description: 'Easy, moderate, and difficult attack techniques',
+        prerequisites: ['pyrit-framework'],
+      },
+      {
+        id: 'advanced-techniques',
+        name: 'Advanced Techniques',
+        description: 'Converter compositions and multi-turn orchestration',
+        prerequisites: ['attack-strategies'],
+      },
+      {
+        id: 'enterprise-framework',
+        name: 'Enterprise Framework',
+        description: 'NIST AI RMF for red teaming programs',
+        prerequisites: ['risk-categories'],
+      },
+      {
+        id: 'integration',
+        name: 'Evaluation Integration',
+        description: 'Continuous red teaming in CI/CD pipelines',
+        prerequisites: ['enterprise-framework'],
       }
     ]
   },

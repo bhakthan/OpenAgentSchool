@@ -284,6 +284,10 @@ export function getComponentAudioFile(componentName: string): string {
     'agent-skills': 'AgentSkillsConcept_explanation',
     'AgentSkillsConcept': 'AgentSkillsConcept_explanation',
     
+    // Agent Red Teaming
+    'agent-red-teaming': 'AgentRedTeamingConcept_explanation',
+    'AgentRedTeamingConcept': 'AgentRedTeamingConcept_explanation',
+    
     // Add more mappings as needed
   };
 
