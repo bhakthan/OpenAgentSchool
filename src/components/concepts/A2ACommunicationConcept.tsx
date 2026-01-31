@@ -89,6 +89,17 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
             </CardContent>
           </Card>
 
+          {/* A2A Communication Diagram */}
+          <Card>
+            <CardContent className="pt-6">
+              <img 
+                src="/images/a2a_communication.png" 
+                alt="Agent-to-Agent Communication Architecture - How agents discover, connect, and collaborate"
+                className="w-full rounded-lg border border-border/50"
+              />
+            </CardContent>
+          </Card>
+
           {/* A2A Protocol Mindmap */}
           <Card>
             <CardHeader>

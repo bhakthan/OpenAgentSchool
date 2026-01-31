@@ -59,6 +59,17 @@ These prompts are designed for AI image generation tools to create visually stun
 5. **Agent Cost Optimization** - Token budgets, caching, model routing
 6. **Human-in-the-Loop Patterns** - Approval workflows and escalation
 7. **Prompt Injection Defense** - Security layers and attack mitigation
+8. **MCP Apps** - SEP-1865 interactive UI extension for Model Context Protocol
+9. **Model Context Protocol (MCP)** - Universal standard for AI tool integration
+10. **A2A Communication** - Agent-to-Agent protocol for multi-agent collaboration
+11. **Multi-Agent Systems** - Orchestration patterns and agent team architectures
+12. **Fine-Tuning LLMs** - SFT, DPO, RFT decision framework and workflows
+13. **Agentic RAG** - Beyond naive retrieval with intelligent search strategies
+14. **ReAct Pattern** - Reasoning + Acting loop for agent decision-making
+15. **Agent Evaluation** - Multi-dimensional quality measurement and benchmarks
+16. **Agent Architecture** - Core components and building blocks of AI agents
+17. **Tool Use & Function Calling** - Modern tool integration patterns
+18. **Prompt Engineering** - Crafting effective prompts for agent behaviors
 
 ## Usage
 
