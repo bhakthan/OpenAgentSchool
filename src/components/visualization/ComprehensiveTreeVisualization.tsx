@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 // Card UI replaced by bespoke modern atlas stat cards styling (see main.css additions)
 import D3TreeVisualization from '@/components/visualization/D3TreeVisualization';
+const HybridAtlasVisualization = lazy(() => import('@/components/visualization/HybridAtlasVisualization'));
 import { 
   Brain, 
   Gear as Cog, 
@@ -9,7 +10,9 @@ import {
   Target,
   Tree,
   ChartLineUp,
-  Lightbulb
+  Lightbulb,
+  CirclesFour,
+  TreeStructure
 } from '@phosphor-icons/react';
 // Lazy load heavy study mode data only when this visualization mounts
 import { loadStudyModeData, flattenQuestions } from '@/lib/data/studyMode/lazy';
@@ -78,6 +81,7 @@ export default function ComprehensiveTreeVisualization() {
   const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
   const [showStudyDetails, setShowStudyDetails] = useState(false);
   const [highContrast, setHighContrast] = useState(false);
+  const [viewMode, setViewMode] = useState<'hybrid' | 'tree'>('hybrid'); // Default to hybrid sunburst
 
   const [socraticCount, setSocraticCount] = useState(0);
   const [scenarioCount, setScenarioCount] = useState(0);
@@ -152,7 +156,36 @@ export default function ComprehensiveTreeVisualization() {
               Your panoramic map of the agentic mastery journey — explore every concept, pattern, skill, service and assessment path in one living, exportable knowledge space.
             </p>
           </div>
-          <div className="ml-auto">
+          <div className="ml-auto flex items-center gap-2">
+            {/* View Mode Toggle */}
+            <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg p-1 gap-1">
+              <button
+                type="button"
+                onClick={() => setViewMode('hybrid')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  viewMode === 'hybrid'
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                }`}
+                aria-pressed={viewMode === 'hybrid'}
+              >
+                <CirclesFour className="w-4 h-4" />
+                <span className="hidden sm:inline">Sunburst</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('tree')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  viewMode === 'tree'
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                }`}
+                aria-pressed={viewMode === 'tree'}
+              >
+                <TreeStructure className="w-4 h-4" />
+                <span className="hidden sm:inline">Tree</span>
+              </button>
+            </div>
             <button
               type="button"
               onClick={() => setHighContrast(v => !v)}
@@ -276,13 +309,29 @@ export default function ComprehensiveTreeVisualization() {
 
       {/* Tree Visualization */}
       <div className="tree-center-wrapper">
-        <div className="flex-1 tree-container" style={{ minHeight: '1000px', maxWidth: '1400px' }}>
-          <D3TreeVisualization
-            selectedNode={selectedNode}
-            onNodeSelect={handleNodeSelect}
-            className="h-auto"
-          />
-        </div>
+        {viewMode === 'hybrid' ? (
+          <div className="flex-1 w-full max-w-5xl mx-auto p-6">
+            <Suspense fallback={
+              <div className="flex items-center justify-center h-96">
+                <div className="animate-spin w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full"></div>
+              </div>
+            }>
+              <HybridAtlasVisualization 
+                onNodeSelect={(node) => {
+                  // Handle node selection if needed
+                }}
+              />
+            </Suspense>
+          </div>
+        ) : (
+          <div className="flex-1 tree-container" style={{ minHeight: '1000px', maxWidth: '1400px' }}>
+            <D3TreeVisualization
+              selectedNode={selectedNode}
+              onNodeSelect={handleNodeSelect}
+              className="h-auto"
+            />
+          </div>
+        )}
       </div>
 
     </div>
