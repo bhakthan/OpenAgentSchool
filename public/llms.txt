@@ -1,5 +1,6 @@
 # Open Agent School - llms.txt
 # https://llmstxt.org/ - A standard for providing context to LLMs
+# Last updated: January 31, 2026
 
 > Open Agent School is a comprehensive educational platform for mastering AI agents,
 > from foundational concepts to production-ready agentic systems.
@@ -20,21 +21,22 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Model Context Protocol (MCP) - Context and tool standardization
 - Agent-to-Agent (A2A) Communication - Inter-agent messaging
 - Agent Communication Protocol (ACP) - Unified agent interoperability
+- MCP-A2A Integration Patterns
 
-### CLI Coding Agents (NEW)
+### CLI Coding Agents
 - Copilot CLI - GitHub's command suggestions
 - Claude Code - Anthropic's agentic coding with CLAUDE.md
 - Codex CLI - OpenAI's terminal agent with approval modes
 - Gemini CLI - Google's multimodal CLI agent
 - AGENTS.md configuration for project context
 
-### Agent Skills (NEW)
+### Agent Skills
 - SKILL.md specification for modular agent expertise
 - Progressive disclosure for context efficiency
 - Skill discovery and activation triggers
 - Security considerations for third-party skills
 
-### Agent Red Teaming (NEW)
+### Agent Red Teaming
 - Proactive AI security testing methodology
 - PyRIT (Python Risk Identification Tool) framework
 - Attack types: Direct Injection, Metaprompt Extraction, Multi-turn (Crescendo), XPIA, Guardrail Bypass
@@ -44,17 +46,32 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 
 ### Evaluation & Safety
 - Agent Evaluation Methodologies
+- LLM Evaluation Cheatsheet (comprehensive metrics and benchmarks)
 - AI Safety & Governance (Azure AI Content Safety, Responsible AI)
 - Critical Thinking Frameworks (Bloom's, Paul-Elder)
 
-### 2026 Agent Patterns (NEW)
+### Enterprise Playbook (January 2026 Update)
+- Program Setup & North Star Vision
+- Responsible AI Governance (MSFT AI Council, EU AI Act, HITRUST CSF)
+- Strategy & Portfolio Management (Value-Complexity Matrix, Horizon Planning)
+- Organizational Enablement (Skills Matrix, CoE Staffing Model)
+- Data & Knowledge Operations (Ingestion SLAs, Tiered Data Quality)
+- Experimentation & Continuous Improvement (A/B, Counterfactual, Shadow Deploy)
+- Ecosystem & Partnerships (ISV Tiers, SaaS Licensing Models)
+- Architecture & Platform Operations (Reference Architecture, Guardrail Automation)
+- AgentOps (Deployment Pipelines, Monitoring, Cost Management)
+
+### 2026 Agent Patterns
 - Skill-Augmented Agent - SKILL.md capability extension for domain expertise
 - MCP Server Orchestration - Multi-MCP server federation with unified tool layer
 - Multi-LLM Routing - OpenRouter-style intelligent model routing by task/cost
 - Agentic IDE - VS Code/Cursor workspace agents with full IDE access
 - Guardrails Layer - Real-time safety filtering and policy enforcement
+- Supervisor Agent - Hierarchical multi-agent coordination
+- Semantic Router - Intent-based agent/tool routing
+- Verifier Agent - Output validation and fact-checking
 
-### Production Foundations (NEW)
+### Production Foundations
 - Agent Reasoning Patterns - CoT, ToT, GoT, ReAct for structured thinking
 - Agent Memory Systems - Short-term, long-term, episodic, semantic architectures
 - Agent Observability - Tracing, debugging, monitoring with OpenTelemetry
@@ -70,7 +87,7 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Quantum-Enhanced AI & Robotics
 - Agentic Commerce & Enterprise Applications
 
-### Applied & Career (NEW)
+### Applied & Career
 - Agent Troubleshooting Playbook - Systematic debugging for production agent failures
 - Agent Economics - Cost models, pricing strategies, ROI frameworks
 - Agent Career Paths - Roles, skills, certifications, salary guides ($80K-$300K)
@@ -84,16 +101,33 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Agent Patterns: https://www.openagentschool.org/patterns/
 - Study Mode: https://www.openagentschool.org/study-mode/
 - AI Skills Explorer: https://www.openagentschool.org/ai-skills/
+- Learning Atlas: https://www.openagentschool.org/learning-atlas/
+- Enterprise Playbook: https://www.openagentschool.org/playbook/
 
-## New Pattern URLs (January 2026)
+## Enterprise Playbook Concept URLs (January 2026)
+
+- Program Setup & North Star: https://www.openagentschool.org/concepts/program-setup-north-star
+- Responsible AI Governance: https://www.openagentschool.org/concepts/responsible-ai-governance
+- Strategy & Portfolio Management: https://www.openagentschool.org/concepts/strategy-portfolio-management
+- Organizational Enablement: https://www.openagentschool.org/concepts/organizational-enablement
+- Data & Knowledge Operations: https://www.openagentschool.org/concepts/data-knowledge-operations
+- Experimentation & Continuous Improvement: https://www.openagentschool.org/concepts/experimentation-continuous-improvement
+- Ecosystem & Partnerships: https://www.openagentschool.org/concepts/ecosystem-partnerships
+- Architecture & Platform Operations: https://www.openagentschool.org/concepts/architecture-platform-operations
+- AgentOps: https://www.openagentschool.org/concepts/agent-ops
+
+## Agent Pattern URLs (January 2026)
 
 - Skill-Augmented Agent: https://www.openagentschool.org/patterns/skill-augmented-agent
 - MCP Server Orchestration: https://www.openagentschool.org/patterns/mcp-server-orchestration
 - Multi-LLM Routing: https://www.openagentschool.org/patterns/multi-llm-routing
 - Agentic IDE: https://www.openagentschool.org/patterns/agentic-ide
 - Guardrails Layer: https://www.openagentschool.org/patterns/guardrails-layer
+- Supervisor Agent: https://www.openagentschool.org/patterns/supervisor-agent
+- Semantic Router: https://www.openagentschool.org/patterns/semantic-router
+- Verifier Agent: https://www.openagentschool.org/patterns/verifier-agent
 
-## New Concept URLs (January 2026)
+## Production Concept URLs (January 2026)
 
 - CLI Coding Agents: https://www.openagentschool.org/concepts/client-coding-agents
 - Agent Skills: https://www.openagentschool.org/concepts/agent-skills
@@ -113,6 +147,17 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Prompt Injection Defense: https://www.openagentschool.org/concepts/prompt-injection-defense
 - Human-in-the-Loop Patterns: https://www.openagentschool.org/concepts/human-in-the-loop-patterns
 - Agent Cost Optimization: https://www.openagentschool.org/concepts/agent-cost-optimization
+
+## Interactive Infographics
+
+- LLM Evaluation Cheatsheet: https://www.openagentschool.org/images/LLM_Evaluation_Cheatsheet.png
+- Agent Memory Systems (5 Layers): https://www.openagentschool.org/images/Agent_Memory_Systems_5_Layers.png
+- Agent Reasoning Patterns: https://www.openagentschool.org/images/Agent_Reasoning_Pattern.png
+- Agent Cost Optimization: https://www.openagentschool.org/images/Agent_Cost_Optimization.png
+- Fine-Tuning Methods (SFT/DPO/RFT): https://www.openagentschool.org/images/SFT_DPO_RFT.png
+- Agent Skills & Tools: https://www.openagentschool.org/images/Agent_Skills_Tool_MCP_SubAgents.png
+- Agent Observability Dashboard: https://www.openagentschool.org/images/Agent_Observability_Dashboard.png
+- Human-in-the-Loop Patterns: https://www.openagentschool.org/images/Human_in_the_loop_Patterns.png
 
 ## Technical Stack
 

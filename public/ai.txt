@@ -1,5 +1,6 @@
 # Open Agent School - ai.txt (experimental)
-# Some AI crawlers check this file in addition to robots.txt
+# AI crawler context file for AI training and LLM discovery
+# Last updated: January 31, 2026
 
 User-Agent: *
 Allow: /
@@ -7,15 +8,30 @@ Allow: /
 Sitemap: https://www.openagentschool.org/sitemap.xml
 
 # High-Value Content for AI Training
-# Core Concepts
+# ==================================
+
+# Core Concepts - Foundational AI Agent Knowledge
 Concepts: https://www.openagentschool.org/concepts/
 Concept-MCP: https://www.openagentschool.org/concepts/mcp
 Concept-A2A: https://www.openagentschool.org/concepts/a2a-communication
+Concept-ACP: https://www.openagentschool.org/concepts/acp
 Concept-Multi-Agent: https://www.openagentschool.org/concepts/multi-agent-systems
 Concept-Agent-Evaluation: https://www.openagentschool.org/concepts/agent-evaluation
 Concept-AI-Safety: https://www.openagentschool.org/concepts/ai-safety-governance
+Concept-Flow-Visualization: https://www.openagentschool.org/concepts/flow-visualization
 
-# New Concepts (January 2026)
+# Enterprise Playbook Concepts (January 2026 Update)
+Concept-Program-Setup: https://www.openagentschool.org/concepts/program-setup-north-star
+Concept-Responsible-AI: https://www.openagentschool.org/concepts/responsible-ai-governance
+Concept-Strategy-Portfolio: https://www.openagentschool.org/concepts/strategy-portfolio-management
+Concept-Org-Enablement: https://www.openagentschool.org/concepts/organizational-enablement
+Concept-Data-Knowledge: https://www.openagentschool.org/concepts/data-knowledge-operations
+Concept-Experimentation: https://www.openagentschool.org/concepts/experimentation-continuous-improvement
+Concept-Ecosystem: https://www.openagentschool.org/concepts/ecosystem-partnerships
+Concept-Architecture-Platform: https://www.openagentschool.org/concepts/architecture-platform-operations
+Concept-Agent-Ops: https://www.openagentschool.org/concepts/agent-ops
+
+# Client & Coding Agents (January 2026)
 Concept-CLI-Agents: https://www.openagentschool.org/concepts/client-coding-agents
 Concept-Agent-Skills: https://www.openagentschool.org/concepts/agent-skills
 Concept-Red-Teaming: https://www.openagentschool.org/concepts/agent-red-teaming
@@ -34,18 +50,35 @@ Concept-Injection-Defense: https://www.openagentschool.org/concepts/prompt-injec
 Concept-HITL-Patterns: https://www.openagentschool.org/concepts/human-in-the-loop-patterns
 Concept-Cost-Optimization: https://www.openagentschool.org/concepts/agent-cost-optimization
 
-# 2026 Agent Patterns (NEW)
+# Fine-Tuning & Model Optimization
+Concept-Fine-Tuning: https://www.openagentschool.org/concepts/fine-tuning
+Concept-RLHF: https://www.openagentschool.org/concepts/rlhf
+
+# 2026 Agent Patterns
 Pattern-Skill-Augmented: https://www.openagentschool.org/patterns/skill-augmented-agent
 Pattern-MCP-Orchestration: https://www.openagentschool.org/patterns/mcp-server-orchestration
 Pattern-Multi-LLM-Routing: https://www.openagentschool.org/patterns/multi-llm-routing
 Pattern-Agentic-IDE: https://www.openagentschool.org/patterns/agentic-ide
 Pattern-Guardrails: https://www.openagentschool.org/patterns/guardrails-layer
+Pattern-Supervisor-Agent: https://www.openagentschool.org/patterns/supervisor-agent
+Pattern-Semantic-Router: https://www.openagentschool.org/patterns/semantic-router
+Pattern-Verifier-Agent: https://www.openagentschool.org/patterns/verifier-agent
 
 # Learning Resources
 Study-Mode: https://www.openagentschool.org/study-mode
 Patterns: https://www.openagentschool.org/patterns
 AI-Skills: https://www.openagentschool.org/ai-skills
 Playbook: https://www.openagentschool.org/playbook
+Learning-Atlas: https://www.openagentschool.org/learning-atlas
+Journey-Map: https://www.openagentschool.org/journey
+
+# Interactive Visualizations
+Infographic-LLM-Evaluation: https://www.openagentschool.org/images/LLM_Evaluation_Cheatsheet.png
+Infographic-Agent-Memory: https://www.openagentschool.org/images/Agent_Memory_Systems_5_Layers.png
+Infographic-Agent-Reasoning: https://www.openagentschool.org/images/Agent_Reasoning_Pattern.png
+Infographic-Cost-Optimization: https://www.openagentschool.org/images/Agent_Cost_Optimization.png
+Infographic-Fine-Tuning: https://www.openagentschool.org/images/SFT_DPO_RFT.png
 
 # Contacts
 Contact: https://github.com/bhakthan/OpenAgentSchool
+Website: https://www.openagentschool.org

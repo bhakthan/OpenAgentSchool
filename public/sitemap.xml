@@ -2,21 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xsi:schemaLocation="http://www.sit    <!-- Patterns Explorer -->
-    <url>
-        <loc>https://www.openagentschool.org/patterns</loc>
-        <lastmod>2025-10-02</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Individual Pattern Pages -->/schemas/sitemap/0.9
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
     <!-- Homepage -->
     <url>
         <loc>https://www.openagentschool.org/</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -24,274 +16,296 @@
     <!-- Core Concepts Section -->
     <url>
         <loc>https://www.openagentschool.org/concepts/</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
-    <!-- Individual Concept Pages -->
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agentic-ai-design-taxonomy</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agentic-prompting-fundamentals</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/prompt-optimization-patterns</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-instruction-design</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agentic-workflow-control</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-evaluation-methodologies</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-architecture</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-security</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/multi-agent-systems</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-ethics</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/ai-agents</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/ai-safety-governance</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
+    <!-- Enterprise Playbook Concepts (January 2026 Major Update) -->
     <url>
         <loc>https://www.openagentschool.org/concepts/program-setup-north-star</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/responsible-ai-governance</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/a2a-communication</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/mcp</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/flow-visualization</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-evaluation</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/strategy-portfolio-management</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/acp</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/mcp-a2a-integration</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/data-visualization</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/data-knowledge-operations</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-deployment</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-learning</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-integration</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/fine-tuning</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agentic-commerce-ap2</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/product-management</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-ops</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agentic-robotics-integration</loc>
-        <lastmod>2025-10-31</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.95</priority>
     </url>
 
     <url>
-        <loc>https://www.openagentschool.org/concepts/quantum-ai-robotics</loc>
-        <lastmod>2025-10-31</lastmod>
+        <loc>https://www.openagentschool.org/concepts/responsible-ai-governance</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/strategy-portfolio-management</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/organizational-enablement</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/data-knowledge-operations</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/experimentation-continuous-improvement</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/ecosystem-partnerships</loc>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.95</priority>
     </url>
 
     <url>
         <loc>https://www.openagentschool.org/concepts/architecture-platform-operations</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
     </url>
 
     <url>
-        <loc>https://www.openagentschool.org/concepts/experimentation-continuous-improvement</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/ecosystem-partnerships</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/organizational-enablement</loc>
-        <lastmod>2025-09-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.openagentschool.org/concepts/agent-skills</loc>
-        <lastmod>2026-01-29</lastmod>
+        <loc>https://www.openagentschool.org/concepts/agent-ops</loc>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
+    <!-- Core Agent Concepts -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agentic-ai-design-taxonomy</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agentic-prompting-fundamentals</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/prompt-optimization-patterns</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agent-instruction-design</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agentic-workflow-control</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agent-evaluation-methodologies</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agent-architecture</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agent-security</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/multi-agent-systems</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agent-ethics</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/ai-agents</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/ai-safety-governance</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Protocol Concepts -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/a2a-communication</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/mcp</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/acp</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/mcp-a2a-integration</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Visualization and Evaluation Concepts -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/flow-visualization</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agent-evaluation</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://www.openagentschool.org/images/LLM_Evaluation_Cheatsheet.png</image:loc>
+            <image:title>LLM Evaluation Cheatsheet</image:title>
+            <image:caption>Comprehensive guide to LLM evaluation metrics, methods, and benchmarks</image:caption>
+        </image:image>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/data-visualization</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Learning and Deployment Concepts -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agent-deployment</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agent-learning</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agent-integration</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/fine-tuning</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://www.openagentschool.org/images/SFT_DPO_RFT.png</image:loc>
+            <image:title>Fine-Tuning Methods Comparison</image:title>
+            <image:caption>SFT vs DPO vs RFT - choosing the right fine-tuning approach</image:caption>
+        </image:image>
+    </url>
+
+    <!-- Commerce and Product Concepts -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agentic-commerce-ap2</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/product-management</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Advanced Concepts -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agentic-robotics-integration</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/concepts/quantum-ai-robotics</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
+    <!-- CLI and Coding Agent Concepts (January 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/agent-skills</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://www.openagentschool.org/images/Agent_Skills_Tool_MCP_SubAgents.png</image:loc>
+            <image:title>Agent Skills Architecture</image:title>
+            <image:caption>Agent skills with tools, MCP, and sub-agents</image:caption>
+        </image:image>
+    </url>
+
     <url>
         <loc>https://www.openagentschool.org/concepts/client-coding-agents</loc>
-        <lastmod>2026-01-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -303,7 +317,7 @@
         <priority>0.9</priority>
     </url>
 
-    <!-- Applied & Career Concepts (January 2026) -->
+    <!-- Applied and Career Concepts (January 2026) -->
     <url>
         <loc>https://www.openagentschool.org/concepts/agent-troubleshooting</loc>
         <lastmod>2026-01-31</lastmod>
@@ -345,6 +359,11 @@
         <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://www.openagentschool.org/images/Agent_Reasoning_Pattern.png</image:loc>
+            <image:title>Agent Reasoning Patterns</image:title>
+            <image:caption>CoT, ToT, GoT, and ReAct reasoning strategies</image:caption>
+        </image:image>
     </url>
 
     <url>
@@ -352,6 +371,11 @@
         <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://www.openagentschool.org/images/Agent_Memory_Systems_5_Layers.png</image:loc>
+            <image:title>Agent Memory Systems - 5 Layers</image:title>
+            <image:caption>Short-term, long-term, episodic, semantic, and procedural memory</image:caption>
+        </image:image>
     </url>
 
     <url>
@@ -359,6 +383,11 @@
         <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://www.openagentschool.org/images/Agent_Observability_Dashboard.png</image:loc>
+            <image:title>Agent Observability Dashboard</image:title>
+            <image:caption>Monitoring, tracing, and debugging AI agents</image:caption>
+        </image:image>
     </url>
 
     <url>
@@ -380,6 +409,11 @@
         <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://www.openagentschool.org/images/Human_in_the_loop_Patterns.png</image:loc>
+            <image:title>Human-in-the-Loop Patterns</image:title>
+            <image:caption>Approval workflows and escalation patterns</image:caption>
+        </image:image>
     </url>
 
     <url>
@@ -387,12 +421,17 @@
         <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://www.openagentschool.org/images/Agent_Cost_Optimization.png</image:loc>
+            <image:title>Agent Cost Optimization</image:title>
+            <image:caption>Token budgets, caching, and cost management strategies</image:caption>
+        </image:image>
     </url>
 
     <!-- Study Mode -->
     <url>
         <loc>https://www.openagentschool.org/study-mode</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -400,50 +439,50 @@
     <!-- Patterns Section -->
     <url>
         <loc>https://www.openagentschool.org/patterns</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.9</priority>
     </url>
 
     <!-- Individual Pattern Pages -->
     <url>
         <loc>https://www.openagentschool.org/patterns/adaptive-lab-technician</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>https://www.openagentschool.org/patterns/inventory-guardian</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>https://www.openagentschool.org/patterns/emergency-response-mate</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>https://www.openagentschool.org/patterns/mobile-manipulator-steward</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>https://www.openagentschool.org/patterns/contextual-onboarding-orchestrator</loc>
-        <lastmod>2025-10-02</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>https://www.openagentschool.org/patterns/hierarchical-document-intelligence</loc>
-        <lastmod>2025-10-02</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -453,32 +492,53 @@
         <loc>https://www.openagentschool.org/patterns/skill-augmented-agent</loc>
         <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
+        <priority>0.95</priority>
     </url>
 
     <url>
         <loc>https://www.openagentschool.org/patterns/mcp-server-orchestration</loc>
         <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
+        <priority>0.95</priority>
     </url>
 
     <url>
         <loc>https://www.openagentschool.org/patterns/multi-llm-routing</loc>
         <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
+        <priority>0.95</priority>
     </url>
 
     <url>
         <loc>https://www.openagentschool.org/patterns/agentic-ide</loc>
         <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
+        <priority>0.95</priority>
     </url>
 
     <url>
         <loc>https://www.openagentschool.org/patterns/guardrails-layer</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/patterns/supervisor-agent</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/patterns/semantic-router</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/patterns/verifier-agent</loc>
         <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
@@ -487,15 +547,23 @@
     <!-- AI Skills Explorer -->
     <url>
         <loc>https://www.openagentschool.org/ai-skills</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
 
-    <!-- Code Playbook -->
+    <!-- Enterprise Playbook -->
     <url>
         <loc>https://www.openagentschool.org/playbook</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Learning Atlas -->
+    <url>
+        <loc>https://www.openagentschool.org/learning-atlas</loc>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -503,7 +571,7 @@
     <!-- Tree Visualization -->
     <url>
         <loc>https://www.openagentschool.org/tree</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -511,7 +579,7 @@
     <!-- LLM Judge -->
     <url>
         <loc>https://www.openagentschool.org/llm-judge</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -519,9 +587,45 @@
     <!-- Community -->
     <url>
         <loc>https://www.openagentschool.org/community</loc>
-        <lastmod>2025-09-29</lastmod>
+        <lastmod>2026-01-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
+    </url>
+
+    <!-- Infographic Images for Image Search -->
+    <url>
+        <loc>https://www.openagentschool.org/images/LLM_Evaluation_Cheatsheet.png</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/images/Agent_Memory_Systems_5_Layers.png</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/images/Agent_Reasoning_Pattern.png</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/images/Agent_Cost_Optimization.png</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://www.openagentschool.org/images/SFT_DPO_RFT.png</loc>
+        <lastmod>2026-01-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
 
 </urlset>

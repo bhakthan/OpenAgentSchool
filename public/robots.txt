@@ -1,5 +1,6 @@
 # Open Agent School - Robots.txt
 # https://www.openagentschool.org/robots.txt
+# Last updated: January 31, 2026
 
 User-agent: *
 Allow: /
@@ -7,6 +8,26 @@ Crawl-delay: 1
 
 # High-value content for crawlers
 Allow: /concepts/
+Allow: /patterns/
+Allow: /study-mode/
+Allow: /ai-skills/
+Allow: /playbook/
+Allow: /learning-journey
+Allow: /learning-atlas
+Allow: /api-docs
+
+# Enterprise Playbook Concepts (January 2026)
+Allow: /concepts/program-setup-north-star
+Allow: /concepts/responsible-ai-governance
+Allow: /concepts/strategy-portfolio-management
+Allow: /concepts/organizational-enablement
+Allow: /concepts/data-knowledge-operations
+Allow: /concepts/experimentation-continuous-improvement
+Allow: /concepts/ecosystem-partnerships
+Allow: /concepts/architecture-platform-operations
+Allow: /concepts/agent-ops
+
+# Production Foundations Concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
@@ -22,24 +43,29 @@ Allow: /concepts/agent-testing-benchmarks
 Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
+
+# Core Concepts
 Allow: /concepts/quantum-ai-robotics
-Allow: /patterns/skill-augmented-agent
-Allow: /patterns/mcp-server-orchestration
-Allow: /patterns/multi-llm-routing
-Allow: /patterns/agentic-ide
-Allow: /patterns/guardrails-layer
 Allow: /concepts/agentic-robotics
 Allow: /concepts/agent-learning
 Allow: /concepts/fine-tuning
 Allow: /concepts/mcp
 Allow: /concepts/a2a-communication
+Allow: /concepts/acp
 Allow: /concepts/multi-agent-systems
-Allow: /study-mode/
-Allow: /patterns/
-Allow: /ai-skills/
-Allow: /playbook/
-Allow: /learning-journey
-Allow: /api-docs
+Allow: /concepts/agent-evaluation
+Allow: /concepts/ai-safety-governance
+Allow: /concepts/flow-visualization
+
+# Agent Patterns (January 2026)
+Allow: /patterns/skill-augmented-agent
+Allow: /patterns/mcp-server-orchestration
+Allow: /patterns/multi-llm-routing
+Allow: /patterns/agentic-ide
+Allow: /patterns/guardrails-layer
+Allow: /patterns/supervisor-agent
+Allow: /patterns/semantic-router
+Allow: /patterns/verifier-agent
 
 # Static assets
 Allow: /images/
@@ -76,6 +102,16 @@ Sitemap: https://www.openagentschool.org/sitemap.xml
 User-agent: GPTBot
 Allow: /
 Allow: /concepts
+Allow: /patterns
+Allow: /concepts/program-setup-north-star
+Allow: /concepts/responsible-ai-governance
+Allow: /concepts/strategy-portfolio-management
+Allow: /concepts/organizational-enablement
+Allow: /concepts/data-knowledge-operations
+Allow: /concepts/experimentation-continuous-improvement
+Allow: /concepts/ecosystem-partnerships
+Allow: /concepts/architecture-platform-operations
+Allow: /concepts/agent-ops
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
@@ -96,12 +132,22 @@ Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
 Allow: /patterns/agentic-ide
 Allow: /patterns/guardrails-layer
+Allow: /patterns/supervisor-agent
+Allow: /patterns/semantic-router
+Allow: /patterns/verifier-agent
 Allow: /api-docs
 Crawl-delay: 2
 
 User-agent: ChatGPT-User
 Allow: /
 Allow: /concepts
+Allow: /patterns
+Allow: /concepts/program-setup-north-star
+Allow: /concepts/responsible-ai-governance
+Allow: /concepts/data-knowledge-operations
+Allow: /concepts/experimentation-continuous-improvement
+Allow: /concepts/ecosystem-partnerships
+Allow: /concepts/architecture-platform-operations
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
@@ -127,6 +173,7 @@ Allow: /api-docs
 User-agent: CCBot
 Allow: /
 Allow: /concepts
+Allow: /patterns
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
@@ -147,6 +194,13 @@ Crawl-delay: 2
 User-agent: anthropic-ai
 Allow: /
 Allow: /concepts
+Allow: /patterns
+Allow: /concepts/program-setup-north-star
+Allow: /concepts/responsible-ai-governance
+Allow: /concepts/data-knowledge-operations
+Allow: /concepts/experimentation-continuous-improvement
+Allow: /concepts/ecosystem-partnerships
+Allow: /concepts/architecture-platform-operations
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
@@ -173,6 +227,13 @@ Crawl-delay: 2
 User-agent: Claude-Web
 Allow: /
 Allow: /concepts
+Allow: /patterns
+Allow: /concepts/program-setup-north-star
+Allow: /concepts/responsible-ai-governance
+Allow: /concepts/data-knowledge-operations
+Allow: /concepts/experimentation-continuous-improvement
+Allow: /concepts/ecosystem-partnerships
+Allow: /concepts/architecture-platform-operations
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
@@ -195,23 +256,42 @@ Allow: /patterns/agentic-ide
 Allow: /patterns/guardrails-layer
 Allow: /api-docs
 
+User-agent: ClaudeBot
+Allow: /
+Allow: /concepts
+Allow: /patterns
+Crawl-delay: 2
+
 # Additional AI crawlers
 User-agent: cohere-ai
 Allow: /
 Allow: /concepts
+Allow: /patterns
 Crawl-delay: 2
 
 User-agent: Google-Extended
 Allow: /
 Allow: /concepts
+Allow: /patterns
 Allow: /api-docs
 Crawl-delay: 1
 
 User-agent: PerplexityBot
 Allow: /
 Allow: /concepts
+Allow: /patterns
 Allow: /api-docs
 Crawl-delay: 2
+
+User-agent: PPLBot
+Allow: /
+Allow: /concepts
+Allow: /patterns
+
+User-agent: GoogleOther
+Allow: /
+Allow: /concepts
+Allow: /patterns
 
 # Search engines
 User-agent: Googlebot
@@ -231,6 +311,10 @@ Allow: /
 Crawl-delay: 1
 
 User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
 Allow: /
 Crawl-delay: 1
 
@@ -265,30 +349,3 @@ Disallow: /
 
 User-agent: PetalBot
 Disallow: /
-User-agent: GoogleOther
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: PPLBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-# Search engine specific optimizations
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Slurp
-Allow: /
-Crawl-delay: 1
