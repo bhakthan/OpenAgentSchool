@@ -68,7 +68,11 @@ export interface PatternData {
   businessUseCase?: {
     industry: string;
     description: string;
-    visualization: React.ComponentType;
+    visualization?: React.ComponentType | {
+      type: string;
+      layout?: string;
+      steps?: string[];
+    };
     enlightenMePrompt: string;
   }
   completeCode?: string;

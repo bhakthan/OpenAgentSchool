@@ -934,8 +934,17 @@ if __name__ == "__main__":
   },
 
   velocityProfile: {
-    timeToFirstToken: 'Low - unified catalog means no per-call discovery',
-    totalDuration: 'Medium - adds routing layer but enables parallelism',
-    cost: 'Variable - depends on number of servers and tools used'
+    impact: 'high',
+    timeToImplement: '1-2 weeks',
+    complexityReduction: 'High - unified tool discovery eliminates per-server integration code',
+    reusabilityScore: 9,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Schema Federation - Automatic tool schema merging across servers',
+      'Dynamic Discovery - Runtime tool detection without hardcoding',
+      'Parallel Routing - Concurrent execution across multiple MCP servers',
+      'Result Aggregation - Unified response handling from heterogeneous sources',
+      'Fallback Chains - Automatic failover between redundant servers'
+    ]
   }
 };

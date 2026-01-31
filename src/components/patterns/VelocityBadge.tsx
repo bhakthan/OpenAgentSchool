@@ -42,7 +42,9 @@ export const VelocityBadge: React.FC<VelocityBadgeProps> = ({
     }
   };
 
-  const { icon, label, bgClass, textClass, tooltip } = config[impact];
+  // Guard against undefined or invalid impact values
+  const validImpact = impact && config[impact] ? impact : 'medium';
+  const { icon, label, bgClass, textClass, tooltip } = config[validImpact];
 
   return (
     <div

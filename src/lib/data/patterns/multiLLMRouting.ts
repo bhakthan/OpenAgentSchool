@@ -1077,8 +1077,17 @@ if __name__ == "__main__":
   },
 
   velocityProfile: {
-    timeToFirstToken: 'Variable - depends on routed model',
-    totalDuration: 'Optimized - simple queries 10x faster via cheap models',
-    cost: 'Low - significant savings by matching model to task complexity'
+    impact: 'high',
+    timeToImplement: '3-5 days',
+    complexityReduction: 'High - eliminates manual model selection, optimizes cost automatically',
+    reusabilityScore: 10,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Cost Optimization - Automatic routing to cheapest adequate model',
+      'Quality Optimization - Escalation to frontier models for complex tasks',
+      'Latency Optimization - Fast model selection for time-sensitive queries',
+      'Fallback Resilience - Automatic failover when primary model unavailable',
+      'Budget Enforcement - Hard limits on per-request and daily spend'
+    ]
   }
 };

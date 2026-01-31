@@ -927,5 +927,20 @@ if __name__ == "__main__":
     result = agent.execute("Create a React Button component with TypeScript")
     print(f"Active Skills: {result['active_skills']}")
     print(f"Valid: {result['validation'].valid}")
-    print(f"Response:\\n{result['content']}")`
+    print(f"Response:\\n{result['content']}")`,
+
+  velocityProfile: {
+    impact: 'high',
+    timeToImplement: '1-2 weeks',
+    complexityReduction: 'High - declarative skills replace hardcoded prompts and tool configs',
+    reusabilityScore: 10,
+    learningCurve: 'gentle',
+    velocityPractices: [
+      'Dynamic Capability Loading - Skills discovered at runtime without code changes',
+      'Declarative Configuration - Markdown-based skill definitions accessible to non-developers',
+      'Context-Aware Activation - Automatic skill selection based on task analysis',
+      'Constraint Enforcement - Built-in validation against skill-defined rules',
+      'Composable Skills - Mix and match skills for complex multi-domain tasks'
+    ]
+  }
 };

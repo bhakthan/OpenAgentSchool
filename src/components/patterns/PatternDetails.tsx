@@ -163,7 +163,7 @@ interface EvaluationScenarioVisualProps {
 }
 
 const EvaluationScenarioVisual: React.FC<EvaluationScenarioVisualProps> = ({ pattern, evaluationProfile }) => {
-  const Visualization = pattern.businessUseCase?.visualization as React.ComponentType<any> | undefined;
+  const visualization = pattern.businessUseCase?.visualization;
   const scenarioDescription = pattern.businessUseCase?.description ?? evaluationProfile.scenarioFocus;
   const businessLabel = pattern.businessUseCase?.industry ?? 'Business Scenario';
   const topCriticalMetrics = evaluationProfile.criticalMetrics.slice(0, 3);
@@ -171,7 +171,7 @@ const EvaluationScenarioVisual: React.FC<EvaluationScenarioVisualProps> = ({ pat
   const dataNeedsHighlights = evaluationProfile.dataNeeds?.slice(0, 2) ?? [];
 
   const renderVisualization = () => {
-    if (!Visualization) {
+    if (!visualization) {
       return (
         <div className="flex h-48 items-center justify-center rounded-lg bg-muted/60">
           <PatternDemoSVG patternData={pattern} className="w-full max-w-full" />
@@ -179,30 +179,59 @@ const EvaluationScenarioVisual: React.FC<EvaluationScenarioVisualProps> = ({ pat
       );
     }
 
-    const baseProps: Record<string, unknown> = {
-      title: `${pattern.name} — Evaluation Flow`,
-      description: scenarioDescription,
-    };
+    // Check if visualization is a React component (function) or a descriptor object
+    if (typeof visualization === 'function') {
+      const Visualization = visualization as React.ComponentType<any>;
+      const baseProps: Record<string, unknown> = {
+        title: `${pattern.name} — Evaluation Flow`,
+        description: scenarioDescription,
+      };
 
-    if ((Visualization as any)?.name === 'AlgorithmVisualizer') {
-      const { steps } = getAlgorithmVisualization(pattern.id, pattern.id);
-      baseProps.steps = steps;
-    }
+      if ((Visualization as any)?.name === 'AlgorithmVisualizer') {
+        const { steps } = getAlgorithmVisualization(pattern.id, pattern.id);
+        baseProps.steps = steps;
+      }
 
-    try {
+      try {
+        return (
+          <div className="overflow-hidden rounded-lg bg-muted/40 ring-1 ring-inset ring-border/40">
+            {React.createElement(Visualization, baseProps)}
+          </div>
+        );
+      } catch (error) {
+        console.error('Failed to render business visualization for evaluation tab', error);
+        return (
+          <div className="flex h-48 items-center justify-center rounded-lg bg-muted/60">
+            <PatternDemoSVG patternData={pattern} className="w-full max-w-full" />
+          </div>
+        );
+      }
+    } else if (typeof visualization === 'object' && visualization.steps) {
+      // Handle descriptor object with steps
+      const visObj = visualization as { steps: string[] };
       return (
-        <div className="overflow-hidden rounded-lg bg-muted/40 ring-1 ring-inset ring-border/40">
-          {React.createElement(Visualization, baseProps)}
+        <div className="overflow-hidden rounded-lg bg-muted/40 ring-1 ring-inset ring-border/40 p-4">
+          <div className="flex flex-wrap gap-2">
+            {visObj.steps.map((step: string, idx: number) => (
+              <div key={idx} className="flex items-center gap-2">
+                <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+                  {idx + 1}. {step}
+                </span>
+                {idx < visObj.steps.length - 1 && (
+                  <span className="text-muted-foreground">→</span>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       );
-    } catch (error) {
-      console.error('Failed to render business visualization for evaluation tab', error);
-      return (
-        <div className="flex h-48 items-center justify-center rounded-lg bg-muted/60">
-          <PatternDemoSVG patternData={pattern} className="w-full max-w-full" />
-        </div>
-      );
     }
+
+    return (
+      <div className="flex h-48 items-center justify-center rounded-lg bg-muted/60">
+        <PatternDemoSVG patternData={pattern} className="w-full max-w-full" />
+      </div>
+    );
   };
 
   return (
@@ -645,17 +674,43 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                   </div>
                   {pattern.businessUseCase.visualization ? (() => {
                     const Vis = pattern.businessUseCase!.visualization as any;
-                    const baseProps: any = {
-                      title: `${pattern.name} — Business Flow`,
-                      description: pattern.businessUseCase!.description,
-                    };
-                    if (Vis?.name === 'AlgorithmVisualizer') {
-                      const { steps } = getAlgorithmVisualization(pattern.id, pattern.id);
-                      baseProps.steps = steps;
+                    // Check if visualization is a React component (function) or a descriptor object
+                    if (typeof Vis === 'function') {
+                      const baseProps: any = {
+                        title: `${pattern.name} — Business Flow`,
+                        description: pattern.businessUseCase!.description,
+                      };
+                      if (Vis?.name === 'AlgorithmVisualizer') {
+                        const { steps } = getAlgorithmVisualization(pattern.id, pattern.id);
+                        baseProps.steps = steps;
+                      }
+                      return (
+                        <div className="rounded-lg border border-border/60 bg-muted/30 p-4">
+                          {React.createElement(Vis, baseProps)}
+                        </div>
+                      );
+                    } else if (typeof Vis === 'object' && Vis.steps) {
+                      // Handle descriptor object with steps
+                      return (
+                        <div className="rounded-lg border border-border/60 bg-muted/30 p-4">
+                          <div className="flex flex-wrap gap-2">
+                            {Vis.steps.map((step: string, idx: number) => (
+                              <div key={idx} className="flex items-center gap-2">
+                                <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+                                  {idx + 1}. {step}
+                                </span>
+                                {idx < Vis.steps.length - 1 && (
+                                  <span className="text-muted-foreground">→</span>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
                     }
                     return (
-                      <div className="rounded-lg border border-border/60 bg-muted/30 p-4">
-                        {React.createElement(Vis, baseProps)}
+                      <div className="rounded-lg border border-dashed border-border/60 bg-muted/20 p-4 text-sm text-muted-foreground">
+                        Business visualization coming soon.
                       </div>
                     );
                   })() : (

@@ -1146,8 +1146,17 @@ if __name__ == "__main__":
   },
 
   velocityProfile: {
-    timeToFirstToken: 'Low - context collection is cached',
-    totalDuration: 'Medium to High - depends on task complexity and iterations',
-    cost: 'Medium - multiple LLM calls for tool use loops'
+    impact: 'high',
+    timeToImplement: '2-4 weeks',
+    complexityReduction: 'High - eliminates manual file management, reduces 500+ LOC scaffolding to config',
+    reusabilityScore: 9,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'File Ops - Native file system integration eliminates manual file I/O',
+      'Terminal Execution - Direct command execution without context switching',
+      'Multi-file Editing - Coordinated changes across entire codebase',
+      'Context Caching - Workspace indexing enables instant context retrieval',
+      'Tool Composition - Combines search, edit, and validation in single workflow'
+    ]
   }
 };

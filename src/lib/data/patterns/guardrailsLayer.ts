@@ -1190,8 +1190,17 @@ if __name__ == "__main__":
   },
 
   velocityProfile: {
-    timeToFirstToken: 'Low overhead - fast pattern matching for most checks',
-    totalDuration: 'Medium - LLM-based injection detection adds ~200ms',
-    cost: 'Low - moderation API is cheap, classification uses fast models'
+    impact: 'high',
+    timeToImplement: '1-2 weeks',
+    complexityReduction: 'High - centralizes safety logic, eliminates scattered validation code',
+    reusabilityScore: 10,
+    learningCurve: 'moderate',
+    velocityPractices: [
+      'Input Validation - Centralized prompt injection detection',
+      'Output Filtering - Consistent content safety across all responses',
+      'PII Detection - Automated sensitive data identification and redaction',
+      'Policy Enforcement - Declarative rules replace imperative checks',
+      'Audit Logging - Automatic compliance trail for all safety decisions'
+    ]
   }
 };
