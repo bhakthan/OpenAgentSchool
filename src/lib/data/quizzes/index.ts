@@ -46,6 +46,8 @@ import { llmFundamentalsQuiz } from './llm-fundamentals';
 import { gettingStartedAgentsQuiz } from './getting-started-agents';
 import { ragFundamentalsQuiz } from './rag-fundamentals';
 import { agentOrchestrationQuiz } from './agent-orchestration';
+// Enterprise Playbook Concepts (2026)
+import { enterprisePlaybookConceptsQuestions, enterprisePlaybookConceptsTimeEstimate } from './enterprise-playbook-concepts';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -97,7 +99,9 @@ const allQuestions = [
   ...agentTestingBenchmarksQuestions,
   ...promptInjectionDefenseQuestions,
   ...humanInTheLoopPatternsQuestions,
-  ...agentCostOptimizationQuestions
+  ...agentCostOptimizationQuestions,
+  // Enterprise Playbook Concepts (2026)
+  ...enterprisePlaybookConceptsQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -1245,6 +1249,73 @@ export const quizCategories: QuizCategory[] = [
         description: 'Understanding and mitigating fine-tuning risks',
         prerequisites: ['evaluation'],
         questions: getQuestionsBySubCategory(allQuestions, 'risks')
+      }
+    ]
+  },
+  // Enterprise Playbook Concepts (2026)
+  {
+    id: 'enterprise-playbook-concepts',
+    name: 'Enterprise Playbook Concepts',
+    description: 'Deep-dive quizzes for the 8 pillars of enterprise AI agent adoption: program governance, portfolio strategy, architecture, and organizational change',
+    icon: 'Building2',
+    estimatedTime: enterprisePlaybookConceptsTimeEstimate * enterprisePlaybookConceptsQuestions.length,
+    totalQuestions: enterprisePlaybookConceptsQuestions.length,
+    subCategories: [
+      {
+        id: 'program-setup-north-star',
+        name: 'Program Setup & North Star',
+        description: 'Mission, metrics, and maturity ladder for AI programs',
+        prerequisites: [],
+        questions: getQuestionsBySubCategory(allQuestions, 'north-star-alignment')
+      },
+      {
+        id: 'responsible-ai-governance',
+        name: 'Responsible AI Governance',
+        description: 'Tiered review, policy-as-code, and continuous oversight',
+        prerequisites: ['program-setup-north-star'],
+        questions: getQuestionsBySubCategory(allQuestions, 'tiered-governance')
+      },
+      {
+        id: 'strategy-portfolio-management',
+        name: 'Strategy & Portfolio Management',
+        description: 'Evidence-based allocation, discovery bets, and project hygiene',
+        prerequisites: ['program-setup-north-star'],
+        questions: getQuestionsBySubCategory(allQuestions, 'evidence-based-allocation')
+      },
+      {
+        id: 'data-knowledge-operations',
+        name: 'Data & Knowledge Operations',
+        description: 'Knowledge freshness, versioning, and quality pipelines',
+        prerequisites: ['responsible-ai-governance'],
+        questions: getQuestionsBySubCategory(allQuestions, 'knowledge-versioning')
+      },
+      {
+        id: 'architecture-platform-operations',
+        name: 'Architecture & Platform Operations',
+        description: 'Self-service platforms, golden paths, and service tiering',
+        prerequisites: ['data-knowledge-operations'],
+        questions: getQuestionsBySubCategory(allQuestions, 'platform-operating-model')
+      },
+      {
+        id: 'experimentation-continuous-improvement',
+        name: 'Experimentation & Continuous Improvement',
+        description: 'Experiment-to-production pipeline and living evaluations',
+        prerequisites: ['architecture-platform-operations'],
+        questions: getQuestionsBySubCategory(allQuestions, 'experiment-to-production')
+      },
+      {
+        id: 'ecosystem-partnerships',
+        name: 'Ecosystem & Partnerships',
+        description: 'Vendor strategy, abstraction layers, and partner integration',
+        prerequisites: ['architecture-platform-operations'],
+        questions: getQuestionsBySubCategory(allQuestions, 'vendor-strategy')
+      },
+      {
+        id: 'organizational-enablement',
+        name: 'Organizational Enablement',
+        description: 'Applied learning, CoE models, and capability building',
+        prerequisites: ['program-setup-north-star'],
+        questions: getQuestionsBySubCategory(allQuestions, 'applied-learning')
       }
     ]
   }

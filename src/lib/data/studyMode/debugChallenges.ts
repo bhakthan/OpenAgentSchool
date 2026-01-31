@@ -5333,6 +5333,980 @@ print(f"Classical: {classical_acc:.3f}, Quantum: {quantum_acc:.3f}")`,
 ];
 
 
+// ============================================================================
+// Enterprise Playbook Debug Challenges (2026)
+// ============================================================================
+
+// Program Setup & North Star Debug Challenges
+export const programSetupNorthStarDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'program-setup-debug-1',
+    type: 'debug',
+    conceptId: 'program-setup-north-star',
+    title: 'Misaligned North Star Metrics',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'program-misaligned-metrics',
+      title: 'North Star Metrics Driving Wrong Behavior',
+      description: 'Teams gaming vanity metrics while ignoring real business outcomes. Agent adoption numbers look great but customer satisfaction is declining.',
+      problemDescription: 'The AI program tracks "agent interactions" as its north star metric. Teams optimize for volume, deploying agents that route simple queries back to humans faster than actually resolving them.',
+      brokenCode: `class ProgramMetrics:
+    def __init__(self):
+        self.north_star = "agent_interactions"
+        
+    def calculate_success(self, team_data):
+        # BUG: Measuring activity, not outcomes
+        return {
+            "score": team_data["total_interactions"],
+            "rank": team_data["total_interactions"] / team_data["headcount"]
+        }
+        
+    def allocate_budget(self, teams):
+        # More interactions = more budget
+        sorted_teams = sorted(teams, key=lambda t: t["interactions"], reverse=True)
+        return {t["name"]: 1000000 / (i + 1) for i, t in enumerate(sorted_teams)}
+
+# Result: Teams deploy agents that just log "hello" interactions
+# Customer resolution rate dropped 23%
+# But "agent_interactions" up 340%!`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'Analytics', message: 'Agent interactions up 340% YoY', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'Support', message: 'Customer satisfaction down 23%', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Finance', message: 'Cost per resolution increased 67%', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Executive', message: 'Why are our AI investments not paying off?', type: 'error' }
+      ],
+      expectedBehavior: 'North star should measure task completion, deflection rate with satisfaction, or business outcomes like cost-per-resolution.',
+      commonIssues: [
+        { issue: 'Vanity metrics', symptoms: ['High activity, low outcomes'], diagnosis: 'Measuring effort not value', fix: 'Use outcome-based metrics (resolution rate, deflection with CSAT)' },
+        { issue: 'Gaming incentives', symptoms: ['Artificial volume inflation'], diagnosis: 'Budget tied to volume', fix: 'Tie rewards to value delivery and quality' },
+        { issue: 'Missing guardrails', symptoms: ['Customer experience degradation'], diagnosis: 'No quality gate', fix: 'Add CSAT and quality thresholds before counting success' }
+      ],
+      hints: ['What does "success" really mean for customers?', 'Are teams incentivized to game metrics?', 'Consider leading vs lagging indicators'],
+      solution: 'Redesign north star as "task resolution rate with CSAT >= 4.0". Add quality gate: only count interactions where the customer issue was resolved AND satisfaction threshold met. Budget allocation formula: value_delivered / cost, not raw volume.',
+      explanation: 'Effective north star metrics balance leading indicators (activity) with lagging outcomes (business value) and include quality gates to prevent gaming.'
+    },
+    expectedInsights: ['North star metrics must tie to business outcomes', 'Incentive structures drive behavior', 'Quality gates prevent metric gaming'],
+    hints: ['Focus on outcomes, not activities', 'Include quality thresholds', 'Align incentives with value'],
+    explanation: 'Teaches proper metric design to prevent gaming and ensure AI programs deliver real business value.',
+    relatedConcepts: ['strategy-portfolio-management', 'observability-evalops', 'organizational-enablement'],
+    timeEstimate: 14,
+    successCriteria: ['Identifies vanity metric trap', 'Proposes outcome-based alternative', 'Adds quality gates']
+  },
+  {
+    id: 'program-setup-debug-2',
+    type: 'debug',
+    conceptId: 'program-setup-north-star',
+    title: 'Maturity Ladder Stagnation',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'program-maturity-stagnation',
+      title: 'Teams Stuck at Pilot Stage Forever',
+      description: 'Multiple teams have been in "pilot" status for 18+ months. No clear path to production. Budget reviews keep extending pilot funding.',
+      problemDescription: 'Exit criteria for each maturity rung are vaguely defined as "executive approval". No quantitative thresholds. Teams polish demos instead of building production systems.',
+      brokenCode: `MATURITY_LADDER = {
+    "pilot": {
+        "exit_criteria": "Executive sign-off",
+        "duration": "3-6 months"
+    },
+    "scale": {
+        "exit_criteria": "Positive feedback from stakeholders",
+        "duration": "6-12 months"
+    },
+    "optimize": {
+        "exit_criteria": "Continuous improvement",
+        "duration": "Ongoing"
+    }
+}
+
+def check_promotion_eligibility(team):
+    # BUG: No measurable criteria!
+    if team["executive_sponsor"].approved:
+        return True
+    return False
+    
+# 14 teams stuck in "pilot" for 18 months
+# 3 executives asked to "give them more time"
+# Zero production deployments`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'PMO', message: '14 pilots active, avg age 18 months', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Executive', message: 'Team X has a great demo, lets extend pilot Q2', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'Finance', message: 'Pilot budget consuming 80% of AI spend', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Ops', message: 'Zero agents in production tier', type: 'error' }
+      ],
+      expectedBehavior: 'Maturity ladder should have quantitative exit criteria: accuracy thresholds, production traffic %, runbook completion, SLA commitments.',
+      commonIssues: [
+        { issue: 'Subjective criteria', symptoms: ['Eternal pilots'], diagnosis: 'Exit criteria are vague', fix: 'Define quantitative thresholds for each gate' },
+        { issue: 'Sponsor bias', symptoms: ['Pet projects protected'], diagnosis: 'Human approval only', fix: 'Automated scorecard gates + human review' },
+        { issue: 'No sunset clause', symptoms: ['Zombie initiatives'], diagnosis: 'No kill criteria', fix: 'Add max duration with forced graduation or termination' }
+      ],
+      hints: ['What makes a pilot "production ready"?', 'How do you prevent eternal pilots?', 'Who benefits from vague criteria?'],
+      solution: 'Quantitative exit criteria: Pilot→Scale requires: accuracy ≥ 85%, 100+ production queries handled, runbook documented, on-call rotation defined. Add sunset: pilot max 6 months, then graduate or terminate. Automated scorecard tracks progress weekly.',
+      explanation: 'Evidence-based maturity gates prevent perpetual pilots and force programs toward production value delivery.'
+    },
+    expectedInsights: ['Maturity gates need quantitative criteria', 'Sunset clauses prevent zombie initiatives', 'Automated tracking reduces bias'],
+    hints: ['Define measurable thresholds', 'Add time limits', 'Automate progress tracking'],
+    explanation: 'Teaches rigorous maturity ladder design to accelerate time-to-production.',
+    relatedConcepts: ['experimentation-continuous-improvement', 'responsible-ai-governance', 'strategy-portfolio-management'],
+    timeEstimate: 16,
+    successCriteria: ['Identifies vague exit criteria problem', 'Proposes quantitative thresholds', 'Adds sunset clause']
+  }
+];
+
+// Responsible AI Governance Debug Challenges
+export const responsibleAIGovernanceDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'responsible-gov-debug-1',
+    type: 'debug',
+    conceptId: 'responsible-ai-governance',
+    title: 'Shadow AI Bypassing Governance',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'responsible-shadow-ai',
+      title: 'Teams Deploying Agents Outside Review Process',
+      description: 'Security discovered 23 agents in production that never went through risk review. Teams claim the review process is too slow.',
+      problemDescription: 'Risk review queue averages 4-week turnaround. Teams with urgent needs bypass governance, deploying directly to cloud accounts. No technical controls enforce review completion.',
+      brokenCode: `class RiskReviewProcess:
+    def __init__(self):
+        self.queue = []
+        self.reviewers = 2  # Only 2 reviewers for 50+ teams!
+        self.avg_review_time = "4 weeks"
+        
+    def submit_for_review(self, agent):
+        self.queue.append(agent)
+        return f"Ticket created. Estimated review: {self.avg_review_time}"
+        
+    def can_deploy(self, agent):
+        # BUG: No technical enforcement!
+        # Teams just... don't call this
+        return agent.review_status == "approved"
+
+class DeploymentPipeline:
+    def deploy(self, agent):
+        # Oops, no governance check here
+        # "We'll add it later"
+        return self.push_to_production(agent)
+
+# Result: 23 shadow deployments discovered by security audit
+# 3 had prompt injection vulnerabilities
+# 1 was leaking PII to logs`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'Security', message: 'Discovered 23 unreviewed agents in prod', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'TeamLead', message: 'Review takes 4 weeks, we had a deadline', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Compliance', message: '3 agents have security vulnerabilities', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'CISO', message: 'How did this bypass our controls?', type: 'error' }
+      ],
+      expectedBehavior: 'Technical controls should block deployment until governance approval. Fast-track for low-risk agents. Tiered review based on risk level.',
+      commonIssues: [
+        { issue: 'No enforcement', symptoms: ['Shadow deployments'], diagnosis: 'Review is advisory only', fix: 'Block deployment pipeline without approval token' },
+        { issue: 'One-size-fits-all', symptoms: ['Long queues for simple agents'], diagnosis: 'All agents same process', fix: 'Tiered review: auto-approve low-risk, expedite medium, full review high-risk' },
+        { issue: 'Understaffed', symptoms: ['4-week backlog'], diagnosis: '2 reviewers for 50 teams', fix: 'Train more reviewers or federate to domain experts' }
+      ],
+      hints: ['Is governance enforced or advisory?', 'Should all agents need the same review?', 'Why do teams bypass the process?'],
+      solution: 'Technical enforcement: deployment pipeline requires governance_approval_token. Tiered review: risk assessment questionnaire auto-classifies (low/medium/high). Low-risk: auto-approve with guardrails. Medium: 48-hour expedited review. High: full committee review. Train domain experts as delegated reviewers.',
+      explanation: 'Effective governance balances speed with risk through tiered processes and technical enforcement.'
+    },
+    expectedInsights: ['Governance must be enforced technically', 'Tiered review scales with risk', 'Slow processes drive shadow IT'],
+    hints: ['Enforce at deployment pipeline', 'Tier by risk level', 'Remove friction for low-risk'],
+    explanation: 'Teaches governance design that enables velocity while maintaining oversight.',
+    relatedConcepts: ['security-data-boundaries', 'architecture-platform-operations', 'agent-ops'],
+    timeEstimate: 15,
+    successCriteria: ['Identifies lack of enforcement', 'Proposes tiered review', 'Adds pipeline gates']
+  },
+  {
+    id: 'responsible-gov-debug-2',
+    type: 'debug',
+    conceptId: 'responsible-ai-governance',
+    title: 'Policy-as-Code Drift',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'responsible-policy-drift',
+      title: 'Documented Policies Dont Match Deployed Controls',
+      description: 'Audit found that 40% of documented AI policies have no corresponding technical implementation. Policy documents are aspirational, not enforced.',
+      problemDescription: 'Policies written in Word documents. Engineering implements what they understand from meetings. No validation that code matches policy. Drift discovered during compliance audit.',
+      brokenCode: `# Policy Document (Word):
+# "All agents must log user interactions with PII redaction"
+# "Agents cannot access customer financial data without approval"
+# "Response latency must not exceed 2 seconds"
+
+class AgentRuntime:
+    def __init__(self):
+        # Policy says log with PII redaction...
+        self.logging = True  # But no redaction implemented!
+        
+    def handle_request(self, user_input):
+        # Policy says require approval for financial data...
+        data = self.fetch_all_data(user_input)  # Fetches everything!
+        
+        # Policy says 2s latency limit...
+        response = self.llm.generate(data)  # No timeout set
+        
+        # Log everything (including PII)
+        logger.info(f"User: {user_input}, Response: {response}")
+        return response
+
+# Audit findings:
+# - PII logged in 100% of interactions (policy: 0%)
+# - Financial data accessed without approval check
+# - P95 latency: 4.2s (policy: 2s max)`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'Auditor', message: '40% of policies have no implementation', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Legal', message: 'We published these policies to regulators', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Engineering', message: 'We didnt know that was required', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'CISO', message: 'This is a material compliance gap', type: 'error' }
+      ],
+      expectedBehavior: 'Policies should be expressed as code, validated in CI/CD, with drift detection between documentation and implementation.',
+      commonIssues: [
+        { issue: 'Policy/code separation', symptoms: ['Drift between docs and reality'], diagnosis: 'Policies in Word, code elsewhere', fix: 'Policy-as-code with automated validation' },
+        { issue: 'No validation', symptoms: ['Silent violations'], diagnosis: 'No tests for policy compliance', fix: 'Policy compliance test suite in CI' },
+        { issue: 'Assumed implementation', symptoms: ['Requirements lost in translation'], diagnosis: 'Verbal handoff', fix: 'Policies generate enforcement code' }
+      ],
+      hints: ['Where do policies live vs where is code?', 'How do you know code matches policy?', 'What if policies generated code?'],
+      solution: 'Policy-as-code: express policies in structured format (OPA/Rego). Generate enforcement code from policy definitions. CI validation: test that runtime matches policy spec. Drift detection: continuous audit of deployed behavior vs policy assertions. Dashboard shows policy coverage percentage.',
+      explanation: 'Policy-as-code eliminates drift by making policies executable and continuously validatable.'
+    },
+    expectedInsights: ['Policies must be machine-readable', 'Enforcement code can be generated from policy', 'Continuous validation prevents drift'],
+    hints: ['Use structured policy format', 'Generate code from policy', 'Validate in CI/CD'],
+    explanation: 'Teaches policy-as-code practices to ensure governance intentions match implementation reality.',
+    relatedConcepts: ['agent-ops', 'security-data-boundaries', 'observability-evalops'],
+    timeEstimate: 18,
+    successCriteria: ['Identifies policy/code separation', 'Proposes policy-as-code', 'Adds continuous validation']
+  }
+];
+
+// Strategy & Portfolio Management Debug Challenges
+export const strategyPortfolioManagementDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'strategy-portfolio-debug-1',
+    type: 'debug',
+    conceptId: 'strategy-portfolio-management',
+    title: 'HiPPO-Driven Portfolio Allocation',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'strategy-hippo-allocation',
+      title: 'Highest Paid Persons Opinion Overrides Data',
+      description: 'Portfolio decisions made based on executive preference rather than evidence. High-visibility pet projects consume resources while high-value opportunities starve.',
+      problemDescription: 'VP demands 60% of AI budget for chatbot project (their idea). Data shows internal automation has 4x ROI potential. No one challenges the allocation.',
+      brokenCode: `class PortfolioReview:
+    def __init__(self):
+        self.projects = []
+        self.budget = 5000000
+        
+    def allocate_budget(self):
+        allocations = {}
+        
+        for project in self.projects:
+            # BUG: Allocation by seniority, not value
+            if project.sponsor.title == "VP":
+                allocations[project] = self.budget * 0.6
+            elif project.sponsor.title == "Director":
+                allocations[project] = self.budget * 0.25
+            else:
+                allocations[project] = self.budget * 0.15
+                
+        return allocations
+        
+    def present_options(self, executive):
+        # BUG: Only show what they want to see
+        return [p for p in self.projects if p.sponsor == executive]
+
+# Evidence ignored:
+# - Chatbot ROI projection: 1.2x (optimistic)
+# - Internal automation ROI: 4.8x (conservative)
+# - Chatbot got 60% of budget anyway`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'DataScience', message: 'Internal automation shows 4.8x ROI', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'VP', message: 'Chatbot is strategic, it gets 60%', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Finance', message: 'Chatbot ROI projection is 1.2x', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'PMO', message: 'Allocating per VP direction', type: 'error' }
+      ],
+      expectedBehavior: 'Portfolio allocation should use evidence-based scoring with transparent criteria. Executive input informs strategy but doesnt override data.',
+      commonIssues: [
+        { issue: 'HiPPO bias', symptoms: ['Pet projects over-funded'], diagnosis: 'Seniority trumps evidence', fix: 'Scorecard-based allocation with transparent criteria' },
+        { issue: 'No challenge culture', symptoms: ['Bad decisions unchallenged'], diagnosis: 'Fear of speaking up', fix: 'Anonymous scoring + pre-commitment to criteria' },
+        { issue: 'Hidden evidence', symptoms: ['Decision-makers uninformed'], diagnosis: 'Data not surfaced', fix: 'Mandatory evidence package for each project' }
+      ],
+      hints: ['Who decides and based on what?', 'Is evidence visible to decision-makers?', 'Can you challenge a VP?'],
+      solution: 'Evidence-based scorecard: projects scored on ROI, risk, strategic alignment, feasibility. Scores calculated before sponsor identity revealed. Executive input weights strategic alignment, but doesnt override quantitative scores. Publish all scorecards for transparency. Pre-commit to allocation formula.',
+      explanation: 'Removing bias from portfolio decisions requires structured evidence and pre-committed criteria.'
+    },
+    expectedInsights: ['Evidence should drive allocation', 'Pre-commit to criteria before seeing projects', 'Transparency enables accountability'],
+    hints: ['Use blind scoring', 'Pre-commit to formula', 'Make evidence visible'],
+    explanation: 'Teaches evidence-based portfolio management to optimize resource allocation.',
+    relatedConcepts: ['program-setup-north-star', 'organizational-enablement', 'experimentation-continuous-improvement'],
+    timeEstimate: 14,
+    successCriteria: ['Identifies HiPPO bias', 'Proposes evidence-based scoring', 'Adds transparency mechanism']
+  },
+  {
+    id: 'strategy-portfolio-debug-2',
+    type: 'debug',
+    conceptId: 'strategy-portfolio-management',
+    title: 'Zombie Projects Consuming Budget',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'strategy-zombie-projects',
+      title: 'Failed Projects That Wont Die',
+      description: 'Portfolio review shows 8 projects with no progress in 6+ months still receiving funding. Nobody wants to admit failure or reallocate resources.',
+      problemDescription: 'Sunk cost fallacy plus political protection. Projects cite "technical challenges" indefinitely. No formal kill criteria. Cancellation seen as career risk.',
+      brokenCode: `class PortfolioHealthCheck:
+    def __init__(self):
+        self.projects = []
+        
+    def assess_project(self, project):
+        # BUG: No objective kill criteria
+        reasons_to_continue = [
+            "Making progress on technical challenges",
+            "Strategic importance",
+            "Almost there, just need more time",
+            "Sunk cost would be wasted"
+        ]
+        return random.choice(reasons_to_continue)
+        
+    def quarterly_review(self):
+        for project in self.projects:
+            if project.months_without_milestone > 6:
+                # BUG: Extend instead of evaluate
+                project.budget_extension = True
+                project.new_deadline = project.deadline + months(3)
+                
+# Portfolio reality:
+# - 8 projects, 0 progress, 6+ months each
+# - Combined burn: $2.4M
+# - Zero projects killed in 2 years`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'PMO', message: '8 projects with no milestone in 6 months', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Sponsor', message: 'Were making progress on technical challenges', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'Finance', message: 'Weve invested $2.4M, cant stop now', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'HR', message: 'Cancellation would hurt team morale', type: 'info' }
+      ],
+      expectedBehavior: 'Clear kill criteria defined upfront. Automatic escalation when projects miss milestones. Celebrate learning from failed experiments.',
+      commonIssues: [
+        { issue: 'Sunk cost fallacy', symptoms: ['Past investment justifies future spend'], diagnosis: 'Emotional attachment to investment', fix: 'Evaluate only future value, ignore sunk costs' },
+        { issue: 'No kill criteria', symptoms: ['Projects never terminate'], diagnosis: 'No definition of failure', fix: 'Pre-define kill triggers at project start' },
+        { issue: 'Career risk', symptoms: ['Nobody admits failure'], diagnosis: 'Cancellation = career damage', fix: 'Celebrate pivot decisions, reward learning' }
+      ],
+      hints: ['Is past investment relevant to future decisions?', 'When should a project be killed?', 'Why dont people admit failure?'],
+      solution: 'Pre-defined kill criteria: miss 2 consecutive milestones = automatic review. Miss 3 = default termination unless explicit override with new evidence. Sunk cost blind: reviews only show future value, not past investment. Celebrate pivots: "smart kill" awards for teams that freed resources. Reallocated budget stays with team for new initiatives.',
+      explanation: 'Healthy portfolios require mechanisms to terminate failing projects and redirect resources.'
+    },
+    expectedInsights: ['Sunk costs are irrelevant to future decisions', 'Kill criteria must be pre-defined', 'Celebrating pivots enables learning culture'],
+    hints: ['Ignore past spend', 'Define kill triggers upfront', 'Reward smart kills'],
+    explanation: 'Teaches portfolio hygiene through objective kill criteria and cultural change.',
+    relatedConcepts: ['program-setup-north-star', 'experimentation-continuous-improvement', 'organizational-enablement'],
+    timeEstimate: 16,
+    successCriteria: ['Identifies sunk cost fallacy', 'Proposes pre-defined kill criteria', 'Addresses cultural barriers']
+  }
+];
+
+// Data & Knowledge Operations Debug Challenges
+export const dataKnowledgeOperationsDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'data-knowledge-debug-1',
+    type: 'debug',
+    conceptId: 'data-knowledge-operations',
+    title: 'Knowledge Base Contamination',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'data-kb-contamination',
+      title: 'Outdated and Conflicting Information in RAG',
+      description: 'Customer-facing agent gives contradictory answers. Investigation reveals knowledge base contains 3 versions of the same policy from different years.',
+      problemDescription: 'No document versioning or deduplication. Multiple teams upload to shared knowledge base. No ownership or freshness metadata. Agent retrieves whatever embeds closest.',
+      brokenCode: `class KnowledgeBaseIngestion:
+    def __init__(self):
+        self.documents = []
+        
+    def ingest(self, document):
+        # BUG: No versioning or deduplication!
+        # Just append everything
+        embedding = self.embed(document.content)
+        self.documents.append({
+            "content": document.content,
+            "embedding": embedding
+            # Missing: version, owner, date, source
+        })
+        
+    def search(self, query):
+        query_embedding = self.embed(query)
+        # Returns closest match regardless of freshness
+        results = sorted(self.documents, 
+                        key=lambda d: cosine_sim(query_embedding, d["embedding"]),
+                        reverse=True)
+        return results[:3]
+
+# Knowledge base reality:
+# - Return policy v2021 (outdated)
+# - Return policy v2022 (outdated)
+# - Return policy v2024 (current)
+# Agent sometimes cites 2021 policy to customers!`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'Customer', message: 'Agent said I have 30 days to return, website says 14', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Support', message: 'Agent pulled 2021 policy document', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Legal', message: 'Conflicting policy statements create liability', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'KBAdmin', message: 'We have 3 versions of this policy in the KB', type: 'warning' }
+      ],
+      expectedBehavior: 'Versioned documents with freshness decay. Deduplication on ingestion. Source authority hierarchy. Freshness-boosted retrieval.',
+      commonIssues: [
+        { issue: 'No versioning', symptoms: ['Multiple versions coexist'], diagnosis: 'Append-only ingestion', fix: 'Version tracking with supersedes relationships' },
+        { issue: 'No freshness', symptoms: ['Outdated content retrieved'], diagnosis: 'Pure embedding similarity', fix: 'Freshness decay factor in retrieval scoring' },
+        { issue: 'No ownership', symptoms: ['Unknown content authority'], diagnosis: 'Anonymous uploads', fix: 'Source authority hierarchy and ownership' }
+      ],
+      hints: ['How do you handle document updates?', 'Should old documents be retrievable?', 'Who owns the truth?'],
+      solution: 'Versioned ingestion: new documents reference what they supersede. Old versions archived, not retrieved by default. Freshness decay: score = similarity * (1 - age_penalty). Source authority: official sources boost, informal sources discount. Deduplication: detect near-duplicates and keep most authoritative.',
+      explanation: 'Knowledge base health requires versioning, freshness, and authority to prevent contamination.'
+    },
+    expectedInsights: ['Versioning prevents conflicting content', 'Freshness should affect retrieval', 'Source authority matters'],
+    hints: ['Track supersedes relationships', 'Add age penalty', 'Define source hierarchy'],
+    explanation: 'Teaches knowledge base hygiene for reliable RAG systems.',
+    relatedConcepts: ['agentic-rag', 'observability-evalops', 'responsible-ai-governance'],
+    timeEstimate: 15,
+    successCriteria: ['Identifies version conflict', 'Proposes freshness decay', 'Adds source authority']
+  },
+  {
+    id: 'data-knowledge-debug-2',
+    type: 'debug',
+    conceptId: 'data-knowledge-operations',
+    title: 'Embedding Model Migration Disaster',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'data-embedding-migration',
+      title: 'New Embedding Model Broke Retrieval',
+      description: 'After upgrading embedding model, retrieval quality dropped 60%. Rollback is complex because old model deprecated.',
+      problemDescription: 'Embeddings not versioned with model. New model uses different vector space. Old and new embeddings mixed in same index. Query embeddings dont match document embeddings.',
+      brokenCode: `class EmbeddingService:
+    def __init__(self, model_name):
+        self.model = load_model(model_name)
+        
+    def embed(self, text):
+        return self.model.encode(text)
+
+class VectorStore:
+    def __init__(self):
+        self.index = {}  # No model version tracking!
+        
+    def add(self, doc_id, embedding):
+        self.index[doc_id] = embedding  # Which model?
+        
+    def search(self, query_embedding):
+        # BUG: Query from model v2, docs from model v1
+        # Cosine similarity between different spaces!
+        return self.find_similar(query_embedding)
+
+# Migration log:
+# Day 0: All docs embedded with text-embedding-ada-002
+# Day 1: Upgraded to text-embedding-3-large
+# Day 2: Retrieval quality dropped 60%
+# Day 3: Rollback blocked - ada-002 deprecated
+# Day 4: Mixed embeddings in index causing chaos`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'Ops', message: 'Upgraded embedding model to v3-large', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'QA', message: 'Retrieval accuracy dropped from 89% to 35%', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Ops', message: 'Cannot rollback - ada-002 deprecated', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Users', message: 'Agent giving completely wrong answers', type: 'error' }
+      ],
+      expectedBehavior: 'Embeddings tagged with model version. Blue-green deployment for embedding upgrades. Validation suite before cutover.',
+      commonIssues: [
+        { issue: 'Unversioned embeddings', symptoms: ['Mixed vector spaces'], diagnosis: 'No model version tracking', fix: 'Tag all embeddings with model version' },
+        { issue: 'Big bang migration', symptoms: ['Immediate quality drop'], diagnosis: 'No gradual cutover', fix: 'Blue-green with A/B testing' },
+        { issue: 'No validation', symptoms: ['Issues discovered in prod'], diagnosis: 'Missing pre-migration tests', fix: 'Golden set validation before cutover' }
+      ],
+      hints: ['Are embeddings compatible across models?', 'How do you safely migrate?', 'What should you validate first?'],
+      solution: 'Versioned embeddings: store (embedding, model_version, created_at). Migration: create parallel index with new model. A/B test: route 5% traffic to new index, compare quality. Validation: golden set of 500 queries must maintain 95%+ accuracy. Cutover only after validation passes. Keep old index for 30-day rollback window.',
+      explanation: 'Embedding model migrations require versioning, parallel deployment, and validation to prevent quality regression.'
+    },
+    expectedInsights: ['Embeddings must be versioned', 'Use blue-green for migrations', 'Validate before cutover'],
+    hints: ['Tag with model version', 'Deploy in parallel', 'Test on golden set'],
+    explanation: 'Teaches safe embedding model migration practices.',
+    relatedConcepts: ['architecture-platform-operations', 'observability-evalops', 'agent-ops'],
+    timeEstimate: 18,
+    successCriteria: ['Identifies version mismatch', 'Proposes parallel deployment', 'Adds validation gate']
+  }
+];
+
+// Architecture & Platform Operations Debug Challenges
+export const architecturePlatformOperationsDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'architecture-platform-debug-1',
+    type: 'debug',
+    conceptId: 'architecture-platform-operations',
+    title: 'Platform Team Bottleneck',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'architecture-platform-bottleneck',
+      title: 'Every Request Goes Through 3-Person Platform Team',
+      description: 'Platform team is drowning in requests. 40 teams waiting for platform support. Average ticket age: 3 weeks. Teams starting to build workarounds.',
+      problemDescription: 'Platform team designed as gatekeepers rather than enablers. No self-service. All requests require human intervention. Team of 3 cant scale to serve 40 product teams.',
+      brokenCode: `class PlatformTeam:
+    def __init__(self):
+        self.team_size = 3
+        self.requesting_teams = 40
+        self.ticket_queue = []
+        
+    def handle_request(self, request):
+        # BUG: Everything needs human intervention
+        self.ticket_queue.append(request)
+        engineer = self.assign_to_engineer()
+        
+        # Manual steps for everything
+        engineer.provision_resources()  # Could be automated
+        engineer.configure_permissions()  # Could be self-service
+        engineer.setup_monitoring()  # Could be templated
+        engineer.document_handoff()  # Could be generated
+        
+        return f"ETA: {len(self.ticket_queue) * 2} days"
+
+# Reality:
+# - 3 engineers, 40 teams, 200 pending requests
+# - Average wait time: 3 weeks
+# - Teams building shadow infrastructure
+# - Platform team burning out`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'ProductTeam', message: 'Been waiting 3 weeks for vector DB setup', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'PlatformEng', message: '200 tickets in queue, 3 of us', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Security', message: 'Found 5 unauthorized cloud accounts', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'CTO', message: 'Why is platform a bottleneck?', type: 'error' }
+      ],
+      expectedBehavior: 'Self-service golden paths for 80% of use cases. Platform team focuses on platform evolution, not ticket resolution.',
+      commonIssues: [
+        { issue: 'Gatekeeper model', symptoms: ['Everything needs platform team'], diagnosis: 'No self-service', fix: 'Self-service portal for common patterns' },
+        { issue: 'Manual processes', symptoms: ['Slow turnaround'], diagnosis: 'No automation', fix: 'Automated provisioning and configuration' },
+        { issue: 'Undifferentiated work', symptoms: ['Experts doing repetitive tasks'], diagnosis: 'No tiering', fix: 'Tier requests: self-service, docs, human' }
+      ],
+      hints: ['Should platform team be in every request path?', 'What can be automated?', 'How do other platforms scale?'],
+      solution: 'Self-service tier: 80% of requests via portal (vector DBs, model access, standard configs). Documentation tier: 15% of requests answered by runbooks. Human tier: 5% of requests need platform engineer. Golden paths: pre-approved architectures teams can deploy themselves. Platform team builds tools, not handles tickets.',
+      explanation: 'Scalable platforms enable teams rather than gatekeeping them.'
+    },
+    expectedInsights: ['Self-service for common patterns', 'Platform builds tools not handles tickets', 'Tier requests by complexity'],
+    hints: ['Automate common requests', 'Create self-service portal', 'Focus humans on complex work'],
+    explanation: 'Teaches platform operating model design for scale.',
+    relatedConcepts: ['organizational-enablement', 'program-setup-north-star', 'ecosystem-partnerships'],
+    timeEstimate: 14,
+    successCriteria: ['Identifies gatekeeper anti-pattern', 'Proposes self-service model', 'Tiers support levels']
+  },
+  {
+    id: 'architecture-platform-debug-2',
+    type: 'debug',
+    conceptId: 'architecture-platform-operations',
+    title: 'Golden Path Gone Dark',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'architecture-golden-path-dark',
+      title: 'Teams Abandoned Platform Golden Path',
+      description: '70% of teams started on golden path but forked to custom solutions. Golden path documentation outdated. New features never added. Path feels like a constraint not an accelerator.',
+      problemDescription: 'Golden path created 18 months ago. Platform team moved on to other projects. Path lacks modern capabilities (streaming, new models, advanced RAG). Teams fork to add needed features.',
+      brokenCode: `GOLDEN_PATH_V1 = {
+    "created": "2023-06-01",
+    "last_updated": "2023-06-01",  # 18 months stale!
+    "features": [
+        "basic_completion",
+        "simple_rag",
+        "single_model"
+    ],
+    "missing_features": [
+        "streaming_responses",  # Teams need this
+        "multi_modal",  # Teams need this
+        "advanced_rag",  # Teams need this
+        "model_selection"  # Teams need this
+    ]
+}
+
+class GoldenPathAdoption:
+    def check_status(self):
+        started_on_path = 40
+        still_on_path = 12
+        forked = 28  # 70%!
+        
+        reasons_for_forking = [
+            "Path didnt support streaming",
+            "Needed multi-modal capabilities",
+            "Had to add custom RAG",
+            "Path documentation was wrong"
+        ]
+
+# Teams forked because path stopped evolving
+# Now platform has 28 unique implementations to support`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'Analytics', message: '70% of teams forked from golden path', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'TeamLead', message: 'Path didnt support streaming, had to fork', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'Platform', message: 'We shipped path 18 months ago and moved on', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Ops', message: 'Now supporting 28 unique implementations', type: 'error' }
+      ],
+      expectedBehavior: 'Golden path continuously evolves with ecosystem. Product management for platform. Teams contribute extensions back.',
+      commonIssues: [
+        { issue: 'Stale path', symptoms: ['Teams fork for missing features'], diagnosis: 'No ongoing investment', fix: 'Dedicated path maintenance team' },
+        { issue: 'No feedback loop', symptoms: ['Unknown team needs'], diagnosis: 'No mechanism to hear from users', fix: 'Path adopter council, feature voting' },
+        { issue: 'No contribution model', symptoms: ['Forks instead of PRs'], diagnosis: 'No way to extend path', fix: 'Plugin architecture, upstream contributions' }
+      ],
+      hints: ['When was the path last updated?', 'Do teams have a voice in path evolution?', 'Can teams contribute features?'],
+      solution: 'Continuous evolution: dedicated person maintains path (not side project). Adopter council: monthly meeting with path users to prioritize features. Contribution model: teams can PR extensions that become official. Modular architecture: plugins for specialized needs without forking. Quarterly capability review: compare path to ecosystem, close gaps.',
+      explanation: 'Golden paths require ongoing investment and community governance to remain valuable.'
+    },
+    expectedInsights: ['Paths need continuous investment', 'Users should influence roadmap', 'Enable contributions over forks'],
+    hints: ['Assign path owner', 'Create adopter council', 'Allow plugin contributions'],
+    explanation: 'Teaches golden path product management.',
+    relatedConcepts: ['ecosystem-partnerships', 'experimentation-continuous-improvement', 'organizational-enablement'],
+    timeEstimate: 16,
+    successCriteria: ['Identifies stale path problem', 'Proposes governance model', 'Enables contribution']
+  }
+];
+
+// Experimentation & Continuous Improvement Debug Challenges
+export const experimentationContinuousImprovementDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'experimentation-debug-1',
+    type: 'debug',
+    conceptId: 'experimentation-continuous-improvement',
+    title: 'Experiments That Never Ship',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'experimentation-never-ships',
+      title: 'Successful Experiments Die in Backlog',
+      description: 'Team ran 15 successful experiments last quarter. Zero shipped to production. Experiments declared "successful" but never prioritized for productionization.',
+      problemDescription: 'Experimentation and production are separate workflows. No handoff process. Production roadmap already full. Successful experiments go into backlog where they languish.',
+      brokenCode: `class ExperimentWorkflow:
+    def __init__(self):
+        self.experiments = []
+        self.production_backlog = []
+        
+    def run_experiment(self, hypothesis):
+        result = self.execute(hypothesis)
+        if result.success:
+            # BUG: Success = done. No handoff!
+            return "Experiment successful! 🎉"
+            
+    def prioritize_production(self):
+        # Separate process, separate team
+        # They dont know about experiments
+        return self.production_backlog[:5]
+
+# Reality:
+# - 15 successful experiments last quarter
+# - 0 shipped to production
+# - Experiments added to production backlog
+# - Backlog is 200 items deep, prioritized by product
+# - Experimentation team frustrated`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'ExpTeam', message: '15 successful experiments this quarter!', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'Product', message: 'Great, added to backlog position 150-165', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'ExpTeam', message: 'But these have 3x projected ROI', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Product', message: 'Backlog prioritized by other criteria', type: 'info' }
+      ],
+      expectedBehavior: 'Experiments include productionization path. Reserved capacity for experiment winners. Integration between experimentation and production roadmap.',
+      commonIssues: [
+        { issue: 'Separate workflows', symptoms: ['Experiments orphaned'], diagnosis: 'No handoff to production', fix: 'Reserved capacity for experiment graduation' },
+        { issue: 'Success = done', symptoms: ['No follow-through'], diagnosis: 'Experiment complete at validation', fix: 'Experiment complete at production' },
+        { issue: 'Competing priorities', symptoms: ['Experiments lose to roadmap'], diagnosis: 'No protected bandwidth', fix: 'X% capacity reserved for experiment winners' }
+      ],
+      hints: ['What happens after success?', 'Who owns productionization?', 'Is there protected capacity?'],
+      solution: 'Experiment charter includes productionization plan. Reserved capacity: 20% of production capacity for experiment winners. Graduation criteria: successful experiments with business case get fast-track to production. Single backlog: experiments compete with features on equal terms. Experiment complete = shipped to users.',
+      explanation: 'Experiments only create value when they ship. Bridge the gap between validation and production.'
+    },
+    expectedInsights: ['Experiments must include ship plan', 'Reserve capacity for winners', 'Complete = shipped'],
+    hints: ['Plan productionization upfront', 'Protect bandwidth', 'Redefine done'],
+    explanation: 'Teaches end-to-end experimentation from hypothesis to production.',
+    relatedConcepts: ['strategy-portfolio-management', 'program-setup-north-star', 'organizational-enablement'],
+    timeEstimate: 14,
+    successCriteria: ['Identifies handoff gap', 'Proposes reserved capacity', 'Redefines experiment completion']
+  },
+  {
+    id: 'experimentation-debug-2',
+    type: 'debug',
+    conceptId: 'experimentation-continuous-improvement',
+    title: 'Eval Suite Gone Stale',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'experimentation-stale-evals',
+      title: 'Evaluation Suite Doesnt Catch Real Problems',
+      description: 'Agent passed all eval tests but users report bad experiences. Investigation reveals eval suite created 12 months ago, never updated. Real-world failure modes not represented.',
+      problemDescription: 'Eval suite created at launch. No mechanism to add cases from production incidents. Golden set now represents launch behavior, not current user needs. Goodharting: teams optimize for evals that dont reflect reality.',
+      brokenCode: `class EvaluationSuite:
+    def __init__(self):
+        self.golden_set = load_golden_set("launch_day.json")
+        self.last_updated = "2024-01-01"  # 12 months ago
+        
+    def evaluate(self, agent):
+        results = []
+        for case in self.golden_set:
+            output = agent.respond(case.input)
+            score = self.judge(output, case.expected)
+            results.append(score)
+        return mean(results)  # 94% accuracy!
+        
+    def add_case_from_incident(self, incident):
+        # BUG: Method exists but never called
+        pass
+
+# Eval says 94% accuracy
+# Production feedback says 60% satisfaction
+# Gap: evals dont include last 12 months of edge cases
+# Teams optimize for old evals, miss new patterns`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'CI', message: 'Agent passed eval: 94% accuracy', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'Support', message: 'User complaints up 40% this month', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'QA', message: 'Eval suite created 12 months ago', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Users', message: 'Agent cant handle questions about new features', type: 'error' }
+      ],
+      expectedBehavior: 'Eval suite continuously updated from production feedback. Incident → eval case pipeline. Adversarial refresh to prevent overfitting.',
+      commonIssues: [
+        { issue: 'Stale golden set', symptoms: ['Passing evals, failing users'], diagnosis: 'No mechanism to add cases', fix: 'Incident → eval case pipeline' },
+        { issue: 'Goodharting', symptoms: ['Optimizing for wrong thing'], diagnosis: 'Eval = target', fix: 'Regularly refresh held-out test set' },
+        { issue: 'No adversarial cases', symptoms: ['Edge cases missed'], diagnosis: 'Only happy path tested', fix: 'Red team contributions to eval' }
+      ],
+      hints: ['When was eval last updated?', 'Do incidents become test cases?', 'Are you testing edge cases?'],
+      solution: 'Incident pipeline: every user escalation becomes candidate eval case. Weekly refresh: sample recent production traffic into eval. Adversarial component: security/red team adds failure mode cases monthly. Holdout rotation: 10% of eval set rotated quarterly to prevent overfitting. Eval accuracy vs production satisfaction tracked together.',
+      explanation: 'Evaluation suites must evolve with production to remain meaningful.'
+    },
+    expectedInsights: ['Evals must evolve with production', 'Incidents become test cases', 'Prevent overfitting with rotation'],
+    hints: ['Add incident cases', 'Rotate holdout set', 'Track eval vs production gap'],
+    explanation: 'Teaches living evaluation practices.',
+    relatedConcepts: ['observability-evalops', 'data-knowledge-operations', 'responsible-ai-governance'],
+    timeEstimate: 16,
+    successCriteria: ['Identifies stale eval problem', 'Proposes incident pipeline', 'Adds rotation mechanism']
+  }
+];
+
+// Ecosystem & Partnerships Debug Challenges
+export const ecosystemPartnershipsDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'ecosystem-partnerships-debug-1',
+    type: 'debug',
+    conceptId: 'ecosystem-partnerships',
+    title: 'Vendor Lock-in Trap',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'ecosystem-vendor-lockin',
+      title: 'Entire Stack Dependent on Single Vendor',
+      description: 'Vendor announces 300% price increase. Migration would take 18 months. All agents use vendor-specific APIs. No abstraction layer.',
+      problemDescription: 'Rushed initial implementation used vendor SDK directly everywhere. 50 agents with hardcoded vendor calls. No interface abstraction. Switching cost now catastrophic.',
+      brokenCode: `class CustomerSupportAgent:
+    def __init__(self):
+        # BUG: Direct vendor SDK usage everywhere
+        self.llm = SpecificVendorSDK(api_key=os.getenv("VENDOR_KEY"))
+        self.embeddings = SpecificVendorEmbeddings()
+        self.vectordb = SpecificVendorVectorDB()
+        
+    def respond(self, query):
+        # Vendor-specific API calls
+        context = self.vectordb.vendor_specific_search(query)
+        response = self.llm.vendor_specific_complete(
+            system=self.system_prompt,
+            messages=[{"role": "user", "content": query}],
+            vendor_specific_param=True
+        )
+        return response
+
+# 50 agents like this
+# Vendor announces 300% price increase
+# Migration estimate: 18 months
+# CFO: "We have no leverage"`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'Vendor', message: 'Price increase: $0.01 → $0.04 per 1K tokens', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Architecture', message: 'All 50 agents hardcoded to vendor SDK', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Finance', message: 'Annual cost increase: $2M', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'CTO', message: 'We built ourselves into a corner', type: 'error' }
+      ],
+      expectedBehavior: 'Abstraction layer between agents and providers. Multi-vendor capability. Provider-agnostic interfaces.',
+      commonIssues: [
+        { issue: 'No abstraction', symptoms: ['Vendor calls everywhere'], diagnosis: 'Direct SDK usage', fix: 'Provider interface with pluggable implementations' },
+        { issue: 'Single vendor', symptoms: ['No negotiating leverage'], diagnosis: 'Monopoly dependency', fix: 'Multi-vendor capability (even if not used)' },
+        { issue: 'Rushed architecture', symptoms: ['Shortcuts became constraints'], diagnosis: 'MVP became production', fix: 'Refactor to interfaces before scaling' }
+      ],
+      hints: ['How hard is it to switch vendors?', 'Do you have alternatives ready?', 'What would abstraction look like?'],
+      solution: 'Provider interface: LLMProvider, EmbeddingProvider, VectorStoreProvider abstractions. Implementations for multiple vendors. Router: can switch providers per request based on cost/capability. Multi-vendor testing: CI validates against 2+ providers. Negotiating leverage: credible alternative demonstrated before price negotiation.',
+      explanation: 'Strategic vendor management requires abstraction and multi-vendor capability.'
+    },
+    expectedInsights: ['Abstract vendor dependencies', 'Multi-vendor for leverage', 'Test alternatives proactively'],
+    hints: ['Create provider interfaces', 'Implement alternatives', 'Test regularly'],
+    explanation: 'Teaches vendor strategy for AI infrastructure.',
+    relatedConcepts: ['architecture-platform-operations', 'strategy-portfolio-management', 'responsible-ai-governance'],
+    timeEstimate: 15,
+    successCriteria: ['Identifies lock-in', 'Proposes abstraction layer', 'Plans multi-vendor capability']
+  },
+  {
+    id: 'ecosystem-partnerships-debug-2',
+    type: 'debug',
+    conceptId: 'ecosystem-partnerships',
+    title: 'Partner Integration Fragility',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'ecosystem-partner-fragility',
+      title: 'Partner API Changes Break Production',
+      description: 'Partners 3rd party API changed response format. Our agents started hallucinating. No versioning, no contract testing, no alerts until users complained.',
+      problemDescription: 'Partner integration assumed stable API. No schema validation. No contract tests. No monitoring of integration health. Breaking change deployed by partner without notice.',
+      brokenCode: `class PartnerIntegration:
+    def __init__(self):
+        self.partner_url = "https://partner-api.example.com/v1"
+        
+    def fetch_data(self, query):
+        # BUG: No schema validation
+        response = requests.get(f"{self.partner_url}/data?q={query}")
+        data = response.json()
+        
+        # Assumes structure that partner can change anytime
+        return {
+            "result": data["items"][0]["value"],  # Partner renamed to "results"
+            "confidence": data["score"]  # Partner removed this field
+        }
+
+class AgentWithPartner:
+    def respond(self, query):
+        partner_data = self.partner.fetch_data(query)
+        # When partner data is wrong, agent hallucinates to fill gaps
+        context = f"Data: {partner_data}"
+        return self.llm.complete(context + query)
+
+# Partner changed API:
+# - "items" → "results"  
+# - Removed "score" field
+# Agent now receiving KeyError or None, hallucinating context`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'Partner', message: 'Deployed API v1.2 with improved schema', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'Production', message: 'KeyError: items', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Returning fabricated data (no partner context)', type: 'error' },
+        { timestamp: new Date().toISOString(), agent: 'Users', message: 'Agent giving completely wrong answers', type: 'error' }
+      ],
+      expectedBehavior: 'Schema validation on all partner responses. Contract testing in CI. Integration health monitoring. Graceful degradation.',
+      commonIssues: [
+        { issue: 'No schema validation', symptoms: ['Silent failures on change'], diagnosis: 'Trust partner response blindly', fix: 'Validate against expected schema' },
+        { issue: 'No contract testing', symptoms: ['Surprises in production'], diagnosis: 'No pre-deployment check', fix: 'Contract tests in CI against partner sandbox' },
+        { issue: 'No degradation', symptoms: ['Hallucination on failure'], diagnosis: 'Agent proceeds with bad data', fix: 'Detect failure and degrade gracefully' }
+      ],
+      hints: ['What happens when partner data is wrong?', 'How do you detect API changes?', 'What should agent do without partner data?'],
+      solution: 'Schema validation: Pydantic/Zod schema for partner responses, reject mismatches. Contract testing: CI runs against partner sandbox, alerts on schema drift. Integration monitoring: track partner response validity rate, alert on drops. Graceful degradation: if partner fails, acknowledge limitation rather than hallucinate.',
+      explanation: 'Partner integrations require defensive programming: validate, monitor, degrade gracefully.'
+    },
+    expectedInsights: ['Validate all external data', 'Contract test partner APIs', 'Degrade gracefully on failure'],
+    hints: ['Add schema validation', 'Test in CI', 'Handle failures explicitly'],
+    explanation: 'Teaches defensive partner integration practices.',
+    relatedConcepts: ['agent-ops', 'observability-evalops', 'architecture-platform-operations'],
+    timeEstimate: 16,
+    successCriteria: ['Identifies schema validation gap', 'Proposes contract testing', 'Adds graceful degradation']
+  }
+];
+
+// Organizational Enablement Debug Challenges
+export const organizationalEnablementDebugChallenges: StudyModeQuestion[] = [
+  {
+    id: 'organizational-enablement-debug-1',
+    type: 'debug',
+    conceptId: 'organizational-enablement',
+    title: 'Training That Doesnt Stick',
+    level: 'intermediate',
+    debugChallenge: {
+      id: 'organizational-training-ineffective',
+      title: 'Teams Trained But Skills Not Applied',
+      description: 'Trained 500 employees on AI agents. Survey says 90% confident. Project reviews show 10% actually applying skills. Training exists in vacuum.',
+      problemDescription: 'Training completed as checkbox. No follow-up. No project application. No coaching. Knowledge decays. Teams revert to old patterns.',
+      brokenCode: `class TrainingProgram:
+    def __init__(self):
+        self.curriculum = ["Fundamentals", "Hands-on Lab", "Certification"]
+        self.completion_rate = 0.95
+        self.confidence_score = 0.90
+        
+    def deliver_training(self, employees):
+        for emp in employees:
+            emp.complete_modules(self.curriculum)
+            emp.pass_certification()
+            # BUG: Training ends here. No follow-through
+            
+    def measure_success(self):
+        # Only measures completion, not application
+        return {
+            "trained": 500,
+            "certified": 475,
+            "confident": 450,
+            "actually_using_skills": 50  # Only 10%!
+        }
+
+# Training investment: $500K
+# ROI if skills applied: $5M
+# Actual ROI: $500K (only 10% applying)
+# Forgetting curve: 70% forgotten in 30 days`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'L&D', message: '500 employees trained, 90% confident', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'ProjectReview', message: 'Only 10% applying AI agent skills', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Manager', message: 'Team went back to old ways after training', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'Finance', message: 'Training ROI 90% below projection', type: 'error' }
+      ],
+      expectedBehavior: 'Training integrated with real projects. Coaching support. Application requirements. Skill verification through delivery.',
+      commonIssues: [
+        { issue: 'No application', symptoms: ['Skills not used'], diagnosis: 'Training isolated from work', fix: 'Require project application within 30 days' },
+        { issue: 'No coaching', symptoms: ['Stuck on first attempt'], diagnosis: 'No support after training', fix: 'Coaching hours and office hours' },
+        { issue: 'Wrong metric', symptoms: ['Completion not value'], diagnosis: 'Measuring attendance', fix: 'Measure delivered outcomes' }
+      ],
+      hints: ['What happens after training ends?', 'How do you verify skill application?', 'What prevents knowledge decay?'],
+      solution: 'Applied learning: training includes real project deliverable due within 30 days. Coaching: 5 hours of post-training coaching support per person. Peer learning: cohorts continue meeting monthly. Success metric: projects delivered, not certificates earned. Manager accountability: manager must sponsor application project.',
+      explanation: 'Effective training requires application, not just completion.'
+    },
+    expectedInsights: ['Training must include application', 'Coaching prevents decay', 'Measure outcomes not attendance'],
+    hints: ['Require project deliverable', 'Provide coaching', 'Track delivered value'],
+    explanation: 'Teaches applied learning program design.',
+    relatedConcepts: ['program-setup-north-star', 'experimentation-continuous-improvement', 'strategy-portfolio-management'],
+    timeEstimate: 14,
+    successCriteria: ['Identifies application gap', 'Proposes project requirement', 'Adds coaching component']
+  },
+  {
+    id: 'organizational-enablement-debug-2',
+    type: 'debug',
+    conceptId: 'organizational-enablement',
+    title: 'Center of Excellence in Ivory Tower',
+    level: 'advanced',
+    debugChallenge: {
+      id: 'organizational-coe-ivory-tower',
+      title: 'AI CoE Disconnected from Product Teams',
+      description: 'Center of Excellence published 40 best practice documents. Product teams ignore them. CoE frustrated that nobody follows standards. Teams frustrated that standards dont fit reality.',
+      problemDescription: 'CoE created standards in isolation. No input from product teams. Standards optimized for idealized scenarios. No enforcement mechanism. Two separate worlds.',
+      brokenCode: `class CenterOfExcellence:
+    def __init__(self):
+        self.members = get_senior_architects()  # No practitioners
+        self.standards = []
+        
+    def create_standard(self, topic):
+        # BUG: No input from people who will use it
+        doc = self.members.write_best_practice(topic)
+        self.standards.append(doc)
+        self.publish_to_confluence(doc)
+        # Done! Teams will definitely read this
+        
+    def measure_adoption(self):
+        return {
+            "standards_published": 40,
+            "standards_read": 8,  # Only 20%!
+            "standards_followed": 2  # Only 5%!
+        }
+
+class ProductTeam:
+    def build_agent(self):
+        # Never heard of CoE standards
+        # Or heard of them and they dont fit
+        return self.do_whatever_works()
+
+# CoE: "Why wont they follow our standards?"
+# Teams: "Standards dont work for our use case"`,
+      conversationLogs: [
+        { timestamp: new Date().toISOString(), agent: 'CoE', message: 'Published 40 best practice documents', type: 'info' },
+        { timestamp: new Date().toISOString(), agent: 'Analytics', message: 'Average views per document: 12', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'ProductTeam', message: 'Standards assume ideal conditions we dont have', type: 'warning' },
+        { timestamp: new Date().toISOString(), agent: 'CoE', message: 'Frustrated that teams ignore our work', type: 'error' }
+      ],
+      expectedBehavior: 'CoE co-creates standards with product teams. Standards tested in real projects before publishing. Continuous feedback loop.',
+      commonIssues: [
+        { issue: 'No practitioner input', symptoms: ['Standards dont fit reality'], diagnosis: 'Architects without implementation context', fix: 'Rotating product team members on CoE' },
+        { issue: 'Publish and pray', symptoms: ['Low adoption'], diagnosis: 'No validation before publishing', fix: 'Pilot standards with teams before release' },
+        { issue: 'One-way communication', symptoms: ['No feedback'], diagnosis: 'CoE broadcasts, doesnt listen', fix: 'Feedback loops and evolution process' }
+      ],
+      hints: ['Who creates the standards?', 'Are standards tested before publishing?', 'How do teams give feedback?'],
+      solution: 'Embedded CoE: rotating product team members join CoE 20% time. Co-creation: standards drafted with team input, piloted before publishing. Office hours: weekly CoE accessibility for questions and feedback. Evolution process: teams can propose changes to standards. Success metric: adoption rate, not publication count.',
+      explanation: 'Effective CoEs enable rather than dictate.'
+    },
+    expectedInsights: ['CoE must include practitioners', 'Pilot standards before publishing', 'Enable feedback and evolution'],
+    hints: ['Rotate team members into CoE', 'Pilot before publishing', 'Create feedback channels'],
+    explanation: 'Teaches embedded CoE operating model.',
+    relatedConcepts: ['architecture-platform-operations', 'ecosystem-partnerships', 'program-setup-north-star'],
+    timeEstimate: 16,
+    successCriteria: ['Identifies isolation problem', 'Proposes co-creation model', 'Adds feedback mechanism']
+  }
+];
+
+
 // Export debug challenges organized by concept
 export const debugChallengeLibrary = {
   'multi-agent-systems': debugChallenges.filter(c => c.conceptId === 'multi-agent-systems'),
@@ -5346,6 +6320,15 @@ export const debugChallengeLibrary = {
   // Data Autonomy Patterns
   'hierarchical-document-intelligence': debugChallenges.filter(c => c.conceptId === 'hierarchical-document-intelligence'),
   'contextual-onboarding-orchestrator': debugChallenges.filter(c => c.conceptId === 'contextual-onboarding-orchestrator'),
+  // Enterprise Playbook Concepts (2026)
+  'program-setup-north-star': programSetupNorthStarDebugChallenges,
+  'responsible-ai-governance': responsibleAIGovernanceDebugChallenges,
+  'strategy-portfolio-management': strategyPortfolioManagementDebugChallenges,
+  'data-knowledge-operations': dataKnowledgeOperationsDebugChallenges,
+  'architecture-platform-operations': architecturePlatformOperationsDebugChallenges,
+  'experimentation-continuous-improvement': experimentationContinuousImprovementDebugChallenges,
+  'ecosystem-partnerships': ecosystemPartnershipsDebugChallenges,
+  'organizational-enablement': organizationalEnablementDebugChallenges,
   // New Perspectives
   'agent-ops': [
     {
