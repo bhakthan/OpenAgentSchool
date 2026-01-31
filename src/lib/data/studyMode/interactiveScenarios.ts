@@ -6830,6 +6830,658 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// ===== APPLIED & CAREER TIER (Tier 5) =====
+(scenarioLibrary as any)['agent-troubleshooting'] = [
+  {
+    id: 'agent-troubleshooting-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-troubleshooting',
+    title: 'Production Incident Triage',
+    level: 'beginner',
+    scenario: {
+      title: 'Customer Reports Agent Giving Wrong Answers',
+      description: 'Your support team reports that customers are complaining about incorrect agent responses. The agent was working fine yesterday.',
+      context: 'Production customer service agent with 10,000 daily users',
+      stakeholders: ['Support Team', 'Customers', 'Engineering'],
+      systemState: {
+        activeAgents: 1,
+        errorRate: 0.25,
+        averageLatency: 800
+      },
+      challenges: [
+        'No obvious errors in logs',
+        'LLM provider reports no issues',
+        'Prompts haven\'t changed'
+      ],
+      decisionPoints: [
+        'Where do you start investigating?',
+        'What data do you collect first?',
+        'How do you communicate with stakeholders?'
+      ],
+      options: [
+        'Immediately roll back to yesterday\'s deployment',
+        'Collect sample incorrect responses, identify patterns, check tool APIs and context sources',
+        'Wait for more reports to establish a pattern'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Rollback may not help if the issue is external (API changes, data drift)',
+      'Systematic investigation identifies root cause and prevents recurrence',
+      'Waiting delays resolution and increases customer impact'
+    ],
+    followUpQuestions: [
+      'What patterns would you look for in incorrect responses?',
+      'How do you test your hypothesis about the cause?',
+      'When should you escalate vs continue investigating?'
+    ],
+    expectedInsights: [
+      'Look for common topics, time patterns, or user segments in failures',
+      'Reproduce the issue in staging with specific inputs',
+      'Escalate when customer impact exceeds threshold or root cause unclear after 30 minutes'
+    ],
+    businessContext: 'Production incidents require structured triage to minimize impact while identifying root causes.',
+    relatedConcepts: ['agent-ops', 'observability', 'incident-response'],
+    timeEstimate: 14,
+    successCriteria: ['Starts with data collection', 'Identifies systematic approach', 'Considers stakeholder communication']
+  },
+  {
+    id: 'agent-troubleshooting-scenario-2',
+    type: 'scenario',
+    conceptId: 'agent-troubleshooting',
+    title: 'Cascading Failure Analysis',
+    level: 'intermediate',
+    scenario: {
+      title: 'Agent System Completely Down During Peak Hours',
+      description: 'Your multi-agent system went down during peak traffic. Users see "Service Unavailable" errors.',
+      context: 'E-commerce platform with agent-powered customer service',
+      stakeholders: ['Customers', 'Revenue Team', 'Engineering', 'Leadership'],
+      systemState: {
+        activeAgents: 0,
+        errorRate: 1.0,
+        averageLatency: 30000
+      },
+      challenges: [
+        'Multiple services showing errors',
+        'Database connection pool exhausted',
+        'LLM API returning 503 errors'
+      ],
+      decisionPoints: [
+        'What is the primary failure vs cascading effects?',
+        'How do you restore service quickly?',
+        'What immediate mitigation do you implement?'
+      ],
+      options: [
+        'Restart all services and hope they recover',
+        'Identify primary failure (LLM rate limiting), implement circuit breakers, drain request queue',
+        'Scale up all infrastructure to handle the load'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Blind restart doesn\'t address root cause; may immediately fail again',
+      'Identifying primary failure enables targeted fix; circuit breakers prevent cascade',
+      'Scaling won\'t help if LLM API is the bottleneck (429 errors)'
+    ],
+    followUpQuestions: [
+      'How do you identify the primary failure in a cascade?',
+      'What circuit breaker configuration would help?',
+      'How do you communicate during an outage?'
+    ],
+    expectedInsights: [
+      'Start from external dependencies inward; LLM 503s caused request queuing which exhausted DB connections',
+      'Trip circuit breaker after 3 failures in 10 seconds; return cached/fallback responses',
+      'Status page update every 15 minutes; internal updates every 5 minutes'
+    ],
+    businessContext: 'Cascade failures require identifying the primary cause vs secondary effects. Mitigation must address the source.',
+    relatedConcepts: ['reliability', 'circuit-breakers', 'incident-response'],
+    timeEstimate: 16,
+    successCriteria: ['Identifies cascade pattern', 'Proposes targeted mitigation', 'Plans communication']
+  },
+  {
+    id: 'agent-troubleshooting-scenario-3',
+    type: 'scenario',
+    conceptId: 'agent-troubleshooting',
+    title: 'Post-Incident Root Cause Analysis',
+    level: 'advanced',
+    scenario: {
+      title: 'Writing the Post-Mortem for a Major Incident',
+      description: 'After a 4-hour outage, you need to write a post-mortem that identifies root causes and prevents recurrence.',
+      context: 'Enterprise SaaS platform with 99.9% SLA commitment',
+      stakeholders: ['Engineering', 'Leadership', 'Customers', 'Legal/Compliance'],
+      systemState: {
+        activeAgents: 1,
+        errorRate: 0.01,
+        averageLatency: 500
+      },
+      challenges: [
+        'Multiple contributing factors',
+        'Pressure to assign blame',
+        'Need actionable follow-ups'
+      ],
+      decisionPoints: [
+        'How do you structure the root cause analysis?',
+        'How do you avoid blame while maintaining accountability?',
+        'What follow-up actions create lasting improvement?'
+      ],
+      options: [
+        'Identify the person who made the error and document their mistake',
+        'Use 5 Whys to find systemic causes; focus on process improvements not individuals',
+        'Keep the post-mortem brief to minimize internal conflict'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Blame culture prevents honest reporting and doesn\'t fix systemic issues',
+      '5 Whys reveals systemic causes; process fixes are durable',
+      'Brief post-mortems miss learning opportunities and skip remediation'
+    ],
+    followUpQuestions: [
+      'How do you apply 5 Whys to this incident?',
+      'What makes a follow-up action effective?',
+      'How do you share learnings across the organization?'
+    ],
+    expectedInsights: [
+      'Why did it fail? Rate limit. Why no circuit breaker? Assumed LLM always available. Why that assumption? No failure mode testing...',
+      'Effective actions: specific, assigned owner, deadline, measurable completion',
+      'Incident review meetings, shared post-mortem library, architecture decision records'
+    ],
+    businessContext: 'Blameless post-mortems improve reliability culture and prevent recurrence through systemic improvements.',
+    relatedConcepts: ['reliability-culture', 'incident-response', 'organizational-enablement'],
+    timeEstimate: 18,
+    successCriteria: ['Uses structured analysis method', 'Focuses on systemic causes', 'Proposes measurable follow-ups']
+  }
+];
+
+(scenarioLibrary as any)['agent-economics'] = [
+  {
+    id: 'agent-economics-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-economics',
+    title: 'Cost Optimization Under Budget Pressure',
+    level: 'beginner',
+    scenario: {
+      title: 'CFO Demands 50% Cost Reduction',
+      description: 'Your agent\'s LLM costs grew faster than revenue. CFO wants 50% cost reduction without visible quality impact.',
+      context: 'B2B SaaS with agent-powered features, $100K/month LLM spend',
+      stakeholders: ['CFO', 'Product Team', 'Customers'],
+      systemState: {
+        activeAgents: 5,
+        errorRate: 0.02,
+        averageLatency: 600
+      },
+      challenges: [
+        'Customers complain if quality drops',
+        'Engineering time is limited',
+        'Quick wins needed before deeper optimization'
+      ],
+      decisionPoints: [
+        'What quick wins can you implement?',
+        'How do you validate quality is maintained?',
+        'What longer-term optimizations do you plan?'
+      ],
+      options: [
+        'Switch all models to GPT-3.5 immediately',
+        'Implement model routing (simple queries to cheaper models), add response caching, optimize prompts',
+        'Tell CFO that cost reduction isn\'t possible without quality impact'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Blanket downgrade will impact quality; customers will notice',
+      'Layered approach maintains quality for complex queries while reducing costs for simple ones',
+      'Defeatism ignores real optimization opportunities'
+    ],
+    followUpQuestions: [
+      'How do you classify queries for routing?',
+      'What cache hit rate is realistic?',
+      'How do you measure quality impact?'
+    ],
+    expectedInsights: [
+      'Simple heuristics (query length, complexity keywords) work for initial routing; refine with ML later',
+      'FAQ-heavy agents can achieve 30-50% cache hit rates; RAG agents lower',
+      'A/B test with quality metrics (user satisfaction, task completion, escalation rate)'
+    ],
+    businessContext: 'Cost optimization requires layered approach: quick wins (caching, routing) plus structural changes (prompt optimization, model selection).',
+    relatedConcepts: ['cost-optimization', 'model-selection', 'caching'],
+    timeEstimate: 14,
+    successCriteria: ['Proposes quick wins', 'Plans quality validation', 'Outlines longer-term roadmap']
+  },
+  {
+    id: 'agent-economics-scenario-2',
+    type: 'scenario',
+    conceptId: 'agent-economics',
+    title: 'Pricing Model Design',
+    level: 'intermediate',
+    scenario: {
+      title: 'Launch Pricing for New Agent Product',
+      description: 'You\'re launching an agent-powered product and need to set pricing. Variable costs (LLM tokens) make traditional SaaS pricing risky.',
+      context: 'New AI writing assistant targeting SMB market',
+      stakeholders: ['Product', 'Sales', 'Finance', 'Customers'],
+      systemState: {
+        activeAgents: 1,
+        errorRate: 0.01,
+        averageLatency: 400
+      },
+      challenges: [
+        'LLM costs vary 10x between power users and casual users',
+        'Competitors offer flat monthly pricing',
+        'Sales wants simple pricing for deals'
+      ],
+      decisionPoints: [
+        'What pricing model balances user value and margin protection?',
+        'How do you handle power users?',
+        'What metrics drive pricing?'
+      ],
+      options: [
+        'Flat $99/month unlimited usage',
+        'Base $49/month + $0.01 per generation; enterprise tiers with volume discounts',
+        'Pure usage-based: $0.05 per generation with no base fee'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Flat pricing with variable costs = margin risk from power users',
+      'Hybrid captures value while protecting margins; tiers simplify enterprise sales',
+      'Pure usage-based has no predictable revenue; customers hesitate on unpredictable spend'
+    ],
+    followUpQuestions: [
+      'How do you set the per-generation price?',
+      'What usage caps would protect margins?',
+      'How do you handle cost increases from LLM providers?'
+    ],
+    expectedInsights: [
+      'Target 70% gross margin: if LLM cost is $0.003/generation, charge $0.01',
+      'Soft caps (slower response after limit) better than hard cuts',
+      'Annual contracts with price adjustment clauses; pass-through for >10% provider increases'
+    ],
+    businessContext: 'Agent pricing must balance user value perception, margin protection, and competitive positioning.',
+    relatedConcepts: ['pricing-strategy', 'unit-economics', 'business-model'],
+    timeEstimate: 16,
+    successCriteria: ['Proposes hybrid model', 'Addresses margin protection', 'Considers competitive dynamics']
+  },
+  {
+    id: 'agent-economics-scenario-3',
+    type: 'scenario',
+    conceptId: 'agent-economics',
+    title: 'ROI Business Case',
+    level: 'advanced',
+    scenario: {
+      title: 'Justify $500K Agent Platform Investment',
+      description: 'You need board approval for $500K investment in agent infrastructure. The CFO wants hard ROI numbers.',
+      context: 'Enterprise company evaluating internal agent platform',
+      stakeholders: ['Board', 'CFO', 'CTO', 'Business Units'],
+      systemState: {
+        activeAgents: 0,
+        errorRate: 0,
+        averageLatency: 0
+      },
+      challenges: [
+        'Benefits are partly qualitative (employee experience)',
+        'Productivity gains hard to measure precisely',
+        'Competitors are investing; status quo is risky'
+      ],
+      decisionPoints: [
+        'What quantifiable benefits do you present?',
+        'How do you handle qualitative benefits?',
+        'What payback period is reasonable?'
+      ],
+      options: [
+        'Focus only on cost savings from automation',
+        'Present time savings (quantified), quality improvements (proxy metrics), strategic positioning (competitive necessity)',
+        'Emphasize that competitors are investing so we must too'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Cost savings alone undervalues capability improvement and strategic benefit',
+      'Multi-dimensional case addresses different stakeholder concerns',
+      'Fear-based arguments lack substance for investment decisions'
+    ],
+    followUpQuestions: [
+      'How do you quantify time savings?',
+      'What proxy metrics work for quality?',
+      'How do you structure the phased investment?'
+    ],
+    expectedInsights: [
+      'Time studies: pilot with 10 users, measure task completion time before/after, extrapolate',
+      'Quality proxies: error rates, customer escalations, compliance violations',
+      'Phase investment: $100K pilot, measure ROI, then $400K scale if targets met'
+    ],
+    businessContext: 'Enterprise ROI cases require quantification, risk mitigation (phased investment), and multi-stakeholder value propositions.',
+    relatedConcepts: ['business-case', 'investment-analysis', 'change-management'],
+    timeEstimate: 18,
+    successCriteria: ['Presents quantifiable benefits', 'Addresses qualitative value', 'Proposes phased approach']
+  }
+];
+
+(scenarioLibrary as any)['agent-career-paths'] = [
+  {
+    id: 'agent-career-paths-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-career-paths',
+    title: 'Career Transition Planning',
+    level: 'beginner',
+    scenario: {
+      title: 'Backend Engineer Wants Agent Role',
+      description: 'You\'re a senior backend engineer interested in transitioning to agent development. How do you plan your learning and job search?',
+      context: '5 years backend experience, Python/Go, no ML background',
+      stakeholders: ['Yourself', 'Hiring Managers', 'Mentors'],
+      systemState: {
+        activeAgents: 0,
+        errorRate: 0,
+        averageLatency: 0
+      },
+      challenges: [
+        'No formal ML/AI education',
+        'Unclear which skills transfer',
+        'Many job postings require ML experience'
+      ],
+      decisionPoints: [
+        'What skills should you prioritize learning?',
+        'How do you demonstrate competence without work experience?',
+        'What type of roles should you target?'
+      ],
+      options: [
+        'Go back to school for an ML degree',
+        'Build portfolio projects, focus on orchestration/integration skills that transfer, target "AI Engineer" vs "ML Engineer" roles',
+        'Apply to ML roles and learn on the job'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Degree is slow and unnecessary for most agent roles',
+      'Portfolio demonstrates practical skills; AI Engineer roles value systems skills you have',
+      'ML roles require fundamentals you lack; agent roles leverage your backend expertise'
+    ],
+    followUpQuestions: [
+      'What portfolio projects are most impressive?',
+      'Which of your backend skills transfer directly?',
+      'How do you network in the AI community?'
+    ],
+    expectedInsights: [
+      'End-to-end agent projects with production concerns (error handling, observability) stand out',
+      'API design, distributed systems, reliability, testing all transfer directly',
+      'Contribute to open-source agent frameworks, attend AI meetups, write about agent systems'
+    ],
+    businessContext: 'Agent roles value systems engineering as much as ML knowledge. Backend engineers have relevant skills.',
+    relatedConcepts: ['career-development', 'skill-building', 'job-search'],
+    timeEstimate: 12,
+    successCriteria: ['Identifies transferable skills', 'Plans portfolio projects', 'Targets appropriate roles']
+  },
+  {
+    id: 'agent-career-paths-scenario-2',
+    type: 'scenario',
+    conceptId: 'agent-career-paths',
+    title: 'Team Structure Design',
+    level: 'intermediate',
+    scenario: {
+      title: 'Building an Agent Team from Scratch',
+      description: 'You\'re the first agent hire at a mid-size company. Leadership asks you to design the team structure and first hires.',
+      context: 'Series B startup, 100 engineers, no dedicated AI/agent team',
+      stakeholders: ['CTO', 'Engineering Managers', 'Product'],
+      systemState: {
+        activeAgents: 0,
+        errorRate: 0,
+        averageLatency: 0
+      },
+      challenges: [
+        'Limited budget (3 headcount first year)',
+        'Need to deliver value quickly',
+        'Existing engineers skeptical of AI hype'
+      ],
+      decisionPoints: [
+        'What roles do you hire first?',
+        'How do you structure the team?',
+        'How do you build credibility with existing engineering?'
+      ],
+      options: [
+        'Hire 3 ML researchers to build cutting-edge capabilities',
+        'Hire 1 agent engineer (production focus), 1 prompt engineer, embed with product teams; start with quick wins',
+        'Build a separate AI organization with its own roadmap'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'ML researchers optimize for novelty not product impact; wrong hire for startup stage',
+      'Production-focused team delivers quick wins; embedding builds relationships; small team ships fast',
+      'Separate org creates silos; agent value comes from product integration'
+    ],
+    followUpQuestions: [
+      'What should the first agent project be?',
+      'How do you measure team success?',
+      'When should you expand the team?'
+    ],
+    expectedInsights: [
+      'Pick high-visibility, low-risk project: internal productivity tool or customer FAQ agent',
+      'Time to first production deployment, adoption metrics, support ticket deflection',
+      'Expand when demand exceeds capacity AND you\'ve proven value with 2-3 successful deployments'
+    ],
+    businessContext: 'New agent teams should focus on production value over research novelty. Embedding with product builds organizational buy-in.',
+    relatedConcepts: ['team-building', 'organizational-design', 'startup-strategy'],
+    timeEstimate: 16,
+    successCriteria: ['Proposes focused initial hires', 'Plans quick wins', 'Describes embedding strategy']
+  }
+];
+
+(scenarioLibrary as any)['industry-agents'] = [
+  {
+    id: 'industry-agents-scenario-1',
+    type: 'scenario',
+    conceptId: 'industry-agents',
+    title: 'Healthcare Agent Compliance',
+    level: 'intermediate',
+    scenario: {
+      title: 'Designing a HIPAA-Compliant Patient Agent',
+      description: 'A hospital wants an agent to help patients schedule appointments and answer questions about their care. You need to design a compliant architecture.',
+      context: 'Large hospital network, 500K patient records, strict HIPAA requirements',
+      stakeholders: ['Patients', 'Compliance Officer', 'Clinical Staff', 'IT Security'],
+      systemState: {
+        activeAgents: 0,
+        errorRate: 0,
+        averageLatency: 0
+      },
+      challenges: [
+        'PHI must stay within compliant infrastructure',
+        'Patients expect conversational experience',
+        'Compliance team risk-averse'
+      ],
+      decisionPoints: [
+        'How do you handle PHI in the agent pipeline?',
+        'What LLM infrastructure do you use?',
+        'How do you gain compliance approval?'
+      ],
+      options: [
+        'Use public LLM API with patient data anonymization',
+        'Deploy on-premise LLM or HIPAA-compliant cloud with BAA; de-identify for external calls; comprehensive audit logging',
+        'Limit agent to non-PHI tasks only (FAQ, general info)'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Anonymization can be reversed; PHI to non-BAA vendors violates HIPAA',
+      'On-premise or BAA cloud keeps PHI controlled; de-identification enables external model use for non-sensitive tasks',
+      'Limiting scope misses the value proposition; patients want personalized assistance'
+    ],
+    followUpQuestions: [
+      'What de-identification techniques work for patient data?',
+      'How do you structure the BAA with LLM providers?',
+      'What audit logging is required?'
+    ],
+    expectedInsights: [
+      'Replace names with tokens, generalize ages/locations, remove unique identifiers; re-identify on response',
+      'BAA must cover data processing, not just storage; Azure/AWS have HIPAA-eligible LLM services',
+      'Log all PHI access, model inputs/outputs, user identity, timestamp; 6-year retention'
+    ],
+    businessContext: 'Healthcare agents require architecture designed around compliance from day one. Retrofitting compliance is expensive and risky.',
+    relatedConcepts: ['hipaa-compliance', 'healthcare', 'data-privacy'],
+    timeEstimate: 16,
+    successCriteria: ['Addresses PHI handling', 'Proposes compliant infrastructure', 'Plans audit trail']
+  },
+  {
+    id: 'industry-agents-scenario-2',
+    type: 'scenario',
+    conceptId: 'industry-agents',
+    title: 'Financial Agent Risk Management',
+    level: 'advanced',
+    scenario: {
+      title: 'Agent for Investment Recommendations',
+      description: 'A wealth management firm wants an agent to provide personalized investment recommendations. Regulatory and liability concerns are paramount.',
+      context: 'Registered Investment Advisor, SEC/FINRA regulated, fiduciary duty',
+      stakeholders: ['Clients', 'Compliance', 'Financial Advisors', 'Legal'],
+      systemState: {
+        activeAgents: 0,
+        errorRate: 0,
+        averageLatency: 0
+      },
+      challenges: [
+        'Investment advice is regulated',
+        'Fiduciary duty requires acting in client\'s best interest',
+        'Model errors could cause financial harm'
+      ],
+      decisionPoints: [
+        'What agent autonomy level is appropriate?',
+        'How do you handle liability for recommendations?',
+        'What human-in-the-loop controls are needed?'
+      ],
+      options: [
+        'Fully autonomous agent that makes investment decisions',
+        'Agent provides research and analysis; human advisor reviews and approves recommendations; clear disclaimers',
+        'Agent for education only, no personalized recommendations'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Autonomous financial decisions create unacceptable regulatory and liability risk',
+      'Human-in-the-loop satisfies fiduciary duty while leveraging AI efficiency',
+      'Education-only misses value; personalization is the key benefit'
+    ],
+    followUpQuestions: [
+      'What documentation is required for each recommendation?',
+      'How do you train advisors to review AI recommendations?',
+      'What disclosures are required to clients?'
+    ],
+    expectedInsights: [
+      'Document AI rationale, advisor review, client acknowledgment; maintain for 6+ years',
+      'Training on AI limitations, bias checking, suitability verification',
+      'Disclose AI assistance, advisor ultimate responsibility, not guaranteed returns'
+    ],
+    businessContext: 'Financial agents must operate within regulatory frameworks. Human-in-the-loop is often mandatory for fiduciary obligations.',
+    relatedConcepts: ['financial-regulation', 'fiduciary-duty', 'human-in-the-loop'],
+    timeEstimate: 18,
+    successCriteria: ['Proposes appropriate autonomy level', 'Addresses liability', 'Plans human oversight']
+  }
+];
+
+(scenarioLibrary as any)['agent-templates-hub'] = [
+  {
+    id: 'agent-templates-hub-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-templates-hub',
+    title: 'Template Selection Decision',
+    level: 'beginner',
+    scenario: {
+      title: 'Choosing a Framework for a New Agent Project',
+      description: 'You\'re starting a new customer service agent. You need to choose between building from scratch, using LangChain, using CrewAI, or using a simpler template.',
+      context: 'Mid-size company, 2 developers, 3-month timeline, production quality required',
+      stakeholders: ['Engineering Team', 'Product Manager', 'Support Team'],
+      systemState: {
+        activeAgents: 0,
+        errorRate: 0,
+        averageLatency: 0
+      },
+      challenges: [
+        'Limited AI/agent experience on team',
+        'Need production-ready reliability',
+        'Deadline pressure'
+      ],
+      decisionPoints: [
+        'What framework best fits your constraints?',
+        'How do you evaluate framework options?',
+        'What customization will you need?'
+      ],
+      options: [
+        'Build from scratch for maximum control',
+        'Use LangChain with a customer service template; customize for your domain',
+        'Use the simplest option (OpenAI function calling + custom code)'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'From scratch is slow and risks reinventing solved problems',
+      'Template provides production patterns; LangChain community provides support; customize domain-specific parts',
+      'Too simple may lack features needed for production (memory, tools, evaluation)'
+    ],
+    followUpQuestions: [
+      'What template features are must-have vs nice-to-have?',
+      'How do you evaluate template quality?',
+      'What customizations do you anticipate?'
+    ],
+    expectedInsights: [
+      'Must-have: memory management, tool integration, error handling. Nice-to-have: admin UI, analytics',
+      'Check: GitHub stars/activity, documentation quality, community Discord activity, production usage examples',
+      'Domain-specific: FAQ database integration, escalation rules, company terminology'
+    ],
+    businessContext: 'Template selection should match team experience, timeline, and production requirements. Over-engineering and under-engineering are both risks.',
+    relatedConcepts: ['framework-selection', 'project-planning', 'technical-debt'],
+    timeEstimate: 12,
+    successCriteria: ['Evaluates options against constraints', 'Considers team experience', 'Plans customization']
+  },
+  {
+    id: 'agent-templates-hub-scenario-2',
+    type: 'scenario',
+    conceptId: 'agent-templates-hub',
+    title: 'Template Customization Strategy',
+    level: 'intermediate',
+    scenario: {
+      title: 'Extending a Template Without Creating Tech Debt',
+      description: 'You\'ve chosen a template, but it needs significant customization. How do you modify it while keeping the ability to receive upstream updates?',
+      context: 'Using LangChain RAG template, need custom retrieval logic and domain-specific prompts',
+      stakeholders: ['Development Team', 'Future Maintainers'],
+      systemState: {
+        activeAgents: 1,
+        errorRate: 0.02,
+        averageLatency: 500
+      },
+      challenges: [
+        'Template updates frequently',
+        'Customizations touch core components',
+        'Future team members need to understand changes'
+      ],
+      decisionPoints: [
+        'How do you structure customizations?',
+        'How do you track upstream changes?',
+        'How do you document your modifications?'
+      ],
+      options: [
+        'Fork the template and modify directly',
+        'Use extension points and configuration; isolate custom code in separate modules; document deviations',
+        'Contribute all customizations back to the template'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Forking creates maintenance burden; hard to merge upstream fixes',
+      'Extension points enable updates; isolation keeps custom code separate; documentation aids future maintainers',
+      'Domain-specific customizations aren\'t suitable for upstream; slows development'
+    ],
+    followUpQuestions: [
+      'What are common extension points in agent templates?',
+      'How do you test that upstream updates don\'t break customizations?',
+      'What documentation is most valuable?'
+    ],
+    expectedInsights: [
+      'Custom retrievers, prompt templates, tool definitions, output parsers are typical extension points',
+      'Integration tests that exercise custom + template code; run on each upstream update',
+      'Architecture decision records (ADRs) explaining why you deviated; inline comments explaining what changed'
+    ],
+    businessContext: 'Template customization requires discipline to maintain updateability. Clear separation and documentation prevent tech debt.',
+    relatedConcepts: ['technical-debt', 'maintainability', 'documentation'],
+    timeEstimate: 14,
+    successCriteria: ['Proposes isolation strategy', 'Plans update testing', 'Considers documentation']
+  }
+];
+
 // Helper function to get scenarios by concept and level
 export function getScenarios(
   conceptId: string, 

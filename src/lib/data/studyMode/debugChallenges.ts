@@ -6076,6 +6076,444 @@ def answer_question(question: str, context: str):
       timeEstimate: 16,
       successCriteria: ['Identifies XPIA pattern', 'Proposes document sanitization', 'Recommends instruction separation']
     }
+  ],
+  // ===== APPLIED & CAREER TIER (Tier 5) =====
+  'agent-troubleshooting': [
+    {
+      id: 'agent-troubleshooting-debug-1',
+      type: 'debug',
+      conceptId: 'agent-troubleshooting',
+      title: 'Silent Tool Failure Cascade',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'troubleshoot-silent-failure',
+        title: 'Agent Returns Empty Responses After Tool Changes',
+        description: 'After updating the weather API integration, the agent started returning empty responses for weather queries. No errors appear in logs.',
+        problemDescription: 'The weather tool now returns data in a different JSON format, but the agent silently fails because it cannot parse the new structure.',
+        brokenCode: `async function getWeather(location: string) {
+  const response = await weatherApi.get(\`/weather?q=\${location}\`);
+  // API changed from { temp: 72 } to { data: { temperature: 72 } }
+  return { temperature: response.temp }; // Returns { temperature: undefined }
+}
+
+// Agent uses the tool
+const weather = await getWeather("Seattle");
+const answer = \`The temperature is \${weather.temperature}°F\`;
+// Output: "The temperature is undefined°F" - no error thrown!`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'User', message: 'What\'s the weather in Seattle?', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Tool', message: 'Weather API returned: { data: { temperature: 72 } }', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'The temperature is undefined°F', type: 'error' }
+        ],
+        expectedBehavior: 'Tool should validate response structure and throw meaningful errors when API contracts change.',
+        commonIssues: [
+          { issue: 'No response validation', symptoms: ['Silent undefined values'], diagnosis: 'Missing schema validation', fix: 'Add Zod/JSON schema validation on tool responses' },
+          { issue: 'No error on undefined', symptoms: ['Graceful failure with wrong data'], diagnosis: 'JavaScript coercion hides errors', fix: 'Add explicit undefined checks and throw' }
+        ],
+        hints: ['What does response.temp return now?', 'How do you validate external API responses?', 'What type checking would catch this?'],
+        solution: 'Add schema validation to tool responses. Use Zod or similar to validate API response structure. Throw explicit errors when expected fields are missing.',
+        explanation: 'Silent failures from schema drift are common. Strong typing and runtime validation catch these issues before they reach users.'
+      },
+      expectedInsights: ['API contracts change without warning', 'Runtime validation catches schema drift', 'Undefined coercion hides bugs'],
+      hints: ['What changed in the API response?', 'How would TypeScript help here?', 'What does undefined do in string interpolation?'],
+      explanation: 'Teaches defensive tool development with runtime validation.',
+      relatedConcepts: ['tool-development', 'agent-ops', 'reliability'],
+      timeEstimate: 12,
+      successCriteria: ['Identifies schema mismatch', 'Proposes validation strategy', 'Recommends error handling']
+    },
+    {
+      id: 'agent-troubleshooting-debug-2',
+      type: 'debug',
+      conceptId: 'agent-troubleshooting',
+      title: 'Context Window Overflow',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'troubleshoot-context-overflow',
+        title: 'Agent Forgets Instructions Mid-Conversation',
+        description: 'After 10-15 exchanges, the agent starts ignoring its system prompt and behaves inconsistently.',
+        problemDescription: 'The conversation history fills the context window, pushing out the system prompt and causing instruction amnesia.',
+        brokenCode: `class Agent:
+    def __init__(self, system_prompt: str):
+        self.system_prompt = system_prompt
+        self.history = []
+    
+    def respond(self, user_message: str) -> str:
+        self.history.append({"role": "user", "content": user_message})
+        
+        # Context window overflow: history grows unbounded!
+        messages = [
+            {"role": "system", "content": self.system_prompt},
+            *self.history  # This can exceed context limit
+        ]
+        
+        response = llm.chat(messages)  # Truncates from beginning
+        self.history.append({"role": "assistant", "content": response})
+        return response`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'System', message: 'You are a helpful customer service agent. Always be polite and never discuss competitors.', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Exchange', message: '[15 previous exchanges...]', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'User', message: 'What do you think of CompetitorX?', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'CompetitorX has some good features...', type: 'error' }
+        ],
+        expectedBehavior: 'System prompt should always be preserved. History should be summarized or truncated while maintaining instruction compliance.',
+        commonIssues: [
+          { issue: 'Unbounded history', symptoms: ['Instructions forgotten after long conversations'], diagnosis: 'Context overflow truncates system prompt', fix: 'Implement conversation summarization or sliding window' },
+          { issue: 'No token counting', symptoms: ['Unpredictable context limits'], diagnosis: 'Missing context budget management', fix: 'Track token counts and reserve space for system prompt' }
+        ],
+        hints: ['How many tokens is the context window?', 'What gets truncated when you exceed the limit?', 'How can you compress history without losing context?'],
+        solution: 'Reserve context budget for system prompt. Implement conversation summarization for old messages. Use sliding window with summaries. Track token usage explicitly.',
+        explanation: 'Context window management is critical for long conversations. System prompts must be protected from truncation.'
+      },
+      expectedInsights: ['Context windows have hard limits', 'System prompts can be truncated', 'Summarization preserves context in less space'],
+      hints: ['Where does the system prompt go in truncation order?', 'How do you count tokens?', 'What conversation management strategies exist?'],
+      explanation: 'Teaches context window management for production agents.',
+      relatedConcepts: ['context-management', 'prompting', 'reliability'],
+      timeEstimate: 14,
+      successCriteria: ['Identifies overflow mechanism', 'Proposes context budget', 'Recommends summarization strategy']
+    },
+    {
+      id: 'agent-troubleshooting-debug-3',
+      type: 'debug',
+      conceptId: 'agent-troubleshooting',
+      title: 'Retry Storm Under Load',
+      level: 'advanced',
+      debugChallenge: {
+        id: 'troubleshoot-retry-storm',
+        title: 'Agent Causes Backend Outage During High Traffic',
+        description: 'During a traffic spike, the agent\'s retry logic amplified the load and caused a complete backend outage.',
+        problemDescription: 'Aggressive retry without exponential backoff caused a thundering herd that overwhelmed the LLM API.',
+        brokenCode: `async function callLLM(prompt: string, maxRetries = 3): Promise<string> {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await llm.generate(prompt);
+    } catch (error) {
+      if (i === maxRetries - 1) throw error;
+      // Immediate retry with no backoff!
+      console.log(\`Retry \${i + 1}/\${maxRetries}\`);
+    }
+  }
+}
+
+// 100 concurrent requests, each retrying immediately
+// = 300 requests hitting the already-strained backend`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Load', message: 'Traffic spike: 100 concurrent requests', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'LLM API', message: 'Rate limit exceeded (429)', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Retrying immediately... (x100)', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'LLM API', message: 'Service unavailable (503)', type: 'error' }
+        ],
+        expectedBehavior: 'Retries should use exponential backoff with jitter. Circuit breakers should prevent retry storms. Rate limiting should queue rather than retry.',
+        commonIssues: [
+          { issue: 'Immediate retry', symptoms: ['Amplified load under stress'], diagnosis: 'No backoff between retries', fix: 'Exponential backoff with jitter' },
+          { issue: 'No circuit breaker', symptoms: ['Continued retries during outage'], diagnosis: 'Retries continue regardless of backend state', fix: 'Implement circuit breaker pattern' },
+          { issue: 'Synchronized retries', symptoms: ['Thundering herd effect'], diagnosis: 'All clients retry at same time', fix: 'Add random jitter to retry delays' }
+        ],
+        hints: ['What happens when 100 clients retry simultaneously?', 'How does exponential backoff help?', 'What is the thundering herd problem?'],
+        solution: 'Implement exponential backoff with jitter. Add circuit breakers that open on sustained failures. Use client-side rate limiting with queues. Consider hedged requests for latency-sensitive paths.',
+        explanation: 'Retry storms are a common production failure mode. Proper retry strategies include backoff, jitter, and circuit breakers to prevent amplification.'
+      },
+      expectedInsights: ['Retries can amplify failures', 'Backoff + jitter prevents thundering herd', 'Circuit breakers protect both client and server'],
+      hints: ['What is exponential backoff?', 'Why does jitter help?', 'When should you stop retrying?'],
+      explanation: 'Teaches resilient retry patterns for production systems.',
+      relatedConcepts: ['reliability', 'circuit-breakers', 'agent-deployment'],
+      timeEstimate: 16,
+      successCriteria: ['Identifies retry amplification', 'Proposes backoff strategy', 'Recommends circuit breaker']
+    }
+  ],
+  'agent-economics': [
+    {
+      id: 'agent-economics-debug-1',
+      type: 'debug',
+      conceptId: 'agent-economics',
+      title: 'Runaway Token Costs',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'economics-runaway-costs',
+        title: 'Agent Costs 10x Budget Due to Context Accumulation',
+        description: 'A customer service agent\'s costs exploded because it was accumulating full conversation history in every request.',
+        problemDescription: 'Each response included the entire conversation history, causing token costs to grow quadratically with conversation length.',
+        brokenCode: `class SupportAgent:
+    def __init__(self):
+        self.full_history = []
+    
+    def respond(self, message: str) -> str:
+        self.full_history.append(message)
+        
+        # Cost grows O(n²) with conversation length!
+        prompt = f"""Previous conversation:
+{chr(10).join(self.full_history)}
+
+Please respond to the latest message."""
+        
+        response = llm.generate(prompt)  # Tokens = sum(1..n) = n(n+1)/2
+        self.full_history.append(response)
+        return response
+    
+# 20-message conversation: 
+# Message 1: 100 tokens, Message 10: 1000 tokens, Message 20: 2000 tokens
+# Total: ~21,000 tokens instead of ~2,000 with sliding window`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Message 1', message: 'Input tokens: 150', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Message 10', message: 'Input tokens: 1,200', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Message 20', message: 'Input tokens: 2,500', type: 'error' }
+        ],
+        expectedBehavior: 'Token usage should grow linearly with conversation length using summarization or sliding windows.',
+        commonIssues: [
+          { issue: 'Full history inclusion', symptoms: ['Quadratic cost growth'], diagnosis: 'All messages in every request', fix: 'Sliding window + summarization' },
+          { issue: 'No token budget', symptoms: ['Uncapped request size'], diagnosis: 'Missing cost controls', fix: 'Set max tokens per request' }
+        ],
+        hints: ['How does token count grow with conversation length?', 'What is O(n²) growth?', 'How can you compress history?'],
+        solution: 'Use sliding window for recent messages. Summarize older messages. Set hard token budget per request. Track cumulative costs.',
+        explanation: 'Context accumulation causes quadratic cost growth. Smart context management is essential for cost control.'
+      },
+      expectedInsights: ['Full history causes quadratic costs', 'Summarization trades compute for tokens', 'Token budgets prevent runaway costs'],
+      hints: ['Graph the token count over conversation length', 'What is the sum 1+2+3+...+n?', 'How does summarization help?'],
+      explanation: 'Teaches cost-aware context management.',
+      relatedConcepts: ['context-management', 'cost-optimization', 'agent-ops'],
+      timeEstimate: 12,
+      successCriteria: ['Identifies quadratic growth', 'Proposes sliding window', 'Recommends token budget']
+    },
+    {
+      id: 'agent-economics-debug-2',
+      type: 'debug',
+      conceptId: 'agent-economics',
+      title: 'Model Selection Cost Trap',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'economics-model-selection',
+        title: 'Using GPT-4 for Tasks GPT-3.5 Handles Equally Well',
+        description: 'An FAQ agent uses GPT-4 for all queries, but analysis shows GPT-3.5 handles 90% of queries with identical quality at 1/20th the cost.',
+        problemDescription: 'The agent lacks a routing layer to send simple queries to cheaper models.',
+        brokenCode: `async function answerQuestion(question: str) -> str:
+    # Always uses the most expensive model!
+    return await gpt4.generate(
+        f"Answer this customer question: {question}"
+    )
+    
+# Cost analysis:
+# - 90% of queries are simple FAQ lookups
+# - GPT-3.5 handles these with same quality
+# - GPT-4 costs $0.03/1K tokens, GPT-3.5 costs $0.0015/1K
+# - Potential 90% cost reduction with routing`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Query', message: 'What are your business hours?', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Router', message: 'Routing to: GPT-4 (no classification)', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Cost', message: 'Spent $0.03 for simple FAQ lookup', type: 'error' }
+        ],
+        expectedBehavior: 'A routing layer should classify query complexity and send simple queries to cheaper models.',
+        commonIssues: [
+          { issue: 'Single model for all queries', symptoms: ['High costs for simple tasks'], diagnosis: 'No complexity-based routing', fix: 'Add classifier/router layer' },
+          { issue: 'No cost per query tracking', symptoms: ['Cannot optimize by query type'], diagnosis: 'Missing cost attribution', fix: 'Tag costs by query category' }
+        ],
+        hints: ['What percentage of queries are simple?', 'How do you classify query complexity?', 'What is the cost delta between models?'],
+        solution: 'Implement query classifier (can be lightweight model or heuristics). Route simple queries to cheaper models. A/B test quality to validate routing decisions. Track costs by query category.',
+        explanation: 'Model routing optimizes cost/quality tradeoffs. Most production systems benefit from tiered model selection.'
+      },
+      expectedInsights: ['Not all queries need the best model', 'Classification enables cost optimization', 'Quality validation ensures routing works'],
+      hints: ['What is the 80/20 rule for query complexity?', 'How do you measure quality parity?', 'What is the breakeven for classifier cost?'],
+      explanation: 'Teaches model routing for cost optimization.',
+      relatedConcepts: ['model-selection', 'cost-optimization', 'agent-patterns'],
+      timeEstimate: 14,
+      successCriteria: ['Identifies over-provisioning', 'Proposes routing strategy', 'Recommends quality validation']
+    },
+    {
+      id: 'agent-economics-debug-3',
+      type: 'debug',
+      conceptId: 'agent-economics',
+      title: 'Retry Cost Multiplication',
+      level: 'advanced',
+      debugChallenge: {
+        id: 'economics-retry-costs',
+        title: 'Fallback Chain Multiplies Costs on Failures',
+        description: 'When the primary model fails, the fallback chain tries progressively more expensive models, multiplying costs during incidents.',
+        problemDescription: 'The fallback logic increases rather than maintains cost during failures.',
+        brokenCode: `async function generateWithFallback(prompt: str) -> str:
+    models = [
+        ("gpt-3.5-turbo", 0.002),  # Cost per 1K tokens
+        ("gpt-4", 0.03),            # 15x more expensive
+        ("gpt-4-32k", 0.06)         # 30x more expensive
+    ]
+    
+    for model, cost in models:
+        try:
+            return await call_model(model, prompt)
+        except Exception:
+            continue  # Try next (more expensive) model
+    
+    raise Exception("All models failed")
+    
+# During GPT-3.5 outage, every request costs 15-30x more!`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Request', message: 'Calling GPT-3.5-turbo...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Error', message: 'GPT-3.5 rate limited, falling back', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Fallback', message: 'Calling GPT-4 (15x cost)...', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'Budget', message: 'Hourly costs up 1,500%', type: 'error' }
+        ],
+        expectedBehavior: 'Fallback chain should use equal-or-cheaper alternatives, or circuit break rather than escalate costs.',
+        commonIssues: [
+          { issue: 'Escalating fallback costs', symptoms: ['Cost spikes during incidents'], diagnosis: 'Fallback models more expensive', fix: 'Use equal-cost fallbacks or queue' },
+          { issue: 'No cost-aware circuit breaker', symptoms: ['Continued expensive fallbacks'], diagnosis: 'No budget-based limiting', fix: 'Circuit break when costs exceed threshold' }
+        ],
+        hints: ['What is the cost difference between fallback models?', 'Should you fall UP or fall ACROSS?', 'When should you queue instead of fallback?'],
+        solution: 'Use equal-cost fallbacks (e.g., Claude instead of GPT-4 for GPT-3.5). Implement cost-aware circuit breakers. Consider queuing with retry vs immediate expensive fallback.',
+        explanation: 'Fallback chains should maintain or reduce costs, not increase them. Cost-aware fallback is essential for budget management during incidents.'
+      },
+      expectedInsights: ['Fallbacks can increase costs', 'Circuit breakers should include cost limits', 'Queuing may be better than expensive fallback'],
+      hints: ['Compare fallback costs', 'What is a cost-aware circuit breaker?', 'When is waiting better than paying more?'],
+      explanation: 'Teaches cost-aware fallback design.',
+      relatedConcepts: ['fallback-patterns', 'cost-optimization', 'reliability'],
+      timeEstimate: 16,
+      successCriteria: ['Identifies cost escalation', 'Proposes equal-cost fallbacks', 'Recommends cost circuit breaker']
+    }
+  ],
+  'agent-career-paths': [
+    {
+      id: 'agent-career-paths-debug-1',
+      type: 'debug',
+      conceptId: 'agent-career-paths',
+      title: 'Skill Gap Analysis',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'career-skill-gap',
+        title: 'Agent Engineer Candidate Struggles with Production Issues',
+        description: 'A candidate with strong prompt engineering skills fails an agent debugging interview because they lack production systems experience.',
+        problemDescription: 'The candidate focused only on LLM skills and missed critical infrastructure and observability competencies.',
+        brokenCode: `# Interview Question: Debug this production issue
+
+"The agent's response latency increased from 500ms to 5s after deployment.
+There are no errors in the logs. The LLM model hasn't changed. 
+What would you investigate?"
+
+# Candidate's answer:
+"I would check if the prompts changed. Maybe the system prompt 
+got longer? Or the temperature setting?"
+
+# Expected answer should cover:
+# - Network latency (cold starts, DNS, TLS)
+# - Database query performance
+# - Memory/CPU saturation
+# - External API response times
+# - Request queue depth`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Interviewer', message: 'What would you investigate for 10x latency increase?', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Candidate', message: 'Check if prompts changed...', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Interviewer', message: 'What about infrastructure? Databases? External APIs?', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Candidate', message: '...', type: 'error' }
+        ],
+        expectedBehavior: 'Agent engineers need both LLM skills AND production systems debugging skills.',
+        commonIssues: [
+          { issue: 'LLM-only focus', symptoms: ['Cannot debug infrastructure issues'], diagnosis: 'Missing systems skills', fix: 'Study distributed systems, observability' },
+          { issue: 'No production experience', symptoms: ['Unfamiliar with common failure modes'], diagnosis: 'Only built prototypes', fix: 'Operate production systems, on-call experience' }
+        ],
+        hints: ['What causes latency besides the LLM?', 'What infrastructure sits between user and model?', 'How do you profile a distributed system?'],
+        solution: 'Build comprehensive skills: LLM fundamentals + prompt engineering + systems debugging + observability + reliability engineering. Practice with production incidents.',
+        explanation: 'Agent engineering requires the full stack: LLM skills alone are insufficient for production systems.'
+      },
+      expectedInsights: ['Agent engineering is full-stack', 'Production skills differ from prototyping', 'Observability is essential'],
+      hints: ['What is the full request path?', 'Where could latency hide?', 'How do you measure each component?'],
+      explanation: 'Illustrates the breadth of skills required for agent engineering roles.',
+      relatedConcepts: ['agent-ops', 'observability', 'career-development'],
+      timeEstimate: 12,
+      successCriteria: ['Identifies skill gaps', 'Proposes learning path', 'Recognizes production complexity']
+    }
+  ],
+  'industry-agents': [
+    {
+      id: 'industry-agents-debug-1',
+      type: 'debug',
+      conceptId: 'industry-agents',
+      title: 'HIPAA Violation in Healthcare Agent',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'industry-hipaa',
+        title: 'Healthcare Agent Logs Patient Data to Third-Party Service',
+        description: 'A healthcare scheduling agent sends patient names and conditions to an external LLM API, violating HIPAA.',
+        problemDescription: 'The agent uses a third-party LLM API without data processing agreements or de-identification.',
+        brokenCode: `async def schedule_appointment(patient_data: dict) -> str:
+    # HIPAA violation: PHI sent to third-party API!
+    prompt = f"""
+    Schedule an appointment for patient {patient_data['name']}.
+    Medical condition: {patient_data['diagnosis']}
+    Insurance: {patient_data['insurance_id']}
+    """
+    
+    response = await external_llm_api.generate(prompt)  # Third-party API!
+    return response
+
+# Patient data sent to external servers without:
+# - Business Associate Agreement (BAA)
+# - Data encryption in transit/at rest
+# - Audit logging
+# - Patient consent`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Request', message: 'Schedule appointment for John Smith, Diabetes Type 2', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'API Call', message: 'Sending to api.external-llm.com...', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'Compliance', message: 'HIPAA PHI transmitted to non-BAA vendor', type: 'error' }
+        ],
+        expectedBehavior: 'PHI must never be sent to third parties without BAA. Use on-premise models or de-identify data.',
+        commonIssues: [
+          { issue: 'PHI to third-party', symptoms: ['HIPAA violation, fines'], diagnosis: 'No BAA with LLM provider', fix: 'Use HIPAA-compliant provider or on-premise' },
+          { issue: 'No de-identification', symptoms: ['Raw PHI in prompts'], diagnosis: 'Missing data sanitization', fix: 'De-identify before sending, re-identify after' }
+        ],
+        hints: ['What is PHI?', 'What is a BAA?', 'How do you de-identify patient data?'],
+        solution: 'Use HIPAA-compliant LLM providers with BAA. Implement de-identification pipeline. Add audit logging. Consider on-premise models for sensitive data.',
+        explanation: 'Healthcare agents must comply with HIPAA. PHI requires specific handling including BAAs, encryption, and audit trails.'
+      },
+      expectedInsights: ['PHI requires special handling', 'BAAs are mandatory for third-parties', 'De-identification enables safer processing'],
+      hints: ['What data is protected under HIPAA?', 'What legal agreements are required?', 'How do you process PHI safely?'],
+      explanation: 'Teaches HIPAA compliance requirements for healthcare agents.',
+      relatedConcepts: ['compliance', 'healthcare', 'data-privacy'],
+      timeEstimate: 14,
+      successCriteria: ['Identifies PHI exposure', 'Explains BAA requirement', 'Proposes compliant architecture']
+    }
+  ],
+  'agent-templates-hub': [
+    {
+      id: 'agent-templates-hub-debug-1',
+      type: 'debug',
+      conceptId: 'agent-templates-hub',
+      title: 'Template Dependency Hell',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'templates-dependency',
+        title: 'Template Update Breaks Production Agent',
+        description: 'Updating an agent framework template broke production because of incompatible dependency versions.',
+        problemDescription: 'The template updated LangChain from 0.1 to 0.2, breaking the agent\'s custom chain implementation.',
+        brokenCode: `# Old working code (LangChain 0.1)
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+
+chain = LLMChain(llm=llm, prompt=template)  # Works in 0.1
+
+# After template update to LangChain 0.2
+from langchain.chains import LLMChain  # Import path changed!
+# Error: Module 'langchain.chains' has no attribute 'LLMChain'
+
+# Breaking changes:
+# - Import paths reorganized
+# - Chain API signatures changed
+# - Prompt template format different`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Template', message: 'Updating to template v2.5...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Pip', message: 'Installing langchain==0.2.0', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Import', message: 'ModuleNotFoundError: langchain.chains.LLMChain', type: 'error' }
+        ],
+        expectedBehavior: 'Dependencies should be pinned. Template updates should be tested in staging. Breaking changes require migration guides.',
+        commonIssues: [
+          { issue: 'Unpinned dependencies', symptoms: ['Updates break production'], diagnosis: 'No version locks', fix: 'Pin dependencies in requirements.txt/package.json' },
+          { issue: 'Direct template updates', symptoms: ['No testing before production'], diagnosis: 'Missing staging environment', fix: 'Always test updates in staging' }
+        ],
+        hints: ['How are dependencies versioned?', 'What is semantic versioning?', 'How do you test updates safely?'],
+        solution: 'Pin all dependencies with exact versions. Use lock files. Test template updates in staging. Read changelogs before updating. Consider dependency scanning for breaking changes.',
+        explanation: 'Dependency management is critical for template-based projects. Pin versions and test updates thoroughly.'
+      },
+      expectedInsights: ['Dependency versions matter', 'Templates can introduce breaking changes', 'Staging environments prevent production breaks'],
+      hints: ['What is version pinning?', 'How do you read a changelog?', 'What is a lock file?'],
+      explanation: 'Teaches dependency management for template-based agent projects.',
+      relatedConcepts: ['dependency-management', 'ci-cd', 'best-practices'],
+      timeEstimate: 14,
+      successCriteria: ['Identifies version conflict', 'Proposes pinning strategy', 'Recommends testing workflow']
+    }
   ]
 };
 

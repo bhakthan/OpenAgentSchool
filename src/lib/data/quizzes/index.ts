@@ -27,6 +27,12 @@ import { agenticRoboticsIntegrationQuestions } from './agentic-robotics';
 import { adoptionPlaybookQuestions } from './adoption-playbook';
 import { clientCodingAgentsQuestions, agentSkillsQuestions, clientCodingAgentsTime, agentSkillsTime } from './client-coding-agents';
 import { agentRedTeamingQuestions, agentRedTeamingTime } from './agent-red-teaming';
+// Applied & Career Tier quizzes
+import { agentTroubleshootingQuestions, agentTroubleshootingTime } from './agent-troubleshooting';
+import { agentEconomicsQuestions, agentEconomicsTime } from './agent-economics';
+import { agentCareerPathsQuestions, agentCareerPathsTime } from './agent-career-paths';
+import { industryAgentsQuestions, industryAgentsTime } from './industry-agents';
+import { agentTemplatesHubQuestions, agentTemplatesHubTime } from './agent-templates-hub';
 // New Phase 1 foundation quizzes
 import { llmFundamentalsQuiz } from './llm-fundamentals';
 import { gettingStartedAgentsQuiz } from './getting-started-agents';
@@ -69,7 +75,13 @@ const allQuestions = [
   ...agenticRoboticsIntegrationQuestions,
   ...clientCodingAgentsQuestions,
   ...agentSkillsQuestions,
-  ...agentRedTeamingQuestions
+  ...agentRedTeamingQuestions,
+  // Applied & Career Tier
+  ...agentTroubleshootingQuestions,
+  ...agentEconomicsQuestions,
+  ...agentCareerPathsQuestions,
+  ...industryAgentsQuestions,
+  ...agentTemplatesHubQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -476,6 +488,165 @@ export const quizCategories: QuizCategory[] = [
         name: 'Evaluation Integration',
         description: 'Continuous red teaming in CI/CD pipelines',
         prerequisites: ['enterprise-framework'],
+      }
+    ]
+  },
+  // ===== APPLIED & CAREER TIER (Tier 5) =====
+  {
+    id: 'agent-troubleshooting',
+    name: 'Agent Troubleshooting Playbook',
+    description: 'Systematic debugging: failure taxonomy, diagnostic trees, production patterns',
+    icon: 'Bug',
+    estimatedTime: agentTroubleshootingTime,
+    totalQuestions: agentTroubleshootingQuestions.length,
+    subCategories: [
+      {
+        id: 'failure-taxonomy',
+        name: 'Failure Taxonomy',
+        description: 'Classifying agent failures by layer and cause',
+        prerequisites: ['agent-patterns'],
+      },
+      {
+        id: 'diagnostic-trees',
+        name: 'Diagnostic Trees',
+        description: 'Decision trees for systematic problem isolation',
+        prerequisites: ['failure-taxonomy'],
+      },
+      {
+        id: 'production-patterns',
+        name: 'Production Patterns',
+        description: 'Circuit breakers, observability, and resilience patterns',
+        prerequisites: ['diagnostic-trees'],
+      }
+    ]
+  },
+  {
+    id: 'agent-economics',
+    name: 'Agent Economics',
+    description: 'Cost models, pricing strategies, and ROI frameworks',
+    icon: 'CurrencyCircleDollar',
+    estimatedTime: agentEconomicsTime,
+    totalQuestions: agentEconomicsQuestions.length,
+    subCategories: [
+      {
+        id: 'cost-models',
+        name: 'Cost Models',
+        description: 'Token costs, compute pricing, and infrastructure economics',
+        prerequisites: ['agent-deployment'],
+      },
+      {
+        id: 'pricing-strategies',
+        name: 'Pricing Strategies',
+        description: 'Monetization models for agent-powered products',
+        prerequisites: ['cost-models'],
+      },
+      {
+        id: 'roi-frameworks',
+        name: 'ROI Frameworks',
+        description: 'Measuring and demonstrating agent value',
+        prerequisites: ['pricing-strategies'],
+      }
+    ]
+  },
+  {
+    id: 'agent-career-paths',
+    name: 'Agent Career Paths',
+    description: 'Roles, skills, certifications, and career progression',
+    icon: 'Briefcase',
+    estimatedTime: agentCareerPathsTime,
+    totalQuestions: agentCareerPathsQuestions.length,
+    subCategories: [
+      {
+        id: 'career-roles',
+        name: 'Career Roles',
+        description: 'Agent Engineer, Architect, Product Manager, and more',
+        prerequisites: [],
+      },
+      {
+        id: 'skill-progression',
+        name: 'Skill Progression',
+        description: 'Building expertise from junior to staff level',
+        prerequisites: ['career-roles'],
+      },
+      {
+        id: 'certifications',
+        name: 'Certifications',
+        description: 'Industry certifications and learning paths',
+        prerequisites: ['skill-progression'],
+      }
+    ]
+  },
+  {
+    id: 'industry-agents',
+    name: 'Industry Agents',
+    description: 'Vertical-specific agents: Healthcare, Finance, Legal, and more',
+    icon: 'Buildings',
+    estimatedTime: industryAgentsTime,
+    totalQuestions: industryAgentsQuestions.length,
+    subCategories: [
+      {
+        id: 'healthcare-agents',
+        name: 'Healthcare Agents',
+        description: 'HIPAA compliance and clinical decision support',
+        prerequisites: ['agent-security'],
+      },
+      {
+        id: 'finance-agents',
+        name: 'Finance Agents',
+        description: 'Trading, risk analysis, and regulatory compliance',
+        prerequisites: ['agent-security'],
+      },
+      {
+        id: 'legal-agents',
+        name: 'Legal Agents',
+        description: 'Contract analysis, discovery, and compliance',
+        prerequisites: ['agent-security'],
+      },
+      {
+        id: 'education-agents',
+        name: 'Education Agents',
+        description: 'Personalized learning and assessment',
+        prerequisites: ['agent-patterns'],
+      },
+      {
+        id: 'manufacturing-agents',
+        name: 'Manufacturing Agents',
+        description: 'Quality control and supply chain optimization',
+        prerequisites: ['agent-patterns'],
+      },
+      {
+        id: 'retail-agents',
+        name: 'Retail Agents',
+        description: 'Customer service and inventory management',
+        prerequisites: ['agent-patterns'],
+      }
+    ]
+  },
+  {
+    id: 'agent-templates-hub',
+    name: 'Agent Templates Hub',
+    description: 'Starter templates, quickstart guides, and best practices',
+    icon: 'FileCode',
+    estimatedTime: agentTemplatesHubTime,
+    totalQuestions: agentTemplatesHubQuestions.length,
+    subCategories: [
+      {
+        id: 'starter-templates',
+        name: 'Starter Templates',
+        description: 'Production-ready agent scaffolds',
+        prerequisites: [],
+      },
+      {
+        id: 'project-structure',
+        name: 'Project Structure',
+        description: 'File organization and module patterns',
+        prerequisites: ['starter-templates'],
+      },
+      {
+        id: 'template-best-practices',
+        name: 'Best Practices',
+        description: 'Configuration, testing, and deployment patterns',
+        prerequisites: ['project-structure'],
       }
     ]
   },

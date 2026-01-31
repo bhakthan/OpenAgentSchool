@@ -4629,6 +4629,482 @@ export const socraticQuestionLibrary = {
         'Proposes conversation-level defenses'
       ]
     }
+  ],
+  // ===== APPLIED & CAREER TIER (Tier 5) =====
+  'agent-troubleshooting': [
+    {
+      id: 'agent-troubleshooting-socratic-1',
+      type: 'socratic',
+      conceptId: 'agent-troubleshooting',
+      title: 'Failure Pattern Recognition',
+      level: 'beginner',
+      socratiQuestion: 'Your agent suddenly starts giving wrong answers 50% of the time, but the LLM hasn\'t changed. Where would you look first, and why?',
+      followUpQuestions: [
+        'How do you distinguish between LLM failures vs tool failures vs context failures?',
+        'What observability signals would help you narrow down the layer?',
+        'How would you reproduce this failure consistently?'
+      ],
+      expectedInsights: [
+        'Failures often occur at integration boundaries, not in the LLM itself',
+        'Tool API changes, context drift, or prompt mutations are common culprits',
+        'Systematic layer-by-layer isolation is faster than random debugging'
+      ],
+      hints: [
+        'Think about what components sit between user and LLM',
+        'Consider recent changes in external dependencies',
+        'Reflect on how context is constructed each request'
+      ],
+      explanation: 'Effective agent debugging requires understanding the failure taxonomy: LLM layer, tool layer, context layer, and integration layer each have distinct failure signatures.',
+      relatedConcepts: ['observability', 'agent-ops', 'reliability'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Identifies multiple potential failure layers',
+        'Proposes systematic isolation strategy',
+        'Connects symptoms to likely causes'
+      ]
+    },
+    {
+      id: 'agent-troubleshooting-socratic-2',
+      type: 'socratic',
+      conceptId: 'agent-troubleshooting',
+      title: 'Circuit Breaker Design',
+      level: 'intermediate',
+      socratiQuestion: 'Your agent calls a flaky external API that times out 10% of the time. How do you prevent this from degrading the entire user experience?',
+      followUpQuestions: [
+        'When should a circuit breaker trip vs retry?',
+        'How do you provide graceful degradation vs hard failure?',
+        'What metrics trigger circuit breaker state transitions?'
+      ],
+      expectedInsights: [
+        'Circuit breakers prevent cascade failures and resource exhaustion',
+        'Fallback strategies (cached data, alternative tools) maintain partial functionality',
+        'Error budgets and failure rate thresholds guide state transitions'
+      ],
+      hints: [
+        'Consider the three states: closed, open, half-open',
+        'Think about what the user sees during degradation',
+        'Reflect on how to distinguish transient vs persistent failures'
+      ],
+      explanation: 'Circuit breaker patterns are essential for production agents that depend on external services. They prevent cascade failures while enabling graceful degradation.',
+      relatedConcepts: ['resilience-patterns', 'agent-deployment', 'reliability'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Explains circuit breaker mechanics',
+        'Proposes fallback strategies',
+        'Defines appropriate thresholds'
+      ]
+    },
+    {
+      id: 'agent-troubleshooting-socratic-3',
+      type: 'socratic',
+      conceptId: 'agent-troubleshooting',
+      title: 'Production Incident Response',
+      level: 'advanced',
+      socratiQuestion: 'Your production agent is generating harmful outputs despite passing all safety tests. How do you structure your incident response, and what root cause categories do you investigate?',
+      followUpQuestions: [
+        'How do you balance speed of mitigation vs thoroughness of investigation?',
+        'What data do you preserve for post-incident analysis?',
+        'How do you prevent similar incidents without over-restricting the agent?'
+      ],
+      expectedInsights: [
+        'Immediate mitigation (kill switch, rate limit) precedes root cause analysis',
+        'Preserve context, prompts, and tool outputs for forensics',
+        'Root causes often span prompt injection, context poisoning, or evaluation gaps'
+      ],
+      hints: [
+        'Apply incident response frameworks (detect, contain, eradicate, recover)',
+        'Consider how adversarial inputs might bypass safety layers',
+        'Think about adding guardrails vs improving detection'
+      ],
+      explanation: 'Production safety incidents require structured response combining immediate harm reduction with systematic root cause analysis to prevent recurrence.',
+      relatedConcepts: ['agent-security', 'agent-red-teaming', 'agent-ops'],
+      timeEstimate: 20,
+      successCriteria: [
+        'Prioritizes user safety in response sequence',
+        'Identifies forensic data requirements',
+        'Proposes preventive improvements'
+      ]
+    }
+  ],
+  'agent-economics': [
+    {
+      id: 'agent-economics-socratic-1',
+      type: 'socratic',
+      conceptId: 'agent-economics',
+      title: 'Cost Visibility and Control',
+      level: 'beginner',
+      socratiQuestion: 'Your agent\'s costs just doubled but usage stayed the same. What are the most likely causes, and how would you investigate?',
+      followUpQuestions: [
+        'How do you attribute costs across different agent components?',
+        'What cost anomaly signals should trigger alerts?',
+        'How do you distinguish inefficiency from legitimate increased capability?'
+      ],
+      expectedInsights: [
+        'Token usage, context length, and tool calls are the main cost drivers',
+        'Context accumulation over long conversations can explode costs',
+        'Retry loops and fallback chains can multiply expected costs'
+      ],
+      hints: [
+        'Look at per-request token counts vs aggregate costs',
+        'Consider changes in conversation length or complexity',
+        'Think about retry and fallback behavior'
+      ],
+      explanation: 'Agent costs are driven by token usage, which is influenced by prompt design, context management, and error handling. Cost observability is essential for sustainable agent economics.',
+      relatedConcepts: ['observability', 'agent-ops', 'cost-optimization'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Identifies main cost drivers',
+        'Proposes investigation approach',
+        'Connects costs to architectural decisions'
+      ]
+    },
+    {
+      id: 'agent-economics-socratic-2',
+      type: 'socratic',
+      conceptId: 'agent-economics',
+      title: 'Pricing Model Design',
+      level: 'intermediate',
+      socratiQuestion: 'You\'re pricing an agent product. Should you charge per interaction, per outcome, per seat, or something else? What trade-offs does each model create?',
+      followUpQuestions: [
+        'How does pricing affect user behavior and agent efficiency?',
+        'What pricing model aligns provider incentives with user value?',
+        'How do you handle variable costs with fixed pricing?'
+      ],
+      expectedInsights: [
+        'Per-interaction pricing discourages exploration and multi-turn refinement',
+        'Per-outcome pricing requires measurable success criteria',
+        'Hybrid models (base + usage) balance predictability and alignment'
+      ],
+      hints: [
+        'Consider how SaaS vs usage-based models affect user behavior',
+        'Think about what success looks like for your agent',
+        'Reflect on margin protection with variable costs'
+      ],
+      explanation: 'Agent pricing models must balance user value capture, cost predictability, and behavioral incentives. The right model depends on use case and measurability of outcomes.',
+      relatedConcepts: ['business-strategy', 'agent-deployment', 'product-management'],
+      timeEstimate: 16,
+      successCriteria: [
+        'Compares multiple pricing models',
+        'Identifies behavioral implications',
+        'Considers margin and predictability'
+      ]
+    },
+    {
+      id: 'agent-economics-socratic-3',
+      type: 'socratic',
+      conceptId: 'agent-economics',
+      title: 'ROI Demonstration',
+      level: 'advanced',
+      socratiQuestion: 'Your stakeholder asks for ROI proof before approving agent budget. What metrics do you present, and how do you handle benefits that are hard to quantify?',
+      followUpQuestions: [
+        'How do you measure productivity gains from agent assistance?',
+        'What baseline do you compare against for automation?',
+        'How do you account for quality improvements vs speed improvements?'
+      ],
+      expectedInsights: [
+        'Time-to-completion and error rate are measurable proxies for value',
+        'Opportunity cost of human time is the primary comparison baseline',
+        'Qualitative benefits (consistency, availability) require proxy metrics'
+      ],
+      hints: [
+        'Start with measurable efficiency gains',
+        'Consider what the alternative (no agent) costs',
+        'Include risk reduction and consistency benefits'
+      ],
+      explanation: 'Agent ROI requires both quantitative metrics (time saved, errors avoided) and qualitative frameworks (capability enablement, risk reduction). Strong ROI cases combine multiple value dimensions.',
+      relatedConcepts: ['business-use-cases', 'product-management', 'adoption-playbook'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Proposes quantifiable metrics',
+        'Establishes meaningful baseline',
+        'Addresses qualitative benefits'
+      ]
+    }
+  ],
+  'agent-career-paths': [
+    {
+      id: 'agent-career-paths-socratic-1',
+      type: 'socratic',
+      conceptId: 'agent-career-paths',
+      title: 'Role Differentiation',
+      level: 'beginner',
+      socratiQuestion: 'What\'s the difference between an AI Engineer and an Agent Engineer? Why might an organization need both?',
+      followUpQuestions: [
+        'What skills does an Agent Engineer need that an AI Engineer might not have?',
+        'How do these roles collaborate on a complex agent project?',
+        'Which role is responsible for production reliability?'
+      ],
+      expectedInsights: [
+        'AI Engineers focus on model training/fine-tuning; Agent Engineers focus on orchestration and integration',
+        'Agent Engineers need strong systems skills (APIs, observability, reliability)',
+        'Complex projects need both: AI Engineers for capability, Agent Engineers for production systems'
+      ],
+      hints: [
+        'Think about the difference between model capability and system behavior',
+        'Consider who owns prompt engineering vs who owns deployment',
+        'Reflect on where most production bugs occur'
+      ],
+      explanation: 'The Agent Engineer role emerged as agent systems became more complex, requiring dedicated expertise in orchestration, tool integration, and production reliability distinct from model-focused AI Engineering.',
+      relatedConcepts: ['agent-ops', 'agent-deployment', 'organizational-enablement'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Distinguishes role responsibilities',
+        'Identifies unique skill requirements',
+        'Explains collaboration patterns'
+      ]
+    },
+    {
+      id: 'agent-career-paths-socratic-2',
+      type: 'socratic',
+      conceptId: 'agent-career-paths',
+      title: 'Skill Development Strategy',
+      level: 'intermediate',
+      socratiQuestion: 'You\'re a software engineer wanting to transition into agent development. What skills should you prioritize learning, and in what order?',
+      followUpQuestions: [
+        'Which existing software engineering skills transfer directly?',
+        'What gaps are hardest to fill from self-study vs hands-on experience?',
+        'How do you build a portfolio that demonstrates agent expertise?'
+      ],
+      expectedInsights: [
+        'Prompt engineering and LLM APIs are the first layer; orchestration frameworks come next',
+        'Production observability and reliability transfer directly from backend engineering',
+        'Portfolio projects should show end-to-end agent systems, not just API calls'
+      ],
+      hints: [
+        'Start with what you can do today with API access',
+        'Consider what distinguishes junior vs senior agent developers',
+        'Think about projects that demonstrate production thinking'
+      ],
+      explanation: 'Transitioning to agent development builds on software engineering fundamentals while adding LLM-specific skills. The learning path typically moves from prompting to orchestration to production reliability.',
+      relatedConcepts: ['agent-skills', 'agent-ops', 'evaluation'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Proposes prioritized learning path',
+        'Identifies transferable skills',
+        'Describes portfolio strategy'
+      ]
+    },
+    {
+      id: 'agent-career-paths-socratic-3',
+      type: 'socratic',
+      conceptId: 'agent-career-paths',
+      title: 'Organizational Positioning',
+      level: 'advanced',
+      socratiQuestion: 'Should agent development teams report to Engineering, Product, or a dedicated AI organization? What are the trade-offs of each structure?',
+      followUpQuestions: [
+        'How does org structure affect hiring and career growth for agent roles?',
+        'What coordination challenges arise from each structure?',
+        'How do you ensure agent capabilities align with business priorities?'
+      ],
+      expectedInsights: [
+        'Engineering ownership enables better production integration but may lack product focus',
+        'Dedicated AI orgs build capability depth but risk disconnection from business needs',
+        'Matrix or embedded models balance both but create coordination overhead'
+      ],
+      hints: [
+        'Consider where agent budget and headcount decisions are made',
+        'Think about how success metrics differ by org structure',
+        'Reflect on career paths within each structure'
+      ],
+      explanation: 'Agent team organization affects velocity, alignment, and career development. The right structure depends on company maturity, agent centrality to product, and existing org design.',
+      relatedConcepts: ['organizational-enablement', 'adoption-playbook', 'product-management'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Compares organizational models',
+        'Identifies trade-offs for each',
+        'Considers career implications'
+      ]
+    }
+  ],
+  'industry-agents': [
+    {
+      id: 'industry-agents-socratic-1',
+      type: 'socratic',
+      conceptId: 'industry-agents',
+      title: 'Regulatory Constraints',
+      level: 'beginner',
+      socratiQuestion: 'Why can\'t you deploy the same agent architecture in healthcare as you would in e-commerce? What fundamental differences require different approaches?',
+      followUpQuestions: [
+        'What regulations affect agent data handling in healthcare vs retail?',
+        'How do liability considerations change agent autonomy levels?',
+        'What audit and explainability requirements exist in regulated industries?'
+      ],
+      expectedInsights: [
+        'HIPAA, GDPR, and other regulations constrain data processing and storage',
+        'High-stakes domains require human-in-the-loop for consequential decisions',
+        'Audit trails and explainability are mandatory, not optional, in regulated industries'
+      ],
+      hints: [
+        'Consider what happens when an agent makes a mistake in each domain',
+        'Think about data sensitivity and who can access what',
+        'Reflect on who is liable for agent decisions'
+      ],
+      explanation: 'Industry-specific agents must be designed around regulatory requirements, risk tolerance, and audit needs. One-size-fits-all agent architectures fail in regulated industries.',
+      relatedConcepts: ['responsible-ai-governance', 'agent-security', 'compliance'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Identifies key regulatory differences',
+        'Explains autonomy constraints',
+        'Recognizes audit requirements'
+      ]
+    },
+    {
+      id: 'industry-agents-socratic-2',
+      type: 'socratic',
+      conceptId: 'industry-agents',
+      title: 'Domain Expertise Integration',
+      level: 'intermediate',
+      socratiQuestion: 'Your legal agent needs to understand contract law across multiple jurisdictions. How do you inject this domain expertise without fine-tuning a new model?',
+      followUpQuestions: [
+        'What role does RAG play in domain-specific agents?',
+        'How do you validate that domain knowledge is correctly applied?',
+        'When is fine-tuning worth the investment vs RAG-based approaches?'
+      ],
+      expectedInsights: [
+        'RAG with curated legal databases provides updatable domain knowledge',
+        'Domain experts must validate agent outputs, especially for edge cases',
+        'Fine-tuning is reserved for when domain reasoning patterns differ fundamentally'
+      ],
+      hints: [
+        'Consider how legal knowledge changes (new regulations, case law)',
+        'Think about who validates that the agent is correct',
+        'Reflect on the cost/benefit of RAG vs fine-tuning'
+      ],
+      explanation: 'Domain expertise is typically injected via RAG for maintainability and updateability. Fine-tuning is reserved for fundamental reasoning pattern changes that RAG cannot provide.',
+      relatedConcepts: ['agentic-rag', 'fine-tuning', 'evaluation'],
+      timeEstimate: 16,
+      successCriteria: [
+        'Compares RAG vs fine-tuning approaches',
+        'Proposes validation strategy',
+        'Considers maintenance implications'
+      ]
+    },
+    {
+      id: 'industry-agents-socratic-3',
+      type: 'socratic',
+      conceptId: 'industry-agents',
+      title: 'Cross-Industry Patterns',
+      level: 'advanced',
+      socratiQuestion: 'What agent architecture patterns transfer across industries (healthcare, finance, legal), and what patterns are industry-specific? How do you identify reusable components?',
+      followUpQuestions: [
+        'What orchestration patterns are universal vs domain-specific?',
+        'How do you build a platform that serves multiple industry verticals?',
+        'What abstraction level enables reuse without sacrificing domain fit?'
+      ],
+      expectedInsights: [
+        'Orchestration, memory, and tool integration patterns are largely transferable',
+        'Compliance layers, domain ontologies, and validation rules are industry-specific',
+        'Platform architecture separates core agent capabilities from domain plugins'
+      ],
+      hints: [
+        'Identify what\'s common: multi-agent coordination, tool use, memory',
+        'Identify what differs: data schemas, validation rules, human-in-the-loop triggers',
+        'Think about plugin architectures for domain-specific components'
+      ],
+      explanation: 'Building cross-industry agent platforms requires identifying transferable patterns (orchestration, memory, tools) and creating extension points for industry-specific components (compliance, domain models, validation).',
+      relatedConcepts: ['agent-patterns', 'multi-agent-systems', 'architecture'],
+      timeEstimate: 20,
+      successCriteria: [
+        'Distinguishes transferable vs specific patterns',
+        'Proposes platform architecture',
+        'Identifies abstraction boundaries'
+      ]
+    }
+  ],
+  'agent-templates-hub': [
+    {
+      id: 'agent-templates-hub-socratic-1',
+      type: 'socratic',
+      conceptId: 'agent-templates-hub',
+      title: 'Template Selection Criteria',
+      level: 'beginner',
+      socratiQuestion: 'You\'re starting a new agent project. How do you decide between starting from scratch, using a template, or extending an existing agent framework? What factors matter most?',
+      followUpQuestions: [
+        'What are the hidden costs of starting from scratch?',
+        'When do templates become constraining rather than helpful?',
+        'How do you evaluate template quality and maintenance status?'
+      ],
+      expectedInsights: [
+        'Templates save time on boilerplate but may include unnecessary complexity',
+        'Starting from scratch is only justified for truly novel architectures',
+        'Template maintenance status and community size indicate long-term viability'
+      ],
+      hints: [
+        'Consider time-to-first-working-prototype',
+        'Think about what you\'ll need to rip out vs add',
+        'Reflect on who maintains the template and how actively'
+      ],
+      explanation: 'Template selection balances speed-to-prototype against flexibility and maintenance burden. The best choice depends on project novelty, team experience, and long-term maintenance capacity.',
+      relatedConcepts: ['agent-patterns', 'agent-deployment', 'best-practices'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Identifies template selection criteria',
+        'Weighs speed vs flexibility trade-offs',
+        'Considers long-term maintenance'
+      ]
+    },
+    {
+      id: 'agent-templates-hub-socratic-2',
+      type: 'socratic',
+      conceptId: 'agent-templates-hub',
+      title: 'Project Structure Design',
+      level: 'intermediate',
+      socratiQuestion: 'What should the folder structure of a production agent project look like? How do you organize prompts, tools, tests, and configuration for maintainability?',
+      followUpQuestions: [
+        'How do you version control prompts alongside code?',
+        'Where do evaluation datasets and benchmarks live?',
+        'How do you handle environment-specific configuration?'
+      ],
+      expectedInsights: [
+        'Prompts should be in dedicated folders with version control, not embedded in code',
+        'Evaluation datasets live alongside tests but with separate data management',
+        'Configuration follows 12-factor app principles: environment variables for secrets, config files for defaults'
+      ],
+      hints: [
+        'Treat prompts as first-class assets requiring review and testing',
+        'Separate code, data, and configuration concerns',
+        'Consider what changes frequently vs rarely'
+      ],
+      explanation: 'Production agent project structure should treat prompts as first-class assets, separate concerns (code, data, config), and support testing and evaluation workflows.',
+      relatedConcepts: ['agent-ops', 'evaluation', 'best-practices'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Proposes logical folder structure',
+        'Explains prompt management approach',
+        'Addresses configuration management'
+      ]
+    },
+    {
+      id: 'agent-templates-hub-socratic-3',
+      type: 'socratic',
+      conceptId: 'agent-templates-hub',
+      title: 'Template Customization Strategy',
+      level: 'advanced',
+      socratiQuestion: 'You\'ve chosen a template, but it doesn\'t quite fit your requirements. How do you customize it without creating a maintenance nightmare? What patterns help isolate your changes?',
+      followUpQuestions: [
+        'How do you track upstream template updates?',
+        'What customization approaches enable easy updates vs create divergence?',
+        'When should you fork vs contribute back vs work around?'
+      ],
+      expectedInsights: [
+        'Extension points and configuration should be preferred over core modifications',
+        'Clear separation between template code and custom code enables upstream tracking',
+        'Contributing back fixes benefits both project and community'
+      ],
+      hints: [
+        'Think about how you\'ll merge future template updates',
+        'Identify which customizations are universal vs project-specific',
+        'Consider the open-source contribution model'
+      ],
+      explanation: 'Template customization requires discipline to maintain updateability. Prefer extension points and configuration, clearly separate custom code, and contribute universal improvements back to the template.',
+      relatedConcepts: ['best-practices', 'agent-patterns', 'community'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Proposes customization isolation strategy',
+        'Explains upstream tracking approach',
+        'Considers contribution model'
+      ]
+    }
   ]
 };
 
