@@ -25,6 +25,15 @@ Concept-Career-Paths: https://www.openagentschool.org/concepts/agent-career-path
 Concept-Industry-Agents: https://www.openagentschool.org/concepts/industry-agents
 Concept-Templates-Hub: https://www.openagentschool.org/concepts/agent-templates-hub
 
+# Production Foundations (January 2026)
+Concept-Reasoning-Patterns: https://www.openagentschool.org/concepts/agent-reasoning-patterns
+Concept-Memory-Systems: https://www.openagentschool.org/concepts/agent-memory-systems
+Concept-Observability: https://www.openagentschool.org/concepts/agent-observability
+Concept-Testing-Benchmarks: https://www.openagentschool.org/concepts/agent-testing-benchmarks
+Concept-Injection-Defense: https://www.openagentschool.org/concepts/prompt-injection-defense
+Concept-HITL-Patterns: https://www.openagentschool.org/concepts/human-in-the-loop-patterns
+Concept-Cost-Optimization: https://www.openagentschool.org/concepts/agent-cost-optimization
+
 # 2026 Agent Patterns (NEW)
 Pattern-Skill-Augmented: https://www.openagentschool.org/patterns/skill-augmented-agent
 Pattern-MCP-Orchestration: https://www.openagentschool.org/patterns/mcp-server-orchestration

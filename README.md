@@ -201,6 +201,36 @@ npm run dev
 - PII detection/redaction and prompt injection defense
 - Audit logging and observability integration
 
+### Production Foundations (NEW)
+
+ **Agent Reasoning Patterns**
+- Chain-of-Thought (CoT), Tree-of-Thought (ToT), Graph-of-Thought (GoT), ReAct
+- Structured reasoning with implementation patterns and benchmarks
+
+ **Agent Memory Systems**
+- Short-term, long-term, episodic, and semantic memory architectures
+- Context management and memory optimization strategies
+
+ **Agent Observability**
+- Tracing, debugging, and monitoring with OpenTelemetry and LangSmith
+- Structured logging, distributed traces, and real-time dashboards
+
+ **Agent Testing & Benchmarks**
+- SWE-Bench, GAIA, WebArena evaluation frameworks
+- Unit testing, integration testing, and benchmark methodologies
+
+ **Prompt Injection Defense**
+- Security patterns against direct/indirect injection attacks
+- Input validation, output filtering, and sandboxing techniques
+
+ **Human-in-the-Loop Patterns**
+- Approval workflows, escalation logic, feedback loops, oversight dashboards
+- Confidence thresholds and progressive automation
+
+ **Agent Cost Optimization**
+- Token budgeting, response caching, model routing, batch processing
+- 50-90% cost reduction strategies with implementation code
+
 ### Study Mode Enhancements
 - Added Socratic questions, debug challenges, and interactive scenarios for all 3 new concepts
 - Added SCL (composite scenarios) for multi-concept learning

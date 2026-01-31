@@ -54,6 +54,15 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Agentic IDE - VS Code/Cursor workspace agents with full IDE access
 - Guardrails Layer - Real-time safety filtering and policy enforcement
 
+### Production Foundations (NEW)
+- Agent Reasoning Patterns - CoT, ToT, GoT, ReAct for structured thinking
+- Agent Memory Systems - Short-term, long-term, episodic, semantic architectures
+- Agent Observability - Tracing, debugging, monitoring with OpenTelemetry
+- Agent Testing & Benchmarks - SWE-Bench, GAIA, evaluation frameworks
+- Prompt Injection Defense - Security patterns against injection attacks
+- Human-in-the-Loop Patterns - Approval workflows, escalation, oversight
+- Agent Cost Optimization - Token budgets, caching, model routing, batch processing
+
 ### Advanced Topics
 - Multi-Agent Systems & Orchestration
 - Data Autonomy Patterns
@@ -94,6 +103,16 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Agent Career Paths: https://www.openagentschool.org/concepts/agent-career-paths
 - Industry Agents: https://www.openagentschool.org/concepts/industry-agents
 - Agent Templates Hub: https://www.openagentschool.org/concepts/agent-templates-hub
+
+## Production Foundations URLs (January 2026)
+
+- Agent Reasoning Patterns: https://www.openagentschool.org/concepts/agent-reasoning-patterns
+- Agent Memory Systems: https://www.openagentschool.org/concepts/agent-memory-systems
+- Agent Observability: https://www.openagentschool.org/concepts/agent-observability
+- Agent Testing & Benchmarks: https://www.openagentschool.org/concepts/agent-testing-benchmarks
+- Prompt Injection Defense: https://www.openagentschool.org/concepts/prompt-injection-defense
+- Human-in-the-Loop Patterns: https://www.openagentschool.org/concepts/human-in-the-loop-patterns
+- Agent Cost Optimization: https://www.openagentschool.org/concepts/agent-cost-optimization
 
 ## Technical Stack
 
