@@ -6272,6 +6272,102 @@ export const socraticQuestionLibrary = {
         'Proposes learning flywheel'
       ]
     }
+  ],
+  // MCP Apps & Agent UI (SEP-1865) - 2026 Standard for Interactive UIs
+  'data-visualization': [
+    {
+      id: 'mcp-apps-socratic-1',
+      type: 'socratic',
+      conceptId: 'data-visualization',
+      title: 'Why Interactive UIs in AI Agents?',
+      level: 'beginner',
+      socratiQuestion: 'Imagine you\'re debugging a complex AI agent workflow. The agent can describe issues in text, but some problems—like visualizing trace flamegraphs or comparing configuration diffs—are hard to communicate textually. What would make this experience better?',
+      followUpQuestions: [
+        'What are the limitations of text-only agent interfaces for complex data?',
+        'How might an interactive UI embedded in the chat enhance understanding?',
+        'What security considerations arise when embedding UIs in AI conversations?'
+      ],
+      expectedInsights: [
+        'Text is limiting for spatial, hierarchical, or comparative data visualization',
+        'Interactive UIs enable direct manipulation, exploration, and faster comprehension',
+        'Sandboxing and permission controls are essential when embedding third-party UIs'
+      ],
+      hints: [
+        'Think about showing vs describing a performance flamegraph',
+        'Consider how drag-and-drop or click-to-expand interactions accelerate tasks',
+        'Reflect on the trust boundary between host AI and embedded UI'
+      ],
+      explanation: 'This exploration helps students understand why MCP Apps (SEP-1865) emerged as the standard for interactive agent UIs. Text-only interfaces struggle with complex visualizations; interactive embedded UIs enable richer, faster workflows while maintaining security through sandboxing.',
+      relatedConcepts: ['mcp', 'agent-ui', 'visualization', 'security'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Identifies text interface limitations',
+        'Recognizes interactive UI benefits',
+        'Considers security implications'
+      ]
+    },
+    {
+      id: 'mcp-apps-socratic-2',
+      type: 'socratic',
+      conceptId: 'data-visualization',
+      title: 'Designing ui:// Resources',
+      level: 'intermediate',
+      socratiQuestion: 'You\'re building an MCP server that visualizes database query results. Users want to sort columns, filter rows, and export to CSV—all within the AI chat interface. How would you architect the ui:// resource and its communication with the host?',
+      followUpQuestions: [
+        'What data does the host need to send to initialize the table?',
+        'How do user interactions (sort, filter) trigger updates?',
+        'What happens when the user clicks "export"—who handles the file generation?'
+      ],
+      expectedInsights: [
+        'Host sends ui/initialize with theme/context, then ui/notifications/tool-input with query results',
+        'User interactions update local UI state; complex operations send ui/message to host',
+        'Export can be client-side (generate CSV in iframe) or request host to invoke a tool for server-side generation'
+      ],
+      hints: [
+        'Consider the Host ↔ App message protocol from SEP-1865',
+        'Think about which operations are local (no host call) vs require host mediation',
+        'Reflect on security implications of allowing file downloads from sandboxed iframes'
+      ],
+      explanation: 'Students learn to design MCP Apps with clear separation between local interactivity (sorting, filtering) and host-mediated actions (tool invocations, file exports). The ui:// resource pattern keeps complex logic in reusable HTML templates.',
+      relatedConcepts: ['mcp', 'tool-calling', 'host-communication', 'state-management'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Designs proper initialization flow',
+        'Separates local vs host-mediated actions',
+        'Considers export security'
+      ]
+    },
+    {
+      id: 'mcp-apps-socratic-3',
+      type: 'socratic',
+      conceptId: 'data-visualization',
+      title: 'Cross-Platform MCP Apps',
+      level: 'advanced',
+      socratiQuestion: 'Your company wants one MCP App that works identically in Claude Desktop, ChatGPT, VS Code, and Goose. Each host has different iframe policies, theme systems, and capabilities. How do you design for cross-platform compatibility while leveraging host-specific features?',
+      followUpQuestions: [
+        'How do you handle different theme modes (dark/light) across hosts?',
+        'What feature detection mechanisms help your app adapt?',
+        'How do you test and validate cross-platform behavior?'
+      ],
+      expectedInsights: [
+        'Read themeMode from ui/initialize; use CSS variables or media queries for theming',
+        'Check for capabilities in initialize response; gracefully degrade missing features',
+        'Use mcp-apps-playground or similar tools to test in multiple hosts; automate with Playwright'
+      ],
+      hints: [
+        'Consider how responsive web design handles different browsers',
+        'Think about progressive enhancement patterns',
+        'Reflect on the value of the SEP-1865 specification for standardization'
+      ],
+      explanation: 'Advanced MCP App development requires building for the lowest common denominator while progressively enhancing for hosts with richer capabilities. The SEP-1865 spec standardizes the core protocol, but host-specific adapters may be needed.',
+      relatedConcepts: ['mcp', 'cross-platform', 'progressive-enhancement', 'testing'],
+      timeEstimate: 20,
+      successCriteria: [
+        'Designs theme adaptation strategy',
+        'Implements feature detection',
+        'Plans cross-platform testing'
+      ]
+    }
   ]
 };
 

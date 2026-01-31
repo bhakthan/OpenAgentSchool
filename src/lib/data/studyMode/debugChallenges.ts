@@ -8381,6 +8381,178 @@ Answer based on the context above."""
       timeEstimate: 15,
       successCriteria: ['Versions cache entries', 'Adds monitoring', 'Plans migration strategy']
     }
+  ],
+  // MCP Apps & Agent UI (SEP-1865) - 2026 Standard for Interactive UIs
+  'data-visualization': [
+    {
+      id: 'mcp-apps-debug-1',
+      type: 'debug',
+      conceptId: 'data-visualization',
+      title: 'MCP App Not Rendering in Claude',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'mcp-app-not-rendering',
+        title: 'Blank Iframe After Tool Call',
+        description: 'Your MCP App shows as a blank white box in Claude Desktop after the tool returns. No errors in browser console.',
+        problemDescription: 'Tool returns successfully but the ui:// resource shows empty. Works in local development but not in Claude.',
+        brokenCode: `// MCP Server - resources/list handler
+server.setRequestHandler(ListResourcesRequestSchema, async () => ({
+  resources: [{
+    uri: "ui://flamegraph",
+    name: "Performance Flamegraph",
+    mimeType: "text/html"  // WRONG!
+  }]
+}));
+
+// MCP Server - resources/read handler
+server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+  if (request.params.uri === "ui://flamegraph") {
+    return {
+      contents: [{
+        uri: "ui://flamegraph",
+        mimeType: "text/html",
+        text: "<html><body><h1>Flamegraph</h1></body></html>"
+      }]
+    };
+  }
+});`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Claude', message: 'Tool flamegraph executed successfully', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Claude', message: 'Attempting to render ui://flamegraph', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Claude', message: 'Resource loaded, blank display', type: 'warning' }
+        ],
+        expectedBehavior: 'MCP App should render the flamegraph HTML in a sandboxed iframe within Claude.',
+        commonIssues: [
+          { issue: 'Wrong MIME type', symptoms: ['Blank iframe', 'Not recognized as MCP App'], diagnosis: 'mimeType must be text/html;profile=mcp-app', fix: 'Add profile=mcp-app to MIME type' },
+          { issue: 'No initialization handler', symptoms: ['App renders but no data'], diagnosis: 'App not listening for ui/initialize', fix: 'Implement @mcp-ui/client initialization' },
+          { issue: 'CSP blocking', symptoms: ['Console errors about blocked content'], diagnosis: 'Inline scripts blocked', fix: 'Use external scripts or CSP-compliant patterns' }
+        ],
+        hints: ['Check the MIME type in SEP-1865 spec', 'Is the app listening for postMessage events?', 'Check browser console for CSP violations'],
+        solution: 'Change mimeType to "text/html;profile=mcp-app". This signals to the host that this is an MCP App that should be rendered in a sandboxed iframe with the proper communication channel.',
+        explanation: 'MCP Apps require the specific MIME type text/html;profile=mcp-app to be recognized by hosts. Without this profile, hosts may treat it as regular HTML and not set up the required postMessage channel.'
+      },
+      expectedInsights: ['MIME type must include profile=mcp-app', 'Hosts use MIME type to identify MCP Apps', 'Check SEP-1865 spec for requirements'],
+      hints: ['Compare your MIME type to the specification', 'Check if other MCP Apps work', 'Test with mcp-apps-playground'],
+      explanation: 'Teaches the critical importance of correct MIME type for MCP App recognition.',
+      relatedConcepts: ['mcp', 'mime-types', 'iframe-communication', 'sep-1865'],
+      timeEstimate: 10,
+      successCriteria: ['Identifies MIME type issue', 'Corrects to profile=mcp-app', 'Verifies in host']
+    },
+    {
+      id: 'mcp-apps-debug-2',
+      type: 'debug',
+      conceptId: 'data-visualization',
+      title: 'Tool Input Not Received',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'mcp-app-no-tool-input',
+        title: 'MCP App Renders But Shows No Data',
+        description: 'Your feature flag editor MCP App renders correctly but always shows "No flags loaded". The tool definitely returns flag data.',
+        problemDescription: 'App initializes successfully (you can see the loading spinner) but never receives the tool output. Works when you hardcode data in the HTML.',
+        brokenCode: `// Client-side MCP App code
+import { createMCPAppClient } from '@mcp-ui/client';
+
+const client = createMCPAppClient();
+
+// Initialize the app
+client.onInitialize((context) => {
+  console.log('App initialized with theme:', context.themeMode);
+  showLoadingSpinner();
+});
+
+// Wait for tool input
+client.onToolInput((data) => {
+  console.log('Received tool input:', data);
+  renderFlags(data.flags);
+});
+
+// Problem: onToolInput never fires!
+
+// MISSING: The tool annotation that links this UI to the tool
+// Server-side tool definition:
+const flagsTool = {
+  name: "list_feature_flags",
+  description: "Lists all feature flags",
+  inputSchema: { type: "object", properties: {} }
+  // No _meta.ui.resourceUri specified!
+};`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'MCP App', message: 'onInitialize fired, theme: dark', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Tool', message: 'list_feature_flags returned 15 flags', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'MCP App', message: 'Still waiting for onToolInput...', type: 'warning' }
+        ],
+        expectedBehavior: 'After tool execution, host should send ui/notifications/tool-input with the flag data to the MCP App.',
+        commonIssues: [
+          { issue: 'Missing tool annotation', symptoms: ['onToolInput never fires'], diagnosis: 'Tool lacks _meta.ui.resourceUri', fix: 'Add annotation pointing to ui:// resource' },
+          { issue: 'Wrong resource URI', symptoms: ['Different resource receives data'], diagnosis: 'Annotation URI doesn\'t match rendered resource', fix: 'Verify URIs match exactly' },
+          { issue: 'Tool output format mismatch', symptoms: ['Data received but undefined fields'], diagnosis: 'Tool returns different structure than app expects', fix: 'Align tool output with app data model' }
+        ],
+        hints: ['How does the host know which UI receives which tool output?', 'Check your tool definition for annotations', 'Log everything in onToolInput to see what arrives'],
+        solution: 'Add _meta.ui.resourceUri annotation to the tool: { name: "list_feature_flags", ..., annotations: { _meta: { ui: { resourceUri: "ui://feature-flags" } } } }. This tells the host to route tool output to this specific MCP App.',
+        explanation: 'MCP Apps receive data via the tool annotation linkage. Without _meta.ui.resourceUri, the host doesn\'t know which UI should receive the tool output. The annotation creates the binding between tool execution and UI rendering.'
+      },
+      expectedInsights: ['Tools must annotate their UI resource', '_meta.ui.resourceUri creates tool-to-UI binding', 'Verify URI matches exactly'],
+      hints: ['Check tool annotations in server code', 'Verify URI spelling/casing', 'Use logging to trace data flow'],
+      explanation: 'Teaches the critical tool annotation pattern that binds MCP tools to their UIs.',
+      relatedConcepts: ['mcp', 'tool-annotations', 'data-binding', 'host-communication'],
+      timeEstimate: 15,
+      successCriteria: ['Identifies missing annotation', 'Adds _meta.ui.resourceUri', 'Verifies data flows to app']
+    },
+    {
+      id: 'mcp-apps-debug-3',
+      type: 'debug',
+      conceptId: 'data-visualization',
+      title: 'Cross-Origin Iframe Errors',
+      level: 'advanced',
+      debugChallenge: {
+        id: 'mcp-app-cors-sandbox',
+        title: 'SecurityError: Blocked Frame Access',
+        description: 'Your MCP App tries to access parent.location and throws SecurityError. The app worked in local testing but fails in production.',
+        problemDescription: 'Console shows "Blocked a frame with origin X from accessing a cross-origin frame". Some localStorage calls also fail.',
+        brokenCode: `// MCP App trying to detect host environment
+function detectHost() {
+  try {
+    // WRONG: Trying to access parent frame directly
+    const hostUrl = parent.location.href;
+    if (hostUrl.includes('claude.ai')) return 'claude';
+    if (hostUrl.includes('chat.openai')) return 'chatgpt';
+  } catch (e) {
+    console.error('Cannot access parent:', e);
+  }
+  return 'unknown';
+}
+
+// WRONG: Trying to use localStorage in sandboxed iframe
+function saveUserPreference(key, value) {
+  localStorage.setItem(key, value);  // Throws in sandbox!
+}
+
+// WRONG: Trying to use cookies
+function trackSession() {
+  document.cookie = 'session=abc';  // Blocked in sandbox!
+}`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'MCP App', message: 'Attempting to detect host...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Browser', message: 'SecurityError: Blocked frame access', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'MCP App', message: 'localStorage.setItem failed: SecurityError', type: 'error' }
+        ],
+        expectedBehavior: 'MCP Apps should work within sandbox constraints without requiring parent frame access or persistent storage.',
+        commonIssues: [
+          { issue: 'Parent frame access', symptoms: ['SecurityError on parent.location'], diagnosis: 'Trying to read cross-origin parent', fix: 'Use ui/initialize context instead' },
+          { issue: 'localStorage in sandbox', symptoms: ['SecurityError on storage API'], diagnosis: 'Sandbox blocks storage', fix: 'Keep state in memory or request host storage via ui/message' },
+          { issue: 'Cookie access', symptoms: ['Cookies not persisting'], diagnosis: 'Sandbox blocks cookies', fix: 'Use postMessage to host for auth/session needs' }
+        ],
+        hints: ['MCP Apps run in sandboxed iframes - what does that restrict?', 'Where can you get host context information safely?', 'How might you persist state without localStorage?'],
+        solution: 'Use the ui/initialize message to get host context (themeMode, locale, capabilities). Don\'t rely on localStorage/cookies. Store ephemeral state in memory. For persistent preferences, send ui/message to host requesting storage via tool invocation.',
+        explanation: 'MCP Apps run in sandboxed iframes with restricted capabilities for security. The sandbox prevents access to parent frame, localStorage, and cookies. All host communication must go through the postMessage channel defined in SEP-1865.'
+      },
+      expectedInsights: ['Sandbox blocks parent access, localStorage, cookies', 'Use ui/initialize for host context', 'postMessage is the only communication channel'],
+      hints: ['Read SEP-1865 security model', 'Check iframe sandbox attribute', 'Use memory-only state'],
+      explanation: 'Teaches the security constraints of sandboxed MCP Apps and proper patterns for working within them.',
+      relatedConcepts: ['mcp', 'iframe-sandbox', 'security', 'postMessage'],
+      timeEstimate: 18,
+      successCriteria: ['Understands sandbox restrictions', 'Uses ui/initialize for context', 'Removes forbidden API calls']
+    }
   ]
 };
 

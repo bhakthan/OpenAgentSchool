@@ -8150,6 +8150,160 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// MCP Apps & Agent UI (SEP-1865) - 2026 Standard for Interactive UIs
+(scenarioLibrary as any)['data-visualization'] = [
+  {
+    id: 'mcp-apps-scenario-1',
+    type: 'scenario',
+    conceptId: 'data-visualization',
+    title: 'Building a Feature Flag Editor',
+    level: 'intermediate',
+    scenario: {
+      id: 'feature-flag-editor',
+      title: 'Interactive Feature Flag Management in AI Chat',
+      description: 'Your DevOps team wants to manage feature flags directly through their AI assistant. Users should be able to view flags, toggle them, and see changes reflected immediately—all within the chat interface.',
+      context: 'Current workflow requires switching to a separate dashboard. With MCP Apps, you can embed the entire flag management UI in Claude or VS Code Copilot.',
+      stakeholders: ['DevOps Engineers', 'Release Managers', 'AI Platform Team'],
+      systemState: { activeFlags: 47, environments: 3, dailyToggles: 120 },
+      challenges: ['Real-time updates', 'Permission controls', 'Audit logging'],
+      decisionPoints: [
+        'How to structure the ui:// resource?',
+        'What tool annotations are needed?',
+        'How to handle toggle confirmation?'
+      ],
+      options: [
+        'Embed a full React app with its own state management, bypassing MCP protocol',
+        'Create lightweight ui:// resource with @mcp-ui/client, receive flags via tool-input, send toggles via ui/message to host for confirmation',
+        'Generate static HTML after each tool call with no interactivity'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Full React app is overkill and may break sandbox constraints',
+      'Lightweight @mcp-ui/client approach follows SEP-1865, enables proper security controls, and maintains host-mediated actions',
+      'Static HTML loses the interactive benefits that make MCP Apps valuable'
+    ],
+    followUpQuestions: [
+      'How do you prevent accidental production flag changes?',
+      'What confirmation UI appears before high-impact toggles?',
+      'How do you handle offline or disconnected states?'
+    ],
+    expectedInsights: [
+      'Use environment badges and confirmation modals for production flags',
+      'Send ui/message with action type; host prompts user before calling toggle tool',
+      'Cache last-known state, show stale indicator, queue operations for reconnect'
+    ],
+    businessContext: 'MCP Apps enable rich management UIs directly in AI workflows, reducing context switching and accelerating operations.',
+    relatedConcepts: ['mcp', 'feature-flags', 'devops', 'agent-ui'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Uses proper ui:// resource pattern',
+      'Implements host-mediated actions',
+      'Adds safety controls for production'
+    ]
+  },
+  {
+    id: 'mcp-apps-scenario-2',
+    type: 'scenario',
+    conceptId: 'data-visualization',
+    title: 'Performance Flamegraph Visualization',
+    level: 'advanced',
+    scenario: {
+      id: 'flamegraph-visualization',
+      title: 'Interactive Trace Analysis in AI Debug Sessions',
+      description: 'Your observability team wants AI agents to show performance flamegraphs when analyzing slow requests. Users need pan, zoom, click-to-expand, and "focus on this function" interactions.',
+      context: 'Text-based trace descriptions are hard to interpret. Visual flamegraphs with interactivity dramatically accelerate root cause analysis.',
+      stakeholders: ['SRE Team', 'Performance Engineers', 'AI Platform Team'],
+      systemState: { avgTraceSize: '2MB', dailyTraces: 50000, avgFunctions: 1200 },
+      challenges: ['Large data visualization', 'Cross-platform rendering', 'Zoom state persistence'],
+      decisionPoints: [
+        'How to handle large trace data?',
+        'Which visualization library works in sandboxed iframes?',
+        'How to maintain zoom state across tool calls?'
+      ],
+      options: [
+        'Send full trace as base64 image—no interactivity',
+        'Stream compressed trace via tool-input, render with d3-flame-graph library, send focused span IDs back to host for drill-down tool calls',
+        'Require user to click external link to dedicated trace viewer'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Base64 images provide no interactivity and waste bandwidth',
+      'd3-flame-graph works in sandboxed iframes, streaming handles large data, focused span IDs enable contextual tool calls',
+      'External links break the conversational flow that makes AI assistants valuable'
+    ],
+    followUpQuestions: [
+      'How do you compress trace data for efficient transfer?',
+      'What accessibility features should the flamegraph have?',
+      'How do you handle traces with >10,000 stack frames?'
+    ],
+    expectedInsights: [
+      'Pre-aggregate on server, send only visible depth; lazy-load deeper levels on expand',
+      'Keyboard navigation, high-contrast mode, screen reader descriptions of hot paths',
+      'Virtual scrolling, hierarchical aggregation, "top N hot paths" summary mode'
+    ],
+    businessContext: 'Complex visualizations in AI interfaces require careful architecture for performance and usability. MCP Apps enable this while maintaining cross-platform compatibility.',
+    relatedConcepts: ['mcp', 'observability', 'd3', 'performance-analysis'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Handles large traces efficiently',
+      'Provides meaningful interactivity',
+      'Integrates with host tool calls'
+    ]
+  },
+  {
+    id: 'mcp-apps-scenario-3',
+    type: 'scenario',
+    conceptId: 'data-visualization',
+    title: 'Drag-and-Drop Workflow Builder',
+    level: 'advanced',
+    scenario: {
+      id: 'workflow-builder',
+      title: 'Visual Agent Workflow Design in Chat',
+      description: 'Your low-code platform wants users to design multi-step agent workflows through AI conversation. Users should drag nodes, connect them with edges, and configure each step—all within the chat UI.',
+      context: 'Natural language workflow descriptions are ambiguous. Visual workflow builders provide precision while AI assists with configuration.',
+      stakeholders: ['Citizen Developers', 'AI Product Team', 'Integration Engineers'],
+      systemState: { avgWorkflowNodes: 8, dailyWorkflows: 500, templates: 25 },
+      challenges: ['Complex drag-drop in sandboxed iframe', 'State synchronization', 'Collaborative editing'],
+      decisionPoints: [
+        'How to implement drag-drop in sandbox constraints?',
+        'How to sync workflow state between UI and host?',
+        'How to handle concurrent edits in team settings?'
+      ],
+      options: [
+        'Use native HTML5 drag-drop which doesn\'t work well in iframes; fall back to click-to-place',
+        'Implement pointer-event based drag with @mcp-ui/client, send workflow graph via ui/message on each change, use operational transforms for collaboration',
+        'Generate workflow from text only, show static preview'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Native drag-drop has iframe compatibility issues and poor UX',
+      'Pointer events work reliably, incremental sync enables collaboration, operational transforms handle conflicts',
+      'Text-only loses the precision benefits of visual workflow design'
+    ],
+    followUpQuestions: [
+      'How do you validate workflow before saving?',
+      'What happens if the host disconnects mid-edit?',
+      'How do you handle undo/redo across host and app?'
+    ],
+    expectedInsights: [
+      'Client-side validation for immediate feedback; server validation via tool call before deploy',
+      'Local autosave with dirty indicator; reconnect shows diff and merge options',
+      'Maintain command history in app; send undo/redo as ui/message for host to update its state'
+    ],
+    businessContext: 'Complex interactive widgets like workflow builders push MCP Apps to their limits. Proper state management and collaboration patterns are essential.',
+    relatedConcepts: ['mcp', 'workflow-automation', 'low-code', 'state-management'],
+    timeEstimate: 30,
+    successCriteria: [
+      'Implements reliable drag-drop',
+      'Syncs state properly with host',
+      'Handles edge cases gracefully'
+    ]
+  }
+];
+
 // Helper function to get scenarios by concept and level
 export function getScenarios(
   conceptId: string, 
