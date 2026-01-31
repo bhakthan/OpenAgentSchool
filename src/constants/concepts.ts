@@ -45,6 +45,16 @@ export const CORE_CONCEPT_IDS = [
   // Client Coding Agents & Skills
   'client-coding-agents',
   'agent-skills',
+  // Quantum & Frontier
+  'quantum-ai-robotics',
+  // 2026 Production Foundations
+  'agent-reasoning-patterns',
+  'agent-memory-systems',
+  'agent-observability',
+  'agent-testing-benchmarks',
+  'prompt-injection-defense',
+  'human-in-the-loop-patterns',
+  'agent-cost-optimization',
   // Applied & Career Tier (Tier 5)
   'agent-troubleshooting',
   'agent-economics',
