@@ -319,7 +319,7 @@ const CTALandingPage: React.FC = () => {
             {
               tier: 'individual',
               label: 'Open Learning',
-              desc: 'Explore ~22+ core concepts, 27+ agent patterns, AI-native skill frameworks, and interactive study modes at your own pace.',
+              desc: 'Explore 49+ core concepts, 27+ agent patterns, AI-native skill frameworks, and interactive study modes at your own pace.',
               cta: 'Start Free',
               action: () => openExternal('https://github.com/bhakthan/openagentschool', 'individual', 'path-card')
             },
