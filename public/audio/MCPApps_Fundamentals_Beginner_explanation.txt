@@ -1,0 +1,7 @@
+Welcome to MCP Apps & Agent UI! This is the 2026 standard for building interactive interfaces that work directly inside AI chat applications like Claude, ChatGPT, and VS Code Copilot.
+
+Instead of just text responses, AI agents can now show you rich visual tools right in the conversation. Imagine debugging a slow API call and seeing an interactive flame graph you can zoom and click, or managing feature flags with toggles you can flip directly in chat.
+
+The key concept is the ui:// resource. This is a special type of HTML template that AI hosts know how to render safely. When you create a ui://flamegraph resource, any MCP-compatible host can display it.
+
+MCP Apps are part of the SEP-1865 specification, which became stable in January 2026. Write once, and your UI works in Claude Desktop, ChatGPT, VS Code, Goose, and other compatible clients.

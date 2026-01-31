@@ -1,0 +1,11 @@
+Advanced security for MCP Apps requires a defense-in-depth approach and understanding of attack vectors.
+
+The sandbox model has known limitations. While allow-same-origin is blocked, some APIs still work—like the Fetch API for network requests. Consider what your app can reach over the network. If it makes API calls, use allowlisting on the server side rather than trusting client-side origin checks.
+
+Template pre-auditing should follow a security checklist. Check for innerHTML usage with dynamic content—replace with textContent or properly sanitized HTML. Audit all event handlers for injection points. Review third-party libraries for known vulnerabilities using npm audit or similar tools.
+
+Indirect prompt injection is an emerging threat. If your app displays content from tool outputs that originated from untrusted sources (like emails or documents), that content might contain instructions aimed at the AI host. While the sandbox protects against code execution, be aware that displayed text could influence the conversation. Consider visual separation or warnings for untrusted content.
+
+For high-value targets, implement defense mechanisms: rate limiting for sensitive actions, anomaly detection for unusual interaction patterns, and audit logging of all user actions. Some hosts may provide security signals in the initialize context—use them.
+
+Cross-platform security varies. Test in each target host to verify sandbox properties. Some hosts may have stricter or more relaxed policies. Document your security requirements and verify them in production environments. Consider having your app security-reviewed by the host platform's team before deployment to sensitive enterprise environments.

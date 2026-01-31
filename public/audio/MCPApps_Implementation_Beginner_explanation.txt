@@ -1,0 +1,11 @@
+Let's walk through building your first MCP App step by step.
+
+First, you need an MCP server. If you already have one, you'll add a ui:// resource to it. If not, you can start with the TypeScript MCP SDK template.
+
+Next, you define your ui:// resource. In your server's resource handler, add an entry with a URI like ui://my-first-app. Set the MIME type to text/html;profile=mcp-app. The content is just HTML—you can start with a simple Hello World page.
+
+Then, install the @mcp-ui/client package in your HTML app. This gives you helper functions to handle the Host-App communication. Call createMCPAppClient() and register an onToolInput handler to receive data.
+
+Finally, connect a tool to your UI. Add the _meta.ui.resourceUri annotation to your tool definition, pointing to your ui:// resource. Now when the tool runs, the host will show your app with the tool's output.
+
+Test your app using the mcp-apps-playground tool. This simulates different hosts so you can see how your app looks in Claude, ChatGPT, and VS Code before deploying.

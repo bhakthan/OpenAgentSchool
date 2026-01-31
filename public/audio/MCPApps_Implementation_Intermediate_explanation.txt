@@ -1,0 +1,11 @@
+Intermediate MCP Apps implementation involves proper SDK usage and handling user interactions.
+
+Start with the server-side setup. Install @modelcontextprotocol/sdk and @mcp-ui/server. Configure your resources/list handler to expose ui:// URIs with the correct MIME type. Implement resources/read to return your HTML templates.
+
+On the client side, structure your app for the async initialization flow. The @mcp-ui/client SDK's createMCPAppClient function returns an object with lifecycle hooks. Call onInitialize first to get the theme and context. Then onToolInput to receive data when tools complete.
+
+For user interactions that need host action, use sendMessage. For example, if your feature flag editor has a Toggle button, the click handler would call sendMessage with a payload like { action: 'toggle_flag', flagId: 'dark-mode' }. The host interprets this and may invoke your toggle_flag tool.
+
+Handle state carefully. The ui/notifications/tool-input message can arrive multiple times if the user runs the tool again. Your app should reset or update its state, not accumulate. Use React's useEffect with a dependency on the tool input, or similar patterns in other frameworks.
+
+For styling, read themeMode from the initialize context. Use CSS variables or media queries to adapt. Most hosts provide dark and light modes at minimum. Some may provide additional theme properties in the context object.

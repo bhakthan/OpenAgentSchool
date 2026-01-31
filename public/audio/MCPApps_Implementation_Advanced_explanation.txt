@@ -1,0 +1,11 @@
+Advanced MCP Apps implementation tackles complex patterns like bidirectional workflows, large data handling, and cross-platform optimization.
+
+For bidirectional workflows, design your ui/message payloads as commands that the host can interpret. Define a schema for your messages—action types, required parameters, and expected responses. Document these for your host integration. Remember that hosts are not required to honor every message; implement fallbacks.
+
+Large data visualization requires chunked loading. Your tool returns metadata and a reference ID. Your app's onToolInput receives this reference, then sends ui/message requests for data chunks. The host invokes your pagination tool and sends additional tool-input notifications. Implement a loading state and progressive rendering. Consider virtual scrolling for lists with thousands of items.
+
+For performance, minimize initial bundle size. Lazy-load visualization libraries like D3 or Chart.js only when needed. Use requestAnimationFrame for smooth updates. Debounce resize handlers. Profile in the mcp-apps-playground's performance mode.
+
+Testing across platforms requires automated verification. Use Playwright to test your app in different viewport sizes and theme modes. Mock the postMessage channel to simulate host behavior. Create test fixtures for various tool outputs. Run visual regression tests to catch unintended style changes.
+
+Error handling is critical. If onToolInput receives malformed data, display a friendly error message—don't crash. If sendMessage fails or times out, retry with exponential backoff. Log errors to help with debugging, but don't expose sensitive information in logs that users might see.

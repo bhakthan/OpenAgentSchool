@@ -1,0 +1,13 @@
+Intermediate security for MCP Apps involves understanding the threat model and implementing proper defenses.
+
+The sandbox restricts your app's capabilities. The iframe sandbox attribute typically includes allow-scripts but excludes allow-same-origin. This means JavaScript runs, but APIs like localStorage, cookies, and IndexedDB are blocked. Your app also cannot access the parent frame's DOM or JavaScript context.
+
+Content Security Policy headers may be enforced by hosts. Inline scripts might be blocked, requiring you to use external script files or nonce-based CSP. Test your app with restrictive CSP settings during development to catch issues early.
+
+User input handling is critical if your app accepts any input. Sanitize all HTML before rendering with a library like DOMPurify. Be especially careful with data that comes from tool outputs—it may contain untrusted content from external APIs.
+
+The postMessage channel is your only external communication path. Validate all incoming messages before processing. Check that the message origin matches expected hosts. Ignore malformed messages rather than throwing errors that could leak information.
+
+For sensitive actions, implement confirmation flows. When the user clicks Delete All, don't immediately send the action—show a confirmation dialog first. The host may add its own confirmation on top of yours, which is expected behavior.
+
+Log judiciously. Console logs are visible in browser dev tools. Don't log sensitive data like API keys, tokens, or personal information. In production, consider removing or minimizing logging.

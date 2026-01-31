@@ -1,0 +1,11 @@
+Advanced MCP Apps architecture requires understanding the protocol details and edge cases.
+
+The iframe sandbox attribute is set by hosts to restrict capabilities. Typical sandbox flags include allow-scripts for JavaScript execution, but exclude allow-same-origin (blocking localStorage, cookies, and parent frame access) and allow-top-navigation (preventing navigation attacks). Your apps must work within these constraints.
+
+The postMessage channel uses a specific message schema. Messages have a jsonrpc field for protocol version, a method field like ui/initialize or ui/message, and a params object with the payload. Malformed messages are silently dropped for security.
+
+Resource lifecycle is host-controlled. The host may unmount your iframe at any time—when switching conversations, on memory pressure, or after inactivity. Your app should be stateless or save state via ui/message before actions that might trigger unmounting.
+
+For large data visualization, consider progressive loading. Instead of sending a 10MB trace in one tool-input, the tool can return a reference ID. Your app then sends ui/message requests for chunks, and the host invokes a get_trace_chunk tool repeatedly. This keeps initial render fast and works within postMessage size limits.
+
+Cross-platform compatibility requires testing in multiple hosts. Use the mcp-apps-playground for development, but verify behavior in production hosts. Theme adaptation, font availability, and touch versus mouse interactions can vary significantly.

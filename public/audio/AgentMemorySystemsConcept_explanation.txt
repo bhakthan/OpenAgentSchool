@@ -1,0 +1,42 @@
+Agent Memory Systems Concept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to Agent Memory Systems! This page explains how AI agents remember things. Just like you remember what happened yesterday or facts you learned in school, agents need different types of memory to work effectively.
+
+Short-term memory holds what's happening right now in the conversation. Long-term memory stores information that persists across sessions, like user preferences or past interactions. Episodic memory recalls specific past events, while semantic memory stores general knowledge and facts.
+
+Understanding memory helps you build agents that feel continuous and personalized, remembering important context without forgetting what matters.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Agent memory systems manage context across different time horizons and use cases. This page covers the architecture patterns for effective memory management.
+
+Working memory is the agent's active context window—the prompt plus recent conversation. It's limited by the model's context length and requires careful curation to include relevant information.
+
+Short-term memory extends working memory with session-level storage. Key techniques include summarization (condensing long conversations), sliding windows (keeping recent turns), and importance scoring (prioritizing salient information).
+
+Long-term memory persists across sessions using external storage. Vector databases enable semantic retrieval of relevant past context. Key-value stores maintain structured facts like user profiles. Graph databases capture relationships between entities.
+
+Memory retrieval is as important as storage. RAG (Retrieval-Augmented Generation) fetches relevant memories at inference time. The challenge is retrieving the right memories without overwhelming the context or missing critical information.
+
+The Implementation tab demonstrates memory architectures using frameworks like LangChain, LlamaIndex, and custom solutions with vector stores like Pinecone, Weaviate, or Chroma.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced memory systems address scalability, coherence, and the dynamic nature of knowledge.
+
+Hierarchical memory organizes information at multiple abstraction levels. Raw events are compressed into summaries, summaries into themes, and themes into user models. Retrieval can target the appropriate level based on query needs.
+
+Memory consolidation mirrors human sleep—background processes review and reorganize memories, strengthening important patterns and pruning noise. This can run on schedules or be triggered by memory pressure.
+
+Contradiction resolution handles conflicting information. When new facts contradict stored memories, the system must decide whether to update, version, or flag for human review. Temporal reasoning helps—recent information often supersedes older data.
+
+Forgetting is a feature, not a bug. Active forgetting removes outdated, irrelevant, or privacy-sensitive information. Implement TTLs, importance decay, and explicit deletion triggers.
+
+Multi-agent memory sharing enables collaboration. Shared memory pools allow agents to learn from each other. Access control ensures appropriate information boundaries. Eventual consistency models handle concurrent updates.
+
+Production memory systems require observability: memory hit rates, retrieval latency, storage costs, and quality metrics. A/B test memory configurations to optimize for your specific use case.

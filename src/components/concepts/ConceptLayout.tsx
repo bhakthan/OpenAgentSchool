@@ -100,6 +100,14 @@ export default function ConceptLayout({
                 )}
               </div>
             )}
+            
+            {/* Audio Narration Controls for children-based layout */}
+            {enableAudioNarration && (
+              <AudioNarrationControls 
+                componentName={conceptId}
+                position="embedded"
+              />
+            )}
           </CardHeader>
           <CardContent>
             {children}

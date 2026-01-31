@@ -1,0 +1,11 @@
+Security is built into MCP Apps from the ground up. Here's what you need to know as a beginner.
+
+MCP Apps run in a sandbox. Think of it like a playground with a fence around it. Your app can do lots of things inside the fence, but it can't reach outside. This protects both the user and the AI host from potentially harmful code.
+
+The sandbox means your app cannot access the user's cookies, cannot read other browser tabs, and cannot navigate the main page. These restrictions exist because MCP Apps might come from third parties, and the host needs to keep users safe.
+
+User consent is important. When your app wants to do something significant—like deploying code or sending a message—the host may ask the user for permission first. Don't try to work around this; it's there to build trust with users.
+
+Template auditing is recommended before deployment. Have someone review your HTML templates for security issues like cross-site scripting vulnerabilities. This is especially important if your app displays data that comes from external sources.
+
+Following these security principles helps your MCP Apps get approved and trusted by hosts and users alike.

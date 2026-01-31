@@ -1,0 +1,44 @@
+Agent Testing and Benchmarks Concept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to Agent Testing and Benchmarks! This page explains how we check if AI agents are working correctly. Just like teachers give tests to see what students have learned, we test agents to make sure they can handle their tasks.
+
+You'll learn about unit tests that check individual components, integration tests that verify systems work together, and benchmarks that measure agent capabilities against standard datasets.
+
+Testing helps you catch problems before users do, compare different agent designs, and build confidence that your agent will behave reliably.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Agent testing requires approaches beyond traditional software testing because agent behavior is probabilistic and context-dependent. This page covers the testing pyramid adapted for agents.
+
+Unit tests verify deterministic components: tool implementations, prompt templates, and parsing logic. These run fast and catch regressions in your infrastructure.
+
+Integration tests check that components work together: LLM calls return valid responses, tools execute correctly, and memory retrieval finds relevant context. Mock expensive dependencies to run these frequently.
+
+End-to-end tests validate complete agent workflows against realistic scenarios. These are slower and more expensive but catch issues that unit and integration tests miss.
+
+Evaluation benchmarks measure agent capabilities on standardized tasks. Common benchmarks include MMLU for knowledge, HumanEval for coding, and task-specific datasets for your domain. Track benchmark scores over time to measure improvement.
+
+Property-based testing generates random inputs to find edge cases. Fuzzing prompts, tool inputs, and conversation histories can reveal unexpected failure modes.
+
+The Implementation tab shows testing frameworks, CI/CD integration, and benchmark evaluation pipelines.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced testing addresses the unique challenges of evaluating autonomous agents in production environments.
+
+Behavioral testing focuses on agent actions rather than outputs. Define invariants: the agent should never execute destructive commands without confirmation, should always cite sources for claims, should gracefully handle tool failures. Test these properties across diverse scenarios.
+
+Adversarial testing probes agent robustness. Red-team your agent with prompt injections, edge cases, and attempts to elicit harmful behavior. Automated adversarial testing generates attack variations at scale.
+
+Regression testing for agents must handle non-deterministic outputs. Use semantic similarity rather than exact matching. Define acceptable variation ranges. Track output distributions over time.
+
+A/B testing in production compares agent versions with real users. Implement proper experiment design: randomization, statistical power, and guardrail metrics. Use shadow mode to test new agents without user impact.
+
+Continuous evaluation samples production traffic for ongoing quality assessment. LLM-as-judge evaluations score responses against rubrics. Human evaluation provides ground truth for calibration.
+
+Benchmark limitations are important to understand. Benchmarks measure what they measure, not necessarily real-world performance. Overfit to benchmarks is a risk. Combine benchmark scores with production metrics and user feedback for a complete picture.

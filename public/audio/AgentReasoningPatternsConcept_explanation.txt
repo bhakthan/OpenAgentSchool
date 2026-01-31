@@ -1,0 +1,42 @@
+Agent Reasoning Patterns Concept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to Agent Reasoning Patterns! This page explores how AI agents think through problems step by step. Just like humans use different thinking strategies for different situations, AI agents use reasoning patterns to break down complex tasks.
+
+The main patterns you'll learn about include Chain-of-Thought, where agents think through problems one step at a time, and Tree-of-Thought, where agents explore multiple solution paths like branches on a tree. You'll also discover ReAct, which combines reasoning with actions, and Reflection patterns where agents check and improve their own work.
+
+Understanding these patterns helps you choose the right reasoning approach for your agent's task and know when to combine multiple patterns for better results.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Agent reasoning patterns are cognitive architectures that structure how agents process information and make decisions. This page covers the major pattern families and when to apply each.
+
+Chain-of-Thought (CoT) prompting encourages step-by-step reasoning, improving accuracy on math, logic, and multi-step problems. Zero-shot CoT uses simple prompts like "Let's think step by step," while few-shot CoT provides example reasoning traces.
+
+Tree-of-Thought (ToT) extends CoT by exploring multiple reasoning branches in parallel, then selecting or combining the best paths. This works well for problems with uncertain solution strategies.
+
+ReAct interleaves reasoning with tool actions, creating a thought-action-observation loop. The agent reasons about what to do, takes an action, observes the result, and reasons again.
+
+Reflection patterns add a self-critique phase. After generating an answer, the agent reviews its work, identifies errors, and iterates. This catches mistakes that single-pass reasoning misses.
+
+The Implementation tab shows how to implement these patterns with modern frameworks and when to combine them for complex workflows.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced reasoning patterns address the limitations of basic approaches and optimize for production requirements.
+
+Guided reasoning uses structured outputs to constrain the reasoning space. Instead of free-form text, agents fill templates with specific reasoning steps, reducing hallucination and improving consistency.
+
+Monte Carlo Tree Search (MCTS) for reasoning treats the problem as a search tree, using rollouts and backpropagation to allocate reasoning compute to promising branches. This is particularly effective for mathematical proofs and code generation.
+
+Constitutional reasoning embeds principles and constraints into the reasoning process. Agents explicitly check their reasoning against defined rules, catching violations before they propagate to outputs.
+
+Meta-reasoning optimizes the reasoning process itself. Agents learn when to use slow deliberative reasoning versus fast pattern matching, adapting their cognitive strategy to task difficulty and time constraints.
+
+The orchestration of multiple reasoning patterns requires careful design. Ensemble approaches run multiple reasoning strategies in parallel and aggregate results. Cascading approaches try fast patterns first and escalate to slower, more thorough patterns when confidence is low.
+
+Production considerations include token efficiency (reasoning is expensive), latency budgets (complex reasoning adds seconds), and observability (logging reasoning traces for debugging and improvement).

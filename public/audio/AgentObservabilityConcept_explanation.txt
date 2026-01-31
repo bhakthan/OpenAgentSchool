@@ -1,0 +1,42 @@
+Agent Observability Concept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to Agent Observability! This page is about understanding what your AI agents are doing under the hood. Just like a car dashboard shows you speed and fuel level, observability tools show you how your agent is performing.
+
+You'll learn about logs that record what happened, metrics that measure performance like response time and success rate, and traces that show the step-by-step journey of each request through your agent system.
+
+Good observability helps you find problems quickly, understand why agents behave certain ways, and improve their performance over time.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Agent observability extends traditional software observability with AI-specific concerns. This page covers the three pillars—logs, metrics, and traces—adapted for agentic systems.
+
+Logs capture discrete events: tool calls, LLM requests, decisions, and errors. Structure logs with correlation IDs to link related events. Include context like user ID, session ID, and agent configuration.
+
+Metrics quantify system behavior: latency percentiles, token usage, tool success rates, and task completion rates. Define SLIs (Service Level Indicators) that matter for your use case, and set SLOs (Service Level Objectives) to track reliability.
+
+Traces show the full journey of a request through your agent. Distributed tracing with OpenTelemetry captures the hierarchy of operations: the outer agent loop, inner LLM calls, tool invocations, and memory retrievals. Trace visualization reveals bottlenecks and failure points.
+
+LLM-specific observability adds prompt/response logging, token counting, and model behavior tracking. Track prompt templates separately from variable content for analysis.
+
+The Implementation tab shows integration with observability platforms like LangSmith, Langfuse, Arize, and open-source alternatives like Jaeger and Prometheus.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced observability enables proactive quality management and continuous improvement of agent systems.
+
+Semantic observability goes beyond operational metrics to track meaning. Monitor hallucination rates, factual accuracy, and reasoning quality. Use LLM-as-judge evaluations running asynchronously on sampled traffic.
+
+Anomaly detection identifies unusual patterns: sudden increases in error rates, drift in response distributions, or unexpected tool usage patterns. Statistical methods and ML models can alert on deviations from baseline behavior.
+
+Root cause analysis for agents is complex because failures can stem from prompts, models, tools, or data. Build runbooks that correlate symptoms with causes. Implement drill-down capabilities from high-level metrics to individual traces to raw logs.
+
+Cost observability tracks spend across models, tools, and infrastructure. Allocate costs to tenants, features, or user segments. Set budgets and alerts to prevent runaway spending.
+
+User experience observability connects system metrics to user outcomes. Track task success rates, user satisfaction signals, and abandonment patterns. Correlate these with system behavior to identify improvement opportunities.
+
+Observability-driven development uses production data to guide improvements. Identify common failure modes, A/B test fixes, and measure impact. Build feedback loops from observability into your development and evaluation processes.

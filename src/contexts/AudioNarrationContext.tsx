@@ -519,8 +519,16 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'acp': 'ACPConcept',
         'data-visualization': 'DataVisualizationConcept',
         'flow-visualization': 'FlowVisualizationConcept',
-  'agentic-robotics-control-loop': 'AgenticRoboticsControlLoop',
-  'agentic-robotics-integration': 'AgenticRoboticsControlLoop',
+        'agentic-robotics-control-loop': 'AgenticRoboticsControlLoop',
+        'agentic-robotics-integration': 'AgenticRoboticsControlLoop',
+        
+        // Core Concepts - 2026 additions
+        'agent-reasoning-patterns': 'AgentReasoningPatternsConcept',
+        'agent-memory-systems': 'AgentMemorySystemsConcept',
+        'agent-observability': 'AgentObservabilityConcept',
+        'agent-testing-benchmarks': 'AgentTestingBenchmarksConcept',
+        'prompt-injection-defense': 'PromptInjectionDefenseConcept',
+        'human-in-the-loop-patterns': 'HumanInTheLoopPatternsConcept',
         
         // Agent Pattern Mappings (kebab-case pattern IDs to PascalCase audio files)
         'react-agent': 'ReActPattern',
@@ -528,10 +536,10 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'code-act': 'CodeActPattern',
         'codeact-agent': 'CodeActPattern',
         'prompt-chaining': 'PromptChaining',
-  'adaptive-lab-technician': 'AdaptiveLabTechnician',
-  'inventory-guardian': 'InventoryGuardian',
-  'emergency-response-mate': 'EmergencyResponseMate',
-  'mobile-manipulator-steward': 'MobileManipulatorSteward',
+        'adaptive-lab-technician': 'AdaptiveLabTechnician',
+        'inventory-guardian': 'InventoryGuardian',
+        'emergency-response-mate': 'EmergencyResponseMate',
+        'mobile-manipulator-steward': 'MobileManipulatorSteward',
         'parallelization': 'Parallelization',
         'self-reflection': 'SelfReflection',
         'modern-tool-use': 'ModernToolUse',
@@ -647,13 +655,14 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       const mappedName = audioFileMap[componentName] || componentName;
       
       // For patterns with 3x3 matrix files, try to use the new granular files first
-      const patternsWithGranularFiles = ['ReActPattern', 'ModernToolUse', 'PromptChaining', 'AgenticRAGPattern', 'AgenticCommerceAP2Concept'];
+      const patternsWithGranularFiles = ['ReActPattern', 'ModernToolUse', 'PromptChaining', 'AgenticRAGPattern', 'AgenticCommerceAP2Concept', 'DataVisualizationConcept'];
       const patternFileMap: { [key: string]: string } = {
         'ReActPattern': 'ReAct',
         'ModernToolUse': 'ModernToolUse',
         'PromptChaining': 'PromptChaining',
         'AgenticRAGPattern': 'AgenticRAG',
-        'AgenticCommerceAP2Concept': 'AgenticCommerceAP2Concept'
+        'AgenticCommerceAP2Concept': 'AgenticCommerceAP2Concept',
+        'DataVisualizationConcept': 'MCPApps'
       };
       
       if (patternsWithGranularFiles.includes(mappedName) && contentType) {

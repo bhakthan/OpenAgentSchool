@@ -1,0 +1,9 @@
+The architecture of MCP Apps is designed to be simple and secure.
+
+Think of it like a picture frame. The AI host (like Claude) is the frame, and your MCP App is the picture inside. The frame keeps the picture contained and protected, while still letting everyone see and interact with it.
+
+Your MCP App runs inside something called a sandboxed iframe. This is a protected box that keeps your app separate from the main AI interface. The app can show interactive content, but it can't access things it shouldn't—like the user's other conversations or browser data.
+
+Communication happens through messages. The host sends your app information about the current theme (dark or light mode), and the data from the tool that was called. Your app can send messages back to request actions, like asking the host to call another tool.
+
+This message-based architecture is what makes MCP Apps work across different AI platforms—Claude, ChatGPT, VS Code, and others all understand the same message format.

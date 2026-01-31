@@ -1,0 +1,44 @@
+Human-in-the-Loop Patterns Concept Explanation
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to Human-in-the-Loop Patterns! This page explores how humans and AI agents work together. Sometimes agents need human help to make important decisions, verify results, or handle situations they're not sure about.
+
+You'll learn about approval workflows where humans confirm agent actions, escalation patterns where agents ask for help when needed, and feedback loops where human input improves agent behavior over time.
+
+Understanding these patterns helps you build agents that are both capable and safe, knowing when to act independently and when to involve humans.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Human-in-the-loop (HITL) patterns ensure appropriate human oversight of autonomous agents. This page covers design patterns for effective human-agent collaboration.
+
+Approval gates require human confirmation before high-stakes actions. Define risk thresholds: auto-approve low-risk, require approval for medium-risk, and escalate high-risk to senior reviewers. Balance safety with efficiency—too many approvals create bottlenecks.
+
+Escalation paths route complex or ambiguous cases to humans. Agents should recognize their limitations: low confidence, novel situations, or policy edge cases. Clear escalation criteria and smooth handoff preserve context and user experience.
+
+Feedback collection captures human corrections and preferences. Active learning selects informative examples for human labeling. Implicit feedback (user acceptance, regeneration requests) supplements explicit ratings.
+
+Oversight modes vary by use case. Synchronous HITL blocks until human response—suitable for high-stakes, low-volume. Asynchronous HITL queues decisions for batch review—suitable for lower-stakes, higher-volume. Sampling reviews a percentage of decisions—suitable for quality assurance.
+
+The Implementation tab shows workflow designs, queue management, and integration with ticketing systems.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced HITL patterns address scale, cognitive load, and continuous improvement in production systems.
+
+Risk-based routing optimizes human attention. Build classifiers that predict action risk, reviewer expertise requirements, and expected review time. Route to the right human at the right time.
+
+Reviewer efficiency matters at scale. Batch similar decisions for faster processing. Provide relevant context upfront—don't make reviewers hunt for information. Pre-populate likely decisions for one-click approval.
+
+Calibration ensures consistent human decisions. Define rubrics and decision criteria. Monitor inter-rater reliability. Provide feedback to reviewers on their decisions relative to peers or ground truth.
+
+Learning from HITL improves automation over time. Corrections become training data. Approved patterns can be auto-approved in future. The goal is expanding the autonomous envelope while maintaining safety.
+
+Fatigue and alert blindness are real risks. Humans who approve hundreds of routine requests will miss the one that matters. Vary presentation, inject synthetic tests, and monitor approval rates for anomalies.
+
+Graceful degradation handles HITL unavailability. What happens when reviewers are offline or overwhelmed? Define fallback behaviors: queue with SLAs, auto-approve low-risk, or pause high-risk actions. Communicate clearly to users about delays.
+
+Audit trails document all human decisions for compliance, debugging, and improvement. Capture who decided what, when, with what context, and with what outcome.

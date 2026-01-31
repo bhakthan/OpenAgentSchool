@@ -1,0 +1,9 @@
+MCP Apps fundamentals build on three core concepts that work together to enable interactive agent UIs.
+
+First, ui:// resources. These are HTML templates served by your MCP server with a special MIME type: text/html;profile=mcp-app. This profile tells hosts that this isn't just HTML—it's an MCP App that needs the proper sandboxed rendering environment.
+
+Second, tool annotations. When you define an MCP tool, you link it to a UI using the _meta.ui.resourceUri annotation. For example, your list_feature_flags tool would have an annotation pointing to ui://feature-flags. When the tool runs, the host knows to render that UI with the tool's output.
+
+Third, the Host-App communication channel. The host and app talk through structured postMessage calls. The host sends ui/initialize with theme and context, then ui/notifications/tool-input with the actual data. The app can send ui/message back to request actions.
+
+This separation keeps your interactive UIs secure while enabling rich functionality across all MCP-compatible platforms.

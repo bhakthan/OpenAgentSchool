@@ -1,0 +1,11 @@
+The MCP Apps architecture consists of four main components working together.
+
+First, the MCP Server hosts your ui:// resources. When the server receives a resources/read request for a ui:// URI, it returns HTML content with the mcp-app MIME profile. The server also defines tools with _meta.ui.resourceUri annotations that bind tools to their UIs.
+
+Second, the Host Environment—Claude, ChatGPT, VS Code—renders your app in a sandboxed iframe. The host sets up the postMessage channel and manages the lifecycle: initialization, data delivery, and message handling.
+
+Third, your MCP App itself is a client-side HTML/JavaScript application. It uses the @mcp-ui/client SDK to handle the Host-App protocol. The app registers handlers for onInitialize and onToolInput, and can call sendMessage to communicate back.
+
+Fourth, the Data Flow follows a specific pattern. When a user invokes a tool, the MCP server executes it and returns structured data. The host then sends ui/initialize followed by ui/notifications/tool-input to your app. Your app renders the data. If the user interacts (like clicking a button), your app sends ui/message. The host may then invoke another tool, and the cycle repeats.
+
+This architecture ensures loose coupling—your app doesn't need to know which host it's running in, and hosts don't need to understand your app's internals.

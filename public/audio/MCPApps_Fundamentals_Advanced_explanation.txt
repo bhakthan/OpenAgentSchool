@@ -1,0 +1,9 @@
+At an advanced level, MCP Apps fundamentals reveal a carefully designed capability-based security architecture.
+
+The ui:// resource pattern is more than just a naming convention—it establishes a trust boundary. Resources with this scheme are explicitly opt-in for rich rendering. The MIME type profile=mcp-app triggers host-side security policies including iframe sandboxing and CSP enforcement.
+
+Tool annotations via _meta.ui.resourceUri create a declarative binding model. This is intentionally one-way: tools declare their UIs, but UIs cannot arbitrarily invoke tools. All tool invocations must go through the host, which can enforce user consent, rate limiting, and audit logging.
+
+The Host-App protocol in SEP-1865 defines a minimal but complete surface area. The ui/initialize message provides only what apps need: themeMode, locale, and context. There's no way for apps to query arbitrary host state. Similarly, ui/message from apps is just a request—the host decides whether and how to act on it.
+
+Understanding these fundamentals is essential before building production MCP Apps. The constraints aren't limitations—they're the security properties that make it safe to render third-party UIs in sensitive AI contexts.
