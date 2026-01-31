@@ -427,6 +427,22 @@ export default function AgentCostOptimizationConcept() {
         {/* Interactive Visualization */}
         <CostOptimizationViz autoPlay={true} />
 
+        {/* Cost Optimization Infographic */}
+        <div className="rounded-xl border bg-muted/30 p-4">
+          <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+            <DollarSign className="w-4 h-4" /> Agent Cost Optimization Overview
+          </h3>
+          <img 
+            src="/images/Agent_Cost_Optimization.png" 
+            alt="Agent Cost Optimization: Token budgeting, caching, model routing, and batch processing strategies" 
+            className="w-full rounded-lg shadow-sm border"
+            loading="lazy"
+          />
+          <p className="text-xs text-muted-foreground mt-2 text-center">
+            Save 50-90% on LLM costs with intelligent routing: Cache → Cheap Model → Expensive Model
+          </p>
+        </div>
+
         <Tabs defaultValue="strategies" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="strategies">Strategies</TabsTrigger>
