@@ -469,6 +469,22 @@ export default function AgentReasoningPatternsConcept() {
         {/* Interactive Visualization */}
         <ReasoningPatternsViz autoPlay={true} />
 
+        {/* Reasoning Patterns Infographic */}
+        <div className="rounded-xl border bg-muted/30 p-4">
+          <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+            <Brain className="w-4 h-4" /> Agent Reasoning Patterns Overview
+          </h3>
+          <img 
+            src="/images/Agent_Reasoning_Pattern.png" 
+            alt="Agent Reasoning Patterns: Chain-of-Thought, Tree-of-Thought, Graph-of-Thought, and Reflexion" 
+            className="w-full rounded-lg shadow-sm border"
+            loading="lazy"
+          />
+          <p className="text-xs text-muted-foreground mt-2 text-center">
+            From linear CoT to branching ToT, non-linear GoT, and self-correcting Reflexion patterns
+          </p>
+        </div>
+
         <Tabs defaultValue="patterns" className="w-full">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="patterns">Reasoning Patterns</TabsTrigger>

@@ -533,12 +533,29 @@ export default function AgentMemorySystemsConcept() {
         {/* Interactive Visualization */}
         <MemorySystemsViz autoPlay={true} />
 
+        {/* 5-Layer Memory Architecture Infographic */}
+        <div className="rounded-xl border bg-muted/30 p-4">
+          <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+            <Layers className="w-4 h-4" /> The 5-Layer Memory Hierarchy
+          </h3>
+          <img 
+            src="/images/Agent_Memory_Systems_5_Layers.png" 
+            alt="Agent Memory Systems: 5-layer hierarchy from working memory to semantic memory" 
+            className="w-full rounded-lg shadow-sm border"
+            loading="lazy"
+          />
+          <p className="text-xs text-muted-foreground mt-2 text-center">
+            Working → Short-Term → Long-Term → Episodic → Semantic: Trade-offs between speed, capacity, and persistence
+          </p>
+        </div>
+
         <Tabs defaultValue="types" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="types">Memory Types</TabsTrigger>
             <TabsTrigger value="architectures">Architectures</TabsTrigger>
             <TabsTrigger value="implementation">Implementation</TabsTrigger>
             <TabsTrigger value="production">Production</TabsTrigger>
+            <TabsTrigger value="advanced">Advanced</TabsTrigger>
           </TabsList>
 
           <TabsContent value="types" className="space-y-6">
@@ -704,6 +721,74 @@ export default function AgentMemorySystemsConcept() {
                 </CardContent>
               </Card>
             ))}
+          </TabsContent>
+
+          <TabsContent value="advanced" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Brain className="w-5 h-5 text-purple-400" />
+                  Memory in the Age of AI Agents
+                </CardTitle>
+                <p className="text-sm text-muted-foreground">
+                  Understanding the evolving landscape of agent memory systems and their role in persistent, context-aware AI.
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <img 
+                  src="/images/Memory_in_the_Age_Of_AI_Agents.png" 
+                  alt="Memory in the Age of AI Agents - comprehensive visual guide to agent memory architectures" 
+                  className="w-full rounded-lg shadow-md border"
+                  loading="lazy"
+                />
+                
+                <div className="grid md:grid-cols-2 gap-4 mt-4">
+                  <div className="p-4 rounded-lg bg-purple-500/5 border border-purple-500/20">
+                    <h4 className="font-medium mb-2 flex items-center gap-2">
+                      <Database className="w-4 h-4 text-purple-400" /> Why Memory Matters
+                    </h4>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Enables long-term context retention across sessions</li>
+                      <li>• Supports learning from past interactions and errors</li>
+                      <li>• Enables personalization without re-prompting</li>
+                      <li>• Critical for multi-agent coordination and handoffs</li>
+                    </ul>
+                  </div>
+                  <div className="p-4 rounded-lg bg-blue-500/5 border border-blue-500/20">
+                    <h4 className="font-medium mb-2 flex items-center gap-2">
+                      <Layers className="w-4 h-4 text-blue-400" /> The Memory Stack
+                    </h4>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• <strong>Working:</strong> In-context window (ephemeral)</li>
+                      <li>• <strong>Short-term:</strong> Session buffer with summarization</li>
+                      <li>• <strong>Long-term:</strong> Vector-indexed persistent storage</li>
+                      <li>• <strong>Episodic:</strong> Complete interaction replay</li>
+                      <li>• <strong>Semantic:</strong> Structured knowledge graphs</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-lg bg-amber-500/5 border border-amber-500/20">
+                  <h4 className="font-medium mb-2 flex items-center gap-2">
+                    <AlertTriangle className="w-4 h-4 text-amber-400" /> Key Considerations
+                  </h4>
+                  <div className="grid md:grid-cols-3 gap-3 text-sm text-muted-foreground">
+                    <div>
+                      <strong className="block text-foreground">Retrieval Quality</strong>
+                      Poor recall = agent forgets important context. Over-retrieval = context pollution.
+                    </div>
+                    <div>
+                      <strong className="block text-foreground">Memory Hygiene</strong>
+                      Stale memories degrade performance. Implement decay, deduplication, and relevance scoring.
+                    </div>
+                    <div>
+                      <strong className="block text-foreground">Privacy & Compliance</strong>
+                      Long-term memory requires PII handling, retention policies, and user consent mechanisms.
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>

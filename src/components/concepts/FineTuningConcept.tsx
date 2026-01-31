@@ -72,6 +72,23 @@ export default function FineTuningConcept({ onMarkComplete, onNavigateToNext }: 
       content: (
         <div className="space-y-6">
           <FineTuningOverviewVisual />
+          
+          {/* SFT → DPO → RFT Visual Reference */}
+          <div className="rounded-xl border bg-muted/30 p-4">
+            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+              <FlowArrow className="w-4 h-4" /> Fine-Tuning Methods Comparison
+            </h3>
+            <img 
+              src="/images/SFT_DPO_RFT.png" 
+              alt="SFT, DPO, and RFT fine-tuning methods comparison showing progressive alignment stages" 
+              className="w-full rounded-lg shadow-sm border"
+              loading="lazy"
+            />
+            <p className="text-xs text-muted-foreground mt-2 text-center">
+              Supervised Fine-Tuning (SFT) → Direct Preference Optimization (DPO) → Reinforcement Fine-Tuning (RFT)
+            </p>
+          </div>
+
           <div className="pt-4">
             <h3 className="text-sm font-semibold mb-2 flex items-center gap-2"><FlowArrow className="w-4 h-4"/> Stage Summary Cards</h3>
             <div className="space-y-6 fine-tuning-concept">
