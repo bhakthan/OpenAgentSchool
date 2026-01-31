@@ -77,6 +77,20 @@ const AgentEvaluationConcept = () => {
               <li>Human-in-the-loop validation</li>
               <li>Scenario-based testing</li>
             </ul>
+            
+            {/* LLM Evaluation Cheatsheet Infographic */}
+            <div className="my-6">
+              <h4 className="text-md font-semibold mb-3">LLM Evaluation Cheatsheet</h4>
+              <img 
+                src="/images/LLM_Evaluation_Cheatsheet.png" 
+                alt="LLM Evaluation Cheatsheet - comprehensive guide to evaluation metrics, methods, and best practices"
+                className="w-full max-w-4xl mx-auto rounded-lg border shadow-sm"
+              />
+              <p className="text-xs text-muted-foreground text-center mt-2">
+                Comprehensive evaluation framework covering metrics, methods, and benchmarks
+              </p>
+            </div>
+            
             <CodeBlock language="python">{ARCHITECTURE_CODE}</CodeBlock>
           </TabsContent>
 
