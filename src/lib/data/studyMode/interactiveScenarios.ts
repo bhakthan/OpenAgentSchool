@@ -7868,6 +7868,287 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// Production Foundations Concepts (January 2026)
+(scenarioLibrary as any)['agent-reasoning-patterns'] = [
+  {
+    id: 'agent-reasoning-patterns-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-reasoning-patterns',
+    title: 'Choosing the Right Reasoning Pattern',
+    level: 'intermediate',
+    scenario: {
+      title: 'Complex Problem Decomposition',
+      description: 'Your agent needs to solve a multi-step planning problem. You must choose between CoT, ToT, GoT, or ReAct.',
+      context: 'Trip planning agent that needs to optimize flights, hotels, and activities with constraints.',
+      stakeholders: ['Users', 'Product Team', 'ML Engineers'],
+      systemState: { activeAgents: 1, errorRate: 0.1, averageLatency: 3000 },
+      challenges: ['Problem complexity', 'Backtracking needs', 'Real-time constraints'],
+      decisionPoints: ['Which reasoning pattern?', 'How to handle dead ends?', 'When to parallelize?'],
+      options: [
+        'Chain-of-Thought: Linear step-by-step reasoning',
+        'Tree-of-Thought: Explore multiple branches, backtrack on dead ends, use BFS/DFS for complex planning',
+        'Just ask the model directly without structured reasoning'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'CoT is linear and cannot backtrack when hitting constraints',
+      'ToT allows exploration of alternatives and backtracking, essential for constraint satisfaction',
+      'Unstructured reasoning fails on multi-step planning problems'
+    ],
+    followUpQuestions: ['When is CoT sufficient?', 'How to prune bad branches early?', 'What about ReAct for tool use?'],
+    expectedInsights: [
+      'CoT works for straightforward sequential problems without constraints',
+      'Use heuristic evaluation to score and prune low-promise branches',
+      'ReAct combines reasoning with action for tool-heavy workflows'
+    ],
+    businessContext: 'Choosing the right reasoning pattern can improve task success rate by 20-40%.',
+    relatedConcepts: ['multi-agent-systems', 'evaluation', 'agent-architecture'],
+    timeEstimate: 15,
+    successCriteria: ['Selects appropriate pattern', 'Justifies choice', 'Considers alternatives']
+  }
+];
+
+(scenarioLibrary as any)['agent-memory-systems'] = [
+  {
+    id: 'agent-memory-systems-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-memory-systems',
+    title: 'Designing Agent Memory Architecture',
+    level: 'intermediate',
+    scenario: {
+      title: 'Building a Personal Assistant Memory',
+      description: 'Your agent needs to remember user preferences, past conversations, and learned facts across sessions.',
+      context: 'Personal productivity assistant that helps with scheduling, emails, and research.',
+      stakeholders: ['Users', 'Privacy Team', 'Infrastructure'],
+      systemState: { activeAgents: 1000, errorRate: 0.02, averageLatency: 500 },
+      challenges: ['Memory persistence', 'Retrieval efficiency', 'Privacy controls'],
+      decisionPoints: ['Which memory types?', 'Storage architecture?', 'Retention policies?'],
+      options: [
+        'Store everything in the conversation context window',
+        'Short-term (conversation buffer) + Long-term (vector DB for facts) + Episodic (timestamped interactions) with user-controlled retention',
+        'No memory - treat each conversation as fresh'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Context windows are limited and expensive; lose history on session end',
+      'Layered memory provides appropriate persistence and retrieval for different use cases',
+      'Stateless agents cannot personalize or learn user preferences'
+    ],
+    followUpQuestions: ['How to handle memory conflicts?', 'What about forgetting?', 'Privacy implications?'],
+    expectedInsights: [
+      'Newer information overrides older; confidence scores help resolve conflicts',
+      'Explicit forgetting APIs and automatic decay for stale information',
+      'User-controlled memory with export/delete capabilities for GDPR compliance'
+    ],
+    businessContext: 'Memory is the foundation of personalization. Well-designed memory systems increase user retention by 3-5x.',
+    relatedConcepts: ['context-management', 'rag', 'privacy'],
+    timeEstimate: 18,
+    successCriteria: ['Designs layered memory', 'Addresses persistence', 'Considers privacy']
+  }
+];
+
+(scenarioLibrary as any)['agent-observability'] = [
+  {
+    id: 'agent-observability-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-observability',
+    title: 'Debugging a Production Failure',
+    level: 'intermediate',
+    scenario: {
+      title: 'Tracing an Agent Failure',
+      description: 'Your agent suddenly started giving wrong answers. You need to identify the root cause.',
+      context: 'Customer support agent with 10% increase in escalation rate over 24 hours.',
+      stakeholders: ['On-call Engineer', 'Product Manager', 'Customer Success'],
+      systemState: { activeAgents: 50, errorRate: 0.15, averageLatency: 2500 },
+      challenges: ['Finding the failure point', 'Correlating across services', 'Real-time debugging'],
+      decisionPoints: ['Where to start?', 'What traces to examine?', 'How to reproduce?'],
+      options: [
+        'Look at error logs and guess what went wrong',
+        'Use distributed tracing (OpenTelemetry) to follow a failed request through LLM calls, tool invocations, and retrieval; correlate with deployment timeline',
+        'Roll back the last deployment and hope it fixes the issue'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Logs alone lack causality and cross-service correlation',
+      'Distributed tracing shows the full request lifecycle; deployment correlation identifies timing',
+      'Blind rollback wastes time if the issue is data or external service related'
+    ],
+    followUpQuestions: ['What spans to instrument?', 'How to sample high-cardinality data?', 'Alert thresholds?'],
+    expectedInsights: [
+      'LLM calls, tool executions, retrieval queries, and guardrail checks need spans',
+      'Head-based sampling for errors; tail-based for performance; 1-10% for normal traffic',
+      'Baseline from historical data; alert on deviation not absolute thresholds'
+    ],
+    businessContext: 'MTTR (Mean Time to Recovery) directly impacts customer satisfaction. Good observability cuts MTTR by 60%.',
+    relatedConcepts: ['agent-ops', 'debugging', 'monitoring'],
+    timeEstimate: 15,
+    successCriteria: ['Uses distributed tracing', 'Correlates events', 'Identifies root cause']
+  }
+];
+
+(scenarioLibrary as any)['agent-testing-benchmarks'] = [
+  {
+    id: 'agent-testing-benchmarks-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-testing-benchmarks',
+    title: 'Building an Evaluation Pipeline',
+    level: 'intermediate',
+    scenario: {
+      title: 'Evaluating Agent Quality Before Release',
+      description: 'You need to ensure your agent meets quality standards before deploying a new version.',
+      context: 'Code generation agent being updated with new capabilities.',
+      stakeholders: ['Engineering', 'QA', 'Product'],
+      systemState: { activeAgents: 1, errorRate: 0, averageLatency: 0 },
+      challenges: ['Benchmark selection', 'Pass/fail criteria', 'Regression detection'],
+      decisionPoints: ['Which benchmarks?', 'What thresholds?', 'Automated vs manual?'],
+      options: [
+        'Manual testing by QA team on a few examples',
+        'Automated pipeline: SWE-Bench for coding, custom evals for domain tasks, A/B comparison against baseline; block release if regression >2%',
+        'Ship it and monitor production metrics'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Manual testing is slow, non-reproducible, and misses edge cases',
+      'Automated benchmarks provide consistent, scalable quality gates with clear thresholds',
+      'Production monitoring alone catches issues too late; users experience failures'
+    ],
+    followUpQuestions: ['How to handle benchmark overfitting?', 'What about novel capabilities?', 'CI/CD integration?'],
+    expectedInsights: [
+      'Holdout test sets and periodic benchmark rotation prevent overfitting',
+      'New capabilities need new evals; start with human labeling then automate',
+      'Gate merges on benchmark pass; nightly runs for comprehensive evaluation'
+    ],
+    businessContext: 'Automated evaluation enables confident, frequent releases. Teams with good evals ship 3x faster.',
+    relatedConcepts: ['agent-evaluation', 'ci-cd', 'quality-assurance'],
+    timeEstimate: 18,
+    successCriteria: ['Designs eval pipeline', 'Sets thresholds', 'Prevents regressions']
+  }
+];
+
+(scenarioLibrary as any)['prompt-injection-defense'] = [
+  {
+    id: 'prompt-injection-defense-scenario-1',
+    type: 'scenario',
+    conceptId: 'prompt-injection-defense',
+    title: 'Defending Against Indirect Injection',
+    level: 'intermediate',
+    scenario: {
+      title: 'Securing an Email Assistant',
+      description: 'Your agent reads emails and takes actions. Attackers embed malicious instructions in emails.',
+      context: 'Email assistant that can draft replies, schedule meetings, and access calendar.',
+      stakeholders: ['Security Team', 'Users', 'Legal'],
+      systemState: { activeAgents: 100, errorRate: 0.01, averageLatency: 1000 },
+      challenges: ['Detecting embedded instructions', 'Preserving legitimate functionality', 'Unknown attack vectors'],
+      decisionPoints: ['How to separate data from instructions?', 'What actions need confirmation?', 'Defense layers?'],
+      options: [
+        'Trust all email content as user-intended data',
+        'Clear data/instruction separation with XML tags; action allowlist requiring confirmation for sensitive ops; multi-layer detection (heuristics + classifier)',
+        'Block all emails with suspicious keywords'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Trusting external data enables injection attacks',
+      'Separation + confirmation + detection provides defense-in-depth',
+      'Keyword blocking has high false positives and misses sophisticated attacks'
+    ],
+    followUpQuestions: ['How to handle legitimate instructions in emails?', 'What\'s the UX for confirmations?', 'Red team testing?'],
+    expectedInsights: [
+      'Explicit user actions (forward, reply) vs passive reading; only user actions trigger agent ops',
+      'Inline confirmation with clear action preview; batch approval for routine actions',
+      'Regular red team exercises with new attack techniques; bug bounty for injection bypasses'
+    ],
+    businessContext: 'Indirect injection is the emerging attack vector for tool-using agents. Early defense is critical.',
+    relatedConcepts: ['agent-security', 'guardrails-layer', 'agent-red-teaming'],
+    timeEstimate: 18,
+    successCriteria: ['Separates data/instructions', 'Implements confirmation', 'Designs detection']
+  }
+];
+
+(scenarioLibrary as any)['human-in-the-loop-patterns'] = [
+  {
+    id: 'human-in-the-loop-patterns-scenario-1',
+    type: 'scenario',
+    conceptId: 'human-in-the-loop-patterns',
+    title: 'Designing Approval Workflows',
+    level: 'intermediate',
+    scenario: {
+      title: 'High-Stakes Decision Approval',
+      description: 'Your agent can execute financial transactions. Large transactions need human approval.',
+      context: 'Expense management agent that can approve reimbursements and pay invoices.',
+      stakeholders: ['Finance Team', 'Employees', 'Auditors'],
+      systemState: { activeAgents: 5, errorRate: 0.005, averageLatency: 200 },
+      challenges: ['Threshold determination', 'Approval latency', 'Audit trail'],
+      decisionPoints: ['What triggers approval?', 'Who approves?', 'Timeout handling?'],
+      options: [
+        'Approve all transactions automatically for speed',
+        'Tiered thresholds: auto-approve <$100, manager approval $100-$1000, VP approval >$1000; async workflow with 24h timeout; immutable audit log',
+        'Require human approval for everything'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Full automation risks fraud and compliance violations',
+      'Tiered approval balances speed with appropriate oversight based on risk',
+      'Approving everything creates bottlenecks and defeats automation value'
+    ],
+    followUpQuestions: ['How to handle approval timeouts?', 'What about urgent transactions?', 'Delegation rules?'],
+    expectedInsights: [
+      'Timeout escalates to next approver; configurable per transaction type',
+      'Emergency override with post-hoc review and additional logging',
+      'Out-of-office delegation with approval limits; audit all delegated approvals'
+    ],
+    businessContext: 'Well-designed HITL workflows maintain control while enabling 10x throughput improvement.',
+    relatedConcepts: ['agent-ops', 'compliance', 'workflow-automation'],
+    timeEstimate: 15,
+    successCriteria: ['Designs tiered approval', 'Handles edge cases', 'Ensures auditability']
+  }
+];
+
+(scenarioLibrary as any)['agent-cost-optimization'] = [
+  {
+    id: 'agent-cost-optimization-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-cost-optimization',
+    title: 'Reducing LLM Costs by 80%',
+    level: 'intermediate',
+    scenario: {
+      title: 'Optimizing a High-Volume Agent',
+      description: 'Your agent costs $50K/month in LLM calls. Leadership wants to cut costs without hurting quality.',
+      context: 'Customer support agent handling 100K queries/day with GPT-4.',
+      stakeholders: ['Finance', 'Product', 'ML Engineering'],
+      systemState: { activeAgents: 50, errorRate: 0.02, averageLatency: 2000 },
+      challenges: ['Cost without quality loss', 'Implementation complexity', 'Monitoring trade-offs'],
+      decisionPoints: ['Which optimization?', 'Quality safeguards?', 'Rollout strategy?'],
+      options: [
+        'Switch everything to GPT-4o-mini immediately',
+        'Model routing (simple queries to GPT-4o-mini, complex to GPT-4) + semantic caching (30% hit rate) + token budgets (cap at 4K/request); gradual rollout with quality monitoring',
+        'Just reduce context length to save tokens'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Blanket model switch degrades quality on complex queries',
+      'Multi-pronged approach optimizes cost while maintaining quality where needed',
+      'Truncating context causes worse answers, not cost savings'
+    ],
+    followUpQuestions: ['How to classify query complexity?', 'Cache invalidation strategy?', 'Quality regression detection?'],
+    expectedInsights: [
+      'Train lightweight classifier on query features; fallback to expensive model on low confidence',
+      'TTL-based expiration + semantic similarity threshold for cache hits',
+      'A/B test each optimization; monitor satisfaction, escalation rate, task completion'
+    ],
+    businessContext: 'LLM costs can be 60-80% of agent operating costs. Smart optimization enables sustainable scaling.',
+    relatedConcepts: ['agent-economics', 'architecture', 'evaluation'],
+    timeEstimate: 18,
+    successCriteria: ['Applies multiple optimizations', 'Maintains quality', 'Plans rollout']
+  }
+];
+
 // Helper function to get scenarios by concept and level
 export function getScenarios(
   conceptId: string, 

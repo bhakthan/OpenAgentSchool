@@ -33,6 +33,14 @@ import { agentEconomicsQuestions, agentEconomicsTime } from './agent-economics';
 import { agentCareerPathsQuestions, agentCareerPathsTime } from './agent-career-paths';
 import { industryAgentsQuestions, industryAgentsTime } from './industry-agents';
 import { agentTemplatesHubQuestions, agentTemplatesHubTime } from './agent-templates-hub';
+// Production Foundations quizzes (January 2026)
+import { agentReasoningPatternsQuestions, agentReasoningPatternsTimeEstimate } from './agent-reasoning-patterns';
+import { agentMemorySystemsQuestions, agentMemorySystemsTimeEstimate } from './agent-memory-systems';
+import { agentObservabilityQuestions, agentObservabilityTimeEstimate } from './agent-observability';
+import { agentTestingBenchmarksQuestions, agentTestingBenchmarksTimeEstimate } from './agent-testing-benchmarks';
+import { promptInjectionDefenseQuestions, promptInjectionDefenseTimeEstimate } from './prompt-injection-defense';
+import { humanInTheLoopPatternsQuestions, humanInTheLoopPatternsTimeEstimate } from './human-in-the-loop-patterns';
+import { agentCostOptimizationQuestions, agentCostOptimizationTimeEstimate } from './agent-cost-optimization';
 // New Phase 1 foundation quizzes
 import { llmFundamentalsQuiz } from './llm-fundamentals';
 import { gettingStartedAgentsQuiz } from './getting-started-agents';
@@ -81,7 +89,15 @@ const allQuestions = [
   ...agentEconomicsQuestions,
   ...agentCareerPathsQuestions,
   ...industryAgentsQuestions,
-  ...agentTemplatesHubQuestions
+  ...agentTemplatesHubQuestions,
+  // Production Foundations (January 2026)
+  ...agentReasoningPatternsQuestions,
+  ...agentMemorySystemsQuestions,
+  ...agentObservabilityQuestions,
+  ...agentTestingBenchmarksQuestions,
+  ...promptInjectionDefenseQuestions,
+  ...humanInTheLoopPatternsQuestions,
+  ...agentCostOptimizationQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
