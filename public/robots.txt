@@ -10,6 +10,11 @@ Allow: /concepts/
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
+Allow: /concepts/agent-troubleshooting
+Allow: /concepts/agent-economics
+Allow: /concepts/agent-career-paths
+Allow: /concepts/industry-agents
+Allow: /concepts/agent-templates-hub
 Allow: /concepts/quantum-ai-robotics
 Allow: /concepts/agentic-robotics
 Allow: /concepts/agent-learning
@@ -62,6 +67,11 @@ Allow: /concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
+Allow: /concepts/agent-troubleshooting
+Allow: /concepts/agent-economics
+Allow: /concepts/agent-career-paths
+Allow: /concepts/industry-agents
+Allow: /concepts/agent-templates-hub
 Allow: /api-docs
 Crawl-delay: 2
 
@@ -71,6 +81,11 @@ Allow: /concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
+Allow: /concepts/agent-troubleshooting
+Allow: /concepts/agent-economics
+Allow: /concepts/agent-career-paths
+Allow: /concepts/industry-agents
+Allow: /concepts/agent-templates-hub
 Allow: /api-docs
 
 User-agent: CCBot
@@ -79,6 +94,11 @@ Allow: /concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
+Allow: /concepts/agent-troubleshooting
+Allow: /concepts/agent-economics
+Allow: /concepts/agent-career-paths
+Allow: /concepts/industry-agents
+Allow: /concepts/agent-templates-hub
 Crawl-delay: 2
 
 User-agent: anthropic-ai
@@ -87,6 +107,11 @@ Allow: /concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
+Allow: /concepts/agent-troubleshooting
+Allow: /concepts/agent-economics
+Allow: /concepts/agent-career-paths
+Allow: /concepts/industry-agents
+Allow: /concepts/agent-templates-hub
 Allow: /api-docs
 Crawl-delay: 2
 
@@ -96,6 +121,11 @@ Allow: /concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
 Allow: /concepts/agent-red-teaming
+Allow: /concepts/agent-troubleshooting
+Allow: /concepts/agent-economics
+Allow: /concepts/agent-career-paths
+Allow: /concepts/industry-agents
+Allow: /concepts/agent-templates-hub
 Allow: /api-docs
 
 # Additional AI crawlers

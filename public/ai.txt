@@ -19,6 +19,11 @@ Concept-AI-Safety: https://www.openagentschool.org/concepts/ai-safety-governance
 Concept-CLI-Agents: https://www.openagentschool.org/concepts/client-coding-agents
 Concept-Agent-Skills: https://www.openagentschool.org/concepts/agent-skills
 Concept-Red-Teaming: https://www.openagentschool.org/concepts/agent-red-teaming
+Concept-Troubleshooting: https://www.openagentschool.org/concepts/agent-troubleshooting
+Concept-Economics: https://www.openagentschool.org/concepts/agent-economics
+Concept-Career-Paths: https://www.openagentschool.org/concepts/agent-career-paths
+Concept-Industry-Agents: https://www.openagentschool.org/concepts/industry-agents
+Concept-Templates-Hub: https://www.openagentschool.org/concepts/agent-templates-hub
 
 # Learning Resources
 Study-Mode: https://www.openagentschool.org/study-mode

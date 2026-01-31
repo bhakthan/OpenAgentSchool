@@ -127,6 +127,18 @@ export default function D3TreeVisualization({
           ]
         },
         {
+          id: 'applied',
+          name: 'Applied & Career (Tier 5)',
+          type: 'category' as const,
+          children: collapsedNodes.has('applied') ? [] : [
+            { id: 'agent-troubleshooting', name: 'Agent Troubleshooting Playbook', type: 'concept' as const, novel: true },
+            { id: 'agent-economics', name: 'Agent Economics', type: 'concept' as const, novel: true },
+            { id: 'agent-career-paths', name: 'Agent Career Paths', type: 'concept' as const, novel: true },
+            { id: 'industry-agents', name: 'Industry-Specific Agents', type: 'concept' as const, novel: true },
+            { id: 'agent-templates-hub', name: 'Agent Templates Hub', type: 'concept' as const, novel: true }
+          ]
+        },
+        {
           id: 'core-patterns',
           name: 'Core Patterns',
           type: 'category' as const,

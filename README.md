@@ -146,6 +146,33 @@ npm run dev
 - ASR (Attack Success Rate) metrics and CI/CD integration
 - References to Microsoft AI Red Teaming Agent and Playground Labs
 
+ **Agent Troubleshooting Playbook**
+- Systematic debugging guide for production agent failures
+- Failure taxonomy: Context Collapse, Tool Failures, Reasoning Loops, Memory Corruption, Security Violations, Integration Breakdowns
+- Diagnostic decision trees and emergency runbooks
+- Production patterns: Circuit Breaker, Retry with Backoff, Fallback Chain, Bulkhead
+
+ **Agent Economics**
+- Cost modeling: LLM tokens, tool invocations, infrastructure, observability
+- Pricing strategies: Per-interaction, subscription, outcome-based, usage-based, hybrid
+- ROI framework with business value quantification
+- Make vs Buy decision framework and unit economics calculator
+
+ **Agent Career Paths**
+- 7 career roles with salary ranges ($80K-$300K): Prompt Engineer, Agent Developer, Agent Architect, AI PM, Agent Ops, Safety Specialist, Solutions Architect
+- 4-level skill progression: Foundation → Practitioner → Expert → Leader
+- 6 industry certifications and learning paths
+
+ **Industry-Specific Agents**
+- 6 verticals: Healthcare, Finance, Legal, Education, Manufacturing, Retail
+- Per-industry use cases, regulations, challenges, and recommended patterns
+- Cross-industry implementation patterns
+
+ **Agent Templates Hub**
+- 5 starter templates: Basic Agent, RAG Agent, Multi-Agent, MCP Server, Production-Ready
+- Quickstart guides (5-45 minutes to running agent)
+- Recommended project structure and best practices
+
 ### Study Mode Enhancements
 - Added Socratic questions, debug challenges, and interactive scenarios for all 3 new concepts
 - Added SCL (composite scenarios) for multi-concept learning

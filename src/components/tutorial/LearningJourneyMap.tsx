@@ -82,7 +82,9 @@ const learningPaths: LearningPath[] = [
       'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations',
       // Tier 4: Advanced Concepts
   'agent-deployment', 'agent-learning', 'agent-integration', 'agentic-robotics-integration', 'fine-tuning', 'quantum-ai-robotics', 'agentic-commerce-ap2', 'product-management',
-      'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement'
+      'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement',
+      // Tier 5: Applied & Career
+      'agent-troubleshooting', 'agent-economics', 'agent-career-paths', 'industry-agents', 'agent-templates-hub'
     ],
     totalProgress: 0,
     nodes: [
@@ -639,6 +641,78 @@ const learningPaths: LearningPath[] = [
         completionRate: 0,
         isCompleted: false,
         isUnlocked: false,
+        path: '/concepts'
+      },
+      
+      // Tier 5: Applied & Career
+      {
+        id: 'agent-troubleshooting',
+        title: 'Agent Troubleshooting Playbook',
+        description: 'Systematic debugging when production agents fail—from context collapse to tool timeouts.',
+        icon: <Target size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '40-50 min',
+        prerequisites: ['agent-ops', 'agent-deployment'],
+        skills: ['Failure Taxonomy', 'Diagnostic Trees', 'Recovery Patterns', 'Emergency Response'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'agent-economics',
+        title: 'Agent Economics',
+        description: 'Build business cases: cost models, pricing strategies, ROI frameworks that secure budgets.',
+        icon: <ChartBar size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '35-45 min',
+        prerequisites: ['strategy-portfolio-management'],
+        skills: ['Cost Modeling', 'Pricing Strategies', 'ROI Analysis', 'Unit Economics'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'agent-career-paths',
+        title: 'Agent Career Paths',
+        description: 'Navigate AI agent roles—skills, certifications, salaries, and growth trajectories.',
+        icon: <GraduationCap size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '30-40 min',
+        prerequisites: [],
+        skills: ['Career Planning', 'Skill Assessment', 'Certifications', 'Job Market'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: true,
+        path: '/concepts'
+      },
+      {
+        id: 'industry-agents',
+        title: 'Industry-Specific Agents',
+        description: 'Patterns for Healthcare, Finance, Legal, Education, Manufacturing—regulations and use cases.',
+        icon: <StackSimple size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '45-55 min',
+        prerequisites: ['agent-architecture', 'agent-security'],
+        skills: ['Regulatory Compliance', 'Domain Patterns', 'Industry Use Cases'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'agent-templates-hub',
+        title: 'Agent Templates Hub',
+        description: 'Ready-to-use starters, boilerplates, and quickstart guides—ship your first agent today.',
+        icon: <Package size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '20-30 min',
+        prerequisites: [],
+        skills: ['Starter Templates', 'Quickstart Guides', 'Best Practices'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: true,
         path: '/concepts'
       },
       
