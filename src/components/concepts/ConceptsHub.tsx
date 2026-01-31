@@ -422,8 +422,8 @@ const concepts: ConceptInfo[] = [
   ,
   {
     id: 'agentic-commerce-ap2',
-    title: 'Agentic Commerce & AP2',
-    description: 'Chained mandate credentials (Intent → Cart → Payment) enabling trustworthy agent-led purchases.',
+    title: 'Agentic Commerce: UCP & AP2',
+    description: 'Universal Commerce Protocol + Agent Payments for discovery, checkout, and trusted transactions.',
     level: 'advanced',
     icon: <Shield className="w-6 h-6" />,
     color: 'bg-background text-foreground/80 dark:bg-pink-900/20 dark:text-pink-300',

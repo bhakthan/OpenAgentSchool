@@ -84,20 +84,20 @@ export const SEO: React.FC<SEOProps> = ({
     };
     updateJsonLdScript('seo-jsonld-person', personJsonLd);
 
-    // Route-specific structured data: Agentic Commerce & AP2
+    // Route-specific structured data: Agentic Commerce: UCP & AP2
     if (location.pathname === '/concepts/agentic-commerce-ap2') {
       const ap2Article = {
         '@context': 'https://schema.org',
         '@type': 'TechArticle',
-        name: 'Agentic Commerce & AP2 - Delegated Trust Architecture',
+        name: 'Agentic Commerce: UCP & AP2 - Universal Commerce Protocol',
         url: currentUrl,
-        description: 'AP2 mandate chain (Intent → Cart → Payment) enabling delegated, auditable, presence-aware agentic commerce.',
+        description: 'Universal Commerce Protocol (UCP) + Agent Payments Protocol (AP2) for end-to-end agentic commerce: discovery, checkout, payments, and fulfillment.',
         about: [
-          { '@type': 'Thing', name: 'Agentic Commerce' },
+          { '@type': 'Thing', name: 'Universal Commerce Protocol' },
+          { '@type': 'Thing', name: 'UCP' },
           { '@type': 'Thing', name: 'AP2 Mandate Chain' },
-          { '@type': 'Thing', name: 'Delegated Payments' },
-          { '@type': 'Thing', name: 'Presence Signaling' },
-          { '@type': 'Thing', name: 'Cart Integrity' }
+          { '@type': 'Thing', name: 'Agentic Commerce' },
+          { '@type': 'Thing', name: 'Delegated Payments' }
         ],
         learningResourceType: 'CourseModule',
         educationalLevel: 'Advanced',
@@ -113,7 +113,7 @@ export const SEO: React.FC<SEOProps> = ({
         author: { '@type': 'Person', name: 'Srikanth Bhakthan' },
         publisher: { '@type': 'Organization', name: 'Open Agent School' },
         inLanguage: 'en',
-        keywords: [ 'AP2','agentic commerce','delegated payments','mandate protocol','intent mandate','cart mandate','payment mandate','agent trust','presence signaling' ]
+        keywords: [ 'UCP','universal commerce protocol','AP2','agentic commerce','delegated payments','checkout','fulfillment','Google','Shopify' ]
       };
       updateJsonLdScript('seo-jsonld-ap2', ap2Article);
     }
@@ -243,9 +243,9 @@ export const pageSEOConfigs = {
     keywords: 'AI agent concepts, agent architecture, multi-agent systems, agent security, AI fundamentals, interactive learning, MCP, Model Context Protocol, A2A communication, agent orchestration, agent tools, agent memory, agent planning, agent reasoning, agent evaluation, agent safety, human-agent interaction, agent deployment, agent monitoring, agent scaling, Agentic AI Design Taxonomy'
   },
   '/concepts/agentic-commerce-ap2': {
-    title: 'Agentic Commerce & AP2 - Delegated Trust Architecture | Open Agent School',
-    description: 'Learn how AP2 enables trustworthy agent‑initiated payments with a cryptographically linked mandate chain (Intent → Cart → Payment) providing delegation proof, cart integrity, presence signaling, and dispute auditability.',
-    keywords: 'AP2, agentic commerce, autonomous payments, delegated payments, mandate protocol, intent mandate, cart mandate, payment mandate, agent trust, verifiable credentials, presence signaling, AI commerce security'
+    title: 'Agentic Commerce: UCP & AP2 - Universal Commerce Protocol | Open Agent School',
+    description: 'Learn Google\'s Universal Commerce Protocol (UCP) and AP2 for end-to-end agentic transactions. Covers discovery, checkout, discounts, fulfillment, and payment mandate chains with major partners: Shopify, Walmart, Target, Visa, Mastercard.',
+    keywords: 'UCP, Universal Commerce Protocol, AP2, agentic commerce, autonomous payments, Google shopping, Shopify, checkout protocol, agent payments, delegated payments, mandate protocol, verifiable credentials, AI commerce'
   },
   '/concepts/agentic-prompting-fundamentals': {
     title: 'Agentic Prompting Fundamentals - Advanced AI Control | Open Agent School',

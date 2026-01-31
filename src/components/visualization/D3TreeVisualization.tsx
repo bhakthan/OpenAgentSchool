@@ -120,7 +120,7 @@ export default function D3TreeVisualization({
             { id: 'agent-deployment', name: 'Agent Deployment & Operations', type: 'concept' as const },
             { id: 'agent-learning', name: 'Agent Learning & Adaptation', type: 'concept' as const },
             { id: 'agent-integration', name: 'Agent Integration Patterns', type: 'concept' as const },
-            { id: 'agentic-commerce-ap2', name: 'Agentic Commerce & AP2', type: 'concept' as const, novel: true },
+            { id: 'agentic-commerce-ap2', name: 'Agentic Commerce: UCP & AP2', type: 'concept' as const, novel: true },
             { id: 'architecture-platform-operations', name: 'Architecture & Platform Operations', type: 'concept' as const, novel: true },
             { id: 'experimentation-continuous-improvement', name: 'Experimentation & Continuous Improvement', type: 'concept' as const, novel: true },
             { id: 'ecosystem-partnerships', name: 'Ecosystem & Partnerships', type: 'concept' as const, novel: true }

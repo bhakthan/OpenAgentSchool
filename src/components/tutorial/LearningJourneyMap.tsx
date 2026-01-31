@@ -549,7 +549,7 @@ const learningPaths: LearningPath[] = [
       },
       {
         id: 'agentic-commerce-ap2',
-        title: 'Agentic Commerce & AP2',
+        title: 'Agentic Commerce: UCP & AP2',
         description: 'Mandate chain (Intent → Cart → Payment) for trusted agent-led payments',
         icon: <Shield size={20} />,
         difficulty: 'advanced',

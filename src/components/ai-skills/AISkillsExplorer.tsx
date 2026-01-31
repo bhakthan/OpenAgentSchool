@@ -280,11 +280,11 @@ export default function AISkillsExplorer() {
       level: "Advanced",
   component: <SecurityDataBoundaries onNavigate={() => completeAndNavigate("security-data","rag")} />
     },
-    // 10b. Agentic Commerce & AP2 (new)
+    // 10b. Agentic Commerce: UCP & AP2 (updated 2026)
     {
       id: "agent-payments-ap2",
-      title: "Agentic Commerce & AP2",
-      description: "Mandates & verifiable credentials for trusted agent payments",
+      title: "Agentic Commerce: UCP & AP2",
+      description: "Universal Commerce Protocol + Agent Payments for agentic transactions",
       icon: <Shield className="w-4 h-4" />,
       level: "Advanced",
       component: (
