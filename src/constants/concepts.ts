@@ -39,7 +39,18 @@ export const CORE_CONCEPT_IDS = [
   'architecture-platform-operations',
   'experimentation-continuous-improvement',
   'ecosystem-partnerships',
-  'organizational-enablement'
+  'organizational-enablement',
+  // Security & Red Teaming
+  'agent-red-teaming',
+  // Client Coding Agents & Skills
+  'client-coding-agents',
+  'agent-skills',
+  // Applied & Career Tier (Tier 5)
+  'agent-troubleshooting',
+  'agent-economics',
+  'agent-career-paths',
+  'industry-agents',
+  'agent-templates-hub'
 ] as const;
 
 export type CoreConceptId = typeof CORE_CONCEPT_IDS[number];
