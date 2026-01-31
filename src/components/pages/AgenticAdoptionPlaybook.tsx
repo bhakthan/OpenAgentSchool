@@ -410,6 +410,8 @@ const OPERATING_PILLARS: OperatingPillar[] = [
       'Embedded policy checks pre-flight, in-flight, and post-flight for every workflow.',
       'Incident drills pairing legal, security, and product to rehearse escalations.',
       'Transparent audit packs with lineage, evaluations, and decision explanations.',
+      'Multi-agent governance with A2A trust boundaries, cascade failure prevention, and inter-agent authorization policies.',
+      'Regulatory compliance frameworks aligned with AI governance requirements and reporting obligations.',
     ],
     icon: <ShieldCheck size={18} className="text-primary" />,
   },
@@ -639,6 +641,30 @@ const REFERENCE_LIBRARY: ReferenceLink[] = [
     description: 'OpenAI’s end-to-end manual covering design principles, orchestration, and evaluation patterns.',
     href: 'https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf',
     provider: 'OpenAI',
+  },
+  {
+    name: 'EU AI Act Implementation',
+    description: 'Official guidance on AI Act compliance including high-risk classification and conformity assessment.',
+    href: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai',
+    provider: 'European Commission',
+  },
+  {
+    name: 'Agent Client Protocol (ACP)',
+    description: 'Open standard for editor-to-agent communication, enabling interoperability across coding agents.',
+    href: 'https://agentclientprotocol.com/get-started/introduction',
+    provider: 'ACP Community',
+  },
+  {
+    name: 'NIST AI Risk Management Framework',
+    description: 'Comprehensive AI risk management guidance including multi-agent safety patterns.',
+    href: 'https://www.nist.gov/itl/ai-risk-management-framework',
+    provider: 'NIST',
+  },
+  {
+    name: 'ISO/IEC 23894 AI Risk Management',
+    description: 'International standard for AI risk management and governance in enterprise settings.',
+    href: 'https://www.iso.org/standard/77304.html',
+    provider: 'ISO',
   },
 ];
 

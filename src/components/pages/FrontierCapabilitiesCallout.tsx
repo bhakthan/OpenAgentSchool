@@ -48,20 +48,20 @@ const frontierCapabilities: FrontierCapability[] = [
     readinessSignal: 'Classical runtimes exceed decision cycles'
   },
   {
-    id: 'quantum-sensing-agent',
-    name: 'Ultra-Precise Sensing',
+    id: 'agent-mesh-architecture',
+    name: 'Agent Mesh Architecture',
     icon: Scan,
-    gain: '5-10x spatial resolution',
-    useCase: 'Medical imaging, mineral exploration',
-    readinessSignal: 'Classical sensors lack required sensitivity'
+    gain: 'Enterprise-wide agent interoperability',
+    useCase: 'Federated agent discovery and routing',
+    readinessSignal: 'Multiple agent teams need coordination'
   },
   {
-    id: 'quantum-accelerated-search',
-    name: 'Quantum Knowledge Search',
+    id: 'constitutional-ai-patterns',
+    name: 'Constitutional AI Alignment',
     icon: MagnifyingGlass,
-    gain: '20x faster on 50M entity graphs',
-    useCase: 'Healthcare, legal, scientific databases',
-    readinessSignal: 'Search latency impacts decision speed'
+    gain: 'Reduced alignment failures by 60-80%',
+    useCase: 'Enterprise agents requiring value alignment',
+    readinessSignal: 'Agents make autonomous decisions at scale'
   }
 ];
 
@@ -147,7 +147,7 @@ const FrontierCapabilitiesCallout: React.FC = () => {
 
         {/* Footer Note */}
         <p className="text-xs text-muted-foreground text-center pt-2 border-t">
-          Part of the 64-pattern library · Time to value: 6-12 months · Requires specialized infrastructure
+          Part of the 64-pattern library · Time to value: 3-9 months · Requires specialized infrastructure
         </p>
       </CardContent>
     </Card>

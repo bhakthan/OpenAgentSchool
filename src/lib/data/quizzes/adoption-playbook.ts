@@ -191,5 +191,100 @@ export const adoptionPlaybookQuestions: QuizQuestion[] = [
     relatedTopics: ['readiness-criteria', 'governance', 'evaluation'],
     persona: ['business-leader', 'agent-architect', 'ai-engineer'],
     timeEstimate: 45
+  },
+  {
+    id: 'adoption-r1',
+    text: 'Your organization is deploying AI agents that make autonomous decisions in the EU market. According to AI governance best practices, what should be your primary compliance focus?',
+    question: 'What is the primary compliance focus for autonomous AI agents in regulated markets?',
+    options: [
+      'Maximize agent speed and throughput regardless of oversight.',
+      'Ensure high-risk AI classification assessment, conformity documentation, and human oversight mechanisms per regulatory requirements.',
+      'Only document agent behavior after compliance issues arise.',
+      'Delegate all compliance responsibility to the AI vendor.'
+    ],
+    correctAnswer: 1,
+    explanation: 'AI governance frameworks require organizations to assess high-risk classifications, prepare conformity documentation, and implement human oversight mechanisms. This proactive approach ensures compliance before deployment rather than reacting to regulatory issues.',
+    difficulty: 'advanced',
+    category: 'adoption-playbook',
+    subCategory: 'regulatory-compliance',
+    relatedTopics: ['ai-governance', 'regulatory-compliance', 'human-oversight', 'conformity-assessment'],
+    persona: ['business-leader', 'agent-architect'],
+    timeEstimate: 55
+  },
+  {
+    id: 'adoption-m1',
+    text: 'Your enterprise is scaling from single-agent pilots to multi-agent orchestration. What governance capability becomes critical when agents communicate with each other (A2A)?',
+    question: 'What governance capability is critical for agent-to-agent (A2A) communication at scale?',
+    options: [
+      'Remove all authentication to improve agent communication speed.',
+      'Inter-agent authorization policies, cascade failure prevention, and collaboration audit trails.',
+      'Allow any agent to invoke any other agent without restrictions.',
+      'Only monitor external-facing agents, ignoring internal A2A communication.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Multi-agent governance requires establishing trust boundaries: inter-agent authorization (who can invoke whom), cascade failure prevention (circuit breakers), and collaboration audit trails for regulatory evidence. Without these, multi-agent systems can amplify failures and create accountability gaps.',
+    difficulty: 'advanced',
+    category: 'adoption-playbook',
+    subCategory: 'multi-agent-governance',
+    relatedTopics: ['multi-agent', 'a2a-trust', 'cascade-failure', 'audit-trails'],
+    persona: ['agent-architect', 'ai-engineer'],
+    timeEstimate: 55
+  },
+  {
+    id: 'adoption-p1',
+    text: 'Your team is evaluating protocol adoption for agent integration. When should you consider adopting Agent Client Protocol (ACP) vs. Model Context Protocol (MCP)?',
+    question: 'When should organizations consider ACP vs. MCP for agent integration?',
+    options: [
+      'Always use MCP; ACP is unnecessary.',
+      'ACP for editor-to-agent standardization enabling multi-agent interoperability; MCP for tool and data integration within agent workflows.',
+      'Use neither—build custom integrations for each agent.',
+      'ACP and MCP are identical; choose randomly.'
+    ],
+    correctAnswer: 1,
+    explanation: 'ACP (Agent Client Protocol) standardizes communication between editors/IDEs and coding agents, enabling any ACP-compatible agent to work with any ACP-compatible editor. MCP (Model Context Protocol) focuses on tool calling and data integration within agent workflows. They serve complementary purposes in the agent integration stack.',
+    difficulty: 'intermediate',
+    category: 'adoption-playbook',
+    subCategory: 'protocol-adoption',
+    relatedTopics: ['acp', 'mcp', 'agent-interoperability', 'protocol-selection'],
+    persona: ['agent-architect', 'ai-engineer', 'agent-developer'],
+    timeEstimate: 50
+  },
+  {
+    id: 'adoption-l1',
+    text: 'Your board is asking about AI liability exposure. According to the Board-Ready Briefing Pack framework, which stakeholder should own the AI liability coverage assessment?',
+    question: 'Which stakeholder should own AI liability coverage assessment in the briefing pack?',
+    options: [
+      'CTO—because AI is a technology issue.',
+      'CFO—because liability is purely financial.',
+      'Chief Legal Officer (CLO)/General Counsel—covering AI liability frameworks, autonomous decision accountability, and regulatory fine exposure.',
+      'CPO—because it affects workforce policies.'
+    ],
+    correctAnswer: 2,
+    explanation: 'The Chief Legal Officer (CLO) or General Counsel should own AI liability assessment, covering autonomous decision accountability, regulatory fine exposure, insurance requirements for agent actions, and regulatory authority engagement. While CFO handles financial impact and CTO handles technical implementation, legal accountability requires CLO ownership.',
+    difficulty: 'intermediate',
+    category: 'adoption-playbook',
+    subCategory: 'briefing-pack',
+    relatedTopics: ['ai-liability', 'legal-accountability', 'regulatory-exposure', 'board-governance'],
+    persona: ['business-leader', 'agent-architect'],
+    timeEstimate: 50
+  },
+  {
+    id: 'adoption-f1',
+    text: 'Your organization is exploring frontier agent patterns. Which emerging pattern addresses enterprise-wide agent discovery and federated coordination?',
+    question: 'Which frontier pattern enables enterprise-wide agent discovery and federated coordination?',
+    options: [
+      'Single-agent pilot pattern with isolated deployment.',
+      'Agent Mesh Architecture—enabling federated agent discovery, routing, and cross-team coordination.',
+      'Monolithic agent pattern with centralized control.',
+      'Shadow agent pattern with hidden deployments.'
+    ],
+    correctAnswer: 1,
+    explanation: 'Agent Mesh Architecture is an emerging pattern for enterprise-wide agent interoperability. It enables federated agent discovery (finding agents across teams), intelligent routing (directing requests to appropriate agents), and coordinated governance across organizational boundaries—essential for scaling beyond isolated agent pilots.',
+    difficulty: 'advanced',
+    category: 'adoption-playbook',
+    subCategory: 'frontier-patterns',
+    relatedTopics: ['agent-mesh', 'federated-agents', 'enterprise-scale', 'agent-discovery'],
+    persona: ['agent-architect', 'ai-engineer'],
+    timeEstimate: 55
   }
 ];

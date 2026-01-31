@@ -30,6 +30,7 @@ interface BriefingPackData {
   cto: StakeholderBriefing;
   cro: StakeholderBriefing;
   cpo: StakeholderBriefing;
+  clo: StakeholderBriefing;
   board: StakeholderBriefing;
 }
 
@@ -54,6 +55,7 @@ export function BoardReadyBriefingPackForm() {
     cto: emptyBriefing(),
     cro: emptyBriefing(),
     cpo: emptyBriefing(),
+    clo: emptyBriefing(),
     board: emptyBriefing(),
   });
 
@@ -138,6 +140,7 @@ export function BoardReadyBriefingPackForm() {
       { key: 'cto', label: 'CTO', title: 'CTO/CIO Briefing' },
       { key: 'cro', label: 'CRO', title: 'Chief Risk Officer Briefing' },
       { key: 'cpo', label: 'CPO', title: 'Chief People Officer Briefing' },
+      { key: 'clo', label: 'CLO', title: 'Chief Legal Officer Briefing' },
       { key: 'board', label: 'Board', title: 'Board Member Briefing' },
     ];
 
@@ -213,6 +216,7 @@ export function BoardReadyBriefingPackForm() {
       { key: 'cto', title: 'CTO/CIO Briefing - Technical Architecture & Feasibility' },
       { key: 'cro', title: 'Chief Risk Officer Briefing - Compliance & Incident Response' },
       { key: 'cpo', title: 'Chief People Officer Briefing - Workforce Impact & Change Management' },
+      { key: 'clo', title: 'Chief Legal Officer Briefing - AI Liability & Regulatory Compliance' },
       { key: 'board', title: 'Board Member Briefing - Governance & Oversight' },
     ];
 
@@ -359,7 +363,7 @@ export function BoardReadyBriefingPackForm() {
     (Object.values(formData)
       .filter((v): v is StakeholderBriefing => typeof v === 'object' && 'summary' in v)
       .reduce((acc, briefing) => acc + Object.values(briefing).filter(v => v.trim() !== '').length, 0) /
-      (6 * 4)) *
+      (7 * 4)) *
       100
   );
 
@@ -436,22 +440,24 @@ export function BoardReadyBriefingPackForm() {
       </Card>
 
       <Tabs defaultValue="ceo" className="w-full">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="ceo">CEO</TabsTrigger>
           <TabsTrigger value="cfo">CFO</TabsTrigger>
           <TabsTrigger value="cto">CTO</TabsTrigger>
           <TabsTrigger value="cro">CRO</TabsTrigger>
           <TabsTrigger value="cpo">CPO</TabsTrigger>
+          <TabsTrigger value="clo">CLO</TabsTrigger>
           <TabsTrigger value="board">Board</TabsTrigger>
         </TabsList>
 
-        {(['ceo', 'cfo', 'cto', 'cro', 'cpo', 'board'] as const).map(role => {
+        {(['ceo', 'cfo', 'cto', 'cro', 'cpo', 'clo', 'board'] as const).map(role => {
           const titles = {
             ceo: { title: 'CEO/President Briefing', subtitle: 'Strategic value & competitive positioning', readTime: '5-7 min' },
             cfo: { title: 'CFO Briefing', subtitle: 'Financial returns & ROI model', readTime: '6 min' },
             cto: { title: 'CTO/CIO Briefing', subtitle: 'Technical architecture & feasibility', readTime: '6 min' },
             cro: { title: 'Chief Risk Officer Briefing', subtitle: 'Compliance & incident response', readTime: '5 min' },
             cpo: { title: 'Chief People Officer Briefing', subtitle: 'Workforce impact & change management', readTime: '5 min' },
+            clo: { title: 'Chief Legal Officer Briefing', subtitle: 'AI liability, regulatory compliance & contracts', readTime: '6 min' },
             board: { title: 'Board Member Briefing', subtitle: 'Governance & oversight', readTime: '5 min' },
           };
 
@@ -496,6 +502,7 @@ export function BoardReadyBriefingPackForm() {
                       {role === 'cto' && 'System uptime, API latency, Data quality, Tech debt'}
                       {role === 'cro' && 'Compliance score, Incident count, Audit findings, Risk exposure'}
                       {role === 'cpo' && 'Employee eNPS, Training completion, Retention rate, Skill gaps'}
+                      {role === 'clo' && 'Regulatory compliance rate, Contract exposure, Litigation risk, AI liability coverage'}
                       {role === 'board' && 'Strategic alignment, Risk posture, Governance health, Competitive position'}
                     </p>
                   </div>
