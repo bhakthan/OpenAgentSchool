@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { TestTube, CheckCircle, XCircle, TrendingUp, AlertTriangle, BarChart3, Code, Layers, RefreshCw, Target } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
+import TestingBenchmarksViz from "@/components/visualization/TestingBenchmarksViz";
 
 interface EvalMethod {
   id: string;
@@ -633,6 +634,9 @@ export default function AgentTestingBenchmarksConcept() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Interactive Visualization */}
+        <TestingBenchmarksViz autoPlay={true} />
 
         <Tabs defaultValue="methods" className="w-full">
           <TabsList className="grid w-full grid-cols-3">

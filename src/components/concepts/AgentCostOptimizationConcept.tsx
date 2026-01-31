@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { DollarSign, Zap, Database, GitBranch, TrendingDown, AlertTriangle, Code, Target, Layers, Calculator } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
+import CostOptimizationViz from "@/components/visualization/CostOptimizationViz";
 
 interface OptimizationStrategy {
   id: string;
@@ -422,6 +423,9 @@ export default function AgentCostOptimizationConcept() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Interactive Visualization */}
+        <CostOptimizationViz autoPlay={true} />
 
         <Tabs defaultValue="strategies" className="w-full">
           <TabsList className="grid w-full grid-cols-3">

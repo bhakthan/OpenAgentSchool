@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Database, Clock, Brain, Layers, Search, MessageSquare, Zap, Code, CheckCircle, AlertTriangle, HardDrive, CloudCog } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
+import MemorySystemsViz from "@/components/visualization/MemorySystemsViz";
 
 interface MemoryType {
   id: string;
@@ -528,6 +529,9 @@ export default function AgentMemorySystemsConcept() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Interactive Visualization */}
+        <MemorySystemsViz autoPlay={true} />
 
         <Tabs defaultValue="types" className="w-full">
           <TabsList className="grid w-full grid-cols-4">

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Users, UserCheck, AlertCircle, CheckCircle, ArrowUpRight, MessageSquare, Code, Layers, Shield, Clock, Settings } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
+import HITLViz from "@/components/visualization/HITLViz";
 
 interface HITLPattern {
   id: string;
@@ -628,6 +629,9 @@ export default function HumanInTheLoopPatternsConcept() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Interactive Visualization */}
+        <HITLViz autoPlay={true} />
 
         <Tabs defaultValue="patterns" className="w-full">
           <TabsList className="grid w-full grid-cols-3">

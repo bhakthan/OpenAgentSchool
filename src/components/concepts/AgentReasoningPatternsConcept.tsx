@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Brain, GitBranch, Network, RotateCcw, Lightbulb, Code, Target, Layers, ArrowRight, CheckCircle, AlertTriangle, Zap } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
+import ReasoningPatternsViz from "@/components/visualization/ReasoningPatternsViz";
 
 interface ReasoningPattern {
   id: string;
@@ -464,6 +465,9 @@ export default function AgentReasoningPatternsConcept() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Interactive Visualization */}
+        <ReasoningPatternsViz autoPlay={true} />
 
         <Tabs defaultValue="patterns" className="w-full">
           <TabsList className="grid w-full grid-cols-4">

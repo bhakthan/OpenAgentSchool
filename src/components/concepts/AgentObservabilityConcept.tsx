@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Eye, Activity, Search, AlertTriangle, LineChart, Clock, Code, Layers, Zap, Bug, Database, Terminal } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
+import ObservabilityViz from "@/components/visualization/ObservabilityViz";
 
 interface ObservabilityPillar {
   id: string;
@@ -555,6 +556,9 @@ export default function AgentObservabilityConcept() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Interactive Visualization */}
+        <ObservabilityViz autoPlay={true} />
 
         <Tabs defaultValue="pillars" className="w-full">
           <TabsList className="grid w-full grid-cols-4">

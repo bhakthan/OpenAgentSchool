@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Shield, AlertTriangle, Lock, Eye, Code, Target, CheckCircle, XCircle } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
+import PromptInjectionViz from "@/components/visualization/PromptInjectionViz";
 
 interface AttackVector {
   id: string;
@@ -272,6 +273,9 @@ export default function PromptInjectionDefenseConcept() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Interactive Visualization */}
+        <PromptInjectionViz autoPlay={true} />
 
         <Tabs defaultValue="attacks" className="w-full">
           <TabsList className="grid w-full grid-cols-4">
