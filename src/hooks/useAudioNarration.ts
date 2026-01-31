@@ -276,6 +276,14 @@ export function getComponentAudioFile(componentName: string): string {
     'tool-use-coach': 'ToolUseCoach_explanation',
     'ToolUseCoach': 'ToolUseCoach_explanation',
     
+    // CLI Coding Agents
+    'client-coding-agents': 'ClientCodingAgentsConcept_explanation',
+    'ClientCodingAgentsConcept': 'ClientCodingAgentsConcept_explanation',
+    
+    // Agent Skills
+    'agent-skills': 'AgentSkillsConcept_explanation',
+    'AgentSkillsConcept': 'AgentSkillsConcept_explanation',
+    
     // Add more mappings as needed
   };
 
