@@ -9,6 +9,7 @@ Crawl-delay: 1
 Allow: /concepts/
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
+Allow: /concepts/agent-red-teaming
 Allow: /concepts/quantum-ai-robotics
 Allow: /concepts/agentic-robotics
 Allow: /concepts/agent-learning
@@ -56,6 +57,7 @@ Allow: /
 Allow: /concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
+Allow: /concepts/agent-red-teaming
 Allow: /api-docs
 Crawl-delay: 2
 
@@ -64,6 +66,7 @@ Allow: /
 Allow: /concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
+Allow: /concepts/agent-red-teaming
 Allow: /api-docs
 
 User-agent: CCBot
@@ -71,6 +74,7 @@ Allow: /
 Allow: /concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
+Allow: /concepts/agent-red-teaming
 Crawl-delay: 2
 
 User-agent: anthropic-ai
@@ -78,6 +82,7 @@ Allow: /
 Allow: /concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
+Allow: /concepts/agent-red-teaming
 Allow: /api-docs
 Crawl-delay: 2
 
@@ -86,6 +91,7 @@ Allow: /
 Allow: /concepts
 Allow: /concepts/agent-skills
 Allow: /concepts/client-coding-agents
+Allow: /concepts/agent-red-teaming
 Allow: /api-docs
 
 # Additional AI crawlers

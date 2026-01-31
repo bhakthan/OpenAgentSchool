@@ -23,6 +23,11 @@ Open Agent School is a **comprehensive educational platform** designed to help d
 -  **AI Safety & Governance** - Responsible AI practices, security, and compliance frameworks
 -  **Evaluation Methods** - Testing, benchmarking, and quality assurance for agents
 
+**Developer Tools & Security**
+-  **CLI Coding Agents** - Copilot CLI, Claude Code, Codex CLI, Gemini CLI for terminal-native development
+-  **Agent Skills** - Modular SKILL.md files for extending agent capabilities with domain expertise
+-  **Agent Red Teaming** - Proactive security testing with PyRIT, attack taxonomies, and ASR metrics
+
 **Advanced Patterns**
 -  **Multi-Agent Systems** - Coordination, orchestration, and swarm intelligence
 -  **Data Autonomy Patterns** - Perception normalization, schema decomposition, action grounding
@@ -117,6 +122,33 @@ npm run dev
 - **[Backend Integration](./BACKEND_INTEGRATION.md)** - Microservices setup and API reference
 - **[Agent Guide](./AGENTS.md)** - Guide for AI coding agents contributing to the project
 - **[Architecture Overview](./docs/backend/ARCHITECTURE_OVERVIEW.md)** - System design and service dependencies
+
+---
+
+##  Recent Updates (January 31, 2026)
+
+### New Concepts
+
+ **CLI Coding Agents**
+- Comprehensive module covering Copilot CLI, Claude Code, Codex CLI, and Gemini CLI
+- AGENTS.md and CLAUDE.md configuration patterns
+- Approval modes, context management, and multi-agent workflows
+
+ **Agent Skills**
+- SKILL.md specification for modular agent expertise
+- Progressive disclosure patterns for context efficiency
+- Skill security model and supply chain considerations
+
+ **Agent Red Teaming**
+- Proactive AI security testing with PyRIT framework
+- 5 attack types: Direct Injection, Metaprompt Extraction, Multi-turn, XPIA, Guardrail Bypass
+- 10 risk categories including agent-specific threats
+- ASR (Attack Success Rate) metrics and CI/CD integration
+- References to Microsoft AI Red Teaming Agent and Playground Labs
+
+### Study Mode Enhancements
+- Added Socratic questions, debug challenges, and interactive scenarios for all 3 new concepts
+- Added SCL (composite scenarios) for multi-concept learning
 
 ---
 
