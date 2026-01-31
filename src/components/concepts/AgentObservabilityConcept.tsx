@@ -4,39 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Eye, Activity, Search, AlertTriangle, LineChart, Clock, Code, Layers, Zap, Bug, Database, Terminal } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-
-// Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
-const syntaxTheme: { [key: string]: React.CSSProperties } = {
-  'code[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
-    fontSize: '0.9em',
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    wordWrap: 'normal',
-    lineHeight: '1.5',
-    tabSize: 4,
-  },
-  'pre[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    padding: '1em',
-    margin: '0.5em 0',
-    overflow: 'auto',
-    borderRadius: '0.3em',
-  },
-  comment: { color: '#5c6370', fontStyle: 'italic' },
-  keyword: { color: '#c678dd' },
-  string: { color: '#98c379' },
-  function: { color: '#61afef' },
-  number: { color: '#d19a66' },
-  operator: { color: '#56b6c2' },
-  className: { color: '#e5c07b' },
-};
+import CodeBlock from "@/components/ui/CodeBlock";
 
 interface ObservabilityPillar {
   id: string;
@@ -661,17 +629,9 @@ export default function AgentObservabilityConcept() {
                   <h4 className="font-medium mb-2 flex items-center gap-2">
                     <Code className="w-4 h-4" /> Implementation
                   </h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{
-                      borderRadius: '0.5rem',
-                      fontSize: '0.75rem',
-                      maxHeight: '400px'
-                    }}
-                  >
+                  <CodeBlock language="python">
                     {selectedPillar.codeExample}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
               </CardContent>
             </Card>
@@ -755,11 +715,7 @@ export default function AgentObservabilityConcept() {
                 <CardContent className="space-y-4">
                   <div className="p-4 bg-green-500/5 border border-green-500/20 rounded-lg">
                     <h4 className="font-medium mb-2">Step 1: Add LangSmith/Langfuse</h4>
-                    <SyntaxHighlighter
-                      language="bash"
-                      style={syntaxTheme}
-                      customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                    >
+                    <CodeBlock language="bash">
 {`# Install
 pip install langsmith  # or langfuse
 
@@ -768,15 +724,11 @@ export LANGCHAIN_TRACING_V2=true
 export LANGCHAIN_API_KEY=your-key
 
 # That's it! All LangChain/LangGraph calls are now traced.`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                   </div>
                   <div className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-lg">
                     <h4 className="font-medium mb-2">Step 2: Add Basic Metrics</h4>
-                    <SyntaxHighlighter
-                      language="python"
-                      style={syntaxTheme}
-                      customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                    >
+                    <CodeBlock language="python">
 {`from prometheus_client import start_http_server, Counter
 
 requests = Counter('agent_requests', 'Agent requests', ['status'])
@@ -786,21 +738,17 @@ start_http_server(8000)
 
 # Increment in your code
 requests.labels(status='success').inc()`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                   </div>
                   <div className="p-4 bg-purple-500/5 border border-purple-500/20 rounded-lg">
                     <h4 className="font-medium mb-2">Step 3: Structured Logging</h4>
-                    <SyntaxHighlighter
-                      language="python"
-                      style={syntaxTheme}
-                      customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                    >
+                    <CodeBlock language="python">
 {`import structlog
 structlog.configure(processors=[structlog.processors.JSONRenderer()])
 log = structlog.get_logger()
 
 log.info("agent_call", user_id="123", tokens=500, cost_usd=0.02)`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                   </div>
                 </CardContent>
               </Card>

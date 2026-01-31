@@ -4,39 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Database, Clock, Brain, Layers, Search, MessageSquare, Zap, Code, CheckCircle, AlertTriangle, HardDrive, CloudCog } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-
-// Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
-const syntaxTheme: { [key: string]: React.CSSProperties } = {
-  'code[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
-    fontSize: '0.9em',
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    wordWrap: 'normal',
-    lineHeight: '1.5',
-    tabSize: 4,
-  },
-  'pre[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    padding: '1em',
-    margin: '0.5em 0',
-    overflow: 'auto',
-    borderRadius: '0.3em',
-  },
-  comment: { color: '#5c6370', fontStyle: 'italic' },
-  keyword: { color: '#c678dd' },
-  string: { color: '#98c379' },
-  function: { color: '#61afef' },
-  number: { color: '#d19a66' },
-  operator: { color: '#56b6c2' },
-  className: { color: '#e5c07b' },
-};
+import CodeBlock from "@/components/ui/CodeBlock";
 
 interface MemoryType {
   id: string;
@@ -637,17 +605,9 @@ export default function AgentMemorySystemsConcept() {
                   <h4 className="font-medium mb-2 flex items-center gap-2">
                     <Code className="w-4 h-4" /> Implementation
                   </h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{
-                      borderRadius: '0.5rem',
-                      fontSize: '0.8rem',
-                      maxHeight: '350px'
-                    }}
-                  >
+                  <CodeBlock language="python">
                     {selectedMemory.codeExample}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
               </CardContent>
             </Card>
@@ -732,16 +692,9 @@ export default function AgentMemorySystemsConcept() {
                     <div className="flex-1">
                       <h4 className="font-medium mb-1">{item.title}</h4>
                       <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
-                      <SyntaxHighlighter
-                        language="python"
-                        style={syntaxTheme}
-                        customStyle={{
-                          borderRadius: '0.5rem',
-                          fontSize: '0.75rem'
-                        }}
-                      >
+                      <CodeBlock language="python">
                         {item.code}
-                      </SyntaxHighlighter>
+                      </CodeBlock>
                     </div>
                   </div>
                 </CardContent>

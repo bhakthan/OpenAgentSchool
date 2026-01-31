@@ -4,39 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { TestTube, CheckCircle, XCircle, TrendingUp, AlertTriangle, BarChart3, Code, Layers, RefreshCw, Target } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-
-// Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
-const syntaxTheme: { [key: string]: React.CSSProperties } = {
-  'code[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
-    fontSize: '0.9em',
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    wordWrap: 'normal',
-    lineHeight: '1.5',
-    tabSize: 4,
-  },
-  'pre[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    padding: '1em',
-    margin: '0.5em 0',
-    overflow: 'auto',
-    borderRadius: '0.3em',
-  },
-  comment: { color: '#5c6370', fontStyle: 'italic' },
-  keyword: { color: '#c678dd' },
-  string: { color: '#98c379' },
-  function: { color: '#61afef' },
-  number: { color: '#d19a66' },
-  operator: { color: '#56b6c2' },
-  className: { color: '#e5c07b' },
-};
+import CodeBlock from "@/components/ui/CodeBlock";
 
 interface EvalMethod {
   id: string;
@@ -741,17 +709,9 @@ export default function AgentTestingBenchmarksConcept() {
                   <h4 className="font-medium mb-2 flex items-center gap-2">
                     <Code className="w-4 h-4" /> Implementation
                   </h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{
-                      borderRadius: '0.5rem',
-                      fontSize: '0.75rem',
-                      maxHeight: '400px'
-                    }}
-                  >
+                  <CodeBlock language="python">
                     {selectedMethod.codeExample}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
               </CardContent>
             </Card>
@@ -794,11 +754,7 @@ export default function AgentTestingBenchmarksConcept() {
                 <CardContent className="space-y-4">
                   <div className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-lg">
                     <h4 className="font-medium mb-2">Step 1: Create a Golden Set</h4>
-                    <SyntaxHighlighter
-                      language="json"
-                      style={syntaxTheme}
-                      customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                    >
+                    <CodeBlock language="json">
 {`// golden_set.json - Start with 20-50 examples
 [
   {
@@ -813,16 +769,12 @@ export default function AgentTestingBenchmarksConcept() {
     "expected_contains": ["30"]
   }
 ]`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                   </div>
 
                   <div className="p-4 bg-green-500/5 border border-green-500/20 rounded-lg">
                     <h4 className="font-medium mb-2">Step 2: Add to CI Pipeline</h4>
-                    <SyntaxHighlighter
-                      language="yaml"
-                      style={syntaxTheme}
-                      customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                    >
+                    <CodeBlock language="yaml">
 {`# .github/workflows/agent-evals.yml
 name: Agent Evaluations
 on: [push, pull_request]
@@ -835,16 +787,12 @@ jobs:
       - run: pip install pytest
       - run: pytest tests/test_unit_evals.py
       - run: python scripts/run_regression.py --golden golden_set.json`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                   </div>
 
                   <div className="p-4 bg-purple-500/5 border border-purple-500/20 rounded-lg">
                     <h4 className="font-medium mb-2">Step 3: Add LLM-Judge for PRs</h4>
-                    <SyntaxHighlighter
-                      language="python"
-                      style={syntaxTheme}
-                      customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                    >
+                    <CodeBlock language="python">
 {`# scripts/judge_pr.py
 from eval_framework import LLMJudge, load_sample_set
 
@@ -857,7 +805,7 @@ for sample in samples:
     print(f"{sample['id']}: {score.overall_score}/5")
 
 # Fail PR if average < 4.0`}
-                    </SyntaxHighlighter>
+                    </CodeBlock>
                   </div>
                 </CardContent>
               </Card>

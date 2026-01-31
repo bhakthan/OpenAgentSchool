@@ -4,39 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { DollarSign, Zap, Database, GitBranch, TrendingDown, AlertTriangle, Code, Target, Layers, Calculator } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-
-// Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
-const syntaxTheme: { [key: string]: React.CSSProperties } = {
-  'code[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
-    fontSize: '0.9em',
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    wordWrap: 'normal',
-    lineHeight: '1.5',
-    tabSize: 4,
-  },
-  'pre[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    padding: '1em',
-    margin: '0.5em 0',
-    overflow: 'auto',
-    borderRadius: '0.3em',
-  },
-  comment: { color: '#5c6370', fontStyle: 'italic' },
-  keyword: { color: '#c678dd' },
-  string: { color: '#98c379' },
-  function: { color: '#61afef' },
-  number: { color: '#d19a66' },
-  operator: { color: '#56b6c2' },
-  className: { color: '#e5c07b' },
-};
+import CodeBlock from "@/components/ui/CodeBlock";
 
 interface OptimizationStrategy {
   id: string;
@@ -520,17 +488,9 @@ export default function AgentCostOptimizationConcept() {
                   <h4 className="font-medium mb-2 flex items-center gap-2">
                     <Code className="w-4 h-4" /> Implementation
                   </h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{
-                      borderRadius: '0.5rem',
-                      fontSize: '0.75rem',
-                      maxHeight: '400px'
-                    }}
-                  >
+                  <CodeBlock language="python">
                     {codeExamples[selectedStrategy.id]}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
               </CardContent>
             </Card>
@@ -591,35 +551,23 @@ export default function AgentCostOptimizationConcept() {
               <CardContent className="space-y-4">
                 <div className="p-4 bg-green-500/5 border border-green-500/20 rounded-lg">
                   <h4 className="font-medium mb-2">Step 1: Add Token Counting</h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                  >
+                  <CodeBlock language="python">
                     {quickStartTokenCode}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
 
                 <div className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-lg">
                   <h4 className="font-medium mb-2">Step 2: Add Simple Caching</h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                  >
+                  <CodeBlock language="python">
                     {quickStartCacheCode}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
 
                 <div className="p-4 bg-purple-500/5 border border-purple-500/20 rounded-lg">
                   <h4 className="font-medium mb-2">Step 3: Add Model Routing</h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                  >
+                  <CodeBlock language="python">
                     {quickStartRoutingCode}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
               </CardContent>
             </Card>

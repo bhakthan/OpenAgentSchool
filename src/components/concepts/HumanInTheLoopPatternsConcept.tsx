@@ -4,39 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Users, UserCheck, AlertCircle, CheckCircle, ArrowUpRight, MessageSquare, Code, Layers, Shield, Clock, Settings } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-
-// Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
-const syntaxTheme: { [key: string]: React.CSSProperties } = {
-  'code[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
-    fontSize: '0.9em',
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'normal',
-    wordWrap: 'normal',
-    lineHeight: '1.5',
-    tabSize: 4,
-  },
-  'pre[class*="language-"]': {
-    color: '#abb2bf',
-    background: '#282c34',
-    padding: '1em',
-    margin: '0.5em 0',
-    overflow: 'auto',
-    borderRadius: '0.3em',
-  },
-  comment: { color: '#5c6370', fontStyle: 'italic' },
-  keyword: { color: '#c678dd' },
-  string: { color: '#98c379' },
-  function: { color: '#61afef' },
-  number: { color: '#d19a66' },
-  operator: { color: '#56b6c2' },
-  className: { color: '#e5c07b' },
-};
+import CodeBlock from "@/components/ui/CodeBlock";
 
 interface HITLPattern {
   id: string;
@@ -731,17 +699,9 @@ export default function HumanInTheLoopPatternsConcept() {
                   <h4 className="font-medium mb-2 flex items-center gap-2">
                     <Code className="w-4 h-4" /> Code Example
                   </h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{
-                      borderRadius: '0.5rem',
-                      fontSize: '0.75rem',
-                      maxHeight: '400px'
-                    }}
-                  >
+                  <CodeBlock language="python">
                     {selectedPattern.codeExample}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
               </CardContent>
             </Card>
@@ -791,11 +751,7 @@ export default function HumanInTheLoopPatternsConcept() {
               <CardContent className="space-y-4">
                 <div className="p-4 bg-green-500/5 border border-green-500/20 rounded-lg">
                   <h4 className="font-medium mb-2">Step 1: Add Thumbs Feedback</h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                  >
+                  <CodeBlock language="python">
 {`# After each response, collect feedback
 feedback = get_user_feedback()  # UI returns True/False
 
@@ -805,16 +761,12 @@ await feedback_collector.record_thumbs(
     user_id=user.id,
     is_positive=feedback
 )`}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
 
                 <div className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-lg">
                   <h4 className="font-medium mb-2">Step 2: Add Confidence-Based Escalation</h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                  >
+                  <CodeBlock language="python">
 {`# Check confidence before responding
 if response.confidence < 0.7:
     await escalation.create_ticket(
@@ -823,16 +775,12 @@ if response.confidence < 0.7:
         context={"response": response.text}
     )
     return "Let me connect you with a human expert..."`}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
 
                 <div className="p-4 bg-purple-500/5 border border-purple-500/20 rounded-lg">
                   <h4 className="font-medium mb-2">Step 3: Gate High-Risk Actions</h4>
-                  <SyntaxHighlighter
-                    language="python"
-                    style={syntaxTheme}
-                    customStyle={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-                  >
+                  <CodeBlock language="python">
 {`# Require approval for critical actions
 HIGH_RISK_ACTIONS = ["delete", "transfer", "send_email"]
 
@@ -840,7 +788,7 @@ if action.type in HIGH_RISK_ACTIONS:
     approval = await approval_workflow.request(action)
     if not approval.is_approved:
         return "This action requires approval from a manager."`}
-                  </SyntaxHighlighter>
+                  </CodeBlock>
                 </div>
               </CardContent>
             </Card>
