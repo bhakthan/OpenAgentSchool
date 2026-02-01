@@ -978,6 +978,61 @@ done`}</code>
             </CardContent>
           </Card>
 
+          {/* Local Intelligence vs RAG Embeddings */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Sparkle className="w-5 h-5 text-purple-500" />
+                Local Intelligence vs RAG Embeddings
+              </CardTitle>
+              <CardDescription>
+                Why Claude Code prefers on-the-fly file reading over pre-computed vector embeddings
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex justify-center">
+                <img 
+                  src="/images/Claude_Code_Local_Intelligence_Approach_vs_RAG_Embeddings.png" 
+                  alt="Claude Code Local Intelligence Approach vs RAG Embeddings comparison diagram"
+                  className="rounded-lg border border-slate-200 dark:border-slate-700 max-w-full h-auto shadow-md"
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div className="border border-purple-200 dark:border-purple-700 rounded-lg p-4 bg-purple-50/50 dark:bg-purple-900/10">
+                  <h5 className="font-semibold mb-2 text-purple-800 dark:text-purple-200">🎯 Local Intelligence (Claude Code)</h5>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• <strong>On-demand file reading:</strong> Reads actual source files when needed</li>
+                    <li>• <strong>Always fresh:</strong> Never stale—sees your latest uncommitted changes</li>
+                    <li>• <strong>Full context:</strong> Semantic understanding of entire file structure</li>
+                    <li>• <strong>Zero setup:</strong> No indexing, no vector DB, no chunking strategy</li>
+                    <li>• <strong>Precise edits:</strong> Direct manipulation of source files</li>
+                  </ul>
+                </div>
+                <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-blue-50/50 dark:bg-blue-900/10">
+                  <h5 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">📊 RAG with Embeddings</h5>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• <strong>Pre-computed vectors:</strong> Requires upfront indexing of codebase</li>
+                    <li>• <strong>Can get stale:</strong> Embeddings may not reflect latest changes</li>
+                    <li>• <strong>Chunked context:</strong> Limited by chunk size and similarity thresholds</li>
+                    <li>• <strong>Setup overhead:</strong> Vector DB, chunking config, embedding model</li>
+                    <li>• <strong>Semantic search:</strong> Great for large doc retrieval, less for editing</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
+                <h4 className="font-semibold mb-2 text-amber-800 dark:text-amber-200">💡 When to Use Each</h4>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Local Intelligence</strong> excels for active coding sessions where you're editing, 
+                  refactoring, and debugging—the context is always current and Claude can make precise changes. 
+                  <strong>RAG embeddings</strong> shine for searching across massive documentation sets, 
+                  knowledge bases, or archived codebases where semantic search trumps real-time accuracy.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
           <EnlightenMeButton
             title="Claude Code"
             contextDescription="Anthropic's terminal-native agentic coding environment"
