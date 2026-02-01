@@ -170,15 +170,23 @@ function SuperCriticalLearning({
   const parseJSONResponse = (responseText: string) => {
     try {
       // First, try direct parsing after stripping common code fences
+      // Handle markdown code blocks with optional language specifier and surrounding whitespace
       const stripped = responseText
-        .replace(/^```json\s*/i, '')
-        .replace(/^```\s*/i, '')
-        .replace(/\s*```\s*$/i, '');
+        .trim()
+        .replace(/^```(?:json|javascript|js)?\s*/i, '')
+        .replace(/\s*```\s*$/i, '')
+        .trim();
       return JSON.parse(stripped);
     } catch (error) {
       // Attempt robust repair and parse
       try {
-        const repaired = jsonrepair(responseText);
+        // Strip code fences before repair too
+        const cleaned = responseText
+          .trim()
+          .replace(/^```(?:json|javascript|js)?\s*/i, '')
+          .replace(/\s*```\s*$/i, '')
+          .trim();
+        const repaired = jsonrepair(cleaned);
         return JSON.parse(repaired);
       } catch (repairErr) {
         // As a last resort, try extracting the largest JSON object and repairing that
@@ -242,12 +250,12 @@ function SuperCriticalLearning({
     };
   };
 
-  const SYSTEM_JSON_ONLY = 'You are an analysis engine. Always respond with ONLY valid minified JSON that strictly matches the schema provided. Do not include markdown, code fences, comments, or any explanatory prose.';
+  const SYSTEM_JSON_ONLY = 'You are an analysis engine. Respond with ONLY raw JSON. NEVER use markdown code fences (```). NEVER include explanatory text. Start your response with { and end with }. Output must be valid minified JSON matching the schema exactly.';
 
   const callOpenRouterAPI = async (prompt: string, opts?: { temperature?: number; maxTokens?: number }) => {
     const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
     const apiUrl = import.meta.env.VITE_OPENROUTER_API_URL || 'https://openrouter.ai/api/v1';
-    const model = import.meta.env.VITE_OPENROUTER_MODEL || 'deepseek/deepseek-r1-0528:free';
+    const model = import.meta.env.VITE_OPENROUTER_MODEL || 'google/gemma-3-27b-it:free';
     
     if (!apiKey) {
       throw new Error('OpenRouter API key not configured. Please set VITE_OPENROUTER_API_KEY in your .env file.');

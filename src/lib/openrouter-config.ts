@@ -30,7 +30,7 @@ export type OpenRouterModel = keyof typeof OPENROUTER_MODELS;
 
 export function createOpenRouterConfig(
   apiKey: string,
-  model: OpenRouterModel = 'deepseek/deepseek-r1-0528:free'
+  model: OpenRouterModel = 'google/gemma-3-27b-it:free'
 ): OpenRouterConfig {
   return {
     apiKey,
@@ -196,7 +196,7 @@ export function getOpenRouterConfigFromEnv(): OpenRouterConfig | null {
   
   return {
     apiKey,
-    model: model || 'deepseek/deepseek-r1-0528:free', // Use DeepSeek R1 free model as default
+    model: model || 'google/gemma-3-27b-it:free', // Use Gemma 3 27B free model as default
     baseUrl: finalBaseUrl,
     siteName: 'OpenAgentSchool',
     appName: 'SCL-Analysis'
