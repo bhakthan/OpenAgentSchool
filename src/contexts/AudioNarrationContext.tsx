@@ -595,6 +595,13 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
   'budget-constrained-execution': 'BudgetConstrainedExecution',
   'action-grounding-verification': 'ActionGroundingVerification',
         
+        // 2026 Frontier Patterns
+        'agentic-ide': 'AgenticIDE',
+        'skill-augmented-agent': 'SkillAugmentedAgent',
+        'mcp-server-orchestration': 'MCPServerOrchestration',
+        'multi-llm-routing': 'MultiLLMRouting',
+        'guardrails-layer': 'GuardrailsLayer',
+        
         // Direct component names (already in correct format)
         'A2ACommunicationPatterns': 'A2ACommunicationPatterns',
         'A2AMultiAgentSystem': 'A2AMultiAgentSystem',
