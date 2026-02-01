@@ -758,7 +758,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                 Your Study Progress
               </CardTitle>
               <CardDescription>
-                Track your learning journey across different study modes. {gatingEnabled ? 'Gating is enabled; progress in earlier modes unlocks later modes.' : 'All modes are open. Enable experimental gating via console: localStorage.setItem("studyModeGating","1"); location.reload();'}
+                Track your learning journey across different study modes.{gatingEnabled ? ' Progress in earlier modes unlocks later modes.' : ''}
               </CardDescription>
             </CardHeader>
             <CardContent>

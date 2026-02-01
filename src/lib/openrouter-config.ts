@@ -12,8 +12,14 @@ export interface OpenRouterConfig {
 }
 
 export const OPENROUTER_MODELS = {
-  // OpenAI OSS model - free on OpenRouter
-  'openai/gpt-oss-20b:free': 'OpenAI OSS 20B (Free)',
+  // DeepSeek R1 - free on OpenRouter (recommended)
+  'deepseek/deepseek-r1-0528:free': 'DeepSeek R1 (Free)',
+  
+  // DeepSeek Chat - free alternative
+  'deepseek/deepseek-chat-v3-0324:free': 'DeepSeek Chat V3 (Free)',
+  
+  // Google Gemma - free alternative
+  'google/gemma-3-27b-it:free': 'Google Gemma 3 27B (Free)',
   
   // Direct OpenAI models (when using OpenAI API directly)
   'gpt-4o': 'GPT-4o',
@@ -24,7 +30,7 @@ export type OpenRouterModel = keyof typeof OPENROUTER_MODELS;
 
 export function createOpenRouterConfig(
   apiKey: string,
-  model: OpenRouterModel = 'openai/gpt-oss-20b:free'
+  model: OpenRouterModel = 'deepseek/deepseek-r1-0528:free'
 ): OpenRouterConfig {
   return {
     apiKey,
@@ -87,12 +93,10 @@ export async function callOpenRouter(
     'Authorization': `Bearer ${config.apiKey}`,
   };
 
-  // OpenRouter-specific headers
-  if (config.siteName) {
-    headers['HTTP-Referer'] = config.siteName;
-  }
-  if (config.appName) {
-    headers['X-Title'] = config.appName;
+  // OpenRouter-specific headers (required for proper attribution)
+  if (!isDirectOpenAI(config.baseUrl)) {
+    headers['HTTP-Referer'] = 'https://openagentschool.org';
+    headers['X-Title'] = config.appName || 'OpenAgentSchool';
   }
 
   const response = await fetch(`${config.baseUrl}/chat/completions`, {
@@ -119,10 +123,18 @@ export async function callOpenRouter(
   }
 
   const choice = data.choices[0];
-  const content = choice.message?.content || '';
+  const message = choice.message;
+  
+  // Extract only the content field (DeepSeek R1 also returns 'reasoning' which we ignore)
+  const content = message?.content || '';
   
   console.log('Choice details:', choice);
   console.log('Finish reason:', choice.finish_reason);
+  
+  // Log if reasoning was present but ignored
+  if (message?.reasoning) {
+    console.log('Note: DeepSeek reasoning field present but filtered out');
+  }
   
   // Debug logging for SCL
   console.log('OpenRouter Request:', {
@@ -135,7 +147,7 @@ export async function callOpenRouter(
   console.log('OpenRouter Response Content:', content);
   
   if (!content || content.trim() === '') {
-    console.error('Empty content in response. Full response:', data);
+    console.error('Empty content in response. Full message object:', message);
     throw new Error('Empty response content from API');
   }
   
@@ -184,7 +196,7 @@ export function getOpenRouterConfigFromEnv(): OpenRouterConfig | null {
   
   return {
     apiKey,
-    model: model || 'openai/gpt-oss-20b:free', // Use OpenAI OSS free model as default
+    model: model || 'deepseek/deepseek-r1-0528:free', // Use DeepSeek R1 free model as default
     baseUrl: finalBaseUrl,
     siteName: 'OpenAgentSchool',
     appName: 'SCL-Analysis'

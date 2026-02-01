@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { jsonrepair } from 'jsonrepair';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Target, Lightning, Copy, Printer, Brain } from '@phosphor-icons/react';
+import { ArrowLeft, Target, Lightning, Copy, Printer, Brain, Question, CaretDown, CaretUp } from '@phosphor-icons/react';
 import { SCLControls } from './SCLControls';
 import { Badge } from '@/components/ui/badge';
 import { ShareButton } from '@/components/ui/ShareButton';
@@ -29,9 +29,7 @@ function SuperCriticalLearning({
   const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const printableRef = useRef<HTMLDivElement | null>(null);
-  const [showIntro, setShowIntro] = useState<boolean>(() => {
-    try { return localStorage.getItem('oas_scl_intro_v1_dismissed') !== '1'; } catch { return true; }
-  });
+  const [showIntro, setShowIntro] = useState<boolean>(false);
   // Per-section loading flags to avoid hiding earlier content during step transitions
   const [loadingFirst, setLoadingFirst] = useState(false);
   const [loadingHigher, setLoadingHigher] = useState(false);
@@ -248,19 +246,11 @@ function SuperCriticalLearning({
 
   const callOpenRouterAPI = async (prompt: string, opts?: { temperature?: number; maxTokens?: number }) => {
     const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
-    const apiUrl = import.meta.env.VITE_OPENROUTER_API_URL;
-    const model = import.meta.env.VITE_OPENROUTER_MODEL;
+    const apiUrl = import.meta.env.VITE_OPENROUTER_API_URL || 'https://openrouter.ai/api/v1';
+    const model = import.meta.env.VITE_OPENROUTER_MODEL || 'deepseek/deepseek-r1-0528:free';
     
     if (!apiKey) {
       throw new Error('OpenRouter API key not configured. Please set VITE_OPENROUTER_API_KEY in your .env file.');
-    }
-
-    if (!apiUrl) {
-      throw new Error('OpenRouter API URL not configured. Please set VITE_OPENROUTER_API_URL in your .env file.');
-    }
-
-    if (!model) {
-      throw new Error('OpenRouter model not configured. Please set VITE_OPENROUTER_MODEL in your .env file.');
     }
 
     // Support both base and full API URLs from env
@@ -273,11 +263,13 @@ function SuperCriticalLearning({
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://openagentschool.org',
+        'X-Title': 'OpenAgentSchool-SCL',
       },
       body: JSON.stringify({
         model: model,
-        // Encourage JSON-only outputs
-        response_format: { type: 'json_object' },
+        // Note: response_format is NOT supported by all OpenRouter models (including DeepSeek)
+        // The system prompt handles JSON formatting requirements
         messages: [
           { role: 'system', content: SYSTEM_JSON_ONLY },
           { role: 'user', content: prompt }
@@ -293,7 +285,29 @@ function SuperCriticalLearning({
     }
     
     const data = await response.json();
-    return data.choices[0]?.message?.content || '';
+    console.log('SCL API Response:', data);
+    
+    // Validate response structure
+    if (!data.choices || !Array.isArray(data.choices) || data.choices.length === 0) {
+      console.error('Invalid API response structure:', data);
+      throw new Error('API returned invalid response structure (no choices array)');
+    }
+    
+    const choice = data.choices[0];
+    if (!choice || !choice.message) {
+      console.error('Invalid choice structure:', choice);
+      throw new Error('API returned invalid choice structure (no message)');
+    }
+    
+    // Extract only content, ignore reasoning for DeepSeek R1
+    const content = choice.message.content || '';
+    
+    if (!content || content.trim() === '') {
+      console.error('Empty content in response:', choice.message);
+      throw new Error('API returned empty content');
+    }
+    
+    return content;
   };
 
   // helper to collect zod error messages
@@ -777,13 +791,13 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               <CardHeader>
                 <CardTitle>SCL Orchestration Progress</CardTitle>
                 <div className="flex gap-2 mt-2">
-                  <div className={`px-2 py-1 rounded text-xs ${analysisStep === 'first-order' ? 'bg-blue-500 text-white' : firstOrderEffects.length > 0 ? 'bg-green-500 text-white' : 'bg-gray-200'}`}>
+                  <div className={`px-2 py-1 rounded text-xs font-medium ${analysisStep === 'first-order' ? 'bg-blue-500 text-white' : firstOrderEffects.length > 0 ? 'bg-green-500 text-white' : 'bg-muted text-muted-foreground'}`}>
                     1. First-Order
                   </div>
-                  <div className={`px-2 py-1 rounded text-xs ${analysisStep === 'higher-order' ? 'bg-blue-500 text-white' : higherOrderEffects.length > 0 ? 'bg-green-500 text-white' : 'bg-gray-200'}`}>
+                  <div className={`px-2 py-1 rounded text-xs font-medium ${analysisStep === 'higher-order' ? 'bg-blue-500 text-white' : higherOrderEffects.length > 0 ? 'bg-green-500 text-white' : 'bg-muted text-muted-foreground'}`}>
                     2. Higher-Order
                   </div>
-                  <div className={`px-2 py-1 rounded text-xs ${analysisStep === 'synthesis' ? 'bg-blue-500 text-white' : synthesis ? 'bg-green-500 text-white' : 'bg-gray-200'}`}>
+                  <div className={`px-2 py-1 rounded text-xs font-medium ${analysisStep === 'synthesis' ? 'bg-blue-500 text-white' : synthesis ? 'bg-green-500 text-white' : 'bg-muted text-muted-foreground'}`}>
                     3. Synthesis
                   </div>
                 </div>
@@ -1016,29 +1030,25 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                 <p className="text-muted-foreground">Mode: {selectedMode}</p>
               </div>
             </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowIntro(!showIntro)}
+              className="flex items-center gap-2"
+              aria-label={showIntro ? 'Hide help' : 'Show help'}
+            >
+              <Question className="h-4 w-4" />
+              {showIntro ? 'Hide Help' : 'What is SCL?'}
+            </Button>
           </div>
-          {/* Intro / Description */}
+          {/* Intro / Description - Collapsible */}
           {showIntro && (
-            <Card className="border-dashed">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <Brain className="h-5 w-5" />
-                    What is Super Critical Learning (SCL)?
-                  </CardTitle>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="-mt-1"
-                    onClick={() => { try { localStorage.setItem('oas_scl_intro_v1_dismissed','1'); } catch {}; setShowIntro(false); }}
-                    aria-label="Dismiss intro"
-                  >
-                    <ArrowLeft className="hidden" />
-                    <span className="sr-only">Dismiss</span>
-                    {/* Use an X icon from Phosphor via existing import set */}
-                    <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
-                  </Button>
-                </div>
+            <Card className="border-primary/20 bg-primary/5 dark:bg-primary/10 animate-in slide-in-from-top-2 duration-200">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-base text-primary">
+                  <Brain className="h-5 w-5" />
+                  What is Super Critical Learning (SCL)?
+                </CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground space-y-3">
                 <p>
@@ -1048,20 +1058,20 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                 </p>
                 <ul className="list-disc list-inside space-y-1">
                   <li>
-                    Modes: Consolidate (baseline), Extrapolate (creative), Transfer (cross-domain),
+                    <strong>Modes:</strong> Consolidate (baseline), Extrapolate (creative), Transfer (cross-domain),
                     Stress-Test (resilience), Intervene (levers), Counterfactual (assumptions),
                     Threshold/Leaps (discontinuities), Mechanism Audit (causal rigor).
                   </li>
                   <li>
-                    Seeds set the starting context (concepts, patterns, practices). Use the defaults or
+                    <strong>Seeds</strong> set the starting context (concepts, patterns, practices). Use the defaults or
                     pass your own from a pattern page.
                   </li>
                   <li>
-                    Output: an interactive Effect Graph, a Synthesis view that explains implications, and
+                    <strong>Output:</strong> an interactive Effect Graph, a Synthesis view that explains implications, and
                     a Rubric to evaluate solution quality.
                   </li>
                   <li>
-                    Tip: Start with Consolidate or Transfer to map invariants, then Stress-Test or
+                    <strong>Tip:</strong> Start with Consolidate or Transfer to map invariants, then Stress-Test or
                     Intervene to probe weak links.
                   </li>
                 </ul>
@@ -1101,29 +1111,26 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               <p className="text-muted-foreground">Configure your analysis</p>
             </div>
           </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowIntro(!showIntro)}
+            className="flex items-center gap-2"
+            aria-label={showIntro ? 'Hide help' : 'Show help'}
+          >
+            <Question className="h-4 w-4" />
+            {showIntro ? 'Hide Help' : 'What is SCL?'}
+          </Button>
         </div>
 
-        {/* Intro / Description */}
+        {/* Intro / Description - Collapsible */}
         {showIntro && (
-          <Card className="border-dashed">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <Brain className="h-5 w-5" />
-                  What is Super Critical Learning (SCL)?
-                </CardTitle>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="-mt-1"
-                  onClick={() => { try { localStorage.setItem('oas_scl_intro_v1_dismissed','1'); } catch {}; setShowIntro(false); }}
-                  aria-label="Dismiss intro"
-                >
-                  <ArrowLeft className="hidden" />
-                  <span className="sr-only">Dismiss</span>
-                  <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
-                </Button>
-              </div>
+          <Card className="border-primary/20 bg-primary/5 dark:bg-primary/10 animate-in slide-in-from-top-2 duration-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-base text-primary">
+                <Brain className="h-5 w-5" />
+                What is Super Critical Learning (SCL)?
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground space-y-3">
               <p>
@@ -1133,20 +1140,20 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               </p>
               <ul className="list-disc list-inside space-y-1">
                 <li>
-                  Modes: Consolidate (baseline), Extrapolate (creative), Transfer (cross-domain),
+                  <strong>Modes:</strong> Consolidate (baseline), Extrapolate (creative), Transfer (cross-domain),
                   Stress-Test (resilience), Intervene (levers), Counterfactual (assumptions),
                   Threshold/Leaps (discontinuities), Mechanism Audit (causal rigor).
                 </li>
                 <li>
-                  Seeds set the starting context (concepts, patterns, practices). Use the defaults or
+                  <strong>Seeds</strong> set the starting context (concepts, patterns, practices). Use the defaults or
                   pass your own from a pattern page.
                 </li>
                 <li>
-                  Output: an interactive Effect Graph, a Synthesis view that explains implications, and
+                  <strong>Output:</strong> an interactive Effect Graph, a Synthesis view that explains implications, and
                   a Rubric to evaluate solution quality.
                 </li>
                 <li>
-                  Tip: Start with Consolidate or Transfer to map invariants, then Stress-Test or
+                  <strong>Tip:</strong> Start with Consolidate or Transfer to map invariants, then Stress-Test or
                   Intervene to probe weak links.
                 </li>
               </ul>
@@ -1155,29 +1162,32 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
         )}
 
         {/* Session Configuration */}
-        <Card>
+        <Card className="shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              Session Configuration
+              <Target className="h-5 w-5 text-primary" />
+              Select Your Analysis Mode
             </CardTitle>
+            <CardDescription>
+              Choose how you want to analyze cascading effects in agentic systems
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             
             {/* Analysis Mode */}
             <div className="space-y-4">
-              <div className="space-y-2">
-                <h3 className="font-medium text-primary">Analysis Mode</h3>
-              </div>
-              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Consolidate Mode */}
                 <Card 
-                  className="relative overflow-hidden cursor-pointer transition-all hover:shadow-md border-2 hover:border-primary/50"
+                  className="relative overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-green-500/50 bg-gradient-to-br from-green-50/50 to-transparent dark:from-green-950/20"
                   onClick={() => {
                     setSelectedMode('consolidate');
                   }}
                 >
                   <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="secondary" className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">Foundation</Badge>
+                    </div>
                     <CardTitle className="flex items-center gap-2 text-lg">
                       <Target className="h-5 w-5 text-green-600" />
                       Consolidate
@@ -1190,12 +1200,15 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
 
                 {/* Extrapolate Mode */}
                 <Card 
-                  className="relative overflow-hidden cursor-pointer transition-all hover:shadow-md border-2 hover:border-primary/50"
+                  className="relative overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-blue-500/50 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-blue-950/20"
                   onClick={() => {
                     setSelectedMode('extrapolate');
                   }}
                 >
                   <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Creative</Badge>
+                    </div>
                     <CardTitle className="flex items-center gap-2 text-lg">
                       <Lightning className="h-5 w-5 text-blue-600" />
                       Extrapolate
@@ -1208,12 +1221,15 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
 
                 {/* Transfer Mode */}
                 <Card 
-                  className="relative overflow-hidden cursor-pointer transition-all hover:shadow-md border-2 hover:border-primary/50"
+                  className="relative overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-orange-500/50 bg-gradient-to-br from-orange-50/50 to-transparent dark:from-orange-950/20"
                   onClick={() => {
                     setSelectedMode('transfer');
                   }}
                 >
                   <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="secondary" className="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">Cross-Domain</Badge>
+                    </div>
                     <CardTitle className="flex items-center gap-2 text-lg">
                       <Lightning className="h-5 w-5 text-orange-600" />
                       Transfer
@@ -1225,54 +1241,55 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                 </Card>
               </div>
               {/* Additional Modes (compact cards) */}
+              <p className="text-sm text-muted-foreground font-medium pt-2">Advanced Analysis Modes</p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Card className="cursor-pointer border-2 hover:border-primary/50" onClick={() => setSelectedMode('stress-test')}>
+                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-amber-500/50 bg-gradient-to-br from-amber-50/30 to-transparent dark:from-amber-950/10" onClick={() => setSelectedMode('stress-test')}>
                   <CardHeader className="pb-3">
-                    <CardTitle className="flex items-center gap-2 text-lg">
-                      <Lightning className="h-5 w-5 text-amber-600" />
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Lightning className="h-4 w-4 text-amber-600" />
                       Stress-Test
                     </CardTitle>
-                    <CardDescription>Perturb constraints to find brittleness</CardDescription>
+                    <CardDescription className="text-sm">Perturb constraints to find brittleness</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer border-2 hover:border-primary/50" onClick={() => setSelectedMode('intervene')}>
+                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-purple-500/50 bg-gradient-to-br from-purple-50/30 to-transparent dark:from-purple-950/10" onClick={() => setSelectedMode('intervene')}>
                   <CardHeader className="pb-3">
-                    <CardTitle className="flex items-center gap-2 text-lg">
-                      <Target className="h-5 w-5 text-purple-600" />
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Target className="h-4 w-4 text-purple-600" />
                       Intervene
                     </CardTitle>
-                    <CardDescription>Try levers and compare outcomes</CardDescription>
+                    <CardDescription className="text-sm">Try levers and compare outcomes</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer border-2 hover:border-primary/50" onClick={() => setSelectedMode('counterfactual')}>
+                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-sky-500/50 bg-gradient-to-br from-sky-50/30 to-transparent dark:from-sky-950/10" onClick={() => setSelectedMode('counterfactual')}>
                   <CardHeader className="pb-3">
-                    <CardTitle className="flex items-center gap-2 text-lg">
-                      <Lightning className="h-5 w-5 text-sky-600" />
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Lightning className="h-4 w-4 text-sky-600" />
                       Counterfactual
                     </CardTitle>
-                    <CardDescription>Toggle assumptions and compare graphs</CardDescription>
+                    <CardDescription className="text-sm">Toggle assumptions and compare graphs</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer border-2 hover:border-primary/50" onClick={() => setSelectedMode('leap-focus')}>
+                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-rose-500/50 bg-gradient-to-br from-rose-50/30 to-transparent dark:from-rose-950/10" onClick={() => setSelectedMode('leap-focus')}>
                   <CardHeader className="pb-3">
-                    <CardTitle className="flex items-center gap-2 text-lg">
-                      <Lightning className="h-5 w-5 text-rose-600" />
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Lightning className="h-4 w-4 text-rose-600" />
                       Threshold / Leaps
                     </CardTitle>
-                    <CardDescription>Highlight discontinuities and triggers</CardDescription>
+                    <CardDescription className="text-sm">Highlight discontinuities and triggers</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer border-2 hover:border-primary/50" onClick={() => setSelectedMode('mechanism-audit')}>
+                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-emerald-500/50 bg-gradient-to-br from-emerald-50/30 to-transparent dark:from-emerald-950/10" onClick={() => setSelectedMode('mechanism-audit')}>
                   <CardHeader className="pb-3">
-                    <CardTitle className="flex items-center gap-2 text-lg">
-                      <Lightning className="h-5 w-5 text-emerald-600" />
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Lightning className="h-4 w-4 text-emerald-600" />
                       Mechanism Audit
                     </CardTitle>
-                    <CardDescription>Require mechanisms/delays; flag weak links</CardDescription>
+                    <CardDescription className="text-sm">Require mechanisms/delays; flag weak links</CardDescription>
                   </CardHeader>
                 </Card>
               </div>

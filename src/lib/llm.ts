@@ -176,10 +176,12 @@ async function callHuggingFace(prompt: string): Promise<LlmResponse> {
 // OpenRouter API
 async function callOpenRouter(prompt: string): Promise<LlmResponse> {
     const apiKey = getEnvVar('VITE_OPENROUTER_API_KEY');
-    let apiUrl = getEnvVar('VITE_OPENROUTER_API_URL');
-    const model = getEnvVar('VITE_OPENROUTER_MODEL');
-    if (!apiKey || !apiUrl || !model) {
-        throw new Error("VITE_OPENROUTER_API_KEY, VITE_OPENROUTER_API_URL, and VITE_OPENROUTER_MODEL must be set in your environment variables.");
+    let apiUrl = getEnvVar('VITE_OPENROUTER_API_URL') || 'https://openrouter.ai/api/v1';
+    // Default to DeepSeek R1 free model if not specified
+    const model = getEnvVar('VITE_OPENROUTER_MODEL') || 'deepseek/deepseek-r1-0528:free';
+    
+    if (!apiKey) {
+        throw new Error("VITE_OPENROUTER_API_KEY must be set in your environment variables.");
     }
 
     // Normalize URL: support both base (https://openrouter.ai/api/v1) and full (/chat/completions) forms
@@ -256,7 +258,21 @@ async function callOpenRouter(prompt: string): Promise<LlmResponse> {
             throw new Error('OpenRouter response missing expected structure: choices[0].message');
         }
         
-        return { content: data.choices[0].message.content };
+        // Extract only the content field (ignore reasoning, reasoning_details for DeepSeek R1)
+        const message = data.choices[0].message;
+        const content = message.content || '';
+        
+        // Log what we're extracting vs ignoring
+        if (message.reasoning) {
+            console.log('OpenRouter: Ignoring reasoning field, using only content');
+        }
+        
+        if (!content || content.trim() === '') {
+            console.warn('OpenRouter: Empty content received, full message:', message);
+            throw new Error('OpenRouter returned empty content');
+        }
+        
+        return { content };
     } catch (parseError) {
         console.error('OpenRouter JSON Parse Error:', parseError);
         console.error('Full Response text:', responseText);
