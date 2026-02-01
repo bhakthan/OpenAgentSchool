@@ -1,11 +1,8 @@
-# Skill-Augmented Agent - Audio Narration Explanation
+Skill-Augmented Agent Explanation
+--------------------------------------------------------------------------------
 
-## Pattern ID: skill-augmented-agent
-
----
-
-## Beginner Explanation
-
+Beginner Explanation
+--------------------------------------------------------------------------------
 A Skill-Augmented Agent is an AI assistant that can learn new abilities from simple configuration files, without needing to be retrained or have its code changed.
 
 Imagine you have an AI coding assistant. Out of the box, it writes code in a generic style. But your project has specific conventions - maybe you use a particular testing framework, or have naming conventions, or require certain imports. With skill-augmented agents, you create a simple text file called SKILL.md that describes these rules, and the agent automatically follows them.
@@ -14,82 +11,39 @@ The magic is in discovery. When you ask the agent to help, it first scans your p
 
 This pattern is especially powerful for teams. You document your coding standards once in a SKILL.md file, and every team member's AI assistant automatically follows them. No more inconsistent code styles or forgotten conventions.
 
----
-
-## Intermediate Explanation
-
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
 Skill-Augmented Agent implements dynamic capability loading through declarative skill files, enabling context-aware agent behavior without model fine-tuning or code changes. This pattern was popularized by GitHub Copilot's agent mode.
 
-**Skill File Architecture:**
+A SKILL.md file typically contains Triggers (keywords or file patterns that activate this skill), Instructions (natural language rules injected into the system prompt), Constraints (patterns that must or must not appear in outputs), Examples (few-shot demonstrations of correct behavior), and Tools (optional custom tool definitions specific to this domain).
 
-A SKILL.md file typically contains:
-- **Triggers**: Keywords or file patterns that activate this skill
-- **Instructions**: Natural language rules injected into the system prompt
-- **Constraints**: Patterns that must or must not appear in outputs
-- **Examples**: Few-shot demonstrations of correct behavior
-- **Tools**: Optional custom tool definitions specific to this domain
+The runtime flow works as follows. Skill Discovery happens on workspace load, when the agent scans for SKILL.md files in project directories, configuration folders, and dependency packages.
 
-**Runtime Flow:**
+In the Capability Registry phase, discovered skills are indexed by their trigger conditions - which file types, keywords, or contexts they apply to.
 
-1. **Skill Discovery**: On workspace load, the agent scans for SKILL.md files in project directories, configuration folders, and dependency packages.
+During Dynamic Activation, when processing a request, the agent matches the query and context against skill triggers. Matching skills have their instructions injected into the system prompt.
 
-2. **Capability Registry**: Discovered skills are indexed by their trigger conditions - which file types, keywords, or contexts they apply to.
+Constraint Validation happens after generating a response, when the agent validates output against skill constraints. Violations trigger a retry with explicit feedback.
 
-3. **Dynamic Activation**: When processing a request, the agent matches the query and context against skill triggers. Matching skills have their instructions injected into the system prompt.
+Key benefits include zero-training customization (adapt agent behavior through text files, not model training), multi-tenant support (same base agent, different skills per customer or project), version control (skills are tracked alongside code, enabling review and rollback), and composability (multiple skills can activate simultaneously for complex tasks).
 
-4. **Constraint Validation**: After generating a response, the agent validates output against skill constraints. Violations trigger a retry with explicit feedback.
-
-**Key Benefits:**
-
-- **Zero-training Customization**: Adapt agent behavior through text files, not model training
-- **Multi-tenant Support**: Same base agent, different skills per customer or project
-- **Version Control**: Skills are tracked alongside code, enabling review and rollback
-- **Composability**: Multiple skills can activate simultaneously for complex tasks
-
----
-
-## Advanced Explanation
-
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
 Skill-Augmented Agent represents a paradigm shift from static agent capabilities to dynamic, context-aware specialization. The pattern addresses the fundamental tension between general-purpose models and domain-specific requirements.
 
-**Advanced Architecture Patterns:**
+Advanced architecture patterns include Hierarchical Skill Resolution with global skills (organization-wide standards), project skills (repo-specific conventions), directory skills (module-specific patterns), and file skills (per-file overrides). Conflicts are resolved by specificity where the most local wins.
 
-1. **Hierarchical Skill Resolution**:
-   - Global skills (organization-wide standards)
-   - Project skills (repo-specific conventions)
-   - Directory skills (module-specific patterns)
-   - File skills (per-file overrides)
-   - Conflicts resolved by specificity: most local wins
+Skill Dependencies and Composition means skills can declare dependencies on other skills. A dependency graph ensures correct activation order. Skill composition enables complex multi-domain tasks.
 
-2. **Skill Dependencies and Composition**:
-   - Skills can declare dependencies on other skills
-   - Dependency graph ensures correct activation order
-   - Skill composition enables complex multi-domain tasks
+Semantic Skill Matching goes beyond keyword triggers to use embeddings for semantic matching. Natural language queries are matched to skill descriptions with fuzzy matching for related but not exact contexts.
 
-3. **Semantic Skill Matching**:
-   - Beyond keyword triggers, use embeddings for semantic matching
-   - Natural language queries matched to skill descriptions
-   - Fuzzy matching for related but not exact contexts
+Constraint Enforcement Strategies include Regex Validation for fast pattern matching for structural constraints, LLM-as-Judge using a secondary model for semantic constraint checking, and Tool Verification to execute linters or type checkers to validate output.
 
-4. **Constraint Enforcement Strategies**:
-   - **Regex Validation**: Fast pattern matching for structural constraints
-   - **LLM-as-Judge**: Use secondary model for semantic constraint checking
-   - **Tool Verification**: Execute linters or type checkers to validate output
+Implementation considerations include context budget (skill instructions consume prompt tokens so prioritize most relevant skills), skill conflicts (define explicit resolution strategies for overlapping constraints), performance (cache parsed skills and reindex only on file changes), and security (sanitize skill files from untrusted sources and prevent prompt injection).
 
-**Implementation Considerations:**
-
-- **Context Budget**: Skill instructions consume prompt tokens; prioritize most relevant skills
-- **Skill Conflicts**: Define explicit resolution strategies for overlapping constraints
-- **Performance**: Cache parsed skills; reindex only on file changes
-- **Security**: Sanitize skill files from untrusted sources; prevent prompt injection
-
-**Ecosystem Integration:**
-
-- **IDE Extensions**: VS Code settings.json integration for skill configuration
-- **Package Managers**: Skills distributed as npm/pip packages
-- **CI/CD**: Skill validation as part of build pipeline
-- **Observability**: Track which skills activated and their constraint pass rates
+Ecosystem integration includes IDE Extensions with VS Code settings.json integration for skill configuration, Package Managers where skills are distributed as npm/pip packages, CI/CD with skill validation as part of build pipeline, and Observability to track which skills activated and their constraint pass rates.
 
 This pattern enables enterprise-scale agent deployment where a single base model serves diverse teams, each with their own domain-specific behaviors encoded in maintainable skill files.
 
---------------------------------------------------------------------------------
