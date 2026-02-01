@@ -795,7 +795,7 @@ class EnterpriseDataFederation {
                   </div>
                   <div>
                     <h5 className="font-medium text-amber-900 dark:text-amber-100 mb-1">Quick Tip</h5>
-                    <p className="text-sm text-amber-800 dark:text-amber-200">
+                    <p className="text-sm text-foreground">
                       Click the "?" buttons on different parts of the MCP architecture diagram to explore how servers, clients, and protocols work together. 
                       Each component plays a crucial role in enabling AI systems to access and interact with external resources.
                     </p>
@@ -812,6 +812,15 @@ class EnterpriseDataFederation {
 };
 
 export default MCPArchitectureDiagram;
+
+
+
+
+
+
+
+
+
 
 
 

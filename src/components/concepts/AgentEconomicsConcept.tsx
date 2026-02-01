@@ -305,7 +305,7 @@ export default function AgentEconomicsConcept({ onMarkComplete, onNavigateToNext
                   <Lightbulb className="w-4 h-4" />
                   Think: Hiring a New Employee vs Contractor
                 </h4>
-                <p className="text-sm text-green-800 dark:text-green-200">
+                <p className="text-sm text-foreground">
                   Agents have similar economics to workforce decisions. Upfront investment (training/development), 
                   ongoing costs (salary/inference), productivity multipliers (output/hour), and total cost of ownership 
                   over time. The key question is the same: "At what scale does this investment pay off?"
@@ -657,3 +657,12 @@ export default function AgentEconomicsConcept({ onMarkComplete, onNavigateToNext
     </div>
   );
 }
+
+
+
+
+
+
+
+
+

@@ -1724,3 +1724,11 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
 }
 
 export default AgenticAIDesignTaxonomy
+
+
+
+
+
+
+
+

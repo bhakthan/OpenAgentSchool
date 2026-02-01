@@ -91,7 +91,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="border border-red-200 dark:border-red-800 rounded-lg p-4">
-                  <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">Without MCP</h4>
+                  <h4 className="font-semibold text-foreground mb-2">Without MCP</h4>
                   <ul className="space-y-1 text-lg">
                     <li>• Custom integrations for each tool</li>
                     <li>• Inconsistent security practices</li>
@@ -101,7 +101,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   </ul>
                 </div>
                 <div className="border border-green-200 dark:border-green-800 rounded-lg p-4">
-                  <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">With MCP</h4>
+                  <h4 className="font-semibold text-foreground mb-2">With MCP</h4>
                   <ul className="space-y-1 text-lg">
                     <li>• Standardized protocol for all tools</li>
                     <li>• Built-in authentication and authorization</li>
@@ -573,7 +573,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
             <CardContent>
               <div className="space-y-4">
                 <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Security Considerations
                   </h4>
                   <ul className="space-y-1 text-lg">
@@ -584,7 +584,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
                   </ul>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Performance Optimization
                   </h4>
                   <ul className="space-y-1 text-lg">
@@ -623,6 +623,15 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
     />
   )
 }
+
+
+
+
+
+
+
+
+
 
 
 

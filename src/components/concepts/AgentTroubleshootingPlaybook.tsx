@@ -347,7 +347,7 @@ export default function AgentTroubleshootingPlaybook({ onMarkComplete, onNavigat
                   <Lightbulb className="w-4 h-4" />
                   Think: Emergency Room Triage
                 </h4>
-                <p className="text-sm text-blue-800 dark:text-blue-200">
+                <p className="text-sm text-foreground">
                   Just as ER doctors follow systematic protocols—vital signs first, then symptoms, then diagnostics—
                   agent debugging requires a structured approach. You don't run an MRI for every headache, 
                   and you don't fine-tune a model for every wrong answer.
@@ -653,7 +653,7 @@ export default function AgentTroubleshootingPlaybook({ onMarkComplete, onNavigat
                       </ol>
                     </div>
                     <div className="p-3 bg-green-50 dark:bg-green-950/30 rounded-lg">
-                      <h5 className="text-sm font-medium text-green-800 dark:text-green-200 mb-1">Prevention</h5>
+                      <h5 className="text-sm font-medium text-foreground mb-1">Prevention</h5>
                       <p className="text-sm text-green-700 dark:text-green-300">{scenario.prevention}</p>
                     </div>
                   </div>
@@ -666,3 +666,12 @@ export default function AgentTroubleshootingPlaybook({ onMarkComplete, onNavigat
     </div>
   );
 }
+
+
+
+
+
+
+
+
+

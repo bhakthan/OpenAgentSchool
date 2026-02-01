@@ -222,7 +222,7 @@ Please provide:
     ol: ({ children }: any) => <ol className="list-decimal list-inside mb-3 space-y-1 text-foreground">{children}</ol>,
     li: ({ children }: any) => <li className="text-foreground">{children}</li>,
     blockquote: ({ children }: any) => (
-      <blockquote className="border-l-4 border-primary pl-4 my-4 italic text-muted-foreground bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 py-2 rounded-r">
+      <blockquote className="border-l-4 border-primary pl-4 my-4 italic text-muted-foreground bg-slate-200 dark:bg-slate-800 text-foreground py-2 rounded-r">
         {children}
       </blockquote>
     ),
@@ -441,6 +441,15 @@ Please provide:
 };
 
 export default EnlightenMeButton;
+
+
+
+
+
+
+
+
+
 
 
 

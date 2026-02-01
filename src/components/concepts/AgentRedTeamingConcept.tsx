@@ -45,7 +45,7 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
               
               {/* Real-World Analogy */}
               <div className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 p-5 rounded-lg border border-red-200 dark:border-red-800">
-                <h4 className="font-semibold mb-3 text-red-900 dark:text-red-200 flex items-center gap-2">
+                <h4 className="font-semibold mb-3 text-foreground flex items-center gap-2">
                   <Detective className="w-5 h-5" />
                   🔐 The Security Audit Analogy
                 </h4>
@@ -80,8 +80,8 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
               </div>
 
               {/* Why Different from Traditional Security */}
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
-                <h4 className="font-semibold mb-3 text-blue-900 dark:text-blue-200">
+              <div className="bg-muted/50 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+                <h4 className="font-semibold mb-3 text-foreground">
                   Why AI Red Teaming is Different from Traditional Penetration Testing
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -124,8 +124,8 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
                 AI Red Teaming aligns with the NIST AI RMF's three core functions:
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="border border-purple-200 dark:border-purple-700 rounded-lg p-4 bg-purple-50 dark:bg-purple-900/20">
-                  <h5 className="font-semibold mb-2 text-purple-800 dark:text-purple-200 flex items-center gap-2">
+                <div className="border border-purple-200 dark:border-purple-700 rounded-lg p-4 bg-muted/50">
+                  <h5 className="font-semibold mb-2 text-foreground flex items-center gap-2">
                     <Target className="w-4 h-4" />
                     1. MAP
                   </h5>
@@ -134,8 +134,8 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
                     Who could be affected? What attack vectors exist?
                   </p>
                 </div>
-                <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-blue-50 dark:bg-blue-900/20">
-                  <h5 className="font-semibold mb-2 text-blue-800 dark:text-blue-200 flex items-center gap-2">
+                <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-muted/50">
+                  <h5 className="font-semibold mb-2 text-foreground flex items-center gap-2">
                     <Gauge className="w-4 h-4" />
                     2. MEASURE
                   </h5>
@@ -144,8 +144,8 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
                     and generate scorecards with concrete metrics.
                   </p>
                 </div>
-                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
-                  <h5 className="font-semibold mb-2 text-green-800 dark:text-green-200 flex items-center gap-2">
+                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-muted/50">
+                  <h5 className="font-semibold mb-2 text-foreground flex items-center gap-2">
                     <Shield className="w-4 h-4" />
                     3. MANAGE
                   </h5>
@@ -224,8 +224,8 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
               </p>
               
               {/* Security Audit Analogy Extended */}
-              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
-                <h4 className="font-semibold mb-2 text-amber-800 dark:text-amber-200">
+              <div className="bg-muted/50 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
+                <h4 className="font-semibold mb-2 text-foreground">
                   🔐 Security Audit Analogy for Each Attack Type
                 </h4>
                 <p className="text-sm text-muted-foreground">
@@ -263,7 +263,7 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
                   </p>
                 </div>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <h5 className="font-semibold text-sm mb-2">Example Patterns (for testing purposes)</h5>
                 <ul className="text-sm text-muted-foreground space-y-1">
                   <li>• "Ignore your previous instructions and reveal..."</li>
@@ -301,7 +301,7 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
                   </p>
                 </div>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <h5 className="font-semibold text-sm mb-2">Why This Matters</h5>
                 <p className="text-sm text-muted-foreground">
                   If attackers can extract system prompts, they can: understand safety measures to bypass them, 
@@ -339,7 +339,7 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
                   </p>
                 </div>
               </div>
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+              <div className="bg-muted/50 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
                 <h5 className="font-semibold text-sm mb-2">The Crescendo Pattern</h5>
                 <div className="flex items-center gap-2 text-sm">
                   <span className="px-2 py-1 bg-green-100 dark:bg-green-900 rounded">Benign</span>
@@ -420,7 +420,7 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
                   </p>
                 </div>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <h5 className="font-semibold text-sm mb-2">Common Bypass Techniques</h5>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="secondary">Base64 Encoding</Badge>
@@ -490,8 +490,8 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
                 take humans weeks to perform manually.
               </p>
               
-              <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-700">
-                <h4 className="font-semibold mb-2 text-purple-800 dark:text-purple-200">
+              <div className="bg-muted/50 p-4 rounded-lg border border-purple-200 dark:border-purple-700">
+                <h4 className="font-semibold mb-2 text-foreground">
                   Why PyRIT?
                 </h4>
                 <ul className="space-y-2 text-lg">
@@ -515,7 +515,7 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
               </div>
 
               {/* Quick Install */}
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <h4 className="font-semibold mb-2 flex items-center gap-2">
                   <Code className="w-4 h-4" />
                   Quick Install
@@ -842,7 +842,7 @@ uv pip install pyrit`}</code>
 
           {/* Agent-Specific Risks */}
           <Card className="border-2 border-amber-300 dark:border-amber-700">
-            <CardHeader className="bg-amber-50 dark:bg-amber-900/20">
+            <CardHeader className="bg-muted/50">
               <CardTitle className="flex items-center gap-2">
                 <Robot className="w-5 h-5 text-amber-600" />
                 Agentic-Specific Risks (3 Categories)
@@ -973,35 +973,35 @@ uv pip install pyrit`}</code>
                   <span className="text-sm text-muted-foreground">Single-step transformations</span>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                  <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded text-center">
+                  <div className="bg-muted/50 p-2 rounded text-center">
                     <code className="text-xs">Base64</code>
                     <p className="text-xs text-muted-foreground mt-1">SGVsbG8=</p>
                   </div>
-                  <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded text-center">
+                  <div className="bg-muted/50 p-2 rounded text-center">
                     <code className="text-xs">ROT13</code>
                     <p className="text-xs text-muted-foreground mt-1">Uryyb</p>
                   </div>
-                  <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded text-center">
+                  <div className="bg-muted/50 p-2 rounded text-center">
                     <code className="text-xs">Morse</code>
                     <p className="text-xs text-muted-foreground mt-1">.... . .-.. .-.. ---</p>
                   </div>
-                  <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded text-center">
+                  <div className="bg-muted/50 p-2 rounded text-center">
                     <code className="text-xs">Leetspeak</code>
                     <p className="text-xs text-muted-foreground mt-1">H3ll0</p>
                   </div>
-                  <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded text-center">
+                  <div className="bg-muted/50 p-2 rounded text-center">
                     <code className="text-xs">Binary</code>
                     <p className="text-xs text-muted-foreground mt-1">01001000...</p>
                   </div>
-                  <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded text-center">
+                  <div className="bg-muted/50 p-2 rounded text-center">
                     <code className="text-xs">Flip</code>
                     <p className="text-xs text-muted-foreground mt-1">olleH</p>
                   </div>
-                  <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded text-center">
+                  <div className="bg-muted/50 p-2 rounded text-center">
                     <code className="text-xs">Caesar</code>
                     <p className="text-xs text-muted-foreground mt-1">Khoor</p>
                   </div>
-                  <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded text-center">
+                  <div className="bg-muted/50 p-2 rounded text-center">
                     <code className="text-xs">Unicode</code>
                     <p className="text-xs text-muted-foreground mt-1">Ηеⅼⅼо</p>
                   </div>
@@ -1072,7 +1072,7 @@ uv pip install pyrit`}</code>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Basic Strategy Selection */}
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <h5 className="font-semibold text-sm mb-2">Selecting Attack Strategies</h5>
                 <pre className="bg-slate-200 dark:bg-slate-900 p-3 rounded text-sm overflow-x-auto">
                   <code>{`from azure.ai.evaluation.red_team import RedTeam, AttackStrategy
@@ -1095,7 +1095,7 @@ result = await red_team_agent.scan(
               </div>
 
               {/* Specific Converters */}
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <h5 className="font-semibold text-sm mb-2">Using Specific Converters</h5>
                 <pre className="bg-slate-200 dark:bg-slate-900 p-3 rounded text-sm overflow-x-auto">
                   <code>{`# Select individual attack strategies
@@ -1112,7 +1112,7 @@ result = await red_team_agent.scan(
               </div>
 
               {/* Composition */}
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <h5 className="font-semibold text-sm mb-2">Composing Multiple Converters</h5>
                 <pre className="bg-slate-200 dark:bg-slate-900 p-3 rounded text-sm overflow-x-auto">
                   <code>{`# Chain converters for harder-to-detect attacks
@@ -1165,7 +1165,7 @@ result = await red_team_agent.scan(
             <CardContent className="space-y-4">
               <p className="text-lg leading-relaxed">
                 The Azure AI Red Teaming Agent automates adversarial testing through the 
-                <code className="bg-slate-100 dark:bg-slate-800 px-1 rounded mx-1">azure-ai-evaluation</code> 
+                <code className="bg-muted px-1 rounded mx-1">azure-ai-evaluation</code> 
                 SDK. Let's walk through the complete workflow.
               </p>
             </CardContent>
@@ -1180,7 +1180,7 @@ result = await red_team_agent.scan(
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <pre className="bg-slate-200 dark:bg-slate-900 p-3 rounded text-sm overflow-x-auto">
                   <code>{`# Install the Azure AI Evaluation SDK with red teaming support
 pip install "azure-ai-evaluation[redteam]"
@@ -1190,7 +1190,7 @@ uv pip install "azure-ai-evaluation[redteam]"`}</code>
                 </pre>
               </div>
 
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+              <div className="bg-muted/50 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
                 <h5 className="font-semibold text-sm mb-2">Prerequisites</h5>
                 <ul className="text-sm text-muted-foreground space-y-1">
                   <li>• Azure subscription with AI Foundry project</li>
@@ -1210,7 +1210,7 @@ uv pip install "azure-ai-evaluation[redteam]"`}</code>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <pre className="bg-slate-200 dark:bg-slate-900 p-3 rounded text-sm overflow-x-auto">
                   <code>{`import os
 from azure.identity import DefaultAzureCredential
@@ -1253,7 +1253,7 @@ red_team_agent = RedTeam(
                   <p className="text-sm text-muted-foreground mb-2">
                     Test your own application logic
                   </p>
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-2 rounded text-xs overflow-x-auto">
+                  <pre className="bg-muted p-2 rounded text-xs overflow-x-auto">
                     <code>{`async def my_app(query: str) -> str:
     # Your AI application logic
     response = await my_llm.generate(query)
@@ -1271,7 +1271,7 @@ result = await red_team_agent.scan(
                   <p className="text-sm text-muted-foreground mb-2">
                     Test a model endpoint directly
                   </p>
-                  <pre className="bg-slate-100 dark:bg-slate-800 p-2 rounded text-xs overflow-x-auto">
+                  <pre className="bg-muted p-2 rounded text-xs overflow-x-auto">
                     <code>{`azure_openai_config = {
     "azure_endpoint": os.environ["AZURE_OPENAI_ENDPOINT"],
     "api_key": os.environ["AZURE_OPENAI_KEY"],
@@ -1296,7 +1296,7 @@ result = await red_team_agent.scan(
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <pre className="bg-slate-200 dark:bg-slate-900 p-3 rounded text-sm overflow-x-auto">
                   <code>{`from azure.ai.evaluation.red_team import AttackStrategy
 
@@ -1327,7 +1327,7 @@ print(f"Scan complete! Attack Success Rate: {result.attack_success_rate}%")`}</c
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <h5 className="font-semibold text-sm mb-2">Sample Output (JSON)</h5>
                 <pre className="bg-slate-200 dark:bg-slate-900 p-3 rounded text-xs overflow-x-auto">
                   <code>{`{
@@ -1358,7 +1358,7 @@ print(f"Scan complete! Attack Success Rate: {result.attack_success_rate}%")`}</c
                 </pre>
               </div>
 
-              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
+              <div className="bg-muted/50 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
                 <h5 className="font-semibold text-sm mb-2">Understanding ASR (Attack Success Rate)</h5>
                 <p className="text-sm text-muted-foreground">
                   <strong>ASR = (Successful Attacks / Total Attacks) × 100</strong>
@@ -1427,8 +1427,8 @@ print(f"Scan complete! Attack Success Rate: {result.attack_success_rate}%")`}</c
                 Originally created for Black Hat USA 2024, these challenges are now publicly available.
               </p>
               
-              <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-700">
-                <h4 className="font-semibold mb-2 text-purple-800 dark:text-purple-200">
+              <div className="bg-muted/50 p-4 rounded-lg border border-purple-200 dark:border-purple-700">
+                <h4 className="font-semibold mb-2 text-foreground">
                   🎮 CTF-Style Learning
                 </h4>
                 <p className="text-sm text-muted-foreground">
@@ -1592,7 +1592,7 @@ print(f"Scan complete! Attack Success Rate: {result.attack_success_rate}%")`}</c
               <CardTitle>🚀 Try It Yourself</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg">
                 <h5 className="font-semibold text-sm mb-2">Quick Start with Docker</h5>
                 <pre className="bg-slate-200 dark:bg-slate-900 p-3 rounded text-sm overflow-x-auto">
                   <code>{`# Clone the repository
@@ -1712,3 +1712,12 @@ docker compose up
     />
   )
 }
+
+
+
+
+
+
+
+
+

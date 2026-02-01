@@ -43,7 +43,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
               </p>
               
               <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-4 rounded-md border border-blue-200 dark:border-blue-800">
-                <h4 className="font-semibold mb-3 text-blue-900 dark:text-blue-200">Why CLI Agents in 2026?</h4>
+                <h4 className="font-semibold mb-3 text-foreground">Why CLI Agents in 2026?</h4>
                 <ul className="space-y-2 text-lg">
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
@@ -85,7 +85,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                     Deep GitHub integration, agentic harness powered by Copilot coding agent. 
                     Honors AGENTS.md, CLAUDE.md, GEMINI.md for context.
                   </p>
-                  <code className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">brew install copilot-cli</code>
+                  <code className="text-xs bg-muted text-foreground px-2 py-1 rounded">brew install copilot-cli</code>
                 </div>
 
                 {/* Claude Code */}
@@ -99,7 +99,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                     Agentic coding in your terminal. Plan Mode, subagents, skills system, 
                     hooks, and sandboxed execution. CLAUDE.md for persistent context.
                   </p>
-                  <code className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">curl -fsSL https://claude.ai/install.sh | bash</code>
+                  <code className="text-xs bg-muted text-foreground px-2 py-1 rounded">curl -fsSL https://claude.ai/install.sh | bash</code>
                 </div>
 
                 {/* OpenAI Codex CLI */}
@@ -113,7 +113,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                     Open-source, built in Rust for speed. Web search, image inputs, 
                     approval modes, and Azure OpenAI integration. AGENTS.md support.
                   </p>
-                  <code className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">npm i -g @openai/codex</code>
+                  <code className="text-xs bg-muted text-foreground px-2 py-1 rounded">npm i -g @openai/codex</code>
                 </div>
 
                 {/* Gemini CLI */}
@@ -127,7 +127,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                     Open-source (Apache 2.0), 1M token context, Google Search grounding, 
                     built-in tools, MCP support. GEMINI.md for project context.
                   </p>
-                  <code className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">npm install -g @google/gemini-cli</code>
+                  <code className="text-xs bg-muted text-foreground px-2 py-1 rounded">npm install -g @google/gemini-cli</code>
                 </div>
               </div>
             </CardContent>
@@ -234,7 +234,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-muted text-foreground p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Installation
@@ -242,19 +242,19 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                 <div className="space-y-2">
                   <div>
                     <span className="text-sm text-muted-foreground">Windows (WinGet):</span>
-                    <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded mt-1 text-sm overflow-x-auto">
+                    <pre className="bg-muted text-foreground p-2 rounded mt-1 text-sm overflow-x-auto">
                       <code>winget install GitHub.Copilot</code>
                     </pre>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">macOS/Linux (Homebrew):</span>
-                    <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded mt-1 text-sm overflow-x-auto">
+                    <pre className="bg-muted text-foreground p-2 rounded mt-1 text-sm overflow-x-auto">
                       <code>brew install copilot-cli</code>
                     </pre>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">npm (cross-platform):</span>
-                    <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded mt-1 text-sm overflow-x-auto">
+                    <pre className="bg-muted text-foreground p-2 rounded mt-1 text-sm overflow-x-auto">
                       <code>npm install -g @github/copilot</code>
                     </pre>
                   </div>
@@ -294,8 +294,8 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
               </div>
 
               {/* Pro Tips */}
-              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-700 mt-4">
-                <h4 className="font-semibold mb-2 text-amber-800 dark:text-amber-200">💡 Pro Tips</h4>
+              <div className="bg-muted/50 p-4 rounded-lg border border-amber-200 dark:border-amber-700 mt-4">
+                <h4 className="font-semibold mb-2 text-foreground">💡 Pro Tips</h4>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">
                     <span className="text-amber-600">•</span>
@@ -372,9 +372,9 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                   alt="Error Handling pattern with try-catch, retries, and fallback strategies" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-red-200 dark:border-red-800">
+                <div className="p-4 bg-muted text-foreground border-t border-red-200 dark:border-red-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 
 # Context manager for automatic cleanup
 with CopilotClient() as client:
@@ -408,7 +408,7 @@ with CopilotClient() as client:
 
               {/* Pattern 2: Multiple Sessions */}
               <div className="border border-blue-200 dark:border-blue-800 rounded-lg overflow-hidden">
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 border-b border-blue-200 dark:border-blue-800">
+                <div className="bg-muted/50 p-4 border-b border-blue-200 dark:border-blue-800">
                   <h4 className="font-semibold flex items-center gap-2">
                     <span className="text-blue-600">2.</span> Multiple Sessions
                     <Badge variant="outline" className="text-xs">Model Comparison</Badge>
@@ -423,9 +423,9 @@ with CopilotClient() as client:
                   alt="Multiple Sessions pattern showing parallel model conversations" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-blue-200 dark:border-blue-800">
+                <div className="p-4 bg-muted text-foreground border-t border-blue-200 dark:border-blue-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 
 client = CopilotClient()
 client.start()
@@ -459,7 +459,7 @@ client.stop()`}</code></pre>
 
               {/* Pattern 3: File Management */}
               <div className="border border-green-200 dark:border-green-800 rounded-lg overflow-hidden">
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 border-b border-green-200 dark:border-green-800">
+                <div className="bg-muted/50 p-4 border-b border-green-200 dark:border-green-800">
                   <h4 className="font-semibold flex items-center gap-2">
                     <span className="text-green-600">3.</span> File Management
                     <Badge variant="outline" className="text-xs">Semantic Organization</Badge>
@@ -474,9 +474,9 @@ client.stop()`}</code></pre>
                   alt="File Management pattern with AI-powered organization" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-green-200 dark:border-green-800">
+                <div className="p-4 bg-muted text-foreground border-t border-green-200 dark:border-green-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 import os
 
 client = CopilotClient()
@@ -517,7 +517,7 @@ client.stop()`}</code></pre>
 
               {/* Pattern 4: PR Visualization */}
               <div className="border border-purple-200 dark:border-purple-800 rounded-lg overflow-hidden">
-                <div className="bg-purple-50 dark:bg-purple-900/20 p-4 border-b border-purple-200 dark:border-purple-800">
+                <div className="bg-muted/50 p-4 border-b border-purple-200 dark:border-purple-800">
                   <h4 className="font-semibold flex items-center gap-2">
                     <span className="text-purple-600">4.</span> PR Visualization
                     <Badge variant="outline" className="text-xs">GitHub MCP</Badge>
@@ -532,9 +532,9 @@ client.stop()`}</code></pre>
                   alt="PR Visualization pattern with GitHub MCP integration" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-purple-200 dark:border-purple-800">
+                <div className="p-4 bg-muted text-foreground border-t border-purple-200 dark:border-purple-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 import os
 
 client = CopilotClient(log_level="error")
@@ -582,7 +582,7 @@ distribution. Save as "pr-age-chart.png".
 
               {/* Pattern 5: Session Persistence */}
               <div className="border border-amber-200 dark:border-amber-800 rounded-lg overflow-hidden">
-                <div className="bg-amber-50 dark:bg-amber-900/20 p-4 border-b border-amber-200 dark:border-amber-800">
+                <div className="bg-muted/50 p-4 border-b border-amber-200 dark:border-amber-800">
                   <h4 className="font-semibold flex items-center gap-2">
                     <span className="text-amber-600">5.</span> Session Persistence
                     <Badge variant="outline" className="text-xs">Chatbot Ready</Badge>
@@ -597,9 +597,9 @@ distribution. Save as "pr-age-chart.png".
                   alt="Session Persistence pattern for building chatbots with memory" 
                   className="w-full"
                 />
-                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-amber-200 dark:border-amber-800">
+                <div className="p-4 bg-muted text-foreground border-t border-amber-200 dark:border-amber-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto"><code>{`from copilot import CopilotClient
 
 # === First run: Create session ===
 client = CopilotClient()
@@ -708,7 +708,7 @@ client.delete_session("user-123-conversation")`}</code></pre>
                   </div>
                   
                   {/* Architecture Diagram */}
-                  <div className="mt-6 p-4 bg-slate-100 dark:bg-slate-800 rounded-lg">
+                  <div className="mt-6 p-4 bg-muted rounded-lg">
                     <h5 className="font-semibold text-xs mb-3 text-center">Architecture: Parallel Session Orchestration</h5>
                     <div className="flex flex-col items-center space-y-2">
                       {/* Orchestrator */}
@@ -762,9 +762,9 @@ client.delete_session("user-123-conversation")`}</code></pre>
                   </div>
                 </div>
                 
-                <div className="p-4 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-t border-pink-200 dark:border-pink-800">
+                <div className="p-4 bg-muted text-foreground border-t border-pink-200 dark:border-pink-800">
                   <h5 className="font-semibold text-sm mb-2">Code Example</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-xs overflow-x-auto"><code>{`import asyncio
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto"><code>{`import asyncio
 from copilot import CopilotClient
 
 async def build_stack(session, stack_name: str, prompt: str):
@@ -850,12 +850,12 @@ asyncio.run(parallel_multi_stack())`}</code></pre>
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-muted text-foreground p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Get Started in 30 Seconds
                 </h4>
-                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-muted text-foreground p-3 rounded text-sm overflow-x-auto">
                   <code>{`# macOS/Linux/WSL
 curl -fsSL https://claude.ai/install.sh | bash
 
@@ -916,29 +916,29 @@ claude`}</code>
 
               {/* Subagents vs Skills vs MCP Callout */}
               <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800 mt-4">
-                <h4 className="font-semibold mb-2 flex items-center gap-2">
+                <h4 className="font-semibold mb-2 flex items-center gap-2 text-foreground">
                   <span className="text-lg">🧠</span>
                   Subagents vs Skills vs MCP
                 </h4>
-                <p className="text-sm text-muted-foreground mb-2">
+                <p className="text-sm text-foreground/80 mb-2">
                   These three patterns complement each other: <strong>Subagents</strong> spawn 
                   parallel LLM instances for research, <strong>Skills</strong> add reusable 
                   expertise on-demand, and <strong>MCP</strong> provides standardized tool access.
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-foreground/80">
                   See the interactive comparison in the <a href="/concepts/agent-skills" className="text-primary underline font-medium">Agent Skills</a> concept 
                   for an animated walkthrough of how these patterns work together.
                 </p>
               </div>
 
               {/* CLAUDE.md */}
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700 mt-4">
-                <h4 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">📋 CLAUDE.md Context File</h4>
-                <p className="text-sm text-muted-foreground mb-2">
+              <div className="bg-muted/50 p-4 rounded-lg border border-blue-200 dark:border-blue-700 mt-4">
+                <h4 className="font-semibold mb-2 text-foreground">📋 CLAUDE.md Context File</h4>
+                <p className="text-sm text-foreground/80 mb-2">
                   CLAUDE.md is loaded at the start of every conversation. Include Bash commands, 
                   code style, and workflow rules. Run /init to generate a starter file.
                 </p>
-                <pre className="bg-blue-100 dark:bg-blue-800 p-2 rounded text-xs overflow-x-auto">
+                <pre className="bg-muted p-2 rounded text-xs overflow-x-auto">
                   <code>{`# Code style
 - Use ES modules syntax, not CommonJS
 
@@ -960,7 +960,7 @@ claude`}</code>
                 Claude Code scales horizontally with headless mode, parallel sessions, 
                 and fan-out patterns.
               </p>
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+              <div className="bg-muted text-foreground p-4 rounded-lg">
                 <pre className="text-sm overflow-x-auto">
                   <code>{`# Headless mode for CI/scripts
 claude -p "Explain what this project does"
@@ -1000,8 +1000,8 @@ done`}</code>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div className="border border-purple-200 dark:border-purple-700 rounded-lg p-4 bg-purple-50/50 dark:bg-purple-900/10">
-                  <h5 className="font-semibold mb-2 text-purple-800 dark:text-purple-200">🎯 Local Intelligence (Claude Code)</h5>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <h5 className="font-semibold mb-2 text-foreground">🎯 Local Intelligence (Claude Code)</h5>
+                  <ul className="text-sm text-foreground/80 space-y-1">
                     <li>• <strong>On-demand file reading:</strong> Reads actual source files when needed</li>
                     <li>• <strong>Always fresh:</strong> Never stale—sees your latest uncommitted changes</li>
                     <li>• <strong>Full context:</strong> Semantic understanding of entire file structure</li>
@@ -1010,8 +1010,8 @@ done`}</code>
                   </ul>
                 </div>
                 <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-blue-50/50 dark:bg-blue-900/10">
-                  <h5 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">📊 RAG with Embeddings</h5>
-                  <ul className="text-sm text-muted-foreground space-y-1">
+                  <h5 className="font-semibold mb-2 text-foreground">📊 RAG with Embeddings</h5>
+                  <ul className="text-sm text-foreground/80 space-y-1">
                     <li>• <strong>Pre-computed vectors:</strong> Requires upfront indexing of codebase</li>
                     <li>• <strong>Can get stale:</strong> Embeddings may not reflect latest changes</li>
                     <li>• <strong>Chunked context:</strong> Limited by chunk size and similarity thresholds</li>
@@ -1022,8 +1022,8 @@ done`}</code>
               </div>
 
               <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
-                <h4 className="font-semibold mb-2 text-amber-800 dark:text-amber-200">💡 When to Use Each</h4>
-                <p className="text-sm text-muted-foreground">
+                <h4 className="font-semibold mb-2 text-foreground">💡 When to Use Each</h4>
+                <p className="text-sm text-foreground/80">
                   <strong>Local Intelligence</strong> excels for active coding sessions where you're editing, 
                   refactoring, and debugging—the context is always current and Claude can make precise changes. 
                   <strong>RAG embeddings</strong> shine for searching across massive documentation sets, 
@@ -1066,13 +1066,13 @@ done`}</code>
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-muted text-foreground p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Installation
                 </h4>
                 <div className="space-y-2">
-                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded text-sm overflow-x-auto">
+                  <pre className="bg-muted text-foreground p-2 rounded text-sm overflow-x-auto">
                     <code>{`# Install via npm
 npm i -g @openai/codex
 
@@ -1122,7 +1122,7 @@ codex`}</code>
 
               {/* Agent Loop */}
               <div className="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-lg border border-emerald-200 dark:border-emerald-700 mt-4">
-                <h4 className="font-semibold mb-2 text-emerald-800 dark:text-emerald-200">🔄 The Agent Loop</h4>
+                <h4 className="font-semibold mb-2 text-foreground">🔄 The Agent Loop</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Codex unrolls an agent loop that iteratively reads, reasons, and acts. 
                   Understanding this loop helps you work more effectively with the agent.
@@ -1137,7 +1137,7 @@ codex`}</code>
               </div>
 
               {/* AGENTS.md */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-muted text-foreground p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-2">📋 AGENTS.md Support</h4>
                 <p className="text-sm text-muted-foreground">
                   Codex honors AGENTS.md files for project context and coding guidelines. 
@@ -1200,13 +1200,13 @@ codex`}</code>
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-muted text-foreground p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Installation
                 </h4>
                 <div className="space-y-2">
-                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded text-sm overflow-x-auto">
+                  <pre className="bg-muted text-foreground p-2 rounded text-sm overflow-x-auto">
                     <code>{`# Run instantly with npx (no install)
 npx @google/gemini-cli
 
@@ -1223,8 +1223,8 @@ gemini`}</code>
               </div>
 
               {/* Why Gemini CLI */}
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
-                <h4 className="font-semibold mb-3 text-blue-800 dark:text-blue-200">🚀 Why Gemini CLI?</h4>
+              <div className="bg-muted/50 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+                <h4 className="font-semibold mb-3 text-foreground">🚀 Why Gemini CLI?</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
@@ -1278,13 +1278,13 @@ gemini`}</code>
               </div>
 
               {/* GEMINI.md */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-muted text-foreground p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-2">📋 GEMINI.md Context File</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Custom context files to tailor behavior for your projects. 
                   Similar to CLAUDE.md and AGENTS.md patterns.
                 </p>
-                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-2 rounded text-xs overflow-x-auto">
+                <pre className="bg-muted text-foreground p-2 rounded text-xs overflow-x-auto">
                   <code>{`# Project: My App
 - Use TypeScript strict mode
 - Run tests with: npm test
@@ -1319,7 +1319,7 @@ gemini`}</code>
               <CardTitle>Quick Examples</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <pre className="bg-slate-100 dark:bg-slate-800 p-4 rounded text-sm overflow-x-auto">
+              <pre className="bg-muted p-4 rounded text-sm overflow-x-auto">
                 <code>{`# Start interactive session
 gemini
 
@@ -1372,13 +1372,13 @@ gemini -m gemini-2.5-flash`}</code>
               </p>
 
               {/* Installation */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-muted text-foreground p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Command className="w-4 h-4" />
                   Installation
                 </h4>
                 <div className="space-y-2">
-                  <pre className="bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 p-2 rounded text-sm overflow-x-auto">
+                  <pre className="bg-slate-200 dark:bg-slate-700 text-foreground p-2 rounded text-sm overflow-x-auto">
                     <code>{`# YOLO install
 curl -fsSL https://opencode.ai/install | bash
 
@@ -1407,21 +1407,21 @@ paru -S opencode-bin`}</code>
                     No vendor lock-in, no telemetry concerns.
                   </p>
                 </div>
-                <div className="border border-purple-200 dark:border-purple-700 rounded-lg p-4 bg-purple-50 dark:bg-purple-900/20">
+                <div className="border border-purple-200 dark:border-purple-700 rounded-lg p-4 bg-muted/50">
                   <h5 className="font-semibold mb-2">🔀 Provider Agnostic</h5>
                   <p className="text-sm text-muted-foreground">
                     Use Claude, OpenAI, Google, or local models. 
                     Switch providers as pricing and capabilities evolve.
                   </p>
                 </div>
-                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
+                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-muted/50">
                   <h5 className="font-semibold mb-2">🔧 Built-in LSP</h5>
                   <p className="text-sm text-muted-foreground">
                     Out-of-the-box Language Server Protocol support. 
                     Better code intelligence than competitors.
                   </p>
                 </div>
-                <div className="border border-amber-200 dark:border-amber-700 rounded-lg p-4 bg-amber-50 dark:bg-amber-900/20">
+                <div className="border border-amber-200 dark:border-amber-700 rounded-lg p-4 bg-muted/50">
                   <h5 className="font-semibold mb-2">📱 Client/Server</h5>
                   <p className="text-sm text-muted-foreground">
                     Run on your machine, control remotely from mobile. 
@@ -1463,7 +1463,7 @@ paru -S opencode-bin`}</code>
                   </p>
                 </div>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-muted text-foreground p-4 rounded-lg mt-4">
                 <h5 className="font-semibold mb-2">@general Subagent</h5>
                 <p className="text-sm text-muted-foreground">
                   Invoke with <code>@general</code> for complex searches and multi-step 
@@ -1504,7 +1504,7 @@ paru -S opencode-bin`}</code>
                   <code className="text-xs text-muted-foreground">portable</code>
                 </div>
               </div>
-              <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
+              <pre className="bg-muted text-foreground p-3 rounded text-sm overflow-x-auto">
                 <code>{`# macOS (Homebrew Cask)
 brew install --cask opencode-desktop
 
@@ -1584,7 +1584,7 @@ scoop install extras/opencode-desktop`}</code>
 
               {/* Why ACP? */}
               <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 p-4 rounded-md border border-indigo-200 dark:border-indigo-800">
-                <h4 className="font-semibold mb-3 text-indigo-900 dark:text-indigo-200">Why ACP?</h4>
+                <h4 className="font-semibold mb-3 text-foreground">Why ACP?</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2"></span>
@@ -1619,21 +1619,21 @@ scoop install extras/opencode-desktop`}</code>
               {/* Design Principles */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="border border-indigo-200 dark:border-indigo-700 rounded-lg p-4 bg-indigo-50 dark:bg-indigo-900/20">
-                  <h5 className="font-semibold mb-2 text-indigo-800 dark:text-indigo-200">🔗 MCP-Friendly</h5>
+                  <h5 className="font-semibold mb-2 text-foreground">🔗 MCP-Friendly</h5>
                   <p className="text-sm text-muted-foreground">
                     Built on JSON-RPC, reuses MCP types where possible. Integrators don't need 
                     to build yet-another representation for common data types.
                   </p>
                 </div>
-                <div className="border border-purple-200 dark:border-purple-700 rounded-lg p-4 bg-purple-50 dark:bg-purple-900/20">
-                  <h5 className="font-semibold mb-2 text-purple-800 dark:text-purple-200">🎨 UX-First</h5>
+                <div className="border border-purple-200 dark:border-purple-700 rounded-lg p-4 bg-muted/50">
+                  <h5 className="font-semibold mb-2 text-foreground">🎨 UX-First</h5>
                   <p className="text-sm text-muted-foreground">
                     Designed to solve UX challenges of interacting with AI agents. Includes 
                     custom types for agentic UX elements like displaying diffs.
                   </p>
                 </div>
-                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
-                  <h5 className="font-semibold mb-2 text-green-800 dark:text-green-200">🔐 Trusted</h5>
+                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-muted/50">
+                  <h5 className="font-semibold mb-2 text-foreground">🔐 Trusted</h5>
                   <p className="text-sm text-muted-foreground">
                     Works when using a code editor to talk to a trusted model. Agent gets access 
                     to local files and MCP servers with controlled tool calls.
@@ -1642,7 +1642,7 @@ scoop install extras/opencode-desktop`}</code>
               </div>
 
               {/* Setup Diagram */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
+              <div className="bg-muted text-foreground p-4 rounded-lg font-mono text-sm">
                 <h5 className="font-semibold mb-3">Local Agent Setup</h5>
                 <pre className="overflow-x-auto">{`┌─────────────────┐    JSON-RPC     ┌─────────────────┐
 │   Code Editor   │ ◄──────────────► │   Agent Process │
@@ -1673,8 +1673,8 @@ scoop install extras/opencode-desktop`}</code>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
-                  <h5 className="font-semibold mb-2 text-green-800 dark:text-green-200">🖥️ Local Agents</h5>
+                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-muted/50">
+                  <h5 className="font-semibold mb-2 text-foreground">🖥️ Local Agents</h5>
                   <p className="text-sm text-muted-foreground mb-2">
                     Run as sub-processes of the code editor, communicating via JSON-RPC over stdio.
                   </p>
@@ -1684,8 +1684,8 @@ scoop install extras/opencode-desktop`}</code>
                     <li>• Editor manages agent lifecycle</li>
                   </ul>
                 </div>
-                <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-blue-50 dark:bg-blue-900/20">
-                  <h5 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">☁️ Remote Agents</h5>
+                <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-muted/50">
+                  <h5 className="font-semibold mb-2 text-foreground">☁️ Remote Agents</h5>
                   <p className="text-sm text-muted-foreground mb-2">
                     Hosted in the cloud or on separate infrastructure, communicating over HTTP/WebSocket.
                   </p>
@@ -1696,8 +1696,8 @@ scoop install extras/opencode-desktop`}</code>
                   </ul>
                 </div>
               </div>
-              <div className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg border border-amber-200 dark:border-amber-700">
-                <p className="text-sm text-amber-800 dark:text-amber-200">
+              <div className="bg-muted/50 p-3 rounded-lg border border-amber-200 dark:border-amber-700">
+                <p className="text-sm text-foreground">
                   <strong>Note:</strong> Full support for remote agents is a work in progress. 
                   The protocol team is actively collaborating with agentic platforms to address 
                   cloud-hosted and remote deployment scenarios.
@@ -1737,7 +1737,7 @@ scoop install extras/opencode-desktop`}</code>
               </div>
 
               {/* Code Example */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+              <div className="bg-muted text-foreground p-4 rounded-lg">
                 <h5 className="font-semibold mb-2">TypeScript Example</h5>
                 <pre className="text-sm overflow-x-auto"><code>{`import { ACPServer } from '@agentclientprotocol/sdk';
 
@@ -1778,7 +1778,7 @@ server.listen();`}</code></pre>
                 the editor passes MCP configuration to the agent, allowing direct connections.
               </p>
 
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
+              <div className="bg-muted text-foreground p-4 rounded-lg font-mono text-sm">
                 <pre className="overflow-x-auto">{`┌─────────────┐                    ┌─────────────┐
 │   Editor    │ ─── ACP ───────► │    Agent    │
 │             │                    │             │
@@ -1878,29 +1878,29 @@ server.listen();`}</code></pre>
                 <h4 className="font-semibold text-lg">Universal Patterns</h4>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
-                    <h5 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ Give Verification Criteria</h5>
+                  <div className="bg-muted/50 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                    <h5 className="font-semibold text-foreground mb-2">✅ Give Verification Criteria</h5>
                     <p className="text-sm text-muted-foreground">
                       Include tests, screenshots, or expected outputs so the agent can check itself. 
                       This is the single highest-leverage practice.
                     </p>
                   </div>
-                  <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
-                    <h5 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ Explore → Plan → Code</h5>
+                  <div className="bg-muted/50 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                    <h5 className="font-semibold text-foreground mb-2">✅ Explore → Plan → Code</h5>
                     <p className="text-sm text-muted-foreground">
                       Separate research and planning from implementation. Use Plan Mode 
                       (Claude Code) or ask to "make a plan first" before coding.
                     </p>
                   </div>
-                  <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
-                    <h5 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ Provide Specific Context</h5>
+                  <div className="bg-muted/50 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                    <h5 className="font-semibold text-foreground mb-2">✅ Provide Specific Context</h5>
                     <p className="text-sm text-muted-foreground">
                       Reference specific files, mention constraints, point to example patterns. 
                       The more precise, the fewer corrections needed.
                     </p>
                   </div>
-                  <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
-                    <h5 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ Clear Context Between Tasks</h5>
+                  <div className="bg-muted/50 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                    <h5 className="font-semibold text-foreground mb-2">✅ Clear Context Between Tasks</h5>
                     <p className="text-sm text-muted-foreground">
                       Long sessions with irrelevant context reduce performance. 
                       Start fresh for unrelated tasks.
@@ -1910,14 +1910,14 @@ server.listen();`}</code></pre>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-700">
-                    <h5 className="font-semibold text-red-800 dark:text-red-200 mb-2">❌ Over-specified Context Files</h5>
+                    <h5 className="font-semibold text-foreground mb-2">❌ Over-specified Context Files</h5>
                     <p className="text-sm text-muted-foreground">
                       If your CLAUDE.md/AGENTS.md is too long, important rules get lost. 
                       Ruthlessly prune—if the agent already does it correctly, delete the instruction.
                     </p>
                   </div>
                   <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-700">
-                    <h5 className="font-semibold text-red-800 dark:text-red-200 mb-2">❌ Correcting Over and Over</h5>
+                    <h5 className="font-semibold text-foreground mb-2">❌ Correcting Over and Over</h5>
                     <p className="text-sm text-muted-foreground">
                       After two failed corrections, context is polluted with failed approaches. 
                       Clear and restart with a better initial prompt.
@@ -1929,7 +1929,7 @@ server.listen();`}</code></pre>
               {/* Context File Patterns */}
               <div className="space-y-4 mt-6">
                 <h4 className="font-semibold text-lg">Context File Patterns</h4>
-                <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <p className="text-sm text-muted-foreground mb-3">
                     All four agents honor markdown context files. Use consistent patterns:
                   </p>
@@ -1951,7 +1951,7 @@ server.listen();`}</code></pre>
                 <p className="text-sm text-muted-foreground">
                   All agents support non-interactive mode for CI, pre-commit hooks, and scripts:
                 </p>
-                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded text-sm overflow-x-auto">
+                <pre className="bg-muted text-foreground p-4 rounded text-sm overflow-x-auto">
                   <code>{`# Claude Code
 claude -p "Fix lint errors" --output-format json
 
@@ -2022,3 +2022,12 @@ uses: github/copilot-cli-action@v1`}</code>
     />
   )
 }
+
+
+
+
+
+
+
+
+

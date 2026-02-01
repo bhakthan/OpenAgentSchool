@@ -773,3 +773,12 @@ export default function AIProductFrameworkConcept({ onMarkComplete, onNavigateTo
     </div>
   )
 }
+
+
+
+
+
+
+
+
+

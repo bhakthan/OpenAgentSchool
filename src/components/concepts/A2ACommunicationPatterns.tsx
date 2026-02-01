@@ -608,7 +608,7 @@ class AdaptiveHierarchy {
 
               {/* Check Your Understanding - Interactive Quiz */}
               <div className="mt-6 p-4 rounded-lg border-2 border-purple-300 dark:border-purple-700 bg-purple-50/50 dark:bg-purple-900/10">
-                <h4 className="font-bold text-purple-800 dark:text-purple-200 mb-3 flex items-center gap-2">
+                <h4 className="font-bold text-foreground mb-3 flex items-center gap-2">
                   🧠 Check Your Understanding
                 </h4>
                 <div className="space-y-4">
@@ -679,6 +679,15 @@ class AdaptiveHierarchy {
 };
 
 export default A2ACommunicationPatterns;
+
+
+
+
+
+
+
+
+
 
 
 

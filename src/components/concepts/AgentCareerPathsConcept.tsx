@@ -313,7 +313,7 @@ export default function AgentCareerPathsConcept({ onMarkComplete, onNavigateToNe
                   <Lightbulb className="w-4 h-4" />
                   Think: The Mobile Developer Boom (2008-2015)
                 </h4>
-                <p className="text-sm text-blue-800 dark:text-blue-200">
+                <p className="text-sm text-foreground">
                   When the iPhone launched, "mobile developer" wasn't a job title. Within 5 years, it was one of the 
                   hottest careers in tech. AI agents are having their iPhone moment now. Early practitioners who 
                   build deep expertise will have career advantages for the next decade.
@@ -618,7 +618,7 @@ export default function AgentCareerPathsConcept({ onMarkComplete, onNavigateToNe
                   <Book className="w-4 h-4" />
                   Open Agent School Is Your Path
                 </h4>
-                <p className="text-sm text-blue-800 dark:text-blue-200">
+                <p className="text-sm text-foreground">
                   You're already in the right place! Complete the concept modules, work through the study modes, 
                   and build portfolio projects. The structured curriculum here covers Foundation → Practitioner → Expert 
                   skill progression with hands-on practice.
@@ -631,3 +631,12 @@ export default function AgentCareerPathsConcept({ onMarkComplete, onNavigateToNe
     </div>
   );
 }
+
+
+
+
+
+
+
+
+

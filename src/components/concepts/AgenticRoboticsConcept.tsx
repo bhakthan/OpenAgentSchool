@@ -567,3 +567,12 @@ await roboticsAgent.executeGoal("Replenish aisle 7 endcap and verify pricing lab
     />
   )
 }
+
+
+
+
+
+
+
+
+

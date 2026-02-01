@@ -27,7 +27,7 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
               </div>
               <div className="space-y-4 flex-1">
                 <div>
-                  <h3 className="text-lg font-bold text-emerald-800 dark:text-emerald-200">🍳 The Restaurant Kitchen Analogy</h3>
+                  <h3 className="text-lg font-bold text-foreground">🍳 The Restaurant Kitchen Analogy</h3>
                   <p className="text-sm text-muted-foreground mt-1">Understanding when to use A2A vs MCP</p>
                 </div>
                 
@@ -69,7 +69,7 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
           {/* WHEN TO USE WHICH - Decision Guide */}
           <Card className="border-2 border-amber-200 dark:border-amber-800">
             <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
+              <CardTitle className="flex items-center gap-2 text-foreground">
                 <Question className="w-5 h-5" weight="duotone" />
                 When to Use Which? (Decision Guide)
               </CardTitle>
@@ -79,7 +79,7 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Use A2A */}
                 <div className="p-4 rounded-lg border-2 border-orange-300 dark:border-orange-700 bg-orange-50 dark:bg-orange-900/20">
-                  <h4 className="font-bold text-orange-800 dark:text-orange-200 mb-3 flex items-center gap-2">
+                  <h4 className="font-bold text-foreground mb-3 flex items-center gap-2">
                     <Users className="w-5 h-5" /> Use A2A When...
                   </h4>
                   <ul className="space-y-2 text-sm">
@@ -106,8 +106,8 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
                 </div>
 
                 {/* Use MCP */}
-                <div className="p-4 rounded-lg border-2 border-blue-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20">
-                  <h4 className="font-bold text-blue-800 dark:text-blue-200 mb-3 flex items-center gap-2">
+                <div className="p-4 rounded-lg border-2 border-blue-300 dark:border-blue-700 bg-muted/50">
+                  <h4 className="font-bold text-foreground mb-3 flex items-center gap-2">
                     <Database className="w-5 h-5" /> Use MCP When...
                   </h4>
                   <ul className="space-y-2 text-sm">
@@ -128,7 +128,7 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
                       <span>The tool <strong>can't think</strong> - it just executes commands</span>
                     </li>
                   </ul>
-                  <div className="mt-3 p-2 rounded bg-blue-100 dark:bg-blue-800/30 text-xs">
+                  <div className="mt-3 p-2 rounded bg-muted/30 text-xs">
                     <strong>Example:</strong> "Database, SELECT * FROM orders WHERE date {'>'} '2024-01-01'"
                   </div>
                 </div>
@@ -139,7 +139,7 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
                 <div className="flex items-start gap-3">
                   <Brain className="w-6 h-6 text-purple-600 flex-shrink-0" weight="duotone" />
                   <div>
-                    <h4 className="font-bold text-purple-800 dark:text-purple-200">💡 The Key Insight</h4>
+                    <h4 className="font-bold text-foreground">💡 The Key Insight</h4>
                     <p className="text-sm text-muted-foreground mt-1">
                       <strong>Can the other party THINK?</strong> If yes → A2A. If no → MCP.
                     </p>
@@ -257,7 +257,7 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
             <CardContent>
               <div className="space-y-4">
                 <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     MCP to A2A Message Translation
                   </h4>
                   <ul className="space-y-1 text-sm">
@@ -268,7 +268,7 @@ export default function MCPxA2AIntegrationConcept({ onMarkComplete, onNavigateTo
                   </ul>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Security Considerations
                   </h4>
                   <ul className="space-y-1 text-sm">
@@ -449,7 +449,7 @@ class MCPToA2ABridge {
                   </ul>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Scalability Patterns
                   </h4>
                   <ul className="space-y-1 text-sm">
@@ -483,6 +483,15 @@ class MCPToA2ABridge {
     />
   )
 }
+
+
+
+
+
+
+
+
+
 
 
 

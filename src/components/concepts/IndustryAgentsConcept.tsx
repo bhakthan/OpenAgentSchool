@@ -241,7 +241,7 @@ export default function IndustryAgentsConcept({ onMarkComplete, onNavigateToNext
                   <Lightbulb className="w-4 h-4" />
                   Think: Same Tool, Different Safety Rules
                 </h4>
-                <p className="text-sm text-blue-800 dark:text-blue-200">
+                <p className="text-sm text-foreground">
                   A chainsaw works the same way whether you're a homeowner trimming branches or a professional 
                   lumberjack. But the safety protocols, training requirements, and liability considerations are 
                   completely different. AI agents are the same—the technology is generic, but deployment 
@@ -375,7 +375,7 @@ export default function IndustryAgentsConcept({ onMarkComplete, onNavigateToNext
                 <div className="grid md:grid-cols-2 gap-3">
                   {currentIndustry.patterns.map((pattern, idx) => (
                     <div key={idx} className="p-3 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
-                      <div className="font-medium text-sm text-green-800 dark:text-green-200">{pattern.pattern}</div>
+                      <div className="font-medium text-sm text-foreground">{pattern.pattern}</div>
                       <div className="text-xs text-green-700 dark:text-green-300 mt-1">{pattern.reason}</div>
                     </div>
                   ))}
@@ -487,3 +487,12 @@ export default function IndustryAgentsConcept({ onMarkComplete, onNavigateToNext
     </div>
   );
 }
+
+
+
+
+
+
+
+
+

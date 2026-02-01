@@ -39,7 +39,7 @@ export default function AgentSkillsConcept({ onMarkComplete, onNavigateToNext }:
               <p className="text-lg leading-relaxed">
                 Agent Skills are a lightweight, open format for extending AI agent capabilities 
                 with specialized knowledge and workflows. At its core, a skill is a folder 
-                containing a <code className="bg-slate-100 dark:bg-slate-800 px-1 rounded">SKILL.md</code> file 
+                containing a <code className="bg-muted px-1 rounded">SKILL.md</code> file 
                 with metadata and instructions that tell an agent how to perform a specific task.
               </p>
               
@@ -53,7 +53,7 @@ export default function AgentSkillsConcept({ onMarkComplete, onNavigateToNext }:
               </div>
               
               <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 p-4 rounded-md border border-purple-200 dark:border-purple-800">
-                <h4 className="font-semibold mb-3 text-purple-900 dark:text-purple-200">Why Skills?</h4>
+                <h4 className="font-semibold mb-3 text-foreground">Why Skills?</h4>
                 <ul className="space-y-2 text-lg">
                   <li className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-purple-500 mt-2"></span>
@@ -88,7 +88,7 @@ export default function AgentSkillsConcept({ onMarkComplete, onNavigateToNext }:
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
+              <div className="bg-muted text-foreground p-4 rounded-lg font-mono text-sm">
                 <pre>{`my-skill/
 ├── SKILL.md          # Required: instructions + metadata
 ├── scripts/          # Optional: executable code
@@ -97,12 +97,12 @@ export default function AgentSkillsConcept({ onMarkComplete, onNavigateToNext }:
               </div>
 
               {/* SKILL.md Structure */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-muted text-foreground p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <FileCode className="w-4 h-4" />
                   The SKILL.md File
                 </h4>
-                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-muted text-foreground p-3 rounded text-sm overflow-x-auto">
                   <code>{`---
 name: pdf-processing
 description: Extract text and tables from PDF files, 
@@ -167,8 +167,8 @@ Use this skill when the user needs to work with PDF files...
                 </div>
               </div>
 
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700 mt-4">
-                <p className="text-sm text-blue-800 dark:text-blue-200">
+              <div className="bg-muted/50 p-4 rounded-lg border border-blue-200 dark:border-blue-700 mt-4">
+                <p className="text-sm text-foreground">
                   <strong>Key insight:</strong> This approach keeps agents fast while giving them 
                   access to more context on demand. Unlike prompts that load every session, 
                   skills only consume tokens when actually needed.
@@ -207,8 +207,8 @@ Use this skill when the user needs to work with PDF files...
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="border border-amber-200 dark:border-amber-700 rounded-lg p-4 bg-amber-50 dark:bg-amber-900/20">
-                  <h5 className="font-semibold mb-2 text-amber-800 dark:text-amber-200">🤖 Use Subagents When...</h5>
+                <div className="border border-amber-200 dark:border-amber-700 rounded-lg p-4 bg-muted/50">
+                  <h5 className="font-semibold mb-2 text-foreground">🤖 Use Subagents When...</h5>
                   <ul className="text-sm text-muted-foreground space-y-1">
                     <li>• Complex research needs parallel exploration</li>
                     <li>• Task requires separate conversation context</li>
@@ -216,8 +216,8 @@ Use this skill when the user needs to work with PDF files...
                     <li>• Multiple independent investigations needed</li>
                   </ul>
                 </div>
-                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-green-50 dark:bg-green-900/20">
-                  <h5 className="font-semibold mb-2 text-green-800 dark:text-green-200">🧩 Use Skills When...</h5>
+                <div className="border border-green-200 dark:border-green-700 rounded-lg p-4 bg-muted/50">
+                  <h5 className="font-semibold mb-2 text-foreground">🧩 Use Skills When...</h5>
                   <ul className="text-sm text-muted-foreground space-y-1">
                     <li>• You have reusable domain expertise</li>
                     <li>• Workflows should trigger automatically</li>
@@ -226,7 +226,7 @@ Use this skill when the user needs to work with PDF files...
                   </ul>
                 </div>
                 <div className="border border-indigo-200 dark:border-indigo-700 rounded-lg p-4 bg-indigo-50 dark:bg-indigo-900/20">
-                  <h5 className="font-semibold mb-2 text-indigo-800 dark:text-indigo-200">🔧 Use Tools When...</h5>
+                  <h5 className="font-semibold mb-2 text-foreground">🔧 Use Tools When...</h5>
                   <ul className="text-sm text-muted-foreground space-y-1">
                     <li>• A discrete action is needed (read, write, query)</li>
                     <li>• Operation has typed inputs/outputs</li>
@@ -234,8 +234,8 @@ Use this skill when the user needs to work with PDF files...
                     <li>• Stateless, one-shot execution is appropriate</li>
                   </ul>
                 </div>
-                <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-blue-50 dark:bg-blue-900/20">
-                  <h5 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">🔌 Use MCP When...</h5>
+                <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-muted/50">
+                  <h5 className="font-semibold mb-2 text-foreground">🔌 Use MCP When...</h5>
                   <ul className="text-sm text-muted-foreground space-y-1">
                     <li>• You want standardized tool exposure</li>
                     <li>• Multiple agents share the same tools</li>
@@ -260,7 +260,7 @@ Use this skill when the user needs to work with PDF files...
                 These patterns aren't mutually exclusive—they compose beautifully:
               </p>
               
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
+              <div className="bg-muted text-foreground p-4 rounded-lg font-mono text-sm">
                 <pre>{`User: "Research competitor APIs and draft integration plan"
 
 ┌─────────────────────────────────────────────────────┐
@@ -325,7 +325,7 @@ Use this skill when the user needs to work with PDF files...
             </p>
             <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
               <img 
-                src="/images/Agent_Architecture_Decision_Framework.jpg" 
+                src="/images/Agent_Architecture_Decision_Framework.png" 
                 alt="Decision framework flowchart for choosing between Skills, Tools, Subagents, and MCP based on requirements"
                 className="w-full h-auto"
                 loading="lazy"
@@ -366,8 +366,8 @@ Use this skill when the user needs to work with PDF files...
               </p>
 
               {/* Pre-built Skills */}
-              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
-                <h4 className="font-semibold mb-3 text-amber-800 dark:text-amber-200">📦 Pre-built Agent Skills</h4>
+              <div className="bg-muted/50 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
+                <h4 className="font-semibold mb-3 text-foreground">📦 Pre-built Agent Skills</h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   <div className="bg-white dark:bg-slate-800 p-3 rounded text-center">
                     <span className="text-2xl">📊</span>
@@ -419,12 +419,12 @@ Use this skill when the user needs to work with PDF files...
               </div>
 
               {/* Claude Code Skills */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-muted text-foreground p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                   <Code className="w-4 h-4" />
                   Creating Skills in Claude Code
                 </h4>
-                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-muted text-foreground p-3 rounded text-sm overflow-x-auto">
                   <code>{`# Create skill directory
 mkdir -p .claude/skills/api-conventions
 
@@ -444,12 +444,12 @@ EOF`}</code>
               </div>
 
               {/* Workflow Skills */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-muted text-foreground p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-3">Workflow Skills with Arguments</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Define repeatable workflows you invoke directly with <code>/skill-name args</code>:
                 </p>
-                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-muted text-foreground p-3 rounded text-sm overflow-x-auto">
                   <code>{`---
 name: fix-issue
 description: Fix a GitHub issue
@@ -481,7 +481,7 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
               <p className="text-lg">
                 Install skills from the Anthropic skills repository or community sources:
               </p>
-              <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded text-sm overflow-x-auto">
+              <pre className="bg-muted text-foreground p-4 rounded text-sm overflow-x-auto">
                 <code>{`# Add marketplace in Claude Code
 /plugin marketplace add anthropics/skills
 
@@ -578,30 +578,30 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
                 of user requests that should trigger this skill.
               </p>
 
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+              <div className="bg-muted text-foreground p-4 rounded-lg">
                 <h5 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Example User Requests</h5>
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
                     <span className="text-green-500">💬</span>
-                    <span className="text-sm italic text-slate-700 dark:text-slate-300">"Write a commit message for these changes"</span>
+                    <span className="text-sm italic text-foreground/80">"Write a commit message for these changes"</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-green-500">💬</span>
-                    <span className="text-sm italic text-slate-700 dark:text-slate-300">"Help me write a conventional commit for this feature"</span>
+                    <span className="text-sm italic text-foreground/80">"Help me write a conventional commit for this feature"</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-green-500">💬</span>
-                    <span className="text-sm italic text-slate-700 dark:text-slate-300">"Format my commit message using conventional commits"</span>
+                    <span className="text-sm italic text-foreground/80">"Format my commit message using conventional commits"</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-green-500">💬</span>
-                    <span className="text-sm italic text-slate-700 dark:text-slate-300">"I just finished the auth refactor, what should I commit?"</span>
+                    <span className="text-sm italic text-foreground/80">"I just finished the auth refactor, what should I commit?"</span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
-                <h5 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">Key Insight: Description is Primary Trigger</h5>
+              <div className="bg-muted/50 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+                <h5 className="font-semibold text-foreground mb-2">Key Insight: Description is Primary Trigger</h5>
                 <p className="text-sm text-muted-foreground">
                   The skill's <code>description</code> is the main way Claude matches user requests to skills. 
                   Include concrete scenarios and keywords users would actually say.
@@ -624,7 +624,7 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
                 Remember: progressive disclosure means Claude only loads what's needed.
               </p>
 
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg font-mono text-sm">
+              <div className="bg-muted text-foreground p-4 rounded-lg font-mono text-sm">
                 <pre>{`writing-git-commits/
 ├── SKILL.md              # Instructions + conventional format
 ├── references/
@@ -634,20 +634,20 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                <div className="border border-green-200 dark:border-green-700 p-3 rounded-lg bg-green-50 dark:bg-green-900/20">
-                  <h5 className="font-semibold text-green-800 dark:text-green-200 mb-1">SKILL.md</h5>
+                <div className="border border-green-200 dark:border-green-700 p-3 rounded-lg bg-muted/50">
+                  <h5 className="font-semibold text-foreground mb-1">SKILL.md</h5>
                   <p className="text-xs text-muted-foreground">
                     Conventional commits format, commit types, scopes, body guidelines
                   </p>
                 </div>
-                <div className="border border-blue-200 dark:border-blue-700 p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20">
-                  <h5 className="font-semibold text-blue-800 dark:text-blue-200 mb-1">references/</h5>
+                <div className="border border-blue-200 dark:border-blue-700 p-3 rounded-lg bg-muted/50">
+                  <h5 className="font-semibold text-foreground mb-1">references/</h5>
                   <p className="text-xs text-muted-foreground">
                     Examples of good commits, edge cases, multi-line bodies
                   </p>
                 </div>
-                <div className="border border-purple-200 dark:border-purple-700 p-3 rounded-lg bg-purple-50 dark:bg-purple-900/20">
-                  <h5 className="font-semibold text-purple-800 dark:text-purple-200 mb-1">scripts/</h5>
+                <div className="border border-purple-200 dark:border-purple-700 p-3 rounded-lg bg-muted/50">
+                  <h5 className="font-semibold text-foreground mb-1">scripts/</h5>
                   <p className="text-xs text-muted-foreground">
                     Optional: parse diffs, extract file names, detect change type
                   </p>
@@ -671,12 +671,12 @@ Analyze and fix the GitHub issue: $ARGUMENTS.
                 Create the skill directory and write the SKILL.md file. This is the heart of your skill.
               </p>
 
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="bg-muted text-foreground p-4 rounded-lg border border-slate-200 dark:border-slate-700">
                 <h5 className="font-semibold mb-3 flex items-center gap-2">
                   <FileCode className="w-4 h-4" />
                   Complete SKILL.md Example
                 </h5>
-                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded text-sm overflow-x-auto whitespace-pre">
+                <pre className="bg-muted text-foreground p-4 rounded text-sm overflow-x-auto whitespace-pre">
                   <code>{`---
 name: writing-git-commits
 description: >
@@ -734,10 +734,10 @@ See [references/EXAMPLES.md](references/EXAMPLES.md) for real-world examples.
                 </pre>
               </div>
 
-              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
+              <div className="bg-muted/50 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
                 <div className="flex items-center gap-2 mb-2">
                   <Warning className="w-5 h-5 text-amber-600" />
-                  <h5 className="font-semibold text-amber-800 dark:text-amber-200">Keep It Concise</h5>
+                  <h5 className="font-semibold text-foreground">Keep It Concise</h5>
                 </div>
                 <p className="text-sm text-muted-foreground">
                   SKILL.md body should stay under 500 lines. Use references/ for detailed 
@@ -761,9 +761,9 @@ See [references/EXAMPLES.md](references/EXAMPLES.md) for real-world examples.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h5 className="font-semibold mb-2">Claude Code (Local)</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
+                  <pre className="bg-muted text-foreground p-3 rounded text-sm overflow-x-auto">
                     <code>{`# Copy to project skills folder
 cp -r writing-git-commits/ \\
   .claude/skills/
@@ -774,9 +774,9 @@ cp -r writing-git-commits/ \\
                   </pre>
                 </div>
 
-                <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+                <div className="bg-muted text-foreground p-4 rounded-lg">
                   <h5 className="font-semibold mb-2">Claude API</h5>
-                  <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
+                  <pre className="bg-muted text-foreground p-3 rounded text-sm overflow-x-auto">
                     <code>{`# Zip the skill directory
 zip -r commit-skill.zip \\
   writing-git-commits/
@@ -790,10 +790,10 @@ curl -X POST \\
                 </div>
               </div>
 
-              <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700 mt-4">
+              <div className="bg-muted/50 p-4 rounded-lg border border-green-200 dark:border-green-700 mt-4">
                 <div className="flex items-center gap-2 mb-2">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  <h5 className="font-semibold text-green-800 dark:text-green-200">Test Your Skill</h5>
+                  <h5 className="font-semibold text-foreground">Test Your Skill</h5>
                 </div>
                 <p className="text-sm text-muted-foreground mb-2">
                   After installation, test with the trigger phrases you identified in Step 1:
@@ -919,7 +919,7 @@ curl -X POST \\
               </p>
 
               {/* Available Skills */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+              <div className="bg-muted text-foreground p-4 rounded-lg">
                 <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Community Skills (github/awesome-copilot)</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   <div className="border border-border rounded p-3">
@@ -962,9 +962,9 @@ curl -X POST \\
               </div>
 
               {/* Creating Copilot Skills */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-muted text-foreground p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-3">Creating a Copilot Skill</h4>
-                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-muted text-foreground p-3 rounded text-sm overflow-x-auto">
                   <code>{`# Structure
 skills/
 └── my-skill/
@@ -994,8 +994,8 @@ description: Describe what this skill does and when to use it
               </div>
 
               {/* Make Skill Template */}
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700 mt-4">
-                <h4 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">💡 make-skill-template</h4>
+              <div className="bg-muted/50 p-4 rounded-lg border border-blue-200 dark:border-blue-700 mt-4">
+                <h4 className="font-semibold mb-2 text-foreground">💡 make-skill-template</h4>
                 <p className="text-sm text-muted-foreground">
                   The awesome-copilot repo includes a <code>make-skill-template</code> skill 
                   that helps you create new skills with a guided workflow—pseudo-agentic skill creation!
@@ -1015,25 +1015,25 @@ description: Describe what this skill does and when to use it
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4">
-                  <h5 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">azure-static-web-apps</h5>
+                  <h5 className="font-semibold text-foreground mb-2">azure-static-web-apps</h5>
                   <p className="text-sm text-muted-foreground">
                     Create, test, deploy, and update Azure Static Web Apps with guided workflows.
                   </p>
                 </div>
                 <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4">
-                  <h5 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">azure-role-selector</h5>
+                  <h5 className="font-semibold text-foreground mb-2">azure-role-selector</h5>
                   <p className="text-sm text-muted-foreground">
                     Select appropriate Azure RBAC roles for your deployment scenarios.
                   </p>
                 </div>
                 <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4">
-                  <h5 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">azure-resource-visualizer</h5>
+                  <h5 className="font-semibold text-foreground mb-2">azure-resource-visualizer</h5>
                   <p className="text-sm text-muted-foreground">
                     Generate visual diagrams of Azure resource architectures.
                   </p>
                 </div>
                 <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4">
-                  <h5 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">appinsights-instrumentation</h5>
+                  <h5 className="font-semibold text-foreground mb-2">appinsights-instrumentation</h5>
                   <p className="text-sm text-muted-foreground">
                     Add Application Insights telemetry with language-specific patterns.
                   </p>
@@ -1072,20 +1072,20 @@ description: Describe what this skill does and when to use it
               <h4 className="font-semibold text-lg">Core Principles</h4>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                <div className="bg-muted/50 p-4 rounded-lg border border-green-200 dark:border-green-700">
                   <div className="flex items-center gap-2 mb-2">
                     <CheckCircle className="w-5 h-5 text-green-600" />
-                    <h5 className="font-semibold text-green-800 dark:text-green-200">Concise is Key</h5>
+                    <h5 className="font-semibold text-foreground">Concise is Key</h5>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     The context window is a public good. Only add context the agent doesn't 
                     already have. Challenge each piece: "Does the agent really need this?"
                   </p>
                 </div>
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                <div className="bg-muted/50 p-4 rounded-lg border border-green-200 dark:border-green-700">
                   <div className="flex items-center gap-2 mb-2">
                     <CheckCircle className="w-5 h-5 text-green-600" />
-                    <h5 className="font-semibold text-green-800 dark:text-green-200">Appropriate Degrees of Freedom</h5>
+                    <h5 className="font-semibold text-foreground">Appropriate Degrees of Freedom</h5>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     High freedom for flexible tasks (code review). Low freedom for fragile 
@@ -1096,8 +1096,8 @@ description: Describe what this skill does and when to use it
 
               {/* Good vs Bad Examples */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
-                  <h5 className="font-semibold text-green-800 dark:text-green-200 mb-2">✅ Concise (~50 tokens)</h5>
+                <div className="bg-muted/50 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                  <h5 className="font-semibold text-foreground mb-2">✅ Concise (~50 tokens)</h5>
                   <pre className="bg-green-100 dark:bg-green-800/50 p-2 rounded text-xs overflow-x-auto">
                     <code>{`## Extract PDF text
 
@@ -1112,7 +1112,7 @@ with pdfplumber.open("file.pdf") as pdf:
                   </pre>
                 </div>
                 <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-700">
-                  <h5 className="font-semibold text-red-800 dark:text-red-200 mb-2">❌ Too Verbose (~150 tokens)</h5>
+                  <h5 className="font-semibold text-foreground mb-2">❌ Too Verbose (~150 tokens)</h5>
                   <pre className="bg-red-100 dark:bg-red-800/50 p-2 rounded text-xs overflow-x-auto">
                     <code>{`## Extract PDF text
 
@@ -1128,7 +1128,7 @@ libraries available...`}</code>
               </div>
 
               {/* Description Guidelines */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-6">
+              <div className="bg-muted text-foreground p-4 rounded-lg mt-6">
                 <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Writing Effective Descriptions</h4>
                 <p className="text-sm text-muted-foreground mb-3">
                   The description enables skill discovery. Always write in third person. 
@@ -1151,7 +1151,7 @@ libraries available...`}</code>
               </div>
 
               {/* Naming Conventions */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-muted text-foreground p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Naming Conventions</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Use gerund form (verb + -ing) for skill names. Lowercase letters, numbers, and hyphens only.
@@ -1177,9 +1177,9 @@ libraries available...`}</code>
                 Keep the main file under 500 lines.
               </p>
 
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+              <div className="bg-muted text-foreground p-4 rounded-lg">
                 <h5 className="font-semibold mb-2">Pattern: High-level Guide with References</h5>
-                <pre className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded text-sm overflow-x-auto">
+                <pre className="bg-muted text-foreground p-3 rounded text-sm overflow-x-auto">
                   <code>{`# PDF Processing
 
 ## Quick start
@@ -1195,10 +1195,10 @@ Extract text with pdfplumber: [code example]
                 </p>
               </div>
 
-              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-700 mt-4">
+              <div className="bg-muted/50 p-4 rounded-lg border border-amber-200 dark:border-amber-700 mt-4">
                 <div className="flex items-center gap-2 mb-2">
                   <Warning className="w-5 h-5 text-amber-600" />
-                  <h5 className="font-semibold text-amber-800 dark:text-amber-200">Avoid Deeply Nested References</h5>
+                  <h5 className="font-semibold text-foreground">Avoid Deeply Nested References</h5>
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Keep references one level deep from SKILL.md. The agent may only preview 
@@ -1303,7 +1303,7 @@ Extract text with pdfplumber: [code example]
               </p>
 
               {/* Key Spec Elements */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg">
+              <div className="bg-muted text-foreground p-4 rounded-lg">
                 <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">SKILL.md Frontmatter Requirements</h4>
                 <div className="space-y-3">
                   <div>
@@ -1361,8 +1361,8 @@ Extract text with pdfplumber: [code example]
               </div>
 
               {/* Runtime Environment */}
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700 mt-4">
-                <h4 className="font-semibold mb-2 text-blue-800 dark:text-blue-200">Runtime Environment</h4>
+              <div className="bg-muted/50 p-4 rounded-lg border border-blue-200 dark:border-blue-700 mt-4">
+                <h4 className="font-semibold mb-2 text-foreground">Runtime Environment</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Skills run in a code execution environment with filesystem access, 
                   bash commands, and code execution. The agent navigates skill directories 
@@ -1376,7 +1376,7 @@ Extract text with pdfplumber: [code example]
               </div>
 
               {/* Reference Library */}
-              <div className="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-4 rounded-lg mt-4">
+              <div className="bg-muted text-foreground p-4 rounded-lg mt-4">
                 <h4 className="font-semibold mb-2 text-slate-900 dark:text-slate-100">Reference Implementation</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Use the reference library to validate skills and generate prompt XML:
@@ -1404,8 +1404,8 @@ Extract text with pdfplumber: [code example]
                 capabilities through instructions and code—a malicious skill can direct 
                 agents to invoke tools in harmful ways.
               </p>
-              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
-                <h5 className="font-semibold text-amber-800 dark:text-amber-200 mb-2">Key Considerations</h5>
+              <div className="bg-muted/50 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
+                <h5 className="font-semibold text-foreground mb-2">Key Considerations</h5>
                 <ul className="text-sm text-muted-foreground space-y-1">
                   <li>• <strong>Audit thoroughly:</strong> Review all files including scripts and images</li>
                   <li>• <strong>External sources are risky:</strong> Skills fetching external URLs can be compromised</li>
@@ -1443,3 +1443,12 @@ Extract text with pdfplumber: [code example]
     />
   )
 }
+
+
+
+
+
+
+
+
+

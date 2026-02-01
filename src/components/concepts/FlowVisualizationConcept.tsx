@@ -187,7 +187,7 @@ export default function FlowVisualizationConcept({ onMarkComplete, onNavigateToN
             <CardContent>
               <div className="space-y-4">
                 <div className="bg-muted text-foreground p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     SVG-based Visualization
                   </h4>
                   <p className="text-sm mb-2">
@@ -201,7 +201,7 @@ export default function FlowVisualizationConcept({ onMarkComplete, onNavigateToN
                   </div>
                 </div>
                 <div className="bg-muted text-foreground p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     React Flow
                   </h4>
                   <p className="text-sm mb-2">
@@ -214,7 +214,7 @@ export default function FlowVisualizationConcept({ onMarkComplete, onNavigateToN
                   </div>
                 </div>
                 <div className="bg-muted text-foreground p-4 rounded-lg">
-                  <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Cytoscape.js
                   </h4>
                   <p className="text-sm mb-2">
@@ -516,7 +516,7 @@ const SVGFlowVisualization = ({ agentData }) => {
             <CardContent>
               <div className="space-y-4">
                 <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Common Performance Issues
                   </h4>
                   <ul className="space-y-1 text-sm">
@@ -527,7 +527,7 @@ const SVGFlowVisualization = ({ agentData }) => {
                   </ul>
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Optimization Strategies
                   </h4>
                   <ul className="space-y-1 text-sm">
@@ -561,6 +561,15 @@ const SVGFlowVisualization = ({ agentData }) => {
     />
   )
 }
+
+
+
+
+
+
+
+
+
 
 
 

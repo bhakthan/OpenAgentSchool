@@ -286,7 +286,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
             <CardContent>
               <div className="space-y-4">
                 <div className="bg-muted text-foreground p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     Core SDK
                   </h4>
                   <div className="flex flex-wrap gap-2 mb-2">
@@ -298,7 +298,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                   </p>
                 </div>
                 <div className="bg-muted text-foreground p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     React Hooks
                   </h4>
                   <div className="flex flex-wrap gap-2 mb-2">
@@ -310,7 +310,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
                   </p>
                 </div>
                 <div className="bg-muted text-foreground p-4 rounded-lg">
-                  <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     MCP-UI Reference Implementation
                   </h4>
                   <div className="flex flex-wrap gap-2 mb-2">
@@ -732,6 +732,15 @@ async function submitSelection() {
     />
   )
 }
+
+
+
+
+
+
+
+
+
 
 
 

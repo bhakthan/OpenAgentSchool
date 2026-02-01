@@ -325,7 +325,7 @@ current_response = improved_response`,
           </div>
 
           {/* Current Pattern Info */}
-          <Card className="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+          <Card className="bg-slate-200 dark:bg-slate-800 text-foreground">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg">{currentPattern.title}</CardTitle>
               <CardDescription>{currentPattern.description}</CardDescription>
@@ -548,6 +548,15 @@ current_response = improved_response`,
 };
 
 export default CodeToVisualMapper;
+
+
+
+
+
+
+
+
+
 
 
 

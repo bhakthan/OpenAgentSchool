@@ -137,7 +137,7 @@ const AgentEvaluationConcept = () => {
             <div className="mb-2">
               <strong>Value:</strong> Ensures reliable recommendations, safe interactions, and improved conversion rates.
             </div>
-            <div className="border rounded-md p-4 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+            <div className="border rounded-md p-4 bg-slate-200 dark:bg-slate-800 text-foreground">
               <ul className="list-disc list-inside space-y-1 text-sm">
                 <li>Define evaluation scenarios (e.g., product recommendation accuracy, safety checks)</li>
                 <li>Run automated and human-in-the-loop tests</li>
@@ -168,6 +168,15 @@ const AgentEvaluationConcept = () => {
 };
 
 export default AgentEvaluationConcept;
+
+
+
+
+
+
+
+
+
 
 
 

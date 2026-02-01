@@ -16,8 +16,8 @@ type ThemeProviderState = {
 };
 
 const initialState: ThemeProviderState = {
-  theme: "light",
-  isDarkMode: false,
+  theme: "dark",
+  isDarkMode: true,
   setTheme: () => null,
   toggleTheme: () => null,
 };

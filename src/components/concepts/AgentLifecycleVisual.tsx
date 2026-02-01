@@ -750,7 +750,7 @@ class MetaLearner {
                   </div>
                   <div>
                     <h5 className="font-medium text-amber-900 dark:text-amber-100 mb-1">Quick Tip</h5>
-                    <p className="text-sm text-amber-800 dark:text-amber-200">
+                    <p className="text-sm text-foreground">
                       Try clicking the other "?" buttons to explore different aspects of the agent lifecycle. 
                       Each step builds upon the previous ones to create intelligent, adaptive behavior.
                     </p>
@@ -766,6 +766,15 @@ class MetaLearner {
 };
 
 export default AgentLifecycleVisual;
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1167,7 +1167,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                       <div className="space-y-3 text-lg">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <h4 className="font-medium text-amber-800 dark:text-amber-200 mb-2">Context Sourcing</h4>
+                            <h4 className="font-medium text-foreground mb-2">Context Sourcing</h4>
                             <ul className="space-y-1 text-muted-foreground">
                               <li>• Poll multiple specialized agents via A2A protocol</li>
                               <li>• Access secure tools through MCP authentication</li>
@@ -1176,7 +1176,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                             </ul>
                           </div>
                           <div>
-                            <h4 className="font-medium text-amber-800 dark:text-amber-200 mb-2">Context Engineering</h4>
+                            <h4 className="font-medium text-foreground mb-2">Context Engineering</h4>
                             <ul className="space-y-1 text-muted-foreground">
                               <li>• Re-rank results for relevance and importance</li>
                               <li>• Summarize verbose documents intelligently</li>
@@ -1186,7 +1186,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                           </div>
                         </div>
                         <div className="bg-amber-100 dark:bg-amber-800/30 p-3 rounded-md mt-4">
-                          <p className="text-base font-medium text-amber-800 dark:text-amber-200">
+                          <p className="text-base font-medium text-foreground">
                             Result: A precision-engineered, clean, and potent prompt that generates superior answers
                           </p>
                         </div>
@@ -1262,7 +1262,7 @@ const A2AMultiAgentSystem: React.FC = () => {
               >
                 <Card className="border-blue-200 dark:border-blue-800">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-blue-800 dark:text-blue-200 flex items-center gap-2">
+                    <CardTitle className="text-foreground flex items-center gap-2">
                       <Users className="w-4 h-4" />
                       A2A Protocol
                     </CardTitle>
@@ -1404,7 +1404,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                   <Card className="border-blue-200 dark:border-blue-800">
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-blue-800 dark:text-blue-200 text-lg">
+                      <CardTitle className="text-foreground text-lg">
                         Customer Service Agent
                       </CardTitle>
                       <p className="text-lg text-muted-foreground">Azure AI - Primary orchestrator</p>
@@ -1497,6 +1497,15 @@ const A2AMultiAgentSystem: React.FC = () => {
 };
 
 export default A2AMultiAgentSystem;
+
+
+
+
+
+
+
+
+
 
 
 

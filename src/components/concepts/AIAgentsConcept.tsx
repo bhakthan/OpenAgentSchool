@@ -73,7 +73,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="border border-red-200 dark:border-red-800 rounded-lg p-4">
-                  <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">Traditional AI/Chatbots</h4>
+                  <h4 className="font-semibold text-foreground mb-2">Traditional AI/Chatbots</h4>
                   <ul className="space-y-1 text-lg">
                     <li>• Reactive - responds to specific inputs</li>
                     <li>• Limited to predefined workflows</li>
@@ -83,7 +83,7 @@ export default function AIAgentsConcept({ onMarkComplete, onNavigateToNext }: AI
                   </ul>
                 </div>
                 <div className="border border-green-200 dark:border-green-800 rounded-lg p-4">
-                  <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">AI Agents</h4>
+                  <h4 className="font-semibold text-foreground mb-2">AI Agents</h4>
                   <ul className="space-y-1 text-lg">
                     <li>• Proactive - can initiate actions</li>
                     <li>• Flexible planning and execution</li>
@@ -304,7 +304,7 @@ class SimpleAgent {
             <CardContent>
               <div className="space-y-4">
                 <div className={conceptSurfaceSoft("p-4 space-y-2 border border-green-200/60 dark:border-green-500/40")}>
-                  <h4 className="font-semibold text-green-800 dark:text-green-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     ✅ Do's
                   </h4>
                   <ul className="space-y-1 text-lg">
@@ -315,7 +315,7 @@ class SimpleAgent {
                   </ul>
                 </div>
                 <div className={conceptSurfaceSoft("p-4 space-y-2 border border-red-200/60 dark:border-red-500/40")}>
-                  <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
+                  <h4 className="font-semibold text-foreground mb-2">
                     ❌ Don'ts
                   </h4>
                   <ul className="space-y-1 text-lg">
@@ -349,6 +349,15 @@ class SimpleAgent {
     />
   )
 }
+
+
+
+
+
+
+
+
+
 
 
 

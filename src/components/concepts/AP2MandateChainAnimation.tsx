@@ -161,3 +161,12 @@ export const AP2MandateChainAnimation:React.FC<Props>=({autoPlay=false,intervalM
 };
 
 export default AP2MandateChainAnimation;
+
+
+
+
+
+
+
+
+

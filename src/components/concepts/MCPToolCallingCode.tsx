@@ -242,7 +242,7 @@ if __name__ == "__main__":
     <div className="space-y-6">
     <Card className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900 dark:to-green-900 border-blue-200 dark:border-blue-700">
     <CardHeader>
-        <CardTitle className="text-blue-800 dark:text-blue-200">Complete Implementation Examples</CardTitle>
+        <CardTitle className="text-foreground">Complete Implementation Examples</CardTitle>
         <CardDescription className="text-blue-700 dark:text-blue-300">
         Production-ready MCP server and client code with error handling, logging, and advanced features
         </CardDescription>
@@ -319,3 +319,12 @@ if __name__ == "__main__":
     </div>
   );
 }
+
+
+
+
+
+
+
+
+

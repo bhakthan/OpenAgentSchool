@@ -51,7 +51,7 @@ const Agent2AgentProtocolExplainer = () => {
               </div>
               <div className="space-y-4 flex-1">
                 <div>
-                  <h3 className="text-lg font-bold text-emerald-800 dark:text-emerald-200">🍳 The Restaurant Kitchen Analogy</h3>
+                  <h3 className="text-lg font-bold text-foreground">🍳 The Restaurant Kitchen Analogy</h3>
                   <p className="text-sm text-muted-foreground mt-1">The simplest way to understand A2A and MCP</p>
                 </div>
                 
@@ -65,7 +65,7 @@ const Agent2AgentProtocolExplainer = () => {
                       The <strong>head chef</strong> delegates to the <strong>sous chef</strong>, who coordinates with the <strong>pastry chef</strong>. 
                       They communicate using professional kitchen language ("Fire table 5!", "Behind you!").
                     </p>
-                    <div className="mt-2 text-xs bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 px-2 py-1 rounded">
+                    <div className="mt-2 text-xs bg-orange-100 dark:bg-orange-900/30 text-foreground px-2 py-1 rounded">
                       Agent → Agent collaboration
                     </div>
                   </div>
@@ -79,7 +79,7 @@ const Agent2AgentProtocolExplainer = () => {
                       Each chef uses their <strong>specific tools</strong>: the grill, the mixer, the oven. 
                       They know how to operate their equipment safely and efficiently.
                     </p>
-                    <div className="mt-2 text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
+                    <div className="mt-2 text-xs bg-blue-100 dark:bg-blue-900/30 text-foreground px-2 py-1 rounded">
                       Agent → Tool connection
                     </div>
                   </div>
@@ -88,7 +88,7 @@ const Agent2AgentProtocolExplainer = () => {
                 <div className="p-4 rounded-lg bg-gradient-to-r from-orange-100 to-blue-100 dark:from-orange-900/20 dark:to-blue-900/20 border border-emerald-200 dark:border-emerald-700">
                   <div className="flex items-center gap-2 mb-2">
                     <ArrowsLeftRight className="w-5 h-5 text-purple-600" weight="duotone" />
-                    <h4 className="font-semibold text-sm text-purple-800 dark:text-purple-200">Together: A Functioning Kitchen</h4>
+                    <h4 className="font-semibold text-sm text-foreground">Together: A Functioning Kitchen</h4>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     The <strong>head chef (coordinator agent)</strong> receives an order and uses <strong>A2A</strong> to delegate: 
@@ -106,7 +106,7 @@ const Agent2AgentProtocolExplainer = () => {
               <CardContent className="pt-4">
                 <div className="text-center space-y-2">
                   <Users className="w-8 h-8 mx-auto text-orange-600" weight="duotone" />
-                  <h4 className="font-bold text-orange-800 dark:text-orange-200">A2A</h4>
+                  <h4 className="font-bold text-foreground">A2A</h4>
                   <p className="text-xs text-muted-foreground">Agent ↔ Agent</p>
                   <p className="text-sm">"Hey Research Agent, can you look this up for me?"</p>
                 </div>
@@ -117,7 +117,7 @@ const Agent2AgentProtocolExplainer = () => {
               <CardContent className="pt-4">
                 <div className="text-center space-y-2">
                   <Toolbox className="w-8 h-8 mx-auto text-blue-600" weight="duotone" />
-                  <h4 className="font-bold text-blue-800 dark:text-blue-200">MCP</h4>
+                  <h4 className="font-bold text-foreground">MCP</h4>
                   <p className="text-xs text-muted-foreground">Agent → Tool</p>
                   <p className="text-sm">"Database, give me all orders from last week"</p>
                 </div>
@@ -128,7 +128,7 @@ const Agent2AgentProtocolExplainer = () => {
               <CardContent className="pt-4">
                 <div className="text-center space-y-2">
                   <ArrowsLeftRight className="w-8 h-8 mx-auto text-purple-600" weight="duotone" />
-                  <h4 className="font-bold text-purple-800 dark:text-purple-200">Together</h4>
+                  <h4 className="font-bold text-foreground">Together</h4>
                   <p className="text-xs text-muted-foreground">Complementary</p>
                   <p className="text-sm">A2A agent uses MCP to access its tools internally</p>
                 </div>
@@ -884,6 +884,15 @@ Content-Type: application/a2a+json`}
 };
 
 export default Agent2AgentProtocolExplainer;
+
+
+
+
+
+
+
+
+
 
 
 

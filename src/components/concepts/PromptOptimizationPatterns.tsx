@@ -240,7 +240,7 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
                   <p className="mt-2 text-muted-foreground">Introduce versioning & diff tests to prevent silent regressions.</p>
                 </div>
               </div>
-              <div className="p-4 rounded-md bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-sm">
+              <div className="p-4 rounded-md bg-slate-200 dark:bg-slate-800 text-foreground text-sm">
                 <strong>Usage Flow:</strong> 1) Start with this map to classify failures. 2) Apply targeted pattern tabs (Contradictions → Specificity → Constraints → Examples). 3) Re-evaluate using your agent test harness. 4) Track resolved defect categories to avoid regression.
               </div>
             </CardContent>
@@ -271,7 +271,7 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
                 <div className="space-y-4">
                   <div className="p-4 border-2 border-red-200 dark:border-red-800 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                     <h4 className="font-semibold text-red-700 dark:text-red-400 mb-3">❌ Problematic (Before)</h4>
-                    <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded mb-3 whitespace-pre-wrap">
+                    <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-foreground p-3 rounded mb-3 whitespace-pre-wrap">
 {`"Prefer the standard library; use external packages if they make things simpler.
 
 Stream input in one pass to keep memory low; reread or cache if that makes the solution clearer.
@@ -292,7 +292,7 @@ Aim for exact results; approximate methods are fine when they don't change the o
                 <div className="space-y-4">
                   <div className="p-4 border-2 border-green-200 dark:border-green-800 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                     <h4 className="font-semibold text-green-700 dark:text-green-400 mb-3">✅ Optimized (After)</h4>
-                    <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 p-3 rounded mb-3 whitespace-pre-wrap">
+                    <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-foreground p-3 rounded mb-3 whitespace-pre-wrap">
 {`"Use only Python stdlib. No external dependencies.
 
 Do NOT materialize the entire token stream. Process data in a single pass using generators.
@@ -339,7 +339,7 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="p-4 border rounded-lg">
                   <Badge className="mb-2 ring-1 bg-[var(--badge-red-bg)] ring-[var(--badge-red-ring)] text-[var(--badge-red-text)]">Vague</Badge>
-                  <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 rounded mb-2">
+                  <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-foreground dark:bg-slate-800 rounded mb-2">
                     "Keep it fast and lightweight"
                   </code>
                   <p className="text-sm text-muted-foreground">
@@ -348,7 +348,7 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
                 </div>
                 <div className="p-4 border rounded-lg">
                   <Badge className="mb-2 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Better</Badge>
-                  <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 rounded mb-2">
+                  <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-foreground dark:bg-slate-800 rounded mb-2">
                     "Optimize for speed and memory usage"
                   </code>
                   <p className="text-sm text-muted-foreground">
@@ -357,7 +357,7 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
                 </div>
                 <div className="p-4 border rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                   <Badge className="mb-2 ring-1 bg-[var(--badge-green-bg)] ring-[var(--badge-green-ring)] text-[var(--badge-green-text)]">Specific</Badge>
-                  <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 rounded mb-2">
+                  <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-foreground dark:bg-slate-800 rounded mb-2">
                     "Target peak memory O(k), runtime O(N + U log k)"
                   </code>
                   <p className="text-sm text-muted-foreground">
@@ -369,7 +369,7 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
               <div className="grid lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <h4 className="font-semibold">Before: Vague Requirements</h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 p-3 rounded">
+                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-foreground dark:bg-slate-800 p-3 rounded">
                     "Sort results in a natural, human-friendly way; follow strict tie rules when applicable."
                   </code>
                   <div className="text-sm text-red-600 dark:text-red-400">
@@ -384,7 +384,7 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
 
                 <div className="space-y-4">
                   <h4 className="font-semibold">After: Precise Specifications</h4>
-                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 p-3 rounded">
+                  <code className="text-sm block bg-slate-200 dark:bg-slate-800 text-foreground dark:bg-slate-800 p-3 rounded">
                     "Sort by count desc, then token asc. Use key=lambda kv: (-kv[1], kv[0]) for exact ordering."
                   </code>
                   <div className="text-sm text-green-600 dark:text-green-400">
@@ -516,13 +516,13 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
                     <div className="space-y-2">
                       <div>
                         <Badge className="mb-1 ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Instruction</Badge>
-                        <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded">
+                        <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-foreground rounded">
                           "Use only standard library. No external packages."
                         </code>
                       </div>
                       <div>
                         <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Example</Badge>
-                        <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded">
+                        <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-foreground rounded">
                           import pandas as pd  # External dependency!
                         </code>
                       </div>
@@ -537,13 +537,13 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
                     <div className="space-y-2">
                       <div>
                         <Badge className="mb-1 ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)]">Instruction</Badge>
-                        <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded">
+                        <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-foreground rounded">
                           "Use only standard library. No external packages."
                         </code>
                       </div>
                       <div>
                         <Badge className="mb-1 ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)]">Example</Badge>
-                        <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded">
+                        <code className="text-xs block p-2 bg-slate-200 dark:bg-slate-800 text-foreground rounded">
                           import re, heapq
                           from collections import Counter
                         </code>
@@ -610,7 +610,7 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
               <div className="text-xs text-muted-foreground mt-1">4.73 → 4.90/5</div>
             </div>
           </div>
-          <div className="mt-4 p-4 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:bg-slate-800 rounded-lg text-sm">
+          <div className="mt-4 p-4 bg-slate-200 dark:bg-slate-800 text-foreground dark:bg-slate-800 rounded-lg text-sm">
             <strong>Key Insight:</strong> Even when baseline performance is good (100% accuracy), 
             optimization can significantly improve efficiency and code quality through clearer constraints and examples.
           </div>
@@ -643,6 +643,15 @@ Compute exact Top-K results using bounded min-heap. No approximate algorithms."`
 };
 
 export default PromptOptimizationPatterns;
+
+
+
+
+
+
+
+
+
 
 
 

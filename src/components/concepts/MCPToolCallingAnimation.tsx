@@ -406,7 +406,7 @@ return final_answer`,
       </CardHeader>
       <CardContent>
         <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-lg mb-4">
-        <p className="text-base text-blue-800 dark:text-blue-200 text-center">
+        <p className="text-base text-foreground text-center">
             <strong>Scenario:</strong> User asks, "How much is an iPhone 15 Pro Max?"
         </p>
         </div>
@@ -628,7 +628,7 @@ return final_answer`,
 
         <div className="mt-6 p-4 bg-blue-100 dark:bg-blue-900 rounded-lg">
           <div className="space-y-3">
-            <p className="text-sm text-blue-800 dark:text-blue-200">
+            <p className="text-sm text-foreground">
               <strong>Interactive Learning Experience:</strong> This synchronized view shows exactly how each animation step corresponds to real code implementation. You have full control over the learning pace!
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-blue-700 dark:text-blue-300">
@@ -648,3 +648,12 @@ return final_answer`,
     </Card>
   );
 }
+
+
+
+
+
+
+
+
+

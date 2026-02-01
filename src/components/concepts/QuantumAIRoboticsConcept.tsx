@@ -308,7 +308,7 @@ export default function QuantumAIRoboticsConcept({ onMarkComplete, onNavigateToN
                 <h4 className="font-semibold text-amber-900 dark:text-amber-100 mb-2">
                   ⚡ Key Insight
                 </h4>
-                <p className="text-sm text-amber-800 dark:text-amber-300">
+                <p className="text-sm text-foreground">
                   Quantum doesn't make everything faster—it reshapes specific problem structures. The advantage appears 
                   in combinatorial optimization, high-dimensional search, and complex sampling tasks common in robotics.
                 </p>
@@ -540,7 +540,7 @@ print(qc.draw())
                 <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2 text-sm">
                   What's Happening?
                 </h4>
-                <ul className="space-y-2 text-xs text-blue-800 dark:text-blue-300">
+                <ul className="space-y-2 text-xs text-foreground">
                   <li>
                     <strong>Hadamard (H):</strong> Puts qubit 0 into superposition: (|0⟩ + |1⟩)/√2
                   </li>
@@ -751,7 +751,7 @@ result = sampler.sample(bqm)
                       <p className="text-xs text-green-900 dark:text-green-100 mb-3">
                         <strong>Challenge:</strong> Classify object texture from high-dimensional tactile sensor array (256 sensors)
                       </p>
-                      <p className="text-xs text-green-800 dark:text-green-300 mb-2">
+                      <p className="text-xs text-foreground mb-2">
                         <strong>VQC Advantage:</strong> Quantum feature space can represent 2^n correlations with n qubits
                       </p>
                       <div className="text-xs space-y-1 text-green-700 dark:text-green-400">
@@ -814,7 +814,7 @@ for epoch in range(100):
                     </p>
                     <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
                       <h4 className="font-semibold text-sm mb-2 text-blue-900 dark:text-blue-100">Key Idea</h4>
-                      <p className="text-xs text-blue-800 dark:text-blue-300">
+                      <p className="text-xs text-foreground">
                         Quantum feature map: x → |φ(x)⟩<br/>
                         Kernel: K(x,y) = |⟨φ(x)|φ(y)⟩|²<br/>
                         Computed via quantum circuit overlap measurement
@@ -953,7 +953,7 @@ for epoch in range(100):
                 <h4 className="font-semibold text-purple-900 dark:text-purple-100 mb-2">
                   Why Quantum Sensors?
                 </h4>
-                <p className="text-sm text-purple-800 dark:text-purple-300">
+                <p className="text-sm text-foreground">
                   Classical sensors are limited by shot noise and thermal fluctuations. Quantum sensors use 
                   superposition and entanglement to achieve sensitivity approaching the <strong>Heisenberg limit</strong>—
                   surpassing the standard quantum limit by orders of magnitude.
@@ -1059,7 +1059,7 @@ for epoch in range(100):
                     <h4 className="font-semibold text-sm mb-3 text-blue-900 dark:text-blue-100">
                       Case Study: Mining Robot
                     </h4>
-                    <div className="space-y-3 text-xs text-blue-800 dark:text-blue-300">
+                    <div className="space-y-3 text-xs text-foreground">
                       <div>
                         <strong>Scenario:</strong> Navigate 2km tunnel, no GPS/comms
                       </div>
@@ -1223,7 +1223,7 @@ for epoch in range(100):
                   <h4 className="font-semibold text-sm mb-2 text-amber-900 dark:text-amber-100">
                     Integration Challenges
                   </h4>
-                  <ul className="space-y-2 text-xs text-amber-800 dark:text-amber-300">
+                  <ul className="space-y-2 text-xs text-foreground">
                     <li>• <strong>Calibration:</strong> Cross-calibrate quantum and classical sensor frames</li>
                     <li>• <strong>Timing:</strong> Synchronize sensors with different sampling rates (quantum: kHz, LiDAR: 10Hz)</li>
                     <li>• <strong>Noise Models:</strong> Quantum sensors have different noise characteristics (shot noise vs. thermal)</li>
@@ -1469,3 +1469,12 @@ for epoch in range(100):
     />
   )
 }
+
+
+
+
+
+
+
+
+
