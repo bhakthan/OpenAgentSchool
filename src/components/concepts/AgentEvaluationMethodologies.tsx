@@ -131,6 +131,20 @@ const AgentEvaluationMethodologies: React.FC<AgentEvaluationMethodologiesProps> 
 
   <EvaluationDashboardVisual />
 
+      {/* Agent Evaluation Visual Overview */}
+      <Card>
+        <CardContent className="pt-6">
+          <img 
+            src="/images/agent_evaluation.png" 
+            alt="Agent Evaluation Framework - comprehensive visual guide to evaluating AI agents across multiple dimensions"
+            className="w-full max-w-4xl mx-auto rounded-lg border shadow-sm"
+          />
+          <p className="text-xs text-muted-foreground text-center mt-3">
+            Visual overview of agent evaluation dimensions and methodologies
+          </p>
+        </CardContent>
+      </Card>
+
       {/* Evaluation Framework Overview */}
       <Card>
         <CardHeader>
