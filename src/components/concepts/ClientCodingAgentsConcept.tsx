@@ -66,6 +66,160 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
             </CardContent>
           </Card>
 
+          {/* Anatomy of a CLI Coding Agent */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Robot className="w-5 h-5" />
+                Anatomy of a CLI Coding Agent
+              </CardTitle>
+              <CardDescription>
+                End-to-end view of what happens behind the terminal
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <p className="text-lg leading-relaxed">
+                  When you type a prompt in a CLI coding agent, a sophisticated pipeline activates. 
+                  This diagram shows the full architecture—from your terminal input through the agentic 
+                  loop to code execution and back.
+                </p>
+                <div className="border border-border rounded-lg overflow-hidden">
+                  <img 
+                    src="/images/Anatomy_of_a_CLI_Coding_Agent.png" 
+                    alt="Anatomy of a CLI Coding Agent - showing the end-to-end flow from terminal input through the agentic loop, tool execution, and response generation" 
+                    className="w-full"
+                  />
+                </div>
+                <div className="bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-900/20 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <h4 className="font-semibold mb-2">Key Components</h4>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
+                      <span><strong>CLI Interface:</strong> Your terminal entry point</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-2 h-2 rounded-full bg-purple-500 mt-2"></span>
+                      <span><strong>Agentic Loop:</strong> Plan → Execute → Observe → Reflect</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-2 h-2 rounded-full bg-green-500 mt-2"></span>
+                      <span><strong>Tool System:</strong> MCP servers, file ops, shell commands</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-2 h-2 rounded-full bg-orange-500 mt-2"></span>
+                      <span><strong>LLM Backend:</strong> Cloud or local model inference</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Local Intelligence vs Cloud RAG */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Lightning className="w-5 h-5" />
+                Local Intelligence Beats Cloud RAG
+              </CardTitle>
+              <CardDescription>
+                HOW beats WHAT — Why local agentic search outperforms cloud embeddings
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg leading-relaxed">
+                Imagine working on a huge coding project with thousands of files. You need AI help, 
+                but you don't want to upload your entire codebase to the cloud. <strong>Local Agentic Search</strong> to 
+                the rescue—everything happens on your own machine.
+              </p>
+
+              {/* Three Techniques */}
+              <div className="space-y-4">
+                {/* Grep */}
+                <div className="border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                  <h4 className="font-semibold flex items-center gap-2 mb-2">
+                    <span className="text-blue-600 dark:text-blue-400">1.</span> Grep (The Speed Reader)
+                    <Badge variant="secondary" className="text-xs">Since 1970s</Badge>
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Super-fast text search on steroids. Instantly searches thousands of files for exact text matches.
+                  </p>
+                  <div className="bg-muted/50 p-3 rounded text-sm">
+                    <strong>Example:</strong> Ask "Where do we handle user login?" → grep searches for "login", 
+                    "authenticate", "signin" across your entire project in milliseconds. No preprocessing, 
+                    no embeddings, no cloud uploads.
+                  </div>
+                </div>
+
+                {/* AST */}
+                <div className="border border-purple-200 dark:border-purple-800 rounded-lg p-4">
+                  <h4 className="font-semibold flex items-center gap-2 mb-2">
+                    <span className="text-purple-600 dark:text-purple-400">2.</span> AST (The Code Understander)
+                    <Badge variant="secondary" className="text-xs">Structure-Aware</Badge>
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Abstract Syntax Tree parsing understands code structure—it knows what's a function, class, or variable.
+                  </p>
+                  <div className="bg-muted/50 p-3 rounded text-sm">
+                    <strong>Think of it:</strong> If code was a sentence, grep looks at individual words, 
+                    but AST understands grammar—it knows which words are nouns, verbs, subjects, and objects.
+                  </div>
+                </div>
+
+                {/* Agentic Search */}
+                <div className="border border-green-200 dark:border-green-800 rounded-lg p-4">
+                  <h4 className="font-semibold flex items-center gap-2 mb-2">
+                    <span className="text-green-600 dark:text-green-400">3.</span> Agentic Search (The Smart Explorer)
+                    <Badge variant="secondary" className="text-xs">Multi-Step</Badge>
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    "Agentic" means it makes decisions and takes actions on its own, step-by-step:
+                  </p>
+                  <div className="bg-muted/50 p-3 rounded text-sm space-y-1">
+                    <p>"Let me first grep for 'payment' to find relevant files"</p>
+                    <p>"Found 15 files. Let me use AST to understand PaymentProcessor class"</p>
+                    <p>"I see this calls another module. Let me search that too"</p>
+                    <p>"Now let me trace through the function calls to understand the flow"</p>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Like having a detective who follows clues—each search result informs what to search next.
+                  </p>
+                </div>
+              </div>
+
+              {/* Why This Matters */}
+              <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
+                <h4 className="font-semibold mb-3">Why This Matters (The Big Picture)</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <strong className="text-amber-700 dark:text-amber-400">🔒 Privacy</strong>
+                    <p className="text-sm text-muted-foreground mt-1">Your code never leaves your computer. Period.</p>
+                  </div>
+                  <div>
+                    <strong className="text-amber-700 dark:text-amber-400">⚡ Speed</strong>
+                    <p className="text-sm text-muted-foreground mt-1">No network latency—runs at the speed of your local drive and CPU.</p>
+                  </div>
+                  <div>
+                    <strong className="text-amber-700 dark:text-amber-400">🎯 Precision</strong>
+                    <p className="text-sm text-muted-foreground mt-1">AST understands structure, fewer false positives than "sounds similar" embeddings.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Technical Reason */}
+              <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <h4 className="font-semibold mb-2">Technical Insight: "Aboutness" vs Structure</h4>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Embeddings encode semantics, not relationships.</strong> They tell you WHAT something is about, 
+                  but not HOW it connects. RAG retrieves the top-K "similar" chunks (O(K) relevance), while 
+                  agentic search can trace exact call graphs, imports, and dependencies (O(1) precision). 
+                  For code understanding, structure beats similarity.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* The Four Providers */}
           <Card>
             <CardHeader>
