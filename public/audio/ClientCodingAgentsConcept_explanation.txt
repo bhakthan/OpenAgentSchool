@@ -1,115 +1,16 @@
-# Client Coding Agents: Terminal-Native AI Development
+ClientCodingAgentsConcept Explanation
+--------------------------------------------------------------------------------
 
-## BEGINNER
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to CLI Coding Agents! Let me explain this in simple terms. Think about how you normally get help from AI when coding. You probably use an IDE extension like GitHub Copilot in VS Code, or maybe you chat with Claude or ChatGPT in a browser. That's been the standard approach—but in 2026, something exciting has emerged. CLI Coding Agents bring AI directly into your terminal—the command line. Instead of switching between your code editor and a chat window, you can talk to an AI right where you run your commands. Imagine typing a message like: "Hey, help me fix the bug in my authentication code"—and the AI reads your files, understands the problem, and makes the fix, all from your terminal. There are four main CLI agents you should know about: First, GitHub Copilot CLI. This is GitHub's terminal agent. It connects directly to your repositories, issues, and pull requests. You can ask it things like "create a new feature branch and start implementing the login page." Second, Claude Code from Anthropic. This one has powerful features like Plan Mode, where it thinks through complex tasks before acting. It also has a Skills system—reusable expertise you can load on demand. Third, OpenAI Codex CLI. This is open source, built in Rust for speed. It works with both OpenAI and Azure, and has nice features like approval modes where you can review changes before they happen. Fourth, Gemini CLI from Google. Also open source, with Apache 2.0 licensing. It has a massive 1 million token context window and includes Google Search for grounding its responses in real information. All four support something called MCP—the Model Context Protocol—which lets them connect to databases, APIs, and other tools. The key takeaway? CLI agents meet you where you already work. No more switching between windows. Just talk to your terminal, and the AI handles the rest.
 
-Welcome to CLI Coding Agents! Let me explain this in simple terms.
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Now let's go deeper into CLI Coding Agents and understand what makes each one unique. All four major agents share a common architecture: they're terminal-native, meaning they operate in your shell environment. They can read and write files, run commands, and maintain conversation context across sessions. Let's break down the key differentiators: Context Files—each agent has its own "memory file" for project context. Copilot CLI looks for AGENTS.md and respects CLAUDE.md and GEMINI.md too. Claude Code uses CLAUDE.md. Codex CLI uses AGENTS.md. Gemini CLI uses GEMINI.md. These files tell the agent about your project—architecture decisions, coding conventions, and any special instructions. MCP Support: All four have full MCP support, meaning you can connect them to MCP servers for databases, file systems, APIs, and custom tools. This is crucial for production use. Skills Systems: Three of the four—Copilot, Claude Code, and Gemini—support SKILL.md files. These are modular expertise packages that load on demand. Instead of dumping all your project context into every conversation, skills activate only when relevant. Sandboxing is where they differ significantly: Claude Code has OS-level sandboxing—it runs commands in isolated containers. Copilot CLI has limited sandboxing. Codex CLI recommends using WSL for isolation. Gemini CLI requires manual sandboxing setup. For the Copilot SDK specifically, there are six production patterns you should master: First, Error Handling—production apps need graceful failures with try-catch and fallback logic. Second, Multiple Sessions—run parallel AI conversations with different models, great for A/B testing or multi-user apps. Third, File Management—let AI organize files semantically based on content, not just names. Fourth, Event Streaming—handle real-time tool execution feedback as the agent works. Fifth, Context Management—persist conversation history across sessions. Sixth, Parallel Orchestration—coordinate multiple agent tasks efficiently. The hybrid local plus cloud model is particularly important. Long-running autonomous tasks can run in the cloud while you maintain local control and visibility. This is the sweet spot for production AI agents.
 
-Think about how you normally get help from AI when coding. You probably use an IDE extension like GitHub Copilot in VS Code, or maybe you chat with Claude or ChatGPT in a browser. That's been the standard approach—but in 2026, something exciting has emerged.
-
-CLI Coding Agents bring AI directly into your terminal—the command line. Instead of switching between your code editor and a chat window, you can talk to an AI right where you run your commands.
-
-Imagine typing a message like: "Hey, help me fix the bug in my authentication code"—and the AI reads your files, understands the problem, and makes the fix, all from your terminal.
-
-There are four main CLI agents you should know about:
-
-First, GitHub Copilot CLI. This is GitHub's terminal agent. It connects directly to your repositories, issues, and pull requests. You can ask it things like "create a new feature branch and start implementing the login page."
-
-Second, Claude Code from Anthropic. This one has powerful features like Plan Mode, where it thinks through complex tasks before acting. It also has a Skills system—reusable expertise you can load on demand.
-
-Third, OpenAI Codex CLI. This is open source, built in Rust for speed. It works with both OpenAI and Azure, and has nice features like approval modes where you can review changes before they happen.
-
-Fourth, Gemini CLI from Google. Also open source, with Apache 2.0 licensing. It has a massive 1 million token context window and includes Google Search for grounding its responses in real information.
-
-All four support something called MCP—the Model Context Protocol—which lets them connect to databases, APIs, and other tools.
-
-The key takeaway? CLI agents meet you where you already work. No more switching between windows. Just talk to your terminal, and the AI handles the rest.
-
-## INTERMEDIATE
-
-Now let's go deeper into CLI Coding Agents and understand what makes each one unique.
-
-All four major agents share a common architecture: they're terminal-native, meaning they operate in your shell environment. They can read and write files, run commands, and maintain conversation context across sessions.
-
-Let's break down the key differentiators:
-
-Context Files: Each agent has its own "memory file" for project context:
-- Copilot CLI looks for AGENTS.md (and respects CLAUDE.md, GEMINI.md too)
-- Claude Code uses CLAUDE.md
-- Codex CLI uses AGENTS.md
-- Gemini CLI uses GEMINI.md
-
-These files tell the agent about your project—architecture decisions, coding conventions, and any special instructions.
-
-MCP Support: All four have full MCP support, meaning you can connect them to MCP servers for databases, file systems, APIs, and custom tools. This is crucial for production use.
-
-Skills Systems: Three of the four—Copilot, Claude Code, and Gemini—support SKILL.md files. These are modular expertise packages that load on demand. Instead of dumping all your project context into every conversation, skills activate only when relevant.
-
-Sandboxing is where they differ significantly:
-- Claude Code has OS-level sandboxing—it runs commands in isolated containers
-- Copilot CLI has limited sandboxing
-- Codex CLI recommends using WSL for isolation
-- Gemini CLI requires manual sandboxing setup
-
-For the Copilot SDK specifically, there are six production patterns you should master:
-
-1. Error Handling: Production apps need graceful failures with try-catch and fallback logic.
-
-2. Multiple Sessions: Run parallel AI conversations with different models—great for A/B testing or multi-user apps.
-
-3. File Management: Let AI organize files semantically based on content, not just names.
-
-4. Event Streaming: Handle real-time tool execution feedback as the agent works.
-
-5. Context Management: Persist conversation history across sessions.
-
-6. Parallel Orchestration: Coordinate multiple agent tasks efficiently.
-
-The hybrid local+cloud model is particularly important. Long-running autonomous tasks can run in the cloud while you maintain local control and visibility. This is the sweet spot for production AI agents.
-
-## ADVANCED
-
-Let's examine CLI Coding Agents from a systems architecture perspective and explore advanced orchestration patterns.
-
-The 2026 shift to CLI agents reflects a broader industry trend: moving from reactive IDE assistants to proactive, autonomous agents. The terminal provides a natural execution environment because it already has process management, I/O streams, and security primitives built in.
-
-The Copilot SDK exemplifies this evolution. While the CLI is for interactive sessions, the SDK enables building production applications. The key architectural difference is the client-server model—the SDK starts a local server process that manages agent sessions.
-
-Consider the session lifecycle:
-1. Client initialization with CopilotClient()
-2. Server process spawn with client.start()
-3. Session creation with model selection
-4. Event-driven communication via on() handlers
-5. Graceful cleanup with context managers
-
-The event streaming architecture is particularly elegant. Events flow as structured JSON with types like "assistant.message", "tool.execution_start", and "tool.execution_complete". This enables:
-- Real-time progress feedback
-- Partial response streaming
-- Interruptible operations
-- State machine implementations
-
-For enterprise deployments, consider these patterns:
-
-Multi-tenant session isolation: Each user gets an independent session with separate conversation context. The SDK handles this with session objects that maintain isolated state.
-
-Model routing: Use multiple sessions with different models for task-specific optimization. Route coding tasks to Claude Sonnet 4.5, documentation to GPT-5, and security analysis to specialized fine-tuned models.
-
-Error recovery strategies: Implement exponential backoff for rate limits, circuit breakers for persistent failures, and fallback chains across providers.
-
-The MCP integration layer deserves attention. CLI agents typically expose a local MCP server that other tools can connect to. This inverts the usual pattern—instead of the agent calling tools, external systems can observe and control agent behavior through standardized protocols.
-
-Sandboxing architectures vary by platform:
-- macOS: App Sandbox with strict entitlements
-- Linux: Docker containers or firejail
-- Windows: WSL2 with isolated distros
-
-Claude Code's container-based execution is the gold standard for security. Commands run in disposable containers with no network access by default, explicit filesystem mounts, and resource limits.
-
-For CI/CD integration, all four agents support non-interactive modes with JSON output. This enables:
-- Automated code review in pull request pipelines
-- Documentation generation triggered by commits
-- Test generation for new features
-- Security scanning with structured reports
-
-The competitive landscape is evolving rapidly. Watch for convergence around the SKILL.md specification, deeper GitHub Actions integration for Copilot, and potential inter-agent communication via A2A protocols.
-
-The future points toward multi-agent orchestration where CLI agents delegate specialized tasks to each other through standardized protocols, while humans maintain high-level oversight through approval gates and audit logs.
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Let's examine CLI Coding Agents from a systems architecture perspective and explore advanced orchestration patterns. The 2026 shift to CLI agents reflects a broader industry trend: moving from reactive IDE assistants to proactive, autonomous agents. The terminal provides a natural execution environment because it already has process management, I/O streams, and security primitives built in. The Copilot SDK exemplifies this evolution. While the CLI is for interactive sessions, the SDK enables building production applications. The key architectural difference is the client-server model—the SDK starts a local server process that manages agent sessions. Consider the session lifecycle: Client initialization with CopilotClient, server process spawn with client.start, session creation with model selection, event-driven communication via on handlers, and graceful cleanup with context managers. The event streaming architecture is particularly elegant. Events flow as structured JSON with types like assistant.message, tool.execution_start, and tool.execution_complete. This enables real-time progress feedback, partial response streaming, interruptible operations, and state machine implementations. For enterprise deployments, consider these patterns: Multi-tenant session isolation—each user gets an independent session with separate conversation context. The SDK handles this with session objects that maintain isolated state. Model routing—use multiple sessions with different models for task-specific optimization. Route coding tasks to Claude Sonnet 4.5, documentation to GPT-5, and security analysis to specialized fine-tuned models. Error recovery strategies—implement exponential backoff for rate limits, circuit breakers for persistent failures, and fallback chains across providers. The MCP integration layer deserves attention. CLI agents typically expose a local MCP server that other tools can connect to. This inverts the usual pattern—instead of the agent calling tools, external systems can observe and control agent behavior through standardized protocols. Sandboxing architectures vary by platform: macOS uses App Sandbox with strict entitlements, Linux uses Docker containers or firejail, Windows uses WSL2 with isolated distros. Claude Code's container-based execution is the gold standard for security—commands run in disposable containers with no network access by default, explicit filesystem mounts, and resource limits. For CI/CD integration, all four agents support non-interactive modes with JSON output. This enables automated code review in pull request pipelines, documentation generation triggered by commits, test generation for new features, and security scanning with structured reports. The competitive landscape is evolving rapidly. Watch for convergence around the SKILL.md specification, deeper GitHub Actions integration for Copilot, and potential inter-agent communication via A2A protocols. The future points toward multi-agent orchestration where CLI agents delegate specialized tasks to each other through standardized protocols, while humans maintain high-level oversight through approval gates and audit logs.

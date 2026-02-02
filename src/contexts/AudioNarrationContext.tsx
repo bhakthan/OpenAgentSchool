@@ -522,6 +522,12 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'agentic-robotics-control-loop': 'AgenticRoboticsControlLoop',
         'agentic-robotics-integration': 'AgenticRoboticsControlLoop',
         
+        // CLI Coding Agents & Agent Skills
+        'client-coding-agents': 'ClientCodingAgentsConcept',
+        'ClientCodingAgentsConcept': 'ClientCodingAgentsConcept',
+        'agent-skills': 'AgentSkillsConcept',
+        'AgentSkillsConcept': 'AgentSkillsConcept',
+        
         // Core Concepts - 2026 additions
         'agent-reasoning-patterns': 'AgentReasoningPatternsConcept',
         'agent-memory-systems': 'AgentMemorySystemsConcept',
