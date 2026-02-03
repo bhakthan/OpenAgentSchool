@@ -908,14 +908,22 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     'Tier 1: Fundamentals',
     'Tier 2: Architecture',
     'Tier 3: Implementation',
-    'Tier 4: Advanced'
+    'Tier 4: Advanced',
+    'Tier 5: Applied'
   ];
   const tiers = [
+    // Tier 0: Core Concepts - Design Taxonomy & Prompting Foundations
     ['agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 'agentic-workflow-control', 'agent-evaluation-methodologies'],
+    // Tier 1: Fundamentals - Architecture, Security, Governance
     ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance', 'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework'],
-    ['a2a-communication', 'mcp', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management'],
+    // Tier 2: Architecture - Protocols, Visualization, Evaluation
+    ['a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management'],
+    // Tier 3: Implementation - ACP, MCP Integration, Data Pipelines
     ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations'],
-    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'agentic-commerce-ap2', 'product-management', 'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement']
+    // Tier 4: Advanced - Operations, Learning, Integration, Commerce, Robotics, Reasoning, Memory, Security
+    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization'],
+    // Tier 5: Applied - Career, Enterprise Adoption, Templates
+    ['agent-troubleshooting', 'agent-economics', 'agent-career-paths', 'industry-agents', 'agent-templates-hub']
   ];
   const supplementalResourceIds = ['azure-services', 'references', 'community', 'patterns', 'quiz'];
 
@@ -1041,9 +1049,10 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
   const tierDescriptions = [
     'Prompting, optimization, and evaluation foundations to calibrate your first agents.',
     'Architecture, security, and governance essentials for reliable agent rollouts.',
-    'Coordination protocols and visualization patterns to orchestrate multi-agent flows.',
+    'Coordination protocols, CLI agents, skills, and visualization patterns to orchestrate multi-agent flows.',
     'Implementation deep dives that wire ACP, MCP, and data pipelines into production.',
-    'Advanced operations, commercialization, and organizational scaling strategies.'
+    'Advanced operations, reasoning patterns, memory systems, security hardening, and commercialization.',
+    'Career growth, enterprise adoption playbooks, industry use cases, and ready-to-use templates.'
   ];
 
   const tierAccents = [
@@ -1051,7 +1060,8 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     { indicator: 'bg-blue-500 border-blue-200 dark:border-blue-500', gradient: 'from-blue-500/25 via-blue-500/10 to-transparent' },
     { indicator: 'bg-emerald-500 border-emerald-200 dark:border-emerald-500', gradient: 'from-emerald-500/25 via-emerald-500/10 to-transparent' },
     { indicator: 'bg-amber-500 border-amber-200 dark:border-amber-500', gradient: 'from-amber-500/25 via-amber-500/10 to-transparent' },
-    { indicator: 'bg-rose-500 border-rose-200 dark:border-rose-500', gradient: 'from-rose-500/25 via-rose-500/10 to-transparent' }
+    { indicator: 'bg-rose-500 border-rose-200 dark:border-rose-500', gradient: 'from-rose-500/25 via-rose-500/10 to-transparent' },
+    { indicator: 'bg-teal-500 border-teal-200 dark:border-teal-500', gradient: 'from-teal-500/25 via-teal-500/10 to-transparent' }
   ];
 
   const supplementalResources = supplementalResourceIds
