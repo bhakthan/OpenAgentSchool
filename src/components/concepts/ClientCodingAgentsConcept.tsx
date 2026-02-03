@@ -2,7 +2,7 @@ import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
-import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, Key, Sparkle, Plugs } from "@phosphor-icons/react"
+import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, Key, Sparkle, Plugs, FilePdf } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
@@ -349,6 +349,52 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                     </tr>
                   </tbody>
                 </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Visual Guide PDF */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FilePdf className="w-5 h-5" />
+                Visual Guide: CLI Coding Agents Core Concepts
+              </CardTitle>
+              <CardDescription>
+                A comprehensive visual reference for understanding CLI coding agents architecture and workflows
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  This visual guide covers the core concepts of CLI coding agents in a printable format. 
+                  Use it as a quick reference while learning or as a study companion.
+                </p>
+                <div className="border border-border rounded-lg overflow-hidden bg-muted/30">
+                  <iframe
+                    src="/pdf/Client_Coding_Agents.pdf"
+                    className="w-full h-[600px]"
+                    title="CLI Coding Agents Visual Guide"
+                  />
+                </div>
+                <div className="flex items-center gap-4 text-sm">
+                  <a 
+                    href="/pdf/Client_Coding_Agents.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:underline"
+                  >
+                    <FilePdf className="w-4 h-4" />
+                    Open in new tab
+                  </a>
+                  <a 
+                    href="/pdf/Client_Coding_Agents.pdf" 
+                    download
+                    className="inline-flex items-center gap-2 text-primary hover:underline"
+                  >
+                    Download PDF
+                  </a>
+                </div>
               </div>
             </CardContent>
           </Card>
