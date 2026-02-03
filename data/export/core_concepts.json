@@ -348,5 +348,37 @@
     "technicalDetails": "",
     "implementationConsiderations": [],
     "examples": []
+  },
+  {
+    "id": "edge-agent",
+    "name": "Edge Agent (Physical AI)",
+    "description": "Deploy agentic AI at the network edge for sub-100ms latency in manufacturing, robotics, and IoT environments.",
+    "keyFeatures": [
+      "Ultra-low latency inference (1-100ms) on edge hardware",
+      "IT/OT convergence with industrial protocols (OPC-UA, Modbus, MQTT)",
+      "Vision-Language-Action (VLA) models for embodied agents",
+      "Edge-cloud hybrid architectures with fleet management",
+      "Offline-first operation with graceful cloud sync"
+    ],
+    "applicationAreas": [
+      "Manufacturing quality inspection and process control",
+      "Robotics and autonomous manipulation",
+      "Predictive maintenance and anomaly detection",
+      "Smart agriculture and precision farming",
+      "Warehouse logistics and material handling"
+    ],
+    "technicalDetails": "Edge agents run on specialized hardware (NVIDIA Jetson, Intel NUC, Raspberry Pi 5) with quantized models (INT8/FP16). Key models include: Qwen2.5 (0.5B-7B) for local LLM, Gemma 2 (2B-9B) for on-device agents, Phi-3 Mini for mobile/IoT, and specialized VLA models (Rho-Alpha, Gemini ER, RT-X) for robotics. Deployment patterns range from edge-only (air-gapped) to edge-primary with cloud sync for fleet learning.",
+    "implementationConsiderations": [
+      "Match latency requirements to hardware tier (FPGA < GPU < CPU)",
+      "Use TensorRT or ONNX Runtime for model optimization",
+      "Implement atomic updates with rollback for OTA model deployment",
+      "Design IT/OT network segmentation with data diodes for security",
+      "Build trajectory prediction to handle inference latency spikes"
+    ],
+    "examples": [
+      "Raspberry Pi 5 + Qwen 0.5B: Voice-controlled home automation agent (<50ms response)",
+      "Jetson AGX Orin + VLA model: Pick-and-place robot with 50Hz control loop",
+      "Azure Stack Edge + Gemma 9B: Factory-floor anomaly detection with OPC-UA integration"
+    ]
   }
 ]

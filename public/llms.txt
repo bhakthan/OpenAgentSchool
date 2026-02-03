@@ -1,6 +1,6 @@
 # Open Agent School - llms.txt
 # https://llmstxt.org/ - A standard for providing context to LLMs
-# Last updated: January 31, 2026
+# Last updated: February 3, 2026
 
 > Open Agent School is a comprehensive educational platform for mastering AI agents,
 > from foundational concepts to production-ready agentic systems.
@@ -94,6 +94,11 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Data Autonomy Patterns
 - Fine-Tuning Methods (SFT, DPO, RFT)
 - Quantum-Enhanced AI & Robotics
+- Edge Agent & Physical AI (February 2026)
+  - Edge inference with latency guarantees (<10ms for robotics)
+  - IT/OT convergence with industrial protocols (OPC-UA, MQTT, Modbus)
+  - Microsoft Rho-Alpha VLA+ and Google Gemini ER 1.5
+  - Hybrid cloud-edge architectures for manufacturing, energy, logistics
 - Agentic Commerce & Enterprise Applications
 
 ### Applied & Career

@@ -81,7 +81,7 @@ const learningPaths: LearningPath[] = [
       // Tier 3: Implementation Concepts
       'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations',
       // Tier 4: Advanced Concepts
-  'agent-deployment', 'agent-learning', 'agent-integration', 'agentic-robotics-integration', 'fine-tuning', 'quantum-ai-robotics', 'agentic-commerce-ap2', 'product-management',
+  'agent-deployment', 'agent-learning', 'agent-integration', 'agentic-robotics-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management',
       'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement',
       // Production Foundations (2026)
       'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization',
@@ -520,6 +520,20 @@ const learningPaths: LearningPath[] = [
         path: '/concepts'
       },
       {
+        id: 'edge-agent',
+        title: 'Edge Agent',
+        description: 'Move agents from cloud to factory floor—master edge inference, IT/OT bridging, and real-time guarantees for physical AI.',
+        icon: <Robot size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '50-65 min',
+        prerequisites: ['agent-deployment', 'agentic-robotics-integration', 'agent-ops'],
+        skills: ['Edge AI', 'IT/OT Convergence', 'Industrial Protocols', 'Real-Time Systems', 'Physical AI'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
         id: 'agent-integration',
         title: 'Agent Integration Patterns',
         description: 'Integration patterns for enterprise AI agent systems',
@@ -921,7 +935,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     // Tier 3: Implementation - ACP, MCP Integration, Data Pipelines
     ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations'],
     // Tier 4: Advanced - Operations, Learning, Integration, Commerce, Robotics, Reasoning, Memory, Security
-    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization'],
+    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization'],
     // Tier 5: Applied - Career, Enterprise Adoption, Templates
     ['agent-troubleshooting', 'agent-economics', 'agent-career-paths', 'industry-agents', 'agent-templates-hub']
   ];

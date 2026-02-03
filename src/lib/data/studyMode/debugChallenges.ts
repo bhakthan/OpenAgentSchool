@@ -8553,6 +8553,183 @@ function trackSession() {
       timeEstimate: 18,
       successCriteria: ['Understands sandbox restrictions', 'Uses ui/initialize for context', 'Removes forbidden API calls']
     }
+  ],
+  // Edge Agent - Physical AI at the Network Edge
+  'edge-agent': [
+    {
+      id: 'edge-agent-debug-1',
+      type: 'debug',
+      conceptId: 'edge-agent',
+      title: 'Inference Latency Spike',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'edge-latency-spike',
+        title: 'Robot Arm Jerky After Model Update',
+        description: 'After deploying a new VLA model, the robot arm exhibits jerky, stuttering movements. The control loop was smooth at 50Hz before the update.',
+        problemDescription: 'New model inference takes 35ms on average but occasionally spikes to 120ms, causing the 50Hz control loop to miss deadlines.',
+        brokenCode: `# Edge agent control loop (Jetson AGX Orin)
+import time
+
+def control_loop(model, camera, robot):
+    target_hz = 50
+    target_period = 1.0 / target_hz  # 20ms
+    
+    while True:
+        start = time.perf_counter()
+        
+        # Capture and inference
+        frame = camera.capture()
+        action = model.predict(frame)  # Takes 35-120ms!
+        robot.execute(action)
+        
+        elapsed = time.perf_counter() - start
+        sleep_time = target_period - elapsed
+        
+        if sleep_time > 0:
+            time.sleep(sleep_time)
+        # BUG: No handling when elapsed > target_period!
+        # BUG: No profiling of inference time variance
+        # BUG: No fallback for missed deadlines`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Control', message: 'Loop iteration: 18ms ✓', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Control', message: 'Loop iteration: 45ms ✗ (missed deadline)', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Control', message: 'Loop iteration: 122ms ✗ (severe miss)', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'Robot', message: 'Jerk detected in trajectory', type: 'error' }
+        ],
+        expectedBehavior: 'Control loop should maintain consistent timing. Inference spikes should be handled gracefully without causing physical jerks.',
+        commonIssues: [
+          { issue: 'Thermal throttling', symptoms: ['Latency increases over time'], diagnosis: 'GPU overheating', fix: 'Add cooling, reduce power mode, or use TensorRT for efficiency' },
+          { issue: 'No deadline awareness', symptoms: ['Jerky on occasional spikes'], diagnosis: 'Missed deadlines not handled', fix: 'Predict trajectory ahead; use last-known-good action on miss' },
+          { issue: 'Model not optimized', symptoms: ['Baseline too high'], diagnosis: 'FP32 inference on edge', fix: 'Quantize to INT8/FP16, use TensorRT or ONNX Runtime' }
+        ],
+        hints: ['Profile with nvidia-smi to check thermal state', 'What action do you take when you miss a deadline?', 'Is the model optimized for edge (TensorRT, quantization)?'],
+        solution: 'Profile thermal state (nvidia-smi dmon). Optimize model with TensorRT INT8 quantization to reduce average latency below 15ms. Implement trajectory prediction: compute next N actions during slack time. On deadline miss, use predicted action instead of blocking.',
+        explanation: 'Real-time edge control requires deterministic timing. Optimization (quantization, TensorRT) reduces average latency; trajectory prediction handles worst-case spikes.'
+      },
+      expectedInsights: ['Thermal throttling causes variance', 'Quantization reduces latency', 'Trajectory prediction handles misses'],
+      hints: ['Check GPU temperature trends', 'Profile p50/p99 latency', 'What is the backup plan for a slow inference?'],
+      explanation: 'Teaches real-time control loop design for edge agents.',
+      relatedConcepts: ['agent-architecture', 'reliability', 'edge-optimization'],
+      timeEstimate: 15,
+      successCriteria: ['Identifies latency variance cause', 'Proposes optimization', 'Implements deadline recovery']
+    },
+    {
+      id: 'edge-agent-debug-2',
+      type: 'debug',
+      conceptId: 'edge-agent',
+      title: 'OPC-UA Connection Drops',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'opcua-connection-drops',
+        title: 'Edge Agent Loses PLC Connection Under Load',
+        description: 'Your edge agent reads sensor data from factory PLCs via OPC-UA. During high-production periods, connections randomly drop and take 30+ seconds to recover.',
+        problemDescription: 'OPC-UA client reconnects with exponential backoff, but each reconnect causes the agent to miss production events and generate false alarms.',
+        brokenCode: `from asyncua import Client
+import asyncio
+
+class OPCUAReader:
+    def __init__(self, endpoint: str):
+        self.endpoint = endpoint
+        self.client = None
+    
+    async def connect(self):
+        self.client = Client(url=self.endpoint)
+        await self.client.connect()  # Blocking, no timeout
+    
+    async def read_sensors(self) -> dict:
+        try:
+            nodes = await self.client.get_node("ns=2;s=Sensors")
+            return await nodes.read_value()
+        except Exception as e:
+            # BUG: Reconnect blocks, no keepalive
+            print(f"Connection lost: {e}")
+            await self.connect()  # Can take 30s+ with backoff
+            return await self.read_sensors()  # Recursive, can stack overflow
+    
+    # MISSING: Connection pooling
+    # MISSING: Subscription-based reads (more efficient)
+    # MISSING: Watchdog timeout on reads`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'OPCUA', message: 'Reading sensors...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'OPCUA', message: 'BadConnectionClosed: Server closed connection', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'OPCUA', message: 'Reconnecting... (attempt 1)', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'OPCUA', message: 'Reconnecting... (attempt 3, backoff 16s)', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Missed 450 sensor readings during reconnect', type: 'error' }
+        ],
+        expectedBehavior: 'Agent should maintain persistent connection with fast recovery. Missed readings should be handled gracefully.',
+        commonIssues: [
+          { issue: 'No keepalive', symptoms: ['Periodic disconnects'], diagnosis: 'Connection times out silently', fix: 'Enable OPC-UA publish keepalive, increase session timeout' },
+          { issue: 'Polling vs subscription', symptoms: ['High load on PLC'], diagnosis: 'Reading all nodes every cycle', fix: 'Use OPC-UA subscriptions for change-based updates' },
+          { issue: 'Blocking reconnect', symptoms: ['Agent frozen during recovery'], diagnosis: 'Reconnect on main thread', fix: 'Async reconnect with timeout; use last-known values while recovering' }
+        ],
+        hints: ['Compare OPC-UA polling vs subscription patterns', 'What should the agent do while reconnecting?', 'Is the PLC server overwhelmed?'],
+        solution: 'Switch to OPC-UA subscriptions: server pushes changes instead of constant polling. Enable session keepalive (e.g., 5s interval). Implement non-blocking reconnect with 5s timeout; use cached sensor values during recovery. Alert on prolonged disconnect.',
+        explanation: 'Industrial protocols like OPC-UA work best with subscriptions (push) instead of polling (pull). Fast recovery requires non-blocking reconnect with cached fallback.'
+      },
+      expectedInsights: ['Subscriptions beat polling', 'Keepalive prevents silent drops', 'Cache values during reconnect'],
+      hints: ['Review OPC-UA subscription documentation', 'What is the PLC\'s session timeout?', 'How do you handle stale data?'],
+      explanation: 'Teaches industrial protocol integration patterns for edge agents.',
+      relatedConcepts: ['mcp', 'industrial-automation', 'reliability'],
+      timeEstimate: 18,
+      successCriteria: ['Identifies connection issue', 'Switches to subscriptions', 'Implements graceful recovery']
+    },
+    {
+      id: 'edge-agent-debug-3',
+      type: 'debug',
+      conceptId: 'edge-agent',
+      title: 'Cloud Sync Corrupts Local State',
+      level: 'advanced',
+      debugChallenge: {
+        id: 'cloud-sync-corruption',
+        title: 'Edge Agent Behaves Erratically After Cloud Update',
+        description: 'Your edge-cloud hybrid agent receives model updates and config changes from the cloud. After a recent sync, the robot started making incorrect decisions that don\'t match either the old or new model behavior.',
+        problemDescription: 'Cloud pushed a partial update during a network interruption. Model weights are from v2 but config file is still v1, causing mismatched inference settings.',
+        brokenCode: `import requests
+import json
+
+class CloudSyncManager:
+    def sync_from_cloud(self):
+        # Download model weights
+        model_response = requests.get(f"{CLOUD_URL}/model/latest")
+        with open("model.pt", "wb") as f:
+            f.write(model_response.content)  # Partial write on disconnect!
+        
+        # Download config
+        config_response = requests.get(f"{CLOUD_URL}/config/latest")
+        config = config_response.json()
+        with open("config.json", "w") as f:
+            json.dump(config, f)  # May not complete if network drops
+        
+        # Reload model
+        self.model = load_model("model.pt", config)  # Mismatched versions!
+        
+        # MISSING: Atomic updates (all-or-nothing)
+        # MISSING: Version verification
+        # MISSING: Rollback on failure`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Sync', message: 'Downloading model v2.1.0...', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Network', message: 'Connection interrupted at 85%', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Sync', message: 'Downloading config... (using cached v1.9.0)', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Loaded model with config mismatch', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'Robot', message: 'Unexpected behavior: wrong gripper force applied', type: 'error' }
+        ],
+        expectedBehavior: 'Updates should be atomic: either all components update together or none do. Mismatched versions should be detected and rejected.',
+        commonIssues: [
+          { issue: 'Non-atomic update', symptoms: ['Partial state corruption'], diagnosis: 'Components updated separately', fix: 'Download to temp, validate all, then atomic swap' },
+          { issue: 'No version manifest', symptoms: ['Mismatched versions undetected'], diagnosis: 'No checksum/version verification', fix: 'Include manifest with checksums; verify before loading' },
+          { issue: 'No rollback', symptoms: ['Stuck in bad state'], diagnosis: 'Previous version deleted on update', fix: 'Keep N previous versions; rollback on validation failure' }
+        ],
+        hints: ['How do A/B update systems (like Mender, RAUC) handle atomic updates?', 'What validates that model and config are compatible?', 'How do you recover from a corrupted update?'],
+        solution: 'Download all components to staging directory. Verify checksums against manifest. Validate version compatibility. Atomic swap: rename staging to active, active to backup. On load failure, swap back to backup. Use A/B partition scheme for OS-level updates.',
+        explanation: 'Edge updates require atomic swap patterns from embedded systems. Never modify in-place; always stage, validate, and atomically promote.'
+      },
+      expectedInsights: ['Atomic updates prevent corruption', 'Manifests enforce compatibility', 'Rollback is essential'],
+      hints: ['Research A/B update patterns', 'What is a checksum manifest?', 'How do you atomically swap directories?'],
+      explanation: 'Teaches robust update patterns for edge agents inspired by embedded systems practices.',
+      relatedConcepts: ['agent-deployment', 'reliability', 'edge-architecture'],
+      timeEstimate: 20,
+      successCriteria: ['Identifies atomic update need', 'Implements manifest validation', 'Adds rollback capability']
+    }
   ]
 };
 

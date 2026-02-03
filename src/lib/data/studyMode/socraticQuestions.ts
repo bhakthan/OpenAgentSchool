@@ -6368,6 +6368,102 @@ export const socraticQuestionLibrary = {
         'Plans cross-platform testing'
       ]
     }
+  ],
+  // Edge Agent - Physical AI at the Network Edge
+  'edge-agent': [
+    {
+      id: 'edge-agent-socratic-1',
+      type: 'socratic',
+      conceptId: 'edge-agent',
+      title: 'Why Edge Computing for AI Agents?',
+      level: 'beginner',
+      socratiQuestion: 'Imagine you\'re building an AI agent that controls a robotic arm in a factory. The nearest cloud data center is 50ms away. Why might running inference locally on the factory floor be essential, and what trade-offs does this create?',
+      followUpQuestions: [
+        'What happens to a pick-and-place operation if there\'s a 100ms network latency spike?',
+        'How does edge deployment change your model selection strategy?',
+        'What safety mechanisms become critical when the agent can\'t phone home?'
+      ],
+      expectedInsights: [
+        'Real-time control loops (10-100Hz) cannot tolerate cloud roundtrip latency; 100ms spike could cause collision or dropped object',
+        'Edge constraints (memory, power, thermal) favor smaller, quantized models like TinyML variants; may need specialized hardware (TPU, VPU)',
+        'Local safety interlocks, watchdog timers, and fail-safe behaviors must function without cloud connectivity'
+      ],
+      hints: [
+        'Consider the physics of robotic motion and reaction time requirements',
+        'Think about what happens when WiFi drops during a critical operation',
+        'Reflect on the difference between edge-first vs cloud-first architectures'
+      ],
+      explanation: 'This exploration helps students understand that edge agents exist to satisfy latency constraints that cloud cannot meet. The trade-off is reduced model capability offset by guaranteed availability and deterministic timing.',
+      relatedConcepts: ['agentic-robotics-integration', 'agent-architecture', 'reliability'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Identifies latency as primary driver',
+        'Recognizes hardware constraints',
+        'Considers offline operation modes'
+      ]
+    },
+    {
+      id: 'edge-agent-socratic-2',
+      type: 'socratic',
+      conceptId: 'edge-agent',
+      title: 'IT/OT Convergence Challenges',
+      level: 'intermediate',
+      socratiQuestion: 'Your edge agent needs to read data from factory PLCs (Programmable Logic Controllers) running OPC-UA and Modbus protocols, while also communicating with cloud services via REST APIs. How do you bridge these two worlds safely?',
+      followUpQuestions: [
+        'What security boundaries must exist between IT and OT networks?',
+        'How do you handle protocol translation between industrial protocols and modern APIs?',
+        'What happens if your AI agent sends a malformed command to a safety-critical PLC?'
+      ],
+      expectedInsights: [
+        'Air gaps, DMZs, or data diodes between OT and IT; agents in OT should have minimal attack surface and no direct internet access',
+        'Industrial gateways (like Moxa, Advantech, or software like Node-RED) translate protocols; edge agent talks to gateway, not directly to PLC',
+        'Safety PLCs have independent interlocks; AI agent commands should be validated against safety limits before execution; defense in depth'
+      ],
+      hints: [
+        'Consider the Purdue Enterprise Reference Architecture for ICS segmentation',
+        'Think about what an attacker with access to your edge agent could do',
+        'Reflect on the difference between IT security (confidentiality) vs OT safety (availability, integrity)'
+      ],
+      explanation: 'IT/OT convergence is where enterprise AI meets industrial control. Students learn that protocol bridging requires careful security architecture and that safety-critical systems need layers of protection independent of AI.',
+      relatedConcepts: ['agent-security', 'mcp', 'industrial-automation'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Designs network segmentation',
+        'Proposes protocol translation approach',
+        'Implements defense in depth'
+      ]
+    },
+    {
+      id: 'edge-agent-socratic-3',
+      type: 'socratic',
+      conceptId: 'edge-agent',
+      title: 'Physical AI Model Selection',
+      level: 'advanced',
+      socratiQuestion: 'You\'re evaluating Vision-Language-Action (VLA) models for edge deployment: pi0 (3B params, 10Hz inference), Gemini ER (larger, cloud-hybrid), and custom fine-tuned smaller models. How do you choose the right model for your manufacturing use case?',
+      followUpQuestions: [
+        'What benchmarks actually matter for physical AI beyond standard LLM evals?',
+        'How do you handle the capability gap between edge-deployable models and frontier models?',
+        'What role does simulation (Isaac Sim, Gazebo) play in edge agent development?'
+      ],
+      expectedInsights: [
+        'Task success rate, safety violation rate, cycle time, generalization to novel objects; standard accuracy metrics miss physical world dynamics',
+        'Hierarchical architecture: fast edge model for reactive control, slower cloud model (via intermittent connection) for planning and anomaly handling',
+        'Sim-to-real transfer for training/testing without physical robot risk; domain randomization for robustness; simulation cheaper than real-world crashes'
+      ],
+      hints: [
+        'Consider latency requirements at different levels of the control hierarchy',
+        'Think about what happens when the edge model encounters an out-of-distribution situation',
+        'Reflect on why robotics companies invest heavily in simulation infrastructure'
+      ],
+      explanation: 'Advanced edge agent architecture uses hierarchical intelligence: fast, specialized edge models for real-time control, with optional cloud escalation for complex reasoning. Model selection is driven by physics, not just accuracy.',
+      relatedConcepts: ['fine-tuning', 'evaluation', 'agent-architecture', 'quantum-ai-robotics'],
+      timeEstimate: 20,
+      successCriteria: [
+        'Defines physical AI metrics',
+        'Designs hierarchical architecture',
+        'Incorporates simulation workflow'
+      ]
+    }
   ]
 };
 

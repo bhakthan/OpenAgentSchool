@@ -1,0 +1,55 @@
+--------------------------------------------------------------------------------
+BEGINNER SECTION
+--------------------------------------------------------------------------------
+
+Welcome to Edge Agent, where we explore how to move AI agents from the cloud to the factory floor and beyond.
+
+Edge AI is about running artificial intelligence directly on devices close to where data is generated, rather than sending everything to distant cloud servers. Think of a smart camera in a warehouse that can instantly identify defects, or a robot arm that responds in milliseconds to changes in its environment.
+
+Why does this matter? Three key reasons. First, latency: some applications need responses in under 10 milliseconds, which is impossible with a cloud round-trip. Second, privacy: sensitive data may never be allowed to leave the premises. Third, reliability: edge systems keep working even when internet connectivity is lost.
+
+The fundamental question becomes: when should you compute locally versus in the cloud? Choose edge when your latency budget is under 100 milliseconds, when data sovereignty matters, when connectivity is expensive or unreliable, or when you have high volumes of inference calls.
+
+Choose cloud when your models are too large for edge hardware, when you need frequent model updates, for compute-intensive batch processing, or when you need centralized fleet orchestration.
+
+Think of a typical edge architecture as four layers. The device layer includes sensors, actuators, and PLCs running sub-millisecond loops. The edge layer has GPUs and local models handling 1-100 millisecond inference. The fog layer aggregates and routes data in 100 millisecond to 1 second batches. Finally, the cloud layer handles training, analytics, and fleet-wide learning.
+
+--------------------------------------------------------------------------------
+INTERMEDIATE SECTION
+--------------------------------------------------------------------------------
+
+Now let's dive deeper into the physical AI models that power edge agents in 2026.
+
+Microsoft's Rho-Alpha system represents a breakthrough in Vision-Language-Action Plus, or VLA+ architecture. It combines visual perception with tactile sensing and force feedback, enabling robots to feel what they're manipulating. Key capabilities include bimanual manipulation for dual-arm coordination, integration with NVIDIA Isaac Sim for reinforcement learning, and human-in-the-loop correction via 3D mouse input.
+
+Google's Gemini ER 1.5, which stands for Embodied Reasoning, takes a different approach focused on agentic robotics. It excels at spatial reasoning with object localization and trajectory planning, task orchestration through structured function calling, and includes thinking budget controls that let you trade latency for accuracy in real-time.
+
+Both approaches share a common inference loop. First, the sensor input phase captures multimodal data. Then the edge inference phase runs the model locally with sub-10-millisecond response times. The actuation phase executes the physical action. Finally, the cloud sync phase asynchronously uploads telemetry for fleet learning.
+
+For hardware, the landscape includes NVIDIA Jetson AGX Orin with 275 TOPS of INT8 compute, Azure Stack Edge with T4 GPUs, AWS Outposts for full EC2 capability on premises, and Qualcomm Cloud AI 100 for high-density inference.
+
+When deploying to edge, you have four main patterns. Edge-Only is completely offline-first with no cloud dependency. Edge-Primary with Cloud Sync gives you local inference with periodic updates. Hierarchical Edge or Fog creates a cascade from device to gateway to regional edge to cloud. Cloud-Primary with Edge Cache keeps the cloud in charge but caches common queries locally.
+
+--------------------------------------------------------------------------------
+ADVANCED SECTION
+--------------------------------------------------------------------------------
+
+Let's explore the critical aspects of industrial integration and production-ready edge systems.
+
+IT/OT convergence is where information technology meets operational technology. The IT world speaks REST and gRPC with JSON payloads, runs Kubernetes and microservices, and tolerates latencies of seconds to minutes. The OT world speaks OPC-UA, Modbus, PROFINET, and EtherNet/IP. It runs on PLCs, SCADA systems, and HMIs with millisecond timing requirements.
+
+Bridging these worlds requires protocol adapters. OPC-UA is particularly valuable as it provides rich semantic models with publish-subscribe capabilities. Your agent subscribes to PLC tag changes, runs inference on new sensor data, and writes actions back with appropriate safety checks.
+
+Different industrial sectors have unique requirements. Manufacturing needs sub-10-millisecond latency for predictive maintenance, quality inspection, and robot coordination using OPC-UA and PROFINET. Energy and utilities can tolerate up to 100 milliseconds for grid optimization and fault detection using DNP3 and IEC 61850. Logistics targets 50 milliseconds for autonomous mobile robots using MQTT and WebSockets. Healthcare requires sub-20-millisecond response for surgical robotics using HL7 FHIR and OPC-UA.
+
+For hybrid edge-cloud architectures, model synchronization becomes critical. Push-based sync has the cloud push updates on a schedule, best for infrequent updates. Pull-based sync has the edge poll for updates, ideal for intermittent connectivity. Federated learning trains locally and shares only gradients, perfect for privacy-sensitive applications.
+
+Graceful degradation is non-negotiable. When the cloud becomes unavailable, your edge agent must seamlessly fall back to local models, queue data for later sync, and continue operating safely.
+
+Safety in physical AI systems requires both hardware and software guardrails. Hardware safeguards include emergency stop circuits that override software, watchdog timers that trigger safe states on agent hangs, and force and torque limits enforced at the PLC level. Software guardrails include confidence thresholds to reject uncertain predictions, rate limiting to cap actions per second, and human approval for high-risk operations.
+
+For observability, instrument everything with OpenTelemetry. Track inference latency distributions, throughput, error rates, and offline queue depth. Create dashboards showing fleet uptime, P50 and P99 latencies, model versions, and safety alert counts.
+
+Fleet management at scale requires robust OTA update strategies. Use canary rollouts starting at 1%, then 10%, then 100%. Implement A/B partitions for instant rollback. Use delta updates to minimize bandwidth. Ensure updates are offline-safe and can resume after connectivity loss.
+
+The edge agent represents a fundamental shift in how we deploy AI—moving intelligence closer to the physical world where milliseconds matter and reliability is essential.

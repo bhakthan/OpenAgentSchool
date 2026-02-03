@@ -1,6 +1,6 @@
 # Open Agent School - ai.txt (experimental)
 # AI crawler context file for AI training and LLM discovery
-# Last updated: January 31, 2026
+# Last updated: February 3, 2026
 
 User-Agent: *
 Allow: /
@@ -52,6 +52,9 @@ Concept-Cost-Optimization: https://www.openagentschool.org/concepts/agent-cost-o
 
 # MCP Apps & Agent UI (January 2026)
 Concept-MCP-Apps: https://www.openagentschool.org/concepts/data-visualization
+
+# Edge & Physical AI (February 2026)
+Concept-Edge-Agent: https://www.openagentschool.org/concepts/edge-agent
 
 # Fine-Tuning & Model Optimization
 Concept-Fine-Tuning: https://www.openagentschool.org/concepts/fine-tuning

@@ -41,6 +41,8 @@ import { agentTestingBenchmarksQuestions, agentTestingBenchmarksTimeEstimate } f
 import { promptInjectionDefenseQuestions, promptInjectionDefenseTimeEstimate } from './prompt-injection-defense';
 import { humanInTheLoopPatternsQuestions, humanInTheLoopPatternsTimeEstimate } from './human-in-the-loop-patterns';
 import { agentCostOptimizationQuestions, agentCostOptimizationTimeEstimate } from './agent-cost-optimization';
+// Edge Agent & Industrial AI (February 2026)
+import { edgeAgentQuestions, edgeAgentTime } from './edge-agent';
 // New Phase 1 foundation quizzes
 import { llmFundamentalsQuiz } from './llm-fundamentals';
 import { gettingStartedAgentsQuiz } from './getting-started-agents';
@@ -100,6 +102,8 @@ const allQuestions = [
   ...promptInjectionDefenseQuestions,
   ...humanInTheLoopPatternsQuestions,
   ...agentCostOptimizationQuestions,
+  // Edge Agent & Industrial AI (February 2026)
+  ...edgeAgentQuestions,
   // Enterprise Playbook Concepts (2026)
   ...enterprisePlaybookConceptsQuestions
 ];
@@ -290,6 +294,58 @@ export const quizCategories: QuizCategory[] = [
         description: 'Coordinate incident comms, acknowledgement loops, and after-action knowledge capture.',
         prerequisites: ['agentic-robotics-integration'],
         questions: agenticRoboticsIntegrationQuestions.filter(q => q.subCategory === 'emergency-response-mate')
+      }
+    ]
+  },
+  {
+    id: 'edge-agent',
+    name: 'Edge Agent & Industrial AI',
+    description: 'Deploy agents from cloud to factory floor—master edge inference, IT/OT bridging, and real-time guarantees.',
+    icon: 'Cpu',
+    totalQuestions: edgeAgentQuestions.length,
+    estimatedTime: edgeAgentTime,
+    subCategories: [
+      {
+        id: 'edge-fundamentals',
+        name: 'Edge Fundamentals',
+        description: 'Understand when to compute locally vs cloud and latency tier requirements.',
+        prerequisites: ['agent-deployment', 'agent-ops'],
+        questions: edgeAgentQuestions.filter(q => q.subCategory === 'edge-fundamentals')
+      },
+      {
+        id: 'physical-ai-models',
+        name: 'Physical AI Models',
+        description: 'Microsoft Rho-Alpha VLA+, Gemini ER 1.5, and Vision-Language-Action architectures.',
+        prerequisites: ['edge-fundamentals', 'agentic-robotics-integration'],
+        questions: edgeAgentQuestions.filter(q => q.subCategory === 'physical-ai-models')
+      },
+      {
+        id: 'hardware-deployment',
+        name: 'Hardware & Deployment',
+        description: 'Edge devices, accelerators, quantization, and containerized deployment patterns.',
+        prerequisites: ['edge-fundamentals'],
+        questions: edgeAgentQuestions.filter(q => q.subCategory === 'hardware-deployment')
+      },
+      {
+        id: 'industrial-integration',
+        name: 'Industrial Integration',
+        description: 'IT/OT convergence, OPC-UA, Modbus, and sector-specific protocol patterns.',
+        prerequisites: ['edge-fundamentals'],
+        questions: edgeAgentQuestions.filter(q => q.subCategory === 'industrial-integration')
+      },
+      {
+        id: 'hybrid-architectures',
+        name: 'Hybrid Architectures',
+        description: 'Edge-cloud orchestration, model sync strategies, and graceful degradation.',
+        prerequisites: ['hardware-deployment', 'industrial-integration'],
+        questions: edgeAgentQuestions.filter(q => q.subCategory === 'hybrid-architectures')
+      },
+      {
+        id: 'production-patterns',
+        name: 'Production Patterns',
+        description: 'Safety guardrails, observability, OTA updates, and fleet management at scale.',
+        prerequisites: ['hybrid-architectures'],
+        questions: edgeAgentQuestions.filter(q => q.subCategory === 'production-patterns')
       }
     ]
   },

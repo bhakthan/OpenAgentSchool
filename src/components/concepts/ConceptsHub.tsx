@@ -59,6 +59,7 @@ import AgentTestingBenchmarksConcept from "./AgentTestingBenchmarksConcept"
 import PromptInjectionDefenseConcept from "./PromptInjectionDefenseConcept"
 import HumanInTheLoopPatternsConcept from "./HumanInTheLoopPatternsConcept"
 import AgentCostOptimizationConcept from "./AgentCostOptimizationConcept"
+import EdgeAgentConcept from "./EdgeAgentConcept"
 
 interface ConceptInfo {
   id: string
@@ -491,6 +492,18 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '60-75 min',
     prerequisites: ['agent-learning', 'agentic-robotics-integration', 'agent-architecture'],
     component: QuantumAIRoboticsConcept
+  }
+  ,
+  {
+    id: 'edge-agent',
+    title: 'Edge Agent',
+    description: 'Move agents from cloud to factory floor—master edge inference, IT/OT bridging, and real-time guarantees for physical AI.',
+    level: 'advanced',
+    icon: <Robot className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-orange-900/20 dark:text-orange-300',
+    estimatedTime: '50-65 min',
+    prerequisites: ['agent-deployment', 'agentic-robotics-integration', 'agent-ops'],
+    component: EdgeAgentConcept
   }
   ,
   {

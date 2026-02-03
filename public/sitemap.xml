@@ -8,7 +8,7 @@
     <!-- Homepage -->
     <url>
         <loc>https://www.openagentschool.org/</loc>
-        <lastmod>2026-01-31</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -289,6 +289,14 @@
     <url>
         <loc>https://www.openagentschool.org/concepts/quantum-ai-robotics</loc>
         <lastmod>2026-01-31</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
+    <!-- Edge & Physical AI (February 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/edge-agent</loc>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.95</priority>
     </url>

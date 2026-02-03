@@ -345,6 +345,113 @@ export const references: ReferencesData = {
       }
     ],
 
+    "edge-agent": [
+      {
+        id: "lightweight-models",
+        name: "Lightweight Edge Models",
+        references: [
+          {
+            title: "Gemma: Open-Weight LLM Library",
+            url: "https://github.com/google-deepmind/gemma",
+            description: "Google DeepMind's official Gemma repository with JAX implementation for fine-tuning and deployment."
+          },
+          {
+            title: "Gemma Technical Reports",
+            url: "https://ai.google.dev/gemma/docs",
+            description: "Documentation and technical reports for Gemma 1, 2, and 3 model families."
+          },
+          {
+            title: "Qwen2.5 Models",
+            url: "https://github.com/QwenLM/Qwen2.5",
+            description: "Alibaba's Qwen2.5 models ranging from 0.5B to 72B parameters, excellent for edge deployment."
+          },
+          {
+            title: "Microsoft Phi-3 Technical Report",
+            url: "https://arxiv.org/abs/2404.14219",
+            description: "Technical report for Phi-3 small language models optimized for edge devices."
+          },
+          {
+            title: "llama.cpp",
+            url: "https://github.com/ggerganov/llama.cpp",
+            description: "High-performance C++ inference for LLMs on CPU, enabling Raspberry Pi and edge deployment."
+          }
+        ]
+      },
+      {
+        id: "edge-perception",
+        name: "Edge Perception & Vision",
+        references: [
+          {
+            title: "Segment Anything Model (SAM)",
+            url: "https://segment-anything.com/",
+            description: "Meta's foundation model for promptable image segmentation, key for edge vision pipelines."
+          },
+          {
+            title: "SAM 2",
+            url: "https://github.com/facebookresearch/sam2",
+            description: "SAM 2: Segment Anything in Images and Videos with unified architecture."
+          },
+          {
+            title: "MobileNetV3 for Edge Vision",
+            url: "https://arxiv.org/abs/1905.02244",
+            description: "Efficient vision backbones optimized for mobile and edge devices."
+          },
+          {
+            title: "NVIDIA Isaac ROS",
+            url: "https://developer.nvidia.com/isaac-ros",
+            description: "GPU-accelerated ROS packages for perception on Jetson platforms."
+          }
+        ]
+      },
+      {
+        id: "edge-robotics",
+        name: "Edge Robotics Simulation",
+        references: [
+          {
+            title: "PyBullet Physics Simulation",
+            url: "https://pybullet.org/wordpress/",
+            description: "Open-source physics simulation for robotics, games, and machine learning."
+          },
+          {
+            title: "ROS 2 Documentation",
+            url: "https://docs.ros.org/en/rolling/",
+            description: "Official ROS 2 documentation for robot operating system integration."
+          },
+          {
+            title: "Ollama: Run LLMs Locally",
+            url: "https://ollama.ai/",
+            description: "Run Llama, Gemma, Qwen, and other models locally for edge agent development."
+          },
+          {
+            title: "NVIDIA Jetson Developer Guide",
+            url: "https://developer.nvidia.com/embedded/jetson-developer-guide",
+            description: "Complete guide for deploying AI on Jetson edge devices."
+          }
+        ]
+      },
+      {
+        id: "industrial-edge",
+        name: "Industrial Edge & IT/OT",
+        references: [
+          {
+            title: "OPC-UA Specifications",
+            url: "https://opcfoundation.org/developer-tools/specifications-unified-architecture",
+            description: "Industrial interoperability standard for IT/OT integration at the edge."
+          },
+          {
+            title: "Azure Stack Edge Documentation",
+            url: "https://learn.microsoft.com/azure/databox-online/",
+            description: "Microsoft's managed edge computing appliance for hybrid cloud-edge scenarios."
+          },
+          {
+            title: "AWS Outposts",
+            url: "https://aws.amazon.com/outposts/",
+            description: "AWS infrastructure and services running on-premises for edge workloads."
+          }
+        ]
+      }
+    ],
+
     "quantum-ai-robotics": [
       {
         id: "quantum-foundations",

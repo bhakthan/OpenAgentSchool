@@ -284,6 +284,10 @@ export function getComponentAudioFile(componentName: string): string {
     'agent-skills': 'AgentSkillsConcept_explanation',
     'AgentSkillsConcept': 'AgentSkillsConcept_explanation',
     
+    // Edge Agent (Physical AI & Industrial)
+    'edge-agent': 'EdgeAgentConcept_explanation',
+    'EdgeAgentConcept': 'EdgeAgentConcept_explanation',
+    
     // Agent Red Teaming
     'agent-red-teaming': 'AgentRedTeamingConcept_explanation',
     'AgentRedTeamingConcept': 'AgentRedTeamingConcept_explanation',

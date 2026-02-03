@@ -1,6 +1,6 @@
 # Open Agent School - Robots.txt
 # https://www.openagentschool.org/robots.txt
-# Last updated: January 31, 2026
+# Last updated: February 3, 2026
 
 User-agent: *
 Allow: /
@@ -46,6 +46,7 @@ Allow: /concepts/agent-cost-optimization
 
 # Core Concepts
 Allow: /concepts/quantum-ai-robotics
+Allow: /concepts/edge-agent
 Allow: /concepts/agentic-robotics
 Allow: /concepts/agent-learning
 Allow: /concepts/fine-tuning

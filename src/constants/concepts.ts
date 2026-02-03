@@ -47,6 +47,7 @@ export const CORE_CONCEPT_IDS = [
   'agent-skills',
   // Quantum & Frontier
   'quantum-ai-robotics',
+  'edge-agent',
   // 2026 Production Foundations
   'agent-reasoning-patterns',
   'agent-memory-systems',

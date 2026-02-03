@@ -8304,6 +8304,160 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// Edge Agent - Physical AI at the Network Edge
+(scenarioLibrary as any)['edge-agent'] = [
+  {
+    id: 'edge-agent-scenario-1',
+    type: 'scenario',
+    conceptId: 'edge-agent',
+    title: 'Edge vs Cloud Model Placement',
+    level: 'beginner',
+    scenario: {
+      id: 'edge-cloud-placement',
+      title: 'Manufacturing Line AI Deployment Decision',
+      description: 'Your company is deploying AI for quality inspection on a manufacturing line. Cameras capture 30 FPS video, and defects must be flagged within 100ms to stop the line before bad parts advance.',
+      context: 'Cloud latency is 50-200ms (variable). Edge GPUs (Jetson AGX Orin) are available but have limited memory and compute.',
+      stakeholders: ['Plant Manager', 'Quality Engineer', 'IT/OT Team', 'ML Engineer'],
+      systemState: { lineSpeed: '100 parts/minute', defectRate: '0.1%', cloudLatency: '50-200ms', edgeGPU: 'Jetson AGX Orin 64GB' },
+      challenges: ['Latency requirements', 'Model accuracy vs speed', 'Maintenance and updates'],
+      decisionPoints: [
+        'Run inference in the cloud or on edge hardware?',
+        'How to handle model updates without stopping the line?',
+        'What fallback exists if the AI system fails?'
+      ],
+      options: [
+        'Cloud inference: Simpler deployment, easier updates, but 50-200ms latency risks missing the 100ms deadline',
+        'Edge inference: Deploy quantized model on Jetson for <20ms latency, use cloud for training and occasional re-calibration sync',
+        'Hybrid: Run fast edge model for real-time decisions, send flagged images to cloud for secondary review and continuous improvement'
+      ]
+    },
+    correctOption: 2,
+    rationales: [
+      'Cloud-only violates the 100ms latency requirement on variable network conditions',
+      'Edge-only meets latency but misses the benefit of cloud computing for improvement',
+      'Hybrid gets best of both: edge for speed, cloud for accuracy improvement loop'
+    ],
+    followUpQuestions: [
+      'How do you deploy model updates to edge without stopping production?',
+      'What happens if the edge device fails?',
+      'How do you validate edge model accuracy matches cloud model?'
+    ],
+    expectedInsights: [
+      'A/B partition updates: download to inactive partition, validate, swap atomically during planned micro-stop',
+      'Hardware redundancy or graceful degradation (pass-through mode) with human inspection fallback',
+      'Shadow mode: run both, compare outputs, alert on divergence; periodic accuracy audits'
+    ],
+    businessContext: 'Manufacturing AI requires sub-100ms decisions that cloud cannot reliably provide. Edge deployment is mandatory; the design question is how to maintain cloud benefits.',
+    relatedConcepts: ['agent-architecture', 'agent-deployment', 'reliability'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Identifies latency as key driver',
+      'Proposes hybrid architecture',
+      'Addresses update and failover concerns'
+    ]
+  },
+  {
+    id: 'edge-agent-scenario-2',
+    type: 'scenario',
+    conceptId: 'edge-agent',
+    title: 'IT/OT Network Design',
+    level: 'intermediate',
+    scenario: {
+      id: 'it-ot-network',
+      title: 'Securing Edge Agent Access to Factory Floor',
+      description: 'Your edge agent needs to read sensor data from PLCs and MES systems on the OT network, while sending analytics and receiving model updates from corporate IT systems.',
+      context: 'OT network is air-gapped for safety. IT security requires all cloud traffic go through corporate proxies. Plant manager is concerned about AI having "too much access."',
+      stakeholders: ['CISO', 'Plant Operations', 'OT Security', 'AI Platform Team'],
+      systemState: { plcProtocols: 'OPC-UA, Modbus', mesSystem: 'Siemens', corpNetwork: 'Azure connected', securityPosture: 'IEC 62443 required' },
+      challenges: ['Air gap crossing', 'Least privilege access', 'Audit and compliance'],
+      decisionPoints: [
+        'How does the edge agent access OT data without bridging IT and OT directly?',
+        'What permissions should the edge agent have?',
+        'How do you audit edge agent actions for compliance?'
+      ],
+      options: [
+        'Direct bridge: Edge agent has NICs on both IT and OT networks, firewall rules restrict traffic',
+        'Data diode: OT data flows one-way through hardware diode to edge agent in DMZ; agent sends to IT but cannot reach back to OT',
+        'API gateway: OT exposes read-only API through industrial gateway; edge agent consumes API; no direct OT network access'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Dual-homed device is a security risk: compromised agent could bridge networks',
+      'Data diode enforces physics-level isolation: no possible back-channel to OT',
+      'API gateway is software-based: vulnerable to misconfiguration or bypass'
+    ],
+    followUpQuestions: [
+      'How do you send commands back to OT if the diode is one-way?',
+      'What is the latency impact of the data diode?',
+      'How do you handle the edge agent needing to trigger a machine stop?'
+    ],
+    expectedInsights: [
+      'Separate command path through safety PLC with hardware interlock; AI suggests, human/safety-PLC executes',
+      'Modern optical diodes add <1ms latency; adequate for analytics but not real-time control',
+      'AI sends stop request to IT, which triggers through approved safety system; AI never has direct control authority'
+    ],
+    businessContext: 'ICS security requires strict IT/OT separation. Edge agents must operate within these constraints, typically as advisors rather than controllers.',
+    relatedConcepts: ['agent-security', 'industrial-automation', 'compliance'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Proposes proper network segmentation',
+      'Explains data diode benefits',
+      'Separates advisory from control authority'
+    ]
+  },
+  {
+    id: 'edge-agent-scenario-3',
+    type: 'scenario',
+    conceptId: 'edge-agent',
+    title: 'Physical AI Fleet Management',
+    level: 'advanced',
+    scenario: {
+      id: 'fleet-management',
+      title: 'Scaling Edge Agents Across 50 Global Factories',
+      description: 'Your edge AI deployment succeeded in one factory. Now leadership wants to deploy to 50 factories across 12 countries, each with different equipment, network conditions, and regulatory requirements.',
+      context: 'Each factory has 10-50 edge devices. Models need localization for regional product variants. Connectivity ranges from fiber to 4G cellular.',
+      stakeholders: ['Global Operations VP', 'Regional Plant Managers', 'Central AI Team', 'Local IT Teams'],
+      systemState: { factories: 50, edgeDevices: 1500, models: '15 variants', connectivity: 'varied (1Mbps-1Gbps)' },
+      challenges: ['Model versioning and deployment', 'Regional customization', 'Monitoring at scale'],
+      decisionPoints: [
+        'How do you manage 1500 edge devices centrally while allowing regional customization?',
+        'How do you deploy model updates with minimal disruption across time zones?',
+        'How do you monitor and troubleshoot devices you cannot physically access?'
+      ],
+      options: [
+        'Central push: Deploy same model to all devices simultaneously; require factories to schedule downtime',
+        'GitOps fleet: Devices pull from central registry; regional branches allow customization; gradual rollout with canary phases',
+        'Fully autonomous: Each factory manages own devices; central team provides training but no operational control'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Simultaneous push causes global outage risk and coordination nightmare across time zones',
+      'GitOps enables central visibility with regional flexibility; canary catches issues before global impact',
+      'Fully autonomous leads to drift, inconsistent quality, and inability to respond to security issues'
+    ],
+    followUpQuestions: [
+      'How do you handle a factory with poor connectivity during an update?',
+      'What metrics indicate an edge agent needs attention?',
+      'How do you roll back a bad deployment across multiple regions?'
+    ],
+    expectedInsights: [
+      'Store-and-forward with local staging; device retries until successful; timeout triggers alert',
+      'Inference latency, accuracy drift, connectivity uptime, thermal state, disk/memory usage',
+      'Automated rollback trigger (accuracy drop, error rate spike); phased rollout means only canary devices affected initially'
+    ],
+    businessContext: 'Enterprise edge AI requires fleet management discipline similar to mobile device management (MDM) but for AI workloads. Scale demands automation with guardrails.',
+    relatedConcepts: ['agent-deployment', 'agent-observability', 'enterprise-operations'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Designs scalable fleet architecture',
+      'Implements safe rollout strategy',
+      'Plans monitoring and rollback'
+    ]
+  }
+];
+
 // Helper function to get scenarios by concept and level
 export function getScenarios(
   conceptId: string, 

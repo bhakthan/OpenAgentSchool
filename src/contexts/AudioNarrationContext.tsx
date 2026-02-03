@@ -528,6 +528,10 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'agent-skills': 'AgentSkillsConcept',
         'AgentSkillsConcept': 'AgentSkillsConcept',
         
+        // Edge Agent (Physical AI & Industrial)
+        'edge-agent': 'EdgeAgentConcept',
+        'EdgeAgentConcept': 'EdgeAgentConcept',
+        
         // Core Concepts - 2026 additions
         'agent-reasoning-patterns': 'AgentReasoningPatternsConcept',
         'agent-memory-systems': 'AgentMemorySystemsConcept',

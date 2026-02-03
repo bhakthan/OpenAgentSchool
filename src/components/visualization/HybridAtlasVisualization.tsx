@@ -142,6 +142,7 @@ function buildAtlasData(): AtlasNode {
           { id: 'industry-agents', name: 'Industry Agents', type: 'concept', novel: true, path: '/concepts/industry-agents' },
           { id: 'agent-templates-hub', name: 'Templates Hub', type: 'concept', novel: true, path: '/concepts/agent-templates-hub' },
           { id: 'quantum-ai-robotics', name: 'Quantum AI Robotics', type: 'concept', novel: true, path: '/concepts/quantum-ai-robotics' },
+          { id: 'edge-agent', name: 'Edge Agent', type: 'concept', novel: true, path: '/concepts/edge-agent' },
         ]
       },
       {
