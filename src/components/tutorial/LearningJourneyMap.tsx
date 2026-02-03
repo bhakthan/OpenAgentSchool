@@ -1235,7 +1235,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
         </CardHeader>
         <CardContent className="flex-1 min-h-0 p-0">
           <div className="grid h-full min-h-0 lg:grid-cols-[260px_1fr]">
-            <aside className="border-r border-border/40 bg-background/80 dark:bg-background/40 hidden lg:block">
+            <aside className="border-r border-border/40 bg-background/90 dark:bg-background/50 hidden lg:block">
               <ScrollArea className="h-full p-6">
                 <div className="space-y-6">
                   <div>
