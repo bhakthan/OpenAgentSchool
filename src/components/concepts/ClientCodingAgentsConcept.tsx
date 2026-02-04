@@ -2,7 +2,7 @@ import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
-import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, Key, Sparkle, Plugs, FilePdf } from "@phosphor-icons/react"
+import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, Key, Sparkle, Plugs, FilePdf, ChartBarHorizontal } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
@@ -2200,6 +2200,309 @@ uses: github/copilot-cli-action@v1`}</code>
           <EnlightenMeButton
             title="CLI Agent Best Practices"
             contextDescription="Patterns for effective CLI coding agent usage"
+          />
+        </div>
+      )
+    },
+    {
+      id: 'research-insights',
+      title: 'Research Insights',
+      description: 'What real-world data reveals about AI coding challenges',
+      icon: <ChartBarHorizontal className="w-4 h-4" />,
+      level: 'advanced' as const,
+      content: (
+        <div className="space-y-6">
+          {/* Introduction */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ChartBarHorizontal className="w-5 h-5" />
+                The Hidden Architecture of AI Coding Agents
+              </CardTitle>
+              <CardDescription>
+                What Stack Overflow and GitHub data reveals about real-world challenges
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg leading-relaxed">
+                As we move from Copilot's autocomplete to Claude Code's autonomous workflows, 
+                research analyzing Stack Overflow and GitHub data reveals a crucial pattern: 
+                <strong>master the foundation before building skyscrapers</strong>.
+              </p>
+              
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                <p className="text-sm text-muted-foreground">
+                  📄 <strong>Source:</strong>{" "}
+                  <a 
+                    href="https://arxiv.org/pdf/2510.25423" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 underline hover:no-underline"
+                  >
+                    arxiv.org/pdf/2510.25423
+                  </a>
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Three Phases */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Three Phases of Escalating Complexity</CardTitle>
+              <CardDescription>
+                How developer challenges evolve as they adopt AI coding tools
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Phase 1 */}
+                <div className="border border-blue-200 dark:border-blue-800 rounded-lg p-4 bg-blue-50/50 dark:bg-blue-900/10">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge className="bg-blue-500">Phase 1</Badge>
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-2">Foundation Issues</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Manual debugging and runtime problems dominate
+                  </p>
+                  <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                    46%
+                  </div>
+                  <p className="text-xs text-muted-foreground">of reported problems</p>
+                </div>
+
+                {/* Phase 2 */}
+                <div className="border border-purple-200 dark:border-purple-800 rounded-lg p-4 bg-purple-50/50 dark:bg-purple-900/10">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge className="bg-purple-500">Phase 2</Badge>
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-2">Prompt Engineering</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Getting the AI to do what you actually want
+                  </p>
+                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
+                    56%
+                  </div>
+                  <p className="text-xs text-muted-foreground">of issues involve prompts</p>
+                </div>
+
+                {/* Phase 3 */}
+                <div className="border border-green-200 dark:border-green-800 rounded-lg p-4 bg-green-50/50 dark:bg-green-900/10">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge className="bg-green-500">Phase 3</Badge>
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-2">Orchestration & RAG</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Vector stores, retrieval, multi-agent systems
+                  </p>
+                  <div className="text-3xl font-bold text-green-600 dark:text-green-400">
+                    30%+
+                  </div>
+                  <p className="text-xs text-muted-foreground">of advanced challenges</p>
+                </div>
+              </div>
+
+              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800 mt-4">
+                <h5 className="font-semibold text-foreground mb-2">🎯 Key Insight</h5>
+                <p className="text-sm text-muted-foreground">
+                  While code generation has become more automated, we're seeing the emergence of 
+                  three new specializations: <strong>prompt engineers</strong>, <strong>embedding architects</strong>, 
+                  and <strong>orchestration designers</strong>.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* The Skyscraper Analogy */}
+          <Card>
+            <CardHeader>
+              <CardTitle>🏗️ The Skyscraper Analogy</CardTitle>
+              <CardDescription>
+                GitHub taxonomy research maps AI coding issues to building construction layers
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Flowchart Image */}
+              <div className="border border-border rounded-lg overflow-hidden">
+                <img 
+                  src="/images/Github_issues_taxonomy_analogy_flowchart.jpg" 
+                  alt="GitHub Issues Taxonomy Analogy Flowchart - mapping AI coding challenges to building construction layers" 
+                  className="w-full"
+                />
+              </div>
+
+              {/* Layers Breakdown */}
+              <div className="space-y-3 mt-4">
+                <div className="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+                  <div className="w-8 h-8 rounded-full bg-slate-500 text-white flex items-center justify-center font-bold text-sm shrink-0">1</div>
+                  <div>
+                    <h5 className="font-semibold text-foreground">Foundation</h5>
+                    <p className="text-sm text-muted-foreground">Platform integrations, dependencies, runtime failures</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm shrink-0">2</div>
+                  <div>
+                    <h5 className="font-semibold text-foreground">Core Structure</h5>
+                    <p className="text-sm text-muted-foreground">Embeddings, model inconsistencies</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                  <div className="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-sm shrink-0">3</div>
+                  <div>
+                    <h5 className="font-semibold text-foreground">Building Management</h5>
+                    <p className="text-sm text-muted-foreground">Agent orchestration, invocation logic</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+                  <div className="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-sm shrink-0">4</div>
+                  <div>
+                    <h5 className="font-semibold text-foreground">Safety & Compliance</h5>
+                    <p className="text-sm text-muted-foreground">Error handling, policy enforcement</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm shrink-0">5</div>
+                  <div>
+                    <h5 className="font-semibold text-foreground">User Experience</h5>
+                    <p className="text-sm text-muted-foreground">Workflow UI, configurability</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800 mt-4">
+                <h5 className="font-semibold text-foreground mb-2">⚠️ Worth Considering</h5>
+                <p className="text-sm text-muted-foreground">
+                  Many teams are implementing advanced features (multi-agent RAG) while foundational 
+                  challenges remain active. <strong>Dependency conflicts account for 20-49% across all phases</strong>.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Stack Overflow Data Lens */}
+          <Card>
+            <CardHeader>
+              <CardTitle>📊 Stack Overflow Data Lens</CardTitle>
+              <CardDescription>
+                What developers actually struggle with, measured by questions asked
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Data Lens Image */}
+              <div className="border border-border rounded-lg overflow-hidden">
+                <img 
+                  src="/images/Stackoverflow_Data_lens.jpg" 
+                  alt="Stack Overflow Data Lens - visualization of developer questions and challenges with AI coding tools" 
+                  className="w-full"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold text-foreground mb-2">🔧 42% Correctness Concerns</h5>
+                  <p className="text-sm text-muted-foreground">
+                    Nearly half of questions relate to verifying that AI-generated code actually works correctly.
+                  </p>
+                </div>
+                <div className="border border-border rounded-lg p-4">
+                  <h5 className="font-semibold text-foreground mb-2">📦 18% Vector Store Management</h5>
+                  <p className="text-sm text-muted-foreground">
+                    Phase 3 developers juggle database management, DevOps, prompt engineering, and coding simultaneously.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Thoughtful Path Forward */}
+          <Card>
+            <CardHeader>
+              <CardTitle>🛤️ A Thoughtful Path Forward</CardTitle>
+              <CardDescription>
+                Data-driven approach to building your AI coding skills
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                  <div className="w-10 h-10 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold shrink-0">1</div>
+                  <div>
+                    <h5 className="font-semibold text-foreground">Start with Prompt Engineering</h5>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      56% of Phase 2 issues are prompt-related. Think of this as your <strong>architectural blueprint</strong>—master 
+                      it before building anything complex.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold shrink-0">2</div>
+                  <div>
+                    <h5 className="font-semibold text-foreground">Develop Robust Evaluation</h5>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      With 42% correctness concerns, automated verification isn't optional—it's essential for scaling effectively.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-green-50 to-amber-50 dark:from-green-900/20 dark:to-amber-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                  <div className="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold shrink-0">3</div>
+                  <div>
+                    <h5 className="font-semibold text-foreground">Then Build Upward</h5>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Orchestration and RAG become much more manageable when you have solid prompting and evaluation foundations.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                  <div className="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold shrink-0">4</div>
+                  <div>
+                    <h5 className="font-semibold text-foreground">Systematize Operations</h5>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Automate recurring issues rather than repeatedly addressing them manually. Build once, benefit forever.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Reflection Question */}
+          <Card className="border-2 border-primary/30">
+            <CardHeader>
+              <CardTitle>🤔 A Question to Reflect On</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <blockquote className="text-lg italic text-foreground border-l-4 border-primary pl-4 py-2">
+                "Are we building on solid ground, or might we benefit from strengthening each layer before adding the next?"
+              </blockquote>
+              <p className="text-sm text-muted-foreground mt-4">
+                The organizations finding success aren't necessarily those adopting autonomous agents fastest—they're often 
+                those recognizing that <strong>AI coding infrastructure shares principles with construction engineering</strong>.
+              </p>
+              <p className="text-sm text-muted-foreground mt-2">
+                The evolution from Copilot to autonomous agents represents more than a feature upgrade—it's an 
+                <strong>architectural transformation</strong> that invites us to rethink our entire development stack from the ground up.
+              </p>
+
+              <div className="mt-6 p-4 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg border border-primary/20">
+                <h5 className="font-semibold text-foreground mb-2">💭 What layer is your organization focused on?</h5>
+                <p className="text-sm text-muted-foreground">
+                  Consider where your team spends most of its time: Foundation (dependencies, runtime), 
+                  Structure (embeddings, models), Management (orchestration), Safety (error handling), 
+                  or Experience (workflows, UI)?
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <ReferenceSection type="concept" itemId="client-coding-agents" />
+
+          <EnlightenMeButton
+            title="Research Insights"
+            contextDescription="Data-driven insights about AI coding agent adoption challenges"
           />
         </div>
       )

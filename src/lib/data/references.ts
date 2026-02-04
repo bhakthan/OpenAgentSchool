@@ -4189,6 +4189,17 @@ export const references: ReferencesData = {
             description: "Directory of ACP-compatible editors and IDEs"
           }
         ]
+      },
+      {
+        id: "research-insights",
+        name: "Research & Data Analysis",
+        references: [
+          {
+            title: "The Hidden Architecture of AI Coding Agents: What the Data Really Reveals",
+            url: "https://arxiv.org/pdf/2510.25423",
+            description: "Research analyzing Stack Overflow and GitHub data to reveal patterns in AI coding agent adoption, challenges across three phases of escalating complexity, and the skyscraper analogy for building AI infrastructure"
+          }
+        ]
       }
     ]
   },
