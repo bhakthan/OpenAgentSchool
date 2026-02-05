@@ -92,6 +92,7 @@ export default function D3TreeVisualization({
             { id: 'mcp', name: 'Model Context Protocol', type: 'concept' as const },
             { id: 'client-coding-agents', name: 'Client Coding Agents', type: 'concept' as const, novel: true },
             { id: 'agent-skills', name: 'Agent Skills', type: 'concept' as const, novel: true },
+            { id: 'ai-ready-data', name: 'AI-Ready Data', type: 'concept' as const, novel: true },
             { id: 'flow-visualization', name: 'Flow Visualization', type: 'concept' as const },
             { id: 'agent-evaluation', name: 'Agent Evaluation', type: 'concept' as const },
             { id: 'a2a-communication-patterns', name: 'A2A Communication Patterns', type: 'concept' as const, novel: true },

@@ -96,6 +96,7 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 ### Advanced Topics
 - Multi-Agent Systems & Orchestration
 - Data Autonomy Patterns
+- AI-Ready Data - Decision-grade data foundations for AI trust: data constraints, trust erosion, decision capture, maturity ladder
 - Fine-Tuning Methods (SFT, DPO, RFT)
 - Quantum-Enhanced AI & Robotics
 - Edge Agent & Physical AI (February 2026)
@@ -127,6 +128,7 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Program Setup & North Star: https://www.openagentschool.org/concepts/program-setup-north-star
 - Responsible AI Governance: https://www.openagentschool.org/concepts/responsible-ai-governance
 - Strategy & Portfolio Management: https://www.openagentschool.org/concepts/strategy-portfolio-management
+- AI-Ready Data: https://www.openagentschool.org/concepts/ai-ready-data
 - Organizational Enablement: https://www.openagentschool.org/concepts/organizational-enablement
 - Data & Knowledge Operations: https://www.openagentschool.org/concepts/data-knowledge-operations
 - Experimentation & Continuous Improvement: https://www.openagentschool.org/concepts/experimentation-continuous-improvement

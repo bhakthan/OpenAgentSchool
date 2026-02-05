@@ -85,6 +85,14 @@
         <priority>0.9</priority>
     </url>
 
+    <!-- AI-Ready Data (February 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/ai-ready-data</loc>
+        <lastmod>2026-02-05</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
     <!-- Core Agent Concepts -->
     <url>
         <loc>https://www.openagentschool.org/concepts/agentic-ai-design-taxonomy</loc>

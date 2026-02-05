@@ -20,6 +20,7 @@ import {Trophy} from "@phosphor-icons/react/dist/ssr/Trophy";
 import {Robot} from "@phosphor-icons/react/dist/ssr/Robot";
 import {Sparkle} from "@phosphor-icons/react/dist/ssr/Sparkle";
 import {GraduationCap} from "@phosphor-icons/react/dist/ssr/GraduationCap";
+import {Database} from "@phosphor-icons/react/dist/ssr/Database";
 import { ArrowsHorizontal } from "@phosphor-icons/react/dist/ssr/ArrowsHorizontal";
 import { Shield } from "@phosphor-icons/react/dist/ssr/Shield";
 import { Stack } from "@phosphor-icons/react/dist/ssr/Stack";
@@ -77,7 +78,7 @@ const learningPaths: LearningPath[] = [
       'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance',
       'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework',
       // Tier 2: Architecture Concepts  
-      'a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management',
+      'a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management', 'ai-ready-data',
       // Tier 3: Implementation Concepts
       'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations',
       // Tier 4: Advanced Concepts
@@ -403,6 +404,20 @@ const learningPaths: LearningPath[] = [
         isUnlocked: false,
         path: '/concepts'
       },
+      {
+        id: 'ai-ready-data',
+        title: 'AI-Ready Data',
+        description: 'Build decision-grade data foundations that AI can trust—address constraints, earn organizational trust, and enable reliable automation.',
+        icon: <Database size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '60-75 min',
+        prerequisites: ['agent-architecture', 'strategy-portfolio-management'],
+        skills: ['Data Trust', 'Decision Capture', 'Data Quality Flywheel', 'Trust Contracts'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
       
       // Tier 3: Implementation Concepts
       {
@@ -454,7 +469,7 @@ const learningPaths: LearningPath[] = [
         icon: <Stack size={20} />,
         difficulty: 'intermediate',
         estimatedTime: '40-50 min',
-        prerequisites: ['data-visualization'],
+        prerequisites: ['ai-ready-data', 'data-visualization'],
         skills: ['Data Curation', 'Evaluation Suites', 'Knowledge Stewardship'],
         completionRate: 0,
         isCompleted: false,

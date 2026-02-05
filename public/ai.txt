@@ -63,6 +63,9 @@ Concept-Edge-Agent: https://www.openagentschool.org/concepts/edge-agent
 Concept-Fine-Tuning: https://www.openagentschool.org/concepts/fine-tuning
 Concept-RLHF: https://www.openagentschool.org/concepts/rlhf
 
+# AI-Ready Data & Decision Intelligence (February 2026)
+Concept-AI-Ready-Data: https://www.openagentschool.org/concepts/ai-ready-data
+
 # 2026 Agent Patterns
 Pattern-Skill-Augmented: https://www.openagentschool.org/patterns/skill-augmented-agent
 Pattern-MCP-Orchestration: https://www.openagentschool.org/patterns/mcp-server-orchestration

@@ -3835,10 +3835,264 @@ export const emergencyResponseMateSocraticQuestions: StudyModeQuestion[] = [
     ]
   }
 ];
+
+// AI-Ready Data Socratic Questions
+export const aiReadyDataSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'ai-ready-data-socratic-1',
+    type: 'socratic',
+    conceptId: 'ai-ready-data',
+    title: 'Discovering Data Constraints',
+    level: 'beginner',
+    socratiQuestion: 'If you were asked to "just use our company data to train an AI," what three fundamental problems would you encounter before you even started?',
+    followUpQuestions: [
+      'How would you handle discovering that "customer ID" means different things in different systems?',
+      'What happens when no one can definitively say who owns the data you need?',
+      'How do you trace how a number was calculated when 15 spreadsheets were involved?'
+    ],
+    expectedInsights: [
+      'Semantic drift: The same term means different things across systems',
+      'Ownership ambiguity: Data exists but accountability is unclear',
+      'Provenance gaps: Transformation lineage is undocumented'
+    ],
+    hints: [
+      'Think about the last time you tried to merge data from two different sources',
+      'Consider what "data quality" actually means operationally',
+      'Reflect on who answers questions about your critical datasets'
+    ],
+    explanation: 'This exploration helps learners discover that AI-readiness isn\'t about data volume—it\'s about establishing clear semantics, ownership, and lineage first.',
+    relatedConcepts: ['data-knowledge-operations', 'agent-architecture', 'agent-evaluation'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Identifies semantic consistency as a core challenge',
+      'Recognizes ownership as a prerequisite for accountability',
+      'Understands lineage as essential for trust'
+    ]
+  },
+  {
+    id: 'ai-ready-data-socratic-2',
+    type: 'socratic',
+    conceptId: 'ai-ready-data',
+    title: 'The Trust Erosion Mechanism',
+    level: 'intermediate',
+    socratiQuestion: 'Your AI model produced a wrong recommendation that cost the company $2M. Stakeholders now distrust ALL AI outputs. How did one failure cascade into organizational paralysis?',
+    followUpQuestions: [
+      'What\'s the difference between "the model was wrong" and "we couldn\'t explain why"?',
+      'Why do executives revert to gut decisions when AI fails once?',
+      'How would you rebuild trust after this incident?'
+    ],
+    expectedInsights: [
+      'Automating uncertainty compounds errors—garbage in, garbage out at scale',
+      'Trust erodes faster than it builds; one unexplainable failure undoes months of wins',
+      'Humans fall back to familiar patterns when new systems prove unreliable'
+    ],
+    hints: [
+      'Consider the psychological impact of high-stakes failure',
+      'Think about how trust is built vs. how it\'s lost',
+      'Reflect on what "explainability" means to a business executive'
+    ],
+    explanation: 'This scenario reveals that AI trust is built on data trust. Organizations that can\'t explain data flows can\'t recover from AI failures.',
+    relatedConcepts: ['responsible-ai-governance', 'agent-evaluation', 'ai-safety-governance'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Connects data quality to AI reliability',
+      'Recognizes trust asymmetry (slow to build, fast to erode)',
+      'Proposes explainability as a trust recovery mechanism'
+    ]
+  },
+  {
+    id: 'ai-ready-data-socratic-3',
+    type: 'socratic',
+    conceptId: 'ai-ready-data',
+    title: 'Shadow Forces in Organizations',
+    level: 'intermediate',
+    socratiQuestion: 'A VP tells you their team has "the best data in the company" but refuses to share it with other departments. What\'s actually happening, and why is this rational from their perspective?',
+    followUpQuestions: [
+      'How does data become a source of political power in organizations?',
+      'What incentives drive data hoarding vs. data sharing?',
+      'How would you design systems that make sharing more beneficial than hoarding?'
+    ],
+    expectedInsights: [
+      'Data is power: Unique access creates indispensability and budget justification',
+      'Sharing risk > hoarding risk: Exposing data quality issues threatens reputation',
+      'Metrics gaming: Teams optimize for their dashboards, not organizational truth'
+    ],
+    hints: [
+      'Consider the incentive structures at play',
+      'Think about what happens when someone\'s "golden dataset" is revealed to have issues',
+      'Reflect on why data stewardship is often an unfunded mandate'
+    ],
+    explanation: 'This exploration reveals that data readiness is not just technical—it\'s organizational. Political dynamics often matter more than technology.',
+    relatedConcepts: ['organizational-enablement', 'strategy-portfolio-management', 'ecosystem-partnerships'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Identifies political incentives behind data hoarding',
+      'Recognizes the rational self-interest in non-cooperation',
+      'Proposes incentive realignment strategies'
+    ]
+  },
+  {
+    id: 'ai-ready-data-socratic-4',
+    type: 'socratic',
+    conceptId: 'ai-ready-data',
+    title: 'Capturing Decision DNA',
+    level: 'intermediate',
+    socratiQuestion: 'Your best salesperson is retiring. They have an 85% close rate while others average 40%. How would you capture their decision-making so an AI could learn from it?',
+    followUpQuestions: [
+      'What\'s the difference between asking "what do you do?" vs. observing what they actually do?',
+      'How do you capture the context that informed a decision, not just the decision itself?',
+      'What happens if you train AI on documented decisions but the documentation was aspirational, not accurate?'
+    ],
+    expectedInsights: [
+      'Expert decisions are often tacit—experts can\'t articulate their own heuristics',
+      'Context is everything: The same decision with different context signals different patterns',
+      'Documented processes often describe ideal behavior, not actual behavior'
+    ],
+    hints: [
+      'Consider the five W\'s: What, Why, Who, When, and What-if',
+      'Think about what\'s lost when decisions exist only in email threads',
+      'Reflect on the difference between "policy" and "practice"'
+    ],
+    explanation: 'This scenario introduces Decision DNA—the systematic capture of decisions with full context. AI can only replicate decisions it can observe.',
+    relatedConcepts: ['agent-learning', 'agentic-rag', 'agent-memory-systems'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Distinguishes tacit from explicit knowledge',
+      'Proposes context capture mechanisms',
+      'Addresses the documentation vs. reality gap'
+    ]
+  },
+  {
+    id: 'ai-ready-data-socratic-5',
+    type: 'socratic',
+    conceptId: 'ai-ready-data',
+    title: 'Building Trust Architecture',
+    level: 'advanced',
+    socratiQuestion: 'Design a "data product contract" for a critical dataset. What six dimensions must it cover to enable trustworthy AI consumption?',
+    followUpQuestions: [
+      'How do you verify contract compliance automatically vs. manually?',
+      'What happens when the data producer changes the schema without updating consumers?',
+      'How do you handle partial compliance—80% of records meet the contract?'
+    ],
+    expectedInsights: [
+      'Six dimensions: Accuracy, Completeness, Consistency, Timeliness, Validity, Uniqueness',
+      'Contracts need enforcement mechanisms—SLAs, automated validation, alerts',
+      'Trust architecture requires versioning, compatibility guarantees, and graceful degradation'
+    ],
+    hints: [
+      'Think about what questions a data consumer needs answered before using data',
+      'Consider how software APIs use contracts and versioning',
+      'Reflect on the difference between "correct" and "fit for purpose"'
+    ],
+    explanation: 'This exercise builds the foundation of trust architecture—formal contracts that make data quality measurable and enforceable.',
+    relatedConcepts: ['data-knowledge-operations', 'agent-evaluation', 'architecture-platform-operations'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Identifies all six trust dimensions',
+      'Proposes automated verification mechanisms',
+      'Designs for partial compliance scenarios'
+    ]
+  },
+  {
+    id: 'ai-ready-data-socratic-6',
+    type: 'socratic',
+    conceptId: 'ai-ready-data',
+    title: 'Climbing the Maturity Ladder',
+    level: 'advanced',
+    socratiQuestion: 'Your organization is at Stage 2 (Defined) data maturity. The CEO wants to deploy autonomous AI agents. What two stages must you skip to get there, and what will break?',
+    followUpQuestions: [
+      'What\'s the difference between "managed" data and "optimized" data?',
+      'Why can\'t you skip Stage 3 (Managed) when deploying agentic AI?',
+      'What does "autonomous data systems" actually mean in practice?'
+    ],
+    expectedInsights: [
+      'Maturity stages: Raw → Defined → Managed → Optimized → Autonomous',
+      'Skipping Managed means agents make decisions on unvalidated data—amplified garbage',
+      'Autonomous requires self-healing, self-documenting, self-validating data systems'
+    ],
+    hints: [
+      'Consider what capabilities each stage unlocks',
+      'Think about what happens when agents act on stale or inconsistent data',
+      'Reflect on the difference between automation and autonomy'
+    ],
+    explanation: 'This scenario illustrates why data maturity is prerequisite to AI maturity. Autonomous agents require autonomous data systems.',
+    relatedConcepts: ['agent-architecture', 'experimentation-continuous-improvement', 'agent-ops'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Maps the five maturity stages accurately',
+      'Identifies risks of skipping stages',
+      'Defines autonomous data system characteristics'
+    ]
+  },
+  {
+    id: 'ai-ready-data-socratic-7',
+    type: 'socratic',
+    conceptId: 'ai-ready-data',
+    title: 'The Implementation Flywheel',
+    level: 'advanced',
+    socratiQuestion: 'You have budget for one data quality initiative. How do you create a "flywheel" where success in one area generates momentum for the next?',
+    followUpQuestions: [
+      'What makes a good "minimum viable data contract"?',
+      'How do you prevent the boil-the-ocean trap?',
+      'How do you measure flywheel momentum?'
+    ],
+    expectedInsights: [
+      'Start with high-visibility, bounded datasets where improvement is measurable',
+      'Flywheel: Better data → Better decisions → More trust → More investment → Better data',
+      'Avoid: Trying to fix everything, chasing perfect quality scores, treating data as one-time project'
+    ],
+    hints: [
+      'Think about what constitutes a quick win with compounding returns',
+      'Consider how to make success visible to leadership',
+      'Reflect on what kills data initiatives (hint: scope creep)'
+    ],
+    explanation: 'This exercise teaches implementation strategy—building momentum through bounded wins rather than boiling the ocean.',
+    relatedConcepts: ['strategy-portfolio-management', 'experimentation-continuous-improvement', 'program-setup-north-star'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Designs a bounded first initiative',
+      'Articulates the flywheel mechanism',
+      'Identifies common implementation anti-patterns'
+    ]
+  },
+  {
+    id: 'ai-ready-data-socratic-8',
+    type: 'socratic',
+    conceptId: 'ai-ready-data',
+    title: 'The Strategic Imperative',
+    level: 'advanced',
+    socratiQuestion: 'Your competitor just deployed AI agents that reduced their customer service costs by 60%. Your CEO asks: "Why can\'t we do that?" Construct your answer.',
+    followUpQuestions: [
+      'What\'s the real cost of waiting another year to address data readiness?',
+      'How do you quantify the "AI readiness gap" in business terms?',
+      'What\'s your 90-day, 6-month, and 18-month roadmap?'
+    ],
+    expectedInsights: [
+      'Competitors with AI-ready data will compound advantages—the gap widens, not closes',
+      'Cost of delay: Lost efficiency gains + talent attrition to AI-ready companies + technical debt accumulation',
+      'Timeline reality: Foundation (6-12 mo) → Acceleration (6-12 mo) → Mastery (12-18 mo)'
+    ],
+    hints: [
+      'Frame data readiness as competitive survival, not IT project',
+      'Quantify what decisions are impossible today due to data gaps',
+      'Show the compounding effect of early vs. late investment'
+    ],
+    explanation: 'This scenario teaches strategic framing—translating technical data challenges into business imperatives that executives understand.',
+    relatedConcepts: ['agent-economics', 'program-setup-north-star', 'organizational-enablement'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Frames data readiness as competitive necessity',
+      'Quantifies cost of delay',
+      'Proposes phased implementation roadmap'
+    ]
+  }
+];
+
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
   'mcp': mcpSocraticQuestions,
+  'ai-ready-data': aiReadyDataSocraticQuestions,
   'multi-agent-systems': multiAgentSocraticQuestions,
   'agentic-rag': agenticRAGSocraticQuestions,
   'modern-tool-use': modernToolUseSocraticQuestions,

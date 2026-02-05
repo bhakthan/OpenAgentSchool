@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database } from "@phosphor-icons/react"
 import { ShareButton } from "@/components/ui/ShareButton"
 import AIAgentsConcept from "./AIAgentsConcept"
 import A2ACommunicationConcept from "./A2ACommunicationConcept"
@@ -39,6 +39,7 @@ import ProgramSetupNorthStarConcept from "./ProgramSetupNorthStarConcept"
 import ResponsibleAIGovernanceConcept from "./ResponsibleAIGovernanceConcept"
 import StrategyPortfolioManagementConcept from "./StrategyPortfolioManagementConcept"
 import DataKnowledgeOperationsConcept from "./DataKnowledgeOperationsConcept"
+import AIReadyDataConcept from "./AIReadyDataConcept"
 import ArchitecturePlatformOperationsConcept from "./ArchitecturePlatformOperationsConcept"
 import ExperimentationContinuousImprovementConcept from "./ExperimentationContinuousImprovementConcept"
 import EcosystemPartnershipsConcept from "./EcosystemPartnershipsConcept"
@@ -329,6 +330,17 @@ const concepts: ConceptInfo[] = [
     prerequisites: ['agent-architecture', 'agentic-ai-design-taxonomy'],
     component: StrategyPortfolioManagementConcept
   },
+  {
+    id: 'ai-ready-data',
+    title: 'AI-Ready Data',
+    description: 'Build decision-grade data foundations that AI can trust—address constraints, earn organizational trust, and transform raw data into automation-ready assets.',
+    level: 'architecture',
+    icon: <Database className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-emerald-900/20 dark:text-emerald-300',
+    estimatedTime: '60-75 min',
+    prerequisites: ['agent-architecture', 'strategy-portfolio-management'],
+    component: AIReadyDataConcept
+  },
   // Tier 3: Implementation Concepts
   {
     id: 'acp',
@@ -372,7 +384,7 @@ const concepts: ConceptInfo[] = [
     icon: <Stack className="w-6 h-6" />,
     color: 'bg-background text-foreground/80 dark:bg-sky-900/20 dark:text-sky-300',
     estimatedTime: '40-50 min',
-    prerequisites: ['data-visualization'],
+    prerequisites: ['ai-ready-data', 'data-visualization'],
     component: DataKnowledgeOperationsConcept
   },
   // Tier 4: Advanced Concepts

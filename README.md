@@ -126,9 +126,28 @@ npm run dev
 
 ---
 
-##  Recent Updates (January 31, 2026)
+##  Recent Updates (February 5, 2026)
 
 ### New Concepts
+
+🆕 **AI-Ready Data: From Data to Decisions**
+- Comprehensive 8-part framework for enterprise AI data readiness
+- Visible Cracks: Data constraints (semantic drift, ownership, lineage)
+- The Trust Trap: Trust erosion mechanisms and automation risks
+- Shadow Forces: Organizational dynamics (hoarding, gaming, blame avoidance)
+- Decision DNA: Systematic decision capture methodology
+- Trust Architecture: Six dimensions of data quality contracts
+- The Ladder: 5-stage maturity progression (Raw → Autonomous)
+- The Flywheel: Implementation strategy and momentum building
+- The Imperative: Strategic positioning and competitive urgency
+- 8 Socratic questions for discovery-based learning
+- Prerequisite concept for Data & Knowledge Operations
+
+---
+
+##  Previous Updates (January 31, 2026)
+
+### Concepts
 
 🆕 **MCP Apps & Agent UI**
 - Interactive UI standard for AI agents (SEP-1865)

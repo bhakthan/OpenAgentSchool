@@ -20,6 +20,7 @@ export const CORE_CONCEPT_IDS = [
   'ai-product-framework',
   'a2a-communication',
   'mcp',
+  'ai-ready-data',
   'flow-visualization',
   'agent-evaluation',
   'strategy-portfolio-management',
