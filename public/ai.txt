@@ -1,6 +1,9 @@
 # Open Agent School - ai.txt (experimental)
 # AI crawler context file for AI training and LLM discovery
-# Last updated: February 3, 2026
+# Last updated: February 5, 2026
+
+# Mission
+# Our mission: To benefit every Educational Institution, every Educator, and every Learner.
 
 User-Agent: *
 Allow: /

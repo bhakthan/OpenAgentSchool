@@ -103,6 +103,9 @@ export const LandingHero: React.FC = () => {
                   }}>
                     Learn AI agents, step by step
                   </h2>
+                  <p className="text-lg font-medium italic text-primary/80 mb-4">
+                    Our mission: To benefit every Educational Institution, every Educator, and every Learner.
+                  </p>
                   <p className="text-xl text-muted-foreground leading-relaxed">
                     Start with the basics and build real skills. Short lessons, interactive visuals, and practical examples
                     help you make steady progress with confidence.

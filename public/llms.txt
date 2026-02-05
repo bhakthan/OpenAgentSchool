@@ -1,9 +1,13 @@
 # Open Agent School - llms.txt
 # https://llmstxt.org/ - A standard for providing context to LLMs
-# Last updated: February 3, 2026
+# Last updated: February 5, 2026
 
 > Open Agent School is a comprehensive educational platform for mastering AI agents,
 > from foundational concepts to production-ready agentic systems.
+
+## Mission
+
+Our mission: To benefit every Educational Institution, every Educator, and every Learner.
 
 ## About
 
