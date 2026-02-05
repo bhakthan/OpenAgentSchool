@@ -304,7 +304,7 @@ const AIReadyDataConcept: React.FC = () => {
           <Layers className="w-4 h-4" /> The AI-Ready Data Framework
         </h3>
         <img 
-          src="/images/ai_ready_data.png" 
+          src="/images/AI_ready_data.png" 
           alt="AI-Ready Data: From Data to Decisions - 8-part framework covering visible cracks, trust trap, shadow forces, decision DNA, trust architecture, the maturity ladder, the flywheel, and the strategic imperative" 
           className="w-full rounded-lg shadow-sm border"
           loading="lazy"
