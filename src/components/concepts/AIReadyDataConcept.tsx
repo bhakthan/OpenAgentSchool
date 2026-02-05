@@ -298,6 +298,22 @@ const AIReadyDataConcept: React.FC = () => {
         </div>
       </Card>
 
+      {/* AI-Ready Data Framework Infographic */}
+      <div className="mb-8 rounded-xl border bg-muted/30 p-4">
+        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+          <Layers className="w-4 h-4" /> The AI-Ready Data Framework
+        </h3>
+        <img 
+          src="/images/ai_ready_data.png" 
+          alt="AI-Ready Data: From Data to Decisions - 8-part framework covering visible cracks, trust trap, shadow forces, decision DNA, trust architecture, the maturity ladder, the flywheel, and the strategic imperative" 
+          className="w-full rounded-lg shadow-sm border"
+          loading="lazy"
+        />
+        <p className="text-xs text-muted-foreground mt-2 text-center">
+          The complete journey from siloed, untrusted data to AI-ready decision intelligence
+        </p>
+      </div>
+
       <Tabs defaultValue="visible-cracks" className="space-y-6">
         <TabsList className="flex flex-wrap h-auto gap-1 p-1">
           <TabsTrigger value="visible-cracks" className="text-xs sm:text-sm">Visible Cracks</TabsTrigger>

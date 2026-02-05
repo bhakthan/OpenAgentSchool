@@ -90,6 +90,7 @@ Infographic-Agent-Memory: https://www.openagentschool.org/images/Agent_Memory_Sy
 Infographic-Agent-Reasoning: https://www.openagentschool.org/images/Agent_Reasoning_Pattern.png
 Infographic-Cost-Optimization: https://www.openagentschool.org/images/Agent_Cost_Optimization.png
 Infographic-Fine-Tuning: https://www.openagentschool.org/images/SFT_DPO_RFT.png
+Infographic-AI-Ready-Data: https://www.openagentschool.org/images/ai_ready_data.png
 
 # Contacts
 Contact: https://github.com/bhakthan/OpenAgentSchool
