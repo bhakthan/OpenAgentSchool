@@ -299,8 +299,8 @@ const AIReadyDataConcept: React.FC = () => {
       </Card>
 
       {/* AI-Ready Data Framework Infographic */}
-      <div className="mb-8 rounded-xl border bg-muted/30 p-4">
-        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+      <div className="mb-8 rounded-xl border bg-slate-100 dark:bg-slate-900/30 p-4">
+        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2 text-slate-800 dark:text-slate-200">
           <Layers className="w-4 h-4" /> The AI-Ready Data Framework
         </h3>
         <img 
@@ -309,7 +309,7 @@ const AIReadyDataConcept: React.FC = () => {
           className="w-full rounded-lg shadow-sm border"
           loading="lazy"
         />
-        <p className="text-xs text-muted-foreground mt-2 text-center">
+        <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 text-center">
           The complete journey from siloed, untrusted data to AI-ready decision intelligence
         </p>
       </div>
@@ -624,7 +624,7 @@ const AIReadyDataConcept: React.FC = () => {
                         <li>• Sales guards customer interaction data</li>
                         <li>• Operations delays sharing until "cleaned up"</li>
                       </ul>
-                      <div className="p-2 bg-blue-50 dark:bg-blue-950/30 rounded text-xs">
+                      <div className="p-2 bg-blue-50 dark:bg-blue-950/30 rounded text-xs text-blue-800 dark:text-blue-300">
                         <strong>Root Psychology:</strong> Information asymmetry creates job security.
                         AI threatens this by democratizing data interpretation.
                       </div>
@@ -647,7 +647,7 @@ const AIReadyDataConcept: React.FC = () => {
                         <li>• Sales manipulates deal close dates</li>
                         <li>• Manufacturing adjusts quality inspection rigor</li>
                       </ul>
-                      <div className="p-2 bg-orange-50 dark:bg-orange-950/30 rounded text-xs">
+                      <div className="p-2 bg-orange-50 dark:bg-orange-950/30 rounded text-xs text-orange-800 dark:text-orange-300">
                         <strong>AI Amplification:</strong> AI trained on gamed metrics learns to optimize for wrong things—achieving meaningless targets while outcomes deteriorate.
                       </div>
                     </CardContent>
@@ -692,7 +692,7 @@ const AIReadyDataConcept: React.FC = () => {
                       <blockquote className="border-l-2 border-purple-500 pl-3 italic text-xs">
                         "I've been in this industry 20 years; I don't need data to tell me what to do"
                       </blockquote>
-                      <p className="text-xs bg-purple-50 dark:bg-purple-950/30 p-2 rounded">
+                      <p className="text-xs bg-purple-50 dark:bg-purple-950/30 p-2 rounded text-purple-800 dark:text-purple-300">
                         <strong>Reality:</strong> Expert intuition is pattern recognition from experience. AI can handle exponentially more patterns if fed quality data. The goal isn't replacing intuition but scaling it.
                       </p>
                     </CardContent>
@@ -872,21 +872,21 @@ const AIReadyDataConcept: React.FC = () => {
                     reasoning patterns of your best decision-makers.
                   </p>
                   <div className="grid md:grid-cols-4 gap-4 text-sm">
-                    <div className="p-3 bg-white dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
-                      <strong>Pattern Recognition</strong>
-                      <p className="text-xs mt-1 text-muted-foreground">Identifies which factors most strongly predict successful decisions</p>
+                    <div className="p-3 bg-green-50 dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
+                      <strong className="text-green-800 dark:text-green-300">Pattern Recognition</strong>
+                      <p className="text-xs mt-1 text-green-700/80 dark:text-green-400/80">Identifies which factors most strongly predict successful decisions</p>
                     </div>
-                    <div className="p-3 bg-white dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
-                      <strong>Constraint Learning</strong>
-                      <p className="text-xs mt-1 text-muted-foreground">Understands which trade-offs are consistently made</p>
+                    <div className="p-3 bg-green-50 dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
+                      <strong className="text-green-800 dark:text-green-300">Constraint Learning</strong>
+                      <p className="text-xs mt-1 text-green-700/80 dark:text-green-400/80">Understands which trade-offs are consistently made</p>
                     </div>
-                    <div className="p-3 bg-white dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
-                      <strong>Failure Analysis</strong>
-                      <p className="text-xs mt-1 text-muted-foreground">Compares projected vs. actual to reveal biases</p>
+                    <div className="p-3 bg-green-50 dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
+                      <strong className="text-green-800 dark:text-green-300">Failure Analysis</strong>
+                      <p className="text-xs mt-1 text-green-700/80 dark:text-green-400/80">Compares projected vs. actual to reveal biases</p>
                     </div>
-                    <div className="p-3 bg-white dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
-                      <strong>Organizational Memory</strong>
-                      <p className="text-xs mt-1 text-muted-foreground">Institutional knowledge survives personnel changes</p>
+                    <div className="p-3 bg-green-50 dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
+                      <strong className="text-green-800 dark:text-green-300">Organizational Memory</strong>
+                      <p className="text-xs mt-1 text-green-700/80 dark:text-green-400/80">Institutional knowledge survives personnel changes</p>
                     </div>
                   </div>
                 </CardContent>
@@ -1037,21 +1037,21 @@ const AIReadyDataConcept: React.FC = () => {
                     AI systems should actively report on their confidence and data quality:
                   </p>
                   <div className="grid md:grid-cols-4 gap-3 text-sm">
-                    <div className="p-3 border rounded">
-                      <strong>Confidence Scores</strong>
-                      <p className="text-xs text-muted-foreground mt-1">How certain is the AI about recommendations?</p>
+                    <div className="p-3 border rounded bg-slate-50 dark:bg-slate-900/30">
+                      <strong className="text-slate-800 dark:text-slate-200">Confidence Scores</strong>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">How certain is the AI about recommendations?</p>
                     </div>
-                    <div className="p-3 border rounded">
-                      <strong>Data Quality Flags</strong>
-                      <p className="text-xs text-muted-foreground mt-1">What input data quality issues exist?</p>
+                    <div className="p-3 border rounded bg-slate-50 dark:bg-slate-900/30">
+                      <strong className="text-slate-800 dark:text-slate-200">Data Quality Flags</strong>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">What input data quality issues exist?</p>
                     </div>
-                    <div className="p-3 border rounded">
-                      <strong>Alternative Scenarios</strong>
-                      <p className="text-xs text-muted-foreground mt-1">"If this data is wrong, recommendation changes to..."</p>
+                    <div className="p-3 border rounded bg-slate-50 dark:bg-slate-900/30">
+                      <strong className="text-slate-800 dark:text-slate-200">Alternative Scenarios</strong>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">"If this data is wrong, recommendation changes to..."</p>
                     </div>
-                    <div className="p-3 border rounded">
-                      <strong>Override Tracking</strong>
-                      <p className="text-xs text-muted-foreground mt-1">When humans disagree, capture reasoning to improve</p>
+                    <div className="p-3 border rounded bg-slate-50 dark:bg-slate-900/30">
+                      <strong className="text-slate-800 dark:text-slate-200">Override Tracking</strong>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">When humans disagree, capture reasoning to improve</p>
                     </div>
                   </div>
                 </CardContent>
@@ -1138,9 +1138,9 @@ const AIReadyDataConcept: React.FC = () => {
                               ))}
                             </ul>
                           </div>
-                          <div className="p-3 bg-muted rounded">
-                            <strong className="text-sm">Use Case:</strong>
-                            <p className="text-sm text-muted-foreground">{currentMaturityStage.useCase}</p>
+                          <div className="p-3 bg-slate-100 dark:bg-slate-800/50 rounded">
+                            <strong className="text-sm text-slate-800 dark:text-slate-200">Use Case:</strong>
+                            <p className="text-sm text-slate-600 dark:text-slate-400">{currentMaturityStage.useCase}</p>
                           </div>
                         </div>
                       )}
@@ -1166,9 +1166,9 @@ const AIReadyDataConcept: React.FC = () => {
                       { label: 'Decision-Action Links', desc: 'Data includes permissible actions, machine-enforceable constraints' },
                       { label: 'Temporal Integrity', desc: 'Point-in-time reconstruction, no future data leakage, event vs. processing time' }
                     ].map((item, idx) => (
-                      <div key={idx} className="p-4 border rounded-lg">
-                        <strong className="text-sm">{item.label}</strong>
-                        <p className="text-xs text-muted-foreground mt-1">{item.desc}</p>
+                      <div key={idx} className="p-4 border rounded-lg bg-purple-50 dark:bg-purple-950/20">
+                        <strong className="text-sm text-purple-800 dark:text-purple-300">{item.label}</strong>
+                        <p className="text-xs text-purple-700/80 dark:text-purple-400/80 mt-1">{item.desc}</p>
                       </div>
                     ))}
                   </div>
@@ -1507,8 +1507,8 @@ const AIReadyDataConcept: React.FC = () => {
                     <div>
                       <h4 className="font-semibold text-sm mb-2">Related Concepts</h4>
                       <ul className="space-y-1 text-sm text-muted-foreground">
-                        <li>• Data Mesh Architecture (Zhamak Dehghani)</li>
-                        <li>• Data Contracts (Andrew Jones)</li>
+                        <li>• Data Mesh Architecture</li>
+                        <li>• Data Contracts</li>
                         <li>• DataOps Principles</li>
                       </ul>
                     </div>
