@@ -324,6 +324,7 @@ const AIReadyDataConcept: React.FC = () => {
           <TabsTrigger value="the-ladder" className="text-xs sm:text-sm">The Ladder</TabsTrigger>
           <TabsTrigger value="the-flywheel" className="text-xs sm:text-sm">The Flywheel</TabsTrigger>
           <TabsTrigger value="the-imperative" className="text-xs sm:text-sm">The Imperative</TabsTrigger>
+          <TabsTrigger value="visual-summary" className="text-xs sm:text-sm">Visual Summary</TabsTrigger>
         </TabsList>
 
         {/* Tab 1: Visible Cracks - Real Constraints */}
@@ -1521,6 +1522,70 @@ const AIReadyDataConcept: React.FC = () => {
                 conceptId="ai-ready-data"
                 description="Understanding the strategic importance of AI-ready data, the cost of delay, and the transformation timeline."
               />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Tab 9: Visual Summary */}
+        <TabsContent value="visual-summary" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Layers className="w-5 h-5 text-primary" />
+                Visual Summary: The Complete Picture
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-8">
+              <p className="text-muted-foreground">
+                These infographics provide a comprehensive visual overview of the AI-Ready Data framework, from understanding the problem space to implementing the solution.
+              </p>
+
+              {/* Part 1: Problem Space */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-amber-500" />
+                  Part 1: Understanding the Problem Space
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  The visible cracks, trust erosion cycle, shadow forces, and Decision DNA that reveal why organizations struggle with AI-ready data.
+                </p>
+                <div className="rounded-lg border overflow-hidden bg-muted/30">
+                  <img 
+                    src="/images/AI_ready_data_Part1.png" 
+                    alt="AI-Ready Data Part 1: Problem Space - Visible Cracks, Trust Trap, Shadow Forces, and Decision DNA"
+                    className="w-full"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              {/* Part 2: Solution Space */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-500" />
+                  Part 2: Implementing the Solution
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  The Trust Architecture, Maturity Ladder, Implementation Flywheel, and Strategic Imperative that guide the path forward.
+                </p>
+                <div className="rounded-lg border overflow-hidden bg-muted/30">
+                  <img 
+                    src="/images/AI_ready_data_Part2.png" 
+                    alt="AI-Ready Data Part 2: Solution Space - Trust Architecture, The Ladder, The Flywheel, and The Imperative"
+                    className="w-full"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              {/* Navigation hint */}
+              <Card className="bg-primary/5 border-primary/20">
+                <CardContent className="p-4">
+                  <p className="text-sm text-center">
+                    <span className="font-medium">Explore in detail:</span> Use the tabs above to dive deeper into each concept with interactive examples and frameworks.
+                  </p>
+                </CardContent>
+              </Card>
             </CardContent>
           </Card>
         </TabsContent>
