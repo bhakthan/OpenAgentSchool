@@ -4200,6 +4200,22 @@ export const references: ReferencesData = {
             description: "Research analyzing Stack Overflow and GitHub data to reveal patterns in AI coding agent adoption, challenges across three phases of escalating complexity, and the skyscraper analogy for building AI infrastructure"
           }
         ]
+      },
+      {
+        id: "ralph-method",
+        name: "The Ralph Method (Bash Loop Orchestration)",
+        references: [
+          {
+            title: "Building Effective Harnesses for Long-Running Agents",
+            url: "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+            description: "Anthropic engineering guide on building effective harnesses for long-running coding agents — the foundational principles behind loop-based agent orchestration"
+          },
+          {
+            title: "Building a C Compiler with a Bash Loop",
+            url: "https://www.anthropic.com/engineering/building-c-compiler",
+            description: "Anthropic case study demonstrating the Ralph Method — using a simple bash for-loop to drive Claude Code through building an entire C compiler from a task backlog"
+          }
+        ]
       }
     ]
   },

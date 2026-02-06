@@ -2,7 +2,7 @@ import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
-import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, Key, Sparkle, Plugs, FilePdf, ChartBarHorizontal } from "@phosphor-icons/react"
+import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, ArrowsCounterClockwise, Key, Sparkle, Plugs, FilePdf, ChartBarHorizontal } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
@@ -2200,6 +2200,792 @@ uses: github/copilot-cli-action@v1`}</code>
           <EnlightenMeButton
             title="CLI Agent Best Practices"
             contextDescription="Patterns for effective CLI coding agent usage"
+          />
+        </div>
+      )
+    },
+    {
+      id: 'ralph-method',
+      title: 'The Ralph Method',
+      description: 'Bash loop orchestration: a for-loop that runs a CLI agent against a task list',
+      icon: <ArrowsCounterClockwise className="w-4 h-4" />,
+      level: 'advanced' as const,
+      content: (
+        <div className="space-y-6">
+          {/* Learning Objectives */}
+          <Card className="border-2 border-primary/30">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ArrowsCounterClockwise className="w-5 h-5" />
+                The Ralph Method: Bash Loop Orchestration
+              </CardTitle>
+              <CardDescription>
+                The simplest pattern that actually works for long-running autonomous coding
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-4 rounded-lg border border-primary/20">
+                <h4 className="font-semibold mb-2 text-foreground">🎯 What You'll Learn</h4>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">1.</span>
+                    <span>Why a simple for-loop outperforms complex agent orchestrators</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">2.</span>
+                    <span>The three-file architecture that drives the entire pattern</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">3.</span>
+                    <span>How to design tasks that LLMs can reliably complete in one pass</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">4.</span>
+                    <span>Why feedback loops determine success or failure</span>
+                  </li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* The Core Insight */}
+          <Card>
+            <CardHeader>
+              <CardTitle>The Core Insight: Work Like a Human Engineer</CardTitle>
+              <CardDescription>
+                The most effective agent pattern is also the most obvious one
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg leading-relaxed">
+                Imagine a senior engineer joining your team mid-sprint. They don't try to rewrite 
+                everything at once. They open the task board, pick the highest-priority ticket, 
+                implement it, run the tests, commit, and move to the next one. If they get stuck, 
+                they leave notes for tomorrow and start fresh.
+              </p>
+              <p className="text-lg leading-relaxed">
+                <strong>The Ralph Method is exactly this — but the engineer is an LLM, the task board is a JSON file, 
+                and "starting fresh tomorrow" means resetting the context window.</strong>
+              </p>
+
+              <div className="bg-muted text-foreground p-5 rounded-lg border">
+                <p className="text-sm font-mono text-center mb-1">
+                  {`for i in {1..N}; do run_coding_agent "Pick a task, do it, commit it"; done`}
+                </p>
+                <p className="text-xs text-muted-foreground text-center mt-2">
+                  No orchestrators. No swarms. No multi-phase plans. Just a loop, a task list, and a capable LLM.
+                </p>
+              </div>
+
+              <div className="border border-border rounded-lg overflow-hidden">
+                <img
+                  src="/images/The_Ralph_Method.png"
+                  alt="The Ralph Method — overview diagram showing the bash loop orchestration pattern for CLI coding agents"
+                  className="w-full"
+                />
+              </div>
+
+              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                <h5 className="font-semibold text-foreground mb-2">📄 From the Source</h5>
+                <p className="text-sm text-muted-foreground">
+                  Anthropic's engineering team demonstrated this pattern by{" "}
+                  <a href="https://www.anthropic.com/engineering/building-c-compiler" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline hover:no-underline">
+                    building an entire C compiler
+                  </a>{" "}
+                  using a bash loop driving Claude Code against a task backlog. The result: a working compiler 
+                  built autonomously, one feature at a time, with each iteration starting from a clean context window.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Why It Works — The Five Design Principles */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Why It Works: Five Design Principles</CardTitle>
+              <CardDescription>
+                Each principle solves a specific failure mode of long-running agents
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Anthropic's research on{" "}
+                <a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline hover:no-underline">
+                  effective harnesses for long-running agents
+                </a>{" "}
+                identifies core principles that make agent orchestration reliable. Ralph embodies all of them:
+              </p>
+
+              <div className="space-y-3">
+                {[
+                  {
+                    num: "1",
+                    title: "Context Window Hygiene",
+                    problem: "Long conversations degrade LLM reasoning — attention drifts, instructions get buried, failed approaches pollute future attempts.",
+                    solution: "Each Ralph iteration starts with a fresh context window. The only carry-over is what the agent deliberately wrote to progress.txt.",
+                    color: "bg-amber-500"
+                  },
+                  {
+                    num: "2",
+                    title: "Task-Scoped Autonomy",
+                    problem: "Agents given large goals produce sprawling, half-finished work across many files.",
+                    solution: "Each iteration works on exactly ONE task from the PRD. The agent can't wander — it has a bounded objective with clear acceptance criteria.",
+                    color: "bg-orange-500"
+                  },
+                  {
+                    num: "3",
+                    title: "Feedback-Driven Verification",
+                    problem: "Without automated checks, agents silently produce broken code and mark tasks as complete.",
+                    solution: "The prompt requires running type checks and tests before marking anything done. The agent's own output becomes its verification signal.",
+                    color: "bg-red-500"
+                  },
+                  {
+                    num: "4",
+                    title: "Persistent Memory Without Context Cost",
+                    problem: "Starting fresh means losing learnings. But keeping everything means overloading context.",
+                    solution: "progress.txt acts as external memory — the agent appends what it learned, and future iterations read it. This is selective memory, not total recall.",
+                    color: "bg-rose-500"
+                  },
+                  {
+                    num: "5",
+                    title: "Atomic Git Commits as Checkpoints",
+                    problem: "If an iteration fails, how do you recover without losing all progress?",
+                    solution: "Each completed task is a git commit. You can revert the last iteration, adjust the PRD, and re-run. Git history also helps the agent understand what was already built.",
+                    color: "bg-yellow-600"
+                  }
+                ].map((principle) => (
+                  <div key={principle.num} className="bg-muted/30 p-4 rounded-lg border border-border">
+                    <div className="flex items-start gap-3">
+                      <span className={`${principle.color} text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5`}>
+                        {principle.num}
+                      </span>
+                      <div className="space-y-2">
+                        <h5 className="font-semibold text-foreground">{principle.title}</h5>
+                        <p className="text-sm text-red-600 dark:text-red-400">
+                          <strong>Problem:</strong> {principle.problem}
+                        </p>
+                        <p className="text-sm text-green-700 dark:text-green-400">
+                          <strong>Solution:</strong> {principle.solution}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-4 rounded-lg border border-primary/20 mt-4">
+                <h5 className="font-semibold text-foreground mb-2">💡 The Deeper Pattern</h5>
+                <p className="text-sm text-muted-foreground">
+                  Notice what all five principles share: <strong>they trade sophistication for reliability</strong>. 
+                  Ralph doesn't try to be clever. It doesn't plan 10 steps ahead. It just exhaustively, repeatedly 
+                  does one thing well — the same way <code className="text-xs bg-muted px-1 rounded">make</code>, 
+                  <code className="text-xs bg-muted px-1 rounded">cron</code>, and Unix pipelines have worked for decades. 
+                  The most robust systems are often the most boring ones.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Sprint-to-Task Structural Relationship */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Lightning className="w-5 h-5" />
+                The Architecture: Sprint-to-Task Mapping
+              </CardTitle>
+              <CardDescription>
+                How a flat JSON backlog becomes a series of autonomous sprints
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="border border-border rounded-lg overflow-hidden">
+                <img
+                  src="/images/Bash_loop_Sprint_to_Task_Structural_Relationship.png"
+                  alt="Bash loop Sprint to Task Structural Relationship — showing how iterations map to PRD tasks"
+                  className="w-full"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                <div className="bg-muted/50 p-4 rounded-lg border text-center">
+                  <p className="text-2xl font-bold text-foreground">PRD.json</p>
+                  <p className="text-xs text-muted-foreground mt-1">The task board — persists across iterations</p>
+                </div>
+                <div className="bg-muted/50 p-4 rounded-lg border text-center">
+                  <p className="text-2xl font-bold text-foreground">progress.txt</p>
+                  <p className="text-xs text-muted-foreground mt-1">The memory — learnings survive context resets</p>
+                </div>
+                <div className="bg-muted/50 p-4 rounded-lg border text-center">
+                  <p className="text-2xl font-bold text-foreground">ralph.sh</p>
+                  <p className="text-xs text-muted-foreground mt-1">The loop — the only orchestration you need</p>
+                </div>
+              </div>
+
+              <p className="text-sm text-muted-foreground">
+                Each loop iteration is a self-contained sprint: read the backlog → pick the highest-priority 
+                incomplete item → implement with tests → mark done → commit → advance. The PRD.json acts as 
+                a living Kanban board that persists state across context window resets. When all items show{" "}
+                <code className="text-xs bg-muted px-1 rounded">passes: true</code>, the sentinel{" "}
+                <code className="text-xs bg-muted px-1 rounded">RALPH_COMPLETE</code> triggers the loop to exit.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Compositional Balance */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Robot className="w-5 h-5" />
+                The Feedback System: What Makes or Breaks Ralph
+              </CardTitle>
+              <CardDescription>
+                An autonomous loop without verification is just an autonomous bug factory
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="border border-border rounded-lg overflow-hidden">
+                <img
+                  src="/images/Compositional_Balance_of_Task_Loop+Architecture.png"
+                  alt="Compositional Balance of Task Loop plus Architecture — showing the interplay between the Ralph loop and project feedback systems"
+                  className="w-full"
+                />
+              </div>
+
+              <p className="text-sm text-muted-foreground">
+                Ralph's quality is <strong>exactly proportional</strong> to the quality of your feedback loops. 
+                The tighter the loop — how fast the agent gets a pass/fail signal — the more reliably it converges on correct implementations.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                  <h5 className="font-semibold text-foreground mb-2">🟢 Fast & Essential</h5>
+                  <p className="font-medium text-sm">Type Checking</p>
+                  <pre className="text-xs bg-muted p-2 rounded mt-2"><code>{`pnpm typecheck
+# or: npx tsc --noEmit`}</code></pre>
+                  <p className="text-xs text-muted-foreground mt-2">Sub-second feedback. Catches structural errors before execution. Non-negotiable for TypeScript projects.</p>
+                </div>
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+                  <h5 className="font-semibold text-foreground mb-2">🔵 Core Verification</h5>
+                  <p className="font-medium text-sm">Unit Tests</p>
+                  <pre className="text-xs bg-muted p-2 rounded mt-2"><code>{`pnpm test
+# or: npx vitest run`}</code></pre>
+                  <p className="text-xs text-muted-foreground mt-2">The agent runs tests to verify its work. <strong>Non-flaky tests are critical</strong> — a flaky test confuses every iteration.</p>
+                </div>
+                <div className="bg-gradient-to-br from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-700">
+                  <h5 className="font-semibold text-foreground mb-2">🟣 High-Fidelity (Optional)</h5>
+                  <p className="font-medium text-sm">E2E via MCP</p>
+                  <pre className="text-xs bg-muted p-2 rounded mt-2"><code>{`# Playwright MCP server
+npx @anthropic/mcp-playwright`}</code></pre>
+                  <p className="text-xs text-muted-foreground mt-2">The agent verifies features as a user would. Context-expensive — keep tasks small if using this.</p>
+                </div>
+              </div>
+
+              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
+                <h5 className="font-semibold text-foreground mb-2">⚠️ The Iron Rule of Feedback</h5>
+                <p className="text-sm text-muted-foreground">
+                  If the agent can't verify its work programmatically, it <strong>will</strong> mark incomplete tasks as done. 
+                  This is the #1 failure mode. Before running Ralph on any project, ask: 
+                  <em>"Can a script tell me if this feature works?"</em> If the answer is no, add a test first.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Reflection 1 */}
+          <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-5 rounded-lg border border-primary/20">
+            <h4 className="font-semibold text-foreground mb-2">🧠 Pause and Reflect</h4>
+            <p className="text-sm text-muted-foreground">
+              Think about your current project. What percentage of your features have automated tests? 
+              That percentage is roughly the upper bound on Ralph's reliability for your codebase. 
+              If it's below 60%, consider writing tests first — Ralph can help with that too, 
+              by making "write test for feature X" one of the PRD tasks.
+            </p>
+          </div>
+
+          {/* Building It: Step by Step */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Code className="w-5 h-5" />
+                Build It: The Three-File Architecture
+              </CardTitle>
+              <CardDescription>
+                Everything you need fits in a single directory
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Prerequisites */}
+              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                <h4 className="font-semibold mb-2">Prerequisites</h4>
+                <ul className="text-sm space-y-1 text-muted-foreground">
+                  <li>• A CLI coding agent with headless/non-interactive mode (Claude Code, OpenCode, Codex, Gemini CLI)</li>
+                  <li>• A codebase with type checking + tests (the feedback loops)</li>
+                  <li>• Bash shell environment</li>
+                  <li>• Git initialized in your project</li>
+                </ul>
+              </div>
+
+              {/* File 1: PRD */}
+              <div className="space-y-3">
+                <h4 className="font-semibold text-lg flex items-center gap-2">
+                  <Badge variant="outline" className="text-base px-3">1</Badge>
+                  <span>plans/prd.json — The Task Board</span>
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Your backlog as structured data. Each item is a user story with testable acceptance criteria. 
+                  The <code className="text-xs bg-muted px-1 rounded">passes</code> flag is the only mutable field — 
+                  the agent flips it to <code className="text-xs bg-muted px-1 rounded">true</code> when its work verifies.
+                </p>
+                <pre className="bg-muted text-foreground p-4 rounded text-sm overflow-x-auto">
+                  <code>{`[
+  {
+    "id": 1,
+    "story": "Delete video shows confirmation dialog",
+    "acceptance_criteria": [
+      "Clicking delete shows a modal confirmation",
+      "User must confirm before video is removed",
+      "Cancel button closes dialog without deleting"
+    ],
+    "passes": false
+  },
+  {
+    "id": 2,
+    "story": "Beat indicator shows as three orange dots",
+    "acceptance_criteria": [
+      "Add a beat to a clip",
+      "Verify three orange dots appear below the clip"
+    ],
+    "passes": false
+  }
+]`}</code>
+                </pre>
+                <div className="bg-muted/50 p-3 rounded-lg border text-sm text-muted-foreground">
+                  <strong>Design tip:</strong> Write acceptance criteria as if you're writing test assertions. 
+                  "Verify X appears" is better than "X should work." The more concrete, the more reliable the agent's self-check.
+                </div>
+              </div>
+
+              {/* File 2: Progress */}
+              <div className="space-y-3">
+                <h4 className="font-semibold text-lg flex items-center gap-2">
+                  <Badge variant="outline" className="text-base px-3">2</Badge>
+                  <span>plans/progress.txt — The Agent's Memory</span>
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  A free-text log where each iteration appends what it learned. This solves a fundamental tension: 
+                  you want fresh context (clean reasoning) but also continuity (don't repeat mistakes). 
+                  The progress file gives you both — <strong>selective memory, not total recall</strong>.
+                </p>
+                <pre className="bg-muted text-foreground p-4 rounded text-sm overflow-x-auto">
+                  <code>{`# Sprint Progress Log
+
+This file tracks learnings and context across loop iterations.
+The LLM should APPEND to this file, not overwrite it.
+
+---`}</code>
+                </pre>
+                <div className="bg-muted/50 p-3 rounded-lg border text-sm text-muted-foreground">
+                  <strong>Anti-pattern:</strong> Don't seed progress.txt with pages of instructions. 
+                  Keep it lean — the prompt has the instructions. This file is for <em>discoveries</em>: 
+                  "The auth module uses a custom middleware at line 42" or "Don't touch shared/types.ts — it breaks the build."
+                </div>
+              </div>
+
+              {/* File 3: The Script */}
+              <div className="space-y-3">
+                <h4 className="font-semibold text-lg flex items-center gap-2">
+                  <Badge variant="outline" className="text-base px-3">3</Badge>
+                  <span>plans/ralph.sh — The Loop</span>
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  The orchestrator — remarkably, it's just a bash for-loop. It feeds the PRD and progress file 
+                  to the agent, captures output, checks for the completion sentinel, and either loops or exits.
+                </p>
+                <pre className="bg-muted text-foreground p-4 rounded text-sm overflow-x-auto">
+                  <code>{`#!/bin/bash
+set -e
+
+MAX_ITERATIONS=$1
+
+for ((i=1; i<=MAX_ITERATIONS; i++)); do
+  echo "=== Ralph Loop Iteration $i of $MAX_ITERATIONS ==="
+
+  OUTPUT=$(claude --print \\
+    plans/prd.json \\
+    plans/progress.txt \\
+    --prompt "You are working through a PRD.
+
+1. Find the highest priority incomplete task
+2. Implement it with proper tests
+3. Mark it as passes: true in prd.json
+4. APPEND progress to progress.txt
+5. Git commit the work
+
+If ALL items pass, output: RALPH_COMPLETE")
+
+  echo "$OUTPUT"
+
+  if echo "$OUTPUT" | grep -q "RALPH_COMPLETE"; then
+    echo "All PRD items complete after $i iterations!"
+    exit 0
+  fi
+done
+
+echo "Reached max iterations ($MAX_ITERATIONS)"}`}</code>
+                </pre>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* The Prompt: Design Matters */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Sparkle className="w-5 h-5" />
+                The Prompt: Why Every Word Matters
+              </CardTitle>
+              <CardDescription>
+                The inner prompt is the soul of Ralph — it shapes every autonomous decision
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                The prompt you pass to the agent on each iteration is the most leveraged piece of text in the system. 
+                A small wording change can dramatically affect behavior across dozens of iterations. Here are the critical elements:
+              </p>
+
+              <div className="space-y-3">
+                <div className="bg-muted/30 p-4 rounded-lg border border-border">
+                  <h5 className="font-semibold text-foreground text-sm mb-1">"Find the highest priority feature to work on"</h5>
+                  <p className="text-xs text-muted-foreground">
+                    <strong>Why it works:</strong> Saying "highest priority <em>YOU decide</em>" prevents the agent from always picking task #1. 
+                    It forces the LLM to reason about dependencies and logical ordering — task 3 might depend on task 2, 
+                    so the agent learns to sequence correctly.
+                  </p>
+                </div>
+                <div className="bg-muted/30 p-4 rounded-lg border border-border">
+                  <h5 className="font-semibold text-foreground text-sm mb-1">"Work only on that ONE feature"</h5>
+                  <p className="text-xs text-muted-foreground">
+                    <strong>Why it works:</strong> Without this constraint, agents tend to "helpfully" touch adjacent tasks. 
+                    Bounding scope to one task keeps changes small, reviewable, and revertible.
+                  </p>
+                </div>
+                <div className="bg-muted/30 p-4 rounded-lg border border-border">
+                  <h5 className="font-semibold text-foreground text-sm mb-1">"Check that types pass / tests pass"</h5>
+                  <p className="text-xs text-muted-foreground">
+                    <strong>Why it works:</strong> This turns the prompt into a contract — the agent must prove its work before marking done. 
+                    Without this line, you get "trust me" completions instead of "I verified" completions.
+                  </p>
+                </div>
+                <div className="bg-muted/30 p-4 rounded-lg border border-border">
+                  <h5 className="font-semibold text-foreground text-sm mb-1">"APPEND your progress to progress.txt"</h5>
+                  <p className="text-xs text-muted-foreground">
+                    <strong>Why it works:</strong> This creates institutional memory. The next iteration reads these notes. 
+                    Over time, progress.txt becomes a rich engineering log of decisions, gotchas, and code structure.
+                  </p>
+                </div>
+                <div className="bg-muted/30 p-4 rounded-lg border border-border">
+                  <h5 className="font-semibold text-foreground text-sm mb-1">"If ALL PRD items pass, output: RALPH_COMPLETE"</h5>
+                  <p className="text-xs text-muted-foreground">
+                    <strong>Why it works:</strong> A deterministic sentinel lets the bash script know when to stop. 
+                    Without it, you'd need complex output parsing. With it, a simple <code className="text-xs bg-muted px-1 rounded">grep</code> handles termination.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Two Operating Modes */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Terminal className="w-5 h-5" />
+                Two Modes: AFK and Supervised
+              </CardTitle>
+              <CardDescription>
+                Choose your level of trust — and adjust as the agent proves itself
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-5 rounded-lg border border-green-200 dark:border-green-700">
+                  <h4 className="font-semibold text-foreground mb-2">🌙 AFK Mode</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Set it running and walk away. Come back to completed features, committed and tested.
+                  </p>
+                  <pre className="bg-muted text-foreground p-3 rounded text-sm">
+                    <code>{`plans/ralph.sh 20`}</code>
+                  </pre>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Up to 20 iterations. Stops early on <code className="text-xs bg-muted/50 px-1 rounded">RALPH_COMPLETE</code>.
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-green-200 dark:border-green-700">
+                    <p className="text-xs text-muted-foreground"><strong>Best for:</strong> Well-tested codebases, clear PRDs, overnight runs. Start with 5 iterations until you trust the results.</p>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-5 rounded-lg border border-blue-200 dark:border-blue-700">
+                  <h4 className="font-semibold text-foreground mb-2">👀 Human-in-Loop Mode</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Run one iteration interactively. Review, steer, then run the next.
+                  </p>
+                  <pre className="bg-muted text-foreground p-3 rounded text-sm">
+                    <code>{`plans/ralph_once.sh`}</code>
+                  </pre>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    No <code className="text-xs bg-muted/50 px-1 rounded">--print</code> flag — you can intervene mid-task.
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-blue-200 dark:border-blue-700">
+                    <p className="text-xs text-muted-foreground"><strong>Best for:</strong> New projects, complex domains, first-time Ralph users. Graduate to AFK mode as confidence builds.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-4 rounded-lg border border-primary/20">
+                <h5 className="font-semibold text-foreground mb-2">💡 The Trust Ladder</h5>
+                <p className="text-sm text-muted-foreground">
+                  Start supervised. Once 3-4 iterations complete cleanly, switch to AFK mode with a low iteration cap (5). 
+                  Once a full sprint completes autonomously, increase to 10-20. This is how you calibrate trust — 
+                  the same way you'd gradually give a new team member more autonomy.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Task Sizing — The Make or Break */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5" />
+                Task Design: The #1 Success Factor
+              </CardTitle>
+              <CardDescription>
+                If you get task sizing wrong, nothing else matters
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                The quality of your PRD tasks determines everything. A well-decomposed backlog with 20 small tasks 
+                will outperform 5 large tasks every time — because each small task fits cleanly in one context window 
+                and produces a single, reviewable commit.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-700">
+                  <h5 className="font-semibold text-foreground mb-2">❌ Tasks That Fail</h5>
+                  <ul className="text-sm text-muted-foreground space-y-2">
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500 mt-0.5">•</span>
+                      <span>"Build the entire authentication system" <em className="text-xs">(too many moving parts)</em></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500 mt-0.5">•</span>
+                      <span>"Refactor the database layer" <em className="text-xs">(scope is unbounded)</em></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500 mt-0.5">•</span>
+                      <span>"Make the app faster" <em className="text-xs">(no acceptance criteria possible)</em></span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                  <h5 className="font-semibold text-foreground mb-2">✅ Tasks That Succeed</h5>
+                  <ul className="text-sm text-muted-foreground space-y-2">
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-0.5">•</span>
+                      <span>"Login form validates email format" <em className="text-xs">(one behavior, testable)</em></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-0.5">•</span>
+                      <span>"Login button shows loading spinner during API call" <em className="text-xs">(visual, verifiable)</em></span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-500 mt-0.5">•</span>
+                      <span>"Failed login displays error message from API" <em className="text-xs">(clear input/output)</em></span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-slate-50 to-amber-50 dark:from-slate-900 dark:to-amber-900/20 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <h4 className="font-semibold mb-3">The Decomposition Test</h4>
+                <p className="text-sm text-muted-foreground mb-3">
+                  For each PRD item, ask these four questions. If any answer is "no," decompose further:
+                </p>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-500 mt-2"></span>
+                    <span><strong>Testable?</strong> Can a script verify this works?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-500 mt-2"></span>
+                    <span><strong>Bounded?</strong> Can one engineer finish this in an hour?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-500 mt-2"></span>
+                    <span><strong>Independent?</strong> Does it work without completing other tasks first?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-500 mt-2"></span>
+                    <span><strong>Committable?</strong> Will the codebase be stable after just this change?</span>
+                  </li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* When NOT to Use Ralph */}
+          <Card>
+            <CardHeader>
+              <CardTitle>When Ralph Is Not the Right Tool</CardTitle>
+              <CardDescription>
+                Knowing when to reach for a different approach is as important as the technique itself
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <h5 className="font-semibold text-foreground">🚫 Poor Fit</h5>
+                  <div className="space-y-2">
+                    {[
+                      { scenario: "Exploratory prototyping", why: "You don't know what \"done\" looks like yet — interactive mode is better" },
+                      { scenario: "Tasks requiring human judgment", why: "UI polish, copy editing, design decisions need human eyes" },
+                      { scenario: "Zero test coverage", why: "The agent can't verify its work — you'll get false completions" },
+                      { scenario: "Tightly coupled changes", why: "If task B requires the exact output of task A, serial dependency breaks the pattern" }
+                    ].map((item, i) => (
+                      <div key={i} className="bg-red-50/50 dark:bg-red-900/10 p-3 rounded-lg text-sm">
+                        <p className="font-medium text-foreground">{item.scenario}</p>
+                        <p className="text-xs text-muted-foreground">{item.why}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <h5 className="font-semibold text-foreground">✅ Excellent Fit</h5>
+                  <div className="space-y-2">
+                    {[
+                      { scenario: "Feature backlogs with clear specs", why: "The classic Ralph use case — known tasks, testable criteria" },
+                      { scenario: "Test suite expansion", why: "\"Write test for X\" tasks are perfectly bounded and verifiable" },
+                      { scenario: "Migration work", why: "\"Convert component X from class to function\" — repetitive, mechanical, verifiable" },
+                      { scenario: "Bug fix backlogs", why: "Each bug has a reproduction case that becomes the acceptance criteria" }
+                    ].map((item, i) => (
+                      <div key={i} className="bg-green-50/50 dark:bg-green-900/10 p-3 rounded-lg text-sm">
+                        <p className="font-medium text-foreground">{item.scenario}</p>
+                        <p className="text-xs text-muted-foreground">{item.why}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Adapting for Other Agents */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Plugs className="w-5 h-5" />
+                Agent-Agnostic: Swap the Inner Command
+              </CardTitle>
+              <CardDescription>
+                Ralph is the pattern, not the agent — any CLI tool with headless mode works
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                The only requirement is that your agent supports non-interactive mode so the bash loop can capture output 
+                and check for the <code className="text-xs bg-muted px-1 rounded">RALPH_COMPLETE</code> sentinel:
+              </p>
+              <pre className="bg-muted text-foreground p-4 rounded text-sm overflow-x-auto">
+                <code>{`# Claude Code (the original Ralph agent)
+claude --print plans/prd.json plans/progress.txt --prompt "..."
+
+# OpenCode
+opencode --non-interactive --prompt "..."
+
+# Codex CLI
+codex --approval-mode full-auto -q "..."
+
+# Gemini CLI
+gemini -p "..." --output-format stream-json
+
+# GitHub Copilot CLI (via gh extension)
+gh copilot suggest "..."`}</code>
+              </pre>
+            </CardContent>
+          </Card>
+
+          {/* Troubleshooting */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Troubleshooting: When Ralph Misbehaves</CardTitle>
+              <CardDescription>Diagnose and fix the most common failure modes</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {[
+                  { problem: 'Agent always picks the first task', solution: 'Reword prompt: "Pick the highest priority task — use YOUR judgment on ordering, not list position."', severity: 'low' },
+                  { problem: 'Agent marks incomplete work as done', solution: 'Add explicit verification: "You MUST run tests and include the pass/fail output before marking any task complete."', severity: 'high' },
+                  { problem: 'Context window exhausted mid-task', solution: 'The task is too large. Decompose it into 2-3 smaller tasks in the PRD. If a single task needs more than ~50% of the context window, it\'s too big.', severity: 'high' },
+                  { problem: 'Merge conflicts between iterations', solution: 'Ralph must be the only writer. Never run two Ralph instances in parallel. Serial execution is the design.', severity: 'medium' },
+                  { problem: 'Agent produces poor code quality', solution: 'Add linting to the verification step: "Run pnpm lint and fix any issues before committing." Consider adding a .cursorrules or CLAUDE.md with style guidelines.', severity: 'medium' },
+                  { problem: 'progress.txt grows too large', solution: 'Clear it between sprints (keep a backup). Or add to the prompt: "Keep your progress entry under 10 lines — focus on discoveries, not summaries."', severity: 'low' }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 bg-muted/30 p-3 rounded-lg">
+                    <Badge 
+                      variant="outline" 
+                      className={`mt-0.5 shrink-0 ${
+                        item.severity === 'high' ? 'text-red-600 border-red-300' : 
+                        item.severity === 'medium' ? 'text-amber-600 border-amber-300' : 
+                        'text-blue-600 border-blue-300'
+                      }`}
+                    >
+                      {item.severity}
+                    </Badge>
+                    <div>
+                      <p className="text-sm font-medium text-foreground">{item.problem}</p>
+                      <p className="text-sm text-muted-foreground">{item.solution}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Reflection 2 */}
+          <Card>
+            <CardHeader>
+              <CardTitle>🤔 A Question to Carry Forward</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 p-6 rounded-lg border border-amber-200 dark:border-amber-800">
+                <div className="text-center space-y-4">
+                  <p className="text-lg leading-relaxed text-foreground">
+                    Ralph works because it <strong>trades sophistication for reliability</strong>. 
+                    A for-loop is less impressive than a multi-agent swarm — but it ships working code overnight.
+                  </p>
+                  <p className="text-sm text-muted-foreground italic">
+                    What other problems in your workflow could be solved not by building something more complex, 
+                    but by building something more boring?
+                  </p>
+                  <div className="flex items-center justify-center gap-2 flex-wrap text-sm text-muted-foreground pt-2">
+                    <Badge variant="outline">No orchestrators</Badge>
+                    <Badge variant="outline">No swarms</Badge>
+                    <Badge variant="outline">No multi-phase plans</Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Just a loop, a task list, and a capable LLM. Elegance through simplicity.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <ReferenceSection type="concept" itemId="client-coding-agents" />
+
+          <EnlightenMeButton
+            title="The Ralph Method"
+            contextDescription="Bash loop orchestration pattern for CLI coding agents — design principles, task sizing, feedback loops, and when to use it"
           />
         </div>
       )
