@@ -75,6 +75,7 @@ const AIProductFrameworkPage = lazy(() => import('./pages/AIProductFrameworkPage
 // Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
 const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
 const CTALandingPageVariant = lazy(() => import('@/components/pages/CTALandingPageVariant'));
+const AboutPage = lazy(() => import('@/components/pages/AboutPage'));
 // Agent Velocity Engineering components
 const VelocityScoreDashboard = lazy(() => import('./components/velocity/VelocityScoreDashboard'));
 const PatternMasteryTracker = lazy(() => import('./components/velocity/PatternMasteryTracker'));
@@ -694,6 +695,7 @@ function App() {
                   <Route path="/api-docs" element={<ApiDocsPage />} />
                   <Route path="/cta-alt" element={<CTALandingPageVariant />} />
                   <Route path="/cta" element={<CTALandingPage />} />
+                  <Route path="/about" element={<AboutPage />} />
                   {/* Fallback route to redirect to home page */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>

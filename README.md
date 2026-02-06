@@ -7,6 +7,10 @@
 > **Where AI Agent Concepts Come to Life**  
 > _An interactive learning platform for mastering AI agents, patterns, and production architectures_
 
+<p align="center">
+  <img src="public/images/OpenAgentSchool_at_a_Glance.png" alt="Open Agent School at a Glance" width="800" />
+</p>
+
 ** Live Platform:** [openagentschool.org](https://openagentschool.org)
 
 ---

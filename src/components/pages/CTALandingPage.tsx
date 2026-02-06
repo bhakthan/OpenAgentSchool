@@ -92,6 +92,16 @@ const CTALandingPage: React.FC = () => {
           Build durable agent ecosystems—not prompt toys. Operationalize architecture discipline, Agent Velocity Engineering,
           evaluation rigor, resilience patterns, and AI-native organizational leverage so initiatives ship faster, fail safer, and compound.
         </p>
+        
+        {/* Platform Overview Image */}
+        <div className="max-w-4xl mx-auto">
+          <img 
+            src="/images/OpenAgentSchool_at_a_Glance.png" 
+            alt="Open Agent School at a Glance - Complete learning platform overview" 
+            className="w-full rounded-2xl shadow-xl border border-border/50"
+          />
+        </div>
+        
         <AnchorConfidenceRow />
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
           <Button size="lg" onClick={() => { track('individual', 'hero-primary'); openExternal('https://github.com/bhakthan/openagentschool', 'individual', 'hero-primary'); }}>
