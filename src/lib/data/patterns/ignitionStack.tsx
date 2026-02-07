@@ -250,9 +250,256 @@ const IgnitionStackVisualization: React.FC = () => {
         </code>
         <span className="inline-block w-12 h-px bg-gradient-to-l from-transparent to-orange-400" />
       </div>
+
+      {/* ── System Architecture SVG ──────────────────────────────────────── */}
+      <div className="mt-6 pt-5 border-t border-border/50">
+        <h4 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2">
+          <span className="text-orange-500">◆</span> System Architecture — End-to-End Azure Topology
+        </h4>
+        <div className="rounded-lg border border-border bg-background/90 p-2 overflow-x-auto">
+          <IgnitionStackArchitectureSVG />
+        </div>
+      </div>
     </div>
   );
 };
+
+/* ─── SVG Architecture Diagram ────────────────────────────────────────────── */
+const IgnitionStackArchitectureSVG: React.FC = () => (
+  <svg
+    viewBox="0 0 960 520"
+    className="w-full h-auto min-w-[700px]"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="IgnitionStack Agent system architecture: from use-case input through Azure deployment"
+  >
+    <defs>
+      {/* Gradients */}
+      <linearGradient id="ig-grad-input" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#3b82f6" />
+        <stop offset="100%" stopColor="#2563eb" />
+      </linearGradient>
+      <linearGradient id="ig-grad-agent" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#f97316" />
+        <stop offset="100%" stopColor="#ea580c" />
+      </linearGradient>
+      <linearGradient id="ig-grad-azure" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#0ea5e9" />
+        <stop offset="100%" stopColor="#0284c7" />
+      </linearGradient>
+      <linearGradient id="ig-grad-db" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#8b5cf6" />
+        <stop offset="100%" stopColor="#7c3aed" />
+      </linearGradient>
+      <linearGradient id="ig-grad-ai" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#ec4899" />
+        <stop offset="100%" stopColor="#db2777" />
+      </linearGradient>
+      <linearGradient id="ig-grad-cicd" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#10b981" />
+        <stop offset="100%" stopColor="#059669" />
+      </linearGradient>
+      <linearGradient id="ig-grad-app" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#f59e0b" />
+        <stop offset="100%" stopColor="#d97706" />
+      </linearGradient>
+      {/* Arrow marker */}
+      <marker id="ig-arrow" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8" />
+      </marker>
+      <marker id="ig-arrow-orange" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#f97316" />
+      </marker>
+    </defs>
+
+    {/* ── Background Zone Labels ──────────────────────────────────────── */}
+    {/* Input zone */}
+    <rect x="10" y="10" width="140" height="500" rx="12" fill="#eff6ff" stroke="#bfdbfe" strokeWidth="1" opacity="0.6" />
+    <text x="80" y="34" textAnchor="middle" fontSize="10" fontWeight="600" fill="#3b82f6" fontFamily="system-ui">INPUT</text>
+
+    {/* Agent core zone */}
+    <rect x="160" y="10" width="230" height="500" rx="12" fill="#fff7ed" stroke="#fed7aa" strokeWidth="1" opacity="0.6" />
+    <text x="275" y="34" textAnchor="middle" fontSize="10" fontWeight="600" fill="#ea580c" fontFamily="system-ui">IGNITIONSTACK AGENT</text>
+
+    {/* Azure output zone */}
+    <rect x="400" y="10" width="550" height="500" rx="12" fill="#f0f9ff" stroke="#bae6fd" strokeWidth="1" opacity="0.6" />
+    <text x="675" y="34" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0284c7" fontFamily="system-ui">AZURE DEPLOYED OUTPUT</text>
+
+    {/* ── Input Sources (left column) ─────────────────────────────────── */}
+    <rect x="30" y="80" width="100" height="36" rx="6" fill="url(#ig-grad-input)" />
+    <text x="80" y="103" textAnchor="middle" fontSize="11" fontWeight="600" fill="white" fontFamily="system-ui">📄 PPTX</text>
+
+    <rect x="30" y="130" width="100" height="36" rx="6" fill="url(#ig-grad-input)" />
+    <text x="80" y="153" textAnchor="middle" fontSize="11" fontWeight="600" fill="white" fontFamily="system-ui">📸 Screenshot</text>
+
+    <rect x="30" y="180" width="100" height="36" rx="6" fill="url(#ig-grad-input)" />
+    <text x="80" y="203" textAnchor="middle" fontSize="11" fontWeight="600" fill="white" fontFamily="system-ui">📝 PDF / Doc</text>
+
+    <rect x="30" y="230" width="100" height="36" rx="6" fill="url(#ig-grad-input)" />
+    <text x="80" y="253" textAnchor="middle" fontSize="11" fontWeight="600" fill="white" fontFamily="system-ui">💬 Text</text>
+
+    {/* Input arrows → Parse */}
+    <line x1="130" y1="98" x2="178" y2="140" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+    <line x1="130" y1="148" x2="178" y2="148" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+    <line x1="130" y1="198" x2="178" y2="160" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+    <line x1="130" y1="248" x2="178" y2="170" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+
+    {/* ── Agent Core (center column) ──────────────────────────────────── */}
+    {/* Parse */}
+    <rect x="180" y="120" width="110" height="60" rx="8" fill="url(#ig-grad-agent)" />
+    <text x="235" y="147" textAnchor="middle" fontSize="11" fontWeight="700" fill="white" fontFamily="system-ui">🔍 Parse</text>
+    <text x="235" y="163" textAnchor="middle" fontSize="9" fill="#fed7aa" fontFamily="system-ui">Vision + NLP</text>
+
+    {/* Arrow: Parse → Decompose */}
+    <line x1="235" y1="180" x2="235" y2="198" stroke="#f97316" strokeWidth="2" markerEnd="url(#ig-arrow-orange)" />
+
+    {/* Decompose */}
+    <rect x="180" y="200" width="110" height="60" rx="8" fill="url(#ig-grad-agent)" />
+    <text x="235" y="227" textAnchor="middle" fontSize="11" fontWeight="700" fill="white" fontFamily="system-ui">🧩 Decompose</text>
+    <text x="235" y="243" textAnchor="middle" fontSize="9" fill="#fed7aa" fontFamily="system-ui">Atomic Tasks</text>
+
+    {/* Arrow: Decompose → PRD */}
+    <line x1="235" y1="260" x2="235" y2="278" stroke="#f97316" strokeWidth="2" markerEnd="url(#ig-arrow-orange)" />
+
+    {/* PRD */}
+    <rect x="180" y="280" width="110" height="50" rx="8" fill="url(#ig-grad-agent)" />
+    <text x="235" y="303" textAnchor="middle" fontSize="11" fontWeight="700" fill="white" fontFamily="system-ui">📋 PRD.json</text>
+    <text x="235" y="318" textAnchor="middle" fontSize="9" fill="#fed7aa" fontFamily="system-ui">Task Backlog</text>
+
+    {/* Arrow: PRD → Ralph Loop */}
+    <line x1="235" y1="330" x2="235" y2="358" stroke="#f97316" strokeWidth="2" markerEnd="url(#ig-arrow-orange)" />
+
+    {/* Ralph Loop — highlight box */}
+    <rect x="170" y="360" width="130" height="70" rx="10" fill="#451a03" stroke="#f97316" strokeWidth="2" strokeDasharray="4 2" />
+    <text x="235" y="387" textAnchor="middle" fontSize="12" fontWeight="800" fill="#fb923c" fontFamily="system-ui">🔄 Ralph ×20</text>
+    <text x="235" y="404" textAnchor="middle" fontSize="9" fill="#fdba74" fontFamily="system-ui">gpt-5.3-codex</text>
+    <text x="235" y="418" textAnchor="middle" fontSize="8" fill="#fed7aa" fontFamily="system-ui">bash loop orchestration</text>
+
+    {/* Ralph loop self-arrow (feedback) */}
+    <path d="M 300 385 C 330 385, 330 405, 300 405" fill="none" stroke="#f97316" strokeWidth="1.5" strokeDasharray="3 2" markerEnd="url(#ig-arrow-orange)" />
+
+    {/* ── Output Arrows from Ralph Loop → Azure Resources ─────────────── */}
+    {/* Arrow: Ralph → Bicep IaC */}
+    <line x1="300" y1="375" x2="418" y2="70" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+    {/* Arrow: Ralph → App Service */}
+    <line x1="300" y1="385" x2="418" y2="175" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+    {/* Arrow: Ralph → Cosmos DB */}
+    <line x1="300" y1="395" x2="418" y2="280" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+    {/* Arrow: Ralph → AI Foundry */}
+    <line x1="300" y1="405" x2="418" y2="375" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+    {/* Arrow: Ralph → GitHub CI/CD */}
+    <line x1="300" y1="415" x2="418" y2="465" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+
+    {/* ── Azure Resources (right column, top to bottom) ───────────────── */}
+
+    {/* Bicep IaC */}
+    <rect x="420" y="50" width="150" height="50" rx="8" fill="url(#ig-grad-azure)" />
+    <text x="495" y="73" textAnchor="middle" fontSize="11" fontWeight="700" fill="white" fontFamily="system-ui">🏗️ Bicep IaC</text>
+    <text x="495" y="88" textAnchor="middle" fontSize="9" fill="#bae6fd" fontFamily="system-ui">Resource Group · RBAC</text>
+
+    {/* Arrow: Bicep → Azure Resources sub-items */}
+    <line x1="570" y1="75" x2="618" y2="68" stroke="#94a3b8" strokeWidth="1" markerEnd="url(#ig-arrow)" />
+    <line x1="570" y1="75" x2="618" y2="93" stroke="#94a3b8" strokeWidth="1" markerEnd="url(#ig-arrow)" />
+
+    {/* Key Vault (small) */}
+    <rect x="620" y="48" width="120" height="32" rx="6" fill="#1e293b" stroke="#475569" strokeWidth="1" />
+    <text x="680" y="69" textAnchor="middle" fontSize="10" fontWeight="600" fill="#94a3b8" fontFamily="system-ui">🔐 Key Vault</text>
+
+    {/* Managed Identity (small) */}
+    <rect x="620" y="86" width="120" height="32" rx="6" fill="#1e293b" stroke="#475569" strokeWidth="1" />
+    <text x="680" y="107" textAnchor="middle" fontSize="10" fontWeight="600" fill="#94a3b8" fontFamily="system-ui">🛡️ Managed ID</text>
+
+    {/* App Service */}
+    <rect x="420" y="155" width="150" height="60" rx="8" fill="url(#ig-grad-app)" />
+    <text x="495" y="180" textAnchor="middle" fontSize="11" fontWeight="700" fill="white" fontFamily="system-ui">⚡ App Service</text>
+    <text x="495" y="195" textAnchor="middle" fontSize="9" fill="#fef3c7" fontFamily="system-ui">FastAPI + React SPA</text>
+    <text x="495" y="207" textAnchor="middle" fontSize="8" fill="#fde68a" fontFamily="system-ui">Container Apps / App Svc</text>
+
+    {/* Cosmos DB */}
+    <rect x="420" y="260" width="150" height="55" rx="8" fill="url(#ig-grad-db)" />
+    <text x="495" y="283" textAnchor="middle" fontSize="11" fontWeight="700" fill="white" fontFamily="system-ui">🗄️ Cosmos DB</text>
+    <text x="495" y="298" textAnchor="middle" fontSize="9" fill="#ddd6fe" fontFamily="system-ui">FHIR-aligned schemas</text>
+    <text x="495" y="310" textAnchor="middle" fontSize="8" fill="#c4b5fd" fontFamily="system-ui">patients · appointments · labs</text>
+
+    {/* Arrow: App Svc → Cosmos */}
+    <line x1="495" y1="215" x2="495" y2="258" stroke="#94a3b8" strokeWidth="1" strokeDasharray="4 2" markerEnd="url(#ig-arrow)" />
+
+    {/* AI Foundry / Agents */}
+    <rect x="420" y="355" width="150" height="60" rx="8" fill="url(#ig-grad-ai)" />
+    <text x="495" y="380" textAnchor="middle" fontSize="11" fontWeight="700" fill="white" fontFamily="system-ui">🤖 AI Foundry</text>
+    <text x="495" y="395" textAnchor="middle" fontSize="9" fill="#fbcfe8" fontFamily="system-ui">Triage Agent · RAG</text>
+    <text x="495" y="407" textAnchor="middle" fontSize="8" fill="#f9a8d4" fontFamily="system-ui">Lab summary · Symptom routing</text>
+
+    {/* Arrow: App Svc → AI Foundry */}
+    <line x1="520" y1="215" x2="520" y2="353" stroke="#94a3b8" strokeWidth="1" strokeDasharray="4 2" markerEnd="url(#ig-arrow)" />
+
+    {/* GitHub CI/CD */}
+    <rect x="420" y="445" width="150" height="55" rx="8" fill="url(#ig-grad-cicd)" />
+    <text x="495" y="468" textAnchor="middle" fontSize="11" fontWeight="700" fill="white" fontFamily="system-ui">🚀 GitHub Actions</text>
+    <text x="495" y="483" textAnchor="middle" fontSize="9" fill="#a7f3d0" fontFamily="system-ui">CI → Build → Test → Deploy</text>
+    <text x="495" y="495" textAnchor="middle" fontSize="8" fill="#6ee7b7" fontFamily="system-ui">Playwright E2E · bicep deploy</text>
+
+    {/* ── Deployed Stack (far right) ──────────────────────────────────── */}
+    {/* Arrow: GitHub → Deployed */}
+    <line x1="570" y1="472" x2="618" y2="400" stroke="#10b981" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+
+    {/* Arrow: AI Foundry → Deployed */}
+    <line x1="570" y1="385" x2="618" y2="380" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 2" />
+
+    {/* Arrow: App → Deployed */}
+    <line x1="570" y1="185" x2="700" y2="320" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 2" />
+
+    {/* Deployed Production Box */}
+    <rect x="620" y="300" width="310" height="180" rx="12" fill="#022c22" stroke="#10b981" strokeWidth="2" />
+    <text x="775" y="325" textAnchor="middle" fontSize="12" fontWeight="800" fill="#34d399" fontFamily="system-ui">✅ PRODUCTION DEPLOYED</text>
+
+    {/* Deployed sub-components */}
+    <rect x="635" y="340" width="130" height="28" rx="5" fill="#064e3b" />
+    <text x="700" y="359" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6ee7b7" fontFamily="system-ui">⚡ Patient Portal</text>
+
+    <rect x="635" y="375" width="130" height="28" rx="5" fill="#064e3b" />
+    <text x="700" y="394" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6ee7b7" fontFamily="system-ui">🤖 AI Triage Agent</text>
+
+    <rect x="635" y="410" width="130" height="28" rx="5" fill="#064e3b" />
+    <text x="700" y="429" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6ee7b7" fontFamily="system-ui">🗄️ FHIR Database</text>
+
+    <rect x="635" y="445" width="130" height="28" rx="5" fill="#064e3b" />
+    <text x="700" y="464" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6ee7b7" fontFamily="system-ui">📊 Monitoring</text>
+
+    <rect x="785" y="340" width="130" height="28" rx="5" fill="#064e3b" />
+    <text x="850" y="359" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6ee7b7" fontFamily="system-ui">🔐 RBAC + Key Vault</text>
+
+    <rect x="785" y="375" width="130" height="28" rx="5" fill="#064e3b" />
+    <text x="850" y="394" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6ee7b7" fontFamily="system-ui">📋 Lab Summarizer</text>
+
+    <rect x="785" y="410" width="130" height="28" rx="5" fill="#064e3b" />
+    <text x="850" y="429" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6ee7b7" fontFamily="system-ui">🚀 CI/CD Pipeline</text>
+
+    <rect x="785" y="445" width="130" height="28" rx="5" fill="#064e3b" />
+    <text x="850" y="464" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6ee7b7" fontFamily="system-ui">🧪 E2E Tests</text>
+
+    {/* ── Annotations ─────────────────────────────────────────────────── */}
+    {/* Timing annotation */}
+    <text x="775" y="495" textAnchor="middle" fontSize="9" fontWeight="700" fill="#059669" fontFamily="system-ui" fontStyle="italic">
+      ~ 90 seconds parse → 20 iterations → deployed
+    </text>
+
+    {/* Cosmos ↔ AI Foundry dotted connection */}
+    <line x1="495" y1="315" x2="495" y2="353" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 2" markerEnd="url(#ig-arrow)" />
+
+    {/* Data flow legend */}
+    <rect x="760" y="140" width="170" height="110" rx="8" fill="white" stroke="#e2e8f0" strokeWidth="1" opacity="0.95" />
+    <text x="845" y="160" textAnchor="middle" fontSize="10" fontWeight="700" fill="#334155" fontFamily="system-ui">Legend</text>
+    <line x1="775" y1="175" x2="810" y2="175" stroke="#f97316" strokeWidth="2" markerEnd="url(#ig-arrow-orange)" />
+    <text x="818" y="179" fontSize="9" fill="#475569" fontFamily="system-ui">Agent pipeline</text>
+    <line x1="775" y1="195" x2="810" y2="195" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
+    <text x="818" y="199" fontSize="9" fill="#475569" fontFamily="system-ui">Data / output flow</text>
+    <line x1="775" y1="215" x2="810" y2="215" stroke="#94a3b8" strokeWidth="1" strokeDasharray="4 2" />
+    <text x="818" y="219" fontSize="9" fill="#475569" fontFamily="system-ui">Runtime dependency</text>
+    <path d="M 775 235 C 795 235, 795 240, 775 240" fill="none" stroke="#f97316" strokeWidth="1.5" strokeDasharray="3 2" />
+    <text x="818" y="240" fontSize="9" fill="#475569" fontFamily="system-ui">Feedback loop</text>
+  </svg>
+);
 
 // ─── Pattern Definition ──────────────────────────────────────────────────────
 export const ignitionStackPattern: PatternData = {

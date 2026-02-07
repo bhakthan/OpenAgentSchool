@@ -41,14 +41,14 @@ const PatternExplorer = () => {
     return 'flow-diagram';
   };
   
-  // Find initial pattern based on URL parameter, default to ReAct Agent
+  // Find initial pattern based on URL parameter, default to IgnitionStack Agent
   const getInitialPattern = () => {
     if (patternId) {
       const foundPattern = agentPatterns.find(pattern => pattern.id === patternId);
-      return foundPattern || agentPatterns.find(p => p.id === 'react-agent') || agentPatterns[0] || null;
+      return foundPattern || agentPatterns.find(p => p.id === 'ignition-stack') || agentPatterns[0] || null;
     }
-    // Default to ReAct Agent pattern
-    return agentPatterns.find(p => p.id === 'react-agent') || agentPatterns[0] || null;
+    // Default to IgnitionStack Agent pattern
+    return agentPatterns.find(p => p.id === 'ignition-stack') || agentPatterns[0] || null;
   };
   
   const [selectedPattern, setSelectedPattern] = useState(getInitialPattern());
@@ -228,6 +228,24 @@ const PatternExplorer = () => {
                     </ErrorBoundary>
                   </div>
                 </div>
+
+                {/* IgnitionStack Infographic */}
+                {selectedPattern?.id === 'ignition-stack' && (
+                  <div className="mt-6 rounded-xl border bg-muted/30 p-4">
+                    <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                      <ChartLine size={16} /> IgnitionStack Agent — Full Pipeline Infographic
+                    </h3>
+                    <img
+                      src="/images/Ignition_Stack_Ralph_Style_Agent.png"
+                      alt="IgnitionStack Agent: end-to-end use-case-to-production pipeline — PRD intake, Azure Bicep IaC, AI Foundry agents, database schema, application scaffolding, and CI/CD deployment"
+                      className="w-full rounded-lg shadow-sm border"
+                      loading="lazy"
+                    />
+                    <p className="text-xs text-muted-foreground mt-2 text-center">
+                      From use-case PRD to production deployment — the IgnitionStack Agent orchestrates infrastructure, agents, data, application code, and CI/CD in one pass
+                    </p>
+                  </div>
+                )}
               </TabsContent>
               
               <TabsContent value="details">
