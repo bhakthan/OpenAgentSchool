@@ -1628,7 +1628,7 @@ if __name__ == "__main__":
   businessUseCase: {
     industry: 'Healthcare / Digital Patient Experience',
     description:
-      'Meridian Health Network, a 40-clinic healthcare system, needs a patient intake and scheduling ' +
+      'Meridian Health Network (fictitious), a 40-clinic healthcare system, needs a patient intake and scheduling ' +
       'portal. Their solution architect delivers a 12-slide PowerPoint deck covering patient registration, ' +
       'insurance verification, appointment scheduling, AI-powered symptom triage, lab-results summarization, ' +
       'and HIPAA compliance requirements. Instead of a 3-week dev sprint to scaffold the project, the ' +
@@ -1644,8 +1644,8 @@ if __name__ == "__main__":
     enlightenMePrompt:
       `You are an expert platform engineer, Azure solutions architect, and healthcare IT specialist. Explain the IgnitionStack Agent pattern using a concrete real-world example.
 
-## The Scenario: Meridian Health Network
-Meridian Health Network operates 40 clinics. Their CTO wants a digital patient intake portal — patients should be able to register, verify insurance, book appointments, get AI-powered symptom triage, and view lab results with plain-language summaries. The solution architect creates a 12-slide PPTX covering the vision. Traditionally, this would take a development team 3-4 weeks just to scaffold the Azure infrastructure, set up the database, wire the CI/CD, and get a basic API running — before writing a single line of business logic.
+## The Scenario: Meridian Health Network (fictitious)
+Meridian Health Network (fictitious) operates 40 clinics. Their CTO wants a digital patient intake portal — patients should be able to register, verify insurance, book appointments, get AI-powered symptom triage, and view lab results with plain-language summaries. The solution architect creates a 12-slide PPTX covering the vision. Traditionally, this would take a development team 3-4 weeks just to scaffold the Azure infrastructure, set up the database, wire the CI/CD, and get a basic API running — before writing a single line of business logic.
 
 ## What IgnitionStack Does
 The platform team feeds the PPTX into IgnitionStack. Here's what happens:
