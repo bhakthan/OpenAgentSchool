@@ -94,6 +94,9 @@ These prompts are designed for AI image generation tools to create visually stun
 27. **Human-in-the-Loop Patterns** - Approval workflows and escalation
 28. **Fine-Tuning LLMs** - SFT, DPO, RFT decision framework and workflows
 
+### Advanced Patterns
+29. **IgnitionStack Agent** - End-to-end use-case → Azure production workload via Ralph Method (20 iterations, CLI coding agents, Bicep, AI Foundry, CI/CD)
+
 ## Usage
 
 1. Open the desired prompt file

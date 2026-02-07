@@ -8458,6 +8458,124 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// IgnitionStack Agent Scenarios
+(scenarioLibrary as any)['ignition-stack'] = [
+  {
+    id: 'ignition-stack-scn-1',
+    type: 'scenario',
+    conceptId: 'ignition-stack',
+    title: 'Healthcare Patient Portal: PRD to Production',
+    level: 'intermediate',
+    scenario: {
+      id: 'ignition-healthcare-portal',
+      title: 'Generating a HIPAA-Compliant Patient Intake Portal',
+      description: 'Your healthcare startup needs a patient intake portal deployed to Azure within 48 hours for a pilot launch. You have a PRD document describing the requirements. The IgnitionStack Agent will generate the full stack.',
+      context: 'The PRD specifies: patient registration form, appointment scheduling, medical history upload, HIPAA-compliant data storage, and provider dashboard. Target: Azure with Cosmos DB, App Service, and Key Vault.',
+      stakeholders: ['CTO', 'Compliance Officer', 'Lead Developer'],
+      challenges: [
+        {
+          id: 'input-selection',
+          title: 'Choose the Right Input Format',
+          description: 'Selecting how to feed requirements to the agent',
+          question: 'Which input format would give the IgnitionStack Agent the most actionable requirements for code generation?',
+          type: 'multiple-choice',
+          options: [
+            'A one-paragraph natural language description',
+            'A structured PRD with user stories, data models, and compliance constraints',
+            'A PowerPoint slide deck from a stakeholder meeting',
+            'Verbal instructions recorded in a meeting transcript'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! A structured PRD with explicit user stories, data models, and constraints gives the agent the most precise input for generating infrastructure, schemas, and application code that match requirements.',
+          hints: [
+            'Think about what information the agent needs to make architecture decisions',
+            'Consider the difference between ambiguous and structured requirements'
+          ]
+        },
+        {
+          id: 'iteration-strategy',
+          title: 'Ralph Method Iteration Focus',
+          description: 'Deciding what to validate at each iteration phase',
+          question: 'During the Ralph Method\'s 20 iterations, when should HIPAA compliance checks be introduced?',
+          type: 'multiple-choice',
+          options: [
+            'Only in the final iteration (iteration 20) as a last gate',
+            'In iterations 1-5 alongside structural validation — security from the start',
+            'Skip compliance checks — the Azure platform handles HIPAA automatically',
+            'Only after deployment, via a separate audit process'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Security and compliance should be baked in from early iterations. Checking HIPAA constraints alongside structural validation ensures that encryption, access controls, and audit logging are foundational — not bolted on.',
+          hints: [
+            'Think about shift-left security principles',
+            'Consider what happens if compliance issues are found in iteration 20'
+          ]
+        },
+        {
+          id: 'deployment-validation',
+          title: 'Validating the Generated Stack',
+          description: 'Verifying the full stack works end-to-end',
+          question: 'After the IgnitionStack Agent generates infrastructure, code, and CI/CD — what\'s the most critical first validation step?',
+          type: 'multiple-choice',
+          options: [
+            'Run `npm run build` to check for TypeScript errors',
+            'Deploy to production immediately and monitor logs',
+            'Deploy to an ephemeral environment and run integration tests against live Azure resources',
+            'Review the Bicep templates manually for cost optimization'
+          ],
+          correctAnswer: 2,
+          feedback: 'Perfect! Deploying to an ephemeral environment validates cross-artifact consistency — that the Bicep templates provision what the app expects, the schema matches the ORM, and the CI/CD pipeline targets the right resources.',
+          hints: [
+            'Think about what static analysis alone can\'t catch',
+            'Consider the difference between build success and deployment success'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'successful-generation',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve designed an effective IgnitionStack workflow for healthcare',
+          explanation: 'Structured input, early compliance checks, and ephemeral environment validation create a robust pipeline from PRD to production.',
+          nextSteps: [
+            'Add automated HIPAA compliance scanning to the CI/CD pipeline',
+            'Configure multi-environment generation (dev/staging/prod)',
+            'Set up cost monitoring for generated Azure resources'
+          ]
+        },
+        {
+          id: 'partial-implementation',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Your pipeline has gaps that could cause deployment issues',
+          explanation: 'Review the feedback — common mistakes include deferring security to late stages and skipping integration testing.',
+          nextSteps: [
+            'Study shift-left security principles',
+            'Understand cross-artifact dependency validation',
+            'Review HIPAA technical safeguard requirements'
+          ]
+        }
+      ]
+    },
+    followUpQuestions: [
+      'How would you modify the pipeline for a non-healthcare domain like fintech?',
+      'What changes if the target platform is AWS instead of Azure?',
+      'How would you handle brownfield generation — extending an existing codebase?'
+    ],
+    expectedInsights: [
+      'Structured PRDs yield better generated code than ambiguous inputs',
+      'Compliance must be shift-left — embedded in early iterations, not late gates',
+      'Cross-artifact validation requires live deployment, not just static analysis'
+    ],
+    relatedConcepts: ['infrastructure-as-code', 'hipaa-compliance', 'deployment-pipelines'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Selects optimal input format',
+      'Designs iteration strategy with early compliance',
+      'Plans ephemeral environment validation'
+    ]
+  }
+];
+
 // Helper function to get scenarios by concept and level
 export function getScenarios(
   conceptId: string, 

@@ -206,7 +206,8 @@ export default function D3TreeVisualization({
             { id: 'mcp-server-orchestration', name: 'MCP Server Orchestration', type: 'pattern' as const, novel: true },
             { id: 'multi-llm-routing', name: 'Multi-LLM Routing', type: 'pattern' as const, novel: true },
             { id: 'agentic-ide', name: 'Agentic IDE', type: 'pattern' as const, novel: true },
-            { id: 'guardrails-layer', name: 'Guardrails Layer', type: 'pattern' as const, novel: true }
+            { id: 'guardrails-layer', name: 'Guardrails Layer', type: 'pattern' as const, novel: true },
+            { id: 'ignition-stack', name: 'IgnitionStack Agent', type: 'pattern' as const, novel: true }
           ]
         },
         {

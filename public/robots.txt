@@ -68,6 +68,7 @@ Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
 Allow: /patterns/agentic-ide
 Allow: /patterns/guardrails-layer
+Allow: /patterns/ignition-stack
 Allow: /patterns/supervisor-agent
 Allow: /patterns/semantic-router
 Allow: /patterns/verifier-agent
@@ -137,6 +138,7 @@ Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
 Allow: /patterns/agentic-ide
 Allow: /patterns/guardrails-layer
+Allow: /patterns/ignition-stack
 Allow: /patterns/supervisor-agent
 Allow: /patterns/semantic-router
 Allow: /patterns/verifier-agent
@@ -173,6 +175,7 @@ Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
 Allow: /patterns/agentic-ide
 Allow: /patterns/guardrails-layer
+Allow: /patterns/ignition-stack
 Allow: /api-docs
 
 User-agent: CCBot
@@ -226,6 +229,7 @@ Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
 Allow: /patterns/agentic-ide
 Allow: /patterns/guardrails-layer
+Allow: /patterns/ignition-stack
 Allow: /api-docs
 Crawl-delay: 2
 
@@ -259,6 +263,7 @@ Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
 Allow: /patterns/agentic-ide
 Allow: /patterns/guardrails-layer
+Allow: /patterns/ignition-stack
 Allow: /api-docs
 
 User-agent: ClaudeBot

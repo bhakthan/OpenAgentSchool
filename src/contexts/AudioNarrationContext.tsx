@@ -611,6 +611,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'mcp-server-orchestration': 'MCPServerOrchestration',
         'multi-llm-routing': 'MultiLLMRouting',
         'guardrails-layer': 'GuardrailsLayer',
+        'ignition-stack': 'IgnitionStack',
         
         // Direct component names (already in correct format)
         'A2ACommunicationPatterns': 'A2ACommunicationPatterns',

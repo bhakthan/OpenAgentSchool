@@ -106,4 +106,5 @@ export type PatternType =
   | 'hybrid-quantum-classical-agent'
   | 'quantum-sensing-agent'
   | 'quantum-accelerated-search'
-  | 'deep-research-agent';
+  | 'deep-research-agent'
+  | 'ignition-stack';

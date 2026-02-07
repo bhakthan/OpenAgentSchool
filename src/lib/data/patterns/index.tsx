@@ -66,6 +66,7 @@ export { mcpServerOrchestrationPattern } from './mcpServerOrchestration';
 export { multiLLMRoutingPattern } from './multiLLMRouting';
 export { agenticIDEPattern } from './agenticIDE';
 export { guardrailsLayerPattern } from './guardrailsLayer';
+export { ignitionStackPattern } from './ignitionStack';
 
 // Export consolidated pattern array
 import { reactAgentPattern } from './reactAgent';
@@ -131,6 +132,7 @@ import { mcpServerOrchestrationPattern } from './mcpServerOrchestration';
 import { multiLLMRoutingPattern } from './multiLLMRouting';
 import { agenticIDEPattern } from './agenticIDE';
 import { guardrailsLayerPattern } from './guardrailsLayer';
+import { ignitionStackPattern } from './ignitionStack';
 import { patternEvaluationRegistry } from './evaluationRegistry';
 
 export const agentPatterns = [
@@ -197,6 +199,7 @@ export const agentPatterns = [
   multiLLMRoutingPattern,
   agenticIDEPattern,
   guardrailsLayerPattern,
+  ignitionStackPattern,
 ];
 
 for (const pattern of agentPatterns) {

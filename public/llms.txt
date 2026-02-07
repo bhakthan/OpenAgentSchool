@@ -143,6 +143,7 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Multi-LLM Routing: https://www.openagentschool.org/patterns/multi-llm-routing
 - Agentic IDE: https://www.openagentschool.org/patterns/agentic-ide
 - Guardrails Layer: https://www.openagentschool.org/patterns/guardrails-layer
+- IgnitionStack Agent: https://www.openagentschool.org/patterns/ignition-stack
 - Supervisor Agent: https://www.openagentschool.org/patterns/supervisor-agent
 - Semantic Router: https://www.openagentschool.org/patterns/semantic-router
 - Verifier Agent: https://www.openagentschool.org/patterns/verifier-agent

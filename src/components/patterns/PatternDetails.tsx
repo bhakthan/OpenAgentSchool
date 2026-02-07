@@ -736,19 +736,19 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
             <div className="space-y-4">
                 <div>
                     <h3 className="font-semibold mb-2">When to Use</h3>
-                    <p className="text-base text-muted-foreground">{pattern.whenToUse}</p>
+                    <p className="text-base text-muted-foreground whitespace-pre-line leading-relaxed">{pattern.whenToUse}</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <h3 className="font-semibold mb-2 flex items-center gap-1"><ArrowsOut size={16} /> Advantages</h3>
                         <ul className="list-disc list-inside space-y-1 text-base">
-                            {pattern.advantages?.map((adv, i) => <li key={i}>{adv}</li>)}
+                            {pattern.advantages?.map((adv, i) => <li key={i} className="whitespace-pre-line leading-relaxed">{adv}</li>)}
                         </ul>
                     </div>
                     <div>
                         <h3 className="font-semibold mb-2 flex items-center gap-1"><ArrowsIn size={16} /> Limitations</h3>
                          <ul className="list-disc list-inside space-y-1 text-base">
-                            {pattern.limitations?.map((lim, i) => <li key={i}>{lim}</li>)}
+                            {pattern.limitations?.map((lim, i) => <li key={i} className="whitespace-pre-line leading-relaxed">{lim}</li>)}
                         </ul>
                     </div>
                 </div>
@@ -770,10 +770,16 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
               <AccordionItem value="steps">
                 <AccordionTrigger>Implementation Steps</AccordionTrigger>
                 <AccordionContent>
-                  <ol className="list-decimal list-inside space-y-2 text-base">
-                    {pattern.implementation.map((step, index) => (
-                      <li key={index}>{step}</li>
-                    ))}
+                  <ol className="list-decimal list-inside space-y-4 text-base">
+                    {pattern.implementation.map((step, index) => {
+                      // Steps containing tables, code, or structured data get monospace treatment
+                      const hasStructured = /[┌┐└┘│├┤┬┴┼─]|^\s{2,}[├└│┌]/.test(step);
+                      return (
+                        <li key={index} className={`whitespace-pre-line leading-relaxed ${hasStructured ? 'font-mono text-[13px]' : ''}`}>
+                          {step}
+                        </li>
+                      );
+                    })}
                   </ol>
                 </AccordionContent>
               </AccordionItem>
@@ -801,13 +807,13 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                   <CardContent className="space-y-6">
                     <div>
                       <h4 className="font-semibold mb-2">Scenario focus</h4>
-                      <p className="text-base text-muted-foreground">{evaluationProfile.scenarioFocus}</p>
+                      <p className="text-base text-muted-foreground whitespace-pre-line leading-relaxed">{evaluationProfile.scenarioFocus}</p>
                     </div>
                     <div>
                       <h4 className="font-semibold mb-2">Critical metrics to watch</h4>
                       <ul className="list-disc list-inside space-y-1 text-base">
                         {evaluationProfile.criticalMetrics.map((metric, index) => (
-                          <li key={index}>{metric}</li>
+                          <li key={index} className="whitespace-pre-line leading-relaxed">{metric}</li>
                         ))}
                       </ul>
                     </div>
@@ -815,7 +821,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                       <h4 className="font-semibold mb-2">Playbook notes</h4>
                       <ul className="list-disc list-inside space-y-1 text-base">
                         {evaluationProfile.evaluationNotes.map((note, index) => (
-                          <li key={index}>{note}</li>
+                          <li key={index} className="whitespace-pre-line leading-relaxed">{note}</li>
                         ))}
                       </ul>
                     </div>
@@ -824,7 +830,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                         <h4 className="font-semibold mb-2">Readiness signals</h4>
                         <ul className="list-disc list-inside space-y-1 text-base">
                           {evaluationProfile.readinessSignals.map((signal, index) => (
-                            <li key={index}>{signal}</li>
+                            <li key={index} className="whitespace-pre-line leading-relaxed">{signal}</li>
                           ))}
                         </ul>
                       </div>
@@ -834,7 +840,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                         <h4 className="font-semibold mb-2">Data needs</h4>
                         <ul className="list-disc list-inside space-y-1 text-base">
                           {evaluationProfile.dataNeeds.map((item, index) => (
-                            <li key={index}>{item}</li>
+                            <li key={index} className="whitespace-pre-line leading-relaxed">{item}</li>
                           ))}
                         </ul>
                       </div>

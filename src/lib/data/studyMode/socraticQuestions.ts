@@ -6718,6 +6718,102 @@ export const socraticQuestionLibrary = {
         'Incorporates simulation workflow'
       ]
     }
+  ],
+  // IgnitionStack Agent Pattern
+  'ignition-stack': [
+    {
+      id: 'ignition-stack-socratic-1',
+      type: 'socratic',
+      conceptId: 'ignition-stack',
+      title: 'Why Iterate Instead of One-Shot?',
+      level: 'beginner',
+      socratiQuestion: "If an AI agent can generate code in a single pass, why would you run 20 iterations of refinement? What could a first draft of generated code be missing that later passes would catch?",
+      followUpQuestions: [
+        "What kinds of bugs are easy for an AI to introduce but hard to notice on a first pass?",
+        "How is iterative refinement similar to how human developers review their own code?",
+        "What happens if you skip refinement and deploy the first draft directly?"
+      ],
+      expectedInsights: [
+        "First-pass code often has missing imports, type mismatches, and incomplete error handling",
+        "Each iteration compounds quality — fixing structure enables better logic, which enables better tests",
+        "Deploying unrefined generated code risks runtime failures, security gaps, and poor performance"
+      ],
+      hints: [
+        "Think about what a human code reviewer would catch on a second read",
+        "Consider the difference between syntactically correct and production-ready",
+        "Reflect on how bugs in infrastructure templates differ from application bugs"
+      ],
+      explanation: "This exploration helps students understand that code generation is only the beginning — iterative refinement is what transforms generated output into production-quality software. The Ralph Method's 20 iterations mirror the compounding benefit of progressive quality gates.",
+      relatedConcepts: ['code-generation', 'software-quality', 'deployment-readiness'],
+      timeEstimate: 12,
+      successCriteria: [
+        "Identifies gaps in single-pass generation",
+        "Understands compounding quality improvement",
+        "Recognizes production readiness requirements"
+      ]
+    },
+    {
+      id: 'ignition-stack-socratic-2',
+      type: 'socratic',
+      conceptId: 'ignition-stack',
+      title: 'Full-Stack Generation Trade-offs',
+      level: 'intermediate',
+      socratiQuestion: "The IgnitionStack Agent generates infrastructure (Bicep), application code, database schemas, and CI/CD pipelines all at once. What are the risks of generating tightly coupled artifacts together versus generating them independently? How would you validate cross-artifact consistency?",
+      followUpQuestions: [
+        "If the database schema changes, which other artifacts need to update?",
+        "How would you detect that a Bicep template references a resource the application code doesn't use?",
+        "What testing strategy validates that generated infrastructure and application code work together?"
+      ],
+      expectedInsights: [
+        "Coupled generation ensures consistency but creates blast radius — a schema change cascades everywhere",
+        "Cross-artifact validation requires contract testing: schema matches ORM, Bicep outputs match app config, CI/CD targets match resources",
+        "Integration testing (deploying to ephemeral environment) is the only reliable way to validate the full stack"
+      ],
+      hints: [
+        "Think about how microservice teams handle cross-service contracts",
+        "Consider what happens when one artifact is regenerated but others aren't",
+        "Reflect on the difference between static analysis and runtime validation"
+      ],
+      explanation: "Students discover that full-stack generation creates a dependency graph between artifacts. The IgnitionStack pipeline must maintain a shared context that ensures database schemas, application code, infrastructure, and deployment scripts stay in sync across all 20 iterations.",
+      relatedConcepts: ['infrastructure-as-code', 'contract-testing', 'deployment-pipelines'],
+      timeEstimate: 18,
+      successCriteria: [
+        "Identifies cross-artifact dependencies",
+        "Proposes validation strategy",
+        "Understands consistency challenges"
+      ]
+    },
+    {
+      id: 'ignition-stack-socratic-3',
+      type: 'socratic',
+      conceptId: 'ignition-stack',
+      title: 'Security in Auto-Generated Infrastructure',
+      level: 'advanced',
+      socratiQuestion: "When an AI agent auto-generates Azure Bicep templates, what security risks emerge that don't exist with human-authored templates? How would you design guardrails that prevent the agent from generating overprivileged roles, public endpoints, or leaked secrets — without blocking legitimate output?",
+      followUpQuestions: [
+        "How do you balance security scanning speed with the 20-iteration loop's throughput?",
+        "What's the difference between a policy-as-code check (like Azure Policy) and a prompt-level constraint?",
+        "How would you handle a situation where the agent needs a permission that violates least-privilege for a valid reason?"
+      ],
+      expectedInsights: [
+        "AI-generated IaC can introduce overprivileged IAM roles, missing network isolation, and hardcoded connection strings that a human might catch by convention",
+        "Defense-in-depth: prompt constraints for prevention, AST scanning at generation time, policy-as-code at deployment time, and runtime monitoring",
+        "Exception handling: tiered approval — agent can self-approve low-risk, escalate medium-risk, require human sign-off for high-risk permissions"
+      ],
+      hints: [
+        "Consider what OWASP Top 10 for IaC would look like",
+        "Think about where in the pipeline each type of check is most effective",
+        "Reflect on how Azure Policy Deny effects interact with generated templates"
+      ],
+      explanation: "Advanced practitioners learn that auto-generated infrastructure requires multi-layered security: prompt-level constraints prevent common mistakes, static analysis catches structural issues, policy-as-code enforces organizational rules, and runtime monitoring detects drift. The key insight is that each layer catches different classes of risk.",
+      relatedConcepts: ['azure-security', 'policy-as-code', 'infrastructure-scanning', 'guardrails-layer'],
+      timeEstimate: 22,
+      successCriteria: [
+        "Identifies AI-specific IaC security risks",
+        "Designs multi-layer guardrail architecture",
+        "Handles exception escalation"
+      ]
+    }
   ]
 };
 

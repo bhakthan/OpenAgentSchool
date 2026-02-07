@@ -31,14 +31,14 @@ const VisualizationLoader = () => (
 const PatternExplorer = () => {
   const { patternId } = useParams();
   
-  // Find initial pattern based on URL parameter, default to ReAct Agent
+  // Find initial pattern based on URL parameter, default to IgnitionStack Agent
   const getInitialPattern = () => {
     if (patternId) {
       const foundPattern = agentPatterns.find(pattern => pattern.id === patternId);
-      return foundPattern || agentPatterns.find(p => p.id === 'react-agent') || agentPatterns[0] || null;
+      return foundPattern || agentPatterns.find(p => p.id === 'ignition-stack') || agentPatterns[0] || null;
     }
-    // Default to ReAct Agent pattern
-    return agentPatterns.find(p => p.id === 'react-agent') || agentPatterns[0] || null;
+    // Default to IgnitionStack Agent pattern
+    return agentPatterns.find(p => p.id === 'ignition-stack') || agentPatterns[0] || null;
   };
   
   const [selectedPattern, setSelectedPattern] = useState(getInitialPattern());

@@ -738,6 +738,68 @@ export const agentPatternsQuestions: QuizQuestion[] = [
     relatedConcepts: ['stigmergy', 'indirect-communication', 'environmental-cues'],
     persona: ['ai-engineer', 'agent-architect', 'research-scientist'],
     timeEstimate: 60
+  },
+
+  // IgnitionStack Agent Pattern
+  {
+    id: 'patterns-ignition-b1',
+    question: 'What is the primary purpose of the IgnitionStack Agent pattern?',
+    text: 'What is the primary purpose of the IgnitionStack Agent pattern?',
+    options: [
+      'To generate only frontend UI components from mockups',
+      'To transform business requirements into a fully deployed production application — infrastructure, code, database, and CI/CD — in a single pipeline',
+      'To monitor existing applications for performance issues',
+      'To migrate legacy applications between cloud providers'
+    ],
+    correctAnswer: 1,
+    explanation: 'The IgnitionStack Agent is an end-to-end use-case-to-production code generator. It takes business requirements (PRD, PPTX, or natural language) and generates the entire stack: Azure Bicep infrastructure, database schemas, application code, and CI/CD pipelines, then deploys everything to Azure.',
+    difficulty: 'beginner',
+    category: 'agent-patterns',
+    subCategory: 'ignition-stack',
+    learningObjectives: ['Understand the IgnitionStack pipeline scope', 'Recognize end-to-end code generation'],
+    relatedConcepts: ['code-generation', 'infrastructure-as-code', 'deployment-automation'],
+    persona: ['business-leader', 'no-code-engineer', 'agent-designer'],
+    timeEstimate: 30
+  },
+  {
+    id: 'patterns-ignition-i1',
+    question: 'What is the Ralph Method in the IgnitionStack Agent pipeline?',
+    text: 'What is the Ralph Method in the IgnitionStack Agent pipeline?',
+    options: [
+      'A single-pass code generation approach optimized for speed',
+      'A 20-iteration refinement loop where each pass improves correctness, quality, and production readiness of generated code',
+      'A testing framework for validating Azure Bicep templates',
+      'A deployment strategy that uses blue-green rollouts'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Ralph Method runs 20 iterations over generated output. Early iterations (1-5) fix structural issues like syntax errors and missing imports. Middle iterations (6-12) improve quality — error handling, logging, and security. Late iterations (13-20) harden for production — performance tuning, edge cases, and deployment configuration. Each iteration compounds quality improvements.',
+    difficulty: 'intermediate',
+    category: 'agent-patterns',
+    subCategory: 'ignition-stack',
+    learningObjectives: ['Understand iterative refinement in code generation', 'Identify the three phases of the Ralph Method'],
+    relatedConcepts: ['iterative-refinement', 'code-quality', 'production-readiness'],
+    persona: ['agent-developer', 'ai-engineer', 'agent-designer'],
+    timeEstimate: 45
+  },
+  {
+    id: 'patterns-ignition-a1',
+    question: 'What is the primary risk of generating tightly coupled infrastructure and application code in a single IgnitionStack pipeline, and how is it mitigated?',
+    text: 'What is the primary risk of generating tightly coupled infrastructure and application code in a single IgnitionStack pipeline, and how is it mitigated?',
+    options: [
+      'The risk is high costs, mitigated by using free-tier resources exclusively',
+      'The risk is cross-artifact inconsistency during iterative refinement — a schema change in one iteration can break application code from a previous iteration — mitigated by cross-reference validation after every iteration',
+      'The risk is slow generation, mitigated by parallelizing all pipeline stages',
+      'The risk is vendor lock-in, mitigated by generating multi-cloud templates'
+    ],
+    correctAnswer: 1,
+    explanation: 'When infrastructure, schemas, and application code are generated together, an edit in one iteration can create inconsistencies across artifacts. The Ralph Method mitigates this by running cross-reference validation after each iteration — ensuring that Bicep template outputs match app configuration, database schemas match ORM models, and CI/CD targets match provisioned resources.',
+    difficulty: 'advanced',
+    category: 'agent-patterns',
+    subCategory: 'ignition-stack',
+    learningObjectives: ['Evaluate cross-artifact dependency risks', 'Design validation gates for iterative generation'],
+    relatedConcepts: ['contract-testing', 'infrastructure-as-code', 'iteration-regression'],
+    persona: ['ai-engineer', 'agent-architect', 'ai-ops-engineer'],
+    timeEstimate: 60
   }
 ];
 

@@ -72,6 +72,7 @@ Pattern-MCP-Orchestration: https://www.openagentschool.org/patterns/mcp-server-o
 Pattern-Multi-LLM-Routing: https://www.openagentschool.org/patterns/multi-llm-routing
 Pattern-Agentic-IDE: https://www.openagentschool.org/patterns/agentic-ide
 Pattern-Guardrails: https://www.openagentschool.org/patterns/guardrails-layer
+Pattern-IgnitionStack: https://www.openagentschool.org/patterns/ignition-stack
 Pattern-Supervisor-Agent: https://www.openagentschool.org/patterns/supervisor-agent
 Pattern-Semantic-Router: https://www.openagentschool.org/patterns/semantic-router
 Pattern-Verifier-Agent: https://www.openagentschool.org/patterns/verifier-agent

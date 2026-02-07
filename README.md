@@ -35,7 +35,7 @@ Open Agent School is a **comprehensive educational platform** designed to help d
 **Advanced Patterns**
 -  **Multi-Agent Systems** - Coordination, orchestration, and swarm intelligence
 -  **Data Autonomy Patterns** - Perception normalization, schema decomposition, action grounding
--  **2026 Agent Patterns** - Skill-Augmented Agent, MCP Server Orchestration, Multi-LLM Routing, Agentic IDE, Guardrails Layer
+-  **2026 Agent Patterns** - Skill-Augmented Agent, MCP Server Orchestration, Multi-LLM Routing, Agentic IDE, Guardrails Layer, IgnitionStack Agent
 -  **Business Use Cases** - Commerce, robotics, healthcare, and enterprise applications
 -  **Educational Frameworks** - Socratic learning, adaptive tutoring, and skill assessment
 
