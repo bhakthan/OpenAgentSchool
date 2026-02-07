@@ -4,12 +4,15 @@ import type { PatternData } from './types';
 /* ────────────────────────────────────────────────────────────────────────────
  *  IgnitionStack Agent  —  "Ignite Your Azure Workload from a Single Input"
  *
- *  The most detailed pattern in the library. IgnitionStack codifies the
- *  Ralph Method's bash-loop orchestration into an end-to-end use case →
- *  production Azure workload generator.
+ *  Agents are the new apps. Where the last decade shipped containers and
+ *  microservices, the next decade ships agents — autonomous, goal-driven
+ *  units of software that reason, act, and learn. IgnitionStack codifies
+ *  the Ralph Method's bash-loop orchestration into an end-to-end use case →
+ *  production Azure workload generator that treats agents as first-class
+ *  deployment artifacts alongside infrastructure and application code.
  *
  *  Input  : Screenshot, text, PDF, PPTX, or Word doc describing a use case
- *  Output : Fully deployed Azure project — Bicep infra, AI Foundry agents,
+ *  Output : Fully deployed Azure project — Bicep infra, Microsoft Foundry agents,
  *           database schemas, application code, GitHub repo, CI/CD pipeline
  *  Engine : 20 Ralph-loop iterations using gpt-5.3-codex via `gh copilot`
  * ──────────────────────────────────────────────────────────────────────────── */
@@ -51,7 +54,7 @@ const STAGES = [
   { id: 'parse',      icon: '🔍', label: 'Parse',          color: 'from-violet-500 to-violet-600',    detail: 'Vision + NLP extraction' },
   { id: 'decompose',  icon: '🧩', label: 'Decompose',      color: 'from-purple-500 to-purple-600',    detail: 'Atomic tasks via Decomposition Test' },
   { id: 'prd',        icon: '📋', label: 'PRD.json',       color: 'from-fuchsia-500 to-fuchsia-600',  detail: 'Prioritized task backlog' },
-  { id: 'scaffold',   icon: '🏗️', label: 'Scaffold',       color: 'from-orange-500 to-orange-600',    detail: 'Bicep · Foundry · DB · App · CI/CD' },
+  { id: 'scaffold',   icon: '🏗️', label: 'Scaffold',       color: 'from-orange-500 to-orange-600',    detail: 'Bicep · MS Foundry · DB · App · CI/CD' },
   { id: 'ralph',      icon: '🔄', label: 'Ralph ×20',      color: 'from-amber-500 to-amber-600',      detail: '20 iterations with gpt-5.3-codex' },
   { id: 'verify',     icon: '✅', label: 'Production',     color: 'from-emerald-500 to-emerald-600',  detail: 'Deployed to Azure + GitHub' },
 ] as const;
@@ -385,7 +388,7 @@ const IgnitionStackArchitectureSVG: React.FC = () => (
     <line x1="300" y1="385" x2="418" y2="175" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
     {/* Arrow: Ralph → Cosmos DB */}
     <line x1="300" y1="395" x2="418" y2="280" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
-    {/* Arrow: Ralph → AI Foundry */}
+    {/* Arrow: Ralph → Microsoft Foundry */}
     <line x1="300" y1="405" x2="418" y2="375" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
     {/* Arrow: Ralph → GitHub CI/CD */}
     <line x1="300" y1="415" x2="418" y2="465" stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
@@ -424,13 +427,14 @@ const IgnitionStackArchitectureSVG: React.FC = () => (
     {/* Arrow: App Svc → Cosmos */}
     <line x1="495" y1="215" x2="495" y2="258" stroke="#94a3b8" strokeWidth="1" strokeDasharray="4 2" markerEnd="url(#ig-arrow)" />
 
-    {/* AI Foundry / Agents */}
-    <rect x="420" y="355" width="150" height="60" rx="8" fill="url(#ig-grad-ai)" />
-    <text x="495" y="380" textAnchor="middle" fontSize="11" fontWeight="700" fill="white" fontFamily="system-ui">🤖 AI Foundry</text>
-    <text x="495" y="395" textAnchor="middle" fontSize="9" fill="#fbcfe8" fontFamily="system-ui">Triage Agent · RAG</text>
-    <text x="495" y="407" textAnchor="middle" fontSize="8" fill="#f9a8d4" fontFamily="system-ui">Lab summary · Symptom routing</text>
+    {/* Microsoft Foundry / Agents */}
+    <rect x="420" y="355" width="150" height="70" rx="8" fill="url(#ig-grad-ai)" />
+    <text x="495" y="375" textAnchor="middle" fontSize="11" fontWeight="700" fill="white" fontFamily="system-ui">🤖 MS Foundry</text>
+    <text x="495" y="390" textAnchor="middle" fontSize="9" fill="#fbcfe8" fontFamily="system-ui">Agent Framework · RAG</text>
+    <text x="495" y="403" textAnchor="middle" fontSize="8" fill="#f9a8d4" fontFamily="system-ui">Azure AI Search · Triage</text>
+    <text x="495" y="415" textAnchor="middle" fontSize="8" fill="#f9a8d4" fontFamily="system-ui">Lab summary · Symptom routing</text>
 
-    {/* Arrow: App Svc → AI Foundry */}
+    {/* Arrow: App Svc → Microsoft Foundry */}
     <line x1="520" y1="215" x2="520" y2="353" stroke="#94a3b8" strokeWidth="1" strokeDasharray="4 2" markerEnd="url(#ig-arrow)" />
 
     {/* GitHub CI/CD */}
@@ -443,7 +447,7 @@ const IgnitionStackArchitectureSVG: React.FC = () => (
     {/* Arrow: GitHub → Deployed */}
     <line x1="570" y1="472" x2="618" y2="400" stroke="#10b981" strokeWidth="1.5" markerEnd="url(#ig-arrow)" />
 
-    {/* Arrow: AI Foundry → Deployed */}
+    {/* Arrow: Microsoft Foundry → Deployed */}
     <line x1="570" y1="385" x2="618" y2="380" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 2" />
 
     {/* Arrow: App → Deployed */}
@@ -484,7 +488,7 @@ const IgnitionStackArchitectureSVG: React.FC = () => (
       ~ 90 seconds parse → 20 iterations → deployed
     </text>
 
-    {/* Cosmos ↔ AI Foundry dotted connection */}
+    {/* Cosmos ↔ Microsoft Foundry dotted connection */}
     <line x1="495" y1="315" x2="495" y2="353" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 2" markerEnd="url(#ig-arrow)" />
 
     {/* Data flow legend */}
@@ -508,16 +512,20 @@ export const ignitionStackPattern: PatternData = {
   category: 'Advanced',
 
   description:
-    'Ignite your Azure workload from a single input. The IgnitionStack Agent turns a use case — ' +
-    'screenshot, text, PDF, PPTX, or Word doc — into a production-ready Azure project in 20 ' +
-    'Ralph-loop iterations: Bicep infrastructure, AI Foundry agents, database schemas, application ' +
-    'code, GitHub repository, and CI/CD pipeline, all generated autonomously by gpt-5.3-codex.',
+    'Agents are the new apps — and IgnitionStack is how you ship them. Turn a single input ' +
+    '(screenshot, text, PDF, PPTX, or Word doc) into a production-ready Azure workload in 20 ' +
+    'Ralph-loop iterations: Bicep infrastructure, Microsoft Foundry agents (via Microsoft Agent Framework), ' +
+    'Azure AI Search for agentic RAG, database schemas, application code, GitHub repository, ' +
+    'and CI/CD pipeline — all generated autonomously by gpt-5.3-codex. The output isn\'t just an app; ' +
+    'it\'s a deployed system where agents are first-class citizens alongside APIs and UIs.',
 
   whenToUse:
     'Use IgnitionStack when you need to go from zero to a deployed Azure workload and you have a ' +
     'clear use-case description in any format. It is ideal for greenfield projects, hackathon ' +
     'sprints, proof-of-concept rapid-fire builds, architecture prototyping, client demos, and ' +
-    'migration kick-starts where you need a working skeleton fast. Also excellent when onboarding ' +
+    'migration kick-starts where you need a working skeleton fast. Especially powerful when the ' +
+    'workload includes AI agents — IgnitionStack treats agents as first-class deployment artifacts, ' +
+    'not afterthoughts bolted on to traditional apps. Also excellent when onboarding ' +
     'new teams: hand them a PRD.json and ralph.sh and let the loop build the project while they ' +
     'read the commit history to learn the codebase.',
 
@@ -558,7 +566,7 @@ export const ignitionStackPattern: PatternData = {
       type: 'default',
       data: {
         label: 'Bicep Infra Generator',
-        description: 'Generates Azure Bicep templates: resource group, app service, database, Key Vault, AI Foundry workspace',
+        description: 'Generates Azure Bicep templates: resource group, app service, database, Key Vault, Microsoft Foundry workspace, Azure AI Search',
         nodeType: 'executor',
       },
       position: { x: 300, y: 0 },
@@ -567,8 +575,8 @@ export const ignitionStackPattern: PatternData = {
       id: 'foundry-agent-gen',
       type: 'default',
       data: {
-        label: 'AI Foundry Agent Generator',
-        description: 'Scaffolds AI agent definitions: system prompts, tool configs, evaluation criteria',
+        label: 'Microsoft Foundry Agent Generator',
+        description: 'Scaffolds agents via Microsoft Agent Framework: system prompts, tool configs, Azure AI Search for RAG, evaluation criteria',
         nodeType: 'executor',
       },
       position: { x: 300, y: 100 },
@@ -812,7 +820,7 @@ a complete Azure workload. Each task must pass the Decomposition Test:
 
 Group tasks into these categories:
   infra  — Bicep templates, Azure resource provisioning
-  agent  — AI Foundry agent configs, system prompts, tool defs
+  agent  — Microsoft Foundry agent configs (Agent Framework), system prompts, tool defs
   db     — Database schema, migrations, seed data
   app    — Frontend + backend application code
   ci     — GitHub Actions, CI/CD pipelines
@@ -873,7 +881,8 @@ Requirements:
   //   modules/app.bicep  — App Service + plan
   //   modules/db.bicep   — Cosmos DB or PostgreSQL Flexible Server
   //   modules/kv.bicep   — Key Vault with connection strings
-  //   modules/ai.bicep   — AI Foundry workspace + model deployments
+  //   modules/ai.bicep   — Microsoft Foundry workspace + model deployments
+  //   modules/search.bicep — Azure AI Search (for agentic RAG scenarios)
   //   modules/mon.bicep  — Application Insights + Log Analytics
 
   generateBicepInfra(): void {
@@ -918,9 +927,16 @@ module db 'modules/db.bicep' = {
   }
 }
 
-// AI Foundry Workspace
+// Microsoft Foundry Workspace
 module ai 'modules/ai.bicep' = {
   name: 'ai-\${projectName}'
+  scope: rg.outputs.resourceGroup
+  params: { projectName: projectName, location: location }
+}
+
+// Azure AI Search (agentic RAG scenarios)
+module search 'modules/search.bicep' = {
+  name: 'search-\${projectName}'
   scope: rg.outputs.resourceGroup
   params: { projectName: projectName, location: location }
 }
@@ -949,19 +965,27 @@ module mon 'modules/mon.bicep' = {
     console.log('✅ Bicep infrastructure templates generated');
   }
 
-  // ── STEP 5: Generate AI Foundry Agent Configurations ─────────────────────
+  // ── STEP 5: Generate Microsoft Foundry Agent Configurations ──────────────
+  //    Uses Microsoft Agent Framework as the default agent runtime.
+  //    Azure AI Search is provisioned for agentic RAG scenarios.
 
   generateFoundryAgents(): void {
     const agentDir = path.join(this.config.workDir, 'agents');
     fs.mkdirSync(agentDir, { recursive: true });
 
     const agentConfig = {
+      framework: 'microsoft-agent-framework',  // Default runtime for Foundry-based agents
       agents: [
         {
           name: \`\${this.config.projectName}-assistant\`,
           model: 'gpt-5.3-codex',
           systemPrompt: \`You are an AI assistant for the \${this.config.projectName} application. Help users accomplish their goals efficiently and accurately.\`,
-          tools: ['code_interpreter', 'file_search'],
+          tools: ['code_interpreter', 'file_search', 'azure_ai_search'],
+          ragConfig: {
+            provider: 'azure-ai-search',
+            indexName: \`\${this.config.projectName}-index\`,
+            semanticConfig: 'default',
+          },
           evaluationCriteria: ['task_completion_rate', 'response_relevance', 'safety_score'],
         },
       ],
@@ -975,7 +999,7 @@ module mon 'modules/mon.bicep' = {
       path.join(agentDir, 'agent-config.json'),
       JSON.stringify(agentConfig, null, 2),
     );
-    console.log('✅ AI Foundry agent configurations generated');
+    console.log('✅ Microsoft Foundry agent configurations generated (Agent Framework)');
   }
 
   // ── STEP 6: Generate Database Schema ─────────────────────────────────────
@@ -1383,7 +1407,7 @@ class IgnitionStackAgent:
       2. Decompose into 30-50 atomic tasks (the Decomposition Test)
       3. Generate PRD.json + progress.txt
       4. Generate Bicep infrastructure
-      5. Generate AI Foundry agent configs
+      5. Generate Microsoft Foundry agent configs (via Agent Framework)
       6. Generate database schema
       7. Generate application scaffold
       8. Initialize GitHub repo
@@ -1519,10 +1543,10 @@ Requirements:
         print("✅ Bicep infrastructure templates generated")
 
     def generate_foundry_agents(self):
-        \"\"\"Generates AI Foundry agent configurations under agents/.\"\"\"
+        \"\"\"Generates Microsoft Foundry agent configurations (Agent Framework) under agents/.\"\"\"
         agent_dir = self.work_dir / "agents"
         agent_dir.mkdir(parents=True, exist_ok=True)
-        print("✅ AI Foundry agent configurations generated")
+        print("✅ Microsoft Foundry agent configurations generated (Agent Framework)")
 
     def generate_db_schema(self):
         \"\"\"Generates database migrations under db/.\"\"\"
@@ -1684,7 +1708,7 @@ if __name__ == "__main__":
     + '  ├──────────┼─────────────────────────────────────────────────────────────┼──────────┤\n'
     + '  │ INFRA-01 │ Create resource group + Key Vault via Bicep                 │ infra    │\n'
     + '  │ INFRA-02 │ Provision Cosmos DB (patients + appointments containers)    │ infra    │\n'
-    + '  │ INFRA-03 │ Deploy AI Foundry workspace + gpt-5.3-codex model           │ infra    │\n'
+    + '  │ INFRA-03 │ Deploy MS Foundry workspace + gpt-5.3-codex model            │ infra    │\n'
     + '  │ DB-01    │ Patients schema (demographics, insurance, medical history)  │ db       │\n'
     + '  │ DB-02    │ Appointments schema with provider availability slots        │ db       │\n'
     + '  │ APP-01   │ Scaffold FastAPI backend + React frontend (monorepo)        │ app      │\n'
@@ -1709,20 +1733,24 @@ if __name__ == "__main__":
     + '  infra/modules/app.bicep    — App Service + App Service Plan\n'
     + '  infra/modules/db.bicep     — Azure Cosmos DB or PostgreSQL Flexible Server\n'
     + '  infra/modules/kv.bicep     — Key Vault (connection strings, secrets)\n'
-    + '  infra/modules/ai.bicep     — AI Foundry workspace + model deployments\n'
+    + '  infra/modules/ai.bicep     — Microsoft Foundry workspace + model deployments\n'
+    + '  infra/modules/search.bicep — Azure AI Search (agentic RAG scenarios)\n'
     + '  infra/modules/mon.bicep    — Application Insights + Log Analytics\n'
     + '\n'
     + '  Deploy manually: az deployment sub create --location eastus2 --template-file infra/main.bicep\n'
     + '  Or let the Ralph loop handle it via the INFRA-* tasks in PRD.json.',
 
-    'GENERATE AI FOUNDRY AGENT CONFIGS — Under agents/:\n'
+    'GENERATE MICROSOFT FOUNDRY AGENT CONFIGS — Under agents/:\n'
+    + '  Built on Microsoft Agent Framework (default runtime for Foundry-based agents).\n'
     + '  agent-config.json defines each AI agent\'s:\n'
     + '    • System prompt (role, constraints, output format)\n'
-    + '    • Tool definitions (code_interpreter, file_search, custom functions)\n'
+    + '    • Tool definitions (code_interpreter, file_search, azure_ai_search, custom functions)\n'
+    + '    • RAG config (Azure AI Search index for agentic RAG scenarios)\n'
     + '    • Evaluation criteria (task completion rate, relevance, safety)\n'
     + '    • Model assignment (gpt-5.3-codex for coding agents, gpt-5.3 for conversational)\n'
     + '\n'
-    + '  These configs are deployed to Azure AI Foundry during the Ralph loop\'s agent tasks.',
+    + '  These configs are deployed to Microsoft Foundry during the Ralph loop\'s agent tasks.\n'
+    + '  Azure AI Search provides grounded retrieval for RAG-dependent use cases.',
 
     'GENERATE DATABASE SCHEMA + MIGRATIONS — Under db/migrations/:\n'
     + '  001_initial.sql             — Core tables (users, projects, etc.)\n'
@@ -1782,7 +1810,7 @@ if __name__ == "__main__":
     + '  WHAT HAPPENS DURING EXECUTION:\n'
     + '  • Iterations 1-5:   Infrastructure provisioning (Bicep deploy, DNS, SSL)\n'
     + '  • Iterations 6-10:  Core application logic (API routes, auth, business rules)\n'
-    + '  • Iterations 11-15: AI agent integration (Foundry wiring, RAG pipelines, tools)\n'
+    + '  • Iterations 11-15: AI agent integration (Microsoft Foundry + Agent Framework, Azure AI Search RAG, tools)\n'
     + '  • Iterations 16-18: Frontend UI and integration testing\n'
     + '  • Iteration 19:     E2E smoke tests, load test scaffold\n'
     + '  • Iteration 20:     Documentation — README, ARCHITECTURE.md, deployment runbook\n'
@@ -1809,7 +1837,7 @@ if __name__ == "__main__":
     + '  ✅ All tests passing:             npm test (or pytest)\n'
     + '  ✅ CI/CD pipeline green:          gh run list --limit 5\n'
     + '  ✅ App accessible:                curl https://<project-name>-app.azurewebsites.net/health\n'
-    + '  ✅ AI agents responding:          Test via AI Foundry playground\n'
+    + '  ✅ AI agents responding:          Test via Microsoft Foundry playground\n'
     + '  ✅ All PRD tasks done:            jq \'[.tasks[] | select(.status=="pending")] | length\' PRD.json\n'
     + '\n'
     + '  If any tasks remain pending, they need human attention — the agent will have\n'
@@ -1818,13 +1846,18 @@ if __name__ == "__main__":
     'HAND OFF THE PROJECT — What the recipient gets:\n'
     + '  📦 GitHub repository with full commit history (one commit per task)\n'
     + '  ☁️ Deployed Azure infrastructure (Bicep-defined, reproducible)\n'
-    + '  🤖 AI Foundry agents configured and deployed\n'
+    + '  🤖 Microsoft Foundry agents configured and deployed (Agent Framework)\n'
+    + '  � Azure AI Search index wired for agentic RAG scenarios\n'
     + '  🗄️ Database with schema, migrations, and seed data\n'
     + '  💻 Working application (frontend + backend)\n'
     + '  🔄 CI/CD pipeline (GitHub Actions)\n'
     + '  📋 PRD.json — the complete task history showing what was built and why\n'
     + '  📝 progress.txt — iteration-by-iteration narrative of the build process\n'
     + '  📖 README + ARCHITECTURE.md + deployment runbook\n'
+    + '\n'
+    + '  This is what "agents are the new apps" looks like in practice — the\n'
+    + '  deliverable is not just an app, it\'s a complete workload where AI agents\n'
+    + '  are deployed, tested, and CI/CD-managed as first-class citizens.\n'
     + '\n'
     + '  The commit history reads like a project diary. New team members can\n'
     + '  git log --oneline to understand the build sequence.',
@@ -1841,7 +1874,8 @@ if __name__ == "__main__":
 
   // ────────── Advantages ────────────────────────────────────────────────────
   advantages: [
-    'Zero-to-production speed: from a stakeholder\'s PPTX to a deployed Azure app in hours, not weeks',
+    'Agents-as-apps paradigm: scaffolds and deploys AI agents as first-class workload components — not add-ons — alongside infrastructure, databases, and application code; the output is a modern workload where agents handle reasoning and retrieval while traditional code handles UX and integration',
+    'Zero-to-production speed: from a stakeholder\'s PPTX to a deployed Azure workload (app + agents) in hours, not weeks',
     'Context Window Hygiene: each Ralph iteration starts with a fresh context — no accumulated confusion or instruction drift that plagues long-running agent sessions',
     'Full Azure-native output: Bicep infrastructure-as-code means every resource is reproducible, version-controlled, and auditable — no ClickOps',
     'Git-native audit trail: one commit per task creates a bisectable, reviewable project history — new team members read the git log to understand the build sequence',
@@ -1912,7 +1946,7 @@ The LLM applies the Decomposition Test to produce 13 atomic tasks:
 
 ### Phase 3: Scaffold (2 minutes)
 IgnitionStack generates the full project skeleton:
-- **infra/**: Bicep modules for resource group, Cosmos DB (patients + appointments containers), Key Vault, AI Foundry workspace, App Service, Application Insights
+- **infra/**: Bicep modules for resource group, Cosmos DB (patients + appointments containers), Key Vault, Microsoft Foundry workspace, Azure AI Search, App Service, Application Insights
 - **agents/**: Triage agent config (symptom → department routing), lab-results summarizer config (RAG + HIPAA constraints)
 - **db/**: FHIR-aligned patient schema, appointment slot schema with conflict detection
 - **app/**: FastAPI backend + React frontend monorepo with package.json
@@ -1922,7 +1956,7 @@ IgnitionStack generates the full project skeleton:
 \`\`\`
 Iteration  1: INFRA-01 — Deploy resource group + Key Vault        ✅ committed
 Iteration  2: INFRA-02 — Provision Cosmos DB with partition keys   ✅ committed
-Iteration  3: INFRA-03 — Deploy AI Foundry + model endpoint        ✅ committed
+Iteration  3: INFRA-03 — Deploy Microsoft Foundry + model endpoint  ✅ committed
 Iteration  4: DB-01    — Create patients schema (FHIR R4 aligned)  ✅ committed
 Iteration  5: DB-02    — Appointment slots with conflict detection  ✅ committed
 Iteration  6: APP-01   — Scaffold FastAPI + React monorepo          ✅ committed
@@ -1982,7 +2016,7 @@ Explain all of this walk-through clearly, emphasizing how each pipeline stage tr
     '| **Tests** | `npm test` (or `pytest`) exits 0 with >80% coverage on generated code |\n' +
     '| **CI/CD** | GitHub Actions pipeline green on latest commit to main |\n' +
     '| **Application** | Health endpoint returns 200 at the production URL |\n' +
-    '| **AI Agents** | Foundry agents respond correctly in playground testing |\n' +
+    '| **AI Agents** | Microsoft Foundry agents (Agent Framework) respond correctly in playground testing |\n' +
     '| **Task Completion** | `jq \'[.tasks[] | select(.status=="done")] | length\' PRD.json` ≥ 90% of total |\n' +
     '| **Git History** | Each commit maps to exactly one PRD task ID |\n' +
     '| **Documentation** | README, ARCHITECTURE.md, and deployment runbook exist and are non-trivial |\n' +
