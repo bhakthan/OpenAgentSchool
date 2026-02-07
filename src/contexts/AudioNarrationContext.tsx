@@ -532,6 +532,10 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'edge-agent': 'EdgeAgentConcept',
         'EdgeAgentConcept': 'EdgeAgentConcept',
         
+        // AI-Ready Data
+        'ai-ready-data': 'AIReadyDataConcept',
+        'AIReadyDataConcept': 'AIReadyDataConcept',
+        
         // Core Concepts - 2026 additions
         'agent-reasoning-patterns': 'AgentReasoningPatternsConcept',
         'agent-memory-systems': 'AgentMemorySystemsConcept',
