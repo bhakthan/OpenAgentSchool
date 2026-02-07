@@ -216,6 +216,24 @@ const PatternExplorer = () => {
                     </ErrorBoundary>
                   </div>
                 </div>
+
+                {/* IgnitionStack Infographic */}
+                {selectedPattern?.id === 'ignition-stack' && (
+                  <div className="mt-6 rounded-xl border bg-muted/30 p-4">
+                    <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                      <ChartLine size={16} /> IgnitionStack Agent — Full Pipeline Infographic
+                    </h3>
+                    <img
+                      src="/images/Ignition_Stack_Ralph_Style_Agent.png"
+                      alt="IgnitionStack Agent: end-to-end use-case-to-production pipeline — PRD intake, Azure Bicep IaC, AI Foundry agents, database schema, application scaffolding, and CI/CD deployment"
+                      className="w-full rounded-lg shadow-sm border"
+                      loading="lazy"
+                    />
+                    <p className="text-xs text-muted-foreground mt-2 text-center">
+                      From use-case PRD to production deployment — the IgnitionStack Agent orchestrates infrastructure, agents, data, application code, and CI/CD in one pass
+                    </p>
+                  </div>
+                )}
               </TabsContent>
               
               <TabsContent value="details">
