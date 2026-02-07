@@ -78,8 +78,8 @@
   },
   {
     "id": "agent-payments-ap2",
-    "title": "Agentic Commerce & AP2",
-    "description": "Mandates & verifiable credentials for trusted agent payments",
+    "title": "Agentic Commerce: UCP & AP2",
+    "description": "Universal Commerce Protocol + Agent Payments for agentic transactions",
     "level": "Advanced",
     "order": 11
   },
@@ -133,17 +133,24 @@
     "order": 18
   },
   {
-    "id": "future-state",
-    "title": "Future State",
+    "id": "future-state-trends",
+    "title": "Future State Trends",
     "description": "Where AI‑native practices are heading",
     "level": "Expert",
     "order": 19
+  },
+  {
+    "id": "frontier-agent-patterns",
+    "title": "Frontier Agent Patterns",
+    "description": "Quantum computing, robotics & advanced sensing",
+    "level": "Expert",
+    "order": 20
   },
   {
     "id": "hands-on-studios",
     "title": "Hands‑On Studios",
     "description": "Interactive labs with evals, cost, HITL, RAG, and orchestration",
     "level": "Advanced",
-    "order": 20
+    "order": 21
   }
 ]

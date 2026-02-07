@@ -140,6 +140,16 @@
     "examples": []
   },
   {
+    "id": "ai-product-framework",
+    "name": "AI Product Framework (8 Pillars)",
+    "description": "Trust-centric design from PM lens—turn ethics into KPIs with interactive visualization.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
     "id": "a2a-communication",
     "name": "A2A Communication",
     "description": "Move from message passing to meaningful shared intent and negotiated roles.",
@@ -153,6 +163,26 @@
     "id": "mcp",
     "name": "Model Context Protocol",
     "description": "Standardize tool access so adding capability doesn’t add fragility.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "client-coding-agents",
+    "name": "Client Coding Agents",
+    "description": "Master CLI-native AI agents—Copilot CLI, Claude Code, Codex CLI, Gemini CLI—the 2026 shift from vibe coding to terminal-first development.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-skills",
+    "name": "Agent Skills",
+    "description": "Extend agents with modular SKILL.md files—reusable expertise that loads on demand without bloating context.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -190,6 +220,16 @@
     "examples": []
   },
   {
+    "id": "ai-ready-data",
+    "name": "AI-Ready Data",
+    "description": "Build decision-grade data foundations that AI can trust—address constraints, earn organizational trust, and transform raw data into automation-ready assets.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
     "id": "acp",
     "name": "Agent Communication Protocol",
     "description": "A resilient contract so heterogeneous agents interoperate without version drama.",
@@ -211,8 +251,8 @@
   },
   {
     "id": "data-visualization",
-    "name": "Data Visualization",
-    "description": "Turn raw telemetry into decision stories—spot drift, dead branches, and latent potential.",
+    "name": "MCP Apps & Agent UI",
+    "description": "Build interactive UIs agents can render in chat—the 2026 standard for human-AI collaboration.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -271,8 +311,8 @@
   },
   {
     "id": "agentic-commerce-ap2",
-    "name": "Agentic Commerce & AP2",
-    "description": "Chained mandate credentials (Intent → Cart → Payment) enabling trustworthy agent-led purchases.",
+    "name": "Agentic Commerce: UCP & AP2",
+    "description": "Universal Commerce Protocol + Agent Payments for discovery, checkout, and trusted transactions.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -283,6 +323,16 @@
     "id": "product-management",
     "name": "AI Product Management",
     "description": "Design metrics, experiments & calibrated confidence signals that compound user trust and retention.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-red-teaming",
+    "name": "Agent Red Teaming",
+    "description": "Proactive security testing: simulate adversarial attacks to find AI vulnerabilities before they're exploited.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -303,6 +353,26 @@
     "id": "agentic-robotics-integration",
     "name": "Agentic Robotics Integration",
     "description": "Fuse Gemini Robotics perception, planning, and safety pipelines into embodied agent programs.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "quantum-ai-robotics",
+    "name": "Quantum-Enhanced AI & Robotics",
+    "description": "Harness quantum phenomena for next-gen perception, planning, and learning in embodied AI systems.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "edge-agent",
+    "name": "Edge Agent",
+    "description": "Move agents from cloud to factory floor—master edge inference, IT/OT bridging, and real-time guarantees for physical AI.",
     "keyFeatures": [],
     "applicationAreas": [],
     "technicalDetails": "",
@@ -350,35 +420,123 @@
     "examples": []
   },
   {
-    "id": "edge-agent",
-    "name": "Edge Agent (Physical AI)",
-    "description": "Deploy agentic AI at the network edge for sub-100ms latency in manufacturing, robotics, and IoT environments.",
-    "keyFeatures": [
-      "Ultra-low latency inference (1-100ms) on edge hardware",
-      "IT/OT convergence with industrial protocols (OPC-UA, Modbus, MQTT)",
-      "Vision-Language-Action (VLA) models for embodied agents",
-      "Edge-cloud hybrid architectures with fleet management",
-      "Offline-first operation with graceful cloud sync"
-    ],
-    "applicationAreas": [
-      "Manufacturing quality inspection and process control",
-      "Robotics and autonomous manipulation",
-      "Predictive maintenance and anomaly detection",
-      "Smart agriculture and precision farming",
-      "Warehouse logistics and material handling"
-    ],
-    "technicalDetails": "Edge agents run on specialized hardware (NVIDIA Jetson, Intel NUC, Raspberry Pi 5) with quantized models (INT8/FP16). Key models include: Qwen2.5 (0.5B-7B) for local LLM, Gemma 2 (2B-9B) for on-device agents, Phi-3 Mini for mobile/IoT, and specialized VLA models (Rho-Alpha, Gemini ER, RT-X) for robotics. Deployment patterns range from edge-only (air-gapped) to edge-primary with cloud sync for fleet learning.",
-    "implementationConsiderations": [
-      "Match latency requirements to hardware tier (FPGA < GPU < CPU)",
-      "Use TensorRT or ONNX Runtime for model optimization",
-      "Implement atomic updates with rollback for OTA model deployment",
-      "Design IT/OT network segmentation with data diodes for security",
-      "Build trajectory prediction to handle inference latency spikes"
-    ],
-    "examples": [
-      "Raspberry Pi 5 + Qwen 0.5B: Voice-controlled home automation agent (<50ms response)",
-      "Jetson AGX Orin + VLA model: Pick-and-place robot with 50Hz control loop",
-      "Azure Stack Edge + Gemma 9B: Factory-floor anomaly detection with OPC-UA integration"
-    ]
+    "id": "agent-reasoning-patterns",
+    "name": "Agent Reasoning Patterns",
+    "description": "Chain-of-Thought, Tree-of-Thought, Graph-of-Thought, Reflexion—teach agents to think, not just respond.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-memory-systems",
+    "name": "Agent Memory Systems",
+    "description": "Working, short-term, long-term, episodic, semantic—build agents that remember across sessions.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-observability",
+    "name": "Agent Observability",
+    "description": "Tracing, logging, metrics, debugging, cost tracking—see everything your agents do in production.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-testing-benchmarks",
+    "name": "Agent Testing & Benchmarks",
+    "description": "Unit evals, LLM-as-judge, regression testing, benchmark suites—measure agent quality systematically.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "prompt-injection-defense",
+    "name": "Prompt Injection Defense",
+    "description": "Direct injection, indirect injection, data exfiltration, jailbreaking—protect agents from attacks.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "human-in-the-loop-patterns",
+    "name": "Human-in-the-Loop Patterns",
+    "description": "Approval workflows, escalation paths, feedback loops, oversight dashboards—keep humans in control.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-cost-optimization",
+    "name": "Agent Cost Optimization",
+    "description": "Token budgets, caching, model routing, batch processing—reduce LLM costs by 50-90%.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-troubleshooting",
+    "name": "Agent Troubleshooting Playbook",
+    "description": "Systematic debugging when production agents fail—from context collapse to tool timeouts.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-economics",
+    "name": "Agent Economics",
+    "description": "Build business cases: cost models, pricing strategies, ROI frameworks that secure budgets.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-career-paths",
+    "name": "Agent Career Paths",
+    "description": "Navigate AI agent roles—skills, certifications, salaries, and growth trajectories.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "industry-agents",
+    "name": "Industry-Specific Agents",
+    "description": "Patterns for Healthcare, Finance, Legal, Education, Manufacturing—regulations and use cases.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
+  },
+  {
+    "id": "agent-templates-hub",
+    "name": "Agent Templates Hub",
+    "description": "Ready-to-use starters, boilerplates, and quickstart guides—ship your first agent today.",
+    "keyFeatures": [],
+    "applicationAreas": [],
+    "technicalDetails": "",
+    "implementationConsiderations": [],
+    "examples": []
   }
 ]

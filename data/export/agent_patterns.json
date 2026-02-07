@@ -5962,6 +5962,287 @@
     }
   },
   {
+    "id": "ignition-stack",
+    "name": "IgnitionStack Agent",
+    "category": "Advanced",
+    "useCases": [
+      "Stakeholder draws a wireframe on a whiteboard → screenshot → full Azure app deployed in hours",
+      "Product brief PDF → complete microservices architecture on Azure with CI/CD",
+      "Client RFP document (Word/PDF) → technical architecture + working prototype",
+      "PowerPoint pitch deck (PPTX) → deployable proof-of-concept matching every slide's feature",
+      "Slack message or plain-text description → competition-ready hackathon app with infrastructure",
+      "Legacy system migration document → modern Azure-native replacement scaffold",
+      "Architecture Decision Record → fully provisioned Azure workload with AI agents",
+      "Hand-drawn sketch photo → parsed requirements → production SaaS skeleton"
+    ],
+    "advantages": [
+      "Agents-as-apps paradigm: scaffolds and deploys AI agents as first-class workload components — not add-ons — alongside infrastructure, databases, and application code; the output is a modern workload where agents handle reasoning and retrieval while traditional code handles UX and integration",
+      "Zero-to-production speed: from a stakeholder's PPTX to a deployed Azure workload (app + agents) in hours, not weeks",
+      "Context Window Hygiene: each Ralph iteration starts with a fresh context — no accumulated confusion or instruction drift that plagues long-running agent sessions",
+      "Full Azure-native output: Bicep infrastructure-as-code means every resource is reproducible, version-controlled, and auditable — no ClickOps",
+      "Git-native audit trail: one commit per task creates a bisectable, reviewable project history — new team members read the git log to understand the build sequence",
+      "Input flexibility: accepts screenshots, PDFs, PPTX decks, Word docs, or plain text — meet stakeholders where they are, not where you wish they were",
+      "Model-agnostic: swap gpt-5.3-codex for any CLI-accessible model (claude, gemini, codex, gh copilot) by changing one variable in ralph.sh",
+      "Fault-tolerant: if iteration 12 fails, iterations 1-11 are already committed — fix the failing task and re-run from iteration 12",
+      "Self-documenting: progress.txt captures what the agent did, learned, and struggled with at every iteration — better than most human developers' notes"
+    ],
+    "limitations": [
+      "Requires an active Azure subscription and sufficient quota for the resources being provisioned — ensure quotas before running",
+      "gpt-5.3-codex model access is required; if unavailable, swap to the best available coding model (quality may vary)",
+      "Complex multi-service architectures (10+ Azure services) may need more than 20 iterations — adjust the ITERATIONS variable or run multiple passes",
+      "Screenshot/image parsing quality depends on image clarity; hand-drawn wireframes work, but blurry photos of whiteboards may produce vague tasks",
+      "Production security hardening (WAF, NSG rules, RBAC, secret rotation policies) still requires human review — the agent generates a secure-by-default scaffold, not a SOC2-certified deployment",
+      "Cost awareness: 20 LLM iterations with a large-context model can consume significant tokens — estimate ~$5-20 per full run depending on project complexity"
+    ],
+    "relatedPatterns": [
+      "autonomous-workflow",
+      "code-act",
+      "deep-researcher",
+      "agentic-ide",
+      "concept-to-project",
+      "self-remediation-loop"
+    ],
+    "implementation": [],
+    "codeExample": "// IgnitionStack Agent — Full TypeScript Implementation\n// Turns any use-case input into a production Azure workload in 20 Ralph iterations\n//\n// Prerequisites:\n//   npm i @azure/identity @azure/arm-resources openai pdf-parse mammoth pptx-parser\n//   gh extension install github/gh-copilot\n//   az login && gh auth login\n\nimport { execSync } from 'child_process';\nimport * as fs from 'fs';\nimport * as path from 'path';\n\n// ── Types ────────────────────────────────────────────────────────────────────\n\ntype InputType = 'screenshot' | 'text' | 'pdf' | 'pptx' | 'docx';\n\ninterface Task {\n  id: string;\n  title: string;\n  description: string;\n  acceptance: string[];         // Testable acceptance criteria\n  priority: number;             // 1 = highest\n  status: 'pending' | 'done' | 'blocked';\n  category: 'infra' | 'agent' | 'db' | 'app' | 'ci' | 'test' | 'docs';\n}\n\ninterface PRD {\n  projectName: string;\n  description: string;\n  inputSource: string;          // Original input filename / description\n  azureRegion: string;\n  tasks: Task[];\n  generatedAt: string;\n}\n\ninterface IgnitionConfig {\n  inputPath: string;            // Path to screenshot, PDF, PPTX, DOCX, or .txt\n  inputType: InputType;\n  projectName: string;\n  azureRegion?: string;         // default: 'eastus2'\n  model?: string;               // default: 'gpt-5.3-codex'\n  iterations?: number;          // default: 20\n  workDir?: string;             // default: './ignition-output'\n}\n\n// ── IgnitionStack Agent ──────────────────────────────────────────────────────\n\nclass IgnitionStackAgent {\n  private config: Required<IgnitionConfig>;\n  private prd!: PRD;\n\n  constructor(config: IgnitionConfig) {\n    this.config = {\n      azureRegion: 'eastus2',\n      model: 'gpt-5.3-codex',\n      iterations: 20,\n      workDir: './ignition-output',\n      ...config,\n    };\n  }\n\n  // ── STEP 1: Parse Input ──────────────────────────────────────────────────\n  //\n  // WHY THIS MATTERS (Instructional note):\n  //   The quality of your output is bounded by the quality of your input\n  //   parsing. A blurry screenshot will produce vague tasks. A well-structured\n  //   PDF will produce precise tasks. IgnitionStack handles every format so\n  //   stakeholders can hand you *whatever they have* — the agent adapts.\n\n  async parseInput(): Promise<string> {\n    const raw = fs.readFileSync(this.config.inputPath);\n\n    switch (this.config.inputType) {\n      case 'screenshot': {\n        // Send image to GPT-5.3-codex vision endpoint for structured extraction\n        const base64 = raw.toString('base64');\n        const prompt = `Analyze this screenshot/wireframe/diagram. Extract:\n1. Every UI element, screen, and user flow\n2. Backend services implied (auth, data, search, AI, etc.)\n3. Data entities and relationships\n4. Integration points (APIs, third-party services)\nReturn a structured JSON requirements document.`;\n        return this.llmCall(prompt, base64);\n      }\n      case 'pdf': {\n        const pdfParse = require('pdf-parse');\n        const data = await pdfParse(raw);\n        return data.text;\n      }\n      case 'pptx': {\n        // PPTX = zip of XML slides. Each slide often maps to a feature.\n        // Parse slide titles + bullet points + speaker notes for full context.\n        const pptxParser = require('pptx-parser');\n        const slides = await pptxParser.parse(raw);\n        return slides.map((s: any, i: number) =>\n          `## Slide ${i + 1}: ${s.title || 'Untitled'}\\n${s.bullets?.join('\\n') || ''}\\nNotes: ${s.notes || 'none'}`\n        ).join('\\n\\n');\n      }\n      case 'docx': {\n        const mammoth = require('mammoth');\n        const result = await mammoth.extractRawText({ buffer: raw });\n        return result.value;\n      }\n      case 'text':\n      default:\n        return raw.toString('utf-8');\n    }\n  }\n\n  // ── STEP 2: Decompose Into Tasks ─────────────────────────────────────────\n  //\n  // INSTRUCTIONAL NOTE — The Decomposition Test:\n  //   Every task must pass four gates before it enters the PRD:\n  //     ✅ Testable   — Can a type-checker or test verify it?\n  //     ✅ Bounded    — Can it be done in ONE iteration (< 30 min)?\n  //     ✅ Independent — Does it avoid coupling to incomplete tasks?\n  //     ✅ Committable — Does it produce a meaningful git commit?\n  //\n  //   If a task fails any gate, split it further. Aim for 30-50 tasks.\n\n  async decompose(rawRequirements: string): Promise<Task[]> {\n    const prompt = `You are a senior Azure solutions architect and project planner.\n\nGiven these requirements, decompose them into 30-50 atomic tasks for building\na complete Azure workload. Each task must pass the Decomposition Test:\n  - Testable: a type-checker or test can verify completion\n  - Bounded: completable in one coding session (< 30 minutes)\n  - Independent: no coupling to tasks not yet done\n  - Committable: produces a meaningful git commit\n\nGroup tasks into these categories:\n  infra  — Bicep templates, Azure resource provisioning\n  agent  — Microsoft Foundry agent configs (Agent Framework), system prompts, tool defs\n  db     — Database schema, migrations, seed data\n  app    — Frontend + backend application code\n  ci     — GitHub Actions, CI/CD pipelines\n  test   — Integration tests, E2E tests, load test scaffolds\n  docs   — README, ARCHITECTURE.md, deployment runbook\n\nReturn a JSON array of Task objects with: id, title, description,\nacceptance (string[]), priority (1=highest), status (\"pending\"), category.\n\nRequirements:\n${rawRequirements}`;\n\n    const response = await this.llmCall(prompt);\n    return JSON.parse(response);\n  }\n\n  // ── STEP 3: Generate PRD.json ────────────────────────────────────────────\n  //\n  // WHY PRD.json IS THE HEART OF THE PATTERN:\n  //   The PRD is the *only* state the Ralph loop reads. It is both the\n  //   backlog and the source of truth. Each iteration reads it, picks the\n  //   highest-priority pending task, does it, marks it done, commits.\n  //   The loop is stateless — the PRD is the memory.\n\n  generatePRD(tasks: Task[]): PRD {\n    this.prd = {\n      projectName: this.config.projectName,\n      description: `Auto-generated by IgnitionStack Agent from ${this.config.inputType} input`,\n      inputSource: path.basename(this.config.inputPath),\n      azureRegion: this.config.azureRegion,\n      tasks,\n      generatedAt: new Date().toISOString(),\n    };\n\n    const outDir = this.config.workDir;\n    fs.mkdirSync(outDir, { recursive: true });\n    fs.writeFileSync(\n      path.join(outDir, 'PRD.json'),\n      JSON.stringify(this.prd, null, 2),\n    );\n\n    // Initialize progress.txt — the agent's external memory\n    fs.writeFileSync(\n      path.join(outDir, 'progress.txt'),\n      `# IgnitionStack Progress — ${this.config.projectName}\\n` +\n      `# Generated: ${this.prd.generatedAt}\\n` +\n      `# Total tasks: ${tasks.length}\\n\\n`,\n    );\n\n    return this.prd;\n  }\n\n  // ── STEP 4: Generate Bicep Infrastructure ────────────────────────────────\n  //\n  // WHAT GETS GENERATED:\n  //   main.bicep         — Orchestrator that calls module files\n  //   modules/rg.bicep   — Resource group\n  //   modules/app.bicep  — App Service + plan\n  //   modules/db.bicep   — Cosmos DB or PostgreSQL Flexible Server\n  //   modules/kv.bicep   — Key Vault with connection strings\n  //   modules/ai.bicep   — Microsoft Foundry workspace + model deployments\n  //   modules/search.bicep — Azure AI Search (for agentic RAG scenarios)\n  //   modules/mon.bicep  — Application Insights + Log Analytics\n\n  generateBicepInfra(): void {\n    const infraDir = path.join(this.config.workDir, 'infra');\n    fs.mkdirSync(path.join(infraDir, 'modules'), { recursive: true });\n\n    const mainBicep = `// IgnitionStack — Auto-generated Azure Infrastructure\n// Deploy: az deployment sub create --location ${this.config.azureRegion} --template-file main.bicep\n\ntargetScope = 'subscription'\n\n@description('Project name used for resource naming')\nparam projectName string = '${this.config.projectName}'\n\n@description('Azure region')\nparam location string = '${this.config.azureRegion}'\n\n@description('Environment (dev/staging/prod)')\nparam environment string = 'dev'\n\n// Resource Group\nmodule rg 'modules/rg.bicep' = {\n  name: 'rg-${projectName}'\n  params: { projectName: projectName, location: location }\n}\n\n// Key Vault (deployed first — other modules reference it)\nmodule kv 'modules/kv.bicep' = {\n  name: 'kv-${projectName}'\n  scope: rg.outputs.resourceGroup\n  params: { projectName: projectName, location: location }\n}\n\n// Database\nmodule db 'modules/db.bicep' = {\n  name: 'db-${projectName}'\n  scope: rg.outputs.resourceGroup\n  params: {\n    projectName: projectName\n    location: location\n    keyVaultName: kv.outputs.keyVaultName\n  }\n}\n\n// Microsoft Foundry Workspace\nmodule ai 'modules/ai.bicep' = {\n  name: 'ai-${projectName}'\n  scope: rg.outputs.resourceGroup\n  params: { projectName: projectName, location: location }\n}\n\n// Azure AI Search (agentic RAG scenarios)\nmodule search 'modules/search.bicep' = {\n  name: 'search-${projectName}'\n  scope: rg.outputs.resourceGroup\n  params: { projectName: projectName, location: location }\n}\n\n// App Service\nmodule app 'modules/app.bicep' = {\n  name: 'app-${projectName}'\n  scope: rg.outputs.resourceGroup\n  params: {\n    projectName: projectName\n    location: location\n    environment: environment\n    keyVaultName: kv.outputs.keyVaultName\n  }\n}\n\n// Monitoring\nmodule mon 'modules/mon.bicep' = {\n  name: 'mon-${projectName}'\n  scope: rg.outputs.resourceGroup\n  params: { projectName: projectName, location: location }\n}\n`;\n\n    fs.writeFileSync(path.join(infraDir, 'main.bicep'), mainBicep);\n    console.log('✅ Bicep infrastructure templates generated');\n  }\n\n  // ── STEP 5: Generate Microsoft Foundry Agent Configurations ──────────────\n  //    Uses Microsoft Agent Framework as the default agent runtime.\n  //    Azure AI Search is provisioned for agentic RAG scenarios.\n\n  generateFoundryAgents(): void {\n    const agentDir = path.join(this.config.workDir, 'agents');\n    fs.mkdirSync(agentDir, { recursive: true });\n\n    const agentConfig = {\n      framework: 'microsoft-agent-framework',  // Default runtime for Foundry-based agents\n      agents: [\n        {\n          name: `${this.config.projectName}-assistant`,\n          model: 'gpt-5.3-codex',\n          systemPrompt: `You are an AI assistant for the ${this.config.projectName} application. Help users accomplish their goals efficiently and accurately.`,\n          tools: ['code_interpreter', 'file_search', 'azure_ai_search'],\n          ragConfig: {\n            provider: 'azure-ai-search',\n            indexName: `${this.config.projectName}-index`,\n            semanticConfig: 'default',\n          },\n          evaluationCriteria: ['task_completion_rate', 'response_relevance', 'safety_score'],\n        },\n      ],\n      workspace: {\n        name: `${this.config.projectName}-foundry`,\n        region: this.config.azureRegion,\n      },\n    };\n\n    fs.writeFileSync(\n      path.join(agentDir, 'agent-config.json'),\n      JSON.stringify(agentConfig, null, 2),\n    );\n    console.log('✅ Microsoft Foundry agent configurations generated (Agent Framework)');\n  }\n\n  // ── STEP 6: Generate Database Schema ─────────────────────────────────────\n\n  generateDBSchema(): void {\n    const dbDir = path.join(this.config.workDir, 'db');\n    fs.mkdirSync(path.join(dbDir, 'migrations'), { recursive: true });\n\n    const initialMigration = `-- IgnitionStack Auto-generated Schema\n-- Migration: 001_initial\n-- Generated: ${new Date().toISOString()}\n\nCREATE TABLE IF NOT EXISTS users (\n  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  email       VARCHAR(255) UNIQUE NOT NULL,\n  name        VARCHAR(255) NOT NULL,\n  created_at  TIMESTAMPTZ DEFAULT NOW(),\n  updated_at  TIMESTAMPTZ DEFAULT NOW()\n);\n\nCREATE TABLE IF NOT EXISTS projects (\n  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  name        VARCHAR(255) NOT NULL,\n  owner_id    UUID REFERENCES users(id) ON DELETE CASCADE,\n  metadata    JSONB DEFAULT '{}',\n  created_at  TIMESTAMPTZ DEFAULT NOW()\n);\n\n-- Add project-specific tables during Ralph iterations\n`;\n\n    fs.writeFileSync(path.join(dbDir, 'migrations', '001_initial.sql'), initialMigration);\n    console.log('✅ Database schema and migrations generated');\n  }\n\n  // ── STEP 7: Generate Application Scaffold ────────────────────────────────\n\n  generateAppScaffold(): void {\n    const appDir = path.join(this.config.workDir, 'app');\n    fs.mkdirSync(path.join(appDir, 'src'), { recursive: true });\n\n    const packageJson = {\n      name: this.config.projectName,\n      version: '0.1.0',\n      private: true,\n      scripts: {\n        dev: 'vite',\n        build: 'tsc && vite build',\n        test: 'vitest',\n        lint: 'eslint . --ext .ts,.tsx',\n      },\n    };\n\n    fs.writeFileSync(\n      path.join(appDir, 'package.json'),\n      JSON.stringify(packageJson, null, 2),\n    );\n    console.log('✅ Application scaffold generated');\n  }\n\n  // ── STEP 8: Initialize GitHub Repository ─────────────────────────────────\n\n  initGitHubRepo(): void {\n    const dir = this.config.workDir;\n    execSync('git init', { cwd: dir });\n    execSync('git add -A', { cwd: dir });\n    execSync('git commit -m \"feat: IgnitionStack initial scaffold\"', { cwd: dir });\n    execSync(\n      `gh repo create ${this.config.projectName} --private --source=. --push`,\n      { cwd: dir },\n    );\n    console.log('✅ GitHub repository created and initial scaffold pushed');\n  }\n\n  // ── STEP 9: Generate CI/CD Pipeline ──────────────────────────────────────\n\n  generateCICD(): void {\n    const ciDir = path.join(this.config.workDir, '.github', 'workflows');\n    fs.mkdirSync(ciDir, { recursive: true });\n\n    const workflow = `name: IgnitionStack CI/CD\non:\n  push:\n    branches: [main]\n  pull_request:\n    branches: [main]\n\njobs:\n  build-and-test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with: { node-version: '20' }\n      - run: npm ci\n      - run: npm run lint\n      - run: npm test\n      - run: npm run build\n\n  deploy-infra:\n    needs: build-and-test\n    if: github.ref == 'refs/heads/main'\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: azure/login@v2\n        with:\n          creds: \\${{ secrets.AZURE_CREDENTIALS }}\n      - uses: azure/arm-deploy@v2\n        with:\n          scope: subscription\n          region: ${this.config.azureRegion}\n          template: infra/main.bicep\n\n  deploy-app:\n    needs: deploy-infra\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: azure/login@v2\n        with:\n          creds: \\${{ secrets.AZURE_CREDENTIALS }}\n      - run: npm ci && npm run build\n      - uses: azure/webapps-deploy@v3\n        with:\n          app-name: ${this.config.projectName}-app\n          package: ./dist\n`;\n\n    fs.writeFileSync(path.join(ciDir, 'ci-cd.yml'), workflow);\n    console.log('✅ GitHub Actions CI/CD pipeline generated');\n  }\n\n  // ── STEP 10: Generate & Execute ralph.sh (The Core) ──────────────────────\n  //\n  // THIS IS THE HEART OF IGNITIONSTACK.\n  //\n  // Why a bash loop and not an orchestrator framework?\n  //   1. Context Window Hygiene: each iteration starts clean — no\n  //      accumulated confusion from 19 previous conversations.\n  //   2. Atomic Commits: each iteration = exactly one git commit.\n  //      You can git bisect to find where anything went wrong.\n  //   3. Fault Tolerance: if iteration 12 fails, iterations 1-11\n  //      are already committed. Fix the task and re-run from 12.\n  //   4. Simplicity: 30 lines of bash. No dependencies. No frameworks.\n  //      If you can read a for-loop, you understand the entire system.\n\n  generateRalphScript(): void {\n    const script = `#!/usr/bin/env bash\n# ╔═══════════════════════════════════════════════════════════════════════════╗\n# ║  ralph.sh — IgnitionStack Ralph Loop                                     ║\n# ║  20 iterations × gpt-5.3-codex via gh copilot                           ║\n# ║                                                                          ║\n# ║  HOW IT WORKS:                                                           ║\n# ║  1. Each iteration reads PRD.json to find the highest-priority           ║\n# ║     pending task                                                         ║\n# ║  2. The agent implements it, runs type-check + tests                     ║\n# ║  3. If tests pass → mark done in PRD.json, update progress.txt,         ║\n# ║     git commit                                                           ║\n# ║  4. If tests fail → leave task pending, log failure in progress.txt,     ║\n# ║     move to next iteration (fresh context will retry)                    ║\n# ║  5. After 20 iterations, whatever remains pending needs human review     ║\n# ╚═══════════════════════════════════════════════════════════════════════════╝\n\nset -euo pipefail\n\nPROJECT_DIR=\"$(cd \"$(dirname \"$0\")\" && pwd)\"\nPRD=\"$PROJECT_DIR/PRD.json\"\nPROGRESS=\"$PROJECT_DIR/progress.txt\"\nMODEL=\"gpt-5.3-codex\"\nITERATIONS=20\n\necho \"🚀 IgnitionStack Ralph Loop — $ITERATIONS iterations with $MODEL\"\necho \"   Project: $(jq -r '.projectName' \"$PRD\")\"\necho \"   Tasks:   $(jq '[.tasks[] | select(.status == \"pending\")] | length' \"$PRD\") pending\"\necho \"\"\n\nfor i in $(seq 1 $ITERATIONS); do\n  PENDING=$(jq '[.tasks[] | select(.status == \"pending\")] | length' \"$PRD\")\n\n  if [ \"$PENDING\" -eq 0 ]; then\n    echo \"✅ All tasks complete after $((i - 1)) iterations!\"\n    break\n  fi\n\n  echo \"━━━ Iteration $i/$ITERATIONS — $PENDING tasks remaining ━━━\"\n\n  # The prompt: everything the agent needs in one shot\n  gh copilot code \\\n    --model \"$MODEL\" \\\n    --file \"$PRD\" \\\n    --file \"$PROGRESS\" \\\n    -m \"You are building the project described in PRD.json.\n\nRead PRD.json and progress.txt for context.\n\nYOUR TASK FOR THIS ITERATION:\n1. Find the highest-priority task with status 'pending'\n2. Implement it completely — write all necessary code and tests\n3. Run type-checking: npm run build (or equivalent)\n4. Run tests: npm test (or equivalent)\n5. If both pass:\n   - Update PRD.json: set the task status to 'done'\n   - Append a summary to progress.txt with what you did and learned\n   - Git commit with message: 'feat($TASK_ID): $TASK_TITLE'\n6. If tests fail:\n   - Do NOT mark the task as done\n   - Append the failure details to progress.txt\n   - Still git commit work-in-progress: 'wip($TASK_ID): $TASK_TITLE'\n\nRULES:\n- Complete exactly ONE task per iteration\n- Never skip the type-check or tests\n- Always commit — even partial work has value\n- Write progress.txt entries for the next iteration's context\"\n\n  echo \"\"\n  echo \"   Completed iteration $i\"\n  echo \"   Remaining: $(jq '[.tasks[] | select(.status == \"pending\")] | length' \"$PRD\") tasks\"\n  echo \"\"\ndone\n\n# Final report\nDONE=$(jq '[.tasks[] | select(.status == \"done\")] | length' \"$PRD\")\nTOTAL=$(jq '.tasks | length' \"$PRD\")\necho \"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\"\necho \"📊 IgnitionStack Complete\"\necho \"   Completed: $DONE / $TOTAL tasks\"\necho \"   Commits:   $(git log --oneline | wc -l)\"\necho \"   Status:    $([ \"$DONE\" -eq \"$TOTAL\" ] && echo '✅ ALL DONE' || echo '⚠️  Some tasks need human review')\"\necho \"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\"\n`;\n\n    fs.writeFileSync(path.join(this.config.workDir, 'ralph.sh'), script);\n    execSync(`chmod +x ${path.join(this.config.workDir, 'ralph.sh')}`);\n    console.log('✅ ralph.sh generated and made executable');\n  }\n\n  // ── ORCHESTRATE: Run the full pipeline ───────────────────────────────────\n\n  async run(): Promise<void> {\n    console.log(`\\n🔥 IgnitionStack Agent — Igniting ${this.config.projectName}`);\n    console.log(`   Input:      ${this.config.inputPath} (${this.config.inputType})`);\n    console.log(`   Model:      ${this.config.model}`);\n    console.log(`   Iterations: ${this.config.iterations}`);\n    console.log(`   Region:     ${this.config.azureRegion}\\n`);\n\n    // Phase 1: Understand\n    const requirements = await this.parseInput();\n    console.log('📋 Requirements extracted (' + requirements.length + ' chars)');\n\n    // Phase 2: Plan\n    const tasks = await this.decompose(requirements);\n    const prd = this.generatePRD(tasks);\n    console.log(`📋 PRD generated: ${prd.tasks.length} tasks across ${\n      [...new Set(prd.tasks.map(t => t.category))].length\n    } categories`);\n\n    // Phase 3: Scaffold\n    this.generateBicepInfra();\n    this.generateFoundryAgents();\n    this.generateDBSchema();\n    this.generateAppScaffold();\n    this.generateCICD();\n\n    // Phase 4: Ship\n    this.initGitHubRepo();\n    this.generateRalphScript();\n\n    console.log(`\n┌─────────────────────────────────────────────────────────────┐\n│  🔥 IgnitionStack scaffold complete!                        │\n│                                                             │\n│  Next step — run the Ralph loop:                            │\n│                                                             │\n│    cd ${this.config.workDir}                                │\n│    bash ralph.sh                                            │\n│                                                             │\n│  This will execute ${this.config.iterations} iterations using ${this.config.model},   │\n│  building your entire project one task at a time.           │\n│                                                             │\n│  Monitor progress:                                          │\n│    tail -f progress.txt                                     │\n│    jq '.tasks[] | select(.status == \"done\")' PRD.json       │\n└─────────────────────────────────────────────────────────────┘\n`);\n  }\n\n  // ── Helper: LLM Call ─────────────────────────────────────────────────────\n\n  private async llmCall(prompt: string, imageBase64?: string): Promise<string> {\n    const { OpenAI } = require('openai');\n    const client = new OpenAI();\n\n    const messages: any[] = imageBase64\n      ? [{\n          role: 'user' as const,\n          content: [\n            { type: 'text', text: prompt },\n            { type: 'image_url', image_url: { url: `data:image/png;base64,${imageBase64}` } },\n          ],\n        }]\n      : [{ role: 'user' as const, content: prompt }];\n\n    const response = await client.chat.completions.create({\n      model: this.config.model,\n      messages,\n      temperature: 0.2,\n      max_tokens: 16000,\n    });\n\n    return response.choices[0].message.content || '';\n  }\n}\n\n// ── Usage Example ────────────────────────────────────────────────────────────\n\nasync function main() {\n  const agent = new IgnitionStackAgent({\n    inputPath: './use-case.pptx',      // or .png, .pdf, .docx, .txt\n    inputType: 'pptx',\n    projectName: 'contoso-portal',\n    azureRegion: 'eastus2',\n    model: 'gpt-5.3-codex',\n    iterations: 20,\n  });\n\n  await agent.run();\n  // Then: cd ./ignition-output && bash ralph.sh\n}\n\nmain().catch(console.error);",
+    "pythonCodeExample": "\"\"\"\nIgnitionStack Agent — Python Implementation\nTurns any use-case input into a production Azure workload in 20 Ralph iterations.\n\nPrerequisites:\n    pip install openai python-pptx python-docx PyPDF2\n    gh extension install github/gh-copilot\n    az login && gh auth login\n\"\"\"\n\nimport json\nimport os\nimport subprocess\nimport base64\nfrom pathlib import Path\nfrom datetime import datetime\nfrom dataclasses import dataclass, field, asdict\nfrom enum import Enum\nfrom typing import Optional\n\n\n# ── Types ────────────────────────────────────────────────────────────────────\n\nclass InputType(Enum):\n    SCREENSHOT = \"screenshot\"\n    TEXT = \"text\"\n    PDF = \"pdf\"\n    PPTX = \"pptx\"          # PowerPoint — each slide ≈ one feature\n    DOCX = \"docx\"\n\n\nclass TaskCategory(Enum):\n    INFRA = \"infra\"\n    AGENT = \"agent\"\n    DB = \"db\"\n    APP = \"app\"\n    CI = \"ci\"\n    TEST = \"test\"\n    DOCS = \"docs\"\n\n\n@dataclass\nclass Task:\n    id: str\n    title: str\n    description: str\n    acceptance: list[str]\n    priority: int\n    status: str = \"pending\"\n    category: str = \"app\"\n\n\n@dataclass\nclass PRD:\n    project_name: str\n    description: str\n    input_source: str\n    azure_region: str\n    tasks: list[Task]\n    generated_at: str = field(default_factory=lambda: datetime.utcnow().isoformat())\n\n\n# ── IgnitionStack Agent ──────────────────────────────────────────────────────\n\nclass IgnitionStackAgent:\n    \"\"\"\n    End-to-end use-case → Azure workload generator.\n\n    The pipeline:\n      1. Parse input (screenshot, text, PDF, PPTX, DOCX)\n      2. Decompose into 30-50 atomic tasks (the Decomposition Test)\n      3. Generate PRD.json + progress.txt\n      4. Generate Bicep infrastructure\n      5. Generate Microsoft Foundry agent configs (via Agent Framework)\n      6. Generate database schema\n      7. Generate application scaffold\n      8. Initialize GitHub repo\n      9. Generate CI/CD pipeline\n     10. Generate ralph.sh — 20-iteration bash loop with gpt-5.3-codex\n    \"\"\"\n\n    def __init__(\n        self,\n        input_path: str,\n        input_type: InputType,\n        project_name: str,\n        azure_region: str = \"eastus2\",\n        model: str = \"gpt-5.3-codex\",\n        iterations: int = 20,\n        work_dir: str = \"./ignition-output\",\n    ):\n        self.input_path = Path(input_path)\n        self.input_type = input_type\n        self.project_name = project_name\n        self.azure_region = azure_region\n        self.model = model\n        self.iterations = iterations\n        self.work_dir = Path(work_dir)\n        self.prd: Optional[PRD] = None\n\n    # ── Step 1: Parse Input ──────────────────────────────────────────────────\n\n    def parse_input(self) -> str:\n        \"\"\"\n        Accepts ANY format the stakeholder has and extracts structured text.\n\n        KEY INSIGHT (Instructional):\n            Stakeholders don't produce clean requirements docs. They have\n            napkin sketches, slide decks, and half-written briefs. The agent\n            must meet them where they are — not force a format on them.\n        \"\"\"\n        raw = self.input_path.read_bytes()\n\n        if self.input_type == InputType.SCREENSHOT:\n            b64 = base64.b64encode(raw).decode()\n            return self._llm_call(\n                \"Analyze this image. Extract all UI elements, backend services, \"\n                \"data entities, and integration points as structured JSON.\",\n                image_b64=b64,\n            )\n\n        elif self.input_type == InputType.PDF:\n            from PyPDF2 import PdfReader\n            reader = PdfReader(self.input_path)\n            return \"\\n\".join(page.extract_text() or \"\" for page in reader.pages)\n\n        elif self.input_type == InputType.PPTX:\n            # Each slide ≈ one feature or user story\n            from pptx import Presentation\n            prs = Presentation(self.input_path)\n            slides_text = []\n            for i, slide in enumerate(prs.slides, 1):\n                title = slide.shapes.title.text if slide.shapes.title else \"Untitled\"\n                bodies = [\n                    shape.text for shape in slide.shapes\n                    if shape.has_text_frame and shape != slide.shapes.title\n                ]\n                notes = (\n                    slide.notes_slide.notes_text_frame.text\n                    if slide.has_notes_slide else \"\"\n                )\n                slides_text.append(\n                    f\"## Slide {i}: {title}\\n\"\n                    + \"\\n\".join(bodies)\n                    + (f\"\\nSpeaker Notes: {notes}\" if notes else \"\")\n                )\n            return \"\\n\\n\".join(slides_text)\n\n        elif self.input_type == InputType.DOCX:\n            from docx import Document\n            doc = Document(self.input_path)\n            return \"\\n\".join(p.text for p in doc.paragraphs)\n\n        else:  # Plain text\n            return raw.decode(\"utf-8\")\n\n    # ── Step 2: Decompose ────────────────────────────────────────────────────\n\n    def decompose(self, requirements: str) -> list[Task]:\n        \"\"\"\n        The Decomposition Test — every task must be:\n          ✅ Testable  ✅ Bounded  ✅ Independent  ✅ Committable\n        \"\"\"\n        prompt = f\"\"\"Decompose these requirements into 30-50 atomic tasks.\nEach task must pass: Testable? Bounded? Independent? Committable?\n\nCategories: infra, agent, db, app, ci, test, docs\n\nReturn JSON array of objects with keys:\n  id, title, description, acceptance (list), priority (int), status, category\n\nRequirements:\n{requirements}\"\"\"\n\n        response = self._llm_call(prompt)\n        return [Task(**t) for t in json.loads(response)]\n\n    # ── Step 3: Generate PRD ─────────────────────────────────────────────────\n\n    def generate_prd(self, tasks: list[Task]) -> PRD:\n        self.prd = PRD(\n            project_name=self.project_name,\n            description=f\"Auto-generated by IgnitionStack from {self.input_type.value}\",\n            input_source=self.input_path.name,\n            azure_region=self.azure_region,\n            tasks=tasks,\n        )\n\n        self.work_dir.mkdir(parents=True, exist_ok=True)\n        (self.work_dir / \"PRD.json\").write_text(\n            json.dumps(asdict(self.prd), indent=2)\n        )\n        (self.work_dir / \"progress.txt\").write_text(\n            f\"# IgnitionStack Progress — {self.project_name}\\n\"\n            f\"# Generated: {self.prd.generated_at}\\n\"\n            f\"# Total tasks: {len(tasks)}\\n\\n\"\n        )\n        return self.prd\n\n    # ── Steps 4-9: Scaffold Generators (abbreviated for clarity) ─────────────\n\n    def generate_bicep_infra(self):\n        \"\"\"Generates Azure Bicep templates under infra/.\"\"\"\n        infra_dir = self.work_dir / \"infra\" / \"modules\"\n        infra_dir.mkdir(parents=True, exist_ok=True)\n        # main.bicep + module files generated here...\n        print(\"✅ Bicep infrastructure templates generated\")\n\n    def generate_foundry_agents(self):\n        \"\"\"Generates Microsoft Foundry agent configurations (Agent Framework) under agents/.\"\"\"\n        agent_dir = self.work_dir / \"agents\"\n        agent_dir.mkdir(parents=True, exist_ok=True)\n        print(\"✅ Microsoft Foundry agent configurations generated (Agent Framework)\")\n\n    def generate_db_schema(self):\n        \"\"\"Generates database migrations under db/.\"\"\"\n        db_dir = self.work_dir / \"db\" / \"migrations\"\n        db_dir.mkdir(parents=True, exist_ok=True)\n        print(\"✅ Database schema generated\")\n\n    def generate_app_scaffold(self):\n        \"\"\"Generates frontend + backend app code under app/.\"\"\"\n        app_dir = self.work_dir / \"app\" / \"src\"\n        app_dir.mkdir(parents=True, exist_ok=True)\n        print(\"✅ Application scaffold generated\")\n\n    def init_github_repo(self):\n        subprocess.run([\"git\", \"init\"], cwd=self.work_dir, check=True)\n        subprocess.run([\"git\", \"add\", \"-A\"], cwd=self.work_dir, check=True)\n        subprocess.run(\n            [\"git\", \"commit\", \"-m\", \"feat: IgnitionStack initial scaffold\"],\n            cwd=self.work_dir, check=True,\n        )\n        subprocess.run(\n            [\"gh\", \"repo\", \"create\", self.project_name, \"--private\", \"--source=.\", \"--push\"],\n            cwd=self.work_dir, check=True,\n        )\n        print(\"✅ GitHub repository created\")\n\n    def generate_cicd(self):\n        ci_dir = self.work_dir / \".github\" / \"workflows\"\n        ci_dir.mkdir(parents=True, exist_ok=True)\n        print(\"✅ GitHub Actions CI/CD pipeline generated\")\n\n    # ── Step 10: Generate ralph.sh ───────────────────────────────────────────\n\n    def generate_ralph_script(self):\n        script = f\"\"\"#!/usr/bin/env bash\n# ralph.sh — IgnitionStack Ralph Loop ({self.iterations} iterations × {self.model})\nset -euo pipefail\n\nPRD=\"$(cd \"$(dirname \"$0\")\" && pwd)/PRD.json\"\nPROGRESS=\"$(cd \"$(dirname \"$0\")\" && pwd)/progress.txt\"\n\nfor i in $(seq 1 {self.iterations}); do\n  PENDING=$(jq '[.tasks[] | select(.status == \"pending\")] | length' \"$PRD\")\n  [ \"$PENDING\" -eq 0 ] && echo \"✅ All tasks done!\" && break\n  echo \"━━━ Iteration $i/{self.iterations} — $PENDING remaining ━━━\"\n  gh copilot code --model \"{self.model}\" --file \"$PRD\" --file \"$PROGRESS\" \\\n    -m \"Read PRD.json. Pick highest-priority pending task. Implement, test, commit.\"\ndone\n\"\"\"\n        script_path = self.work_dir / \"ralph.sh\"\n        script_path.write_text(script)\n        script_path.chmod(0o755)\n        print(\"✅ ralph.sh generated\")\n\n    # ── Run Full Pipeline ────────────────────────────────────────────────────\n\n    def run(self):\n        print(f\"\\n🔥 IgnitionStack — Igniting {self.project_name}\")\n\n        requirements = self.parse_input()\n        tasks = self.decompose(requirements)\n        self.generate_prd(tasks)\n        self.generate_bicep_infra()\n        self.generate_foundry_agents()\n        self.generate_db_schema()\n        self.generate_app_scaffold()\n        self.init_github_repo()\n        self.generate_cicd()\n        self.generate_ralph_script()\n\n        print(f\"\"\"\n┌─────────────────────────────────────────────────────┐\n│  🔥 IgnitionStack scaffold complete!                │\n│                                                     │\n│  cd {self.work_dir} && bash ralph.sh                │\n│                                                     │\n│  Monitor: tail -f progress.txt                      │\n└─────────────────────────────────────────────────────┘\n\"\"\")\n\n    # ── Helper ───────────────────────────────────────────────────────────────\n\n    def _llm_call(self, prompt: str, image_b64: str | None = None) -> str:\n        from openai import OpenAI\n        client = OpenAI()\n        messages = (\n            [{\"role\": \"user\", \"content\": [\n                {\"type\": \"text\", \"text\": prompt},\n                {\"type\": \"image_url\", \"image_url\": {\"url\": f\"data:image/png;base64,{image_b64}\"}},\n            ]}]\n            if image_b64\n            else [{\"role\": \"user\", \"content\": prompt}]\n        )\n        resp = client.chat.completions.create(\n            model=self.model, messages=messages, temperature=0.2, max_tokens=16000,\n        )\n        return resp.choices[0].message.content or \"\"\n\n\n# ── Usage ────────────────────────────────────────────────────────────────────\n\nif __name__ == \"__main__\":\n    agent = IgnitionStackAgent(\n        input_path=\"./use-case.pptx\",    # or .png, .pdf, .docx, .txt\n        input_type=InputType.PPTX,\n        project_name=\"contoso-portal\",\n    )\n    agent.run()\n    # Then: cd ./ignition-output && bash ralph.sh",
+    "nodes": [
+      {
+        "id": "input-parser",
+        "type": "default",
+        "data": {
+          "label": "Input Parser",
+          "description": "Accepts screenshot, text, PDF, PPTX, or Word doc and extracts structured requirements",
+          "nodeType": "input"
+        },
+        "position": {
+          "x": 50,
+          "y": 0
+        }
+      },
+      {
+        "id": "use-case-decomposer",
+        "type": "default",
+        "data": {
+          "label": "Use-Case Decomposer",
+          "description": "Breaks requirements into 30-50 atomic, testable tasks using the Decomposition Test",
+          "nodeType": "llm"
+        },
+        "position": {
+          "x": 50,
+          "y": 100
+        }
+      },
+      {
+        "id": "prd-generator",
+        "type": "default",
+        "data": {
+          "label": "PRD Generator",
+          "description": "Produces PRD.json — the prioritized task backlog — and initializes progress.txt",
+          "nodeType": "planner"
+        },
+        "position": {
+          "x": 50,
+          "y": 200
+        }
+      },
+      {
+        "id": "bicep-infra-gen",
+        "type": "default",
+        "data": {
+          "label": "Bicep Infra Generator",
+          "description": "Generates Azure Bicep templates: resource group, app service, database, Key Vault, Microsoft Foundry workspace, Azure AI Search",
+          "nodeType": "executor"
+        },
+        "position": {
+          "x": 300,
+          "y": 0
+        }
+      },
+      {
+        "id": "foundry-agent-gen",
+        "type": "default",
+        "data": {
+          "label": "Microsoft Foundry Agent Generator",
+          "description": "Scaffolds agents via Microsoft Agent Framework: system prompts, tool configs, Azure AI Search for RAG, evaluation criteria",
+          "nodeType": "executor"
+        },
+        "position": {
+          "x": 300,
+          "y": 100
+        }
+      },
+      {
+        "id": "db-schema-gen",
+        "type": "default",
+        "data": {
+          "label": "Database Schema Generator",
+          "description": "Creates migrations, seed data, and Key Vault connection-string references",
+          "nodeType": "executor"
+        },
+        "position": {
+          "x": 300,
+          "y": 200
+        }
+      },
+      {
+        "id": "app-scaffold-gen",
+        "type": "default",
+        "data": {
+          "label": "App Scaffold Generator",
+          "description": "Generates frontend + backend application code (monorepo or polyrepo)",
+          "nodeType": "executor"
+        },
+        "position": {
+          "x": 550,
+          "y": 0
+        }
+      },
+      {
+        "id": "github-repo-init",
+        "type": "default",
+        "data": {
+          "label": "GitHub Repo Initializer",
+          "description": "Creates repo via gh CLI, sets branch protection, CODEOWNERS, and initial commit",
+          "nodeType": "tool"
+        },
+        "position": {
+          "x": 550,
+          "y": 100
+        }
+      },
+      {
+        "id": "ci-cd-pipeline-gen",
+        "type": "default",
+        "data": {
+          "label": "CI/CD Pipeline Generator",
+          "description": "Generates GitHub Actions workflows: build → test → Bicep deploy → app deploy",
+          "nodeType": "executor"
+        },
+        "position": {
+          "x": 550,
+          "y": 200
+        }
+      },
+      {
+        "id": "ralph-loop-runner",
+        "type": "default",
+        "data": {
+          "label": "Ralph Loop Runner (×20)",
+          "description": "Executes 20 Ralph iterations: each reads PRD.json, picks a task, implements, tests, commits",
+          "nodeType": "executor"
+        },
+        "position": {
+          "x": 300,
+          "y": 340
+        }
+      },
+      {
+        "id": "verification-gate",
+        "type": "default",
+        "data": {
+          "label": "Verification Gate",
+          "description": "Checks: all Bicep deployed, tests pass, CI green, app accessible at production URL",
+          "nodeType": "evaluator"
+        },
+        "position": {
+          "x": 550,
+          "y": 340
+        }
+      },
+      {
+        "id": "production-output",
+        "type": "default",
+        "data": {
+          "label": "Production Output",
+          "description": "Final deliverable: live Azure URL + GitHub repo link + deployment runbook",
+          "nodeType": "output"
+        },
+        "position": {
+          "x": 550,
+          "y": 450
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-input-decompose",
+        "source": "input-parser",
+        "target": "use-case-decomposer",
+        "animated": true
+      },
+      {
+        "id": "e-decompose-prd",
+        "source": "use-case-decomposer",
+        "target": "prd-generator"
+      },
+      {
+        "id": "e-prd-bicep",
+        "source": "prd-generator",
+        "target": "bicep-infra-gen",
+        "label": "infra tasks"
+      },
+      {
+        "id": "e-bicep-foundry",
+        "source": "bicep-infra-gen",
+        "target": "foundry-agent-gen"
+      },
+      {
+        "id": "e-foundry-db",
+        "source": "foundry-agent-gen",
+        "target": "db-schema-gen"
+      },
+      {
+        "id": "e-db-app",
+        "source": "db-schema-gen",
+        "target": "app-scaffold-gen",
+        "label": "app tasks"
+      },
+      {
+        "id": "e-app-github",
+        "source": "app-scaffold-gen",
+        "target": "github-repo-init"
+      },
+      {
+        "id": "e-github-cicd",
+        "source": "github-repo-init",
+        "target": "ci-cd-pipeline-gen"
+      },
+      {
+        "id": "e-cicd-ralph",
+        "source": "ci-cd-pipeline-gen",
+        "target": "ralph-loop-runner",
+        "label": "start loop"
+      },
+      {
+        "id": "e-ralph-verify",
+        "source": "ralph-loop-runner",
+        "target": "verification-gate",
+        "label": "after each iteration"
+      },
+      {
+        "id": "e-verify-ralph-retry",
+        "source": "verification-gate",
+        "target": "ralph-loop-runner",
+        "label": "retry (iteration < 20)",
+        "animated": true,
+        "style": {
+          "stroke": "#f59e0b",
+          "strokeDasharray": "5,5"
+        }
+      },
+      {
+        "id": "e-verify-output",
+        "source": "verification-gate",
+        "target": "production-output",
+        "label": "all green ✓"
+      }
+    ],
+    "businessUseCase": {
+      "industry": "Healthcare / Digital Patient Experience",
+      "enlightenMePrompt": "You are an expert platform engineer, Azure solutions architect, and healthcare IT specialist. Explain the IgnitionStack Agent pattern using a concrete real-world example.\n\n## The Scenario: Meridian Health Network (fictitious)\nMeridian Health Network (fictitious) operates 40 clinics. Their CTO wants a digital patient intake portal — patients should be able to register, verify insurance, book appointments, get AI-powered symptom triage, and view lab results with plain-language summaries. The solution architect creates a 12-slide PPTX covering the vision. Traditionally, this would take a development team 3-4 weeks just to scaffold the Azure infrastructure, set up the database, wire the CI/CD, and get a basic API running — before writing a single line of business logic.\n\n## What IgnitionStack Does\nThe platform team feeds the PPTX into IgnitionStack. Here's what happens:\n\n### Phase 1: Parse (30 seconds)\nThe agent reads all 12 slides using the PPTX parser:\n- Slide 1 \"Patient Registration\" → extracts: demographics form, insurance ID field, FHIR R4 compliance requirement\n- Slide 4 \"Appointment Scheduling\" → extracts: provider availability slots, timezone handling, double-booking prevention\n- Slide 7 \"AI Triage\" → extracts: symptom-to-department routing, confidence scoring, escalation rules\n- Slide 9 \"Lab Results\" → extracts: RAG over patient history, HIPAA-safe summarization, no PII in logs\n- Speaker notes on each slide → extracts implementation hints the architect didn't put on screen\n\n### Phase 2: Decompose (60 seconds)\nThe LLM applies the Decomposition Test to produce 13 atomic tasks:\n- Each task is Testable (has acceptance criteria), Bounded (< 30 min), Independent (no blocked dependencies), Committable (one git commit)\n- Tasks span 6 categories: INFRA (3), DB (2), APP (3), AGENT (2), CI (1), TEST (1), DOCS (1)\n\n### Phase 3: Scaffold (2 minutes)\nIgnitionStack generates the full project skeleton:\n- **infra/**: Bicep modules for resource group, Cosmos DB (patients + appointments containers), Key Vault, Microsoft Foundry workspace, Azure AI Search, App Service, Application Insights\n- **agents/**: Triage agent config (symptom → department routing), lab-results summarizer config (RAG + HIPAA constraints)\n- **db/**: FHIR-aligned patient schema, appointment slot schema with conflict detection\n- **app/**: FastAPI backend + React frontend monorepo with package.json\n- **.github/workflows/**: CI/CD pipeline (build → test → Bicep deploy → app deploy)\n\n### Phase 4: Ralph Loop (20 iterations, ~2 hours)\n```\nIteration  1: INFRA-01 — Deploy resource group + Key Vault        ✅ committed\nIteration  2: INFRA-02 — Provision Cosmos DB with partition keys   ✅ committed\nIteration  3: INFRA-03 — Deploy Microsoft Foundry + model endpoint  ✅ committed\nIteration  4: DB-01    — Create patients schema (FHIR R4 aligned)  ✅ committed\nIteration  5: DB-02    — Appointment slots with conflict detection  ✅ committed\nIteration  6: APP-01   — Scaffold FastAPI + React monorepo          ✅ committed\nIteration  7: APP-02   — Patient registration + insurance verify    ✅ committed\nIteration  8: APP-03   — Appointment scheduling with slot lockout   ✅ committed\nIteration  9: AGENT-01 — Triage agent: 'chest pain' → Cardiology   ✅ committed\nIteration 10: AGENT-02 — Lab results RAG (HIPAA-safe, no PII logs) ✅ committed\nIteration 11: CI-01    — GitHub Actions build → test → deploy       ✅ committed\nIteration 12: TEST-01  — Playwright E2E: register → book → confirm  ✅ committed\nIteration 13: DOCS-01  — README + ARCHITECTURE + HIPAA notes        ✅ committed\nIterations 14-20: All tasks done — loop exits early 🎉\n```\n\n### The Result\nBy morning, Meridian's dev team has:\n- A **working patient portal** deployed to Azure (not a wireframe — a real app)\n- **13 atomic git commits** they can read like a project diary\n- **Bicep infrastructure** they can redeploy to staging/production with one command\n- **AI agents** already routing symptoms and summarizing lab results\n- **CI/CD pipeline** that validates every future push\n- **HIPAA compliance notes** documenting every PHI touchpoint\n\nThe dev team's job is now customization and polish — not scaffolding. They saved 3 weeks.\n\n### The Five Design Principles (Why It Works)\n1. **Context Window Hygiene**: Each of the 13 iterations started fresh — no confused context from previous work\n2. **Task-Scoped Autonomy**: Each task had a bounded objective with testable acceptance criteria\n3. **Feedback-Driven Verification**: Type-check + tests ran before marking any task done\n4. **Persistent Memory Without Context Cost**: progress.txt carried what worked and what didn't across iterations\n5. **Atomic Git Commits**: `git log --oneline` shows exactly 13 commits, one per task, each independently reviewable\n\n### PPTX as Input — Why This Matters\nPowerPoint is the language of business stakeholders. IgnitionStack parses:\n- **Slide titles** → feature names\n- **Bullet points** → functional requirements\n- **Speaker notes** → implementation context the architect intended but didn't present\n- **Diagrams** → (via vision model) architectural relationships and data flows\n\nA 12-slide deck becomes a 13-task PRD in 90 seconds. No requirements workshops. No weeks of Jira ticket writing.\n\n### Cost & Time\n- PPTX → PRD: 90 seconds\n- Scaffold generation: 2 minutes\n- Ralph loop (13 tasks in 20 iterations): ~2 hours\n- **Total: PPTX to deployed Azure portal in under 3 hours**\n- Estimated token cost: ~$8-15\n\nExplain all of this walk-through clearly, emphasizing how each pipeline stage transforms the input and how the Ralph loop's simplicity (a bash for-loop) is the key to its reliability."
+    }
+  },
+  {
     "id": "inventory-guardian",
     "name": "Inventory Guardian",
     "description": "Fusion of IoT signals, digital twins, and LLM reasoning to keep warehouse stock accurate and proactively trigger replenishment and recovery actions.",
