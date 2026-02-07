@@ -1,10 +1,81 @@
+import { useState, useCallback } from 'react'
 import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
-import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, ArrowsCounterClockwise, Key, Sparkle, Plugs, FilePdf, ChartBarHorizontal } from "@phosphor-icons/react"
+import { Terminal, Code, GithubLogo, Lightning, CloudArrowUp, Robot, Command, BookOpen, ArrowsClockwise, ArrowsCounterClockwise, Key, Sparkle, Plugs, FilePdf, ChartBarHorizontal, CaretLeft, CaretRight } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
+
+/* ─── Visual Guide Carousel (30 pages from PDF) ──────────────────────────── */
+const GUIDE_PAGES = 30;
+const guideSrc = (n: number) => `/images/client-coding-agents-guide/page-${String(n).padStart(2, '0')}.png`;
+
+function VisualGuideCarousel() {
+  const [page, setPage] = useState(1);
+  const prev = useCallback(() => setPage(p => Math.max(1, p - 1)), []);
+  const next = useCallback(() => setPage(p => Math.min(GUIDE_PAGES, p + 1)), []);
+
+  return (
+    <div className="space-y-4">
+      <p className="text-sm text-muted-foreground">
+        This visual guide covers the core concepts of CLI coding agents in a printable format.
+        Use it as a quick reference while learning or as a study companion.
+      </p>
+
+      {/* Image viewer */}
+      <div className="border border-border rounded-lg overflow-hidden bg-muted/30 relative">
+        <img
+          src={guideSrc(page)}
+          alt={`CLI Coding Agents Visual Guide — Page ${page} of ${GUIDE_PAGES}`}
+          className="w-full h-auto"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Navigation controls */}
+      <div className="flex items-center justify-between">
+        <button
+          onClick={prev}
+          disabled={page === 1}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border text-sm font-medium transition-colors hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed"
+          aria-label="Previous page"
+        >
+          <CaretLeft size={16} weight="bold" /> Prev
+        </button>
+
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium tabular-nums">
+            Page {page} of {GUIDE_PAGES}
+          </span>
+          <input
+            type="range"
+            min={1}
+            max={GUIDE_PAGES}
+            value={page}
+            onChange={e => setPage(Number(e.target.value))}
+            className="w-32 sm:w-48 accent-primary"
+            aria-label="Page slider"
+          />
+        </div>
+
+        <button
+          onClick={next}
+          disabled={page === GUIDE_PAGES}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border text-sm font-medium transition-colors hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed"
+          aria-label="Next page"
+        >
+          Next <CaretRight size={16} weight="bold" />
+        </button>
+      </div>
+
+      {/* Page count indicator */}
+      <p className="text-xs text-muted-foreground text-center">
+        30-page visual guide — use the slider or arrows to browse all pages
+      </p>
+    </div>
+  );
+}
 
 interface ClientCodingAgentsConceptProps {
   onMarkComplete?: () => void
@@ -353,7 +424,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
             </CardContent>
           </Card>
 
-          {/* Visual Guide PDF */}
+          {/* Visual Guide — Page Image Carousel */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -365,37 +436,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  This visual guide covers the core concepts of CLI coding agents in a printable format. 
-                  Use it as a quick reference while learning or as a study companion.
-                </p>
-                <div className="border border-border rounded-lg overflow-hidden bg-muted/30">
-                  <iframe
-                    src="/pdf/Client_Coding_Agents.pdf"
-                    className="w-full h-[600px]"
-                    title="CLI Coding Agents Visual Guide"
-                  />
-                </div>
-                <div className="flex items-center gap-4 text-sm">
-                  <a 
-                    href="/pdf/Client_Coding_Agents.pdf" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-primary hover:underline"
-                  >
-                    <FilePdf className="w-4 h-4" />
-                    Open in new tab
-                  </a>
-                  <a 
-                    href="/pdf/Client_Coding_Agents.pdf" 
-                    download
-                    className="inline-flex items-center gap-2 text-primary hover:underline"
-                  >
-                    Download PDF
-                  </a>
-                </div>
-              </div>
+              <VisualGuideCarousel />
             </CardContent>
           </Card>
 

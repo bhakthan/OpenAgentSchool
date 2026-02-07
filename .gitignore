@@ -149,3 +149,6 @@ specs/
 # Local VS Code workspace (contains absolute paths; do not commit)
 *.code-workspace
 OpenAgentSchool.code-workspace
+
+# Large PDF files (served as page images instead)
+public/pdf/*.pdf
