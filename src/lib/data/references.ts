@@ -4216,11 +4216,63 @@ export const references: ReferencesData = {
             description: "Anthropic case study demonstrating the Ralph Method — using a simple bash for-loop to drive Claude Code through building an entire C compiler from a task backlog"
           }
         ]
+      },
+      {
+        id: "ignitionstack",
+        name: "IgnitionStack",
+        references: [
+          {
+            title: "IgnitionStack — Use Case → Production Azure Workload",
+            url: "https://github.com/bhakthan/ignitionstack",
+            description: "Open source 8-stage agentic scaffold pipeline — transforms a use-case doc (text, PDF, PPTX, screenshot) into a fully deployed Azure project with Bicep infra, agents, database, app code, CI/CD, and 20 Ralph-loop iterations"
+          }
+        ]
       }
     ]
   },
   
   patterns: {
+    "ignition-stack": [
+      {
+        id: "source-code",
+        name: "Source Code & Implementation",
+        references: [
+          {
+            title: "IgnitionStack GitHub Repository",
+            url: "https://github.com/bhakthan/ignitionstack",
+            description: "Open source Python CLI that implements the IgnitionStack pattern — 8-stage pipeline from use-case input to production Azure workload with 20 Ralph-loop iterations"
+          }
+        ]
+      },
+      {
+        id: "concepts",
+        name: "Core Concepts",
+        references: [
+          {
+            title: "The Ralph Method — Bash Loop Orchestration",
+            url: "https://www.anthropic.com/engineering/building-c-compiler",
+            description: "Anthropic case study behind the 20-iteration Ralph loop that powers IgnitionStack's autonomous implementation phase"
+          },
+          {
+            title: "Building Effective Harnesses for Long-Running Agents",
+            url: "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+            description: "Foundational principles for loop-based agent orchestration — context window hygiene, atomic commits, and fault tolerance"
+          }
+        ]
+      },
+      {
+        id: "domain-examples",
+        name: "Domain Examples",
+        references: [
+          {
+            title: "IgnitionStack Domain Examples",
+            url: "https://github.com/bhakthan/ignitionstack/tree/master/examples",
+            description: "Seven pre-built domain use-case examples: Healthcare, Finance, Education, Oil & Gas, Construction, Telco, and Retail"
+          }
+        ]
+      }
+    ],
+
     "azure-openai": [
       {
         id: "documentation",
