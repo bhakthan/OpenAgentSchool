@@ -263,6 +263,35 @@ const IgnitionStackVisualization: React.FC = () => {
           <IgnitionStackArchitectureSVG />
         </div>
       </div>
+
+      {/* ── Full Infographic — Exploded View ─────────────────────────────── */}
+      <div className="mt-6 pt-5 border-t border-border/50">
+        <h4 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2">
+          <span className="text-orange-500">◆</span> IgnitionStack Explained — Full Architecture Infographic
+        </h4>
+        <p className="text-xs text-muted-foreground mb-3">
+          Exploded view of the 8-stage pipeline, generated template structure, Ralph loop mechanics, Scaffold &amp; Plug modes, and 7 domain examples.
+        </p>
+        <div className="rounded-lg border border-border bg-background/90 p-2 overflow-x-auto">
+          <img
+            src="/images/IgnitionStack_Explained.png"
+            alt="IgnitionStack full architecture infographic — 8-stage pipeline from use case to production Azure workload"
+            className="w-full h-auto rounded-lg"
+            loading="lazy"
+          />
+        </div>
+        <p className="text-[10px] text-muted-foreground mt-2 text-center">
+          <a
+            href="https://github.com/bhakthan/ignitionstack"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-orange-500 transition-colors underline underline-offset-2"
+          >
+            github.com/bhakthan/ignitionstack
+          </a>
+          {' · '}MIT License
+        </p>
+      </div>
     </div>
   );
 };
