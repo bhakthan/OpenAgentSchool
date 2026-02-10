@@ -1,6 +1,6 @@
 # Open Agent School - Robots.txt
 # https://www.openagentschool.org/robots.txt
-# Last updated: February 3, 2026
+# Last updated: February 10, 2026
 
 User-agent: *
 Allow: /
@@ -14,6 +14,7 @@ Allow: /ai-skills/
 Allow: /playbook/
 Allow: /learning-journey
 Allow: /learning-atlas
+Allow: /agents-for-science
 Allow: /api-docs
 
 # Enterprise Playbook Concepts (January 2026)
@@ -109,6 +110,7 @@ User-agent: GPTBot
 Allow: /
 Allow: /concepts
 Allow: /patterns
+Allow: /agents-for-science
 Allow: /concepts/program-setup-north-star
 Allow: /concepts/responsible-ai-governance
 Allow: /concepts/strategy-portfolio-management
@@ -149,6 +151,7 @@ User-agent: ChatGPT-User
 Allow: /
 Allow: /concepts
 Allow: /patterns
+Allow: /agents-for-science
 Allow: /concepts/program-setup-north-star
 Allow: /concepts/responsible-ai-governance
 Allow: /concepts/data-knowledge-operations
@@ -203,6 +206,7 @@ User-agent: anthropic-ai
 Allow: /
 Allow: /concepts
 Allow: /patterns
+Allow: /agents-for-science
 Allow: /concepts/program-setup-north-star
 Allow: /concepts/responsible-ai-governance
 Allow: /concepts/data-knowledge-operations
@@ -237,6 +241,7 @@ User-agent: Claude-Web
 Allow: /
 Allow: /concepts
 Allow: /patterns
+Allow: /agents-for-science
 Allow: /concepts/program-setup-north-star
 Allow: /concepts/responsible-ai-governance
 Allow: /concepts/data-knowledge-operations

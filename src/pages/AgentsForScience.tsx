@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowRight, GithubLogo, ArrowUpRight, Flask, Atom, Graph, Lightbulb, CheckCircle, Dna, Planet, Cpu, Brain, SolarPanel, YoutubeLogo, Sparkle, GoogleLogo } from '@phosphor-icons/react';
+import { ArrowRight, GithubLogo, ArrowUpRight, Flask, Atom, Graph, Lightbulb, CheckCircle, Dna, Planet, Cpu, Brain, SolarPanel, YoutubeLogo, Sparkle, GoogleLogo, Factory, Robot, MagnifyingGlass, Database, TreeStructure, Eye, ShieldCheck, Plugs, Lightning, Gauge } from '@phosphor-icons/react';
 import { HypothesisEvolutionDemo } from '@/components/science/HypothesisEvolutionDemo';
 import { LiteratureSynthesisDemo } from '@/components/science/LiteratureSynthesisDemo';
 
@@ -669,7 +670,618 @@ export default function AgentsForScience() {
             </CardContent>
           </Card>
         </div>
+      </div>
 
+      {/* ═══════════════════════════════════════════════════════════
+          2026: THE RISE OF SCIENCE AI FACTORIES
+          ═══════════════════════════════════════════════════════════ */}
+      <div className="mb-12 mt-16">
+        <div className="flex items-center gap-3 mb-2">
+          <Factory size={40} weight="duotone" className="text-amber-600 dark:text-amber-400" />
+          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-amber-600 to-red-600 dark:from-amber-400 dark:to-red-400 bg-clip-text text-transparent">
+            2026: The Rise of Science AI Factories
+          </h2>
+        </div>
+        <p className="text-lg text-muted-foreground mb-8 max-w-4xl">
+          We are witnessing a paradigm shift: research labs are transforming into <strong>AI factories</strong> — 
+          multi-agent systems that mine, synthesize, and generate scientific data at scales no human team could match. 
+          These factories don't just analyze existing data; they <em>create data that otherwise would not exist</em> — 
+          revealing latent patterns hidden across physics, chemistry, biology, medicine, and robotics.
+        </p>
+
+        {/* What Is a Science AI Factory? */}
+        <Card className="mb-8 border-2 border-amber-200 dark:border-amber-800">
+          <CardHeader>
+            <CardTitle className="text-xl flex items-center gap-2">
+              <Factory size={22} weight="duotone" className="text-amber-600 dark:text-amber-400" />
+              What Is a Science AI Factory?
+            </CardTitle>
+            <CardDescription>
+              A continuously running, self-improving multi-agent pipeline that ingests raw experimental data, 
+              cross-links domain knowledge, and produces novel hypotheses, simulations, and candidate materials 
+              faster than any traditional research group.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-amber-50 dark:bg-amber-950/30 p-4 rounded-lg border border-amber-200 dark:border-amber-800 text-center">
+                <Database size={32} weight="duotone" className="text-amber-600 dark:text-amber-400 mx-auto mb-2" />
+                <div className="font-bold text-sm mb-1">Ingest</div>
+                <div className="text-xs text-muted-foreground">
+                  Papers, patents, lab notebooks, sensor streams, simulation outputs
+                </div>
+              </div>
+              <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800 text-center">
+                <MagnifyingGlass size={32} weight="duotone" className="text-blue-600 dark:text-blue-400 mx-auto mb-2" />
+                <div className="font-bold text-sm mb-1">Mine</div>
+                <div className="text-xs text-muted-foreground">
+                  Cross-domain pattern detection reveals hidden correlations across disciplines
+                </div>
+              </div>
+              <div className="bg-purple-50 dark:bg-purple-950/30 p-4 rounded-lg border border-purple-200 dark:border-purple-800 text-center">
+                <TreeStructure size={32} weight="duotone" className="text-purple-600 dark:text-purple-400 mx-auto mb-2" />
+                <div className="font-bold text-sm mb-1">Synthesize</div>
+                <div className="text-xs text-muted-foreground">
+                  Multi-agent reasoning chains combine insights into testable hypotheses
+                </div>
+              </div>
+              <div className="bg-green-50 dark:bg-green-950/30 p-4 rounded-lg border border-green-200 dark:border-green-800 text-center">
+                <Lightning size={32} weight="duotone" className="text-green-600 dark:text-green-400 mx-auto mb-2" />
+                <div className="font-bold text-sm mb-1">Generate</div>
+                <div className="text-xs text-muted-foreground">
+                  Produce novel data — simulations, molecular designs, experiment plans — that never existed before
+                </div>
+              </div>
+            </div>
+
+            {/* Agent Architecture Callout */}
+            <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="flex items-center gap-2 mb-3">
+                <Plugs size={18} className="text-blue-600 dark:text-blue-400" />
+                <span className="font-semibold text-sm">Core Agent Patterns Powering These Factories</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Link to="/concepts/multi-agent-systems">
+                  <Badge variant="secondary" className="cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40">Multi-Agent Systems</Badge>
+                </Link>
+                <Link to="/concepts/a2a-communication">
+                  <Badge variant="secondary" className="cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40">A2A Communication</Badge>
+                </Link>
+                <Link to="/concepts/agent-architecture">
+                  <Badge variant="secondary" className="cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40">Agent Architecture</Badge>
+                </Link>
+                <Link to="/concepts/agentic-workflow-control">
+                  <Badge variant="secondary" className="cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40">Workflow Orchestration</Badge>
+                </Link>
+                <Link to="/concepts/mcp">
+                  <Badge variant="secondary" className="cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40">MCP (Tool Calling)</Badge>
+                </Link>
+                <Link to="/concepts/agent-memory-systems">
+                  <Badge variant="secondary" className="cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40">Agent Memory</Badge>
+                </Link>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Cross-Domain Data Mining — The Invisible Becomes Visible */}
+        <div className="mb-10">
+          <h3 className="text-2xl font-bold mb-2 flex items-center gap-2">
+            <Eye size={28} weight="duotone" className="text-cyan-600 dark:text-cyan-400" />
+            Cross-Domain Data Mining: The Invisible Becomes Visible
+          </h3>
+          <p className="text-muted-foreground mb-6 max-w-3xl">
+            The breakthrough isn't speed alone — it's that AI factories detect <strong>cross-domain signals</strong> no 
+            single-discipline team would ever look for. A protein folding anomaly might unlock a new catalyst; 
+            a robotics control theorem might describe neural plasticity. These bridges create data that never existed.
+          </p>
+
+          <Tabs defaultValue="physics" className="mb-8">
+            <TabsList className="flex flex-wrap h-auto gap-1">
+              <TabsTrigger value="physics" className="flex items-center gap-1 text-xs"><Atom size={14} /> Physics</TabsTrigger>
+              <TabsTrigger value="chemistry" className="flex items-center gap-1 text-xs"><Flask size={14} /> Chemistry</TabsTrigger>
+              <TabsTrigger value="biology" className="flex items-center gap-1 text-xs"><Dna size={14} /> Biology</TabsTrigger>
+              <TabsTrigger value="medicine" className="flex items-center gap-1 text-xs"><Sparkle size={14} /> Medicine</TabsTrigger>
+              <TabsTrigger value="robotics" className="flex items-center gap-1 text-xs"><Robot size={14} /> Robotics</TabsTrigger>
+            </TabsList>
+
+            {/* --- PHYSICS --- */}
+            <TabsContent value="physics">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Atom size={22} weight="duotone" className="text-indigo-600 dark:text-indigo-400" />
+                    Physics: Simulating the Unobservable
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm">
+                    AI factories in physics don't just crunch numbers from accelerators — they generate 
+                    <strong> synthetic collision data</strong>, hypothetical field configurations, and lattice QCD predictions 
+                    that could never be produced with today's experimental budgets.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-indigo-50 dark:bg-indigo-950/30 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                      <h5 className="font-bold text-sm mb-2">What Agents Do</h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• <strong>Surrogate Simulator Agent</strong> — trains on sparse CERN data, generates millions of synthetic collision events</li>
+                        <li>• <strong>Anomaly Spotter Agent</strong> — flags deviations from Standard Model predictions</li>
+                        <li>• <strong>Hypothesis Evolver</strong> — applies AlphaEvolve-style evolutionary search to theoretical parameter space</li>
+                        <li>• <strong>Cross-Domain Linker</strong> — maps topological phase-transition patterns to condensed matter, creating new material candidates</li>
+                      </ul>
+                    </div>
+                    <div className="bg-indigo-50 dark:bg-indigo-950/30 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                      <h5 className="font-bold text-sm mb-2">Data That Didn't Exist Before</h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• Synthetic dark matter interaction maps for detector calibration</li>
+                        <li>• AI-predicted topological insulator band structures (validated 73% experimentally)</li>
+                        <li>• Cross-linked quantum gravity hints from cosmological survey + particle physics data</li>
+                      </ul>
+                      <div className="mt-3 flex flex-wrap gap-1">
+                        <Link to="/concepts/agent-reasoning-patterns"><Badge variant="outline" className="text-[10px] cursor-pointer">Reasoning Patterns</Badge></Link>
+                        <Link to="/concepts/agent-evaluation"><Badge variant="outline" className="text-[10px] cursor-pointer">Evaluation</Badge></Link>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* --- CHEMISTRY --- */}
+            <TabsContent value="chemistry">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Flask size={22} weight="duotone" className="text-emerald-600 dark:text-emerald-400" />
+                    Chemistry: Designing Molecules No One Imagined
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm">
+                    Chemistry AI factories go beyond retrosynthesis planning. They <strong>invent entirely new chemical spaces</strong> — 
+                    exploring molecular topologies that no chemist has drawn, then validating stability, toxicity, and 
+                    synthesizability in multi-agent debate loops before a single flask is touched.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-emerald-50 dark:bg-emerald-950/30 p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                      <h5 className="font-bold text-sm mb-2">Factory Pipeline</h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• <strong>Generative Molecular Agent</strong> — proposes novel scaffolds via graph neural nets</li>
+                        <li>• <strong>Thermodynamic Validator</strong> — runs DFT approximations in seconds, not hours</li>
+                        <li>• <strong>Synthesis Planner</strong> — maps retrosynthetic routes to commercially available reagents</li>
+                        <li>• <strong>Safety Critic</strong> — screens for toxicity, environmental impact, and IP conflicts</li>
+                      </ul>
+                    </div>
+                    <div className="bg-emerald-50 dark:bg-emerald-950/30 p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                      <h5 className="font-bold text-sm mb-2">Generated Knowledge (2025–2026)</h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• MatterGen (Microsoft) produced 500+ stable crystal structures verified by DFT</li>
+                        <li>• TamGen designed de novo drug leads with 8x higher hit rates vs HTS</li>
+                        <li>• DeepEvolve discovered ternary superconductor candidates in under 3 weeks</li>
+                      </ul>
+                      <div className="mt-3 flex flex-wrap gap-1">
+                        <Link to="/concepts/data-knowledge-operations"><Badge variant="outline" className="text-[10px] cursor-pointer">DataKnowledgeOps</Badge></Link>
+                        <Link to="/concepts/fine-tuning"><Badge variant="outline" className="text-[10px] cursor-pointer">Fine-Tuning</Badge></Link>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* --- BIOLOGY --- */}
+            <TabsContent value="biology">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Dna size={22} weight="duotone" className="text-rose-600 dark:text-rose-400" />
+                    Biology: Decoding Life's Hidden Operating System
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm">
+                    Biology AI factories are building the first <strong>computational organisms</strong> — multi-scale models 
+                    that link genome → proteome → metabolome → phenotype in a single reasoning chain. AlphaFold was 
+                    the opening act; 2026 factories predict function, not just structure.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-rose-50 dark:bg-rose-950/30 p-4 rounded-lg border border-rose-200 dark:border-rose-800">
+                      <h5 className="font-bold text-sm mb-2">Agent Ensemble</h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• <strong>Genomic Scanner</strong> — AlphaGenome-class agent reads non-coding DNA regions for regulatory signals</li>
+                        <li>• <strong>Protein Dynamics Agent</strong> — BioEmu-1 simulates microsecond-scale protein motion, revealing cryptic binding sites</li>
+                        <li>• <strong>Pathway Mapper</strong> — reconstructs metabolic networks from multi-omics + single-cell RNA-seq</li>
+                        <li>• <strong>Evolutionary Tracer</strong> — links SNP patterns across 10M+ genomes to phenotypic outcomes</li>
+                      </ul>
+                    </div>
+                    <div className="bg-rose-50 dark:bg-rose-950/30 p-4 rounded-lg border border-rose-200 dark:border-rose-800">
+                      <h5 className="font-bold text-sm mb-2">Invisible Data Now Visible</h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• Cryptic allosteric sites found in 340+ proteins (validated by cryo-EM)</li>
+                        <li>• 1.2M novel protein-protein interaction predictions from multi-scale graph reasoning</li>
+                        <li>• Gene regulatory networks for 900+ rare diseases, previously unstudied</li>
+                      </ul>
+                      <div className="mt-3 flex flex-wrap gap-1">
+                        <Link to="/concepts/multi-agent-systems"><Badge variant="outline" className="text-[10px] cursor-pointer">Multi-Agent Systems</Badge></Link>
+                        <Link to="/concepts/agent-observability"><Badge variant="outline" className="text-[10px] cursor-pointer">Observability</Badge></Link>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* --- MEDICINE --- */}
+            <TabsContent value="medicine">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Sparkle size={22} weight="duotone" className="text-pink-600 dark:text-pink-400" />
+                    Medicine: From Diagnosis → Drug → Trial in Weeks
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm">
+                    Medical AI factories compress what once took a decade — from target identification through 
+                    lead optimization to IND filing — into <strong>iterative agent cycles measured in weeks</strong>. They are 
+                    the first systems that can simultaneously mine clinical records, molecular libraries, and genomic 
+                    biobanks as a unified knowledge graph.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-pink-50 dark:bg-pink-950/30 p-4 rounded-lg border border-pink-200 dark:border-pink-800">
+                      <h5 className="font-bold text-sm mb-2">Factory Agents</h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• <strong>Clinical Miner</strong> — NLP over 50M+ EHR records to find unrecognized drug-response phenotypes</li>
+                        <li>• <strong>Target Discoverer</strong> — integrates GWAS, proteomics, CRISPR screen data for novel target nomination</li>
+                        <li>• <strong>Molecular Designer</strong> — TamGen-class generative models produce de novo lead compounds</li>
+                        <li>• <strong>Trial Simulator</strong> — predicts Phase II endpoints from synthetic clinical cohorts</li>
+                        <li>• <strong>Safety Sentinel</strong> — continuous monitoring agent for adverse-event signal detection</li>
+                      </ul>
+                    </div>
+                    <div className="bg-pink-50 dark:bg-pink-950/30 p-4 rounded-lg border border-pink-200 dark:border-pink-800">
+                      <h5 className="font-bold text-sm mb-2">Data Created, Not Collected</h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• Synthetic patient cohorts for rare-disease trial feasibility (n → 10,000 virtual patients)</li>
+                        <li>• 200+ repurposed drug candidates discovered by mining multi-modal side-effect networks</li>
+                        <li>• 40% reduction in Phase I failure rate at 2 pharma partners using agent-optimized toxicity screening</li>
+                      </ul>
+                      <div className="mt-3 flex flex-wrap gap-1">
+                        <Link to="/concepts/agent-evaluation-methodologies"><Badge variant="outline" className="text-[10px] cursor-pointer">Evaluation Methods</Badge></Link>
+                        <Link to="/concepts/human-in-the-loop-patterns"><Badge variant="outline" className="text-[10px] cursor-pointer">Human-in-the-Loop</Badge></Link>
+                        <Link to="/concepts/agent-security"><Badge variant="outline" className="text-[10px] cursor-pointer">Agent Security</Badge></Link>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* --- ROBOTICS --- */}
+            <TabsContent value="robotics">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Robot size={22} weight="duotone" className="text-teal-600 dark:text-teal-400" />
+                    Robotics: Self-Driving Labs & Physical AI
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm">
+                    Robotic AI factories close the loop between <strong>digital hypothesis and physical experiment</strong>. 
+                    They autonomously design, execute, and interpret lab experiments — then feed findings back into the 
+                    agent planner. In 2026, "self-driving labs" run 24/7 in materials science and synthetic biology 
+                    facilities worldwide.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-teal-50 dark:bg-teal-950/30 p-4 rounded-lg border border-teal-200 dark:border-teal-800">
+                      <h5 className="font-bold text-sm mb-2">Robotic Agent Layers</h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• <strong>Experiment Planner</strong> — schedules robotic workcell operations, reagent ordering, instrument calibration</li>
+                        <li>• <strong>Execution Controller</strong> — translates abstract protocols to robotic arm trajectories (MCP tool calls)</li>
+                        <li>• <strong>Characterization Agent</strong> — processes spectroscopy, microscopy, and diffraction data in real time</li>
+                        <li>• <strong>Active-Learning Loop</strong> — decides next experiment based on Bayesian optimization + agent reasoning</li>
+                      </ul>
+                    </div>
+                    <div className="bg-teal-50 dark:bg-teal-950/30 p-4 rounded-lg border border-teal-200 dark:border-teal-800">
+                      <h5 className="font-bold text-sm mb-2">Physical–Digital Fusion</h5>
+                      <ul className="text-xs space-y-1 text-muted-foreground">
+                        <li>• A-Lab (LBNL) autonomously synthesized 41 of 58 targeted materials without human intervention</li>
+                        <li>• Cloud labs run 1,000+ experiments/day, generating training data for next-gen foundation models</li>
+                        <li>• Robot-generated reaction databases bridge the "reproducibility gap" in chemical synthesis</li>
+                      </ul>
+                      <div className="mt-3 flex flex-wrap gap-1">
+                        <Link to="/concepts/agentic-robotics-integration"><Badge variant="outline" className="text-[10px] cursor-pointer">Robotics Integration</Badge></Link>
+                        <Link to="/concepts/mcp"><Badge variant="outline" className="text-[10px] cursor-pointer">MCP Protocol</Badge></Link>
+                        <Link to="/concepts/edge-agent"><Badge variant="outline" className="text-[10px] cursor-pointer">Edge Agents</Badge></Link>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        {/* The Factory Architecture — Agent Patterns for Scientists */}
+        <div className="mb-10">
+          <h3 className="text-2xl font-bold mb-2 flex items-center gap-2">
+            <TreeStructure size={28} weight="duotone" className="text-violet-600 dark:text-violet-400" />
+            The Factory Architecture: Agent Patterns for Scientists
+          </h3>
+          <p className="text-muted-foreground mb-6 max-w-3xl">
+            Every AI factory is built from composable agent patterns. Understanding these patterns lets you 
+            design, audit, and scale your own scientific AI pipeline. Each pattern links to the deep-dive 
+            concept page in Open Agent School.
+          </p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {/* Pattern 1 */}
+            <Link to="/concepts/agent-reasoning-patterns" className="block group">
+              <Card className="h-full transition-all hover:shadow-lg hover:border-violet-300 dark:hover:border-violet-700">
+                <CardContent className="pt-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Brain size={20} weight="duotone" className="text-violet-600 dark:text-violet-400" />
+                    <h4 className="font-bold text-sm group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">Reasoning Patterns</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Chain-of-thought, tree-of-thought, and self-reflection loops enable agents to evaluate 
+                    competing hypotheses and pick the experiment that maximises expected information gain.
+                  </p>
+                  <div className="text-xs text-violet-600 dark:text-violet-400 mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Deep dive <ArrowRight size={12} />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Pattern 2 */}
+            <Link to="/concepts/agent-memory-systems" className="block group">
+              <Card className="h-full transition-all hover:shadow-lg hover:border-violet-300 dark:hover:border-violet-700">
+                <CardContent className="pt-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Database size={20} weight="duotone" className="text-violet-600 dark:text-violet-400" />
+                    <h4 className="font-bold text-sm group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">Memory Systems</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Episodic memory stores past experimental results; semantic memory holds domain knowledge graphs; 
+                    procedural memory encodes lab protocols. Together they prevent redundant experiments.
+                  </p>
+                  <div className="text-xs text-violet-600 dark:text-violet-400 mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Deep dive <ArrowRight size={12} />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Pattern 3 */}
+            <Link to="/concepts/multi-agent-systems" className="block group">
+              <Card className="h-full transition-all hover:shadow-lg hover:border-violet-300 dark:hover:border-violet-700">
+                <CardContent className="pt-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Graph size={20} weight="duotone" className="text-violet-600 dark:text-violet-400" />
+                    <h4 className="font-bold text-sm group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">Multi-Agent Orchestration</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Retriever → Analyzer → Synthesizer → Critic → Evolver. Science factories 
+                    use 5–12 specialised agents coordinated by a planner that decides which sub-pipeline 
+                    to activate based on uncertainty estimates.
+                  </p>
+                  <div className="text-xs text-violet-600 dark:text-violet-400 mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Deep dive <ArrowRight size={12} />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Pattern 4 */}
+            <Link to="/concepts/agent-observability" className="block group">
+              <Card className="h-full transition-all hover:shadow-lg hover:border-violet-300 dark:hover:border-violet-700">
+                <CardContent className="pt-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Eye size={20} weight="duotone" className="text-violet-600 dark:text-violet-400" />
+                    <h4 className="font-bold text-sm group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">Observability & Tracing</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    When an AI factory produces a novel hypothesis, you must trace <em>why</em>. Distributed tracing, 
+                    provenance graphs, and confidence calibration let scientist reviewers audit every reasoning step.
+                  </p>
+                  <div className="text-xs text-violet-600 dark:text-violet-400 mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Deep dive <ArrowRight size={12} />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Pattern 5 */}
+            <Link to="/concepts/agent-evaluation-methodologies" className="block group">
+              <Card className="h-full transition-all hover:shadow-lg hover:border-violet-300 dark:hover:border-violet-700">
+                <CardContent className="pt-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Gauge size={20} weight="duotone" className="text-violet-600 dark:text-violet-400" />
+                    <h4 className="font-bold text-sm group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">Evaluation Methodologies</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Scientific AI demands rigorous validation: reproducibility scores, ablation benchmarks, 
+                    statistical significance thresholds. These evaluation frameworks prevent 
+                    an AI factory from generating plausible-sounding but false discoveries.
+                  </p>
+                  <div className="text-xs text-violet-600 dark:text-violet-400 mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Deep dive <ArrowRight size={12} />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Pattern 6 */}
+            <Link to="/concepts/human-in-the-loop-patterns" className="block group">
+              <Card className="h-full transition-all hover:shadow-lg hover:border-violet-300 dark:hover:border-violet-700">
+                <CardContent className="pt-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <ShieldCheck size={20} weight="duotone" className="text-violet-600 dark:text-violet-400" />
+                    <h4 className="font-bold text-sm group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">Human-in-the-Loop</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    AI factories accelerate discovery but don't replace scientific judgment. 
+                    Gate-review patterns let domain experts approve/reject hypotheses at defined 
+                    milestones, ensuring reproducibility and ethical compliance.
+                  </p>
+                  <div className="text-xs text-violet-600 dark:text-violet-400 mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Deep dive <ArrowRight size={12} />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
+
+          {/* Additional Interlinks Bar */}
+          <div className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900/50 dark:to-slate-800/30 p-5 rounded-lg border border-slate-200 dark:border-slate-700">
+            <h4 className="font-semibold mb-3 text-sm">More Concepts for Science AI Architects</h4>
+            <div className="flex flex-wrap gap-2">
+              <Link to="/concepts/ai-ready-data"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">AI-Ready Data</Badge></Link>
+              <Link to="/concepts/data-knowledge-operations"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">DataKnowledgeOps</Badge></Link>
+              <Link to="/concepts/agent-skills"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">Agent Skills</Badge></Link>
+              <Link to="/concepts/mcp-a2a-integration"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">MCP + A2A Integration</Badge></Link>
+              <Link to="/concepts/fine-tuning"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">Fine-Tuning (SFT/DPO/RFT)</Badge></Link>
+              <Link to="/concepts/agent-testing-benchmarks"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">Testing & Benchmarks</Badge></Link>
+              <Link to="/concepts/agent-ops"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">AgentOps</Badge></Link>
+              <Link to="/concepts/responsible-ai-governance"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">Responsible AI</Badge></Link>
+              <Link to="/concepts/agent-cost-optimization"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">Cost Optimization</Badge></Link>
+              <Link to="/concepts/quantum-ai-robotics"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">Quantum AI + Robotics</Badge></Link>
+              <Link to="/concepts/experimentation-continuous-improvement"><Badge variant="outline" className="cursor-pointer hover:bg-primary/10">Experimentation & CI</Badge></Link>
+            </div>
+          </div>
+        </div>
+
+        {/* 2026 Inflection Points */}
+        <Card className="mb-8 border-2 border-red-200 dark:border-red-800 bg-gradient-to-br from-red-50/50 to-amber-50/50 dark:from-red-950/20 dark:to-amber-950/20">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Lightning size={24} weight="duotone" className="text-red-600 dark:text-red-400" />
+              2026 Inflection Points: Why Now?
+            </CardTitle>
+            <CardDescription>
+              Three converging trends are turning science AI from "interesting demos" into production factories
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/40 flex items-center justify-center text-red-600 dark:text-red-400 font-bold text-sm">1</div>
+                  <h5 className="font-bold text-sm">Foundation Models for Science</h5>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Models pre-trained on scientific corpora (AlphaFold 3, BioEmu-1, MatterSim, Aurora) give 
+                  agents domain-native reasoning. Fine-tuning costs dropped 90% since 2024, enabling 
+                  lab-specific customization.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center text-amber-600 dark:text-amber-400 font-bold text-sm">2</div>
+                  <h5 className="font-bold text-sm">Tool-Use Protocols (MCP / A2A)</h5>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Standardised protocols like <Link to="/concepts/mcp" className="text-primary hover:underline">MCP</Link> and <Link to="/concepts/a2a-communication" className="text-primary hover:underline">A2A</Link> let 
+                  agents call instruments, databases, and simulation engines as first-class tools — no bespoke 
+                  integration for each lab.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/40 flex items-center justify-center text-green-600 dark:text-green-400 font-bold text-sm">3</div>
+                  <h5 className="font-bold text-sm">Self-Driving Lab Hardware</h5>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Automated liquid handlers, robotic arms, and cloud-connected characterisation instruments 
+                  close the hypothesis → experiment → data loop. Agents plan, robots execute, 24/7.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Think-Through Box for Advanced Scientists */}
+        <Card className="mb-8 bg-gradient-to-br from-violet-50 to-blue-50 dark:from-violet-950/20 dark:to-blue-950/20 border-2 border-violet-300 dark:border-violet-800">
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Brain size={22} weight="duotone" className="text-violet-600 dark:text-violet-400" />
+              Think-Through: Design Your Own Science AI Factory
+            </CardTitle>
+            <CardDescription>
+              Use these questions to architect a multi-agent factory for your domain. Each question 
+              maps to a core concept in Open Agent School.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-3">
+                <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-violet-200 dark:border-violet-800">
+                  <p className="text-sm font-semibold mb-1">1. What data sources does my factory ingest?</p>
+                  <p className="text-xs text-muted-foreground">
+                    Papers, instrument logs, EHR records, simulation outputs? 
+                    → <Link to="/concepts/ai-ready-data" className="text-primary hover:underline">AI-Ready Data</Link>, <Link to="/concepts/data-knowledge-operations" className="text-primary hover:underline">DataKnowledgeOps</Link>
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-violet-200 dark:border-violet-800">
+                  <p className="text-sm font-semibold mb-1">2. How many specialised agents do I need?</p>
+                  <p className="text-xs text-muted-foreground">
+                    Retriever, Analyzer, Evolver, Critic, Validator? 
+                    → <Link to="/concepts/multi-agent-systems" className="text-primary hover:underline">Multi-Agent Systems</Link>, <Link to="/concepts/agent-architecture" className="text-primary hover:underline">Architecture</Link>
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-violet-200 dark:border-violet-800">
+                  <p className="text-sm font-semibold mb-1">3. How do agents communicate?</p>
+                  <p className="text-xs text-muted-foreground">
+                    Shared memory, message passing, tool-call protocol? 
+                    → <Link to="/concepts/a2a-communication" className="text-primary hover:underline">A2A</Link>, <Link to="/concepts/mcp" className="text-primary hover:underline">MCP</Link>, <Link to="/concepts/mcp-a2a-integration" className="text-primary hover:underline">MCP+A2A Integration</Link>
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-violet-200 dark:border-violet-800">
+                  <p className="text-sm font-semibold mb-1">4. How do I evaluate factory output?</p>
+                  <p className="text-xs text-muted-foreground">
+                    Statistical significance, reproducibility checks, ablation benchmarks? 
+                    → <Link to="/concepts/agent-evaluation-methodologies" className="text-primary hover:underline">Evaluation Methodologies</Link>, <Link to="/concepts/agent-testing-benchmarks" className="text-primary hover:underline">Testing & Benchmarks</Link>
+                  </p>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-violet-200 dark:border-violet-800">
+                  <p className="text-sm font-semibold mb-1">5. Where do humans stay in the loop?</p>
+                  <p className="text-xs text-muted-foreground">
+                    Gate reviews, hypothesis approval, ethical sign-off? 
+                    → <Link to="/concepts/human-in-the-loop-patterns" className="text-primary hover:underline">Human-in-the-Loop</Link>, <Link to="/concepts/responsible-ai-governance" className="text-primary hover:underline">Responsible AI Governance</Link>
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-violet-200 dark:border-violet-800">
+                  <p className="text-sm font-semibold mb-1">6. How do I observe and debug?</p>
+                  <p className="text-xs text-muted-foreground">
+                    Distributed tracing, confidence calibration, provenance graphs? 
+                    → <Link to="/concepts/agent-observability" className="text-primary hover:underline">Observability</Link>, <Link to="/concepts/agent-ops" className="text-primary hover:underline">AgentOps</Link>
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-violet-200 dark:border-violet-800">
+                  <p className="text-sm font-semibold mb-1">7. How do I improve over time?</p>
+                  <p className="text-xs text-muted-foreground">
+                    Fine-tune on lab data, reward shaping, active learning? 
+                    → <Link to="/concepts/fine-tuning" className="text-primary hover:underline">Fine-Tuning</Link>, <Link to="/concepts/experimentation-continuous-improvement" className="text-primary hover:underline">Experimentation & CI</Link>
+                  </p>
+                </div>
+                <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-violet-200 dark:border-violet-800">
+                  <p className="text-sm font-semibold mb-1">8. What's the security posture?</p>
+                  <p className="text-xs text-muted-foreground">
+                    IP protection, prompt injection defense, data isolation? 
+                    → <Link to="/concepts/agent-security" className="text-primary hover:underline">Agent Security</Link>, <Link to="/concepts/prompt-injection-defense" className="text-primary hover:underline">Prompt Injection Defense</Link>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Original Case Study - now in context after the Factory section */}
+      <div className="mb-8">
         <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 border-2 border-yellow-300 dark:border-yellow-800">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">

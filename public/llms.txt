@@ -1,6 +1,6 @@
 # Open Agent School - llms.txt
 # https://llmstxt.org/ - A standard for providing context to LLMs
-# Last updated: February 5, 2026
+# Last updated: February 10, 2026
 
 > Open Agent School is a comprehensive educational platform for mastering AI agents,
 > from foundational concepts to production-ready agentic systems.
@@ -93,6 +93,19 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Human-in-the-Loop Patterns - Approval workflows, escalation, oversight
 - Agent Cost Optimization - Token budgets, caching, model routing, batch processing
 
+### Science AI Factories (February 2026)
+- Agents for Science - 2026 walkthrough of how AI factories are evolving as cross-domain data mining powerhouses
+- Science AI Factory Architecture - Ingest → Mine → Synthesize → Generate pipeline with 5–12 specialised agents
+- Cross-Domain Data Mining - Revealing invisible patterns across physics, chemistry, biology, medicine, robotics
+- Physics: Surrogate simulators, synthetic dark matter maps, topological insulator predictions
+- Chemistry: Generative molecular agents, MatterGen/TamGen/DeepEvolve novel material design
+- Biology: AlphaGenome, BioEmu-1, multi-scale genome→proteome→phenotype reasoning chains
+- Medicine: Clinical miners, synthetic patient cohorts, 40% Phase I failure rate reduction
+- Robotics: Self-driving labs (A-Lab), cloud labs running 1,000+ experiments/day
+- Think-Through Framework - 8 guided questions to design your own Science AI Factory
+- DeepEvolve Framework - AlphaEvolve evolutionary search + Deep Research multi-agent synthesis
+- 2026 Inflection Points - Foundation models for science, MCP/A2A tool-use, self-driving lab hardware
+
 ### Advanced Topics
 - Multi-Agent Systems & Orchestration
 - Data Autonomy Patterns
@@ -118,6 +131,7 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Homepage: https://www.openagentschool.org/
 - Concepts Hub: https://www.openagentschool.org/concepts/
 - Agent Patterns: https://www.openagentschool.org/patterns/
+- Agents for Science: https://www.openagentschool.org/agents-for-science
 - Study Mode: https://www.openagentschool.org/study-mode/
 - AI Skills Explorer: https://www.openagentschool.org/ai-skills/
 - Learning Atlas: https://www.openagentschool.org/learning-atlas/

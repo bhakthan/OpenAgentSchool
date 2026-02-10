@@ -1,6 +1,6 @@
 # Open Agent School - ai.txt (experimental)
 # AI crawler context file for AI training and LLM discovery
-# Last updated: February 5, 2026
+# Last updated: February 10, 2026
 
 # Mission
 # Our mission: To benefit every Educational Institution, every Educator, and every Learner.
@@ -66,6 +66,14 @@ Concept-RLHF: https://www.openagentschool.org/concepts/rlhf
 # AI-Ready Data & Decision Intelligence (February 2026)
 Concept-AI-Ready-Data: https://www.openagentschool.org/concepts/ai-ready-data
 
+# Science AI Factory (February 2026)
+Agents-For-Science: https://www.openagentschool.org/agents-for-science
+# Comprehensive walkthrough of 2026 Science AI Factories:
+# Cross-domain data mining across physics, chemistry, biology, medicine, robotics
+# Self-driving labs, synthetic data generation, multi-agent hypothesis evolution
+# DeepEvolve framework, AlphaFold/BioEmu-1/MatterGen/TamGen/Aurora integration
+# Interlinks to 20+ agent patterns and core concepts for advanced scientist learners
+
 # 2026 Agent Patterns
 Pattern-Skill-Augmented: https://www.openagentschool.org/patterns/skill-augmented-agent
 Pattern-MCP-Orchestration: https://www.openagentschool.org/patterns/mcp-server-orchestration
@@ -78,6 +86,7 @@ Pattern-Semantic-Router: https://www.openagentschool.org/patterns/semantic-route
 Pattern-Verifier-Agent: https://www.openagentschool.org/patterns/verifier-agent
 
 # Learning Resources
+Agents-For-Science: https://www.openagentschool.org/agents-for-science
 Study-Mode: https://www.openagentschool.org/study-mode
 Patterns: https://www.openagentschool.org/patterns
 AI-Skills: https://www.openagentschool.org/ai-skills
