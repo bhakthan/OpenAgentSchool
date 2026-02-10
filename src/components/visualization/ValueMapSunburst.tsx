@@ -98,21 +98,36 @@ export default function ValueMapSunburst() {
   useEffect(() => {
     const updateDimensions = () => {
       if (containerRef.current) {
-        const width = Math.min(containerRef.current.clientWidth, 550);
-        const height = width;
-        setDimensions({ width, height });
+        const cw = containerRef.current.clientWidth;
+        if (cw > 0) {
+          const width = Math.min(cw, 550);
+          const height = width;
+          setDimensions({ width, height });
+        }
       }
     };
 
     updateDimensions();
+
+    // Use ResizeObserver for reliable measurement after layout
+    let ro: ResizeObserver | undefined;
+    if (containerRef.current && typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(updateDimensions);
+      ro.observe(containerRef.current);
+    }
+
     window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
+    return () => {
+      window.removeEventListener('resize', updateDimensions);
+      ro?.disconnect();
+    };
   }, []);
 
   useEffect(() => {
     if (!svgRef.current) return;
 
     const { width, height } = dimensions;
+    if (width === 0 || height === 0) return;
     const radius = Math.min(width, height) / 2;
 
     // Clear previous content
