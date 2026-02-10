@@ -193,11 +193,11 @@ export default defineConfig({
           }
           if (id.includes('/visualization/')) return 'visualizations';
           if (id.includes('/study-mode/')) return 'study-mode';
-          // Split each concept component into its own chunk
-          if (id.includes('/concepts/') && !id.includes('ConceptsHub') && !id.includes('ConceptsExplorer')) {
-            const match = id.match(/\/concepts\/([A-Z][^./]+)/);
-            if (match) return `concept-${match[1]}`;
-          }
+          // NOTE: Concept components are NOT manually chunked here.
+          // React.lazy() in ConceptsHub already creates per-concept code-split points.
+          // Forcing manualChunks on /concepts/ breaks static inter-concept imports
+          // (e.g. A2ACommunicationConcept → A2ACommunicationPatterns) by splitting
+          // them into separate chunks that duplicate React internals.
           return undefined;
         },
         chunkFileNames: 'assets/[name]-[hash].js',
