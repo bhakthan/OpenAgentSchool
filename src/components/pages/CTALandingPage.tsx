@@ -96,7 +96,7 @@ const CTALandingPage: React.FC = () => {
         {/* Platform Overview Image */}
         <div className="max-w-4xl mx-auto">
           <img 
-            src="/images/OpenAgentSchool_at_a_Glance.png" 
+            src="/images/OpenAgentSchool_at_a_Glance.webp" 
             alt="Open Agent School at a Glance - Complete learning platform overview" 
             className="w-full rounded-2xl shadow-xl border border-border/50"
           />

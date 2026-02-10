@@ -566,7 +566,7 @@ export default function AgentObservabilityConcept() {
             <Activity className="w-4 h-4" /> Agent Observability Dashboard
           </h3>
           <img 
-            src="/images/Agent_Observability_Dashboard.png" 
+            src="/images/Agent_Observability_Dashboard.webp" 
             alt="Agent Observability Dashboard: Traces, Metrics, Logs, and Alerts in a unified view" 
             className="w-full rounded-lg shadow-sm border"
             loading="lazy"

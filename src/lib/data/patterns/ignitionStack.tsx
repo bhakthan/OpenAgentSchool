@@ -274,7 +274,7 @@ const IgnitionStackVisualization: React.FC = () => {
         </p>
         <div className="rounded-lg border border-border bg-background/90 p-2 overflow-x-auto">
           <img
-            src="/images/IgnitionStack_Explained.png"
+            src="/images/IgnitionStack_Explained.webp"
             alt="IgnitionStack full architecture infographic — 8-stage pipeline from use case to production Azure workload"
             className="w-full h-auto rounded-lg"
             style={{ minHeight: '200px' }}

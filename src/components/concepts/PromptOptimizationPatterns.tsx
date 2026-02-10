@@ -167,9 +167,9 @@ const PromptOptimizationPatterns: React.FC<PromptOptimizationPatternsProps> = ({
                 <p className="text-muted-foreground text-xs">Reference adapted from <a href="https://arxiv.org/pdf/2509.14404" target="_blank" rel="noopener noreferrer" className="underline">arXiv:2509.14404</a> with pragmatic engineering-oriented clustering.</p>
               </div>
               <div className="rounded-lg border bg-muted/40 p-4 flex flex-col items-center gap-4">
-                {/* NOTE: Place the exported image file at public/images/prompt-defect-taxonomy.png */}
+                {/* NOTE: Place the exported image file at public/images/prompt-defect-taxonomy.webp */}
                 <img
-                  src="/images/prompt-defect-taxonomy.png"
+                  src="/images/prompt-defect-taxonomy.webp"
                   alt="Prompt Defect Taxonomy showing six dimensions: Specification & Intent, Input & Content, Structure & Formatting, Context & Memory, Performance & Efficiency, Maintainability & Engineering, each with sub-defects and mitigations."
                   className="w-full max-w-5xl rounded-md shadow-sm border"
                   loading="lazy"

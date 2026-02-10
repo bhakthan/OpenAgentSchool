@@ -79,7 +79,7 @@ export default function FineTuningConcept({ onMarkComplete, onNavigateToNext }: 
               <FlowArrow className="w-4 h-4" /> Fine-Tuning Methods Comparison
             </h3>
             <img 
-              src="/images/SFT_DPO_RFT.png" 
+              src="/images/SFT_DPO_RFT.webp" 
               alt="SFT, DPO, and RFT fine-tuning methods comparison showing progressive alignment stages" 
               className="w-full rounded-lg shadow-sm border"
               loading="lazy"

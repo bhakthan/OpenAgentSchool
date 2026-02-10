@@ -21,7 +21,7 @@ export interface LandingRightPanelProps {
 }
 
 export const LandingRightPanel: React.FC<LandingRightPanelProps> = ({
-  imageSrc = '/images/landing/open-agent-school-hero.png',
+  imageSrc = '/images/landing/open-agent-school-hero.webp',
   imageAlt = 'Open Agent School hero',
   className = '',
   imageHeightClasses = 'h-56 sm:h-64 md:h-80',

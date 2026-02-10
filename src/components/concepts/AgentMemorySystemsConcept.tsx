@@ -539,7 +539,7 @@ export default function AgentMemorySystemsConcept() {
             <Layers className="w-4 h-4" /> The 5-Layer Memory Hierarchy
           </h3>
           <img 
-            src="/images/Agent_Memory_Systems_5_Layers.png" 
+            src="/images/Agent_Memory_Systems_5_Layers.webp" 
             alt="Agent Memory Systems: 5-layer hierarchy from working memory to semantic memory" 
             className="w-full rounded-lg shadow-sm border"
             loading="lazy"
@@ -736,7 +736,7 @@ export default function AgentMemorySystemsConcept() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <img 
-                  src="/images/Memory_in_the_Age_Of_AI_Agents.png" 
+                  src="/images/Memory_in_the_Age_Of_AI_Agents.webp" 
                   alt="Memory in the Age of AI Agents - comprehensive visual guide to agent memory architectures" 
                   className="w-full rounded-lg shadow-md border"
                   loading="lazy"

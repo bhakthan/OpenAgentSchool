@@ -93,7 +93,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
           <Card>
             <CardContent className="pt-6">
               <img 
-                src="/images/a2a_communication.png" 
+                src="/images/a2a_communication.webp" 
                 alt="Agent-to-Agent Communication Architecture - How agents discover, connect, and collaborate"
                 className="w-full rounded-lg border border-border/50"
               />

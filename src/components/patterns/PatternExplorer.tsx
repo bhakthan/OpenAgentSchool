@@ -236,7 +236,7 @@ const PatternExplorer = () => {
                       <ChartLine size={16} /> IgnitionStack Agent — Full Pipeline Infographic
                     </h3>
                     <img
-                      src="/images/Ignition_Stack_Ralph_Style_Agent.png"
+                      src="/images/Ignition_Stack_Ralph_Style_Agent.webp"
                       alt="IgnitionStack Agent: end-to-end use-case-to-production pipeline — PRD intake, Azure Bicep IaC, AI Foundry agents, database schema, application scaffolding, and CI/CD deployment"
                       className="w-full rounded-lg shadow-sm border"
                       loading="lazy"

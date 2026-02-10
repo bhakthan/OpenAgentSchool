@@ -475,7 +475,7 @@ export default function AgentReasoningPatternsConcept() {
             <Brain className="w-4 h-4" /> Agent Reasoning Patterns Overview
           </h3>
           <img 
-            src="/images/Agent_Reasoning_Pattern.png" 
+            src="/images/Agent_Reasoning_Pattern.webp" 
             alt="Agent Reasoning Patterns: Chain-of-Thought, Tree-of-Thought, Graph-of-Thought, and Reflexion" 
             className="w-full rounded-lg shadow-sm border"
             loading="lazy"

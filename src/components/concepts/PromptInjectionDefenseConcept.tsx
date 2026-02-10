@@ -278,7 +278,7 @@ export default function PromptInjectionDefenseConcept() {
         <Card>
           <CardContent className="pt-6">
             <img 
-              src="/images/prompt_ingestion_defense.png" 
+              src="/images/prompt_ingestion_defense.webp" 
               alt="Prompt Injection Defense Architecture - Defense layers protecting agents from malicious inputs"
               className="w-full rounded-lg border border-border/50"
             />

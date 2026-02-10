@@ -306,7 +306,7 @@ Use this skill when the user needs to work with PDF files...
             </p>
             <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
               <img 
-                src="/images/Agent_Skills_Tool_MCP_SubAgents.png" 
+                src="/images/Agent_Skills_Tool_MCP_SubAgents.webp" 
                 alt="Infographic comparing Subagents, Skills, Tools, and MCP - showing their unique capabilities, integration points, and use cases in AI agent architectures"
                 className="w-full h-auto"
                 loading="lazy"
@@ -325,7 +325,7 @@ Use this skill when the user needs to work with PDF files...
             </p>
             <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
               <img 
-                src="/images/Agent_Architecture_Decision_Framework.png" 
+                src="/images/Agent_Architecture_Decision_Framework.webp" 
                 alt="Decision framework flowchart for choosing between Skills, Tools, Subagents, and MCP based on requirements"
                 className="w-full h-auto"
                 loading="lazy"

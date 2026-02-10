@@ -76,7 +76,7 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
           <Card>
             <CardContent className="pt-6">
               <img 
-                src="/images/MCP.png" 
+                src="/images/MCP.webp" 
                 alt="Model Context Protocol Architecture - The USB-C for AI Agents showing tool integration and data flow"
                 className="w-full rounded-lg border border-border/50"
               />

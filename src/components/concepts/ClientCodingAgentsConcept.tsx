@@ -157,7 +157,7 @@ export default function ClientCodingAgentsConcept({ onMarkComplete, onNavigateTo
                 </p>
                 <div className="border border-border rounded-lg overflow-hidden">
                   <img 
-                    src="/images/Anatomy_of_a_CLI_Coding_Agent.png" 
+                    src="/images/Anatomy_of_a_CLI_Coding_Agent.webp" 
                     alt="Anatomy of a CLI Coding Agent - showing the end-to-end flow from terminal input through the agentic loop, tool execution, and response generation" 
                     className="w-full"
                   />
@@ -1233,7 +1233,7 @@ done`}</code>
             <CardContent className="space-y-4">
               <div className="flex justify-center">
                 <img 
-                  src="/images/Claude_Code_Local_Intelligence_Approach_vs_RAG_Embeddings.png" 
+                  src="/images/Claude_Code_Local_Intelligence_Approach_vs_RAG_Embeddings.webp" 
                   alt="Claude Code Local Intelligence Approach vs RAG Embeddings comparison diagram"
                   className="rounded-lg border border-slate-200 dark:border-slate-700 max-w-full h-auto shadow-md"
                 />
@@ -1814,7 +1814,7 @@ scoop install extras/opencode-desktop`}</code>
               {/* Infographic */}
               <div className="my-6">
                 <img 
-                  src="/images/Agent_Client_Protocol_Any_Editor_Any_Agent.png" 
+                  src="/images/Agent_Client_Protocol_Any_Editor_Any_Agent.webp" 
                   alt="Agent Client Protocol: Any Editor, Any Agent - Infographic showing how ACP standardizes communication between code editors and coding agents"
                   className="w-full max-w-4xl mx-auto rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
                 />
@@ -2320,7 +2320,7 @@ uses: github/copilot-cli-action@v1`}</code>
 
               <div className="border border-border rounded-lg overflow-hidden">
                 <img
-                  src="/images/The_Ralph_Method.png"
+                  src="/images/The_Ralph_Method.webp"
                   alt="The Ralph Method — overview diagram showing the bash loop orchestration pattern for CLI coding agents"
                   className="w-full"
                 />
@@ -2441,7 +2441,7 @@ uses: github/copilot-cli-action@v1`}</code>
             <CardContent className="space-y-4">
               <div className="border border-border rounded-lg overflow-hidden">
                 <img
-                  src="/images/Bash_loop_Sprint_to_Task_Structural_Relationship.png"
+                  src="/images/Bash_loop_Sprint_to_Task_Structural_Relationship.webp"
                   alt="Bash loop Sprint to Task Structural Relationship — showing how iterations map to PRD tasks"
                   className="w-full"
                 />
@@ -2486,7 +2486,7 @@ uses: github/copilot-cli-action@v1`}</code>
             <CardContent className="space-y-4">
               <div className="border border-border rounded-lg overflow-hidden">
                 <img
-                  src="/images/Compositional_Balance_of_Task_Loop+Architecture.png"
+                  src="/images/Compositional_Balance_of_Task_Loop+Architecture.webp"
                   alt="Compositional Balance of Task Loop plus Architecture — showing the interplay between the Ralph loop and project feedback systems"
                   className="w-full"
                 />

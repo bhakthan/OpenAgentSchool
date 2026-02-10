@@ -93,7 +93,7 @@ export default function DataVisualizationConcept({ onMarkComplete, onNavigateToN
           <Card>
             <CardContent className="pt-6">
               <img 
-                src="/images/MCP_Apps_UI.png" 
+                src="/images/MCP_Apps_UI.webp" 
                 alt="MCP Apps Architecture - Interactive UI for AI Agents showing the flow from LLM to rendered interface"
                 className="w-full rounded-lg border border-border/50"
               />

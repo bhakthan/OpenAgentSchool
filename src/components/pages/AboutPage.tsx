@@ -39,7 +39,7 @@ const AboutPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-violet-500/5 to-fuchsia-500/5 rounded-3xl -z-10" />
         <div className="p-4 md:p-8">
           <img 
-            src="/images/OpenAgentSchool_at_a_Glance.png" 
+            src="/images/OpenAgentSchool_at_a_Glance.webp" 
             alt="Open Agent School at a Glance - Platform overview showing learning paths, concepts, patterns, and tools" 
             className="w-full rounded-2xl shadow-2xl border border-border"
           />

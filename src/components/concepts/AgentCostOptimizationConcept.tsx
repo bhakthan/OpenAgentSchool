@@ -433,7 +433,7 @@ export default function AgentCostOptimizationConcept() {
             <DollarSign className="w-4 h-4" /> Agent Cost Optimization Overview
           </h3>
           <img 
-            src="/images/Agent_Cost_Optimization.png" 
+            src="/images/Agent_Cost_Optimization.webp" 
             alt="Agent Cost Optimization: Token budgeting, caching, model routing, and batch processing strategies" 
             className="w-full rounded-lg shadow-sm border"
             loading="lazy"

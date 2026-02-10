@@ -639,7 +639,7 @@ export default function HumanInTheLoopPatternsConcept() {
             <Users className="w-4 h-4" /> Human-in-the-Loop Patterns Overview
           </h3>
           <img 
-            src="/images/Human_in_the_loop_Patterns.png" 
+            src="/images/Human_in_the_loop_Patterns.webp" 
             alt="Human-in-the-Loop Patterns: Approval gates, confidence thresholds, feedback loops, and graceful handoff" 
             className="w-full rounded-lg shadow-sm border"
             loading="lazy"

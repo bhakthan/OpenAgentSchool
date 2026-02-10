@@ -82,7 +82,7 @@ const AgentEvaluationConcept = () => {
             <div className="my-6">
               <h4 className="text-md font-semibold mb-3">LLM Evaluation Cheatsheet</h4>
               <img 
-                src="/images/LLM_Evaluation_Cheatsheet.png" 
+                src="/images/LLM_Evaluation_Cheatsheet.webp" 
                 alt="LLM Evaluation Cheatsheet - comprehensive guide to evaluation metrics, methods, and best practices"
                 className="w-full max-w-4xl mx-auto rounded-lg border shadow-sm"
               />
