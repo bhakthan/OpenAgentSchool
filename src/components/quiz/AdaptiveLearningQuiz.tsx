@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -43,6 +43,12 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // Refs for auto-scroll UX
+  const personaDifficultyRef = useRef<HTMLDivElement>(null);
+  const personaStartRef = useRef<HTMLDivElement>(null);
+  const categoryDifficultyRef = useRef<HTMLDivElement>(null);
+  const categoryStartRef = useRef<HTMLDivElement>(null);
 
   // Save quiz progress to localStorage
   const saveQuizProgress = useCallback((completedSession: QuizSession) => {
@@ -988,7 +994,11 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                         ? "ring-2 ring-primary bg-primary/5" 
                         : "hover:bg-muted/50"
                     )}
-                    onClick={() => setSelectedPersona(persona)}
+                    onClick={() => {
+                      setSelectedPersona(persona);
+                      // Auto-scroll to difficulty section after selection
+                      setTimeout(() => personaDifficultyRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                    }}
                   >
                     <div className="flex items-start gap-3">
                       <div className="p-2 bg-primary/10 rounded">
@@ -1015,7 +1025,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
             {(selectedPersona || selectedCategory) && (
               <div className="space-y-4">
                 <Separator />
-                <div>
+                <div ref={personaDifficultyRef}>
                   <h3 className="font-semibold mb-3">Difficulty Level</h3>
                   <div className="grid grid-cols-3 gap-3">
                     {(['beginner', 'intermediate', 'advanced'] as const).map((difficulty) => (
@@ -1027,7 +1037,11 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                             ? "ring-2 ring-primary bg-primary/5"
                             : "hover:bg-muted/50"
                         )}
-                        onClick={() => setSelectedDifficulty(difficulty)}
+                        onClick={() => {
+                          setSelectedDifficulty(difficulty);
+                          // Auto-scroll to start button after difficulty selection
+                          setTimeout(() => personaStartRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                        }}
                       >
                         <Badge className={cn("mb-2", getDifficultyColor(difficulty))}>
                           {difficulty}
@@ -1050,7 +1064,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                   </div>
                 )}
 
-                <div className="text-center">
+                <div className="text-center" ref={personaStartRef}>
                   <Button onClick={startQuiz} size="lg" className="min-w-32" disabled={loading}>
                     {loading ? (
                       <>
@@ -1087,7 +1101,11 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                         ? "ring-2 ring-primary bg-primary/5"
                         : "hover:bg-muted/50"
                     )}
-                    onClick={() => setSelectedCategory(category)}
+                    onClick={() => {
+                      setSelectedCategory(category);
+                      // Auto-scroll to difficulty section after topic selection
+                      setTimeout(() => categoryDifficultyRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                    }}
                   >
                     <div className="flex items-start gap-3">
                       <div className="p-2 bg-primary/10 rounded">
@@ -1131,7 +1149,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                   </div>
                 </div>
 
-                <div>
+                <div ref={categoryDifficultyRef}>
                   <h3 className="font-semibold mb-3">Difficulty Level</h3>
                   <div className="grid grid-cols-3 gap-3">
                     {(['beginner', 'intermediate', 'advanced'] as const).map((difficulty) => (
@@ -1143,7 +1161,11 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                             ? "ring-2 ring-primary bg-primary/5"
                             : "hover:bg-muted/50"
                         )}
-                        onClick={() => setSelectedDifficulty(difficulty)}
+                        onClick={() => {
+                          setSelectedDifficulty(difficulty);
+                          // Auto-scroll to start button after difficulty selection
+                          setTimeout(() => categoryStartRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                        }}
                       >
                         <Badge className={cn("mb-2", getDifficultyColor(difficulty))}>
                           {difficulty}
@@ -1166,7 +1188,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
                   </div>
                 )}
 
-                <div className="text-center">
+                <div className="text-center" ref={categoryStartRef}>
                   <Button onClick={startQuiz} size="lg" className="min-w-32" disabled={loading}>
                     {loading ? (
                       <>
