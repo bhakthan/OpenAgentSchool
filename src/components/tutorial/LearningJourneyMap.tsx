@@ -31,6 +31,7 @@ import { Lock } from "@phosphor-icons/react/dist/ssr/Lock";
 import { Package } from "@phosphor-icons/react/dist/ssr/Package";
 import { Scales } from "@phosphor-icons/react/dist/ssr/Scales";
 import { Lightning } from "@phosphor-icons/react/dist/ssr/Lightning";
+import { ArrowUp } from "@phosphor-icons/react/dist/ssr/ArrowUp";
 import { cn } from "@/lib/utils";
 import { useTheme } from '@/components/theme/ThemeProvider';
 
@@ -931,6 +932,8 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
   const [selectedPath, setSelectedPath] = useState<LearningPath>(learningPaths[0]);
   const [activeTier, setActiveTier] = useState(0);
   const tierRefs = useRef<Record<number, HTMLDivElement | null>>({});
+  const mainScrollRef = useRef<HTMLDivElement>(null);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const { isDarkMode } = useTheme();
   const tierLabels = [
     'Tier 0: Core Concepts',
@@ -1196,6 +1199,22 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     });
   };
 
+  // Track scroll position in main content area to show/hide back-to-top button
+  useEffect(() => {
+    const viewport = mainScrollRef.current?.querySelector('[data-slot="scroll-area-viewport"]');
+    if (!viewport) return;
+    const handleScroll = () => {
+      setShowBackToTop(viewport.scrollTop > 300);
+    };
+    viewport.addEventListener('scroll', handleScroll, { passive: true });
+    return () => viewport.removeEventListener('scroll', handleScroll);
+  }, []);  // ref is stable, only needs one attachment
+
+  const scrollToTop = () => {
+    const viewport = mainScrollRef.current?.querySelector('[data-slot="scroll-area-viewport"]');
+    viewport?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className={cn("fixed inset-0 z-50 overflow-y-auto", overlayClass)}>
       <div className="min-h-full flex items-center justify-center p-4">
@@ -1327,7 +1346,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
                 </div>
               </ScrollArea>
             </aside>
-            <div className="flex flex-col min-h-0">
+            <div className="relative flex flex-col min-h-0" ref={mainScrollRef}>
               <ScrollArea className="flex-1 h-full px-6 py-6">
                 <div className="space-y-8 pb-12">
                   {nextNode && (
@@ -1529,6 +1548,29 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
                   )}
                 </div>
               </ScrollArea>
+              {/* Floating back-to-top + close FAB */}
+              {showBackToTop && (
+                <div className="absolute bottom-6 right-6 z-10 flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 duration-300">
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    onClick={scrollToTop}
+                    className="h-11 w-11 rounded-full shadow-lg border border-border/60 bg-background/95 dark:bg-background/80 backdrop-blur-sm hover:bg-primary/10 hover:text-primary transition-all"
+                    title="Back to top"
+                  >
+                    <ArrowUp size={20} weight="bold" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="secondary"
+                    onClick={onClose}
+                    className="h-11 w-11 rounded-full shadow-lg border border-border/60 bg-background/95 dark:bg-background/80 backdrop-blur-sm hover:bg-destructive/10 hover:text-destructive transition-all text-lg font-bold"
+                    title="Close journey map"
+                  >
+                    ×
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </CardContent>
