@@ -20,6 +20,7 @@ import { Lightning } from '@phosphor-icons/react/dist/ssr/Lightning';
 import { DotsThree } from '@phosphor-icons/react/dist/ssr/DotsThree';
 import { Compass } from '@phosphor-icons/react/dist/ssr/Compass';
 import { Atom } from '@phosphor-icons/react/dist/ssr/Atom';
+import { Sparkle } from '@phosphor-icons/react/dist/ssr/Sparkle';
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtils';
 import { setupReactFlowErrorHandling } from './lib/utils/reactFlowUtils';
@@ -81,6 +82,7 @@ const VelocityScoreDashboard = lazy(() => import('./components/velocity/Velocity
 const PatternMasteryTracker = lazy(() => import('./components/velocity/PatternMasteryTracker'));
 const VelocityCaseStudies = lazy(() => import('./components/velocity/VelocityCaseStudies'));
 const AVEWorkshopCurriculum = lazy(() => import('./components/velocity/AVEWorkshopCurriculum'));
+const ValueMapPage = lazy(() => import('./pages/ValueMapPage'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -381,6 +383,15 @@ function App() {
                 <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
+                      <Link
+                        to="/value-map"
+                        className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-gradient-to-r from-yellow-400 to-amber-500 px-4 py-2 text-sm font-bold text-gray-900 transition-all hover:from-yellow-500 hover:to-amber-600 hover:shadow-lg hover:scale-105 animate-pulse"
+                        title="Discover what you'll master at Open Agent School"
+                      >
+                        <Sparkle className="mr-1" size={16} weight="fill" /> Skills Universe
+                      </Link>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
                       <a
                         href="https://github.com/bhakthan/openagentschool"
                         target="_blank"
@@ -676,6 +687,7 @@ function App() {
                   <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
                   <Route path="/quiz/:quizId?" element={<QuizSection />} />
                   <Route path="/tree-view" element={<TreeVisualizationPage />} />
+                  <Route path="/value-map" element={<ValueMapPage />} />
                   <Route path="/scl-demo" element={<SCLDemo />} />
                   <Route path="/agents" element={<AgentsConsole />} />
                   <Route path="/references" element={<ReferencesSection />} />

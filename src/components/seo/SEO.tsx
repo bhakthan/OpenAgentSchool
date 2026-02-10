@@ -536,5 +536,11 @@ export const pageSEOConfigs = {
     title: 'Compound Agent Capability - Strategic Variant | Open Agent School',
     description: 'Variant hero: Reduce initiative drift and compound durable agent capability. Architecture clarity, evaluation harnesses, failure drills, and operational economics—sequenced for measurable uplift.',
     keywords: 'agent capability compounding, AI architecture clarity, evaluation harness design, agent reliability drills, AI operational economics'
+  },
+  '/value-map': {
+    title: 'Skills Universe - What You\'ll Master at Open Agent School',
+    description: 'Discover the complete value proposition of Open Agent School through an interactive sunburst visualization showing AI agent concepts, patterns, skills, tools, and practices you\'ll gain. Click segments to explore: Core Concepts (foundational knowledge), Agent Patterns (proven designs), Applied Skills (practical implementation), Study & Practice (interactive exercises), Tools & Platform (Azure, MCP), Adoption Playbooks (enterprise strategies), Research & Papers (curated resources), Community (collaboration), and Knowledge Search (semantic documentation). Join 100M+ learners mastering AI agents from concepts to production.',
+    keywords: 'AI agent skills, value proposition, skills universe, what you\'ll learn, AI mastery, agent development journey, complete learning path, AI skills map, agent expertise, learning outcomes, AI capabilities, skill development, comprehensive AI training, agent builder skills, production AI skills, AI knowledge map, learning visualization, skills overview',
+    image: DEFAULT_SEO.image
   }
 };
