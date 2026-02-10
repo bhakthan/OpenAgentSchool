@@ -353,7 +353,7 @@ function App() {
                 </button>
               </div>
               
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 flex-wrap justify-end">
                 <Button
                   variant="outline"
                   size="sm"
@@ -380,17 +380,16 @@ function App() {
                   <span className="text-xs text-muted-foreground hidden md:inline-block">Theme</span>
                 </div>
                 <UserMenu />
+                <Link
+                  to="/value-map"
+                  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-gradient-to-r from-yellow-400 to-amber-500 px-3 py-2 text-sm font-bold text-gray-900 transition-all hover:from-yellow-500 hover:to-amber-600 hover:shadow-lg hover:scale-105 animate-pulse"
+                  title="Discover what you'll master at Open Agent School"
+                >
+                  <Sparkle className="mr-1" size={16} weight="fill" />
+                  <span className="hidden lg:inline">Skills Universe</span>
+                </Link>
                 <NavigationMenu>
                   <NavigationMenuList>
-                    <NavigationMenuItem>
-                      <Link
-                        to="/value-map"
-                        className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-gradient-to-r from-yellow-400 to-amber-500 px-4 py-2 text-sm font-bold text-gray-900 transition-all hover:from-yellow-500 hover:to-amber-600 hover:shadow-lg hover:scale-105 animate-pulse"
-                        title="Discover what you'll master at Open Agent School"
-                      >
-                        <Sparkle className="mr-1" size={16} weight="fill" /> Skills Universe
-                      </Link>
-                    </NavigationMenuItem>
                     <NavigationMenuItem>
                       <a
                         href="https://github.com/bhakthan/openagentschool"
