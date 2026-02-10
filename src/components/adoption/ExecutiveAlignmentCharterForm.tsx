@@ -12,7 +12,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/lib/auth/AuthContext';
 import * as XLSX from 'xlsx';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
-import { saveAs } from 'file-saver';
+// file-saver is dynamically imported at usage to reduce initial bundle
 
 interface CharterFormData {
   // Document Control
@@ -554,6 +554,7 @@ export function ExecutiveAlignmentCharterForm() {
     });
 
     const blob = await Packer.toBlob(doc);
+    const { saveAs } = await import('file-saver');
     saveAs(blob, `Executive_Alignment_Charter_${formData.organizationName.replace(/\s/g, '_')}.docx`);
   };
 

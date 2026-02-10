@@ -12,7 +12,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/lib/auth/AuthContext';
 import * as XLSX from 'xlsx';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, PageBreak, AlignmentType } from 'docx';
-import { saveAs } from 'file-saver';
+// file-saver is dynamically imported at usage to reduce initial bundle
 
 interface StakeholderBriefing {
   summary: string;
@@ -329,6 +329,7 @@ export function BoardReadyBriefingPackForm() {
     });
 
     const blob = await Packer.toBlob(doc);
+    const { saveAs } = await import('file-saver');
     saveAs(blob, `Board_Ready_Briefing_Pack_${formData.organizationName.replace(/\s/g, '_')}.docx`);
   };
 

@@ -1,66 +1,75 @@
-import { useState } from "react"
+import { useState, lazy, Suspense } from "react"
 import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database } from "@phosphor-icons/react"
 import { ShareButton } from "@/components/ui/ShareButton"
-import AIAgentsConcept from "./AIAgentsConcept"
-import A2ACommunicationConcept from "./A2ACommunicationConcept"
-import MCPConcept from "./MCPConcept"
-import ACPConcept from "./ACPConcept"
-import MCPxA2AIntegrationConcept from "./MCPxA2AIntegrationConcept"
-import FlowVisualizationConcept from "./FlowVisualizationConcept"
-import DataVisualizationConcept from "./DataVisualizationConcept"
-import AgentArchitectureConcept from "./AgentArchitectureConcept"
-import AgentSecurityConcept from "./AgentSecurityConcept"
-import MultiAgentSystemsConcept from "./MultiAgentSystemsConcept"
-import AgentDeploymentConcept from "./AgentDeploymentConcept"
-import AgentEthicsConcept from "./AgentEthicsConcept"
-import AgentLearningConcept from "./AgentLearningConcept"
-import AgentIntegrationConcept from "./AgentIntegrationConcept"
-import AgentEvaluationConcept from "./AgentEvaluationConcept"
-import FineTuningConcept from "./FineTuningConcept"
-import AgenticCommerceAP2Concept from "./AgenticCommerceAP2Concept"
-import ProductManagementConcept from "./ProductManagementConcept"
-import AgentOpsConcept from "./AgentOpsConcept"
-import AgenticRoboticsConcept from "./AgenticRoboticsConcept"
-import QuantumAIRoboticsConcept from "./QuantumAIRoboticsConcept"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
-import AzureAISafetyAndGovernance from "./AzureAISafetyAndGovernance"
-import AgenticPromptingFundamentals from "./AgenticPromptingFundamentals"
-import PromptOptimizationPatterns from "./PromptOptimizationPatterns"
-import AgentInstructionDesign from "./AgentInstructionDesign"
-import AgenticWorkflowControl from "./AgenticWorkflowControl"
-import AgentEvaluationMethodologies from "./AgentEvaluationMethodologies"
-import AgenticAIDesignTaxonomy from "./AgenticAIDesignTaxonomy"
-import ProgramSetupNorthStarConcept from "./ProgramSetupNorthStarConcept"
-import ResponsibleAIGovernanceConcept from "./ResponsibleAIGovernanceConcept"
-import StrategyPortfolioManagementConcept from "./StrategyPortfolioManagementConcept"
-import DataKnowledgeOperationsConcept from "./DataKnowledgeOperationsConcept"
-import AIReadyDataConcept from "./AIReadyDataConcept"
-import ArchitecturePlatformOperationsConcept from "./ArchitecturePlatformOperationsConcept"
-import ExperimentationContinuousImprovementConcept from "./ExperimentationContinuousImprovementConcept"
-import EcosystemPartnershipsConcept from "./EcosystemPartnershipsConcept"
-import OrganizationalEnablementConcept from "./OrganizationalEnablementConcept"
-import AIProductFrameworkConcept from "./AIProductFrameworkConcept"
-import ClientCodingAgentsConcept from "./ClientCodingAgentsConcept"
-import AgentSkillsConcept from "./AgentSkillsConcept"
-import AgentRedTeamingConcept from "./AgentRedTeamingConcept"
-import AgentTroubleshootingPlaybook from "./AgentTroubleshootingPlaybook"
-import AgentEconomicsConcept from "./AgentEconomicsConcept"
-import AgentCareerPathsConcept from "./AgentCareerPathsConcept"
-import IndustryAgentsConcept from "./IndustryAgentsConcept"
-import AgentTemplatesHub from "./AgentTemplatesHub"
-import AgentReasoningPatternsConcept from "./AgentReasoningPatternsConcept"
-import AgentMemorySystemsConcept from "./AgentMemorySystemsConcept"
-import AgentObservabilityConcept from "./AgentObservabilityConcept"
-import AgentTestingBenchmarksConcept from "./AgentTestingBenchmarksConcept"
-import PromptInjectionDefenseConcept from "./PromptInjectionDefenseConcept"
-import HumanInTheLoopPatternsConcept from "./HumanInTheLoopPatternsConcept"
-import AgentCostOptimizationConcept from "./AgentCostOptimizationConcept"
-import EdgeAgentConcept from "./EdgeAgentConcept"
+
+// ── Lazy-loaded concept components (code-split per concept) ──────────────
+const AIAgentsConcept = lazy(() => import("./AIAgentsConcept"))
+const A2ACommunicationConcept = lazy(() => import("./A2ACommunicationConcept"))
+const MCPConcept = lazy(() => import("./MCPConcept"))
+const ACPConcept = lazy(() => import("./ACPConcept"))
+const MCPxA2AIntegrationConcept = lazy(() => import("./MCPxA2AIntegrationConcept"))
+const FlowVisualizationConcept = lazy(() => import("./FlowVisualizationConcept"))
+const DataVisualizationConcept = lazy(() => import("./DataVisualizationConcept"))
+const AgentArchitectureConcept = lazy(() => import("./AgentArchitectureConcept"))
+const AgentSecurityConcept = lazy(() => import("./AgentSecurityConcept"))
+const MultiAgentSystemsConcept = lazy(() => import("./MultiAgentSystemsConcept"))
+const AgentDeploymentConcept = lazy(() => import("./AgentDeploymentConcept"))
+const AgentEthicsConcept = lazy(() => import("./AgentEthicsConcept"))
+const AgentLearningConcept = lazy(() => import("./AgentLearningConcept"))
+const AgentIntegrationConcept = lazy(() => import("./AgentIntegrationConcept"))
+const AgentEvaluationConcept = lazy(() => import("./AgentEvaluationConcept"))
+const FineTuningConcept = lazy(() => import("./FineTuningConcept"))
+const AgenticCommerceAP2Concept = lazy(() => import("./AgenticCommerceAP2Concept"))
+const ProductManagementConcept = lazy(() => import("./ProductManagementConcept"))
+const AgentOpsConcept = lazy(() => import("./AgentOpsConcept"))
+const AgenticRoboticsConcept = lazy(() => import("./AgenticRoboticsConcept"))
+const QuantumAIRoboticsConcept = lazy(() => import("./QuantumAIRoboticsConcept"))
+const AzureAISafetyAndGovernance = lazy(() => import("./AzureAISafetyAndGovernance"))
+const AgenticPromptingFundamentals = lazy(() => import("./AgenticPromptingFundamentals"))
+const PromptOptimizationPatterns = lazy(() => import("./PromptOptimizationPatterns"))
+const AgentInstructionDesign = lazy(() => import("./AgentInstructionDesign"))
+const AgenticWorkflowControl = lazy(() => import("./AgenticWorkflowControl"))
+const AgentEvaluationMethodologies = lazy(() => import("./AgentEvaluationMethodologies"))
+const AgenticAIDesignTaxonomy = lazy(() => import("./AgenticAIDesignTaxonomy"))
+const ProgramSetupNorthStarConcept = lazy(() => import("./ProgramSetupNorthStarConcept"))
+const ResponsibleAIGovernanceConcept = lazy(() => import("./ResponsibleAIGovernanceConcept"))
+const StrategyPortfolioManagementConcept = lazy(() => import("./StrategyPortfolioManagementConcept"))
+const DataKnowledgeOperationsConcept = lazy(() => import("./DataKnowledgeOperationsConcept"))
+const AIReadyDataConcept = lazy(() => import("./AIReadyDataConcept"))
+const ArchitecturePlatformOperationsConcept = lazy(() => import("./ArchitecturePlatformOperationsConcept"))
+const ExperimentationContinuousImprovementConcept = lazy(() => import("./ExperimentationContinuousImprovementConcept"))
+const EcosystemPartnershipsConcept = lazy(() => import("./EcosystemPartnershipsConcept"))
+const OrganizationalEnablementConcept = lazy(() => import("./OrganizationalEnablementConcept"))
+const AIProductFrameworkConcept = lazy(() => import("./AIProductFrameworkConcept"))
+const ClientCodingAgentsConcept = lazy(() => import("./ClientCodingAgentsConcept"))
+const AgentSkillsConcept = lazy(() => import("./AgentSkillsConcept"))
+const AgentRedTeamingConcept = lazy(() => import("./AgentRedTeamingConcept"))
+const AgentTroubleshootingPlaybook = lazy(() => import("./AgentTroubleshootingPlaybook"))
+const AgentEconomicsConcept = lazy(() => import("./AgentEconomicsConcept"))
+const AgentCareerPathsConcept = lazy(() => import("./AgentCareerPathsConcept"))
+const IndustryAgentsConcept = lazy(() => import("./IndustryAgentsConcept"))
+const AgentTemplatesHub = lazy(() => import("./AgentTemplatesHub"))
+const AgentReasoningPatternsConcept = lazy(() => import("./AgentReasoningPatternsConcept"))
+const AgentMemorySystemsConcept = lazy(() => import("./AgentMemorySystemsConcept"))
+const AgentObservabilityConcept = lazy(() => import("./AgentObservabilityConcept"))
+const AgentTestingBenchmarksConcept = lazy(() => import("./AgentTestingBenchmarksConcept"))
+const PromptInjectionDefenseConcept = lazy(() => import("./PromptInjectionDefenseConcept"))
+const HumanInTheLoopPatternsConcept = lazy(() => import("./HumanInTheLoopPatternsConcept"))
+const AgentCostOptimizationConcept = lazy(() => import("./AgentCostOptimizationConcept"))
+const EdgeAgentConcept = lazy(() => import("./EdgeAgentConcept"))
+
+// Loading fallback for lazy concept components
+const ConceptLoader = () => (
+  <div className="flex items-center justify-center h-64">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+  </div>
+)
 
 interface ConceptInfo {
   id: string
@@ -856,10 +865,12 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
             </div>
           </div>
           <div className="space-y-6">
-            <ConceptComponent 
-              onMarkComplete={() => markConceptComplete(selectedConcept)}
-              onNavigateToNext={handleNextConcept}
-            />
+            <Suspense fallback={<ConceptLoader />}>
+              <ConceptComponent 
+                onMarkComplete={() => markConceptComplete(selectedConcept)}
+                onNavigateToNext={handleNextConcept}
+              />
+            </Suspense>
             
             <Button
               size="lg"

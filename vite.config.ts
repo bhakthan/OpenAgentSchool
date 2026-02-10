@@ -89,7 +89,7 @@ export default defineConfig({
       workbox: {
         clientsClaim: true,
         skipWaiting: true,
-        globPatterns: ['**/*.{js,css,html,ico,svg,woff,woff2}'],
+        globPatterns: ['**/*.{js,css,html,ico,svg,woff,woff2,webp}'],
         globIgnores: ['**/images/Agent_Skills_Tool_MCP_SubAgents.png'],  // Exclude large infographic (9MB)
         navigateFallback: null, // We'll handle navigation fallback manually
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10 MB (large visualization and infographic files)
@@ -193,6 +193,11 @@ export default defineConfig({
           }
           if (id.includes('/visualization/')) return 'visualizations';
           if (id.includes('/study-mode/')) return 'study-mode';
+          // Split each concept component into its own chunk
+          if (id.includes('/concepts/') && !id.includes('ConceptsHub') && !id.includes('ConceptsExplorer')) {
+            const match = id.match(/\/concepts\/([A-Z][^./]+)/);
+            if (match) return `concept-${match[1]}`;
+          }
           return undefined;
         },
         chunkFileNames: 'assets/[name]-[hash].js',
