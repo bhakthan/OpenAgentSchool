@@ -1178,6 +1178,18 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     return achievements;
   };
 
+  // Track scroll position in main content area to show/hide back-to-top button
+  useEffect(() => {
+    if (!isVisible) return;
+    const viewport = mainScrollRef.current?.querySelector('[data-slot="scroll-area-viewport"]');
+    if (!viewport) return;
+    const handleScroll = () => {
+      setShowBackToTop(viewport.scrollTop > 300);
+    };
+    viewport.addEventListener('scroll', handleScroll, { passive: true });
+    return () => viewport.removeEventListener('scroll', handleScroll);
+  }, [isVisible]);
+
   if (!isVisible) return null;
 
   const nextNode = getNextRecommendedNode();
@@ -1198,17 +1210,6 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
       target?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     });
   };
-
-  // Track scroll position in main content area to show/hide back-to-top button
-  useEffect(() => {
-    const viewport = mainScrollRef.current?.querySelector('[data-slot="scroll-area-viewport"]');
-    if (!viewport) return;
-    const handleScroll = () => {
-      setShowBackToTop(viewport.scrollTop > 300);
-    };
-    viewport.addEventListener('scroll', handleScroll, { passive: true });
-    return () => viewport.removeEventListener('scroll', handleScroll);
-  }, []);  // ref is stable, only needs one attachment
 
   const scrollToTop = () => {
     const viewport = mainScrollRef.current?.querySelector('[data-slot="scroll-area-viewport"]');
