@@ -3,9 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
 import SubagentSkillsMCPComparison from "../visualization/SubagentSkillsMCPComparison"
-import { PuzzlePiece, FileCode, FolderOpen, Robot, Lightning, Code, BookOpen, ArrowsClockwise, Sparkle, CheckCircle, Warning, Brain, Image } from "@phosphor-icons/react"
+import { PuzzlePiece, FileCode, FolderOpen, Robot, Lightning, Code, BookOpen, ArrowsClockwise, Sparkle, CheckCircle, Warning, Brain, Image, Flask, ArrowRight, GithubLogo } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
+import { Link } from "react-router-dom";
 
 interface AgentSkillsConceptProps {
   onMarkComplete?: () => void
@@ -1412,6 +1413,43 @@ Extract text with pdfplumber: [code example]
                   <li>• <strong>Tool misuse:</strong> Malicious skills can invoke tools harmfully</li>
                   <li>• <strong>Treat like software:</strong> Same care as installing unknown packages</li>
                 </ul>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-cyan-200 dark:border-cyan-800 bg-gradient-to-r from-cyan-50/50 to-blue-50/50 dark:from-cyan-950/20 dark:to-blue-950/20">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base flex items-center gap-2">
+                <Flask size={20} className="text-cyan-600 dark:text-cyan-400" weight="duotone" />
+                Real-World Example: 140+ Scientific Skills for Claude
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                The <strong>Claude Scientific Skills</strong> project by K-Dense AI demonstrates the Agent Skills 
+                specification at scale—140 ready-to-use SKILL.md files covering bioinformatics, drug discovery, 
+                clinical research, proteomics, materials science, lab automation, and more. Each skill includes 
+                documentation, code examples, and reference materials, and can be installed as a Claude Code plugin 
+                or accessed via MCP server.
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {['Bioinformatics', 'Drug Discovery', 'Clinical Research', 'ML & AI', 'Lab Automation', '28+ Databases', '55+ Python Packages'].map(tag => (
+                  <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0">{tag}</Badge>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <a 
+                  href="https://github.com/K-Dense-AI/claude-scientific-skills" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-sm text-primary hover:underline flex items-center gap-1"
+                >
+                  <GithubLogo size={14} /> View Repository
+                </a>
+                <span className="text-muted-foreground text-xs">•</span>
+                <Link to="/agents-for-science" className="text-sm text-primary hover:underline flex items-center gap-1">
+                  See Agents for Science <ArrowRight size={14} />
+                </Link>
               </div>
             </CardContent>
           </Card>

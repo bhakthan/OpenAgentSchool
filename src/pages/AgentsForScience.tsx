@@ -1460,6 +1460,37 @@ export default function AgentsForScience() {
               </div>
             </div>
 
+            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg border border-cyan-200 dark:border-cyan-800">
+              <GithubLogo size={24} className="flex-shrink-0 mt-1" />
+              <div className="flex-1">
+                <h5 className="font-semibold mb-1">Claude Scientific Skills (K-Dense AI)</h5>
+                <p className="text-sm text-muted-foreground mb-2">
+                  140+ ready-to-use scientific skills for Claude covering bioinformatics, cheminformatics, drug discovery, 
+                  clinical research, proteomics, materials science, lab automation, and more. Installable as a Claude Code plugin 
+                  or MCP server for any MCP-compatible client.
+                </p>
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {['Bioinformatics', 'Drug Discovery', 'Clinical Research', 'ML & AI', 'Lab Automation', 'Multi-Omics', 'Scientific Communication'].map(tag => (
+                    <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0">{tag}</Badge>
+                  ))}
+                </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button 
+                    variant="link" 
+                    size="sm" 
+                    className="p-0 h-auto"
+                    onClick={() => window.open('https://github.com/K-Dense-AI/claude-scientific-skills', '_blank')}
+                  >
+                    View Repository <ArrowUpRight size={14} className="ml-1" />
+                  </Button>
+                  <span className="text-muted-foreground text-xs">•</span>
+                  <Link to="/concepts/agent-skills" className="text-sm text-primary hover:underline flex items-center gap-1">
+                    Learn about Agent Skills <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
               <GoogleLogo size={24} className="flex-shrink-0 text-blue-600 dark:text-blue-400 mt-1" weight="duotone" />
               <div className="flex-1">
@@ -1552,6 +1583,21 @@ export default function AgentsForScience() {
                   Explore additional research on agentic AI for materials science, drug discovery, 
                   and automated hypothesis generation in the <a href="/references" className="text-primary hover:underline">References</a> section.
                 </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-950/30 dark:to-blue-950/30 rounded-lg border border-cyan-200 dark:border-cyan-800">
+              <Plugs size={24} className="flex-shrink-0 text-cyan-600 dark:text-cyan-400 mt-1" weight="duotone" />
+              <div className="flex-1">
+                <h5 className="font-semibold mb-1">Core Concept: Agent Skills for Scientific Workflows</h5>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Scientific skills like those above are built on the <strong>Agent Skills</strong> specification—a 
+                  modular SKILL.md format that lets agents load domain expertise on demand. Learn how to evaluate, 
+                  compose, and create your own skills for research workflows.
+                </p>
+                <Link to="/concepts/agent-skills" className="text-sm text-primary hover:underline font-medium flex items-center gap-1">
+                  Go to Agent Skills Concept <ArrowRight size={14} />
+                </Link>
               </div>
             </div>
           </div>
