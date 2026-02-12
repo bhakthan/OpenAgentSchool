@@ -1,4 +1,4 @@
-﻿#  Open Agent School
+#  Open Agent School
 
 [![Static Web Apps CI/CD](https://github.com/bhakthan/OpenAgentSchool/actions/workflows/azure-static-web-apps-gray-pond-041017f10.yml/badge.svg?branch=main)](https://github.com/bhakthan/OpenAgentSchool/actions/workflows/azure-static-web-apps-gray-pond-041017f10.yml)
 [![Latest release](https://img.shields.io/github/v/release/bhakthan/OpenAgentSchool?include_prereleases&sort=semver)](https://github.com/bhakthan/OpenAgentSchool/releases)
@@ -9,16 +9,16 @@
 > _An interactive learning platform for mastering AI agents, patterns, and production architectures_
 
 <p align="center">
-  <img src="public/images/OpenAgentSchool_at_a_Glance.png" alt="Open Agent School at a Glance" width="800" />
+  <img src="public/images/OpenAgentSchool_at_a_Glance.webp" alt="Open Agent School at a Glance" width="800" />
 </p>
 
-** Live Platform:** [openagentschool.org](https://openagentschool.org)
+**Live Platform:** [openagentschool.org](https://openagentschool.org)
 
 ---
 
 ## What is Open Agent School?
 
-Open Agent School is a **comprehensive educational platform** designed to help developers, architects, and product managers master AI agentsfrom foundational concepts to advanced production patterns.
+Open Agent School is a **comprehensive educational platform** designed to help developers, architects, and product managers master AI agents — from foundational concepts to advanced production patterns.
 
 ###  What You'll Learn
 
@@ -92,7 +92,7 @@ Open Agent School is a **comprehensive educational platform** designed to help d
 
 ### For Developers
 
-`ash
+```bash
 # Clone the repository
 git clone https://github.com/bhakthan/OpenAgentSchool.git
 cd OpenAgentSchool
@@ -104,11 +104,11 @@ npm install
 npm run dev
 
 # Open http://localhost:5000
-`
+```
 
 ### With Backend Services (Optional)
 
-`powershell
+```powershell
 # Start all three microservices
 .\start-backend.ps1
 
@@ -116,7 +116,7 @@ npm run dev
 # - Core API (8000): User management, quiz, progress
 # - Agent Orchestrator (8002): AI agents, critical thinking
 # - Knowledge Service (8003): Document processing, semantic search
-`
+```
 
 > **Note**: The frontend works standalone. Backend services enable advanced features like user progress tracking and AI-powered assessments.
 
@@ -125,7 +125,7 @@ npm run dev
 ##  Documentation
 
 - **[Detailed Documentation](./docs/DETAILED_README.md)** - Comprehensive feature list and architecture
-- **[Backend Integration](./BACKEND_INTEGRATION.md)** - Microservices setup and API reference
+- **[Backend Quick Reference](./BACKEND_QUICK_REF.md)** - Microservices setup and API reference
 - **[Agent Guide](./AGENTS.md)** - Guide for AI coding agents contributing to the project
 - **[Architecture Overview](./docs/backend/ARCHITECTURE_OVERVIEW.md)** - System design and service dependencies
 
