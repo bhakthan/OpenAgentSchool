@@ -3,6 +3,7 @@
 [![Static Web Apps CI/CD](https://github.com/bhakthan/OpenAgentSchool/actions/workflows/azure-static-web-apps-delightful-flower-04ec3a31e.yml/badge.svg?branch=main)](https://github.com/bhakthan/OpenAgentSchool/actions/workflows/azure-static-web-apps-delightful-flower-04ec3a31e.yml)
 [![Latest release](https://img.shields.io/github/v/release/bhakthan/OpenAgentSchool?include_prereleases&sort=semver)](https://github.com/bhakthan/OpenAgentSchool/releases)
 [![License](https://img.shields.io/github/license/bhakthan/OpenAgentSchool.svg)](LICENSE)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/bhakthan/OpenAgentSchool)
 
 > **Where AI Agent Concepts Come to Life**  
 > _An interactive learning platform for mastering AI agents, patterns, and production architectures_
