@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 
 type Theme = "light" | "dark";
 
@@ -12,7 +12,7 @@ type ThemeProviderState = {
   theme: Theme;
   isDarkMode: boolean;
   setTheme: (theme: Theme) => void;
-  toggleTheme: () => void;
+  toggleTheme: (x?: number, y?: number) => void;
 };
 
 const initialState: ThemeProviderState = {
@@ -24,36 +24,67 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
-// Function to synchronize theme across all HTML elements that need it
+// Synchronize theme classes and data attributes
 const syncTheme = (theme: Theme) => {
   const root = window.document.documentElement;
   const body = window.document.body;
-  
-  // To prevent flashes during theme change, first set a class that will manage
-  // the transition, then after a small delay update the actual theme classes
-  root.classList.add("theme-transition");
-  body.classList.add("theme-transition");
-  
-  setTimeout(() => {
-    // Remove all theme classes
-    root.classList.remove("light", "dark");
-    body.classList.remove("light", "dark");
-    
-    // Add the new theme class
-    root.classList.add(theme);
-    body.classList.add(theme);
-    
-    // Set data attributes for component libraries that use them
-    root.setAttribute('data-theme', theme);
-    root.setAttribute('data-appearance', theme);
-    body.setAttribute('data-theme', theme);
-    
-    // Remove the transition blocker after changes are complete
-    setTimeout(() => {
-      root.classList.remove("theme-transition");
-      body.classList.remove("theme-transition");
-    }, 100);
-  }, 10);
+
+  root.classList.remove("light", "dark");
+  body.classList.remove("light", "dark");
+
+  root.classList.add(theme);
+  body.classList.add(theme);
+
+  root.setAttribute('data-theme', theme);
+  root.setAttribute('data-appearance', theme);
+  body.setAttribute('data-theme', theme);
+};
+
+/**
+ * Perform the theme change through the View Transitions API.
+ * An expanding circle clip-path reveals the new theme from (x, y),
+ * creating the directional sweep effect seen on DeepWiki.
+ * Falls back to an instant swap on browsers without support.
+ */
+const transitionTheme = (theme: Theme, x: number, y: number) => {
+  // Calculate the maximum radius needed to cover the entire viewport
+  const endRadius = Math.hypot(
+    Math.max(x, window.innerWidth - x),
+    Math.max(y, window.innerHeight - y),
+  );
+
+  // Set a CSS custom property so the clip-path keyframes know the origin
+  document.documentElement.style.setProperty('--vt-x', `${x}px`);
+  document.documentElement.style.setProperty('--vt-y', `${y}px`);
+  document.documentElement.style.setProperty('--vt-r', `${endRadius}px`);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const doc = document as any;
+  if (!doc.startViewTransition) {
+    // Fallback: instant swap
+    syncTheme(theme);
+    return;
+  }
+
+  const transition = doc.startViewTransition(() => {
+    syncTheme(theme);
+  });
+
+  transition.ready.then(() => {
+    document.documentElement.animate(
+      {
+        clipPath: [
+          `circle(0px at ${x}px ${y}px)`,
+          `circle(${endRadius}px at ${x}px ${y}px)`,
+        ],
+      },
+      {
+        duration: 500,
+        easing: 'ease-in-out',
+        pseudoElement: '::view-transition-new(root)',
+      },
+    );
+  });
 };
 
 export function ThemeProvider({
@@ -78,9 +109,15 @@ export function ThemeProvider({
     }
   );
 
+  // Skip syncTheme in the useEffect when a view transition is driving it
+  const skipSyncRef = useRef(false);
+
   // Apply theme on initial render and theme changes
   useEffect(() => {
-    syncTheme(theme);
+    if (!skipSyncRef.current) {
+      syncTheme(theme);
+    }
+    skipSyncRef.current = false;
     localStorage.setItem(storageKey, theme);
   }, [theme, storageKey]);
 
@@ -110,10 +147,16 @@ export function ThemeProvider({
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, [storageKey]);
 
-  const toggleTheme = () => {
+  const toggleTheme = (x?: number, y?: number) => {
     const newTheme = theme === "light" ? "dark" : "light";
+
+    // Prevent the useEffect from applying the theme before
+    // startViewTransition captures the old-state snapshot
+    skipSyncRef.current = true;
     setTheme(newTheme);
-    syncTheme(newTheme);
+
+    // The view transition callback will call syncTheme at the right moment
+    transitionTheme(newTheme, x ?? 0, y ?? 0);
   };
 
   const value = {

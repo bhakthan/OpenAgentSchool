@@ -51,10 +51,26 @@
                 stroke var(--transition-duration) ease;
   }
   
-  /* Theme transition blocker - used during theme switching to prevent flashes */
+  /* Theme transition override — kept as no-op for legacy compat */
   .theme-transition,
   .theme-transition * {
-    transition: none !important;
+    /* transition: none !important; — removed to allow smooth theme sweep */
+  }
+
+  /* ── View Transitions API: directional sweep ─────────────── */
+  /* Disable the default cross-fade so only our clip-path runs */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  /* The old snapshot sits underneath while the new one expands */
+  ::view-transition-old(root) {
+    z-index: 1;
+  }
+  ::view-transition-new(root) {
+    z-index: 9999;
   }
   
   /* Add smoother sidebar transitions */
