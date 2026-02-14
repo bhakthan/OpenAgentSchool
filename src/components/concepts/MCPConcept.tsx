@@ -8,7 +8,8 @@ import MCPToolCallingAnimation from "./MCPToolCallingAnimation"
 import MCPToolCallingCode from "./MCPToolCallingCode"
 import ClaudeSkillsMCPFlow from "../visualization/ClaudeSkillsMCPFlow"
 import ReferenceSection from "../references/ReferenceSection"
-import { Shield, Plug, Lock, Database, Code, Sparkle } from "@phosphor-icons/react"
+import { Shield, Plug, Lock, Database, Code, Sparkle, Atom } from "@phosphor-icons/react"
+import { ProtocolMessageDissector, CapabilityNegotiationViz, TransportLayerExplorer, ServerRegistrySimulator } from './MCPAtomicVisuals'
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
@@ -24,6 +25,34 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
   };
 
   const tabs = [
+    {
+      id: 'atomic',
+      title: '⚛ Atomic',
+      description: 'Interactive deep-dives into MCP protocol internals',
+      icon: <Atom className="w-4 h-4" />,
+      level: 'advanced' as const,
+      content: (
+        <div className="space-y-8">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold mb-2">⚛ Atomic Deep Dive — MCP Internals</h2>
+            <p className="text-muted-foreground">Dissect the protocol at the wire level: JSON-RPC messages, capability negotiation, transport layers, and server discovery.</p>
+          </div>
+          <ProtocolMessageDissector />
+          <CapabilityNegotiationViz />
+          <TransportLayerExplorer />
+          <ServerRegistrySimulator />
+          {/* Challenge Ladder */}
+          <div className="mt-10 p-6 rounded-xl border bg-muted/40">
+            <h3 className="text-lg font-bold mb-3">🧗 Challenge Ladder</h3>
+            <div className="space-y-2 text-sm">
+              <div><Badge variant="outline" className="mr-2">Beginner</Badge> Step through all 7 handshake messages and explain what each field in the initialize request means.</div>
+              <div><Badge variant="outline" className="mr-2">Intermediate</Badge> Disable server "tools" capability — what happens when a client tries to call tools/list? How should the client handle this?</div>
+              <div><Badge variant="outline" className="mr-2">Advanced</Badge> Design a custom MCP server that exposes 3 tools for a database. Specify the JSON-RPC messages for initialization, tool discovery, and a tool call with error handling.</div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
     {
       id: 'fundamentals',
       title: 'MCP Basics',

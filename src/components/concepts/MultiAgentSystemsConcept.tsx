@@ -5,6 +5,8 @@ import { conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles"
 import { Users, ArrowsIn, Handshake, Crown, Target, Network, CirclesThreePlus, FlowArrow } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import ReferenceSection from "@/components/references/ReferenceSection";
+import { ContractNetSimulator, NashEquilibriumExplorer, MessagePassingViz, TaskAllocationOptimizer } from './MultiAgentAtomicVisuals';
+import { Atom } from '@phosphor-icons/react';
 
 interface MultiAgentSystemsConceptProps {
   onMarkComplete?: () => void
@@ -100,6 +102,43 @@ const CoordinationTopologyVisual = () => (
 
 export default function MultiAgentSystemsConcept({ onMarkComplete, onNavigateToNext }: MultiAgentSystemsConceptProps) {
   const tabs = [
+    {
+      id: 'atomic',
+      title: '⚛ Atomic',
+      description: 'Game theory, protocols & allocation deep-dive',
+      icon: <Atom className="w-4 h-4" />,
+      level: 'advanced' as const,
+      content: (
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Explore the mathematical and protocol-level foundations of multi-agent coordination at the atomic level.</p>
+          <ContractNetSimulator />
+          <NashEquilibriumExplorer />
+          <MessagePassingViz />
+          <TaskAllocationOptimizer />
+
+          {/* Challenge Ladder */}
+          <div className="mt-8 pt-6 border-t">
+            <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+              <span className="text-amber-500">🏆</span> Challenge Ladder
+            </h3>
+            <div className="space-y-3">
+              <div className="p-3 rounded-lg border bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800">
+                <div className="text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-1">Beginner</div>
+                <p className="text-xs">In the Nash Equilibrium explorer, switch between Prisoner's Dilemma and Stag Hunt. Why does the equilibrium shift? What does this mean for agent trust?</p>
+              </div>
+              <div className="p-3 rounded-lg border bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800">
+                <div className="text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">Intermediate</div>
+                <p className="text-xs">In the Message Passing visualizer, compare latency and fault tolerance across all 4 topologies. When would you choose star over mesh despite the single point of failure?</p>
+              </div>
+              <div className="p-3 rounded-lg border bg-rose-50/50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-800">
+                <div className="text-xs font-bold text-rose-700 dark:text-rose-400 mb-1">Advanced</div>
+                <p className="text-xs">Using the Task Allocator and CNP simulator together, design a scenario where the optimal allocation differs from what auctions would produce. What coordination failure does this illustrate?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
     {
       id: 'coordination',
       title: 'Coordination Mechanisms',

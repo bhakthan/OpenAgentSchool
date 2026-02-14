@@ -6,6 +6,7 @@ import { Shield, AlertTriangle, Lock, Eye, Code, Target, CheckCircle, XCircle } 
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
 import PromptInjectionViz from "@/components/visualization/PromptInjectionViz";
+import { AttackSurfaceAnalyzer, InputSanitizationSim, DefenseLayerStack, PerplexityDetector } from './PromptInjectionAtomicVisuals';
 
 interface AttackVector {
   id: string;
@@ -289,12 +290,42 @@ export default function PromptInjectionDefenseConcept() {
         <PromptInjectionViz autoPlay={true} />
 
         <Tabs defaultValue="attacks" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="attacks">Attack Vectors</TabsTrigger>
+            <TabsTrigger value="atomic">⚛ Atomic</TabsTrigger>
             <TabsTrigger value="defenses">Defense Code</TabsTrigger>
             <TabsTrigger value="architecture">Architecture</TabsTrigger>
             <TabsTrigger value="checklist">Checklist</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="atomic" className="space-y-2">
+            <p className="text-sm text-muted-foreground">Explore attack surfaces, sanitization mechanics, defense layering, and detection signals at the atomic level.</p>
+            <AttackSurfaceAnalyzer />
+            <InputSanitizationSim />
+            <DefenseLayerStack />
+            <PerplexityDetector />
+
+            {/* Challenge Ladder */}
+            <div className="mt-8 pt-6 border-t">
+              <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+                <span className="text-amber-500">🏆</span> Challenge Ladder
+              </h3>
+              <div className="space-y-3">
+                <div className="p-3 rounded-lg border bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800">
+                  <div className="text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-1">Beginner</div>
+                  <p className="text-xs">Use the Input Sanitization sandbox to craft a message that bypasses the keyword filter but is still clearly an injection. What does this reveal about keyword-only defenses?</p>
+                </div>
+                <div className="p-3 rounded-lg border bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800">
+                  <div className="text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">Intermediate</div>
+                  <p className="text-xs">In the Defense Layer Stack, find the minimum set of layers needed to exceed 90% combined effectiveness. Why does LLM-as-judge alone not suffice?</p>
+                </div>
+                <div className="p-3 rounded-lg border bg-rose-50/50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-800">
+                  <div className="text-xs font-bold text-rose-700 dark:text-rose-400 mb-1">Advanced</div>
+                  <p className="text-xs">The Perplexity Detector uses token-level anomaly. Describe a payload splitting attack where each fragment has normal perplexity but the combined intent is malicious. How would you defend against it?</p>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
 
           <TabsContent value="attacks" className="space-y-6">
             {/* Attack Vector Selector */}

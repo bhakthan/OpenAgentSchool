@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { CurrencyDollar, Calculator, ChartLine, Scales, TrendUp, Factory, ShoppingCart, Users, Bank, Lightbulb, CheckCircle, Warning, Target, ArrowRight } from "@phosphor-icons/react";
+import { CurrencyDollar, Calculator, ChartLine, Scales, TrendUp, Factory, ShoppingCart, Users, Bank, Lightbulb, CheckCircle, Warning, Target, ArrowRight, Atom } from "@phosphor-icons/react";
 import CodeBlock from "@/components/ui/CodeBlock";
+import { TokenCostCalculator, CachingROISimulator, ModelRoutingOptimizer, UnitEconomicsExplorer } from './CostOptimizationAtomicVisuals';
 
 interface AgentEconomicsConceptProps {
   onMarkComplete?: () => void;
@@ -249,6 +250,7 @@ export default function AgentEconomicsConcept({ onMarkComplete, onNavigateToNext
   const [activeTab, setActiveTab] = useState("overview");
 
   const tabs = [
+    { id: "atomic", label: "⚛ Atomic", icon: <Atom className="w-4 h-4" /> },
     { id: "overview", label: "Overview", icon: <CurrencyDollar className="w-4 h-4" /> },
     { id: "cost-breakdown", label: "Cost Breakdown", icon: <Calculator className="w-4 h-4" /> },
     { id: "roi-framework", label: "ROI Framework", icon: <TrendUp className="w-4 h-4" /> },
@@ -285,6 +287,27 @@ export default function AgentEconomicsConcept({ onMarkComplete, onNavigateToNext
             </TabsTrigger>
           ))}
         </TabsList>
+
+        {/* Atomic Deep Dive */}
+        <TabsContent value="atomic" className="space-y-8">
+          <div className="text-center mb-6">
+            <h3 className="text-2xl font-bold mb-2">⚛ Atomic Deep Dive — Cost Optimization Internals</h3>
+            <p className="text-muted-foreground">Token pricing, caching ROI, model routing, and unit economics explored interactively.</p>
+          </div>
+          <TokenCostCalculator />
+          <CachingROISimulator />
+          <ModelRoutingOptimizer />
+          <UnitEconomicsExplorer />
+          {/* Challenge Ladder */}
+          <div className="mt-10 p-6 rounded-xl border bg-muted/40">
+            <h3 className="text-lg font-bold mb-3">🧗 Challenge Ladder</h3>
+            <div className="space-y-2 text-sm">
+              <div><Badge variant="outline" className="mr-2">Beginner</Badge> Compare GPT-4o vs GPT-4o mini for 1,000 daily requests with 1,500 input tokens. What's the monthly cost difference?</div>
+              <div><Badge variant="outline" className="mr-2">Intermediate</Badge> Route 60% simple / 30% standard / 10% complex. What blended quality score do you achieve, and how much do you save vs all-frontier?</div>
+              <div><Badge variant="outline" className="mr-2">Advanced</Badge> Build a unit economics model where gross margin exceeds 70%. What combination of revenue, LLM cost, and human review rate achieves this?</div>
+            </div>
+          </div>
+        </TabsContent>
 
         {/* Overview Tab */}
         <TabsContent value="overview" className="space-y-6">

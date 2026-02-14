@@ -8,6 +8,8 @@ import { Brain, Gear, Clock, Memory, ArrowsClockwise, Play, Pause, Stop, Archive
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import CodeBlock from "@/components/ui/CodeBlock";
 import { conceptSurface, conceptSurfaceSoft } from "./conceptStyles";
+import { ReActLoopSimulator, ToolCallFlowViz, AgentStateExplorer, LatencyBudgetCalc } from './AgentArchitectureAtomicVisuals';
+import { Atom } from '@phosphor-icons/react';
 
 interface AgentArchitectureConceptProps {
   onMarkComplete?: () => void
@@ -16,6 +18,43 @@ interface AgentArchitectureConceptProps {
 
 export default function AgentArchitectureConcept({ onMarkComplete, onNavigateToNext }: AgentArchitectureConceptProps) {
   const tabs = [
+    {
+      id: 'atomic',
+      title: '⚛ Atomic',
+      description: 'ReAct loops, state machines & latency budgets',
+      icon: <Atom className="w-4 h-4" />,
+      level: 'advanced' as const,
+      content: (
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Explore the mechanical foundations of agent architecture — reasoning loops, tool-call pipelines, state transitions, and latency budgets.</p>
+          <ReActLoopSimulator />
+          <ToolCallFlowViz />
+          <AgentStateExplorer />
+          <LatencyBudgetCalc />
+
+          {/* Challenge Ladder */}
+          <div className="mt-8 pt-6 border-t">
+            <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+              <span className="text-amber-500">🏆</span> Challenge Ladder
+            </h3>
+            <div className="space-y-3">
+              <div className="p-3 rounded-lg border bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800">
+                <div className="text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-1">Beginner</div>
+                <p className="text-xs">Walk through both ReAct scenarios. Count the loops. Why does research need more loops than weather?</p>
+              </div>
+              <div className="p-3 rounded-lg border bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800">
+                <div className="text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">Intermediate</div>
+                <p className="text-xs">In the state machine, find the path from idle to error back to complete. How many transitions minimum? Why is the reflecting→planning loop critical?</p>
+              </div>
+              <div className="p-3 rounded-lg border bg-rose-50/50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-800">
+                <div className="text-xs font-bold text-rose-700 dark:text-rose-400 mb-1">Advanced</div>
+                <p className="text-xs">Using the Latency Budget calculator, design an architecture that supports 5 iterations within 5 seconds using a 128k context model. What trade-offs did you make?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
     {
       id: 'architecture',
       title: 'Agent Architecture',

@@ -7,6 +7,13 @@ import { Brain, GitBranch, Network, RotateCcw, Lightbulb, Code, Target, Layers, 
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
 import ReasoningPatternsViz from "@/components/visualization/ReasoningPatternsViz";
+import {
+  InteractiveCoTTrace,
+  TreeOfThoughtExplorer,
+  GoTGraphBuilder,
+  ReflexionLoopSimulator,
+  ReasoningComplexityExplorer,
+} from "./AgentReasoningAtomicVisuals";
 
 interface ReasoningPattern {
   id: string;
@@ -486,12 +493,73 @@ export default function AgentReasoningPatternsConcept() {
         </div>
 
         <Tabs defaultValue="patterns" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="patterns">Reasoning Patterns</TabsTrigger>
+            <TabsTrigger value="atomic">⚛ Atomic Deep Dive</TabsTrigger>
             <TabsTrigger value="comparison">Comparison Matrix</TabsTrigger>
             <TabsTrigger value="implementation">Implementation</TabsTrigger>
             <TabsTrigger value="production">Production Tips</TabsTrigger>
           </TabsList>
+
+          {/* ── Atomic Deep Dive Tab ── */}
+          <TabsContent value="atomic" className="space-y-2">
+            <Card className="bg-gradient-to-br from-violet-500/5 to-purple-500/5 border-violet-500/20">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-violet-500/20">
+                    <Zap className="w-6 h-6 text-violet-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-1">First-Principles Reasoning</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Drill into the math and algorithms behind each reasoning pattern.
+                      Use the interactive explorers below to build intuition for <strong>why</strong> each
+                      pattern works, when it breaks down, and how search strategy affects cost.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <InteractiveCoTTrace />
+            <TreeOfThoughtExplorer />
+            <GoTGraphBuilder />
+            <ReflexionLoopSimulator />
+            <ReasoningComplexityExplorer />
+
+            {/* Challenge ladder */}
+            <Card className="border-amber-500/20 bg-amber-500/5">
+              <CardContent className="pt-6 space-y-4">
+                <h3 className="font-semibold flex items-center gap-2">
+                  <Lightbulb className="w-5 h-5 text-amber-400" /> Challenge Yourself
+                </h3>
+                <div className="grid gap-3">
+                  <div className="p-3 rounded-lg border border-green-500/20 bg-green-500/5">
+                    <Badge variant="outline" className="bg-green-500/10 mb-2">Beginner</Badge>
+                    <p className="text-sm text-muted-foreground">
+                      Set the complexity explorer to b=2, d=4. Calculate the full-tree node count by hand
+                      using the formula (b^(d+1) − 1)/(b − 1). Verify against the visualizer.
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-lg border border-blue-500/20 bg-blue-500/5">
+                    <Badge variant="outline" className="bg-blue-500/10 mb-2">Intermediate</Badge>
+                    <p className="text-sm text-muted-foreground">
+                      In the ToT explorer, compare BFS vs Beam (width=1) exploration order. Explain why
+                      Beam with width=1 degenerates into greedy search and how that differs from DFS.
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-lg border border-purple-500/20 bg-purple-500/5">
+                    <Badge variant="outline" className="bg-purple-500/10 mb-2">Advanced</Badge>
+                    <p className="text-sm text-muted-foreground">
+                      Design a hybrid: CoT → ToT escalation. When should the agent switch from linear
+                      reasoning to tree search? Define a confidence threshold function that considers
+                      both accuracy drop rate and token budget remaining.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
           <TabsContent value="patterns" className="space-y-6">
             {/* Pattern Selector */}

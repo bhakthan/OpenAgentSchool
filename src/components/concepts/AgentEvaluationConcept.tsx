@@ -2,13 +2,14 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Lightbulb, Users, Trophy, TestTube, Briefcase } from "@phosphor-icons/react";
+import { Lightbulb, Users, Trophy, TestTube, Briefcase, Atom } from "@phosphor-icons/react";
 import { LLMAsJudgeVisual } from "@/components/visualization/evaluation/LLMAsJudgeVisual";
 import { RewardModelVisual } from "@/components/visualization/evaluation/RewardModelVisual";
 import { MultiAgentEvalVisual } from "@/components/visualization/evaluation/MultiAgentEvalVisual";
 import CodeBlock from "@/components/ui/CodeBlock";
 import AdvancedArchitectureSimulation from "@/components/visualization/evaluation/AdvancedArchitectureSimulation";
 import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
+import { MetricCorrelationExplorer, LLMJudgeCalibrationSim, BenchmarkRadarBuilder, EvalPipelineStepper } from './EvaluationAtomicVisuals';
 
 const PersonaBadge = ({ persona, className }: { persona: string, className?: string }) => (
   <Badge className={`ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] ${className ?? ''}`}>
@@ -59,13 +60,37 @@ const AgentEvaluationConcept = () => {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="architecture">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-6">
+            <TabsTrigger value="atomic"><Atom size={16} className="mr-1" /> ⚛ Atomic</TabsTrigger>
             <TabsTrigger value="architecture"><Lightbulb size={16} className="mr-1" /> Architecture</TabsTrigger>
             <TabsTrigger value="simulation"><Users size={16} className="mr-1" /> Simulation</TabsTrigger>
             <TabsTrigger value="implementation"><TestTube size={16} className="mr-1" /> Implementation</TabsTrigger>
             <TabsTrigger value="business-use-case"><Briefcase size={16} className="mr-1" /> Business Use Case</TabsTrigger>
             <TabsTrigger value="best-practices"><Trophy size={16} className="mr-1" /> Best Practices</TabsTrigger>
           </TabsList>
+
+          {/* Atomic Deep Dive Tab */}
+          <TabsContent value="atomic" className="pt-4">
+            <div className="space-y-8">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold mb-2">⚛ Atomic Deep Dive — Evaluation Internals</h3>
+                <p className="text-muted-foreground">Explore metric trade-offs, LLM judge calibration, benchmark comparison, and production eval pipelines interactively.</p>
+              </div>
+              <MetricCorrelationExplorer />
+              <LLMJudgeCalibrationSim />
+              <BenchmarkRadarBuilder />
+              <EvalPipelineStepper />
+              {/* Challenge Ladder */}
+              <div className="mt-10 p-6 rounded-xl border bg-muted/40">
+                <h4 className="text-lg font-bold mb-3">🧗 Challenge Ladder</h4>
+                <div className="space-y-2 text-sm">
+                  <div><Badge variant="outline" className="mr-2">Beginner</Badge> Adjust the metric sliders so that Safety is maximized — what happens to the composite score when you sacrifice Accuracy?</div>
+                  <div><Badge variant="outline" className="mr-2">Intermediate</Badge> Calibrate the LLM judge to achieve ≥80% agreement with human scores. Which bias parameter has the largest impact?</div>
+                  <div><Badge variant="outline" className="mr-2">Advanced</Badge> Design a 6-stage eval pipeline for a customer support agent. Define custom metrics, pass/fail gates, and human review sampling strategy.</div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
 
           {/* Architecture Tab */}
           <TabsContent value="architecture" className="pt-4">

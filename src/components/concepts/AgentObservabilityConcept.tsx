@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Eye, Activity, Search, AlertTriangle, LineChart, Clock, Code, Layers, Zap, Bug, Database, Terminal } from "lucide-react";
+import { Eye, Activity, Search, AlertTriangle, LineChart, Clock, Code, Layers, Zap, Bug, Database, Terminal, Atom } from "lucide-react";
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
 import ObservabilityViz from "@/components/visualization/ObservabilityViz";
+import { SLICalculator, TraceWaterfallSim, AlertThresholdTuner, LogStructureExplorer } from './ObservabilityAtomicVisuals';
 
 interface ObservabilityPillar {
   id: string;
@@ -577,12 +578,33 @@ export default function AgentObservabilityConcept() {
         </div>
 
         <Tabs defaultValue="pillars" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
+            <TabsTrigger value="atomic"><Atom className="w-4 h-4 mr-1" /> ⚛ Atomic</TabsTrigger>
             <TabsTrigger value="pillars">Observability Pillars</TabsTrigger>
             <TabsTrigger value="stack">Full Stack</TabsTrigger>
             <TabsTrigger value="alerts">Alerting</TabsTrigger>
             <TabsTrigger value="implementation">Quick Start</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="atomic" className="space-y-8">
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold mb-2">⚛ Atomic Deep Dive — Observability Internals</h3>
+              <p className="text-muted-foreground">SLI/SLO budgets, trace waterfalls, alert tuning, and structured logging explored interactively.</p>
+            </div>
+            <SLICalculator />
+            <TraceWaterfallSim />
+            <AlertThresholdTuner />
+            <LogStructureExplorer />
+            {/* Challenge Ladder */}
+            <div className="mt-10 p-6 rounded-xl border bg-muted/40">
+              <h3 className="text-lg font-bold mb-3">🧗 Challenge Ladder</h3>
+              <div className="space-y-2 text-sm">
+                <div><Badge variant="outline" className="mr-2">Beginner</Badge> Set a 99.5% SLO and find the maximum failed requests allowed for 10,000 total requests without burning the budget.</div>
+                <div><Badge variant="outline" className="mr-2">Intermediate</Badge> Click each span in the trace waterfall. Which service consumes the most latency? How would you optimize it?</div>
+                <div><Badge variant="outline" className="mr-2">Advanced</Badge> Tune alert thresholds to keep noise ratio below 15% while catching all error-rate spikes above 5%. What window size works best?</div>
+              </div>
+            </div>
+          </TabsContent>
 
           <TabsContent value="pillars" className="space-y-6">
             {/* Pillar Selector */}

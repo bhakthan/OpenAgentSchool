@@ -6,6 +6,12 @@ import { Database, Clock, Brain, Layers, Search, MessageSquare, Zap, Code, Check
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
 import MemorySystemsViz from "@/components/visualization/MemorySystemsViz";
+import {
+  EmbeddingSimilarityExplorer,
+  MemoryRetrievalSimulator,
+  SlidingWindowVisualizer,
+  VectorSpaceProjection,
+} from "./AgentMemoryAtomicVisuals";
 
 interface MemoryType {
   id: string;
@@ -550,13 +556,72 @@ export default function AgentMemorySystemsConcept() {
         </div>
 
         <Tabs defaultValue="types" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="types">Memory Types</TabsTrigger>
+            <TabsTrigger value="atomic">⚛ Atomic Deep Dive</TabsTrigger>
             <TabsTrigger value="architectures">Architectures</TabsTrigger>
             <TabsTrigger value="implementation">Implementation</TabsTrigger>
             <TabsTrigger value="production">Production</TabsTrigger>
             <TabsTrigger value="advanced">Advanced</TabsTrigger>
           </TabsList>
+
+          {/* ── Atomic Deep Dive Tab ── */}
+          <TabsContent value="atomic" className="space-y-2">
+            <Card className="bg-gradient-to-br from-cyan-500/5 to-blue-500/5 border-cyan-500/20">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-cyan-500/20">
+                    <Search className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-1">First-Principles Memory</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Drill into the math that makes agent memory work: vector similarity,
+                      retrieval quality metrics, token budgets, and embedding space geometry.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <EmbeddingSimilarityExplorer />
+            <VectorSpaceProjection />
+            <MemoryRetrievalSimulator />
+            <SlidingWindowVisualizer />
+
+            {/* Challenge ladder */}
+            <Card className="border-amber-500/20 bg-amber-500/5">
+              <CardContent className="pt-6 space-y-4">
+                <h3 className="font-semibold flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-amber-400" /> Challenge Yourself
+                </h3>
+                <div className="grid gap-3">
+                  <div className="p-3 rounded-lg border border-green-500/20 bg-green-500/5">
+                    <Badge variant="outline" className="bg-green-500/10 mb-2">Beginner</Badge>
+                    <p className="text-sm text-muted-foreground">
+                      Set both vectors to the same angle in the cosine explorer. What is cos(A,A)?
+                      Now set them 90° apart — what happens and why?
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-lg border border-blue-500/20 bg-blue-500/5">
+                    <Badge variant="outline" className="bg-blue-500/10 mb-2">Intermediate</Badge>
+                    <p className="text-sm text-muted-foreground">
+                      In the retrieval simulator, find the threshold that maximizes F1 score.
+                      Explain the precision-recall tradeoff: why can't you maximize both?
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-lg border border-purple-500/20 bg-purple-500/5">
+                    <Badge variant="outline" className="bg-purple-500/10 mb-2">Advanced</Badge>
+                    <p className="text-sm text-muted-foreground">
+                      In the vector space, click near the boundary between two clusters.
+                      Notice how the k-NN results mix categories. Design a re-ranking strategy
+                      that resolves ambiguous retrievals using category coherence scoring.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
           <TabsContent value="types" className="space-y-6">
             {/* Memory Type Selector */}

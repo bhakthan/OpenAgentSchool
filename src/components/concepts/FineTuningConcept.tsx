@@ -11,6 +11,8 @@ import { DPOProcessVisual } from './visuals/DPOProcessVisual';
 import { RFTProcessVisual } from './visuals/RFTProcessVisual';
 import { DataStrategyVisual } from './visuals/DataStrategyVisual';
 import FineTuningAudioControls from '@/components/audio/FineTuningAudioControls';
+import { DPOLossExplorer, LoRADecompositionViz, TrainingLossCurvesSim, HyperparamSensitivity } from './FineTuningAtomicVisuals';
+import { Atom } from '@phosphor-icons/react';
 
 interface FineTuningConceptProps {
   onMarkComplete?: () => void;
@@ -131,6 +133,43 @@ export default function FineTuningConcept({ onMarkComplete, onNavigateToNext }: 
                 <li>Composite reward (accuracy + safety)</li>
                 <li>Strong eval + rollback pipeline</li>
               </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 'atomic',
+      title: '⚛ Atomic',
+      description: 'Math & mechanics deep-dive',
+      icon: <Atom className="w-4 h-4" />,
+      level: 'advanced' as const,
+      content: (
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Explore the mathematical foundations and hyperparameter mechanics behind SFT, DPO, and RFT at the atomic level.</p>
+          <DPOLossExplorer />
+          <LoRADecompositionViz />
+          <TrainingLossCurvesSim />
+          <HyperparamSensitivity />
+
+          {/* Challenge Ladder */}
+          <div className="mt-8 pt-6 border-t">
+            <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+              <span className="text-amber-500">🏆</span> Challenge Ladder
+            </h3>
+            <div className="space-y-3">
+              <div className="p-3 rounded-lg border bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800">
+                <div className="text-xs font-bold text-emerald-700 dark:text-emerald-400 mb-1">Beginner</div>
+                <p className="text-xs">Set β=0.01 and β=0.5 in the DPO explorer. Why does very low β cause instability? What happens to loss when chosen and rejected are almost identical?</p>
+              </div>
+              <div className="p-3 rounded-lg border bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800">
+                <div className="text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">Intermediate</div>
+                <p className="text-xs">In the LoRA visualizer, find the rank where compression drops below 95%. Why is rank=1 dangerous for multi-task fine-tuning but fine for style transfer?</p>
+              </div>
+              <div className="p-3 rounded-lg border bg-rose-50/50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-800">
+                <div className="text-xs font-bold text-rose-700 dark:text-rose-400 mb-1">Advanced</div>
+                <p className="text-xs">Using the loss curve simulator, explain why RFT shows step-like improvements rather than smooth convergence. How does PPO's clipped objective cause this behavior?</p>
+              </div>
             </div>
           </div>
         </div>
