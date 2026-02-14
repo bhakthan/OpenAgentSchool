@@ -1,6 +1,6 @@
 # Open Agent School - llms.txt
 # https://llmstxt.org/ - A standard for providing context to LLMs
-# Last updated: February 10, 2026
+# Last updated: February 14, 2026
 
 > Open Agent School is a comprehensive educational platform for mastering AI agents,
 > from foundational concepts to production-ready agentic systems.
@@ -93,6 +93,21 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Human-in-the-Loop Patterns - Approval workflows, escalation, oversight
 - Agent Cost Optimization - Token budgets, caching, model routing, batch processing
 
+### Atomic Deep-Dive Visualizers (February 2026)
+40+ interactive, slider-driven React components embedded inside 10 concept pages.
+Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict → Experiment → Synthesize).
+
+- Agent Reasoning Patterns — InteractiveCoTTrace, TreeOfThoughtExplorer, GoTGraphBuilder, ReflexionLoopSimulator, ReasoningComplexityExplorer
+- Agent Memory Systems — EmbeddingSimilarityExplorer, MemoryRetrievalSimulator, SlidingWindowVisualizer, VectorSpaceProjection
+- Fine-Tuning — DPOLossExplorer, LoRADecompositionViz, TrainingLossCurvesSim, HyperparamSensitivity
+- Multi-Agent Systems — ContractNetSimulator, NashEquilibriumExplorer, MessagePassingViz, TaskAllocationOptimizer
+- Prompt Injection Defense — AttackSurfaceAnalyzer, InputSanitizationSim, DefenseLayerStack, PerplexityDetector
+- Agent Architecture — ReActLoopSimulator, ToolCallFlowViz, AgentStateExplorer, LatencyBudgetCalc
+- MCP (Model Context Protocol) — ProtocolMessageDissector, CapabilityNegotiationViz, TransportLayerExplorer, ServerRegistrySimulator
+- Agent Evaluation — MetricCorrelationExplorer, LLMJudgeCalibrationSim, BenchmarkRadarBuilder, EvalPipelineStepper
+- Agent Observability — SLICalculator, TraceWaterfallSim, AlertThresholdTuner, LogStructureExplorer
+- Agent Cost Optimization — TokenCostCalculator, CachingROISimulator, ModelRoutingOptimizer, UnitEconomicsExplorer
+
 ### Science AI Factories (February 2026)
 - Agents for Science - 2026 walkthrough of how AI factories are evolving as cross-domain data mining powerhouses
 - Science AI Factory Architecture - Ingest → Mine → Synthesize → Generate pipeline with 5–12 specialised agents
@@ -174,6 +189,19 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 
 - Atomic LLM Training: https://www.openagentschool.org/concepts/atomic-llm-training
 
+## Atomic Deep-Dive URLs (February 2026)
+
+- Reasoning Patterns (⚛ tab): https://www.openagentschool.org/concepts/agent-reasoning-patterns
+- Memory Systems (⚛ tab): https://www.openagentschool.org/concepts/agent-memory-systems
+- Fine-Tuning (⚛ tab): https://www.openagentschool.org/concepts/fine-tuning
+- Multi-Agent Systems (⚛ tab): https://www.openagentschool.org/concepts/multi-agent-systems
+- Prompt Injection Defense (⚛ tab): https://www.openagentschool.org/concepts/prompt-injection-defense
+- Agent Architecture (⚛ tab): https://www.openagentschool.org/concepts/agent-architecture
+- MCP (⚛ tab): https://www.openagentschool.org/concepts/mcp
+- Agent Evaluation (⚛ tab): https://www.openagentschool.org/concepts/agent-evaluation
+- Agent Observability (⚛ tab): https://www.openagentschool.org/concepts/agent-observability
+- Agent Cost Optimization (⚛ tab): https://www.openagentschool.org/concepts/agent-economics
+
 ## Production Concept URLs (January 2026)
 
 - CLI Coding Agents: https://www.openagentschool.org/concepts/client-coding-agents
@@ -215,9 +243,10 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 
 ## Technical Stack
 
-- Frontend: React 18 + TypeScript + Vite + TailwindCSS
-- Visualizations: D3.js for interactive diagrams
-- Backend (optional): Python FastAPI microservices
+- Frontend: React 18 + TypeScript + Vite + TailwindCSS 4 + Radix UI
+- Visualizations: D3.js + 90+ interactive diagrams (including 40+ atomic deep-dive visualizers)
+- Backend (optional): Python 3.12 FastAPI microservices, PostgreSQL, DuckDB
+- Infrastructure: Azure Static Web Apps, GitHub Actions CI/CD, PWA
 
 ## Contact
 

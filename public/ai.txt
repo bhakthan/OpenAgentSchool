@@ -1,6 +1,6 @@
 # Open Agent School - ai.txt (experimental)
 # AI crawler context file for AI training and LLM discovery
-# Last updated: February 10, 2026
+# Last updated: February 16, 2026
 
 # Mission
 # Our mission: To benefit every Educational Institution, every Educator, and every Learner.
@@ -104,6 +104,31 @@ Infographic-Agent-Reasoning: https://www.openagentschool.org/images/Agent_Reason
 Infographic-Cost-Optimization: https://www.openagentschool.org/images/Agent_Cost_Optimization.png
 Infographic-Fine-Tuning: https://www.openagentschool.org/images/SFT_DPO_RFT.png
 Infographic-AI-Ready-Data: https://www.openagentschool.org/images/AI_ready_data.png
+
+# Atomic Deep-Dive Interactive Visualizers (February 2026)
+# 40+ slider-driven, interactive React components embedded in concept pages
+# Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict → Experiment → Synthesize)
+#
+# 1. Agent Reasoning Patterns — CoT step tracer, Tree-of-Thought explorer, GoT graph builder, Reflexion loop simulator
+Atomic-Reasoning: https://www.openagentschool.org/concepts/agent-reasoning-patterns
+# 2. Agent Memory Systems — Embedding similarity sliders, retrieval simulator, sliding window, vector space projection
+Atomic-Memory: https://www.openagentschool.org/concepts/agent-memory-systems
+# 3. Fine-Tuning — DPO loss explorer, LoRA rank decomposition, training loss curves, hyperparameter sensitivity
+Atomic-Fine-Tuning: https://www.openagentschool.org/concepts/fine-tuning
+# 4. Multi-Agent Systems — Contract-net simulator, Nash equilibrium, message passing, task allocation optimizer
+Atomic-Multi-Agent: https://www.openagentschool.org/concepts/multi-agent-systems
+# 5. Prompt Injection Defense — Attack surface analyzer, sanitization sim, defense layer stack, perplexity detector
+Atomic-Prompt-Injection: https://www.openagentschool.org/concepts/prompt-injection-defense
+# 6. Agent Architecture — ReAct loop simulator, tool-call flow, agent state explorer, latency budget calculator
+Atomic-Architecture: https://www.openagentschool.org/concepts/agent-architecture
+# 7. MCP (Model Context Protocol) — Protocol message dissector, capability negotiation, transport layer, server registry
+Atomic-MCP: https://www.openagentschool.org/concepts/mcp
+# 8. Agent Evaluation — Metric correlation explorer, LLM-Judge calibration, benchmark radar builder, eval pipeline
+Atomic-Evaluation: https://www.openagentschool.org/concepts/agent-evaluation
+# 9. Agent Observability — SLI calculator, trace waterfall sim, alert threshold tuner, log structure explorer
+Atomic-Observability: https://www.openagentschool.org/concepts/agent-observability
+# 10. Agent Cost Optimization — Token cost calculator, caching ROI simulator, model routing optimizer, unit economics
+Atomic-Cost-Optimization: https://www.openagentschool.org/concepts/agent-economics
 
 # Contacts
 Contact: https://github.com/bhakthan/OpenAgentSchool

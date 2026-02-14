@@ -145,7 +145,30 @@ npm run dev
 
 ---
 
-##  Recent Updates (February 14, 2026)
+##  Recent Updates (February 16, 2026)
+
+### ⚛ Atomic Deep-Dive Tabs — Interactive Concept Visualizers (NEW)
+
+40+ new slider-driven, interactive visualizations embedded directly inside 10 concept pages. Each concept gains an **⚛ Atomic** tab with a **Challenge Ladder** (Observe → Predict → Experiment → Synthesize).
+
+| Concept | Interactive Components | Highlights |
+|---------|----------------------|------------|
+| **Agent Reasoning Patterns** | InteractiveCoTTrace, TreeOfThoughtExplorer, GoTGraphBuilder, ReflexionLoopSimulator, ReasoningComplexityExplorer | Chain-of-Thought step slider, Tree-of-Thought branching, GoT DAG builder, Reflexion feedback loops |
+| **Agent Memory Systems** | EmbeddingSimilarityExplorer, MemoryRetrievalSimulator, SlidingWindowVisualizer, VectorSpaceProjection | Cosine similarity sliders, retrieval score visualization, sliding window k-control, 2D vector projection |
+| **Fine-Tuning** | DPOLossExplorer, LoRADecompositionViz, TrainingLossCurvesSim, HyperparamSensitivity | DPO loss curves with β slider, LoRA rank decomposition, loss curve comparison (SFT vs DPO vs RFT), hyperparameter sensitivity spider |
+| **Multi-Agent Systems** | ContractNetSimulator, NashEquilibriumExplorer, MessagePassingViz, TaskAllocationOptimizer | Contract-net protocol simulation, Nash equilibrium payoff matrix, message passing animation, task allocation optimizer |
+| **Prompt Injection Defense** | AttackSurfaceAnalyzer, InputSanitizationSim, DefenseLayerStack, PerplexityDetector | Attack surface heat map, live sanitization demo, defense-in-depth layer stack, perplexity-based anomaly detector |
+| **Agent Architecture** | ReActLoopSimulator, ToolCallFlowViz, AgentStateExplorer, LatencyBudgetCalc | ReAct Thought→Action→Observation loop, tool-call sequence diagram, agent state machine, latency budget calculator |
+| **MCP (Model Context Protocol)** | ProtocolMessageDissector, CapabilityNegotiationViz, TransportLayerExplorer, ServerRegistrySimulator | JSON-RPC message anatomy, capability handshake flow, stdio vs SSE transport comparison, multi-server registry |
+| **Agent Evaluation** | MetricCorrelationExplorer, LLMJudgeCalibrationSim, BenchmarkRadarBuilder, EvalPipelineStepper | Metric correlation matrix, LLM-as-Judge calibration simulator, custom radar chart builder, evaluation pipeline stepper |
+| **Agent Observability** | SLICalculator, TraceWaterfallSim, AlertThresholdTuner, LogStructureExplorer | SLI/SLO calculator with error budget, trace waterfall timing diagram, alert threshold tuning, structured log anatomy |
+| **Agent Cost Optimization** | TokenCostCalculator, CachingROISimulator, ModelRoutingOptimizer, UnitEconomicsExplorer | Per-model token cost calculator, cache hit-rate ROI simulator, model routing cost optimizer, unit economics explorer |
+
+All visualizations use the shared `useDiagramColors()` hook for automatic light/dark theme support and follow the atomic visuals design pattern established by the Atomic LLM Training concept.
+
+---
+
+##  Previous Updates (February 14, 2026)
 
 ### New Concepts
 
@@ -409,7 +432,8 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 
 - **67+ Agent Patterns** (Core + Educational + Data Autonomy + Quantum/Robotics + Deep Research + 2026 Patterns)
 - **200+ Quiz Questions** across 15+ categories
-- **50+ Interactive Visualizations** (D3, React Flow, custom diagrams)
+- **90+ Interactive Visualizations** (D3, React Flow, custom diagrams, 40+ atomic deep-dive visualizers)
+- **10 Atomic Deep-Dive Tabs** with slider-driven interactive concept explorers
 - **8 Strategy Toolkits** (downloadable XLSX canvases)
 - **5 Learning Modes** (Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)
 
