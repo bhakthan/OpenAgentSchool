@@ -1229,6 +1229,11 @@ export const references: ReferencesData = {
             title: "Multi-agent Collaboration Samples",
             url: "https://github.com/Azure-Samples/openai-python-samples/tree/main/advanced-patterns",
             description: "Advanced multi-agent pattern samples"
+          },
+          {
+            title: "A2A Walkthrough Notebooks",
+            url: "https://github.com/holtskinner/A2AWalkthrough/",
+            description: "Quick walkthrough notebooks for A2A concepts and hands-on examples"
           }
         ]
       },
