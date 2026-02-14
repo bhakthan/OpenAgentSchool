@@ -2,6 +2,7 @@ import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
+import AudioNarrationControls from "@/components/audio/AudioNarrationControls"
 import { Atom, Lightning, Brain, Code, Rocket, ArrowSquareOut, Graph, TreeStructure, Function as FnIcon } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete'
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton"
@@ -214,6 +215,10 @@ export default function AtomicLLMTrainingConcept({ onMarkComplete, onNavigateToN
               <CardDescription className="text-base">
                 By Andrej Karpathy — the most distilled way to see how a GPT actually learns
               </CardDescription>
+              <AudioNarrationControls
+                componentName="AtomicLLMTrainingConcept"
+                position="embedded"
+              />
             </CardHeader>
             <CardContent className="space-y-5">
               <blockquote className="border-l-4 border-amber-500/60 pl-4 italic text-lg text-muted-foreground">

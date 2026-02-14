@@ -1,0 +1,85 @@
+Atomic LLM Training Concept Unified Narration
+--------------------------------------------------------------------------------
+
+Beginner Explanation
+--------------------------------------------------------------------------------
+Welcome to Atomic LLM Training. In this lesson you will learn how a language model actually works — not as a black box, but by building one from scratch in about two hundred lines of Python. No frameworks, no libraries, no magic.
+
+Let me walk you through the whole idea step by step. Imagine you are teaching a computer to write human names. You give it thousands of real names like "emma", "olivia", and "liam". The model's job is to learn the patterns — which letters tend to follow which — and eventually generate new, realistic-sounding names on its own.
+
+Here is the pipeline in plain English. First, we take raw text. Every name is just a sequence of characters. We add a special beginning of sequence marker, called BOS, at the start and end so the model knows where names begin and end.
+
+Second, we tokenize. Each character is turned into a number. The letter A is one number, B is another. BOS gets its own number too. This is the simplest possible tokenizer — one character, one ID. Real GPTs use more sophisticated tokenizers, but the principle is identical.
+
+Third, we embed. Each token ID gets converted into a small list of numbers — a vector. Think of it like giving each letter its own personality, described by sixteen numbers. We also add a position embedding — another vector that tells the model where in the sequence this character appears. The final input is the sum of both vectors.
+
+Fourth, attention. This is the heart of the transformer. Every token looks at all the tokens that came before it and asks: which ones are most relevant to predicting what comes next? It does this by computing a score between pairs of tokens, then weighting their information accordingly. Crucially, tokens can only look backward — never forward. This is called causal attention.
+
+Fifth, prediction. After attention, the model runs the result through a small neural network called an MLP — a multi-layer perceptron. This expands the data, applies a nonlinearity, and contracts it back. Finally, the model produces a probability for every possible next character. Which letter is most likely to come next?
+
+Sixth, learning. The model starts with random weights, so its first predictions are terrible. We measure how wrong it is using a loss function called cross-entropy loss. Low confidence in the correct answer means high loss. We then compute gradients — how much each weight contributed to the error — and nudge every weight in the direction that reduces the loss. This is called backpropagation. We repeat this loop thousands of times, and the model gradually learns the patterns.
+
+The core insight is this: every single concept behind ChatGPT, Claude, and Gemini is present in this tiny code base. Embeddings, attention, MLPs, cross-entropy loss, backpropagation, and gradient descent with the Adam optimizer. The only difference between microGPT and the models you use every day is scale — more parameters, more data, more compute. The algorithm is the same.
+
+Let me highlight the autograd engine, because it is surprisingly elegant. Instead of regular numbers, microGPT uses a special Value class. Every time you add, multiply, or apply a function to Values, the operation is recorded in a computation graph. When you call backward on the final loss, gradients are propagated back through every operation automatically. This is the same idea as PyTorch's autograd — but implemented in about thirty lines.
+
+To summarize: Raw text becomes tokens. Tokens become vectors through embeddings. Vectors pass through attention and MLPs. The model outputs probabilities for the next character. We measure error with cross-entropy loss. We propagate gradients backward. We update weights with Adam. Repeat until the model learns. That is the entire algorithm.
+
+--------------------------------------------------------------------------------
+Intermediate Explanation
+--------------------------------------------------------------------------------
+Intermediate walkthrough of Atomic LLM Training.
+
+This concept is built around Andrej Karpathy's microGPT — a single Python file implementing a fully functional GPT from scratch with zero dependencies. Everything you need to understand transformer-based language models is here.
+
+Start with the Value class — the autograd engine. It wraps Python floats but records every arithmetic operation into a directed acyclic graph. Supported operations are addition, multiplication, power, exponentiation, logarithm, and ReLU. Each operation stores the parent Values and the local gradient expression. When you call backward, a topological sort traverses the graph in reverse, accumulating gradients via the chain rule. This is identical in principle to PyTorch's autograd, but stripped to the essentials. The key detail: gradients accumulate additively when a Value is used multiple times, which handles parameter sharing correctly.
+
+Tokenization in microGPT is character-level. A vocabulary of twenty-seven tokens: BOS plus lowercase a through z. Every name is wrapped in BOS markers. This simplicity eliminates byte-pair encoding complexity and lets you focus purely on the model architecture. The encode and decode functions are trivial lookups.
+
+Embeddings consist of two learned tables. The token embedding table, wte, maps each of the twenty-seven vocabulary indices to a sixteen-dimensional vector. The position embedding table, wpe, maps each sequence position to another sixteen-dimensional vector. The model input at each position is the element-wise sum of these two vectors. Both tables are initialized randomly and trained end-to-end with everything else.
+
+The transformer block has two sub-layers. First, causal self-attention. Queries, keys, and values are linear projections of the input. The attention score matrix is queries times keys transposed, scaled by the square root of the head dimension. A causal mask zeroes out positions where a token would attend to future tokens. Softmax normalizes the scores into weights, and the output is the weighted sum of Values. In microGPT this is single-head attention for simplicity, but multi-head is a straightforward extension.
+
+Second, the MLP. A linear expansion from sixteen to sixty-four dimensions, followed by squared ReLU activation — applying ReLU and then squaring the result — followed by a linear contraction back to sixteen. A residual connection adds the MLP output to the MLP input, which helps gradients flow and prevents degradation in deeper networks.
+
+The forward pass processes an entire sequence. For each input document, the model predicts the next character at every position simultaneously. The loss is the average negative log probability of the correct next characters — cross-entropy loss. Low loss means the model assigns high probability to what actually comes next.
+
+Training uses the Adam optimizer, implemented from scratch. Adam maintains two moving averages per parameter: the first moment, which is the mean of recent gradients, and the second moment, which is the mean of recent squared gradients. The parameter update divides the bias-corrected first moment by the square root of the bias-corrected second moment, with an epsilon term for numerical stability. This gives adaptive per-parameter learning rates. The default hyperparameters in microGPT are learning rate 1e-2, beta1 0.9, beta2 0.99, and weight decay 1e-4. These are standard values.
+
+The training loop iterates over the dataset: sample a document, forward pass, compute loss, zero all gradients, backward pass, Adam step. After training, generation works by starting with a BOS token, repeatedly running the forward pass to get next-character probabilities, dividing the logits by a temperature parameter, applying softmax, and sampling. Temperature below one sharpens the distribution toward the most likely characters. Temperature above one flattens it, producing more creative but less coherent output. Generation stops when BOS is sampled, signaling the end of a name.
+
+Key takeaways: the autograd tape records all operations automatically. Character-level tokenization is the simplest feasible approach. Embeddings convert discrete tokens into continuous vectors. Causal attention enforces autoregressive ordering. The MLP adds nonlinear expressivity through the expand-activate-contract pattern. Cross-entropy loss directly optimizes next-token prediction. Adam optimizer provides stable, adaptive gradient descent. Temperature controls the tradeoff between quality and diversity at generation time.
+
+--------------------------------------------------------------------------------
+Advanced Explanation
+--------------------------------------------------------------------------------
+Advanced deep dive into Atomic LLM Training.
+
+Karpathy's microGPT is a pedagogical masterpiece precisely because it strips the GPT architecture to its mathematical core while remaining functionally complete. Let us examine the implementation decisions, their implications, and how they connect to production-scale models.
+
+Autograd architecture. The Value class implements reverse-mode automatic differentiation over a dynamically constructed computation graph. Each Value stores its scalar data, a gradient accumulator initialized to zero, a tuple of parent Values, and a tuple of corresponding local gradient expressions. The backward method performs a topological sort to establish reverse execution order, then propagates gradients using the chain rule. Critical implementation detail: the topological sort uses Kahn's algorithm with a visited set to handle the DAG correctly, including the diamond patterns that arise from parameter sharing. Gradient accumulation is additive — when a weight appears in multiple paths, its gradient is the sum of all path contributions. This correctly handles tied embeddings and shared parameters.
+
+The operation set — add, multiply, power, exp, log, ReLU — is carefully chosen to be a complete basis for implementing cross-entropy loss, softmax, attention scaling, and all linear algebra operations needed in the transformer. Division is implemented via multiplication by a reciprocal using power to negative one. Subtraction is implemented as addition of a negated value. This minimal basis keeps the autograd engine to roughly thirty lines while being fully general.
+
+Tokenization and vocabulary. Character-level tokenization with vocabulary size twenty-seven eliminates the complexity of byte-pair encoding, sentencepiece, or tiktoken. But the architectural implications are significant: the embedding table has only twenty-seven rows instead of tens of thousands, and sequence lengths are measured in characters rather than subword tokens. This keeps the model small enough to train on a CPU in minutes. The design decision is pedagogically optimal — you can trace every single token through every layer without approximation.
+
+Embedding geometry. Token embeddings and position embeddings are both sixteen-dimensional. Their additive combination is the standard approach from the original transformer paper — Vaswani et al. 2017. In production models, learned position embeddings have been supplanted by rotary position embeddings, or RoPE, which encode relative rather than absolute position and extrapolate better to unseen sequence lengths. microGPT's absolute position embeddings are sufficient for the fixed context length used in name generation.
+
+Attention mechanics. The attention implementation computes Q K V projections, scales by one over square root of d_k for variance stabilization, applies a causal mask by zeroing out upper-triangular entries before softmax, and produces the weighted value aggregation. This is mathematically equivalent to the standard scaled dot-product attention. In production models, this would use multi-head attention with h heads, each operating on d_model divided by h dimensions, followed by concatenation and a final linear projection. Flash Attention and related kernel optimizations change the memory access pattern but not the mathematical semantics. Key/value caching during inference is also a pure optimization.
+
+The causal mask deserves attention. By zeroing future positions before softmax, each token's attention distribution is conditioned only on past and present. This is what makes the model autoregressive and enables next-token prediction training without data leakage. The mask is implemented as element-wise multiplication by a lower-triangular matrix.
+
+MLP design. The expand-activate-contract pattern — linear from d to 4d, nonlinearity, linear from 4d back to d — provides the model's per-position nonlinear transformation capacity. microGPT uses squared ReLU: apply ReLU then square the result. This is a deliberate choice referencing the Primer paper by So et al., which found squared ReLU outperforms standard ReLU and GELU in some settings. Production models typically use SwiGLU — the swish-gated linear unit — which splits the expanded representation into two halves, applies swish to one, and gates with the other. The residual connection bypasses the entire MLP, ensuring the gradient highway from loss to early layers remains intact.
+
+Layer normalization. microGPT implements layer normalization — centering activations to zero mean and unit variance across the embedding dimension, then applying a learned scale and bias. The placement is pre-norm — normalizing before attention and before the MLP — following the GPT-2 convention. Pre-norm stabilizes training and is standard in modern LLMs. RMSNorm, used in LLaMA and subsequent models, drops the mean-centering step for computational efficiency.
+
+Training dynamics. Cross-entropy loss is the average negative log probability of correct next tokens across all positions in a batch. The gradient of cross-entropy with respect to the logits has a particularly clean form: softmax output minus the one-hot target. This means the gradient signal at the output layer is exactly the model's prediction error.
+
+The Adam optimizer maintains exponential moving averages of the first moment — gradient mean — and second moment — gradient variance. Bias correction adjusts for initialization bias during early steps. Weight decay is implemented as decoupled weight decay — applied directly to the parameters rather than through the gradient — following the AdamW formulation from Loshchilov and Hutter. The learning rate of 1e-2 is higher than typical for large models but appropriate for this small model. In production, learning rate schedules with warmup and cosine decay are standard.
+
+Generation and sampling. Temperature scaling divides the logits by a temperature parameter before softmax. Mathematically, this sharpens or flattens the probability distribution. Temperature approaching zero converges to argmax — greedy decoding. Temperature of one preserves the trained distribution. Temperature above one increases entropy. Production models also use top-k sampling, top-p or nucleus sampling, and repetition penalties. microGPT's pure temperature sampling is sufficient for the name generation task.
+
+Scaling laws connection. microGPT's architecture — embedding, transformer block, output projection — is structurally identical to GPT-2, GPT-3, and GPT-4. The differences are purely quantitative: embedding dimension 16 versus 12288, single layer versus 96 layers, single head versus 96 heads, vocabulary 27 versus 100k plus, context length of roughly 20 characters versus 8k to 128k tokens. Chinchilla scaling laws, Kaplan et al. scaling laws, and compute-optimal training strategies all apply to this same architecture class. The fundamental learning algorithm — stochastic gradient descent with Adam on cross-entropy loss — does not change.
+
+Practical implications for AI engineers: understanding microGPT gives you the ability to reason from first principles about transformer behavior, debug training failures by understanding gradient flow, evaluate architectural modifications by mapping them to the core computation graph, and communicate precisely about what language models are actually computing. This is the foundation upon which all agentic AI, retrieval-augmented generation, fine-tuning, and alignment techniques are built.
+
