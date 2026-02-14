@@ -309,6 +309,14 @@
         <priority>0.95</priority>
     </url>
 
+    <!-- Atomic LLM Training / microGPT (February 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/atomic-llm-training</loc>
+        <lastmod>2026-02-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
     <!-- Edge & Physical AI (February 2026) -->
     <url>
         <loc>https://www.openagentschool.org/concepts/edge-agent</loc>

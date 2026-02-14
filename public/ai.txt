@@ -59,6 +59,9 @@ Concept-MCP-Apps: https://www.openagentschool.org/concepts/data-visualization
 # Edge & Physical AI (February 2026)
 Concept-Edge-Agent: https://www.openagentschool.org/concepts/edge-agent
 
+# LLM Internals & Training (February 2026)
+Concept-Atomic-LLM-Training: https://www.openagentschool.org/concepts/atomic-llm-training
+
 # Fine-Tuning & Model Optimization
 Concept-Fine-Tuning: https://www.openagentschool.org/concepts/fine-tuning
 Concept-RLHF: https://www.openagentschool.org/concepts/rlhf

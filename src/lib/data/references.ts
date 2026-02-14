@@ -1271,6 +1271,83 @@ export const references: ReferencesData = {
       }
     ],
     
+    // Atomic LLM Training (microGPT) concept
+    'atomic-llm-training': [
+      {
+        id: "official-sources",
+        name: "Official Sources",
+        references: [
+          {
+            title: "microGPT — Karpathy's Gist",
+            url: "https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95",
+            description: "The original ~200-line pure Python GPT implementation — the complete algorithm"
+          },
+          {
+            title: "karpathy.ai/microgpt",
+            url: "https://karpathy.ai/microgpt.html",
+            description: "Official microGPT page with syntax-highlighted code and context"
+          }
+        ]
+      },
+      {
+        id: "visual-interactive",
+        name: "Visual & Interactive Guides",
+        references: [
+          {
+            title: "Step-by-Step Visual Explainer (tanpuekai)",
+            url: "https://htmlpreview.github.io/?https://github.com/tanpuekai/microGPT_webEdu/blob/main/index.html",
+            description: "Web-based educational walkthrough explaining every line of microGPT visually"
+          },
+          {
+            title: "microGPT WebEdu — GitHub",
+            url: "https://github.com/tanpuekai/microGPT_webEdu",
+            description: "Source repository for tanpuekai's visual microGPT explainer"
+          },
+          {
+            title: "Interactive Visual Guide (Claude Artifact)",
+            url: "https://claude.ai/public/artifacts/36b54621-c5d8-45a1-9963-32577d352a86",
+            description: "Interactive diagram-based exploration of microGPT components"
+          },
+          {
+            title: "Animated Execution Visualization (snzro)",
+            url: "https://ladenhauf.com/viz/ai-viz/",
+            description: "Watch microGPT data flow animated step by step"
+          },
+          {
+            title: "Neurovisual: Math Functions Explorer (OAS)",
+            url: "https://ai.studio/apps/drive/1E9XlNn7X1GnNdRLB8AdfkcpYk2YMo3OQ?fullscreenApplet=true",
+            description: "Open Agent School's interactive tool for visualizing ReLU, softmax, exp, log and all activation functions"
+          }
+        ]
+      },
+      {
+        id: "community-extensions",
+        name: "Community Extensions",
+        references: [
+          {
+            title: "DeepWiki: nanochat",
+            url: "https://deepwiki.com/karpathy/nanochat",
+            description: "Deep dive into Karpathy's nanochat — the next step up from microGPT"
+          },
+          {
+            title: "picoGPT (93 lines)",
+            url: "https://github.com/Kuberwastaken/picogpt",
+            description: "Even more minimal GPT implementation in 93 lines of Python"
+          },
+          {
+            title: "microGPT.js (Browser Port)",
+            url: "https://huggingface.co/spaces/webml-community/microgpt.js",
+            description: "Xenova's exact JavaScript port — runs in the browser with bit-for-bit matching output"
+          },
+          {
+            title: "Interactive Visual Guide (original Claude Artifact)",
+            url: "https://claude.ai/public/artifacts/eebaafa3-0ada-48e7-ae70-46644b33bd25",
+            description: "Original Claude artifact that inspired the adapted visual guide"
+          }
+        ]
+      }
+    ],
+    
     // ModelContextProtocol (MCP) concept
     mcp: [
       {

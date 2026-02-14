@@ -143,6 +143,28 @@ export const SEO: React.FC<SEOProps> = ({
       }
     }
 
+    if (location.pathname === '/concepts/atomic-llm-training') {
+      const atomicLLMJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'TechArticle',
+        name: 'Atomic LLM Training (microGPT)',
+        url: currentUrl,
+        description: 'Build a dependency-free GPT in ~200 lines of pure Python. Autograd engine, transformer architecture, Adam optimizer, and hands-on inference. Based on Andrej Karpathy\'s micrograd and nanoGPT.',
+        keywords: ['microGPT', 'autograd', 'backpropagation', 'transformer', 'attention', 'Adam optimizer', 'cross-entropy', 'Karpathy', 'nanoGPT', 'micrograd', 'GPT from scratch'],
+        learningResourceType: 'CourseModule',
+        educationalLevel: 'Beginner',
+        isPartOf: {
+          '@type': 'CreativeWork',
+          name: 'Foundational Concepts Learning Path',
+          url: 'https://www.openagentschool.org/concepts'
+        },
+        author: { '@type': 'Person', name: 'Srikanth Bhakthan' },
+        publisher: { '@type': 'Organization', name: 'Open Agent School' },
+        inLanguage: 'en'
+      };
+      updateJsonLdScript('seo-jsonld-atomic-llm', atomicLLMJsonLd);
+    }
+
     if (location.pathname === '/concepts/agentic-robotics-integration') {
       const roboticsConceptJsonLd = {
         '@context': 'https://schema.org',
@@ -246,6 +268,11 @@ export const pageSEOConfigs = {
     title: 'Agentic Commerce: UCP & AP2 - Universal Commerce Protocol | Open Agent School',
     description: 'Learn Google\'s Universal Commerce Protocol (UCP) and AP2 for end-to-end agentic transactions. Covers discovery, checkout, discounts, fulfillment, and payment mandate chains with major partners: Shopify, Walmart, Target, Visa, Mastercard.',
     keywords: 'UCP, Universal Commerce Protocol, AP2, agentic commerce, autonomous payments, Google shopping, Shopify, checkout protocol, agent payments, delegated payments, mandate protocol, verifiable credentials, AI commerce'
+  },
+  '/concepts/atomic-llm-training': {
+    title: 'Atomic LLM Training (microGPT) - Build a GPT from Scratch | Open Agent School',
+    description: 'Build a dependency-free GPT in ~200 lines of pure Python. Covers autograd engine (Value class, backward pass, topological sort), transformer architecture (attention, MLP, blocks), training loop with Adam optimizer and cross-entropy loss, and hands-on inference. Based on Andrej Karpathy\'s micrograd and nanoGPT. Includes animated visual guides and 6 graded challenges.',
+    keywords: 'microGPT, autograd, backpropagation, transformer architecture, attention mechanism, Adam optimizer, cross-entropy loss, Karpathy, nanoGPT, micrograd, LLM training, GPT from scratch, neural network, deep learning fundamentals, training loop, inference, Value class, backward pass'
   },
   '/concepts/agentic-prompting-fundamentals': {
     title: 'Agentic Prompting Fundamentals - Advanced AI Control | Open Agent School',

@@ -43,6 +43,8 @@ import { humanInTheLoopPatternsQuestions, humanInTheLoopPatternsTimeEstimate } f
 import { agentCostOptimizationQuestions, agentCostOptimizationTimeEstimate } from './agent-cost-optimization';
 // Edge Agent & Industrial AI (February 2026)
 import { edgeAgentQuestions, edgeAgentTime } from './edge-agent';
+// Atomic LLM Training (February 2026)
+import { atomicLLMTrainingQuiz } from './atomic-llm-training';
 // New Phase 1 foundation quizzes
 import { llmFundamentalsQuiz } from './llm-fundamentals';
 import { gettingStartedAgentsQuiz } from './getting-started-agents';
@@ -104,6 +106,8 @@ const allQuestions = [
   ...agentCostOptimizationQuestions,
   // Edge Agent & Industrial AI (February 2026)
   ...edgeAgentQuestions,
+  // Atomic LLM Training (February 2026)
+  ...atomicLLMTrainingQuiz.questions,
   // Enterprise Playbook Concepts (2026)
   ...enterprisePlaybookConceptsQuestions
 ];
@@ -346,6 +350,37 @@ export const quizCategories: QuizCategory[] = [
         description: 'Safety guardrails, observability, OTA updates, and fleet management at scale.',
         prerequisites: ['hybrid-architectures'],
         questions: edgeAgentQuestions.filter(q => q.subCategory === 'production-patterns')
+      }
+    ]
+  },
+  {
+    id: 'atomic-llm-training',
+    name: 'Atomic LLM Training (microGPT)',
+    description: 'Build a GPT from scratch — autograd, transformers, training loops, and inference in ~200 lines',
+    icon: 'Atom',
+    totalQuestions: atomicLLMTrainingQuiz.questions.length,
+    estimatedTime: atomicLLMTrainingQuiz.estimatedTime,
+    subCategories: [
+      {
+        id: 'autograd-fundamentals',
+        name: 'Autograd Fundamentals',
+        description: 'Value class, backward pass, topological sort, gradient accumulation',
+        prerequisites: [],
+        questions: atomicLLMTrainingQuiz.questions.filter(q => q.subCategory === 'autograd-fundamentals')
+      },
+      {
+        id: 'transformer-architecture',
+        name: 'Transformer Architecture',
+        description: 'Self-attention, Q/K/V, causal mask, layer normalization, MLP blocks',
+        prerequisites: ['autograd-fundamentals'],
+        questions: atomicLLMTrainingQuiz.questions.filter(q => q.subCategory === 'transformer-architecture')
+      },
+      {
+        id: 'training-loop',
+        name: 'Training & Inference',
+        description: 'Adam optimizer, cross-entropy loss, autoregressive generation',
+        prerequisites: ['transformer-architecture'],
+        questions: atomicLLMTrainingQuiz.questions.filter(q => q.subCategory === 'training-loop')
       }
     ]
   },

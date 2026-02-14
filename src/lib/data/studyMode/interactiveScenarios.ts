@@ -8458,6 +8458,124 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// Atomic LLM Training (microGPT) Scenarios
+(scenarioLibrary as any)['atomic-llm-training'] = [
+  {
+    id: 'atomic-llm-scn-1',
+    type: 'scenario',
+    conceptId: 'atomic-llm-training',
+    title: 'Building an Autograd Engine from Scratch',
+    level: 'beginner',
+    scenario: {
+      id: 'autograd-engine-build',
+      title: 'Implement the Value Class and Backward Pass',
+      description: 'You need to build the core autograd engine that powers backpropagation. Start with a Value class that wraps scalars and tracks operations for automatic gradient computation.',
+      context: 'Your team wants to understand how PyTorch-style autograd works at a fundamental level. You will implement a minimal Value class that supports basic operations (+, *, tanh) and automatic backward pass.',
+      stakeholders: ['ML Engineer', 'Team Lead', 'Student'],
+      challenges: [
+        {
+          id: 'value-class-design',
+          title: 'Design the Value Class',
+          description: 'Choosing the right data structure',
+          question: 'What data should the Value class store besides the numeric value to enable automatic differentiation?',
+          type: 'multiple-choice',
+          options: [
+            'Only the value and a label for debugging',
+            'The value, gradient (initialized to 0), children (operands), and a backward function',
+            'The value and a reference to the global computation graph',
+            'The value and a list of all parameters in the network'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct! Each Value stores its data, a gradient (grad=0.0), references to child nodes that produced it (_children), and a local _backward function that knows how to propagate gradients through the specific operation.',
+          hints: [
+            'Think about what information you need to go backwards through a computation',
+            'Consider how each operation needs to know how to distribute gradients to its inputs'
+          ]
+        },
+        {
+          id: 'topological-sort',
+          title: 'Gradient Computation Order',
+          description: 'Ensuring correct backward pass order',
+          question: 'Why must backward() process nodes in reverse topological order, and what would happen if you processed them in random order?',
+          type: 'multiple-choice',
+          options: [
+            'Random order works fine — gradients are independent',
+            'Reverse topological ensures each node\'s gradient is fully accumulated before propagating to its children',
+            'Alphabetical order is simpler and equally correct',
+            'Forward topological order is actually correct'
+          ],
+          correctAnswer: 1,
+          feedback: 'Excellent! Reverse topological order guarantees that when we call _backward() on a node, all nodes that depend on it have already contributed their gradient. Random order would give incorrect partial gradients.',
+          hints: [
+            'Think about a diamond-shaped computation graph where two paths merge',
+            'Consider what happens if a node appears in multiple computation paths'
+          ]
+        },
+        {
+          id: 'gradient-accumulation',
+          title: 'The += Gotcha',
+          description: 'Understanding gradient accumulation',
+          question: 'In the backward pass, why do we use += (accumulate) for gradients instead of = (assign)?',
+          type: 'multiple-choice',
+          options: [
+            'It doesn\'t matter — either works the same',
+            'Because a value can be used in multiple operations, and each use contributes to its total gradient',
+            'For numerical stability only',
+            'Because = would be slower'
+          ],
+          correctAnswer: 1,
+          feedback: 'Perfect! When a value is used in multiple operations (e.g., x + x or used in both branches of a computation), each usage contributes a partial gradient. Using += correctly sums all contributions via the multivariate chain rule.',
+          hints: [
+            'Consider what d(x+x)/dx should be',
+            'Think about what happens when the same variable appears twice in an expression'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'successful-implementation',
+          condition: 'All challenges completed correctly',
+          result: 'You\'ve understood the core mechanics of automatic differentiation',
+          explanation: 'Your understanding covers Value class design, topological sorting for correct gradient flow, and gradient accumulation — the three pillars of autograd.',
+          nextSteps: [
+            'Implement additional operations (exp, power, division)',
+            'Build a simple neural network (MLP) on top of the autograd engine',
+            'Compare your implementation with PyTorch\'s autograd behavior'
+          ]
+        },
+        {
+          id: 'partial-implementation',
+          condition: 'Some challenges completed incorrectly',
+          result: 'Your autograd engine has subtle bugs that would produce incorrect gradients',
+          explanation: 'Review the feedback — common mistakes include ignoring gradient accumulation and processing nodes in wrong order.',
+          nextSteps: [
+            'Trace through a simple expression like (a + b) * c manually',
+            'Verify gradients numerically with finite differences',
+            'Study the Value class code in the concept page'
+          ]
+        }
+      ]
+    },
+    followUpQuestions: [
+      'How would you extend the Value class to support division and subtraction?',
+      'What is the relationship between this autograd engine and PyTorch\'s torch.autograd?',
+      'How does gradient accumulation relate to batch training?'
+    ],
+    expectedInsights: [
+      'Each operation needs a custom backward function that applies the chain rule locally',
+      'PyTorch\'s autograd is fundamentally the same concept but optimized for tensors instead of scalars',
+      'Gradient accumulation across batch samples is analogous to accumulation across computation paths'
+    ],
+    relatedConcepts: ['fine-tuning', 'agent-learning'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Designs correct Value class structure',
+      'Understands topological sort necessity',
+      'Handles gradient accumulation correctly'
+    ]
+  }
+];
+
 // IgnitionStack Agent Scenarios
 (scenarioLibrary as any)['ignition-stack'] = [
   {

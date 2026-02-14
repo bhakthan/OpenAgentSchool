@@ -522,6 +522,10 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'agentic-robotics-control-loop': 'AgenticRoboticsControlLoop',
         'agentic-robotics-integration': 'AgenticRoboticsControlLoop',
         
+        // Atomic LLM Training (microGPT)
+        'atomic-llm-training': 'AtomicLLMTrainingConcept',
+        'AtomicLLMTrainingConcept': 'AtomicLLMTrainingConcept',
+        
         // CLI Coding Agents & Agent Skills
         'client-coding-agents': 'ClientCodingAgentsConcept',
         'ClientCodingAgentsConcept': 'ClientCodingAgentsConcept',

@@ -145,7 +145,38 @@ npm run dev
 
 ---
 
-##  Recent Updates (February 5, 2026)
+##  Recent Updates (February 14, 2026)
+
+### New Concepts
+
+🆕 **Atomic LLM Training (microGPT) — Build a GPT from Scratch**
+- Build a dependency-free GPT in ~200 lines of pure Python (Karpathy's micrograd + nanoGPT)
+- 5 progressive tabs: Why This Matters, Autograd Engine, GPT Architecture, Training Loop & Adam, Try It Yourself
+- Autograd engine: Value class, backward pass, topological sort, gradient accumulation
+- Transformer architecture: self-attention with Q/K/V, causal mask, MLP blocks, layer normalization
+- Training loop: Adam optimizer, cross-entropy loss, learning rate scheduling
+- 6 graded challenges from beginner to expert
+- Animated visual guides (ladenhauf.com, tanpuekai.com, Claude artifact, Neurovisual)
+- 10 quiz questions, 3 Socratic questions, and an interactive autograd scenario
+- Tier 1 Fundamentals concept — no prerequisites
+
+🎨 **Interactive Animated Diagrams for Atomic LLM Training**
+- 10 embedded interactive visuals across all concept tabs (AtomicLLMTrainingVisuals.tsx)
+- **Pipeline Flowchart**: Animated step-by-step GPT pipeline (Raw Text → Tokenize → Embed → Attention → Predict → Learn)
+- **Interactive Compute Graph**: Drag sliders to see gradients update live via the chain rule
+- **Operations Grid**: Visual reference for all 6 autograd operations with gradient rules
+- **Interactive Tokenizer**: Type any name to see character-level token IDs and positions
+- **Embedding Visualizer**: Hover tokens to explore 16-dimensional wte + wpe vectors
+- **Causal Attention Visualizer**: Click tokens to see attention weights and masked future positions
+- **MLP Flow Diagram**: Expand → activate → contract pipeline (16d → 64d → 16d)
+- **Animated Training Chart**: Play/pause loss curve simulation over 50 training steps
+- **Cross-Entropy Loss Explainer**: Three visual examples showing confidence vs. loss
+- **Temperature Explorer**: Slider from 0.1–1.0 showing conservative → creative name generation
+- All visuals use Tailwind CSS, dark mode support, and smooth CSS animations
+
+---
+
+##  Previous Updates (February 5, 2026)
 
 ### New Concepts
 

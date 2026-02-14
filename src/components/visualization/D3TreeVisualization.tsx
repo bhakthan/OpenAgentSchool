@@ -78,6 +78,7 @@ export default function D3TreeVisualization({
             { id: 'agent-ethics', name: 'Agent Ethics & Governance', type: 'concept' as const },
             { id: 'ai-agents', name: 'AI Agents', type: 'concept' as const },
             { id: 'ai-safety-governance', name: 'AI Safety & Governance', type: 'concept' as const },
+            { id: 'atomic-llm-training', name: 'Atomic LLM Training (microGPT)', type: 'concept' as const, novel: true },
             { id: 'program-setup-north-star', name: 'Program Setup & North Star', type: 'concept' as const, novel: true },
             { id: 'responsible-ai-governance', name: 'Responsible AI Governance Playbooks', type: 'concept' as const, novel: true },
             { id: 'ai-product-framework', name: 'AI Product Framework (8 Pillars)', type: 'concept' as const, novel: true }

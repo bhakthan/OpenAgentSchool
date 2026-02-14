@@ -32,6 +32,7 @@ import { Package } from "@phosphor-icons/react/dist/ssr/Package";
 import { Scales } from "@phosphor-icons/react/dist/ssr/Scales";
 import { Lightning } from "@phosphor-icons/react/dist/ssr/Lightning";
 import { ArrowUp } from "@phosphor-icons/react/dist/ssr/ArrowUp";
+import { Atom } from "@phosphor-icons/react/dist/ssr/Atom";
 import { cn } from "@/lib/utils";
 import { useTheme } from '@/components/theme/ThemeProvider';
 
@@ -77,7 +78,7 @@ const learningPaths: LearningPath[] = [
       'agentic-workflow-control', 'agent-evaluation-methodologies',
       // Tier 1: Foundational Concepts
       'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance',
-      'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework',
+      'atomic-llm-training', 'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework',
       // Tier 2: Architecture Concepts  
       'a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management', 'ai-ready-data',
       // Tier 3: Implementation Concepts
@@ -289,6 +290,20 @@ const learningPaths: LearningPath[] = [
         completionRate: 0,
         isCompleted: false,
         isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'atomic-llm-training',
+        title: 'Atomic LLM Training (microGPT)',
+        description: 'Build and train a GPT from scratch in 200 lines of pure Python — see every gradient, every attention head',
+        icon: <Atom size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '50-70 min',
+        prerequisites: [],
+        skills: ['Autograd', 'Backpropagation', 'Transformer Architecture', 'Adam Optimizer', 'Cross-Entropy Loss'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: true,
         path: '/concepts'
       },
       {

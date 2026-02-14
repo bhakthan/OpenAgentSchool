@@ -15,6 +15,7 @@ export const CORE_CONCEPT_IDS = [
   'agent-ethics',
   'ai-agents',
   'ai-safety-governance',
+  'atomic-llm-training',
   'program-setup-north-star',
   'responsible-ai-governance',
   'ai-product-framework',

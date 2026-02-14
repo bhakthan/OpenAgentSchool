@@ -6719,6 +6719,102 @@ export const socraticQuestionLibrary = {
       ]
     }
   ],
+  // Atomic LLM Training (microGPT) — Build a GPT from Scratch
+  'atomic-llm-training': [
+    {
+      id: 'atomic-llm-socratic-1',
+      type: 'socratic',
+      conceptId: 'atomic-llm-training',
+      title: 'Why Autograd Matters',
+      level: 'beginner',
+      socratiQuestion: "When training a neural network, we need to adjust millions of parameters to reduce error. How could we figure out which direction to nudge each parameter — and why is doing this by hand impossible at scale?",
+      followUpQuestions: [
+        "What does the chain rule from calculus have to do with training neural networks?",
+        "Why do we call it 'back-propagation' instead of 'forward-propagation'?",
+        "How does the Value class in microGPT make automatic differentiation possible with just a few lines of Python?"
+      ],
+      expectedInsights: [
+        "Gradient descent requires knowing how each parameter affects the loss — gradients",
+        "The chain rule lets us propagate error information backward through composed functions",
+        "Autograd records operations in a computation graph and replays them in reverse to compute gradients automatically"
+      ],
+      hints: [
+        "Think about how a small change in one weight ripples through the entire network",
+        "Consider what a computation graph looks like: each node is an operation",
+        "The Value class wraps numbers and remembers how they were computed"
+      ],
+      explanation: "This question guides students to discover that automatic differentiation (autograd) is the engine behind all modern deep learning. Without it, computing gradients for millions of parameters would be intractable.",
+      relatedConcepts: ['fine-tuning', 'agent-learning', 'agent-evaluation'],
+      timeEstimate: 15,
+      successCriteria: [
+        "Explains why manual gradient computation is infeasible at scale",
+        "Connects the chain rule to backpropagation",
+        "Understands the role of the computation graph"
+      ]
+    },
+    {
+      id: 'atomic-llm-socratic-2',
+      type: 'socratic',
+      conceptId: 'atomic-llm-training',
+      title: 'Attention Is All You Need',
+      level: 'intermediate',
+      socratiQuestion: "In a sentence like 'The cat sat on the mat because it was tired', how would a model know that 'it' refers to 'the cat' and not 'the mat'? What mechanism allows the model to learn these relationships?",
+      followUpQuestions: [
+        "What are Query, Key, and Value vectors, and how do they work together?",
+        "Why does self-attention scale better than recurrent networks for long sequences?",
+        "How does multi-head attention allow the model to attend to different types of relationships simultaneously?"
+      ],
+      expectedInsights: [
+        "Self-attention computes a relevance score between every pair of tokens in the sequence",
+        "Q·K similarity determines how much each position attends to every other position; V carries the content",
+        "Multi-head attention lets the model learn different relationship types (syntactic, semantic, positional) in parallel"
+      ],
+      hints: [
+        "Think of attention as a soft lookup table where every word 'queries' every other word",
+        "Consider why RNNs struggle with long-range dependencies",
+        "Each attention head can specialize in a different linguistic pattern"
+      ],
+      explanation: "This question builds understanding of the core innovation in transformers: self-attention replaces sequential processing with parallel relationship computation, enabling models to capture long-range dependencies efficiently.",
+      relatedConcepts: ['agent-architecture', 'agent-reasoning-patterns'],
+      timeEstimate: 20,
+      successCriteria: [
+        "Explains Q/K/V roles in attention",
+        "Identifies advantage over sequential models",
+        "Understands multi-head parallelism"
+      ]
+    },
+    {
+      id: 'atomic-llm-socratic-3',
+      type: 'socratic',
+      conceptId: 'atomic-llm-training',
+      title: 'The Training Loop: Loss, Optimizer, Repeat',
+      level: 'intermediate',
+      socratiQuestion: "A training loop has three core steps: forward pass, loss computation, and backward pass with parameter update. Why must these happen in this exact order — and what would go wrong if you skipped the loss computation or used stale gradients?",
+      followUpQuestions: [
+        "Why does Adam optimizer outperform basic gradient descent for transformer training?",
+        "What is cross-entropy loss and why is it the right choice for next-token prediction?",
+        "What happens if the learning rate is too high? Too low?"
+      ],
+      expectedInsights: [
+        "Forward pass produces predictions, loss quantifies error, backward pass computes gradients — each depends on the previous step",
+        "Adam adapts per-parameter learning rates using first and second moment estimates, handling sparse gradients better",
+        "Cross-entropy measures the divergence between predicted and actual probability distributions over the vocabulary"
+      ],
+      hints: [
+        "Think about a feedback loop: measure error → compute blame → adjust",
+        "Adam combines momentum (direction smoothing) with adaptive step sizes",
+        "Cross-entropy is high when the model assigns low probability to the correct token"
+      ],
+      explanation: "Understanding the training loop at a code level connects abstract ML concepts to concrete implementation. Each step has a precise role, and getting the order or hyperparameters wrong leads to divergence or stagnation.",
+      relatedConcepts: ['fine-tuning', 'agent-evaluation-methodologies'],
+      timeEstimate: 18,
+      successCriteria: [
+        "Explains the three-step dependency chain",
+        "Identifies Adam's advantages over SGD",
+        "Understands cross-entropy in token prediction context"
+      ]
+    }
+  ],
   // IgnitionStack Agent Pattern
   'ignition-stack': [
     {

@@ -63,6 +63,7 @@ const PromptInjectionDefenseConcept = lazy(() => import("./PromptInjectionDefens
 const HumanInTheLoopPatternsConcept = lazy(() => import("./HumanInTheLoopPatternsConcept"))
 const AgentCostOptimizationConcept = lazy(() => import("./AgentCostOptimizationConcept"))
 const EdgeAgentConcept = lazy(() => import("./EdgeAgentConcept"))
+const AtomicLLMTrainingConcept = lazy(() => import("./AtomicLLMTrainingConcept"))
 
 // Loading fallback for lazy concept components
 const ConceptLoader = () => (
@@ -227,6 +228,17 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '40-60 min',
     prerequisites: [],
     component: AzureAISafetyAndGovernance
+  },
+  {
+    id: 'atomic-llm-training',
+    title: 'Atomic LLM Training (microGPT)',
+    description: 'See every line of a working GPT — 200 lines of pure Python, zero dependencies, full understanding.',
+    level: 'fundamentals',
+    icon: <Atom className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-amber-900/20 dark:text-amber-300',
+    estimatedTime: '50-70 min',
+    prerequisites: [],
+    component: AtomicLLMTrainingConcept
   },
   {
     id: 'program-setup-north-star',
