@@ -1831,6 +1831,26 @@ export const references: ReferencesData = {
             title: "OpenClaw — Original OpenClaw",
             url: "https://github.com/openclaw/openclaw",
             description: "The original OpenClaw project for multi-agent orchestration"
+          },
+          {
+            title: "ZeroClaw — Rust Implementation",
+            url: "https://github.com/theonlyhennygod/zeroclaw",
+            description: "Rust implementation of the Claw pattern with zero-cost abstractions and compile-time safety"
+          },
+          {
+            title: "NanoClaw — Python Implementation",
+            url: "https://github.com/qwibitai/nanoclaw",
+            description: "Python implementation of the Claw multi-agent orchestration pattern for rapid prototyping"
+          },
+          {
+            title: "SeaClaw — C Implementation",
+            url: "https://github.com/haeli05/seaclaw",
+            description: "C implementation of the Claw pattern focused on minimal overhead and systems-level control"
+          },
+          {
+            title: "LispClaw — Lisp Implementation",
+            url: "https://github.com/jsmorph/lispclaw",
+            description: "Lisp implementation of the Claw pattern exploring homoiconic agent orchestration"
           }
         ]
       },
