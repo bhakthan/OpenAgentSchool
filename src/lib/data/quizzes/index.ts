@@ -43,6 +43,8 @@ import { humanInTheLoopPatternsQuestions, humanInTheLoopPatternsTimeEstimate } f
 import { agentCostOptimizationQuestions, agentCostOptimizationTimeEstimate } from './agent-cost-optimization';
 // Edge Agent & Industrial AI (February 2026)
 import { edgeAgentQuestions, edgeAgentTime } from './edge-agent';
+// XYZ-Claw Multi-Agent Orchestration
+import { xyzClawQuestions, xyzClawTime } from './xyz-claw';
 // Atomic LLM Training (February 2026)
 import { atomicLLMTrainingQuiz } from './atomic-llm-training';
 // New Phase 1 foundation quizzes
@@ -106,6 +108,8 @@ const allQuestions = [
   ...agentCostOptimizationQuestions,
   // Edge Agent & Industrial AI (February 2026)
   ...edgeAgentQuestions,
+  // XYZ-Claw Multi-Agent Orchestration
+  ...xyzClawQuestions,
   // Atomic LLM Training (February 2026)
   ...atomicLLMTrainingQuiz.questions,
   // Enterprise Playbook Concepts (2026)
@@ -350,6 +354,44 @@ export const quizCategories: QuizCategory[] = [
         description: 'Safety guardrails, observability, OTA updates, and fleet management at scale.',
         prerequisites: ['hybrid-architectures'],
         questions: edgeAgentQuestions.filter(q => q.subCategory === 'production-patterns')
+      }
+    ]
+  },
+  {
+    id: 'xyz-claw',
+    name: 'XYZ-Claw: Multi-Agent Orchestration',
+    description: 'End-to-end multi-agent swarm orchestration — message routing, actor lifecycle, fault tolerance, and systems thinking.',
+    icon: 'Network',
+    totalQuestions: xyzClawQuestions.length,
+    estimatedTime: xyzClawTime,
+    subCategories: [
+      {
+        id: 'architecture-overview',
+        name: 'Architecture Overview',
+        description: 'Supervisor-worker topology, async message passing, and pipeline stages.',
+        prerequisites: ['multi-agent-systems', 'agent-architecture'],
+        questions: xyzClawQuestions.filter(q => q.subCategory === 'architecture-overview')
+      },
+      {
+        id: 'design-patterns',
+        name: 'Design Patterns',
+        description: 'Actor model, back-pressure, dead-letter queues, and graceful shutdown.',
+        prerequisites: ['architecture-overview'],
+        questions: xyzClawQuestions.filter(q => q.subCategory === 'design-patterns')
+      },
+      {
+        id: 'message-flow',
+        name: 'Message Flow',
+        description: 'Async routing, priority queues, fan-out/fan-in, and sequence diagrams.',
+        prerequisites: ['architecture-overview'],
+        questions: xyzClawQuestions.filter(q => q.subCategory === 'message-flow')
+      },
+      {
+        id: 'systems-thinking',
+        name: 'Systems Thinking',
+        description: 'Feedback loops, emergent behaviour, leverage points, and resilience.',
+        prerequisites: ['design-patterns', 'message-flow'],
+        questions: xyzClawQuestions.filter(q => q.subCategory === 'systems-thinking')
       }
     ]
   },

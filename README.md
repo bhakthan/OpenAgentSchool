@@ -148,7 +148,24 @@ npm run dev
 
 ##  Recent Updates (February 16, 2026)
 
-### ⚛ Atomic Deep-Dive Tabs — Interactive Concept Visualizers (NEW)
+### 🔊 XYZ-Claw: Multi-Agent Orchestration — Audio Narrations (NEW)
+
+The **XYZ-Claw** concept page now ships with **step-by-step audio narrations** at three levels, powered by the built-in Web Speech API narrator.
+
+| Level | Duration | What You'll Hear |
+|-------|----------|-----------------|
+| 🌱 **Beginner** | ~4 min | Restaurant-kitchen analogy — supervisor, workers, queues, and the four pipeline stages (Ingest → Enrich → Embed → Index) |
+| 💪 **Intermediate** | ~6 min | Actor model, message routing (point-to-point / fan-out / fan-in), priority queues, dead-letter handling, back-pressure, "let it crash" supervision, and graceful shutdown |
+| 🧠 **Advanced** | ~7 min | Systems thinking lens — reinforcing & balancing feedback loops, stock-and-flow queue analysis, emergent behaviour, multi-language implementations (TypeScript / Go / Rust), cross-language interop, observability, security, and chaos testing |
+
+**How to use:** Open `/concepts/xyz-claw`, click the 🔊 floating audio panel in the top-right, choose a level, and press ▶ Play. Supports 14 languages, voice selection, speed control, and volume adjustment.
+
+Also included:
+- **Quiz**: 10 questions (3 beginner, 4 intermediate, 3 advanced) covering architecture, design patterns, message flow, and systems thinking
+- **Study Mode**: 2 Socratic scenarios — *Supervisor vs. Peer Topology* and *Back-Pressure & System Resilience*
+- **SEO & Discovery**: Added to sitemap, SEO meta tags, Learning Atlas, Learning Journey Map, llms.txt, and ai.txt
+
+### ⚛ Atomic Deep-Dive Tabs — Interactive Concept Visualizers
 
 40+ new slider-driven, interactive visualizations embedded directly inside 10 concept pages. Each concept gains an **⚛ Atomic** tab with a **Challenge Ladder** (Observe → Predict → Experiment → Synthesize).
 

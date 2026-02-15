@@ -4088,6 +4088,72 @@ export const aiReadyDataSocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// XYZ-Claw Multi-Agent Orchestration
+export const xyzClawSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'xyz-claw-socratic-1',
+    type: 'socratic',
+    conceptId: 'xyz-claw',
+    title: 'Supervisor vs. Peer Topology',
+    level: 'intermediate',
+    socratiQuestion: 'XYZ-Claw uses a supervisor that dispatches tasks to worker agents. What would change if you replaced the supervisor with a peer-to-peer protocol where any agent can delegate to any other? What new failure modes appear?',
+    followUpQuestions: [
+      'How does a supervisor create a single point of failure, and how does XYZ-Claw mitigate it?',
+      'In a peer topology, how do agents agree on who handles a task without a central arbiter?',
+      'Which model scales better when you add 100 more agents, and why?'
+    ],
+    expectedInsights: [
+      'Supervisor enables simple reasoning about message flow but creates a bottleneck',
+      'Peer-to-peer requires consensus and increases message complexity quadratically',
+      'Hybrid topologies (supervisor + local peer clusters) balance reliability and throughput'
+    ],
+    hints: [
+      'Think about how back-pressure propagates in each topology',
+      'Consider the dead-letter queue: who owns undeliverable messages without a supervisor?',
+      'Reflect on the actor model mailbox — does it assume hierarchy or not?'
+    ],
+    explanation: 'This question reveals the trade-offs between centralised orchestration (simpler, observable, bottleneck-prone) and decentralised coordination (resilient, complex, harder to debug).',
+    relatedConcepts: ['multi-agent-systems', 'agent-architecture', 'acp'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Articulates supervisor bottleneck risk',
+      'Identifies consensus overhead in peer-to-peer',
+      'Proposes a hybrid or mitigation strategy'
+    ]
+  },
+  {
+    id: 'xyz-claw-socratic-2',
+    type: 'socratic',
+    conceptId: 'xyz-claw',
+    title: 'Back-Pressure and System Resilience',
+    level: 'advanced',
+    socratiQuestion: 'An XYZ-Claw pipeline processes 1,000 documents per minute through Ingest → Enrich → Embed → Index stages. The Enrich stage suddenly slows to 200/min because an external API is rate-limited. What happens to the system, and what design patterns prevent cascading failure?',
+    followUpQuestions: [
+      'Where do messages accumulate if there is no back-pressure mechanism?',
+      'How does Donella Meadows\' concept of "balancing feedback loops" apply to queue depth monitoring?',
+      'What is the difference between dropping messages, buffering them, and slowing upstream producers?'
+    ],
+    expectedInsights: [
+      'Without back-pressure the ingest queue grows unboundedly, risking OOM crashes',
+      'Back-pressure signals upstream stages to throttle, preserving system stability',
+      'Dead-letter queues capture messages that exceed retry limits without blocking the pipeline'
+    ],
+    hints: [
+      'Think about what a mailbox overflow looks like in the actor model',
+      'Consider bounded queues with explicit overflow policies',
+      'Relate this to systems thinking: which feedback loop is missing?'
+    ],
+    explanation: 'This scenario teaches that multi-agent pipelines must treat throughput mismatches as first-class concerns. Back-pressure, bounded queues, and dead-letter handling are the core resilience patterns.',
+    relatedConcepts: ['agent-observability', 'agent-ops', 'agent-cost-optimization'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Identifies unbounded queue growth as the root risk',
+      'Explains at least two back-pressure strategies',
+      'Connects the pattern to systems thinking feedback loops'
+    ]
+  }
+];
+
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
@@ -4113,6 +4179,8 @@ export const socraticQuestionLibrary = {
   'adaptive-lab-technician': adaptiveLabTechnicianSocraticQuestions,
   'inventory-guardian': inventoryGuardianSocraticQuestions,
   'emergency-response-mate': emergencyResponseMateSocraticQuestions,
+  // XYZ-Claw Multi-Agent Orchestration
+  'xyz-claw': xyzClawSocraticQuestions,
   // New Perspectives (MVP sets)
   'agent-ops': [
     {

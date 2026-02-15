@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------------
+BEGINNER SECTION
+--------------------------------------------------------------------------------
+
+Welcome to XYZ-Claw, your step-by-step guide to building a multi-agent system from scratch.
+
+Let's start with the simplest mental model. Imagine a busy restaurant kitchen. There is one head chef, the supervisor, and several line cooks, the workers. The head chef looks at incoming orders, decides which cook should handle each dish, and makes sure everything comes out on time. If a cook gets stuck or drops a plate, the head chef notices and reassigns the task.
+
+That is exactly how XYZ-Claw works. A Supervisor agent receives requests and breaks them into smaller tasks. Worker agents each specialise in one thing, like summarising text, fetching data, or generating code. Messages flow between them through a queue, which is just a waiting line for tasks.
+
+Here are the four building blocks you need to understand. First, agents: small programs that each do one job well. Second, messages: the notes that agents pass to each other, containing the task description and any data. Third, queues: ordered waiting lines where messages sit until an agent is ready to pick one up. Fourth, the supervisor: the central coordinator that decides which agent handles which message.
+
+Why do we separate work this way? Three reasons. Isolation means if one agent crashes, it does not take down the whole system. Scalability means you can add more workers when the load increases, just like hiring more cooks on a busy night. And clarity means each agent's code is short and easy to understand because it only does one thing.
+
+A typical XYZ-Claw pipeline has four stages. Ingest receives raw documents or requests. Enrich adds metadata or calls external APIs. Embed converts text into numerical vectors for search. Index stores the results in a database. Each stage is handled by a different agent or group of agents, and messages flow from one stage to the next through the queue.
+
+Think of it like a relay race. The first runner, Ingest, grabs the baton, runs their leg, and passes it to the next runner, Enrich. If any runner stumbles, the race does not end; the team has a plan for recovery.
+
+That is the big picture: a supervisor dispatches tasks to specialised workers, messages travel through queues, and each stage does one job before passing the result to the next stage.
+
+--------------------------------------------------------------------------------
+INTERMEDIATE SECTION
+--------------------------------------------------------------------------------
+
+Now that you understand the basics, let's explore the design patterns that make XYZ-Claw production-ready.
+
+The first important pattern is the Actor Model. Each agent is an actor: an independent unit with its own private state, a mailbox for incoming messages, and a set of behaviours that define how it responds to each message type. Actors never share memory directly. They communicate exclusively through asynchronous messages. This eliminates a whole class of bugs related to shared state and race conditions.
+
+In XYZ-Claw, every worker agent is an actor. When the supervisor sends a task message, it lands in the worker's mailbox. The worker processes one message at a time, which guarantees sequential consistency within a single agent while allowing massive parallelism across agents.
+
+Next, let's talk about message routing. XYZ-Claw supports three routing strategies. Point-to-point sends a message to exactly one agent, used when a specific specialist is needed. Fan-out broadcasts a message to multiple agents simultaneously, useful when you need several perspectives or parallel processing. Fan-in collects results from multiple agents and merges them, like gathering all research findings into one summary.
+
+The queue system uses priority levels. Urgent messages jump to the front, normal messages wait their turn, and background tasks are processed when the system is idle. Each message also carries a time-to-live value; if a message sits in the queue too long without being processed, it is moved to the dead-letter queue rather than blocking the pipeline.
+
+Speaking of the dead-letter queue, this is a critical safety mechanism. When a message fails processing after a configured number of retries, say three attempts, it is moved to a special dead-letter queue. This prevents one bad message from blocking everything behind it. Operators can inspect the dead-letter queue, diagnose the problem, and either fix and replay the message or discard it.
+
+Back-pressure is another essential pattern. Imagine a highway with a traffic jam. If cars keep entering at the same rate, the jam gets worse. Back-pressure works like a metering light on a highway on-ramp: when downstream processing slows down, the system signals upstream stages to slow their intake. In XYZ-Claw, each queue has a maximum depth. When a queue is 80% full, the upstream producer starts throttling. At 95%, it pauses entirely until space clears.
+
+The supervisor itself follows the "let it crash" philosophy borrowed from Erlang. Rather than writing extensive defensive code inside each worker, XYZ-Claw expects failures to happen and designs for recovery. When a worker crashes, the supervisor detects the failure, restarts the worker with a clean state, and redispatches the failed task. This is far simpler and more reliable than trying to handle every possible error inside the worker.
+
+Finally, graceful shutdown. When you need to stop the system, you don't want to lose messages in flight. XYZ-Claw implements a drain pattern: the supervisor stops accepting new tasks, waits for all in-progress work to complete with a timeout, persists any remaining queued messages to durable storage, and then shuts down cleanly.
+
+--------------------------------------------------------------------------------
+ADVANCED SECTION
+--------------------------------------------------------------------------------
+
+Let's now take a systems thinking perspective on multi-agent orchestration and explore the deeper architectural implications.
+
+Donella Meadows, author of "Thinking in Systems," identified leverage points: places in a system where a small change produces large effects. In XYZ-Claw, the most powerful leverage points are the feedback loops that connect monitoring to auto-scaling decisions.
+
+Consider a reinforcing feedback loop. More incoming documents means longer queue depth, which means higher latency, which triggers auto-scaling, which adds more workers, which drains the queue faster. But there is a delay: spinning up new workers takes time, and during that delay the queue continues to grow. If your scaling policy is too aggressive, you overshoot and waste resources. If it is too conservative, latency spirals. The art is tuning the gain and delay of this feedback loop.
+
+Now consider a balancing feedback loop for cost. More workers means higher compute cost. A cost monitor detects the spending rate and can clamp the maximum worker count. This prevents runaway scaling and forces the system to degrade gracefully under extreme load, perhaps by dropping low-priority tasks, rather than spending without limits.
+
+Stock and flow analysis reveals that message queues are stocks: they accumulate and deplete. The inflow rate is the producer speed, and the outflow rate is the consumer speed. When inflow exceeds outflow, the stock grows. The dead-letter queue is a secondary stock that accumulates failed work. Monitoring these stocks over time gives you the clearest picture of system health.
+
+Emergent behaviour is a hallmark of multi-agent systems. No single agent is programmed to create system-wide patterns, yet complex behaviours emerge from local interactions. In XYZ-Claw, you might observe oscillations: bursts of high throughput followed by quiet periods. These emerge from the interaction between back-pressure signals and retry policies. Understanding emergence helps you predict and diagnose issues that don't appear in any individual agent's logs.
+
+From an implementation perspective, XYZ-Claw has been realised in multiple languages. TinyClaw is the reference implementation in TypeScript, roughly 300 lines, designed for readability and learning. PicoClaw is a Go implementation that emphasises goroutine-based concurrency and channel-based message passing. Moltis is a Rust implementation using the Tokio async runtime, showcasing zero-cost abstractions and compile-time safety. OpenClaw is the community-driven standard specification that defines the protocol independently of language.
+
+Cross-language interop works because all implementations share the same message envelope format: a JSON structure with fields for message ID, sender, recipient, payload, priority, timestamp, and time-to-live. Any implementation that speaks this format can participate in an XYZ-Claw cluster.
+
+For production deployment, you need to consider three additional concerns. First, observability: instrument every agent with structured logging, distributed tracing using OpenTelemetry, and metrics including queue depth, processing latency percentiles, error rates, and dead-letter counts. Second, security: encrypt messages in transit using TLS, authenticate agents using mutual TLS or API keys, and authorise operations using role-based access control. Third, testing: use chaos engineering to inject failures, simulate slow downstream services, and verify that back-pressure and dead-letter handling work as designed.
+
+The most important takeaway from studying XYZ-Claw through a systems lens is this: reliability in multi-agent systems is not about preventing individual failures, but about designing the interactions between agents so that the system as a whole absorbs and recovers from failures automatically. The supervisor pattern, combined with back-pressure, dead-letter queues, and feedback-driven scaling, creates an architecture that is anti-fragile: it actually improves its behaviour in response to stress, because each failure triggers learning and adaptation.
+

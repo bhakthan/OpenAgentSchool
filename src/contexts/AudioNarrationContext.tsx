@@ -536,6 +536,10 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'edge-agent': 'EdgeAgentConcept',
         'EdgeAgentConcept': 'EdgeAgentConcept',
         
+        // XYZ-Claw Multi-Agent Orchestration
+        'xyz-claw': 'XYZClawConcept',
+        'XYZClawConcept': 'XYZClawConcept',
+        
         // AI-Ready Data
         'ai-ready-data': 'AIReadyDataConcept',
         'AIReadyDataConcept': 'AIReadyDataConcept',

@@ -62,6 +62,9 @@ Concept-Edge-Agent: https://www.openagentschool.org/concepts/edge-agent
 # LLM Internals & Training (February 2026)
 Concept-Atomic-LLM-Training: https://www.openagentschool.org/concepts/atomic-llm-training
 
+# Multi-Agent Orchestration
+Concept-XYZ-Claw: https://www.openagentschool.org/concepts/xyz-claw
+
 # Fine-Tuning & Model Optimization
 Concept-Fine-Tuning: https://www.openagentschool.org/concepts/fine-tuning
 Concept-RLHF: https://www.openagentschool.org/concepts/rlhf

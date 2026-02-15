@@ -64,6 +64,7 @@ const HumanInTheLoopPatternsConcept = lazy(() => import("./HumanInTheLoopPattern
 const AgentCostOptimizationConcept = lazy(() => import("./AgentCostOptimizationConcept"))
 const EdgeAgentConcept = lazy(() => import("./EdgeAgentConcept"))
 const AtomicLLMTrainingConcept = lazy(() => import("./AtomicLLMTrainingConcept"))
+const XYZClawConcept = lazy(() => import("./XYZClawConcept"))
 
 // Loading fallback for lazy concept components
 const ConceptLoader = () => (
@@ -195,6 +196,17 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '35-45 min',
     prerequisites: ['agent-architecture'],
     component: MultiAgentSystemsConcept
+  },
+  {
+    id: 'xyz-claw',
+    title: 'XYZ-Claw: Multi-Agent Orchestration',
+    description: 'Build a production multi-agent backend end-to-end—queues, isolation, team collaboration, and real-world scenarios.',
+    level: 'implementation',
+    icon: <Robot className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-emerald-900/20 dark:text-emerald-300',
+    estimatedTime: '60-90 min',
+    prerequisites: ['multi-agent-systems', 'agent-architecture'],
+    component: XYZClawConcept
   },
   {
     id: 'agent-ethics',

@@ -1801,6 +1801,77 @@ export const references: ReferencesData = {
         ]
       }
     ],
+
+    "xyz-claw": [
+      {
+        id: "source-material",
+        name: "Source Material",
+        references: [
+          {
+            title: "TinyClaw — Original Repository",
+            url: "https://github.com/jlia0/tinyclaw",
+            description: "The open-source multi-agent orchestration system that inspired this educational concept"
+          },
+          {
+            title: "OpenAgentSchool TinyClaw Architecture Academy",
+            url: "https://github.com/bhakthan/teach-tinyclaw-architecture",
+            description: "Companion interactive learning app with guided code tours, visualizations, and AI tutor"
+          },
+          {
+            title: "PicoClaw — Go-Based Claw",
+            url: "https://github.com/sipeed/picoclaw",
+            description: "Go implementation of the Claw multi-agent orchestration pattern"
+          },
+          {
+            title: "Moltis — Rust-Based Claw",
+            url: "https://github.com/moltis-org/moltis",
+            description: "Rust implementation of the Claw pattern emphasizing safety and performance"
+          },
+          {
+            title: "OpenClaw — Original OpenClaw",
+            url: "https://github.com/openclaw/openclaw",
+            description: "The original OpenClaw project for multi-agent orchestration"
+          }
+        ]
+      },
+      {
+        id: "architecture-foundations",
+        name: "Architecture Foundations",
+        references: [
+          {
+            title: "Actor Model (Wikipedia)",
+            url: "https://en.wikipedia.org/wiki/Actor_model",
+            description: "The mathematical model of concurrent computation underlying agent isolation and message passing"
+          },
+          {
+            title: "File-Based Message Queues",
+            url: "https://en.wikipedia.org/wiki/Message_queue",
+            description: "Foundational pattern for decoupled asynchronous communication between system components"
+          },
+          {
+            title: "Thinking in Systems — Donella Meadows",
+            url: "https://www.chelseagreen.com/product/thinking-in-systems/",
+            description: "Classic primer on systems thinking — feedback loops, emergent behavior, and interconnectedness"
+          }
+        ]
+      },
+      {
+        id: "related-concepts",
+        name: "Related Concepts",
+        references: [
+          {
+            title: "Multi-Agent Systems — OpenAgentSchool",
+            url: "/concepts/multi-agent-systems",
+            description: "Core concept covering multi-agent orchestration patterns and frameworks"
+          },
+          {
+            title: "Agent Architecture — OpenAgentSchool",
+            url: "/concepts/agent-architecture",
+            description: "Foundational concept on how AI agents are structured and composed"
+          }
+        ]
+      }
+    ],
   
     "agent-architecture": [
       {

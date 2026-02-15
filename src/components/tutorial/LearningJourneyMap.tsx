@@ -82,7 +82,7 @@ const learningPaths: LearningPath[] = [
       // Tier 2: Architecture Concepts  
       'a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management', 'ai-ready-data',
       // Tier 3: Implementation Concepts
-      'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations',
+      'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations', 'xyz-claw',
       // Tier 4: Advanced Concepts
   'agent-deployment', 'agent-learning', 'agent-integration', 'agentic-robotics-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management',
       'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement',
@@ -487,6 +487,20 @@ const learningPaths: LearningPath[] = [
         estimatedTime: '40-50 min',
         prerequisites: ['ai-ready-data', 'data-visualization'],
         skills: ['Data Curation', 'Evaluation Suites', 'Knowledge Stewardship'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'xyz-claw',
+        title: 'XYZ-Claw: Multi-Agent Orchestration',
+        description: 'End-to-end swarm architecture — supervisor-worker topology, async messaging, back-pressure, and systems thinking.',
+        icon: <Stack size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '60-90 min',
+        prerequisites: ['multi-agent-systems', 'agent-architecture'],
+        skills: ['Swarm Orchestration', 'Actor Model', 'Message Passing', 'Back-Pressure', 'Systems Thinking'],
         completionRate: 0,
         isCompleted: false,
         isUnlocked: false,
@@ -966,7 +980,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     // Tier 2: Architecture - Protocols, Visualization, Evaluation
     ['a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management'],
     // Tier 3: Implementation - ACP, MCP Integration, Data Pipelines
-    ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations'],
+    ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations', 'xyz-claw'],
     // Tier 4: Advanced - Operations, Learning, Integration, Commerce, Robotics, Reasoning, Memory, Security
     ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization'],
     // Tier 5: Applied - Career, Enterprise Adoption, Templates

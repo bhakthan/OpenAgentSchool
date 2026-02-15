@@ -134,6 +134,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Data Autonomy Patterns
 - AI-Ready Data - Decision-grade data foundations for AI trust: data constraints, trust erosion, decision capture, maturity ladder
 - Fine-Tuning Methods (SFT, DPO, RFT)
+- XYZ-Claw: Multi-Agent Orchestration - End-to-end swarm architecture (supervisor-worker topology, async message passing, back-pressure, dead-letter queues) built in TypeScript / Go / Rust
 - Quantum-Enhanced AI & Robotics
 - Edge Agent & Physical AI (February 2026)
   - Edge inference with latency guarantees (<10ms for robotics)
@@ -207,6 +208,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - CLI Coding Agents: https://www.openagentschool.org/concepts/client-coding-agents
 - Agent Skills: https://www.openagentschool.org/concepts/agent-skills
 - Agent Red Teaming: https://www.openagentschool.org/concepts/agent-red-teaming
+- XYZ-Claw Multi-Agent Orchestration: https://www.openagentschool.org/concepts/xyz-claw
 - Agent Troubleshooting: https://www.openagentschool.org/concepts/agent-troubleshooting
 - Agent Economics: https://www.openagentschool.org/concepts/agent-economics
 - Agent Career Paths: https://www.openagentschool.org/concepts/agent-career-paths
