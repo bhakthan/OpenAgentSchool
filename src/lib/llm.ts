@@ -178,7 +178,7 @@ async function callOpenRouter(prompt: string): Promise<LlmResponse> {
     const apiKey = getEnvVar('VITE_OPENROUTER_API_KEY');
     let apiUrl = getEnvVar('VITE_OPENROUTER_API_URL') || 'https://openrouter.ai/api/v1';
     // Default to Gemma 3 27B free model if not specified
-    const model = getEnvVar('VITE_OPENROUTER_MODEL') || 'google/gemma-3-27b-it:free';
+    const model = getEnvVar('VITE_OPENROUTER_MODEL') || 'google/gemma-3n-e4b-it:free';
     
     if (!apiKey) {
         throw new Error("VITE_OPENROUTER_API_KEY must be set in your environment variables.");

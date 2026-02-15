@@ -12,13 +12,16 @@ export interface OpenRouterConfig {
 }
 
 export const OPENROUTER_MODELS = {
-  // DeepSeek R1 - free on OpenRouter (recommended)
+  // DeepSeek R1 - free on OpenRouter
   'deepseek/deepseek-r1-0528:free': 'DeepSeek R1 (Free)',
   
   // DeepSeek Chat - free alternative
   'deepseek/deepseek-chat-v3-0324:free': 'DeepSeek Chat V3 (Free)',
   
-  // Google Gemma - free alternative
+  // Google Gemma 3n E4B - free (recommended)
+  'google/gemma-3n-e4b-it:free': 'Google Gemma 3n E4B (Free)',
+  
+  // Google Gemma 3 27B - free alternative
   'google/gemma-3-27b-it:free': 'Google Gemma 3 27B (Free)',
   
   // Direct OpenAI models (when using OpenAI API directly)
@@ -28,9 +31,15 @@ export const OPENROUTER_MODELS = {
 
 export type OpenRouterModel = keyof typeof OPENROUTER_MODELS;
 
+/** Read the model from VITE_OPENROUTER_MODEL so .env is the single source of truth */
+function envModel(): OpenRouterModel {
+  const m = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_OPENROUTER_MODEL) || '';
+  return (m || 'google/gemma-3n-e4b-it:free') as OpenRouterModel;
+}
+
 export function createOpenRouterConfig(
   apiKey: string,
-  model: OpenRouterModel = 'google/gemma-3-27b-it:free'
+  model: OpenRouterModel = envModel()
 ): OpenRouterConfig {
   return {
     apiKey,
@@ -196,7 +205,7 @@ export function getOpenRouterConfigFromEnv(): OpenRouterConfig | null {
   
   return {
     apiKey,
-    model: model || 'google/gemma-3-27b-it:free', // Use Gemma 3 27B free model as default
+    model: model || envModel(), // Read model from .env (VITE_OPENROUTER_MODEL)
     baseUrl: finalBaseUrl,
     siteName: 'OpenAgentSchool',
     appName: 'SCL-Analysis'

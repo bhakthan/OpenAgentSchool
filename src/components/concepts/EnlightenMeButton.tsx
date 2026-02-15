@@ -82,7 +82,7 @@ const EnlightenMeButton: React.FC<EnlightenMeButtonProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
   const [isPromptExpanded, setIsPromptExpanded] = useState(false);
-  const [llmProvider, setLlmProvider] = useState<LlmProvider>('openai');
+  const [llmProvider, setLlmProvider] = useState<LlmProvider>('openrouter');
   
   // Check if we have a previously saved response for this concept
   const hasSavedResponse = savedInsights && savedInsights[conceptId];

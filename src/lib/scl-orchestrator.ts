@@ -63,8 +63,9 @@ interface SynthesisResponse {
 export class SCLOrchestrator {
   private config: OpenRouterConfig;
 
-  constructor(apiKey: string, model: OpenRouterModel = 'openai/gpt-oss-20b:free', baseUrl?: string) {
-    this.config = createOpenRouterConfig(apiKey, model);
+  constructor(apiKey: string, model?: OpenRouterModel, baseUrl?: string) {
+    // model defaults via createOpenRouterConfig which reads VITE_OPENROUTER_MODEL
+    this.config = createOpenRouterConfig(apiKey, model!);
     // Override base URL if provided (for OpenAI compatibility)
     if (baseUrl) {
       this.config.baseUrl = baseUrl;

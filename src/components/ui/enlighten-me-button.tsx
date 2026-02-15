@@ -57,7 +57,7 @@ export function EnlightenMeButton({
   const [response, setResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
-  const [llmProvider, setLlmProvider] = useState<LlmProvider>('openai');
+  const [llmProvider, setLlmProvider] = useState<LlmProvider>('openrouter');
 
   const handleSubmit = async () => {
     if (!prompt.trim()) return;

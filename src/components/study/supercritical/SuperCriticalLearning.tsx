@@ -255,7 +255,7 @@ function SuperCriticalLearning({
   const callOpenRouterAPI = async (prompt: string, opts?: { temperature?: number; maxTokens?: number }) => {
     const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
     const apiUrl = import.meta.env.VITE_OPENROUTER_API_URL || 'https://openrouter.ai/api/v1';
-    const model = import.meta.env.VITE_OPENROUTER_MODEL || 'google/gemma-3-27b-it:free';
+    const model = import.meta.env.VITE_OPENROUTER_MODEL || 'google/gemma-3n-e4b-it:free';
     
     if (!apiKey) {
       throw new Error('OpenRouter API key not configured. Please set VITE_OPENROUTER_API_KEY in your .env file.');
