@@ -9,7 +9,7 @@ import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 
 /* ─── Visual Guide Carousel (30 pages from PDF) ──────────────────────────── */
 const GUIDE_PAGES = 30;
-const guideSrc = (n: number) => `/images/client-coding-agents-guide/page-${String(n).padStart(2, '0')}.png`;
+const guideSrc = (n: number) => `/images/client-coding-agents-guide/page-${String(n).padStart(2, '0')}.webp`;
 
 function VisualGuideCarousel() {
   const [page, setPage] = useState(1);
