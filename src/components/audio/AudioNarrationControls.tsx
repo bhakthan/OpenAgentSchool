@@ -576,11 +576,13 @@ advanced: {
               <p className="text-xs text-gray-700 dark:text-gray-300">
                 {showSettings ? 'Hide settings panel' : 'Show settings panel'}
               </p>
-              <p className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 mt-1">
-                <GlobeSimple size={12} /> 29 languages available
-              </p>
             </TooltipContent>
           </Tooltip>
+
+          {/* Language hint — always visible */}
+          <span className="flex items-center gap-1.5 text-sm text-blue-700 dark:text-blue-400">
+            <GlobeSimple size={16} weight="bold" /> 29 languages
+          </span>
           
           {/* Stop Button when playing */}
           {isPlaying && (
@@ -604,9 +606,9 @@ advanced: {
 
         {/* Collapsible Settings Panel */}
         {showSettings && (
-          <div className="space-y-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-inner audio-settings-panel">
+          <div className="space-y-3 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700 shadow-sm audio-settings-panel">
             <div className="flex items-center justify-between">
-              <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">Audio Settings</h4>
+              <h4 style={{ fontSize: '15px', color: 'var(--foreground)' }} className="font-semibold">Audio Settings</h4>
               <Badge className="ring-1 bg-[var(--badge-blue-bg)] ring-[var(--badge-blue-ring)] text-[var(--badge-blue-text)] dark:text-[var(--badge-blue-text)]">
                 Embedded Mode
               </Badge>
@@ -615,8 +617,8 @@ advanced: {
             {/* Volume Control */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs text-gray-600 dark:text-gray-400">Volume</label>
-                <span className="text-xs text-gray-600 dark:text-gray-400">{Math.round(state.volume * 100)}%</span>
+                <label style={{ fontSize: '14px', color: 'var(--foreground)' }}>Volume</label>
+                <span style={{ fontSize: '14px', color: 'var(--foreground)' }} className="font-medium">{Math.round(state.volume * 100)}%</span>
               </div>
               <Slider
                 value={[state.volume]}
@@ -631,8 +633,8 @@ advanced: {
             {/* Speed Control */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs text-gray-600 dark:text-gray-400">Speed</label>
-                <span className="text-xs text-gray-600 dark:text-gray-400">{state.speechRate}x</span>
+                <label style={{ fontSize: '14px', color: 'var(--foreground)' }}>Speed</label>
+                <span style={{ fontSize: '14px', color: 'var(--foreground)' }} className="font-medium">{state.speechRate}x</span>
               </div>
               <Slider
                 value={[state.speechRate]}
@@ -646,12 +648,12 @@ advanced: {
 
             {/* Language Selection */}
             <div className="space-y-2">
-              <label className="text-xs text-gray-600 dark:text-gray-400">Language</label>
+              <label style={{ fontSize: '14px', color: 'var(--foreground)' }}>Language</label>
               <Select
                 value={state.selectedLanguage}
                 onValueChange={(value) => setSelectedLanguage(value as any)}
               >
-                <SelectTrigger className="h-8 text-xs">
+                <SelectTrigger style={{ fontSize: '13px' }} className="h-8">
                   <SelectValue placeholder="Select language" />
                 </SelectTrigger>
                 <SelectContent>
@@ -668,7 +670,7 @@ advanced: {
             {/* TTS Mode Toggle */}
             <div className="space-y-1">
               <div className="flex items-center justify-between">
-                <label className="text-xs text-gray-600 dark:text-gray-400">TTS Mode</label>
+                <label style={{ fontSize: '14px', color: 'var(--foreground)' }}>TTS Mode</label>
                 <Button
                   onClick={toggleTTSMode}
                   size="sm"
@@ -678,7 +680,7 @@ advanced: {
                   {state.useLocalTTS ? 'Local' : 'Web'}
                 </Button>
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-500 leading-snug">
+              <p style={{ fontSize: '12px', color: 'var(--muted-foreground)' }} className="leading-snug">
                 {state.useLocalTTS
                   ? 'Local: Uses your device\'s built-in voices. Fast, offline, no API needed. Missing a language? Install voice packs via Windows Settings → Time & Language → Speech, or macOS System Settings → Accessibility → Spoken Content.'
                   : 'Web: Auto-translates content and uses browser voices. Needs an API key for non-English.'}
@@ -687,7 +689,7 @@ advanced: {
 
             {/* Voice Selection */}
             <div className="space-y-2">
-              <label className="text-xs text-gray-600 dark:text-gray-400">Voice</label>
+              <label style={{ fontSize: '14px', color: 'var(--foreground)' }}>Voice</label>
               <Select
                 value={state.selectedVoice?.name || 'auto'}
                 onValueChange={(value) => {
@@ -699,7 +701,7 @@ advanced: {
                   }
                 }}
               >
-                <SelectTrigger className="h-8 text-xs">
+                <SelectTrigger style={{ fontSize: '13px' }} className="h-8">
                   <SelectValue placeholder="Select voice" />
                 </SelectTrigger>
                 <SelectContent>
@@ -715,7 +717,7 @@ advanced: {
               {state.selectedVoice && !state.selectedVoice.localService && (
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <p className="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400 cursor-help">
+                    <p style={{ fontSize: '12px', color: 'var(--color-amber-500, #f59e0b)' }} className="flex items-center gap-1 cursor-help">
                       <Info size={12} weight="bold" />
                       Network voice — install local for best quality
                     </p>
