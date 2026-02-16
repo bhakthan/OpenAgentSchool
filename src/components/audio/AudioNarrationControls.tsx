@@ -12,7 +12,9 @@ import {
   SpeakerHigh, 
   SpeakerX, 
   Gear,
-  X
+  X,
+  Info,
+  GlobeSimple
 } from '@phosphor-icons/react';
 import { useAudioNarration } from '@/contexts/AudioNarrationContext';
 import { LANGUAGES } from '@/lib/languages';
@@ -217,6 +219,9 @@ advanced: {
                     <TooltipContent side="bottom" className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg">
                       <p className="font-medium text-gray-900 dark:text-gray-100">Audio Settings</p>
                       <p className="text-xs text-gray-700 dark:text-gray-300">Click to open full controls & settings</p>
+                      <p className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 mt-1">
+                        <GlobeSimple size={12} /> 29 languages available
+                      </p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
@@ -407,16 +412,23 @@ advanced: {
                       </div>
 
                       {/* TTS Mode Toggle */}
-                      <div className="flex items-center justify-between">
-                        <label className="text-xs text-gray-600 dark:text-gray-400">TTS Mode</label>
-                        <Button
-                          onClick={toggleTTSMode}
-                          size="sm"
-                          variant="outline"
-                          className="text-xs h-6"
-                        >
-                          {state.useLocalTTS ? 'Local' : 'Web'}
-                        </Button>
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <label className="text-xs text-gray-600 dark:text-gray-400">TTS Mode</label>
+                          <Button
+                            onClick={toggleTTSMode}
+                            size="sm"
+                            variant="outline"
+                            className="text-xs h-6"
+                          >
+                            {state.useLocalTTS ? 'Local' : 'Web'}
+                          </Button>
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-500 leading-snug">
+                          {state.useLocalTTS
+                            ? 'Local: Uses your device\'s built-in voices. Fast, offline, no API needed. Missing a language? Install voice packs via Windows Settings → Time & Language → Speech, or macOS System Settings → Accessibility → Spoken Content.'
+                            : 'Web: Auto-translates content and uses browser voices. Needs an API key for non-English.'}
+                        </p>
                       </div>
 
                       {/* Voice Selection */}
@@ -445,6 +457,22 @@ advanced: {
                             ))}
                           </SelectContent>
                         </Select>
+                        {/* Voice quality hint */}
+                        {state.selectedVoice && !state.selectedVoice.localService && (
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <p className="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400 cursor-help">
+                                <Info size={12} weight="bold" />
+                                Network voice — install local for best quality
+                              </p>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom" className="max-w-[240px] text-xs">
+                              <p className="font-medium mb-1">Install a local voice pack:</p>
+                              <p><strong>Windows:</strong> Settings → Time & Language → Speech → Add voices</p>
+                              <p><strong>macOS:</strong> System Settings → Accessibility → Spoken Content → System Voice → Manage Voices</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        )}
                       </div>
                     </div>
                   )}
@@ -548,6 +576,9 @@ advanced: {
               <p className="text-xs text-gray-700 dark:text-gray-300">
                 {showSettings ? 'Hide settings panel' : 'Show settings panel'}
               </p>
+              <p className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 mt-1">
+                <GlobeSimple size={12} /> 29 languages available
+              </p>
             </TooltipContent>
           </Tooltip>
           
@@ -635,16 +666,23 @@ advanced: {
             </div>
 
             {/* TTS Mode Toggle */}
-            <div className="flex items-center justify-between">
-              <label className="text-xs text-gray-600 dark:text-gray-400">TTS Mode</label>
-              <Button
-                onClick={toggleTTSMode}
-                size="sm"
-                variant="outline"
-                className="text-xs h-8 px-3"
-              >
-                {state.useLocalTTS ? 'Local' : 'Web'}
-              </Button>
+            <div className="space-y-1">
+              <div className="flex items-center justify-between">
+                <label className="text-xs text-gray-600 dark:text-gray-400">TTS Mode</label>
+                <Button
+                  onClick={toggleTTSMode}
+                  size="sm"
+                  variant="outline"
+                  className="text-xs h-8 px-3"
+                >
+                  {state.useLocalTTS ? 'Local' : 'Web'}
+                </Button>
+              </div>
+              <p className="text-xs text-gray-500 dark:text-gray-500 leading-snug">
+                {state.useLocalTTS
+                  ? 'Local: Uses your device\'s built-in voices. Fast, offline, no API needed. Missing a language? Install voice packs via Windows Settings → Time & Language → Speech, or macOS System Settings → Accessibility → Spoken Content.'
+                  : 'Web: Auto-translates content and uses browser voices. Needs an API key for non-English.'}
+              </p>
             </div>
 
             {/* Voice Selection */}
@@ -673,6 +711,22 @@ advanced: {
                   ))}
                 </SelectContent>
               </Select>
+              {/* Voice quality hint */}
+              {state.selectedVoice && !state.selectedVoice.localService && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <p className="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400 cursor-help">
+                      <Info size={12} weight="bold" />
+                      Network voice — install local for best quality
+                    </p>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="max-w-[240px] text-xs">
+                    <p className="font-medium mb-1">Install a local voice pack:</p>
+                    <p><strong>Windows:</strong> Settings → Time & Language → Speech → Add voices</p>
+                    <p><strong>macOS:</strong> System Settings → Accessibility → Spoken Content → System Voice → Manage Voices</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
             </div>
           </div>
         )}

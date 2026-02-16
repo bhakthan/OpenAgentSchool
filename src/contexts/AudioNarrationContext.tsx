@@ -356,6 +356,52 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // ── Split text into sentence-sized chunks for reliable TTS ──────────
+  // Network voices (localService: false, e.g. Google Hindi/Chinese) silently
+  // fail on text longer than ~200-300 chars. This splits on sentence boundaries
+  // (periods, question marks, exclamation marks, and numbered list items)
+  // keeping each chunk under a safe limit while preserving natural pauses.
+  const splitTextIntoChunks = (text: string, maxChars = 180): string[] => {
+    if (text.length <= maxChars) return [text];
+
+    const chunks: string[] = [];
+    // Split on sentence-ending punctuation followed by a space or newline,
+    // or on newlines (paragraph breaks). Keeps the delimiter with the sentence.
+    const sentences = text.split(/(?<=[.!?।।\u3002\uff01\uff1f])\s+|\n+/).filter(s => s.trim());
+
+    let current = '';
+    for (const sentence of sentences) {
+      if (current.length + sentence.length + 1 > maxChars && current.length > 0) {
+        chunks.push(current.trim());
+        current = sentence;
+      } else {
+        current += (current ? ' ' : '') + sentence;
+      }
+    }
+    if (current.trim()) chunks.push(current.trim());
+
+    // Safety: if any chunk still exceeds maxChars, sub-split on commas/semicolons
+    const result: string[] = [];
+    for (const chunk of chunks) {
+      if (chunk.length <= maxChars) {
+        result.push(chunk);
+      } else {
+        const subParts = chunk.split(/(?<=[,;，；])\s*/).filter(s => s.trim());
+        let sub = '';
+        for (const part of subParts) {
+          if (sub.length + part.length + 1 > maxChars && sub.length > 0) {
+            result.push(sub.trim());
+            sub = part;
+          } else {
+            sub += (sub ? ' ' : '') + part;
+          }
+        }
+        if (sub.trim()) result.push(sub.trim());
+      }
+    }
+    return result;
+  };
+
   const playWithWebSpeechAPI = async (componentName: string, level: string, contentType?: string) => {
     const baseText = await fetchAudioContent(componentName, level, contentType);
     const targetLang = state.selectedLanguage || 'en';
@@ -371,18 +417,10 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
 
       // Small delay to ensure any previous speech is fully stopped
       setTimeout(() => {
-        const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = state.speechRate;
-  utterance.volume = state.volume;
-
   // Set utterance language and voice based on selected language
   const bcp47 = getLocaleFor(targetLang);
-  utterance.lang = bcp47;
         
-        // Always refresh voices and select the best female voice available
-        // This ensures consistent voice selection across all components
   // Prefer a voice that matches the target language; fall back to user-selected or best female
-  // Choose voice with sensible priorities
   const targetLocale = getLocaleFor(targetLang).toLowerCase();
   const targetPrefix = targetLocale.split('-')[0];
   const userVoiceMatches = state.selectedVoice && (state.selectedVoice.lang?.toLowerCase().startsWith(targetPrefix));
@@ -401,40 +439,18 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       voice = candidates.find(v => /google\s+us\s+english\s+female/i.test(v.name)) || null;
     }
   }
-        if (voice) {
-          utterance.voice = voice;
-          // console.log(`Playing audio for ${componentName} with voice:`, voice.name);
-          // console.log(`Audio settings - Rate: ${utterance.rate}, Volume: ${utterance.volume}, Text length: ${text.length} characters`);
-          // console.log(`First 100 characters of text:`, text.substring(0, 100));
-        } else {
-          // console.warn(`No suitable voice found for ${componentName}`);
-        }
-        
-        utterance.onstart = () => {
-          // console.log(`🎵 Audio playback started for ${componentName}`);
-        };
-        
-        utterance.onend = () => {
-          // console.log(`Audio completed for ${componentName}`);
-          // Reset state when audio naturally completes
-          setState(prev => ({
-            ...prev,
-            isPlaying: false,
-            currentLevel: null,
-            currentComponent: null,
-            currentContentType: null,
-          }));
-          resolve();
-        };
-        
-        utterance.onerror = (event) => {
-          const errorType = event.error || 'unknown';
-          // console.warn(`Audio error for ${componentName}: ${errorType}`);
-          
-          // Don't treat "interrupted" as a real error - it's normal when switching audio
-          if (errorType === 'interrupted') {
-            // console.log(`Audio was interrupted for ${componentName} - this is normal when switching between audio tracks`);
-            // Reset state but don't reject the promise for interruptions
+
+        // ── Chunk text into sentences for reliable TTS ─────────────────────
+        // Network voices (localService: false) silently fail on long text.
+        // Splitting into sentence-sized chunks (~200 chars max) fixes this for
+        // every language and voice, including Google Hindi, Chinese, etc.
+        const chunks = splitTextIntoChunks(text);
+
+        let chunkIndex = 0;
+
+        const speakNextChunk = () => {
+          if (chunkIndex >= chunks.length) {
+            // All chunks spoken — narration complete
             setState(prev => ({
               ...prev,
               isPlaying: false,
@@ -442,9 +458,52 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
               currentComponent: null,
               currentContentType: null,
             }));
-            resolve(); // Resolve instead of reject for interruptions
-          } else {
-            // For other errors, reset state and reject
+            resolve();
+            return;
+          }
+
+          const utterance = new SpeechSynthesisUtterance(chunks[chunkIndex]);
+          utterance.rate = state.speechRate;
+          utterance.volume = state.volume;
+          utterance.lang = bcp47;
+          if (voice) utterance.voice = voice;
+
+          utterance.onend = () => {
+            chunkIndex++;
+            speakNextChunk();
+          };
+
+          utterance.onerror = (event) => {
+            const errorType = event.error || 'unknown';
+            if (errorType === 'interrupted') {
+              // Normal when user stops or switches — don't reject
+              setState(prev => ({
+                ...prev,
+                isPlaying: false,
+                currentLevel: null,
+                currentComponent: null,
+                currentContentType: null,
+              }));
+              resolve();
+            } else if (errorType === 'canceled') {
+              // Canceled by speechSynthesis.cancel() — normal during stop
+              resolve();
+            } else {
+              setState(prev => ({
+                ...prev,
+                isPlaying: false,
+                currentLevel: null,
+                currentComponent: null,
+                currentContentType: null,
+              }));
+              reject(new Error(`Speech synthesis error: ${errorType}`));
+            }
+          };
+
+          try {
+            speechSynthesis.speak(utterance);
+          } catch (error) {
+            console.error(`Failed to speak chunk ${chunkIndex} for ${componentName}:`, error);
             setState(prev => ({
               ...prev,
               isPlaying: false,
@@ -452,50 +511,12 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
               currentComponent: null,
               currentContentType: null,
             }));
-            reject(new Error(`Speech synthesis error: ${errorType}`));
+            reject(error);
           }
         };
-        
-        utterance.onstart = () => {
-          // console.log(`Audio started for ${componentName}`);
-        };
-        
-        // Handle interruption gracefully
-        utterance.onpause = () => {
-          // console.log(`Audio paused for ${componentName}`);
-        };
-        
-        utterance.onresume = () => {
-          // console.log(`Audio resumed for ${componentName}`);
-        };
-        
-        try {
-          // Additional debugging for speech synthesis
-          // console.log(`🔊 About to call speechSynthesis.speak()`);
-          // console.log(`🔊 speechSynthesis.speaking:`, speechSynthesis.speaking);
-          // console.log(`🔊 speechSynthesis.pending:`, speechSynthesis.pending);
-          // console.log(`🔊 speechSynthesis.paused:`, speechSynthesis.paused);
-          // console.log(`🔊 Utterance ready:`, {
-          //   text: text.substring(0, 50) + '...',
-          //   voice: utterance.voice?.name || 'default',
-          //   rate: utterance.rate,
-          //   volume: utterance.volume,
-          //   pitch: utterance.pitch
-          // });
-          
-          speechSynthesis.speak(utterance);
-          // console.log(`🔊 speechSynthesis.speak() called successfully`);
-        } catch (error) {
-          console.error(`Failed to start speech synthesis for ${componentName}:`, error);
-          setState(prev => ({
-            ...prev,
-            isPlaying: false,
-            currentLevel: null,
-            currentComponent: null,
-            currentContentType: null,
-          }));
-          reject(error);
-        }
+
+        // Start speaking the first chunk
+        speakNextChunk();
       }, 100); // 100ms delay to ensure clean start
     });
   };
@@ -753,7 +774,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
   output = output.replace(/^\s*(translation|translated\s*text|result|output)\s*:*/i, '').trim();
   output = output.replace(/^(```+|["']+)|(```+|["']+)$/g, '').trim();
       // If target language uses non-Latin script and output looks ASCII-only, retry once with stronger instruction
-      const nonLatinTargets: LanguageCode[] = ['hi','ja','ko','ta','te','kn','ml','zh'];
+      const nonLatinTargets: LanguageCode[] = ['ar','bn','gu','hi','ja','kn','ko','ml','mr','ta','te','th','uk','vi','zh'];
       const isAsciiOnly = /^[\x00-\x7F]*$/.test(output);
       if (nonLatinTargets.includes(lang) && isAsciiOnly) {
         const strictPrompt = buildStrictNativeScriptRetry(text, lang);

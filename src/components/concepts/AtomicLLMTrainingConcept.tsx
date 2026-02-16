@@ -418,7 +418,7 @@ export default function AtomicLLMTrainingConcept({ onMarkComplete, onNavigateToN
             </CardContent>
           </Card>
 
-          <EnlightenMeButton conceptId="atomic-llm-training" level="fundamentals" />
+          <EnlightenMeButton title="Why Atomic LLM Training Matters" conceptId="atomic-llm-training" description="Understanding why building a GPT from scratch with ~200 lines of pure Python matters for AI practitioners" />
           <ReferenceSection type="concept" itemId="atomic-llm-training" />
         </div>
       )
@@ -513,7 +513,7 @@ export default function AtomicLLMTrainingConcept({ onMarkComplete, onNavigateToN
           {/* Interactive compute graph — drag sliders to see gradients */}
           <InteractiveComputeGraph />
 
-          <EnlightenMeButton conceptId="atomic-llm-training" level="architecture" />
+          <EnlightenMeButton title="Autograd Engine (Value class & Backpropagation)" conceptId="atomic-llm-training" description="The autograd engine: Value class, operator overloading, backward pass, and topological sort for automatic gradient computation" />
         </div>
       )
     },
@@ -643,7 +643,7 @@ export default function AtomicLLMTrainingConcept({ onMarkComplete, onNavigateToN
             </CardContent>
           </Card>
 
-          <EnlightenMeButton conceptId="atomic-llm-training" level="architecture" />
+          <EnlightenMeButton title="GPT Architecture (Attention, MLP, Transformer Blocks)" conceptId="atomic-llm-training" description="Transformer architecture internals: causal self-attention, MLP feed-forward layers, residual connections, and how blocks compose into a GPT" />
         </div>
       )
     },
@@ -759,7 +759,7 @@ export default function AtomicLLMTrainingConcept({ onMarkComplete, onNavigateToN
             </CardContent>
           </Card>
 
-          <EnlightenMeButton conceptId="atomic-llm-training" level="implementation" />
+          <EnlightenMeButton title="Training Loop, Adam Optimizer & Autoregressive Inference" conceptId="atomic-llm-training" description="The training loop (forward, loss, backward, Adam update), cross-entropy loss, temperature-scaled sampling, and autoregressive text generation" />
         </div>
       )
     },
@@ -960,7 +960,7 @@ sample  3: Kael
             </CardContent>
           </Card>
 
-          <EnlightenMeButton conceptId="atomic-llm-training" level="advanced" />
+          <EnlightenMeButton title="Hands-On microGPT: Experiments & Extensions" conceptId="atomic-llm-training" description="Practical experiments: changing temperature, training on custom text, scaling the model, swapping activations, adding dropout, and community extensions" />
           <ReferenceSection type="concept" itemId="atomic-llm-training" />
         </div>
       )
