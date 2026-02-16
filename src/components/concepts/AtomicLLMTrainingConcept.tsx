@@ -1,9 +1,10 @@
+import { useState } from "react"
 import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ReferenceSection from "../references/ReferenceSection"
 import AudioNarrationControls from "@/components/audio/AudioNarrationControls"
-import { Atom, Lightning, Brain, Code, Rocket, ArrowSquareOut, Graph, TreeStructure, Function as FnIcon } from "@phosphor-icons/react"
+import { Atom, Lightning, Brain, Code, Rocket, ArrowSquareOut, Graph, TreeStructure, Function as FnIcon, CaretLeft, CaretRight, Image as ImageIcon } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete'
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton"
 import CodeBlock from "@/components/ui/CodeBlock"
@@ -187,6 +188,55 @@ for sample_idx in range(20):
     print(f"sample {sample_idx+1:2d}: {''.join(sample)}")`
 
 // ---------------------------------------------------------------------------
+
+// Autoregressive generation slide data (converted from lecture PDF → WebP)
+const autoregressiveSlides = [
+  { src: '/images/Autoregressive_Generation_p1.webp', caption: 'Autoregressive Generation — Title & Overview' },
+  { src: '/images/Autoregressive_Generation_p2.webp', caption: 'What "Autoregressive" Means' },
+  { src: '/images/Autoregressive_Generation_p3.webp', caption: 'The Generation Loop' },
+  { src: '/images/Autoregressive_Generation_p4.webp', caption: 'Token-by-Token Prediction' },
+  { src: '/images/Autoregressive_Generation_p5.webp', caption: 'Causal Masking & Ordering' },
+  { src: '/images/Autoregressive_Generation_p6.webp', caption: 'Temperature & Sampling Strategies' },
+  { src: '/images/Autoregressive_Generation_p7.webp', caption: 'Top-k / Top-p Filtering' },
+  { src: '/images/Autoregressive_Generation_p8.webp', caption: 'KV Cache & Efficiency' },
+  { src: '/images/Autoregressive_Generation_p9.webp', caption: 'Summary & Key Takeaways' },
+];
+
+/** Paginated slide viewer for multi-page visual decks */
+function SlideViewer({ slides }: { slides: { src: string; caption: string }[] }) {
+  const [current, setCurrent] = useState(0);
+  return (
+    <div className="space-y-3">
+      <div className="relative rounded-lg border overflow-hidden bg-white dark:bg-zinc-900">
+        <img
+          src={slides[current].src}
+          alt={slides[current].caption}
+          className="w-full rounded-lg"
+          loading="lazy"
+        />
+      </div>
+      <div className="flex items-center justify-between gap-3">
+        <button
+          onClick={() => setCurrent(c => Math.max(0, c - 1))}
+          disabled={current === 0}
+          className="flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium border hover:bg-muted/60 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        >
+          <CaretLeft className="w-4 h-4" /> Prev
+        </button>
+        <span className="text-sm text-muted-foreground">
+          {current + 1} / {slides.length} — <em>{slides[current].caption}</em>
+        </span>
+        <button
+          onClick={() => setCurrent(c => Math.min(slides.length - 1, c + 1))}
+          disabled={current === slides.length - 1}
+          className="flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium border hover:bg-muted/60 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        >
+          Next <CaretRight className="w-4 h-4" />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function AtomicLLMTrainingConcept({ onMarkComplete, onNavigateToNext }: AtomicLLMTrainingConceptProps) {
 
@@ -692,6 +742,22 @@ export default function AtomicLLMTrainingConcept({ onMarkComplete, onNavigateToN
 
           {/* Temperature explorer — interactive generation */}
           <TemperatureExplorer />
+
+          {/* Autoregressive Generation Visual Deck */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ImageIcon className="w-5 h-5 text-amber-500" />
+                Autoregressive Generation — Visual Deep Dive
+              </CardTitle>
+              <CardDescription>
+                Step through this 9-slide visual deck explaining how LLMs generate text one token at a time
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <SlideViewer slides={autoregressiveSlides} />
+            </CardContent>
+          </Card>
 
           <EnlightenMeButton conceptId="atomic-llm-training" level="implementation" />
         </div>
