@@ -105,6 +105,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const [showAuthPrompt, setShowAuthPrompt] = useState<boolean>(false);
   const [pendingQuestion, setPendingQuestion] = useState<StudyModeQuestion | null>(null);
   const [showAssessmentAfterAuth, setShowAssessmentAfterAuth] = useState<boolean>(false);
+  const [showPredictFirstNudge, setShowPredictFirstNudge] = useState<boolean>(true);
   
   // Live region for announcing session completion
   const [lastCompletionMessage, setLastCompletionMessage] = useState<string | null>(null);
@@ -123,6 +124,18 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
       }
     } catch {}
     return false;
+  }, []);
+
+  useEffect(() => {
+    try {
+      const key = 'oas.predictFirstNudgeSeen';
+      const alreadySeen = sessionStorage.getItem(key);
+      if (alreadySeen) {
+        setShowPredictFirstNudge(false);
+        return;
+      }
+      sessionStorage.setItem(key, '1');
+    } catch {}
   }, []);
 
   // Ordered progression (used for recommendations + optional gating)
@@ -863,6 +876,11 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                         {recommendedQuestion.type === 'scenario' && 'Build systems through realistic challenges'}
                         {recommendedQuestion.type === 'debug' && 'Learn by fixing broken implementations'}
                       </p>
+                      {showPredictFirstNudge && (
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Predict first: write one sentence about the answer before you click Start.
+                        </p>
+                      )}
                     </div>
                   </div>
                   <Button onClick={() => handleQuestionStart(recommendedQuestion)}>

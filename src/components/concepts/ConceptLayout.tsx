@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
@@ -75,7 +75,22 @@ export default function ConceptLayout({
   const [activeTab, setActiveTab] = useState(tabs?.[0]?.id || '')
   const [completedTabs, setCompletedTabs] = useState<Set<string>>(new Set())
   const [isConceptComplete, setIsConceptComplete] = useState(false)
+  const [showPredictFirstNudge, setShowPredictFirstNudge] = useState(true)
   const { toast: showToast } = useToast()
+
+  useEffect(() => {
+    try {
+      const key = 'oas.predictFirstNudgeSeen'
+      const alreadySeen = sessionStorage.getItem(key)
+      if (alreadySeen) {
+        setShowPredictFirstNudge(false)
+        return
+      }
+      sessionStorage.setItem(key, '1')
+    } catch {
+      // no-op when storage is unavailable
+    }
+  }, [])
 
   const safeTabs = tabs || []
   const currentTabIndex = safeTabs.findIndex(tab => tab.id === activeTab)
@@ -287,22 +302,29 @@ export default function ConceptLayout({
                   </Button>
 
                   <div className="flex items-center gap-2 relative z-20">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        const tabTitle = currentTab?.title || title;
-                        addUnknown(conceptId, `I need to understand: ${tabTitle}`, 3);
-                        showToast({
-                          title: "Added to your learning edges",
-                          description: "Identifying unknowns is the most productive step. Check Study Mode to track your progress.",
-                        });
-                      }}
-                      className="flex items-center gap-1.5 text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30 text-xs"
-                    >
-                      <Question className="w-4 h-4" />
-                      I don't understand this yet
-                    </Button>
+                    <div className="flex flex-col items-start gap-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const tabTitle = currentTab?.title || title;
+                          addUnknown(conceptId, `I need to understand: ${tabTitle}`, 3);
+                          showToast({
+                            title: "Added to your learning edges",
+                            description: "Identifying unknowns is the most productive step. Check Study Mode to track your progress.",
+                          });
+                        }}
+                        className="flex items-center gap-1.5 text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30 text-xs"
+                      >
+                        <Question className="w-4 h-4" />
+                        I don't understand this yet
+                      </Button>
+                      {showPredictFirstNudge && (
+                        <p className="px-2 text-[11px] text-muted-foreground">
+                          Predict first: in one sentence, what changes in your agent after this section?
+                        </p>
+                      )}
+                    </div>
                     <Button
                       variant="outline"
                       onClick={() => handleTabComplete(activeTab)}
