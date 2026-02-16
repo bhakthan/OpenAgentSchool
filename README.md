@@ -158,7 +158,24 @@ The **XYZ-Claw** concept page now ships with **step-by-step audio narrations** a
 | 💪 **Intermediate** | ~6 min | Actor model, message routing (point-to-point / fan-out / fan-in), priority queues, dead-letter handling, back-pressure, "let it crash" supervision, and graceful shutdown |
 | 🧠 **Advanced** | ~7 min | Systems thinking lens — reinforcing & balancing feedback loops, stock-and-flow queue analysis, emergent behaviour, multi-language implementations (TypeScript / Go / Rust), cross-language interop, observability, security, and chaos testing |
 
-**How to use:** Open `/concepts/xyz-claw`, click the 🔊 floating audio panel in the top-right, choose a level, and press ▶ Play. Supports 14 languages, voice selection, speed control, and volume adjustment.
+**How to use:** Open `/concepts/xyz-claw`, click the 🔊 floating audio panel in the top-right, choose a level, and press ▶ Play. Supports 29 languages, voice selection, speed control, and volume adjustment.
+
+#### 🌐 Supported Languages (29)
+
+| Language | Code | Language | Code | Language | Code |
+|----------|------|----------|------|----------|------|
+| Arabic | ar | Indonesian | id | Russian | ru |
+| Bengali | bn | Italian | it | Spanish | es |
+| Chinese | zh | Japanese | ja | Swedish | sv |
+| Dutch | nl | Kannada | kn | Tamil | ta |
+| English | en | Korean | ko | Telugu | te |
+| Filipino | fil | Malayalam | ml | Thai | th |
+| French | fr | Marathi | mr | Turkish | tr |
+| German | de | Norwegian | nb | Ukrainian | uk |
+| Gujarati | gu | Polish | pl | Vietnamese | vi |
+| Hindi | hi | Portuguese | pt | | |
+
+> **Tip:** Choose a language from the ⚙ Settings panel. Non-English narrations are auto-translated. For offline use, switch to **Local** TTS mode and install a voice pack for your language (Windows: Settings → Time & Language → Speech; macOS: System Settings → Accessibility → Spoken Content).
 
 Also included:
 - **Quiz**: 10 questions (3 beginner, 4 intermediate, 3 advanced) covering architecture, design patterns, message flow, and systems thinking
