@@ -4,10 +4,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { BookOpen, Code, Gear, GraduationCap, ArrowRight, ArrowLeft, CheckCircle } from "@phosphor-icons/react"
+import { BookOpen, Code, Gear, GraduationCap, ArrowRight, ArrowLeft, CheckCircle, Question } from "@phosphor-icons/react"
 import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
+import { addUnknown } from '@/lib/data/studyMode/unknownsTracker';
+import { useToast } from '@/components/ui/use-toast';
 
 // NOTE: "Ask AI" is an alias for "EnlightenMe Button" - it provides AI-powered insights about concept content
 // The EnlightenMeButton component (displayed as "Ask AI") helps users understand complex concepts through AI assistance
@@ -69,6 +71,57 @@ export default function ConceptLayout({
   onNavigateToNext,
   enableAudioNarration = true 
 }: ConceptLayoutProps) {
+  // All hooks must be called before any early return
+  const [activeTab, setActiveTab] = useState(tabs?.[0]?.id || '')
+  const [completedTabs, setCompletedTabs] = useState<Set<string>>(new Set())
+  const [isConceptComplete, setIsConceptComplete] = useState(false)
+  const { toast: showToast } = useToast()
+
+  const safeTabs = tabs || []
+  const currentTabIndex = safeTabs.findIndex(tab => tab.id === activeTab)
+  const currentTab = safeTabs[currentTabIndex]
+  const progress = safeTabs.length > 0 ? ((completedTabs.size) / safeTabs.length) * 100 : 0
+
+  const handleTabComplete = (tabId: string) => {
+    setCompletedTabs(prev => new Set([...prev, tabId]))
+    
+    // Check if all tabs are completed
+    const newCompletedTabs = new Set([...completedTabs, tabId])
+    if (newCompletedTabs.size === safeTabs.length && !isConceptComplete) {
+      setIsConceptComplete(true)
+      onMarkComplete?.()
+    }
+  }
+
+  const handleNext = () => {
+    if (currentTabIndex < safeTabs.length - 1) {
+      handleTabComplete(activeTab)
+      setActiveTab(safeTabs[currentTabIndex + 1].id)
+      
+      // Scroll to the tabs area when moving to next tab
+      setTimeout(() => {
+        const tabsElement = document.querySelector('[role="tablist"]');
+        if (tabsElement) {
+          tabsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }
+
+  const handlePrevious = () => {
+    if (currentTabIndex > 0) {
+      setActiveTab(safeTabs[currentTabIndex - 1].id)
+      
+      // Scroll to the tabs area when moving to previous tab
+      setTimeout(() => {
+        const tabsElement = document.querySelector('[role="tablist"]');
+        if (tabsElement) {
+          tabsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }
+
   // If using children pattern (no tabs), render simple layout
   if (children && (!tabs || tabs.length === 0)) {
     return (
@@ -117,56 +170,7 @@ export default function ConceptLayout({
     );
   }
 
-  // Original tabs-based layout
-  const [activeTab, setActiveTab] = useState(tabs?.[0]?.id || '')
-  const [completedTabs, setCompletedTabs] = useState<Set<string>>(new Set())
-  const [isConceptComplete, setIsConceptComplete] = useState(false)
-
-  const safeTabs = tabs || []
-  const currentTabIndex = safeTabs.findIndex(tab => tab.id === activeTab)
-  const currentTab = safeTabs[currentTabIndex]
-  const progress = safeTabs.length > 0 ? ((completedTabs.size) / safeTabs.length) * 100 : 0
-
-  const handleTabComplete = (tabId: string) => {
-    setCompletedTabs(prev => new Set([...prev, tabId]))
-    
-    // Check if all tabs are completed
-    const newCompletedTabs = new Set([...completedTabs, tabId])
-    if (newCompletedTabs.size === safeTabs.length && !isConceptComplete) {
-      setIsConceptComplete(true)
-      onMarkComplete?.()
-    }
-  }
-
-  const handleNext = () => {
-    if (currentTabIndex < safeTabs.length - 1) {
-      handleTabComplete(activeTab)
-      setActiveTab(safeTabs[currentTabIndex + 1].id)
-      
-      // Scroll to the tabs area when moving to next tab
-      setTimeout(() => {
-        const tabsElement = document.querySelector('[role="tablist"]');
-        if (tabsElement) {
-          tabsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-    }
-  }
-
-  const handlePrevious = () => {
-    if (currentTabIndex > 0) {
-      setActiveTab(safeTabs[currentTabIndex - 1].id)
-      
-      // Scroll to the tabs area when moving to previous tab
-      setTimeout(() => {
-        const tabsElement = document.querySelector('[role="tablist"]');
-        if (tabsElement) {
-          tabsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-    }
-  }
-
+  // Tabs-based layout
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -283,6 +287,22 @@ export default function ConceptLayout({
                   </Button>
 
                   <div className="flex items-center gap-2 relative z-20">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        const tabTitle = currentTab?.title || title;
+                        addUnknown(conceptId, `I need to understand: ${tabTitle}`, 3);
+                        showToast({
+                          title: "Added to your learning edges",
+                          description: "Identifying unknowns is the most productive step. Check Study Mode to track your progress.",
+                        });
+                      }}
+                      className="flex items-center gap-1.5 text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30 text-xs"
+                    >
+                      <Question className="w-4 h-4" />
+                      I don't understand this yet
+                    </Button>
                     <Button
                       variant="outline"
                       onClick={() => handleTabComplete(activeTab)}

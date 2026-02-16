@@ -3,6 +3,8 @@
 // When adding/removing concepts, update tests and any analytics relying on concept counts.
 
 export const CORE_CONCEPT_IDS = [
+  // Tier 0: Meta-Learning Foundation
+  'learning-how-to-learn',
   'agentic-ai-design-taxonomy',
   'agentic-prompting-fundamentals',
   'prompt-optimization-patterns',

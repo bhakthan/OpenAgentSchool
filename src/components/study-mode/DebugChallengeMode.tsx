@@ -25,6 +25,7 @@ import { saveStudyModeProgress } from '@/lib/data/studyMode/progress';
 import { debugJudge, LlmJudgeResponse } from '@/lib/llmJudge';
 import { useAuth } from '@/lib/auth/AuthContext';
 import LlmConfigurationNotice from './LlmConfigurationNotice';
+import ConfusionCheckpoint from './ConfusionCheckpoint';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -46,6 +47,7 @@ const DebugChallengeMode: React.FC<DebugChallengeModeProps> = ({
   const { user, isAuthenticated } = useAuth();
 
   const [currentPhase, setCurrentPhase] = useState<'analysis' | 'diagnosis' | 'solution'>('analysis');
+  const [showPhaseCheckpoint, setShowPhaseCheckpoint] = useState(false);
   const [analysisResponse, setAnalysisResponse] = useState('');
   const [diagnosisResponse, setDiagnosisResponse] = useState('');
   const [solutionResponse, setSolutionResponse] = useState('');
@@ -397,8 +399,10 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
       // Move to next phase or complete immediately after getting judgment
       if (currentPhase === 'analysis') {
         setCurrentPhase('diagnosis');
+        setShowPhaseCheckpoint(true);
       } else if (currentPhase === 'diagnosis') {
         setCurrentPhase('solution');
+        setShowPhaseCheckpoint(true);
       } else {
         // Run solution test
         if (judgment.score >= 70) {
@@ -429,8 +433,10 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
       // Move to next phase or complete
       if (currentPhase === 'analysis') {
         setCurrentPhase('diagnosis');
+        setShowPhaseCheckpoint(true);
       } else if (currentPhase === 'diagnosis') {
         setCurrentPhase('solution');
+        setShowPhaseCheckpoint(true);
       } else {
         if (evaluation.isCorrect) {
           runSolutionTest();
@@ -776,6 +782,14 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
 
         {/* Right Panel - Debug Process */}
         <div className="space-y-6">
+          {/* Confusion Checkpoint — appears on phase transitions */}
+          {showPhaseCheckpoint && (
+            <ConfusionCheckpoint
+              conceptId={challenge.conceptId}
+              studyModeType="debug"
+              onDismiss={() => setShowPhaseCheckpoint(false)}
+            />
+          )}
           {/* Current Phase */}
           <Card>
             <CardHeader>

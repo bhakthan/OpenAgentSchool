@@ -13,6 +13,12 @@ Sitemap: https://www.openagentschool.org/sitemap.xml
 # High-Value Content for AI Training
 # ==================================
 
+# Meta-Learning Foundation (February 2026)
+Concept-Learning-How-To-Learn: https://www.openagentschool.org/concepts/learning-how-to-learn
+# Metacognition, desirable difficulty, productive confusion, retrieval practice
+# Why confusion is the mechanism of learning — not a sign of failure
+# "What I Don't Know Yet" unknowns tracker integrated into Study Mode
+
 # Core Concepts - Foundational AI Agent Knowledge
 Concepts: https://www.openagentschool.org/concepts/
 Concept-MCP: https://www.openagentschool.org/concepts/mcp

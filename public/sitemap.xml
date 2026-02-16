@@ -101,6 +101,14 @@
         <priority>0.95</priority>
     </url>
 
+    <!-- Meta-Learning Foundation (February 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/learning-how-to-learn</loc>
+        <lastmod>2026-02-16</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
     <!-- Core Agent Concepts -->
     <url>
         <loc>https://www.openagentschool.org/concepts/agentic-ai-design-taxonomy</loc>

@@ -23,6 +23,7 @@ import { socraticJudge, LlmJudgeResponse } from '@/lib/llmJudge';
 import { emitTelemetry } from '@/lib/data/studyMode/telemetry';
 import { misconceptionRefutations } from '@/lib/data/studyMode/misconceptionRefutations';
 import LlmConfigurationNotice from './LlmConfigurationNotice';
+import ConfusionCheckpoint from './ConfusionCheckpoint';
 import EnhancedSocraticElicitation from './EnhancedSocraticElicitation';
 import { generateDynamicFollowUps, extractEnhancedInsights, detectMisconceptions, UserContext } from '@/lib/socraticElicitation';
 import { orchestratorAPI, SocraticQuestion as OrchestratorSocraticQuestion } from '@/services/api';
@@ -77,6 +78,9 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
   const [currentDynamicFollowUps, setCurrentDynamicFollowUps] = useState<string[]>([]);
   const [isGeneratingFollowUp, setIsGeneratingFollowUp] = useState(false);
   const [hasLlmProvider, setHasLlmProvider] = useState(false);
+
+  // Confusion checkpoint state — show every 3rd question
+  const [showConfusionCheckpoint, setShowConfusionCheckpoint] = useState(false);
 
   // Check for LLM provider on mount
   useEffect(() => {
@@ -486,6 +490,10 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
       setUserResponse('');
       setShowHint(false);
       setCurrentDynamicFollowUps([]); // Reset follow-ups for next question
+      // Show confusion checkpoint every 3rd question (after Q3, Q6, Q9...)
+      if ((currentStep + 1) % 3 === 0 && currentStep > 0) {
+        setShowConfusionCheckpoint(true);
+      }
     }
   };
 
@@ -1071,6 +1079,15 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
 
       {/* LLM Configuration Notice */}
       <LlmConfigurationNotice mode="socratic" />
+
+      {/* Confusion Checkpoint — appears every 3rd question */}
+      {showConfusionCheckpoint && (
+        <ConfusionCheckpoint
+          conceptId={question.conceptId}
+          studyModeType="socratic"
+          onDismiss={() => setShowConfusionCheckpoint(false)}
+        />
+      )}
 
       {/* Loading Orchestrator Questions */}
       {isLoadingOrchestratorQuestions && (

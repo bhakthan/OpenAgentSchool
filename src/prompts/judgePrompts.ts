@@ -57,6 +57,9 @@ ${request.expectedInsights?.length ? `5. Progress toward expected insights: ${re
 - Celebrate engagement and willingness to learn above perfect answers
 - Provide hope and confidence that improvement is achievable
 - Remember: The goal is to inspire continued learning, not discourage
+- Credit metacognitive awareness: if the student expresses confusion, doubt, or uncertainty, recognize this as a positive signal — productive confusion means they've found their learning edge
+- When a student says "I'm not sure" or "I think but I don't know", highlight that uncertainty awareness is a sophisticated cognitive skill, not a weakness
+- Frame wrong answers as high-information moments: errors that are corrected create stronger memory traces than getting it right the first time
 
 Focus on encouraging continued learning while providing specific, actionable feedback. Recognize effort and thinking process, not just correct answers.${request.expectedInsights?.length ? ` Reference the expected insights to guide deeper exploration.` : ''}`;
 }

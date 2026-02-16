@@ -73,6 +73,8 @@ const learningPaths: LearningPath[] = [
     title: 'Complete AI Agent Mastery',
     description: 'Comprehensive learning path covering all core concepts in 5 progressive tiers',
     recommendedOrder: [
+      // Tier 0: Meta-Learning Foundation
+      'learning-how-to-learn',
       // Tier 0: Core Concepts (Prompting & Optimization)
       'agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 
       'agentic-workflow-control', 'agent-evaluation-methodologies',
@@ -93,6 +95,21 @@ const learningPaths: LearningPath[] = [
     ],
     totalProgress: 0,
     nodes: [
+      // Tier 0: Meta-Learning Foundation
+      {
+        id: 'learning-how-to-learn',
+        title: 'Learning How to Learn',
+        description: 'The science of effective learning—why struggle is the mechanism, not the obstacle.',
+        icon: <Sparkle size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '20-30 min',
+        prerequisites: [],
+        skills: ['Metacognition', 'Retrieval Practice', 'Productive Confusion', 'Self-Assessment'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: true,
+        path: '/concepts'
+      },
       // Tier 0: Foundation - Design Taxonomy
       {
         id: 'agentic-ai-design-taxonomy',

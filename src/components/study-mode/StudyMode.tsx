@@ -60,6 +60,7 @@ import { toast } from '@/components/ui/use-toast';
 import { MasteryPanel, FailureModesPanel, TransferChallengesView } from './index';
 import { emitTelemetry } from '../../lib/data/studyMode/telemetry';
 import StrategyReplaySandbox from './StrategyReplaySandbox';
+import UnknownsTrackerPanel from './UnknownsTrackerPanel';
 import { evaluateAdaptiveRules } from '@/lib/data/studyMode/adaptiveRuntime';
 import { scoreRiskDecision } from '@/lib/data/studyMode/riskPractice';
 import { misconceptionRefutations } from '@/lib/data/studyMode/misconceptionRefutations';
@@ -835,6 +836,9 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
               </div>
             </CardContent>
           </Card>
+
+          {/* What I Don't Know Yet — Unknowns Tracker */}
+          <UnknownsTrackerPanel />
 
           {/* Recommended Next */}
           {recommendedQuestion && (

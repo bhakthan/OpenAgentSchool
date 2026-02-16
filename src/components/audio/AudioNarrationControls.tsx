@@ -400,7 +400,10 @@ advanced: {
                           <SelectTrigger className="h-8 text-xs">
                             <SelectValue placeholder="Select language" />
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent
+                            onPointerDownOutside={(e) => e.preventDefault()}
+                            onCloseAutoFocus={(e) => e.preventDefault()}
+                          >
                             {LANGUAGES
                               .slice()
                               .sort((a,b)=>a.label.localeCompare(b.label))
@@ -448,7 +451,10 @@ advanced: {
                           <SelectTrigger className="h-8 text-xs">
                             <SelectValue placeholder="Select voice" />
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent
+                            onPointerDownOutside={(e) => e.preventDefault()}
+                            onCloseAutoFocus={(e) => e.preventDefault()}
+                          >
                             <SelectItem value="auto">Auto (Best Female)</SelectItem>
                             {displayVoices.map((voice) => (
                                 <SelectItem key={voice.name} value={voice.name}>
@@ -580,9 +586,22 @@ advanced: {
           </Tooltip>
 
           {/* Language hint — always visible */}
-          <span className="flex items-center gap-1.5 text-sm text-blue-700 dark:text-blue-400">
-            <GlobeSimple size={16} weight="bold" /> 29 languages
-          </span>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="flex items-center gap-1.5 text-sm text-blue-700 dark:text-blue-400 cursor-help">
+                <GlobeSimple size={16} weight="bold" /> {LANGUAGES.length} languages
+              </span>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" className="max-w-[320px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg p-3">
+              <p className="font-medium text-gray-900 dark:text-gray-100 text-xs mb-2">Supported Languages</p>
+              <div className="grid grid-cols-3 gap-x-3 gap-y-0.5">
+                {[...LANGUAGES].sort((a, b) => a.label.localeCompare(b.label)).map(lang => (
+                  <span key={lang.code} className="text-[11px] text-gray-700 dark:text-gray-300 truncate">{lang.label}</span>
+                ))}
+              </div>
+              <p className="text-[10px] text-gray-500 dark:text-gray-500 mt-2">Change language in Audio Settings</p>
+            </TooltipContent>
+          </Tooltip>
           
           {/* Stop Button when playing */}
           {isPlaying && (
@@ -656,7 +675,10 @@ advanced: {
                 <SelectTrigger style={{ fontSize: '13px' }} className="h-8">
                   <SelectValue placeholder="Select language" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent
+                  onPointerDownOutside={(e) => e.preventDefault()}
+                  onCloseAutoFocus={(e) => e.preventDefault()}
+                >
                   {LANGUAGES
                     .slice()
                     .sort((a,b)=>a.label.localeCompare(b.label))
@@ -704,7 +726,10 @@ advanced: {
                 <SelectTrigger style={{ fontSize: '13px' }} className="h-8">
                   <SelectValue placeholder="Select voice" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent
+                  onPointerDownOutside={(e) => e.preventDefault()}
+                  onCloseAutoFocus={(e) => e.preventDefault()}
+                >
                   <SelectItem value="auto">Auto (Best Female)</SelectItem>
                   {displayVoices.map((voice) => (
                       <SelectItem key={voice.name} value={voice.name}>

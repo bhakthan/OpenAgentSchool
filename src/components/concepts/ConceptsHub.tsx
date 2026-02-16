@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb } from "@phosphor-icons/react"
 import { ShareButton } from "@/components/ui/ShareButton"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
 
 // ── Lazy-loaded concept components (code-split per concept) ──────────────
+const LearningHowToLearnConcept = lazy(() => import("./LearningHowToLearnConcept"))
 const AIAgentsConcept = lazy(() => import("./AIAgentsConcept"))
 const A2ACommunicationConcept = lazy(() => import("./A2ACommunicationConcept"))
 const MCPConcept = lazy(() => import("./MCPConcept"))
@@ -87,6 +88,18 @@ interface ConceptInfo {
 }
 
 const concepts: ConceptInfo[] = [
+  // Tier 0: Meta-Learning Foundation
+  {
+    id: 'learning-how-to-learn',
+    title: 'Learning How to Learn',
+    description: 'The one skill that makes every other skill easier—master how your brain actually learns.',
+    level: 'fundamentals',
+    icon: <Lightbulb className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-amber-900/20 dark:text-amber-300',
+    estimatedTime: '20-30 min',
+    prerequisites: [],
+    component: LearningHowToLearnConcept
+  },
   // Tier 0: Foundation - Design Taxonomy
   {
     id: 'agentic-ai-design-taxonomy',

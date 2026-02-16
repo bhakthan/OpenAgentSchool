@@ -16,6 +16,13 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 
 ## Core Topics
 
+### Meta-Learning Foundation (February 2026)
+- Learning How to Learn — Metacognition, desirable difficulty, productive confusion
+- Why confusion is the mechanism of learning, not a sign of failure
+- Five learning signals reframed: confusion, slowness, errors, frustration, doubt
+- Retrieval practice, spaced repetition, interleaving strategies
+- "What I Don't Know Yet" unknowns tracker integrated into Study Mode
+
 ### Agent Fundamentals
 - AI Agent Architecture & Lifecycle
 - Agent Reasoning & Tool Use
@@ -149,6 +156,10 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Agent Career Paths - Roles, skills, certifications, salary guides ($80K-$300K)
 - Industry-Specific Agents - Healthcare, Finance, Legal, Education, Manufacturing, Retail patterns
 - Agent Templates Hub - Ready-to-use starters, quickstart guides, boilerplates
+
+## Meta-Learning URLs (February 2026)
+
+- Learning How to Learn: https://www.openagentschool.org/concepts/learning-how-to-learn
 
 ## Key URLs
 
