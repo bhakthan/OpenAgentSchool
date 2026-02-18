@@ -656,5 +656,85 @@ Key Metrics: validation loss (SFT), preference win-rate (DPO), reward + KL trend
     run_regression_eval(policy)`
       }
     ]
+  },
+  {
+    id: 'tri-system-paradigm',
+    name: 'The Tri-System Paradigm',
+    description: `The Tri-System Paradigm extends Kahneman's dual-process theory into a Triadic Cognitive Ecology:
+- System 1 (fast, intuitive, low glucose) — pattern matching, heuristics, autopilot
+- System 2 (slow, deliberate, high glucose) — effortful reasoning, verification, analysis
+- System 3 (AI-externalised reasoning) — LLMs performing the cognitive labour System 2 used to own
+
+When System 3 offers fluent, confident, instant answers, the brain's Law of Least Mental Effort drives cognitive surrender: users stop verifying because checking feels harder than trusting. The result is confidence inflation (hallucinated answers that sound authoritative), attribute substitution ("does it feel right?" replaces "is it right?"), and epistemic dependence (System 2 atrophies from disuse).
+
+The antidote is Beneficial Friction — deliberate design patterns that structurally require System 2 engagement at high-stakes decision points.`,
+    keyFeatures: [
+      'System 3 = AI as externalised slow thinking',
+      'Cognitive surrender driven by glucose conservation bias',
+      'Confidence inflation: hallucinations wrapped in authoritative prose',
+      'Attribute substitution: ease-of-processing replaces verification',
+      'Law of Least Mental Effort as evolutionary optimisation',
+      'Three evolutionary trajectories: Epistemic Dependent, Calibrated Collaborator, Automated Loop',
+      'Six beneficial friction design patterns',
+      'Predict-First Protocol gates AI output behind user hypothesis'
+    ],
+    applicationAreas: [
+      'AI-augmented decision workflows',
+      'Healthcare clinical decision support',
+      'Legal analysis and contract review',
+      'Financial risk assessment',
+      'Educational technology design',
+      'Enterprise AI governance and policy',
+      'Critical infrastructure operations',
+      'Any domain where wrong-but-confident AI output has consequences'
+    ],
+    technicalDetails: `Kahneman Dual-Process → Triadic Cognitive Ecology
+
+System 1: Automatic, fast, low effort, always on. Handles ~95% of daily cognition.
+System 2: Controlled, slow, high glucose cost. Activated for novel or high-stakes tasks.
+System 3: AI layer. Zero glucose cost to the user. Produces System-2-quality output at System-1 speed.
+
+Failure cascade:
+1. User encounters hard question → System 2 would normally engage
+2. System 3 offers fluent answer instantly → brain detects easy path available
+3. Law of Least Mental Effort triggers → System 1 accepts the shortcut
+4. Attribute substitution: "does it feel right?" replaces "is it right?"
+5. Confidence inflation: LLM calibration ≠ factual accuracy; prose fluency ≠ truth
+6. Repeated surrender → neural pathway strengthening → epistemic dependence
+
+Six Beneficial Friction Patterns:
+1. Predict-First Protocol — user records hypothesis before seeing AI output
+2. Confidence Calibration Overlay — token-level uncertainty visualisation
+3. Adversarial Verification Checkpoint — second AI attacks first AI's output
+4. Reasoning Trace Exposure — show chain-of-thought, not just final answer
+5. Periodic Competence Verification — tasks without AI at regular intervals
+6. Decision Journaling + Retrospective — document reasoning for audit`,
+    implementationConsiderations: [
+      'Place friction at irreversible decision points, not everywhere',
+      'Measure System 2 atrophy via periodic unaided competence checks',
+      'Set escape velocity: max consecutive AI-accepted decisions before forced checkpoint',
+      'Test for attribute substitution with deliberately plausible-but-wrong outputs',
+      'Track verification rate: proportion of AI outputs independently checked',
+      'Design AI to present options, not single answers, at high-stakes junctures',
+      'Avoid friction fatigue: too much friction causes users to circumvent the system',
+      'Pair Predict-First Protocol with retrospective analysis to close the feedback loop'
+    ],
+    examples: [
+      {
+        title: 'Predict-First Protocol',
+        description: 'Gate AI output behind a user hypothesis to activate System 2',
+        codeSnippet: `// Before showing AI analysis, require user prediction\nconst userPrediction = await promptUser(\n  "What do you expect the root cause to be?"\n);\nconst aiAnalysis = await llm.analyze(incidentData);\nshowComparison(userPrediction, aiAnalysis);\n// Divergence triggers deeper review`
+      },
+      {
+        title: 'Confidence Calibration Overlay',
+        description: 'Display uncertainty alongside AI output to counteract confidence inflation',
+        codeSnippet: `// Render token-level confidence bands\nfunction ConfidenceOverlay({ tokens }) {\n  return tokens.map(t => (\n    <span\n      key={t.id}\n      style={{ opacity: Math.max(0.3, t.confidence) }}\n      title={\`Confidence: \${(t.confidence * 100).toFixed(0)}%\`}\n    >\n      {t.text}\n    </span>\n  ));\n}`
+      },
+      {
+        title: 'Escape Velocity Check',
+        description: 'Force a manual checkpoint after N consecutive AI-accepted decisions',
+        codeSnippet: `let consecutiveAccepts = 0;\nconst ESCAPE_VELOCITY = 5;\n\nfunction onDecision(accepted: boolean) {\n  if (accepted) {\n    consecutiveAccepts++;\n    if (consecutiveAccepts >= ESCAPE_VELOCITY) {\n      requireManualVerification();\n      consecutiveAccepts = 0;\n    }\n  } else {\n    consecutiveAccepts = 0;\n  }\n}`
+      }
+    ]
   }
 ];

@@ -565,6 +565,10 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'ai-ready-data': 'AIReadyDataConcept',
         'AIReadyDataConcept': 'AIReadyDataConcept',
         
+        // Tri-System Paradigm (Cognitive Ecology)
+        'tri-system-paradigm': 'TriSystemParadigmConcept',
+        'TriSystemParadigmConcept': 'TriSystemParadigmConcept',
+        
         // Core Concepts - 2026 additions
         'agent-reasoning-patterns': 'AgentReasoningPatternsConcept',
         'agent-memory-systems': 'AgentMemorySystemsConcept',

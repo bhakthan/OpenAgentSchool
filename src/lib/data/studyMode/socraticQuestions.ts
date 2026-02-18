@@ -6978,6 +6978,102 @@ export const socraticQuestionLibrary = {
         "Handles exception escalation"
       ]
     }
+  ],
+  // Tri-System Paradigm — Triadic Cognitive Ecology
+  'tri-system-paradigm': [
+    {
+      id: 'tri-system-socratic-1',
+      type: 'socratic' as StudyModeType,
+      conceptId: 'tri-system-paradigm',
+      title: 'Why Three Systems, Not Two?',
+      level: 'beginner' as StudyModeLevel,
+      socratiQuestion: 'Kahneman described two modes of thinking: fast (System 1) and slow (System 2). Now an AI assistant sits beside every knowledge worker. If AI outputs look like System 2 reasoning but are produced by statistical token prediction, should we still call that "thinking"? What new category does this create?',
+      followUpQuestions: [
+        'What does it mean for something to "look like" reasoning without "being" reasoning?',
+        'How does the human brain decide whether to trust an AI answer versus working through the problem itself?',
+        'If the AI answer is correct 95% of the time, does it matter that the process is not genuine cognition?'
+      ],
+      expectedInsights: [
+        'AI output mimics System 2 form (structured, fluent, confident) but is produced by a fundamentally different mechanism — stochastic pattern completion',
+        'The brain treats AI outputs through System 1 heuristics (fluency = truth), bypassing the critical evaluation that System 2 would apply',
+        'Correctness rate matters less than the metacognitive impact: if humans stop evaluating, they lose the ability to catch the 5% errors'
+      ],
+      hints: [
+        'Consider what makes System 2 thinking expensive for the brain',
+        'Think about the difference between "the answer is correct" and "I know why the answer is correct"',
+        'Reflect on what happens to a skill you stop practicing'
+      ],
+      explanation: 'This exploration introduces the Tri-System Paradigm. System 3 (AI) is not merely a tool; it is a new cognitive participant that restructures how Systems 1 and 2 operate. The key insight is that the danger is not AI being wrong — it is AI being right often enough that humans stop checking.',
+      relatedConcepts: ['agent-ethics', 'agent-evaluation', 'human-in-the-loop-patterns'],
+      timeEstimate: 15,
+      successCriteria: [
+        'Identifies the need for a third cognitive category',
+        'Distinguishes form (fluent output) from mechanism (token prediction)',
+        'Recognizes metacognitive risk of over-reliance'
+      ]
+    },
+    {
+      id: 'tri-system-socratic-2',
+      type: 'socratic' as StudyModeType,
+      conceptId: 'tri-system-paradigm',
+      title: 'The Glucose-Depletion Trap',
+      level: 'intermediate' as StudyModeLevel,
+      socratiQuestion: 'Your brain burns glucose to fuel deliberate reasoning (System 2). After hours of demanding work, glucose is depleted and the brain routes decisions to cheaper System 1 heuristics. Now imagine an AI copilot is always available. How does this biological constraint interact with AI availability to create a dependency spiral?',
+      followUpQuestions: [
+        'At what point in the workday is a knowledge worker most vulnerable to cognitive surrender?',
+        'If the brain is optimizing for energy efficiency, is offloading to AI a "bug" or a "feature" of human cognition?',
+        'What design interventions could break the dependency spiral without removing the AI?'
+      ],
+      expectedInsights: [
+        'Late afternoon / post-lunch dips coincide with maximum glucose depletion, making workers most susceptible to uncritical AI acceptance',
+        'From an evolutionary perspective, offloading is optimal — the brain is maximizing output per calorie. The concern is that chronic offloading atrophies independent reasoning capacity',
+        'Beneficial friction patterns (prediction-first, structured disagreement) force System 2 re-engagement at controlled cost'
+      ],
+      hints: [
+        'Think about decision fatigue research in judges, doctors, and other professionals',
+        'Consider the analogy between physical fitness and cognitive fitness',
+        'Reflect on what "use it or lose it" means for neural pathways'
+      ],
+      explanation: 'This exploration connects the biological constraints of System 2 to the AI dependency spiral. Students discover that cognitive surrender is not a character flaw — it is an inevitable consequence of thermodynamics meeting always-available AI. The solution is designed friction, not willpower.',
+      relatedConcepts: ['tri-system-paradigm', 'agent-ethics', 'human-in-the-loop-patterns'],
+      timeEstimate: 18,
+      successCriteria: [
+        'Connects glucose depletion to AI over-reliance timing',
+        'Frames offloading as rational but dangerous',
+        'Proposes friction-based countermeasures'
+      ]
+    },
+    {
+      id: 'tri-system-socratic-3',
+      type: 'socratic' as StudyModeType,
+      conceptId: 'tri-system-paradigm',
+      title: 'Designing for Symbiosis',
+      level: 'advanced' as StudyModeLevel,
+      socratiQuestion: 'The Tri-System Paradigm identifies three trajectories: Augmentation (AI amplifies human reasoning), Atrophy (AI replaces human reasoning), and Symbiosis (dynamic cognitive partnership). You are the chief architect of a medical AI system where radiologists use AI to screen millions of scans. How do you design the system to achieve Symbiosis rather than Atrophy — knowing that radiologists are humans subject to glucose depletion, attribute substitution, and the Law of Least Mental Effort?',
+      followUpQuestions: [
+        'How would you measure whether your system is producing Symbiosis or Atrophy over a 2-year deployment?',
+        'What happens if you implement prediction-first friction but radiologists rebel because it slows them down?',
+        'How does the system adapt when a new radiologist (high System 2 capacity) versus a senior radiologist (high System 1 expertise) uses it?'
+      ],
+      expectedInsights: [
+        'Measure independent accuracy periodically (AI-off assessments), track override rates over time, and monitor time-to-diagnosis as a proxy for engagement',
+        'Friction must be calibrated to task criticality: low-risk screening can have lower friction, while ambiguous or high-risk findings require maximum System 2 engagement',
+        'Adaptive friction: new users get more AI assistance to learn patterns, experienced users get deliberate withholding to maintain independent skill'
+      ],
+      hints: [
+        'Consider how airline pilot training alternates between autopilot and manual flying',
+        'Think about what metrics would reveal cognitive atrophy before patient harm occurs',
+        'Reflect on the difference between "the radiologist agreed with the AI" and "the radiologist independently reached the same conclusion"'
+      ],
+      explanation: 'Systems-level thinking about cognitive symbiosis. Students learn that achieving the optimal trajectory requires longitudinal measurement, adaptive friction, and acceptance that the system design itself shapes which cognitive trajectory emerges. Technology is not neutral — it nudges toward Augmentation or Atrophy based on its interaction design.',
+      relatedConcepts: ['tri-system-paradigm', 'agent-evaluation', 'human-in-the-loop-patterns', 'agent-observability'],
+      timeEstimate: 22,
+      successCriteria: [
+        'Designs longitudinal measurement of cognitive independence',
+        'Calibrates friction to task criticality and user expertise',
+        'Acknowledges system design determines trajectory'
+      ]
+    }
   ]
 };
 

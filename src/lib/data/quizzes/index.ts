@@ -54,6 +54,8 @@ import { ragFundamentalsQuiz } from './rag-fundamentals';
 import { agentOrchestrationQuiz } from './agent-orchestration';
 // Enterprise Playbook Concepts (2026)
 import { enterprisePlaybookConceptsQuestions, enterprisePlaybookConceptsTimeEstimate } from './enterprise-playbook-concepts';
+// Tri-System Paradigm (Kahneman → Triadic Cognitive Ecology)
+import { triSystemParadigmQuestions, triSystemParadigmTime } from './tri-system-paradigm';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -113,7 +115,9 @@ const allQuestions = [
   // Atomic LLM Training (February 2026)
   ...atomicLLMTrainingQuiz.questions,
   // Enterprise Playbook Concepts (2026)
-  ...enterprisePlaybookConceptsQuestions
+  ...enterprisePlaybookConceptsQuestions,
+  // Tri-System Paradigm
+  ...triSystemParadigmQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -1449,6 +1453,45 @@ export const quizCategories: QuizCategory[] = [
         description: 'Applied learning, CoE models, and capability building',
         prerequisites: ['program-setup-north-star'],
         questions: getQuestionsBySubCategory(allQuestions, 'applied-learning')
+      }
+    ]
+  },
+  // Tri-System Paradigm — Triadic Cognitive Ecology
+  {
+    id: 'tri-system-paradigm',
+    name: 'Tri-System Paradigm',
+    description: 'Kahneman\'s dual-process theory extended to a triadic cognitive ecology — System 1 (heuristic), System 2 (deliberate), and System 3 (AI probabilistic prediction).',
+    icon: 'Brain',
+    totalQuestions: triSystemParadigmQuestions.length,
+    estimatedTime: triSystemParadigmTime,
+    subCategories: [
+      {
+        id: 'three-systems',
+        name: 'The Three Systems',
+        description: 'System 1 (fast heuristic), System 2 (deliberate reasoning), and System 3 (AI token prediction).',
+        prerequisites: [],
+        questions: triSystemParadigmQuestions.filter(q => q.subCategory === 'three-systems')
+      },
+      {
+        id: 'cognitive-surrender',
+        name: 'Cognitive Surrender',
+        description: 'How System 3 availability creates dependency spirals — attribute substitution, confidence inflation, and glucose depletion.',
+        prerequisites: ['three-systems'],
+        questions: triSystemParadigmQuestions.filter(q => q.subCategory === 'cognitive-surrender')
+      },
+      {
+        id: 'evolutionary-paths',
+        name: 'Evolutionary Trajectories',
+        description: 'Augmentation, Atrophy, or Symbiosis — the three futures for human-AI cognition.',
+        prerequisites: ['cognitive-surrender'],
+        questions: triSystemParadigmQuestions.filter(q => q.subCategory === 'evolutionary-paths')
+      },
+      {
+        id: 'beneficial-friction',
+        name: 'Beneficial Friction',
+        description: 'Design patterns that re-engage System 2 — prediction-first, confidence calibration, structured disagreement, cognitive gyms.',
+        prerequisites: ['cognitive-surrender'],
+        questions: triSystemParadigmQuestions.filter(q => q.subCategory === 'beneficial-friction')
       }
     ]
   }

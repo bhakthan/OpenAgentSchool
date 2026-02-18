@@ -8694,6 +8694,160 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// Tri-System Paradigm — Triadic Cognitive Ecology
+(scenarioLibrary as any)['tri-system-paradigm'] = [
+  {
+    id: 'tri-system-scenario-1',
+    type: 'scenario',
+    conceptId: 'tri-system-paradigm',
+    title: 'Deploying AI Copilot for Legal Contract Review',
+    level: 'beginner',
+    scenario: {
+      id: 'legal-copilot-deployment',
+      title: 'Should Lawyers See the AI Answer First?',
+      description: 'Your law firm is deploying an AI assistant that reviews contracts and highlights risky clauses. Junior associates currently spend 4 hours per contract doing manual review. The AI can do it in 30 seconds with 82% accuracy.',
+      context: 'Partners want to maximize throughput. Junior associates are eager to use the tool. The bar association requires lawyers to exercise independent professional judgment on every matter.',
+      stakeholders: ['Managing Partner', 'Junior Associates', 'General Counsel', 'Compliance Officer'],
+      systemState: { manualTime: '4 hours', aiTime: '30 seconds', aiAccuracy: '82%', contractVolume: '200/month' },
+      challenges: ['Professional obligation for independent judgment', 'Throughput pressure', 'Skill development for junior associates'],
+      decisionPoints: [
+        'Do junior associates see the AI output before or after their own review?',
+        'How do you ensure associates develop contract-review skills despite AI availability?',
+        'How do you detect if quality is degrading over time?'
+      ],
+      options: [
+        'AI-first: Show AI highlights immediately, associate confirms or overrides — maximum throughput',
+        'Prediction-first: Associate marks risky clauses independently, then AI reveals its analysis for comparison — preserves independent judgment',
+        'Split model: AI handles routine contracts end-to-end, associates focus only on complex/novel contracts — efficiency-focused'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'AI-first maximizes throughput but triggers System 1 anchoring: associates will rubber-stamp AI output because it looks fluent and confident',
+      'Prediction-first forces System 2 engagement (independent analysis) while still getting AI benefit for comparison — satisfies professional obligation and builds skill',
+      'Split model creates a two-tier skill gap: associates never learn routine patterns, which form the foundation for recognizing novel risks'
+    ],
+    followUpQuestions: [
+      'What happens when a junior associate trained AI-first becomes a senior partner who needs to evaluate an AI-novel contract type?',
+      'How would you measure whether associates are actually developing independent skill?',
+      'Could you combine approaches — prediction-first for training, AI-first for experienced attorneys?'
+    ],
+    expectedInsights: [
+      'Cognitive surrender in law is a professional liability: if the AI misses a clause and the lawyer rubber-stamped, the lawyer is negligent',
+      'Track independent accuracy via periodic blind reviews (AI-off assessments) — if accuracy declines, increase friction',
+      'Graduated friction: new associates always prediction-first, experienced attorneys can earn AI-first on routine work after demonstrating consistent independent accuracy'
+    ],
+    businessContext: 'Legal AI deployment must balance efficiency with professional duty of care. The Tri-System Paradigm explains why "just show the answer" destroys the very skill the profession requires.',
+    relatedConcepts: ['tri-system-paradigm', 'human-in-the-loop-patterns', 'agent-ethics'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Selects prediction-first for professional judgment',
+      'Identifies anchoring risk of AI-first',
+      'Proposes graduated friction model'
+    ]
+  },
+  {
+    id: 'tri-system-scenario-2',
+    type: 'scenario',
+    conceptId: 'tri-system-paradigm',
+    title: 'Measuring Cognitive Independence in a Trading Desk',
+    level: 'intermediate',
+    scenario: {
+      id: 'trading-desk-independence',
+      title: 'Are Your Traders Still Thinking?',
+      description: 'A quantitative trading firm deployed AI-generated trade recommendations 8 months ago. Traders\' acceptance rate climbed from 60% to 94%. Portfolio returns are up 12% — but the risk team suspects traders have stopped applying independent judgment.',
+      context: 'The AI model has been accurate during a bull market. No one knows how traders will respond during a market regime change. The firm\'s risk framework requires human judgment as the final layer.',
+      stakeholders: ['CRO (Chief Risk Officer)', 'Head of Trading', 'Compliance', 'AI Platform Team'],
+      systemState: { acceptanceRate: '94%', portfolioReturn: '+12%', aiAccuracy: '87% in bull market', humanOverrideRate: '6%' },
+      challenges: ['Cannot tell if high acceptance means trust or surrender', 'Bull market masks AI limitations', 'Regulatory requirement for human oversight'],
+      decisionPoints: [
+        'How do you distinguish informed agreement from cognitive surrender?',
+        'What metrics would reveal atrophy before a market crash exposes it?',
+        'How do you design a "cognitive stress test" for traders?'
+      ],
+      options: [
+        'Trust the numbers: 12% returns + 87% accuracy means the system is working. Don\'t add friction.',
+        'Implement monthly AI-off trading simulations. Measure independent conviction accuracy. Track time-to-decision and annotation quality as cognitive engagement proxies.',
+        'Reduce AI access to 50% of trades randomly, requiring independent analysis on the others. Compare outcomes.'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Trusting bull-market performance is survivorship bias: the AI has not been tested in adverse conditions, and traders have lost the skill to navigate them',
+      'AI-off simulations directly measure independent skill; time-to-decision and annotation quality are leading indicators of engagement; monthly cadence catches atrophy early',
+      'Random reduction is too disruptive for live trading and creates inconsistent risk exposure'
+    ],
+    followUpQuestions: [
+      'What if the AI-off simulation shows traders have lost 30% of their independent accuracy?',
+      'How do you implement cognitive stress tests without impacting real portfolio risk?',
+      'Should the firm disclose to regulators that 94% acceptance rate may indicate surrender?'
+    ],
+    expectedInsights: [
+      'Implement graduated re-training: increase prediction-first friction, add structured disagreement protocols, and temporary paired-trading (junior with AI-experienced senior)',
+      'Use paper-trading environments for AI-off assessments so real portfolios are not affected; inject historical regime-change scenarios',
+      'Proactive disclosure builds regulatory trust; concealing known risk amplifies liability if a crash reveals the surrender'
+    ],
+    businessContext: 'Financial AI oversight requires distinguishing informed agreement from passive acceptance. The Tri-System Paradigm provides the framework: measure System 2 independence, not just System 3 accuracy.',
+    relatedConcepts: ['tri-system-paradigm', 'agent-evaluation', 'agent-observability'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Distinguishes agreement from surrender',
+      'Designs AI-off stress tests',
+      'Plans leading indicators of cognitive atrophy'
+    ]
+  },
+  {
+    id: 'tri-system-scenario-3',
+    type: 'scenario',
+    conceptId: 'tri-system-paradigm',
+    title: 'Nation-Scale AI Literacy Policy',
+    level: 'advanced',
+    scenario: {
+      id: 'ai-literacy-policy',
+      title: 'Designing National AI Literacy Standards',
+      description: 'You advise a government ministry on national AI literacy standards for K-12 and professional education. Research shows 65% of university students cannot distinguish AI-generated essays from human-written ones. Professional regulators report rising AI-dependency incidents across medicine, law, and engineering.',
+      context: 'The ministry wants practical policy, not bans. AI tools are already embedded in workplaces and classrooms. The Tri-System Paradigm has been presented to the cabinet as the theoretical foundation.',
+      stakeholders: ['Education Minister', 'Professional Regulatory Bodies', 'AI Industry Representatives', 'Parents & Teachers', 'University Researchers'],
+      systemState: { aiLiteracyRate: '35% can identify AI text', dependencyIncidents: 'rising 40%/year', toolAdoption: '85% of knowledge workers' },
+      challenges: ['Cannot ban beneficial tools', 'Must preserve critical thinking development', 'Must scale across all professions and age groups'],
+      decisionPoints: [
+        'What should every citizen understand about how AI "thinks" versus how humans think?',
+        'How do you integrate beneficial friction into educational technology policy?',
+        'What professional licensing requirements should change to account for AI dependency risk?'
+      ],
+      options: [
+        'Mandatory AI literacy course for all students (K-12) covering the three systems, cognitive biases, and beneficial friction principles',
+        'Professional re-certification requiring demonstrated independent competence (AI-off assessments) alongside AI-assisted competence',
+        'Comprehensive approach: K-12 cognitive ecology curriculum + professional re-certification + AI tool labeling requirements showing prediction confidence + funded research into longitudinal cognitive impact'
+      ]
+    },
+    correctOption: 2,
+    rationales: [
+      'K-12 education alone is necessary but insufficient — it does not address current professionals already experiencing atrophy',
+      'Professional re-certification addresses the acute risk but misses the pipeline: new graduates arrive already dependent',
+      'Comprehensive approach addresses pipeline (K-12), acute risk (re-certification), information asymmetry (labeling), and long-term unknowns (research funding)'
+    ],
+    followUpQuestions: [
+      'How do you prevent the AI literacy curriculum from becoming a rote memorization exercise that System 1 handles?',
+      'What does an "AI-off assessment" look like for a surgeon versus a software engineer?',
+      'How do you balance cognitive protection with AI-driven productivity gains that the economy depends on?'
+    ],
+    expectedInsights: [
+      'Curriculum must use experiential learning (students experience their own cognitive surrender through exercises, then analyze it) — not lecture-based knowledge transfer',
+      'Domain-specific assessments: surgeons do unassisted procedures, engineers solve problems without copilot, lawyers review contracts independently — with longitudinal tracking',
+      'Economic modeling should account for the hidden cost of cognitive atrophy: short-term productivity gains versus long-term resilience loss during AI failures or adversarial scenarios'
+    ],
+    businessContext: 'The Tri-System Paradigm scales from individual interaction design to national policy. The core principle remains: systems that eliminate all cognitive friction optimize for short-term throughput at the cost of long-term resilience.',
+    relatedConcepts: ['tri-system-paradigm', 'agent-ethics', 'agent-evaluation', 'human-in-the-loop-patterns'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Designs multi-level policy intervention',
+      'Addresses both pipeline and acute dependency',
+      'Plans longitudinal impact measurement'
+    ]
+  }
+];
+
 // Helper function to get scenarios by concept and level
 export function getScenarios(
   conceptId: string, 

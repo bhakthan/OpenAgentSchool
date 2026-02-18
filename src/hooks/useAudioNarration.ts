@@ -292,6 +292,10 @@ export function getComponentAudioFile(componentName: string): string {
     'agent-red-teaming': 'AgentRedTeamingConcept_explanation',
     'AgentRedTeamingConcept': 'AgentRedTeamingConcept_explanation',
     
+    // Tri-System Paradigm (Cognitive Ecology)
+    'tri-system-paradigm': 'TriSystemParadigmConcept_explanation',
+    'TriSystemParadigmConcept': 'TriSystemParadigmConcept_explanation',
+    
     // Add more mappings as needed
   };
 

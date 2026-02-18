@@ -8818,6 +8818,175 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
       timeEstimate: 20,
       successCriteria: ['Identifies missing Key Vault resource', 'Understands iteration regression risk', 'Proposes cross-reference validation gate']
     }
+  ],
+  // Tri-System Paradigm — Triadic Cognitive Ecology
+  'tri-system-paradigm': [
+    {
+      id: 'tri-system-debug-1',
+      type: 'debug',
+      conceptId: 'tri-system-paradigm',
+      title: 'Confidence Inflation in AI Triage',
+      level: 'beginner',
+      debugChallenge: {
+        id: 'confidence-inflation-triage',
+        title: 'Support Agents Accept All AI Suggestions',
+        description: 'After deploying an AI triage assistant for customer support, you notice that support agents accept the AI-suggested category 98% of the time — even though the AI is only 78% accurate. Ticket misrouting has tripled.',
+        problemDescription: 'The AI produces fluent, confident summaries for every ticket. System 1 (attribute substitution) treats fluency as accuracy. No beneficial friction exists to engage System 2 before acceptance.',
+        brokenCode: `// AI triage UI component
+function TriagePanel({ ticket, aiSuggestion }) {
+  // BUG: AI suggestion shown immediately with high visual prominence
+  // BUG: No friction before acceptance — one-click confirm
+  // BUG: No independent assessment required from agent
+  return (
+    <div className="triage-panel">
+      <h3>AI Recommendation</h3>
+      <div className="ai-suggestion highlighted">
+        <p><strong>{aiSuggestion.category}</strong></p>
+        <p>{aiSuggestion.summary}</p>
+        <p>Confidence: {aiSuggestion.confidence}%</p>
+        <button onClick={() => accept(aiSuggestion)}>
+          ✓ Accept
+        </button>
+      </div>
+    </div>
+  );
+}`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Support Agent', message: 'AI says "Billing Issue" — looks right, accepting', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'System', message: 'Ticket routed to Billing', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Billing Team', message: 'This is a Technical issue, not Billing. Re-routing.', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'QA', message: 'Agent acceptance rate: 98%. AI accuracy: 78%. Misroutes: 3x baseline.', type: 'warning' }
+        ],
+        expectedBehavior: 'Agents should critically evaluate AI suggestions before accepting. Acceptance rate should correlate with AI accuracy, not approach 100%.',
+        commonIssues: [
+          { issue: 'No prediction-first friction', symptoms: ['Near-100% acceptance of AI suggestions'], diagnosis: 'System 1 anchoring on first answer shown', fix: 'Require agent to select category before revealing AI suggestion' },
+          { issue: 'Confidence score misleading', symptoms: ['Agents trust 60% confidence same as 95%'], diagnosis: 'System 1 ignores nuance in numbers', fix: 'Use visual indicators (red/yellow/green) and hide AI suggestion when confidence is below threshold' },
+          { issue: 'No override tracking', symptoms: ['Cannot measure cognitive engagement'], diagnosis: 'No data on whether agents actually evaluated', fix: 'Track time-to-accept, override rate, and periodic AI-off accuracy checks' }
+        ],
+        hints: ['What if the agent had to commit an answer before seeing the AI?', 'How could you detect that an agent is rubber-stamping?', 'What design would force 5 seconds of thinking?'],
+        solution: 'Implement prediction-first: agent selects category before AI reveal. Show confidence as color-coded indicator, not raw number. Track time-to-accept and flag sub-3-second accepts for review. Run monthly AI-off accuracy assessments to measure independent skill retention.',
+        explanation: 'Demonstrates System 1 attribute substitution (fluency → accuracy) and how UI design can either enable or prevent cognitive surrender.'
+      },
+      expectedInsights: ['Fluency triggers System 1 acceptance', 'Prediction-first breaks anchoring', 'Override rate is a proxy for cognitive engagement'],
+      hints: ['Look at the acceptance rate vs accuracy gap', 'Consider what UI change would force deliberation', 'Think about how to measure engagement'],
+      explanation: 'Teaches beneficial friction design through a realistic support-agent scenario.',
+      relatedConcepts: ['tri-system-paradigm', 'human-in-the-loop-patterns', 'agent-evaluation'],
+      timeEstimate: 12,
+      successCriteria: ['Identifies attribute substitution as root cause', 'Proposes prediction-first pattern', 'Designs engagement metrics']
+    },
+    {
+      id: 'tri-system-debug-2',
+      type: 'debug',
+      conceptId: 'tri-system-paradigm',
+      title: 'Cognitive Atrophy in Code Review',
+      level: 'intermediate',
+      debugChallenge: {
+        id: 'cognitive-atrophy-code-review',
+        title: 'Engineers Stop Finding Bugs After AI Copilot Adoption',
+        description: 'Six months after deploying an AI code review assistant, the engineering team\'s independent bug-detection rate has dropped 40%. When the AI is unavailable during an outage, critical bugs reach production.',
+        problemDescription: 'Engineers have progressively offloaded code review reasoning to System 3 (AI). The glucose-depletion spiral has atrophied their System 2 code analysis capacity. No cognitive gym sessions exist to maintain independent skill.',
+        brokenCode: `# Code review pipeline — current state
+class AICodeReview:
+    def review(self, pull_request):
+        ai_comments = self.ai_model.analyze(pull_request.diff)
+        
+        # BUG: AI review shown before human review
+        # BUG: No tracking of human-added vs AI-confirmed comments
+        # BUG: No periodic AI-free review sessions
+        
+        for comment in ai_comments:
+            pull_request.add_review_comment(
+                body=comment.text,
+                line=comment.line,
+                # Shown as "AI Suggestion" but engineers treat as final
+                author="AI Assistant"
+            )
+        
+        # Human reviewer sees AI comments already attached
+        # System 1 says: "AI already found the issues, LGTM"
+        return pull_request`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Metrics', message: 'Month 1: Human-found bugs: 45/review, AI-found: 30/review', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Metrics', message: 'Month 3: Human-found bugs: 20/review, AI-found: 35/review', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Metrics', message: 'Month 6: Human-found bugs: 8/review, AI-found: 38/review', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'Incident', message: 'AI outage day: 12 critical bugs missed, 3 reached production', type: 'error' }
+        ],
+        expectedBehavior: 'Human reviewers should maintain independent bug-detection capability even with AI assistance available.',
+        commonIssues: [
+          { issue: 'Cognitive atrophy spiral', symptoms: ['Declining human-found bugs over time'], diagnosis: 'System 2 code analysis skills weakening from disuse', fix: 'Schedule weekly AI-free review sessions as cognitive gym' },
+          { issue: 'No structured disagreement', symptoms: ['100% agreement with AI comments'], diagnosis: 'Engineers not critically evaluating AI output', fix: 'Require engineer to annotate why they agree/disagree with each AI comment' },
+          { issue: 'Missing longitudinal tracking', symptoms: ['Atrophy not detected until AI outage'], diagnosis: 'No independent-accuracy measurement', fix: 'Monthly blind code reviews without AI to track independent skill' }
+        ],
+        hints: ['How do pilots maintain manual flying skills despite autopilot?', 'What would a "cognitive gym" for code review look like?', 'How would you detect atrophy before an outage reveals it?'],
+        solution: 'Restructure pipeline: human reviews first (prediction-first), AI adds comments after human commits theirs. Track human-unique findings. Schedule 1 AI-free review per week per engineer. Run quarterly independent code review assessments. Alert on declining human-unique finding rate.',
+        explanation: 'Demonstrates the glucose-depletion → System 3 offloading → atrophy spiral in a software engineering context.'
+      },
+      expectedInsights: ['AI-first review enables cognitive offloading', 'Prediction-first ordering preserves human skill', 'Longitudinal metrics detect atrophy early'],
+      hints: ['Look at the trend in human-found bugs', 'Consider review ordering', 'Think about how to test independent skill'],
+      explanation: 'Maps the cognitive atrophy spiral to engineering practices and introduces cognitive gym interventions.',
+      relatedConcepts: ['tri-system-paradigm', 'agent-ethics', 'agent-evaluation'],
+      timeEstimate: 18,
+      successCriteria: ['Identifies atrophy trend from metrics', 'Proposes prediction-first pipeline', 'Designs cognitive gym program']
+    },
+    {
+      id: 'tri-system-debug-3',
+      type: 'debug',
+      conceptId: 'tri-system-paradigm',
+      title: 'Dynamic Friction Calibration Failure',
+      level: 'advanced',
+      debugChallenge: {
+        id: 'dynamic-friction-failure',
+        title: 'Adaptive Friction System Causes Clinician Rebellion',
+        description: 'A hospital implemented dynamic cognitive friction for its AI diagnostic assistant. The system measures engagement signals and increases friction for high-risk / low-engagement cases. But clinicians are circumventing it by artificially inflating engagement signals.',
+        problemDescription: 'The friction system monitors keystroke timing and mouse movement to estimate "cognitive engagement." Clinicians discovered they can wiggle the mouse and type random keystrokes to pass the engagement check, then one-click accept the AI diagnosis. The system reports high engagement but cognitive surrender continues.',
+        brokenCode: `class AdaptiveFrictionSystem:
+    def check_engagement(self, user_interaction):
+        # BUG: Heuristic-based engagement detection is gameable
+        keystrokes = user_interaction.keystroke_count
+        mouse_movement = user_interaction.mouse_distance
+        time_spent = user_interaction.seconds_on_screen
+        
+        engagement_score = (
+            (keystrokes * 0.3) +
+            (mouse_movement * 0.2) +
+            (time_spent * 0.5)
+        )
+        
+        # BUG: Binary threshold — no gradient
+        if engagement_score > 50:
+            return "engaged"  # Allow one-click accept
+        else:
+            return "disengaged"  # Force prediction-first
+    
+    def should_apply_friction(self, case_risk, engagement):
+        # BUG: Only applies friction when disengaged
+        # Misses cases where "engaged" clinician is still rubber-stamping
+        if engagement == "engaged":
+            return False  # No friction — trusts the score
+        return True`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'System', message: 'Engagement scores: 95th percentile across all clinicians', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Audit', message: 'Time-to-diagnosis dropped from 4min to 18sec after friction system deployed', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Audit', message: 'Override rate: 1.2% (down from 15% pre-friction)', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'Patient Safety', message: 'Near-miss incident: AI misdiagnosed rare condition, clinician accepted in 12 seconds', type: 'error' }
+        ],
+        expectedBehavior: 'Friction system should actually measure cognitive engagement, not proxy metrics that can be gamed. It should be robust against Goodhart\'s Law.',
+        commonIssues: [
+          { issue: 'Gameable proxy metrics', symptoms: ['High engagement scores but low override rates'], diagnosis: 'Goodhart\'s Law: measuring keystrokes, clinicians optimize keystrokes not cognition', fix: 'Use outcome-based metrics: diagnostic accuracy on blinded cases, override correctness rate' },
+          { issue: 'Binary engagement model', symptoms: ['All-or-nothing friction'], diagnosis: 'No gradient between full friction and no friction', fix: 'Implement proportional friction: vary from subtle nudge to mandatory prediction-first based on case risk × engagement quality' },
+          { issue: 'No ground-truth calibration', symptoms: ['System cannot tell if engagement is genuine'], diagnosis: 'Missing periodic blind assessments', fix: 'Inject known-outcome cases as ground truth probes; measure independent accuracy directly' }
+        ],
+        hints: ['What happens when you measure a proxy rather than the thing itself?', 'Could you inject test cases to measure real diagnostic accuracy?', 'How do airline regulators handle pilots gaming simulator assessments?'],
+        solution: 'Replace proxy engagement metrics with outcome-based measurement: inject known-outcome cases as ground-truth probes, measure independent diagnostic accuracy directly, and use this as the adjustment signal for friction intensity. Implement proportional friction (not binary) scaled by case risk × measured independent accuracy. Add mandatory prediction-first for any case flagged as rare or ambiguous by the AI confidence model.',
+        explanation: 'Advanced lesson in Goodhart\'s Law applied to cognitive friction systems. Proxy metrics invite gaming; only outcome-based measurement resists adversarial optimization by users.'
+      },
+      expectedInsights: ['Proxy engagement metrics are gameable (Goodhart\'s Law)', 'Outcome-based measurement resists gaming', 'Friction must be proportional and unintrusive for low-risk cases'],
+      hints: ['Look at the gap between engagement scores and override rates', 'Consider what a ground-truth probe would look like', 'Think about proportional friction'],
+      explanation: 'Teaches that designing beneficial friction for real-world deployment must account for user adversarial behavior and Goodhart\'s Law.',
+      relatedConcepts: ['tri-system-paradigm', 'agent-evaluation', 'agent-observability', 'agent-red-teaming'],
+      timeEstimate: 22,
+      successCriteria: ['Identifies Goodhart\'s Law as root cause', 'Proposes outcome-based measurement', 'Designs proportional friction model']
+    }
   ]
 };
 
