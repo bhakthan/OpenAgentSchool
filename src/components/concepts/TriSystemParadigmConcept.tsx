@@ -201,12 +201,12 @@ export default function TriSystemParadigmConcept({
               <div className={conceptSurface("p-4 space-y-1")}>
                 <p className="font-medium">Primary — SSRN Pre-print</p>
                 <p className="text-muted-foreground">
-                  Bhaktavatsalam, S. (2025).{" "}
+                  Shaw, S.D. &amp; Nave, G. (2025).{" "}
                   <em>
                     The Tri-System Paradigm: Cognitive Surrender, Epistemic Dependence, and the
                     Architect's Imperative in the Age of Generative AI
                   </em>
-                  .
+                  . University of Pennsylvania — The Wharton School.
                 </p>
                 <a
                   href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6097646"
@@ -803,7 +803,7 @@ export default function TriSystemParadigmConcept({
                   cognitive surrender and preserve human agency."
                 </blockquote>
                 <p className="text-sm text-muted-foreground">
-                  — Bhaktavatsalam, S. (2025). <em>The Tri-System Paradigm</em>. SSRN pre-print.
+                  — Shaw, S.D. &amp; Nave, G. (2025). <em>The Tri-System Paradigm</em>. SSRN pre-print, University of Pennsylvania — The Wharton School.
                 </p>
               </div>
             </div>
