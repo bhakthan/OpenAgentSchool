@@ -144,6 +144,13 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - XYZ-Claw: Multi-Agent Orchestration - End-to-end swarm architecture (supervisor-worker topology, async message passing, back-pressure, dead-letter queues) built in TypeScript / Go / Rust
 - Quantum-Enhanced AI & Robotics
 - Edge Agent & Physical AI (February 2026)
+- Tri-System Paradigm — Triadic Cognitive Ecology (February 2026)
+  - Beyond Kahneman: System 1 (fast/intuitive), System 2 (slow/deliberate), System 3 (AI-externalised reasoning)
+  - Glucose depletion drives cognitive surrender → laziness as efficiency heuristic Law of Least Mental Effort
+  - AI confidence inflation: hallucination as attribute substitution — high-confidence wrong answers
+  - Beneficial friction design: 6 patterns that structurally require System 2 engagement
+  - 'Artificial Thinking' visual guide: 15-slide carousel from the paper 'Beyond the Brain-Bound Mind'
+  - Prerequisite: Agent Ethics & Governance; pairs with Fine-Tuning and Responsible AI Governance
   - Edge inference with latency guarantees (<10ms for robotics)
   - IT/OT convergence with industrial protocols (OPC-UA, MQTT, Modbus)
   - Microsoft Rho-Alpha VLA+ and Google Gemini ER 1.5
@@ -156,6 +163,12 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Agent Career Paths - Roles, skills, certifications, salary guides ($80K-$300K)
 - Industry-Specific Agents - Healthcare, Finance, Legal, Education, Manufacturing, Retail patterns
 - Agent Templates Hub - Ready-to-use starters, quickstart guides, boilerplates
+
+## Tri-System Paradigm URLs (February 2026)
+
+- Tri-System Paradigm: https://www.openagentschool.org/concepts/tri-system-paradigm
+- Tri-System Infographic (Portrait): https://www.openagentschool.org/images/Tri_System_Paradigm_Portrait.webp
+- Tri-System Infographic (Landscape): https://www.openagentschool.org/images/Tri_System_Paradigm_Landscape.webp
 
 ## Meta-Learning URLs (February 2026)
 

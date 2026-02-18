@@ -340,6 +340,19 @@
         <priority>0.95</priority>
     </url>
 
+    <!-- Tri-System Paradigm / Triadic Cognitive Ecology (February 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/tri-system-paradigm</loc>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+        <image:image>
+            <image:loc>https://www.openagentschool.org/images/Tri_System_Paradigm_Landscape.webp</image:loc>
+            <image:title>Tri-System Paradigm — Triadic Cognitive Ecology</image:title>
+            <image:caption>Beyond Kahneman: System 1 / System 2 / System 3 — how AI externalises slow thinking and what architects must design to keep humans in the verification seat</image:caption>
+        </image:image>
+    </url>
+
     <!-- CLI and Coding Agent Concepts (January 2026) -->
     <url>
         <loc>https://www.openagentschool.org/concepts/agent-skills</loc>

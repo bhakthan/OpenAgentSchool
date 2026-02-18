@@ -45,6 +45,9 @@ Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
 
+# Advanced Cognitive Science Concepts (February 2026)
+Allow: /concepts/tri-system-paradigm
+
 # Core Concepts
 Allow: /concepts/quantum-ai-robotics
 Allow: /concepts/edge-agent
@@ -135,6 +138,7 @@ Allow: /concepts/agent-testing-benchmarks
 Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
+Allow: /concepts/tri-system-paradigm
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
@@ -173,6 +177,7 @@ Allow: /concepts/agent-testing-benchmarks
 Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
+Allow: /concepts/tri-system-paradigm
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
@@ -228,6 +233,7 @@ Allow: /concepts/agent-testing-benchmarks
 Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
+Allow: /concepts/tri-system-paradigm
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
@@ -263,6 +269,7 @@ Allow: /concepts/agent-testing-benchmarks
 Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
+Allow: /concepts/tri-system-paradigm
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing

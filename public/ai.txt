@@ -78,6 +78,14 @@ Concept-RLHF: https://www.openagentschool.org/concepts/rlhf
 # AI-Ready Data & Decision Intelligence (February 2026)
 Concept-AI-Ready-Data: https://www.openagentschool.org/concepts/ai-ready-data
 
+# Tri-System Paradigm & Cognitive Ecology (February 2026)
+Concept-Tri-System-Paradigm: https://www.openagentschool.org/concepts/tri-system-paradigm
+# Beyond Kahneman's Dual-Process: the Triadic Cognitive Ecology (System 1 / System 2 / System 3)
+# Glucose depletion and cognitive surrender, laziness as efficiency heuristic
+# Confidence inflation (AI hallucination trap), beneficial friction design
+# Why AI externalises System 2 — and what architects must structure to keep humans in the verification seat
+# Infographic: portrait + landscape webp; 15-slide visual guide 'Artificial Thinking' carousel
+
 # Science AI Factory (February 2026)
 Agents-For-Science: https://www.openagentschool.org/agents-for-science
 # Comprehensive walkthrough of 2026 Science AI Factories:

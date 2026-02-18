@@ -87,7 +87,7 @@ const learningPaths: LearningPath[] = [
       'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations', 'xyz-claw',
       // Tier 4: Advanced Concepts
   'agent-deployment', 'agent-learning', 'agent-integration', 'agentic-robotics-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management',
-      'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement',
+      'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'tri-system-paradigm',
       // Production Foundations (2026)
       'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization',
       // Tier 5: Applied & Career
@@ -568,6 +568,20 @@ const learningPaths: LearningPath[] = [
         path: '/concepts'
       },
       {
+        id: 'tri-system-paradigm',
+        title: 'The Tri-System Paradigm',
+        description: 'Beyond Kahneman: System 3 is the AI layer. Design beneficial friction or surrender your System 2 to habit and glucose depletion.',
+        icon: <Brain size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '30-40 min',
+        prerequisites: ['agent-ethics'],
+        skills: ['Cognitive Science', 'Beneficial Friction Design', 'Human-AI Collaboration', 'Critical Thinking'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
         id: 'quantum-ai-robotics',
         title: 'Quantum-Enhanced AI & Robotics',
         description: 'Harness quantum phenomena for next-gen perception, planning, and learning in embodied AI systems.',
@@ -999,7 +1013,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     // Tier 3: Implementation - ACP, MCP Integration, Data Pipelines
     ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations', 'xyz-claw'],
     // Tier 4: Advanced - Operations, Learning, Integration, Commerce, Robotics, Reasoning, Memory, Security
-    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization'],
+    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'tri-system-paradigm', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization'],
     // Tier 5: Applied - Career, Enterprise Adoption, Templates
     ['agent-troubleshooting', 'agent-economics', 'agent-career-paths', 'industry-agents', 'agent-templates-hub']
   ];
