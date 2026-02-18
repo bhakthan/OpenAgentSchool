@@ -65,6 +65,23 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Tier chip & icon colors (light) */
+  --tier-blue-chip-bg: #eff6ff;
+  --tier-blue-chip-fg: #1d4ed8;
+  --tier-blue-icon-bg: #dbeafe;
+  --tier-emerald-chip-bg: #ecfdf5;
+  --tier-emerald-chip-fg: #047857;
+  --tier-emerald-icon-bg: #d1fae5;
+  --tier-amber-chip-bg: #fffbeb;
+  --tier-amber-chip-fg: #b45309;
+  --tier-amber-icon-bg: #fef3c7;
+  --tier-purple-chip-bg: #faf5ff;
+  --tier-purple-chip-fg: #7e22ce;
+  --tier-purple-icon-bg: #ede9fe;
+  --tier-rose-chip-bg: #fff1f2;
+  --tier-rose-chip-fg: #be123c;
+  --tier-rose-icon-bg: #ffe4e6;
 }
 
 /*
@@ -98,6 +115,23 @@
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
+
+  /* Tier chip & icon colors (dark) */
+  --tier-blue-chip-bg: rgba(23, 37, 84, 0.45);
+  --tier-blue-chip-fg: #93c5fd;
+  --tier-blue-icon-bg: rgba(30, 58, 138, 0.35);
+  --tier-emerald-chip-bg: rgba(6, 78, 59, 0.45);
+  --tier-emerald-chip-fg: #6ee7b7;
+  --tier-emerald-icon-bg: rgba(6, 95, 70, 0.35);
+  --tier-amber-chip-bg: rgba(120, 53, 15, 0.45);
+  --tier-amber-chip-fg: #fcd34d;
+  --tier-amber-icon-bg: rgba(146, 64, 14, 0.35);
+  --tier-purple-chip-bg: rgba(59, 7, 100, 0.45);
+  --tier-purple-chip-fg: #c4b5fd;
+  --tier-purple-icon-bg: rgba(88, 28, 135, 0.35);
+  --tier-rose-chip-bg: rgba(136, 19, 55, 0.45);
+  --tier-rose-chip-fg: #fda4af;
+  --tier-rose-icon-bg: rgba(159, 18, 57, 0.35);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);

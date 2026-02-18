@@ -1,9 +1,9 @@
-import { useState, lazy, Suspense } from "react"
+import { useState, useMemo, lazy, Suspense } from "react"
 import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb, MagnifyingGlass, CaretRight } from "@phosphor-icons/react"
 import { ShareButton } from "@/components/ui/ShareButton"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
@@ -759,6 +759,63 @@ const concepts: ConceptInfo[] = [
   }
 ]
 
+// ── Tier metadata for masonry overview ──────────────────────────────────────
+const tierOrder: ConceptInfo['level'][] = ['fundamentals', 'architecture', 'implementation', 'advanced', 'applied'];
+
+const tierMeta: Record<string, {
+  title: string; description: string;
+  accent: string;          // Tailwind bg class for the accent bar
+  iconBg: string;          // CSS var key (maps to --tier-{key}-icon-bg)
+  chipBg: string;          // CSS var key (maps to --tier-{key}-chip-bg / chip-fg)
+}> = {
+  fundamentals: {
+    title: 'Fundamentals',
+    description: 'Core building blocks \u2014 prompting, architecture, security, ethics, and the mental models every builder needs.',
+    accent: 'bg-blue-500',
+    iconBg: 'blue',
+    chipBg: 'blue',
+  },
+  architecture: {
+    title: 'Architecture',
+    description: 'Protocols, communication patterns, and system design \u2014 A2A, MCP, evaluation, data readiness.',
+    accent: 'bg-emerald-500',
+    iconBg: 'emerald',
+    chipBg: 'emerald',
+  },
+  implementation: {
+    title: 'Implementation',
+    description: 'Hands-on integration \u2014 protocol bridging, knowledge ops, UI rendering, multi-agent backends.',
+    accent: 'bg-amber-500',
+    iconBg: 'amber',
+    chipBg: 'amber',
+  },
+  advanced: {
+    title: 'Advanced',
+    description: 'Production-grade depth \u2014 deployment, memory, observability, cost optimization, robotics, cognitive science.',
+    accent: 'bg-purple-500',
+    iconBg: 'purple',
+    chipBg: 'purple',
+  },
+  applied: {
+    title: 'Applied & Career',
+    description: 'Real-world application \u2014 troubleshooting, economics, career growth, industry patterns, ready-to-use templates.',
+    accent: 'bg-rose-500',
+    iconBg: 'rose',
+    chipBg: 'rose',
+  },
+};
+
+function getTierIcon(level: string) {
+  switch (level) {
+    case 'fundamentals': return <BookOpen className="w-5 h-5" />;
+    case 'architecture': return <Stack className="w-5 h-5" />;
+    case 'implementation': return <ArrowsHorizontal className="w-5 h-5" />;
+    case 'advanced': return <Brain className="w-5 h-5" />;
+    case 'applied': return <Target className="w-5 h-5" />;
+    default: return <BookOpen className="w-5 h-5" />;
+  }
+}
+
 // Accessible badge styles per level (light + dark mode)
 function getLevelBadgeClass(level: ConceptInfo['level']): string {
   switch (level) {
@@ -804,7 +861,29 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
   const [selectedConcept, setSelectedConcept] = useState<string | null>(initialConcept || null)
   const [completedConcepts, setCompletedConcepts] = useState<Set<string>>(new Set())
   const [isModalOpen, setModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTier, setActiveTier] = useState<ConceptInfo['level'] | null>(null);
   const navigate = useNavigate();
+
+  // Group concepts by level tier
+  const conceptsByTier = useMemo(() => {
+    const grouped: Record<string, ConceptInfo[]> = {};
+    for (const c of concepts) {
+      (grouped[c.level] ??= []).push(c);
+    }
+    return grouped;
+  }, []);
+
+  // Search filter
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const q = searchQuery.toLowerCase();
+    return concepts.filter(c =>
+      c.title.toLowerCase().includes(q) ||
+      c.description.toLowerCase().includes(q) ||
+      c.id.toLowerCase().includes(q)
+    );
+  }, [searchQuery]);
 
   const handleConceptSelect = (conceptId: string) => {
     const concept = concepts.find(c => c.id === conceptId)
@@ -964,142 +1043,255 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-2xl flex items-center gap-2">
-                <BookOpen className="w-8 h-8" />
-                Core Concepts Learning Path
-              </CardTitle>
-              <CardDescription className="text-base mt-2">
-                Master the fundamental concepts of AI agents through a structured, progressive learning experience
-              </CardDescription>
-            </div>
-            <div className="text-right">
-              <div className="text-sm text-muted-foreground mb-2">Overall Progress</div>
-              <Progress value={progressPercentage} className="w-32" />
-              <div className="text-base text-muted-foreground mt-1">
-                {completedConcepts.size} of {concepts.length} concepts completed
-              </div>
-            </div>
+      {/* ── Header & Search ────────────────────────────────────── */}
+      <div>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+              <BookOpen className="w-7 h-7" />
+              Core Concepts
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              {concepts.length} concepts across {tierOrder.length} tiers
+              {completedConcepts.size > 0 && <span> &middot; {completedConcepts.size} completed</span>}
+            </p>
           </div>
-        </CardHeader>
-      </Card>
+          <div className="flex items-center gap-3">
+            <Progress value={progressPercentage} className="w-28 h-2" />
+            <span className="text-xs text-muted-foreground whitespace-nowrap">{Math.round(progressPercentage)}%</span>
+          </div>
+        </div>
 
-      {/* Learning Path */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {concepts.map((concept, index) => {
-          const isCompleted = completedConcepts.has(concept.id)
-          // All concepts are now enabled by default for users familiar with AI Agents
-          const isLocked = false
-
-          return (
-            <Card 
-              key={concept.id}
-              className={`group relative transition-all hover:shadow-lg cursor-pointer`}
-              onClick={() => handleConceptSelect(concept.id)}
+        {/* Search */}
+        <div className="relative">
+          <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e => { setSearchQuery(e.target.value); if (e.target.value) setActiveTier(null); }}
+            placeholder="Search concepts by name, keyword, or topic\u2026"
+            className="w-full rounded-lg border border-input bg-background pl-10 pr-10 py-2.5 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs"
+              aria-label="Clear search"
             >
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-secondary text-secondary-foreground border border-border">
-                      <span className={getIconColorClass(concept.level)}>{concept.icon}</span>
-                    </div>
-                    <div>
-                      <CardTitle className="flex items-center gap-2">
-                        {concept.title}
-                        {isCompleted && (
-                          <CheckCircle className="w-5 h-5 text-green-500" />
-                        )}
-                      </CardTitle>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span
-                          className={`inline-flex items-center justify-center rounded-md px-2 py-0.5 text-xs font-medium ${getLevelBadgeClass(concept.level)}`}
-                        >
-                          {concept.level}
-                        </span>
-                        <span className="text-base text-muted-foreground">
-                          {concept.estimatedTime}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    {!isLocked && (
-                      <>
-                        <div onClick={(e) => e.stopPropagation()}>
-                          <ShareButton
-                            url={`${window.location.origin}/concepts/${concept.id}`}
-                            title={concept.title}
-                            description={concept.description}
-                            variant="ghost"
-                            size="sm"
-                            iconOnly
-                            analyticsCategory="Concept Share"
-                            className="opacity-0 group-hover:opacity-100 transition-opacity"
-                          />
-                        </div>
-                        <ArrowRight className="w-5 h-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
-                      </>
-                    )}
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-base text-muted-foreground mb-0 pr-6">
-                  {concept.description}
-                </p>
-              </CardContent>
-            </Card>
-          )
-        })}
+              \u2715
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Learning Tips */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Learning Tips</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-secondary text-secondary-foreground border border-border flex items-center justify-center">
-                <span className="text-blue-600 dark:text-blue-400 font-semibold">1</span>
-              </div>
-              <div>
-                <h4 className="font-medium">Follow the Path</h4>
-                <p className="text-base text-muted-foreground">
-                  Complete concepts in order for the best learning experience
-                </p>
-              </div>
+      {/* ── Search Results ─────────────────────────────────────── */}
+      {searchQuery.trim() ? (
+        <div>
+          <p className="text-sm text-muted-foreground mb-4">
+            {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} for &ldquo;{searchQuery.trim()}&rdquo;
+          </p>
+          {searchResults.length === 0 ? (
+            <Card className="py-12 text-center">
+              <CardContent>
+                <MagnifyingGlass className="w-10 h-10 mx-auto text-muted-foreground/40 mb-3" />
+                <p className="text-muted-foreground">No concepts match your search. Try different keywords.</p>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="columns-1 md:columns-2 lg:columns-3 [column-gap:1.5rem]">
+              {searchResults.map(concept => {
+                const isCompleted = completedConcepts.has(concept.id)
+                return (
+                  <div key={concept.id} className="break-inside-avoid mb-5">
+                    <Card className="group hover:shadow-md transition-all cursor-pointer" onClick={() => handleConceptSelect(concept.id)}>
+                      <CardHeader className="pb-2">
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-secondary border border-border">
+                              <span className={getIconColorClass(concept.level)}>{concept.icon}</span>
+                            </div>
+                            <div>
+                              <CardTitle className="text-base flex items-center gap-2">
+                                {concept.title}
+                                {isCompleted && <CheckCircle className="w-4 h-4 text-green-500" />}
+                              </CardTitle>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[11px] font-medium ${getLevelBadgeClass(concept.level)}`}>
+                                  {concept.level}
+                                </span>
+                                <span className="text-xs text-muted-foreground flex items-center gap-1">
+                                  <Clock className="w-3 h-3" />{concept.estimatedTime}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-muted-foreground mt-1 shrink-0 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </CardHeader>
+                      <CardContent className="pt-0">
+                        <p className="text-sm text-muted-foreground">{concept.description}</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                )
+              })}
             </div>
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-secondary text-secondary-foreground border border-border flex items-center justify-center">
-                <span className="text-green-600 dark:text-green-400 font-semibold">2</span>
-              </div>
-              <div>
-                <h4 className="font-medium">Hands-on Practice</h4>
-                <p className="text-base text-muted-foreground">
-                  Try the interactive demos and examples in each section
-                </p>
-              </div>
+          )}
+        </div>
+
+      /* ── Drill-in: Concepts within a Tier ───────────────────── */
+      ) : activeTier ? (
+        <div>
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 mb-5">
+            <button onClick={() => setActiveTier(null)} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              All Tiers
+            </button>
+            <CaretRight className="w-3.5 h-3.5 text-muted-foreground" />
+            <span className="text-sm font-medium">{tierMeta[activeTier]?.title}</span>
+          </div>
+
+          {/* Tier description banner */}
+          <div className="mb-6 flex items-start gap-4">
+            <div
+              className="w-11 h-11 rounded-lg flex items-center justify-center shrink-0"
+              style={{ backgroundColor: `var(--tier-${tierMeta[activeTier]?.iconBg}-icon-bg)` }}
+            >
+              <span className={getIconColorClass(activeTier)}>{getTierIcon(activeTier)}</span>
             </div>
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-secondary text-secondary-foreground border border-border flex items-center justify-center">
-                <span className="text-purple-600 dark:text-purple-400 font-semibold">3</span>
-              </div>
-              <div>
-                <h4 className="font-medium">Apply Knowledge</h4>
-                <p className="text-base text-muted-foreground">
-                  Build your own projects using the patterns you've learned
-                </p>
-              </div>
+            <div>
+              <h2 className="text-xl font-semibold">{tierMeta[activeTier]?.title}</h2>
+              <p className="text-sm text-muted-foreground mt-0.5">
+                {tierMeta[activeTier]?.description}
+                <span className="ml-2 font-medium">{(conceptsByTier[activeTier] || []).length} concepts</span>
+              </p>
             </div>
           </div>
-        </CardContent>
-      </Card>
+
+          {/* Concept cards — masonry */}
+          <div className="columns-1 md:columns-2 lg:columns-3 [column-gap:1.5rem]">
+            {(conceptsByTier[activeTier] || []).map(concept => {
+              const isCompleted = completedConcepts.has(concept.id)
+              return (
+                <div key={concept.id} className="break-inside-avoid mb-5">
+                  <Card className="group hover:shadow-md transition-all cursor-pointer" onClick={() => handleConceptSelect(concept.id)}>
+                    <CardHeader className="pb-2">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-secondary border border-border">
+                            <span className={getIconColorClass(concept.level)}>{concept.icon}</span>
+                          </div>
+                          <div>
+                            <CardTitle className="text-base flex items-center gap-2">
+                              {concept.title}
+                              {isCompleted && <CheckCircle className="w-4 h-4 text-green-500" />}
+                            </CardTitle>
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="text-xs text-muted-foreground flex items-center gap-1">
+                                <Clock className="w-3 h-3" />{concept.estimatedTime}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1 shrink-0">
+                          <div onClick={e => e.stopPropagation()}>
+                            <ShareButton
+                              url={`${window.location.origin}/concepts/${concept.id}`}
+                              title={concept.title}
+                              description={concept.description}
+                              variant="ghost"
+                              size="sm"
+                              iconOnly
+                              analyticsCategory="Concept Share"
+                              className="opacity-0 group-hover:opacity-100 transition-opacity"
+                            />
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <p className="text-sm text-muted-foreground">{concept.description}</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+      /* ── Tier Overview — Masonry ────────────────────────────── */
+      ) : (
+        <div className="columns-1 md:columns-2 [column-gap:1.5rem]">
+          {tierOrder.map(tier => {
+            const meta = tierMeta[tier];
+            if (!meta) return null;
+            const tierConcepts = conceptsByTier[tier] || [];
+            const completed = tierConcepts.filter(c => completedConcepts.has(c.id)).length;
+            const pct = tierConcepts.length > 0 ? Math.round((completed / tierConcepts.length) * 100) : 0;
+
+            return (
+              <div key={tier} className="break-inside-avoid mb-5">
+                <div
+                  className="rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer group"
+                  onClick={() => setActiveTier(tier)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveTier(tier); } }}
+                >
+                  {/* Colored accent bar */}
+                  <div className={`h-1.5 ${meta.accent}`} />
+
+                  <div className="p-5">
+                    {/* Header row */}
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className="w-10 h-10 rounded-lg flex items-center justify-center"
+                          style={{ backgroundColor: `var(--tier-${meta.iconBg}-icon-bg)` }}
+                        >
+                          <span className={getIconColorClass(tier)}>{getTierIcon(tier)}</span>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-lg leading-tight">{meta.title}</h3>
+                          <span className="text-xs text-muted-foreground">{tierConcepts.length} concepts</span>
+                        </div>
+                      </div>
+                      <CaretRight className="w-5 h-5 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-sm text-muted-foreground mb-4">{meta.description}</p>
+
+                    {/* Progress */}
+                    <div className="mb-4">
+                      <div className="flex justify-between text-xs text-muted-foreground mb-1">
+                        <span>{completed} / {tierConcepts.length} completed</span>
+                        <span>{pct}%</span>
+                      </div>
+                      <Progress value={pct} className="h-1.5" />
+                    </div>
+
+                    {/* Concept chips — creates natural height variation = masonry */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {tierConcepts.map(c => (
+                        <span
+                          key={c.id}
+                          className="inline-flex items-center gap-1 text-[11px] leading-tight px-2 py-0.5 rounded-md transition-colors"
+                          style={{ backgroundColor: `var(--tier-${meta.chipBg}-chip-bg)`, color: `var(--tier-${meta.chipBg}-chip-fg)` }}
+                        >
+                          {completedConcepts.has(c.id) && <CheckCircle className="w-3 h-3 text-green-500 shrink-0" />}
+                          <span className="truncate max-w-[150px]">{c.title}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   )
 }
