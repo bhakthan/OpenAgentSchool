@@ -169,7 +169,7 @@ export default function TriSystemParadigmConcept({
                 that monitors System 1's output but avoids doing so whenever it can.
               </p>
               <p className="text-lg leading-relaxed">
-                The <strong>Tri-System Paradigm</strong> (Bhaktavatsalam, 2025) proposes that
+                The <strong>Tri-System Paradigm</strong> (Shaw &amp; Nave, 2025) proposes that
                 cognition is no longer brain-bound. A third agent — System 3 — has entered the
                 architecture: external, automated, data-driven, and dynamic. Unlike a passive tool
                 (a calculator, a spreadsheet), System 3 is a <em>functional cognitive agent</em>
