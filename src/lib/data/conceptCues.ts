@@ -185,7 +185,13 @@ export const conceptCues: Record<string, ConceptCue> = {
   'agent-cost-optimization': {
     id: 'agent-cost-optimization',
     cue: 'Efficiency is architecture — caching, model routing, and token budgets turn good agents into sustainable ones.',
-    criticalThinkingQuestion: 'How would you implement semantic caching and model routing to cut costs 80% without degrading user experience or increasing latency?'  }
+    criticalThinkingQuestion: 'How would you implement semantic caching and model routing to cut costs 80% without degrading user experience or increasing latency?'
+  },
+  'tri-system-paradigm': {
+    id: 'tri-system-paradigm',
+    cue: 'You are the System 2 — AI amplifies your reasoning only when you stay in the verification seat.',
+    criticalThinkingQuestion: 'How would you design an AI-assisted workflow so that System 2 engagement is structurally required — not merely hoped for — preventing cognitive surrender while still delivering the speed benefits of System 3?'
+  }
 };
 
 // Helper function to get concept cue

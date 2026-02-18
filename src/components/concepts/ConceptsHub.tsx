@@ -66,6 +66,7 @@ const AgentCostOptimizationConcept = lazy(() => import("./AgentCostOptimizationC
 const EdgeAgentConcept = lazy(() => import("./EdgeAgentConcept"))
 const AtomicLLMTrainingConcept = lazy(() => import("./AtomicLLMTrainingConcept"))
 const XYZClawConcept = lazy(() => import("./XYZClawConcept"))
+const TriSystemParadigmConcept = lazy(() => import("./TriSystemParadigmConcept"))
 
 // Loading fallback for lazy concept components
 const ConceptLoader = () => (
@@ -434,6 +435,17 @@ const concepts: ConceptInfo[] = [
     component: DataKnowledgeOperationsConcept
   },
   // Tier 4: Advanced Concepts
+  {
+    id: 'tri-system-paradigm',
+    title: 'The Tri-System Paradigm',
+    description: "Kahneman's dual-process theory extended to AI—understand cognitive surrender, epistemic dependence, and the centaur model of human-AI collaboration.",
+    level: 'advanced',
+    icon: <Brain className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-violet-900/20 dark:text-violet-300',
+    estimatedTime: '30-40 min',
+    prerequisites: ['agent-ethics'],
+    component: TriSystemParadigmConcept
+  },
   {
     id: 'agent-deployment',
     title: 'Agent Deployment & Operations',

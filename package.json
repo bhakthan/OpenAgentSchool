@@ -14,6 +14,7 @@
     "verify-routing": "node scripts/verify-routing.js",
     "export:questions": "node ./scripts/export-questions.mjs",
     "export:toolkits": "node ./scripts/export-strategic-toolkits.mjs",
+    "convert:webp": "node ./scripts/convert-to-webp.mjs",
     "test": "vitest run --reporter=default",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
