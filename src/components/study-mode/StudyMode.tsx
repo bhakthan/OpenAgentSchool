@@ -16,7 +16,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { 
   Brain, PuzzlePiece, Bug, Lightbulb, Target, TrendUp,
-  CheckCircle, Clock, Star, ArrowRight, Play, BookOpen, DownloadSimple, SignIn, DeviceMobile
+  CheckCircle, Clock, Star, ArrowRight, Play, BookOpen, DownloadSimple, SignIn, DeviceMobile, MagnifyingGlass
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { ShareButton } from '@/components/ui/ShareButton';
@@ -93,6 +93,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   
   const [activeTab, setActiveTab] = useState<'overview' | StudyModeType>('overview');
   const [selectedQuestion, setSelectedQuestion] = useState<StudyModeQuestion | null>(null);
+  const [tabSearch, setTabSearch] = useState('');
   const [sessions, setSessions] = useState<StudyModeSession[]>([]);
   const [progress, setProgress] = useState(calculateStudyModeProgress([]));
   const [dataBundle, setDataBundle] = useState<any | null>(null);
@@ -1043,137 +1044,192 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
           </div>
         </TabsContent>
 
-        {/* Socratic Questions Tab */}
-        <TabsContent value="socratic" className="space-y-6">
-          <div className="flex justify-end mb-4">
-            <Button variant="ghost" size="sm" onClick={handleRetakeSocratic} title="Retake Socratic Mode">
-              <Brain size={16} className="mr-1" />
-              Retake Socratic
-            </Button>
-          </div>
-          <Card>
-            <CardHeader>
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <CardTitle className="flex items-center gap-2">
-                    <Brain size={24} className="text-primary" />
-                    Socratic Discovery
-                  </CardTitle>
-                  <CardDescription>
-                    Learn by discovering concepts through guided questioning
-                  </CardDescription>
-                </div>
-                <ShareButton
-                  url={`${window.location.origin}/study-mode?tab=socratic`}
-                  title="Socratic Discovery - Study Mode"
-                  description="Learn by discovering concepts through guided questioning"
-                  variant="outline"
-                  size="sm"
-                  analyticsCategory="Study Mode Socratic Share"
-                />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {allQuestions
-                  .filter(q => q.type === 'socratic')
-                  .map(question => renderQuestionCard(
-                    question, 
-                    completedQuestionIds.includes(question.id)
-                  ))
-                }
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+        {/* ── Shared masonry tab renderer ────────────────────── */}
+        {([
+          {
+            value: 'socratic' as StudyModeType,
+            icon: <Brain size={24} className="text-primary" />,
+            title: 'Socratic Discovery',
+            desc: 'Learn by discovering concepts through guided questioning',
+            retake: handleRetakeSocratic,
+            retakeIcon: <Brain size={16} className="mr-1" />,
+            retakeLabel: 'Retake Socratic',
+            shareTitle: 'Socratic Discovery - Study Mode',
+          },
+          {
+            value: 'scenario' as StudyModeType,
+            icon: <PuzzlePiece size={24} className="text-primary" />,
+            title: 'Interactive Scenarios',
+            desc: 'Build systems step-by-step through realistic implementation challenges',
+            retake: handleRetakeScenario,
+            retakeIcon: <PuzzlePiece size={16} className="mr-1" />,
+            retakeLabel: 'Retake Scenario',
+            shareTitle: 'Interactive Scenarios - Study Mode',
+          },
+          {
+            value: 'debug' as StudyModeType,
+            icon: <Bug size={24} className="text-primary" />,
+            title: 'Debug Challenges',
+            desc: 'Analyze broken systems and learn by fixing real-world problems',
+            retake: handleRetakeDebug,
+            retakeIcon: <Bug size={16} className="mr-1" />,
+            retakeLabel: 'Retake Debug',
+            shareTitle: 'Debug Challenges - Study Mode',
+          },
+        ] as const).map(tab => {
+          // Build questions for this tab, optionally filtered by search
+          const typeQuestions = allQuestions.filter(q => q.type === tab.value);
+          const q = tabSearch.toLowerCase();
+          const filtered = q
+            ? typeQuestions.filter(x =>
+                x.title.toLowerCase().includes(q) ||
+                x.conceptId.toLowerCase().includes(q) ||
+                (x.relatedConcepts || []).some(rc => rc.toLowerCase().includes(q))
+              )
+            : typeQuestions;
 
-        {/* Interactive Scenarios Tab */}
-        <TabsContent value="scenario" className="space-y-6">
-          <div className="flex justify-end mb-4">
-            <Button variant="ghost" size="sm" onClick={handleRetakeScenario} title="Retake Scenario Mode">
-              <PuzzlePiece size={16} className="mr-1" />
-              Retake Scenario
-            </Button>
-          </div>
-          <Card>
-            <CardHeader>
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <CardTitle className="flex items-center gap-2">
-                    <PuzzlePiece size={24} className="text-primary" />
-                    Interactive Scenarios
-                  </CardTitle>
-                  <CardDescription>
-                    Build systems step-by-step through realistic implementation challenges
-                  </CardDescription>
-                </div>
-                <ShareButton
-                  url={`${window.location.origin}/study-mode?tab=scenario`}
-                  title="Interactive Scenarios - Study Mode"
-                  description="Build systems step-by-step through realistic implementation challenges"
-                  variant="outline"
-                  size="sm"
-                  analyticsCategory="Study Mode Scenario Share"
-                />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {allQuestions
-                  .filter(q => q.type === 'scenario')
-                  .map(question => renderQuestionCard(
-                    question, 
-                    completedQuestionIds.includes(question.id)
-                  ))
-                }
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+          // Group by conceptId, preserving insertion order
+          const grouped: { concept: string; items: StudyModeQuestion[] }[] = [];
+          const seen = new Map<string, number>();
+          for (const item of filtered) {
+            const idx = seen.get(item.conceptId);
+            if (idx !== undefined) {
+              grouped[idx].items.push(item);
+            } else {
+              seen.set(item.conceptId, grouped.length);
+              grouped.push({ concept: item.conceptId, items: [item] });
+            }
+          }
 
-        {/* Debug Challenges Tab */}
-        <TabsContent value="debug" className="space-y-6">
-          <div className="flex justify-end mb-4">
-            <Button variant="ghost" size="sm" onClick={handleRetakeDebug} title="Retake Debug Mode">
-              <Bug size={16} className="mr-1" />
-              Retake Debug
-            </Button>
-          </div>
-          <Card>
-            <CardHeader>
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <CardTitle className="flex items-center gap-2">
-                    <Bug size={24} className="text-primary" />
-                    Debug Challenges
-                  </CardTitle>
-                  <CardDescription>
-                    Analyze broken systems and learn by fixing real-world problems
-                  </CardDescription>
+          return (
+            <TabsContent key={tab.value} value={tab.value} className="space-y-5">
+              {/* Header row: title + retake + share */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  {tab.icon}
+                  <div>
+                    <h2 className="text-lg font-semibold leading-tight">{tab.title}</h2>
+                    <p className="text-sm text-muted-foreground">{tab.desc}</p>
+                  </div>
                 </div>
-                <ShareButton
-                  url={`${window.location.origin}/study-mode?tab=debug`}
-                  title="Debug Challenges - Study Mode"
-                  description="Analyze broken systems and learn by fixing real-world problems"
-                  variant="outline"
-                  size="sm"
-                  analyticsCategory="Study Mode Debug Share"
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={tab.retake} title={tab.retakeLabel}>
+                    {tab.retakeIcon}
+                    {tab.retakeLabel}
+                  </Button>
+                  <ShareButton
+                    url={`${window.location.origin}/study-mode?tab=${tab.value}`}
+                    title={tab.shareTitle}
+                    description={tab.desc}
+                    variant="outline"
+                    size="sm"
+                    analyticsCategory={`Study Mode ${tab.value} Share`}
+                  />
+                </div>
+              </div>
+
+              {/* Search / filter */}
+              <div className="relative">
+                <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <input
+                  type="text"
+                  value={tabSearch}
+                  onChange={e => setTabSearch(e.target.value)}
+                  placeholder="Filter by title or concept…"
+                  className="w-full rounded-lg border border-input bg-background pl-10 pr-10 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 />
+                {tabSearch && (
+                  <button
+                    onClick={() => setTabSearch('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs"
+                    aria-label="Clear search"
+                  >
+                    ✕
+                  </button>
+                )}
               </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {allQuestions
-                  .filter(q => q.type === 'debug')
-                  .map(question => renderQuestionCard(
-                    question, 
-                    completedQuestionIds.includes(question.id)
-                  ))
-                }
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+
+              {/* Summary */}
+              <p className="text-xs text-muted-foreground">
+                {filtered.length} question{filtered.length !== 1 ? 's' : ''} across {grouped.length} concept{grouped.length !== 1 ? 's' : ''}
+                {tabSearch && <> matching &ldquo;{tabSearch.trim()}&rdquo;</>}
+              </p>
+
+              {/* Masonry grid — concept tiles */}
+              {grouped.length === 0 ? (
+                <Card className="py-10 text-center">
+                  <CardContent>
+                    <MagnifyingGlass className="w-8 h-8 mx-auto text-muted-foreground/40 mb-2" />
+                    <p className="text-muted-foreground text-sm">No questions match your filter.</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 [column-gap:0.75rem]">
+                  {grouped.map(group => {
+                    const completedInGroup = group.items.filter(i => completedQuestionIds.includes(i.id)).length;
+                    const allDone = completedInGroup === group.items.length;
+                    return (
+                      <div key={group.concept} className="break-inside-avoid mb-3">
+                        <div className={cn(
+                          "rounded-lg border overflow-hidden",
+                          allDone
+                            ? "border-green-300 dark:border-green-700"
+                            : "border-border"
+                        )}>
+                          {/* Concept header */}
+                          <div className="px-3 py-2 bg-muted/60 dark:bg-muted/30 flex items-center justify-between gap-2">
+                            <span className="text-xs font-semibold truncate" title={group.concept}>
+                              {group.concept.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
+                            </span>
+                            <span className="text-[10px] text-muted-foreground whitespace-nowrap">
+                              {completedInGroup}/{group.items.length}
+                              {allDone && <CheckCircle size={12} className="inline ml-1 text-green-500" />}
+                            </span>
+                          </div>
+                          {/* Question cards inside */}
+                          <div className="divide-y divide-border">
+                            {group.items.map(question => {
+                              const done = completedQuestionIds.includes(question.id);
+                              return (
+                                <div
+                                  key={question.id}
+                                  className={cn(
+                                    "px-3 py-2.5 text-sm transition-colors",
+                                    done
+                                      ? "bg-green-50/60 dark:bg-green-900/15 cursor-default"
+                                      : "hover:bg-accent/50 cursor-pointer"
+                                  )}
+                                  role={!done ? 'button' : undefined}
+                                  tabIndex={!done ? 0 : -1}
+                                  aria-label={`${question.title}${done ? ' (completed)' : ''}`}
+                                  onClick={() => !done && handleQuestionStart(question)}
+                                  onKeyDown={e => { if (!done && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); handleQuestionStart(question); } }}
+                                >
+                                  <div className="flex items-start justify-between gap-2">
+                                    <span className={cn("font-medium leading-tight", done && "line-through opacity-60")}>
+                                      {question.title}
+                                    </span>
+                                    {done && <CheckCircle size={14} className="text-green-500 shrink-0 mt-0.5" />}
+                                  </div>
+                                  <div className="flex items-center gap-2 mt-1">
+                                    <Badge variant="outline" className="text-[10px] px-1.5 py-0">{question.level}</Badge>
+                                    <span className="text-[10px] text-muted-foreground flex items-center gap-0.5">
+                                      <Clock size={10} />{question.timeEstimate || 15}m
+                                    </span>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </TabsContent>
+          );
+        })}
 
         {/* Super Critical Learning Tab */}
         <TabsContent value="scl" className="space-y-6">

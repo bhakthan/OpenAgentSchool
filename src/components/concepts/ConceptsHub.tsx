@@ -1069,7 +1069,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
             type="text"
             value={searchQuery}
             onChange={e => { setSearchQuery(e.target.value); if (e.target.value) setActiveTier(null); }}
-            placeholder="Search concepts by name, keyword, or topic\u2026"
+            placeholder="Search concepts by name, keyword, or topic…"
             className="w-full rounded-lg border border-input bg-background pl-10 pr-10 py-2.5 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           />
           {searchQuery && (
@@ -1078,7 +1078,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs"
               aria-label="Clear search"
             >
-              \u2715
+              ✕
             </button>
           )}
         </div>
