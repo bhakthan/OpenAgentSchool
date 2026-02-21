@@ -174,37 +174,36 @@ export function getConfiguredProviders(): string[] {
 
 /**
  * Get the first available configured LLM provider.
- * Resolution: user preferredProvider (from Settings) → first provider with a key → 'openrouter'.
+ *
+ * Resolution:
+ *   1. User's explicit preferredProvider from Settings — ALWAYS honoured.
+ *      If the user chose a specific provider, we return it even when the key
+ *      hasn't been pasted yet; the actual API call will surface a clear
+ *      "key missing" error rather than silently routing to a different provider.
+ *   2. Auto-detect: first standard provider with a key → custom (URL+model) → 'openrouter' fallback.
  */
 export function getFirstAvailableProvider(): string {
-  // 1. Check if the user explicitly chose a provider in Settings
+  // 1. Trust the user's explicit choice
   try {
     const settings = loadSettings();
     if (settings.preferredProvider && settings.preferredProvider !== 'auto') {
+      const chosen = settings.preferredProvider;
+
       // Custom provider: valid if URL + model are configured (key is optional for local runners)
-      if (settings.preferredProvider === 'custom') {
+      if (chosen === 'custom') {
         const url = getEnvVar('VITE_CUSTOM_API_URL' as keyof AppConfig);
         const model = getEnvVar('VITE_CUSTOM_MODEL' as keyof AppConfig);
         if (url && url.trim() !== '' && model && model.trim() !== '') {
           return 'custom';
         }
+        // Custom without URL/model — warn and fall through to auto-detect
+        console.warn('[LLM] Custom provider selected but URL/model not configured. Falling back to auto-detect.');
       } else {
-        // Standard providers: verify the chosen provider actually has a key configured
-        const keyForProvider: Record<string, string> = {
-          openai:      'VITE_OPENAI_API_KEY',
-          azure:       'VITE_AZURE_OPENAI_API_KEY',
-          gemini:      'VITE_GEMINI_API_KEY',
-          openrouter:  'VITE_OPENROUTER_API_KEY',
-          claude:      'VITE_ANTHROPIC_API_KEY',
-          huggingface: 'VITE_HUGGINGFACE_API_KEY',
-        };
-        const envKey = keyForProvider[settings.preferredProvider];
-        if (envKey) {
-          const value = getEnvVar(envKey as keyof AppConfig);
-          if (value && value.trim() !== '' && !value.includes('your-') && !value.includes('-here')) {
-            return settings.preferredProvider;
-          }
-        }
+        // Standard providers: return the chosen provider unconditionally.
+        // The actual LLM call function (callAzureOpenAIWithMessages, etc.) will
+        // throw a descriptive error if the API key is missing.
+        console.log(`[LLM] Using user-preferred provider: ${chosen}`);
+        return chosen;
       }
     }
   } catch {

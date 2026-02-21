@@ -3,7 +3,7 @@
  * Handles LLM orchestration and session state
  */
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import type { 
   SCLSession, 
   SCLMode, 
@@ -42,21 +42,18 @@ export function useSCLSession(options: UseSCLSessionOptions = {}) {
   activeWorkflowId: null,
   });
 
-  const orchestratorRef = useRef<ReturnType<typeof createSCLOrchestrator> | null>(null);
-
-  // Initialize orchestrator — uses user-preferred provider from Settings
+  // Always create a fresh orchestrator so we pick up the latest user settings.
+  // Previously this was cached in a useRef, which meant changing provider in
+  // Settings had no effect until a full page reload.
   const getOrchestrator = useCallback(() => {
-    if (!orchestratorRef.current) {
-      try {
-        orchestratorRef.current = createSCLOrchestrator();
-      } catch (error) {
-        const errorMsg = error instanceof Error ? error.message : 'Failed to initialize SCL orchestrator';
-        setState(prev => ({ ...prev, error: errorMsg }));
-        options.onError?.(new Error(errorMsg));
-        return null;
-      }
+    try {
+      return createSCLOrchestrator();
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : 'Failed to initialize SCL orchestrator';
+      setState(prev => ({ ...prev, error: errorMsg }));
+      options.onError?.(new Error(errorMsg));
+      return null;
     }
-    return orchestratorRef.current;
   }, [options.onError]);
 
   // Create new session

@@ -14,10 +14,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import remarkGfm from 'remark-gfm';
-import { LlmProvider, callLlm } from '@/lib/llm';
+import { type LlmProvider, callLlm } from '@/lib/llm';
 import { getFirstAvailableProvider } from '@/lib/config';
-import { loadSettings } from '@/lib/userSettings';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 // Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
 const syntaxTheme: { [key: string]: React.CSSProperties } = {
@@ -75,13 +73,6 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [llmProvider, setLlmProvider] = useState<LlmProvider>(() => {
-    try {
-      const s = loadSettings();
-      if (s.preferredProvider && s.preferredProvider !== 'auto') return s.preferredProvider as LlmProvider;
-    } catch {}
-    return (getFirstAvailableProvider() || 'openrouter') as LlmProvider;
-  });
   const [isPromptExpanded, setIsPromptExpanded] = useState(false);
   
   // State for tracking copied code blocks
@@ -180,7 +171,9 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
       setIsLoading(true);
       setSubmitted(true);
 
-      const result = await callLlm(prompt, llmProvider);
+      // Resolve provider fresh each call so Settings changes take effect immediately
+      const provider = getFirstAvailableProvider() as LlmProvider;
+      const result = await callLlm(prompt, provider);
       
       // Update the response
       setResponse(result.content);
@@ -222,24 +215,9 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                 placeholder="Edit your prompt here..."
               />
             </div>
-            <DialogFooter className="flex justify-between items-center flex-shrink-0">
-              <Select value={llmProvider} onValueChange={(value) => setLlmProvider(value as LlmProvider)}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select a provider" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="azure">Azure OpenAI</SelectItem>
-                  <SelectItem value="openai">OpenAI</SelectItem>
-                  <SelectItem value="gemini">Google Gemini</SelectItem>
-                  <SelectItem value="claude">Anthropic</SelectItem>
-                  <SelectItem value="huggingface">Hugging Face</SelectItem>
-                  <SelectItem value="openrouter">OpenRouter</SelectItem>
-                </SelectContent>
-              </Select>
-              <div className="flex gap-2">
-                <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-                <Button onClick={handleSubmit}>Get Insights</Button>
-              </div>
+            <DialogFooter className="flex justify-end items-center gap-2 flex-shrink-0">
+              <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+              <Button onClick={handleSubmit}>Get Insights</Button>
             </DialogFooter>
           </>
         ) : (

@@ -37,30 +37,14 @@ jobs:
       - name: Build application
         env:
           VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
-          # # OpenAI
-          # VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
-          # VITE_OPENAI_API_URL: ${{ secrets.VITE_OPENAI_API_URL }}
-          # VITE_OPENAI_MODEL: ${{ secrets.VITE_OPENAI_MODEL }}
-          # # Azure OpenAI
-          # VITE_AZURE_OPENAI_API_KEY: ${{ secrets.VITE_AZURE_OPENAI_API_KEY }}
-          # VITE_AZURE_OPENAI_API_URL: ${{ secrets.VITE_AZURE_OPENAI_API_URL }}
-          # VITE_AZURE_OPENAI_MODEL: ${{ secrets.VITE_AZURE_OPENAI_MODEL }}
-          # # Google Gemini
-          # VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
-          # VITE_GEMINI_API_URL: ${{ secrets.VITE_GEMINI_API_URL }}
-          # VITE_GEMINI_MODEL: ${{ secrets.VITE_GEMINI_MODEL }}
-          # # HuggingFace
-          # VITE_HUGGINGFACE_API_KEY: ${{ secrets.VITE_HUGGINGFACE_API_KEY }}
-          # VITE_HUGGINGFACE_API_URL: ${{ secrets.VITE_HUGGINGFACE_API_URL }}
-          # VITE_HUGGINGFACE_MODEL: ${{ secrets.VITE_HUGGINGFACE_MODEL }}
-          # OpenRouter (this is what you specifically need!)
-          VITE_OPENROUTER_API_KEY: ${{ secrets.VITE_OPENROUTER_API_KEY }}
-          VITE_OPENROUTER_API_URL: ${{ secrets.VITE_OPENROUTER_API_URL }}
-          VITE_OPENROUTER_MODEL: ${{ secrets.VITE_OPENROUTER_MODEL }}
-          # # Anthropic Claude
-          # VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
-          # VITE_ANTHROPIC_API_URL: ${{ secrets.VITE_ANTHROPIC_API_URL }}
-          # VITE_ANTHROPIC_MODEL: ${{ secrets.VITE_ANTHROPIC_MODEL }}
+          # ──────────────────────────────────────────────────────────────
+          # LLM API keys are NOT baked into the production bundle.
+          # This is a BYOK (Bring Your Own Key) app — users provide their
+          # own keys via Settings → API Keys, stored only in their
+          # browser's localStorage.  Baking keys into the JS bundle
+          # would expose them to anyone who inspects the page source.
+          # ──────────────────────────────────────────────────────────────
+          # Backend service URLs (not sensitive — public endpoints)
           VITE_CORE_API_URL: ${{ secrets.VITE_CORE_API_URL }}
           VITE_ORCHESTRATOR_SERVICE_URL: ${{ secrets.VITE_ORCHESTRATOR_SERVICE_URL }}
           VITE_KNOWLEDGE_SERVICE_URL: ${{ secrets.VITE_KNOWLEDGE_SERVICE_URL }}
