@@ -28,7 +28,6 @@ export function InstallAppMenuItem() {
   useEffect(() => {
     // Listen for beforeinstallprompt event (Android/Desktop)
     const handleBeforeInstall = (e: Event) => {
-      e.preventDefault();
       const installEvent = e as BeforeInstallPromptEvent;
       setDeferredPrompt(installEvent);
     };
