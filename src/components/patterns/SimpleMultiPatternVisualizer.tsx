@@ -386,7 +386,18 @@ const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> 
                       title={`${pattern.name} Agent Pattern`}
                       conceptId={pattern.id}
                       description={`The ${pattern.name} agent pattern: ${pattern.description}`}
-                      customPrompt={`Explain the ${pattern.name} agent pattern in comprehensive detail. Cover: 1) What this pattern is and when to use it in Azure AI environments, including specific scenarios where it outperforms other patterns, 2) Detailed architecture and implementation using Azure OpenAI Service, Azure AI Agent Service, and relevant Azure AI SDK components, 3) Step-by-step implementation guide with Azure-specific code examples, authentication, and best practices, 4) Real-world use cases and success stories, particularly in enterprise Azure environments, 5) Performance considerations, cost optimization, and scaling strategies on Azure infrastructure, 6) Integration patterns with other Azure services like Azure AI Search, Azure Cognitive Services, and Azure Functions, 7) Monitoring, debugging, and observability using Azure Application Insights and Azure Monitor, 8) Security best practices including Azure Key Vault integration, Azure Active Directory authentication, and compliance considerations, 9) Common pitfalls and troubleshooting guidance specific to Azure deployments, 10) Comparison with related patterns and guidance on when to choose this pattern over alternatives.`}
+                      customPrompt={`You are a senior AI architect mentoring a practitioner on the **${pattern.name}** agent pattern.
+
+Teach it in three acts:
+
+**Act 1 — Insight & Intent**
+What problem does ${pattern.name} solve that simpler approaches cannot? What is the core design insight? When should an engineer reach for this pattern — and when should they deliberately avoid it?
+
+**Act 2 — Architecture & Implementation**
+Walk through the architecture: components, orchestration flow, and data path. Include a concise implementation sketch (Python or TypeScript) using popular frameworks (LangChain, Semantic Kernel, AutoGen, CrewAI — pick what fits best). Show how the pattern maps to real cloud services across Azure, AWS, GCP, and open-source stacks.
+
+**Act 3 — Production Readiness**
+Cover what separates a demo from production: observability (OpenTelemetry, structured logging), security (secrets management, input validation, auth), failure modes and recovery, cost envelope, and scaling considerations. End with the decision criteria for choosing this pattern over related alternatives and a brief "explore next" list of connected patterns.`}
                     />
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
@@ -482,7 +493,18 @@ const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> 
                           title={`${pattern.name} Agent Pattern`}
                           conceptId={pattern.id}
                           description={`The ${pattern.name} agent pattern: ${pattern.description}`}
-                          customPrompt={`Explain the ${pattern.name} agent pattern in comprehensive detail. Cover: 1) What this pattern is and when to use it in Azure AI environments, including specific scenarios where it outperforms other patterns, 2) Detailed architecture and implementation using Azure OpenAI Service, Azure AI Agent Service, and relevant Azure AI SDK components, 3) Step-by-step implementation guide with Azure-specific code examples, authentication, and best practices, 4) Real-world use cases and success stories, particularly in enterprise Azure environments, 5) Performance considerations, cost optimization, and scaling strategies on Azure infrastructure, 6) Integration patterns with other Azure services like Azure AI Search, Azure Cognitive Services, and Azure Functions, 7) Monitoring, debugging, and observability using Azure Application Insights and Azure Monitor, 8) Security best practices including Azure Key Vault integration, Azure Active Directory authentication, and compliance considerations, 9) Common pitfalls and troubleshooting guidance specific to Azure deployments, 10) Comparison with related patterns and guidance on when to choose this pattern over alternatives.`}
+                          customPrompt={`You are a senior AI architect mentoring a practitioner on the **${pattern.name}** agent pattern.
+
+Teach it in three acts:
+
+**Act 1 — Insight & Intent**
+What problem does ${pattern.name} solve that simpler approaches cannot? What is the core design insight? When should an engineer reach for this pattern — and when should they deliberately avoid it?
+
+**Act 2 — Architecture & Implementation**
+Walk through the architecture: components, orchestration flow, and data path. Include a concise implementation sketch (Python or TypeScript) using popular frameworks (LangChain, Semantic Kernel, AutoGen, CrewAI — pick what fits best). Show how the pattern maps to real cloud services across Azure, AWS, GCP, and open-source stacks.
+
+**Act 3 — Production Readiness**
+Cover what separates a demo from production: observability (OpenTelemetry, structured logging), security (secrets management, input validation, auth), failure modes and recovery, cost envelope, and scaling considerations. End with the decision criteria for choosing this pattern over related alternatives and a brief "explore next" list of connected patterns.`}
                         />
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-2">

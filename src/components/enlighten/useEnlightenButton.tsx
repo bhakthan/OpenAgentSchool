@@ -38,12 +38,11 @@ export const useEnlightenButton = ({
       return defaultPrompt;
     }
     
-    return `Explain the concept of ${conceptId} in detail, including:
-1. What it is and why it's important
-2. How it works and its key components
-3. Real-world applications and examples
-4. Best practices for implementation
-5. How it relates to other AI agent concepts`;
+    return `You are a senior AI architect mentoring a practitioner. Teach the concept "${conceptId}" the way a great technical book would.
+
+Start with the *why* — what problem does this solve and what is the key insight? Then build up the *how* — architecture, moving parts, data flow, and a concise code sketch if it helps. Finish with the *so what* — when to use it, when not to, common anti-patterns, and how it connects to adjacent concepts.
+
+Keep the explanation cloud-neutral (Azure, AWS, GCP, open-source) so the learner can map it to any stack. Be opinionated where it helps — share rules of thumb and the questions an experienced engineer would ask before adopting this in production.`;
   };
   
   const openDialog = () => {

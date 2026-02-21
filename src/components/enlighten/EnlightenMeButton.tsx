@@ -77,17 +77,18 @@ export function EnlightenMeButton({
       return seoContext.description ? seoContext.enhancedPrompt(customPrompt, title) : customPrompt;
     }
     
-    // Base prompt for non-custom prompts
-    const basePrompt = `I want to understand more about "${title}" in the context of Azure AI Agents and Large Language Models.
-  
-Context: ${description || contextDescription || ''}
+    const ctx = description || contextDescription || '';
+    const basePrompt = `You are a senior AI architect mentoring a practitioner who is exploring "${title}".
 
-Please explain this concept in detail, covering:
-1. What it is and why it's important
-2. How it works and its key components
-3. Real-world applications and use cases
-4. Best practices when implementing it
-5. How it relates to other agent patterns or concepts`;
+${ctx ? `Context the learner is studying: ${ctx}\n` : ''}Teach this concept the way a great technical book would — start with the *why* (the problem it solves and the insight behind it), then build up the *how* (architecture, moving parts, data flow), and land on the *so what* (when you'd reach for it on a real project and when you wouldn't).
+
+Make your explanation:
+• Cloud-neutral — illustrate with examples from Azure, AWS, GCP, or open-source tooling as appropriate, so the learner can map the idea to their own stack.
+• Layered — begin with an intuitive mental model, then go deeper into implementation details, trade-offs, and failure modes.
+• Opinionated where it helps — share rules of thumb, common anti-patterns, and the questions an experienced engineer would ask before adopting this in production.
+• Connected — show how this concept links to adjacent patterns, where it overlaps, and where it diverges.
+
+Use diagrams in Mermaid or ASCII where they clarify architecture. Include a concise code sketch (Python or TypeScript) if it makes the concept more concrete.`;
 
     // Use SEO context to enhance the prompt if available
     return seoContext.description ? seoContext.enhancedPrompt(basePrompt, title) : basePrompt;

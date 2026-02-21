@@ -51,27 +51,25 @@ export function useSEOContext(): SEOContextResult {
   
   const config = getSEOConfig();
   
-  // Create enhanced prompt that includes SEO context
+  // Create enhanced prompt that weaves page-level learning context into the question
   const enhancedPrompt = (basePrompt: string, conceptTitle?: string) => {
-    const contextSection = config.description ? `
-    
-**Page Context & Learning Objectives:**
-${config.description}
+    const topic = conceptTitle ? `"${conceptTitle}"` : 'this topic';
+    const pageContext = config.description
+      ? `\n\n**Page the learner is on:**\n${config.description}\n`
+      : '';
 
-**Your Original Question:**
-${basePrompt}` : basePrompt;
+    return `You are a senior AI architect and educator. A learner is studying ${topic} and has asked the following:
+${pageContext}
+---
+${basePrompt}
+---
 
-    return `I want to learn about ${conceptTitle ? `"${conceptTitle}"` : 'this topic'} in the context of AI agents, Azure AI services, and modern AI-native practices.
-${contextSection}
-
-Please provide a comprehensive explanation that covers:
-1. What it is and why it's important in modern AI agent development
-2. How it works and its key components
-3. Real-world applications and use cases
-4. Best practices for implementation
-5. How it relates to other AI agent concepts and patterns
-
-Please make your response educational, practical, and actionable for someone learning about AI agents and Azure AI services.`;
+Craft your response to be:
+• **Insight-first** — lead with the core insight or mental model before diving into mechanics.
+• **Cloud-neutral** — draw examples from Azure, AWS, GCP, and open-source ecosystems so the learner can transfer knowledge to any stack.
+• **Layered** — start accessible, then progressively reveal deeper architecture, edge cases, and production trade-offs.
+• **Actionable** — include a concise code sketch, architecture diagram (Mermaid or ASCII), or decision checklist where it aids understanding.
+• **Connected** — link to related concepts and patterns the learner should explore next.`;
   };
   
   return {
