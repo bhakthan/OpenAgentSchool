@@ -15,7 +15,8 @@ type AppConfigKey =
   | 'VITE_GEMINI_API_KEY' | 'VITE_GEMINI_API_URL' | 'VITE_GEMINI_MODEL'
   | 'VITE_HUGGINGFACE_API_KEY' | 'VITE_HUGGINGFACE_API_URL' | 'VITE_HUGGINGFACE_MODEL'
   | 'VITE_OPENROUTER_API_KEY' | 'VITE_OPENROUTER_API_URL' | 'VITE_OPENROUTER_MODEL'
-  | 'VITE_ANTHROPIC_API_KEY' | 'VITE_ANTHROPIC_API_URL' | 'VITE_ANTHROPIC_MODEL';
+  | 'VITE_ANTHROPIC_API_KEY' | 'VITE_ANTHROPIC_API_URL' | 'VITE_ANTHROPIC_MODEL'
+  | 'VITE_CUSTOM_API_KEY' | 'VITE_CUSTOM_API_URL' | 'VITE_CUSTOM_MODEL';
 
 export type SttPreference = 'auto' | 'web-speech' | 'whisper-wasm' | 'openai-whisper' | 'azure-speech' | 'deepgram';
 export type TtsPreference = 'browser' | 'openai-tts' | 'azure-speech' | 'elevenlabs';
@@ -45,7 +46,11 @@ export interface UserSettings {
     huggingface?: ProviderConfig;
     openrouter?: ProviderConfig;
     claude?: ProviderConfig;
+    /** OpenAI-compatible custom / international provider (DeepSeek, Mistral, Zhipu, etc.) */
+    custom?: ProviderConfig;
   };
+  /** Display name for the custom provider (e.g. "DeepSeek", "Mistral", "Zhipu AI") */
+  customProviderName?: string;
   /** Custom backend URLs (for self-hosted deployments) */
   backends: {
     coreApi?: string;
@@ -102,6 +107,9 @@ const KEY_MAP: Record<AppConfigKey, (s: UserSettings) => string | undefined> = {
   VITE_ANTHROPIC_API_KEY:     s => s.providers.claude?.apiKey,
   VITE_ANTHROPIC_API_URL:     s => s.providers.claude?.apiUrl,
   VITE_ANTHROPIC_MODEL:       s => s.providers.claude?.model,
+  VITE_CUSTOM_API_KEY:        s => s.providers.custom?.apiKey,
+  VITE_CUSTOM_API_URL:        s => s.providers.custom?.apiUrl,
+  VITE_CUSTOM_MODEL:          s => s.providers.custom?.model,
 };
 
 // ---------------------------------------------------------------------------

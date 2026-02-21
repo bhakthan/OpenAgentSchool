@@ -1,7 +1,7 @@
 // src/lib/llm.ts
 import { getEnvVar } from './config';
 
-export type LlmProvider = 'openai' | 'azure' | 'gemini' | 'huggingface' | 'openrouter' | 'claude';
+export type LlmProvider = 'openai' | 'azure' | 'gemini' | 'huggingface' | 'openrouter' | 'claude' | 'custom';
 
 export interface LlmMessage {
     role: 'system' | 'user' | 'assistant';
@@ -47,6 +47,8 @@ export async function callLlmWithMessages(
             return callOpenRouterWithMessages(messages, temperature, maxTokens, responseFormat);
         case 'claude':
             return callClaudeWithMessages(messages, temperature, maxTokens);
+        case 'custom':
+            return callCustomWithMessages(messages, temperature, maxTokens, responseFormat);
         default:
             throw new Error(`Unsupported LLM provider: ${provider}`);
     }
@@ -66,6 +68,8 @@ export async function callLlm(prompt: string, provider: LlmProvider = 'openai'):
             return callOpenRouter(prompt);
         case 'claude':
             return callClaude(prompt);
+        case 'custom':
+            return callCustomProvider(prompt);
         default:
             throw new Error(`Unsupported LLM provider: ${provider}`);
     }
@@ -503,4 +507,67 @@ async function callClaude(prompt: string): Promise<LlmResponse> {
         content = JSON.stringify(content, null, 2);
     }
     return { content };
+}
+
+// ---------------------------------------------------------------------------
+// Custom / International OpenAI-compatible provider
+// Supports: DeepSeek, Mistral, Zhipu AI, Moonshot, Volcano Engine,
+//           Sarvam AI, BharatGen, and any provider with /chat/completions
+// ---------------------------------------------------------------------------
+
+/**
+ * Call any OpenAI-compatible provider (structured messages variant).
+ * User must configure VITE_CUSTOM_API_KEY, VITE_CUSTOM_API_URL, and VITE_CUSTOM_MODEL.
+ */
+async function callCustomWithMessages(
+    messages: LlmMessage[], temperature: number, maxTokens: number, responseFormat: string
+): Promise<{ content: string }> {
+    const apiKey = getEnvVar('VITE_CUSTOM_API_KEY');
+    const apiUrl = getEnvVar('VITE_CUSTOM_API_URL');
+    const model  = getEnvVar('VITE_CUSTOM_MODEL');
+
+    if (!apiKey || !apiUrl || !model) {
+        throw new Error(
+            'Custom provider requires API Key, Base URL, and Model. ' +
+            'Configure them in Settings → Custom / International Provider.'
+        );
+    }
+
+    // Normalise URL: ensure it ends with /chat/completions
+    let endpoint = apiUrl.replace(/\/$/, '');
+    if (!/\/chat\/completions\/?$/.test(endpoint)) {
+        endpoint += '/chat/completions';
+    }
+
+    const body: Record<string, unknown> = { model, messages, temperature, max_tokens: maxTokens };
+    if (responseFormat === 'json') body.response_format = { type: 'json_object' };
+
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Custom provider API error: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    const content = data.choices?.[0]?.message?.content || '';
+    if (!content) throw new Error('Custom provider returned empty content');
+    return { content };
+}
+
+/** Single-prompt wrapper for backward-compat callLlm() */
+async function callCustomProvider(prompt: string): Promise<{ content: string }> {
+    return callCustomWithMessages(
+        [{ role: 'user', content: prompt }],
+        0.7,
+        2000,
+        'text'
+    );
 }

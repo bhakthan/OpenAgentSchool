@@ -9,6 +9,22 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Lock, Eye, EyeSlash, Download, Upload, Trash, FloppyDisk, ShieldCheck, Lightbulb, Rocket, Key, NumberCircleOne, NumberCircleTwo, NumberCircleThree, NumberCircleFour, Microphone, SpeakerHigh, Scales, Warning } from '@phosphor-icons/react';
 import type { ProviderConfig, UserSettings, SttPreference, TtsPreference, SpeechServiceConfig } from '@/lib/userSettings';
+import { GlobeHemisphereWest } from '@phosphor-icons/react';
+
+// Well-known OpenAI-compatible international providers (presets)
+const CUSTOM_PRESETS = [
+  // Chinese providers
+  { name: 'DeepSeek',        url: 'https://api.deepseek.com/v1',                model: 'deepseek-chat',         region: '🇨🇳' },
+  { name: 'Zhipu AI',        url: 'https://open.bigmodel.cn/api/paas/v4',       model: 'glm-4',                 region: '🇨🇳' },
+  { name: 'Alibaba Qwen',    url: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen-plus', region: '🇨🇳' },
+  { name: 'Moonshot AI',     url: 'https://api.moonshot.cn/v1',                 model: 'moonshot-v1-8k',        region: '🇨🇳' },
+  { name: 'Volcano Engine',  url: 'https://ark.cn-beijing.volces.com/api/v3',   model: 'doubao-seed-code',      region: '🇨🇳' },
+  // French providers
+  { name: 'Mistral',         url: 'https://api.mistral.ai/v1',                  model: 'mistral-large-latest',  region: '🇫🇷' },
+  // Indian providers
+  { name: 'Sarvam AI',       url: 'https://api.sarvam.ai/v1',                   model: 'sarvam-2b',            region: '🇮🇳' },
+  { name: 'BharatGen',       url: 'https://api.bharatgen.ai/v1',                model: 'bharatgen-1',           region: '🇮🇳' },
+] as const;
 
 // Provider metadata for the form
 const PROVIDERS = [
@@ -59,6 +75,14 @@ const PROVIDERS = [
     modelPlaceholder: 'meta-llama/Llama-3.1-8B-Instruct',
     keyPlaceholder: 'hf_…',
     urlRequired: false, modelRequired: false,
+  },
+  {
+    id: 'custom' as const, label: 'Custom / International',
+    hint: 'Any OpenAI-compatible provider — DeepSeek, Mistral, Zhipu AI, Moonshot, Sarvam AI, Volcano Engine, and more.',
+    defaultUrl: '',
+    modelPlaceholder: 'deepseek-chat',
+    keyPlaceholder: 'Your API key',
+    urlRequired: true, modelRequired: true,
   },
 ] as const;
 
@@ -248,7 +272,11 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
           <SelectContent>
             <SelectItem value="auto">Auto-detect</SelectItem>
             {PROVIDERS.map(p => (
-              <SelectItem key={p.id} value={p.id}>{p.label}</SelectItem>
+              <SelectItem key={p.id} value={p.id}>
+                {p.id === 'custom'
+                  ? (draft.customProviderName ? `${draft.customProviderName} (Custom)` : 'Custom / International')
+                  : p.label}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -269,7 +297,12 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
               <AccordionItem key={provider.id} value={provider.id} className="border-b-0">
                 <AccordionTrigger className="text-sm hover:no-underline">
                   <div className="flex items-center gap-2">
-                    <span>{provider.label}</span>
+                    {provider.id === 'custom' && <GlobeHemisphereWest size={15} className="text-primary" weight="fill" />}
+                    <span>
+                      {provider.id === 'custom' && draft.customProviderName
+                        ? `${draft.customProviderName} (Custom)`
+                        : provider.label}
+                    </span>
                     {cfg.apiKey && (
                       <span className="inline-block w-2 h-2 rounded-full bg-emerald-500" title="Key configured" />
                     )}
@@ -278,6 +311,62 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
                 <AccordionContent>
                   <div className="space-y-3 pt-1">
                     <p className="text-xs text-muted-foreground">{provider.hint}</p>
+
+                    {/* ── Custom provider: name + preset selector ── */}
+                    {provider.id === 'custom' && (
+                      <>
+                        <div className="space-y-1">
+                          <Label htmlFor="custom-name" className="text-xs">
+                            Provider Name<span className="text-red-500 ml-0.5">*</span>
+                          </Label>
+                          <Input
+                            id="custom-name"
+                            placeholder="e.g. DeepSeek, Mistral, Zhipu AI…"
+                            value={draft.customProviderName ?? ''}
+                            onChange={e => setDraft(prev => ({ ...prev, customProviderName: e.target.value || undefined }))}
+                            className="text-xs"
+                          />
+                        </div>
+
+                        {/* Quick-fill presets */}
+                        <div className="space-y-1.5">
+                          <Label className="text-xs flex items-center gap-1.5">
+                            <GlobeHemisphereWest size={13} className="text-primary" weight="fill" />
+                            Quick Presets
+                          </Label>
+                          <div className="flex flex-wrap gap-1.5">
+                            {CUSTOM_PRESETS.map(preset => (
+                              <button
+                                key={preset.name}
+                                type="button"
+                                onClick={() => {
+                                  setDraft(prev => ({
+                                    ...prev,
+                                    customProviderName: preset.name,
+                                    providers: {
+                                      ...prev.providers,
+                                      custom: {
+                                        ...(prev.providers.custom ?? {}),
+                                        apiUrl: preset.url,
+                                        model: preset.model,
+                                      },
+                                    },
+                                  }));
+                                }}
+                                className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-1 rounded-md border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                                title={`${preset.name} — ${preset.url}`}
+                              >
+                                <span>{preset.region}</span>
+                                <span>{preset.name}</span>
+                              </button>
+                            ))}
+                          </div>
+                          <p className="text-[10px] text-muted-foreground">
+                            Click a preset to fill URL &amp; model. You still need to paste your API key.
+                          </p>
+                        </div>
+                      </>
+                    )}
 
                     {/* API Key */}
                     <div className="space-y-1">
@@ -668,7 +757,8 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
           <li>
             <strong>Your responsibility.</strong> You are solely responsible for all costs, billing, and usage
             incurred through the third-party APIs you configure here (OpenAI, Azure, Google, Anthropic,
-            HuggingFace, OpenRouter, ElevenLabs, Deepgram, etc.).
+            HuggingFace, OpenRouter, DeepSeek, Mistral, Zhipu AI, Moonshot, Sarvam AI, ElevenLabs, Deepgram,
+            and any custom/international provider).
           </li>
           <li>
             <strong>No warranty.</strong> Open Agent School provides no warranty regarding the availability,

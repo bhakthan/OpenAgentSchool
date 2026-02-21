@@ -20,6 +20,9 @@ interface AppConfig {
   VITE_ANTHROPIC_API_KEY: string;
   VITE_ANTHROPIC_API_URL: string;
   VITE_ANTHROPIC_MODEL: string;
+  VITE_CUSTOM_API_KEY: string;
+  VITE_CUSTOM_API_URL: string;
+  VITE_CUSTOM_MODEL: string;
 }
 
 /**
@@ -143,7 +146,8 @@ export function getConfiguredProviders(): string[] {
     { name: 'Gemini', key: 'VITE_GEMINI_API_KEY' as const },
     { name: 'HuggingFace', key: 'VITE_HUGGINGFACE_API_KEY' as const },
     { name: 'OpenRouter', key: 'VITE_OPENROUTER_API_KEY' as const },
-    { name: 'Claude', key: 'VITE_ANTHROPIC_API_KEY' as const }
+    { name: 'Claude', key: 'VITE_ANTHROPIC_API_KEY' as const },
+    { name: 'Custom', key: 'VITE_CUSTOM_API_KEY' as const }
   ];
 
   return providerChecks
@@ -171,6 +175,7 @@ export function getFirstAvailableProvider(): string {
         openrouter:  'VITE_OPENROUTER_API_KEY',
         claude:      'VITE_ANTHROPIC_API_KEY',
         huggingface: 'VITE_HUGGINGFACE_API_KEY',
+        custom:      'VITE_CUSTOM_API_KEY',
       };
       const envKey = keyForProvider[settings.preferredProvider];
       if (envKey) {
@@ -191,7 +196,8 @@ export function getFirstAvailableProvider(): string {
     { name: 'gemini', key: 'VITE_GEMINI_API_KEY' as const },
     { name: 'openrouter', key: 'VITE_OPENROUTER_API_KEY' as const },
     { name: 'claude', key: 'VITE_ANTHROPIC_API_KEY' as const },
-    { name: 'huggingface', key: 'VITE_HUGGINGFACE_API_KEY' as const }
+    { name: 'huggingface', key: 'VITE_HUGGINGFACE_API_KEY' as const },
+    { name: 'custom', key: 'VITE_CUSTOM_API_KEY' as const }
   ];
 
   for (const provider of providerMappings) {
