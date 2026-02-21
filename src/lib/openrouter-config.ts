@@ -3,6 +3,8 @@
  * Replaces OpenAI API with OpenRouter API
  */
 
+import { getSettingValue } from './userSettings';
+
 export interface OpenRouterConfig {
   apiKey: string;
   model: string;
@@ -189,11 +191,17 @@ function supportsJsonMode(model: string): boolean {
 
 /**
  * Environment configuration helper
+ * Now also checks user BYOK settings from localStorage.
  */
 export function getOpenRouterConfigFromEnv(): OpenRouterConfig | null {
-  const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY;
-  const model = (import.meta.env.VITE_OPENROUTER_MODEL || process.env.OPENROUTER_MODEL) as OpenRouterModel;
-  const baseUrl = import.meta.env.VITE_OPENROUTER_API_URL || process.env.OPENROUTER_API_URL;
+  // Check user settings first (BYOK), then env vars
+  const userKey = getSettingValue('VITE_OPENROUTER_API_KEY');
+  const userModel = getSettingValue('VITE_OPENROUTER_MODEL');
+  const userUrl = getSettingValue('VITE_OPENROUTER_API_URL');
+
+  const apiKey = userKey || import.meta.env.VITE_OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY;
+  const model = (userModel || import.meta.env.VITE_OPENROUTER_MODEL || process.env.OPENROUTER_MODEL) as OpenRouterModel;
+  const baseUrl = userUrl || import.meta.env.VITE_OPENROUTER_API_URL || process.env.OPENROUTER_API_URL;
   
   if (!apiKey) return null;
   

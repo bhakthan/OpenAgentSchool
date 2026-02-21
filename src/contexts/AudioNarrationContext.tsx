@@ -1,8 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useRef } from 'react';
 import { callLlm } from '@/lib/llm';
+import { getFirstAvailableProvider } from '@/lib/config';
 import { LANGUAGES, LanguageCode, getLocaleFor } from '@/lib/languages';
 import { buildNarrationTranslatePrompt, buildStrictNativeScriptRetry } from '@/prompts/translationPrompts';
 import { PREFERRED_VOICES_BY_LANG } from '@/lib/voices';
+import { loadSettings, type TtsPreference } from '@/lib/userSettings';
+import { speakOpenAI, speakAzure, speakElevenLabs, playAudioBuffer } from '@/lib/cloudSpeech';
 
 // Language types and list are sourced from src/lib/languages.ts
 
@@ -60,6 +63,9 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
   // Simple in-memory cache for translations by (hash(text), lang)
   const translationCacheRef = useRef<Map<string, string>>(new Map());
   const makeCacheKey = (text: string, lang: LanguageCode) => `${lang}:${text.length}:${text.slice(0,64)}`;
+
+  // Cloud TTS audio element ref (so we can pause / stop it)
+  const cloudAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const detectBrowser = (): 'chrome' | 'edge' | 'safari' | 'firefox' | 'ios-safari' | 'android-chrome' | 'samsung-internet' | 'other' => {
     const userAgent = navigator.userAgent.toLowerCase();
@@ -337,8 +343,39 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
     }));
 
     try {
-      // Since local TTS is not implemented, always use Web Speech API
-      // This avoids the unnecessary error and fallback
+      // Check user TTS preference
+      const ttsPref: TtsPreference = loadSettings().ttsPreference ?? 'browser';
+
+      if (ttsPref !== 'browser') {
+        // Cloud TTS path: fetch text, translate, send to cloud API, play audio
+        const baseText = await fetchAudioContent(componentName, level, contentType);
+        const targetLang = state.selectedLanguage || 'en';
+        const text = await translateIfNeeded(baseText, targetLang);
+
+        let audioBuffer: ArrayBuffer;
+        if (ttsPref === 'openai-tts') {
+          audioBuffer = await speakOpenAI(text);
+        } else if (ttsPref === 'azure-speech') {
+          const bcp47 = getLocaleFor(targetLang);
+          audioBuffer = await speakAzure(text, bcp47);
+        } else if (ttsPref === 'elevenlabs') {
+          audioBuffer = await speakElevenLabs(text);
+        } else {
+          throw new Error(`Unknown TTS preference: ${ttsPref}`);
+        }
+
+        await playAudioBuffer(audioBuffer);
+        setState(prev => ({
+          ...prev,
+          isPlaying: false,
+          currentLevel: null,
+          currentComponent: null,
+          currentContentType: null,
+        }));
+        return;
+      }
+
+      // Browser TTS path (default)
       await playWithWebSpeechAPI(componentName, level, contentType);
       
       // Audio completed successfully - state will be updated by the utterance.onend callback
@@ -772,7 +809,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
 
     try {
   const prompt = buildNarrationTranslatePrompt(text, lang);
-  const { content } = await callLlm(prompt, 'openrouter');
+  const { content } = await callLlm(prompt, getFirstAvailableProvider() as any);
       let output = (content || '').replace(/<[^>]+>/g, '').trim();
   // Strip common wrappers/preambles to guarantee text-only output
   output = output.replace(/^\s*(translation|translated\s*text|result|output)\s*:*/i, '').trim();
@@ -782,7 +819,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       const isAsciiOnly = /^[\x00-\x7F]*$/.test(output);
       if (nonLatinTargets.includes(lang) && isAsciiOnly) {
         const strictPrompt = buildStrictNativeScriptRetry(text, lang);
-        const retry = await callLlm(strictPrompt, 'openrouter');
+        const retry = await callLlm(strictPrompt, getFirstAvailableProvider() as any);
         const r = (retry.content || '').replace(/<[^>]+>/g, '').trim();
         if (r && !/^[\x00-\x7F]*$/.test(r)) output = r;
       }
@@ -848,6 +885,11 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
   const stopNarration = () => {
     if ('speechSynthesis' in window) {
       speechSynthesis.cancel();
+    }
+    // Stop cloud TTS audio if playing
+    if (cloudAudioRef.current) {
+      cloudAudioRef.current.pause();
+      cloudAudioRef.current = null;
     }
     setState(prev => ({
       ...prev,

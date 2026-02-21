@@ -83,12 +83,20 @@ const PatternMasteryTracker = lazy(() => import('./components/velocity/PatternMa
 const VelocityCaseStudies = lazy(() => import('./components/velocity/VelocityCaseStudies'));
 const AVEWorkshopCurriculum = lazy(() => import('./components/velocity/AVEWorkshopCurriculum'));
 const ValueMapPage = lazy(() => import('./pages/ValueMapPage'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
 import { Toaster } from '@/components/ui/toaster';
 import { AudioNarrationProvider } from './contexts/AudioNarrationContext';
+import { VoiceInputProvider } from './contexts/VoiceInputContext';
 import { EnlightenMeButton as AskAIFab } from './components/enlighten/EnlightenMeButton';
+import { UserSettingsProvider } from './contexts/UserSettingsContext';
+import { SettingsSheet } from './components/settings/SettingsSheet';
+import { Gear } from '@phosphor-icons/react/dist/ssr/Gear';
+
+// Lazy-load voice FAB so the Whisper WASM path never enters the main bundle
+const VoiceFAB = lazy(() => import('./components/voice/VoiceFAB'));
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useGAPageViews } from './hooks/useGAPageViews';
 // Micro CTA ribbon extracted for independent chunk
@@ -117,6 +125,7 @@ function AppContent() {
 function App() {
   const [mounted, setMounted] = useState(false)
   const [showJourneyMap, setShowJourneyMap] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
@@ -326,7 +335,9 @@ function App() {
         {/* Side effects that require AuthProvider context */}
         <AppContent />
         
+        <UserSettingsProvider>
         <AudioNarrationProvider>
+          <VoiceInputProvider>
           <EnlightenMeProvider>
             {/* Skip Link for Keyboard Users */}
             <a 
@@ -379,6 +390,16 @@ function App() {
                   <ThemeToggle />
                   <span className="text-xs text-muted-foreground hidden md:inline-block">Theme</span>
                 </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9"
+                  onClick={() => setSettingsOpen(true)}
+                  aria-label="API Settings"
+                  title="API Settings (BYOK)"
+                >
+                  <Gear size={18} />
+                </Button>
                 <UserMenu />
                 <Link
                   to="/value-map"
@@ -485,6 +506,7 @@ function App() {
                     items: [
                       { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" />, description: 'Technical documentation', isNew: false },
                       ...(import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL ? [{ to: '/agents', label: 'Agents Console', icon: <Plugs size={16} weight="duotone" />, description: 'Multi-agent orchestration', isNew: true }] : []),
+                      { to: '/settings', label: 'API Settings', icon: <Gear size={16} weight="duotone" />, description: 'Manage API keys & providers', isNew: true },
                     ]
                   },
                 ];
@@ -535,7 +557,7 @@ function App() {
                                         <Link
                                           to={item.to}
                                           className={cn(
-                                            "group block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200",
+                                            "group block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none focus:outline-none focus-visible:outline-none transition-all duration-200",
                                             "bg-white dark:bg-gray-900",
                                             "hover:bg-gray-50 dark:hover:bg-gray-800 hover:translate-x-0.5 hover:shadow-sm",
                                             "focus:bg-gray-50 dark:focus:bg-gray-800",
@@ -617,7 +639,7 @@ function App() {
                                   <Link 
                                     to={item.to} 
                                     className={cn(
-                                      "flex items-center gap-2 pl-4 py-2 rounded-md mx-1 transition-all duration-150",
+                                      "flex items-center gap-2 pl-4 py-2 rounded-md mx-1 outline-none focus:outline-none focus-visible:outline-none transition-all duration-150",
                                       "hover:translate-x-0.5",
                                       location.pathname === item.to && "bg-accent text-accent-foreground"
                                     )}
@@ -704,6 +726,7 @@ function App() {
                   <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
                   <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
                   <Route path="/api-docs" element={<ApiDocsPage />} />
+                  <Route path="/settings" element={<SettingsPage />} />
                   <Route path="/cta-alt" element={<CTALandingPageVariant />} />
                   <Route path="/cta" element={<CTALandingPage />} />
                   <Route path="/about" element={<AboutPage />} />
@@ -814,11 +837,19 @@ function App() {
             );
           })()}
 
+          {/* Global Voice Input FAB */}
+          <Suspense fallback={null}><VoiceFAB /></Suspense>
+
           {/* Toast notifications */}
           <Toaster />
+
+          {/* BYOK Settings Sheet (side drawer) */}
+          <SettingsSheet open={settingsOpen} onOpenChange={setSettingsOpen} />
         </div>
       </EnlightenMeProvider>
+      </VoiceInputProvider>
       </AudioNarrationProvider>
+      </UserSettingsProvider>
       </AuthProvider>
     </ThemeProvider>
   );
@@ -863,7 +894,7 @@ const ListItem = React.memo(function ListItem({ className, title, children, ...p
       <NavigationMenuLink asChild>
         <a
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none focus:outline-none focus-visible:outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
           )}
           {...props}

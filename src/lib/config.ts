@@ -1,4 +1,5 @@
 // Environment configuration helper for Azure Static Web Apps compatibility
+import { getSettingValue } from './userSettings';
 
 interface AppConfig {
   VITE_OPENAI_API_KEY: string;
@@ -24,19 +25,29 @@ interface AppConfig {
 /**
  * Get environment variable value
  * Works with both local development (.env) and Azure Static Web Apps (app settings)
+ *
+ * Resolution order:
+ *   1. User-supplied settings (browser localStorage — BYOK)
+ *   2. Vite build-time env (.env files)
+ *   3. process.env (Azure Static Web Apps runtime)
+ *   4. window.__APP_CONFIG__ (runtime injection)
  */
 export function getEnvVar(key: keyof AppConfig): string | undefined {
-  // For local development - Vite injects these at build time from .env files
+  // 1️⃣ User BYOK settings in localStorage (highest priority)
+  const userVal = getSettingValue(key);
+  if (userVal) return userVal;
+
+  // 2️⃣ Vite build-time env (.env files)
   if (import.meta.env && import.meta.env[key]) {
     return import.meta.env[key] as string;
   }
   
-  // For Azure Static Web Apps - available at runtime via process.env
+  // 3️⃣ Azure Static Web Apps - available at runtime via process.env
   if (typeof process !== 'undefined' && process.env && process.env[key]) {
     return process.env[key];
   }
   
-  // For production builds - check window object for runtime injection (fallback)
+  // 4️⃣ Production builds - check window object for runtime injection (fallback)
   if (typeof window !== 'undefined' && (window as any).__APP_CONFIG__ && (window as any).__APP_CONFIG__[key]) {
     return (window as any).__APP_CONFIG__[key];
   }

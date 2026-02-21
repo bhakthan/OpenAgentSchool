@@ -1,9 +1,9 @@
-import { useState, useEffect, Suspense, lazy } from 'react'
+import { useState, useEffect, Suspense, lazy, useCallback } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { agentPatterns, PatternData } from '@/lib/data/patterns/index'
 import PatternDetails from './PatternDetails'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ChartLine, Code, Info, Swap, Question } from '@phosphor-icons/react'
+import { ChartLine, Code, Info, Swap, Question, Microphone, MicrophoneStage } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { TopPatternSelector } from './TopPatternSelector'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
@@ -15,6 +15,8 @@ import ModernToolUseAudioControls from '@/components/audio/ModernToolUseAudioCon
 import PromptChainingAudioControls from '@/components/audio/PromptChainingAudioControls';
 import AgenticRAGAudioControls from '@/components/audio/AgenticRAGAudioControls';
 import { X } from '@phosphor-icons/react/dist/ssr/X'
+import { useVoiceInput } from '@/contexts/VoiceInputContext';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 // Lazy load heavy visualization components
 const SimplePatternVisualizer = lazy(() => import('@/components/visualization/SimplePatternVisualizer'))
@@ -82,6 +84,35 @@ const PatternExplorer = () => {
   const handlePatternSelect = (pattern: PatternData) => {
     setSelectedPattern(pattern);
   };
+
+  // ── Voice input for pattern selection ──────────────────────────────────
+  const voice = useVoiceInput();
+
+  const handleVoiceResult = useCallback((text: string) => {
+    const q = text.toLowerCase().trim();
+    // Try to match a pattern by name
+    const match = agentPatterns.find(p =>
+      p.name.toLowerCase().includes(q) ||
+      q.includes(p.name.toLowerCase()) ||
+      p.id.replace(/-/g, ' ').includes(q) ||
+      q.includes(p.id.replace(/-/g, ' '))
+    );
+    if (match) {
+      setSelectedPattern(match);
+    }
+  }, []);
+
+  useEffect(() => {
+    return voice.onResult(handleVoiceResult);
+  }, [voice, handleVoiceResult]);
+
+  const handleVoiceMicClick = useCallback(() => {
+    if (voice.isListening) {
+      voice.stopVoice();
+    } else {
+      voice.startVoice();
+    }
+  }, [voice]);
   
   const toggleViewMode = () => {
     setViewMode(current => current === 'single' ? 'compare' : 'single');
@@ -154,6 +185,38 @@ const PatternExplorer = () => {
               onPatternSelect={handlePatternSelect}
             />
           </div>
+          {/* Voice Mic for pattern selection */}
+          {voice.isSupported && (
+            <TooltipProvider delayDuration={300}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleVoiceMicClick}
+                    className={
+                      voice.isListening
+                        ? 'relative text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-950/40 h-9 w-9'
+                        : 'h-9 w-9 text-muted-foreground hover:text-foreground'
+                    }
+                    aria-label={voice.isListening ? 'Stop voice input' : 'Say a pattern name'}
+                  >
+                    {voice.isListening && (
+                      <span className="absolute inset-0 rounded-md bg-red-500/20 dark:bg-red-400/20 animate-pulse" />
+                    )}
+                    {voice.isListening ? (
+                      <MicrophoneStage size={18} weight="fill" className="relative z-10" />
+                    ) : (
+                      <Microphone size={18} />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="text-xs">
+                  {voice.isListening ? 'Tap to stop' : 'Say a pattern name'}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
         </div>
         
         {/* Right side: Action Buttons */}

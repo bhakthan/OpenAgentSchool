@@ -731,3 +731,72 @@ code, pre {
 .dark .agents-for-science-card .example-box-text {
   color: oklch(0.9 0.02 240) !important; /* Light for dark mode */
 }
+
+/* Light-mode safety overrides for components using hardcoded dark utility classes */
+.light :is(
+  [class*="bg-black"],
+  [class*="bg-gray-800"],
+  [class*="bg-gray-900"],
+  [class*="bg-gray-950"],
+  [class*="bg-slate-800"],
+  [class*="bg-slate-900"],
+  [class*="bg-slate-950"],
+  [class*="bg-zinc-800"],
+  [class*="bg-zinc-900"],
+  [class*="bg-zinc-950"],
+  [class*="bg-neutral-800"],
+  [class*="bg-neutral-900"],
+  [class*="bg-neutral-950"],
+  [class*="bg-stone-800"],
+  [class*="bg-stone-900"],
+  [class*="bg-stone-950"],
+  [style*="background-color: rgb(15, 23, 42)"],
+  [style*="background-color: rgb(17, 24, 39)"],
+  [style*="background-color: rgb(31, 41, 55)"],
+  [style*="background-color:#0f172a"],
+  [style*="background-color:#111827"],
+  [style*="background-color:#1f2937"]
+) {
+  background-color: #ffffff !important;
+}
+
+.light :is(
+  [class*="text-slate-100"],
+  [class*="text-slate-200"],
+  [class*="text-slate-300"],
+  [class*="text-gray-100"],
+  [class*="text-gray-200"],
+  [class*="text-gray-300"],
+  [class*="text-zinc-100"],
+  [class*="text-zinc-200"],
+  [class*="text-zinc-300"],
+  [class*="text-neutral-100"],
+  [class*="text-neutral-200"],
+  [class*="text-neutral-300"],
+  [class*="text-stone-100"],
+  [class*="text-stone-200"],
+  [class*="text-stone-300"],
+  [class*="text-white"]
+) {
+  color: oklch(0.23 0.02 240) !important;
+}
+
+/* Remove browser default focus outlines on menu primitives in light mode */
+.light [data-slot="navigation-menu-trigger"]:focus,
+.light [data-slot="navigation-menu-link"]:focus,
+.light [data-slot="dropdown-menu-item"]:focus {
+  outline: none !important;
+}
+
+.light [data-slot="navigation-menu-trigger"],
+.light [data-slot="navigation-menu-link"],
+.light [data-slot="dropdown-menu-item"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.light [data-slot="navigation-menu-trigger"]:is(:focus, :focus-visible, :active),
+.light [data-slot="navigation-menu-link"]:is(:focus, :focus-visible, :active),
+.light [data-slot="dropdown-menu-item"]:is(:focus, :focus-visible, :active) {
+  outline: none !important;
+  box-shadow: none !important;
+}

@@ -1,10 +1,11 @@
 // src/lib/llmJudge.ts
 import { callLlm } from './llm';
-import { isLlmProviderConfigured } from './config';
+import { isLlmProviderConfigured, getFirstAvailableProvider } from './config';
 import { buildSocraticJudgePrompt, buildDebugJudgePrompt, buildScenarioJudgePrompt, buildCriticalThinkingJudgePrompt } from '../prompts/judgePrompts';
+import type { LlmProvider } from './llm';
 
-// Use OpenRouter for Study Mode
-const STUDY_MODE_PROVIDER = 'openrouter';
+// Use whatever provider the learner has configured (falls back gracefully)
+const STUDY_MODE_PROVIDER = getFirstAvailableProvider() as LlmProvider;
 
 export interface LlmJudgeResponse {
   score: number; // 0-100

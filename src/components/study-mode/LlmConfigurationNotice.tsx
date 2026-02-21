@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Sparkle } from "@phosphor-icons/react";
 import { isLlmProviderConfigured } from '@/lib/config';
+import { Link } from 'react-router-dom';
 
 interface LlmConfigurationNoticeProps {
   className?: string;
@@ -44,7 +45,12 @@ const LlmConfigurationNotice: React.FC<LlmConfigurationNoticeProps> = ({
             {message.description}
           </AlertDescription>
           <div className="text-xs text-amber-600 dark:text-amber-400">
-            <strong>Tip:</strong> Add your API key to environment variables to enable "LLM as Judge" features for enhanced learning!
+            <strong>Tip:</strong> Open{' '}
+            <Link to="/settings" className="underline hover:text-amber-800 dark:hover:text-amber-200">
+              Settings
+            </Link>{' '}
+            (⚙ gear icon in the header) to add your own API key and unlock "LLM as Judge" features!
+            Your keys stay in your browser — never sent to our servers.
           </div>
         </div>
       </div>

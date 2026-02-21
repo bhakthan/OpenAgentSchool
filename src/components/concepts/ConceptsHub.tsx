@@ -1,4 +1,4 @@
-import { useState, useMemo, lazy, Suspense } from "react"
+import { useState, useMemo, useEffect, lazy, Suspense } from "react"
 import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -7,6 +7,8 @@ import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOp
 import { ShareButton } from "@/components/ui/ShareButton"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
+import { registerConceptsForVoice } from "@/lib/voiceNavigation"
+import InlineMicButton from "@/components/voice/InlineMicButton"
 
 // ── Lazy-loaded concept components (code-split per concept) ──────────────
 const LearningHowToLearnConcept = lazy(() => import("./LearningHowToLearnConcept"))
@@ -865,6 +867,11 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
   const [activeTier, setActiveTier] = useState<ConceptInfo['level'] | null>(null);
   const navigate = useNavigate();
 
+  // Register concepts for voice navigation (idempotent)
+  useEffect(() => {
+    registerConceptsForVoice(concepts.map(c => ({ id: c.id, title: c.title, description: c.description })));
+  }, []);
+
   // Group concepts by level tier
   const conceptsByTier = useMemo(() => {
     const grouped: Record<string, ConceptInfo[]> = {};
@@ -1070,7 +1077,11 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
             value={searchQuery}
             onChange={e => { setSearchQuery(e.target.value); if (e.target.value) setActiveTier(null); }}
             placeholder="Search concepts by name, keyword, or topic…"
-            className="w-full rounded-lg border border-input bg-background pl-10 pr-10 py-2.5 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="w-full rounded-lg border border-input bg-background pl-10 pr-20 py-2.5 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          />
+          <InlineMicButton
+            onTranscript={(text) => { setSearchQuery(text); setActiveTier(null); }}
+            className="right-10"
           />
           {searchQuery && (
             <button

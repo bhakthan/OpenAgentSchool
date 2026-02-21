@@ -33,8 +33,11 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
 
   // Filter patterns based on search and category
   const allFilteredPatterns = agentPatterns.filter(pattern => {
-    const matchesSearch = pattern.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         pattern.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const searchTerms = searchQuery.toLowerCase().split(' ').filter(term => term.length > 0);
+    const matchesSearch = searchTerms.length === 0 || searchTerms.some(term => 
+      pattern.name.toLowerCase().includes(term) ||
+      pattern.description.toLowerCase().includes(term)
+    );
     const matchesCategory = selectedCategory === 'all' || pattern.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });

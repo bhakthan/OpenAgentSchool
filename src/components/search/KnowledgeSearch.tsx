@@ -23,6 +23,7 @@ import {
 } from "@phosphor-icons/react";
 import { knowledgeAPI, SearchResult, Concept } from '@/services/api';
 import { cn } from "@/lib/utils";
+import InlineMicButton from '@/components/voice/InlineMicButton';
 
 interface KnowledgeSearchProps {
   onSelectConcept?: (concept: Concept) => void;
@@ -146,7 +147,11 @@ export const KnowledgeSearch: React.FC<KnowledgeSearchProps> = ({ onSelectConcep
                 placeholder="Search concepts, topics, or questions..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 pr-12"
+              />
+              <InlineMicButton
+                onTranscript={(text) => setQuery(text)}
+                className="right-3"
               />
             </div>
             <Select value={category} onValueChange={setCategory}>

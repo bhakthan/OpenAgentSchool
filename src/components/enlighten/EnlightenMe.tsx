@@ -15,6 +15,8 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import remarkGfm from 'remark-gfm';
 import { LlmProvider, callLlm } from '@/lib/llm';
+import { getFirstAvailableProvider } from '@/lib/config';
+import { loadSettings } from '@/lib/userSettings';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 // Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
@@ -73,7 +75,13 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [llmProvider, setLlmProvider] = useState<LlmProvider>('openrouter');
+  const [llmProvider, setLlmProvider] = useState<LlmProvider>(() => {
+    try {
+      const s = loadSettings();
+      if (s.preferredProvider && s.preferredProvider !== 'auto') return s.preferredProvider as LlmProvider;
+    } catch {}
+    return (getFirstAvailableProvider() || 'openrouter') as LlmProvider;
+  });
   const [isPromptExpanded, setIsPromptExpanded] = useState(false);
   
   // State for tracking copied code blocks

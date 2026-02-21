@@ -80,8 +80,11 @@ export default function PatternMasteryTracker() {
 
   // Filter patterns
   const filteredPatterns = patterns.filter(pattern => {
-    const matchesSearch = pattern.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         pattern.category.toLowerCase().includes(searchQuery.toLowerCase())
+    const searchTerms = searchQuery.toLowerCase().split(' ').filter(t => t.length > 0)
+    const matchesSearch = searchTerms.length === 0 || searchTerms.some(term => 
+      pattern.name.toLowerCase().includes(term) ||
+      pattern.category.toLowerCase().includes(term)
+    )
     const matchesImpact = filterImpact === 'all' || pattern.impact === filterImpact
     const matchesCompleted = filterCompleted === 'all' ||
                             (filterCompleted === 'completed' && pattern.completed) ||

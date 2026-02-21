@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button'
 import { sanitizeHtml } from '@/lib/sanitizeHtml'
 import { callLlm } from '@/lib/llm'
+import { getFirstAvailableProvider } from '@/lib/config'
 import { getTranslateTargets, TranslateTargetCode } from '@/lib/languages'
 import { buildHtmlTranslatePrompt } from '@/prompts/translationPrompts'
 
@@ -58,7 +59,7 @@ export default function AskAITranslate({ open, onOpenChange, sourceHtml }: Props
     setError(null)
     try {
   const prompt = buildHtmlTranslatePrompt(structuredSourceHtml, lang)
-  const { content } = await callLlm(prompt, 'openrouter')
+  const { content } = await callLlm(prompt, getFirstAvailableProvider() as any)
   const trimmed = (content || '').trim()
   const looksLikeHtml = /<\w+[^>]*>/.test(trimmed)
   setOut(looksLikeHtml ? trimmed : plainToHtml(trimmed))

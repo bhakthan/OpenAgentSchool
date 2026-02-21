@@ -21,13 +21,14 @@ export function useSidebarSearch(items: PatternData[] = agentPatterns) {
     const searchTerms = searchQuery.toLowerCase().split(' ').filter(term => term.length > 0);
     
     Object.entries(categories).forEach(([category, patterns]) => {
-      const matchedPatterns = patterns.filter(pattern => 
-        // Check if ALL search terms are found in either name or description
-        searchTerms.every(term => 
+      const matchedPatterns = patterns.filter(pattern => {
+        // Check if ANY search terms are found in either name or description
+        // This allows for partial matches (e.g. "prompt engineering" finds "Prompt Optimization")
+        return searchTerms.some(term => 
           pattern.name.toLowerCase().includes(term) ||
           pattern.description.toLowerCase().includes(term)
-        )
-      );
+        );
+      });
       
       if (matchedPatterns.length > 0) {
         filtered[category] = matchedPatterns;

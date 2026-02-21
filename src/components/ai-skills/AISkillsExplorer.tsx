@@ -1,9 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { trackEvent } from '@/lib/analytics/ga'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ShareButton } from '@/components/ui/ShareButton'
+import { Microphone, MicrophoneStage } from "@phosphor-icons/react"
+import { useVoiceInput } from '@/contexts/VoiceInputContext'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 // Tabs UI retained (import) only if we need to fall back; currently phased out in favor of section rendering
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Brain, Code, Users, Lightbulb, Rocket, ChartBar, Target, Calculator, Gauge, Wrench, Shield, CurrencyCircleDollar, Database, Network, BookOpen, CheckCircle, ArrowsOutSimple, ArrowsInSimple, CaretLeft, CaretRight, ArrowSquareOut } from "@phosphor-icons/react"
@@ -97,6 +100,36 @@ export default function AISkillsExplorer() {
     setActiveTab(moduleId)
     scrollToModule(moduleId)
   }
+
+  // ── Voice input for module navigation ─────────────────────────────────
+  const voice = useVoiceInput();
+
+  const handleVoiceResult = useCallback((text: string) => {
+    const q = text.toLowerCase().trim();
+    // Try to match a module/tab by title
+    const allModules = [...(tabs ?? []), ...(perspectiveTabs ?? [])];
+    const match = allModules.find(m =>
+      m.title.toLowerCase().includes(q) ||
+      q.includes(m.title.toLowerCase()) ||
+      m.id.replace(/-/g, ' ').includes(q) ||
+      q.includes(m.id.replace(/-/g, ' '))
+    );
+    if (match) {
+      navigateToModule(match.id);
+    }
+  }, []);
+
+  useEffect(() => {
+    return voice.onResult(handleVoiceResult);
+  }, [voice, handleVoiceResult]);
+
+  const handleVoiceMicClick = useCallback(() => {
+    if (voice.isListening) {
+      voice.stopVoice();
+    } else {
+      voice.startVoice();
+    }
+  }, [voice]);
 
   // Mark complete & navigate (records progress under new taxonomy id when bridged)
   const completeAndNavigate = (currentId: string, nextId: string) => {
@@ -512,6 +545,39 @@ export default function AISkillsExplorer() {
               <Button variant="outline" size="sm" onClick={() => setViewMode(m => m === 'tabs' ? 'sections' : 'tabs')}>
                 {viewMode === 'tabs' ? 'Switch to Sections View' : 'Switch to Tabs View'}
               </Button>
+              {/* Voice module navigation */}
+              {voice.isSupported && (
+                <TooltipProvider delayDuration={300}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleVoiceMicClick}
+                        className={
+                          voice.isListening
+                            ? 'relative text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-950/40 gap-1'
+                            : 'gap-1 text-muted-foreground hover:text-foreground'
+                        }
+                        aria-label={voice.isListening ? 'Stop voice input' : 'Say a module name to jump there'}
+                      >
+                        {voice.isListening && (
+                          <span className="absolute inset-0 rounded-md bg-red-500/20 dark:bg-red-400/20 animate-pulse" />
+                        )}
+                        {voice.isListening ? (
+                          <MicrophoneStage size={16} weight="fill" className="relative z-10" />
+                        ) : (
+                          <Microphone size={16} />
+                        )}
+                        <span className="hidden sm:inline text-xs relative z-10">{voice.isListening ? 'Listening…' : 'Voice nav'}</span>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="text-xs">
+                      {voice.isListening ? 'Tap to stop' : 'Say a module name to jump there'}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
             </div>
             {/* Video Preview Section */}
             <div className="mt-4 pt-4 border-t border-border/50">
