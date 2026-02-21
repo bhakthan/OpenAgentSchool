@@ -4,8 +4,10 @@ import { isLlmProviderConfigured, getFirstAvailableProvider } from './config';
 import { buildSocraticJudgePrompt, buildDebugJudgePrompt, buildScenarioJudgePrompt, buildCriticalThinkingJudgePrompt } from '../prompts/judgePrompts';
 import type { LlmProvider } from './llm';
 
-// Use whatever provider the learner has configured (falls back gracefully)
-const STUDY_MODE_PROVIDER = getFirstAvailableProvider() as LlmProvider;
+// Use whatever provider the learner has configured — resolved fresh per call
+function getStudyModeProvider(): LlmProvider {
+  return getFirstAvailableProvider() as LlmProvider;
+}
 
 export interface LlmJudgeResponse {
   score: number; // 0-100
@@ -124,7 +126,7 @@ export async function socraticJudge(request: SocraticJudgeRequest): Promise<LlmJ
   const prompt = buildSocraticJudgePrompt(request);
 
   try {
-    const response = await callLlm(prompt, STUDY_MODE_PROVIDER);
+    const response = await callLlm(prompt, getStudyModeProvider());
     
     // Extract JSON from response, handling both plain JSON and markdown-wrapped JSON
     let jsonContent = response.content.trim();
@@ -176,7 +178,7 @@ export async function debugJudge(request: DebugJudgeRequest): Promise<LlmJudgeRe
   const prompt = buildDebugJudgePrompt(request);
 
   try {
-    const response = await callLlm(prompt, STUDY_MODE_PROVIDER);
+    const response = await callLlm(prompt, getStudyModeProvider());
     
     // Extract JSON from response, handling both plain JSON and markdown-wrapped JSON
     let jsonContent = response.content.trim();
@@ -229,7 +231,7 @@ export async function scenarioJudge(request: ScenarioJudgeRequest): Promise<LlmJ
   const prompt = buildScenarioJudgePrompt(request);
 
   try {
-    const response = await callLlm(prompt, STUDY_MODE_PROVIDER);
+    const response = await callLlm(prompt, getStudyModeProvider());
     
     // Extract JSON from response, handling both plain JSON and markdown-wrapped JSON
     let jsonContent = response.content.trim();
@@ -282,7 +284,7 @@ export async function criticalThinkingJudge(request: CriticalThinkingJudgeReques
   const prompt = buildCriticalThinkingJudgePrompt(request);
 
   try {
-    const response = await callLlm(prompt, STUDY_MODE_PROVIDER);
+    const response = await callLlm(prompt, getStudyModeProvider());
     
     // Extract JSON from response, handling both plain JSON and markdown-wrapped JSON
     let jsonContent = response.content.trim();

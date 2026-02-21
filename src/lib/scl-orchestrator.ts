@@ -13,13 +13,9 @@ import type {
   SCLObjective,
   SCLContextSummary 
 } from '@/types/supercritical';
-import { 
-  callOpenRouter, 
-  createOpenRouterConfig, 
-  getOpenRouterConfigFromEnv,
-  type OpenRouterConfig,
-  type OpenRouterModel 
-} from '@/lib/openrouter-config';
+import { callLlmWithMessages, type LlmProvider, type LlmMessage, type LlmCallOptions } from '@/lib/llm';
+import { getFirstAvailableProvider } from '@/lib/config';
+import { loadSettings } from '@/lib/userSettings';
 import { SCL_SYSTEM_FIRST_ORDER, SCL_SYSTEM_HIGHER_ORDER, SCL_SYSTEM_SYNTHESIS, buildSCL_USER_FIRST_ORDER, buildSCL_USER_HIGHER_ORDER, buildSCL_USER_SYNTHESIS } from '@/prompts/sclPrompts';
 
 // LLM Response Types
@@ -61,47 +57,37 @@ interface SynthesisResponse {
 }
 
 export class SCLOrchestrator {
-  private config: OpenRouterConfig;
+  private provider: LlmProvider;
 
-  constructor(apiKey: string, model?: OpenRouterModel, baseUrl?: string) {
-    // model defaults via createOpenRouterConfig which reads VITE_OPENROUTER_MODEL
-    this.config = createOpenRouterConfig(apiKey, model!);
-    // Override base URL if provided (for OpenAI compatibility)
-    if (baseUrl) {
-      this.config.baseUrl = baseUrl;
-    }
+  /**
+   * Create an SCL orchestrator that routes through the unified LLM layer.
+   * @param provider - The LlmProvider to use (azure, openai, openrouter, etc.)
+   */
+  constructor(provider: LlmProvider) {
+    this.provider = provider;
+    console.log(`SCL orchestrator using provider: ${provider}`);
   }
 
   /**
-   * Alternative constructor using environment variables
-   * Will try OpenRouter first, then fall back to OpenAI
+   * Create an orchestrator that respects user settings.
+   * Resolution: user preferredProvider → first available provider → openrouter.
    */
   static fromEnvironment(): SCLOrchestrator {
-    // Try OpenRouter first
-    const openRouterConfig = getOpenRouterConfigFromEnv();
-    if (openRouterConfig) {
-      console.log('SCL using OpenRouter API');
-      return new SCLOrchestrator(openRouterConfig.apiKey, openRouterConfig.model as OpenRouterModel);
+    let provider: LlmProvider;
+    try {
+      const settings = loadSettings();
+      if (settings.preferredProvider && settings.preferredProvider !== 'auto') {
+        provider = settings.preferredProvider as LlmProvider;
+        console.log(`SCL using user-preferred provider: ${provider}`);
+      } else {
+        provider = (getFirstAvailableProvider() || 'openrouter') as LlmProvider;
+        console.log(`SCL auto-detected provider: ${provider}`);
+      }
+    } catch {
+      provider = 'openrouter';
+      console.log('SCL falling back to openrouter');
     }
-
-    // Fall back to OpenAI configuration
-    const openAIKey = import.meta.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY;
-    const openAIModel = import.meta.env.VITE_OPENAI_MODEL || process.env.OPENAI_MODEL || 'gpt-4o';
-    
-    if (openAIKey) {
-      console.log('SCL using OpenAI API (via OpenRouter format)');
-      // Use OpenAI key but with OpenRouter-compatible configuration
-      const config = {
-        apiKey: openAIKey,
-        model: 'openai/' + openAIModel as OpenRouterModel,
-        baseUrl: 'https://api.openai.com/v1',
-        siteName: 'OpenAgentSchool',
-        appName: 'SCL-Analysis'
-      };
-      return new SCLOrchestrator(config.apiKey, config.model, config.baseUrl);
-    }
-
-    throw new Error('No API key found. Set VITE_OPENROUTER_API_KEY for OpenRouter or VITE_OPENAI_API_KEY for OpenAI');
+    return new SCLOrchestrator(provider);
   }
 
   /**
@@ -216,18 +202,15 @@ export class SCLOrchestrator {
 
   // Private methods for prompt building
 
-  // LLM API call using OpenRouter
+  // LLM API call — routes through the unified multi-provider layer
   private async callLLM(systemPrompt: string, userPrompt: string): Promise<string> {
-    return callOpenRouter(
-      this.config,
-      systemPrompt,
-      userPrompt,
-      {
-        temperature: 0.7,
-        maxTokens: 2000,
-        responseFormat: 'json'
-      }
-    );
+    const messages: LlmMessage[] = [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt },
+    ];
+    const opts: LlmCallOptions = { temperature: 0.7, maxTokens: 2000, responseFormat: 'json' };
+    const result = await callLlmWithMessages(messages, this.provider, opts);
+    return result.content;
   }
 
   // Response parsing
@@ -299,16 +282,18 @@ export class SCLOrchestrator {
   }
 }
 
-// Factory function for easy instantiation
-export function createSCLOrchestrator(apiKey?: string, model?: OpenRouterModel): SCLOrchestrator {
-  if (apiKey) {
-    return new SCLOrchestrator(apiKey, model);
+/**
+ * Factory function for easy instantiation.
+ * @param provider - Explicit provider override. If omitted, uses user settings → auto-detect.
+ */
+export function createSCLOrchestrator(provider?: LlmProvider): SCLOrchestrator {
+  if (provider) {
+    return new SCLOrchestrator(provider);
   }
-  
-  // Try environment variables
+  // Use user settings + auto-detect
   try {
     return SCLOrchestrator.fromEnvironment();
   } catch (error) {
-    throw new Error('OpenRouter API key required for SCL generation. Provide apiKey parameter or set VITE_OPENROUTER_API_KEY environment variable.');
+    throw new Error('No LLM provider configured for SCL. Configure an API key in Settings.');
   }
 }

@@ -20,7 +20,6 @@ import { fetchContextSummary } from '@/lib/api/knowledge';
 import { executeTemplateWorkflow, getWorkflow, OrchestratorWorkflow, cancelWorkflow } from '@/lib/api/orchestrator';
 
 interface UseSCLSessionOptions {
-  apiKey?: string;
   onProgress?: (step: string, progress: number) => void;
   onError?: (error: Error) => void;
   backendTimeoutMs?: number; // max time to wait for backend before falling back
@@ -45,11 +44,11 @@ export function useSCLSession(options: UseSCLSessionOptions = {}) {
 
   const orchestratorRef = useRef<ReturnType<typeof createSCLOrchestrator> | null>(null);
 
-  // Initialize orchestrator
+  // Initialize orchestrator — uses user-preferred provider from Settings
   const getOrchestrator = useCallback(() => {
     if (!orchestratorRef.current) {
       try {
-        orchestratorRef.current = createSCLOrchestrator(options.apiKey);
+        orchestratorRef.current = createSCLOrchestrator();
       } catch (error) {
         const errorMsg = error instanceof Error ? error.message : 'Failed to initialize SCL orchestrator';
         setState(prev => ({ ...prev, error: errorMsg }));
@@ -58,7 +57,7 @@ export function useSCLSession(options: UseSCLSessionOptions = {}) {
       }
     }
     return orchestratorRef.current;
-  }, [options.apiKey, options.onError]);
+  }, [options.onError]);
 
   // Create new session
   const createSession = useCallback((

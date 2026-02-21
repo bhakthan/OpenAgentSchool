@@ -1,5 +1,5 @@
 // Environment configuration helper for Azure Static Web Apps compatibility
-import { getSettingValue } from './userSettings';
+import { getSettingValue, loadSettings } from './userSettings';
 
 interface AppConfig {
   VITE_OPENAI_API_KEY: string;
@@ -155,9 +155,36 @@ export function getConfiguredProviders(): string[] {
 }
 
 /**
- * Get the first available configured LLM provider for Study Mode
+ * Get the first available configured LLM provider.
+ * Resolution: user preferredProvider (from Settings) → first provider with a key → 'openrouter'.
  */
 export function getFirstAvailableProvider(): string {
+  // 1. Check if the user explicitly chose a provider in Settings
+  try {
+    const settings = loadSettings();
+    if (settings.preferredProvider && settings.preferredProvider !== 'auto') {
+      // Verify the chosen provider actually has a key configured
+      const keyForProvider: Record<string, string> = {
+        openai:      'VITE_OPENAI_API_KEY',
+        azure:       'VITE_AZURE_OPENAI_API_KEY',
+        gemini:      'VITE_GEMINI_API_KEY',
+        openrouter:  'VITE_OPENROUTER_API_KEY',
+        claude:      'VITE_ANTHROPIC_API_KEY',
+        huggingface: 'VITE_HUGGINGFACE_API_KEY',
+      };
+      const envKey = keyForProvider[settings.preferredProvider];
+      if (envKey) {
+        const value = getEnvVar(envKey as keyof AppConfig);
+        if (value && value.trim() !== '' && !value.includes('your-') && !value.includes('-here')) {
+          return settings.preferredProvider;
+        }
+      }
+    }
+  } catch {
+    // settings unavailable, fall through
+  }
+
+  // 2. Auto-detect: first provider with a configured key
   const providerMappings = [
     { name: 'openai', key: 'VITE_OPENAI_API_KEY' as const },
     { name: 'azure', key: 'VITE_AZURE_OPENAI_API_KEY' as const },
@@ -174,5 +201,5 @@ export function getFirstAvailableProvider(): string {
     }
   }
   
-  return 'openai'; // Fallback to openai (will fail gracefully if not configured)
+  return 'openrouter'; // Fallback (will fail gracefully if not configured)
 }

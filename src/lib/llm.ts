@@ -3,8 +3,53 @@ import { getEnvVar } from './config';
 
 export type LlmProvider = 'openai' | 'azure' | 'gemini' | 'huggingface' | 'openrouter' | 'claude';
 
+export interface LlmMessage {
+    role: 'system' | 'user' | 'assistant';
+    content: string;
+}
+
+export interface LlmCallOptions {
+    temperature?: number;
+    maxTokens?: number;
+    /** Hint the API to return JSON (supported by OpenAI, Azure, OpenRouter) */
+    responseFormat?: 'json' | 'text';
+}
+
 interface LlmResponse {
     content: string;
+}
+
+/**
+ * Unified multi-provider LLM call with structured messages.
+ * Used by SCL and any feature needing system+user message pairs.
+ * Resolves provider credentials via getEnvVar (BYOK → env → runtime).
+ */
+export async function callLlmWithMessages(
+    messages: LlmMessage[],
+    provider: LlmProvider = 'openrouter',
+    options: LlmCallOptions = {}
+): Promise<LlmResponse> {
+    const { temperature = 0.7, maxTokens = 2000, responseFormat = 'text' } = options;
+
+    switch (provider) {
+        case 'openai':
+            return callOpenAIWithMessages(messages, temperature, maxTokens, responseFormat);
+        case 'azure':
+            return callAzureOpenAIWithMessages(messages, temperature, maxTokens, responseFormat);
+        case 'gemini':
+            return callGeminiWithMessages(messages);
+        case 'huggingface': {
+            // HuggingFace doesn't support structured messages — concatenate
+            const prompt = messages.map(m => m.content).join('\n\n');
+            return callHuggingFace(prompt);
+        }
+        case 'openrouter':
+            return callOpenRouterWithMessages(messages, temperature, maxTokens, responseFormat);
+        case 'claude':
+            return callClaudeWithMessages(messages, temperature, maxTokens);
+        default:
+            throw new Error(`Unsupported LLM provider: ${provider}`);
+    }
 }
 
 export async function callLlm(prompt: string, provider: LlmProvider = 'openai'): Promise<LlmResponse> {
@@ -291,6 +336,128 @@ async function callOpenRouter(prompt: string): Promise<LlmResponse> {
         const errorMessage = responseText.length > 200 ? responseText.substring(0, 200) + '...' : responseText;
         throw new Error(`OpenRouter returned invalid JSON response: ${errorMessage}`);
     }
+}
+
+// ---------------------------------------------------------------------------
+// Structured-message variants (used by callLlmWithMessages)
+// ---------------------------------------------------------------------------
+
+async function callOpenAIWithMessages(
+    messages: LlmMessage[], temperature: number, maxTokens: number, responseFormat: string
+): Promise<LlmResponse> {
+    const apiKey = getEnvVar('VITE_OPENAI_API_KEY');
+    if (!apiKey) throw new Error('OpenAI API key not found. Set VITE_OPENAI_API_KEY.');
+    const model = getEnvVar('VITE_OPENAI_MODEL') || 'gpt-4o';
+    const apiUrl = getEnvVar('VITE_OPENAI_API_URL') || 'https://api.openai.com/v1';
+    const body: any = { model, messages, temperature, max_tokens: maxTokens };
+    if (responseFormat === 'json') body.response_format = { type: 'json_object' };
+    const response = await fetch(`${apiUrl.replace(/\/$/, '')}/chat/completions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+        body: JSON.stringify(body),
+    });
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`OpenAI API error: ${response.status} - ${errorText}`);
+    }
+    const data = await response.json();
+    return { content: data.choices?.[0]?.message?.content || '' };
+}
+
+async function callAzureOpenAIWithMessages(
+    messages: LlmMessage[], temperature: number, maxTokens: number, responseFormat: string
+): Promise<LlmResponse> {
+    const apiKey = getEnvVar('VITE_AZURE_OPENAI_API_KEY');
+    const apiUrl = getEnvVar('VITE_AZURE_OPENAI_API_URL');
+    const model = getEnvVar('VITE_AZURE_OPENAI_MODEL');
+    if (!apiKey || !apiUrl) {
+        throw new Error('Azure OpenAI requires VITE_AZURE_OPENAI_API_KEY and VITE_AZURE_OPENAI_API_URL.');
+    }
+    const body: any = { messages, temperature, max_tokens: maxTokens };
+    if (model) body.model = model;
+    if (responseFormat === 'json') body.response_format = { type: 'json_object' };
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'api-key': apiKey },
+        body: JSON.stringify(body),
+    });
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Azure OpenAI API error: ${response.status} - ${errorText}`);
+    }
+    const data = await response.json();
+    return { content: data.choices?.[0]?.message?.content || '' };
+}
+
+async function callGeminiWithMessages(messages: LlmMessage[]): Promise<LlmResponse> {
+    // Gemini uses a different shape — map messages to contents array
+    const prompt = messages.map(m => m.content).join('\n\n');
+    return callGemini(prompt);
+}
+
+async function callOpenRouterWithMessages(
+    messages: LlmMessage[], temperature: number, maxTokens: number, responseFormat: string
+): Promise<LlmResponse> {
+    const apiKey = getEnvVar('VITE_OPENROUTER_API_KEY');
+    if (!apiKey) throw new Error('OpenRouter API key not found. Set VITE_OPENROUTER_API_KEY.');
+    const model = getEnvVar('VITE_OPENROUTER_MODEL') || 'google/gemma-3n-e4b-it:free';
+    let apiUrl = getEnvVar('VITE_OPENROUTER_API_URL') || 'https://openrouter.ai/api/v1';
+    if (!/\/chat\/completions\/?$/.test(apiUrl)) {
+        apiUrl = apiUrl.replace(/\/$/, '') + '/chat/completions';
+    }
+    const body: any = { model, messages, temperature, max_tokens: maxTokens };
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${apiKey}`,
+            'HTTP-Referer': 'https://openagentschool.org',
+            'X-Title': 'OpenAgentSchool',
+        },
+        body: JSON.stringify(body),
+    });
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`OpenRouter API error: ${response.status} - ${errorText}`);
+    }
+    const data = await response.json();
+    const content = data.choices?.[0]?.message?.content || '';
+    if (!content) throw new Error('OpenRouter returned empty content');
+    return { content };
+}
+
+async function callClaudeWithMessages(
+    messages: LlmMessage[], temperature: number, maxTokens: number
+): Promise<LlmResponse> {
+    const apiKey = getEnvVar('VITE_ANTHROPIC_API_KEY');
+    const apiUrl = getEnvVar('VITE_ANTHROPIC_API_URL');
+    const model = getEnvVar('VITE_ANTHROPIC_MODEL');
+    if (!apiKey || !apiUrl || !model) {
+        throw new Error('Anthropic requires VITE_ANTHROPIC_API_KEY, VITE_ANTHROPIC_API_URL, and VITE_ANTHROPIC_MODEL.');
+    }
+    // Claude expects system as a separate param, not in messages
+    const systemMsg = messages.find(m => m.role === 'system')?.content;
+    const nonSystem = messages.filter(m => m.role !== 'system');
+    const body: any = { model, max_tokens: maxTokens, temperature, messages: nonSystem };
+    if (systemMsg) body.system = systemMsg;
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'x-api-key': apiKey,
+            'Content-Type': 'application/json',
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true',
+        },
+        body: JSON.stringify(body),
+    });
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Claude API error: ${response.status} - ${errorText}`);
+    }
+    const data = await response.json();
+    let content = data.content || data.choices?.[0]?.message?.content || '';
+    if (typeof content !== 'string') content = JSON.stringify(content, null, 2);
+    return { content };
 }
 
 // Anthropic Claude API

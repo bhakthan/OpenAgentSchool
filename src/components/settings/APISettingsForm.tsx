@@ -225,7 +225,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
             </ol>
             <div className="mt-2 flex items-start gap-2 rounded-md bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3 py-2">
               <Lightbulb size={14} className="text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" weight="fill" />
-              <p className="text-[11px] text-amber-800 dark:text-amber-300 leading-relaxed">
+              <p className="text-[11px] text-foreground dark:text-amber-300 leading-relaxed">
                 <strong>Zero-config default:</strong> Everything works without keys if the site admin has set environment variables. These settings let <em>you</em> bring your own.
               </p>
             </div>
@@ -662,9 +662,9 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
       <div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-950/30 p-3 space-y-2">
         <div className="flex items-center gap-2">
           <Scales size={16} className="text-amber-600 dark:text-amber-400 flex-shrink-0" weight="fill" />
-          <p className="text-xs font-medium text-amber-800 dark:text-amber-200">Legal Notice — API Key Usage</p>
+          <p className="text-xs font-medium text-foreground dark:text-amber-200">Legal Notice — API Key Usage</p>
         </div>
-        <ul className="text-[11px] text-amber-700 dark:text-amber-300 leading-relaxed space-y-1 pl-6 list-disc">
+        <ul className="text-[11px] text-foreground dark:text-amber-300 leading-relaxed space-y-1 pl-6 list-disc">
           <li>
             <strong>Your responsibility.</strong> You are solely responsible for all costs, billing, and usage
             incurred through the third-party APIs you configure here (OpenAI, Azure, Google, Anthropic,
@@ -686,13 +686,13 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
         </ul>
         <div className="flex items-start gap-1.5 mt-1">
           <Warning size={12} className="text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" weight="fill" />
-          <p className="text-[10px] text-amber-600 dark:text-amber-400">
+          <p className="text-[10px] text-muted-foreground dark:text-amber-400">
             By saving settings below, you acknowledge that you have read and agree to the{' '}
             <a
               href="https://github.com/bhakthan/OpenAgentSchool/blob/main/API_KEYS_DISCLAIMER.md"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-amber-800 dark:hover:text-amber-200 font-medium"
+              className="underline hover:text-foreground dark:hover:text-amber-200 font-medium"
             >
               full API Keys Disclaimer
             </a>{' '}
