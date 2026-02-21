@@ -130,10 +130,16 @@ export function isLlmProviderConfigured(): boolean {
     'VITE_ANTHROPIC_API_KEY'
   ] as const;
 
-  return providers.some(provider => {
+  const hasStandard = providers.some(provider => {
     const value = getEnvVar(provider);
     return value && value.trim() !== '' && !value.includes('your-') && !value.includes('-here');
   });
+  if (hasStandard) return true;
+
+  // Custom provider: configured by URL+model (key optional for local runners)
+  const customUrl = getEnvVar('VITE_CUSTOM_API_URL' as keyof AppConfig);
+  const customModel = getEnvVar('VITE_CUSTOM_MODEL' as keyof AppConfig);
+  return !!(customUrl && customUrl.trim() !== '' && customModel && customModel.trim() !== '');
 }
 
 /**
@@ -147,15 +153,23 @@ export function getConfiguredProviders(): string[] {
     { name: 'HuggingFace', key: 'VITE_HUGGINGFACE_API_KEY' as const },
     { name: 'OpenRouter', key: 'VITE_OPENROUTER_API_KEY' as const },
     { name: 'Claude', key: 'VITE_ANTHROPIC_API_KEY' as const },
-    { name: 'Custom', key: 'VITE_CUSTOM_API_KEY' as const }
   ];
 
-  return providerChecks
+  const result = providerChecks
     .filter(provider => {
       const value = getEnvVar(provider.key);
       return value && value.trim() !== '' && !value.includes('your-') && !value.includes('-here');
     })
     .map(provider => provider.name);
+
+  // Custom provider: detect by URL+model (key optional for local runners)
+  const customUrl = getEnvVar('VITE_CUSTOM_API_URL' as keyof AppConfig);
+  const customModel = getEnvVar('VITE_CUSTOM_MODEL' as keyof AppConfig);
+  if (customUrl && customUrl.trim() !== '' && customModel && customModel.trim() !== '') {
+    result.push('Custom');
+  }
+
+  return result;
 }
 
 /**
@@ -167,21 +181,29 @@ export function getFirstAvailableProvider(): string {
   try {
     const settings = loadSettings();
     if (settings.preferredProvider && settings.preferredProvider !== 'auto') {
-      // Verify the chosen provider actually has a key configured
-      const keyForProvider: Record<string, string> = {
-        openai:      'VITE_OPENAI_API_KEY',
-        azure:       'VITE_AZURE_OPENAI_API_KEY',
-        gemini:      'VITE_GEMINI_API_KEY',
-        openrouter:  'VITE_OPENROUTER_API_KEY',
-        claude:      'VITE_ANTHROPIC_API_KEY',
-        huggingface: 'VITE_HUGGINGFACE_API_KEY',
-        custom:      'VITE_CUSTOM_API_KEY',
-      };
-      const envKey = keyForProvider[settings.preferredProvider];
-      if (envKey) {
-        const value = getEnvVar(envKey as keyof AppConfig);
-        if (value && value.trim() !== '' && !value.includes('your-') && !value.includes('-here')) {
-          return settings.preferredProvider;
+      // Custom provider: valid if URL + model are configured (key is optional for local runners)
+      if (settings.preferredProvider === 'custom') {
+        const url = getEnvVar('VITE_CUSTOM_API_URL' as keyof AppConfig);
+        const model = getEnvVar('VITE_CUSTOM_MODEL' as keyof AppConfig);
+        if (url && url.trim() !== '' && model && model.trim() !== '') {
+          return 'custom';
+        }
+      } else {
+        // Standard providers: verify the chosen provider actually has a key configured
+        const keyForProvider: Record<string, string> = {
+          openai:      'VITE_OPENAI_API_KEY',
+          azure:       'VITE_AZURE_OPENAI_API_KEY',
+          gemini:      'VITE_GEMINI_API_KEY',
+          openrouter:  'VITE_OPENROUTER_API_KEY',
+          claude:      'VITE_ANTHROPIC_API_KEY',
+          huggingface: 'VITE_HUGGINGFACE_API_KEY',
+        };
+        const envKey = keyForProvider[settings.preferredProvider];
+        if (envKey) {
+          const value = getEnvVar(envKey as keyof AppConfig);
+          if (value && value.trim() !== '' && !value.includes('your-') && !value.includes('-here')) {
+            return settings.preferredProvider;
+          }
         }
       }
     }
@@ -189,7 +211,7 @@ export function getFirstAvailableProvider(): string {
     // settings unavailable, fall through
   }
 
-  // 2. Auto-detect: first provider with a configured key
+  // 2. Auto-detect: first provider with a configured key (or URL+model for custom)
   const providerMappings = [
     { name: 'openai', key: 'VITE_OPENAI_API_KEY' as const },
     { name: 'azure', key: 'VITE_AZURE_OPENAI_API_KEY' as const },
@@ -197,13 +219,21 @@ export function getFirstAvailableProvider(): string {
     { name: 'openrouter', key: 'VITE_OPENROUTER_API_KEY' as const },
     { name: 'claude', key: 'VITE_ANTHROPIC_API_KEY' as const },
     { name: 'huggingface', key: 'VITE_HUGGINGFACE_API_KEY' as const },
-    { name: 'custom', key: 'VITE_CUSTOM_API_KEY' as const }
   ];
 
   for (const provider of providerMappings) {
     const value = getEnvVar(provider.key);
     if (value && value.trim() !== '' && !value.includes('your-') && !value.includes('-here')) {
       return provider.name;
+    }
+  }
+
+  // Custom provider: detect by URL + model (API key is optional for local runners)
+  {
+    const customUrl = getEnvVar('VITE_CUSTOM_API_URL' as keyof AppConfig);
+    const customModel = getEnvVar('VITE_CUSTOM_MODEL' as keyof AppConfig);
+    if (customUrl && customUrl.trim() !== '' && customModel && customModel.trim() !== '') {
+      return 'custom';
     }
   }
   

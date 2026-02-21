@@ -11,20 +11,26 @@ import { Lock, Eye, EyeSlash, Download, Upload, Trash, FloppyDisk, ShieldCheck, 
 import type { ProviderConfig, UserSettings, SttPreference, TtsPreference, SpeechServiceConfig } from '@/lib/userSettings';
 import { GlobeHemisphereWest } from '@phosphor-icons/react';
 
-// Well-known OpenAI-compatible international providers (presets)
+// Well-known OpenAI-compatible providers (presets)
 const CUSTOM_PRESETS = [
+  // Local runners — no API key required
+  { name: 'Ollama',           url: 'http://localhost:11434/v1',                  model: 'llama3.1',              region: '💻', section: 'Local' },
+  { name: 'LM Studio',        url: 'http://localhost:1234/v1',                   model: 'loaded-model',          region: '💻', section: 'Local' },
   // Chinese providers
-  { name: 'DeepSeek',        url: 'https://api.deepseek.com/v1',                model: 'deepseek-chat',         region: '🇨🇳' },
-  { name: 'Zhipu AI',        url: 'https://open.bigmodel.cn/api/paas/v4',       model: 'glm-4',                 region: '🇨🇳' },
-  { name: 'Alibaba Qwen',    url: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen-plus', region: '🇨🇳' },
-  { name: 'Moonshot AI',     url: 'https://api.moonshot.cn/v1',                 model: 'moonshot-v1-8k',        region: '🇨🇳' },
-  { name: 'Volcano Engine',  url: 'https://ark.cn-beijing.volces.com/api/v3',   model: 'doubao-seed-code',      region: '🇨🇳' },
+  { name: 'DeepSeek',         url: 'https://api.deepseek.com/v1',                model: 'deepseek-chat',         region: '🇨🇳', section: 'China' },
+  { name: 'Zhipu AI',         url: 'https://open.bigmodel.cn/api/paas/v4',       model: 'glm-4',                 region: '🇨🇳', section: 'China' },
+  { name: 'Alibaba Qwen',     url: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen-plus', region: '🇨🇳', section: 'China' },
+  { name: 'Moonshot AI',      url: 'https://api.moonshot.cn/v1',                 model: 'moonshot-v1-8k',        region: '🇨🇳', section: 'China' },
+  { name: 'Volcano Engine',   url: 'https://ark.cn-beijing.volces.com/api/v3',   model: 'doubao-seed-code',      region: '🇨🇳', section: 'China' },
   // French providers
-  { name: 'Mistral',         url: 'https://api.mistral.ai/v1',                  model: 'mistral-large-latest',  region: '🇫🇷' },
+  { name: 'Mistral',          url: 'https://api.mistral.ai/v1',                  model: 'mistral-large-latest',  region: '🇫🇷', section: 'France' },
   // Indian providers
-  { name: 'Sarvam AI',       url: 'https://api.sarvam.ai/v1',                   model: 'sarvam-2b',            region: '🇮🇳' },
-  { name: 'BharatGen',       url: 'https://api.bharatgen.ai/v1',                model: 'bharatgen-1',           region: '🇮🇳' },
+  { name: 'Sarvam AI',        url: 'https://api.sarvam.ai/v1',                   model: 'sarvam-2b',            region: '🇮🇳', section: 'India' },
+  { name: 'BharatGen',        url: 'https://api.bharatgen.ai/v1',                model: 'bharatgen-1',           region: '🇮🇳', section: 'India' },
 ] as const;
+
+/** Presets that run locally and don't require an API key */
+const LOCAL_PROVIDER_NAMES = new Set(['Ollama', 'LM Studio']);
 
 // Provider metadata for the form
 const PROVIDERS = [
@@ -34,7 +40,7 @@ const PROVIDERS = [
     defaultUrl: 'https://openrouter.ai/api/v1',
     modelPlaceholder: 'google/gemini-2.0-flash-exp:free',
     keyPlaceholder: 'sk-or-…',
-    urlRequired: false, modelRequired: false,
+    urlRequired: true, modelRequired: true,
   },
   {
     id: 'openai', label: 'OpenAI',
@@ -42,7 +48,7 @@ const PROVIDERS = [
     defaultUrl: 'https://api.openai.com/v1',
     modelPlaceholder: 'gpt-4o-mini',
     keyPlaceholder: 'sk-…',
-    urlRequired: false, modelRequired: false,
+    urlRequired: true, modelRequired: true,
   },
   {
     id: 'azure', label: 'Azure OpenAI',
@@ -58,7 +64,7 @@ const PROVIDERS = [
     defaultUrl: 'https://generativelanguage.googleapis.com/v1beta',
     modelPlaceholder: 'gemini-2.0-flash',
     keyPlaceholder: 'AIza…',
-    urlRequired: false, modelRequired: false,
+    urlRequired: true, modelRequired: true,
   },
   {
     id: 'claude', label: 'Anthropic Claude',
@@ -66,7 +72,7 @@ const PROVIDERS = [
     defaultUrl: 'https://api.anthropic.com/v1',
     modelPlaceholder: 'claude-sonnet-4-20250514',
     keyPlaceholder: 'sk-ant-…',
-    urlRequired: false, modelRequired: false,
+    urlRequired: true, modelRequired: true,
   },
   {
     id: 'huggingface', label: 'HuggingFace',
@@ -74,14 +80,14 @@ const PROVIDERS = [
     defaultUrl: 'https://api-inference.huggingface.co/models',
     modelPlaceholder: 'meta-llama/Llama-3.1-8B-Instruct',
     keyPlaceholder: 'hf_…',
-    urlRequired: false, modelRequired: false,
+    urlRequired: true, modelRequired: true,
   },
   {
-    id: 'custom' as const, label: 'Custom / International',
-    hint: 'Any OpenAI-compatible provider — DeepSeek, Mistral, Zhipu AI, Moonshot, Sarvam AI, Volcano Engine, and more.',
+    id: 'custom' as const, label: 'Custom / International / Local',
+    hint: 'Any OpenAI-compatible provider — Ollama, LM Studio, DeepSeek, Mistral, Zhipu AI, Moonshot, Sarvam AI, and more.',
     defaultUrl: '',
-    modelPlaceholder: 'deepseek-chat',
-    keyPlaceholder: 'Your API key',
+    modelPlaceholder: 'llama3.1',
+    keyPlaceholder: 'API key (not needed for local)',
     urlRequired: true, modelRequired: true,
   },
 ] as const;
@@ -303,8 +309,8 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
                         ? `${draft.customProviderName} (Custom)`
                         : provider.label}
                     </span>
-                    {cfg.apiKey && (
-                      <span className="inline-block w-2 h-2 rounded-full bg-emerald-500" title="Key configured" />
+                    {(cfg.apiKey || (provider.id === 'custom' && cfg.apiUrl && cfg.model)) && (
+                      <span className="inline-block w-2 h-2 rounded-full bg-emerald-500" title="Configured" />
                     )}
                   </div>
                 </AccordionTrigger>
@@ -321,48 +327,62 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
                           </Label>
                           <Input
                             id="custom-name"
-                            placeholder="e.g. DeepSeek, Mistral, Zhipu AI…"
+                            placeholder="e.g. Ollama, LM Studio, DeepSeek, Mistral…"
                             value={draft.customProviderName ?? ''}
                             onChange={e => setDraft(prev => ({ ...prev, customProviderName: e.target.value || undefined }))}
                             className="text-xs"
                           />
                         </div>
 
-                        {/* Quick-fill presets */}
-                        <div className="space-y-1.5">
+                        {/* Quick-fill presets — grouped by section */}
+                        <div className="space-y-2">
                           <Label className="text-xs flex items-center gap-1.5">
                             <GlobeHemisphereWest size={13} className="text-primary" weight="fill" />
                             Quick Presets
                           </Label>
-                          <div className="flex flex-wrap gap-1.5">
-                            {CUSTOM_PRESETS.map(preset => (
-                              <button
-                                key={preset.name}
-                                type="button"
-                                onClick={() => {
-                                  setDraft(prev => ({
-                                    ...prev,
-                                    customProviderName: preset.name,
-                                    providers: {
-                                      ...prev.providers,
-                                      custom: {
-                                        ...(prev.providers.custom ?? {}),
-                                        apiUrl: preset.url,
-                                        model: preset.model,
-                                      },
-                                    },
-                                  }));
-                                }}
-                                className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-1 rounded-md border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
-                                title={`${preset.name} — ${preset.url}`}
-                              >
-                                <span>{preset.region}</span>
-                                <span>{preset.name}</span>
-                              </button>
-                            ))}
-                          </div>
+                          {(['Local', 'China', 'France', 'India'] as const).map(section => {
+                            const sectionPresets = CUSTOM_PRESETS.filter(p => p.section === section);
+                            if (sectionPresets.length === 0) return null;
+                            return (
+                              <div key={section} className="space-y-1">
+                                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                                  {section === 'Local' ? '💻 Local Runners (no API key needed)' : `${sectionPresets[0].region} ${section}`}
+                                </p>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {sectionPresets.map(preset => (
+                                    <button
+                                      key={preset.name}
+                                      type="button"
+                                      onClick={() => {
+                                        const isLocal = LOCAL_PROVIDER_NAMES.has(preset.name);
+                                        setDraft(prev => ({
+                                          ...prev,
+                                          customProviderName: preset.name,
+                                          providers: {
+                                            ...prev.providers,
+                                            custom: {
+                                              apiUrl: preset.url,
+                                              model: preset.model,
+                                              // For local runners, set a dummy key so the "configured" dot appears
+                                              // but the actual fetch won't send an Authorization header (handled in llm.ts)
+                                              apiKey: isLocal ? (prev.providers.custom?.apiKey || '') : (prev.providers.custom?.apiKey ?? ''),
+                                            },
+                                          },
+                                        }));
+                                      }}
+                                      className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-1 rounded-md border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                                      title={`${preset.name} — ${preset.url}`}
+                                    >
+                                      <span>{preset.region}</span>
+                                      <span>{preset.name}</span>
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            );
+                          })}
                           <p className="text-[10px] text-muted-foreground">
-                            Click a preset to fill URL &amp; model. You still need to paste your API key.
+                            Click a preset to fill URL &amp; model. Cloud providers need an API key; local runners don't.
                           </p>
                         </div>
                       </>
@@ -370,7 +390,9 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
 
                     {/* API Key */}
                     <div className="space-y-1">
-                      <Label htmlFor={keyFieldId} className="text-xs">API Key</Label>
+                      <Label htmlFor={keyFieldId} className="text-xs">
+                        API Key{provider.id === 'custom' ? ' (optional for local)' : ''}
+                      </Label>
                       <div className="relative">
                         <Input
                           id={keyFieldId}
@@ -404,7 +426,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
                         onChange={e => setProviderField(provider.id, 'apiUrl', e.target.value)}
                         className="text-xs"
                       />
-                      {!provider.urlRequired && provider.defaultUrl && (
+                      {provider.defaultUrl && (
                         <p className="text-[11px] text-muted-foreground">Default: {provider.defaultUrl}</p>
                       )}
                       {provider.id === 'azure' && (
@@ -424,7 +446,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
                         onChange={e => setProviderField(provider.id, 'model', e.target.value)}
                         className="text-xs"
                       />
-                      {!provider.modelRequired && (
+                      {provider.modelPlaceholder && provider.id !== 'azure' && provider.id !== 'custom' && (
                         <p className="text-[11px] text-muted-foreground">Default: {provider.modelPlaceholder}</p>
                       )}
                       {provider.id === 'azure' && (

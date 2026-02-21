@@ -70,7 +70,9 @@ Open Agent School is a **comprehensive educational platform** designed to help d
 
 > **Your keys never leave your browser.** All credentials are stored in `localStorage` under `oas.user.apiSettings`. Nothing is sent to analytics, telemetry, or any third-party service.
 
-- **6 LLM Providers** — OpenAI, Azure OpenAI, Google Gemini, Anthropic Claude, Hugging Face, OpenRouter
+- **7+ LLM Providers** — OpenAI, Azure OpenAI, Google Gemini, Anthropic Claude, Hugging Face, OpenRouter, plus **Custom (OpenAI-compatible)** for any endpoint
+- **Local LLM Runners** — Ollama (`localhost:11434`) and LM Studio (`localhost:1234`) presets — run models 100% offline, no API key needed
+- **International Provider Presets** — DeepSeek, Zhipu AI (GLM), Alibaba Qwen, Moonshot AI, Volcano Engine (China); Mistral (France); Sarvam AI, BharatGen (India)
 - **Per-Provider Config** — API key, endpoint URL, and model for each provider with smart defaults and format hints
 - **Cloud Speech Services** — OpenAI Whisper, Azure Speech, Deepgram (STT) + OpenAI TTS, Azure Speech, ElevenLabs (TTS)
 - **Self-Hosted Backends** — Override Core API, Orchestrator, and Knowledge Service URLs for local or private deployments
@@ -145,6 +147,25 @@ npm run dev
 # Open http://localhost:5000
 ```
 
+### With Local LLM (Ollama or LM Studio)
+
+Run AI-powered features **100% offline** — no API key, no cloud, no cost.
+
+```bash
+# Option A: Ollama (recommended)
+# 1. Install from https://ollama.com
+# 2. Pull a model
+ollama pull gemma3:4b          # lightweight 4B model, ~3 GB
+# 3. Ollama auto-serves on http://localhost:11434
+
+# Option B: LM Studio
+# 1. Install from https://lmstudio.ai
+# 2. Download a model via the UI
+# 3. Start the local server (serves on http://localhost:1234)
+```
+
+Then in the app: **Tools → API Settings → Custom / International / Local** → click the **Ollama** or **LM Studio** preset → change the model name if needed → **Save Settings**. Done — Study Mode, Enlighten Me, and all AI features now run locally.
+
 ### With Backend Services (Optional)
 
 ```powershell
@@ -178,7 +199,7 @@ Learners who clone the repo or use the live platform can now **bring their own A
 
 | Feature | Details |
 |---------|--------|
-| **LLM Providers** | OpenAI, Azure OpenAI, Google Gemini, Anthropic Claude, Hugging Face, OpenRouter — with per-provider API key, endpoint URL, and model |
+| **LLM Providers** | OpenAI, Azure OpenAI, Google Gemini, Anthropic Claude, Hugging Face, OpenRouter, Custom (OpenAI-compatible) — plus local runners (Ollama, LM Studio) and international presets (DeepSeek, Zhipu AI, Alibaba Qwen, Moonshot AI, Volcano Engine, Mistral, Sarvam AI, BharatGen) |
 | **Smart Defaults** | Provider-specific placeholders (key format hints like `sk-…`, `AIza…`), default URLs, suggested models |
 | **Required Fields** | Azure OpenAI URL and deployment model show red asterisk indicators with amber warning messages |
 | **Cloud STT** | OpenAI Whisper API, Azure Cognitive Speech, Deepgram — beyond the free browser Web Speech API and offline Whisper WASM |
@@ -359,7 +380,7 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 - **90+ Interactive Visualizations** (D3, React Flow, custom diagrams, 40+ atomic deep-dive visualizers)
 - **10 Atomic Deep-Dive Tabs** with slider-driven interactive concept explorers
 - **8 Strategy Toolkits** (downloadable XLSX canvases)
-- **6 LLM Providers** supported in BYOK settings (OpenAI, Azure, Gemini, Claude, Hugging Face, OpenRouter)
+- **7+ LLM Providers** supported in BYOK settings (OpenAI, Azure, Gemini, Claude, Hugging Face, OpenRouter, Custom) plus Ollama, LM Studio, DeepSeek, Zhipu AI, Qwen, Moonshot, Mistral, Sarvam AI, BharatGen presets
 - **6 Cloud Speech Services** (3 STT + 3 TTS) alongside free browser-native options
 - **29 Languages** for audio narration with auto-translation
 - **5 Learning Modes** (Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)

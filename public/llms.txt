@@ -1,6 +1,6 @@
 # Open Agent School - llms.txt
 # https://llmstxt.org/ - A standard for providing context to LLMs
-# Last updated: February 14, 2026
+# Last updated: February 21, 2026
 
 > Open Agent School is a comprehensive educational platform for mastering AI agents,
 > from foundational concepts to production-ready agentic systems.
@@ -99,6 +99,21 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Prompt Injection Defense - Security patterns against injection attacks
 - Human-in-the-Loop Patterns - Approval workflows, escalation, oversight
 - Agent Cost Optimization - Token budgets, caching, model routing, batch processing
+
+### BYOK Configuration & Provider Support (February 2026)
+All API keys stored in browser localStorage — never transmitted to any server.
+
+- 7 Built-In Providers: OpenAI, Azure OpenAI, Google Gemini, Anthropic Claude, Hugging Face, OpenRouter, Custom (OpenAI-compatible)
+- Local LLM Runners: Ollama (localhost:11434), LM Studio (localhost:1234) — run models 100% offline, no API key required
+- International Provider Presets:
+  - China: DeepSeek (chat.deepseek.com), Zhipu AI / GLM-4 (open.bigmodel.cn), Alibaba Qwen (dashscope.aliyuncs.com), Moonshot AI (api.moonshot.cn), Volcano Engine (ark.cn-beijing.volces.com)
+  - France: Mistral (api.mistral.ai)
+  - India: Sarvam AI (api.sarvam.ai), BharatGen (api.bharatgen.ai)
+- Cloud STT: OpenAI Whisper API, Azure Cognitive Speech, Deepgram
+- Cloud TTS: OpenAI TTS, Azure Speech, ElevenLabs
+- Self-Hosted Backends: Override Core API, Orchestrator, Knowledge Service URLs
+- Export/Import: Share workshop configurations as JSON; merge with existing settings
+- Settings URL: https://www.openagentschool.org/settings
 
 ### Atomic Deep-Dive Visualizers (February 2026)
 40+ interactive, slider-driven React components embedded inside 10 concept pages.

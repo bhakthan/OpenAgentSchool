@@ -1,6 +1,6 @@
 # Open Agent School - ai.txt (experimental)
 # AI crawler context file for AI training and LLM discovery
-# Last updated: February 16, 2026
+# Last updated: February 21, 2026
 
 # Mission
 # Our mission: To benefit every Educational Institution, every Educator, and every Learner.
@@ -150,3 +150,16 @@ Atomic-Cost-Optimization: https://www.openagentschool.org/concepts/agent-economi
 # Contacts
 Contact: https://github.com/bhakthan/OpenAgentSchool
 Website: https://www.openagentschool.org
+
+# BYOK (Bring Your Own Key) Configuration (February 2026)
+# All API keys stored in browser localStorage — never transmitted
+Settings-API-Keys: https://www.openagentschool.org/settings
+# 7 LLM Providers: OpenAI, Azure OpenAI, Google Gemini, Anthropic Claude, Hugging Face, OpenRouter, Custom (OpenAI-compatible)
+# Local LLM Runners: Ollama (localhost:11434), LM Studio (localhost:1234) — no API key required
+# International Presets:
+#   China: DeepSeek, Zhipu AI (GLM-4), Alibaba Qwen, Moonshot AI, Volcano Engine
+#   France: Mistral
+#   India: Sarvam AI, BharatGen
+# Cloud STT: OpenAI Whisper, Azure Speech, Deepgram
+# Cloud TTS: OpenAI TTS, Azure Speech, ElevenLabs
+# Export/Import: Share workshop configs as JSON

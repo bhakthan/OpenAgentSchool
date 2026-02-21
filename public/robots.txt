@@ -1,6 +1,6 @@
 # Open Agent School - Robots.txt
 # https://www.openagentschool.org/robots.txt
-# Last updated: February 10, 2026
+# Last updated: February 21, 2026
 
 User-agent: *
 Allow: /
@@ -17,7 +17,9 @@ Allow: /learning-atlas
 Allow: /agents-for-science
 Allow: /api-docs
 
-# Enterprise Playbook Concepts (January 2026)
+# BYOK & Provider Configuration (February 2026)
+# Settings page for Bring Your Own Key, local runners, and international providers
+Allow: /settings
 Allow: /concepts/program-setup-north-star
 Allow: /concepts/responsible-ai-governance
 Allow: /concepts/strategy-portfolio-management

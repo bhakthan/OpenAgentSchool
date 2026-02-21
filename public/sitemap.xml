@@ -8,15 +8,23 @@
     <!-- Homepage -->
     <url>
         <loc>https://www.openagentschool.org/</loc>
-        <lastmod>2026-02-03</lastmod>
+        <lastmod>2026-02-21</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
+    </url>
+
+    <!-- BYOK API Settings / Provider Configuration (February 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/settings</loc>
+        <lastmod>2026-02-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
 
     <!-- Core Concepts Section -->
     <url>
         <loc>https://www.openagentschool.org/concepts/</loc>
-        <lastmod>2026-01-31</lastmod>
+        <lastmod>2026-02-21</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>

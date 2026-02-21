@@ -153,10 +153,10 @@ async function callAzureOpenAI(prompt: string): Promise<LlmResponse> {
 
 async function callGemini(prompt: string): Promise<LlmResponse> {
     const apiKey = getEnvVar('VITE_GEMINI_API_KEY');
-    let apiUrl = getEnvVar('VITE_GEMINI_API_URL');
-    const model = getEnvVar('VITE_GEMINI_MODEL');
-    if (!apiKey || !apiUrl || !model) {
-        throw new Error("VITE_GEMINI_API_KEY, VITE_GEMINI_API_URL, and VITE_GEMINI_MODEL must be set in your environment variables.");
+    let apiUrl = getEnvVar('VITE_GEMINI_API_URL') || 'https://generativelanguage.googleapis.com/v1beta';
+    const model = getEnvVar('VITE_GEMINI_MODEL') || 'gemini-2.0-flash';
+    if (!apiKey) {
+        throw new Error("VITE_GEMINI_API_KEY must be set in your environment variables.");
     }
     apiUrl = `${apiUrl}?key=${apiKey}`;
     const response = await fetch(apiUrl, {
@@ -190,10 +190,10 @@ async function callGemini(prompt: string): Promise<LlmResponse> {
 // HuggingFace Inference API
 async function callHuggingFace(prompt: string): Promise<LlmResponse> {
     const apiKey = getEnvVar('VITE_HUGGINGFACE_API_KEY');
-    const apiUrl = getEnvVar('VITE_HUGGINGFACE_API_URL');
-    const model = getEnvVar('VITE_HUGGINGFACE_MODEL');
-    if (!apiKey || !apiUrl || !model) {
-        throw new Error("VITE_HUGGINGFACE_API_KEY, VITE_HUGGINGFACE_API_URL, and VITE_HUGGINGFACE_MODEL must be set in your environment variables.");
+    const apiUrl = getEnvVar('VITE_HUGGINGFACE_API_URL') || 'https://api-inference.huggingface.co/models';
+    const model = getEnvVar('VITE_HUGGINGFACE_MODEL') || 'meta-llama/Llama-3.1-8B-Instruct';
+    if (!apiKey) {
+        throw new Error("VITE_HUGGINGFACE_API_KEY must be set in your environment variables.");
     }
     const response = await fetch(apiUrl, {
         method: 'POST',
@@ -434,10 +434,10 @@ async function callClaudeWithMessages(
     messages: LlmMessage[], temperature: number, maxTokens: number
 ): Promise<LlmResponse> {
     const apiKey = getEnvVar('VITE_ANTHROPIC_API_KEY');
-    const apiUrl = getEnvVar('VITE_ANTHROPIC_API_URL');
-    const model = getEnvVar('VITE_ANTHROPIC_MODEL');
-    if (!apiKey || !apiUrl || !model) {
-        throw new Error('Anthropic requires VITE_ANTHROPIC_API_KEY, VITE_ANTHROPIC_API_URL, and VITE_ANTHROPIC_MODEL.');
+    const apiUrl = getEnvVar('VITE_ANTHROPIC_API_URL') || 'https://api.anthropic.com/v1/messages';
+    const model = getEnvVar('VITE_ANTHROPIC_MODEL') || 'claude-sonnet-4-20250514';
+    if (!apiKey) {
+        throw new Error('Anthropic requires VITE_ANTHROPIC_API_KEY.');
     }
     // Claude expects system as a separate param, not in messages
     const systemMsg = messages.find(m => m.role === 'system')?.content;
@@ -467,10 +467,10 @@ async function callClaudeWithMessages(
 // Anthropic Claude API
 async function callClaude(prompt: string): Promise<LlmResponse> {
     const apiKey = getEnvVar('VITE_ANTHROPIC_API_KEY');
-    const apiUrl = getEnvVar('VITE_ANTHROPIC_API_URL');
-    const model = getEnvVar('VITE_ANTHROPIC_MODEL');
-    if (!apiKey || !apiUrl || !model) {
-        throw new Error("VITE_ANTHROPIC_API_KEY, VITE_ANTHROPIC_API_URL, and VITE_ANTHROPIC_MODEL must be set in your environment variables.");
+    const apiUrl = getEnvVar('VITE_ANTHROPIC_API_URL') || 'https://api.anthropic.com/v1/messages';
+    const model = getEnvVar('VITE_ANTHROPIC_MODEL') || 'claude-sonnet-4-20250514';
+    if (!apiKey) {
+        throw new Error("VITE_ANTHROPIC_API_KEY must be set in your environment variables.");
     }
     const response = await fetch(apiUrl, {
         method: 'POST',
@@ -517,7 +517,8 @@ async function callClaude(prompt: string): Promise<LlmResponse> {
 
 /**
  * Call any OpenAI-compatible provider (structured messages variant).
- * User must configure VITE_CUSTOM_API_KEY, VITE_CUSTOM_API_URL, and VITE_CUSTOM_MODEL.
+ * Works with cloud APIs (DeepSeek, Mistral, etc.) and local runners (Ollama, LM Studio).
+ * API key is optional for local providers.
  */
 async function callCustomWithMessages(
     messages: LlmMessage[], temperature: number, maxTokens: number, responseFormat: string
@@ -526,10 +527,10 @@ async function callCustomWithMessages(
     const apiUrl = getEnvVar('VITE_CUSTOM_API_URL');
     const model  = getEnvVar('VITE_CUSTOM_MODEL');
 
-    if (!apiKey || !apiUrl || !model) {
+    if (!apiUrl || !model) {
         throw new Error(
-            'Custom provider requires API Key, Base URL, and Model. ' +
-            'Configure them in Settings → Custom / International Provider.'
+            'Custom provider requires Base URL and Model. ' +
+            'Configure them in Settings → Custom / International / Local Provider.'
         );
     }
 
@@ -542,12 +543,15 @@ async function callCustomWithMessages(
     const body: Record<string, unknown> = { model, messages, temperature, max_tokens: maxTokens };
     if (responseFormat === 'json') body.response_format = { type: 'json_object' };
 
+    // Build headers — API key is optional (Ollama / LM Studio don't need one)
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (apiKey && apiKey.trim() !== '') {
+        headers['Authorization'] = `Bearer ${apiKey}`;
+    }
+
     const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`,
-        },
+        headers,
         body: JSON.stringify(body),
     });
 
