@@ -208,6 +208,31 @@
     color: oklch(0.44 0.02 240);
   }
 
+  .light .core-concepts-flat-ui [class*="bg-blue-50"],
+  .light .core-concepts-flat-ui [class*="bg-violet-50"],
+  .light .core-concepts-flat-ui [class*="bg-purple-50"],
+  .light .core-concepts-flat-ui [class*="bg-green-50"],
+  .light .core-concepts-flat-ui [class*="bg-emerald-50"],
+  .light .core-concepts-flat-ui [class*="bg-amber-50"],
+  .light .core-concepts-flat-ui [class*="bg-orange-50"],
+  .light .core-concepts-flat-ui [class*="bg-red-50"],
+  .light .core-concepts-flat-ui [class*="bg-yellow-50"],
+  .light .core-concepts-flat-ui [class*="bg-gray-50"] {
+    background-color: color-mix(in oklab, var(--background) 95%, var(--muted));
+  }
+
+  .light .core-concepts-flat-ui [class*="border-blue-"],
+  .light .core-concepts-flat-ui [class*="border-violet-"],
+  .light .core-concepts-flat-ui [class*="border-purple-"],
+  .light .core-concepts-flat-ui [class*="border-green-"],
+  .light .core-concepts-flat-ui [class*="border-emerald-"],
+  .light .core-concepts-flat-ui [class*="border-amber-"],
+  .light .core-concepts-flat-ui [class*="border-orange-"],
+  .light .core-concepts-flat-ui [class*="border-red-"],
+  .light .core-concepts-flat-ui [class*="border-yellow-"] {
+    border-color: color-mix(in oklab, var(--border) 85%, #cbd5e1);
+  }
+
   .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-orange-50 .text-muted-foreground,
   .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-blue-50 .text-muted-foreground,
   .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-violet-50 .text-muted-foreground,
@@ -218,14 +243,16 @@
     color: oklch(0.34 0.015 245);
   }
 
-  .light .core-concepts-flat-ui .text-green-600 { color: #047857; }
-  .light .core-concepts-flat-ui .text-emerald-700 { color: #065f46; }
-  .light .core-concepts-flat-ui .text-blue-600 { color: #1d4ed8; }
-  .light .core-concepts-flat-ui .text-blue-700 { color: #1e40af; }
-  .light .core-concepts-flat-ui .text-orange-600 { color: #c2410c; }
-  .light .core-concepts-flat-ui .text-amber-700 { color: #b45309; }
-  .light .core-concepts-flat-ui .text-purple-600 { color: #7e22ce; }
-  .light .core-concepts-flat-ui .text-violet-700 { color: #6d28d9; }
+  .light .core-concepts-flat-ui .text-green-600,
+  .light .core-concepts-flat-ui .text-emerald-700,
+  .light .core-concepts-flat-ui .text-blue-600,
+  .light .core-concepts-flat-ui .text-blue-700,
+  .light .core-concepts-flat-ui .text-orange-600,
+  .light .core-concepts-flat-ui .text-amber-700,
+  .light .core-concepts-flat-ui .text-purple-600,
+  .light .core-concepts-flat-ui .text-violet-700 {
+    color: color-mix(in oklab, var(--foreground) 88%, #334155);
+  }
 
   .dark .flat-ui-2-theme .bg-card,
   .dark .flat-ui-2-theme [data-slot="card"],
@@ -248,6 +275,30 @@
 
   .dark .flat-ui-2-theme .text-muted-foreground {
     color: oklch(0.76 0.015 240);
+  }
+
+  .dark .core-concepts-flat-ui [class*="dark:bg-blue-900"],
+  .dark .core-concepts-flat-ui [class*="dark:bg-violet-900"],
+  .dark .core-concepts-flat-ui [class*="dark:bg-purple-900"],
+  .dark .core-concepts-flat-ui [class*="dark:bg-green-900"],
+  .dark .core-concepts-flat-ui [class*="dark:bg-emerald-900"],
+  .dark .core-concepts-flat-ui [class*="dark:bg-amber-900"],
+  .dark .core-concepts-flat-ui [class*="dark:bg-orange-900"],
+  .dark .core-concepts-flat-ui [class*="dark:bg-red-900"],
+  .dark .core-concepts-flat-ui [class*="dark:bg-yellow-900"] {
+    background-color: color-mix(in oklab, var(--background) 84%, #1f2937);
+  }
+
+  .dark .core-concepts-flat-ui [class*="dark:text-blue-"],
+  .dark .core-concepts-flat-ui [class*="dark:text-violet-"],
+  .dark .core-concepts-flat-ui [class*="dark:text-purple-"],
+  .dark .core-concepts-flat-ui [class*="dark:text-green-"],
+  .dark .core-concepts-flat-ui [class*="dark:text-emerald-"],
+  .dark .core-concepts-flat-ui [class*="dark:text-amber-"],
+  .dark .core-concepts-flat-ui [class*="dark:text-orange-"],
+  .dark .core-concepts-flat-ui [class*="dark:text-red-"],
+  .dark .core-concepts-flat-ui [class*="dark:text-yellow-"] {
+    color: color-mix(in oklab, var(--foreground) 92%, #cbd5e1);
   }
 
   .dark .flat-ui-2-theme pre,

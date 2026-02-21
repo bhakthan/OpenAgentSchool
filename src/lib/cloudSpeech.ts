@@ -204,7 +204,87 @@ export async function speakElevenLabs(text: string, lang?: string): Promise<Arra
   if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${await res.text()}`);
   return res.arrayBuffer();
 }
+// ─── TTS — OpenAI Audio Model (translate + speak in one call) ─────────
 
+/**
+ * Uses audio-capable chat models (OpenAI gpt-4o-mini-audio-preview,
+ * Azure OpenAI deployments, etc.) to translate *and* narrate text in
+ * a single API call.
+ *
+ * The model receives the English text and a system instruction to narrate
+ * in the target language. It returns base64-encoded audio directly.
+ * This collapses the translate → TTS pipeline into one round-trip.
+ *
+ * Key resolution: openaiSpeech config → openai provider → azure provider → openrouter provider.
+ */
+export async function speakOpenAIAudio(
+  text: string,
+  lang: string = 'en-US',
+  langLabel: string = 'English',
+): Promise<ArrayBuffer> {
+  const settings = loadSettings();
+  const cfg = settings.speechServices?.openaiSpeech;
+  const apiKey = resolveKey(cfg, 'openai') ?? resolveKey(cfg, 'azure') ?? resolveKey(cfg, 'openrouter');
+  if (!apiKey) throw new Error('No API key configured for Audio Model. Set an OpenAI or Azure OpenAI key in Settings → Provider keys.');
+
+  // Determine base URL: speech-service config → openai provider URL → azure provider URL → default
+  const cfgUrl = cfg?.apiUrl;
+  const providerUrl = settings.providers.openai?.apiUrl || settings.providers.azure?.apiUrl;
+  const rawUrl = cfgUrl || providerUrl || 'https://api.openai.com/v1';
+  // Strip trailing paths like /audio/speech or /chat/completions so we get a clean base
+  const baseUrl = rawUrl.replace(/\/(audio|chat)\/.*$/, '').replace(/\/$/, '');
+  const url = `${baseUrl}/chat/completions`;
+  const model = cfg?.model || 'gpt-4o-mini-audio-preview';
+  const voice = cfg?.voiceId || 'coral';
+
+  // Detect whether this is an Azure OpenAI endpoint (uses api-key header instead of Bearer)
+  const isAzure = baseUrl.includes('.openai.azure.com') || baseUrl.includes('.cognitive.microsoft.com');
+
+  const isEnglish = lang.startsWith('en');
+  const systemPrompt = isEnglish
+    ? 'You are an educational audio narrator. Read the following content aloud clearly and naturally. Do not add any commentary — just narrate the content exactly as provided.'
+    : `You are an educational audio narrator fluent in ${langLabel}. Translate the following English content into ${langLabel} and narrate it aloud naturally. Do not add commentary or preambles — output only the ${langLabel} narration.`;
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  if (isAzure) {
+    headers['api-key'] = apiKey;
+  } else {
+    headers['Authorization'] = `Bearer ${apiKey}`;
+  }
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      model,
+      modalities: ['text', 'audio'],
+      audio: { voice, format: 'mp3' },
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: text },
+      ],
+    }),
+  });
+
+  if (!res.ok) throw new Error(`Audio Model ${res.status}: ${await res.text()}`);
+  const data = await res.json();
+
+  // Extract base64-encoded audio from the response
+  const audioData = data.choices?.[0]?.message?.audio?.data;
+  if (!audioData) {
+    throw new Error('OpenAI Audio response did not contain audio data. Ensure the model supports audio output.');
+  }
+
+  // Decode base64 to ArrayBuffer
+  const binaryStr = atob(audioData);
+  const bytes = new Uint8Array(binaryStr.length);
+  for (let i = 0; i < binaryStr.length; i++) {
+    bytes[i] = binaryStr.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
 // ─── Convenience dispatchers ─────────────────────────────────────────────
 
 /** Play audio from an ArrayBuffer through the browser's audio system. */

@@ -5,7 +5,7 @@ import { LANGUAGES, LanguageCode, getLocaleFor } from '@/lib/languages';
 import { buildNarrationTranslatePrompt, buildStrictNativeScriptRetry } from '@/prompts/translationPrompts';
 import { PREFERRED_VOICES_BY_LANG } from '@/lib/voices';
 import { loadSettings, type TtsPreference } from '@/lib/userSettings';
-import { speakOpenAI, speakAzure, speakElevenLabs, playAudioBuffer } from '@/lib/cloudSpeech';
+import { speakOpenAI, speakOpenAIAudio, speakAzure, speakElevenLabs, playAudioBuffer } from '@/lib/cloudSpeech';
 
 // Language types and list are sourced from src/lib/languages.ts
 
@@ -347,21 +347,28 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       const ttsPref: TtsPreference = loadSettings().ttsPreference ?? 'browser';
 
       if (ttsPref !== 'browser') {
-        // Cloud TTS path: fetch text, translate, send to cloud API, play audio
+        // Cloud TTS path: fetch text, translate (unless openai-audio handles it), send to cloud API, play audio
         const baseText = await fetchAudioContent(componentName, level, contentType);
         const targetLang = state.selectedLanguage || 'en';
-        const text = await translateIfNeeded(baseText, targetLang);
-
         const bcp47 = getLocaleFor(targetLang);
+        const langLabel = LANGUAGES.find(l => l.code === targetLang)?.label || 'English';
+
         let audioBuffer: ArrayBuffer;
-        if (ttsPref === 'openai-tts') {
-          audioBuffer = await speakOpenAI(text, bcp47);
-        } else if (ttsPref === 'azure-speech') {
-          audioBuffer = await speakAzure(text, bcp47);
-        } else if (ttsPref === 'elevenlabs') {
-          audioBuffer = await speakElevenLabs(text, bcp47);
+        if (ttsPref === 'openai-audio') {
+          // Single API call: model translates + narrates in one shot — skip translateIfNeeded
+          audioBuffer = await speakOpenAIAudio(baseText, bcp47, langLabel);
         } else {
-          throw new Error(`Unknown TTS preference: ${ttsPref}`);
+          // Standard cloud TTS: translate first, then speak
+          const text = await translateIfNeeded(baseText, targetLang);
+          if (ttsPref === 'openai-tts') {
+            audioBuffer = await speakOpenAI(text, bcp47);
+          } else if (ttsPref === 'azure-speech') {
+            audioBuffer = await speakAzure(text, bcp47);
+          } else if (ttsPref === 'elevenlabs') {
+            audioBuffer = await speakElevenLabs(text, bcp47);
+          } else {
+            throw new Error(`Unknown TTS preference: ${ttsPref}`);
+          }
         }
 
         await playAudioBuffer(audioBuffer);

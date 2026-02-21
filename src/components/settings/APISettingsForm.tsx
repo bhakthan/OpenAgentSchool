@@ -650,12 +650,59 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
             <Label htmlFor="tts-azure" className="text-xs font-normal">Azure Speech Services (enterprise) · 400+ neural voices across 140+ languages</Label>
           </div>
           <div className="flex items-center gap-2">
+            <RadioGroupItem value="openai-audio" id="tts-openai-audio" />
+            <Label htmlFor="tts-openai-audio" className="text-xs font-normal">Audio Model — OpenAI / Azure OpenAI (translate + speak in 1 call) · no separate LLM key needed</Label>
+          </div>
+          <div className="flex items-center gap-2">
             <RadioGroupItem value="elevenlabs" id="tts-eleven" />
             <Label htmlFor="tts-eleven" className="text-xs font-normal">ElevenLabs (ultra-realistic) · multilingual v2, 29+ languages</Label>
           </div>
         </RadioGroup>
 
         {/* Cloud TTS credential fields */}
+        {draft.ttsPreference === 'openai-audio' && (
+          <div className="space-y-2 pl-6 border-l-2 border-primary/20">
+            <p className="text-[11px] text-muted-foreground">Uses an audio-capable chat model (OpenAI or Azure OpenAI) to translate <em>and</em> narrate in a single API call — no separate LLM translation step. Uses your OpenAI / Azure key from above, or set a dedicated one:</p>
+            <div className="space-y-1">
+              <Label htmlFor="tts-oa-key" className="text-xs">API Key (optional override)</Label>
+              <Input
+                id="tts-oa-key"
+                type="password"
+                placeholder="sk-… (falls back to OpenAI provider key)"
+                value={draft.speechServices?.openaiSpeech?.apiKey ?? ''}
+                onChange={e => setSpeechServiceField('openaiSpeech', 'apiKey', e.target.value)}
+                className="text-xs font-mono"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="tts-oa-voice" className="text-xs">Voice</Label>
+              <Select
+                value={draft.speechServices?.openaiSpeech?.voiceId ?? ''}
+                onValueChange={v => setSpeechServiceField('openaiSpeech', 'voiceId', v)}
+              >
+                <SelectTrigger id="tts-oa-voice" className="w-full text-xs">
+                  <SelectValue placeholder="coral (default)" />
+                </SelectTrigger>
+                <SelectContent>
+                  {['alloy', 'ash', 'ballad', 'coral', 'echo', 'fable', 'nova', 'onyx', 'sage', 'shimmer', 'verse'].map(v => (
+                    <SelectItem key={v} value={v}>{v}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="tts-oa-model" className="text-xs">Model</Label>
+              <Input
+                id="tts-oa-model"
+                placeholder="gpt-4o-mini-audio-preview"
+                value={draft.speechServices?.openaiSpeech?.model ?? ''}
+                onChange={e => setSpeechServiceField('openaiSpeech', 'model', e.target.value)}
+                className="text-xs"
+              />
+              <p className="text-[10px] text-muted-foreground">Any audio-capable model name — e.g. gpt-4o-mini-audio-preview, gpt-4o-audio-preview, or your Azure OpenAI deployment name.</p>
+            </div>
+          </div>
+        )}
         {draft.ttsPreference === 'openai-tts' && (
           <div className="space-y-2 pl-6 border-l-2 border-primary/20">
             <p className="text-[11px] text-muted-foreground">Uses your OpenAI key from above, or set a dedicated one:</p>

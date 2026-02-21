@@ -19,7 +19,7 @@ type AppConfigKey =
   | 'VITE_CUSTOM_API_KEY' | 'VITE_CUSTOM_API_URL' | 'VITE_CUSTOM_MODEL';
 
 export type SttPreference = 'auto' | 'web-speech' | 'whisper-wasm' | 'openai-whisper' | 'azure-speech' | 'deepgram';
-export type TtsPreference = 'browser' | 'openai-tts' | 'azure-speech' | 'elevenlabs';
+export type TtsPreference = 'browser' | 'openai-tts' | 'openai-audio' | 'azure-speech' | 'elevenlabs';
 
 export interface ProviderConfig {
   apiKey?: string;
