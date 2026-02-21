@@ -407,7 +407,7 @@ function App() {
                 <UserMenu />
                 <Link
                   to="/tree-view"
-                  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-gradient-to-r from-yellow-400 to-amber-500 px-3 py-2 text-sm font-bold text-gray-900 transition-all hover:from-yellow-500 hover:to-amber-600 hover:shadow-lg hover:scale-105"
+                  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-gradient-to-r from-yellow-400 to-amber-500 px-3 py-2 text-sm font-bold text-white transition-all hover:from-yellow-500 hover:to-amber-600 hover:shadow-lg hover:scale-105"
                   title="Explore the interactive Learning Atlas — visual taxonomy of all concepts"
                 >
                   <Tree size={16} weight="duotone" className="mr-1" />
@@ -558,11 +558,11 @@ function App() {
                                           to={item.to}
                                           className={cn(
                                             "group block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none focus:outline-none focus-visible:outline-none transition-all duration-200",
-                                            "bg-white dark:bg-gray-900",
-                                            "hover:bg-gray-50 dark:hover:bg-gray-800 hover:translate-x-0.5 hover:shadow-sm",
-                                            "focus:bg-gray-50 dark:focus:bg-gray-800",
-                                            "border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700",
-                                            location.pathname === item.to && "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                                            "bg-background/40 dark:bg-background/40",
+                                            "hover:bg-accent/50 dark:hover:bg-accent/40 hover:translate-x-0.5 hover:shadow-sm",
+                                            "focus:bg-accent/50 dark:focus:bg-accent/40",
+                                            "border border-transparent",
+                                            location.pathname === item.to && "bg-accent/60 text-accent-foreground border-border/40 dark:border-border/60"
                                           )}
                                         >
                                           <div className="flex items-center gap-2 text-sm font-medium leading-none mb-1.5">
@@ -571,7 +571,7 @@ function App() {
                                             </span>
                                             <span className="text-gray-900 dark:text-white">{item.label}</span>
                                             {item.isNew && (
-                                              <span className="ml-auto px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 rounded-full">
+                                              <span className="ml-auto px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide bg-gradient-to-r from-yellow-400 to-amber-500 text-white rounded-full">
                                                 New
                                               </span>
                                             )}
@@ -628,7 +628,7 @@ function App() {
                                   {category.label}
                                 </span>
                                 {hasNewItems(category) && (
-                                  <span className="ml-1 px-1.5 py-0.5 text-[9px] font-bold uppercase bg-yellow-500 text-gray-900 rounded-full">
+                                  <span className="ml-1 px-1.5 py-0.5 text-[9px] font-bold uppercase bg-yellow-500 text-white rounded-full">
                                     New
                                   </span>
                                 )}
@@ -647,7 +647,7 @@ function App() {
                                     {item.icon}
                                     <span className="flex-1">{item.label}</span>
                                     {item.isNew && (
-                                      <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase bg-gradient-to-r from-yellow-400 to-amber-500 text-gray-900 rounded-full">
+                                      <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase bg-gradient-to-r from-yellow-400 to-amber-500 text-white rounded-full">
                                         New
                                       </span>
                                     )}

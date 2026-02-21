@@ -2,11 +2,12 @@ import React, { useRef, useState } from 'react';
 import { jsonrepair } from 'jsonrepair';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Target, Lightning, Copy, Printer, Brain, Question, CaretDown, CaretUp } from '@phosphor-icons/react';
+import { ArrowLeft, Target, Lightning, Copy, Printer, Brain, Question, CaretDown, CaretUp, ShieldWarning, Timer, Stack, Scales } from '@phosphor-icons/react';
 import { SCLControls } from './SCLControls';
 import { Badge } from '@/components/ui/badge';
 import { ShareButton } from '@/components/ui/ShareButton';
 import { z } from 'zod';
+import type { SCLMode } from '@/types/supercritical';
 
 interface SuperCriticalLearningProps {
   onBack?: () => void;
@@ -17,7 +18,7 @@ interface SuperCriticalLearningProps {
 function SuperCriticalLearning({ 
   onBack
 }: SuperCriticalLearningProps) {
-  const [selectedMode, setSelectedMode] = useState<'consolidate' | 'extrapolate' | 'transfer' | 'stress-test' | 'intervene' | 'counterfactual' | 'leap-focus' | 'mechanism-audit' | null>(null);
+  const [selectedMode, setSelectedMode] = useState<SCLMode | null>(null);
   const [analysisStarted, setAnalysisStarted] = useState(false);
   const [analysisSeeds, setAnalysisSeeds] = useState<any>(null);
   const [analysisStep, setAnalysisStep] = useState<'first-order' | 'higher-order' | 'synthesis' | 'complete'>('first-order');
@@ -1066,9 +1067,10 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                 </p>
                 <ul className="list-disc list-inside space-y-1">
                   <li>
-                    <strong>Modes:</strong> Consolidate (baseline), Extrapolate (creative), Transfer (cross-domain),
-                    Stress-Test (resilience), Intervene (levers), Counterfactual (assumptions),
-                    Threshold/Leaps (discontinuities), Mechanism Audit (causal rigor).
+                    <strong>12 Modes:</strong> Consolidate, Extrapolate, Transfer, Stress-Test, Intervene,
+                    Counterfactual, Threshold/Leaps, Mechanism Audit — plus <em>Red Team</em> (adversarial),
+                    <em>Temporal Simulation</em> (phased rollout), <em>Compose</em> (multi-mode synthesis),
+                    and <em>Regulatory Impact</em> (compliance mapping).
                   </li>
                   <li>
                     <strong>Seeds</strong> set the starting context (concepts, patterns, practices). Use the defaults or
@@ -1079,8 +1081,8 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                     a Rubric to evaluate solution quality.
                   </li>
                   <li>
-                    <strong>Tip:</strong> Start with Consolidate or Transfer to map invariants, then Stress-Test or
-                    Intervene to probe weak links.
+                    <strong>Tip:</strong> Start with Consolidate → Stress-Test → Intervene for resilience analysis, or
+                    try Red Team → Regulatory Impact → Compose for security compliance.
                   </li>
                 </ul>
               </CardContent>
@@ -1148,9 +1150,10 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               </p>
               <ul className="list-disc list-inside space-y-1">
                 <li>
-                  <strong>Modes:</strong> Consolidate (baseline), Extrapolate (creative), Transfer (cross-domain),
-                  Stress-Test (resilience), Intervene (levers), Counterfactual (assumptions),
-                  Threshold/Leaps (discontinuities), Mechanism Audit (causal rigor).
+                  <strong>12 Modes:</strong> Consolidate, Extrapolate, Transfer, Stress-Test, Intervene,
+                  Counterfactual, Threshold/Leaps, Mechanism Audit — plus <em>Red Team</em> (adversarial),
+                  <em>Temporal Simulation</em> (phased rollout), <em>Compose</em> (multi-mode synthesis),
+                  and <em>Regulatory Impact</em> (compliance mapping).
                 </li>
                 <li>
                   <strong>Seeds</strong> set the starting context (concepts, patterns, practices). Use the defaults or
@@ -1161,8 +1164,8 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                   a Rubric to evaluate solution quality.
                 </li>
                 <li>
-                  <strong>Tip:</strong> Start with Consolidate or Transfer to map invariants, then Stress-Test or
-                  Intervene to probe weak links.
+                  <strong>Tip:</strong> Start with Consolidate → Stress-Test → Intervene for resilience analysis, or
+                  try Red Team → Regulatory Impact → Compose for security compliance.
                 </li>
               </ul>
             </CardContent>
@@ -1298,6 +1301,62 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
                       Mechanism Audit
                     </CardTitle>
                     <CardDescription className="text-sm">Require mechanisms/delays; flag weak links</CardDescription>
+                  </CardHeader>
+                </Card>
+              </div>
+
+              {/* New World-Class Modes */}
+              <p className="text-sm text-muted-foreground font-medium pt-2">World-Class Analysis Modes</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-red-500/50 bg-gradient-to-br from-red-50/30 to-transparent dark:from-red-950/10" onClick={() => setSelectedMode('red-team')}>
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="secondary" className="bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">Adversarial</Badge>
+                    </div>
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <ShieldWarning className="h-5 w-5 text-red-600" />
+                      Red Team
+                    </CardTitle>
+                    <CardDescription className="text-sm">Adversarial analysis — find exploit paths and attack cascades</CardDescription>
+                  </CardHeader>
+                </Card>
+
+                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-indigo-500/50 bg-gradient-to-br from-indigo-50/30 to-transparent dark:from-indigo-950/10" onClick={() => setSelectedMode('temporal-sim')}>
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="secondary" className="bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400">Simulation</Badge>
+                    </div>
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Timer className="h-5 w-5 text-indigo-600" />
+                      Temporal Simulation
+                    </CardTitle>
+                    <CardDescription className="text-sm">Week-by-week timeline with decision gates and rollback triggers</CardDescription>
+                  </CardHeader>
+                </Card>
+
+                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-teal-500/50 bg-gradient-to-br from-teal-50/30 to-transparent dark:from-teal-950/10" onClick={() => setSelectedMode('compose')}>
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="secondary" className="bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400">Meta</Badge>
+                    </div>
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Stack className="h-5 w-5 text-teal-600" />
+                      Compose
+                    </CardTitle>
+                    <CardDescription className="text-sm">Layer two analysis modes — find synergies and tensions</CardDescription>
+                  </CardHeader>
+                </Card>
+
+                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-violet-500/50 bg-gradient-to-br from-violet-50/30 to-transparent dark:from-violet-950/10" onClick={() => setSelectedMode('regulatory-impact')}>
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="secondary" className="bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400">Compliance</Badge>
+                    </div>
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Scales className="h-5 w-5 text-violet-600" />
+                      Regulatory Impact
+                    </CardTitle>
+                    <CardDescription className="text-sm">Map effects through EU AI Act, NIST AI RMF, ISO 42001</CardDescription>
                   </CardHeader>
                 </Card>
               </div>

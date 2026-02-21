@@ -117,7 +117,11 @@ export async function transcribeDeepgram(audioBlob: Blob, lang = 'en'): Promise<
 
 // ─── TTS — OpenAI ────────────────────────────────────────────────────────
 
-export async function speakOpenAI(text: string): Promise<ArrayBuffer> {
+/**
+ * OpenAI TTS — language is auto-detected from the input text.
+ * Pass `lang` (BCP-47) for logging/future API support.
+ */
+export async function speakOpenAI(text: string, _lang?: string): Promise<ArrayBuffer> {
   const settings = loadSettings();
   const cfg = settings.speechServices?.openaiSpeech;
   const apiKey = resolveKey(cfg, 'openai') ?? resolveKey(cfg, 'openrouter');
@@ -167,7 +171,11 @@ export async function speakAzure(text: string, lang = 'en-US'): Promise<ArrayBuf
 
 // ─── TTS — ElevenLabs ────────────────────────────────────────────────────
 
-export async function speakElevenLabs(text: string): Promise<ArrayBuffer> {
+/**
+ * ElevenLabs TTS — `eleven_multilingual_v2` auto-detects language from text.
+ * Pass `lang` (BCP-47) for optional language_code hint.
+ */
+export async function speakElevenLabs(text: string, lang?: string): Promise<ArrayBuffer> {
   const settings = loadSettings();
   const cfg = settings.speechServices?.elevenlabs;
   if (!cfg?.apiKey) throw new Error('No ElevenLabs API key configured. Set one in Settings.');
@@ -176,16 +184,22 @@ export async function speakElevenLabs(text: string): Promise<ArrayBuffer> {
   const model = cfg.model || 'eleven_multilingual_v2';
   const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
 
+  const body: Record<string, unknown> = {
+    text,
+    model_id: model,
+  };
+  // ElevenLabs multilingual_v2 can accept an optional language_code hint
+  if (lang && model.includes('multilingual')) {
+    body.language_code = lang;
+  }
+
   const res = await fetch(url, {
     method: 'POST',
     headers: {
       'xi-api-key': cfg.apiKey,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      text,
-      model_id: model,
-    }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${await res.text()}`);
   return res.arrayBuffer();

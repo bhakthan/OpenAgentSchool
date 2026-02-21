@@ -73,6 +73,90 @@ export const perspectivesRegistry: PerspectiveMeta[] = [
     cascadeHint: 'Model confidence miscalibration feedback loops, explanation fatigue reducing adoption, recovery experience shaping retention.',
     synthesisHint: 'Add calibrated confidence gap metric, explanation layering adoption stats, intervention friction points, recovery success rate actions.',
     kpis: ['Calibration gap', 'User reported trust score', 'Error recovery rate']
+  },
+  {
+    id: 'security-adversarial',
+    label: 'Security & Adversarial',
+    short: 'Sec',
+    description: 'Threat modeling, injection attacks, data exfiltration via agents.',
+    defaultObjectives: ['minimizeRisk'],
+    promptHints: [
+      'Surface prompt-injection attack vectors, tool-misuse chains, and data-exfiltration paths.'
+    ],
+    firstOrderHint: 'Highlight injection surfaces, privilege escalation via tool chains, data leakage through agent memory, and authorization bypass vectors.',
+    cascadeHint: 'Show how a single compromised tool call cascades to full agent takeover, data exfiltration amplification, and lateral movement through multi-agent systems.',
+    synthesisHint: 'Prioritize defense-in-depth controls: input sanitization, output filtering, least-privilege tool access, and runtime anomaly detection.',
+    kpis: ['Injection detection rate', 'Mean time to containment', 'Attack surface area']
+  },
+  {
+    id: 'governance-compliance',
+    label: 'Governance & Compliance',
+    short: 'Gov',
+    description: 'Audit trails, regulatory frameworks, bias monitoring.',
+    defaultObjectives: ['minimizeRisk', 'reduceComplexity'],
+    promptHints: [
+      'Map effects to regulatory requirements (EU AI Act, NIST AI RMF, ISO 42001) and identify documentation gaps.'
+    ],
+    firstOrderHint: 'Identify audit trail gaps, model card requirements, mandatory human-oversight points, and bias monitoring blind spots created by agent deployment.',
+    cascadeHint: 'Show how documentation debt compounds into compliance failures, how unchecked bias amplifies through feedback loops, and how oversight gaps create regulatory exposure.',
+    synthesisHint: 'Produce a compliance readiness scorecard: EU AI Act risk tier, NIST controls coverage, audit trail completeness, and human-oversight checkpoints.',
+    kpis: ['Compliance coverage %', 'Audit finding count', 'Documentation freshness']
+  },
+  {
+    id: 'team-org-design',
+    label: 'Team & Org Design',
+    short: 'Org',
+    description: 'Hiring, cognitive load, on-call, team topology.',
+    defaultObjectives: ['scaleTeam', 'reduceComplexity'],
+    promptHints: [
+      'Assess cognitive load shifts, on-call burden changes, and skill-gap emergence when agents are introduced.'
+    ],
+    firstOrderHint: 'Surface cognitive load spikes from agent supervision, on-call rotation impacts, skill-gap emergence for prompt engineering, and team boundary shifts.',
+    cascadeHint: 'Show how initial cognitive load shifts compound into burnout, how skill gaps become hiring bottlenecks, and how team boundaries evolve toward platform teams.',
+    synthesisHint: 'Recommend team topology evolution: platform team formation, cognitive load budgets, skill investment priorities, and on-call automation targets.',
+    kpis: ['Cognitive load index', 'On-call incident ratio', 'Skill coverage %']
+  },
+  {
+    id: 'data-knowledge',
+    label: 'Data & Knowledge Management',
+    short: 'Data',
+    description: 'RAG quality, knowledge freshness, embedding drift.',
+    defaultObjectives: ['optimize', 'hitSLOs'],
+    promptHints: [
+      'Assess RAG retrieval quality, knowledge graph freshness, embedding drift, and grounding accuracy.'
+    ],
+    firstOrderHint: 'Identify RAG retrieval degradation patterns, embedding drift from distribution shift, knowledge staleness windows, and grounding hallucination rates.',
+    cascadeHint: 'Show how stale embeddings compound retrieval errors, how knowledge graph gaps create hallucination feedback loops, and how grounding failures erode user trust.',
+    synthesisHint: 'Prioritize knowledge pipeline health: embedding refresh cadence, retrieval quality SLOs, grounding accuracy targets, and knowledge graph coverage metrics.',
+    kpis: ['Retrieval precision@k', 'Knowledge freshness age', 'Grounding accuracy %']
+  },
+  {
+    id: 'reliability-sre',
+    label: 'Reliability Engineering',
+    short: 'SRE',
+    description: 'Error budgets, incident response, chaos experiments.',
+    defaultObjectives: ['hitSLOs', 'minimizeRisk'],
+    promptHints: [
+      'Apply SRE principles: error budgets, SLO-based alerting, chaos experiments, and incident retrospectives.'
+    ],
+    firstOrderHint: 'Surface error budget burn rates from agent failures, cascade blast radii through tool dependency chains, retry storm amplification, and alerting blind spots.',
+    cascadeHint: 'Show how agent failure modes compound error budget consumption, how tool-chain cascades extend MTTR, and how alert fatigue from false positives delays incident detection.',
+    synthesisHint: 'Produce an SRE readiness plan: error budget allocation per agent, SLO targets with burn-rate alerts, chaos experiment schedule, and incident playbook coverage.',
+    kpis: ['Error budget remaining %', 'Incident MTTR', 'Chaos experiment coverage']
+  },
+  {
+    id: 'ethics-fairness',
+    label: 'Ethics & Fairness',
+    short: 'Ethics',
+    description: 'Bias amplification, fairness metrics, responsible AI.',
+    defaultObjectives: ['minimizeRisk', 'calibratedConfidenceGap'],
+    promptHints: [
+      'Assess bias amplification cascades, fairness metric drift under distribution shift, and responsible AI guardrail effectiveness.'
+    ],
+    firstOrderHint: 'Identify bias amplification through agent decision loops, fairness metric degradation from data drift, transparency gaps in agent reasoning, and disparate impact risks.',
+    cascadeHint: 'Show how initial bias compounds through feedback loops, how fairness violations erode trust across demographics, and how opacity in agent decisions creates accountability gaps.',
+    synthesisHint: 'Prioritize fairness monitoring: demographic parity tracking, bias audit cadence, transparency report generation, and human-in-the-loop override checkpoints.',
+    kpis: ['Demographic parity delta', 'Bias audit frequency', 'Transparency report coverage']
   }
 ];
 

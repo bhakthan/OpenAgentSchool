@@ -44,10 +44,10 @@ interface ConceptLayoutProps {
 }
 
 const levelColors = {
-  fundamentals: 'text-green-600 dark:text-green-400',
-  architecture: 'text-blue-600 dark:text-blue-400',
-  implementation: 'text-orange-600 dark:text-orange-400',
-  advanced: 'text-purple-600 dark:text-purple-400'
+  fundamentals: 'text-emerald-700 dark:text-emerald-300',
+  architecture: 'text-blue-700 dark:text-blue-300',
+  implementation: 'text-amber-700 dark:text-amber-300',
+  advanced: 'text-violet-700 dark:text-violet-300'
 }
 
 const levelIcons = {
@@ -140,7 +140,7 @@ export default function ConceptLayout({
   // If using children pattern (no tabs), render simple layout
   if (children && (!tabs || tabs.length === 0)) {
     return (
-      <div className="container mx-auto px-4 py-6 max-w-6xl">
+      <div data-concept-id={conceptId} className="container mx-auto px-4 py-6 max-w-6xl">
         <Card className="border-0 shadow-lg">
           <CardHeader className="pb-4">
             <div className="flex items-center gap-3">
@@ -187,7 +187,7 @@ export default function ConceptLayout({
 
   // Tabs-based layout
   return (
-    <div className="space-y-6">
+    <div data-concept-id={conceptId} className="space-y-6">
       {/* Header */}
       <Card>
         <CardHeader>
@@ -222,7 +222,7 @@ export default function ConceptLayout({
             <TabsTrigger
               key={tab.id}
               value={tab.id}
-              className="flex flex-col items-center gap-2 h-auto py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+              className="group flex flex-col items-center gap-2 h-auto py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
             >
               <div className="flex items-center gap-2">
                 {levelIcons[tab.level]}
@@ -232,7 +232,7 @@ export default function ConceptLayout({
               </div>
               <div className="text-center">
                 <div className="font-medium text-sm">{tab.title}</div>
-                <span className={`text-sm font-medium mt-1 ${levelColors[tab.level]}`}>
+                <span className={`text-sm font-medium mt-1 ${levelColors[tab.level]} group-data-[state=active]:text-primary-foreground/95`}>
                   {tab.level}
                 </span>
               </div>

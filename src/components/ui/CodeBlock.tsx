@@ -10,6 +10,7 @@ interface CodeBlockProps {
   showCopyButton?: boolean;
   customStyle?: React.CSSProperties;
   inline?: boolean;
+  styleVariant?: 'default' | 'flat-ui-2';
 }
 
 const CodeBlock: React.FC<CodeBlockProps> = ({
@@ -19,9 +20,11 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   showLineNumbers = false,
   showCopyButton = true,
   customStyle = {},
-  inline = false
+  inline = false,
+  styleVariant = 'default'
 }) => {
   const [copied, setCopied] = useState(false);
+  const isFlatUi2 = styleVariant === 'flat-ui-2';
   
   const codeString = String(children).replace(/\n$/, '');
   
@@ -54,7 +57,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
           <Button
             variant="ghost"
             size="sm"
-            className="h-8 w-8 p-0 bg-gray-800/90 hover:bg-gray-700 text-gray-300 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
+            className={`h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity ${isFlatUi2 ? 'bg-background/95 hover:bg-muted text-muted-foreground hover:text-foreground border border-border' : 'bg-gray-800/90 hover:bg-gray-700 text-gray-300 hover:text-white'}`}
             onClick={copyToClipboard}
           >
             {copied ? (
@@ -65,9 +68,9 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
           </Button>
         </div>
       )}
-      <div className="rounded-md border border-border/60 bg-muted/40 overflow-hidden">
+      <div className={`rounded-md border border-border/60 overflow-hidden ${isFlatUi2 ? 'bg-background' : 'bg-muted/40'}`}>
         <pre 
-          className={`overflow-x-auto p-4 text-sm font-mono leading-relaxed text-foreground ${className}`}
+          className={`overflow-x-auto p-4 text-sm font-mono leading-relaxed text-foreground ${isFlatUi2 ? 'bg-background' : ''} ${className}`}
           style={customStyle}
         >
           <code>{codeString}</code>

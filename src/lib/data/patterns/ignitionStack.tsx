@@ -75,8 +75,11 @@ const ITERATION_TASKS = [
   'DOCS-01: Generate README + runbook',
 ];
 
+type IgnitionStyleVariant = 'default' | 'flat-ui-2';
+
 // ─── Inline Business-Use-Case Visualization ──────────────────────────────────
-const IgnitionStackVisualization: React.FC = () => {
+const IgnitionStackVisualization: React.FC<{ styleVariant?: IgnitionStyleVariant }> = ({ styleVariant = 'default' }) => {
+  const isFlatUi2 = styleVariant === 'flat-ui-2';
   const [activeStage, setActiveStage] = useState(0);
   const [iterCount, setIterCount] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
@@ -121,7 +124,7 @@ const IgnitionStackVisualization: React.FC = () => {
   const toggleRunning = useCallback(() => setIsRunning(r => !r), []);
 
   return (
-    <div className="relative p-5 rounded-xl border border-border bg-gradient-to-br from-slate-50 via-orange-50/40 to-amber-50 dark:from-slate-950 dark:via-orange-950/20 dark:to-amber-950/30 overflow-hidden">
+    <div className={`relative p-5 rounded-xl border border-border overflow-hidden ${isFlatUi2 ? 'bg-background' : 'bg-gradient-to-br from-slate-50 via-orange-50/40 to-amber-50 dark:from-slate-950 dark:via-orange-950/20 dark:to-amber-950/30'}`}>
 
       {/* Title + controls */}
       <div className="flex items-center justify-between mb-5">
@@ -152,10 +155,10 @@ const IgnitionStackVisualization: React.FC = () => {
               {/* Connector line + particle  */}
               {i > 0 && (
                 <div className="absolute -left-2 top-5 w-4 h-0.5 overflow-hidden">
-                  <div className={`h-full ${isDone || isActive ? 'bg-orange-400' : 'bg-border'} transition-colors duration-500`} />
+                  <div className={`h-full ${isDone || isActive ? (isFlatUi2 ? 'bg-primary/70' : 'bg-orange-400') : 'bg-border'} transition-colors duration-500`} />
                   {isActive && (
                     <div
-                      className="absolute top-[-2px] left-0 w-2 h-2 rounded-full bg-orange-400"
+                      className={`absolute top-[-2px] left-0 w-2 h-2 rounded-full ${isFlatUi2 ? 'bg-primary' : 'bg-orange-400'}`}
                       style={{ animation: 'ignition-particle 0.8s ease-out infinite', '--particle-dx': '16px' } as React.CSSProperties}
                     />
                   )}
@@ -168,19 +171,19 @@ const IgnitionStackVisualization: React.FC = () => {
                   relative w-full aspect-square rounded-lg flex items-center justify-center text-xl
                   transition-all duration-500 cursor-default
                   ${isActive
-                    ? `bg-gradient-to-br ${stage.color} text-white shadow-lg`
+                    ? (isFlatUi2 ? 'bg-primary text-primary-foreground shadow-none border border-primary/50' : `bg-gradient-to-br ${stage.color} text-white shadow-lg`)
                     : isDone
-                      ? 'bg-gradient-to-br from-emerald-100 to-emerald-50 dark:from-emerald-900/40 dark:to-emerald-950/30 text-emerald-700 dark:text-emerald-300'
+                      ? (isFlatUi2 ? 'bg-muted text-foreground border border-border' : 'bg-gradient-to-br from-emerald-100 to-emerald-50 dark:from-emerald-900/40 dark:to-emerald-950/30 text-emerald-700 dark:text-emerald-300')
                       : 'bg-muted/60 text-muted-foreground'}
                 `}
-                style={isActive ? { animation: 'ignition-glow 2s ease-in-out infinite' } : {}}
+                style={isActive && !isFlatUi2 ? { animation: 'ignition-glow 2s ease-in-out infinite' } : {}}
               >
                 {isDone ? '✓' : stage.icon}
 
                 {/* Iteration counter badge */}
                 {stage.id === 'ralph' && isActive && (
                   <span
-                    className="absolute -top-2 -right-2 bg-amber-500 text-white text-[10px] font-bold rounded-full w-6 h-6 flex items-center justify-center shadow"
+                    className={`absolute -top-2 -right-2 text-white text-[10px] font-bold rounded-full w-6 h-6 flex items-center justify-center ${isFlatUi2 ? 'bg-primary shadow-none' : 'bg-amber-500 shadow'}`}
                     style={{ animation: 'ignition-iteration-pulse 0.3s ease-out' }}
                     key={iterCount}
                   >
@@ -214,14 +217,14 @@ const IgnitionStackVisualization: React.FC = () => {
             {/* Progress bar */}
             <div className="w-full h-1.5 rounded-full bg-muted overflow-hidden">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-300 ease-out"
+                className={`h-full rounded-full transition-all duration-300 ease-out ${isFlatUi2 ? 'bg-primary' : 'bg-gradient-to-r from-amber-400 to-orange-500'}`}
                 style={{ width: `${(iterCount / 20) * 100}%` }}
               />
             </div>
             {/* Current task ticker */}
             <div className="overflow-hidden h-4">
               <p
-                className="text-[11px] font-mono text-orange-600 dark:text-orange-400 whitespace-nowrap"
+                className={`text-[11px] font-mono whitespace-nowrap ${isFlatUi2 ? 'text-foreground' : 'text-orange-600 dark:text-orange-400'}`}
                 style={{
                   animation: 'ignition-typewriter 1.8s steps(40) forwards',
                   overflow: 'hidden',
@@ -247,17 +250,17 @@ const IgnitionStackVisualization: React.FC = () => {
 
       {/* ── Bottom accent — the bash loop ────────────────────────────────── */}
       <div className="mt-3 flex items-center justify-center gap-2 text-[10px] text-muted-foreground">
-        <span className="inline-block w-12 h-px bg-gradient-to-r from-transparent to-orange-400" />
-        <code className="font-mono text-orange-600/80 dark:text-orange-400/80">
+        <span className={`inline-block w-12 h-px ${isFlatUi2 ? 'bg-border' : 'bg-gradient-to-r from-transparent to-orange-400'}`} />
+        <code className={`font-mono ${isFlatUi2 ? 'text-foreground/80' : 'text-orange-600/80 dark:text-orange-400/80'}`}>
           for i in {'{'}1..20{'}'}; do gh copilot code …; done
         </code>
-        <span className="inline-block w-12 h-px bg-gradient-to-l from-transparent to-orange-400" />
+        <span className={`inline-block w-12 h-px ${isFlatUi2 ? 'bg-border' : 'bg-gradient-to-l from-transparent to-orange-400'}`} />
       </div>
 
       {/* ── System Architecture SVG ──────────────────────────────────────── */}
       <div className="mt-6 pt-5 border-t border-border/50">
         <h4 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2">
-          <span className="text-orange-500">◆</span> System Architecture — End-to-End Azure Topology
+          <span className={isFlatUi2 ? 'text-primary' : 'text-orange-500'}>◆</span> System Architecture — End-to-End Azure Topology
         </h4>
         <div className="rounded-lg border border-border bg-background/90 p-2 overflow-x-auto">
           <IgnitionStackArchitectureSVG />
@@ -267,7 +270,7 @@ const IgnitionStackVisualization: React.FC = () => {
       {/* ── Full Infographic — Exploded View ─────────────────────────────── */}
       <div className="mt-6 pt-5 border-t border-border/50">
         <h4 className="font-semibold text-sm text-foreground mb-3 flex items-center gap-2">
-          <span className="text-orange-500">◆</span> IgnitionStack Explained — Full Architecture Infographic
+          <span className={isFlatUi2 ? 'text-primary' : 'text-orange-500'}>◆</span> IgnitionStack Explained — Full Architecture Infographic
         </h4>
         <p className="text-xs text-muted-foreground mb-3">
           Exploded view of the 8-stage pipeline, generated template structure, Ralph loop mechanics, Scaffold &amp; Plug modes, and 7 domain examples.
@@ -285,7 +288,7 @@ const IgnitionStackVisualization: React.FC = () => {
             href="https://github.com/bhakthan/ignitionstack"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-orange-500 transition-colors underline underline-offset-2"
+            className={`transition-colors underline underline-offset-2 ${isFlatUi2 ? 'hover:text-foreground' : 'hover:text-orange-500'}`}
           >
             github.com/bhakthan/ignitionstack
           </a>

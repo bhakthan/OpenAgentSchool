@@ -27,14 +27,19 @@ const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode,
   const pyLines = useMemo(() => pythonCode ? codeToLines(pythonCode) : [], [pythonCode]);
   const highlight = steps[activeStepIndex];
   const pyHighlight = pythonSteps ? pythonSteps[activeStepIndex] : highlight;
-  const lineRefs = useRef<HTMLDivElement[]>([]);
+  const jsLineRefs = useRef<HTMLDivElement[]>([]);
+  const pyLineRefs = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    const firstLine = highlight?.startLine;
-    if (firstLine && lineRefs.current[firstLine - 1]) {
-      lineRefs.current[firstLine - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const jsFirstLine = highlight?.startLine;
+    if (jsFirstLine && jsLineRefs.current[jsFirstLine - 1]) {
+      jsLineRefs.current[jsFirstLine - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }, [activeStepIndex]);
+    const pyFirstLine = pyHighlight?.startLine;
+    if (pyFirstLine && pyLineRefs.current[pyFirstLine - 1]) {
+      pyLineRefs.current[pyFirstLine - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [activeStepIndex, highlight, pyHighlight]);
 
   React.useEffect(() => {
     let timer: any;
@@ -68,13 +73,17 @@ const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode,
     setAutoPlay(true);
   };
 
-  const renderCode = (lines: string[], currentHighlight: ExecutionStepGeneric = highlight) => (
-    <pre className="text-xs md:text-sm leading-snug p-3 rounded bg-muted/60 border overflow-auto" style={{ maxHeight: 400 }}>
+  const renderCode = (
+    lines: string[],
+    refs: React.MutableRefObject<HTMLDivElement[]>,
+    currentHighlight: ExecutionStepGeneric = highlight
+  ) => (
+    <pre className="live-runner-code-block text-xs md:text-sm leading-snug p-3 rounded bg-muted/60 border overflow-auto" style={{ maxHeight: 400 }}>
       {lines.map((line, idx) => {
         const lineNumber = idx + 1;
         const isHighlighted = currentHighlight && currentHighlight.startLine && currentHighlight.endLine && lineNumber >= currentHighlight.startLine && lineNumber <= currentHighlight.endLine;
         return (
-          <div ref={el => { if (el) lineRefs.current[lineNumber - 1] = el; }} key={idx} className={isHighlighted ? 'bg-yellow-200/70 dark:bg-yellow-600/30 rounded px-1 -mx-1' : ''}>
+          <div ref={el => { if (el) refs.current[lineNumber - 1] = el; }} key={idx} className={isHighlighted ? 'live-runner-line-highlight rounded px-1 -mx-1 border-l-2 border-primary/70 bg-primary/15 dark:bg-primary/25' : ''}>
             <span className="opacity-40 select-none w-10 inline-block text-right pr-2">{lineNumber}</span>
             <code>{line || '\u00A0'}</code>
           </div>
@@ -105,14 +114,14 @@ const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode,
           <div>
             <h4 className="font-semibold mb-2 text-sm tracking-wide">JavaScript / TypeScript</h4>
             <ScrollArea className="h-[420px]">
-              {renderCode(codeLines)}
+              {renderCode(codeLines, jsLineRefs)}
             </ScrollArea>
           </div>
           {pythonCode && (
             <div>
               <h4 className="font-semibold mb-2 text-sm tracking-wide">Python</h4>
               <ScrollArea className="h-[420px]">
-                {renderCode(pyLines, pyHighlight)}
+                {renderCode(pyLines, pyLineRefs, pyHighlight)}
               </ScrollArea>
             </div>
           )}

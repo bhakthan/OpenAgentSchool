@@ -9,6 +9,8 @@ import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
 import { registerConceptsForVoice } from "@/lib/voiceNavigation"
 import InlineMicButton from "@/components/voice/InlineMicButton"
+import { Switch } from "@/components/ui/switch"
+import { Label } from "@/components/ui/label"
 
 // ── Lazy-loaded concept components (code-split per concept) ──────────────
 const LearningHowToLearnConcept = lazy(() => import("./LearningHowToLearnConcept"))
@@ -830,7 +832,7 @@ function getLevelBadgeClass(level: ConceptInfo['level']): string {
     case 'advanced':
   return 'ring-1 bg-[var(--badge-advanced-bg)] ring-[var(--badge-advanced-ring)] text-[var(--badge-advanced-text)] dark:text-[var(--badge-advanced-text)]';
     case 'applied':
-  return 'ring-1 bg-purple-100 ring-purple-300 text-purple-900 dark:bg-purple-900/30 dark:ring-purple-600 dark:text-purple-200';
+  return 'ring-1 bg-[var(--tier-rose-chip-bg)] text-[var(--tier-rose-chip-fg)] ring-rose-300/70 dark:bg-rose-900/30 dark:ring-rose-600 dark:text-rose-200';
     default:
   return 'ring-1 bg-[var(--badge-gray-bg)] ring-[var(--badge-gray-ring)] text-[var(--badge-gray-text)] dark:text-[var(--badge-gray-text)]';
   }
@@ -857,9 +859,16 @@ function getIconColorClass(level: ConceptInfo['level']): string {
 interface ConceptsHubProps {
   onSelectConcept: (conceptId: string | null) => void;
   initialConcept?: string | null;
+  flatUi20Preview: boolean;
+  onFlatUi20PreviewChange: (value: boolean) => void;
 }
 
-export default function ConceptsHub({ onSelectConcept, initialConcept }: ConceptsHubProps) {
+export default function ConceptsHub({
+  onSelectConcept,
+  initialConcept,
+  flatUi20Preview,
+  onFlatUi20PreviewChange,
+}: ConceptsHubProps) {
   const [selectedConcept, setSelectedConcept] = useState<string | null>(initialConcept || null)
   const [completedConcepts, setCompletedConcepts] = useState<Set<string>>(new Set())
   const [isModalOpen, setModalOpen] = useState(false);
@@ -1064,6 +1073,16 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
             </p>
           </div>
           <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 rounded-md border border-border bg-background px-2.5 py-1.5">
+              <Label htmlFor="core-concepts-flat-ui-toggle" className="text-xs text-muted-foreground">
+                Flat UI 2.0
+              </Label>
+              <Switch
+                id="core-concepts-flat-ui-toggle"
+                checked={flatUi20Preview}
+                onCheckedChange={onFlatUi20PreviewChange}
+              />
+            </div>
             <Progress value={progressPercentage} className="w-28 h-2" />
             <span className="text-xs text-muted-foreground whitespace-nowrap">{Math.round(progressPercentage)}%</span>
           </div>
@@ -1154,7 +1173,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
       ) : activeTier ? (
         <div>
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 mb-5">
+          <div className="flex items-center gap-2 mb-3">
             <button onClick={() => setActiveTier(null)} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               All Tiers
             </button>
@@ -1163,16 +1182,13 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
           </div>
 
           {/* Tier description banner */}
-          <div className="mb-6 flex items-start gap-4">
-            <div
-              className="w-11 h-11 rounded-lg flex items-center justify-center shrink-0"
-              style={{ backgroundColor: `var(--tier-${tierMeta[activeTier]?.iconBg}-icon-bg)` }}
-            >
-              <span className={getIconColorClass(activeTier)}>{getTierIcon(activeTier)}</span>
+          <div className="mb-4 flex items-start gap-3 rounded-lg border border-border bg-card px-3.5 py-3">
+            <div className="w-10 h-10 rounded-md flex items-center justify-center shrink-0 bg-muted text-muted-foreground">
+              <span>{getTierIcon(activeTier)}</span>
             </div>
             <div>
-              <h2 className="text-xl font-semibold">{tierMeta[activeTier]?.title}</h2>
-              <p className="text-sm text-muted-foreground mt-0.5">
+              <h2 className="text-xl font-semibold tracking-tight">{tierMeta[activeTier]?.title}</h2>
+              <p className="text-base text-muted-foreground mt-0.5">
                 {tierMeta[activeTier]?.description}
                 <span className="ml-2 font-medium">{(conceptsByTier[activeTier] || []).length} concepts</span>
               </p>
@@ -1180,25 +1196,25 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
           </div>
 
           {/* Concept cards — masonry */}
-          <div className="columns-1 md:columns-2 lg:columns-3 [column-gap:1.5rem]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {(conceptsByTier[activeTier] || []).map(concept => {
               const isCompleted = completedConcepts.has(concept.id)
               return (
-                <div key={concept.id} className="break-inside-avoid mb-5">
-                  <Card className="group hover:shadow-md transition-all cursor-pointer" onClick={() => handleConceptSelect(concept.id)}>
-                    <CardHeader className="pb-2">
+                <div key={concept.id}>
+                  <Card className="group border border-border bg-card shadow-none hover:bg-muted/10 transition-colors cursor-pointer" onClick={() => handleConceptSelect(concept.id)}>
+                    <CardHeader className="pb-1.5 pt-3.5 px-3.5">
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-secondary border border-border">
-                            <span className={getIconColorClass(concept.level)}>{concept.icon}</span>
+                          <div className="flex items-center justify-center w-9 h-9 rounded-md bg-muted border border-border/60 [&_svg]:w-5 [&_svg]:h-5 [&_svg]:text-foreground/70">
+                            <span>{concept.icon}</span>
                           </div>
                           <div>
-                            <CardTitle className="text-base flex items-center gap-2">
+                            <CardTitle className="text-lg leading-tight flex items-center gap-2">
                               {concept.title}
-                              {isCompleted && <CheckCircle className="w-4 h-4 text-green-500" />}
+                              {isCompleted && <CheckCircle className="w-4 h-4 text-foreground/70" />}
                             </CardTitle>
-                            <div className="flex items-center gap-2 mt-1">
-                              <span className="text-xs text-muted-foreground flex items-center gap-1">
+                            <div className="flex items-center gap-2 mt-1.5">
+                              <span className="text-sm text-muted-foreground flex items-center gap-1">
                                 <Clock className="w-3 h-3" />{concept.estimatedTime}
                               </span>
                             </div>
@@ -1217,12 +1233,12 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
                               className="opacity-0 group-hover:opacity-100 transition-opacity"
                             />
                           </div>
-                          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-4 h-4 text-muted-foreground" />
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-0">
-                      <p className="text-sm text-muted-foreground">{concept.description}</p>
+                    <CardContent className="pt-0 pb-3.5 px-3.5">
+                      <p className="text-base leading-relaxed text-muted-foreground">{concept.description}</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -1233,7 +1249,7 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
 
       /* ── Tier Overview — Masonry ────────────────────────────── */
       ) : (
-        <div className="columns-1 md:columns-2 [column-gap:1.5rem]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {tierOrder.map(tier => {
             const meta = tierMeta[tier];
             if (!meta) return null;
@@ -1242,56 +1258,49 @@ export default function ConceptsHub({ onSelectConcept, initialConcept }: Concept
             const pct = tierConcepts.length > 0 ? Math.round((completed / tierConcepts.length) * 100) : 0;
 
             return (
-              <div key={tier} className="break-inside-avoid mb-5">
+              <div key={tier}>
                 <div
-                  className="rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-all cursor-pointer group"
+                  className="rounded-lg border border-border bg-card text-card-foreground shadow-none overflow-hidden hover:bg-muted/10 transition-colors cursor-pointer group"
                   onClick={() => setActiveTier(tier)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveTier(tier); } }}
                 >
-                  {/* Colored accent bar */}
-                  <div className={`h-1.5 ${meta.accent}`} />
-
-                  <div className="p-5">
+                  <div className="p-3.5">
                     {/* Header row */}
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                        <div
-                          className="w-10 h-10 rounded-lg flex items-center justify-center"
-                          style={{ backgroundColor: `var(--tier-${meta.iconBg}-icon-bg)` }}
-                        >
-                          <span className={getIconColorClass(tier)}>{getTierIcon(tier)}</span>
+                        <div className="w-9 h-9 rounded-md flex items-center justify-center bg-muted text-muted-foreground">
+                          <span>{getTierIcon(tier)}</span>
                         </div>
                         <div>
-                          <h3 className="font-semibold text-lg leading-tight">{meta.title}</h3>
+                          <h3 className="font-semibold text-base leading-tight tracking-tight">{meta.title}</h3>
                           <span className="text-xs text-muted-foreground">{tierConcepts.length} concepts</span>
                         </div>
                       </div>
-                      <CaretRight className="w-5 h-5 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                      <CaretRight className="w-5 h-5 text-muted-foreground" />
                     </div>
 
                     {/* Description */}
-                    <p className="text-sm text-muted-foreground mb-4">{meta.description}</p>
+                    <p className="text-sm leading-relaxed text-muted-foreground mb-3">{meta.description}</p>
 
                     {/* Progress */}
-                    <div className="mb-4">
+                    <div className="mb-3">
                       <div className="flex justify-between text-xs text-muted-foreground mb-1">
                         <span>{completed} / {tierConcepts.length} completed</span>
                         <span>{pct}%</span>
                       </div>
-                      <Progress value={pct} className="h-1.5" />
+                      <Progress value={pct} className="h-1.5 bg-muted [&>div]:bg-foreground/25" />
                     </div>
 
                     {/* Concept chips — creates natural height variation = masonry */}
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-1">
                       {tierConcepts.map(c => (
                         <span
                           key={c.id}
-                          className="inline-flex items-center gap-1 text-[11px] leading-tight px-2 py-0.5 rounded-md transition-colors"
-                          style={{ backgroundColor: `var(--tier-${meta.chipBg}-chip-bg)`, color: `var(--tier-${meta.chipBg}-chip-fg)` }}
+                          className="inline-flex items-center gap-1 text-[10px] leading-tight px-1.5 py-0.5 rounded-sm transition-colors bg-background text-foreground/85 border border-border/60"
                         >
-                          {completedConcepts.has(c.id) && <CheckCircle className="w-3 h-3 text-green-500 shrink-0" />}
+                          {completedConcepts.has(c.id) && <CheckCircle className="w-3 h-3 text-foreground/70 shrink-0" />}
                           <span className="truncate max-w-[150px]">{c.title}</span>
                         </span>
                       ))}

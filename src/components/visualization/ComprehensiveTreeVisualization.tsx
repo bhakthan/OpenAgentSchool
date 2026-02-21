@@ -164,7 +164,7 @@ export default function ComprehensiveTreeVisualization() {
                 onClick={() => setViewMode('hybrid')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                   viewMode === 'hybrid'
-                    ? 'bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-indigo-600 !text-white shadow-sm'
                     : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
                 }`}
                 aria-pressed={viewMode === 'hybrid'}
@@ -177,7 +177,7 @@ export default function ComprehensiveTreeVisualization() {
                 onClick={() => setViewMode('tree')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                   viewMode === 'tree'
-                    ? 'bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-indigo-600 !text-white shadow-sm'
                     : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
                 }`}
                 aria-pressed={viewMode === 'tree'}

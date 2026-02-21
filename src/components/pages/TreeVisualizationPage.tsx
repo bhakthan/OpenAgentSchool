@@ -26,13 +26,13 @@ export default function TreeVisualizationPage() {
           <div className="absolute top-4 left-4 z-10 flex gap-3">
             <button
               onClick={() => window.close()}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+              className="px-4 py-2 bg-red-500 !text-white rounded-lg hover:bg-red-600 transition-colors"
             >
               Close Tab
             </button>
             <button
               onClick={handlePrint}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
+              className="px-4 py-2 bg-indigo-600 !text-white rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
             >
               Print Tree
             </button>
@@ -42,7 +42,7 @@ export default function TreeVisualizationPage() {
           <div className="sticky top-0 z-20 flex justify-end p-4 gap-3 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200 dark:border-gray-700">
             <button
               onClick={handlePrint}
-              className="px-3 py-1.5 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors shadow-sm"
+              className="px-3 py-1.5 text-sm bg-indigo-600 !text-white rounded-md hover:bg-indigo-700 transition-colors shadow-sm"
             >
               Print Tree
             </button>

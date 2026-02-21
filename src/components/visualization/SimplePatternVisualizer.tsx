@@ -19,6 +19,7 @@ import { getPatternFlowPrompt } from '@/lib/utils/patternPrompts';
 
 interface SimplePatternVisualizerProps {
   patternData: PatternData;
+  styleVariant?: 'default' | 'flat-ui-2';
 }
 
 interface FlowStep {
@@ -38,8 +39,9 @@ interface AnimatedEdge {
   message?: string;
 }
 
-const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patternData }) => {
+const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patternData, styleVariant = 'default' }) => {
   const { theme } = useTheme();
+  const isFlatUi2 = styleVariant === 'flat-ui-2';
   const defaultFlowPrompt = useMemo(() => getPatternFlowPrompt(patternData), [patternData]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -274,6 +276,26 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
 
   // Get node colors based on type and theme
   const getNodeColors = (nodeType: string, isActive: boolean) => {
+    if (isFlatUi2) {
+      if (isActive) {
+        return {
+          bg: theme === 'dark' ? '#1d4ed8' : '#2563eb',
+          border: theme === 'dark' ? '#60a5fa' : '#1d4ed8',
+          text: '#ffffff'
+        };
+      }
+      const flatColors = {
+        input: { bg: theme === 'dark' ? '#0f172a' : '#ffffff', border: theme === 'dark' ? '#334155' : '#d1d5db', text: theme === 'dark' ? '#e2e8f0' : '#111827' },
+        agent: { bg: theme === 'dark' ? '#111827' : '#f8fafc', border: theme === 'dark' ? '#374151' : '#d1d5db', text: theme === 'dark' ? '#e5e7eb' : '#111827' },
+        tool: { bg: theme === 'dark' ? '#1f2937' : '#f8fafc', border: theme === 'dark' ? '#4b5563' : '#d1d5db', text: theme === 'dark' ? '#e5e7eb' : '#111827' },
+        memory: { bg: theme === 'dark' ? '#111827' : '#f8fafc', border: theme === 'dark' ? '#374151' : '#d1d5db', text: theme === 'dark' ? '#e5e7eb' : '#111827' },
+        output: { bg: theme === 'dark' ? '#052e16' : '#ecfdf5', border: theme === 'dark' ? '#14532d' : '#86efac', text: theme === 'dark' ? '#bbf7d0' : '#14532d' },
+        llm: { bg: theme === 'dark' ? '#111827' : '#f8fafc', border: theme === 'dark' ? '#374151' : '#d1d5db', text: theme === 'dark' ? '#e5e7eb' : '#111827' },
+        reflection: { bg: theme === 'dark' ? '#111827' : '#f8fafc', border: theme === 'dark' ? '#374151' : '#d1d5db', text: theme === 'dark' ? '#e5e7eb' : '#111827' },
+        default: { bg: theme === 'dark' ? '#111827' : '#ffffff', border: theme === 'dark' ? '#374151' : '#d1d5db', text: theme === 'dark' ? '#e5e7eb' : '#111827' }
+      };
+      return flatColors[nodeType] || flatColors.default;
+    }
     const colors = {
       light: {
         input: { bg: '#f0f9ff', border: '#0ea5e9', text: '#0c4a6e' },
@@ -361,7 +383,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
           {/* Main visualization area with side-by-side layout */}
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Visualization container */}
-            <div className={`relative border rounded-lg p-4 bg-gray-50/50 dark:bg-gray-800/50 backdrop-blur-sm transition-all duration-300 overflow-hidden ${
+            <div className={`relative border rounded-lg p-4 ${isFlatUi2 ? 'bg-muted/20 dark:bg-background' : 'bg-gray-50/50 dark:bg-gray-800/50'} backdrop-blur-sm transition-all duration-300 overflow-hidden ${
               flowSteps.length > 0 ? 'flex-1' : 'w-full'
             }`} style={{ height: '450px', minHeight: '450px' }}>
               {/* Container for visualization content */}
@@ -380,7 +402,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
                       <path
                         d={path}
                         fill="none"
-                        stroke={theme === 'dark' ? '#374151' : '#d1d5db'}
+                        stroke={isFlatUi2 ? (theme === 'dark' ? '#475569' : '#cbd5e1') : (theme === 'dark' ? '#374151' : '#d1d5db')}
                         strokeWidth="2"
                         markerEnd="url(#arrowhead)"
                       />
@@ -389,7 +411,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
                         <path
                           d={path}
                           fill="none"
-                          stroke="#3b82f6"
+                           stroke={isFlatUi2 ? '#2563eb' : '#3b82f6'}
                           strokeWidth="3"
                           strokeDasharray="10,5"
                           strokeDashoffset={-animatedEdge.progress * 50}
@@ -404,10 +426,10 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
                 {/* Arrow markers */}
                 <defs>
                   <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill={theme === 'dark' ? '#374151' : '#d1d5db'} />
+                    <polygon points="0 0, 10 3.5, 0 7" fill={isFlatUi2 ? (theme === 'dark' ? '#475569' : '#cbd5e1') : (theme === 'dark' ? '#374151' : '#d1d5db')} />
                   </marker>
                   <marker id="arrowhead-active" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6" />
+                    <polygon points="0 0, 10 3.5, 0 7" fill={isFlatUi2 ? '#2563eb' : '#3b82f6'} />
                   </marker>
                 </defs>
               </svg>
@@ -422,7 +444,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
                 return (
                   <div
                     key={node.id}
-                    className="absolute rounded-2xl border p-4 transition-transform duration-300 cursor-pointer shadow-sm hover:shadow-xl backdrop-blur-sm"
+                     className={`absolute border p-4 transition-transform duration-300 cursor-pointer backdrop-blur-sm ${isFlatUi2 ? 'rounded-lg shadow-none hover:shadow-md' : 'rounded-2xl shadow-sm hover:shadow-xl'}`}
                     style={{
                       left: layout.x,
                       top: layout.y,
@@ -433,9 +455,11 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
                       color: colors.text,
                       transform: isActive ? 'scale(1.05)' : 'scale(1)',
                       zIndex: isActive ? 10 : 1,
-                      boxShadow: isActive 
-                        ? '0 16px 45px -20px rgba(15, 23, 42, 0.55)' 
-                        : '0 8px 18px -12px rgba(15, 23, 42, 0.25)'
+                       boxShadow: isFlatUi2
+                         ? (isActive ? '0 0 0 1px rgba(37, 99, 235, 0.35)' : '0 1px 2px rgba(15, 23, 42, 0.06)')
+                         : isActive 
+                         ? '0 16px 45px -20px rgba(15, 23, 42, 0.55)' 
+                         : '0 8px 18px -12px rgba(15, 23, 42, 0.25)'
                     }}
                   >
                     <div className="text-[15px] font-semibold leading-tight tracking-tight">
@@ -463,9 +487,9 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
               
               {/* Status indicator */}
               <div className="absolute bottom-2 left-2 right-2 text-center z-10">
-                <div className="inline-flex items-center gap-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-full px-3 py-1 text-sm shadow-sm border border-gray-200 dark:border-gray-700">
-                  <DotsSixVertical size={14} className="text-gray-500 dark:text-gray-400" />
-                  <span className="text-gray-700 dark:text-gray-300">
+                 <div className={`inline-flex items-center gap-2 backdrop-blur-sm px-3 py-1 text-sm shadow-sm border ${isFlatUi2 ? 'rounded-md bg-background/95 border-border' : 'rounded-full bg-white/90 dark:bg-gray-900/90 border-gray-200 dark:border-gray-700'}`}>
+                   <DotsSixVertical size={14} className={isFlatUi2 ? 'text-muted-foreground' : 'text-gray-500 dark:text-gray-400'} />
+                   <span className={isFlatUi2 ? 'text-foreground' : 'text-gray-700 dark:text-gray-300'}>
                     {isAnimating ? 
                       `Processing step ${currentStep + 1} of ${flowSteps.length}...` : 
                       'Click "Start Simulation" to see how the pattern processes your query'

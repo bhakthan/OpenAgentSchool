@@ -389,6 +389,7 @@ const getBusinessContext = (patternData: PatternData): BusinessContext | null =>
 interface PatternDemoSVGProps {
   patternData: PatternData;
   className?: string;
+  styleVariant?: 'default' | 'flat-ui-2';
 }
 
 // Step type for visualization
@@ -451,9 +452,10 @@ const calculateNodePositions = (nodes: any[], edges: any[]) => {
  * PatternDemoSVG - SVG-based replacement for PatternDemoReactFlow
  * Provides interactive pattern visualization without ReactFlow dependencies
  */
-export const PatternDemoSVG = memo(({ patternData, className }: PatternDemoSVGProps) => {
+export const PatternDemoSVG = memo(({ patternData, className, styleVariant = 'default' }: PatternDemoSVGProps) => {
   const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
+  const isFlatUi2 = styleVariant === 'flat-ui-2';
   
   // Get business context if available
   const businessContext = useMemo(() => getBusinessContext(patternData), [patternData]);
@@ -477,19 +479,19 @@ export const PatternDemoSVG = memo(({ patternData, className }: PatternDemoSVGPr
   // Theme colors
   const colors = useMemo(() => ({
     node: {
-      default: isDarkMode ? '#374151' : '#f3f4f6',
+      default: isFlatUi2 ? (isDarkMode ? '#111827' : '#ffffff') : (isDarkMode ? '#374151' : '#f3f4f6'),
       active: isDarkMode ? '#3b82f6' : '#2563eb',
-      complete: isDarkMode ? '#10b981' : '#059669',
+      complete: isFlatUi2 ? (isDarkMode ? '#1f2937' : '#f8fafc') : (isDarkMode ? '#10b981' : '#059669'),
       error: isDarkMode ? '#ef4444' : '#dc2626',
-      border: isDarkMode ? '#6b7280' : '#d1d5db',
+      border: isFlatUi2 ? (isDarkMode ? '#4b5563' : '#cbd5e1') : (isDarkMode ? '#6b7280' : '#d1d5db'),
       text: isDarkMode ? '#f9fafb' : '#111827'
     },
     edge: {
-      default: isDarkMode ? '#6b7280' : '#9ca3af',
+      default: isFlatUi2 ? (isDarkMode ? '#475569' : '#94a3b8') : (isDarkMode ? '#6b7280' : '#9ca3af'),
       active: isDarkMode ? '#3b82f6' : '#2563eb',
-      complete: isDarkMode ? '#10b981' : '#059669'
+      complete: isFlatUi2 ? (isDarkMode ? '#60a5fa' : '#3b82f6') : (isDarkMode ? '#10b981' : '#059669')
     }
-  }), [isDarkMode]);
+  }), [isDarkMode, isFlatUi2]);
   
   // Get node color based on status
   const getNodeColor = useCallback((nodeId: string) => {
@@ -722,7 +724,7 @@ export const PatternDemoSVG = memo(({ patternData, className }: PatternDemoSVGPr
           {/* Left Column: SVG Visualization and Controls */}
           <div className="space-y-4">
             {/* SVG Visualization */}
-            <div className="border border-border rounded-md bg-card h-[400px] relative overflow-hidden">
+            <div className={`border border-border h-[400px] relative overflow-hidden ${isFlatUi2 ? 'rounded-lg bg-background' : 'rounded-md bg-card'}`}>
             <svg
               width="100%"
               height="100%"

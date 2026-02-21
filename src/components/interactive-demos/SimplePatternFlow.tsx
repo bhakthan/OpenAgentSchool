@@ -9,6 +9,7 @@ import { useTheme } from '@/components/theme/ThemeProvider';
 
 interface SimplePatternFlowProps {
   patternData: PatternData;
+  styleVariant?: 'default' | 'flat-ui-2';
 }
 
 interface FlowStep {
@@ -30,8 +31,9 @@ interface AnimatedEdge {
 }
 
 // Custom SVG-based visualization component
-const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) => {
+const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData, styleVariant = 'default' }) => {
   const { theme } = useTheme();
+  const isFlatUi2 = styleVariant === 'flat-ui-2';
   const defaultPrompt = useMemo(() => {
     const prompt = patternData.businessUseCase?.enlightenMePrompt?.trim();
     if (prompt) {
@@ -239,6 +241,14 @@ const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) =>
 
   // Get node color based on type and theme
   const getNodeColor = (nodeType: string, isActive: boolean) => {
+    if (isFlatUi2) {
+      return {
+        bg: isActive
+          ? (theme === 'dark' ? 'bg-blue-900/40 border-blue-400' : 'bg-blue-100 border-blue-500')
+          : (theme === 'dark' ? 'bg-slate-900 border-slate-600' : 'bg-white border-slate-300'),
+        text: theme === 'dark' ? 'text-slate-300' : 'text-slate-600'
+      };
+    }
     const colors = {
       input: {
         bg: isActive 
@@ -315,7 +325,7 @@ const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) =>
           {/* Main visualization area with side-by-side layout */}
           <div className="flex flex-col lg:flex-row gap-4" style={{ minHeight: '500px' }}>
             {/* Visualization container */}
-            <div className={`relative border rounded-lg p-4 transition-all duration-300 ${
+            <div className={`relative border rounded-lg p-4 transition-all duration-300 ${isFlatUi2 ? 'bg-background' : ''} ${
               flowSteps.length > 0 ? 'flex-1' : 'w-full'
             }`} style={{ height: '500px' }}>
               <svg width="100%" height="100%" className="absolute inset-0">
@@ -330,7 +340,7 @@ const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) =>
                       <path
                         d={path}
                         fill="none"
-                        stroke={theme === 'dark' ? '#374151' : '#d1d5db'}
+                         stroke={isFlatUi2 ? (theme === 'dark' ? '#475569' : '#cbd5e1') : (theme === 'dark' ? '#374151' : '#d1d5db')}
                         strokeWidth="2"
                         markerEnd="url(#arrowhead)"
                       />
@@ -339,7 +349,7 @@ const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) =>
                         <path
                           d={path}
                           fill="none"
-                          stroke="#3b82f6"
+                           stroke={isFlatUi2 ? '#2563eb' : '#3b82f6'}
                           strokeWidth="3"
                           strokeDasharray="10,5"
                           strokeDashoffset={-animatedEdge.progress * 50}
@@ -354,10 +364,10 @@ const SimplePatternFlow: React.FC<SimplePatternFlowProps> = ({ patternData }) =>
                 {/* Arrow markers */}
                 <defs>
                   <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill={theme === 'dark' ? '#374151' : '#d1d5db'} />
+                    <polygon points="0 0, 10 3.5, 0 7" fill={isFlatUi2 ? (theme === 'dark' ? '#475569' : '#cbd5e1') : (theme === 'dark' ? '#374151' : '#d1d5db')} />
                   </marker>
                   <marker id="arrowhead-active" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6" />
+                    <polygon points="0 0, 10 3.5, 0 7" fill={isFlatUi2 ? '#2563eb' : '#3b82f6'} />
                   </marker>
                 </defs>
               </svg>

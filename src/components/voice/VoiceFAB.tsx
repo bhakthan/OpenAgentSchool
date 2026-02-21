@@ -23,6 +23,7 @@ import { matchVoiceQuery } from '@/lib/voiceNavigation';
 import { callLlm } from '@/lib/llm';
 import { getFirstAvailableProvider } from '@/lib/config';
 import { cn } from '@/lib/utils';
+import { LANGUAGES } from '@/lib/languages';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const LS_COLLAPSED_KEY = 'oas.voice.fab.collapsed';
@@ -283,12 +284,12 @@ export default function VoiceFAB() {
                 )}
               </button>
             </TooltipTrigger>
-            <TooltipContent side="left" className="text-xs">
+            <TooltipContent side="left" className="text-xs max-w-48">
               {voice.isListening
                 ? 'Tap to stop'
                 : voice.engine === 'whisper-wasm'
-                  ? 'Ask by voice (in-browser Whisper)'
-                  : 'Ask by voice'}
+                  ? 'Ask by voice (in-browser Whisper) · 29 languages'
+                  : `Ask by voice · speaks ${voice.language === 'en' ? '29 languages' : LANGUAGES.find(l => l.code === voice.language)?.label ?? voice.language}`}
             </TooltipContent>
           </Tooltip>
 

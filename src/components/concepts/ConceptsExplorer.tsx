@@ -23,6 +23,7 @@ export default function ConceptsExplorer() {
   const location = useLocation();
   const [isModalOpen, setModalOpen] = useState(false)
   const [selectedConcept, setSelectedConcept] = useState<string | null>(conceptId || null) // Track selected concept
+  const [flatUi20Preview, setFlatUi20Preview] = useState(true)
 
   // Check if we're on the landing page (/) vs concepts page (/concepts)
   const isLandingPage = location.pathname === '/';
@@ -84,11 +85,15 @@ export default function ConceptsExplorer() {
       )}
       
       {/* Main Content Container */}
-      <div className="max-w-7xl mx-auto space-y-8 relative px-4 py-8">
-
+      <div className={`max-w-7xl mx-auto space-y-8 relative px-4 py-8 ${flatUi20Preview ? 'flat-ui-2-theme core-concepts-flat-ui' : ''}`}>
       {/* Main Content */}
       <Suspense fallback={<ConceptsLoader />}>
-        <ConceptsHub onSelectConcept={handleConceptSelection} initialConcept={selectedConcept} />
+        <ConceptsHub
+          onSelectConcept={handleConceptSelection}
+          initialConcept={selectedConcept}
+          flatUi20Preview={flatUi20Preview}
+          onFlatUi20PreviewChange={setFlatUi20Preview}
+        />
       </Suspense>
 
       {/* References */}

@@ -11,12 +11,22 @@ import type {
   SCLSynthesis,
   SCLDomain,
   SCLObjective,
-  SCLContextSummary 
+  SCLContextSummary,
+  SCLDeepDive,
+  DeepDiveLevel,
+  DeepDiveFindings,
+  SecondaryFindings,
+  TertiaryFindings
 } from '@/types/supercritical';
 import { callLlmWithMessages, type LlmProvider, type LlmMessage, type LlmCallOptions } from '@/lib/llm';
 import { getFirstAvailableProvider } from '@/lib/config';
 import { loadSettings } from '@/lib/userSettings';
-import { SCL_SYSTEM_FIRST_ORDER, SCL_SYSTEM_HIGHER_ORDER, SCL_SYSTEM_SYNTHESIS, buildSCL_USER_FIRST_ORDER, buildSCL_USER_HIGHER_ORDER, buildSCL_USER_SYNTHESIS } from '@/prompts/sclPrompts';
+import { 
+  SCL_SYSTEM_FIRST_ORDER, SCL_SYSTEM_HIGHER_ORDER, SCL_SYSTEM_SYNTHESIS, 
+  SCL_SYSTEM_DEEP_DIVE_SECONDARY, SCL_SYSTEM_DEEP_DIVE_TERTIARY,
+  buildSCL_USER_FIRST_ORDER, buildSCL_USER_HIGHER_ORDER, buildSCL_USER_SYNTHESIS,
+  buildSCL_USER_DEEP_DIVE
+} from '@/prompts/sclPrompts';
 
 // LLM Response Types
 interface EffectGenerationResponse {
@@ -54,6 +64,35 @@ interface SynthesisResponse {
   actionPlan: string[];
   implementationOrder: string[];
   successMetrics: string[];
+}
+
+interface DeepDiveResponse {
+  subEffects: Array<{
+    id: string;
+    parentEffectId: string;
+    title: string;
+    order: 1 | 2 | 3;
+    domain: SCLDomain;
+    likelihood: number;
+    impact: number;
+    justification: string;
+    confidence: number;
+  }>;
+  connections: Array<{
+    from: string;
+    to: string;
+    mechanism: string;
+    confidence: number;
+    delay?: string;
+  }>;
+  leaps: Array<{
+    trigger: string;
+    threshold: string;
+    result: string;
+    mechanism: string;
+    confidence: number;
+  }>;
+  findings: SecondaryFindings | TertiaryFindings;
 }
 
 export class SCLOrchestrator {
@@ -200,15 +239,121 @@ export class SCLOrchestrator {
     }
   }
 
+  /**
+   * Deep Dive: drill into selected effect nodes for secondary or tertiary analysis.
+   *
+   * Secondary: breaks each selected effect into 3-5 granular sub-effects,
+   *   discovers cross-connections, produces implementation-level insights.
+   *
+   * Tertiary: generates operational runbooks, FMEA, quantitative projections,
+   *   tool recommendations, and mitigation comparisons.
+   */
+  async generateDeepDive(
+    session: SCLSession,
+    selectedNodeIds: string[],
+    level: DeepDiveLevel,
+    userQuestion?: string,
+    onProgress?: (step: string, progress: number) => void
+  ): Promise<SCLDeepDive> {
+    const label = level === 'secondary' ? 'Secondary' : 'Tertiary';
+    onProgress?.(`Starting ${label} deep dive...`, 0.1);
+
+    // Resolve selected nodes from the session graph + any previous deep dive effects
+    const allAvailableEffects = [
+      ...session.effectGraph.nodes,
+      ...(session.deepDives?.flatMap(d => d.effects) ?? []),
+    ];
+    const selectedNodes = selectedNodeIds
+      .map(id => allAvailableEffects.find(n => n.id === id))
+      .filter((n): n is SCLEffectNode => n !== undefined);
+
+    if (selectedNodes.length === 0) {
+      throw new Error('No valid effect nodes selected for deep dive');
+    }
+
+    // Build previous findings context for tertiary dives
+    let previousDiveFindings: string | undefined;
+    if (level === 'tertiary' && session.deepDives?.length > 0) {
+      const lastSecondary = [...session.deepDives]
+        .reverse()
+        .find(d => d.level === 'secondary');
+      if (lastSecondary?.findings.kind === 'secondary') {
+        const f = lastSecondary.findings;
+        previousDiveFindings = [
+          `Hidden risks: ${f.hiddenRisks.join('; ')}`,
+          `Cross-connections: ${f.crossConnections.join('; ')}`,
+          `Implementation steps: ${f.implementationSteps.join('; ')}`,
+          `Open questions: ${f.openQuestions.join('; ')}`,
+        ].join('\n');
+      }
+    }
+
+    onProgress?.(`Generating ${label.toLowerCase()} analysis...`, 0.4);
+
+    const systemPrompt = level === 'secondary'
+      ? SCL_SYSTEM_DEEP_DIVE_SECONDARY
+      : SCL_SYSTEM_DEEP_DIVE_TERTIARY;
+
+    const userPrompt = buildSCL_USER_DEEP_DIVE(
+      session,
+      selectedNodes,
+      level,
+      userQuestion,
+      previousDiveFindings
+    );
+
+    const response = await this.callLLM(systemPrompt, userPrompt, 3000);
+    onProgress?.(`Parsing ${label.toLowerCase()} results...`, 0.8);
+
+    const parsed = this.parseDeepDiveResponse(response, level);
+
+    const deepDive: SCLDeepDive = {
+      id: `dive-${level}-${Date.now()}`,
+      level,
+      selectedNodeIds,
+      selectedNodes,
+      userQuestion,
+      effects: parsed.subEffects.map(e => ({
+        id: e.id,
+        title: e.title,
+        order: e.order,
+        domain: e.domain,
+        likelihood: e.likelihood,
+        impact: e.impact,
+        justification: e.justification,
+        confidence: e.confidence,
+        references: [`parent:${e.parentEffectId}`],
+      })),
+      edges: parsed.connections.map(c => ({
+        from: c.from,
+        to: c.to,
+        confidence: c.confidence,
+        mechanism: c.mechanism,
+        delay: c.delay,
+      })),
+      leaps: (parsed.leaps || []).map(l => ({
+        ...l,
+        evidence: [`deep-dive-${level}`],
+      })),
+      findings: parsed.findings,
+      promptTokens: 0,
+      responseTokens: 0,
+      createdAt: Date.now(),
+    };
+
+    onProgress?.(`${label} deep dive complete!`, 1.0);
+    return deepDive;
+  }
+
   // Private methods for prompt building
 
   // LLM API call — routes through the unified multi-provider layer
-  private async callLLM(systemPrompt: string, userPrompt: string): Promise<string> {
+  private async callLLM(systemPrompt: string, userPrompt: string, maxTokens = 2000): Promise<string> {
     const messages: LlmMessage[] = [
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt },
     ];
-    const opts: LlmCallOptions = { temperature: 0.7, maxTokens: 2000, responseFormat: 'json' };
+    const opts: LlmCallOptions = { temperature: 0.7, maxTokens, responseFormat: 'json' };
     const result = await callLlmWithMessages(messages, this.provider, opts);
     return result.content;
   }
@@ -229,6 +374,35 @@ export class SCLOrchestrator {
       return JSON.parse(cleanedResponse);
     } catch (error) {
       throw new Error(`Failed to parse synthesis response: ${error.message}`);
+    }
+  }
+
+  private parseDeepDiveResponse(response: string, level: DeepDiveLevel): DeepDiveResponse {
+    try {
+      const cleanedResponse = this.extractJsonFromResponse(response);
+      const parsed = JSON.parse(cleanedResponse);
+
+      // Ensure findings has the correct kind discriminator
+      if (parsed.findings) {
+        parsed.findings.kind = level === 'secondary' ? 'secondary' : 'tertiary';
+      } else {
+        // Produce a safe empty findings object
+        parsed.findings = level === 'secondary'
+          ? { kind: 'secondary', hiddenRisks: [], crossConnections: [], implementationSteps: [], revisedKPIs: [], openQuestions: [] }
+          : { kind: 'tertiary', runbook: [], toolRecommendations: [], fmeaEntries: [], projections: [], mitigationComparison: [] };
+      }
+
+      // Normalise: some models return "effects" instead of "subEffects"
+      if (!parsed.subEffects && parsed.effects) {
+        parsed.subEffects = parsed.effects;
+      }
+      parsed.subEffects = parsed.subEffects || [];
+      parsed.connections = parsed.connections || [];
+      parsed.leaps = parsed.leaps || [];
+
+      return parsed as DeepDiveResponse;
+    } catch (error) {
+      throw new Error(`Failed to parse deep dive response: ${error.message}`);
     }
   }
 

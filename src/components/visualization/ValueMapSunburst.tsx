@@ -311,7 +311,7 @@ export default function ValueMapSunburst() {
             </span>
             <Button
               onClick={() => navigate(selectedCategory.route)}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 !text-white hover:from-blue-700 hover:to-purple-700"
             >
               Explore →
             </Button>

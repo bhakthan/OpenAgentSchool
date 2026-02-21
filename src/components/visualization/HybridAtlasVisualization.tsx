@@ -699,14 +699,14 @@ export default function HybridAtlasVisualization({ onNodeSelect, className = '' 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setViewMode('sunburst')}
-            className={`p-2 rounded-lg transition-colors ${viewMode === 'sunburst' ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+            className={`p-2 rounded-lg transition-colors ${viewMode === 'sunburst' ? 'bg-indigo-600 !text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
             aria-label="Sunburst view"
           >
             <Target className="w-4 h-4" />
           </button>
           <button
             onClick={() => setViewMode('list')}
-            className={`p-2 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+            className={`p-2 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-indigo-600 !text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
             aria-label="List view"
           >
             <List className="w-4 h-4" />

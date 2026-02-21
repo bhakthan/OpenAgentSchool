@@ -87,6 +87,24 @@
   button:hover {
     transition: all 0.2s ease !important;
   }
+
+  button[class*="bg-primary"],
+  [data-slot="button"][class*="bg-primary"],
+  a[class*="bg-primary"],
+  button[class*="bg-blue-6"], button[class*="bg-blue-7"], button[class*="bg-blue-8"], button[class*="bg-blue-9"],
+  button[class*="bg-indigo-6"], button[class*="bg-indigo-7"], button[class*="bg-indigo-8"], button[class*="bg-indigo-9"],
+  button[class*="bg-violet-6"], button[class*="bg-violet-7"], button[class*="bg-violet-8"], button[class*="bg-violet-9"],
+  button[class*="bg-purple-6"], button[class*="bg-purple-7"], button[class*="bg-purple-8"], button[class*="bg-purple-9"],
+  button[class*="bg-emerald-6"], button[class*="bg-emerald-7"], button[class*="bg-emerald-8"], button[class*="bg-emerald-9"],
+  button[class*="bg-green-6"], button[class*="bg-green-7"], button[class*="bg-green-8"], button[class*="bg-green-9"],
+  button[class*="bg-cyan-6"], button[class*="bg-cyan-7"], button[class*="bg-cyan-8"], button[class*="bg-cyan-9"],
+  button[class*="bg-teal-6"], button[class*="bg-teal-7"], button[class*="bg-teal-8"], button[class*="bg-teal-9"],
+  button[class*="bg-red-6"], button[class*="bg-red-7"], button[class*="bg-red-8"], button[class*="bg-red-9"],
+  button[class*="bg-rose-6"], button[class*="bg-rose-7"], button[class*="bg-rose-8"], button[class*="bg-rose-9"],
+  button[class*="bg-orange-6"], button[class*="bg-orange-7"], button[class*="bg-orange-8"], button[class*="bg-orange-9"],
+  button[class*="bg-amber-6"], button[class*="bg-amber-7"], button[class*="bg-amber-8"], button[class*="bg-amber-9"] {
+    color: #fff;
+  }
   
   /* ReactFlow dark mode enhancements */
   .dark .react-flow__edge path {
@@ -129,8 +147,119 @@
   }
   
   /* Fix for flow indicator visibility in dark mode */
-  .dark .flow-indicator {
+.dark .flow-indicator {
     filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.8));
+  }
+
+  .flat-ui-2-theme .bg-gradient-to-br,
+  .flat-ui-2-theme .bg-gradient-to-r,
+  .flat-ui-2-theme .bg-gradient-to-l {
+    background-image: none !important;
+  }
+
+  .flat-ui-2-theme .shadow-sm,
+  .flat-ui-2-theme .shadow,
+  .flat-ui-2-theme .shadow-md,
+  .flat-ui-2-theme .shadow-lg,
+  .flat-ui-2-theme .shadow-xl {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08) !important;
+  }
+
+  .flat-ui-2-theme [role="tablist"],
+  .flat-ui-2-theme [data-slot="tabs-list"] {
+    background: color-mix(in oklab, var(--background) 88%, var(--muted));
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) - 2px);
+  }
+
+  .flat-ui-2-theme [role="tabpanel"],
+  .flat-ui-2-theme [data-slot="card"],
+  .flat-ui-2-theme [data-slot="accordion-item"] {
+    background: color-mix(in oklab, var(--background) 94%, var(--muted));
+    border-color: var(--border);
+  }
+
+  .flat-ui-2-theme pre,
+  .flat-ui-2-theme code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    background-color: color-mix(in oklab, var(--background) 96%, var(--muted));
+    color: var(--foreground);
+  }
+
+  .flat-ui-2-theme .prose {
+    color: var(--foreground);
+  }
+
+  .flat-ui-2-theme .prose :where(h1,h2,h3,h4,strong,code,a) {
+    color: var(--foreground);
+  }
+
+  .light .core-concepts-flat-ui .bg-card,
+  .light .core-concepts-flat-ui [data-slot="card"] {
+    background-color: color-mix(in oklab, white 96%, var(--muted));
+    border-color: color-mix(in oklab, var(--border) 85%, #cbd5e1);
+  }
+
+  .light .core-concepts-flat-ui .bg-secondary {
+    background-color: color-mix(in oklab, var(--muted) 82%, white);
+  }
+
+  .light .core-concepts-flat-ui .text-muted-foreground {
+    color: oklch(0.44 0.02 240);
+  }
+
+  .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-orange-50 .text-muted-foreground,
+  .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-blue-50 .text-muted-foreground,
+  .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-violet-50 .text-muted-foreground,
+  .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-red-50 .text-muted-foreground,
+  .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-green-50 .text-muted-foreground,
+  .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-yellow-50 .text-muted-foreground,
+  .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-gray-50 .text-muted-foreground {
+    color: oklch(0.34 0.015 245);
+  }
+
+  .light .core-concepts-flat-ui .text-green-600 { color: #047857; }
+  .light .core-concepts-flat-ui .text-emerald-700 { color: #065f46; }
+  .light .core-concepts-flat-ui .text-blue-600 { color: #1d4ed8; }
+  .light .core-concepts-flat-ui .text-blue-700 { color: #1e40af; }
+  .light .core-concepts-flat-ui .text-orange-600 { color: #c2410c; }
+  .light .core-concepts-flat-ui .text-amber-700 { color: #b45309; }
+  .light .core-concepts-flat-ui .text-purple-600 { color: #7e22ce; }
+  .light .core-concepts-flat-ui .text-violet-700 { color: #6d28d9; }
+
+  .dark .flat-ui-2-theme .bg-card,
+  .dark .flat-ui-2-theme [data-slot="card"],
+  .dark .flat-ui-2-theme [role="tabpanel"],
+  .dark .flat-ui-2-theme [data-slot="accordion-item"] {
+    background-color: color-mix(in oklab, var(--background) 86%, #1f2937);
+    border-color: color-mix(in oklab, var(--border) 80%, #334155);
+  }
+
+  .dark .flat-ui-2-theme [role="tablist"],
+  .dark .flat-ui-2-theme [data-slot="tabs-list"] {
+    background-color: color-mix(in oklab, var(--background) 82%, #1e293b);
+    border-color: color-mix(in oklab, var(--border) 75%, #334155);
+  }
+
+  .dark .flat-ui-2-theme .bg-secondary,
+  .dark .flat-ui-2-theme .bg-muted {
+    background-color: color-mix(in oklab, var(--background) 78%, #1f2937);
+  }
+
+  .dark .flat-ui-2-theme .text-muted-foreground {
+    color: oklch(0.76 0.015 240);
+  }
+
+  .dark .flat-ui-2-theme pre,
+  .dark .flat-ui-2-theme code,
+  .dark .flat-ui-2-theme .live-runner-code-block {
+    background-color: color-mix(in oklab, var(--background) 90%, #0f172a);
+    border-color: color-mix(in oklab, var(--border) 72%, #334155);
+  }
+
+  .dark .flat-ui-2-theme .live-runner-line-highlight {
+    background-color: color-mix(in oklab, var(--primary) 24%, var(--background)) !important;
+    border-left-color: color-mix(in oklab, var(--primary) 65%, #93c5fd) !important;
   }
 }
 
@@ -146,11 +275,11 @@
   --popover-foreground: oklch(0.23 0.02 240); /* #2d333a */
 
   /* Action colors */
-  --primary: oklch(0.60 0.15 180); /* #10a37f - OpenAI green */
+  --primary: oklch(0.62 0.14 255); /* professional blue accent */
   --primary-foreground: oklch(0.98 0.005 240); /* white */
   --secondary: oklch(0.95 0.02 240); /* #f3f4f6 */
   --secondary-foreground: oklch(0.23 0.02 240); /* #2d333a */
-  --accent: oklch(0.60 0.15 180); /* #10a37f - same as primary */
+  --accent: oklch(0.62 0.14 255); /* same as primary */
   --accent-foreground: oklch(0.98 0.005 240); /* white */
   --destructive: oklch(0.65 0.3 25); /* red */
   --destructive-foreground: oklch(0.98 0.005 240); /* white */
@@ -160,7 +289,7 @@
   --muted-foreground: oklch(0.5 0.02 240); /* #71767f */
   --border: oklch(0.9 0.02 240); /* lighter border */
   --input: oklch(0.9 0.02 240);
-  --ring: oklch(0.60 0.15 180); /* #10a37f - same as primary */
+  --ring: oklch(0.62 0.14 255); /* same as primary */
 
   /* Landing Hero theme colors */
   --gradient-from: #3B82F6; /* blue-500 */
@@ -207,12 +336,12 @@
   --popover-foreground: oklch(0.9 0.02 240); /* #d1d5db */
 
   /* Action colors */
-  --primary: oklch(0.70 0.15 180); /* brighter OpenAI green for dark mode */
-  --primary-foreground: oklch(0.11 0.02 240); /* dark background */
+  --primary: oklch(0.72 0.13 252); /* brighter blue accent for dark mode */
+  --primary-foreground: oklch(0.98 0.005 240); /* white text on blue */
   --secondary: oklch(0.2 0.02 240); /* #374151 */
   --secondary-foreground: oklch(0.9 0.02 240); /* #d1d5db */
-  --accent: oklch(0.70 0.15 180); /* same as primary */
-  --accent-foreground: oklch(0.11 0.02 240); /* dark background */
+  --accent: oklch(0.72 0.13 252); /* same as primary */
+  --accent-foreground: oklch(0.98 0.005 240); /* white text on blue */
   --destructive: oklch(0.75 0.3 25); /* brighter red for dark mode */
   --destructive-foreground: oklch(0.9 0.02 240); /* light foreground */
 
@@ -221,7 +350,7 @@
   --muted-foreground: oklch(0.6 0.02 240); /* #9ca3af */
   --border: oklch(0.25 0.02 240); /* #4b5563 */
   --input: oklch(0.25 0.02 240);
-  --ring: oklch(0.70 0.15 180); /* same as primary */
+  --ring: oklch(0.72 0.13 252); /* same as primary */
 
   /* Landing Hero theme colors */
   --gradient-from: #60A5FA; /* blue-400 */

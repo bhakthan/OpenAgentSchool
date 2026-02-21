@@ -24,9 +24,10 @@ import { cn } from '@/lib/utils'
 
 interface CodePlaybookProps {
   patternData: PatternData
+  styleVariant?: 'default' | 'flat-ui-2'
 }
 
-const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
+const CodePlaybook = ({ patternData, styleVariant = 'default' }: CodePlaybookProps) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [language, setLanguage] = useState<'python' | 'typescript'>('python')
   const [visualizationMode, setVisualizationMode] = useState<'static' | 'interactive'>('static')
@@ -87,8 +88,10 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
     </div>
   );
   
+  const isFlatUi2 = styleVariant === 'flat-ui-2'
+
   return (
-    <div className="space-y-6 w-full">
+    <div className={cn("space-y-6 w-full", isFlatUi2 && "flat-ui-2-theme")}>
       <Card className="w-full transition-all duration-300 ease-in-out">
         <CardHeader className="p-4 sm:p-6">
           <CardTitle>{patternData.name} Implementation</CardTitle>
@@ -217,6 +220,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
               <div className="relative">
                 <CodeBlock
                   language={language}
+                  styleVariant={styleVariant}
                   customStyle={{
                     marginBottom: '1rem',
                     maxHeight: '500px',
@@ -353,7 +357,7 @@ const CodePlaybook = ({ patternData }: CodePlaybookProps) => {
                 </p>
               </div>
               <div className="overflow-hidden border rounded-md mb-4">
-                <SimplePatternFlow patternData={patternData} />
+                <SimplePatternFlow patternData={patternData} styleVariant={styleVariant} />
               </div>
             </TabsContent>
 

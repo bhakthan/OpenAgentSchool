@@ -136,7 +136,7 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({
   
   return (
     <div 
-      className="fixed inset-0 z-50 bg-black/40 transition-opacity"
+      className="fixed inset-0 z-50 bg-black/20 backdrop-blur-[2px] transition-opacity"
       ref={overlayRef}
     >
       {/* Target highlight */}

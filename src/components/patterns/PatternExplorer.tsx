@@ -17,6 +17,8 @@ import AgenticRAGAudioControls from '@/components/audio/AgenticRAGAudioControls'
 import { X } from '@phosphor-icons/react/dist/ssr/X'
 import { useVoiceInput } from '@/contexts/VoiceInputContext';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
 // Lazy load heavy visualization components
 const SimplePatternVisualizer = lazy(() => import('@/components/visualization/SimplePatternVisualizer'))
@@ -58,6 +60,7 @@ const PatternExplorer = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(getInitialTab());
   const [isFullscreenVis, setIsFullscreenVis] = useState(false);
+  const [flatUi20Preview, setFlatUi20Preview] = useState(true);
   
   // Update selected pattern when URL parameter changes
   useEffect(() => {
@@ -80,7 +83,7 @@ const PatternExplorer = () => {
       console.log("First pattern structure:", agentPatterns[0]);
     }
   }, []);
-  
+
   const handlePatternSelect = (pattern: PatternData) => {
     setSelectedPattern(pattern);
   };
@@ -117,6 +120,9 @@ const PatternExplorer = () => {
   const toggleViewMode = () => {
     setViewMode(current => current === 'single' ? 'compare' : 'single');
   };
+
+  const previewStyleVariant: 'default' | 'flat-ui-2' =
+    flatUi20Preview ? 'flat-ui-2' : 'default';
   
   // Determine the question based on the active tab and selected pattern
   const getCriticalThinkingQuestion = () => {
@@ -221,6 +227,16 @@ const PatternExplorer = () => {
         
         {/* Right side: Action Buttons */}
         <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-2 rounded-md border border-border bg-background px-2.5 py-1.5">
+            <Label htmlFor="flat-ui-20-preview" className="text-xs text-muted-foreground">
+              Flat UI 2.0 Preview
+            </Label>
+            <Switch
+              id="flat-ui-20-preview"
+              checked={flatUi20Preview}
+              onCheckedChange={setFlatUi20Preview}
+            />
+          </div>
           <Button 
             variant="outline" 
             onClick={toggleViewMode}
@@ -286,7 +302,7 @@ const PatternExplorer = () => {
                   <div className="min-h-[60vh] md:min-h-[50vh]">
                     <ErrorBoundary>
                       <Suspense fallback={<VisualizationLoader />}>
-                        <SimplePatternVisualizer patternData={selectedPattern} />
+                        <SimplePatternVisualizer patternData={selectedPattern} styleVariant={previewStyleVariant} />
                       </Suspense>
                     </ErrorBoundary>
                   </div>
@@ -313,13 +329,13 @@ const PatternExplorer = () => {
               
               <TabsContent value="details">
                 <ErrorBoundary>
-                  <PatternDetails pattern={selectedPattern} />
+                  <PatternDetails pattern={selectedPattern} ignitionStyleVariant={previewStyleVariant} />
                 </ErrorBoundary>
               </TabsContent>
               
               <TabsContent value="implementation">
                 <Suspense fallback={<VisualizationLoader />}>
-                  <CodePlaybook patternData={selectedPattern} />
+                  <CodePlaybook patternData={selectedPattern} styleVariant={previewStyleVariant} />
                 </Suspense>
               </TabsContent>
             </Tabs>
@@ -356,7 +372,7 @@ const PatternExplorer = () => {
           <div className="h-full w-full pt-10 px-2">
             <ErrorBoundary>
               <Suspense fallback={<VisualizationLoader />}>
-                <SimplePatternVisualizer patternData={selectedPattern} />
+                <SimplePatternVisualizer patternData={selectedPattern} styleVariant={previewStyleVariant} />
               </Suspense>
             </ErrorBoundary>
           </div>

@@ -352,14 +352,14 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         const targetLang = state.selectedLanguage || 'en';
         const text = await translateIfNeeded(baseText, targetLang);
 
+        const bcp47 = getLocaleFor(targetLang);
         let audioBuffer: ArrayBuffer;
         if (ttsPref === 'openai-tts') {
-          audioBuffer = await speakOpenAI(text);
+          audioBuffer = await speakOpenAI(text, bcp47);
         } else if (ttsPref === 'azure-speech') {
-          const bcp47 = getLocaleFor(targetLang);
           audioBuffer = await speakAzure(text, bcp47);
         } else if (ttsPref === 'elevenlabs') {
-          audioBuffer = await speakElevenLabs(text);
+          audioBuffer = await speakElevenLabs(text, bcp47);
         } else {
           throw new Error(`Unknown TTS preference: ${ttsPref}`);
         }

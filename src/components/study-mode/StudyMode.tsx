@@ -836,7 +836,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
                           {complete && (
                             <Badge
                               variant="secondary"
-                              className="bg-green-600 text-white dark:bg-green-500 dark:text-black flex items-center gap-1"
+                              className="bg-green-600 text-white dark:bg-green-500 dark:text-white flex items-center gap-1"
                               aria-label={`${mode} completed`}
                             >
                               <CheckCircle size={12} /> Done

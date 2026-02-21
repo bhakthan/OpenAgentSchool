@@ -726,10 +726,10 @@ export default function D3TreeVisualization({
       background: isDarkMode() ? 'rgba(31,41,55,0.55)' : 'transparent'
     }}>
       <div className="no-print flex flex-wrap gap-2 mb-4 justify-end text-[11px]">
-  <button onClick={()=>{handleExportSVG(); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'svg' } })); } catch {} }} className="px-3 py-1.5 rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm">SVG</button>
-  <button onClick={()=>{handleExportPNG(2); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'png-2x' } })); } catch {} }} className="px-3 py-1.5 rounded-md bg-emerald-600 text-white hover:bg-emerald-700 transition-colors shadow-sm">PNG 2x</button>
-  <button onClick={()=>{handleExportPNG(3); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'png-3x' } })); } catch {} }} className="px-3 py-1.5 rounded-md bg-emerald-700 text-white hover:bg-emerald-800 transition-colors shadow-sm">PNG 3x</button>
-  <button onClick={handleExportPDF} className="px-3 py-1.5 rounded-md bg-rose-600 text-white hover:bg-rose-700 transition-colors shadow-sm">PDF</button>
+  <button onClick={()=>{handleExportSVG(); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'svg' } })); } catch {} }} className="px-3 py-1.5 rounded-md bg-indigo-600 !text-white hover:bg-indigo-700 transition-colors shadow-sm">SVG</button>
+  <button onClick={()=>{handleExportPNG(2); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'png-2x' } })); } catch {} }} className="px-3 py-1.5 rounded-md bg-emerald-600 !text-white hover:bg-emerald-700 transition-colors shadow-sm">PNG 2x</button>
+  <button onClick={()=>{handleExportPNG(3); try { window.dispatchEvent(new CustomEvent('analytics:export', { detail: { component: 'D3TreeVisualization', format: 'png-3x' } })); } catch {} }} className="px-3 py-1.5 rounded-md bg-emerald-700 !text-white hover:bg-emerald-800 transition-colors shadow-sm">PNG 3x</button>
+  <button onClick={handleExportPDF} className="px-3 py-1.5 rounded-md bg-rose-600 !text-white hover:bg-rose-700 transition-colors shadow-sm">PDF</button>
         <label className="flex items-center gap-1 px-2 py-1.5 rounded border text-gray-700 dark:text-gray-200 bg-white/60 dark:bg-gray-800/40">
           <input type="checkbox" checked={transparentBg} onChange={e => setTransparentBg(e.target.checked)} />
           <span>Transparent</span>

@@ -12,7 +12,9 @@ import type {
   SCLEffectNode,
   SCLEdge,
   SCLLeap,
-  SCLSynthesis
+  SCLSynthesis,
+  SCLDeepDive,
+  DeepDiveLevel
 } from '@/types/supercritical';
 import { createSCLOrchestrator } from '@/lib/scl-orchestrator';
 import { knowledgeService } from '@/lib/knowledge-integration';
@@ -93,6 +95,7 @@ export function useSCLSession(options: UseSCLSessionOptions = {}) {
         implementationOrder: [],
         successMetrics: [],
       },
+      deepDives: [],
       score: {
         completeness: 0,
         secondOrderDepth: 0,
@@ -100,6 +103,8 @@ export function useSCLSession(options: UseSCLSessionOptions = {}) {
         novelty: 0,
         feasibility: 0,
         leapDetection: 0,
+        deepDiveDepth: 0,
+        totalSubEffects: 0,
       },
       audit: {
         sources: [...seeds.conceptIds, ...seeds.patternIds],
@@ -270,6 +275,78 @@ export function useSCLSession(options: UseSCLSessionOptions = {}) {
     }
   }, [generateEffects, options.onError]);
 
+  // ── Deep Dive ─────────────────────────────────────────────────────────────
+  const deepDive = useCallback(async (
+    selectedNodeIds: string[],
+    level: DeepDiveLevel,
+    userQuestion?: string
+  ) => {
+    const session = state.session;
+    if (!session || session.status !== 'complete') return;
+
+    const orchestrator = getOrchestrator();
+    if (!orchestrator) return;
+
+    setState(prev => ({
+      ...prev,
+      isGenerating: true,
+      error: null,
+      progress: { step: `Preparing ${level} deep dive...`, progress: 0 },
+    }));
+
+    try {
+      const handleProgress = (step: string, progress: number) => {
+        setState(prev => ({ ...prev, progress: { step, progress } }));
+        options.onProgress?.(step, progress);
+      };
+
+      const dive = await orchestrator.generateDeepDive(
+        session,
+        selectedNodeIds,
+        level,
+        userQuestion,
+        handleProgress
+      );
+
+      // Append the new dive to the session
+      const updatedDives = [...(session.deepDives || []), dive];
+      const deepDiveDepth = Math.max(
+        ...updatedDives.map(d => d.level === 'tertiary' ? 2 : 1),
+        0
+      );
+      const totalSubEffects = updatedDives.reduce((sum, d) => sum + d.effects.length, 0);
+
+      const updatedSession: SCLSession = {
+        ...session,
+        deepDives: updatedDives,
+        score: {
+          ...session.score,
+          deepDiveDepth,
+          totalSubEffects,
+        },
+        updatedAt: Date.now(),
+      };
+
+      setState(prev => ({
+        ...prev,
+        session: updatedSession,
+        isGenerating: false,
+        progress: null,
+      }));
+
+      return dive;
+    } catch (error) {
+      const errorMsg = formatLlmErrorPlain(error, `${level} deep dive`);
+      setState(prev => ({
+        ...prev,
+        isGenerating: false,
+        error: errorMsg,
+        progress: null,
+      }));
+      options.onError?.(new Error(errorMsg));
+    }
+  }, [state.session, getOrchestrator, options.onProgress, options.onError]);
+
   // Cancel any running backend workflow
   const cancelBackend = useCallback(async () => {
     const wfId = state.activeWorkflowId;
@@ -374,6 +451,7 @@ export function useSCLSession(options: UseSCLSessionOptions = {}) {
     createSession,
     generateEffects,
     generateEffectsWithContext,
+    deepDive,
   cancelBackend,
     updateConstraints,
     addEffect,
@@ -417,6 +495,8 @@ function calculateScore(
     novelty,
     feasibility,
     leapDetection,
+    deepDiveDepth: 0,
+    totalSubEffects: 0,
   };
 }
 

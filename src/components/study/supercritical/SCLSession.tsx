@@ -19,7 +19,7 @@ import {
   Timer,
   Prohibit
 } from '@phosphor-icons/react';
-import type { SCLMode, SCLUIState, SCLObjective } from '@/types/supercritical';
+import type { SCLMode, SCLUIState, SCLObjective, DeepDiveLevel } from '@/types/supercritical';
 import { OBJECTIVE_LABELS } from '@/types/supercritical';
 import { perspectiveObjectiveMap } from '@/data/perspectivesRegistry';
 import { useSCLSession } from '@/hooks/useSCLSession';
@@ -74,6 +74,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
   const [showMinimap, setShowMinimap] = useState(true);
   const [selectedNode, setSelectedNode] = useState<SCLNode | null>(null);
   const [showNodeEditor, setShowNodeEditor] = useState(false);
+  const [isDeepDiving, setIsDeepDiving] = useState(false);
   // Mode-specific controls
   const [modeControls, setModeControls] = useState<any>({
     // stress-test
@@ -107,6 +108,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
   cancelBackend,
     clearSession,
   activeWorkflowId,
+  deepDive,
   } = useSCLSession({
     onProgress: (step, prog) => {
       console.log(`SCL Progress: ${step} (${Math.round(prog * 100)}%)`);
@@ -225,6 +227,19 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
       console.error('Failed to copy session:', error);
     }
   }, [session]);
+
+  const handleDeepDive = useCallback(async (
+    selectedNodeIds: string[],
+    level: DeepDiveLevel,
+    question?: string
+  ) => {
+    setIsDeepDiving(true);
+    try {
+      await deepDive(selectedNodeIds, level, question);
+    } finally {
+      setIsDeepDiving(false);
+    }
+  }, [deepDive]);
 
   const isSessionActive = session && session.status !== 'draft';
 
@@ -607,7 +622,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
           <Tabs value={uiState.activeTab} onValueChange={(tab) => 
             setUIState(prev => ({ ...prev, activeTab: tab as any }))
           }>
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="inputs" className="flex items-center gap-2">
                 <Gear className="h-4 w-4" />
                 Controls
@@ -615,6 +630,15 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
               <TabsTrigger value="graph" className="flex items-center gap-2">
                 <Network className="h-4 w-4" />
                 Effect Graph
+              </TabsTrigger>
+              <TabsTrigger value="deep-dive" className="flex items-center gap-2">
+                <GitBranch className="h-4 w-4" />
+                Deep Dive
+                {session && (session.deepDives ?? []).length > 0 && (
+                  <Badge variant="secondary" className="ml-1 text-[10px] px-1.5">
+                    {(session.deepDives ?? []).length}
+                  </Badge>
+                )}
               </TabsTrigger>
               <TabsTrigger value="synthesis" className="flex items-center gap-2">
                 <Brain className="h-4 w-4" />
@@ -845,6 +869,31 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
               )}
             </TabsContent>
 
+            <TabsContent value="deep-dive" className="space-y-6">
+              {session ? (
+                <SCLEffectGraph
+                  session={session}
+                  uiState={uiState}
+                  onUIStateChange={setUIState}
+                  onDeepDive={handleDeepDive}
+                  isDeepDiving={isDeepDiving}
+                />
+              ) : (
+                <Card>
+                  <CardContent className="flex flex-col items-center justify-center py-12">
+                    <GitBranch className="h-16 w-16 text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-medium text-foreground mb-2">No Active Session</h3>
+                    <p className="text-muted-foreground text-center mb-4">
+                      Run an analysis first, then drill into specific effects
+                    </p>
+                    <Button onClick={() => setUIState(prev => ({...prev, activeTab: 'inputs'}))}>
+                      Configure Session
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
+
             <TabsContent value="synthesis" className="space-y-6">
               <SCLSynthesis session={session} />
             </TabsContent>
@@ -858,7 +907,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
 
       {/* Node Editor Modal */}
       {showNodeEditor && selectedNode && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-[2px] flex items-center justify-center z-50 p-4">
           <NodeEditor
             node={selectedNode}
             onSave={(nodeId, updatedEffect) => {

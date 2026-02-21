@@ -220,7 +220,7 @@ advanced: {
                       <p className="font-medium text-gray-900 dark:text-gray-100">Audio Settings</p>
                       <p className="text-xs text-gray-700 dark:text-gray-300">Click to open full controls & settings</p>
                       <p className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 mt-1">
-                        <GlobeSimple size={12} /> 29 languages available
+                        <GlobeSimple size={12} /> 29 languages · cloud providers for best quality
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -392,7 +392,7 @@ advanced: {
 
                       {/* Language Selection */}
                       <div className="space-y-2">
-                        <label className="text-xs text-gray-600 dark:text-gray-400">Language</label>
+                        <label className="text-xs text-gray-600 dark:text-gray-400">Narration &amp; Voice Language</label>
                         <Select
                           value={state.selectedLanguage}
                           onValueChange={(value) => setSelectedLanguage(value as any)}
@@ -412,6 +412,9 @@ advanced: {
                               ))}
                           </SelectContent>
                         </Select>
+                        <p className="text-[10px] text-muted-foreground leading-snug">
+                          Sets language for both audio narration (TTS) and voice input (STT). Cloud providers deliver the best multilingual quality — configure keys in Settings.
+                        </p>
                       </div>
 
                       {/* TTS Mode Toggle */}
@@ -430,7 +433,7 @@ advanced: {
                         <p className="text-xs text-gray-500 dark:text-gray-500 leading-snug">
                           {state.useLocalTTS
                             ? 'Local: Uses your device\'s built-in voices. Fast, offline, no API needed. Missing a language? Install voice packs via Windows Settings → Time & Language → Speech, or macOS System Settings → Accessibility → Spoken Content.'
-                            : 'Web: Auto-translates content and uses browser voices. Needs an API key for non-English.'}
+                            : 'Web: Auto-translates content and uses browser voices. For the best multilingual quality, configure a cloud TTS engine (OpenAI, Azure, or ElevenLabs) in Settings → API Keys.'}
                         </p>
                       </div>
 
@@ -593,13 +596,14 @@ advanced: {
               </span>
             </TooltipTrigger>
             <TooltipContent side="bottom" className="max-w-[320px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg p-3">
-              <p className="font-medium text-gray-900 dark:text-gray-100 text-xs mb-2">Supported Languages</p>
+              <p className="font-medium text-gray-900 dark:text-gray-100 text-xs mb-1">Global Multilingual Narration</p>
+              <p className="text-[10px] text-gray-600 dark:text-gray-400 mb-2">Content is auto-translated and spoken in your chosen language. For the best voice quality, configure a cloud TTS provider in Settings → API Keys (OpenAI, Azure, or ElevenLabs).</p>
               <div className="grid grid-cols-3 gap-x-3 gap-y-0.5">
                 {[...LANGUAGES].sort((a, b) => a.label.localeCompare(b.label)).map(lang => (
                   <span key={lang.code} className="text-[11px] text-gray-700 dark:text-gray-300 truncate">{lang.label}</span>
                 ))}
               </div>
-              <p className="text-[10px] text-gray-500 dark:text-gray-500 mt-2">Change language in Audio Settings</p>
+              <p className="text-[10px] text-gray-500 dark:text-gray-500 mt-2">Change language in Audio Settings or below</p>
             </TooltipContent>
           </Tooltip>
           
@@ -667,7 +671,7 @@ advanced: {
 
             {/* Language Selection */}
             <div className="space-y-2">
-              <label style={{ fontSize: '14px', color: 'var(--foreground)' }}>Language</label>
+              <label style={{ fontSize: '14px', color: 'var(--foreground)' }}>Narration &amp; Voice Language</label>
               <Select
                 value={state.selectedLanguage}
                 onValueChange={(value) => setSelectedLanguage(value as any)}
@@ -687,6 +691,9 @@ advanced: {
                     ))}
                 </SelectContent>
               </Select>
+              <p style={{ fontSize: '11px', color: 'var(--muted-foreground)' }} className="leading-snug">
+                Sets language for both audio narration (TTS) and voice input (STT). Cloud providers deliver the best multilingual quality — configure keys in Settings.
+              </p>
             </div>
 
             {/* TTS Mode Toggle */}
@@ -705,7 +712,7 @@ advanced: {
               <p style={{ fontSize: '12px', color: 'var(--muted-foreground)' }} className="leading-snug">
                 {state.useLocalTTS
                   ? 'Local: Uses your device\'s built-in voices. Fast, offline, no API needed. Missing a language? Install voice packs via Windows Settings → Time & Language → Speech, or macOS System Settings → Accessibility → Spoken Content.'
-                  : 'Web: Auto-translates content and uses browser voices. Needs an API key for non-English.'}
+                  : 'Web: Auto-translates content and uses browser voices. For the best multilingual quality, configure a cloud TTS engine (OpenAI, Azure, or ElevenLabs) in Settings → API Keys.'}
               </p>
             </div>
 

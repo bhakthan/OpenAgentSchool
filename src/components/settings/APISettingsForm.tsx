@@ -518,6 +518,10 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
           <Microphone size={16} className="text-muted-foreground" weight="fill" />
           <Label className="text-sm font-medium">Speech-to-Text Engine</Label>
         </div>
+        <p className="text-[11px] text-muted-foreground leading-relaxed -mt-1">
+          🌍 <strong>Speak in any of 29 languages</strong> — voice input language is set in Audio Settings.
+          Cloud engines offer the best multilingual accuracy with your API keys; browser &amp; local engines work free with varying language support.
+        </p>
         <RadioGroup
           value={draft.sttPreference}
           onValueChange={v => setDraft(prev => ({ ...prev, sttPreference: v as SttPreference }))}
@@ -525,27 +529,27 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
         >
           <div className="flex items-center gap-2">
             <RadioGroupItem value="auto" id="stt-auto" />
-            <Label htmlFor="stt-auto" className="text-xs font-normal">Auto (Web Speech API → Whisper WASM fallback)</Label>
+            <Label htmlFor="stt-auto" className="text-xs font-normal">Auto (Web Speech API → Whisper WASM fallback) · multilingual</Label>
           </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="web-speech" id="stt-web" />
-            <Label htmlFor="stt-web" className="text-xs font-normal">Web Speech API only (free, no download)</Label>
+            <Label htmlFor="stt-web" className="text-xs font-normal">Web Speech API only (free, no download) · language support varies by browser</Label>
           </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="whisper-wasm" id="stt-whisper" />
-            <Label htmlFor="stt-whisper" className="text-xs font-normal">Whisper WASM (local, ~40 MB model download)</Label>
+            <Label htmlFor="stt-whisper" className="text-xs font-normal">Whisper WASM (local, ~40 MB) · 30+ languages, runs offline</Label>
           </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="openai-whisper" id="stt-openai" />
-            <Label htmlFor="stt-openai" className="text-xs font-normal">OpenAI Whisper API (cloud, uses your API key)</Label>
+            <Label htmlFor="stt-openai" className="text-xs font-normal">OpenAI Whisper API (cloud) · 57 languages, best accuracy</Label>
           </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="azure-speech" id="stt-azure" />
-            <Label htmlFor="stt-azure" className="text-xs font-normal">Azure Speech Services (cloud, enterprise)</Label>
+            <Label htmlFor="stt-azure" className="text-xs font-normal">Azure Speech Services (cloud, enterprise) · 100+ languages</Label>
           </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="deepgram" id="stt-deepgram" />
-            <Label htmlFor="stt-deepgram" className="text-xs font-normal">Deepgram (cloud, real-time streaming)</Label>
+            <Label htmlFor="stt-deepgram" className="text-xs font-normal">Deepgram (cloud, real-time) · 30+ languages, streaming</Label>
           </div>
         </RadioGroup>
 
@@ -624,6 +628,10 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
           <SpeakerHigh size={16} className="text-muted-foreground" weight="fill" />
           <Label className="text-sm font-medium">Text-to-Speech Engine</Label>
         </div>
+        <p className="text-[11px] text-muted-foreground leading-relaxed -mt-1">
+          🌍 <strong>Listen to narrations in 29 languages</strong> — set the language in Audio Settings.
+          Content is auto-translated then spoken. Cloud providers deliver the most natural multilingual voices.
+        </p>
         <RadioGroup
           value={draft.ttsPreference}
           onValueChange={v => setDraft(prev => ({ ...prev, ttsPreference: v as TtsPreference }))}
@@ -631,19 +639,19 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
         >
           <div className="flex items-center gap-2">
             <RadioGroupItem value="browser" id="tts-browser" />
-            <Label htmlFor="tts-browser" className="text-xs font-normal">Browser built-in (Web Speech Synthesis — free)</Label>
+            <Label htmlFor="tts-browser" className="text-xs font-normal">Browser built-in (Web Speech Synthesis — free) · language support varies by OS voice packs</Label>
           </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="openai-tts" id="tts-openai" />
-            <Label htmlFor="tts-openai" className="text-xs font-normal">OpenAI TTS (natural voices, uses your API key)</Label>
+            <Label htmlFor="tts-openai" className="text-xs font-normal">OpenAI TTS (natural voices) · auto-detects language, all 29 languages</Label>
           </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="azure-speech" id="tts-azure" />
-            <Label htmlFor="tts-azure" className="text-xs font-normal">Azure Speech Services (cloud, enterprise)</Label>
+            <Label htmlFor="tts-azure" className="text-xs font-normal">Azure Speech Services (enterprise) · 400+ neural voices across 140+ languages</Label>
           </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="elevenlabs" id="tts-eleven" />
-            <Label htmlFor="tts-eleven" className="text-xs font-normal">ElevenLabs (ultra-realistic voices)</Label>
+            <Label htmlFor="tts-eleven" className="text-xs font-normal">ElevenLabs (ultra-realistic) · multilingual v2, 29+ languages</Label>
           </div>
         </RadioGroup>
 

@@ -56,6 +56,7 @@ import { mobileManipulatorStewardExecutionSteps } from '@/lib/data/execution/mob
 import { adaptiveLabTechnicianExecutionSteps } from '@/lib/data/execution/adaptiveLabTechnicianExecutionSteps';
 import { inventoryGuardianExecutionSteps } from '@/lib/data/execution/inventoryGuardianExecutionSteps';
 import { emergencyResponseMateExecutionSteps } from '@/lib/data/execution/emergencyResponseMateExecutionSteps';
+import MarkdownRenderer from '@/components/study-mode/MarkdownRenderer';
 
 const CORE_PORTFOLIO_METRICS_FOR_SNIPPET = coreEvaluationMetrics.slice(0, 3).map((metric) => metric.dimension);
 
@@ -160,9 +161,10 @@ export async function ${functionName}(runLog: EvaluationRunLog) {
 interface EvaluationScenarioVisualProps {
   pattern: PatternData;
   evaluationProfile: PatternEvaluationProfile;
+  ignitionStyleVariant?: 'default' | 'flat-ui-2';
 }
 
-const EvaluationScenarioVisual: React.FC<EvaluationScenarioVisualProps> = ({ pattern, evaluationProfile }) => {
+const EvaluationScenarioVisual: React.FC<EvaluationScenarioVisualProps> = ({ pattern, evaluationProfile, ignitionStyleVariant = 'default' }) => {
   const visualization = pattern.businessUseCase?.visualization;
   const scenarioDescription = pattern.businessUseCase?.description ?? evaluationProfile.scenarioFocus;
   const businessLabel = pattern.businessUseCase?.industry ?? 'Business Scenario';
@@ -174,7 +176,7 @@ const EvaluationScenarioVisual: React.FC<EvaluationScenarioVisualProps> = ({ pat
     if (!visualization) {
       return (
         <div className="flex h-48 items-center justify-center rounded-lg bg-muted/60">
-          <PatternDemoSVG patternData={pattern} className="w-full max-w-full" />
+          <PatternDemoSVG patternData={pattern} className="w-full max-w-full" styleVariant={ignitionStyleVariant} />
         </div>
       );
     }
@@ -186,6 +188,7 @@ const EvaluationScenarioVisual: React.FC<EvaluationScenarioVisualProps> = ({ pat
         title: `${pattern.name} — Evaluation Flow`,
         description: scenarioDescription,
       };
+      baseProps.styleVariant = ignitionStyleVariant;
 
       if ((Visualization as any)?.name === 'AlgorithmVisualizer') {
         const { steps } = getAlgorithmVisualization(pattern.id, pattern.id);
@@ -202,7 +205,7 @@ const EvaluationScenarioVisual: React.FC<EvaluationScenarioVisualProps> = ({ pat
         console.error('Failed to render business visualization for evaluation tab', error);
         return (
           <div className="flex h-48 items-center justify-center rounded-lg bg-muted/60">
-            <PatternDemoSVG patternData={pattern} className="w-full max-w-full" />
+            <PatternDemoSVG patternData={pattern} className="w-full max-w-full" styleVariant={ignitionStyleVariant} />
           </div>
         );
       }
@@ -229,7 +232,7 @@ const EvaluationScenarioVisual: React.FC<EvaluationScenarioVisualProps> = ({ pat
 
     return (
       <div className="flex h-48 items-center justify-center rounded-lg bg-muted/60">
-        <PatternDemoSVG patternData={pattern} className="w-full max-w-full" />
+        <PatternDemoSVG patternData={pattern} className="w-full max-w-full" styleVariant={ignitionStyleVariant} />
       </div>
     );
   };
@@ -336,10 +339,12 @@ const EvaluationScenarioVisual: React.FC<EvaluationScenarioVisualProps> = ({ pat
 
 interface PatternDetailsProps {
   pattern: PatternData;
+  ignitionStyleVariant?: 'default' | 'flat-ui-2';
 }
 
-const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
+const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern, ignitionStyleVariant = 'default' }) => {
   if (!pattern) return null;
+  const isFlatUi2 = ignitionStyleVariant === 'flat-ui-2';
 
   const [copiedSnippet, setCopiedSnippet] = useState<'automation' | 'metrics' | null>(null);
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -404,8 +409,8 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
     'Comprehensive collection of proven AI agent design patterns with detailed implementation guides, architectural templates, and best practices for building robust, scalable agent systems.';
 
   return (
-    <Card className="mb-6 border-primary/20">
-      <CardHeader className="bg-muted/30">
+    <Card className={`mb-6 border-primary/20 ${isFlatUi2 ? 'flat-ui-2-theme bg-background' : ''}`}>
+      <CardHeader className={isFlatUi2 ? "bg-background border-b border-border/60" : "bg-muted/30"}>
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <CardTitle className="flex items-center gap-2">
@@ -432,7 +437,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
           </div>
         </div>
       </CardHeader>
-    <CardContent className="pt-6">
+    <CardContent className={isFlatUi2 ? "pt-6 bg-background" : "pt-6"}>
   <Tabs
         key={pattern.id}
         defaultValue={hasBusinessUseCase ? "business-use-case" : "details"}
@@ -670,7 +675,9 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
-                    <p className="text-base text-foreground">{pattern.businessUseCase.description}</p>
+                    <div className="prose prose-sm max-w-none text-foreground dark:prose-invert">
+                      <MarkdownRenderer>{pattern.businessUseCase.description}</MarkdownRenderer>
+                    </div>
                   </div>
                   {pattern.businessUseCase.visualization ? (() => {
                     const Vis = pattern.businessUseCase!.visualization as any;
@@ -680,6 +687,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                         title: `${pattern.name} — Business Flow`,
                         description: pattern.businessUseCase!.description,
                       };
+                      baseProps.styleVariant = ignitionStyleVariant;
                       if (Vis?.name === 'AlgorithmVisualizer') {
                         const { steps } = getAlgorithmVisualization(pattern.id, pattern.id);
                         baseProps.steps = steps;
@@ -719,7 +727,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
                     </div>
                   )}
                   {pattern.id === 'autogen-multi-agent' && (
-                    <DynamicAutoGenBusinessVisualization />
+                    <DynamicAutoGenBusinessVisualization styleVariant={ignitionStyleVariant} />
                   )}
                 </CardContent>
               </Card>
@@ -786,7 +794,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
               <AccordionItem value="diagram">
                  <AccordionTrigger>Interactive Diagram</AccordionTrigger>
                  <AccordionContent>
-                    <PatternDemoSVG patternData={pattern} className="mt-2" />
+                    <PatternDemoSVG patternData={pattern} className="mt-2" styleVariant={ignitionStyleVariant} />
                  </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -795,7 +803,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern }) => {
           {evaluationProfile && (
             <TabsContent value="evaluation" className="pt-4">
               <div className="space-y-4">
-                <EvaluationScenarioVisual pattern={pattern} evaluationProfile={evaluationProfile} />
+                <EvaluationScenarioVisual pattern={pattern} evaluationProfile={evaluationProfile} ignitionStyleVariant={ignitionStyleVariant} />
 
                 <Card>
                   <CardHeader>
@@ -1463,8 +1471,9 @@ const parseAgentsAndInteractions = (input: string) => {
   return { agents, interactions };
 };
 
-const DynamicAutoGenBusinessVisualization: React.FC = () => {
+const DynamicAutoGenBusinessVisualization: React.FC<{ styleVariant?: 'default' | 'flat-ui-2' }> = ({ styleVariant = 'default' }) => {
   const textareaId = React.useId();
+  const isFlatUi2 = styleVariant === 'flat-ui-2';
   const [input, setInput] = React.useState('Agent A assigns task to Agent B\nAgent B shares data with Agent C');
   const [agents, setAgents] = React.useState<any[]>([]);
   const [interactions, setInteractions] = React.useState<any[]>([]);
@@ -1478,7 +1487,7 @@ const DynamicAutoGenBusinessVisualization: React.FC = () => {
   };
 
   return (
-    <div className="rounded-xl border border-border/60 bg-background/70 p-4 shadow-sm">
+    <div className={`rounded-xl border border-border/60 p-4 shadow-sm ${isFlatUi2 ? 'flat-ui-2-theme bg-background' : 'bg-background/70'}`}>
       <div className="space-y-2">
         <Label htmlFor={textareaId} className="text-sm font-medium text-foreground">
           Define agent handoffs
@@ -1505,7 +1514,7 @@ const DynamicAutoGenBusinessVisualization: React.FC = () => {
       <div className="mt-4">
         {showVis ? (
           agents.length > 0 && interactions.length > 0 ? (
-            <div className="rounded-lg border border-border/60 bg-card p-4">
+            <div className={`rounded-lg border border-border/60 p-4 ${isFlatUi2 ? 'bg-background' : 'bg-card'}`}>
               <AutoGenPatternVisualizer agents={agents} interactions={interactions} />
             </div>
           ) : (
