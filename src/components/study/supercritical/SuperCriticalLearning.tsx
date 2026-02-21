@@ -8,6 +8,9 @@ import { Badge } from '@/components/ui/badge';
 import { ShareButton } from '@/components/ui/ShareButton';
 import { z } from 'zod';
 import type { SCLMode } from '@/types/supercritical';
+import { callLlmWithMessages, type LlmProvider, type LlmMessage } from '@/lib/llm';
+import { getFirstAvailableProvider } from '@/lib/config';
+import { loadSettings } from '@/lib/userSettings';
 
 interface SuperCriticalLearningProps {
   onBack?: () => void;
@@ -253,69 +256,36 @@ function SuperCriticalLearning({
 
   const SYSTEM_JSON_ONLY = 'You are an analysis engine. Respond with ONLY raw JSON. NEVER use markdown code fences (```). NEVER include explanatory text. Start your response with { and end with }. Output must be valid minified JSON matching the schema exactly.';
 
-  const callOpenRouterAPI = async (prompt: string, opts?: { temperature?: number; maxTokens?: number }) => {
-    const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
-    const apiUrl = import.meta.env.VITE_OPENROUTER_API_URL || 'https://openrouter.ai/api/v1';
-    const model = import.meta.env.VITE_OPENROUTER_MODEL || 'google/gemma-3n-e4b-it:free';
-    
-    if (!apiKey) {
-      throw new Error('OpenRouter API key not configured. Please set VITE_OPENROUTER_API_KEY in your .env file.');
+  /** Resolve LLM provider from user settings (BYOK) — same logic as SCLOrchestrator. */
+  const resolveLlmProvider = (): LlmProvider => {
+    try {
+      const settings = loadSettings();
+      if (settings.preferredProvider && settings.preferredProvider !== 'auto') {
+        return settings.preferredProvider as LlmProvider;
+      }
+      return (getFirstAvailableProvider() || 'openrouter') as LlmProvider;
+    } catch {
+      return 'openrouter';
     }
+  };
 
-    // Support both base and full API URLs from env
-    const finalUrl = /\/chat\/completions\/?$/.test(apiUrl)
-      ? apiUrl.replace(/\/$/, '')
-      : `${apiUrl.replace(/\/$/, '')}/chat/completions`;
-
-    const response = await fetch(finalUrl, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://openagentschool.org',
-        'X-Title': 'OpenAgentSchool-SCL',
-      },
-      body: JSON.stringify({
-        model: model,
-        // Note: response_format is NOT supported by all OpenRouter models (including DeepSeek)
-        // The system prompt handles JSON formatting requirements
-        messages: [
-          { role: 'system', content: SYSTEM_JSON_ONLY },
-          { role: 'user', content: prompt }
-        ],
-        max_tokens: opts?.maxTokens ?? 1000,
-        temperature: opts?.temperature ?? (selectedMode === 'consolidate' ? 0.2 : 0.5),
-      }),
+  /** Call the unified LLM layer with the user's configured provider. */
+  const callSCLApi = async (prompt: string, opts?: { temperature?: number; maxTokens?: number }): Promise<string> => {
+    const provider = resolveLlmProvider();
+    const messages: LlmMessage[] = [
+      { role: 'system', content: SYSTEM_JSON_ONLY },
+      { role: 'user', content: prompt },
+    ];
+    console.log(`SCL calling provider: ${provider}`);
+    const result = await callLlmWithMessages(messages, provider, {
+      temperature: opts?.temperature ?? (selectedMode === 'consolidate' ? 0.2 : 0.5),
+      maxTokens: opts?.maxTokens ?? 1000,
+      responseFormat: 'json',
     });
-    
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ error: { message: 'Unknown error' } }));
-      throw new Error(`API call failed (${response.status}): ${errorData.error?.message || response.statusText}`);
-    }
-    
-    const data = await response.json();
-    console.log('SCL API Response:', data);
-    
-    // Validate response structure
-    if (!data.choices || !Array.isArray(data.choices) || data.choices.length === 0) {
-      console.error('Invalid API response structure:', data);
-      throw new Error('API returned invalid response structure (no choices array)');
-    }
-    
-    const choice = data.choices[0];
-    if (!choice || !choice.message) {
-      console.error('Invalid choice structure:', choice);
-      throw new Error('API returned invalid choice structure (no message)');
-    }
-    
-    // Extract only content, ignore reasoning for DeepSeek R1
-    const content = choice.message.content || '';
-    
+    const content = result.content;
     if (!content || content.trim() === '') {
-      console.error('Empty content in response:', choice.message);
-      throw new Error('API returned empty content');
+      throw new Error('LLM returned empty content');
     }
-    
     return content;
   };
 
@@ -376,7 +346,7 @@ IMPORTANT:
 - Ensure all JSON is properly quoted and formatted`;
 
     try {
-      const response = await callOpenRouterAPI(prompt);
+      const response = await callSCLApi(prompt);
       const parsed = parseJSONResponse(response);
       const v = FirstResponseSchema.safeParse(parsed);
       if (!v.success) {
@@ -477,12 +447,12 @@ Return ONLY a valid JSON object. No extra text, no markdown, no comments.
     try {
       let parsed: any;
       try {
-        const response = await callOpenRouterAPI(prompt, { temperature: 0.2, maxTokens: 1200 });
+        const response = await callSCLApi(prompt, { temperature: 0.2, maxTokens: 1200 });
         parsed = parseJSONResponse(response);
       } catch (firstErr) {
         // Retry with stricter skeleton
         const fallbackPrompt = `${prompt}\n\nReturn ONLY this exact JSON shape (fill arrays if empty): {"effects":[],"connections":[],"leaps":[]}`;
-        const response2 = await callOpenRouterAPI(fallbackPrompt, { temperature: 0.1, maxTokens: 800 });
+        const response2 = await callSCLApi(fallbackPrompt, { temperature: 0.1, maxTokens: 800 });
         parsed = parseJSONResponse(response2);
       }
       const v = HigherResponseSchema.safeParse(parsed);
@@ -585,7 +555,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
 }`;
 
     try {
-      const response = await callOpenRouterAPI(prompt, { temperature: 0.2, maxTokens: 800 });
+      const response = await callSCLApi(prompt, { temperature: 0.2, maxTokens: 800 });
       const parsed = parseJSONResponse(response);
       const v = SynthesisSchema.safeParse(parsed);
       if (!v.success) {
