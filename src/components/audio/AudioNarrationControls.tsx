@@ -509,7 +509,7 @@ advanced: {
             </span>
             
             {/* Level Buttons */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               {(Object.keys(levelConfig) as Array<keyof typeof levelConfig>).map((level) => {
                 const config = levelConfig[level];
                 const isCurrentLevel = state.currentLevel === level && isCurrentComponent;
@@ -523,7 +523,7 @@ advanced: {
                         size="sm"
                         variant="outline"
                         className={`
-              relative flex items-center gap-2 h-10 px-3 audio-level
+              relative flex items-center gap-1 h-8 px-2 audio-level
                           border-2 shadow-md transition-all duration-300 transform
                           ${isActiveAndPlaying 
                             ? `${config.bgColor} ${config.color} ${config.borderColor} ${config.shadowColor} scale-110 shadow-lg` 
@@ -532,7 +532,7 @@ advanced: {
                         `}
                       >
                         <div className="relative flex items-center">
-                          <span className="text-xl">{config.icon}</span>
+                          <span className="text-base">{config.icon}</span>
                           {isActiveAndPlaying && (
                             <div className="absolute -top-1 -right-1 bg-red-500 rounded-full p-0.5 shadow-lg">
                               <Pause className="w-2.5 h-2.5 text-white" />
@@ -544,7 +544,6 @@ advanced: {
                             </div>
                           )}
                         </div>
-                        <span className={`text-sm font-medium ${config.color}`}>{config.label}</span>
                         {isActiveAndPlaying && (
                           <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
                         )}

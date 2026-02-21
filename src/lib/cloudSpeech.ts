@@ -237,11 +237,29 @@ export async function speakOpenAIAudio(
   const cfgUrl = cfg?.apiUrl;
   const providerUrl = settings.providers.openai?.apiUrl || settings.providers.azure?.apiUrl;
   const rawUrl = cfgUrl || providerUrl || 'https://api.openai.com/v1';
-  // Strip trailing paths like /audio/speech or /chat/completions so we get a clean base
-  const baseUrl = rawUrl.replace(/\/(audio|chat)\/.*$/, '').replace(/\/$/, '');
 
   // Detect Azure from URL pattern — uses api-key header instead of Bearer
-  const isAzure = baseUrl.includes('.openai.azure.com') || baseUrl.includes('.cognitive.microsoft.com');
+  const isAzure = rawUrl.includes('.openai.azure.com') || rawUrl.includes('.cognitive.microsoft.com');
+
+  // Normalise the URL to a base that we can append /chat/completions to.
+  //
+  // OpenAI-style:  https://api.openai.com/v1  → strip /audio/speech, /chat/completions
+  // Azure-style:   https://{r}.openai.azure.com/openai/deployments/{d}  → keep path intact
+  //
+  // For Azure the deployment URL must end at the deployment name (no trailing /chat/…).
+  // For OpenAI the URL may have /v1/audio/speech or /v1/chat/completions trailing.
+  let baseUrl: string;
+  if (isAzure) {
+    // Strip only known trailing segments that the user might have copy-pasted
+    baseUrl = rawUrl
+      .replace(/\/chat\/completions\/?(\?.*)?$/, '')   // strip /chat/completions?api-version=…
+      .replace(/\/$/, '');
+  } else {
+    // OpenAI / OpenRouter: strip /audio/* or /chat/* suffixes
+    baseUrl = rawUrl
+      .replace(/\/(audio|chat)\/[^\s]*$/, '')
+      .replace(/\/$/, '');
+  }
 
   // Build the chat/completions URL — Azure needs api-version query param
   let url = `${baseUrl}/chat/completions`;
@@ -251,6 +269,8 @@ export async function speakOpenAIAudio(
 
   const model = cfg?.model || 'gpt-4o-mini-audio-preview';
   const voice = cfg?.voiceId || 'coral';
+
+  console.log(`[AudioModel] isAzure=${isAzure} url=${url} model=${model} voice=${voice}`);
 
   const isEnglish = lang.startsWith('en');
   const systemPrompt = isEnglish
