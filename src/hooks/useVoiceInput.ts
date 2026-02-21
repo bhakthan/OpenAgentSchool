@@ -96,7 +96,11 @@ export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInput
       // Configure recognition with more permissive settings
       recognitionRef.current.continuous = continuous;
       recognitionRef.current.interimResults = interimResults;
-      recognitionRef.current.lang = language;
+      // When language is empty (auto-detect), don't set lang —
+      // lets the browser handle code-switching (mixed languages)
+      if (language && language !== '') {
+        recognitionRef.current.lang = language;
+      }
       langRef.current = language;
       
       // Add more permissive settings for better detection
@@ -184,7 +188,12 @@ export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInput
   // Keep recognition language in sync without re-creating the instance
   useEffect(() => {
     if (recognitionRef.current && language !== langRef.current) {
-      recognitionRef.current.lang = language;
+      if (language && language !== '') {
+        recognitionRef.current.lang = language;
+      } else {
+        // Auto-detect: clear the lang constraint to allow code-switching
+        recognitionRef.current.lang = '';
+      }
       langRef.current = language;
     }
   }, [language]);

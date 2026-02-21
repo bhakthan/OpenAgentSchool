@@ -1,5 +1,6 @@
 // Centralized language definitions used across translation and narration
 export const LANGUAGES = [
+  { code: 'auto', label: 'Auto-detect (multilingual)', locale: '' },
   { code: 'en', label: 'English', locale: 'en-US' },
   { code: 'ar', label: 'Arabic', locale: 'ar-SA' },
   { code: 'bn', label: 'Bengali', locale: 'bn-IN' },
@@ -34,16 +35,22 @@ export const LANGUAGES = [
 export type Language = (typeof LANGUAGES)[number];
 export type LanguageCode = Language['code'];
 
-export const getLocaleFor = (code: LanguageCode): string =>
-  LANGUAGES.find(l => l.code === code)?.locale || 'en-US';
+export const getLocaleFor = (code: LanguageCode): string => {
+  if (code === 'auto') return '';  // empty → browser/API auto-detects
+  return LANGUAGES.find(l => l.code === code)?.locale || 'en-US';
+};
+
+/** True when the language code means "let the engine decide" */
+export const isAutoDetect = (code: LanguageCode | string): boolean =>
+  code === 'auto' || code === '';
 
 export const getLanguagesSorted = (): ReadonlyArray<Language> =>
-  [...LANGUAGES].sort((a, b) => a.label.localeCompare(b.label));
+  [...LANGUAGES].filter(l => l.code !== 'auto').sort((a, b) => a.label.localeCompare(b.label));
 
-// For the translate modal, we typically exclude English as a target
-export type TranslateTargetCode = Exclude<LanguageCode, 'en'>;
+// For the translate modal, we typically exclude English and auto as targets
+export type TranslateTargetCode = Exclude<LanguageCode, 'en' | 'auto'>;
 export type TranslateTarget = { code: TranslateTargetCode; label: string };
 export const getTranslateTargets = (): ReadonlyArray<TranslateTarget> =>
   getLanguagesSorted()
-    .filter(l => l.code !== 'en')
+    .filter(l => l.code !== 'en' && l.code !== 'auto')
     .map(l => ({ code: l.code as TranslateTargetCode, label: l.label }));

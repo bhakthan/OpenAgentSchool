@@ -3,6 +3,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { VoiceInputButton } from '@/components/ui/VoiceInputButton';
 import { cn } from '@/lib/utils';
 import { LANGUAGES, getLocaleFor, type LanguageCode } from '@/lib/languages';
+
+/** Sorted languages with Auto-detect pinned to the top */
+const SORTED_LANGUAGES = (() => {
+  const auto = LANGUAGES.find(l => l.code === 'auto')!;
+  const rest = [...LANGUAGES].filter(l => l.code !== 'auto').sort((a, b) => a.label.localeCompare(b.label));
+  return [auto, ...rest];
+})();
 import { GlobeHemisphereWest } from '@phosphor-icons/react';
 
 const VOICE_LANG_KEY = 'oas.voice.inputLang';
@@ -34,7 +41,7 @@ export const TextareaWithVoice: React.FC<TextareaWithVoiceProps> = ({
       const saved = localStorage.getItem(VOICE_LANG_KEY);
       if (saved && LANGUAGES.some(l => l.code === saved)) return saved as LanguageCode;
     } catch { /* ignore */ }
-    return 'en';
+    return 'auto';  // Default to auto-detect for multilingual users
   });
   const [showLangPicker, setShowLangPicker] = useState(false);
   const pickerRef = useRef<HTMLDivElement>(null);
@@ -60,8 +67,8 @@ export const TextareaWithVoice: React.FC<TextareaWithVoiceProps> = ({
     onChange(newValue);
   };
 
-  const currentLabel = LANGUAGES.find(l => l.code === voiceLang)?.label ?? 'English';
-  const locale = getLocaleFor(voiceLang);
+  const currentLabel = LANGUAGES.find(l => l.code === voiceLang)?.label ?? 'Auto-detect';
+  const locale = getLocaleFor(voiceLang);  // '' for auto → VoiceInputButton won't lock language
 
   return (
     <div className="space-y-2">
@@ -99,7 +106,7 @@ export const TextareaWithVoice: React.FC<TextareaWithVoiceProps> = ({
             title={`Voice language: ${currentLabel} — click to change`}
           >
             <GlobeHemisphereWest size={12} weight="bold" />
-            {voiceLang.toUpperCase()}
+            {voiceLang === 'auto' ? 'AUTO' : voiceLang.toUpperCase()}
           </button>
 
           <VoiceInputButton
@@ -114,20 +121,24 @@ export const TextareaWithVoice: React.FC<TextareaWithVoiceProps> = ({
             <div className="absolute top-full right-0 mt-1 w-48 max-h-64 overflow-y-auto rounded-lg border bg-popover shadow-lg z-50">
               <div className="p-1.5">
                 <p className="text-[10px] text-muted-foreground px-2 py-1 font-medium">Voice input language</p>
-                {[...LANGUAGES].sort((a, b) => a.label.localeCompare(b.label)).map(lang => (
-                  <button
-                    key={lang.code}
-                    type="button"
-                    onClick={() => { setVoiceLang(lang.code); setShowLangPicker(false); }}
-                    className={cn(
-                      "w-full text-left px-2 py-1.5 rounded-md text-xs flex items-center justify-between",
-                      "hover:bg-accent hover:text-accent-foreground transition-colors",
-                      lang.code === voiceLang && "bg-primary/10 text-primary font-medium"
-                    )}
-                  >
-                    <span>{lang.label}</span>
-                    <span className="text-[10px] text-muted-foreground uppercase">{lang.code}</span>
-                  </button>
+                {SORTED_LANGUAGES.map((lang, idx) => (
+                  <React.Fragment key={lang.code}>
+                    {/* Separator after Auto-detect */}
+                    {idx === 1 && <div className="border-t border-border my-1" />}
+                    <button
+                      type="button"
+                      onClick={() => { setVoiceLang(lang.code); setShowLangPicker(false); }}
+                      className={cn(
+                        "w-full text-left px-2 py-1.5 rounded-md text-xs flex items-center justify-between",
+                        "hover:bg-accent hover:text-accent-foreground transition-colors",
+                        lang.code === voiceLang && "bg-primary/10 text-primary font-medium",
+                        lang.code === 'auto' && "italic"
+                      )}
+                    >
+                      <span>{lang.code === 'auto' ? '\u{1F310} Auto-detect' : lang.label}</span>
+                      <span className="text-[10px] text-muted-foreground uppercase">{lang.code === 'auto' ? 'MIX' : lang.code}</span>
+                    </button>
+                  </React.Fragment>
                 ))}
               </div>
             </div>

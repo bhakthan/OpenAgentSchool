@@ -8,7 +8,7 @@ import { Info, Lock, Scales, Gavel, ShieldWarning, CurrencyDollar } from '@phosp
  */
 const SettingsPage: React.FC = () => {
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <div className="api-settings-flat-ui max-w-2xl mx-auto space-y-8">
       {/* Page header */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Settings</h1>

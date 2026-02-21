@@ -186,7 +186,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
   };
 
   return (
-    <div className="space-y-6">
+    <div className="api-settings-flat-ui-form space-y-6">
       {/* ─── Trust Banner ─── */}
       <Alert className="border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-950/50">
         <ShieldCheck size={16} className="text-emerald-600 dark:text-emerald-400" weight="fill" />
@@ -370,7 +370,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
                                           },
                                         }));
                                       }}
-                                      className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-1 rounded-md border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                                      className="settings-preset-btn inline-flex items-center gap-1 text-[11px] font-medium px-2 py-1 rounded-md border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
                                       title={`${preset.name} — ${preset.url}`}
                                     >
                                       <span>{preset.region}</span>

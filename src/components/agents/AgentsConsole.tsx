@@ -270,7 +270,7 @@ export default function AgentsConsole() {
 
   if (!isAuthenticated) {
     return (
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+      <div className="agent-console-flat-ui container mx-auto px-4 py-12 max-w-4xl">
         <Card className="text-center p-12">
           <Plugs size={64} className="mx-auto mb-4 text-gray-400" />
           <h2 className="text-2xl font-bold mb-2">Sign In to Access Agents Console</h2>
@@ -287,7 +287,7 @@ export default function AgentsConsole() {
 
   if (!enabled) {
     return (
-      <div className="space-y-4">
+      <div className="agent-console-flat-ui space-y-4">
         <h1 className="text-2xl font-semibold">Agents Console</h1>
         <p className="text-sm text-muted-foreground">Orchestrator not configured. Set VITE_ORCHESTRATOR_SERVICE_URL to enable this page. The rest of the app continues to work without it.</p>
       </div>
@@ -295,17 +295,17 @@ export default function AgentsConsole() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="agent-console-flat-ui space-y-4">
       <h1 className="text-2xl font-semibold">Agents Console</h1>
       {error && <div className="text-red-500 text-sm">{error}</div>}
       <div className="flex flex-col gap-3 md:flex-row">
         <div className="md:w-1/3 space-y-2">
           <label className="text-sm font-medium">Agents</label>
-          <div className="border rounded p-2 min-h-56 max-h-[75vh] overflow-auto resize-y">
+          <div className="border rounded p-2 min-h-56 max-h-[75vh] overflow-auto resize-y bg-card">
             {agents?.length ? (
               <ul className="space-y-2">
                 {agents.map(a => (
-                  <li key={a.id} className={`p-2 rounded cursor-pointer ${selected === a.id ? 'bg-muted' : ''}`} onClick={() => setSelected(a.id)}>
+                  <li key={a.id} className={`p-2 rounded cursor-pointer border border-transparent ${selected === a.id ? 'bg-muted border-border' : 'hover:bg-muted/40'}`} onClick={() => setSelected(a.id)}>
                     <div className="font-medium">{a.name}</div>
                     <div className="text-xs text-muted-foreground">{a.id}</div>
                     <div className="text-xs mt-1">{a.description}</div>
@@ -322,7 +322,7 @@ export default function AgentsConsole() {
         </div>
         <div className="md:w-2/3 space-y-2">
           {selectedAgent && (
-            <div className="border rounded p-2 text-xs space-y-1 bg-accent/20">
+            <div className="border rounded p-2 text-xs space-y-1 bg-muted/40">
               <div className="font-medium">Selected: {selectedAgent.name}</div>
               <div className="text-muted-foreground">{selectedAgent.description}</div>
               <div>inputs: {selectedAgent.inputs?.join(', ') || '-'}</div>
@@ -331,7 +331,7 @@ export default function AgentsConsole() {
             </div>
           )}
           <label className="text-sm font-medium">Payload (JSON)</label>
-          <textarea className="w-full h-48 border rounded p-2 font-mono text-sm" value={payload} onChange={(e) => setPayload(e.target.value)} />
+          <textarea className="w-full h-48 border rounded p-2 font-mono text-sm bg-card" value={payload} onChange={(e) => setPayload(e.target.value)} />
           <div>
             <div className="flex items-center gap-2">
               <Button onClick={onAct} disabled={!selected}>Act with {selected || '...'}</Button>
@@ -358,7 +358,7 @@ export default function AgentsConsole() {
             </div>
           </div>
           <label className="text-sm font-medium">Result</label>
-          <pre className="w-full min-h-24 border rounded p-2 bg-muted overflow-auto text-sm">{result}</pre>
+          <pre className="w-full min-h-24 border rounded p-2 bg-muted/50 overflow-auto text-sm">{result}</pre>
           <div className="text-xs text-muted-foreground">
             <div>orchestrator: {baseUrl}</div>
             <div>agents loaded: {agents?.length ?? 0}</div>

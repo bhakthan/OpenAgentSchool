@@ -70,14 +70,15 @@ export async function transcribeOpenAIWhisper(audioBlob: Blob, lang?: string): P
 
 // ─── STT — Azure Speech Services ─────────────────────────────────────────
 
-export async function transcribeAzureSpeech(audioBlob: Blob, lang = 'en-US'): Promise<string> {
+export async function transcribeAzureSpeech(audioBlob: Blob, lang?: string): Promise<string> {
   const settings = loadSettings();
   const cfg = settings.speechServices?.azureSpeech;
   if (!cfg?.apiKey) throw new Error('No Azure Speech key configured. Set one in Settings.');
 
   // Accept either a region name (e.g. "eastus") or a full endpoint URL
   const region = cfg.apiUrl?.replace(/^https?:\/\//, '').split('.')[0] || 'eastus';
-  const url = `https://${region}.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=${lang}`;
+  const langParam = lang || 'en-US'; // Azure requires a language; fall back to en-US for auto
+  const url = `https://${region}.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=${langParam}`;
 
   const res = await fetch(url, {
     method: 'POST',
@@ -94,13 +95,16 @@ export async function transcribeAzureSpeech(audioBlob: Blob, lang = 'en-US'): Pr
 
 // ─── STT — Deepgram ──────────────────────────────────────────────────────
 
-export async function transcribeDeepgram(audioBlob: Blob, lang = 'en'): Promise<string> {
+export async function transcribeDeepgram(audioBlob: Blob, lang?: string): Promise<string> {
   const settings = loadSettings();
   const cfg = settings.speechServices?.deepgram;
   if (!cfg?.apiKey) throw new Error('No Deepgram API key configured. Set one in Settings.');
 
   const model = cfg.model || 'nova-2';
-  const url = `https://api.deepgram.com/v1/listen?model=${model}&language=${lang}`;
+  // Deepgram auto-detects when language is omitted; pass detect_language=true
+  const url = lang
+    ? `https://api.deepgram.com/v1/listen?model=${model}&language=${lang}`
+    : `https://api.deepgram.com/v1/listen?model=${model}&detect_language=true`;
 
   const res = await fetch(url, {
     method: 'POST',
@@ -292,7 +296,7 @@ export async function speakOpenAIAudio(
  * Sends audio as base64-encoded content and returns the transcript.
  * Requires a Google Cloud API key with the Speech-to-Text API enabled.
  */
-export async function transcribeGoogle(audioBlob: Blob, lang = 'en-US'): Promise<string> {
+export async function transcribeGoogle(audioBlob: Blob, lang?: string): Promise<string> {
   const settings = loadSettings();
   const cfg = settings.speechServices?.googleCloud;
   const apiKey = cfg?.apiKey ?? resolveKey(cfg, 'gemini');
@@ -313,7 +317,9 @@ export async function transcribeGoogle(audioBlob: Blob, lang = 'en-US'): Promise
       config: {
         encoding: 'WEBM_OPUS',
         sampleRateHertz: 48000,
-        languageCode: lang,
+        languageCode: lang || 'en-US',
+        // When auto-detecting, allow alternative languages
+        ...(lang ? {} : { alternativeLanguageCodes: ['en-US', 'hi-IN', 'ta-IN', 'es-ES', 'fr-FR', 'de-DE', 'ja-JP', 'zh-CN'] }),
         model: cfg?.model || 'default',
       },
       audio: { content: audioContent },
@@ -340,7 +346,7 @@ export async function transcribeGoogle(audioBlob: Blob, lang = 'en-US'): Promise
  *
  * If no proxy is configured, a helpful error guides the user.
  */
-export async function transcribeAWS(audioBlob: Blob, lang = 'en-US'): Promise<string> {
+export async function transcribeAWS(audioBlob: Blob, lang?: string): Promise<string> {
   const settings = loadSettings();
   const cfg = settings.speechServices?.awsSpeech;
   if (!cfg?.apiUrl) throw new Error('AWS Transcribe requires a proxy URL. Set the endpoint in Settings → STT → AWS Transcribe. AWS APIs need server-side SigV4 signing.');
@@ -348,7 +354,8 @@ export async function transcribeAWS(audioBlob: Blob, lang = 'en-US'): Promise<st
 
   const formData = new FormData();
   formData.append('file', audioBlob, 'recording.webm');
-  formData.append('language', lang);
+  if (lang) formData.append('language', lang);
+  else formData.append('identify_language', 'true');
 
   const res = await fetch(cfg.apiUrl, {
     method: 'POST',

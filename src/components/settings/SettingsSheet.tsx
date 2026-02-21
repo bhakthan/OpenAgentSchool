@@ -13,14 +13,14 @@ interface SettingsSheetProps {
 export const SettingsSheet: React.FC<SettingsSheetProps> = ({ open, onOpenChange }) => {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-xl p-0">
-        <SheetHeader className="px-6 pt-6 pb-2">
+      <SheetContent side="right" className="api-settings-flat-ui w-full sm:max-w-xl p-0">
+        <SheetHeader className="api-settings-flat-header px-6 pt-6 pb-2">
           <SheetTitle>API Settings</SheetTitle>
           <SheetDescription>
             Bring Your Own Keys — configure LLM providers and services.
           </SheetDescription>
         </SheetHeader>
-        <ScrollArea className="h-[calc(100vh-8rem)] px-6 pb-6">
+        <ScrollArea className="api-settings-flat-body h-[calc(100vh-8rem)] px-6 pb-6">
           <APISettingsForm compact onSaved={() => onOpenChange(false)} />
           <div className="pt-4 pb-2">
             <Link

@@ -35,7 +35,7 @@ export default function ApiDocsPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+      <div className="api-docs-flat-ui container mx-auto px-4 py-12 max-w-4xl">
         <Card className="text-center p-12">
           <FileCode size={64} className="mx-auto mb-4 text-gray-400" />
           <h2 className="text-2xl font-bold mb-2">Sign In to Access API Docs</h2>
@@ -51,7 +51,7 @@ export default function ApiDocsPage() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="api-docs-flat-ui space-y-4">
       <div className="flex items-center gap-2 flex-wrap">
         <span className="text-sm text-muted-foreground">Backend base:</span>
         {candidates.map((b) => (
@@ -64,11 +64,11 @@ export default function ApiDocsPage() {
         </a>
       </div>
       <div className="grid md:grid-cols-2 gap-4">
-        <section className="border rounded-md overflow-hidden">
+        <section className="border rounded-md overflow-hidden bg-card">
           <div className="px-3 py-2 border-b text-sm font-medium">Swagger UI (/docs)</div>
           <iframe title="Swagger UI" src={swaggerUrl} className="w-full h-[70vh] bg-background" />
         </section>
-        <section className="border rounded-md overflow-hidden">
+        <section className="border rounded-md overflow-hidden bg-card">
           <div className="px-3 py-2 border-b text-sm font-medium">ReDoc (/redoc)</div>
           <iframe title="ReDoc" src={redocUrl} className="w-full h-[70vh] bg-background" />
         </section>

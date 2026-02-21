@@ -406,6 +406,7 @@ advanced: {
                           >
                             {LANGUAGES
                               .slice()
+                              .filter(l => l.code !== 'auto')
                               .sort((a,b)=>a.label.localeCompare(b.label))
                               .map(opt => (
                                 <SelectItem key={opt.code} value={opt.code}>{opt.label}</SelectItem>
@@ -592,14 +593,14 @@ advanced: {
           <Tooltip>
             <TooltipTrigger asChild>
               <span className="flex items-center gap-1.5 text-sm text-blue-700 dark:text-blue-400 cursor-help">
-                <GlobeSimple size={16} weight="bold" /> {LANGUAGES.length} languages
+                <GlobeSimple size={16} weight="bold" /> {LANGUAGES.filter(l => l.code !== 'auto').length} languages
               </span>
             </TooltipTrigger>
             <TooltipContent side="bottom" className="max-w-[320px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg p-3">
               <p className="font-medium text-gray-900 dark:text-gray-100 text-xs mb-1">Global Multilingual Narration</p>
               <p className="text-[10px] text-gray-600 dark:text-gray-400 mb-2">Content is auto-translated and spoken in your chosen language. For the best voice quality, configure a cloud TTS provider in Settings → API Keys (OpenAI, Azure, or ElevenLabs).</p>
               <div className="grid grid-cols-3 gap-x-3 gap-y-0.5">
-                {[...LANGUAGES].sort((a, b) => a.label.localeCompare(b.label)).map(lang => (
+                {[...LANGUAGES].filter(l => l.code !== 'auto').sort((a, b) => a.label.localeCompare(b.label)).map(lang => (
                   <span key={lang.code} className="text-[11px] text-gray-700 dark:text-gray-300 truncate">{lang.label}</span>
                 ))}
               </div>
@@ -685,6 +686,7 @@ advanced: {
                 >
                   {LANGUAGES
                     .slice()
+                    .filter(l => l.code !== 'auto')
                     .sort((a,b)=>a.label.localeCompare(b.label))
                     .map(opt => (
                       <SelectItem key={opt.code} value={opt.code}>{opt.label}</SelectItem>

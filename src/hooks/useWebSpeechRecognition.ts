@@ -9,7 +9,7 @@
  */
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { getLocaleFor, LanguageCode } from '@/lib/languages';
+import { getLocaleFor, isAutoDetect, LanguageCode } from '@/lib/languages';
 
 export interface WebSpeechRecognitionState {
   transcript: string;
@@ -58,7 +58,11 @@ export function useWebSpeechRecognition() {
     }
 
     const rec = new SpeechRecognitionCtor();
-    rec.lang = getLocaleFor(language);
+    // When "auto", omit lang so the browser uses its default
+    // — this allows code-switching (e.g. English + Tamil mixed speech)
+    if (!isAutoDetect(language)) {
+      rec.lang = getLocaleFor(language);
+    }
     rec.continuous = false;
     rec.interimResults = true;
     rec.maxAlternatives = 1;

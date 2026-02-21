@@ -11,7 +11,7 @@ interface VoiceInputButtonProps {
   variant?: 'default' | 'outline' | 'ghost';
   className?: string;
   disabled?: boolean;
-  /** BCP-47 locale for speech recognition (e.g. 'es-ES', 'hi-IN'). Defaults to 'en-US'. */
+  /** BCP-47 locale for speech recognition (e.g. 'es-ES', 'hi-IN'). Empty string = auto-detect. Defaults to 'en-US'. */
   language?: string;
 }
 

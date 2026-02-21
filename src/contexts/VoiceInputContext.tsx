@@ -14,7 +14,7 @@
  */
 
 import React, { createContext, useContext, useState, useCallback, useRef, useEffect, ReactNode } from 'react';
-import { LanguageCode } from '@/lib/languages';
+import { LanguageCode, getLocaleFor } from '@/lib/languages';
 import { useWebSpeechRecognition } from '@/hooks/useWebSpeechRecognition';
 import { useAudioNarration } from '@/contexts/AudioNarrationContext';
 import { loadSettings } from '@/lib/userSettings';
@@ -137,7 +137,7 @@ export function VoiceInputProvider({ children }: { children: ReactNode }) {
 
     if (useWebSpeech) {
       webSpeech.resetTranscript();
-      webSpeech.startListening(audioLang);
+      webSpeech.startListening(audioLang);  // 'auto' handled inside hook
       return;
     }
 
@@ -175,17 +175,20 @@ export function VoiceInputProvider({ children }: { children: ReactNode }) {
           setWhisperListening(false);
           setIsModelLoading(true);
 
+          // When audioLang is 'auto', pass undefined so cloud APIs auto-detect
+          const langHint = audioLang === 'auto' ? undefined : getLocaleFor(audioLang);
+
           let text = '';
           if (sttPref === 'openai-whisper') {
-            text = await transcribeOpenAIWhisper(blob, audioLang);
+            text = await transcribeOpenAIWhisper(blob, langHint);
           } else if (sttPref === 'azure-speech') {
-            text = await transcribeAzureSpeech(blob, audioLang);
+            text = await transcribeAzureSpeech(blob, langHint);
           } else if (sttPref === 'deepgram') {
-            text = await transcribeDeepgram(blob, audioLang);
+            text = await transcribeDeepgram(blob, langHint);
           } else if (sttPref === 'google-stt') {
-            text = await transcribeGoogle(blob, audioLang);
+            text = await transcribeGoogle(blob, langHint);
           } else if (sttPref === 'aws-transcribe') {
-            text = await transcribeAWS(blob, audioLang);
+            text = await transcribeAWS(blob, langHint);
           }
 
           setIsModelLoading(false);

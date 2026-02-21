@@ -208,6 +208,61 @@
     color: oklch(0.44 0.02 240);
   }
 
+  .api-settings-flat-ui [data-slot="card"],
+  .api-settings-flat-ui [data-slot="alert"],
+  .api-settings-flat-ui [data-slot="accordion-item"],
+  .api-settings-flat-ui .rounded-lg.border,
+  .api-settings-flat-ui .rounded-md.border,
+  .agent-console-flat-ui .border.rounded,
+  .api-docs-flat-ui .border.rounded-md {
+    background-color: color-mix(in oklab, var(--background) 95%, var(--muted));
+    border-color: color-mix(in oklab, var(--border) 88%, #cbd5e1);
+    box-shadow: none !important;
+  }
+
+  .api-settings-flat-ui input,
+  .api-settings-flat-ui textarea,
+  .api-settings-flat-ui [role="combobox"],
+  .api-settings-flat-ui [data-slot="select-trigger"],
+  .agent-console-flat-ui textarea,
+  .agent-console-flat-ui pre,
+  .api-docs-flat-ui iframe {
+    background-color: color-mix(in oklab, var(--background) 97%, var(--muted));
+    border-color: color-mix(in oklab, var(--border) 88%, #cbd5e1);
+  }
+
+  .api-settings-flat-ui [class*="bg-emerald-"],
+  .api-settings-flat-ui [class*="bg-blue-"],
+  .api-settings-flat-ui [class*="bg-amber-"],
+  .api-settings-flat-ui [class*="bg-violet-"],
+  .api-settings-flat-ui [class*="bg-purple-"] {
+    background-color: color-mix(in oklab, var(--background) 94%, var(--muted)) !important;
+  }
+
+  .api-settings-flat-ui [class*="text-emerald-"],
+  .api-settings-flat-ui [class*="text-blue-"],
+  .api-settings-flat-ui [class*="text-amber-"],
+  .api-settings-flat-ui [class*="text-violet-"],
+  .api-settings-flat-ui [class*="text-purple-"] {
+    color: color-mix(in oklab, var(--foreground) 88%, #334155) !important;
+  }
+
+  .api-settings-flat-ui [class*="bg-gradient-to-"],
+  .agent-console-flat-ui [class*="bg-gradient-to-"],
+  .api-docs-flat-ui [class*="bg-gradient-to-"] {
+    background-image: none !important;
+  }
+
+  .api-settings-flat-ui .settings-preset-btn {
+    color: var(--foreground) !important;
+    background-color: color-mix(in oklab, var(--background) 96%, var(--muted));
+  }
+
+  .api-settings-flat-ui .settings-preset-btn:hover {
+    color: var(--foreground) !important;
+    background-color: color-mix(in oklab, var(--background) 92%, var(--muted));
+  }
+
   .light .scl-flat-ui .scl-mode-card {
     background-image: none !important;
     background-color: color-mix(in oklab, var(--background) 95%, var(--muted));
@@ -390,6 +445,17 @@
 
   .dark .flat-ui-2-theme .text-muted-foreground {
     color: oklch(0.76 0.015 240);
+  }
+
+  .dark .api-settings-flat-ui [data-slot="card"],
+  .dark .api-settings-flat-ui [data-slot="alert"],
+  .dark .api-settings-flat-ui [data-slot="accordion-item"],
+  .dark .api-settings-flat-ui .rounded-lg.border,
+  .dark .api-settings-flat-ui .rounded-md.border,
+  .dark .agent-console-flat-ui .border.rounded,
+  .dark .api-docs-flat-ui .border.rounded-md {
+    background-color: color-mix(in oklab, var(--background) 84%, #1f2937);
+    border-color: color-mix(in oklab, var(--border) 76%, #334155);
   }
 
   .dark .scl-flat-ui .scl-mode-card {
