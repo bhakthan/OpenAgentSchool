@@ -85,24 +85,7 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
 
   // Check for LLM provider on mount
   useEffect(() => {
-    const checkLlmProvider = () => {
-      const providers = [
-        'VITE_OPENAI_API_KEY',
-        'VITE_AZURE_OPENAI_API_KEY', 
-        'VITE_GEMINI_API_KEY',
-        'VITE_HUGGINGFACE_API_KEY',
-        'VITE_OPENROUTER_API_KEY',
-        'VITE_CLAUDE_API_KEY'
-      ];
-      
-      const hasProvider = providers.some(key => 
-        import.meta.env[key] && import.meta.env[key].trim() !== ''
-      );
-      
-      setHasLlmProvider(hasProvider);
-    };
-    
-    checkLlmProvider();
+    setHasLlmProvider(isLlmProviderConfigured());
   }, []);
 
   // Auto-open assessment modal if returning from authentication

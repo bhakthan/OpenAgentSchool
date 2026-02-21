@@ -13,6 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { SpinnerGap } from '@phosphor-icons/react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { LlmProvider, callLlm } from '@/lib/llm';
+import { getFirstAvailableProvider } from '@/lib/config';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useSEOContext } from '@/hooks/useSEOContext';
 import { buildEnlightenPrompt } from '@/prompts/enlightenPrompts';
@@ -57,7 +58,7 @@ export function EnlightenMeButton({
   const [response, setResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
-  const [llmProvider, setLlmProvider] = useState<LlmProvider>('openrouter');
+  const [llmProvider, setLlmProvider] = useState<LlmProvider>(() => (getFirstAvailableProvider() || 'openrouter') as LlmProvider);
 
   const handleSubmit = async () => {
     if (!prompt.trim()) return;

@@ -105,6 +105,31 @@
   button[class*="bg-amber-6"], button[class*="bg-amber-7"], button[class*="bg-amber-8"], button[class*="bg-amber-9"] {
     color: #fff;
   }
+
+  /* Flat UI 2.0 typography baseline (phase 1): top nav + settings + study mode */
+  .topnav-flat-ui .text-xs,
+  .study-flat-ui .text-xs,
+  .api-settings-flat-ui .text-xs {
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+
+  .site-typography-flat-ui .text-xs {
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+
+  .topnav-flat-ui [class*="text-[9px]"],
+  .topnav-flat-ui [class*="text-[10px]"],
+  .site-typography-flat-ui [class*="text-[9px]"],
+  .site-typography-flat-ui [class*="text-[10px]"],
+  .site-typography-flat-ui [class*="text-[11px]"],
+  .study-flat-ui [class*="text-[10px]"],
+  .api-settings-flat-ui [class*="text-[10px]"],
+  .api-settings-flat-ui [class*="text-[11px]"] {
+    font-size: 0.8125rem;
+    line-height: 1.2;
+  }
   
   /* ReactFlow dark mode enhancements */
   .dark .react-flow__edge path {

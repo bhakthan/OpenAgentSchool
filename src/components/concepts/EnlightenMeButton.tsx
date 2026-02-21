@@ -17,6 +17,7 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import remarkGfm from 'remark-gfm';
 import { LlmProvider, callLlm } from '@/lib/llm';
+import { getFirstAvailableProvider } from '@/lib/config';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useSEOContext } from '@/hooks/useSEOContext';
 
@@ -82,7 +83,7 @@ const EnlightenMeButton: React.FC<EnlightenMeButtonProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
   const [isPromptExpanded, setIsPromptExpanded] = useState(false);
-  const [llmProvider, setLlmProvider] = useState<LlmProvider>('openrouter');
+  const [llmProvider, setLlmProvider] = useState<LlmProvider>(() => (getFirstAvailableProvider() || 'openrouter') as LlmProvider);
   
   // Check if we have a previously saved response for this concept
   const hasSavedResponse = savedInsights && savedInsights[conceptId];

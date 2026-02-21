@@ -351,8 +351,8 @@ function App() {
             </a>
             
             <OfflineBanner />
-              <div className="min-h-screen bg-background text-foreground flex flex-col">
-          <header className="border-b border-border sticky top-0 z-50 bg-background" role="banner">
+              <div className="site-typography-flat-ui min-h-screen bg-background text-foreground flex flex-col">
+          <header className="topnav-flat-ui border-b border-border sticky top-0 z-50 bg-background" role="banner">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <button 
