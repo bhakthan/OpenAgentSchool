@@ -239,7 +239,9 @@ export async function speakOpenAIAudio(
   const rawUrl = cfgUrl || providerUrl || 'https://api.openai.com/v1';
 
   // Detect Azure from URL pattern — uses api-key header instead of Bearer
-  const isAzure = rawUrl.includes('.openai.azure.com') || rawUrl.includes('.cognitive.microsoft.com');
+  const isAzure = rawUrl.includes('.openai.azure.com')
+    || rawUrl.includes('.cognitiveservices.azure.com')
+    || rawUrl.includes('.cognitive.microsoft.com');
 
   // Normalise the URL to a base that we can append /chat/completions to.
   //
