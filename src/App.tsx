@@ -77,6 +77,7 @@ const AIProductFrameworkPage = lazy(() => import('./pages/AIProductFrameworkPage
 const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
 const CTALandingPageVariant = lazy(() => import('@/components/pages/CTALandingPageVariant'));
 const AboutPage = lazy(() => import('@/components/pages/AboutPage'));
+const TermsOfUsePage = lazy(() => import('./pages/TermsOfUsePage'));
 // Agent Velocity Engineering components
 const VelocityScoreDashboard = lazy(() => import('./components/velocity/VelocityScoreDashboard'));
 const PatternMasteryTracker = lazy(() => import('./components/velocity/PatternMasteryTracker'));
@@ -730,6 +731,7 @@ function App() {
                   <Route path="/cta-alt" element={<CTALandingPageVariant />} />
                   <Route path="/cta" element={<CTALandingPage />} />
                   <Route path="/about" element={<AboutPage />} />
+                  <Route path="/terms" element={<TermsOfUsePage />} />
                   {/* Fallback route to redirect to home page */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
@@ -742,7 +744,11 @@ function App() {
             <div className="container mx-auto px-4 text-center text-muted-foreground">
               <p>Open Agent School - Where Agentic AI Concepts Come to Life</p>
               <p className="text-xs mt-1 opacity-75">Learn • Build • Transform together — From concepts to production-ready agents</p>
-              <p className="text-xs mt-1 opacity-75">© {new Date().getFullYear()} Open Agent School</p>
+              <p className="text-xs mt-1 opacity-75">
+                © {new Date().getFullYear()} Open Agent School
+                <span className="mx-2 opacity-50">·</span>
+                <Link to="/terms" className="underline hover:text-foreground">Terms of Use</Link>
+              </p>
               <p className="mt-3">
                 <a
                   href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=bhakthan"
