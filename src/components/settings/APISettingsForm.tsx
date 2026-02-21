@@ -689,7 +689,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
           <p className="text-[10px] text-amber-600 dark:text-amber-400">
             By saving settings below, you acknowledge that you have read and agree to the{' '}
             <a
-              href="https://github.com/OpenAgentSchool/OpenAgentSchool/blob/main/API_KEYS_DISCLAIMER.md"
+              href="https://github.com/bhakthan/OpenAgentSchool/blob/main/API_KEYS_DISCLAIMER.md"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-amber-800 dark:hover:text-amber-200 font-medium"

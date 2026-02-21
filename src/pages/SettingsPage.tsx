@@ -138,7 +138,7 @@ const SettingsPage: React.FC = () => {
         <p className="text-[11px] text-muted-foreground">
           For the complete legal terms, see the{' '}
           <a
-            href="https://github.com/OpenAgentSchool/OpenAgentSchool/blob/main/API_KEYS_DISCLAIMER.md"
+            href="https://github.com/bhakthan/OpenAgentSchool/blob/main/API_KEYS_DISCLAIMER.md"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline font-medium"
@@ -147,7 +147,7 @@ const SettingsPage: React.FC = () => {
           </a>{' '}
           and the{' '}
           <a
-            href="https://github.com/OpenAgentSchool/OpenAgentSchool/blob/main/LICENSE"
+            href="https://github.com/bhakthan/OpenAgentSchool/blob/main/LICENSE"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline font-medium"
