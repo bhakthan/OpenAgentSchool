@@ -1,6 +1,7 @@
 // src/lib/llmJudge.ts
 import { callLlm } from './llm';
 import { isLlmProviderConfigured, getFirstAvailableProvider } from './config';
+import { formatLlmErrorPlain } from './llmErrors';
 import { buildSocraticJudgePrompt, buildDebugJudgePrompt, buildScenarioJudgePrompt, buildCriticalThinkingJudgePrompt } from '../prompts/judgePrompts';
 import type { LlmProvider } from './llm';
 
@@ -110,16 +111,16 @@ export async function socraticJudge(request: SocraticJudgeRequest): Promise<LlmJ
   // Check if LLM provider is configured
   if (!isLlmProviderConfigured()) {
     return {
-      score: 75, // Encouraging default score
-      feedback: "Great engagement with the Socratic learning process! Your thoughtful responses show you're developing critical thinking skills. When an LLM provider is configured, you'll receive even more detailed, personalized feedback to accelerate your learning journey.",
+      score: 75,
+      feedback: "Great engagement with the Socratic learning process! Your thoughtful responses show you're developing critical thinking skills. To unlock personalized AI feedback, open **Settings** (⚙ gear icon in the header) and add your API key — it takes 30 seconds! Your keys stay in your browser and are never sent to our servers.",
       suggestions: [
-        "Continue exploring these concepts through practice",
-        "Try to connect ideas to real-world applications", 
+        "Configure an AI provider in Settings to get detailed, personalized feedback",
+        "Continue exploring these concepts through practice", 
         "Ask yourself 'why' and 'how' questions to deepen understanding"
       ],
       insights: ["Self-reflection and questioning lead to deeper learning"],
       strengths: ["Engaged thoughtfully with guided questions", "Demonstrated willingness to explore concepts"],
-      improvements: ["Continue developing analytical thinking skills"]
+      improvements: ["Configure an AI provider to receive tailored learning recommendations"]
     };
   }
 
@@ -148,9 +149,12 @@ export async function socraticJudge(request: SocraticJudgeRequest): Promise<LlmJ
     };
   } catch (error) {
     console.error('LLM Judge Error:', error);
+    const hint = !isLlmProviderConfigured()
+      ? ' To unlock personalized AI feedback, open Settings (⚙ gear icon) and add your API key — it takes 30 seconds!'
+      : ' If this keeps happening, check your API key in Settings (⚙ gear icon).';
     return {
-      score: 65, // More encouraging default score
-      feedback: "Thank you for your thoughtful engagement with this Socratic learning journey! Every question you explored and every answer you provided shows you're actively developing critical thinking skills. Your willingness to engage with challenging concepts is the foundation of deep learning. Keep embracing this curiosity - it's exactly what leads to breakthrough understanding!",
+      score: 65,
+      feedback: `Thank you for your thoughtful engagement with this Socratic learning journey! Every question you explored and every answer you provided shows you're actively developing critical thinking skills.${hint}`,
       suggestions: ["Continue practicing with similar questions to build confidence", "Try connecting these concepts to real-world examples you've experienced", "Reflect on how your thinking evolved through the questioning process"],
       insights: ["Your engagement with guided questioning demonstrates growing analytical abilities"],
       strengths: ["Participated thoughtfully in the learning process", "Demonstrated openness to exploring complex concepts"],
@@ -163,16 +167,16 @@ export async function debugJudge(request: DebugJudgeRequest): Promise<LlmJudgeRe
   // Check if LLM provider is configured
   if (!isLlmProviderConfigured()) {
     return {
-      score: 70, // Encouraging default score
-      feedback: `Excellent work on the ${request.phase} phase! Your systematic approach to debugging shows you're developing strong problem-solving skills. When an LLM provider is configured, you'll receive detailed, personalized feedback on your debugging methodology.`,
+      score: 70,
+      feedback: `Excellent work on the ${request.phase} phase! Your systematic approach to debugging shows you're developing strong problem-solving skills. To unlock personalized AI feedback, open **Settings** (⚙ gear icon in the header) and add your API key — it takes 30 seconds! Your keys stay in your browser and are never sent to our servers.`,
       suggestions: [
-        "Continue practicing systematic debugging approaches",
+        "Configure an AI provider in Settings to get detailed, personalized feedback",
         "Break down complex problems into smaller steps",
         "Document your thought process for future reference"
       ],
       insights: [`Systematic ${request.phase} is key to effective debugging`],
       strengths: ["Applied systematic debugging thinking", "Engaged with the challenge methodically"],
-      improvements: ["Continue developing debugging methodology"]
+      improvements: ["Configure an AI provider to receive tailored debugging recommendations"]
     };
   }
   const prompt = buildDebugJudgePrompt(request);
@@ -200,9 +204,12 @@ export async function debugJudge(request: DebugJudgeRequest): Promise<LlmJudgeRe
     };
   } catch (error) {
     console.error('Debug Judge Error:', error);
+    const hint = !isLlmProviderConfigured()
+      ? ' To get personalized debugging feedback, open Settings (⚙ gear icon) and configure an AI provider.'
+      : ' If this keeps happening, check your API key in Settings (⚙).';
     return {
-      score: 65, // More encouraging default score
-      feedback: "Your debugging approach shows genuine problem-solving thinking! Debugging is one of the most valuable skills in technology, and every attempt you make builds your expertise. The fact that you're systematically working through challenges demonstrates you're developing the mindset of a skilled professional. Remember, even experienced developers debug step-by-step - you're on the right path!",
+      score: 65,
+      feedback: `Your debugging approach shows genuine problem-solving thinking! Debugging is one of the most valuable skills in technology, and every attempt builds your expertise.${hint}`,
       suggestions: ["Break complex problems into smaller, manageable pieces", "Look for patterns in error messages - they often contain helpful clues", "Document your debugging process to build your problem-solving toolkit"],
       insights: ["Your systematic approach to debugging shows developing professional problem-solving skills"],
       strengths: ["Applied logical thinking to complex problems", "Demonstrated persistence with challenging technical issues"],
@@ -216,16 +223,16 @@ export async function scenarioJudge(request: ScenarioJudgeRequest): Promise<LlmJ
   if (!isLlmProviderConfigured()) {
     const stepOrFinal = request.isStepEvaluation ? "step" : "overall scenario";
     return {
-      score: 75, // Encouraging default score
-      feedback: `Great work on this ${stepOrFinal}! Your approach shows you're actively engaging with the learning material and developing practical problem-solving skills. When an LLM provider is configured, you'll receive detailed, personalized feedback tailored to your specific responses.`,
+      score: 75,
+      feedback: `Great work on this ${stepOrFinal}! Your approach shows you're actively engaging with the learning material. To unlock personalized AI feedback, open **Settings** (⚙ gear icon in the header) and add your API key — it takes 30 seconds! Your keys stay in your browser and are never sent to our servers.`,
       suggestions: [
-        "Continue practicing with similar challenges",
+        "Configure an AI provider in Settings to get detailed, personalized feedback",
         "Try to connect concepts to real-world scenarios",
         "Think about how different approaches might yield different results"
       ],
       insights: ["Hands-on practice reinforces conceptual learning"],
       strengths: ["Engaged with the challenge", "Applied learning concepts practically"],
-      improvements: ["Continue developing problem-solving skills"]
+      improvements: ["Configure an AI provider to receive tailored scenario recommendations"]
     };
   }
   const prompt = buildScenarioJudgePrompt(request);
@@ -253,9 +260,12 @@ export async function scenarioJudge(request: ScenarioJudgeRequest): Promise<LlmJ
     };
   } catch (error) {
     console.error('Scenario Judge Error:', error);
+    const hint = !isLlmProviderConfigured()
+      ? ' To get personalized scenario feedback, open Settings (⚙ gear icon) and configure an AI provider.'
+      : ' If this keeps happening, check your API key in Settings (⚙).';
     return {
-      score: 70, // More encouraging default score
-      feedback: "Excellent work engaging with this real-world scenario! Your approach shows you're thinking practically about complex challenges, which is exactly the kind of problem-solving mindset that leads to success. Every scenario you tackle builds your confidence and expertise. Keep embracing these challenges - you're developing valuable skills that will serve you well!",
+      score: 70,
+      feedback: `Excellent work engaging with this real-world scenario! Your approach shows you're thinking practically about complex challenges.${hint}`,
       suggestions: ["Think through problems step-by-step to build systematic reasoning", "Consider multiple approaches to strengthen decision-making skills", "Connect these scenarios to situations you might encounter in practice"],
       insights: ["Hands-on scenario practice builds practical problem-solving confidence"],
       strengths: ["Engaged thoughtfully with real-world challenges", "Demonstrated willingness to tackle complex scenarios"],
@@ -268,16 +278,16 @@ export async function criticalThinkingJudge(request: CriticalThinkingJudgeReques
   // Check if LLM provider is configured
   if (!isLlmProviderConfigured()) {
     return {
-      score: 80, // Encouraging default score for critical thinking
-      feedback: "Excellent critical thinking engagement! Your thoughtful approach to this complex challenge demonstrates you're developing the analytical mindset essential for understanding AI agent systems. When an LLM provider is configured, you'll receive detailed feedback on your reasoning process and insights for deeper exploration.",
+      score: 80,
+      feedback: "Excellent critical thinking engagement! Your thoughtful approach demonstrates you're developing the analytical mindset essential for AI agent systems. To unlock personalized AI feedback, open **Settings** (⚙ gear icon in the header) and add your API key — it takes 30 seconds! Your keys stay in your browser and are never sent to our servers.",
       suggestions: [
-        "Continue questioning assumptions and exploring multiple perspectives",
+        "Configure an AI provider in Settings to get detailed, personalized feedback",
         "Connect your insights to practical applications in AI agent systems",
         "Consider both benefits and potential challenges of your proposed approaches"
       ],
       insights: ["Critical thinking is the foundation of innovative AI agent design"],
       strengths: ["Engaged deeply with complex conceptual challenges", "Demonstrated analytical thinking approach"],
-      improvements: ["Continue developing systematic critical analysis skills"]
+      improvements: ["Configure an AI provider to receive tailored critical thinking recommendations"]
     };
   }
 
@@ -306,9 +316,12 @@ export async function criticalThinkingJudge(request: CriticalThinkingJudgeReques
     };
   } catch (error) {
     console.error('Critical Thinking Judge Error:', error);
+    const hint = !isLlmProviderConfigured()
+      ? ' To unlock detailed critical thinking feedback, open Settings (⚙ gear icon) and configure an AI provider.'
+      : ' If this keeps happening, check your API key in Settings (⚙).';
     return {
-      score: 75, // Encouraging default score
-      feedback: "Outstanding engagement with this critical thinking challenge! Your willingness to grapple with complex AI agent concepts shows you're developing the analytical mindset that drives innovation in technology. Critical thinking is like a muscle - it grows stronger with every challenging question you tackle. Your approach demonstrates intellectual courage and curiosity, which are the hallmarks of great thinkers and problem-solvers!",
+      score: 75,
+      feedback: `Outstanding engagement with this critical thinking challenge! Your willingness to grapple with complex AI agent concepts shows you're developing the analytical mindset that drives innovation.${hint}`,
       suggestions: ["Break complex problems into smaller, manageable questions to deepen analysis", "Always ask 'What if...?' and 'Why might this be different?' to explore multiple angles", "Connect abstract concepts to concrete examples from your experience"],
       insights: ["Your engagement with challenging questions builds the foundation for innovative thinking"],
       strengths: ["Demonstrated intellectual curiosity by engaging with complex challenges", "Showed willingness to explore difficult conceptual territory"],

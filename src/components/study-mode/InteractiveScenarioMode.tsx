@@ -24,6 +24,7 @@ import remarkGfm from 'remark-gfm';
 import { StudyScenario, StudyModeSession, StudyModeResponse, ScenarioChallenge, ChallengeResult } from '@/lib/data/studyMode/types';
 import { saveStudyModeProgress } from '@/lib/data/studyMode/progress';
 import { scenarioJudge, LlmJudgeResponse } from '@/lib/llmJudge';
+import { isLlmProviderConfigured } from '@/lib/config';
 import { useAuth } from '@/lib/auth/AuthContext';
 
 interface InteractiveScenarioModeProps {
@@ -395,6 +396,9 @@ Generated: ${new Date().toLocaleString()}
 
     } catch (error) {
       console.error('Error getting LLM judgment:', error);
+      if (!isLlmProviderConfigured()) {
+        toast({ title: 'AI feedback unavailable', description: 'Open Settings (⚙ gear icon) and add an API key to unlock personalized feedback.', variant: 'default' });
+      }
       // Fallback to original evaluation
       const result = evaluateChallenge(currentChallenge, userResponse, selectedChoices);
       
@@ -523,6 +527,9 @@ Generated: ${new Date().toLocaleString()}
       onComplete(session);
     } catch (error) {
       console.error('Error getting final LLM judgment:', error);
+      if (!isLlmProviderConfigured()) {
+        toast({ title: 'AI feedback unavailable', description: 'Open Settings (⚙ gear icon) and add an API key to unlock personalized feedback.', variant: 'default' });
+      }
       // Fallback to original completion
       completeSession(finalResponses, results);
     }

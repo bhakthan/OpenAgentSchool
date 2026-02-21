@@ -18,6 +18,7 @@ import { createSCLOrchestrator } from '@/lib/scl-orchestrator';
 import { knowledgeService } from '@/lib/knowledge-integration';
 import { fetchContextSummary } from '@/lib/api/knowledge';
 import { executeTemplateWorkflow, getWorkflow, OrchestratorWorkflow, cancelWorkflow } from '@/lib/api/orchestrator';
+import { formatLlmErrorPlain } from '@/lib/llmErrors';
 
 interface UseSCLSessionOptions {
   onProgress?: (step: string, progress: number) => void;
@@ -49,7 +50,7 @@ export function useSCLSession(options: UseSCLSessionOptions = {}) {
     try {
       return createSCLOrchestrator();
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : 'Failed to initialize SCL orchestrator';
+      const errorMsg = formatLlmErrorPlain(error, 'Supercritical Learning');
       setState(prev => ({ ...prev, error: errorMsg }));
       options.onError?.(new Error(errorMsg));
       return null;
@@ -169,7 +170,7 @@ export function useSCLSession(options: UseSCLSessionOptions = {}) {
 
       return updatedSession;
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : 'Generation failed';
+      const errorMsg = formatLlmErrorPlain(error, 'SCL generation');
       setState(prev => ({
         ...prev,
         isGenerating: false,
@@ -263,7 +264,7 @@ export function useSCLSession(options: UseSCLSessionOptions = {}) {
   setState(prev => ({ ...prev, session: { ...updated, source: 'local' }, isGenerating: false, progress: null, activeWorkflowId: null }));
       }
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : 'Failed to generate effects with context';
+      const errorMsg = formatLlmErrorPlain(error, 'SCL context generation');
       setState(prev => ({ ...prev, error: errorMsg, isGenerating: false }));
       options.onError?.(new Error(errorMsg));
     }

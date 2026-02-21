@@ -294,6 +294,6 @@ export function createSCLOrchestrator(provider?: LlmProvider): SCLOrchestrator {
   try {
     return SCLOrchestrator.fromEnvironment();
   } catch (error) {
-    throw new Error('No LLM provider configured for SCL. Configure an API key in Settings.');
+    throw new Error('No LLM provider configured for SCL. Open Settings (⚙ gear icon in the header) and add your API key — it takes 30 seconds! Your keys stay in your browser and are never sent to our servers.');
   }
 }

@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { DebugChallenge, StudyModeSession, StudyModeResponse, DebugLog, DebugIssue } from '@/lib/data/studyMode/types';
 import { saveStudyModeProgress } from '@/lib/data/studyMode/progress';
 import { debugJudge, LlmJudgeResponse } from '@/lib/llmJudge';
+import { isLlmProviderConfigured } from '@/lib/config';
 import { useAuth } from '@/lib/auth/AuthContext';
 import LlmConfigurationNotice from './LlmConfigurationNotice';
 import ConfusionCheckpoint from './ConfusionCheckpoint';
@@ -414,6 +415,9 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
 
     } catch (error) {
       console.error('Error getting LLM judgment:', error);
+      if (!isLlmProviderConfigured()) {
+        toast({ title: 'AI feedback unavailable', description: 'Open Settings (⚙ gear icon) and add an API key to unlock personalized feedback.', variant: 'default' });
+      }
       // Fallback to original evaluation
       const evaluation = evaluatePhase(currentPhase, currentResponse, selectedIssues);
       

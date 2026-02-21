@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { StudyModeQuestion, StudyModeSession, StudyModeResponse } from '@/lib/data/studyMode/types';
 import { saveStudyModeProgress } from '@/lib/data/studyMode/progress';
 import { socraticJudge, LlmJudgeResponse } from '@/lib/llmJudge';
+import { isLlmProviderConfigured } from '@/lib/config';
 import { emitTelemetry } from '@/lib/data/studyMode/telemetry';
 import { misconceptionRefutations } from '@/lib/data/studyMode/misconceptionRefutations';
 import LlmConfigurationNotice from './LlmConfigurationNotice';
@@ -595,6 +596,9 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
 
     } catch (error) {
       console.error('Error getting comprehensive LLM judgment:', error);
+      if (!isLlmProviderConfigured()) {
+        toast({ title: 'AI feedback unavailable', description: 'Open Settings (⚙ gear icon) and add an API key to unlock personalized feedback.', variant: 'default' });
+      }
       // Fallback to completion without LLM feedback
       completeSessionWithoutLlm(finalResponses);
     } finally {
@@ -734,6 +738,9 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
       onComplete(session);
     } catch (error) {
       console.error('Error getting LLM judgment:', error);
+      if (!isLlmProviderConfigured()) {
+        toast({ title: 'AI feedback unavailable', description: 'Open Settings (⚙ gear icon) and add an API key to unlock personalized feedback.', variant: 'default' });
+      }
       // Fallback to original completion
       completeSession(finalResponses);
     } finally {

@@ -16,6 +16,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import remarkGfm from 'remark-gfm';
 import { type LlmProvider, callLlm } from '@/lib/llm';
 import { getFirstAvailableProvider } from '@/lib/config';
+import { formatLlmErrorMessage } from '@/lib/llmErrors';
 
 // Inline dark theme to avoid build issues with react-syntax-highlighter dist imports
 const syntaxTheme: { [key: string]: React.CSSProperties } = {
@@ -178,7 +179,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
       // Update the response
       setResponse(result.content);
     } catch (error) {
-      setResponse(`Sorry, I couldn't process your request. Please try again. \n\n **Error:** ${error instanceof Error ? error.message : 'Unknown error'}`);
+      setResponse(formatLlmErrorMessage(error, 'Ask AI'));
       console.error("Error in EnlightenMe:", error);
     } finally {
       setIsLoading(false);

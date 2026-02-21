@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useEnlightenMe } from './EnlightenMeProvider';
 import { callLlm, LlmProvider } from '@/lib/llm';
+import { formatLlmErrorMessage } from '@/lib/llmErrors';
 
 interface UseEnlightenButtonProps {
   conceptId: string;
@@ -82,7 +83,7 @@ Keep the explanation cloud-neutral (Azure, AWS, GCP, open-source) so the learner
       // Save this response for future reference
       saveInsight(conceptId, result.content);
     } catch (error) {
-      setResponse(`An error occurred while processing your request: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      setResponse(formatLlmErrorMessage(error, 'Ask AI'));
       setShowResponse(true);
     } finally {
       setIsLoading(false);
