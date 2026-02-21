@@ -228,6 +228,8 @@ export async function speakOpenAIAudio(
 ): Promise<ArrayBuffer> {
   const settings = loadSettings();
   const cfg = settings.speechServices?.openaiSpeech;
+
+  // Key resolution: dedicated key → openai provider → azure provider → openrouter provider
   const apiKey = resolveKey(cfg, 'openai') ?? resolveKey(cfg, 'azure') ?? resolveKey(cfg, 'openrouter');
   if (!apiKey) throw new Error('No API key configured for Audio Model. Set an OpenAI or Azure OpenAI key in Settings → Provider keys.');
 
@@ -237,12 +239,18 @@ export async function speakOpenAIAudio(
   const rawUrl = cfgUrl || providerUrl || 'https://api.openai.com/v1';
   // Strip trailing paths like /audio/speech or /chat/completions so we get a clean base
   const baseUrl = rawUrl.replace(/\/(audio|chat)\/.*$/, '').replace(/\/$/, '');
-  const url = `${baseUrl}/chat/completions`;
+
+  // Detect Azure from URL pattern — uses api-key header instead of Bearer
+  const isAzure = baseUrl.includes('.openai.azure.com') || baseUrl.includes('.cognitive.microsoft.com');
+
+  // Build the chat/completions URL — Azure needs api-version query param
+  let url = `${baseUrl}/chat/completions`;
+  if (isAzure && !url.includes('api-version')) {
+    url += `${url.includes('?') ? '&' : '?'}api-version=2025-01-01-preview`;
+  }
+
   const model = cfg?.model || 'gpt-4o-mini-audio-preview';
   const voice = cfg?.voiceId || 'coral';
-
-  // Detect whether this is an Azure OpenAI endpoint (uses api-key header instead of Bearer)
-  const isAzure = baseUrl.includes('.openai.azure.com') || baseUrl.includes('.cognitive.microsoft.com');
 
   const isEnglish = lang.startsWith('en');
   const systemPrompt = isEnglish

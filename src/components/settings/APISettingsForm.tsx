@@ -731,18 +731,48 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
         {/* Cloud TTS credential fields */}
         {draft.ttsPreference === 'openai-audio' && (
           <div className="space-y-2 pl-6 border-l-2 border-primary/20">
-            <p className="text-[11px] text-muted-foreground">Uses an audio-capable chat model (OpenAI or Azure OpenAI) to translate <em>and</em> narrate in a single API call — no separate LLM translation step. Uses your OpenAI / Azure key from above, or set a dedicated one:</p>
+            <p className="text-[11px] text-muted-foreground">Uses an audio-capable chat model to translate <em>and</em> narrate in a single API call — no separate LLM translation step. Works with OpenAI and Azure OpenAI (detected automatically from the URL).</p>
+
+            {/* API URL */}
             <div className="space-y-1">
-              <Label htmlFor="tts-oa-key" className="text-xs">API Key (optional override)</Label>
+              <Label htmlFor="tts-oa-url" className="text-xs">API URL</Label>
+              <Input
+                id="tts-oa-url"
+                placeholder="https://api.openai.com/v1 or https://{resource}.openai.azure.com/openai/deployments/{deployment}"
+                value={draft.speechServices?.openaiSpeech?.apiUrl ?? ''}
+                onChange={e => setSpeechServiceField('openaiSpeech', 'apiUrl', e.target.value)}
+                className="text-xs font-mono"
+              />
+              <p className="text-[10px] text-muted-foreground">Leave blank for OpenAI default. For Azure, enter the full deployment URL — e.g. <code className="text-[10px]">https://myresource.openai.azure.com/openai/deployments/gpt-4o-audio</code>. Azure endpoints are auto-detected and use <code className="text-[10px]">api-key</code> header + api-version.</p>
+            </div>
+
+            {/* API Key */}
+            <div className="space-y-1">
+              <Label htmlFor="tts-oa-key" className="text-xs">API Key</Label>
               <Input
                 id="tts-oa-key"
                 type="password"
-                placeholder="sk-… (falls back to OpenAI provider key)"
+                placeholder="sk-… or Azure API key (falls back to provider keys above)"
                 value={draft.speechServices?.openaiSpeech?.apiKey ?? ''}
                 onChange={e => setSpeechServiceField('openaiSpeech', 'apiKey', e.target.value)}
                 className="text-xs font-mono"
               />
             </div>
+
+            {/* Model */}
+            <div className="space-y-1">
+              <Label htmlFor="tts-oa-model" className="text-xs">Model / Deployment name</Label>
+              <Input
+                id="tts-oa-model"
+                placeholder="gpt-4o-mini-audio-preview"
+                value={draft.speechServices?.openaiSpeech?.model ?? ''}
+                onChange={e => setSpeechServiceField('openaiSpeech', 'model', e.target.value)}
+                className="text-xs font-mono"
+              />
+              <p className="text-[10px] text-muted-foreground">Audio-capable model name (OpenAI) or deployment name (Azure) — e.g. gpt-4o-mini-audio-preview, gpt-4o-audio-preview.</p>
+            </div>
+
+            {/* Voice */}
             <div className="space-y-1">
               <Label htmlFor="tts-oa-voice" className="text-xs">Voice</Label>
               <Select
@@ -758,17 +788,6 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
                   ))}
                 </SelectContent>
               </Select>
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="tts-oa-model" className="text-xs">Model</Label>
-              <Input
-                id="tts-oa-model"
-                placeholder="gpt-4o-mini-audio-preview"
-                value={draft.speechServices?.openaiSpeech?.model ?? ''}
-                onChange={e => setSpeechServiceField('openaiSpeech', 'model', e.target.value)}
-                className="text-xs"
-              />
-              <p className="text-[10px] text-muted-foreground">Any audio-capable model name — e.g. gpt-4o-mini-audio-preview, gpt-4o-audio-preview, or your Azure OpenAI deployment name.</p>
             </div>
           </div>
         )}
