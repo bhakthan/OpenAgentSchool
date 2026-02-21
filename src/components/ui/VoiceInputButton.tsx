@@ -11,6 +11,8 @@ interface VoiceInputButtonProps {
   variant?: 'default' | 'outline' | 'ghost';
   className?: string;
   disabled?: boolean;
+  /** BCP-47 locale for speech recognition (e.g. 'es-ES', 'hi-IN'). Defaults to 'en-US'. */
+  language?: string;
 }
 
 export const VoiceInputButton = React.forwardRef<
@@ -21,7 +23,8 @@ export const VoiceInputButton = React.forwardRef<
   size = 'default',
   variant = 'outline',
   className,
-  disabled = false
+  disabled = false,
+  language = 'en-US'
 }, ref) => {
   const {
     isSupported,
@@ -32,6 +35,7 @@ export const VoiceInputButton = React.forwardRef<
     stopListening,
     clearTranscript
   } = useVoiceInput({
+    language,
     onResult: (finalTranscript) => {
       if (finalTranscript.trim()) {
         onVoiceResult(finalTranscript.trim());

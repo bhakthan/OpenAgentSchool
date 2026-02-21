@@ -70,6 +70,7 @@ export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInput
 
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const restartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const langRef = useRef(language);
   
   // Use refs for callbacks to avoid useEffect dependency issues
   const onResultRef = useRef(onResult);
@@ -96,6 +97,7 @@ export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInput
       recognitionRef.current.continuous = continuous;
       recognitionRef.current.interimResults = interimResults;
       recognitionRef.current.lang = language;
+      langRef.current = language;
       
       // Add more permissive settings for better detection
       if ('maxAlternatives' in recognitionRef.current) {
@@ -177,7 +179,15 @@ export const useVoiceInput = (options: UseVoiceInputOptions = {}): UseVoiceInput
         clearTimeout(restartTimeoutRef.current);
       }
     };
-  }, [language, continuous, interimResults]); // Removed onResult, onError dependencies
+  }, [continuous, interimResults]); // language handled separately below
+
+  // Keep recognition language in sync without re-creating the instance
+  useEffect(() => {
+    if (recognitionRef.current && language !== langRef.current) {
+      recognitionRef.current.lang = language;
+      langRef.current = language;
+    }
+  }, [language]);
 
   const startListening = useCallback(() => {
     if (!isSupported || !recognitionRef.current || isListening) {
