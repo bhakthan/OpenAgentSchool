@@ -270,7 +270,7 @@ export default function VoiceFAB() {
                     ? 'bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500 text-white'
                     : isProcessing
                       ? 'bg-muted text-muted-foreground cursor-wait'
-                      : 'bg-primary hover:bg-primary/90 dark:bg-primary dark:hover:bg-primary/90 text-primary-foreground',
+                      : 'bg-muted/80 hover:bg-primary hover:text-primary-foreground text-muted-foreground border border-border',
                 )}
                 aria-label={voice.isListening ? 'Stop listening' : 'Ask by voice'}
               >
@@ -279,7 +279,7 @@ export default function VoiceFAB() {
                 ) : voice.isModelLoading ? (
                   <div className="w-5 h-5 rounded-full border-2 border-current border-t-transparent animate-spin" />
                 ) : (
-                  <Microphone className="w-5 h-5" weight="bold" />
+                  <Microphone className="w-5 h-5" weight="regular" />
                 )}
               </button>
             </TooltipTrigger>
