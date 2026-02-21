@@ -652,7 +652,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   }
 
   return (
-    <div className="w-full max-w-6xl mx-auto space-y-6">
+    <div className="study-flat-ui w-full max-w-6xl mx-auto space-y-6">
       {/* Live region (polite) for screen reader users to hear completion updates */}
       <div
         ref={liveRegionRef}

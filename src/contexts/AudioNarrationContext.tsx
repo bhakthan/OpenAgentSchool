@@ -5,7 +5,7 @@ import { LANGUAGES, LanguageCode, getLocaleFor } from '@/lib/languages';
 import { buildNarrationTranslatePrompt, buildStrictNativeScriptRetry } from '@/prompts/translationPrompts';
 import { PREFERRED_VOICES_BY_LANG } from '@/lib/voices';
 import { loadSettings, type TtsPreference } from '@/lib/userSettings';
-import { speakOpenAI, speakOpenAIAudio, speakAzure, speakElevenLabs, playAudioBuffer } from '@/lib/cloudSpeech';
+import { speakOpenAI, speakOpenAIAudio, speakAzure, speakElevenLabs, speakGoogle, speakAWS, playAudioBuffer } from '@/lib/cloudSpeech';
 
 // Language types and list are sourced from src/lib/languages.ts
 
@@ -366,6 +366,10 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
             audioBuffer = await speakAzure(text, bcp47);
           } else if (ttsPref === 'elevenlabs') {
             audioBuffer = await speakElevenLabs(text, bcp47);
+          } else if (ttsPref === 'google-tts') {
+            audioBuffer = await speakGoogle(text, bcp47);
+          } else if (ttsPref === 'aws-polly') {
+            audioBuffer = await speakAWS(text, bcp47);
           } else {
             throw new Error(`Unknown TTS preference: ${ttsPref}`);
           }

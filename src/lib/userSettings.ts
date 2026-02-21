@@ -18,8 +18,8 @@ type AppConfigKey =
   | 'VITE_ANTHROPIC_API_KEY' | 'VITE_ANTHROPIC_API_URL' | 'VITE_ANTHROPIC_MODEL'
   | 'VITE_CUSTOM_API_KEY' | 'VITE_CUSTOM_API_URL' | 'VITE_CUSTOM_MODEL';
 
-export type SttPreference = 'auto' | 'web-speech' | 'whisper-wasm' | 'openai-whisper' | 'azure-speech' | 'deepgram';
-export type TtsPreference = 'browser' | 'openai-tts' | 'openai-audio' | 'azure-speech' | 'elevenlabs';
+export type SttPreference = 'auto' | 'web-speech' | 'whisper-wasm' | 'openai-whisper' | 'azure-speech' | 'deepgram' | 'google-stt' | 'aws-transcribe';
+export type TtsPreference = 'browser' | 'openai-tts' | 'openai-audio' | 'azure-speech' | 'elevenlabs' | 'google-tts' | 'aws-polly';
 
 export interface ProviderConfig {
   apiKey?: string;
@@ -71,6 +71,10 @@ export interface UserSettings {
     deepgram?: SpeechServiceConfig;
     /** ElevenLabs TTS */
     elevenlabs?: SpeechServiceConfig;
+    /** Google Cloud Speech (STT + TTS) */
+    googleCloud?: SpeechServiceConfig;
+    /** AWS Speech (Transcribe STT + Polly TTS) */
+    awsSpeech?: SpeechServiceConfig;
   };
 }
 

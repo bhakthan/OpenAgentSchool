@@ -208,6 +208,35 @@
     color: oklch(0.44 0.02 240);
   }
 
+  .light .scl-flat-ui .scl-mode-card {
+    background-image: none !important;
+    background-color: color-mix(in oklab, var(--background) 95%, var(--muted));
+    border-color: color-mix(in oklab, var(--border) 86%, #cbd5e1) !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .light .scl-flat-ui .scl-mode-card:hover {
+    background-color: color-mix(in oklab, var(--background) 92%, var(--muted));
+    border-color: color-mix(in oklab, var(--border) 76%, #94a3b8) !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .light .scl-flat-ui .scl-mode-badge {
+    background-color: color-mix(in oklab, var(--background) 86%, var(--muted)) !important;
+    color: color-mix(in oklab, var(--foreground) 86%, #334155) !important;
+    border: 1px solid color-mix(in oklab, var(--border) 82%, #cbd5e1);
+  }
+
+  .light .scl-flat-ui .scl-mode-icon {
+    color: color-mix(in oklab, var(--foreground) 82%, #475569) !important;
+  }
+
+  .light .scl-flat-ui .bg-gradient-to-br {
+    background-image: none !important;
+  }
+
   .light .core-concepts-flat-ui [class*="bg-blue-50"],
   .light .core-concepts-flat-ui [class*="bg-violet-50"],
   .light .core-concepts-flat-ui [class*="bg-purple-50"],
@@ -231,6 +260,92 @@
   .light .core-concepts-flat-ui [class*="border-red-"],
   .light .core-concepts-flat-ui [class*="border-yellow-"] {
     border-color: color-mix(in oklab, var(--border) 85%, #cbd5e1);
+  }
+
+  .light .study-flat-ui [class*="bg-blue-50"],
+  .light .study-flat-ui [class*="bg-violet-50"],
+  .light .study-flat-ui [class*="bg-purple-50"],
+  .light .study-flat-ui [class*="bg-green-50"],
+  .light .study-flat-ui [class*="bg-emerald-50"],
+  .light .study-flat-ui [class*="bg-amber-50"],
+  .light .study-flat-ui [class*="bg-orange-50"],
+  .light .study-flat-ui [class*="bg-red-50"],
+  .light .study-flat-ui [class*="bg-yellow-50"],
+  .light .study-flat-ui [class*="bg-indigo-50"],
+  .light .study-flat-ui [class*="bg-sky-50"],
+  .light .study-flat-ui [class*="bg-teal-50"],
+  .light .quiz-flat-ui [class*="bg-blue-50"],
+  .light .quiz-flat-ui [class*="bg-violet-50"],
+  .light .quiz-flat-ui [class*="bg-purple-50"],
+  .light .quiz-flat-ui [class*="bg-green-50"],
+  .light .quiz-flat-ui [class*="bg-emerald-50"],
+  .light .quiz-flat-ui [class*="bg-amber-50"],
+  .light .quiz-flat-ui [class*="bg-orange-50"],
+  .light .quiz-flat-ui [class*="bg-red-50"],
+  .light .quiz-flat-ui [class*="bg-yellow-50"],
+  .light .quiz-flat-ui [class*="bg-indigo-50"],
+  .light .quiz-flat-ui [class*="bg-sky-50"],
+  .light .quiz-flat-ui [class*="bg-teal-50"] {
+    background-color: color-mix(in oklab, var(--background) 95%, var(--muted));
+  }
+
+  .light .study-flat-ui [class*="bg-gradient-to-"],
+  .light .quiz-flat-ui [class*="bg-gradient-to-"] {
+    background-image: none !important;
+  }
+
+  .light .study-flat-ui [class*="border-blue-"],
+  .light .study-flat-ui [class*="border-violet-"],
+  .light .study-flat-ui [class*="border-purple-"],
+  .light .study-flat-ui [class*="border-green-"],
+  .light .study-flat-ui [class*="border-emerald-"],
+  .light .study-flat-ui [class*="border-amber-"],
+  .light .study-flat-ui [class*="border-orange-"],
+  .light .study-flat-ui [class*="border-red-"],
+  .light .study-flat-ui [class*="border-yellow-"],
+  .light .study-flat-ui [class*="border-indigo-"],
+  .light .study-flat-ui [class*="border-sky-"],
+  .light .study-flat-ui [class*="border-teal-"],
+  .light .quiz-flat-ui [class*="border-blue-"],
+  .light .quiz-flat-ui [class*="border-violet-"],
+  .light .quiz-flat-ui [class*="border-purple-"],
+  .light .quiz-flat-ui [class*="border-green-"],
+  .light .quiz-flat-ui [class*="border-emerald-"],
+  .light .quiz-flat-ui [class*="border-amber-"],
+  .light .quiz-flat-ui [class*="border-orange-"],
+  .light .quiz-flat-ui [class*="border-red-"],
+  .light .quiz-flat-ui [class*="border-yellow-"],
+  .light .quiz-flat-ui [class*="border-indigo-"],
+  .light .quiz-flat-ui [class*="border-sky-"],
+  .light .quiz-flat-ui [class*="border-teal-"] {
+    border-color: color-mix(in oklab, var(--border) 85%, #cbd5e1);
+  }
+
+  .light .study-flat-ui [class*="text-blue-"],
+  .light .study-flat-ui [class*="text-violet-"],
+  .light .study-flat-ui [class*="text-purple-"],
+  .light .study-flat-ui [class*="text-green-"],
+  .light .study-flat-ui [class*="text-emerald-"],
+  .light .study-flat-ui [class*="text-amber-"],
+  .light .study-flat-ui [class*="text-orange-"],
+  .light .study-flat-ui [class*="text-red-"],
+  .light .study-flat-ui [class*="text-yellow-"],
+  .light .study-flat-ui [class*="text-indigo-"],
+  .light .study-flat-ui [class*="text-sky-"],
+  .light .study-flat-ui [class*="text-teal-"],
+  .light .quiz-flat-ui [class*="text-blue-"],
+  .light .quiz-flat-ui [class*="text-violet-"],
+  .light .quiz-flat-ui [class*="text-purple-"],
+  .light .quiz-flat-ui [class*="text-green-"],
+  .light .quiz-flat-ui [class*="text-emerald-"],
+  .light .quiz-flat-ui [class*="text-amber-"],
+  .light .quiz-flat-ui [class*="text-orange-"],
+  .light .quiz-flat-ui [class*="text-red-"],
+  .light .quiz-flat-ui [class*="text-yellow-"],
+  .light .quiz-flat-ui [class*="text-indigo-"],
+  .light .quiz-flat-ui [class*="text-sky-"],
+  .light .quiz-flat-ui [class*="text-teal-"] {
+    color: color-mix(in oklab, var(--foreground) 88%, #334155);
   }
 
   .light .core-concepts-flat-ui [data-concept-id="tri-system-paradigm"] .bg-orange-50 .text-muted-foreground,
@@ -275,6 +390,27 @@
 
   .dark .flat-ui-2-theme .text-muted-foreground {
     color: oklch(0.76 0.015 240);
+  }
+
+  .dark .scl-flat-ui .scl-mode-card {
+    background-image: none !important;
+    background-color: color-mix(in oklab, var(--background) 84%, #1f2937);
+    border-color: color-mix(in oklab, var(--border) 78%, #334155) !important;
+  }
+
+  .dark .scl-flat-ui .scl-mode-badge {
+    background-color: color-mix(in oklab, var(--background) 76%, #334155) !important;
+    color: color-mix(in oklab, var(--foreground) 88%, #cbd5e1) !important;
+    border: 1px solid color-mix(in oklab, var(--border) 72%, #334155);
+  }
+
+  .dark .scl-flat-ui .scl-mode-icon {
+    color: color-mix(in oklab, var(--foreground) 86%, #cbd5e1) !important;
+  }
+
+  .dark .study-flat-ui [class*="bg-gradient-to-"],
+  .dark .quiz-flat-ui [class*="bg-gradient-to-"] {
+    background-image: none !important;
   }
 
   .dark .core-concepts-flat-ui [class*="dark:bg-blue-900"],

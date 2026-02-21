@@ -74,7 +74,7 @@ Open Agent School is a **comprehensive educational platform** designed to help d
 - **Local LLM Runners** — Ollama (`localhost:11434`) and LM Studio (`localhost:1234`) presets — run models 100% offline, no API key needed
 - **International Provider Presets** — DeepSeek, Zhipu AI (GLM), Alibaba Qwen, Moonshot AI, Volcano Engine (China); Mistral (France); Sarvam AI, BharatGen (India)
 - **Per-Provider Config** — API key, endpoint URL, and model for each provider with smart defaults and format hints
-- **Cloud Speech Services** — OpenAI Whisper, Azure Speech, Deepgram (STT) + OpenAI TTS, Azure Speech, ElevenLabs (TTS)
+- **Cloud Speech Services** — OpenAI Whisper, Azure Speech, Deepgram, Google Cloud STT, AWS Transcribe (STT) + OpenAI TTS, OpenAI Audio Model, Azure Speech, ElevenLabs, Google Cloud TTS, AWS Polly (TTS)
 - **Self-Hosted Backends** — Override Core API, Orchestrator, and Knowledge Service URLs for local or private deployments
 - **Quick Configuration Guide** — 4-step accordion walkthrough that auto-expands when no keys are configured
 - **Export / Import** — Share workshop configurations as JSON; merge with existing settings
@@ -93,10 +93,11 @@ Access settings from **Tools → API Settings** in the navigation menu or throug
 
 ### 🎤 Voice Input & Audio Narration
 
-- **Voice Input** — Speak commands and answers using Web Speech API, Whisper WASM (offline), or cloud STT
+- **Voice Input** — Speak commands and answers using Web Speech API, Whisper WASM (offline), or 5 cloud STT engines
 - **Audio Narrations** — Step-by-step concept narrations at Beginner / Intermediate / Advanced levels
 - **29 Languages** — Auto-translated narrations with voice selection, speed, and volume controls
-- **Cloud or Local** — Browser-native TTS (free, offline) or premium cloud voices (OpenAI, Azure, ElevenLabs)
+- **Cloud or Local** — Browser-native TTS (free, offline) or 6 premium cloud TTS engines (OpenAI, Azure, ElevenLabs, Google Cloud, AWS Polly)
+- **Single-Call Translate + Narrate** — OpenAI Audio Model translates and speaks in one round-trip — no separate LLM key needed
 
 ###  Visual Learning Tools
 
@@ -193,6 +194,26 @@ Then in the app: **Tools → API Settings → Custom / International / Local** �
 
 ##  Recent Updates (February 21, 2026)
 
+### 🌍 Full Cloud Speech Provider Coverage (NEW)
+
+All major cloud platforms now supported for voice input and audio narration — **11 cloud speech services** across 5 STT and 6 TTS engines:
+
+| Provider | STT | TTS | Notes |
+|----------|-----|-----|-------|
+| **OpenAI** | Whisper API | TTS (alloy, coral, etc.) | Direct API key |
+| **OpenAI Audio Model** | — | Translate + narrate in 1 call | gpt-4o-mini-audio-preview, Azure OpenAI |
+| **Azure** | Cognitive Speech | Neural TTS (400+ voices) | Enterprise, region-based |
+| **Deepgram** | Nova-2 | — | Real-time streaming |
+| **ElevenLabs** | — | Multilingual v2 | Ultra-realistic voices |
+| **Google Cloud** | Speech-to-Text v1 | TTS (WaveNet / Neural2) | Falls back to Gemini key |
+| **AWS** | Transcribe (via proxy) | Polly (via proxy) | Requires backend relay for SigV4 |
+
+**Design note:** Google Cloud APIs work directly with an API key. AWS APIs require SigV4 signing and use a configurable proxy/backend endpoint — the Settings UI clearly communicates this requirement.
+
+---
+
+##  Previous Updates (February 21, 2026)
+
 ### 🔑 BYOK Configuration & Local Storage Settings (NEW)
 
 Learners who clone the repo or use the live platform can now **bring their own API keys** — stored entirely in the browser's `localStorage`, never transmitted anywhere.
@@ -202,8 +223,8 @@ Learners who clone the repo or use the live platform can now **bring their own A
 | **LLM Providers** | OpenAI, Azure OpenAI, Google Gemini, Anthropic Claude, Hugging Face, OpenRouter, Custom (OpenAI-compatible) — plus local runners (Ollama, LM Studio) and international presets (DeepSeek, Zhipu AI, Alibaba Qwen, Moonshot AI, Volcano Engine, Mistral, Sarvam AI, BharatGen) |
 | **Smart Defaults** | Provider-specific placeholders (key format hints like `sk-…`, `AIza…`), default URLs, suggested models |
 | **Required Fields** | Azure OpenAI URL and deployment model show red asterisk indicators with amber warning messages |
-| **Cloud STT** | OpenAI Whisper API, Azure Cognitive Speech, Deepgram — beyond the free browser Web Speech API and offline Whisper WASM |
-| **Cloud TTS** | OpenAI TTS, Azure Speech, ElevenLabs — premium voices alongside free browser-native narration |
+| **Cloud STT** | OpenAI Whisper API, Azure Cognitive Speech, Deepgram, Google Cloud Speech-to-Text, AWS Transcribe (via proxy) — beyond the free browser Web Speech API and offline Whisper WASM |
+| **Cloud TTS** | OpenAI TTS, OpenAI Audio Model (translate + speak in 1 call), Azure Speech, ElevenLabs, Google Cloud TTS (WaveNet / Neural2), AWS Polly (via proxy) — premium voices alongside free browser-native narration |
 | **Self-Hosted Backends** | Override Core API, Orchestrator, Knowledge Service URLs for private deployments |
 | **Export / Import** | Share workshop configs as JSON; import merges with existing settings |
 | **Security** | Privacy notes at the top of settings, clear trust banner, no telemetry |
@@ -216,7 +237,7 @@ All text inputs now accept **voice dictation** with a microphone button. Engine 
 
 1. **Web Speech API** (free, real-time, browser-native)
 2. **Whisper WASM** (offline fallback, lazy-loaded ~40 MB model)
-3. **Cloud STT** (OpenAI Whisper, Azure Speech, Deepgram) when configured in BYOK settings
+3. **Cloud STT** (OpenAI Whisper, Azure Speech, Deepgram, Google Cloud, AWS Transcribe) when configured in BYOK settings
 
 Voice also powers **navigation**: say "go to patterns" or "open study mode" to navigate hands-free.
 
@@ -381,7 +402,7 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 - **10 Atomic Deep-Dive Tabs** with slider-driven interactive concept explorers
 - **8 Strategy Toolkits** (downloadable XLSX canvases)
 - **7+ LLM Providers** supported in BYOK settings (OpenAI, Azure, Gemini, Claude, Hugging Face, OpenRouter, Custom) plus Ollama, LM Studio, DeepSeek, Zhipu AI, Qwen, Moonshot, Mistral, Sarvam AI, BharatGen presets
-- **6 Cloud Speech Services** (3 STT + 3 TTS) alongside free browser-native options
+- **11 Cloud Speech Services** (5 STT + 6 TTS) alongside free browser-native options
 - **29 Languages** for audio narration with auto-translation
 - **5 Learning Modes** (Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)
 
@@ -395,6 +416,7 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 - D3.js for visualizations
 - React Flow for agent workflows
 - Web Speech API + Whisper WASM for voice input
+- 11 cloud speech services (Google Cloud, AWS, OpenAI, Azure, Deepgram, ElevenLabs)
 - localStorage BYOK for zero-server key management
 
 **Backend (Optional)**

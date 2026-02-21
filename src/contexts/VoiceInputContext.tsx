@@ -29,11 +29,13 @@ import {
   transcribeOpenAIWhisper,
   transcribeAzureSpeech,
   transcribeDeepgram,
+  transcribeGoogle,
+  transcribeAWS,
 } from '@/lib/cloudSpeech';
 
 // ── Types ────────────────────────────────────────────────────────────────
 
-export type VoiceEngine = 'web-speech' | 'whisper-wasm' | 'openai-whisper' | 'azure-speech' | 'deepgram' | null;
+export type VoiceEngine = 'web-speech' | 'whisper-wasm' | 'openai-whisper' | 'azure-speech' | 'deepgram' | 'google-stt' | 'aws-transcribe' | null;
 
 export interface VoiceInputContextType {
   /** Begin listening — automatically picks the best available engine */
@@ -91,7 +93,7 @@ export function VoiceInputProvider({ children }: { children: ReactNode }) {
   const sttPref = loadSettings().sttPreference;
 
   // Cloud STT engines — user explicitly opted in
-  const isCloudStt = sttPref === 'openai-whisper' || sttPref === 'azure-speech' || sttPref === 'deepgram';
+  const isCloudStt = sttPref === 'openai-whisper' || sttPref === 'azure-speech' || sttPref === 'deepgram' || sttPref === 'google-stt' || sttPref === 'aws-transcribe';
   const useWebSpeech = isCloudStt ? false : (sttPref === 'whisper-wasm' ? false : webSpeech.isSupported);
   const useWhisper = isCloudStt ? false : (sttPref === 'web-speech' ? false : (!useWebSpeech && isWhisperLocalSupported()));
   const isSupported = useWebSpeech || useWhisper || isCloudStt;
@@ -180,6 +182,10 @@ export function VoiceInputProvider({ children }: { children: ReactNode }) {
             text = await transcribeAzureSpeech(blob, audioLang);
           } else if (sttPref === 'deepgram') {
             text = await transcribeDeepgram(blob, audioLang);
+          } else if (sttPref === 'google-stt') {
+            text = await transcribeGoogle(blob, audioLang);
+          } else if (sttPref === 'aws-transcribe') {
+            text = await transcribeAWS(blob, audioLang);
           }
 
           setIsModelLoading(false);

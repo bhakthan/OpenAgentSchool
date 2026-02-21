@@ -551,6 +551,14 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
             <RadioGroupItem value="deepgram" id="stt-deepgram" />
             <Label htmlFor="stt-deepgram" className="text-xs font-normal">Deepgram (cloud, real-time) · 30+ languages, streaming</Label>
           </div>
+          <div className="flex items-center gap-2">
+            <RadioGroupItem value="google-stt" id="stt-google" />
+            <Label htmlFor="stt-google" className="text-xs font-normal">Google Cloud Speech-to-Text · 125+ languages, WaveNet accuracy</Label>
+          </div>
+          <div className="flex items-center gap-2">
+            <RadioGroupItem value="aws-transcribe" id="stt-aws" />
+            <Label htmlFor="stt-aws" className="text-xs font-normal">AWS Transcribe (via proxy) · 100+ languages, requires backend relay</Label>
+          </div>
         </RadioGroup>
 
         {/* Cloud STT credential fields — shown when a cloud engine is selected */}
@@ -620,6 +628,59 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
             </div>
           </div>
         )}
+        {draft.sttPreference === 'google-stt' && (
+          <div className="space-y-2 pl-6 border-l-2 border-primary/20">
+            <p className="text-[11px] text-muted-foreground">Requires a Google Cloud API key with the Speech-to-Text API enabled. Falls back to your Gemini key if set.</p>
+            <div className="space-y-1">
+              <Label htmlFor="stt-google-key" className="text-xs">Google Cloud API Key</Label>
+              <Input
+                id="stt-google-key"
+                type="password"
+                placeholder="AIza… (or falls back to Gemini key)"
+                value={draft.speechServices?.googleCloud?.apiKey ?? ''}
+                onChange={e => setSpeechServiceField('googleCloud', 'apiKey', e.target.value)}
+                className="text-xs font-mono"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="stt-google-model" className="text-xs">Recognition Model (optional)</Label>
+              <Input
+                id="stt-google-model"
+                placeholder="default"
+                value={draft.speechServices?.googleCloud?.model ?? ''}
+                onChange={e => setSpeechServiceField('googleCloud', 'model', e.target.value)}
+                className="text-xs"
+              />
+              <p className="text-[10px] text-muted-foreground">e.g. default, latest_long, latest_short, phone_call, video, command_and_search</p>
+            </div>
+          </div>
+        )}
+        {draft.sttPreference === 'aws-transcribe' && (
+          <div className="space-y-2 pl-6 border-l-2 border-primary/20">
+            <p className="text-[11px] text-muted-foreground">AWS APIs require SigV4 signing and cannot be called directly from the browser. Point this to a proxy/backend that relays to AWS Transcribe.</p>
+            <div className="space-y-1">
+              <Label htmlFor="stt-aws-url" className="text-xs">Proxy Endpoint URL</Label>
+              <Input
+                id="stt-aws-url"
+                placeholder="https://your-backend.example.com/api/transcribe"
+                value={draft.speechServices?.awsSpeech?.apiUrl ?? ''}
+                onChange={e => setSpeechServiceField('awsSpeech', 'apiUrl', e.target.value)}
+                className="text-xs"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="stt-aws-key" className="text-xs">Proxy Auth Token</Label>
+              <Input
+                id="stt-aws-key"
+                type="password"
+                placeholder="Bearer token for your proxy"
+                value={draft.speechServices?.awsSpeech?.apiKey ?? ''}
+                onChange={e => setSpeechServiceField('awsSpeech', 'apiKey', e.target.value)}
+                className="text-xs font-mono"
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ─── TTS Preference ─── */}
@@ -656,6 +717,14 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
           <div className="flex items-center gap-2">
             <RadioGroupItem value="elevenlabs" id="tts-eleven" />
             <Label htmlFor="tts-eleven" className="text-xs font-normal">ElevenLabs (ultra-realistic) · multilingual v2, 29+ languages</Label>
+          </div>
+          <div className="flex items-center gap-2">
+            <RadioGroupItem value="google-tts" id="tts-google" />
+            <Label htmlFor="tts-google" className="text-xs font-normal">Google Cloud TTS (WaveNet / Neural2) · 40+ languages, natural voices</Label>
+          </div>
+          <div className="flex items-center gap-2">
+            <RadioGroupItem value="aws-polly" id="tts-aws" />
+            <Label htmlFor="tts-aws" className="text-xs font-normal">AWS Polly (via proxy) · neural voices, 30+ languages, requires backend relay</Label>
           </div>
         </RadioGroup>
 
@@ -822,6 +891,70 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
             </div>
           </div>
         )}
+        {draft.ttsPreference === 'google-tts' && (
+          <div className="space-y-2 pl-6 border-l-2 border-primary/20">
+            <p className="text-[11px] text-muted-foreground">Uses Google Cloud Text-to-Speech API with WaveNet/Neural2 voices. Falls back to your Gemini key if set.</p>
+            <div className="space-y-1">
+              <Label htmlFor="tts-google-key" className="text-xs">Google Cloud API Key</Label>
+              <Input
+                id="tts-google-key"
+                type="password"
+                placeholder="AIza… (or falls back to Gemini key)"
+                value={draft.speechServices?.googleCloud?.apiKey ?? ''}
+                onChange={e => setSpeechServiceField('googleCloud', 'apiKey', e.target.value)}
+                className="text-xs font-mono"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="tts-google-voice" className="text-xs">Voice Name (optional)</Label>
+              <Input
+                id="tts-google-voice"
+                placeholder="e.g. en-US-Wavenet-D (auto-selected if empty)"
+                value={draft.speechServices?.googleCloud?.voiceId ?? ''}
+                onChange={e => setSpeechServiceField('googleCloud', 'voiceId', e.target.value)}
+                className="text-xs"
+              />
+              <p className="text-[10px] text-muted-foreground">Browse voices at cloud.google.com/text-to-speech/docs/voices</p>
+            </div>
+          </div>
+        )}
+        {draft.ttsPreference === 'aws-polly' && (
+          <div className="space-y-2 pl-6 border-l-2 border-primary/20">
+            <p className="text-[11px] text-muted-foreground">AWS Polly requires SigV4 signing — point this to a proxy/backend that relays to AWS Polly.</p>
+            <div className="space-y-1">
+              <Label htmlFor="tts-aws-url" className="text-xs">Proxy Endpoint URL</Label>
+              <Input
+                id="tts-aws-url"
+                placeholder="https://your-backend.example.com/api/synthesize"
+                value={draft.speechServices?.awsSpeech?.apiUrl ?? ''}
+                onChange={e => setSpeechServiceField('awsSpeech', 'apiUrl', e.target.value)}
+                className="text-xs"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="tts-aws-key" className="text-xs">Proxy Auth Token</Label>
+              <Input
+                id="tts-aws-key"
+                type="password"
+                placeholder="Bearer token for your proxy"
+                value={draft.speechServices?.awsSpeech?.apiKey ?? ''}
+                onChange={e => setSpeechServiceField('awsSpeech', 'apiKey', e.target.value)}
+                className="text-xs font-mono"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="tts-aws-voice" className="text-xs">Voice ID (optional)</Label>
+              <Input
+                id="tts-aws-voice"
+                placeholder="Joanna (default)"
+                value={draft.speechServices?.awsSpeech?.voiceId ?? ''}
+                onChange={e => setSpeechServiceField('awsSpeech', 'voiceId', e.target.value)}
+                className="text-xs"
+              />
+              <p className="text-[10px] text-muted-foreground">e.g. Joanna, Matthew, Lupe, Léa, Vicki, Takumi — see AWS Polly docs for full list</p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ─── Legal Disclaimer ─── */}
@@ -835,6 +968,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
             <strong>Your responsibility.</strong> You are solely responsible for all costs, billing, and usage
             incurred through the third-party APIs you configure here (OpenAI, Azure, Google, Anthropic,
             HuggingFace, OpenRouter, DeepSeek, Mistral, Zhipu AI, Moonshot, Sarvam AI, ElevenLabs, Deepgram,
+            AWS (Transcribe, Polly), Google Cloud (Speech-to-Text, Text-to-Speech),
             and any custom/international provider).
           </li>
           <li>

@@ -645,7 +645,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
   // If analysis has started, show analysis interface
   if (analysisStarted && analysisSeeds) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 p-6">
+      <div className="scl-flat-ui min-h-screen bg-background p-6">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="flex items-center justify-between print:mb-0">
             <div className="flex items-center gap-4">
@@ -1019,7 +1019,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
   // If a mode is selected, show the input form
   if (selectedMode) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 p-6">
+      <div className="scl-flat-ui min-h-screen bg-background p-6">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -1100,7 +1100,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
 
   // Mode selection screen
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-primary/5 p-6">
+    <div className="scl-flat-ui min-h-screen bg-background p-6">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -1190,17 +1190,17 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Consolidate Mode */}
                 <Card 
-                  className="relative overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-green-500/50 bg-gradient-to-br from-green-50/50 to-transparent dark:from-green-950/20"
+                  className="scl-mode-card relative overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-green-500/50 bg-gradient-to-br from-green-50/50 to-transparent dark:from-green-950/20"
                   onClick={() => {
                     setSelectedMode('consolidate');
                   }}
                 >
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between mb-2">
-                      <Badge variant="secondary" className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">Foundation</Badge>
+                      <Badge variant="secondary" className="scl-mode-badge bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">Foundation</Badge>
                     </div>
                     <CardTitle className="flex items-center gap-2 text-lg">
-                      <Target className="h-5 w-5 text-green-600" />
+                      <Target className="scl-mode-icon h-5 w-5 text-green-600" />
                       Consolidate
                     </CardTitle>
                     <CardDescription>
@@ -1211,17 +1211,17 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
 
                 {/* Extrapolate Mode */}
                 <Card 
-                  className="relative overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-blue-500/50 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-blue-950/20"
+                  className="scl-mode-card relative overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-blue-500/50 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-blue-950/20"
                   onClick={() => {
                     setSelectedMode('extrapolate');
                   }}
                 >
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between mb-2">
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Creative</Badge>
+                      <Badge variant="secondary" className="scl-mode-badge bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Creative</Badge>
                     </div>
                     <CardTitle className="flex items-center gap-2 text-lg">
-                      <Lightning className="h-5 w-5 text-blue-600" />
+                      <Lightning className="scl-mode-icon h-5 w-5 text-blue-600" />
                       Extrapolate
                     </CardTitle>
                     <CardDescription>
@@ -1232,17 +1232,17 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
 
                 {/* Transfer Mode */}
                 <Card 
-                  className="relative overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-orange-500/50 bg-gradient-to-br from-orange-50/50 to-transparent dark:from-orange-950/20"
+                  className="scl-mode-card relative overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-orange-500/50 bg-gradient-to-br from-orange-50/50 to-transparent dark:from-orange-950/20"
                   onClick={() => {
                     setSelectedMode('transfer');
                   }}
                 >
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between mb-2">
-                      <Badge variant="secondary" className="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">Cross-Domain</Badge>
+                      <Badge variant="secondary" className="scl-mode-badge bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">Cross-Domain</Badge>
                     </div>
                     <CardTitle className="flex items-center gap-2 text-lg">
-                      <Lightning className="h-5 w-5 text-orange-600" />
+                      <Lightning className="scl-mode-icon h-5 w-5 text-orange-600" />
                       Transfer
                     </CardTitle>
                     <CardDescription>
@@ -1254,50 +1254,50 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               {/* Additional Modes (compact cards) */}
               <p className="text-sm text-muted-foreground font-medium pt-2">Advanced Analysis Modes</p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-amber-500/50 bg-gradient-to-br from-amber-50/30 to-transparent dark:from-amber-950/10" onClick={() => setSelectedMode('stress-test')}>
+                <Card className="scl-mode-card cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-amber-500/50 bg-gradient-to-br from-amber-50/30 to-transparent dark:from-amber-950/10" onClick={() => setSelectedMode('stress-test')}>
                   <CardHeader className="pb-3">
                     <CardTitle className="flex items-center gap-2 text-base">
-                      <Lightning className="h-4 w-4 text-amber-600" />
+                      <Lightning className="scl-mode-icon h-4 w-4 text-amber-600" />
                       Stress-Test
                     </CardTitle>
                     <CardDescription className="text-sm">Perturb constraints to find brittleness</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-purple-500/50 bg-gradient-to-br from-purple-50/30 to-transparent dark:from-purple-950/10" onClick={() => setSelectedMode('intervene')}>
+                <Card className="scl-mode-card cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-purple-500/50 bg-gradient-to-br from-purple-50/30 to-transparent dark:from-purple-950/10" onClick={() => setSelectedMode('intervene')}>
                   <CardHeader className="pb-3">
                     <CardTitle className="flex items-center gap-2 text-base">
-                      <Target className="h-4 w-4 text-purple-600" />
+                      <Target className="scl-mode-icon h-4 w-4 text-purple-600" />
                       Intervene
                     </CardTitle>
                     <CardDescription className="text-sm">Try levers and compare outcomes</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-sky-500/50 bg-gradient-to-br from-sky-50/30 to-transparent dark:from-sky-950/10" onClick={() => setSelectedMode('counterfactual')}>
+                <Card className="scl-mode-card cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-sky-500/50 bg-gradient-to-br from-sky-50/30 to-transparent dark:from-sky-950/10" onClick={() => setSelectedMode('counterfactual')}>
                   <CardHeader className="pb-3">
                     <CardTitle className="flex items-center gap-2 text-base">
-                      <Lightning className="h-4 w-4 text-sky-600" />
+                      <Lightning className="scl-mode-icon h-4 w-4 text-sky-600" />
                       Counterfactual
                     </CardTitle>
                     <CardDescription className="text-sm">Toggle assumptions and compare graphs</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-rose-500/50 bg-gradient-to-br from-rose-50/30 to-transparent dark:from-rose-950/10" onClick={() => setSelectedMode('leap-focus')}>
+                <Card className="scl-mode-card cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-rose-500/50 bg-gradient-to-br from-rose-50/30 to-transparent dark:from-rose-950/10" onClick={() => setSelectedMode('leap-focus')}>
                   <CardHeader className="pb-3">
                     <CardTitle className="flex items-center gap-2 text-base">
-                      <Lightning className="h-4 w-4 text-rose-600" />
+                      <Lightning className="scl-mode-icon h-4 w-4 text-rose-600" />
                       Threshold / Leaps
                     </CardTitle>
                     <CardDescription className="text-sm">Highlight discontinuities and triggers</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-emerald-500/50 bg-gradient-to-br from-emerald-50/30 to-transparent dark:from-emerald-950/10" onClick={() => setSelectedMode('mechanism-audit')}>
+                <Card className="scl-mode-card cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-emerald-500/50 bg-gradient-to-br from-emerald-50/30 to-transparent dark:from-emerald-950/10" onClick={() => setSelectedMode('mechanism-audit')}>
                   <CardHeader className="pb-3">
                     <CardTitle className="flex items-center gap-2 text-base">
-                      <Lightning className="h-4 w-4 text-emerald-600" />
+                      <Lightning className="scl-mode-icon h-4 w-4 text-emerald-600" />
                       Mechanism Audit
                     </CardTitle>
                     <CardDescription className="text-sm">Require mechanisms/delays; flag weak links</CardDescription>
@@ -1308,52 +1308,52 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               {/* New World-Class Modes */}
               <p className="text-sm text-muted-foreground font-medium pt-2">World-Class Analysis Modes</p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-red-500/50 bg-gradient-to-br from-red-50/30 to-transparent dark:from-red-950/10" onClick={() => setSelectedMode('red-team')}>
+                <Card className="scl-mode-card cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-red-500/50 bg-gradient-to-br from-red-50/30 to-transparent dark:from-red-950/10" onClick={() => setSelectedMode('red-team')}>
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between mb-2">
-                      <Badge variant="secondary" className="bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">Adversarial</Badge>
+                      <Badge variant="secondary" className="scl-mode-badge bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">Adversarial</Badge>
                     </div>
                     <CardTitle className="flex items-center gap-2 text-base">
-                      <ShieldWarning className="h-5 w-5 text-red-600" />
+                      <ShieldWarning className="scl-mode-icon h-5 w-5 text-red-600" />
                       Red Team
                     </CardTitle>
                     <CardDescription className="text-sm">Adversarial analysis — find exploit paths and attack cascades</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-indigo-500/50 bg-gradient-to-br from-indigo-50/30 to-transparent dark:from-indigo-950/10" onClick={() => setSelectedMode('temporal-sim')}>
+                <Card className="scl-mode-card cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-indigo-500/50 bg-gradient-to-br from-indigo-50/30 to-transparent dark:from-indigo-950/10" onClick={() => setSelectedMode('temporal-sim')}>
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between mb-2">
-                      <Badge variant="secondary" className="bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400">Simulation</Badge>
+                      <Badge variant="secondary" className="scl-mode-badge bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400">Simulation</Badge>
                     </div>
                     <CardTitle className="flex items-center gap-2 text-base">
-                      <Timer className="h-5 w-5 text-indigo-600" />
+                      <Timer className="scl-mode-icon h-5 w-5 text-indigo-600" />
                       Temporal Simulation
                     </CardTitle>
                     <CardDescription className="text-sm">Week-by-week timeline with decision gates and rollback triggers</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-teal-500/50 bg-gradient-to-br from-teal-50/30 to-transparent dark:from-teal-950/10" onClick={() => setSelectedMode('compose')}>
+                <Card className="scl-mode-card cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-teal-500/50 bg-gradient-to-br from-teal-50/30 to-transparent dark:from-teal-950/10" onClick={() => setSelectedMode('compose')}>
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between mb-2">
-                      <Badge variant="secondary" className="bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400">Meta</Badge>
+                      <Badge variant="secondary" className="scl-mode-badge bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400">Meta</Badge>
                     </div>
                     <CardTitle className="flex items-center gap-2 text-base">
-                      <Stack className="h-5 w-5 text-teal-600" />
+                      <Stack className="scl-mode-icon h-5 w-5 text-teal-600" />
                       Compose
                     </CardTitle>
                     <CardDescription className="text-sm">Layer two analysis modes — find synergies and tensions</CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-violet-500/50 bg-gradient-to-br from-violet-50/30 to-transparent dark:from-violet-950/10" onClick={() => setSelectedMode('regulatory-impact')}>
+                <Card className="scl-mode-card cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border-2 hover:border-violet-500/50 bg-gradient-to-br from-violet-50/30 to-transparent dark:from-violet-950/10" onClick={() => setSelectedMode('regulatory-impact')}>
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between mb-2">
-                      <Badge variant="secondary" className="bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400">Compliance</Badge>
+                      <Badge variant="secondary" className="scl-mode-badge bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400">Compliance</Badge>
                     </div>
                     <CardTitle className="flex items-center gap-2 text-base">
-                      <Scales className="h-5 w-5 text-violet-600" />
+                      <Scales className="scl-mode-icon h-5 w-5 text-violet-600" />
                       Regulatory Impact
                     </CardTitle>
                     <CardDescription className="text-sm">Map effects through EU AI Act, NIST AI RMF, ISO 42001</CardDescription>

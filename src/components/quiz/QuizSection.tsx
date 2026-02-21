@@ -120,7 +120,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
 
   if (showQuiz) {
     return (
-      <div className="space-y-6">
+      <div className="quiz-flat-ui space-y-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold">Knowledge Assessment</h1>
@@ -137,7 +137,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="quiz-flat-ui space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-3">

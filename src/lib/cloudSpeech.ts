@@ -5,8 +5,8 @@
  * the user-settings stored in localStorage (BYOK).
  *
  * Current support:
- *   STT: OpenAI Whisper API, Azure Speech, Deepgram
- *   TTS: OpenAI TTS, Azure Speech, ElevenLabs
+ *   STT: OpenAI Whisper API, Azure Speech, Deepgram, Google Cloud Speech, AWS Transcribe
+ *   TTS: OpenAI TTS, Azure Speech, ElevenLabs, Google Cloud TTS, AWS Polly
  */
 
 import { loadSettings, type SpeechServiceConfig } from './userSettings';
@@ -285,6 +285,165 @@ export async function speakOpenAIAudio(
   }
   return bytes.buffer;
 }
+// ─── STT — Google Cloud Speech-to-Text ───────────────────────────────────
+
+/**
+ * Google Cloud Speech-to-Text v1 REST API.
+ * Sends audio as base64-encoded content and returns the transcript.
+ * Requires a Google Cloud API key with the Speech-to-Text API enabled.
+ */
+export async function transcribeGoogle(audioBlob: Blob, lang = 'en-US'): Promise<string> {
+  const settings = loadSettings();
+  const cfg = settings.speechServices?.googleCloud;
+  const apiKey = cfg?.apiKey ?? resolveKey(cfg, 'gemini');
+  if (!apiKey) throw new Error('No Google Cloud API key configured. Set one in Settings → Speech-to-Text.');
+
+  // Convert blob to base64
+  const arrayBuffer = await audioBlob.arrayBuffer();
+  const bytes = new Uint8Array(arrayBuffer);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  const audioContent = btoa(binary);
+
+  const url = `https://speech.googleapis.com/v1/speech:recognize?key=${apiKey}`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      config: {
+        encoding: 'WEBM_OPUS',
+        sampleRateHertz: 48000,
+        languageCode: lang,
+        model: cfg?.model || 'default',
+      },
+      audio: { content: audioContent },
+    }),
+  });
+  if (!res.ok) throw new Error(`Google Cloud STT ${res.status}: ${await res.text()}`);
+  const data = await res.json();
+  return data.results?.[0]?.alternatives?.[0]?.transcript?.trim() ?? '';
+}
+
+// ─── STT — AWS Transcribe ────────────────────────────────────────────────
+
+/**
+ * AWS Transcribe via a proxy/backend endpoint.
+ *
+ * AWS APIs require SigV4 request signing which cannot be done safely from
+ * a browser (it would expose secret keys). This wrapper sends the audio
+ * to a configurable proxy URL that forwards it to AWS Transcribe.
+ *
+ * Expected proxy contract:
+ *   POST <apiUrl>
+ *   Body: multipart/form-data with "file" (audio blob) and "language" fields
+ *   Response: { "transcript": "..." }
+ *
+ * If no proxy is configured, a helpful error guides the user.
+ */
+export async function transcribeAWS(audioBlob: Blob, lang = 'en-US'): Promise<string> {
+  const settings = loadSettings();
+  const cfg = settings.speechServices?.awsSpeech;
+  if (!cfg?.apiUrl) throw new Error('AWS Transcribe requires a proxy URL. Set the endpoint in Settings → STT → AWS Transcribe. AWS APIs need server-side SigV4 signing.');
+  if (!cfg.apiKey) throw new Error('No AWS proxy API key configured. Set one in Settings.');
+
+  const formData = new FormData();
+  formData.append('file', audioBlob, 'recording.webm');
+  formData.append('language', lang);
+
+  const res = await fetch(cfg.apiUrl, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${cfg.apiKey}` },
+    body: formData,
+  });
+  if (!res.ok) throw new Error(`AWS Transcribe proxy ${res.status}: ${await res.text()}`);
+  const data = await res.json();
+  return data.transcript?.trim() ?? '';
+}
+
+// ─── TTS — Google Cloud Text-to-Speech ───────────────────────────────────
+
+/**
+ * Google Cloud Text-to-Speech v1 REST API.
+ * Synthesizes speech using WaveNet or Neural2 voices.
+ * Returns MP3 audio as an ArrayBuffer.
+ */
+export async function speakGoogle(text: string, lang = 'en-US'): Promise<ArrayBuffer> {
+  const settings = loadSettings();
+  const cfg = settings.speechServices?.googleCloud;
+  const apiKey = cfg?.apiKey ?? resolveKey(cfg, 'gemini');
+  if (!apiKey) throw new Error('No Google Cloud API key configured. Set one in Settings → Text-to-Speech.');
+
+  const voiceName = cfg?.voiceId || ''; // empty → API picks a default
+  const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`;
+
+  const voice: Record<string, string> = { languageCode: lang };
+  if (voiceName) voice.name = voiceName;
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      input: { text },
+      voice,
+      audioConfig: {
+        audioEncoding: 'MP3',
+        speakingRate: 1.0,
+      },
+    }),
+  });
+  if (!res.ok) throw new Error(`Google Cloud TTS ${res.status}: ${await res.text()}`);
+  const data = await res.json();
+
+  if (!data.audioContent) throw new Error('Google Cloud TTS returned no audio content.');
+
+  // Decode base64 audio
+  const binaryStr = atob(data.audioContent);
+  const bytes = new Uint8Array(binaryStr.length);
+  for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
+  return bytes.buffer;
+}
+
+// ─── TTS — AWS Polly ─────────────────────────────────────────────────────
+
+/**
+ * AWS Polly via a proxy/backend endpoint.
+ *
+ * Like AWS Transcribe, Polly requires SigV4 signing and cannot be called
+ * directly from a browser. This wrapper sends a synthesis request to a
+ * configurable proxy URL.
+ *
+ * Expected proxy contract:
+ *   POST <apiUrl>
+ *   Body: JSON { "text": "...", "language": "en-US", "voice": "Joanna" }
+ *   Response: audio/mpeg binary
+ *
+ * If no proxy is configured, a helpful error guides the user.
+ */
+export async function speakAWS(text: string, lang = 'en-US'): Promise<ArrayBuffer> {
+  const settings = loadSettings();
+  const cfg = settings.speechServices?.awsSpeech;
+  if (!cfg?.apiUrl) throw new Error('AWS Polly requires a proxy URL. Set the endpoint in Settings → TTS → AWS Polly. AWS APIs need server-side SigV4 signing.');
+  if (!cfg.apiKey) throw new Error('No AWS proxy API key configured. Set one in Settings.');
+
+  const voice = cfg.voiceId || 'Joanna';
+  const res = await fetch(cfg.apiUrl, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${cfg.apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      text,
+      language: lang,
+      voice,
+      engine: 'neural',
+      outputFormat: 'mp3',
+    }),
+  });
+  if (!res.ok) throw new Error(`AWS Polly proxy ${res.status}: ${await res.text()}`);
+  return res.arrayBuffer();
+}
+
 // ─── Convenience dispatchers ─────────────────────────────────────────────
 
 /** Play audio from an ArrayBuffer through the browser's audio system. */
