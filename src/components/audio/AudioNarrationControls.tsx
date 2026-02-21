@@ -220,7 +220,7 @@ advanced: {
                       <p className="font-medium text-gray-900 dark:text-gray-100">Audio Settings</p>
                       <p className="text-xs text-gray-700 dark:text-gray-300">Click to open full controls & settings</p>
                       <p className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 mt-1">
-                        <GlobeSimple size={12} /> 29 languages · cloud providers for best quality
+                        <GlobeSimple size={12} /> 29+ languages · coverage varies by provider & model
                       </p>
                     </TooltipContent>
                   </Tooltip>

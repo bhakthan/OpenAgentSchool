@@ -246,7 +246,7 @@ export default function VoiceFAB() {
               'animate-in fade-in-0 slide-in-from-bottom-2 duration-300',
             )}
           >
-            <span className="font-medium">Try voice:</span> "What is prompt chaining?" — works in 29 languages!
+            <span className="font-medium">Try voice:</span> "What is prompt chaining?" — works in 29+ languages!
           </div>
         )}
 
@@ -288,8 +288,8 @@ export default function VoiceFAB() {
               {voice.isListening
                 ? 'Tap to stop'
                 : voice.engine === 'whisper-wasm'
-                  ? 'Ask by voice (in-browser Whisper) · 29 languages'
-                  : `Ask by voice · speaks ${voice.language === 'en' ? '29 languages' : LANGUAGES.find(l => l.code === voice.language)?.label ?? voice.language}`}
+                  ? 'Ask by voice (in-browser Whisper) · 29+ languages'
+                  : `Ask by voice · speaks ${voice.language === 'en' ? '29+ languages' : LANGUAGES.find(l => l.code === voice.language)?.label ?? voice.language}`}
             </TooltipContent>
           </Tooltip>
 

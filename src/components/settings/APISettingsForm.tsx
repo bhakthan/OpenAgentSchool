@@ -519,7 +519,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
           <Label className="text-sm font-medium">Speech-to-Text Engine</Label>
         </div>
         <p className="text-[11px] text-muted-foreground leading-relaxed -mt-1">
-          🌍 <strong>Speak in any of 29 languages</strong> — voice input language is set in Audio Settings.
+          🌍 <strong>Speak in 29+ languages</strong> — language support varies by provider & model. Set language in Audio Settings.
           Cloud engines offer the best multilingual accuracy with your API keys; browser &amp; local engines work free with varying language support.
         </p>
         <RadioGroup
@@ -690,7 +690,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
           <Label className="text-sm font-medium">Text-to-Speech Engine</Label>
         </div>
         <p className="text-[11px] text-muted-foreground leading-relaxed -mt-1">
-          🌍 <strong>Listen to narrations in 29 languages</strong> — set the language in Audio Settings.
+          🌍 <strong>Listen to narrations in 29+ languages</strong> — actual coverage varies by provider & model. Set language in Audio Settings.
           Content is auto-translated then spoken. Cloud providers deliver the most natural multilingual voices.
         </p>
         <RadioGroup
@@ -704,7 +704,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
           </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="openai-tts" id="tts-openai" />
-            <Label htmlFor="tts-openai" className="text-xs font-normal">OpenAI TTS (natural voices) · auto-detects language, all 29 languages</Label>
+            <Label htmlFor="tts-openai" className="text-xs font-normal">OpenAI TTS (natural voices) · auto-detects language, 29+ languages</Label>
           </div>
           <div className="flex items-center gap-2">
             <RadioGroupItem value="azure-speech" id="tts-azure" />
