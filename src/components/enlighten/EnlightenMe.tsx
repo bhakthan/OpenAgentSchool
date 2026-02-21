@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { ChatCircleDots, SpinnerGap, Copy, Check, CaretDown, CaretUp, Printer } from '@phosphor-icons/react';
+import { ChatCircleDots, SpinnerGap, Copy, Check, CaretDown, CaretUp, Printer, ArrowSquareOut } from '@phosphor-icons/react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -261,7 +261,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                   <span className="ml-2">Generating insights...</span>
                 </div>
               ) : (
-                <div className="flex-1 overflow-y-auto max-h-[60vh] p-4">
+                <div className="flex-1 overflow-y-auto p-4">
                   <div className="prose prose-sm dark:prose-invert max-w-none space-y-4">
                     <ReactMarkdown
                       components={markdownComponents}
@@ -426,6 +426,63 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                 <Printer size={16} />
                 <span>Print PDF</span>
               </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="flex items-center gap-1"
+                  onClick={() => {
+                    const tabContent = `
+                      <html>
+                        <head>
+                          <title>Open Agent School - AI Insights</title>
+                          <style>
+                            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; padding: 40px; line-height: 1.7; color: #1f2937; background: #f8fafc; }
+                            .container { max-width: 800px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 40px; }
+                            .branding { text-align: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e5e7eb; }
+                            .branding-title { font-size: 20px; font-weight: bold; color: #3b82f6; }
+                            .branding-url { font-size: 12px; color: #6b7280; }
+                            .header { margin-bottom: 32px; padding-bottom: 16px; border-bottom: 2px solid #3b82f6; }
+                            .title { font-size: 22px; color: #3b82f6; font-weight: bold; margin-bottom: 8px; }
+                            .meta { font-size: 13px; color: #6b7280; }
+                            .prompt-section { margin: 24px 0; padding: 16px; background: #f1f5f9; border-radius: 8px; border-left: 4px solid #64748b; }
+                            .prompt-title { font-weight: 600; color: #475569; margin-bottom: 8px; font-size: 14px; }
+                            .prompt-text { font-size: 13px; color: #64748b; white-space: pre-wrap; }
+                            .content { font-size: 15px; line-height: 1.8; }
+                            .content pre { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px; overflow-x: auto; }
+                            .content code { font-family: 'Fira Code', monospace; font-size: 13px; }
+                            .content blockquote { border-left: 4px solid #3b82f6; margin: 16px 0; padding: 12px 16px; background: #eff6ff; border-radius: 0 8px 8px 0; }
+                            .content table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+                            .content th, .content td { padding: 10px 14px; border: 1px solid #e5e7eb; text-align: left; }
+                            .content th { background: #f1f5f9; font-weight: 600; }
+                          </style>
+                        </head>
+                        <body>
+                          <div class="container">
+                            <div class="branding">
+                              <div class="branding-title">Open Agent School</div>
+                              <div class="branding-url">openagentschool.org</div>
+                            </div>
+                            <div class="header">
+                              <div class="title">AI Insights: ${title}</div>
+                              <div class="meta">Generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</div>
+                            </div>
+                            <div class="prompt-section">
+                              <div class="prompt-title">Your Question</div>
+                              <div class="prompt-text">${prompt.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+                            </div>
+                            <div class="content">${response.replace(/\n/g, '<br>')}</div>
+                          </div>
+                        </body>
+                      </html>
+                    `;
+                    const tab = window.open('', '_blank');
+                    if (tab) { tab.document.write(tabContent); tab.document.close(); }
+                  }}
+                  title="Open in new tab"
+                >
+                  <ArrowSquareOut size={16} />
+                  <span>New Tab</span>
+                </Button>
                 <Button variant="outline" onClick={() => onOpenChange(false)}>
                   Close
                 </Button>

@@ -14,7 +14,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useToast } from "@/components/ui/use-toast";
 import { 
   Brain, ArrowLeft, Lightbulb, CheckCircle, ArrowRight,
-  Clock, Target, TrendUp, Copy, Printer, Users
+  Clock, Target, TrendUp, Copy, Printer, Users, ArrowSquareOut
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { StudyModeQuestion, StudyModeSession, StudyModeResponse } from '@/lib/data/studyMode/types';
@@ -1282,14 +1282,29 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
           }
           setShowLlmFeedbackModal(open);
         }}>
-          <DialogContent className="max-w-6xl max-h-[85vh] overflow-y-auto">
-            <DialogHeader>
+          <DialogContent className="max-w-6xl max-h-[85vh] flex flex-col overflow-hidden">
+            <DialogHeader className="flex-shrink-0">
               <DialogTitle className="flex items-center justify-between text-blue-700">
                 <div className="flex items-center gap-2">
                   <Target size={20} />
                   Comprehensive AI Assessment - Socratic Journey Complete
                 </div>
                 <div className="flex gap-2">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="icon" onClick={() => {
+                          if (!llmJudgeResponse) return;
+                          const tabContent = `<html><head><title>Open Agent School - AI Assessment</title><style>body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0;padding:40px;line-height:1.7;color:#1f2937;background:#f8fafc}.container{max-width:800px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:40px}.branding{text-align:center;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #e5e7eb}.branding-title{font-size:20px;font-weight:bold;color:#3b82f6}.branding-url{font-size:12px;color:#6b7280}.header{margin-bottom:32px;padding-bottom:16px;border-bottom:2px solid #3b82f6}.score{font-size:36px;color:#3b82f6;font-weight:bold;text-align:center;margin:16px 0}.section{margin:24px 0}.section-title{font-weight:600;font-size:16px;margin-bottom:12px}.feedback{background:#f8fafc;padding:16px;border-left:4px solid #3b82f6;border-radius:0 8px 8px 0;margin:12px 0;white-space:pre-wrap}.list-item{margin:8px 0;padding:10px 16px;border-radius:8px}.strength{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}.suggestion{background:#fffbeb;border:1px solid #fde68a;color:#92400e}.insight{background:#faf5ff;border:1px solid #e9d5ff;color:#6b21a8}.improvement{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}</style></head><body><div class="container"><div class="branding"><div class="branding-title">Open Agent School</div><div class="branding-url">openagentschool.org</div></div><div class="header"><h2>Comprehensive AI Assessment - Socratic Journey</h2><div class="score">${llmJudgeResponse.score}%</div></div><div class="section"><div class="section-title">Assessment Feedback</div><div class="feedback">${llmJudgeResponse.feedback.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div></div>${llmJudgeResponse.strengths.length>0?'<div class="section"><div class="section-title">Strengths</div>'+llmJudgeResponse.strengths.map(s=>'<div class="list-item strength">'+s.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</div>').join('')+'</div>':''}${llmJudgeResponse.suggestions.length>0?'<div class="section"><div class="section-title">Suggestions</div>'+llmJudgeResponse.suggestions.map(s=>'<div class="list-item suggestion">'+s.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</div>').join('')+'</div>':''}${llmJudgeResponse.insights&&llmJudgeResponse.insights.length>0?'<div class="section"><div class="section-title">Key Insights</div>'+llmJudgeResponse.insights.map(s=>'<div class="list-item insight">'+s.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</div>').join('')+'</div>':''}${llmJudgeResponse.improvements.length>0?'<div class="section"><div class="section-title">Areas for Growth</div>'+llmJudgeResponse.improvements.map(s=>'<div class="list-item improvement">'+s.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</div>').join('')+'</div>':''}</div></body></html>`;
+                          const tab = window.open('', '_blank');
+                          if (tab) { tab.document.write(tabContent); tab.document.close(); }
+                        }}>
+                          <ArrowSquareOut className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent><p>Open in new tab</p></TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                   <TooltipProvider>
                     <Tooltip open={showPrintTooltip} onOpenChange={setShowPrintTooltip}>
                       <TooltipTrigger asChild>
@@ -1321,6 +1336,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
               </DialogDescription>
             </DialogHeader>
             
+            <div className="flex-1 overflow-y-auto min-h-0">
             <div className="space-y-6">
               {/* Score Display */}
               <div className="text-center">
@@ -1426,9 +1442,10 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
                 </div>
               )}
             </div>
+            </div>
 
             {/* Action Buttons */}
-            <div className="border-t pt-6 mt-6">
+            <div className="border-t pt-4 mt-2 flex-shrink-0">
               <div className="flex flex-col sm:flex-row justify-center gap-3">
                 <Button 
                   variant="outline" 
