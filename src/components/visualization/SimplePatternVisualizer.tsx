@@ -377,6 +377,7 @@ const SimplePatternVisualizer: React.FC<SimplePatternVisualizerProps> = ({ patte
               onChange={(e) => setQueryInput(e.target.value)}
               placeholder="Enter your query to see how the pattern processes it..."
               disabled={isAnimating}
+              className="text-foreground"
             />
           </div>
           

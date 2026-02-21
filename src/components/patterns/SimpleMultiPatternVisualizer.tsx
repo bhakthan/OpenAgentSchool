@@ -7,11 +7,11 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { ArrowsCounterClockwise, Play, ArrowsHorizontal, ChartLine, Table, Plus, X } from '@phosphor-icons/react';
 import { PatternData, agentPatterns } from '@/lib/data/patterns/index';
-import { useTheme } from '@/components/theme/ThemeProvider';
 import EnlightenMeButton from '@/components/enlighten/EnlightenMeButton';
 
 interface SimpleMultiPatternVisualizerProps {
   initialPatterns?: string[];
+  styleVariant?: 'default' | 'flat-ui-2';
 }
 
 interface PatternFlowState {
@@ -23,9 +23,10 @@ interface PatternFlowState {
 }
 
 const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> = ({ 
-  initialPatterns 
+  initialPatterns,
+  styleVariant = 'default'
 }) => {
-  const { theme } = useTheme();
+  const isFlatUi2 = styleVariant === 'flat-ui-2';
   const defaultPatterns = initialPatterns || [agentPatterns[0]?.id, agentPatterns[1]?.id].filter(Boolean);
   
   const [selectedPatternIds, setSelectedPatternIds] = useState<string[]>(defaultPatterns);
@@ -299,11 +300,11 @@ const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> 
   }, []);
 
   return (
-    <Card className="w-full">
-      <CardHeader>
+    <Card className={`w-full ${isFlatUi2 ? 'flat-ui-2-theme border-border/60 bg-background' : ''}`}>
+      <CardHeader className={isFlatUi2 ? 'border-b border-border/50 bg-background' : ''}>
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span>Pattern Flow Comparison</span>
+            <span className={isFlatUi2 ? 'text-base font-semibold text-foreground' : ''}>Pattern Flow Comparison</span>
             <Badge variant="outline">{selectedPatterns.length} patterns</Badge>
           </div>
           <div className="flex items-center gap-2">
@@ -334,7 +335,7 @@ const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> 
             </Button>
           </div>
         </CardTitle>
-        <CardDescription>
+        <CardDescription className={isFlatUi2 ? 'text-sm text-muted-foreground' : ''}>
           Compare multiple agent patterns side by side and see how they process information differently
         </CardDescription>
       </CardHeader>
@@ -343,8 +344,8 @@ const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> 
         <div className="space-y-4">
           {/* Pattern Selector */}
           {showPatternSelector && (
-            <Card className="p-4">
-              <h4 className="font-medium mb-3">Available Patterns:</h4>
+            <Card className={`p-4 ${isFlatUi2 ? 'border-border/60 bg-background shadow-none' : ''}`}>
+              <h4 className={`mb-3 ${isFlatUi2 ? 'text-sm font-semibold text-foreground' : 'font-medium'}`}>Available Patterns:</h4>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
                 {agentPatterns.map(pattern => (
                   <Button
@@ -367,10 +368,10 @@ const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> 
           {/* View Mode Toggle */}
           <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as any)}>
             <TabsList>
-              <TabsTrigger value="individual" className="flex items-center gap-1">
+              <TabsTrigger value="individual" className="flex items-center gap-1 text-sm">
                 <ChartLine size={14} /> Individual View
               </TabsTrigger>
-              <TabsTrigger value="comparison" className="flex items-center gap-1">
+              <TabsTrigger value="comparison" className="flex items-center gap-1 text-sm">
                 <Table size={14} /> Comparison View
               </TabsTrigger>
             </TabsList>
@@ -381,7 +382,7 @@ const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> 
                 const flowState = flowStates[pattern.id];
                 
                 return (
-                  <Card key={pattern.id} className="p-4 relative">
+                  <Card key={pattern.id} className={`p-4 relative ${isFlatUi2 ? 'border-border/60 bg-background shadow-none' : ''}`}>
                     <EnlightenMeButton 
                       title={`${pattern.name} Agent Pattern`}
                       conceptId={pattern.id}
@@ -424,7 +425,7 @@ Cover what separates a demo from production: observability (OpenTelemetry, struc
                       </Button>
                     </div>
                     
-                    <div className="relative border rounded-lg bg-gray-50 dark:bg-gray-900" style={{ height: '250px' }}>
+                    <div className={`relative border rounded-lg ${isFlatUi2 ? 'bg-background border-border/60' : 'bg-gray-50 dark:bg-gray-900'}`} style={{ height: '250px' }}>
                       {/* No edge rendering - clean node-only visualization */}
                       
                       {/* Render nodes */}
@@ -457,17 +458,17 @@ Cover what separates a demo from production: observability (OpenTelemetry, struc
                             </div>
                             {/* Show sequence number during simulation */}
                             {flowState?.isAnimating && isActive && (
-                              <div className="absolute -top-2 -right-2 w-5 h-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
-                                {flowState.nodeSteps.get(node.id) || 0}
-                              </div>
-                            )}
+                               <div className={`absolute -top-2 -right-2 w-5 h-5 text-white text-xs rounded-full flex items-center justify-center font-bold ${isFlatUi2 ? 'bg-primary' : 'bg-blue-500'}`}>
+                                 {flowState.nodeSteps.get(node.id) || 0}
+                               </div>
+                             )}
                             {/* Simple active indicator */}
                             {isActive && (
                               <div className="absolute top-1 right-1">
-                                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                              </div>
-                            )}
-                          </div>
+                                 <div className={`w-2 h-2 rounded-full animate-pulse ${isFlatUi2 ? 'bg-primary' : 'bg-blue-500'}`} />
+                               </div>
+                             )}
+                           </div>
                         );
                       })}
                     </div>
@@ -482,13 +483,13 @@ Cover what separates a demo from production: observability (OpenTelemetry, struc
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Pattern Visualizations */}
                 <div className="lg:col-span-2 space-y-4">
-                  <h3 className="font-semibold text-lg">Pattern Flow Visualization</h3>
+                  <h3 className={`text-lg ${isFlatUi2 ? 'font-semibold text-foreground' : 'font-semibold'}`}>Pattern Flow Visualization</h3>
                   {selectedPatterns.map(pattern => {
                     const layout = createFlowLayout(pattern, 600, 200);
                     const flowState = flowStates[pattern.id];
                     
                     return (
-                      <Card key={pattern.id} className="p-4 relative">
+                      <Card key={pattern.id} className={`p-4 relative ${isFlatUi2 ? 'border-border/60 bg-background shadow-none' : ''}`}>
                         <EnlightenMeButton 
                           title={`${pattern.name} Agent Pattern`}
                           conceptId={pattern.id}
@@ -527,7 +528,7 @@ Cover what separates a demo from production: observability (OpenTelemetry, struc
                           </Button>
                         </div>
                         
-                        <div className="relative border rounded-lg bg-gray-50 dark:bg-gray-900" style={{ height: '220px' }}>
+                        <div className={`relative border rounded-lg ${isFlatUi2 ? 'bg-background border-border/60' : 'bg-gray-50 dark:bg-gray-900'}`} style={{ height: '220px' }}>
                           {/* No edge rendering - clean node-only visualization */}
                           
                           {/* Render nodes */}
@@ -560,7 +561,7 @@ Cover what separates a demo from production: observability (OpenTelemetry, struc
                                 </div>
                                 {/* Show sequence number during simulation */}
                                 {flowState?.isAnimating && isActive && (
-                                  <div className="absolute -top-2 -right-2 w-5 h-5 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+                                  <div className={`absolute -top-2 -right-2 w-5 h-5 text-white text-xs rounded-full flex items-center justify-center font-bold ${isFlatUi2 ? 'bg-primary' : 'bg-blue-500'}`}>
                                     {flowState.nodeSteps.get(node.id) || 0}
                                   </div>
                                 )}
@@ -571,10 +572,10 @@ Cover what separates a demo from production: observability (OpenTelemetry, struc
                                 {/* Simple active indicator */}
                                 {isActive && (
                                   <div className="absolute top-1 right-1">
-                                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                                  </div>
-                                )}
-                              </div>
+                                     <div className={`w-2 h-2 rounded-full animate-pulse ${isFlatUi2 ? 'bg-primary' : 'bg-blue-500'}`} />
+                                   </div>
+                                 )}
+                               </div>
                             );
                           })}
                         </div>
@@ -589,7 +590,7 @@ Cover what separates a demo from production: observability (OpenTelemetry, struc
                 
                 {/* Feature Comparison Table */}
                 <div className="lg:col-span-1">
-                  <Card className="sticky top-4">
+                  <Card className={`sticky top-4 ${isFlatUi2 ? 'border-border/60 bg-background shadow-none' : ''}`}>
                     <CardHeader className="pb-3">
                       <CardTitle className="text-lg">Feature Comparison</CardTitle>
                       <CardDescription className="text-sm">
@@ -646,7 +647,7 @@ Cover what separates a demo from production: observability (OpenTelemetry, struc
                                       <span className="truncate">{pattern.name}</span>
                                     </div>
                                     <div className="flex items-center gap-1">
-                                      <div className="w-12 bg-gray-200 rounded-full h-2">
+                                       <div className={`w-12 rounded-full h-2 ${isFlatUi2 ? 'bg-muted' : 'bg-gray-200'}`}>
                                         <div 
                                           className="h-2 rounded-full transition-all duration-300"
                                           style={{ 
@@ -683,9 +684,11 @@ Cover what separates a demo from production: observability (OpenTelemetry, struc
                                       return (
                                         <div 
                                           key={pattern.id}
-                                          className={`w-4 h-4 rounded-sm flex items-center justify-center text-xs ${
-                                            hasCapability ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400'
-                                          }`}
+                                           className={`w-4 h-4 rounded-sm flex items-center justify-center text-xs ${
+                                             hasCapability
+                                               ? (isFlatUi2 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-green-100 text-green-700')
+                                               : (isFlatUi2 ? 'bg-muted text-muted-foreground' : 'bg-gray-100 text-gray-400')
+                                           }`}
                                           title={`${pattern.name} ${hasCapability ? 'has' : 'lacks'} ${capability.replace('has', '').toLowerCase()}`}
                                         >
                                           {hasCapability ? '✓' : '−'}

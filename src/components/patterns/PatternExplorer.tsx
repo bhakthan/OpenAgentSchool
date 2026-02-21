@@ -350,7 +350,7 @@ const PatternExplorer = () => {
           <TabsContent value="comparison">
             {selectedPattern ? (
               <Suspense fallback={<VisualizationLoader />}>
-                <SimpleMultiPatternVisualizer initialPatterns={[selectedPattern.id]} />
+                <SimpleMultiPatternVisualizer initialPatterns={[selectedPattern.id]} styleVariant={previewStyleVariant} />
               </Suspense>
             ) : (
               <div className="w-full p-8 text-center border border-dashed rounded-lg">
