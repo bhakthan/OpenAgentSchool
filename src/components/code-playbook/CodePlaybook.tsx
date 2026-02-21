@@ -21,6 +21,7 @@ import { getCodeExecutionExample } from '@/lib/data/codeExamples'
 import { getAlgorithmVisualization, AlgorithmVisualizationData } from '@/lib/utils/algorithmVisualization'
 import { getSystemDesignPattern } from '@/lib/data/systemDesign'
 import { cn } from '@/lib/utils'
+import MarkdownRenderer from '@/components/study-mode/MarkdownRenderer'
 
 interface CodePlaybookProps {
   patternData: PatternData
@@ -137,7 +138,9 @@ const CodePlaybook = ({ patternData, styleVariant = 'default' }: CodePlaybookPro
               <div className="space-y-4">
                 <div className="p-4 border rounded-lg bg-card w-full transition-all duration-300">
                   <h3 className="text-lg font-medium mb-2">About {patternData.name}</h3>
-                  <p className="text-muted-foreground mb-4 text-base">{patternData.description}</p>
+                  <div className="prose prose-sm max-w-none mb-4 text-foreground dark:prose-invert">
+                    <MarkdownRenderer>{patternData.description}</MarkdownRenderer>
+                  </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 w-full">
                     <div>
@@ -152,22 +155,26 @@ const CodePlaybook = ({ patternData, styleVariant = 'default' }: CodePlaybookPro
                     </div>
                     <div>
                       <h4 className="text-sm font-medium mb-2">When To Use</h4>
-                      <p className="text-base text-muted-foreground">{patternData.whenToUse || 'Information not available'}</p>
+                      <div className="prose prose-sm max-w-none text-foreground dark:prose-invert">
+                        <MarkdownRenderer>{patternData.whenToUse || 'Information not available'}</MarkdownRenderer>
+                      </div>
                     </div>
                   </div>
                 </div>
                 
                 <div className="p-4 border rounded-lg bg-muted/20 w-full transition-all duration-300">
                   <h3 className="text-base font-medium mb-2">Implementation Overview</h3>
-                  <p className="text-xl text-muted-foreground mb-3">This pattern can be implemented using the following components:</p>
+                  <p className="text-sm text-muted-foreground mb-3">This pattern can be implemented using the following components:</p>
                   
                   <div className="space-y-2" data-section="steps">
                     {patternData.implementation && patternData.implementation.length > 0 ? patternData.implementation.map((step, index) => (
                       <div key={index} className="flex items-start">
-                        <span className="flex items-center justify-center bg-primary/10 text-primary rounded-full w-5 h-5 text-base font-medium mr-2 mt-0.5">
+                        <span className="flex items-center justify-center bg-primary/10 text-primary rounded-full w-5 h-5 text-xs font-medium mr-2 mt-0.5">
                           {index + 1}
                         </span>
-                        <span className="text-base">{step}</span>
+                        <div className="prose prose-sm max-w-none text-foreground dark:prose-invert">
+                          <MarkdownRenderer>{step}</MarkdownRenderer>
+                        </div>
                       </div>
                     )) : (
                       <div className="text-sm text-muted-foreground">Implementation steps not available</div>
