@@ -393,17 +393,21 @@ function App() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-9 w-9"
+                  className="h-9 w-9 relative animate-pulse text-amber-500 dark:text-amber-400"
                   onClick={() => setSettingsOpen(true)}
                   aria-label="API Settings"
                   title="API Settings (BYOK)"
                 >
                   <Gear size={18} />
+                  <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+                  </span>
                 </Button>
                 <UserMenu />
                 <Link
                   to="/value-map"
-                  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-gradient-to-r from-yellow-400 to-amber-500 px-3 py-2 text-sm font-bold text-gray-900 transition-all hover:from-yellow-500 hover:to-amber-600 hover:shadow-lg hover:scale-105 animate-pulse"
+                  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-gradient-to-r from-yellow-400 to-amber-500 px-3 py-2 text-sm font-bold text-gray-900 transition-all hover:from-yellow-500 hover:to-amber-600 hover:shadow-lg hover:scale-105"
                   title="Discover what you'll master at Open Agent School"
                 >
                   <SparklesIcon className="mr-1 w-4 h-4" />
@@ -546,11 +550,7 @@ function App() {
                                 </span>
                               </NavigationMenuTrigger>
                               <NavigationMenuContent>
-                                <div className={cn(
-                                  "absolute top-0 left-0 right-0 h-1 bg-gradient-to-r rounded-t-md",
-                                  category.color
-                                )} />
-                                <ul className="grid gap-2 p-4 pt-5 w-[520px] md:grid-cols-2">
+                                <ul className="grid gap-2 p-4 w-[520px] md:grid-cols-2">
                                   {category.items.map(item => (
                                     <li key={item.to}>
                                       <NavigationMenuLink asChild>
