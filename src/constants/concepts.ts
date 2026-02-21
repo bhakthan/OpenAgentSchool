@@ -31,6 +31,8 @@ export const CORE_CONCEPT_IDS = [
   'mcp-a2a-integration',
   'data-visualization',
   'data-knowledge-operations',
+  'xyz-claw',
+  'tri-system-paradigm',
   'agent-deployment',
   'agent-learning',
   'agent-integration',

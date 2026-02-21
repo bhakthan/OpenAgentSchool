@@ -406,12 +406,12 @@ function App() {
                 </Button>
                 <UserMenu />
                 <Link
-                  to="/value-map"
+                  to="/tree-view"
                   className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-gradient-to-r from-yellow-400 to-amber-500 px-3 py-2 text-sm font-bold text-gray-900 transition-all hover:from-yellow-500 hover:to-amber-600 hover:shadow-lg hover:scale-105"
-                  title="Discover what you'll master at Open Agent School"
+                  title="Explore the interactive Learning Atlas — visual taxonomy of all concepts"
                 >
-                  <SparklesIcon className="mr-1 w-4 h-4" />
-                  <span className="hidden md:inline">Skills Universe</span>
+                  <Tree size={16} weight="duotone" className="mr-1" />
+                  <span className="hidden md:inline">Learning Atlas</span>
                 </Link>
                 <NavigationMenu>
                   <NavigationMenuList>
@@ -474,7 +474,7 @@ function App() {
                     items: [
                       { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} />, description: 'Foundational AI agent concepts', isNew: false },
                       { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" />, description: 'Reusable design patterns', isNew: false },
-                      { to: '/tree-view', label: 'Learning Atlas', icon: <Tree size={16} weight="duotone" />, description: 'Visual concept taxonomy', isNew: true },
+                      { to: '/value-map', label: 'Skills Universe', icon: <SparklesIcon className="w-4 h-4" />, description: 'Discover what you\'ll master', isNew: false },
                       { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" />, description: 'Papers, videos, and resources', isNew: false },
                     ]
                   },
