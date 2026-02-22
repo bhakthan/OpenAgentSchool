@@ -5,12 +5,15 @@ import { EffectiveAccessPolicyPanel, PolicySimulationPanel } from '@/components/
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useAuth } from '@/lib/auth/AuthContext';
 import { Info, Lock, Scales, Gavel, ShieldWarning, CurrencyDollar, Key, Compass, ShieldCheck, Lightbulb } from '@phosphor-icons/react';
 
 /**
  * Full-page Settings view with expanded form + feature matrix + security notes.
  */
 const SettingsPage: React.FC = () => {
+  const { isAuthenticated } = useAuth();
+
   return (
     <div className="api-settings-flat-ui max-w-2xl mx-auto space-y-8">
       {/* Page header */}
@@ -39,17 +42,17 @@ const SettingsPage: React.FC = () => {
       </Alert>
 
       <Tabs defaultValue="api-config" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
-          <TabsTrigger value="api-config" className="gap-2">
+        <TabsList className="flex h-auto w-full flex-wrap justify-start gap-1">
+          <TabsTrigger value="api-config" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
             <Key size={14} /> LLM/API Config (Local)
           </TabsTrigger>
-          <TabsTrigger value="personalization" className="gap-2">
+          <TabsTrigger value="personalization" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
             <Compass size={14} /> Personalization Dial (Cloud)
           </TabsTrigger>
-          <TabsTrigger value="access-policies" className="gap-2">
+          <TabsTrigger value="access-policies" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
             <ShieldCheck size={14} /> Access Policies
           </TabsTrigger>
-          <TabsTrigger value="preview-simulation" className="gap-2">
+          <TabsTrigger value="preview-simulation" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
             <Lightbulb size={14} /> Preview &amp; Simulation
           </TabsTrigger>
         </TabsList>
@@ -102,7 +105,18 @@ const SettingsPage: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="personalization" className="space-y-4">
-          <LearningProfileSettings />
+          {isAuthenticated ? (
+            <LearningProfileSettings />
+          ) : (
+            <Alert className="border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/50">
+              <AlertTitle className="text-amber-800 dark:text-amber-200 text-sm">
+                Sign in required
+              </AlertTitle>
+              <AlertDescription className="text-amber-700 dark:text-amber-300 text-xs">
+                Personalization Dial details are available after you sign in.
+              </AlertDescription>
+            </Alert>
+          )}
         </TabsContent>
 
         <TabsContent value="access-policies" className="space-y-4">
