@@ -2,6 +2,7 @@ import React from 'react';
 import { APISettingsForm } from '@/components/settings/APISettingsForm';
 import { LearningProfileSettings } from '@/components/settings/LearningProfileSettings';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Info, Lock, Scales, Gavel, ShieldWarning, CurrencyDollar } from '@phosphor-icons/react';
 
@@ -38,47 +39,54 @@ const SettingsPage: React.FC = () => {
 
       <Tabs defaultValue="api-config" className="space-y-4">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="api-config">LLM &amp; API Config</TabsTrigger>
-          <TabsTrigger value="personalization">Personalization Dial</TabsTrigger>
+          <TabsTrigger value="api-config">LLM/API Config (Local)</TabsTrigger>
+          <TabsTrigger value="personalization">Personalization Dial (Cloud)</TabsTrigger>
         </TabsList>
 
         <TabsContent value="api-config" className="space-y-6">
           <APISettingsForm />
 
-          {/* Feature Matrix */}
           <section className="space-y-3">
-            <h2 className="text-lg font-semibold flex items-center gap-2">
-              <Info size={18} /> Which features use your keys?
-            </h2>
-            <div className="rounded-lg border border-border overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-muted/50">
-                  <tr>
-                    <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Needs API Key</th>
-                    <th className="text-left p-3 font-medium">Default</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {[
-                    ['Ask AI / Enlighten Me', 'Yes (LLM)', 'OpenRouter free models'],
-                    ['Study Mode (LLM Judge)', 'Yes (LLM)', 'OpenRouter → graceful fallback'],
-                    ['Voice Translation', 'Yes (LLM)', 'OpenRouter'],
-                    ['Voice Input (STT)', 'Depends', 'Web Speech API free; cloud STT needs key'],
-                    ['Audio Narration (TTS)', 'Depends', 'Browser free; OpenAI / Azure / ElevenLabs need key'],
-                    ['Knowledge Search', 'Backend', 'Core API at localhost:8000'],
-                    ['Quizzes', 'No', 'Static content, no LLM needed'],
-                    ['SCL Demo', 'Yes (LLM)', 'OpenRouter free models'],
-                  ].map(([feature, needs, fallback], i) => (
-                    <tr key={i} className="hover:bg-muted/30">
-                      <td className="p-3">{feature}</td>
-                      <td className="p-3">{needs}</td>
-                      <td className="p-3 text-muted-foreground text-xs">{fallback}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="feature-matrix" className="border rounded-lg px-4">
+                <AccordionTrigger className="hover:no-underline">
+                  <span className="text-lg font-semibold flex items-center gap-2">
+                    <Info size={18} /> Which features use your keys?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="rounded-lg border border-border overflow-hidden">
+                    <table className="w-full text-sm">
+                      <thead className="bg-muted/50">
+                        <tr>
+                          <th className="text-left p-3 font-medium">Feature</th>
+                          <th className="text-left p-3 font-medium">Needs API Key</th>
+                          <th className="text-left p-3 font-medium">Default</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-border">
+                        {[
+                          ['Ask AI / Enlighten Me', 'Yes (LLM)', 'OpenRouter free models'],
+                          ['Study Mode (LLM Judge)', 'Yes (LLM)', 'OpenRouter → graceful fallback'],
+                          ['Voice Translation', 'Yes (LLM)', 'OpenRouter'],
+                          ['Voice Input (STT)', 'Depends', 'Web Speech API free; cloud STT needs key'],
+                          ['Audio Narration (TTS)', 'Depends', 'Browser free; OpenAI / Azure / ElevenLabs need key'],
+                          ['Knowledge Search', 'Backend', 'Core API at localhost:8000'],
+                          ['Quizzes', 'No', 'Static content, no LLM needed'],
+                          ['SCL Demo', 'Yes (LLM)', 'OpenRouter free models'],
+                        ].map(([feature, needs, fallback], i) => (
+                          <tr key={i} className="hover:bg-muted/30">
+                            <td className="p-3">{feature}</td>
+                            <td className="p-3">{needs}</td>
+                            <td className="p-3 text-muted-foreground text-xs">{fallback}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </section>
         </TabsContent>
 
