@@ -1505,12 +1505,12 @@ export const references: ReferencesData = {
           {
             title: "Microsoft Agent Framework",
             url: "https://aka.ms/agentframework",
-            description: "Unified Microsoft framework combining Semantic Kernel (production) and AutoGen (prototyping) for multi-agent orchestration"
+            description: "The next-generation Microsoft framework — successor to Semantic Kernel and AutoGen — for building production-ready multi-agent AI applications"
           },
           {
             title: "Agent Framework Documentation",
             url: "https://learn.microsoft.com/agent-framework/overview/agent-framework-overview",
-            description: "Official Microsoft Agent Framework overview - unified framework combining Semantic Kernel and AutoGen capabilities"
+            description: "Official Microsoft Agent Framework overview — open-source SDK with multi-agent orchestration, graph-based workflows, and enterprise-grade features"
           },
           {
             title: "Agent Framework Quick Start",
@@ -4492,38 +4492,53 @@ export const references: ReferencesData = {
         name: "Documentation",
         references: [
           {
-            title: "Microsoft Foundry Overview",
-            url: "https://learn.microsoft.com/azure/ai-studio/",
-            description: "Overview of Microsoft Foundry"
+            title: "What is Microsoft Foundry?",
+            url: "https://learn.microsoft.com/azure/ai-foundry/what-is-foundry",
+            description: "Unified Azure PaaS for enterprise AI operations, model cataloging, and agent development"
+          },
+          {
+            title: "Microsoft Foundry SDKs",
+            url: "https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview",
+            description: "Client libraries for Python, C#, JavaScript/TypeScript, and Java"
+          },
+          {
+            title: "Foundry VS Code Extension",
+            url: "https://learn.microsoft.com/azure/ai-foundry/how-to/develop/get-started-projects-vs-code",
+            description: "Develop agents and explore models directly in VS Code"
           }
         ]
       }
     ],
 
-    "agent-framework": [
+    "microsoft-agent-framework": [
       {
         id: "documentation",
         name: "Documentation",
         references: [
           {
             title: "Microsoft Agent Framework Overview",
-            url: "https://learn.microsoft.com/agent-framework/overview/agent-framework-overview",
-            description: "Official documentation for Microsoft Agent Framework - unified framework for multi-agent systems"
-          },
-          {
-            title: "Agent Framework Concepts",
-            url: "https://learn.microsoft.com/agent-framework/concepts/",
-            description: "Core concepts including agents, workflows, and memory management"
+            url: "https://learn.microsoft.com/agent-framework/overview/",
+            description: "Next-generation SDK unifying Semantic Kernel and AutoGen for agentic AI applications"
           },
           {
             title: "Agent Framework Workflows",
-            url: "https://learn.microsoft.com/agent-framework/concepts/workflows",
-            description: "Graph-based workflow orchestration for multi-agent systems"
+            url: "https://learn.microsoft.com/agent-framework/workflows/",
+            description: "Graph-based workflows with type-safe routing, checkpointing, and multi-agent orchestration"
           },
           {
-            title: "Agent Framework Memory",
-            url: "https://learn.microsoft.com/agent-framework/concepts/agent-thread",
-            description: "Agent Thread concept for short-term and long-term memory"
+            title: "Agent Framework Tools & MCP",
+            url: "https://learn.microsoft.com/agent-framework/agents/tools/",
+            description: "Tool integration including hosted MCP servers for agent capabilities"
+          },
+          {
+            title: "Migration from Semantic Kernel",
+            url: "https://learn.microsoft.com/agent-framework/migration-guide/from-semantic-kernel/",
+            description: "Step-by-step guide for migrating existing Semantic Kernel applications"
+          },
+          {
+            title: "Migration from AutoGen",
+            url: "https://learn.microsoft.com/agent-framework/migration-guide/from-autogen/",
+            description: "Step-by-step guide for migrating existing AutoGen applications"
           }
         ]
       },
@@ -4532,40 +4547,58 @@ export const references: ReferencesData = {
         name: "Code Samples",
         references: [
           {
-            title: "Agent Framework Python Samples",
-            url: "https://github.com/microsoft/agent-framework/tree/main/python/samples",
-            description: "Official Python samples for agents, workflows, and multi-agent patterns"
-          },
-          {
-            title: "Agent Framework .NET Samples",
-            url: "https://github.com/microsoft/agent-framework/tree/main/dotnet/samples",
-            description: "Comprehensive .NET samples for Agent Framework"
-          },
-          {
-            title: "Agent Framework Workflow Samples",
-            url: "https://github.com/microsoft/agent-framework/tree/main/workflow-samples",
-            description: "Advanced workflow patterns and multi-agent orchestration examples"
-          }
-        ]
-      },
-      {
-        id: "sdk",
-        name: "SDKs & APIs",
-        references: [
-          {
-            title: "Agent Framework Python SDK",
-            url: "https://pypi.org/project/agent-framework/",
-            description: "Python SDK for Microsoft Agent Framework"
-          },
-          {
-            title: "Agent Framework .NET SDK",
-            url: "https://www.nuget.org/packages/Microsoft.Agents.AI/",
-            description: ".NET SDK for Microsoft Agent Framework"
-          },
-          {
             title: "Agent Framework GitHub Repository",
             url: "https://github.com/microsoft/agent-framework",
-            description: "Official GitHub repository with source code, samples, and documentation"
+            description: "Official source code, samples, and documentation"
+          },
+          {
+            title: "Agent Framework Python Package",
+            url: "https://pypi.org/project/agent-framework/",
+            description: "Install via: pip install agent-framework --pre"
+          },
+          {
+            title: "Agent Framework .NET Package",
+            url: "https://www.nuget.org/packages/Microsoft.Agents.AI/",
+            description: "Install via: dotnet add package Microsoft.Agents.AI.OpenAI --prerelease"
+          },
+          {
+            title: "AG-UI Integration with CopilotKit",
+            url: "https://docs.copilotkit.ai/microsoft-agent-framework",
+            description: "Build rich agent UIs using the AG-UI protocol with CopilotKit"
+          }
+        ]
+      }
+    ],
+
+    "azure-ai-agent-service": [
+      {
+        id: "documentation",
+        name: "Documentation",
+        references: [
+          {
+            title: "What is Foundry Agent Service?",
+            url: "https://learn.microsoft.com/azure/ai-foundry/agents/overview",
+            description: "Managed runtime for production-ready agents with built-in tools, safety, and observability"
+          },
+          {
+            title: "Foundry Agent Service Quickstart",
+            url: "https://learn.microsoft.com/azure/ai-foundry/agents/quickstart",
+            description: "Create your first agent in the Foundry portal or via SDK"
+          },
+          {
+            title: "Agent Service Tools Catalog",
+            url: "https://learn.microsoft.com/azure/ai-foundry/agents/concepts/tool-catalog",
+            description: "Built-in tools: Bing Search, AI Search, Logic Apps, Functions, MCP, and more"
+          },
+          {
+            title: "Connected Agents",
+            url: "https://learn.microsoft.com/azure/ai-foundry/agents/how-to/connected-agents",
+            description: "Build multi-agent systems with task-specific connected agents"
+          },
+          {
+            title: "What's New in Foundry Agent Service",
+            url: "https://learn.microsoft.com/azure/ai-foundry/agents/whats-new",
+            description: "Latest features including Deep Research, Browser Automation, MCP tools, and Computer Use"
           }
         ]
       }
@@ -4578,13 +4611,13 @@ export const references: ReferencesData = {
         references: [
           {
             title: "Microsoft Foundry Documentation",
-            url: "https://learn.microsoft.com/azure/ai-studio/",
-            description: "Official documentation for Microsoft Foundry"
+            url: "https://learn.microsoft.com/azure/ai-foundry/what-is-foundry",
+            description: "Azure AI Studio is now Microsoft Foundry — unified platform for AI agent development"
           },
           {
-            title: "Microsoft Foundry Tutorials",
-            url: "https://learn.microsoft.com/azure/ai-studio/tutorials/",
-            description: "Step-by-step tutorials for Microsoft Foundry"
+            title: "Getting Started with Foundry Projects",
+            url: "https://learn.microsoft.com/azure/ai-foundry/how-to/develop/get-started-projects-vs-code",
+            description: "Create and manage Foundry projects in VS Code"
           }
         ]
       }

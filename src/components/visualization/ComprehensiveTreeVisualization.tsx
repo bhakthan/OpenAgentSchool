@@ -48,26 +48,32 @@ const azureServicesData = [
   {
     id: 'azure-openai',
     name: 'Azure OpenAI',
-    description: 'Large language model integration and deployment',
+    description: 'GPT-5, GPT-4o, o3 reasoning models, real-time audio, and embeddings',
+    estimatedTime: 30
+  },
+  {
+    id: 'microsoft-agent-framework',
+    name: 'Agent Framework',
+    description: 'Open-source SDK unifying Semantic Kernel & AutoGen for multi-agent orchestration',
+    estimatedTime: 35
+  },
+  {
+    id: 'azure-ai-foundry',
+    name: 'Microsoft Foundry',
+    description: 'Unified platform for building, deploying, and governing AI agents',
+    estimatedTime: 25
+  },
+  {
+    id: 'azure-ai-agent-service',
+    name: 'Foundry Agent Service',
+    description: 'Managed runtime for production-ready agents with built-in tools and safety',
     estimatedTime: 30
   },
   {
     id: 'azure-ai-search',
     name: 'Azure AI Search',
-    description: 'Intelligent search capabilities for AI agents',
+    description: 'Vector, hybrid, and semantic search for RAG and agent grounding',
     estimatedTime: 25
-  },
-  {
-    id: 'document-intelligence',
-    name: 'Document Intelligence',
-    description: 'Document processing and understanding services',
-    estimatedTime: 35
-  },
-  {
-    id: 'computer-vision',
-    name: 'Computer Vision',
-    description: 'Image and video analysis capabilities',
-    estimatedTime: 40
   }
 ];
 

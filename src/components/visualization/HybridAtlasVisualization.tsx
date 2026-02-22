@@ -224,9 +224,9 @@ function buildAtlasData(): AtlasNode {
         type: 'category',
         children: [
           { id: 'azure-openai', name: 'Azure OpenAI', type: 'service', path: '/azure-services/azure-openai' },
-          { id: 'azure-cognitive-services', name: 'Cognitive Services', type: 'service', path: '/azure-services/cognitive-services' },
-          { id: 'azure-ml', name: 'Azure ML', type: 'service', path: '/azure-services/azure-ml' },
-          { id: 'azure-bot-service', name: 'Bot Service', type: 'service', novel: true, path: '/azure-services/bot-service' },
+          { id: 'microsoft-agent-framework', name: 'Agent Framework', type: 'service', novel: true, path: '/azure-services/microsoft-agent-framework' },
+          { id: 'azure-ai-foundry', name: 'Microsoft Foundry', type: 'service', path: '/azure-services/azure-ai-foundry' },
+          { id: 'azure-ai-agent-service', name: 'Foundry Agent Service', type: 'service', novel: true, path: '/azure-services/azure-ai-agent-service' },
         ]
       },
       {

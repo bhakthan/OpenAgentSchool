@@ -219,9 +219,9 @@ export default function D3TreeVisualization({
           type: 'category' as const,
           children: collapsedNodes.has('azure-services') ? [] : [
             { id: 'azure-openai', name: 'Azure OpenAI', type: 'service' as const },
-            { id: 'azure-cognitive-services', name: 'Cognitive Services', type: 'service' as const },
-            { id: 'azure-ml', name: 'Azure ML', type: 'service' as const },
-            { id: 'azure-bot-service', name: 'Bot Service', type: 'service' as const, novel: true }
+            { id: 'microsoft-agent-framework', name: 'Agent Framework', type: 'service' as const, novel: true },
+            { id: 'azure-ai-foundry', name: 'Microsoft Foundry', type: 'service' as const },
+            { id: 'azure-ai-agent-service', name: 'Foundry Agent Service', type: 'service' as const, novel: true }
           ]
         },
         {

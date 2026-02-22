@@ -36,6 +36,7 @@ const AzureServicesOverview = () => {
       case 'azure-document-intelligence':
       case 'azure-ai-foundry':
       case 'azure-ai-studio':
+      case 'microsoft-agent-framework':
         return 'ai';
       case 'azure-functions':
       case 'azure-kubernetes-service':
@@ -86,6 +87,8 @@ const AzureServicesOverview = () => {
         return <Calculator size={24} />;
       case 'azure-ai-agent-service':
         return <Robot size={24} />;
+      case 'microsoft-agent-framework':
+        return <GitBranch size={24} />;
       case 'azure-language-service':
         return <Translate size={24} />;
       case 'azure-document-intelligence':

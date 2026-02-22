@@ -13,90 +13,111 @@ export const azureAIServices: AzureAIService[] = [
   {
     id: "azure-openai",
     name: "Azure OpenAI Service",
-    description: "Azure OpenAI provides REST API access to OpenAI's powerful language models including GPT-4, GPT-3.5-Turbo, and Embeddings models.",
+    description: "Enterprise-grade access to OpenAI's models including GPT-5 series, GPT-4o, o3 reasoning models, DALL-E, Whisper, and Embeddings — with Azure security, compliance, and regional data residency.",
     capabilities: [
-      "Access to advanced GPT-4 and GPT-3.5-Turbo models",
-      "Text embeddings generation",
-      "Fine-tuning capabilities",
-      "Content filtering and safety mechanisms",
-      "Azure security and compliance features"
+      "Access to GPT-5, GPT-5-mini, GPT-5-nano, GPT-4o, and o3 reasoning models",
+      "Real-time audio and speech via Realtime API with WebRTC and SIP",
+      "Image generation with GPT-Image-1 and video generation with Sora",
+      "Text and multimodal embeddings generation",
+      "Fine-tuning and model distillation for domain-specific customization",
+      "Model Router for automatic best-model selection per prompt",
+      "Content filtering, prompt shields, and PII detection",
+      "Provisioned throughput (PTU) with spillover for capacity management",
+      "Data zone standard deployments for regional data residency",
+      "Stored completions for evaluation and fine-tuning datasets"
     ],
     useCases: [
       "Natural language understanding and generation",
-      "Text summarization and extraction",
-      "Code generation and completion",
-      "Conversational AI agents"
+      "Real-time voice assistants and audio interactions",
+      "Multi-modal AI agents processing text, images, and audio",
+      "Code generation, review, and completion",
+      "Advanced reasoning and multi-step problem solving with o3 models",
+      "Conversational AI agents with persistent context"
     ],
     bestPractices: [
-      "Implement effective prompt engineering with clear instructions",
-      "Use system messages to define agent behavior and constraints",
-      "Leverage Azure role-based access control (RBAC) for secure deployment",
-      "Implement prompt validation and output sanitization",
+      "Use Model Router to automatically select the best model per prompt when cost-performance trade-offs matter",
+      "Implement system messages to define agent behavior and constraints",
+      "Leverage provisioned throughput with spillover for production workloads",
+      "Enable content filters and prompt shields for safety in production",
+      "Use stored completions to build evaluation and fine-tuning datasets",
       "Monitor token usage and implement rate limiting mechanisms",
       "Cache responses for identical or similar queries to reduce costs"
     ],
-    documentation: "https://learn.microsoft.com/azure/ai-services/openai/"
+    documentation: "https://learn.microsoft.com/azure/ai-foundry/openai/"
   },
   {
-    id: "semantic-kernel",
-    name: "Semantic Kernel",
-    description: "Microsoft's open-source SDK that integrates Large Language Models (LLMs) like OpenAI, Azure OpenAI, and Hugging Face with conventional programming languages. It provides orchestration, planning, and memory capabilities for building AI agents.",
+    id: "microsoft-agent-framework",
+    name: "Microsoft Agent Framework",
+    description: "The next-generation open-source framework that unifies Semantic Kernel and AutoGen into a single production-ready SDK for building agentic AI applications with multi-agent orchestration, graph-based workflows, and enterprise-grade features.",
     capabilities: [
       "Multi-language support (C#, Python, Java)",
-      "LLM orchestration and prompt management",
-      "Planning and goal-directed task execution",
-      "Plugin system for extending agent capabilities",
-      "Memory management for conversations and context",
-      "Function calling and tool integration",
-      "Semantic and native function execution",
-      "Template-based prompt engineering"
+      "Multi-agent orchestration (sequential, concurrent, group chat, handoff, magentic)",
+      "Graph-based workflows with type-safe routing and checkpointing",
+      "Session-based state management for long-running and human-in-the-loop scenarios",
+      "MCP (Model Context Protocol) client integration for tool discovery",
+      "A2A (Agent-to-Agent) protocol support for inter-agent communication",
+      "Built-in observability via OpenTelemetry and Microsoft Entra security",
+      "Provider-agnostic: supports Azure OpenAI, OpenAI, Anthropic, Ollama, and more",
+      "Middleware pipeline for intercepting agent actions",
+      "Context providers for agent memory and conversation state",
+      "AG-UI protocol integration for building rich agent user interfaces",
+      "Responsible AI features including prompt injection protection and task adherence monitoring"
     ],
     useCases: [
-      "Building sophisticated AI agents with planning capabilities",
-      "Creating multi-step reasoning workflows",
-      "Integrating external tools and APIs with LLMs",
-      "Developing conversational AI with persistent memory",
-      "Orchestrating complex multi-agent systems",
-      "Enterprise AI application development"
+      "Building production-ready multi-agent systems with explicit orchestration control",
+      "Enterprise AI applications requiring security, observability, and compliance",
+      "Complex workflow automation with human-in-the-loop approval steps",
+      "Conversational AI with persistent sessions and tool integration",
+      "Cross-departmental business process automation with specialized agents",
+      "Code modernization and legacy system migration using coordinated agents",
+      "Agent-based customer service and knowledge assistant systems"
     ],
     bestPractices: [
-      "Design semantic functions with clear, specific prompts and examples",
-      "Implement proper error handling and fallback mechanisms in agent workflows",
-      "Use the planner sparingly and validate generated plans before execution",
-      "Leverage native functions for deterministic operations and external integrations",
-      "Implement proper context management to avoid token limit issues",
-      "Follow security best practices when integrating external tools and APIs",
-      "Monitor and log agent execution steps for debugging and optimization",
-      "Implement proper input validation and output sanitization"
+      "Use agents for open-ended tasks and workflows for well-defined multi-step processes",
+      "Implement middleware for cross-cutting concerns like logging, safety checks, and approvals",
+      "Leverage graph-based workflows with checkpointing for long-running processes",
+      "Use context providers to manage agent memory efficiently across sessions",
+      "Integrate MCP servers for standardized tool discovery and interaction",
+      "Enable OpenTelemetry tracing for full visibility into agent execution paths",
+      "Apply responsible AI features to monitor prompt injection and task adherence",
+      "If you can write a function to handle the task, do that instead of using an AI agent",
+      "Migrate from Semantic Kernel or AutoGen using the official migration guides"
     ],
-    documentation: "https://learn.microsoft.com/en-us/semantic-kernel/overview/"
+    documentation: "https://learn.microsoft.com/agent-framework/overview/"
   },
   {
     id: "azure-ai-foundry",
     name: "Microsoft Foundry",
-    description: "Microsoft Foundry is a collection of tools and services for building, deploying, and managing AI models on Azure.",
+    description: "Unified Azure PaaS platform that combines models, tools, frameworks, and governance into a single system for building, deploying, and managing intelligent agents and AI applications at enterprise scale.",
     capabilities: [
-      "Model development workspace",
-      "Simplified model deployment",
-      "Monitoring and management of AI solutions",
-      "Integration with Azure ML and other Azure services",
-      "Collaboration tools for AI teams"
+      "Growing model catalog including GPT-5, GPT-4o, Llama, and more",
+      "Fine-tuning, distillation, and domain-specific customization",
+      "Foundry Agent Service for production-ready agent hosting",
+      "Built-in evaluation, tracing, and Application Insights integration",
+      "Enterprise trust: Microsoft Entra, RBAC, content filters, encryption, network isolation",
+      "Foundry SDKs for Python, C#, JavaScript/TypeScript, and Java",
+      "Visual Studio Code extension for agent development",
+      "Two portal experiences (classic and new) with shared project infrastructure",
+      "Shared workspaces, version control, and integrated development environments"
     ],
     useCases: [
-      "Enterprise-scale AI development",
-      "AI model lifecycle management",
-      "Cross-functional AI team collaboration",
-      "Secure AI deployment in regulated industries"
+      "Enterprise-scale AI agent development and deployment",
+      "Multi-agent application management with built-in governance",
+      "AI model lifecycle management from prototype to production",
+      "Secure AI deployment in regulated industries with compliance controls",
+      "Cross-functional AI team collaboration with shared Foundry projects",
+      "End-to-end agentic workflows with observability and safety"
     ],
     bestPractices: [
-      "Set up proper CI/CD pipelines for model deployment",
-      "Implement staged deployment (dev, test, prod) for AI models",
-      "Use version control for prompts and model configurations",
-      "Establish monitoring dashboards for model performance",
-      "Implement testing frameworks for AI behaviors",
-      "Document model limitations and intended use cases"
+      "Use Foundry projects as secure units of isolation and collaboration",
+      "Implement staged deployment (dev, test, prod) using project environments",
+      "Enable tracing and Application Insights for full agent observability",
+      "Use version control for prompts, model configurations, and agent definitions",
+      "Leverage Foundry evaluations to benchmark model quality and safety",
+      "Bring your own storage and search indexes for compliance control",
+      "Document model and agent limitations and intended use cases"
     ],
-    documentation: "https://learn.microsoft.com/azure/ai-studio/"
+    documentation: "https://learn.microsoft.com/azure/ai-foundry/what-is-foundry"
   },
   {
     id: "azure-ai-evaluation",
@@ -156,30 +177,40 @@ export const azureAIServices: AzureAIService[] = [
   },
   {
     id: "azure-ai-agent-service",
-    name: "Azure AI Agent Service",
-    description: "Managed service for deploying, monitoring, and scaling intelligent agents built on Azure AI services.",
+    name: "Foundry Agent Service",
+    description: "Generally available managed runtime within Microsoft Foundry that connects models, tools, and frameworks into a single agentic runtime — managing conversations, orchestrating tool calls, enforcing content safety, and integrating with identity, networking, and observability.",
     capabilities: [
-      "Agent lifecycle management",
-      "Built-in agent templates and patterns",
-      "Tool integration framework",
-      "Conversation and context management",
-      "Usage analytics and monitoring"
+      "Full conversation visibility with structured agent-to-agent and user-to-agent messaging",
+      "Server-side tool orchestration with automatic retries and structured logging",
+      "Connected agents for multi-agent systems without external orchestrators",
+      "Built-in tools: Bing Search, Azure AI Search, Azure Functions, OpenAPI, MCP, File Search, Code Interpreter",
+      "Deep Research tool with o3-deep-research model",
+      "Browser Automation tool via Microsoft Playwright Workspaces",
+      "BYO thread storage with Azure Cosmos DB for NoSQL",
+      "Content filters, prompt injection protection (including XPIA), and responsible AI controls",
+      "Microsoft Entra identity, RBAC, audit logs, and enterprise conditional access",
+      "Application Insights integration and agent tracing",
+      "Logic Apps triggers for event-driven agent invocation"
     ],
     useCases: [
-      "Customer service automation",
-      "Enterprise knowledge assistants",
-      "Agent-based workflow automation",
-      "Multi-agent systems"
+      "Production-ready customer service and support automation",
+      "Enterprise knowledge assistants with grounded data access",
+      "Multi-agent workflow automation with connected agents",
+      "Event-driven agents triggered by Logic Apps, emails, or tickets",
+      "Document summarization, invoice processing, and content generation",
+      "Data-driven insights using Microsoft Fabric integration"
     ],
     bestPractices: [
-      "Define clear boundaries for agent capabilities and limitations",
-      "Implement comprehensive logging of agent actions and decisions",
-      "Design agents with graceful degradation paths when services are unavailable",
-      "Create agent testing suites that verify behavior across scenarios",
-      "Implement usage throttling and cost control mechanisms",
-      "Design governance processes for updating agent capabilities"
+      "Use Standard Agent Setup with BYO storage and search for enterprise compliance",
+      "Define clear agent instructions combining model configuration, tools, and prompts",
+      "Leverage connected agents for task delegation instead of building external orchestration",
+      "Enable content filters and prompt shields for production safety",
+      "Use Application Insights and tracing to monitor agent decisions and tool invocations",
+      "Implement Logic Apps triggers for automated event-driven agent workflows",
+      "Test agents in the Foundry portal before deploying via SDK",
+      "Choose between hosted (code-deployed) and declarative (prompt-based) agent definitions based on complexity"
     ],
-    documentation: "https://learn.microsoft.com/azure/ai-services/"
+    documentation: "https://learn.microsoft.com/azure/ai-foundry/agents/overview"
   },
   {
     id: "azure-content-safety",
@@ -239,17 +270,18 @@ export const azureAIServices: AzureAIService[] = [
   {
     id: "azure-ai-search",
     name: "Azure AI Search",
-    description: "AI-powered cloud search service with built-in retrieval capabilities for knowledge-intensive applications.",
+    description: "AI-powered cloud search service with integrated vector, hybrid, and semantic search for building knowledge-intensive RAG applications and grounding AI agents in enterprise data.",
     capabilities: [
-      "Vector search for semantic retrieval",
-      "Hybrid search combining keyword and semantic approaches",
-      "Semantic ranking and cross-field scoring",
-      "Vector quantization for memory and cost optimization",
-      "Multimodal search for text and images",
-      "Multi-stage ranking with semantic & textual features",
-      "Document chunking and indexing",
-      "Content enrichment pipelines",
-      "Natural language query understanding"
+      "Vector search with HNSW and exhaustive KNN algorithms",
+      "Hybrid search combining keyword, vector, and semantic approaches",
+      "Semantic ranking with cross-field L2 reranking",
+      "Integrated vectorization with built-in embedding models",
+      "Scalar and binary vector quantization for cost optimization",
+      "Multimodal search across text, images, and structured data",
+      "AI enrichment pipelines with skillsets for document cracking",
+      "Document chunking, indexing, and incremental enrichment",
+      "Native integration with Foundry Agent Service as a knowledge tool",
+      "Knowledge store for persisting enriched content"
     ],
     useCases: [
       "Enterprise RAG implementations",
