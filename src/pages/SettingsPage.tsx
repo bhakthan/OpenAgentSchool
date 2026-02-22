@@ -13,6 +13,16 @@ import { Info, Lock, Scales, Gavel, ShieldWarning, CurrencyDollar, Key, Compass,
  */
 const SettingsPage: React.FC = () => {
   const { isAuthenticated } = useAuth();
+  const SignInRequired = ({ message }: { message: string }) => (
+    <Alert className="border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/50">
+      <AlertTitle className="text-amber-800 dark:text-amber-200 text-sm">
+        Sign in required
+      </AlertTitle>
+      <AlertDescription className="text-amber-700 dark:text-amber-300 text-xs">
+        {message}
+      </AlertDescription>
+    </Alert>
+  );
 
   return (
     <div className="api-settings-flat-ui max-w-2xl mx-auto space-y-8">
@@ -108,23 +118,24 @@ const SettingsPage: React.FC = () => {
           {isAuthenticated ? (
             <LearningProfileSettings />
           ) : (
-            <Alert className="border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/50">
-              <AlertTitle className="text-amber-800 dark:text-amber-200 text-sm">
-                Sign in required
-              </AlertTitle>
-              <AlertDescription className="text-amber-700 dark:text-amber-300 text-xs">
-                Personalization Dial details are available after you sign in.
-              </AlertDescription>
-            </Alert>
+            <SignInRequired message="Personalization Dial details are available after you sign in." />
           )}
         </TabsContent>
 
         <TabsContent value="access-policies" className="space-y-4">
-          <EffectiveAccessPolicyPanel />
+          {isAuthenticated ? (
+            <EffectiveAccessPolicyPanel />
+          ) : (
+            <SignInRequired message="Access Policy details are available after you sign in." />
+          )}
         </TabsContent>
 
         <TabsContent value="preview-simulation" className="space-y-4">
-          <PolicySimulationPanel />
+          {isAuthenticated ? (
+            <PolicySimulationPanel />
+          ) : (
+            <SignInRequired message="Preview and Simulation details are available after you sign in." />
+          )}
         </TabsContent>
       </Tabs>
       {/* ─── Legal & Compliance ─── */}
