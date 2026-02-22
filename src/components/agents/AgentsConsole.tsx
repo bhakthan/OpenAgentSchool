@@ -14,6 +14,15 @@ type AgentInfo = {
   tools?: string[]
 }
 
+type ScenarioTemplate = {
+  id: string
+  title: string
+  agentId: string
+  domain: 'executive' | 'architect' | 'data' | 'operations'
+  description: string
+  payload: any
+}
+
 // Direct assignment so Vite can statically analyze and bundle the env vars
 const ORCHESTRATOR_BASE_URL = import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL as string | undefined
 const KNOWLEDGE_BASE_URL = import.meta.env.VITE_KNOWLEDGE_SERVICE_URL as string | undefined
@@ -62,6 +71,118 @@ const EXAMPLES: Record<string, any> = {
   },
 }
 
+const SCENARIOS: ScenarioTemplate[] = [
+  {
+    id: 'incident-p0',
+    title: 'P0 Incident Triage (Production Outage)',
+    agentId: 'critic.system-design',
+    domain: 'operations',
+    description: 'Analyze architecture notes and produce risks plus immediate mitigation actions.',
+    payload: {
+      goal: 'Triaging payment API outage affecting checkout in two regions',
+      input: 'Single point on primary DB, synchronous retries, no queue, failed deployment rollback',
+      use_case: 'incident-response',
+      success_criteria: ['Identify top 3 risks', 'Provide mitigation actions in priority order'],
+      context: { system: 'checkout-platform', severity: 'P0' },
+    },
+  },
+  {
+    id: 'compliance-rollout',
+    title: 'Compliance Rollout (Policy + Audit)',
+    agentId: 'critic.system-design',
+    domain: 'executive',
+    description: 'Assess controls for policy enforcement and operational audit-readiness.',
+    payload: {
+      goal: 'Prepare architecture for GDPR + internal audit readiness',
+      input: 'No data retention policy, logs missing trace IDs, shared admin account usage',
+      use_case: 'compliance-governance',
+      success_criteria: ['Map risks to controls', 'List policy and technical remediations'],
+      context: { domain: 'knowledge-service', regulation: ['GDPR', 'SOC2'] },
+    },
+  },
+  {
+    id: 'debug-release',
+    title: 'Release Regression Debug Runbook',
+    agentId: 'debug.challenge',
+    domain: 'operations',
+    description: 'Generate practical debug runbook and next actions for a failing release.',
+    payload: {
+      goal: 'Release candidate fails smoke tests only in staging',
+      use_case: 'release-debug',
+      success_criteria: ['Reproduce fast', 'Isolate root cause', 'Patch safely'],
+      context: { service: 'agent-orchestrator', environment: 'staging' },
+    },
+  },
+  {
+    id: 'onboarding-architect',
+    title: 'Architect Onboarding Plan',
+    agentId: 'sequencer.lesson',
+    domain: 'architect',
+    description: 'Build practical onboarding sequence for an AI architect persona.',
+    payload: {
+      profile: { level: 'intermediate', role: 'architect' },
+      use_case: 'onboarding',
+      success_criteria: ['Hands-on first week plan', 'Pattern progression by complexity'],
+      context: { recentScores: [0.71, 0.77], domain: 'multi-agent systems' },
+    },
+  },
+  {
+    id: 'board-readiness',
+    title: 'Board Readiness Briefing Pack',
+    agentId: 'critic.system-design',
+    domain: 'executive',
+    description: 'Create a concise executive runbook focused on risk, controls, and business impact.',
+    payload: {
+      goal: 'Prepare board briefing for AI adoption risk posture',
+      input: 'Pilot launches next month, model monitoring partial, no incident comms playbook',
+      use_case: 'board-briefing',
+      success_criteria: ['Summarize risk in business terms', 'Give 30-60-90 day actions'],
+      context: { audience: 'board', horizon: 'quarterly' },
+    },
+  },
+  {
+    id: 'architecture-modernization',
+    title: 'Architecture Modernization Plan',
+    agentId: 'critic.system-design',
+    domain: 'architect',
+    description: 'Map target patterns and technical debt cleanup steps for agent platform scale-up.',
+    payload: {
+      goal: 'Modernize orchestration architecture for multi-team scale',
+      input: 'Monolithic orchestrator, weak service boundaries, missing async event backbone',
+      use_case: 'architecture-modernization',
+      success_criteria: ['Pattern roadmap', 'Migration slices with low risk'],
+      context: { current_state: 'single-cluster', target_state: 'multi-service' },
+    },
+  },
+  {
+    id: 'data-quality-guardrails',
+    title: 'Data Quality Guardrails',
+    agentId: 'critic.system-design',
+    domain: 'data',
+    description: 'Design data quality runbook for ingestion, lineage, and retrieval confidence.',
+    payload: {
+      goal: 'Improve knowledge retrieval accuracy and traceability',
+      input: 'No lineage tags, stale chunks, inconsistent metadata schema',
+      use_case: 'data-governance',
+      success_criteria: ['Define quality checks', 'Set monitoring metrics and thresholds'],
+      context: { pipeline: 'knowledge-ingest', datasource: 'mixed-docs' },
+    },
+  },
+  {
+    id: 'data-onboarding',
+    title: 'Data Engineer Onboarding Sprint',
+    agentId: 'sequencer.lesson',
+    domain: 'data',
+    description: 'Generate a practical onboarding sequence for data-focused engineering work.',
+    payload: {
+      profile: { level: 'intermediate', role: 'data-engineer' },
+      use_case: 'onboarding-data',
+      success_criteria: ['Hands-on ingestion tasks', 'Quality + eval checkpoints'],
+      context: { recentScores: [0.65, 0.74], domain: 'data quality and RAG' },
+    },
+  },
+]
+
 export default function AgentsConsole() {
   const { isAuthenticated } = useAuth()
   const baseUrl = ORCHESTRATOR_BASE_URL
@@ -70,8 +191,18 @@ export default function AgentsConsole() {
   const [selected, setSelected] = useState<string>('')
   const [payload, setPayload] = useState<string>(JSON.stringify({ goal: 'learn agents', context: { topic: 'agent patterns' } }, null, 2))
   const [result, setResult] = useState<string>('')
+  const [selectedDomain, setSelectedDomain] = useState<'all' | ScenarioTemplate['domain']>('all')
+  const [selectedScenarioId, setSelectedScenarioId] = useState<string>('')
   const enabled = !!baseUrl
   const selectedAgent: AgentInfo | undefined = useMemo(() => agents?.find(a => a.id === selected), [agents, selected])
+  const visibleScenarios = useMemo(
+    () => selectedDomain === 'all' ? SCENARIOS : SCENARIOS.filter(s => s.domain === selectedDomain),
+    [selectedDomain]
+  )
+  const selectedScenario = useMemo(
+    () => SCENARIOS.find(s => s.id === selectedScenarioId),
+    [selectedScenarioId]
+  )
   const [speak, setSpeak] = useState<boolean>(false)
   const knowledgeBase = KNOWLEDGE_BASE_URL
   const knowledgeIngestPath = KNOWLEDGE_INGEST_PATH
@@ -173,6 +304,12 @@ export default function AgentsConsole() {
     return () => abort.abort()
   }, [enabled, baseUrl])
 
+  useEffect(() => {
+    if (!selectedScenarioId) return
+    const found = visibleScenarios.some(s => s.id === selectedScenarioId)
+    if (!found) setSelectedScenarioId('')
+  }, [selectedDomain, selectedScenarioId, visibleScenarios])
+
   const onAct = async () => {
     if (!enabled || !selected) return
     setResult('')
@@ -191,10 +328,17 @@ export default function AgentsConsole() {
   const primaryAct = `${urlBase}/api/v1/agents/${encodeURIComponent(selected)}/act`
   // Heuristic: if selected contains a dot, it's a registry agent
   const actUrl = selected.includes('.') ? catalogAct : primaryAct
+  const finalBody = selectedScenario
+    ? {
+        ...body,
+        scenario_id: body.scenario_id ?? selectedScenario.id,
+        use_case: body.use_case ?? selectedScenario.id,
+      }
+    : body
   const r = await fetch(actUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify(finalBody),
       })
       const txt = await r.text()
       if (!r.ok) throw new Error(txt || `HTTP ${r.status}`)
@@ -206,6 +350,35 @@ export default function AgentsConsole() {
       setError(e.message || String(e))
     }
   }
+
+  const runbook = useMemo(() => {
+    if (!result) return null
+    try {
+      const parsed = JSON.parse(result)
+      const output = parsed?.output ?? parsed
+      const risks = output?.risks ?? []
+      const patterns = output?.patterns ?? []
+      const improvements = output?.improvements ?? []
+      const unlockSteps = output?.unlockSteps ?? []
+      const nextAction = parsed?.nextAction ?? output?.nextAction ?? null
+      const summary = output?.runbook?.summary ?? output?.summary ?? null
+      const immediate = output?.runbook?.immediate_actions ?? []
+      const metrics = output?.runbook?.metrics_to_watch ?? []
+      if (!summary && !risks.length && !patterns.length && !improvements.length && !unlockSteps.length && !immediate.length && !metrics.length && !nextAction) return null
+      return {
+        summary,
+        risks,
+        patterns,
+        improvements,
+        unlockSteps,
+        immediate,
+        metrics,
+        nextAction,
+      }
+    } catch {
+      return null
+    }
+  }, [result])
 
   // Optional helper to call knowledge-service ingest endpoint for `ingest.kb`
   const onIngestToKnowledgeService = async () => {
@@ -331,10 +504,48 @@ export default function AgentsConsole() {
             </div>
           )}
           <label className="text-sm font-medium">Payload (JSON)</label>
+          <div className="border rounded p-2 bg-muted/30 space-y-2">
+            <label className="text-xs font-medium">Scenario Templates</label>
+            <select
+              className="w-full border rounded px-2 py-1.5 text-sm bg-card"
+              value={selectedDomain}
+              onChange={(e) => setSelectedDomain(e.target.value as 'all' | ScenarioTemplate['domain'])}
+            >
+              <option value="all">All domains</option>
+              <option value="executive">Executive</option>
+              <option value="architect">Architect</option>
+              <option value="data">Data</option>
+              <option value="operations">Operations</option>
+            </select>
+            <select
+              className="w-full border rounded px-2 py-1.5 text-sm bg-card"
+              value={selectedScenarioId}
+              onChange={(e) => setSelectedScenarioId(e.target.value)}
+            >
+              <option value="">Select a real-world scenario...</option>
+              {visibleScenarios.map(s => (
+                <option key={s.id} value={s.id}>{s.title}</option>
+              ))}
+            </select>
+            {selectedScenario && (
+              <div className="text-xs text-muted-foreground">
+                <div className="font-medium text-foreground">{selectedScenario.description}</div>
+                <div>Recommended agent: {selectedScenario.agentId}</div>
+                <div>Domain pack: {selectedScenario.domain}</div>
+              </div>
+            )}
+          </div>
           <textarea className="w-full h-48 border rounded p-2 font-mono text-sm bg-card" value={payload} onChange={(e) => setPayload(e.target.value)} />
           <div>
             <div className="flex items-center gap-2">
               <Button onClick={onAct} disabled={!selected}>Act with {selected || '...'}</Button>
+              <Button variant="outline" onClick={() => {
+                if (!selectedScenario) return
+                setSelected(selectedScenario.agentId)
+                setPayload(JSON.stringify(selectedScenario.payload, null, 2))
+              }} disabled={!selectedScenario}>
+                Load scenario
+              </Button>
               <Button variant="secondary" disabled={!selected} onClick={() => {
                 const ex = selected ? EXAMPLES[selected] : undefined
                 if (ex) {
@@ -359,6 +570,19 @@ export default function AgentsConsole() {
           </div>
           <label className="text-sm font-medium">Result</label>
           <pre className="w-full min-h-24 border rounded p-2 bg-muted/50 overflow-auto text-sm">{result}</pre>
+          {runbook && (
+            <div className="border rounded p-3 bg-card space-y-2">
+              <div className="text-sm font-semibold">Runbook Summary</div>
+              {runbook.summary && <div className="text-sm">{runbook.summary}</div>}
+              {!!runbook.risks.length && <div className="text-xs"><strong>Risks:</strong> {runbook.risks.join(' | ')}</div>}
+              {!!runbook.immediate.length && <div className="text-xs"><strong>Immediate Actions:</strong> {runbook.immediate.join(' | ')}</div>}
+              {!!runbook.patterns.length && <div className="text-xs"><strong>Recommended Patterns:</strong> {runbook.patterns.join(' | ')}</div>}
+              {!!runbook.improvements.length && <div className="text-xs"><strong>Improvements:</strong> {runbook.improvements.join(' | ')}</div>}
+              {!!runbook.unlockSteps.length && <div className="text-xs"><strong>Step Checklist:</strong> {runbook.unlockSteps.join(' -> ')}</div>}
+              {!!runbook.metrics.length && <div className="text-xs"><strong>Metrics to watch:</strong> {runbook.metrics.join(' | ')}</div>}
+              {runbook.nextAction && <div className="text-xs"><strong>Next Action:</strong> {runbook.nextAction}</div>}
+            </div>
+          )}
           <div className="text-xs text-muted-foreground">
             <div>orchestrator: {baseUrl}</div>
             <div>agents loaded: {agents?.length ?? 0}</div>

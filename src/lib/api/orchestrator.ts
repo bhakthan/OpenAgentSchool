@@ -8,6 +8,9 @@ export interface AgentExecutionRequest {
   context?: string;
   agents?: string[];
   mode?: 'critical-thinking' | 'collaborative' | 'sequential';
+  scenario_id?: string;
+  use_case?: string;
+  success_criteria?: string[];
 }
 
 export interface AgentExecutionResponse {
