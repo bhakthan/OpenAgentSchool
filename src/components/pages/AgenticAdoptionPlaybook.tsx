@@ -698,7 +698,7 @@ const AgenticAdoptionPlaybook: React.FC = () => {
   }, [setActiveSection]);
 
   return (
-    <div className="space-y-10">
+    <div className="flat-ui-2-theme adoption-playbook-flat-ui space-y-10">
       {/* Marketing Hero Section */}
       <section className="relative overflow-hidden rounded-3xl border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-violet-500/5 to-fuchsia-500/5 p-10 md:p-16">
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl -z-10" />

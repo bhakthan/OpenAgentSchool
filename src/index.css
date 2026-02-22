@@ -1176,6 +1176,24 @@ code, pre {
   color: oklch(0.9 0.02 240) !important; /* Light for dark mode */
 }
 
+.agents-for-science-flat-ui .text-transparent {
+  color: var(--foreground) !important;
+  -webkit-text-fill-color: currentColor;
+}
+
+.agents-for-science-flat-ui .text-white {
+  color: var(--foreground) !important;
+}
+
+.agents-for-science-flat-ui [class*="text-blue-100"] {
+  color: var(--muted-foreground) !important;
+}
+
+.adoption-playbook-flat-ui .text-transparent {
+  color: var(--foreground) !important;
+  -webkit-text-fill-color: currentColor;
+}
+
 /* Light-mode safety overrides for components using hardcoded dark utility classes */
 .light :is(
   [class*="bg-black"],

@@ -487,7 +487,7 @@ export default function AISkillsExplorer() {
   }, [lastActivatedLens])
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flat-ui-2-theme ai-skills-flat-ui min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
 
         {/* Stats Cards */}

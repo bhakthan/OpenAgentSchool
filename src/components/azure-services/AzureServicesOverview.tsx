@@ -134,7 +134,7 @@ const AzureServicesOverview = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="flat-ui-2-theme azure-services-flat-ui space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Azure AI Services</h1>
         <EnhancedTutorialButton

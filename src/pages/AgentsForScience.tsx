@@ -10,7 +10,7 @@ import { LiteratureSynthesisDemo } from '@/components/science/LiteratureSynthesi
 
 export default function AgentsForScience() {
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="flat-ui-2-theme agents-for-science-flat-ui container mx-auto px-4 py-8 max-w-7xl">
       {/* Hero Section */}
       <div className="mb-12">
         <div className="flex items-center gap-3 mb-4">
