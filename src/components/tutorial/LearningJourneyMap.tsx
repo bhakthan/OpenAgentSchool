@@ -33,6 +33,7 @@ import { Scales } from "@phosphor-icons/react/dist/ssr/Scales";
 import { Lightning } from "@phosphor-icons/react/dist/ssr/Lightning";
 import { ArrowUp } from "@phosphor-icons/react/dist/ssr/ArrowUp";
 import { Atom } from "@phosphor-icons/react/dist/ssr/Atom";
+import { Funnel } from "@phosphor-icons/react/dist/ssr/Funnel";
 import { cn } from "@/lib/utils";
 import { useTheme } from '@/components/theme/ThemeProvider';
 
@@ -82,7 +83,7 @@ const learningPaths: LearningPath[] = [
       'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance',
       'atomic-llm-training', 'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework',
       // Tier 2: Architecture Concepts  
-      'a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management', 'ai-ready-data',
+      'a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management', 'ai-ready-data', 'context-engineering',
       // Tier 3: Implementation Concepts
       'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations', 'xyz-claw',
       // Tier 4: Advanced Concepts
@@ -446,6 +447,20 @@ const learningPaths: LearningPath[] = [
         estimatedTime: '60-75 min',
         prerequisites: ['agent-architecture', 'strategy-portfolio-management'],
         skills: ['Data Trust', 'Decision Capture', 'Data Quality Flywheel', 'Trust Contracts'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'context-engineering',
+        title: 'Context Engineering',
+        description: 'Reduce entropy between intent and action—collect, compress, organize, and select the right context at the right time.',
+        icon: <Funnel size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '40-50 min',
+        prerequisites: ['agent-architecture', 'agentic-prompting-fundamentals'],
+        skills: ['Context Pipeline', 'Self-Baking', 'Proactive Inference', 'KV Caching', 'Context Isolation'],
         completionRate: 0,
         isCompleted: false,
         isUnlocked: false,
@@ -1009,7 +1024,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     // Tier 1: Fundamentals - Architecture, Security, Governance
     ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance', 'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework'],
     // Tier 2: Architecture - Protocols, Visualization, Evaluation
-    ['a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management'],
+    ['a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management', 'context-engineering'],
     // Tier 3: Implementation - ACP, MCP Integration, Data Pipelines
     ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations', 'xyz-claw'],
     // Tier 4: Advanced - Operations, Learning, Integration, Commerce, Robotics, Reasoning, Memory, Security

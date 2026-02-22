@@ -54,6 +54,8 @@ import { ragFundamentalsQuiz } from './rag-fundamentals';
 import { agentOrchestrationQuiz } from './agent-orchestration';
 // Enterprise Playbook Concepts (2026)
 import { enterprisePlaybookConceptsQuestions, enterprisePlaybookConceptsTimeEstimate } from './enterprise-playbook-concepts';
+// Context Engineering (February 2026)
+import { contextEngineeringQuestions, contextEngineeringTime } from './context-engineering';
 // Tri-System Paradigm (Kahneman → Triadic Cognitive Ecology)
 import { triSystemParadigmQuestions, triSystemParadigmTime } from './tri-system-paradigm';
 
@@ -116,6 +118,8 @@ const allQuestions = [
   ...atomicLLMTrainingQuiz.questions,
   // Enterprise Playbook Concepts (2026)
   ...enterprisePlaybookConceptsQuestions,
+  // Context Engineering (February 2026)
+  ...contextEngineeringQuestions,
   // Tri-System Paradigm
   ...triSystemParadigmQuestions
 ];
@@ -1453,6 +1457,45 @@ export const quizCategories: QuizCategory[] = [
         description: 'Applied learning, CoE models, and capability building',
         prerequisites: ['program-setup-north-star'],
         questions: getQuestionsBySubCategory(allQuestions, 'applied-learning')
+      }
+    ]
+  },
+  // Context Engineering (February 2026)
+  {
+    id: 'context-engineering',
+    name: 'Context Engineering',
+    description: 'Context pipeline design for AI agents — collection, management, organization, and selection of context that reduces entropy between human intent and machine action.',
+    icon: 'Funnel',
+    totalQuestions: contextEngineeringQuestions.length,
+    estimatedTime: contextEngineeringTime,
+    subCategories: [
+      {
+        id: 'context-fundamentals',
+        name: 'Context Fundamentals',
+        description: 'Core concepts: pipeline nodes, self-baking, and the 4-node framework.',
+        prerequisites: [],
+        questions: contextEngineeringQuestions.filter(q => q.subCategory === 'context-fundamentals')
+      },
+      {
+        id: 'context-patterns',
+        name: 'Context Patterns',
+        description: 'Self-baking, proactive inference, and real-time retrieval strategies.',
+        prerequisites: ['context-fundamentals'],
+        questions: contextEngineeringQuestions.filter(q => q.subCategory === 'context-patterns')
+      },
+      {
+        id: 'context-selection',
+        name: 'Context Selection & Ranking',
+        description: 'Token budgets, positional attention, and ranking signals.',
+        prerequisites: ['context-fundamentals'],
+        questions: contextEngineeringQuestions.filter(q => q.subCategory === 'context-selection')
+      },
+      {
+        id: 'context-advanced',
+        name: 'Context Architecture & Security',
+        description: 'Context isolation, multi-agent handoff, and compression trade-offs.',
+        prerequisites: ['context-patterns', 'context-selection'],
+        questions: contextEngineeringQuestions.filter(q => q.subCategory === 'context-security' || q.subCategory === 'context-architecture')
       }
     ]
   },

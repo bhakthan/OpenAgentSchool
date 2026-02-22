@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { loadSettings } from '@/lib/userSettings';
-import { hasModuleAccess, type ModuleAccessKey } from '@/lib/accessControl';
+import { type ModuleAccessKey } from '@/lib/accessControl';
+import { useEffectivePolicy } from '@/contexts/EffectivePolicyContext';
 
 interface ModuleAccessGateProps {
   module: ModuleAccessKey;
@@ -12,8 +12,8 @@ interface ModuleAccessGateProps {
 }
 
 export const ModuleAccessGate: React.FC<ModuleAccessGateProps> = ({ module, title, children }) => {
-  const profile = loadSettings().learningProfile;
-  if (hasModuleAccess(profile, module)) return <>{children}</>;
+  const { canAccess } = useEffectivePolicy();
+  if (canAccess(module)) return <>{children}</>;
 
   return (
     <Alert className="mx-auto max-w-2xl mt-4">

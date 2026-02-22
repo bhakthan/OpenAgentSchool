@@ -3322,6 +3322,57 @@ export const references: ReferencesData = {
       }
     ],
 
+    // Context Engineering Concept
+    "context-engineering": [
+      {
+        id: "research-papers",
+        name: "Research Papers",
+        references: [
+          {
+            title: "Context Engineering 2.0: The Context of Context Engineering (arXiv:2510.26493)",
+            url: "https://arxiv.org/abs/2510.26493",
+            description: "Systematic definition and historical survey of context engineering—from 1990s human-computer interaction to agent-era context-cooperative systems. Hua et al., 2025."
+          },
+          {
+            title: "A Survey of Context Engineering for Large Language Models",
+            url: "https://www.youtube.com/watch?v=Dh_SPv55UA8",
+            description: "Video overview of core context structuring techniques that improve LLM reliability and control."
+          },
+          {
+            title: "Effective Context Engineering — Anthropic",
+            url: "https://www.youtube.com/watch?v=oTGsfiBhVHU",
+            description: "Anthropic session on structuring and supplying the right knowledge into LLM context windows."
+          },
+          {
+            title: "OnePiece: Bringing Context Engineering and Reasoning to Industrial Cascade Ranking",
+            url: "https://www.youtube.com/watch?v=4tpOzCcMOpw",
+            description: "Industrial case study on engineering context pipelines to enable LLM reasoning in cascade ranking systems."
+          }
+        ]
+      },
+      {
+        id: "practical-guides",
+        name: "Practical Guides",
+        references: [
+          {
+            title: "OpenAI Cookbook: Context Engineering with Session Memory",
+            url: "https://cookbook.openai.com/examples/agents_sdk/session_memory",
+            description: "Hands-on guide to implementing session memory and context management with the Agents SDK."
+          },
+          {
+            title: "MemGPT: Operating Systems for LLMs",
+            url: "https://arxiv.org/abs/2310.08560",
+            description: "Virtual context management inspired by OS memory hierarchies—key context engineering infrastructure."
+          },
+          {
+            title: "MemOS: A Memory Operating System for AI Systems",
+            url: "https://www.youtube.com/watch?v=zf4WXEdBW6c",
+            description: "Operational approaches to structuring, storing, and retrieving agent memory as part of a context supply chain."
+          }
+        ]
+      }
+    ],
+
     // Production Foundations Concepts (January 2026)
     "agent-reasoning-patterns": [
       {

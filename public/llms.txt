@@ -155,6 +155,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Multi-Agent Systems & Orchestration
 - Data Autonomy Patterns
 - AI-Ready Data - Decision-grade data foundations for AI trust: data constraints, trust erosion, decision capture, maturity ladder
+- Context Engineering - Context pipeline design (collect, compress, organize, select), self-baking patterns, proactive inference, KV caching, context isolation
 - Fine-Tuning Methods (SFT, DPO, RFT)
 - XYZ-Claw: Multi-Agent Orchestration - End-to-end swarm architecture (supervisor-worker topology, async message passing, back-pressure, dead-letter queues) built in TypeScript / Go / Rust
 - Quantum-Enhanced AI & Robotics
@@ -206,6 +207,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Responsible AI Governance: https://www.openagentschool.org/concepts/responsible-ai-governance
 - Strategy & Portfolio Management: https://www.openagentschool.org/concepts/strategy-portfolio-management
 - AI-Ready Data: https://www.openagentschool.org/concepts/ai-ready-data
+- Context Engineering: https://www.openagentschool.org/concepts/context-engineering
 - Organizational Enablement: https://www.openagentschool.org/concepts/organizational-enablement
 - Data & Knowledge Operations: https://www.openagentschool.org/concepts/data-knowledge-operations
 - Experimentation & Continuous Improvement: https://www.openagentschool.org/concepts/experimentation-continuous-improvement

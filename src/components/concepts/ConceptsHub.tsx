@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb, MagnifyingGlass, CaretRight } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb, MagnifyingGlass, CaretRight, Funnel } from "@phosphor-icons/react"
 import { ShareButton } from "@/components/ui/ShareButton"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
@@ -71,6 +71,7 @@ const EdgeAgentConcept = lazy(() => import("./EdgeAgentConcept"))
 const AtomicLLMTrainingConcept = lazy(() => import("./AtomicLLMTrainingConcept"))
 const XYZClawConcept = lazy(() => import("./XYZClawConcept"))
 const TriSystemParadigmConcept = lazy(() => import("./TriSystemParadigmConcept"))
+const ContextEngineeringConcept = lazy(() => import("./ContextEngineeringConcept"))
 
 // Loading fallback for lazy concept components
 const ConceptLoader = () => (
@@ -391,6 +392,17 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '60-75 min',
     prerequisites: ['agent-architecture', 'strategy-portfolio-management'],
     component: AIReadyDataConcept
+  },
+  {
+    id: 'context-engineering',
+    title: 'Context Engineering',
+    description: 'Reduce entropy between intent and action—collect, compress, organize, and select the right context at the right time.',
+    level: 'architecture',
+    icon: <Funnel className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-sky-900/20 dark:text-sky-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['agent-architecture', 'agentic-prompting-fundamentals'],
+    component: ContextEngineeringConcept
   },
   // Tier 3: Implementation Concepts
   {

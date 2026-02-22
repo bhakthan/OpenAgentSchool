@@ -11,6 +11,7 @@ export interface AgentExecutionRequest {
   scenario_id?: string;
   use_case?: string;
   success_criteria?: string[];
+  policy_context?: Record<string, unknown>;
 }
 
 export interface AgentExecutionResponse {

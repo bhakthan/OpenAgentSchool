@@ -78,6 +78,13 @@ Concept-RLHF: https://www.openagentschool.org/concepts/rlhf
 # AI-Ready Data & Decision Intelligence (February 2026)
 Concept-AI-Ready-Data: https://www.openagentschool.org/concepts/ai-ready-data
 
+# Context Engineering (February 2026)
+Concept-Context-Engineering: https://www.openagentschool.org/concepts/context-engineering
+# Context pipeline design: collect, compress, organize, select
+# Self-baking patterns, proactive inference, KV caching, context isolation
+# Based on "Context Engineering 2.0" (arxiv:2510.26493)
+Infographic-Context-Engineering: https://www.openagentschool.org/images/Context_Engineering_2.webp
+
 # Tri-System Paradigm & Cognitive Ecology (February 2026)
 Concept-Tri-System-Paradigm: https://www.openagentschool.org/concepts/tri-system-paradigm
 # Beyond Kahneman's Dual-Process: the Triadic Cognitive Ecology (System 1 / System 2 / System 3)

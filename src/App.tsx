@@ -94,8 +94,10 @@ import { AudioNarrationProvider } from './contexts/AudioNarrationContext';
 import { VoiceInputProvider } from './contexts/VoiceInputContext';
 import { EnlightenMeButton as AskAIFab } from './components/enlighten/EnlightenMeButton';
 import { UserSettingsProvider } from './contexts/UserSettingsContext';
+import { EffectivePolicyProvider } from './contexts/EffectivePolicyContext';
 import { SettingsSheet } from './components/settings/SettingsSheet';
 import { Gear } from '@phosphor-icons/react/dist/ssr/Gear';
+import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr/MagnifyingGlass';
 
 // Lazy-load voice FAB so the Whisper WASM path never enters the main bundle
 const VoiceFAB = lazy(() => import('./components/voice/VoiceFAB'));
@@ -342,6 +344,7 @@ function App() {
         <AppContent />
         
         <UserSettingsProvider>
+        <EffectivePolicyProvider>
         <AudioNarrationProvider>
           <VoiceInputProvider>
           <EnlightenMeProvider>
@@ -504,7 +507,7 @@ function App() {
                     items: [
                       { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" />, description: 'Interactive learning exercises', isNew: false },
                       { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} />, description: 'Test your understanding', isNew: false },
-                       ...(import.meta.env.VITE_KNOWLEDGE_SERVICE_URL ? [{ to: '/knowledge-search', label: 'Knowledge Search', icon: <Code size={16} weight="duotone" />, description: 'Search documentation', isNew: false, moduleKey: 'knowledge-search' as ModuleAccessKey }] : []),
+                       ...(import.meta.env.VITE_KNOWLEDGE_SERVICE_URL ? [{ to: '/knowledge-search', label: 'Knowledge Search', icon: <MagnifyingGlass size={16} weight="duotone" />, description: 'Search documentation', isNew: false, moduleKey: 'knowledge-search' as ModuleAccessKey }] : []),
                        { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" />, description: 'Share and collaborate', isNew: false },
                      ]
                    },
@@ -516,7 +519,7 @@ function App() {
                     items: [
                       { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" />, description: 'Technical documentation', isNew: false },
                        ...(import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL ? [{ to: '/agents', label: 'Agents Console', icon: <Plugs size={16} weight="duotone" />, description: 'Multi-agent orchestration', isNew: true, moduleKey: 'agents-console' as ModuleAccessKey }] : []),
-                       { to: '/settings', label: 'API Settings', icon: <Gear size={16} weight="duotone" />, description: 'Manage API keys & providers', isNew: true },
+                       { to: '/settings', label: 'Platform Settings', icon: <Gear size={16} weight="duotone" />, description: 'Manage local API keys and cloud personalization', isNew: true },
                      ]
                    },
                  ];
@@ -867,7 +870,8 @@ function App() {
       </EnlightenMeProvider>
       </VoiceInputProvider>
       </AudioNarrationProvider>
-      </UserSettingsProvider>
+       </EffectivePolicyProvider>
+       </UserSettingsProvider>
       </AuthProvider>
     </ThemeProvider>
   );

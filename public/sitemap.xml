@@ -101,6 +101,14 @@
         <priority>0.95</priority>
     </url>
 
+    <!-- Context Engineering (February 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/concepts/context-engineering</loc>
+        <lastmod>2026-02-21</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
     <!-- Agents for Science / Science AI Factory (February 2026) -->
     <url>
         <loc>https://www.openagentschool.org/agents-for-science</loc>

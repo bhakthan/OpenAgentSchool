@@ -84,7 +84,7 @@ Access settings from **Tools → API Settings** in the navigation menu or throug
 
 ###  Interactive Learning Experience
 
-- **58 Core Concepts** across fundamentals, architecture, production, and advanced topics
+- **59 Core Concepts** across fundamentals, architecture, production, and advanced topics
 - **67+ Agent Patterns** with code examples and visualizations
 - **Learning Atlas** — Interactive D3 taxonomy tree with exportable diagrams (SVG/PNG/PDF)
 - **Study Mode** — Socratic questioning and discovery-based learning
@@ -396,7 +396,7 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 
 ##  Platform Stats
 
-- **58 Core Concepts** across 8 learning tiers
+- **59 Core Concepts** across 8 learning tiers
 - **67+ Agent Patterns** (Core + Educational + Data Autonomy + Quantum/Robotics + Deep Research + 2026 Patterns)
 - **200+ Quiz Questions** across 15+ categories
 - **90+ Interactive Visualizations** (D3, React Flow, custom diagrams, 40+ atomic deep-dive visualizers)

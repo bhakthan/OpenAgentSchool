@@ -569,6 +569,11 @@ export const pageSEOConfigs = {
     description: 'Variant hero: Reduce initiative drift and compound durable agent capability. Architecture clarity, evaluation harnesses, failure drills, and operational economics—sequenced for measurable uplift.',
     keywords: 'agent capability compounding, AI architecture clarity, evaluation harness design, agent reliability drills, AI operational economics'
   },
+  '/concepts/context-engineering': {
+    title: 'Context Engineering - Pipeline Design for AI Agents | Open Agent School',
+    description: 'Master context engineering: design context pipelines that collect, compress, organize, and select the right information at the right time. Self-baking patterns, proactive inference, KV caching, and context isolation.',
+    keywords: 'context engineering, context pipeline, context window optimization, self-baking, proactive inference, KV caching, context isolation, information entropy, retrieval augmented generation, context selection, token budgets, AI agent context management'
+  },
   '/value-map': {
     title: 'Skills Universe - What You\'ll Master at Open Agent School',
     description: 'Discover the complete value proposition of Open Agent School through an interactive sunburst visualization showing AI agent concepts, patterns, skills, tools, and practices you\'ll gain. Click segments to explore: Core Concepts (foundational knowledge), Agent Patterns (proven designs), Applied Skills (practical implementation), Study & Practice (interactive exercises), Tools & Platform (Azure, MCP), Adoption Playbooks (enterprise strategies), Research & Papers (curated resources), Community (collaboration), and Knowledge Search (semantic documentation). Join 100M+ learners mastering AI agents from concepts to production.',

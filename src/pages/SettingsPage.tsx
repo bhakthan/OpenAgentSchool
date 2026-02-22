@@ -1,10 +1,11 @@
 import React from 'react';
 import { APISettingsForm } from '@/components/settings/APISettingsForm';
 import { LearningProfileSettings } from '@/components/settings/LearningProfileSettings';
+import { EffectiveAccessPolicyPanel, PolicySimulationPanel } from '@/components/settings/PolicyControlPlaneSettings';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Info, Lock, Scales, Gavel, ShieldWarning, CurrencyDollar } from '@phosphor-icons/react';
+import { Info, Lock, Scales, Gavel, ShieldWarning, CurrencyDollar, Key, Compass, ShieldCheck, Lightbulb } from '@phosphor-icons/react';
 
 /**
  * Full-page Settings view with expanded form + feature matrix + security notes.
@@ -38,9 +39,19 @@ const SettingsPage: React.FC = () => {
       </Alert>
 
       <Tabs defaultValue="api-config" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="api-config">LLM/API Config (Local)</TabsTrigger>
-          <TabsTrigger value="personalization">Personalization Dial (Cloud)</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+          <TabsTrigger value="api-config" className="gap-2">
+            <Key size={14} /> LLM/API Config (Local)
+          </TabsTrigger>
+          <TabsTrigger value="personalization" className="gap-2">
+            <Compass size={14} /> Personalization Dial (Cloud)
+          </TabsTrigger>
+          <TabsTrigger value="access-policies" className="gap-2">
+            <ShieldCheck size={14} /> Access Policies
+          </TabsTrigger>
+          <TabsTrigger value="preview-simulation" className="gap-2">
+            <Lightbulb size={14} /> Preview &amp; Simulation
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="api-config" className="space-y-6">
@@ -92,6 +103,14 @@ const SettingsPage: React.FC = () => {
 
         <TabsContent value="personalization" className="space-y-4">
           <LearningProfileSettings />
+        </TabsContent>
+
+        <TabsContent value="access-policies" className="space-y-4">
+          <EffectiveAccessPolicyPanel />
+        </TabsContent>
+
+        <TabsContent value="preview-simulation" className="space-y-4">
+          <PolicySimulationPanel />
         </TabsContent>
       </Tabs>
       {/* ─── Legal & Compliance ─── */}

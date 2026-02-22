@@ -7,12 +7,13 @@ import { Badge } from '@/components/ui/badge';
 import { useUserSettings } from '@/contexts/UserSettingsContext';
 import { syncLearningProfile } from '@/lib/api/profile';
 import type { LearningLens, LearningLevel, LearningRole } from '@/lib/userSettings';
+import { Users, StackSimple, Database, Plugs } from '@phosphor-icons/react';
 
-const LENS_OPTIONS: Array<{ id: LearningLens; label: string }> = [
-  { id: 'executive-leader', label: 'Executive & Leaders' },
-  { id: 'technology-architect', label: 'Technology AI Engineers & Architects' },
-  { id: 'data-engineering', label: 'Data Focused Engineers' },
-  { id: 'infrastructure-operations', label: 'Infrastructure & Operations' },
+const LENS_OPTIONS: Array<{ id: LearningLens; label: string; icon: React.ReactNode }> = [
+  { id: 'executive-leader', label: 'Executive & Leaders', icon: <Users size={16} className="text-muted-foreground" /> },
+  { id: 'technology-architect', label: 'Technology AI Engineers & Architects', icon: <StackSimple size={16} className="text-muted-foreground" /> },
+  { id: 'data-engineering', label: 'Data Focused Engineers', icon: <Database size={16} className="text-muted-foreground" /> },
+  { id: 'infrastructure-operations', label: 'Infrastructure & Operations', icon: <Plugs size={16} className="text-muted-foreground" /> },
 ];
 
 export const LearningProfileSettings: React.FC = () => {
@@ -115,6 +116,7 @@ export const LearningProfileSettings: React.FC = () => {
                 checked={profile.lenses.includes(lens.id)}
                 onCheckedChange={checked => toggleLens(lens.id, checked === true)}
               />
+              {lens.icon}
               <span>{lens.label}</span>
             </label>
           ))}

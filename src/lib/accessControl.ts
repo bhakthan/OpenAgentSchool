@@ -1,11 +1,7 @@
 import type { LearningLevel, LearningLens, LearningProfile, LearningRole } from '@/lib/userSettings';
+import type { PolicyModuleKey } from '@/lib/policyContract';
 
-export type ModuleAccessKey =
-  | 'knowledge-search'
-  | 'agents-console'
-  | 'adoption-playbook'
-  | 'adoption-forms'
-  | 'velocity-workshop';
+export type ModuleAccessKey = PolicyModuleKey;
 
 type AccessPolicy = {
   minLevel?: LearningLevel;

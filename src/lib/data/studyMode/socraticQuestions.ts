@@ -4154,11 +4154,109 @@ export const xyzClawSocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Context Engineering Socratic Questions
+export const contextEngineeringSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'context-engineering-socratic-1',
+    type: 'socratic',
+    conceptId: 'context-engineering',
+    title: 'Why Context Matters More Than Prompts',
+    level: 'beginner',
+    socratiQuestion: 'Many teams invest heavily in prompt engineering but neglect the data that feeds those prompts. Why might the quality and structure of context matter more than the phrasing of the prompt itself?',
+    followUpQuestions: [
+      'What happens when a perfect prompt receives irrelevant or stale context?',
+      'How does information entropy between human intent and machine action relate to context quality?',
+      'When would you invest in better context pipelines versus better prompts?'
+    ],
+    expectedInsights: [
+      'Garbage in, garbage out — the best prompt cannot compensate for missing or noisy context',
+      'Context engineering reduces information entropy, making the model\'s job easier regardless of prompt specifics',
+      'Context pipelines have compounding returns: better context improves every prompt that uses it'
+    ],
+    hints: [
+      'Think about a brilliant chef given spoiled ingredients',
+      'Consider how much of a model\'s response quality depends on what\'s in its context window',
+      'Reflect on the difference between "ask better" and "provide better information"'
+    ],
+    explanation: 'Context engineering shifts focus from how we ask to what we provide. Well-structured, relevant context reduces the cognitive burden on the model, leading to more accurate and useful outputs.',
+    relatedConcepts: ['agentic-prompting-fundamentals', 'ai-ready-data', 'agentic-rag'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Distinguishes context quality from prompt quality',
+      'Explains information entropy reduction',
+      'Identifies compounding benefits of context pipelines'
+    ]
+  },
+  {
+    id: 'context-engineering-socratic-2',
+    type: 'socratic',
+    conceptId: 'context-engineering',
+    title: 'Self-Baking vs Real-Time Retrieval',
+    level: 'intermediate',
+    socratiQuestion: 'The "Self-Baking" pattern pre-processes raw documents into QA pairs, summaries, and embeddings before query time. Traditional RAG retrieves and processes at query time. When would you choose self-baking over real-time retrieval, and what are the trade-offs?',
+    followUpQuestions: [
+      'How does data freshness affect the choice between pre-processing and real-time retrieval?',
+      'What storage and compute costs does self-baking introduce?',
+      'Can you combine both approaches? When would a hybrid strategy work best?'
+    ],
+    expectedInsights: [
+      'Self-baking trades storage and preprocessing cost for faster, cheaper, and more consistent query-time performance',
+      'Real-time retrieval is better for rapidly changing data where staleness is unacceptable',
+      'Hybrid approaches use self-baking for stable knowledge and real-time retrieval for dynamic information'
+    ],
+    hints: [
+      'Think about the difference between pre-cooked meals and cooking to order',
+      'Consider what "freshness SLA" your use case requires',
+      'Reflect on token costs: pre-processed summaries vs raw document chunks'
+    ],
+    explanation: 'Self-baking is a form of context materialization — investing compute upfront to reduce per-query cost and latency. The trade-off is staleness, making it ideal for stable knowledge bases and less suitable for real-time data.',
+    relatedConcepts: ['agentic-rag', 'agent-cost-optimization', 'ai-ready-data'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Compares preprocessing vs real-time trade-offs',
+      'Identifies freshness as key decision factor',
+      'Proposes hybrid strategy criteria'
+    ]
+  },
+  {
+    id: 'context-engineering-socratic-3',
+    type: 'socratic',
+    conceptId: 'context-engineering',
+    title: 'Token-Budgeted Context Selection',
+    level: 'advanced',
+    socratiQuestion: 'You have 100 potentially relevant documents but a 32K token context window. How do you design a selection pipeline that maximizes information density within the token budget while preserving critical context and avoiding hallucination-inducing gaps?',
+    followUpQuestions: [
+      'What ranking signals beyond semantic similarity should influence selection?',
+      'How do you detect and prevent "context gaps" where missing information leads to hallucination?',
+      'What role does context ordering (position in the window) play in model attention?',
+    ],
+    expectedInsights: [
+      'Multi-signal ranking: semantic relevance, recency, authority, user-specific importance, and diversity',
+      'Context gap detection: check coverage of query facets; insert "I don\'t have information about X" markers for uncovered aspects',
+      'Position matters: critical context near beginning and end of window (primacy/recency bias); mid-window content gets less attention'
+    ],
+    hints: [
+      'Consider an editor selecting which articles to include in a limited-page newspaper',
+      'Think about what happens when the model is "almost" given enough context to answer',
+      'Reflect on the "lost in the middle" phenomenon in long-context models'
+    ],
+    explanation: 'Token-budgeted selection is the core engineering challenge of context engineering. It requires multi-dimensional ranking, gap detection, and position-aware packing to maximize the value of every token.',
+    relatedConcepts: ['agent-memory-systems', 'agent-cost-optimization', 'agent-reasoning-patterns'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Proposes multi-signal ranking beyond similarity',
+      'Addresses hallucination from context gaps',
+      'Considers positional attention effects'
+    ]
+  }
+];
+
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
   'mcp': mcpSocraticQuestions,
   'ai-ready-data': aiReadyDataSocraticQuestions,
+  'context-engineering': contextEngineeringSocraticQuestions,
   'multi-agent-systems': multiAgentSocraticQuestions,
   'agentic-rag': agenticRAGSocraticQuestions,
   'modern-tool-use': modernToolUseSocraticQuestions,

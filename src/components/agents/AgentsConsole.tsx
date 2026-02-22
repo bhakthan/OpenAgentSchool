@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useAuth } from '@/lib/auth/AuthContext'
+import { useUserSettings } from '@/contexts/UserSettingsContext'
+import { useEffectivePolicy } from '@/contexts/EffectivePolicyContext'
 import { Plugs } from '@phosphor-icons/react/dist/ssr/Plugs'
 
 type AgentInfo = {
@@ -185,6 +187,8 @@ const SCENARIOS: ScenarioTemplate[] = [
 
 export default function AgentsConsole() {
   const { isAuthenticated } = useAuth()
+  const { settings } = useUserSettings()
+  const { policy } = useEffectivePolicy()
   const baseUrl = ORCHESTRATOR_BASE_URL
   const [agents, setAgents] = useState<AgentInfo[] | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -328,13 +332,26 @@ export default function AgentsConsole() {
   const primaryAct = `${urlBase}/api/v1/agents/${encodeURIComponent(selected)}/act`
   // Heuristic: if selected contains a dot, it's a registry agent
   const actUrl = selected.includes('.') ? catalogAct : primaryAct
-  const finalBody = selectedScenario
+  const policyContext = policy
     ? {
-        ...body,
-        scenario_id: body.scenario_id ?? selectedScenario.id,
-        use_case: body.use_case ?? selectedScenario.id,
+        bundle_id: policy.bundle.bundle_id,
+        bundle_version: policy.bundle.version,
+        modules: policy.modules,
+        learning_profile: settings.learningProfile,
       }
-    : body
+    : {
+        learning_profile: settings.learningProfile,
+      }
+  const finalBody = {
+    ...body,
+    ...(selectedScenario
+      ? {
+          scenario_id: body.scenario_id ?? selectedScenario.id,
+          use_case: body.use_case ?? selectedScenario.id,
+        }
+      : {}),
+    policy_context: body.policy_context ?? policyContext,
+  }
   const r = await fetch(actUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

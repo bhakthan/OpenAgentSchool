@@ -57,6 +57,7 @@ Allow: /concepts/agentic-robotics
 Allow: /concepts/agent-learning
 Allow: /concepts/fine-tuning
 Allow: /concepts/data-visualization
+Allow: /concepts/context-engineering
 
 # MCP Apps & Agent UI (January 2026)
 # Interactive UI standard for AI agents (SEP-1865)
@@ -141,6 +142,7 @@ Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
 Allow: /concepts/tri-system-paradigm
+Allow: /concepts/context-engineering
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
@@ -180,6 +182,7 @@ Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
 Allow: /concepts/tri-system-paradigm
+Allow: /concepts/context-engineering
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
@@ -207,6 +210,7 @@ Allow: /concepts/agent-testing-benchmarks
 Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
+Allow: /concepts/context-engineering
 Crawl-delay: 2
 
 User-agent: anthropic-ai
@@ -236,6 +240,7 @@ Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
 Allow: /concepts/tri-system-paradigm
+Allow: /concepts/context-engineering
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
@@ -272,6 +277,7 @@ Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
 Allow: /concepts/tri-system-paradigm
+Allow: /concepts/context-engineering
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing

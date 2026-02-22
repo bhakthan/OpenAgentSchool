@@ -8,12 +8,21 @@ type Seeds = {
   practices: string[];
 };
 
+interface KnowledgePolicyContext {
+  learning_profile?: Record<string, unknown>;
+  modules?: Record<string, boolean>;
+}
+
 /**
  * Fetch SCL context summary from the Knowledge Service
  * Falls back to throwing on non-2xx so callers can decide how to handle.
  * Results are cached for 5 minutes to reduce redundant API calls.
  */
-export async function fetchContextSummary(seeds: Seeds, signal?: AbortSignal): Promise<SCLContextSummary> {
+export async function fetchContextSummary(
+  seeds: Seeds,
+  signal?: AbortSignal,
+  policyContext?: KnowledgePolicyContext,
+): Promise<SCLContextSummary> {
   // Create cache key from seeds
   const cacheKey = `knowledge:context:${JSON.stringify(seeds)}`;
   
@@ -32,7 +41,10 @@ export async function fetchContextSummary(seeds: Seeds, signal?: AbortSignal): P
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ seeds }),
+    body: JSON.stringify({
+      seeds,
+      ...(policyContext ? { policy_context: policyContext } : {}),
+    }),
     signal,
   });
 
