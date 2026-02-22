@@ -22,6 +22,7 @@ export type SttPreference = 'auto' | 'web-speech' | 'whisper-wasm' | 'openai-whi
 export type TtsPreference = 'browser' | 'openai-tts' | 'openai-audio' | 'azure-speech' | 'elevenlabs' | 'google-tts' | 'aws-polly';
 export type LearningLevel = 'beginner' | 'intermediate' | 'advanced';
 export type LearningLens = 'executive-leader' | 'technology-architect' | 'data-engineering' | 'infrastructure-operations';
+export type LearningRole = 'learner' | 'executive' | 'architect' | 'data-engineer' | 'operations' | 'admin';
 
 export interface ProviderConfig {
   apiKey?: string;
@@ -38,6 +39,7 @@ export interface SpeechServiceConfig {
 }
 
 export interface LearningProfile {
+  role: LearningRole;
   level: LearningLevel;
   lenses: LearningLens[];
   primaryLens?: LearningLens;
@@ -97,7 +99,7 @@ const DEFAULT_SETTINGS: UserSettings = {
   sttPreference: 'auto',
   ttsPreference: 'browser',
   speechServices: {},
-  learningProfile: { level: 'intermediate', lenses: [] },
+  learningProfile: { role: 'learner', level: 'intermediate', lenses: [] },
 };
 
 // ---------------------------------------------------------------------------

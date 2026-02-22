@@ -160,7 +160,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
       sttPreference: 'auto',
       ttsPreference: 'browser',
       speechServices: {},
-      learningProfile: { level: 'intermediate', lenses: [] },
+      learningProfile: { role: 'learner', level: 'intermediate', lenses: [] },
     };
     setDraft(fresh);
   };

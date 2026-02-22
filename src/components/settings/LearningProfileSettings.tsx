@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useUserSettings } from '@/contexts/UserSettingsContext';
 import { syncLearningProfile } from '@/lib/api/profile';
-import type { LearningLens, LearningLevel } from '@/lib/userSettings';
+import type { LearningLens, LearningLevel, LearningRole } from '@/lib/userSettings';
 
 const LENS_OPTIONS: Array<{ id: LearningLens; label: string }> = [
   { id: 'executive-leader', label: 'Executive & Leaders' },
@@ -22,7 +22,7 @@ export const LearningProfileSettings: React.FC = () => {
   const backendSyncEnabled = import.meta.env.VITE_PROFILE_SYNC_ENABLED !== 'false';
 
   const profile = settings.learningProfile;
-  const canSync = backendSyncEnabled && profile.lenses.length > 0;
+  const canSync = backendSyncEnabled;
 
   const toggleLens = (lens: LearningLens, checked: boolean) => {
     const nextLenses = checked
@@ -63,6 +63,28 @@ export const LearningProfileSettings: React.FC = () => {
         <p className="text-xs text-muted-foreground">
           Set your level and combine multiple lenses to shape recommendations without hiding content.
         </p>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="learning-role" className="text-sm">Access Role</Label>
+        <Select
+          value={profile.role}
+          onValueChange={value => patchSettings({
+            learningProfile: { ...profile, role: value as LearningRole },
+          })}
+        >
+          <SelectTrigger id="learning-role" className="w-full">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="learner">Learner</SelectItem>
+            <SelectItem value="executive">Executive / Leader</SelectItem>
+            <SelectItem value="architect">AI Engineer / Architect</SelectItem>
+            <SelectItem value="data-engineer">Data Focused Engineer</SelectItem>
+            <SelectItem value="operations">Infrastructure / Operations</SelectItem>
+            <SelectItem value="admin">Admin</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="space-y-2">
@@ -125,6 +147,7 @@ export const LearningProfileSettings: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-2">
+        <Badge variant="outline">{profile.role}</Badge>
         <Badge variant={profile.level === 'advanced' ? 'default' : 'secondary'}>{profile.level}</Badge>
         <Badge variant="outline">{compoundModeLabel}</Badge>
       </div>

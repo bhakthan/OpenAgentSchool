@@ -105,6 +105,9 @@ import { useGAPageViews } from './hooks/useGAPageViews';
 import { MicroCtaRibbon } from './components/marketing/MicroCtaRibbon';
 import { useCTAVariantAssigner } from '@/components/marketing/useABAssignment';
 import { useAnalyticsCustomEventBridge } from '@/lib/analytics/customEventsBridge';
+import { loadSettings } from './lib/userSettings';
+import { hasModuleAccess, type ModuleAccessKey } from './lib/accessControl';
+import { ModuleAccessGate } from './components/access/ModuleAccessGate';
 
 // Placeholder component (disabled)
 const AppTutorialButton = () => null;
@@ -149,6 +152,7 @@ function App() {
     enabled: isContentPage,
     threshold: 80,
   });
+  const learningProfile = loadSettings().learningProfile;
 
   // Scroll to top when route changes
   useEffect(() => {
@@ -500,10 +504,10 @@ function App() {
                     items: [
                       { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" />, description: 'Interactive learning exercises', isNew: false },
                       { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} />, description: 'Test your understanding', isNew: false },
-                      ...(import.meta.env.VITE_KNOWLEDGE_SERVICE_URL ? [{ to: '/knowledge-search', label: 'Knowledge Search', icon: <Code size={16} weight="duotone" />, description: 'Search documentation', isNew: false }] : []),
-                      { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" />, description: 'Share and collaborate', isNew: false },
-                    ]
-                  },
+                       ...(import.meta.env.VITE_KNOWLEDGE_SERVICE_URL ? [{ to: '/knowledge-search', label: 'Knowledge Search', icon: <Code size={16} weight="duotone" />, description: 'Search documentation', isNew: false, moduleKey: 'knowledge-search' as ModuleAccessKey }] : []),
+                       { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" />, description: 'Share and collaborate', isNew: false },
+                     ]
+                   },
                   {
                     label: 'Tools',
                     icon: <Plugs size={16} weight="duotone" />,
@@ -511,18 +515,24 @@ function App() {
                     hoverBg: 'hover:bg-violet-500/10 dark:hover:bg-violet-400/10',
                     items: [
                       { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" />, description: 'Technical documentation', isNew: false },
-                      ...(import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL ? [{ to: '/agents', label: 'Agents Console', icon: <Plugs size={16} weight="duotone" />, description: 'Multi-agent orchestration', isNew: true }] : []),
-                      { to: '/settings', label: 'API Settings', icon: <Gear size={16} weight="duotone" />, description: 'Manage API keys & providers', isNew: true },
-                    ]
-                  },
-                ];
+                       ...(import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL ? [{ to: '/agents', label: 'Agents Console', icon: <Plugs size={16} weight="duotone" />, description: 'Multi-agent orchestration', isNew: true, moduleKey: 'agents-console' as ModuleAccessKey }] : []),
+                       { to: '/settings', label: 'API Settings', icon: <Gear size={16} weight="duotone" />, description: 'Manage API keys & providers', isNew: true },
+                     ]
+                   },
+                 ];
+                const visibleNavCategories = navCategories
+                  .map(category => ({
+                    ...category,
+                    items: category.items.filter(item => !item.moduleKey || hasModuleAccess(learningProfile, item.moduleKey)),
+                  }))
+                  .filter(category => category.items.length > 0);
 
                 // Helper to check if any item in a category is active
-                const isCategoryActive = (category: typeof navCategories[0]) => 
+                const isCategoryActive = (category: typeof visibleNavCategories[0]) => 
                   category.items.some(item => location.pathname === item.to);
                 
                 // Check if category has any new items
-                const hasNewItems = (category: typeof navCategories[0]) =>
+                const hasNewItems = (category: typeof visibleNavCategories[0]) =>
                   category.items.some(item => item.isNew);
 
                 return (
@@ -531,7 +541,7 @@ function App() {
                     <div className="hidden md:block">
                       <NavigationMenu>
                         <NavigationMenuList className="flex space-x-1">
-                          {navCategories.map(category => (
+                          {visibleNavCategories.map(category => (
                             <NavigationMenuItem key={category.label}>
                               <NavigationMenuTrigger 
                                 className={cn(
@@ -613,7 +623,7 @@ function App() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="start" className="w-[300px] max-h-[75vh] overflow-y-auto p-2">
-                          {navCategories.map(category => (
+                          {visibleNavCategories.map(category => (
                             <div key={category.label} className="mb-3 last:mb-0">
                               {/* Category header with gradient underline */}
                               <div className="px-2 py-1.5 text-sm font-semibold flex items-center gap-2 relative">
@@ -699,29 +709,29 @@ function App() {
                   <Route path="/ai-skills" element={<AISkillsExplorer />} />
                   <Route path="/ai-product-framework" element={<AIProductFrameworkPage />} />
                   <Route path="/study-mode" element={<StudyMode />} />
-                  <Route path="/knowledge-search" element={<KnowledgeSearch />} />
+                  <Route path="/knowledge-search" element={<ModuleAccessGate module="knowledge-search" title="Knowledge Search"><KnowledgeSearch /></ModuleAccessGate>} />
                   <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
                   <Route path="/patterns/:patternId?" element={<PatternExplorer />} />
                   {/* Agent Velocity Engineering routes */}
                   <Route path="/velocity/dashboard" element={<VelocityScoreDashboard />} />
                   <Route path="/velocity/tracker" element={<PatternMasteryTracker />} />
                   <Route path="/velocity/case-studies" element={<VelocityCaseStudies />} />
-                  <Route path="/velocity/workshop" element={<AVEWorkshopCurriculum />} />
+                  <Route path="/velocity/workshop" element={<ModuleAccessGate module="velocity-workshop" title="Velocity Workshop"><AVEWorkshopCurriculum /></ModuleAccessGate>} />
                   <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
                   <Route path="/quiz/:quizId?" element={<QuizSection />} />
                   <Route path="/tree-view" element={<TreeVisualizationPage />} />
                   <Route path="/value-map" element={<ValueMapPage />} />
                   <Route path="/scl-demo" element={<SCLDemo />} />
-                  <Route path="/agents" element={<AgentsConsole />} />
+                  <Route path="/agents" element={<ModuleAccessGate module="agents-console" title="Agents Console"><AgentsConsole /></ModuleAccessGate>} />
                   <Route path="/references" element={<ReferencesSection />} />
                   <Route path="/deep-dive-taxonomy" element={<DeepDiveTaxonomyPage />} />
                   <Route path="/community" element={<CommunitySharing />} />
-                  <Route path="/adoption-playbook" element={<AgenticAdoptionPlaybook />} />
+                  <Route path="/adoption-playbook" element={<ModuleAccessGate module="adoption-playbook" title="Adoption Playbook"><AgenticAdoptionPlaybook /></ModuleAccessGate>} />
                   <Route path="/agents-for-science" element={<AgentsForScience />} />
                   <Route path="/agents-for-science/sample/:domainId" element={<ScienceDomainSamplePage />} />
-                  <Route path="/adoption/charter" element={<ExecutiveAlignmentCharterForm />} />
-                  <Route path="/adoption/canvas" element={<PortfolioHeatmapCanvasForm />} />
-                  <Route path="/adoption/briefing" element={<BoardReadyBriefingPackForm />} />
+                  <Route path="/adoption/charter" element={<ModuleAccessGate module="adoption-forms" title="Executive Alignment Charter"><ExecutiveAlignmentCharterForm /></ModuleAccessGate>} />
+                  <Route path="/adoption/canvas" element={<ModuleAccessGate module="adoption-forms" title="Portfolio Heatmap Canvas"><PortfolioHeatmapCanvasForm /></ModuleAccessGate>} />
+                  <Route path="/adoption/briefing" element={<ModuleAccessGate module="adoption-forms" title="Board Ready Briefing Pack"><BoardReadyBriefingPackForm /></ModuleAccessGate>} />
                   <Route path="/bookmarks" element={<BookmarksPage />} />
                   <Route path="/achievements" element={<AchievementsPage />} />
                   <Route path="/auth" element={<AuthPage />} />

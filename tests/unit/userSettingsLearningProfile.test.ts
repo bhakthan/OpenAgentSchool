@@ -8,6 +8,7 @@ describe('UserSettings learningProfile', () => {
 
   it('loads default learning profile when none is stored', () => {
     const settings = loadSettings();
+    expect(settings.learningProfile.role).toBe('learner');
     expect(settings.learningProfile.level).toBe('intermediate');
     expect(settings.learningProfile.lenses).toEqual([]);
     expect(settings.learningProfile.primaryLens).toBeUndefined();
@@ -18,6 +19,7 @@ describe('UserSettings learningProfile', () => {
     saveSettings({
       ...settings,
       learningProfile: {
+        role: 'architect',
         level: 'advanced',
         lenses: ['executive-leader', 'technology-architect'],
         primaryLens: 'executive-leader',
@@ -25,6 +27,7 @@ describe('UserSettings learningProfile', () => {
     });
 
     const next = loadSettings();
+    expect(next.learningProfile.role).toBe('architect');
     expect(next.learningProfile.level).toBe('advanced');
     expect(next.learningProfile.lenses).toEqual(['executive-leader', 'technology-architect']);
     expect(next.learningProfile.primaryLens).toBe('executive-leader');
@@ -33,11 +36,13 @@ describe('UserSettings learningProfile', () => {
   it('merges imported JSON into learning profile without dropping defaults', () => {
     const merged = importSettingsJSON(JSON.stringify({
       learningProfile: {
+        role: 'executive',
         level: 'beginner',
         lenses: ['data-engineering'],
       },
     }));
 
+    expect(merged.learningProfile.role).toBe('executive');
     expect(merged.learningProfile.level).toBe('beginner');
     expect(merged.learningProfile.lenses).toEqual(['data-engineering']);
     expect(merged.learningProfile.primaryLens).toBeUndefined();
