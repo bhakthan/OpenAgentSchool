@@ -72,6 +72,7 @@ const ExecutiveAlignmentCharterForm = lazy(() => import('./components/adoption/E
 const PortfolioHeatmapCanvasForm = lazy(() => import('./components/adoption/PortfolioHeatmapCanvasForm'));
 const BoardReadyBriefingPackForm = lazy(() => import('./components/adoption/BoardReadyBriefingPackForm'));
 const AgentsForScience = lazy(() => import('./pages/AgentsForScience'));
+const ScienceDomainSamplePage = lazy(() => import('./pages/ScienceDomainSamplePage'));
 const AIProductFrameworkPage = lazy(() => import('./pages/AIProductFrameworkPage'));
 // Marketing CTA pages (use path alias to avoid Windows path edge resolution issues)
 const CTALandingPage = lazy(() => import('@/components/pages/CTALandingPage'));
@@ -717,6 +718,7 @@ function App() {
                   <Route path="/community" element={<CommunitySharing />} />
                   <Route path="/adoption-playbook" element={<AgenticAdoptionPlaybook />} />
                   <Route path="/agents-for-science" element={<AgentsForScience />} />
+                  <Route path="/agents-for-science/sample/:domainId" element={<ScienceDomainSamplePage />} />
                   <Route path="/adoption/charter" element={<ExecutiveAlignmentCharterForm />} />
                   <Route path="/adoption/canvas" element={<PortfolioHeatmapCanvasForm />} />
                   <Route path="/adoption/briefing" element={<BoardReadyBriefingPackForm />} />

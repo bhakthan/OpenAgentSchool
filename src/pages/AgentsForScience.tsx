@@ -9,6 +9,15 @@ import { HypothesisEvolutionDemo } from '@/components/science/HypothesisEvolutio
 import { LiteratureSynthesisDemo } from '@/components/science/LiteratureSynthesisDemo';
 
 export default function AgentsForScience() {
+  const renderSampleCta = (domainId: string) => (
+    <Button asChild variant="outline" size="sm" className="w-full">
+      <Link to={`/agents-for-science/sample/${domainId}`} className="flex items-center justify-center gap-2">
+        Try Starter Sample
+        <ArrowRight size={14} />
+      </Link>
+    </Button>
+  );
+
   return (
     <div className="flat-ui-2-theme agents-for-science-flat-ui container mx-auto px-4 py-8 max-w-7xl">
       {/* Hero Section */}
@@ -409,6 +418,7 @@ export default function AgentsForScience() {
                   from crystallography, quantum physics, and recent experimental results across 50,000+ papers.
                 </p>
               </div>
+              {renderSampleCta('materials-discovery')}
             </CardContent>
           </Card>
 
@@ -432,6 +442,7 @@ export default function AgentsForScience() {
                   genetic markers, and mechanism-of-action studies from fragmented literature.
                 </p>
               </div>
+              {renderSampleCta('drug-discovery')}
             </CardContent>
           </Card>
 
@@ -455,6 +466,7 @@ export default function AgentsForScience() {
                   and geochemistry research to identify scalable, cost-effective solutions.
                 </p>
               </div>
+              {renderSampleCta('climate-science')}
             </CardContent>
           </Card>
 
@@ -478,6 +490,7 @@ export default function AgentsForScience() {
                   across microbiology, structural biology, and environmental science papers.
                 </p>
               </div>
+              {renderSampleCta('protein-engineering')}
             </CardContent>
           </Card>
 
@@ -500,6 +513,7 @@ export default function AgentsForScience() {
                   CRISPR efficiency data, and cellular pathway interactions.
                 </p>
               </div>
+              {renderSampleCta('genomics-gene-editing')}
             </CardContent>
           </Card>
 
@@ -522,6 +536,7 @@ export default function AgentsForScience() {
                   spectroscopy data, and astrobiology research from 20,000+ publications.
                 </p>
               </div>
+              {renderSampleCta('astronomy-cosmology')}
             </CardContent>
           </Card>
 
@@ -544,6 +559,7 @@ export default function AgentsForScience() {
                   quantum computing, surface codes, and recent experimental implementations.
                 </p>
               </div>
+              {renderSampleCta('quantum-computing')}
             </CardContent>
           </Card>
 
@@ -566,6 +582,7 @@ export default function AgentsForScience() {
                   and cognitive assessments across longitudinal studies.
                 </p>
               </div>
+              {renderSampleCta('neuroscience')}
             </CardContent>
           </Card>
 
@@ -588,6 +605,7 @@ export default function AgentsForScience() {
                   stability enhancements, and manufacturing scalability across 15,000+ materials papers.
                 </p>
               </div>
+              {renderSampleCta('renewable-energy')}
             </CardContent>
           </Card>
         </div>
@@ -760,6 +778,9 @@ export default function AgentsForScience() {
                   <Badge variant="secondary" className="cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40">Agent Memory</Badge>
                 </Link>
               </div>
+            </div>
+            <div className="mt-4 max-w-xs">
+              {renderSampleCta('science-ai-factory')}
             </div>
           </CardContent>
         </Card>
