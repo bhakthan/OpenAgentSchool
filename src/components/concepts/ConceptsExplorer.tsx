@@ -5,6 +5,7 @@ import { useState, Suspense, lazy, useEffect } from "react"
 import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { resolveConceptId, isKnownConceptId } from '@/constants/concepts';
 import { LandingHero } from "../landing/LandingHero"
+import { loadSettings } from '@/lib/userSettings';
 
 // Lazy load heavy components
 const ConceptsHub = lazy(() => import("./ConceptsHub"))
@@ -24,6 +25,7 @@ export default function ConceptsExplorer() {
   const [isModalOpen, setModalOpen] = useState(false)
   const [selectedConcept, setSelectedConcept] = useState<string | null>(conceptId || null) // Track selected concept
   const [flatUi20Preview, setFlatUi20Preview] = useState(true)
+  const learningLevel = loadSettings().learningProfile.level;
 
   // Check if we're on the landing page (/) vs concepts page (/concepts)
   const isLandingPage = location.pathname === '/';
@@ -123,7 +125,7 @@ export default function ConceptsExplorer() {
         conceptArea={selectedConcept || "Core Concepts"}
         source="core-concepts"
         context={{
-          difficulty: "intermediate",
+          difficulty: learningLevel,
           evaluationCriteria: [
             "Understanding of fundamental concepts",
             "Application to real-world scenarios",

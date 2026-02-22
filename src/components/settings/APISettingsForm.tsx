@@ -154,7 +154,14 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
 
   const handleClear = () => {
     clearSettings();
-    const fresh: UserSettings = { providers: {}, backends: {}, sttPreference: 'auto', ttsPreference: 'browser', speechServices: {} };
+    const fresh: UserSettings = {
+      providers: {},
+      backends: {},
+      sttPreference: 'auto',
+      ttsPreference: 'browser',
+      speechServices: {},
+      learningProfile: { level: 'intermediate', lenses: [] },
+    };
     setDraft(fresh);
   };
 

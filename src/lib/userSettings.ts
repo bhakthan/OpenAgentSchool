@@ -20,6 +20,8 @@ type AppConfigKey =
 
 export type SttPreference = 'auto' | 'web-speech' | 'whisper-wasm' | 'openai-whisper' | 'azure-speech' | 'deepgram' | 'google-stt' | 'aws-transcribe';
 export type TtsPreference = 'browser' | 'openai-tts' | 'openai-audio' | 'azure-speech' | 'elevenlabs' | 'google-tts' | 'aws-polly';
+export type LearningLevel = 'beginner' | 'intermediate' | 'advanced';
+export type LearningLens = 'executive-leader' | 'technology-architect' | 'data-engineering' | 'infrastructure-operations';
 
 export interface ProviderConfig {
   apiKey?: string;
@@ -33,6 +35,12 @@ export interface SpeechServiceConfig {
   apiUrl?: string;   // e.g. Azure region endpoint or custom proxy
   model?: string;    // e.g. "whisper-1", "tts-1-hd"
   voiceId?: string;  // TTS voice identifier
+}
+
+export interface LearningProfile {
+  level: LearningLevel;
+  lenses: LearningLens[];
+  primaryLens?: LearningLens;
 }
 
 export interface UserSettings {
@@ -76,6 +84,8 @@ export interface UserSettings {
     /** AWS Speech (Transcribe STT + Polly TTS) */
     awsSpeech?: SpeechServiceConfig;
   };
+  /** Personalization dial for learning depth + audience lens composition */
+  learningProfile: LearningProfile;
 }
 
 const STORAGE_KEY = 'oas.user.apiSettings';
@@ -87,6 +97,7 @@ const DEFAULT_SETTINGS: UserSettings = {
   sttPreference: 'auto',
   ttsPreference: 'browser',
   speechServices: {},
+  learningProfile: { level: 'intermediate', lenses: [] },
 };
 
 // ---------------------------------------------------------------------------
@@ -132,6 +143,7 @@ export function loadSettings(): UserSettings {
       providers: { ...DEFAULT_SETTINGS.providers, ...parsed.providers },
       backends: { ...DEFAULT_SETTINGS.backends, ...parsed.backends },
       speechServices: { ...DEFAULT_SETTINGS.speechServices, ...parsed.speechServices },
+      learningProfile: { ...DEFAULT_SETTINGS.learningProfile, ...parsed.learningProfile },
     };
   } catch {
     return { ...DEFAULT_SETTINGS };
@@ -200,6 +212,7 @@ export function importSettingsJSON(json: string): UserSettings {
     speechServices: { ...current.speechServices, ...imported.speechServices },
     sttPreference: imported.sttPreference ?? current.sttPreference,
     ttsPreference: imported.ttsPreference ?? current.ttsPreference,
+    learningProfile: { ...current.learningProfile, ...imported.learningProfile },
   };
   saveSettings(merged);
   return merged;

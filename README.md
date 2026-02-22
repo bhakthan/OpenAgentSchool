@@ -180,6 +180,7 @@ Then in the app: **Tools → API Settings → Custom / International / Local** �
 ```
 
 > **Note**: The frontend works standalone. Backend services enable advanced features like user progress tracking and AI-powered assessments.
+> Set `VITE_PROFILE_SYNC_ENABLED=false` to keep the new personalization dial local-only and disable backend profile sync calls.
 
 ---
 

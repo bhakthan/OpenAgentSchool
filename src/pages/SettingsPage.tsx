@@ -1,5 +1,6 @@
 import React from 'react';
 import { APISettingsForm } from '@/components/settings/APISettingsForm';
+import { LearningProfileSettings } from '@/components/settings/LearningProfileSettings';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Info, Lock, Scales, Gavel, ShieldWarning, CurrencyDollar } from '@phosphor-icons/react';
 
@@ -36,6 +37,7 @@ const SettingsPage: React.FC = () => {
 
       {/* Main settings form (full mode) */}
       <APISettingsForm />
+      <LearningProfileSettings />
 
       {/* Feature Matrix */}
       <section className="space-y-3">
