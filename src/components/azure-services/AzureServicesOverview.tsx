@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { azureAIServices } from '@/lib/data/azureAiServices';
 import { Badge } from '@/components/ui/badge';
@@ -206,7 +206,7 @@ const AzureServicesOverview = () => {
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2 min-w-0">
                     <div className="text-primary">
-                      {getServiceIcon(service.id)}
+                      <OfficialServiceIcon serviceId={service.id} fallback={getServiceIcon(service.id)} />
                     </div>
                     <CardTitle className="text-lg truncate">{service.name}</CardTitle>
                   </div>
@@ -274,7 +274,7 @@ const AzureServicesOverview = () => {
                   <div className="w-full flex items-start justify-between gap-3 text-left">
                     <div className="flex items-center gap-2 min-w-0">
                       <div className="text-primary">
-                        {getServiceIcon(service.id)}
+                        <OfficialServiceIcon serviceId={service.id} fallback={getServiceIcon(service.id)} />
                       </div>
                       <div className="min-w-0">
                         <h3 className="font-medium text-lg truncate">{service.name}</h3>
@@ -366,3 +366,42 @@ const AzureServicesOverview = () => {
 };
 
 export default AzureServicesOverview;
+  const OFFICIAL_AZURE_ICON_URLS: Partial<Record<string, string>> = {
+    'azure-openai': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Azure-OpenAI.svg',
+    'azure-ai-search': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Cognitive-Search.svg',
+    'azure-ai-foundry': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/AI-Studio.svg',
+    'azure-ai-agent-service': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Bot-Services.svg',
+    'azure-content-safety': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Content-Safety.svg',
+    'azure-ai-content-safety': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Content-Safety.svg',
+    'azure-document-intelligence': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Form-Recognizers.svg',
+    'azure-ai-studio': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/AI-Studio.svg',
+    'azure-language-service': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Language.svg',
+    'azure-functions': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Function-Apps.svg',
+    'azure-kubernetes-service': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Kubernetes-Services.svg',
+    'azure-container-apps': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Container-Apps-Environments.svg',
+    'azure-app-service': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/App-Services.svg',
+    'azure-logic-apps': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Logic-Apps.svg',
+    'azure-service-bus': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Azure-Service-Bus.svg',
+    'azure-event-grid': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Event-Grid-Domains.svg',
+    'azure-cosmos-db': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Azure-Cosmos-DB.svg',
+    'azure-storage': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Storage-Accounts.svg',
+    'azure-key-vault': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Key-Vaults.svg',
+    'azure-monitor': 'https://BhavinSangani14.github.io/Azure-Icons-Asset/svg/Azure-Monitor-Pipeline.svg',
+  };
+
+  const OfficialServiceIcon = ({ serviceId, fallback }: { serviceId: string; fallback: ReactNode }) => {
+    const [failed, setFailed] = useState(false);
+    const iconUrl = OFFICIAL_AZURE_ICON_URLS[serviceId];
+    if (!iconUrl || failed) return <>{fallback}</>;
+    return (
+      <img
+        src={iconUrl}
+        alt=""
+        width={24}
+        height={24}
+        className="h-6 w-6"
+        loading="lazy"
+        onError={() => setFailed(true)}
+      />
+    );
+  };
