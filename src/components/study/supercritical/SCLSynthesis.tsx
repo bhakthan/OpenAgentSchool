@@ -27,8 +27,9 @@ import type {
   SecondaryFindings,
   TertiaryFindings,
 } from '@/types/supercritical';
-import { ArrowSquareOut, Play } from '@phosphor-icons/react';
+import { ArrowSquareOut, Play, FilePdf } from '@phosphor-icons/react';
 import { toast } from '@/components/ui/use-toast';
+import { openExecutiveReport } from './SCLExecutiveReport';
 
 interface SCLSynthesisProps {
   session: SCLSessionType;
@@ -45,6 +46,25 @@ export function SCLSynthesis({ session }: SCLSynthesisProps) {
   return (
     <ScrollArea className="h-full">
       <div className="space-y-6">
+        {/* Executive Report Banner */}
+        <Card className="border-primary/30 bg-primary/5">
+          <CardContent className="flex items-center justify-between py-4">
+            <div>
+              <h3 className="font-semibold text-sm flex items-center gap-2">
+                <FilePdf className="h-4 w-4 text-primary" />
+                Executive Report
+              </h3>
+              <p className="text-xs text-muted-foreground mt-1">
+                Generate a professional print-ready report with graphs, KPIs, and visual narrative
+              </p>
+            </div>
+            <Button size="sm" onClick={() => openExecutiveReport(session)} className="gap-2">
+              <FilePdf className="h-4 w-4" />
+              Open Report
+            </Button>
+          </CardContent>
+        </Card>
+
         {/* Leaps Section */}
         {leaps.length > 0 && (
           <Card>

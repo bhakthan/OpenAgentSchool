@@ -17,7 +17,9 @@ import {
   Play,
   Pause,
   Timer,
-  Prohibit
+  Prohibit,
+  Printer,
+  FilePdf
 } from '@phosphor-icons/react';
 import type { SCLMode, SCLUIState, SCLObjective, DeepDiveLevel } from '@/types/supercritical';
 import { OBJECTIVE_LABELS } from '@/types/supercritical';
@@ -27,6 +29,7 @@ import { SCLControls } from './SCLControls';
 import { SCLEffectGraph } from './SCLEffectGraph';
 import { SCLSynthesis } from './SCLSynthesis';
 import { SCLRubric } from './SCLRubric';
+import { openExecutiveReport } from './SCLExecutiveReport';
 // Import our new graph visualization components
 import SCLGraph, { SCLNode } from '../../SuperCriticalLearning/SCLGraph';
 import GraphControls from '../../SuperCriticalLearning/GraphControls';
@@ -281,9 +284,13 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
                     Cancel
                   </Button>
                 )}
+                <Button variant="outline" size="sm" onClick={() => openExecutiveReport(session)}>
+                  <FilePdf className="h-4 w-4 mr-2" />
+                  Executive Report
+                </Button>
                 <Button variant="outline" size="sm" onClick={handleExportSession}>
                   <Download className="h-4 w-4 mr-2" />
-                  Export
+                  Export JSON
                 </Button>
                 <Button variant="outline" size="sm" onClick={handleCopySession}>
                   <Copy className="h-4 w-4 mr-2" />

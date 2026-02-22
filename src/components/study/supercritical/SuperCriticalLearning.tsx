@@ -2,8 +2,10 @@ import React, { useRef, useState } from 'react';
 import { jsonrepair } from 'jsonrepair';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Target, Lightning, Copy, Printer, Brain, Question, CaretDown, CaretUp, ShieldWarning, Timer, Stack, Scales } from '@phosphor-icons/react';
+import { ArrowLeft, Target, Lightning, Copy, Printer, Brain, Question, CaretDown, CaretUp, ShieldWarning, Timer, Stack, Scales, FilePdf } from '@phosphor-icons/react';
 import { SCLControls } from './SCLControls';
+import { openExecutiveReport } from './SCLExecutiveReport';
+import type { SCLSession as SCLSessionType } from '@/types/supercritical';
 import { Badge } from '@/components/ui/badge';
 import { ShareButton } from '@/components/ui/ShareButton';
 import { z } from 'zod';
@@ -169,6 +171,99 @@ function SuperCriticalLearning({
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleExecutiveReport = () => {
+    // Adapt the legacy flat data into a SCLSession-compatible shape for the report
+    const adaptedSession: SCLSessionType = {
+      id: `scl-${Date.now().toString(36)}`,
+      mode: selectedMode || 'consolidate',
+      source: 'local',
+      seeds: {
+        conceptIds: analysisSeeds?.conceptIds || analysisSeeds?.concepts?.map((c: any) => c.id || c) || [],
+        patternIds: analysisSeeds?.patternIds || analysisSeeds?.patterns?.map((p: any) => p.id || p) || [],
+        practices: analysisSeeds?.practices || [],
+      },
+      objectives: ['optimize'],
+      constraints: {
+        budget: 'medium',
+        complianceProfile: 'none',
+        timeHorizon: '3months',
+      },
+      effectGraph: {
+        nodes: [
+          ...(firstOrderEffects || []).map((e: any, i: number) => ({
+            id: e.id || `fo-${i}`,
+            title: e.title || e.effect || e.name || `Effect ${i + 1}`,
+            order: 1 as const,
+            domain: (e.domain || e.category || 'ops') as any,
+            likelihood: e.likelihood ?? 0.7,
+            impact: e.impact ?? (e.impact_score ?? 3),
+            justification: e.justification || e.description || e.reasoning || '',
+            references: e.references || [],
+            confidence: e.confidence ?? 0.7,
+          })),
+          ...(higherOrderEffects || []).map((e: any, i: number) => ({
+            id: e.id || `ho-${i}`,
+            title: e.title || e.effect || e.name || `Effect ${i + 1}`,
+            order: 2 as const,
+            domain: (e.domain || e.category || 'ops') as any,
+            likelihood: e.likelihood ?? 0.6,
+            impact: e.impact ?? (e.impact_score ?? 2),
+            justification: e.justification || e.description || e.reasoning || '',
+            references: e.references || [],
+            confidence: e.confidence ?? 0.6,
+          })),
+        ],
+        edges: (connections || []).map((c: any, i: number) => ({
+          from: c.from || c.source || `fo-${i}`,
+          to: c.to || c.target || `ho-${i}`,
+          confidence: c.confidence ?? c.strength ?? 0.7,
+          mechanism: c.mechanism || c.description || c.label || '',
+          delay: c.delay,
+        })),
+      },
+      leaps: (leaps || []).map((l: any) => ({
+        trigger: l.trigger || l.title || '',
+        threshold: l.threshold || '',
+        result: l.result || l.description || '',
+        mechanism: l.mechanism || '',
+        evidence: l.evidence || [],
+        confidence: l.confidence ?? 0.5,
+      })),
+      synthesis: {
+        risks: synthesis?.risks || synthesis?.risk_factors || [],
+        opportunities: synthesis?.opportunities || [],
+        recommendedPractices: synthesis?.recommendations || synthesis?.recommendedPractices || [],
+        kpis: synthesis?.kpis || [],
+        actionPlan: synthesis?.actionPlan || synthesis?.action_plan || [],
+        implementationOrder: synthesis?.implementationOrder || [],
+        successMetrics: synthesis?.successMetrics || [],
+      },
+      deepDives: [],
+      score: {
+        completeness: (firstOrderEffects?.length || 0) > 3 ? 0.7 : 0.4,
+        secondOrderDepth: higherOrderEffects?.length || 0,
+        thirdOrderDepth: 0,
+        novelty: 0.5,
+        feasibility: 0.6,
+        leapDetection: leaps?.length ? 0.7 : 0,
+        deepDiveDepth: 0,
+        totalSubEffects: 0,
+      },
+      audit: {
+        sources: analysisSeeds?.conceptIds || [],
+        model: 'Unknown',
+        version: '1.0',
+        timestamp: Date.now(),
+        promptTokens: 0,
+        responseTokens: 0,
+      },
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      status: 'complete',
+    };
+    openExecutiveReport(adaptedSession);
   };
 
   const parseJSONResponse = (responseText: string) => {
@@ -648,8 +743,11 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
               <Button variant="outline" size="sm" onClick={handleCopy} className="gap-2">
                 <Copy className="h-4 w-4" /> {copied ? 'Copied' : 'Copy Analysis'}
               </Button>
+              <Button variant="outline" size="sm" onClick={handleExecutiveReport} className="gap-2">
+                <FilePdf className="h-4 w-4" /> Executive Report
+              </Button>
               <Button variant="outline" size="sm" onClick={handlePrint} className="gap-2">
-                <Printer className="h-4 w-4" /> Print PDF
+                <Printer className="h-4 w-4" /> Print Page
               </Button>
               <Button variant="outline" size="sm" onClick={() => {
                 try {
