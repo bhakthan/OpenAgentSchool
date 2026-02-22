@@ -22,7 +22,7 @@ export type SttPreference = 'auto' | 'web-speech' | 'whisper-wasm' | 'openai-whi
 export type TtsPreference = 'browser' | 'openai-tts' | 'openai-audio' | 'azure-speech' | 'elevenlabs' | 'google-tts' | 'aws-polly';
 export type LearningLevel = 'beginner' | 'intermediate' | 'advanced';
 export type LearningLens = 'executive-leader' | 'technology-architect' | 'data-engineering' | 'infrastructure-operations';
-export type LearningRole = 'learner' | 'executive' | 'architect' | 'data-engineer' | 'operations' | 'admin';
+export type LearningRole = 'learner' | 'executive' | 'architect' | 'agentic-application-developer' | 'data-engineer' | 'operations' | 'admin';
 
 export interface ProviderConfig {
   apiKey?: string;

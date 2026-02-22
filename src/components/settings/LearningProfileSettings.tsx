@@ -81,6 +81,7 @@ export const LearningProfileSettings: React.FC = () => {
             <SelectItem value="learner">Learner</SelectItem>
             <SelectItem value="executive">Executive / Leader</SelectItem>
             <SelectItem value="architect">AI Engineer / Architect</SelectItem>
+            <SelectItem value="agentic-application-developer">Agentic Application Developer</SelectItem>
             <SelectItem value="data-engineer">Data Focused Engineer</SelectItem>
             <SelectItem value="operations">Infrastructure / Operations</SelectItem>
             <SelectItem value="admin">Admin</SelectItem>
@@ -109,6 +110,9 @@ export const LearningProfileSettings: React.FC = () => {
 
       <div className="space-y-2">
         <Label className="text-sm">Lens Composition</Label>
+        <p className="text-xs text-muted-foreground">
+          Choose a lens to see how small improvements compound over time.
+        </p>
         <div className="space-y-2">
           {LENS_OPTIONS.map(lens => (
             <label key={lens.id} className="flex items-center gap-2 text-sm">

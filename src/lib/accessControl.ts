@@ -18,12 +18,12 @@ const LEVEL_ORDER: Record<LearningLevel, number> = {
 const MODULE_POLICIES: Record<ModuleAccessKey, AccessPolicy> = {
   'knowledge-search': {
     minLevel: 'intermediate',
-    roles: ['architect', 'data-engineer', 'operations', 'admin'],
+    roles: ['architect', 'agentic-application-developer', 'data-engineer', 'operations', 'admin'],
     lenses: ['technology-architect', 'data-engineering', 'infrastructure-operations'],
   },
   'agents-console': {
     minLevel: 'intermediate',
-    roles: ['architect', 'operations', 'admin'],
+    roles: ['architect', 'agentic-application-developer', 'operations', 'admin'],
     lenses: ['technology-architect', 'infrastructure-operations'],
   },
   'adoption-playbook': {
@@ -36,7 +36,7 @@ const MODULE_POLICIES: Record<ModuleAccessKey, AccessPolicy> = {
   },
   'velocity-workshop': {
     minLevel: 'intermediate',
-    roles: ['executive', 'architect', 'data-engineer', 'operations', 'admin'],
+    roles: ['executive', 'architect', 'agentic-application-developer', 'data-engineer', 'operations', 'admin'],
   },
 };
 
