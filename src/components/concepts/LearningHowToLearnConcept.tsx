@@ -349,7 +349,7 @@ const MetacognitionTab: React.FC = () => (
 
           <div className="grid grid-cols-[auto_1fr_1fr] gap-2">
             <div className="w-28 flex items-center">
-              <p className="text-xs font-semibold text-muted-foreground uppercase writing-vertical-lr rotate-180 mx-auto">High Confidence</p>
+              <p className="text-xs font-semibold text-muted-foreground uppercase [writing-mode:vertical-rl] rotate-180 mx-auto">High Confidence</p>
             </div>
             <GridCell
               emoji="🏆"
@@ -367,7 +367,7 @@ const MetacognitionTab: React.FC = () => (
 
           <div className="grid grid-cols-[auto_1fr_1fr] gap-2">
             <div className="w-28 flex items-center">
-              <p className="text-xs font-semibold text-muted-foreground uppercase writing-vertical-lr rotate-180 mx-auto">Low Confidence</p>
+              <p className="text-xs font-semibold text-muted-foreground uppercase [writing-mode:vertical-rl] rotate-180 mx-auto">Low Confidence</p>
             </div>
             <GridCell
               emoji="🌱"
