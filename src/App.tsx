@@ -98,6 +98,7 @@ import { EffectivePolicyProvider } from './contexts/EffectivePolicyContext';
 import { SettingsSheet } from './components/settings/SettingsSheet';
 import { Gear } from '@phosphor-icons/react/dist/ssr/Gear';
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr/MagnifyingGlass';
+import { SiteSearch, useSiteSearch } from './components/search/SiteSearch';
 
 // Lazy-load voice FAB so the Whisper WASM path never enters the main bundle
 const VoiceFAB = lazy(() => import('./components/voice/VoiceFAB'));
@@ -133,6 +134,7 @@ function App() {
   const [mounted, setMounted] = useState(false)
   const [showJourneyMap, setShowJourneyMap] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const { open: siteSearchOpen, setOpen: setSiteSearchOpen } = useSiteSearch()
   const location = useLocation()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
@@ -399,6 +401,16 @@ function App() {
                   <ThemeToggle />
                   <span className="text-xs text-muted-foreground hidden md:inline-block">Theme</span>
                 </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9 text-muted-foreground hover:text-foreground"
+                  onClick={() => setSiteSearchOpen(true)}
+                  aria-label="Search site (Ctrl+K)"
+                  title="Search openagentschool.org (Ctrl+K)"
+                >
+                  <MagnifyingGlass size={18} />
+                </Button>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -866,6 +878,9 @@ function App() {
 
           {/* BYOK Settings Sheet (side drawer) */}
           <SettingsSheet open={settingsOpen} onOpenChange={setSettingsOpen} />
+
+          {/* Google Site Search dialog (Ctrl+K) */}
+          <SiteSearch open={siteSearchOpen} onOpenChange={setSiteSearchOpen} />
         </div>
       </EnlightenMeProvider>
       </VoiceInputProvider>
