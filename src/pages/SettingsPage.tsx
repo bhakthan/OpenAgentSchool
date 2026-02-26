@@ -12,7 +12,7 @@ import { Info, Lock, Scales, Gavel, ShieldWarning, CurrencyDollar, Key, Compass,
  * Full-page Settings view with expanded form + feature matrix + security notes.
  */
 const SettingsPage: React.FC = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isAdmin } = useAuth();
   const SignInRequired = ({ message }: { message: string }) => (
     <Alert className="border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/50">
       <AlertTitle className="text-amber-800 dark:text-amber-200 text-sm">
@@ -59,12 +59,16 @@ const SettingsPage: React.FC = () => {
           <TabsTrigger value="personalization" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
             <Compass size={14} /> Personalization Dial (Cloud)
           </TabsTrigger>
-          <TabsTrigger value="access-policies" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
-            <ShieldCheck size={14} /> Access Policies
-          </TabsTrigger>
-          <TabsTrigger value="preview-simulation" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
-            <Lightbulb size={14} /> Preview &amp; Simulation
-          </TabsTrigger>
+          {isAdmin && (
+            <TabsTrigger value="access-policies" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
+              <ShieldCheck size={14} /> Access Policies
+            </TabsTrigger>
+          )}
+          {isAdmin && (
+            <TabsTrigger value="preview-simulation" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
+              <Lightbulb size={14} /> Preview &amp; Simulation
+            </TabsTrigger>
+          )}
         </TabsList>
 
         <TabsContent value="api-config" className="space-y-6">
@@ -123,19 +127,15 @@ const SettingsPage: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="access-policies" className="space-y-4">
-          {isAuthenticated ? (
+          {isAdmin ? (
             <EffectiveAccessPolicyPanel />
-          ) : (
-            <SignInRequired message="Access Policy details are available after you sign in." />
-          )}
+          ) : null}
         </TabsContent>
 
         <TabsContent value="preview-simulation" className="space-y-4">
-          {isAuthenticated ? (
+          {isAdmin ? (
             <PolicySimulationPanel />
-          ) : (
-            <SignInRequired message="Preview and Simulation details are available after you sign in." />
-          )}
+          ) : null}
         </TabsContent>
       </Tabs>
       {/* ─── Legal & Compliance ─── */}

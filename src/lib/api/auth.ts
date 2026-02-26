@@ -30,6 +30,7 @@ export interface User {
   id: string;
   email: string;
   name?: string;
+  role: 'admin' | 'user';
   created_at: string;
 }
 
@@ -114,6 +115,7 @@ class AuthAPIClient {
         id: credentials.email,
         email: credentials.email,
         name: credentials.email.split('@')[0],
+        role: 'user', // Will be resolved from JWT/API on getCurrentUser()
         created_at: new Date().toISOString(),
       },
     };
@@ -154,25 +156,45 @@ class AuthAPIClient {
    * Get current user profile
    */
   async getCurrentUser(): Promise<User> {
-    // For now, decode user from token since backend doesn't have /me endpoint
     const token = this.getAccessToken();
     if (!token) {
       throw new Error('Not authenticated');
     }
-    
+
+    // Try the /users/me endpoint first (returns role from DB)
     try {
-      // Decode JWT payload (without verification - just for display)
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const username = payload.sub || 'user';
-      
+      const { data } = await this.client.get<{
+        id: number;
+        username: string;
+        email: string;
+        role: string;
+        is_active: boolean;
+        created_at: string;
+      }>('/api/v1/users/me');
       return {
-        id: username,
-        email: username,
-        name: username.split('@')[0],
-        created_at: new Date().toISOString(),
+        id: String(data.id),
+        email: data.email,
+        name: data.username,
+        role: data.role === 'admin' ? 'admin' : 'user',
+        created_at: data.created_at,
       };
     } catch {
-      throw new Error('Invalid token');
+      // Fallback: decode JWT payload (without verification - just for display)
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const username = payload.sub || 'user';
+        const role = payload.role === 'admin' ? 'admin' : 'user';
+
+        return {
+          id: username,
+          email: username,
+          name: username.split('@')[0],
+          role: role as 'admin' | 'user',
+          created_at: new Date().toISOString(),
+        };
+      } catch {
+        throw new Error('Invalid token');
+      }
     }
   }
 

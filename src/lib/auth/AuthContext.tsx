@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   isLoading: boolean;
   login: (credentials: LoginCredentials) => Promise<void>;
   signup: (data: SignupData) => Promise<void>;
@@ -117,6 +118,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const value: AuthContextType = {
     user: user || null,
     isAuthenticated,
+    isAdmin: user?.role === 'admin',
     isLoading,
     login,
     signup,

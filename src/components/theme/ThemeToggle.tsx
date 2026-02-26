@@ -49,8 +49,11 @@ export function ThemeToggle() {
   const darkThemes = ALL_THEMES.filter(t => THEME_META[t].group === "dark");
   const lightThemes = ALL_THEMES.filter(t => THEME_META[t].group === "light");
 
-  const selectTheme = (t: Theme) => {
-    setTheme(t);
+  const selectTheme = (t: Theme, e: React.MouseEvent) => {
+    const rect = btnRef.current?.getBoundingClientRect();
+    const x = rect ? rect.left + rect.width / 2 : e.clientX;
+    const y = rect ? rect.top + rect.height / 2 : e.clientY;
+    setTheme(t, x, y);
     setOpen(false);
   };
 
@@ -117,7 +120,7 @@ export function ThemeToggle() {
               {darkThemes.map(t => (
                 <button
                   key={t}
-                  onClick={() => selectTheme(t)}
+                  onClick={(e) => selectTheme(t, e)}
                   className={`group flex flex-col items-center gap-0.5 rounded-lg p-1.5 transition-colors hover:bg-accent/20 ${
                     theme === t ? "bg-accent/30 ring-1 ring-primary" : ""
                   }`}
@@ -142,7 +145,7 @@ export function ThemeToggle() {
               {lightThemes.map(t => (
                 <button
                   key={t}
-                  onClick={() => selectTheme(t)}
+                  onClick={(e) => selectTheme(t, e)}
                   className={`group flex flex-col items-center gap-0.5 rounded-lg p-1.5 transition-colors hover:bg-accent/20 ${
                     theme === t ? "bg-accent/30 ring-1 ring-primary" : ""
                   }`}

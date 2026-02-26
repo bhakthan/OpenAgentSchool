@@ -88,6 +88,7 @@ type ThemeProviderState = {
   isDarkMode: boolean;
   setTheme: (theme: Theme) => void;
   toggleTheme: (x?: number, y?: number) => void;
+  setTheme: (theme: Theme, x?: number, y?: number) => void;
 };
 
 const initialState: ThemeProviderState = {
@@ -251,10 +252,10 @@ export function ThemeProvider({
   const value = {
     theme,
     isDarkMode: DARK_THEMES.has(theme),
-    setTheme: (newTheme: Theme) => {
+    setTheme: (newTheme: Theme, x?: number, y?: number) => {
       skipSyncRef.current = true;
       setTheme(newTheme);
-      transitionTheme(newTheme, window.innerWidth / 2, window.innerHeight / 2);
+      transitionTheme(newTheme, x ?? window.innerWidth / 2, y ?? window.innerHeight / 2);
     },
     toggleTheme,
   };
