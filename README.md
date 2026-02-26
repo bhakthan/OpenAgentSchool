@@ -119,7 +119,7 @@ Access settings from **Tools → API Settings** in the navigation menu or throug
 - **Offline Access** — Content available without internet
 - **Install App** — Native app experience on mobile and desktop (menu: Install App)
 - **Responsive Design** — Optimized for all screen sizes
-- **Dark/Light Themes** — Comfortable reading in any environment
+- **17 Visual Themes** — 12 dark + 5 light themes with View Transitions API sweep animation
 
 ---
 
@@ -193,7 +193,34 @@ Then in the app: **Tools → API Settings → Custom / International / Local** �
 
 ---
 
-##  Recent Updates (February 21, 2026)
+##  Recent Updates (February 26, 2026)
+
+### 🎨 17 Visual Themes — Full Theme System Overhaul
+
+The platform now ships **17 hand-crafted themes** (12 dark + 5 light) with a theme picker dropdown accessible from the sun/moon button in the navigation bar. Switching themes triggers a **View Transitions API** sweep animation for a polished, directional reveal effect.
+
+| Dark Themes | Light Themes |
+|---|---|
+| Void Black (default) | Warm Parchment (default) |
+| Aurora — northern-lights teal/green | Arctic — cool icy blue |
+| Rosé — pink-mauve on charcoal | Sakura — cherry blossom pink |
+| Cyber — neon teal/cyan | Sandstone — warm beige/earthy |
+| Abyss — deep ocean blues | Ivory — clean cream white |
+| Velvet — purple luxe | |
+| Ember — warm amber/orange | |
+| Verdant — nature green | |
+| Solar — warm gold/yellow | |
+| Mono — pure grayscale | |
+| Crimson — blood red | |
+| Malachite — emerald green | |
+
+**Technical details:** Each theme maps to the same shadcn/ui CSS variable names (`--background`, `--foreground`, `--card`, `--primary`, `--muted`, `--border`, etc.) so every component works with any theme. The `ThemeProvider` derives an `isDarkMode` boolean from a `DARK_THEMES` set, ensuring Tailwind `dark:` variants remain correct across all 17 themes. Theme preference is persisted to `localStorage` under the `ui-theme` key.
+
+See [THEME.md](./THEME.md) for the full theme reference (swatches, CSS variables, and developer guide).
+
+---
+
+##  Previous Updates (February 21, 2026)
 
 ### 🌍 Full Cloud Speech Provider Coverage (NEW)
 
@@ -405,6 +432,7 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 - **7+ LLM Providers** supported in BYOK settings (OpenAI, Azure, Gemini, Claude, Hugging Face, OpenRouter, Custom) plus Ollama, LM Studio, DeepSeek, Zhipu AI, Qwen, Moonshot, Mistral, Sarvam AI, BharatGen presets
 - **11 Cloud Speech Services** (5 STT + 6 TTS) alongside free browser-native options
 - **29 Languages** for audio narration with auto-translation
+- **17 Visual Themes** — 12 dark + 5 light with View Transitions API sweep animation
 - **5 Learning Modes** (Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)
 
 ---
