@@ -390,7 +390,7 @@ function App() {
                   variant="default"
                   size="sm"
                   onClick={() => { try { window.dispatchEvent(new CustomEvent('analytics:ctaClick', { detail: { source: 'header-button', tier: 'get-started' } })); } catch {} ; navigate('/cta'); }}
-                  className="flex items-center gap-2 bg-primary text-white"
+                  className="flex items-center gap-2 bg-primary text-primary-foreground"
                   aria-label="Get Started with Open Agent School"
                 >
                   <Lightning size={16} aria-hidden="true" />
@@ -428,7 +428,7 @@ function App() {
                 <UserMenu />
                 <Link
                   to="/tree-view"
-                  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-gradient-to-r from-yellow-400 to-amber-500 px-3 py-2 text-sm font-bold text-white transition-all hover:from-yellow-500 hover:to-amber-600 hover:shadow-lg hover:scale-105"
+                  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-primary px-3 py-2 text-sm font-bold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:scale-105"
                   title="Explore the interactive Learning Atlas — visual taxonomy of all concepts"
                 >
                   <Tree size={16} weight="duotone" className="mr-1" />
@@ -781,8 +781,7 @@ function App() {
                   href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=bhakthan"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-1.5 rounded-full text-white text-sm font-medium no-underline hover:opacity-90 transition-opacity"
-                  style={{ backgroundColor: '#0A66C2' }}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-medium no-underline hover:bg-primary/90 transition-colors"
                   aria-label="Follow Srikanth Bhakthan on LinkedIn"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>

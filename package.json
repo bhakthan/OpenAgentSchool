@@ -16,6 +16,7 @@
     "export:toolkits": "node ./scripts/export-strategic-toolkits.mjs",
     "convert:webp": "node ./scripts/convert-to-webp.mjs",
     "test": "vitest run --reporter=default",
+    "test:evaluation": "vitest run tests/unit/patternEvaluationRegistry.test.ts --reporter=default",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
   },

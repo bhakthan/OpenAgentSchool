@@ -141,6 +141,7 @@ monitor-cert.ps1
 #docs
 docs/
 docs/*.md
+test.md
 PROJECT_OVERVIEW.md
 WORKSPACE_GUIDE.md
 ADOPTION_*.md

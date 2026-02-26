@@ -32,7 +32,17 @@ npx vitest run -t "pattern name"
 
 # Watch mode
 npm run test:watch
+
+# Skills-driven eval guardrail (Agentic Eval)
+npm run test:evaluation
 ```
+
+### Skills Optimization Run Loop (Applied)
+
+Use this fast loop before broader test/build runs:
+1. **Agentic Eval**: `npm run test:evaluation` to verify every pattern has a usable evaluation profile.
+2. **Governance**: `npx vitest run tests/unit/accessControlPolicy.test.ts tests/studyModeContentGuardrails.test.ts`.
+3. **Web App Smoke**: `npx vitest run tests/smoke/app-smoke.test.tsx`.
 
 ## Backend (openagent-backend)
 
