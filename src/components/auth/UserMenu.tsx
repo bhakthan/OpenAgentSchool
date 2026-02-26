@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { User, SignOut, SignIn } from '@phosphor-icons/react';
+import { User, SignOut, SignIn, ShieldCheck } from '@phosphor-icons/react';
 
 // Direct assignment so Vite can statically analyze and bundle the env vars
 const CORE_API_URL = import.meta.env.VITE_CORE_API_URL as string | undefined
@@ -81,6 +81,15 @@ export function UserMenu() {
         <DropdownMenuItem onClick={() => navigate('/agents')}>
           Agent Console
         </DropdownMenuItem>
+        {user?.role === 'admin' && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => navigate('/admin')} className="text-violet-600 dark:text-violet-400">
+              <ShieldCheck className="w-4 h-4 mr-2" weight="duotone" />
+              Admin Dashboard
+            </DropdownMenuItem>
+          </>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout} className="text-red-600">
           <SignOut className="w-4 h-4 mr-2" weight="bold" />

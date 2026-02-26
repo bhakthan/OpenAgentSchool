@@ -37,6 +37,7 @@ import { OfflineBanner } from './components/common/OfflineBanner';
 import { QueryProvider } from './lib/query/QueryProvider';
 import { AuthProvider } from './lib/auth/AuthContext';
 import { UserMenu } from './components/auth/UserMenu';
+import { AdminGuard } from './components/admin/AdminGuard';
 import { InstallPWA } from './components/pwa/InstallPWA';
 import { InstallAppMenuItem } from './components/pwa/InstallAppMenuItem';
 import { useIOSBehaviors } from './hooks/useStandaloneMode';
@@ -86,6 +87,7 @@ const VelocityCaseStudies = lazy(() => import('./components/velocity/VelocityCas
 const AVEWorkshopCurriculum = lazy(() => import('./components/velocity/AVEWorkshopCurriculum'));
 const ValueMapPage = lazy(() => import('./pages/ValueMapPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
+const AdminPage = lazy(() => import('./pages/AdminPage'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -755,6 +757,7 @@ function App() {
                   <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
                   <Route path="/api-docs" element={<ApiDocsPage />} />
                   <Route path="/settings" element={<SettingsPage />} />
+                  <Route path="/admin" element={<AdminGuard><AdminPage /></AdminGuard>} />
                   <Route path="/cta-alt" element={<CTALandingPageVariant />} />
                   <Route path="/cta" element={<CTALandingPage />} />
                   <Route path="/about" element={<AboutPage />} />
