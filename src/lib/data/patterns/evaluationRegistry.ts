@@ -666,6 +666,48 @@ export const patternEvaluationRegistry: Record<string, PatternEvaluationProfile>
     evaluationNotes: ['Track completion metrics for onboarding flows.', 'Ensure instructions match latest UI or tool versions.'],
     cohort: 'education'
   },
+  'contextual-onboarding-orchestrator': {
+    scenarioFocus: 'Role-aware onboarding flows that adapt guidance using user context and progress signals.',
+    criticalMetrics: ['Onboarding completion rate', 'Time to first successful task', 'Context personalization accuracy'],
+    evaluationNotes: ['Replay onboarding cohorts with different personas and starting contexts.', 'Verify adaptive recommendations remain policy-compliant and non-blocking.'],
+    cohort: 'education'
+  },
+  'skill-augmented-agent': {
+    scenarioFocus: 'Agents dynamically selecting and applying domain skills for task execution.',
+    criticalMetrics: ['Skill routing accuracy', 'Task success uplift vs baseline', 'Fallback reliability'],
+    evaluationNotes: ['Benchmark skill selection against expert-labeled tasks.', 'Validate graceful fallback when required skills are unavailable or conflicting.'],
+    cohort: 'advanced-automation'
+  },
+  'mcp-server-orchestration': {
+    scenarioFocus: 'Coordinating multiple MCP servers with safe tool routing and deterministic failover.',
+    criticalMetrics: ['Tool routing precision', 'Failover recovery latency', 'Policy compliance rate'],
+    evaluationNotes: ['Inject server outages and latency spikes to verify orchestrator resilience.', 'Audit request/response traces to confirm governance and provenance integrity.'],
+    cohort: 'multi-agent'
+  },
+  'multi-llm-routing': {
+    scenarioFocus: 'Routing tasks across model providers based on quality, latency, and cost constraints.',
+    criticalMetrics: ['Routing decision accuracy', 'Cost per successful task', 'Latency SLO adherence'],
+    evaluationNotes: ['Run mixed workloads to compare router choices against oracle baselines.', 'Validate budget guards and safety filters across all provider routes.'],
+    cohort: 'advanced-automation'
+  },
+  'agentic-ide': {
+    scenarioFocus: 'IDE-native agent workflows for planning, code changes, and verification loops.',
+    criticalMetrics: ['Change correctness rate', 'Test pass rate after edits', 'Human override frequency'],
+    evaluationNotes: ['Replay real engineering tasks with golden diffs and expected checks.', 'Ensure unsafe or ambiguous edits trigger review prompts before apply.'],
+    cohort: 'advanced-automation'
+  },
+  'guardrails-layer': {
+    scenarioFocus: 'Policy and safety enforcement layer that mediates prompts, tools, and outputs.',
+    criticalMetrics: ['Unsafe action block rate', 'False positive rate', 'Mean policy decision latency'],
+    evaluationNotes: ['Run adversarial prompt suites to validate deny and review paths.', 'Track policy drift and recalibrate thresholds using approved incident datasets.'],
+    cohort: 'advanced-automation'
+  },
+  'ignition-stack': {
+    scenarioFocus: 'Composable stack for quickly bootstrapping production-grade agent systems.',
+    criticalMetrics: ['Time-to-first-production workflow', 'Integration success rate', 'Operational error rate'],
+    evaluationNotes: ['Evaluate stack templates across reference deployments and migration scenarios.', 'Verify observability, rollback, and governance defaults are enabled by default.'],
+    cohort: 'advanced-automation'
+  },
   'voice-agent': {
     scenarioFocus: 'Voice interaction flows',
     criticalMetrics: ['Mean opinion score (MOS)', 'ASR accuracy', 'Latency', 'Compliance'],
