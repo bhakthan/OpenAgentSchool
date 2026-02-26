@@ -7,8 +7,7 @@ interface DeploymentVisualizationProps {
 }
 
 export const DeploymentVisualization: React.FC<DeploymentVisualizationProps> = ({ className = "" }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [currentStage, setCurrentStage] = useState(0);
   const [deploymentProgress, setDeploymentProgress] = useState(0);
 

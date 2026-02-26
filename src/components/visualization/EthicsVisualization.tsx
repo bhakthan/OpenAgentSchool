@@ -7,8 +7,7 @@ interface EthicsVisualizationProps {
 }
 
 export const EthicsVisualization: React.FC<EthicsVisualizationProps> = ({ className = "" }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [activeScenario, setActiveScenario] = useState(0);
 
   const ethicalScenarios = [

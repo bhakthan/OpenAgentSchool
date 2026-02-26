@@ -5,8 +5,7 @@ import { DataFlowType } from './dataFlowUtils';
  * Simplified utility to provide consistent visualization theming
  */
 export function useVisualizationTheme() {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   
   /**
    * Get color for a specific node type

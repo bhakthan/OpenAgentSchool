@@ -90,8 +90,7 @@ export const FlowArchitectureVisualizer: React.FC<FlowArchitectureVisualizerProp
   patternData, 
   className 
 }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   
   // State
   const [isRunning, setIsRunning] = useState(false);

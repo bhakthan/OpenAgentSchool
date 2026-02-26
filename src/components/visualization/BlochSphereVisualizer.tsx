@@ -9,8 +9,7 @@ interface QubitState {
 }
 
 export default function BlochSphereVisualizer() {
-  const { theme } = useTheme()
-  const isDarkMode = theme === 'dark'
+  const { isDarkMode } = useTheme()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   
   const [qubitState, setQubitState] = useState<QubitState>({ theta: 0, phi: 0 })

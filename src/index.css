@@ -692,6 +692,739 @@
   --level-mastery: #FF6B47;
 }
 
+/* ═══════════════════════════════════════════════════════
+   ADDITIONAL THEMES
+   Each theme maps to the same shadcn variable names so
+   every component "just works" with any active theme.
+   Light themes: arctic, sakura, sandstone, ivory
+   Dark themes:  aurora, rose, cyber, abyss, velvet,
+                 ember, verdant, solar, mono, crimson, malachite
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Aurora ── northern-lights glow on dark background */
+.aurora {
+  --background: #0a0a0f;
+  --foreground: #e0e0ff;
+  --card: #12121a;
+  --card-foreground: #e0e0ff;
+  --popover: #12121a;
+  --popover-foreground: #e0e0ff;
+  --primary: #00d4aa;
+  --primary-foreground: #0a0a0f;
+  --secondary: #1a1a2e;
+  --secondary-foreground: #c0c0e0;
+  --accent: #7b2ff7;
+  --accent-foreground: #e0e0ff;
+  --destructive: #ff4757;
+  --destructive-foreground: #e0e0ff;
+  --muted: #1a1a2e;
+  --muted-foreground: #8888aa;
+  --border: #2a2a3e;
+  --input: #2a2a3e;
+  --ring: #00d4aa;
+  --gradient-from: #00d4aa;
+  --gradient-via: #7b2ff7;
+  --gradient-to: #ff6b9d;
+  --feature-card-bg: #12121a;
+  --feature-card-border: #2a2a3e;
+  --feature-card-text: #e0e0ff;
+  --feature-card-muted: #8888aa;
+  --feature-icon-bg: #1a1a2e;
+  --feature-icon-color: #00d4aa;
+  --learning-step-red-bg: #2a0a0f;
+  --learning-step-red-text: #ff8a8a;
+  --learning-step-red-icon-bg: #3a1020;
+  --learning-step-red-icon: #ff4757;
+  --learning-step-orange-bg: #2a1a0a;
+  --learning-step-orange-text: #ffb380;
+  --learning-step-orange-icon-bg: #3a2510;
+  --learning-step-orange-icon: #ff8c42;
+  --learning-step-green-bg: #0a2a1a;
+  --learning-step-green-text: #80ffb3;
+  --learning-step-green-icon-bg: #103a25;
+  --learning-step-green-icon: #00d4aa;
+  --level-foundation: #FFD700;
+  --level-growth: #00d4aa;
+  --level-advanced: #7b2ff7;
+  --level-mastery: #ff6b9d;
+}
+
+/* ── Rose ── pink-mauve on charcoal */
+.rose {
+  --background: #1a0a14;
+  --foreground: #f0d0e0;
+  --card: #221220;
+  --card-foreground: #f0d0e0;
+  --popover: #221220;
+  --popover-foreground: #f0d0e0;
+  --primary: #ff6b9d;
+  --primary-foreground: #1a0a14;
+  --secondary: #2e1a28;
+  --secondary-foreground: #d0a0c0;
+  --accent: #d946ef;
+  --accent-foreground: #f0d0e0;
+  --destructive: #ff4757;
+  --destructive-foreground: #f0d0e0;
+  --muted: #2e1a28;
+  --muted-foreground: #a07890;
+  --border: #3e2a38;
+  --input: #3e2a38;
+  --ring: #ff6b9d;
+  --gradient-from: #ff6b9d;
+  --gradient-via: #d946ef;
+  --gradient-to: #a855f7;
+  --feature-card-bg: #221220;
+  --feature-card-border: #3e2a38;
+  --feature-card-text: #f0d0e0;
+  --feature-card-muted: #a07890;
+  --feature-icon-bg: #2e1a28;
+  --feature-icon-color: #ff6b9d;
+  --learning-step-red-bg: #2a0a10;
+  --learning-step-red-text: #ffa0a0;
+  --learning-step-red-icon-bg: #3a1020;
+  --learning-step-red-icon: #ff6b6b;
+  --learning-step-orange-bg: #2a1a0a;
+  --learning-step-orange-text: #ffb380;
+  --learning-step-orange-icon-bg: #3a2510;
+  --learning-step-orange-icon: #ff8c42;
+  --learning-step-green-bg: #0a2a14;
+  --learning-step-green-text: #80ffb3;
+  --learning-step-green-icon-bg: #103a20;
+  --learning-step-green-icon: #4ade80;
+  --level-foundation: #FFD700;
+  --level-growth: #ff6b9d;
+  --level-advanced: #d946ef;
+  --level-mastery: #ff4757;
+}
+
+/* ── Cyber ── neon teal / cyan on black */
+.cyber {
+  --background: #0a0a0a;
+  --foreground: #00ffcc;
+  --card: #111111;
+  --card-foreground: #d0ffe6;
+  --popover: #111111;
+  --popover-foreground: #d0ffe6;
+  --primary: #00ffd5;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #80ffd5;
+  --accent: #ff00aa;
+  --accent-foreground: #0a0a0a;
+  --destructive: #ff0055;
+  --destructive-foreground: #ffffff;
+  --muted: #1a1a1a;
+  --muted-foreground: #559988;
+  --border: #004433;
+  --input: #004433;
+  --ring: #00ffd5;
+  --gradient-from: #00ffd5;
+  --gradient-via: #ff00aa;
+  --gradient-to: #7b2ff7;
+  --feature-card-bg: #111111;
+  --feature-card-border: #004433;
+  --feature-card-text: #d0ffe6;
+  --feature-card-muted: #559988;
+  --feature-icon-bg: #1a1a1a;
+  --feature-icon-color: #00ffd5;
+  --learning-step-red-bg: #1a0505;
+  --learning-step-red-text: #ff8888;
+  --learning-step-red-icon-bg: #2a0a0a;
+  --learning-step-red-icon: #ff0055;
+  --learning-step-orange-bg: #1a0f05;
+  --learning-step-orange-text: #ffbb80;
+  --learning-step-orange-icon-bg: #2a1a0a;
+  --learning-step-orange-icon: #ff8800;
+  --learning-step-green-bg: #051a0f;
+  --learning-step-green-text: #80ffcc;
+  --learning-step-green-icon-bg: #0a2a1a;
+  --learning-step-green-icon: #00ffd5;
+  --level-foundation: #00ffd5;
+  --level-growth: #ff00aa;
+  --level-advanced: #7b2ff7;
+  --level-mastery: #ff0055;
+}
+
+/* ── Abyss ── deep ocean blues */
+.abyss {
+  --background: #050a14;
+  --foreground: #b0c4de;
+  --card: #0a1220;
+  --card-foreground: #b0c4de;
+  --popover: #0a1220;
+  --popover-foreground: #b0c4de;
+  --primary: #4a9eff;
+  --primary-foreground: #050a14;
+  --secondary: #101a2e;
+  --secondary-foreground: #8eb0d0;
+  --accent: #00bfff;
+  --accent-foreground: #050a14;
+  --destructive: #ff4757;
+  --destructive-foreground: #b0c4de;
+  --muted: #101a2e;
+  --muted-foreground: #607090;
+  --border: #1a2a40;
+  --input: #1a2a40;
+  --ring: #4a9eff;
+  --gradient-from: #4a9eff;
+  --gradient-via: #00bfff;
+  --gradient-to: #0066cc;
+  --feature-card-bg: #0a1220;
+  --feature-card-border: #1a2a40;
+  --feature-card-text: #b0c4de;
+  --feature-card-muted: #607090;
+  --feature-icon-bg: #101a2e;
+  --feature-icon-color: #4a9eff;
+  --learning-step-red-bg: #1a0a0f;
+  --learning-step-red-text: #ff8a8a;
+  --learning-step-red-icon-bg: #2a1020;
+  --learning-step-red-icon: #ff4757;
+  --learning-step-orange-bg: #1a1208;
+  --learning-step-orange-text: #ffb380;
+  --learning-step-orange-icon-bg: #2a1c10;
+  --learning-step-orange-icon: #ff8c42;
+  --learning-step-green-bg: #081a12;
+  --learning-step-green-text: #80d0b3;
+  --learning-step-green-icon-bg: #102a1c;
+  --learning-step-green-icon: #4ade80;
+  --level-foundation: #FFD700;
+  --level-growth: #4a9eff;
+  --level-advanced: #00bfff;
+  --level-mastery: #ff4757;
+}
+
+/* ── Velvet ── purple luxe on dark */
+.velvet {
+  --background: #0f0a1a;
+  --foreground: #e0d0f0;
+  --card: #161025;
+  --card-foreground: #e0d0f0;
+  --popover: #161025;
+  --popover-foreground: #e0d0f0;
+  --primary: #a855f7;
+  --primary-foreground: #0f0a1a;
+  --secondary: #201530;
+  --secondary-foreground: #c0a0e0;
+  --accent: #d946ef;
+  --accent-foreground: #0f0a1a;
+  --destructive: #ff4757;
+  --destructive-foreground: #e0d0f0;
+  --muted: #201530;
+  --muted-foreground: #8070a0;
+  --border: #302040;
+  --input: #302040;
+  --ring: #a855f7;
+  --gradient-from: #a855f7;
+  --gradient-via: #d946ef;
+  --gradient-to: #8b5cf6;
+  --feature-card-bg: #161025;
+  --feature-card-border: #302040;
+  --feature-card-text: #e0d0f0;
+  --feature-card-muted: #8070a0;
+  --feature-icon-bg: #201530;
+  --feature-icon-color: #a855f7;
+  --learning-step-red-bg: #1a0a0f;
+  --learning-step-red-text: #ff8a8a;
+  --learning-step-red-icon-bg: #2a1020;
+  --learning-step-red-icon: #ff4757;
+  --learning-step-orange-bg: #1a1208;
+  --learning-step-orange-text: #ffb380;
+  --learning-step-orange-icon-bg: #2a1c10;
+  --learning-step-orange-icon: #ff8c42;
+  --learning-step-green-bg: #0a1a12;
+  --learning-step-green-text: #80d0b3;
+  --learning-step-green-icon-bg: #152a1c;
+  --learning-step-green-icon: #4ade80;
+  --level-foundation: #FFD700;
+  --level-growth: #a855f7;
+  --level-advanced: #d946ef;
+  --level-mastery: #ff4757;
+}
+
+/* ── Ember ── warm amber / orange on dark */
+.ember {
+  --background: #140a05;
+  --foreground: #f0d0b0;
+  --card: #1e1008;
+  --card-foreground: #f0d0b0;
+  --popover: #1e1008;
+  --popover-foreground: #f0d0b0;
+  --primary: #ff8c42;
+  --primary-foreground: #140a05;
+  --secondary: #2a1a0a;
+  --secondary-foreground: #d0a080;
+  --accent: #ff6b2b;
+  --accent-foreground: #140a05;
+  --destructive: #ff4757;
+  --destructive-foreground: #f0d0b0;
+  --muted: #2a1a0a;
+  --muted-foreground: #907050;
+  --border: #3e2a15;
+  --input: #3e2a15;
+  --ring: #ff8c42;
+  --gradient-from: #ff8c42;
+  --gradient-via: #ff6b2b;
+  --gradient-to: #e04020;
+  --feature-card-bg: #1e1008;
+  --feature-card-border: #3e2a15;
+  --feature-card-text: #f0d0b0;
+  --feature-card-muted: #907050;
+  --feature-icon-bg: #2a1a0a;
+  --feature-icon-color: #ff8c42;
+  --learning-step-red-bg: #2a0a08;
+  --learning-step-red-text: #ffa090;
+  --learning-step-red-icon-bg: #3a1510;
+  --learning-step-red-icon: #ff4740;
+  --learning-step-orange-bg: #2a1a05;
+  --learning-step-orange-text: #ffc080;
+  --learning-step-orange-icon-bg: #3a250a;
+  --learning-step-orange-icon: #ff8c42;
+  --learning-step-green-bg: #0a2a12;
+  --learning-step-green-text: #80d0a0;
+  --learning-step-green-icon-bg: #153a1c;
+  --learning-step-green-icon: #4ade80;
+  --level-foundation: #FFD700;
+  --level-growth: #ff8c42;
+  --level-advanced: #ff6b2b;
+  --level-mastery: #e04020;
+}
+
+/* ── Verdant ── green nature on dark */
+.verdant {
+  --background: #050f0a;
+  --foreground: #c0f0d0;
+  --card: #0a1a10;
+  --card-foreground: #c0f0d0;
+  --popover: #0a1a10;
+  --popover-foreground: #c0f0d0;
+  --primary: #10b981;
+  --primary-foreground: #050f0a;
+  --secondary: #102a18;
+  --secondary-foreground: #80d0a0;
+  --accent: #34d399;
+  --accent-foreground: #050f0a;
+  --destructive: #ff4757;
+  --destructive-foreground: #c0f0d0;
+  --muted: #102a18;
+  --muted-foreground: #508068;
+  --border: #1a3a25;
+  --input: #1a3a25;
+  --ring: #10b981;
+  --gradient-from: #10b981;
+  --gradient-via: #34d399;
+  --gradient-to: #059669;
+  --feature-card-bg: #0a1a10;
+  --feature-card-border: #1a3a25;
+  --feature-card-text: #c0f0d0;
+  --feature-card-muted: #508068;
+  --feature-icon-bg: #102a18;
+  --feature-icon-color: #10b981;
+  --learning-step-red-bg: #1a0a08;
+  --learning-step-red-text: #ff8a8a;
+  --learning-step-red-icon-bg: #2a1510;
+  --learning-step-red-icon: #ff4757;
+  --learning-step-orange-bg: #1a1208;
+  --learning-step-orange-text: #ffb380;
+  --learning-step-orange-icon-bg: #2a1c10;
+  --learning-step-orange-icon: #ff8c42;
+  --learning-step-green-bg: #082a15;
+  --learning-step-green-text: #80ffb3;
+  --learning-step-green-icon-bg: #103a20;
+  --learning-step-green-icon: #10b981;
+  --level-foundation: #FFD700;
+  --level-growth: #10b981;
+  --level-advanced: #34d399;
+  --level-mastery: #ff4757;
+}
+
+/* ── Solar ── gold / warm yellow on dark */
+.solar {
+  --background: #14100a;
+  --foreground: #f0e0c0;
+  --card: #1e1810;
+  --card-foreground: #f0e0c0;
+  --popover: #1e1810;
+  --popover-foreground: #f0e0c0;
+  --primary: #f59e0b;
+  --primary-foreground: #14100a;
+  --secondary: #2a2010;
+  --secondary-foreground: #d0c090;
+  --accent: #eab308;
+  --accent-foreground: #14100a;
+  --destructive: #ff4757;
+  --destructive-foreground: #f0e0c0;
+  --muted: #2a2010;
+  --muted-foreground: #908060;
+  --border: #3e3020;
+  --input: #3e3020;
+  --ring: #f59e0b;
+  --gradient-from: #f59e0b;
+  --gradient-via: #eab308;
+  --gradient-to: #d97706;
+  --feature-card-bg: #1e1810;
+  --feature-card-border: #3e3020;
+  --feature-card-text: #f0e0c0;
+  --feature-card-muted: #908060;
+  --feature-icon-bg: #2a2010;
+  --feature-icon-color: #f59e0b;
+  --learning-step-red-bg: #1a0a05;
+  --learning-step-red-text: #ff8a8a;
+  --learning-step-red-icon-bg: #2a1510;
+  --learning-step-red-icon: #ff4757;
+  --learning-step-orange-bg: #2a1a08;
+  --learning-step-orange-text: #ffc080;
+  --learning-step-orange-icon-bg: #3a2510;
+  --learning-step-orange-icon: #ff8c42;
+  --learning-step-green-bg: #0a1a10;
+  --learning-step-green-text: #80d0a0;
+  --learning-step-green-icon-bg: #152a18;
+  --learning-step-green-icon: #4ade80;
+  --level-foundation: #f59e0b;
+  --level-growth: #eab308;
+  --level-advanced: #d97706;
+  --level-mastery: #ff4757;
+}
+
+/* ── Mono ── pure grayscale dark */
+.mono {
+  --background: #0a0a0a;
+  --foreground: #d0d0d0;
+  --card: #141414;
+  --card-foreground: #d0d0d0;
+  --popover: #141414;
+  --popover-foreground: #d0d0d0;
+  --primary: #ffffff;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1e1e1e;
+  --secondary-foreground: #b0b0b0;
+  --accent: #888888;
+  --accent-foreground: #0a0a0a;
+  --destructive: #cc4444;
+  --destructive-foreground: #d0d0d0;
+  --muted: #1e1e1e;
+  --muted-foreground: #707070;
+  --border: #2a2a2a;
+  --input: #2a2a2a;
+  --ring: #ffffff;
+  --gradient-from: #ffffff;
+  --gradient-via: #888888;
+  --gradient-to: #444444;
+  --feature-card-bg: #141414;
+  --feature-card-border: #2a2a2a;
+  --feature-card-text: #d0d0d0;
+  --feature-card-muted: #707070;
+  --feature-icon-bg: #1e1e1e;
+  --feature-icon-color: #ffffff;
+  --learning-step-red-bg: #1a0a0a;
+  --learning-step-red-text: #cc8888;
+  --learning-step-red-icon-bg: #2a1515;
+  --learning-step-red-icon: #cc4444;
+  --learning-step-orange-bg: #1a1208;
+  --learning-step-orange-text: #ccaa88;
+  --learning-step-orange-icon-bg: #2a1c15;
+  --learning-step-orange-icon: #cc8844;
+  --learning-step-green-bg: #0a1a0a;
+  --learning-step-green-text: #88cc88;
+  --learning-step-green-icon-bg: #152a15;
+  --learning-step-green-icon: #44cc44;
+  --level-foundation: #ffffff;
+  --level-growth: #b0b0b0;
+  --level-advanced: #707070;
+  --level-mastery: #cc4444;
+}
+
+/* ── Crimson ── blood red on black */
+.crimson {
+  --background: #0f0505;
+  --foreground: #f0c0c0;
+  --card: #1a0a0a;
+  --card-foreground: #f0c0c0;
+  --popover: #1a0a0a;
+  --popover-foreground: #f0c0c0;
+  --primary: #dc2626;
+  --primary-foreground: #ffffff;
+  --secondary: #2a1010;
+  --secondary-foreground: #d0a0a0;
+  --accent: #ef4444;
+  --accent-foreground: #ffffff;
+  --destructive: #ff0000;
+  --destructive-foreground: #ffffff;
+  --muted: #2a1010;
+  --muted-foreground: #905050;
+  --border: #3e1a1a;
+  --input: #3e1a1a;
+  --ring: #dc2626;
+  --gradient-from: #dc2626;
+  --gradient-via: #ef4444;
+  --gradient-to: #b91c1c;
+  --feature-card-bg: #1a0a0a;
+  --feature-card-border: #3e1a1a;
+  --feature-card-text: #f0c0c0;
+  --feature-card-muted: #905050;
+  --feature-icon-bg: #2a1010;
+  --feature-icon-color: #dc2626;
+  --learning-step-red-bg: #2a0808;
+  --learning-step-red-text: #ffa0a0;
+  --learning-step-red-icon-bg: #3a1010;
+  --learning-step-red-icon: #ff3030;
+  --learning-step-orange-bg: #2a1508;
+  --learning-step-orange-text: #ffb380;
+  --learning-step-orange-icon-bg: #3a2010;
+  --learning-step-orange-icon: #ff8c42;
+  --learning-step-green-bg: #0a1a0a;
+  --learning-step-green-text: #80d080;
+  --learning-step-green-icon-bg: #152a15;
+  --learning-step-green-icon: #44cc44;
+  --level-foundation: #FFD700;
+  --level-growth: #dc2626;
+  --level-advanced: #ef4444;
+  --level-mastery: #ff0000;
+}
+
+/* ── Malachite ── emerald greens on dark */
+.malachite {
+  --background: #050f08;
+  --foreground: #c0f0d0;
+  --card: #0a1a10;
+  --card-foreground: #c0f0d0;
+  --popover: #0a1a10;
+  --popover-foreground: #c0f0d0;
+  --primary: #059669;
+  --primary-foreground: #ffffff;
+  --secondary: #102a18;
+  --secondary-foreground: #80c0a0;
+  --accent: #10b981;
+  --accent-foreground: #050f08;
+  --destructive: #ff4757;
+  --destructive-foreground: #c0f0d0;
+  --muted: #102a18;
+  --muted-foreground: #508068;
+  --border: #1a3a25;
+  --input: #1a3a25;
+  --ring: #059669;
+  --gradient-from: #059669;
+  --gradient-via: #10b981;
+  --gradient-to: #047857;
+  --feature-card-bg: #0a1a10;
+  --feature-card-border: #1a3a25;
+  --feature-card-text: #c0f0d0;
+  --feature-card-muted: #508068;
+  --feature-icon-bg: #102a18;
+  --feature-icon-color: #059669;
+  --learning-step-red-bg: #1a0a08;
+  --learning-step-red-text: #ff8a8a;
+  --learning-step-red-icon-bg: #2a1510;
+  --learning-step-red-icon: #ff4757;
+  --learning-step-orange-bg: #1a1208;
+  --learning-step-orange-text: #ffb380;
+  --learning-step-orange-icon-bg: #2a1c10;
+  --learning-step-orange-icon: #ff8c42;
+  --learning-step-green-bg: #082a15;
+  --learning-step-green-text: #80ffb3;
+  --learning-step-green-icon-bg: #103a20;
+  --learning-step-green-icon: #059669;
+  --level-foundation: #FFD700;
+  --level-growth: #059669;
+  --level-advanced: #10b981;
+  --level-mastery: #ff4757;
+}
+
+/* ═══════════════════════════════════
+   LIGHT THEMES
+   ═══════════════════════════════════ */
+
+/* ── Arctic ── cool icy blue light theme */
+.arctic {
+  --background: #f0f7ff;
+  --foreground: #1a2a3a;
+  --card: #e8f2ff;
+  --card-foreground: #1a2a3a;
+  --popover: #e8f2ff;
+  --popover-foreground: #1a2a3a;
+  --primary: #0077cc;
+  --primary-foreground: #ffffff;
+  --secondary: #dce8f5;
+  --secondary-foreground: #2a3a4a;
+  --accent: #0099ee;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --muted: #dce8f5;
+  --muted-foreground: #607080;
+  --border: #c0d4e8;
+  --input: #c0d4e8;
+  --ring: #0077cc;
+  --gradient-from: #0077cc;
+  --gradient-via: #0099ee;
+  --gradient-to: #3B82F6;
+  --feature-card-bg: #e8f2ff;
+  --feature-card-border: #c0d4e8;
+  --feature-card-text: #1a2a3a;
+  --feature-card-muted: #607080;
+  --feature-icon-bg: #dce8f5;
+  --feature-icon-color: #0077cc;
+  --learning-step-red-bg: #fef2f2;
+  --learning-step-red-text: #7f1d1d;
+  --learning-step-red-icon-bg: #fee2e2;
+  --learning-step-red-icon: #dc2626;
+  --learning-step-orange-bg: #fff7ed;
+  --learning-step-orange-text: #9a3412;
+  --learning-step-orange-icon-bg: #fed7aa;
+  --learning-step-orange-icon: #ea580c;
+  --learning-step-green-bg: #f0fdf4;
+  --learning-step-green-text: #14532d;
+  --learning-step-green-icon-bg: #dcfce7;
+  --learning-step-green-icon: #16a34a;
+  --level-foundation: #FFB900;
+  --level-growth: #0077cc;
+  --level-advanced: #0099ee;
+  --level-mastery: #F25022;
+}
+
+/* ── Sakura ── soft cherry-blossom pink light theme */
+.sakura {
+  --background: #fdf2f8;
+  --foreground: #3a1a2a;
+  --card: #fce7f3;
+  --card-foreground: #3a1a2a;
+  --popover: #fce7f3;
+  --popover-foreground: #3a1a2a;
+  --primary: #db2777;
+  --primary-foreground: #ffffff;
+  --secondary: #fbd5e8;
+  --secondary-foreground: #4a2a3a;
+  --accent: #ec4899;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --muted: #fbd5e8;
+  --muted-foreground: #806070;
+  --border: #f0b8d0;
+  --input: #f0b8d0;
+  --ring: #db2777;
+  --gradient-from: #db2777;
+  --gradient-via: #ec4899;
+  --gradient-to: #f472b6;
+  --feature-card-bg: #fce7f3;
+  --feature-card-border: #f0b8d0;
+  --feature-card-text: #3a1a2a;
+  --feature-card-muted: #806070;
+  --feature-icon-bg: #fbd5e8;
+  --feature-icon-color: #db2777;
+  --learning-step-red-bg: #fef2f2;
+  --learning-step-red-text: #7f1d1d;
+  --learning-step-red-icon-bg: #fee2e2;
+  --learning-step-red-icon: #dc2626;
+  --learning-step-orange-bg: #fff7ed;
+  --learning-step-orange-text: #9a3412;
+  --learning-step-orange-icon-bg: #fed7aa;
+  --learning-step-orange-icon: #ea580c;
+  --learning-step-green-bg: #f0fdf4;
+  --learning-step-green-text: #14532d;
+  --learning-step-green-icon-bg: #dcfce7;
+  --learning-step-green-icon: #16a34a;
+  --level-foundation: #FFB900;
+  --level-growth: #db2777;
+  --level-advanced: #ec4899;
+  --level-mastery: #F25022;
+}
+
+/* ── Sandstone ── warm beige / earthy light theme */
+.sandstone {
+  --background: #faf6f0;
+  --foreground: #3a3020;
+  --card: #f5efe5;
+  --card-foreground: #3a3020;
+  --popover: #f5efe5;
+  --popover-foreground: #3a3020;
+  --primary: #a07040;
+  --primary-foreground: #ffffff;
+  --secondary: #ece4d5;
+  --secondary-foreground: #4a3a28;
+  --accent: #c08050;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --muted: #ece4d5;
+  --muted-foreground: #807060;
+  --border: #d8ccb8;
+  --input: #d8ccb8;
+  --ring: #a07040;
+  --gradient-from: #a07040;
+  --gradient-via: #c08050;
+  --gradient-to: #8b6030;
+  --feature-card-bg: #f5efe5;
+  --feature-card-border: #d8ccb8;
+  --feature-card-text: #3a3020;
+  --feature-card-muted: #807060;
+  --feature-icon-bg: #ece4d5;
+  --feature-icon-color: #a07040;
+  --learning-step-red-bg: #fef2f2;
+  --learning-step-red-text: #7f1d1d;
+  --learning-step-red-icon-bg: #fee2e2;
+  --learning-step-red-icon: #dc2626;
+  --learning-step-orange-bg: #fff7ed;
+  --learning-step-orange-text: #9a3412;
+  --learning-step-orange-icon-bg: #fed7aa;
+  --learning-step-orange-icon: #ea580c;
+  --learning-step-green-bg: #f0fdf4;
+  --learning-step-green-text: #14532d;
+  --learning-step-green-icon-bg: #dcfce7;
+  --learning-step-green-icon: #16a34a;
+  --level-foundation: #FFB900;
+  --level-growth: #a07040;
+  --level-advanced: #c08050;
+  --level-mastery: #F25022;
+}
+
+/* ── Ivory ── clean cream / warm white light theme */
+.ivory {
+  --background: #fefdf8;
+  --foreground: #2a2820;
+  --card: #f8f5ec;
+  --card-foreground: #2a2820;
+  --popover: #f8f5ec;
+  --popover-foreground: #2a2820;
+  --primary: #8b7355;
+  --primary-foreground: #ffffff;
+  --secondary: #f0ece0;
+  --secondary-foreground: #3a3828;
+  --accent: #a08868;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --muted: #f0ece0;
+  --muted-foreground: #807868;
+  --border: #e0d8c8;
+  --input: #e0d8c8;
+  --ring: #8b7355;
+  --gradient-from: #8b7355;
+  --gradient-via: #a08868;
+  --gradient-to: #706040;
+  --feature-card-bg: #f8f5ec;
+  --feature-card-border: #e0d8c8;
+  --feature-card-text: #2a2820;
+  --feature-card-muted: #807868;
+  --feature-icon-bg: #f0ece0;
+  --feature-icon-color: #8b7355;
+  --learning-step-red-bg: #fef2f2;
+  --learning-step-red-text: #7f1d1d;
+  --learning-step-red-icon-bg: #fee2e2;
+  --learning-step-red-icon: #dc2626;
+  --learning-step-orange-bg: #fff7ed;
+  --learning-step-orange-text: #9a3412;
+  --learning-step-orange-icon-bg: #fed7aa;
+  --learning-step-orange-icon: #ea580c;
+  --learning-step-green-bg: #f0fdf4;
+  --learning-step-green-text: #14532d;
+  --learning-step-green-icon-bg: #dcfce7;
+  --learning-step-green-icon: #16a34a;
+  --level-foundation: #FFB900;
+  --level-growth: #8b7355;
+  --level-advanced: #a08868;
+  --level-mastery: #F25022;
+}
+
 /* Border radius */
 :root {
   --radius: 0.5rem;

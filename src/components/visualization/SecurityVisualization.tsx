@@ -7,8 +7,7 @@ interface SecurityVisualizationProps {
 }
 
 export const SecurityVisualization: React.FC<SecurityVisualizationProps> = ({ className = "" }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [activeLayer, setActiveLayer] = useState(0);
 
   const securityLayers = [

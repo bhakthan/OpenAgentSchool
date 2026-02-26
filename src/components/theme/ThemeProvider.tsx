@@ -1,6 +1,81 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 
-type Theme = "light" | "dark";
+export type Theme =
+  | "light"
+  | "dark"
+  | "aurora"
+  | "rose"
+  | "cyber"
+  | "abyss"
+  | "velvet"
+  | "ember"
+  | "verdant"
+  | "solar"
+  | "arctic"
+  | "sakura"
+  | "sandstone"
+  | "ivory"
+  | "mono"
+  | "crimson"
+  | "malachite";
+
+/** Themes that use a dark background — used to derive `isDarkMode`. */
+const DARK_THEMES = new Set<Theme>([
+  "dark",
+  "aurora",
+  "rose",
+  "cyber",
+  "abyss",
+  "velvet",
+  "ember",
+  "verdant",
+  "solar",
+  "mono",
+  "crimson",
+  "malachite",
+]);
+
+/** Every valid theme id. */
+export const ALL_THEMES: Theme[] = [
+  "dark",
+  "light",
+  "aurora",
+  "rose",
+  "cyber",
+  "abyss",
+  "velvet",
+  "ember",
+  "verdant",
+  "solar",
+  "mono",
+  "crimson",
+  "malachite",
+  "arctic",
+  "sakura",
+  "sandstone",
+  "ivory",
+];
+
+/** Human-readable labels and accent swatches for the theme picker. */
+export const THEME_META: Record<Theme, { label: string; swatch: string; group: "dark" | "light" }> = {
+  dark:      { label: "Void Black",     swatch: "#1a1d23", group: "dark" },
+  light:     { label: "Warm Parchment", swatch: "#f8f6f0", group: "light" },
+  aurora:    { label: "Aurora",         swatch: "#00d4aa", group: "dark" },
+  rose:      { label: "Rosé",           swatch: "#ff6b9d", group: "dark" },
+  cyber:     { label: "Cyber",          swatch: "#00ffd5", group: "dark" },
+  abyss:     { label: "Abyss",          swatch: "#4a9eff", group: "dark" },
+  velvet:    { label: "Velvet",         swatch: "#a855f7", group: "dark" },
+  ember:     { label: "Ember",          swatch: "#ff8c42", group: "dark" },
+  verdant:   { label: "Verdant",        swatch: "#10b981", group: "dark" },
+  solar:     { label: "Solar",          swatch: "#f59e0b", group: "dark" },
+  mono:      { label: "Mono",           swatch: "#888888", group: "dark" },
+  crimson:   { label: "Crimson",        swatch: "#dc2626", group: "dark" },
+  malachite: { label: "Malachite",      swatch: "#059669", group: "dark" },
+  arctic:    { label: "Arctic",         swatch: "#0077cc", group: "light" },
+  sakura:    { label: "Sakura",         swatch: "#db2777", group: "light" },
+  sandstone: { label: "Sandstone",      swatch: "#a07040", group: "light" },
+  ivory:     { label: "Ivory",          swatch: "#8b7355", group: "light" },
+};
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -29,15 +104,27 @@ const syncTheme = (theme: Theme) => {
   const root = window.document.documentElement;
   const body = window.document.body;
 
-  root.classList.remove("light", "dark");
-  body.classList.remove("light", "dark");
+  // Remove every possible theme class
+  const allClasses: string[] = ALL_THEMES as string[];
+  root.classList.remove(...allClasses);
+  body.classList.remove(...allClasses);
 
+  // Always add the specific theme class (e.g., "aurora")
   root.classList.add(theme);
   body.classList.add(theme);
 
-  root.setAttribute('data-theme', theme);
-  root.setAttribute('data-appearance', theme);
-  body.setAttribute('data-theme', theme);
+  // For Tailwind `dark:` variant compat, also toggle `dark` / `light`
+  const baseMode = DARK_THEMES.has(theme) ? "dark" : "light";
+  if (theme !== "dark" && theme !== "light") {
+    root.classList.remove("dark", "light");
+    body.classList.remove("dark", "light");
+    root.classList.add(baseMode);
+    body.classList.add(baseMode);
+  }
+
+  root.setAttribute("data-theme", theme);
+  root.setAttribute("data-appearance", baseMode);
+  body.setAttribute("data-theme", theme);
 };
 
 /**
@@ -99,7 +186,7 @@ export function ThemeProvider({
       
       // Check for saved theme preference
       const savedTheme = localStorage.getItem(storageKey) as Theme;
-      if (savedTheme && (savedTheme === "light" || savedTheme === "dark")) {
+      if (savedTheme && ALL_THEMES.includes(savedTheme)) {
         return savedTheme;
       }
       
@@ -123,8 +210,10 @@ export function ThemeProvider({
 
   // Initialize theme on mount
   useEffect(() => {
-    const initialTheme = localStorage.getItem(storageKey) as Theme || 
-                        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : defaultTheme);
+    const saved = localStorage.getItem(storageKey) as Theme | null;
+    const initialTheme: Theme =
+      (saved && ALL_THEMES.includes(saved)) ? saved :
+      window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : defaultTheme;
     
     syncTheme(initialTheme);
     setTheme(initialTheme);
@@ -161,10 +250,11 @@ export function ThemeProvider({
 
   const value = {
     theme,
-    isDarkMode: theme === "dark",
+    isDarkMode: DARK_THEMES.has(theme),
     setTheme: (newTheme: Theme) => {
+      skipSyncRef.current = true;
       setTheme(newTheme);
-      syncTheme(newTheme);
+      transitionTheme(newTheme, window.innerWidth / 2, window.innerHeight / 2);
     },
     toggleTheme,
   };

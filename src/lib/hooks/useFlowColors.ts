@@ -15,8 +15,7 @@ export interface FlowColorStyle {
  * @returns {Object} Color map and functions to update it
  */
 export function useFlowColors(initialColors?: Record<FlowColorType, FlowColorStyle>) {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   
   // Default colors based on theme
   const defaultColors = useMemo(() => {

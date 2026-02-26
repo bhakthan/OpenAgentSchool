@@ -84,8 +84,7 @@ const StandardFlowVisualizerBase = (
     autoFitView = false,
     className
   } = props;
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [nodes, setNodes, onNodeChanges] = useNodesState(initialNodes || []);
   const [edges, setEdges, onEdgeChanges] = useEdgesState(initialEdges || []);
   const reactFlowInstance = useReactFlow();

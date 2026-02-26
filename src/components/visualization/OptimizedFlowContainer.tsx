@@ -73,8 +73,7 @@ const OptimizedFlowContent = forwardRef<HTMLDivElement, OptimizedFlowProps>(({
   className,
   contentClassName,
 }, ref) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [nodes, setNodes, onNodeChanges] = useNodesState(optimizeNodes(initialNodes || []));
   const [edges, setEdges, onEdgeChanges] = useEdgesState(optimizeEdges(initialEdges || []));
   const reactFlowInstance = useReactFlow();

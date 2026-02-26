@@ -24,8 +24,7 @@ const SubagentSkillsMCPComparison: React.FC<SubagentSkillsMCPComparisonProps> = 
   autoPlay = false, 
   className = '' 
 }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [selectedMode, setSelectedMode] = useState<ComparisonMode>('subagent');
   const [currentPhase, setCurrentPhase] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);

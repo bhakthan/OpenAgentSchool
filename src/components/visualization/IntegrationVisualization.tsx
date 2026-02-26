@@ -7,8 +7,7 @@ interface IntegrationVisualizationProps {
 }
 
 export const IntegrationVisualization: React.FC<IntegrationVisualizationProps> = ({ className = "" }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [activeConnection, setActiveConnection] = useState(0);
   const [dataFlow, setDataFlow] = useState<{ [key: string]: boolean }>({});
 

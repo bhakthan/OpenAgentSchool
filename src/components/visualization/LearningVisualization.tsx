@@ -7,8 +7,7 @@ interface LearningVisualizationProps {
 }
 
 export const LearningVisualization: React.FC<LearningVisualizationProps> = ({ className = "" }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [learningCycle, setLearningCycle] = useState(0);
   const [neuronActivity, setNeuronActivity] = useState<number[]>([]);
 

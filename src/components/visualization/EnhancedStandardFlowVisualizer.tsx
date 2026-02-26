@@ -77,8 +77,7 @@ export const EnhancedStandardFlowVisualizer: React.FC<EnhancedStandardFlowVisual
   autoFitView = true,
   className
 }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Enhanced nodes with consistent styling

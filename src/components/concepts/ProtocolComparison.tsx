@@ -6,8 +6,7 @@ import { CheckCircle, XCircle, Circle, ArrowsHorizontal } from "@phosphor-icons/
 import { useTheme } from '@/components/theme/ThemeProvider';
 
 const ProtocolComparison: React.FC = () => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [selectedMetric, setSelectedMetric] = useState<string | null>(null);
   
   const colors = {

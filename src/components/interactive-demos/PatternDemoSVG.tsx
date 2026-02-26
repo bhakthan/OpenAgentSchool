@@ -453,8 +453,7 @@ const calculateNodePositions = (nodes: any[], edges: any[]) => {
  * Provides interactive pattern visualization without ReactFlow dependencies
  */
 export const PatternDemoSVG = memo(({ patternData, className, styleVariant = 'default' }: PatternDemoSVGProps) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const isFlatUi2 = styleVariant === 'flat-ui-2';
   
   // Get business context if available

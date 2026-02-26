@@ -41,8 +41,7 @@ function getNodeColor(nodeType: string = 'agent') {
  * A customizable agent node component for ReactFlow
  */
 export const AgentNode = memo(({ data, id, selected }: NodeProps) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   
   const { 
     nodeType = 'agent',

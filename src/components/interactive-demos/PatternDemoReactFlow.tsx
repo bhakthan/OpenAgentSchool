@@ -53,8 +53,7 @@ const SPEED_MULTIPLIERS = {
  * using EnhancedStandardFlowVisualizer for consistent styling and animations
  */
 export const PatternDemoReactFlow = memo(({ patternData, className }: PatternDemoReactFlowProps) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   
   // Container ref for flow visualization
   const flowContainerRef = useRef<HTMLDivElement>(null);

@@ -35,8 +35,7 @@ interface ExecutionState {
 }
 
 const CodeToVisualMapper: React.FC = () => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   
   const [selectedPattern, setSelectedPattern] = useState<'react' | 'codeact' | 'self-reflection'>('react');
   const [currentBlock, setCurrentBlock] = useState(0);

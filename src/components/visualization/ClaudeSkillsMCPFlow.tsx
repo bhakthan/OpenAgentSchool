@@ -11,8 +11,7 @@ interface ClaudeSkillsMCPFlowProps {
 }
 
 const ClaudeSkillsMCPFlow: React.FC<ClaudeSkillsMCPFlowProps> = ({ autoPlay = false, className = '' }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [currentPhase, setCurrentPhase] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
 

@@ -28,8 +28,7 @@ interface ComponentState {
 }
 
 const AgentCommunicationPlayground: React.FC = () => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);

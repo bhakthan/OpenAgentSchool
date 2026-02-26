@@ -9,8 +9,7 @@ interface MCPArchitectureProps {
 }
 
 const MCPArchitectureDiagram: React.FC<MCPArchitectureProps> = ({ autoPlay = false }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [activeMicroLesson, setActiveMicroLesson] = useState<string | null>(null);
   const [userKnowledgeLevel, setUserKnowledgeLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
   const [currentFlow, setCurrentFlow] = useState(0);

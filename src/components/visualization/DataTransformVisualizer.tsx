@@ -54,8 +54,7 @@ const DataTransformVisualizer = React.memo(({
   showTransformationEffects = true,
   nodeTypeMap = {}
 }: DataTransformVisualizerProps) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [activeFlows, setActiveFlows] = useState<TransformableDataFlow[]>([]);
   const animationFrameRef = useRef<number | null>(null);
   const lastUpdateTimeRef = useRef<number>(0);

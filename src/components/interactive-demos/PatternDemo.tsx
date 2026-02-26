@@ -288,8 +288,7 @@ const DragHint = React.memo(() => {
 
 // Custom node component
 const CustomDemoNode = React.memo(({ data, id }: { data: any, id: string }) => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   
   // Basic node styling
   const getNodeStyle = () => {

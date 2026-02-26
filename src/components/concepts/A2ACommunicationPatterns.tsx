@@ -7,8 +7,7 @@ import { useTheme } from '@/components/theme/ThemeProvider';
 import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock, conceptPill } from "./conceptStyles";
 
 const A2ACommunicationPatterns: React.FC = () => {
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { theme, isDarkMode } = useTheme();
   const [currentMessage, setCurrentMessage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedPattern, setSelectedPattern] = useState<'direct' | 'broadcast' | 'hierarchical'>('direct');
