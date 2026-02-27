@@ -12,6 +12,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import {
+  getMockTeams,
+  getMockPolicies,
+  getMockAdoptionMetrics,
+} from '@/lib/orgDashboardData';
 import {
   Table,
   TableBody,
@@ -40,6 +46,7 @@ import {
   ChatText,
   Clock,
   XCircle,
+  Buildings,
 } from '@phosphor-icons/react';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -520,6 +527,127 @@ function PostModerationTab() {
   );
 }
 
+// ── Organization dashboard tab ───────────────────────────────────────────
+
+function OrganizationTab() {
+  const teams = getMockTeams();
+  const policies = getMockPolicies();
+  const metrics = getMockAdoptionMetrics();
+  const overallCompliance = Math.round(
+    policies.reduce((s, p) => s + p.compliancePercent, 0) / policies.length
+  );
+
+  return (
+    <div className="space-y-6">
+      {/* Team Overview */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Team Overview</CardTitle>
+          <CardDescription>Activity and performance across teams</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-3 md:grid-cols-2">
+            {teams.map((team) => (
+              <div key={team.id} className="flex items-center justify-between p-3 border rounded-md">
+                <div>
+                  <p className="font-medium text-sm">{team.name}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {team.memberCount} members · Top pattern: {team.topPattern}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold">{team.avgQuizScore}%</span>
+                  <Badge
+                    variant={team.activityStatus === 'active' ? 'default' : 'secondary'}
+                    className="text-xs"
+                  >
+                    {team.activityStatus}
+                  </Badge>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Policy Alignment Scorecard */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-lg">Policy Alignment</CardTitle>
+              <CardDescription>Organizational policy compliance</CardDescription>
+            </div>
+            <span className={`text-2xl font-bold ${overallCompliance >= 80 ? 'text-emerald-600' : 'text-amber-600'}`}>
+              {overallCompliance}%
+            </span>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {policies.map((policy) => (
+            <div key={policy.id} className="space-y-1">
+              <div className="flex items-center justify-between text-sm">
+                <div>
+                  <span className="font-medium">{policy.name}</span>
+                  <span className="text-muted-foreground ml-2 text-xs">{policy.description}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono">{policy.compliancePercent}%</span>
+                  <Badge
+                    variant={
+                      policy.status === 'compliant'
+                        ? 'default'
+                        : policy.status === 'partial'
+                          ? 'secondary'
+                          : 'destructive'
+                    }
+                    className="text-xs"
+                  >
+                    {policy.status}
+                  </Badge>
+                </div>
+              </div>
+              <Progress value={policy.compliancePercent} className="h-1.5" />
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
+      {/* Adoption Metrics */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Adoption Metrics</CardTitle>
+          <CardDescription>Weekly trends across the organization</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b text-muted-foreground">
+                  <th className="text-left py-2 font-medium">Week</th>
+                  <th className="text-right py-2 font-medium">Active Learners</th>
+                  <th className="text-right py-2 font-medium">Quiz Completion</th>
+                  <th className="text-right py-2 font-medium">Pattern Adoption</th>
+                </tr>
+              </thead>
+              <tbody>
+                {metrics.map((m) => (
+                  <tr key={m.week} className="border-b last:border-0">
+                    <td className="py-2">{m.week}</td>
+                    <td className="text-right font-mono">{m.activeLearners}</td>
+                    <td className="text-right font-mono">{m.quizCompletionRate}%</td>
+                    <td className="text-right font-mono">{m.patternAdoption}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 // ── Main admin page ──────────────────────────────────────────────────────
 
 const AdminPage: React.FC = () => {
@@ -550,6 +678,9 @@ const AdminPage: React.FC = () => {
           <TabsTrigger value="health" className="gap-2">
             <Heartbeat className="w-4 h-4" /> Health
           </TabsTrigger>
+          <TabsTrigger value="organization" className="gap-2">
+            <Buildings className="w-4 h-4" /> Organization
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="users">
@@ -566,6 +697,10 @@ const AdminPage: React.FC = () => {
 
         <TabsContent value="health">
           <HealthTab />
+        </TabsContent>
+
+        <TabsContent value="organization">
+          <OrganizationTab />
         </TabsContent>
       </Tabs>
     </div>

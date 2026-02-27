@@ -193,6 +193,29 @@ Then in the app: **Tools → API Settings → Custom / International / Local** �
 
 ---
 
+## 🚀 Recent Updates (February 27, 2026)
+
+### 🧪 Phase 1-3 Feature Expansion — 10 New Pages, Login Required
+
+Ten new full-page features ship behind **AuthGuard** and **feature flags** (localStorage-backed, toggle in Settings → Admin). Infrastructure includes an SSE/WebSocket transport hook (`useEventSource` with auto-reconnect), an IndexedDB offline sync queue (Dexie), and a client-side SM-2 spaced-repetition engine.
+
+| Route | Feature | Phase |
+|-------|---------|-------|
+| `/phase1-lab` | **Phase 1 Lab** — 4-tab hub: Learning Copilot 2.0, Knowledge Graph Navigator, Pattern Battle Arena, Spaced Repetition Review | 1 |
+| `/analytics` | **Learning Analytics** — Self-serve dashboard: level, scores, streaks, study sessions, SR mastery | 1 |
+| `/project-tracks` | **Project Tracks** — 3 end-to-end capstone projects with milestone checklists | 2 |
+| `/pair-programming` | **Pair Programming Studio** — Split-pane coding exercises with auto-check | 2 |
+| `/skill-passport` | **Skill Passport** — Visual skill stamps + PDF certificate generation (jsPDF) | 2 |
+| `/cohorts` | **Team Cohorts** — Create/join study groups, mentor rooms, group challenges | 3 |
+| `/safety-lab` | **Agent Safety Lab** — 12 red-teaming scenarios, interactive defense exercises, scoring | 3 |
+| `/sandbox` | **Multi-Agent Sandbox** — Agent simulation with replay, message inspector, role configs | 3 |
+
+**Community Voting** (Phase 2) adds up/down votes with rate limiting and reputation scoring. **Org Mode** (Phase 3) adds an Organization tab in Admin (team overview, policy compliance, adoption metrics). **Accessibility** improvements include a skip-to-content link and ARIA live-region announcer.
+
+**Backend expansion (core-api):** 5 new API route files (voting, certificates, cohorts, project-tracks, safety-lab), 7 new database tables auto-created on startup, 15 new Pydantic schemas.
+
+---
+
 ##  Recent Updates (February 26, 2026)
 
 ### 🎨 17 Visual Themes — Full Theme System Overhaul
@@ -369,8 +392,8 @@ The top navigation uses a **four-category mega-menu** that mirrors the learning 
 |----------|--------|
 | **Learn** | Foundation — Core Concepts, Agent Patterns, Learning Atlas, References |
 | **Apply** | Real-world — Agents for Science, Adoption Playbook, Applied AI Skills, Azure Services |
-| **Practice** | Hands-on — Study Mode, Knowledge Quiz, Knowledge Search, Community |
-| **Tools** | Config — API Docs, Agents Console, **API Settings (BYOK)** |
+| **Practice** | Hands-on — Study Mode, Knowledge Quiz, Knowledge Search, Community, Phase 1 Lab, Learning Analytics, Project Tracks, Pair Programming, Cohorts, Sandbox |
+| **Tools** | Config — API Docs, Agents Console, **API Settings (BYOK)**, Skill Passport |
 
 **Rationale**: Learners progress from **Learn** (concepts) → **Apply** (real-world use) → **Practice** (exercises) → **Tools** (configure your own environment). The BYOK settings are in Tools so learners can get started immediately without keys and configure providers when they're ready for AI-powered features.
 
@@ -406,6 +429,14 @@ The top navigation uses a **four-category mega-menu** that mirrors the learning 
 4. Activation Plan (first 90 days)
 5. Study Mode: Adoption Strategy challenges
 
+### 🔬 **Hands-On Builder Path** (New)
+1. Phase 1 Lab → Learning Copilot (get personalized weekly plan)
+2. Project Tracks → Pick a capstone (Support Bot, RAG Tutor, or Commerce Agent)
+3. Pair Programming Studio → Complete guided coding exercises
+4. Pattern Battle Arena → Compare patterns before implementation
+5. Safety Lab → Red-team your agent before shipping
+6. Skill Passport → Generate PDF certificate for completed tracks
+
 ---
 
 ##  Contributing
@@ -434,6 +465,7 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 - **29 Languages** for audio narration with auto-translation
 - **17 Visual Themes** — 12 dark + 5 light with View Transitions API sweep animation
 - **5 Learning Modes** (Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)
+- **10 New Feature Pages** behind auth + feature flags (Phase 1 Lab, Analytics, Project Tracks, Pair Programming, Skill Passport, Cohorts, Safety Lab, Sandbox)
 
 ---
 

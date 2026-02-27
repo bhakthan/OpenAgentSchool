@@ -36,6 +36,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   'evaluations': '#22c55e',      // Green - Evaluations
   'educational-patterns': '#eab308', // Yellow - Educational
   'operating-model': '#64748b',  // Slate - Operating
+  'hands-on-practice': '#f43f5e', // Rose - Hands-On Practice
 };
 
 // Build the complete taxonomy data
@@ -249,6 +250,21 @@ function buildAtlasData(): AtlasNode {
           { id: 'agent-fundamentals-quiz', name: 'Agent Fundamentals', type: 'quiz', path: '/quiz?category=fundamentals' },
           { id: 'security-quiz', name: 'Security & Ethics', type: 'quiz', path: '/quiz?category=security' },
           { id: 'multi-agent-quiz', name: 'Multi-Agent Systems', type: 'quiz', path: '/quiz?category=multi-agent' },
+        ]
+      },
+      {
+        id: 'hands-on-practice',
+        name: 'Hands-On Practice',
+        type: 'category',
+        children: [
+          { id: 'phase1-lab', name: 'Phase 1 Lab', type: 'quiz', novel: true, path: '/phase1-lab' },
+          { id: 'learner-analytics', name: 'Learner Analytics', type: 'quiz', novel: true, path: '/analytics' },
+          { id: 'project-tracks', name: 'Project Tracks', type: 'concept', novel: true, path: '/project-tracks' },
+          { id: 'pair-programming-studio', name: 'Pair Programming', type: 'concept', novel: true, path: '/pair-programming' },
+          { id: 'skill-passport', name: 'Skill Passport', type: 'concept', novel: true, path: '/skill-passport' },
+          { id: 'cohorts', name: 'Team Cohorts', type: 'concept', novel: true, path: '/cohorts' },
+          { id: 'safety-lab', name: 'Safety Lab', type: 'concept', novel: true, path: '/safety-lab' },
+          { id: 'multi-agent-sandbox', name: 'Sandbox', type: 'concept', novel: true, path: '/sandbox' },
         ]
       },
     ]

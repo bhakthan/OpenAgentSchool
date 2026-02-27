@@ -20,6 +20,13 @@ import { Lightning } from '@phosphor-icons/react/dist/ssr/Lightning';
 import { DotsThree } from '@phosphor-icons/react/dist/ssr/DotsThree';
 import { Compass } from '@phosphor-icons/react/dist/ssr/Compass';
 import { Atom } from '@phosphor-icons/react/dist/ssr/Atom';
+import { ChartLine } from '@phosphor-icons/react/dist/ssr/ChartLine';
+import { Hammer } from '@phosphor-icons/react/dist/ssr/Hammer';
+import { CodeBlock } from '@phosphor-icons/react/dist/ssr/CodeBlock';
+import { Stamp } from '@phosphor-icons/react/dist/ssr/Stamp';
+import { ShieldCheck as ShieldCheckNav } from '@phosphor-icons/react/dist/ssr/ShieldCheck';
+import { Robot } from '@phosphor-icons/react/dist/ssr/Robot';
+import { UsersThree } from '@phosphor-icons/react/dist/ssr/UsersThree';
 import { Sparkles as SparklesIcon } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtils';
@@ -38,6 +45,7 @@ import { QueryProvider } from './lib/query/QueryProvider';
 import { AuthProvider } from './lib/auth/AuthContext';
 import { UserMenu } from './components/auth/UserMenu';
 import { AdminGuard } from './components/admin/AdminGuard';
+import { AuthGuard } from './components/auth/AuthGuard';
 import { InstallPWA } from './components/pwa/InstallPWA';
 import { InstallAppMenuItem } from './components/pwa/InstallAppMenuItem';
 import { useIOSBehaviors } from './hooks/useStandaloneMode';
@@ -88,6 +96,14 @@ const AVEWorkshopCurriculum = lazy(() => import('./components/velocity/AVEWorksh
 const ValueMapPage = lazy(() => import('./pages/ValueMapPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
+const Phase1LabPage = lazy(() => import('./pages/Phase1LabPage'));
+const LearnerAnalyticsPage = lazy(() => import('./pages/LearnerAnalyticsPage'));
+const ProjectTracksPage = lazy(() => import('./pages/ProjectTracksPage'));
+const PairProgrammingPage = lazy(() => import('./pages/PairProgrammingPage'));
+const SkillPassportPage = lazy(() => import('./pages/SkillPassportPage'));
+const CohortsPage = lazy(() => import('./pages/CohortsPage'));
+const SafetyLabPage = lazy(() => import('./pages/SafetyLabPage'));
+const SandboxPage = lazy(() => import('./pages/SandboxPage'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -95,6 +111,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { AudioNarrationProvider } from './contexts/AudioNarrationContext';
 import { VoiceInputProvider } from './contexts/VoiceInputContext';
 import { EnlightenMeButton as AskAIFab } from './components/enlighten/EnlightenMeButton';
+import { A11yAnnouncer } from './components/common/A11yAnnouncer';
 import { UserSettingsProvider } from './contexts/UserSettingsContext';
 import { EffectivePolicyProvider } from './contexts/EffectivePolicyContext';
 import { SettingsSheet } from './components/settings/SettingsSheet';
@@ -113,6 +130,9 @@ import { useAnalyticsCustomEventBridge } from '@/lib/analytics/customEventsBridg
 import { loadSettings } from './lib/userSettings';
 import { hasModuleAccess, type ModuleAccessKey } from './lib/accessControl';
 import { ModuleAccessGate } from './components/access/ModuleAccessGate';
+import { FeatureFlagProvider } from './contexts/FeatureFlagContext';
+import { FeatureFlagGate } from './components/access/FeatureFlagGate';
+import { isFeatureEnabled } from './lib/featureFlags';
 
 // Placeholder component (disabled)
 const AppTutorialButton = () => null;
@@ -159,6 +179,7 @@ function App() {
     threshold: 80,
   });
   const learningProfile = loadSettings().learningProfile;
+  const phase1LabEnabled = isFeatureEnabled('phase1-lab');
 
   // Scroll to top when route changes
   useEffect(() => {
@@ -348,7 +369,9 @@ function App() {
         <AppContent />
         
         <UserSettingsProvider>
+        <FeatureFlagProvider>
         <EffectivePolicyProvider>
+        <A11yAnnouncer>
         <AudioNarrationProvider>
           <VoiceInputProvider>
           <EnlightenMeProvider>
@@ -499,6 +522,7 @@ function App() {
                       { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" />, description: 'Reusable design patterns', isNew: false },
                       { to: '/value-map', label: 'Skills Universe', icon: <SparklesIcon className="w-4 h-4" />, description: 'Discover what you\'ll master', isNew: false },
                       { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" />, description: 'Papers, videos, and resources', isNew: false },
+                      { to: '/safety-lab', label: 'Safety Lab', icon: <ShieldCheckNav size={16} weight="duotone" />, description: 'Practice defending AI agents', isNew: true },
                     ]
                   },
                   {
@@ -521,10 +545,16 @@ function App() {
                     items: [
                       { to: '/study-mode', label: 'Study Mode', icon: <GraduationCap size={16} weight="duotone" />, description: 'Interactive learning exercises', isNew: false },
                       { to: '/quiz', label: 'Knowledge Quiz', icon: <LadderIcon size={16} />, description: 'Test your understanding', isNew: false },
+                       ...(phase1LabEnabled ? [{ to: '/phase1-lab', label: 'Phase 1 Lab', icon: <Path size={16} weight="duotone" />, description: 'Adaptive copilot, graph, and battle arena', isNew: true }] : []),
+                       ...(phase1LabEnabled ? [{ to: '/analytics', label: 'Learning Analytics', icon: <ChartLine size={16} weight="duotone" />, description: 'Quiz trends, streaks, and spaced repetition', isNew: true }] : []),
+                       { to: '/project-tracks', label: 'Project Tracks', icon: <Hammer size={16} weight="duotone" />, description: 'Build real-world agent projects', isNew: true },
+                       { to: '/pair-programming', label: 'Pair Programming', icon: <CodeBlock size={16} weight="duotone" />, description: 'Guided coding exercises', isNew: true },
                        ...(import.meta.env.VITE_KNOWLEDGE_SERVICE_URL ? [{ to: '/knowledge-search', label: 'Knowledge Search', icon: <MagnifyingGlass size={16} weight="duotone" />, description: 'Search documentation', isNew: false, moduleKey: 'knowledge-search' as ModuleAccessKey }] : []),
                        { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" />, description: 'Share and collaborate', isNew: false },
-                     ]
-                   },
+                       { to: '/cohorts', label: 'Team Cohorts', icon: <UsersThree size={16} weight="duotone" />, description: 'Mentor rooms and group challenges', isNew: true },
+                       { to: '/sandbox', label: 'Agent Sandbox', icon: <Robot size={16} weight="duotone" />, description: 'Multi-agent simulation lab', isNew: true },
+                      ]
+                    },
                   {
                     label: 'Tools',
                     icon: <Plugs size={16} weight="duotone" />,
@@ -533,6 +563,7 @@ function App() {
                     items: [
                       { to: '/api-docs', label: 'API Docs', icon: <Article size={16} weight="duotone" />, description: 'Technical documentation', isNew: false },
                        ...(import.meta.env.VITE_ORCHESTRATOR_SERVICE_URL ? [{ to: '/agents', label: 'Agents Console', icon: <Plugs size={16} weight="duotone" />, description: 'Multi-agent orchestration', isNew: true, moduleKey: 'agents-console' as ModuleAccessKey }] : []),
+                       { to: '/skill-passport', label: 'Skill Passport', icon: <Stamp size={16} weight="duotone" />, description: 'Earned skills and certificates', isNew: true },
                        { to: '/settings', label: 'Platform Settings', icon: <Gear size={16} weight="duotone" />, description: 'Manage local API keys and cloud personalization', isNew: true },
                      ]
                    },
@@ -736,6 +767,8 @@ function App() {
                   <Route path="/velocity/workshop" element={<ModuleAccessGate module="velocity-workshop" title="Velocity Workshop"><AVEWorkshopCurriculum /></ModuleAccessGate>} />
                   <Route path="/azure-services/:serviceId?" element={<AzureServicesOverview />} />
                   <Route path="/quiz/:quizId?" element={<QuizSection />} />
+                  <Route path="/phase1-lab" element={<AuthGuard><FeatureFlagGate flag="phase1-lab" title="Phase 1 Lab"><Phase1LabPage /></FeatureFlagGate></AuthGuard>} />
+                  <Route path="/analytics" element={<AuthGuard><FeatureFlagGate flag="phase1-lab" title="Learning Analytics"><LearnerAnalyticsPage /></FeatureFlagGate></AuthGuard>} />
                   <Route path="/tree-view" element={<TreeVisualizationPage />} />
                   <Route path="/value-map" element={<ValueMapPage />} />
                   <Route path="/scl-demo" element={<SCLDemo />} />
@@ -751,6 +784,12 @@ function App() {
                   <Route path="/adoption/briefing" element={<ModuleAccessGate module="adoption-forms" title="Board Ready Briefing Pack"><BoardReadyBriefingPackForm /></ModuleAccessGate>} />
                   <Route path="/bookmarks" element={<BookmarksPage />} />
                   <Route path="/achievements" element={<AchievementsPage />} />
+                  <Route path="/project-tracks" element={<AuthGuard><FeatureFlagGate flag="project-tracks" title="Project Tracks"><ProjectTracksPage /></FeatureFlagGate></AuthGuard>} />
+                  <Route path="/pair-programming" element={<AuthGuard><FeatureFlagGate flag="pair-programming" title="Pair Programming"><PairProgrammingPage /></FeatureFlagGate></AuthGuard>} />
+                  <Route path="/skill-passport" element={<AuthGuard><FeatureFlagGate flag="skill-passport" title="Skill Passport"><SkillPassportPage /></FeatureFlagGate></AuthGuard>} />
+                  <Route path="/cohorts" element={<AuthGuard><FeatureFlagGate flag="cohorts" title="Team Cohorts"><CohortsPage /></FeatureFlagGate></AuthGuard>} />
+                  <Route path="/safety-lab" element={<AuthGuard><FeatureFlagGate flag="safety-lab" title="Agent Safety Lab"><SafetyLabPage /></FeatureFlagGate></AuthGuard>} />
+                  <Route path="/sandbox" element={<AuthGuard><FeatureFlagGate flag="sandbox" title="Multi-Agent Sandbox"><SandboxPage /></FeatureFlagGate></AuthGuard>} />
                   <Route path="/auth" element={<AuthPage />} />
                   <Route path="/auth/callback/:provider" element={<OAuthCallbackPage />} />
                   <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
@@ -887,7 +926,9 @@ function App() {
       </EnlightenMeProvider>
       </VoiceInputProvider>
       </AudioNarrationProvider>
+       </A11yAnnouncer>
        </EffectivePolicyProvider>
+       </FeatureFlagProvider>
        </UserSettingsProvider>
       </AuthProvider>
     </ThemeProvider>

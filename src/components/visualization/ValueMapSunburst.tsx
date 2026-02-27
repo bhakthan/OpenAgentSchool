@@ -85,6 +85,14 @@ const VALUE_CATEGORIES: ValueCategory[] = [
     icon: '🔍',
     description: 'Semantic documentation',
     route: '/knowledge-search'
+  },
+  {
+    name: 'Hands-On Practice',
+    value: 10,
+    color: '#f43f5e', // rose
+    icon: '🧪',
+    description: 'Labs, projects, safety & sandbox',
+    route: '/phase1-lab'
   }
 ];
 

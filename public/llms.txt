@@ -1,6 +1,6 @@
 # Open Agent School - llms.txt
 # https://llmstxt.org/ - A standard for providing context to LLMs
-# Last updated: February 21, 2026
+# Last updated: February 27, 2026
 
 > Open Agent School is a comprehensive educational platform for mastering AI agents,
 > from foundational concepts to production-ready agentic systems.
@@ -115,6 +115,20 @@ All API keys stored in browser localStorage — never transmitted to any server.
 - Export/Import: Share workshop configurations as JSON; merge with existing settings
 - Settings URL: https://www.openagentschool.org/settings
 
+### Phase 1-3 Feature Pages (February 2026)
+Login-required interactive features for adaptive learning and hands-on practice.
+
+- Phase 1 Lab — Personalized Learning Copilot 2.0, Knowledge Graph Navigator, Pattern Battle Arena, Spaced Repetition
+- Learning Analytics — Self-serve dashboard for quiz trends, streaks, and SR mastery
+- Project Tracks — End-to-end capstones (Support Bot, RAG Tutor, Commerce Agent)
+- Pair Programming Studio — Split-pane coding exercises with auto-check
+- Skill Passport — Visual skill stamps + PDF certificate generation
+- Team Cohorts — Mentor rooms, group challenges, shared study
+- Agent Safety Lab — 12 red-teaming scenarios with defense scoring
+- Multi-Agent Sandbox — Simulation with replay and message inspector
+- Org Mode — Admin organization tab with team metrics and policy compliance
+- Community Voting — Authenticated up/down votes with rate limiting and reputation
+
 ### Atomic Deep-Dive Visualizers (February 2026)
 40+ interactive, slider-driven React components embedded inside 10 concept pages.
 Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict → Experiment → Synthesize).
@@ -200,8 +214,13 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - AI Skills Explorer: https://www.openagentschool.org/ai-skills/
 - Learning Atlas: https://www.openagentschool.org/learning-atlas/
 - Enterprise Playbook: https://www.openagentschool.org/playbook/
+- Phase 1 Lab: https://www.openagentschool.org/phase1-lab
+- Learning Analytics: https://www.openagentschool.org/analytics
+- Project Tracks: https://www.openagentschool.org/project-tracks
+- Safety Lab: https://www.openagentschool.org/safety-lab
+- Team Cohorts: https://www.openagentschool.org/cohorts
 
-## Enterprise Playbook Concept URLs (January 2026)
+## Enterprise Playbook Concept URLs(January 2026)
 
 - Program Setup & North Star: https://www.openagentschool.org/concepts/program-setup-north-star
 - Responsible AI Governance: https://www.openagentschool.org/concepts/responsible-ai-governance

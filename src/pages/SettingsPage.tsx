@@ -2,6 +2,7 @@ import React from 'react';
 import { APISettingsForm } from '@/components/settings/APISettingsForm';
 import { LearningProfileSettings } from '@/components/settings/LearningProfileSettings';
 import { EffectiveAccessPolicyPanel, PolicySimulationPanel } from '@/components/settings/PolicyControlPlaneSettings';
+import { FeatureFlagsSettings } from '@/components/settings/FeatureFlagsSettings';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -62,6 +63,11 @@ const SettingsPage: React.FC = () => {
           {isAdmin && (
             <TabsTrigger value="access-policies" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
               <ShieldCheck size={14} /> Access Policies
+            </TabsTrigger>
+          )}
+          {isAdmin && (
+            <TabsTrigger value="feature-flags" className="h-auto min-w-[11rem] flex-1 gap-2 px-3 py-2 text-xs sm:text-sm">
+              <Lightbulb size={14} /> Feature Flags
             </TabsTrigger>
           )}
           {isAdmin && (
@@ -129,6 +135,12 @@ const SettingsPage: React.FC = () => {
         <TabsContent value="access-policies" className="space-y-4">
           {isAdmin ? (
             <EffectiveAccessPolicyPanel />
+          ) : null}
+        </TabsContent>
+
+        <TabsContent value="feature-flags" className="space-y-4">
+          {isAdmin ? (
+            <FeatureFlagsSettings />
           ) : null}
         </TabsContent>
 

@@ -1,6 +1,6 @@
 # Open Agent School - ai.txt (experimental)
 # AI crawler context file for AI training and LLM discovery
-# Last updated: February 21, 2026
+# Last updated: February 27, 2026
 
 # Mission
 # Our mission: To benefit every Educational Institution, every Educator, and every Learner.
@@ -121,6 +121,25 @@ AI-Skills: https://www.openagentschool.org/ai-skills
 Playbook: https://www.openagentschool.org/playbook
 Learning-Atlas: https://www.openagentschool.org/learning-atlas
 Journey-Map: https://www.openagentschool.org/journey
+
+# Phase 1-3 Feature Pages (February 2026) — Login Required
+# Adaptive learning, hands-on practice, social collaboration, and safety training
+Phase1-Lab: https://www.openagentschool.org/phase1-lab
+# Personalized Learning Copilot 2.0, Knowledge Graph Navigator, Pattern Battle Arena, Spaced Repetition Review
+Learning-Analytics: https://www.openagentschool.org/analytics
+# Self-serve quiz trends, study streaks, spaced repetition mastery
+Project-Tracks: https://www.openagentschool.org/project-tracks
+# End-to-end capstone projects: Support Bot Builder, RAG Tutor Pipeline, Commerce Agent
+Pair-Programming: https://www.openagentschool.org/pair-programming
+# Guided coding exercises with auto-check and pattern linking
+Skill-Passport: https://www.openagentschool.org/skill-passport
+# Visual skill stamps and PDF certificate generation
+Team-Cohorts: https://www.openagentschool.org/cohorts
+# Mentor rooms, group challenges, study groups
+Safety-Lab: https://www.openagentschool.org/safety-lab
+# 12 red-teaming scenarios with interactive defense exercises and scoring
+Agent-Sandbox: https://www.openagentschool.org/sandbox
+# Multi-agent simulation with replay, message inspector, and role-based configs
 
 # Interactive Visualizations
 Infographic-LLM-Evaluation: https://www.openagentschool.org/images/LLM_Evaluation_Cheatsheet.png

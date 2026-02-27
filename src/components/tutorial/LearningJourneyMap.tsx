@@ -1008,6 +1008,64 @@ const learningPaths: LearningPath[] = [
         isCompleted: false,
         isUnlocked: true,
         path: '/quiz'
+      },
+
+      // Tier 6: Hands-On Practice (Phase 1-3 features — login required)
+      {
+        id: 'phase1-lab',
+        title: 'Phase 1 Lab',
+        description: 'Adaptive copilot, knowledge graph navigator, pattern battle arena, and spaced repetition review.',
+        icon: <Sparkle size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '20-30 min',
+        prerequisites: ['quiz', 'patterns'],
+        skills: ['Adaptive Learning', 'Knowledge Graphs', 'Pattern Comparison', 'Spaced Repetition'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/phase1-lab'
+      },
+      {
+        id: 'project-tracks',
+        title: 'Real-World Project Tracks',
+        description: 'End-to-end capstones: Support Bot Builder, RAG Tutor Pipeline, Commerce Agent.',
+        icon: <Target size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '4-8 hours',
+        prerequisites: ['phase1-lab', 'agent-architecture'],
+        skills: ['Project Planning', 'Milestone Tracking', 'End-to-End Building'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/project-tracks'
+      },
+      {
+        id: 'safety-lab',
+        title: 'Agent Safety Lab',
+        description: 'Practice defending AI agents with 12 red-teaming scenarios and interactive defense exercises.',
+        icon: <Shield size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '30-45 min',
+        prerequisites: ['prompt-injection-defense', 'agent-security'],
+        skills: ['Red Teaming', 'Defense Scoring', 'Guardrail Design', 'Attack Detection'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/safety-lab'
+      },
+      {
+        id: 'skill-passport',
+        title: 'Skill Passport & Certificates',
+        description: 'Earn visual skill stamps and generate verifiable PDF certificates for completed tracks.',
+        icon: <Trophy size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '10-15 min',
+        prerequisites: ['project-tracks'],
+        skills: ['Skill Evidence', 'Certification', 'Portfolio Building'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/skill-passport'
       }
     ]
   }
@@ -1031,7 +1089,8 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     'Tier 2: Architecture',
     'Tier 3: Implementation',
     'Tier 4: Advanced',
-    'Tier 5: Applied'
+    'Tier 5: Applied',
+    'Tier 6: Hands-On Practice'
   ];
   const tiers = [
     // Tier 0: Core Concepts - Design Taxonomy & Prompting Foundations
@@ -1045,7 +1104,9 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     // Tier 4: Advanced - Operations, Learning, Integration, Commerce, Robotics, Reasoning, Memory, Security
     ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'tri-system-paradigm', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization', 'proactive-agent-design'],
     // Tier 5: Applied - Career, Enterprise Adoption, Templates
-    ['agent-troubleshooting', 'agent-economics', 'agent-career-paths', 'industry-agents', 'agent-templates-hub']
+    ['agent-troubleshooting', 'agent-economics', 'agent-career-paths', 'industry-agents', 'agent-templates-hub'],
+    // Tier 6: Hands-On Practice - Phase 1-3 features (login required)
+    ['phase1-lab', 'project-tracks', 'safety-lab', 'skill-passport']
   ];
   const supplementalResourceIds = ['azure-services', 'references', 'community', 'patterns', 'quiz'];
 

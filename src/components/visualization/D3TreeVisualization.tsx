@@ -279,6 +279,21 @@ export default function D3TreeVisualization({
           children: collapsedNodes.has('operating-model') ? [] : [
             { id: 'organizational-enablement', name: 'Organizational Enablement', type: 'concept' as const, novel: true }
           ]
+        },
+        {
+          id: 'hands-on-practice',
+          name: 'Hands-On Practice (Login Required)',
+          type: 'category' as const,
+          children: collapsedNodes.has('hands-on-practice') ? [] : [
+            { id: 'phase1-lab', name: 'Phase 1 Lab', type: 'quiz' as const, novel: true },
+            { id: 'learner-analytics', name: 'Learner Analytics', type: 'quiz' as const, novel: true },
+            { id: 'project-tracks', name: 'Project Tracks', type: 'concept' as const, novel: true },
+            { id: 'pair-programming-studio', name: 'Pair Programming Studio', type: 'concept' as const, novel: true },
+            { id: 'skill-passport', name: 'Skill Passport & Certificates', type: 'concept' as const, novel: true },
+            { id: 'cohorts', name: 'Team Cohorts', type: 'concept' as const, novel: true },
+            { id: 'safety-lab', name: 'Agent Safety Lab', type: 'concept' as const, novel: true },
+            { id: 'multi-agent-sandbox', name: 'Multi-Agent Sandbox', type: 'concept' as const, novel: true }
+          ]
         }
       ]
     };
