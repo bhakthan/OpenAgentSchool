@@ -247,13 +247,13 @@ const PatternExplorer = () => {
           </Button>
 
           <Button
-            size="lg"
+            variant="outline"
             onClick={() => setModalOpen(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl flex items-center gap-2"
+            className="flex items-center gap-1.5"
           >
-            <Question size={20} weight="bold" />
-            <span className="hidden sm:inline">Critical Thinking Challenge</span>
-            <span className="sm:hidden">Challenge</span>
+            <Question size={16} weight="bold" />
+            <span className="hidden sm:inline">Challenge</span>
+            <span className="sm:hidden"><Question size={16} /></span>
           </Button>
         </div>
       </div>

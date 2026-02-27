@@ -985,6 +985,14 @@ export default function ConceptsHub({
         )}
       </div>
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
+        <Button
+          variant="outline"
+          onClick={() => setModalOpen(true)}
+          className="flex items-center gap-1.5 text-sm w-full sm:w-auto"
+        >
+          <Question size={16} weight="bold" />
+          Challenge
+        </Button>
         <Button variant="outline" onClick={handleBackToHub} className="w-full sm:w-auto">
           Back to Concepts
         </Button>
@@ -1027,15 +1035,6 @@ export default function ConceptsHub({
                 onNavigateToNext={handleNextConcept}
               />
             </Suspense>
-            
-            <Button
-              size="lg"
-              onClick={() => setModalOpen(true)}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl flex items-center justify-center gap-2"
-            >
-              <Question size={20} weight="bold" />
-              Critical Thinking Challenge
-            </Button>
             
             {/* Navigation Buttons */}
             <ConceptNavigation />
