@@ -1,6 +1,6 @@
 /**
  * OAuth Callback Handler
- * Handles OAuth redirects from Microsoft and Google
+ * Handles OAuth redirects from Microsoft, Google, and GitHub
  */
 
 import { useEffect, useState } from 'react';
@@ -35,7 +35,7 @@ export default function OAuthCallbackPage() {
         return;
       }
 
-      if (!provider || (provider !== 'microsoft' && provider !== 'google')) {
+      if (!provider || !['microsoft', 'google', 'github'].includes(provider)) {
         setError('Invalid OAuth provider');
         toast.error('Invalid OAuth provider');
         setTimeout(() => navigate('/auth'), 3000);
