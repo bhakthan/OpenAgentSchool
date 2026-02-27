@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, lazy, Suspense } from "react"
 import ConceptLayout from "./ConceptLayout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -18,6 +18,289 @@ import {
 } from "@phosphor-icons/react"
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton"
 import { conceptSurface, conceptCodeBlock } from "./conceptStyles"
+
+const MermaidDiagram = lazy(() => import("@/components/ui/MermaidDiagram"))
+
+const Mermaid = ({ chart, className = "" }: { chart: string; className?: string }) => (
+  <Suspense fallback={<div className="animate-pulse h-32 rounded bg-muted" />}>
+    <MermaidDiagram chart={chart} className={className} />
+  </Suspense>
+)
+
+/* ─── Mermaid chart definitions ─── */
+
+const CHART_CONVERGENCE = `graph TB
+    subgraph Convergence["CONVERGENCE FACTORS"]
+        Tech["TECHNICAL MATURITY<br/>• Reliable reasoning<br/>• Tool use capability<br/>• Long-term memory<br/>• Structured outputs"]
+        Econ["ECONOMIC PRESSURE<br/>• Labor costs rising 8%+<br/>• 24/7 ops expected<br/>• Speed as advantage"]
+        Cog["COGNITIVE LIMITS<br/>• Signal overload epidemic<br/>• Expertise scarcity<br/>• Burnout crisis"]
+    end
+    Tech --> Emergence
+    Econ --> Emergence
+    Cog --> Emergence
+    Emergence["PROACTIVE AI EMERGENCE<br/>Necessary & Now Possible"]
+    style Emergence fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
+    style Tech fill:#2196F3,stroke:#1565C0,color:#fff
+    style Econ fill:#FF9800,stroke:#E65100,color:#fff
+    style Cog fill:#F44336,stroke:#C62828,color:#fff`
+
+const CHART_EVOLUTION = `graph TD
+    L1["LEVEL 1: COMMANDS (2020-2022)<br/>Single-turn instructions<br/>Human maintains all context"]
+    L2["LEVEL 2: CONVERSATIONS (2022-2024)<br/>Multi-turn with context retention<br/>Session-bounded memory"]
+    L3["LEVEL 3: DELEGATION (2024+)<br/>Persistent, continuous operation<br/>Goal-driven, not instruction-driven"]
+    L4["LEVEL 4: OBJECTIVES (2025+)<br/>Outcome-oriented authorization<br/>Agent determines methods"]
+    L1 --> L2 --> L3 --> L4
+    style L1 fill:#BBDEFB,stroke:#1976D2
+    style L2 fill:#C5E1A5,stroke:#558B2F
+    style L3 fill:#FFE082,stroke:#F57F17
+    style L4 fill:#FF8A65,stroke:#D84315`
+
+const CHART_SECURITY_SOC = `graph TB
+    subgraph Current["CURRENT STATE: Reactive SOC"]
+        SIEM[SIEM System<br/>10,000+ alerts/day]
+        Queue[Alert Queue<br/>95%+ false positives]
+        Analyst[Analyst Triage<br/>4-hour avg response]
+        Manual[Manual Response<br/>High burnout]
+        SIEM --> Queue --> Analyst --> Manual
+    end
+    subgraph Future["FUTURE STATE: Proactive Agent Mesh"]
+        direction TB
+        subgraph Monitors["Continuous Threat Monitoring"]
+            EP[Endpoint Agent]
+            NW[Network Agent]
+            ID[Identity Agent]
+        end
+        Corr[Correlation Agent<br/>• Cross-domain analysis<br/>• Attack chain detection]
+        Auto[Automated Response<br/>• Isolate host<br/>• Block IP<br/>• Revoke token]
+        Esc[Human Escalation<br/>• Attack narrative<br/>• Evidence chain]
+        Hunt[Proactive Hunt Mode<br/>• Scan for dormant threats<br/>• Test detection rules]
+        EP --> Corr
+        NW --> Corr
+        ID --> Corr
+        Corr --> Auto
+        Corr --> Esc
+        Corr --> Hunt
+    end
+    style Current fill:#FFCDD2,stroke:#C62828
+    style Future fill:#C8E6C9,stroke:#2E7D32
+    style Corr fill:#FFF59D,stroke:#F57F17`
+
+const CHART_SUPPLY_CHAIN = `graph TB
+    subgraph Agents["AGENT MESH"]
+        Demand[Demand Sensing Agent<br/>• POS data monitoring<br/>• Social sentiment<br/>• Weather patterns]
+        Risk[Supply Risk Agent<br/>• Financial health<br/>• Geopolitical risk<br/>• Transportation disruptions]
+        Logistics[Logistics Orchestration<br/>• Carrier capacity<br/>• Port congestion<br/>• Last-mile performance]
+    end
+    Demand --> Logistics
+    Risk --> Logistics
+    subgraph Supply["SUPPLY CHAIN TIERS"]
+        T1[Tier 1 Suppliers<br/>Full visibility]
+        T2[Tier 2 Suppliers<br/>Partial visibility]
+        T3[Tier 3+ Sources<br/>Signal monitoring]
+        T3 --> T2 --> T1
+    end
+    Risk -.->|Monitors| T1
+    Risk -.->|Monitors| T2
+    Risk -.->|Monitors| T3
+    style Risk fill:#FFCCBC,stroke:#D84315,stroke-width:2px
+    style Demand fill:#B3E5FC,stroke:#01579B,stroke-width:2px
+    style Logistics fill:#C5E1A5,stroke:#558B2F,stroke-width:2px`
+
+const CHART_CUSTOMER_SUCCESS = `graph TB
+    subgraph Proactive["PROACTIVE CUSTOMER SUCCESS"]
+        Orch[Customer Health Orchestrator<br/>Maximize customer lifetime value]
+        Health[Health Monitor Agent<br/>Continuous scoring]
+        Expand[Expansion Scout Agent<br/>Growth signals]
+        Rescue[Rescue Squad Agent<br/>Risk intervention]
+        Orch --> Health
+        Orch --> Expand
+        Orch --> Rescue
+        subgraph Signals["Always Monitoring"]
+            Product[Product Signals<br/>Login, features, errors]
+            Comm[Communication Signals<br/>Support sentiment]
+            Business[Business Signals<br/>Contract, payment]
+            External[External Signals<br/>Company news]
+        end
+        Product --> Health
+        Comm --> Health
+        Business --> Health
+        External --> Health
+    end
+    style Proactive fill:#C8E6C9,stroke:#2E7D32
+    style Orch fill:#FFF59D,stroke:#F57F17,stroke-width:3px`
+
+const CHART_COMPLIANCE_SEQ = `sequenceDiagram
+    participant Reg as Regulatory Body
+    participant Scanner as Horizon Scanner
+    participant Impact as Impact Analyzer
+    participant Policy as Policy Agent
+    participant CCO as Compliance Officer
+    Reg->>Scanner: Draft regulation published
+    Note over Scanner: Day 0, Hour 0
+    Scanner->>Scanner: Relevance assessment (94%)
+    Scanner->>Impact: Forward for analysis
+    Note over Impact: Hour 0.1
+    Impact->>Impact: Identify affected systems
+    Impact->>Policy: Requirements identified
+    Note over Policy: Hour 0.3
+    Policy->>Policy: Draft policy updates
+    Impact->>CCO: Executive summary ready
+    Policy->>CCO: Draft updates attached
+    Note over CCO: Hour 4 — Full package ready`
+
+const CHART_OPERATING_MODEL = `graph TB
+    subgraph Old["FROM: Human-Centric Execution"]
+        Exec1[Executives — Strategy]
+        Mgmt1[Middle Management]
+        Spec1[Specialists — Execution]
+        Exec1 -->|Direct| Mgmt1
+        Mgmt1 -->|Monitor| Spec1
+    end
+    subgraph New["TO: Human-AI Partnership"]
+        Human[Humans<br/>Strategic Direction<br/>Governance & Oversight]
+        AgentMesh[AGENT MESH<br/>• Execute<br/>• Adapt<br/>• Escalate]
+        Ops[Continuous Operations<br/>Proactive optimization]
+        Human -->|Set objectives| AgentMesh
+        Human -->|Define boundaries| AgentMesh
+        AgentMesh -->|Execute within authority| Ops
+        AgentMesh -->|Escalate decisions| Human
+    end
+    style Old fill:#FFCDD2,stroke:#C62828
+    style New fill:#C8E6C9,stroke:#2E7D32
+    style AgentMesh fill:#FFF59D,stroke:#F57F17,stroke-width:3px`
+
+const CHART_RISKS = `graph TB
+    subgraph Risks["KEY RISKS"]
+        R1[Cascade Failures<br/>Agent errors propagate]
+        R2[Authority Creep<br/>Agents exceed intended scope]
+        R3[Automation Complacency<br/>Humans stop reviewing]
+        R4[Context Decay<br/>Stale persistent context]
+        R5[Objective Misalignment<br/>Optimize proxy, not intent]
+    end
+    subgraph Mitigations["MITIGATIONS"]
+        M1[Rate Limiting<br/>Cascade Detection<br/>Cooling Periods]
+        M2[Hard Limits<br/>Periodic Audits<br/>Re-authorization Cycles]
+        M3[Synthetic Tests<br/>Rotated Reviews<br/>Random Deep Audits]
+        M4[Freshness Monitoring<br/>Confidence Decay<br/>Contradiction Detection]
+        M5[Multiple Metrics<br/>Lagging Indicators<br/>Objective Recalibration]
+    end
+    R1 --> M1
+    R2 --> M2
+    R3 --> M3
+    R4 --> M4
+    R5 --> M5
+    style Risks fill:#FFCDD2,stroke:#C62828
+    style Mitigations fill:#C8E6C9,stroke:#2E7D32`
+
+const CHART_GOVERNANCE = `graph TB
+    subgraph Policies["POLICY DEFINITION"]
+        OrgPolicy[Organization Policies]
+        AgentPolicy[Agent-Specific Policies]
+        RolePolicy[Role-Based Policies]
+    end
+    Broker[Authority Broker]
+    Policies --> Broker
+    subgraph Enforcement["ENFORCEMENT"]
+        PreAuth[Pre-Action Authorization]
+        RateLim[Rate Limiting]
+        Scope[Scope Validation]
+        AuditLog[Audit Logging]
+    end
+    Broker --> Enforcement
+    subgraph Controls["RUNTIME CONTROLS"]
+        CircuitBreak[Circuit Breaker]
+        CostLimit[Cost Limiter]
+        HumanLoop[Human-in-Loop Triggers]
+    end
+    Enforcement --> Controls
+    Decision{Authorization Decision}
+    Controls --> Decision
+    Approve[Approve & Log]
+    Escalate[Escalate to Human]
+    Deny[Deny & Alert]
+    Decision -->|Authorized| Approve
+    Decision -->|Requires Review| Escalate
+    Decision -->|Prohibited| Deny
+    style Broker fill:#E1BEE7,stroke:#6A1B9A,stroke-width:3px
+    style Decision fill:#FFF59D,stroke:#F57F17,stroke-width:2px`
+
+const CHART_PLATFORM_ARCH = `graph TB
+    subgraph Presentation["PRESENTATION LAYER"]
+        OpsCon[Operator Console]
+        BizDash[Business Dashboard]
+        GovPortal[Governance Portal]
+        API[API Gateway]
+    end
+    subgraph Orchestration["ORCHESTRATION LAYER"]
+        Workflow[Workflow Engine]
+        EventRouter[Event Router]
+        PriorityQueue[Priority Queue]
+        AuthBroker[Authority Broker]
+    end
+    subgraph Runtime["AGENT RUNTIME LAYER"]
+        AgentPool[Agent Pool Manager]
+        ContextStore[Context Store]
+        ToolRegistry[Tool Registry]
+        Memory[Memory System]
+    end
+    subgraph Services["PLATFORM SERVICES"]
+        Observ[Observability]
+        Gov[Governance]
+        Sec[Security]
+        Audit[Audit]
+    end
+    subgraph Integration["INTEGRATION LAYER"]
+        Enterprise[Enterprise Systems]
+        External[External APIs]
+        DataSources[Data Sources]
+    end
+    Presentation --> Orchestration
+    Orchestration --> Runtime
+    Runtime --> Services
+    Runtime --> Integration
+    style Orchestration fill:#E1BEE7,stroke:#6A1B9A,stroke-width:2px
+    style Runtime fill:#B3E5FC,stroke:#01579B,stroke-width:2px
+    style Services fill:#C5E1A5,stroke:#558B2F,stroke-width:2px`
+
+const CHART_COMPONENT_FLOW = `sequenceDiagram
+    participant Event as Event Source
+    participant Router as Event Router
+    participant Auth as Authority Broker
+    participant Agent as Agent Instance
+    participant Tool as Tool/Integration
+    participant Human as Human Operator
+    Event->>Router: Incoming event/signal
+    Router->>Router: Route to appropriate agent
+    Router->>Auth: Check agent authority
+    Auth->>Auth: Validate scope & permissions
+    alt Agent has authority
+        Auth->>Agent: Authorize & activate
+        Agent->>Agent: Reason about action
+        alt Within autonomous bounds
+            Agent->>Tool: Execute action
+            Tool-->>Agent: Result
+        else Requires human approval
+            Agent->>Human: Escalate with recommendation
+            Human-->>Agent: Approve/modify/reject
+            Agent->>Tool: Execute approved action
+        end
+    else Authority exceeded
+        Auth->>Human: Immediate escalation
+    end`
+
+const CHART_DEV_LIFECYCLE = `graph LR
+    Design[1. Design<br/>Objectives<br/>Authority boundaries]
+    Develop[2. Develop<br/>Implement agent<br/>Configure tools]
+    Test[3. Test<br/>Unit + Integration<br/>Simulation]
+    Review[4. Review<br/>Code + Security<br/>Governance]
+    Deploy[5. Deploy<br/>Staging → Canary<br/>→ Production]
+    Monitor[6. Monitor<br/>Performance<br/>Outcomes]
+    Optimize[7. Optimize<br/>Refine prompts<br/>Expand authority]
+    Design --> Develop --> Test --> Review --> Deploy --> Monitor --> Optimize
+    Optimize -.->|Continuous improvement| Design
+    style Design fill:#E1BEE7,stroke:#6A1B9A
+    style Deploy fill:#FFF59D,stroke:#F57F17
+    style Monitor fill:#B3E5FC,stroke:#01579B`
 
 interface ProactiveAgentDesignConceptProps {
   onMarkComplete?: () => void
@@ -119,12 +402,13 @@ export default function ProactiveAgentDesignConcept({
             </CardContent>
           </Card>
 
-          {/* Convergence factors */}
+          {/* Convergence factors — Mermaid diagram */}
           <Card>
             <CardHeader>
               <CardTitle>Why Now? Three Converging Forces</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-4">
+              <Mermaid chart={CHART_CONVERGENCE} className="py-2" />
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className={conceptSurface("p-4")}>
                   <h4 className="font-bold mb-2 flex items-center gap-1"><Gear className="w-4 h-4" /> Technical Maturity</h4>
@@ -177,6 +461,8 @@ export default function ProactiveAgentDesignConcept({
               <CardTitle>Evolution of Human-AI Communication</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
+              <Mermaid chart={CHART_EVOLUTION} className="py-2" />
+
               {/* Level 1 */}
               <div className={conceptSurface("p-4")}>
                 <h4 className="font-bold text-sm uppercase tracking-wide mb-2 text-muted-foreground">Level 1 — Commands (2020–2022)</h4>
@@ -341,6 +627,7 @@ Agent: [Interprets objective, develops strategy, executes]`}</pre>
                 {/* Security Operations */}
                 <TabsContent value="security" className="space-y-4">
                   <SectionHeading icon={<ShieldCheck className="w-5 h-5" />}>Security Operations Center Transformation</SectionHeading>
+                  <Mermaid chart={CHART_SECURITY_SOC} className="py-2" />
                   <div className={conceptSurface("p-4")}>
                     <h4 className="font-bold mb-2">Current State Pain Points</h4>
                     <ul className="text-sm text-muted-foreground space-y-1">
@@ -430,6 +717,7 @@ Agent: [Interprets objective, develops strategy, executes]`}</pre>
                 {/* Supply Chain */}
                 <TabsContent value="supply-chain" className="space-y-4">
                   <SectionHeading icon={<ArrowsOut className="w-5 h-5" />}>Supply Chain Disruption Management</SectionHeading>
+                  <Mermaid chart={CHART_SUPPLY_CHAIN} className="py-2" />
 
                   <div className={conceptSurface("p-4")}>
                     <h4 className="font-bold mb-2">Three-Agent Supply Chain Mesh</h4>
@@ -478,6 +766,7 @@ Agent: [Interprets objective, develops strategy, executes]`}</pre>
                 {/* Customer Success */}
                 <TabsContent value="customer-success" className="space-y-4">
                   <SectionHeading icon={<Users className="w-5 h-5" />}>Customer Success & Revenue Protection</SectionHeading>
+                  <Mermaid chart={CHART_CUSTOMER_SUCCESS} className="py-2" />
                   <div className={conceptSurface("p-4")}>
                     <h4 className="font-bold mb-2">Traditional CSM: The Coverage Gap</h4>
                     <p className="text-sm text-muted-foreground">CSM manages 50+ accounts. Reality: deep engagement with ~10, surface with rest. Churn surprises and missed expansion are the norm.</p>
@@ -539,6 +828,7 @@ Agent: [Interprets objective, develops strategy, executes]`}</pre>
                     </div>
                   </div>
 
+                  <Mermaid chart={CHART_COMPLIANCE_SEQ} className="py-2" />
                   <div className={conceptSurface("p-4 border-l-4 border-blue-500")}>
                     <h4 className="font-bold mb-2">Scenario: New EU AI Decision-Making Regulation</h4>
                     <div className="space-y-1 text-sm">
@@ -577,6 +867,7 @@ Agent: [Interprets objective, develops strategy, executes]`}</pre>
               <CardTitle>The Operating Model Shift</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              <Mermaid chart={CHART_OPERATING_MODEL} className="py-2" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className={conceptSurface("p-4")}>
                   <h4 className="font-bold mb-2">From: Human-Centric Execution</h4>
@@ -743,6 +1034,7 @@ Agent: [Interprets objective, develops strategy, executes]`}</pre>
               <CardTitle>Proactive AI Risk Landscape</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              <Mermaid chart={CHART_RISKS} className="py-2" />
               {[
                 {
                   risk: "Cascade Failures",
@@ -811,6 +1103,17 @@ Agent: [Interprets objective, develops strategy, executes]`}</pre>
                   </div>
                 </div>
               ))}
+            </CardContent>
+          </Card>
+
+          {/* Authority & Governance Framework */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Authority & Governance Framework</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Mermaid chart={CHART_GOVERNANCE} className="py-2" />
+              <p className="text-sm text-muted-foreground mt-2">Every agent action passes through the Authority Broker, which validates scope, enforces rate limits, and routes to human approval when thresholds are exceeded.</p>
             </CardContent>
           </Card>
 
@@ -919,6 +1222,7 @@ Agent: [Interprets objective, develops strategy, executes]`}</pre>
               <CardTitle>Technical Requirements — Platform Architecture</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              <Mermaid chart={CHART_PLATFORM_ARCH} className="py-2" />
               <pre className={conceptCodeBlock("p-4 text-xs")}>{`PROACTIVE AI AGENT PLATFORM — LAYERED ARCHITECTURE
 
 ┌────────────────────────────────────────────────┐
@@ -946,6 +1250,28 @@ Agent: [Interprets objective, develops strategy, executes]`}</pre>
 │  Enterprise APIs · Event Streams               │
 │  Data Connectors · External Services           │
 └────────────────────────────────────────────────┘`}</pre>
+            </CardContent>
+          </Card>
+
+          {/* Component Interaction Flow */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Component Interaction Flow</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Mermaid chart={CHART_COMPONENT_FLOW} className="py-2" />
+              <p className="text-sm text-muted-foreground mt-2">Events flow through the router → authority broker → agent runtime. Actions within autonomous bounds execute directly; those beyond require human approval before proceeding.</p>
+            </CardContent>
+          </Card>
+
+          {/* Agent Development Lifecycle */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Agent Development Lifecycle</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Mermaid chart={CHART_DEV_LIFECYCLE} className="py-2" />
+              <p className="text-sm text-muted-foreground mt-2">A seven-stage continuous loop: design agent objectives and authority → develop with tools → test (unit, integration, adversarial) → review (security + governance) → deploy (canary) → monitor outcomes → optimize and expand authority.</p>
             </CardContent>
           </Card>
 
