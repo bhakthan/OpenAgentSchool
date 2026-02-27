@@ -296,6 +296,10 @@ export function getComponentAudioFile(componentName: string): string {
     'tri-system-paradigm': 'TriSystemParadigmConcept_explanation',
     'TriSystemParadigmConcept': 'TriSystemParadigmConcept_explanation',
     
+    // Proactive Agent Design
+    'proactive-agent-design': 'ProactiveAgentDesignConcept_explanation',
+    'ProactiveAgentDesignConcept': 'ProactiveAgentDesignConcept_explanation',
+    
     // Add more mappings as needed
   };
 

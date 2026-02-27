@@ -14,6 +14,7 @@ import {
   Gear,
   ArrowRight,
   Buildings,
+  Image,
 } from "@phosphor-icons/react"
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton"
 import { conceptSurface, conceptCodeBlock } from "./conceptStyles"
@@ -56,6 +57,18 @@ export default function ProactiveAgentDesignConcept({
       level: "advanced" as const,
       content: (
         <div className="space-y-6">
+          {/* Infographic Hero */}
+          <Card>
+            <CardContent className="p-0 overflow-hidden rounded-lg">
+              <img
+                src="/images/infographics/Proactive_Design_For_Agents.webp"
+                alt="Proactive Agent Design infographic — from reactive copilots to autonomous sentinels"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -995,6 +1008,34 @@ Agent: [Interprets objective, develops strategy, executes]`}</pre>
             title="Implementation Roadmap"
             customPrompt="Outline a three-phase implementation roadmap for transitioning an enterprise from reactive to proactive AI agents, including technical requirements and organizational changes needed at each phase."
           />
+        </div>
+      ),
+    },
+    /* ────────────── TAB 7: Comprehensive Visual Guide ────────────── */
+    {
+      id: "visual-guide",
+      title: "Visual Guide",
+      description: "Comprehensive illustrated reference for reactive-to-proactive transition",
+      icon: <Image className="w-4 h-4" />,
+      level: "advanced" as const,
+      content: (
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Image className="w-5 h-5" />
+                From Reactive to Proactive Agents — Comprehensive Guide
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0 overflow-hidden rounded-b-lg">
+              <img
+                src="/images/infographics/From_reactive_to_proactive_agents_Comprehensive_Guide.webp"
+                alt="From reactive to proactive agents — comprehensive visual guide covering paradigm shift, authority delegation, enterprise scenarios, and implementation roadmap"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </CardContent>
+          </Card>
         </div>
       ),
     },
