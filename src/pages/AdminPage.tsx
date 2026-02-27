@@ -6,7 +6,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { adminAPI, AdminUser, PlatformStats, SystemHealth } from '@/lib/api/admin';
+import { adminAPI, AdminUser, PlatformStats, SystemHealth, PendingPost } from '@/lib/api/admin';
 import { useAuth } from '@/lib/auth/AuthContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -37,7 +37,11 @@ import {
   Prohibit,
   CheckCircle,
   ArrowClockwise,
+  ChatText,
+  Clock,
+  XCircle,
 } from '@phosphor-icons/react';
+import { Textarea } from '@/components/ui/textarea';
 
 // ── Stats card component ─────────────────────────────────────────────────
 
@@ -277,6 +281,7 @@ function StatsTab() {
       <StatCard label="Quiz Attempts" value={stats.total_quiz_attempts} icon={ChartBar} />
       <StatCard label="Study Sessions" value={stats.total_study_sessions} icon={ChartBar} description="Socratic study mode sessions" />
       <StatCard label="Community Posts" value={stats.total_community_posts} icon={Users} description="Forum / community posts" />
+      <StatCard label="Pending Posts" value={stats.pending_community_posts} icon={Clock} description="Awaiting admin review" />
     </div>
   );
 }
@@ -345,6 +350,161 @@ function HealthTab() {
   );
 }
 
+// ── Post moderation tab ──────────────────────────────────────────────────
+
+function PostModerationTab() {
+  const queryClient = useQueryClient();
+  const [noteMap, setNoteMap] = useState<Record<number, string>>({});
+
+  const { data: posts = [], isLoading, error } = useQuery({
+    queryKey: ['admin', 'pending-posts'],
+    queryFn: () => adminAPI.getPendingPosts(),
+    refetchInterval: 15_000,
+  });
+
+  const approveMutation = useMutation({
+    mutationFn: ({ postId, note }: { postId: number; note?: string }) =>
+      adminAPI.approvePost(postId, note),
+    onSuccess: (post) => {
+      queryClient.invalidateQueries({ queryKey: ['admin', 'pending-posts'] });
+      queryClient.invalidateQueries({ queryKey: ['admin', 'stats'] });
+      toast.success(`Post "${post.title}" approved`);
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.detail || 'Failed to approve post');
+    },
+  });
+
+  const rejectMutation = useMutation({
+    mutationFn: ({ postId, note }: { postId: number; note?: string }) =>
+      adminAPI.rejectPost(postId, note),
+    onSuccess: (post) => {
+      queryClient.invalidateQueries({ queryKey: ['admin', 'pending-posts'] });
+      queryClient.invalidateQueries({ queryKey: ['admin', 'stats'] });
+      toast.success(`Post "${post.title}" rejected`);
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.detail || 'Failed to reject post');
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card>
+        <CardContent className="py-8 text-center text-destructive">
+          Failed to load pending posts. Check backend connectivity.
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (posts.length === 0) {
+    return (
+      <Card>
+        <CardContent className="flex flex-col items-center justify-center py-12 space-y-3">
+          <CheckCircle size={48} className="text-emerald-500" weight="duotone" />
+          <h3 className="text-lg font-semibold">All Caught Up</h3>
+          <p className="text-muted-foreground text-sm">No community posts pending review.</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Pending Community Posts</CardTitle>
+          <CardDescription>
+            {posts.length} post{posts.length !== 1 ? 's' : ''} awaiting review
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {posts.map((post) => (
+            <Card key={post.id} className="border-amber-500/30">
+              <CardHeader className="pb-2">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="text-base">{post.title}</CardTitle>
+                    <CardDescription className="text-xs mt-1">
+                      By {post.author_name || `User #${post.author_id}`}
+                      {post.category && (
+                        <Badge variant="secondary" className="ml-2 text-[10px]">
+                          {post.category}
+                        </Badge>
+                      )}
+                      <span className="ml-2">
+                        {new Date(post.created_at).toLocaleDateString()}
+                      </span>
+                    </CardDescription>
+                  </div>
+                  <Badge className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20">
+                    <Clock className="w-3 h-3 mr-1" weight="fill" />
+                    Pending
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap line-clamp-4">
+                  {post.content}
+                </p>
+                <div className="space-y-2">
+                  <Textarea
+                    placeholder="Optional admin note..."
+                    className="text-sm h-16"
+                    value={noteMap[post.id] || ''}
+                    onChange={(e) =>
+                      setNoteMap((prev) => ({ ...prev, [post.id]: e.target.value }))
+                    }
+                  />
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                      onClick={() =>
+                        approveMutation.mutate({
+                          postId: post.id,
+                          note: noteMap[post.id],
+                        })
+                      }
+                      disabled={approveMutation.isPending}
+                    >
+                      <CheckCircle className="w-4 h-4 mr-1" weight="bold" />
+                      Approve
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() =>
+                        rejectMutation.mutate({
+                          postId: post.id,
+                          note: noteMap[post.id],
+                        })
+                      }
+                      disabled={rejectMutation.isPending}
+                    >
+                      <XCircle className="w-4 h-4 mr-1" weight="bold" />
+                      Reject
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 // ── Main admin page ──────────────────────────────────────────────────────
 
 const AdminPage: React.FC = () => {
@@ -366,6 +526,9 @@ const AdminPage: React.FC = () => {
           <TabsTrigger value="users" className="gap-2">
             <Users className="w-4 h-4" /> Users
           </TabsTrigger>
+          <TabsTrigger value="posts" className="gap-2">
+            <ChatText className="w-4 h-4" /> Posts
+          </TabsTrigger>
           <TabsTrigger value="stats" className="gap-2">
             <ChartBar className="w-4 h-4" /> Stats
           </TabsTrigger>
@@ -376,6 +539,10 @@ const AdminPage: React.FC = () => {
 
         <TabsContent value="users">
           <UsersTab />
+        </TabsContent>
+
+        <TabsContent value="posts">
+          <PostModerationTab />
         </TabsContent>
 
         <TabsContent value="stats">

@@ -3,28 +3,34 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Info } from "@phosphor-icons/react";
+import { Info, SignIn, Clock } from "@phosphor-icons/react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutorialButton';
+import { useAuth } from '@/lib/auth/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const CommunitySharing = () => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [patternName, setPatternName] = useState("");
   const [description, setDescription] = useState("");
   const [implementation, setImplementation] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const handleShare = () => {
     // In a real implementation, this would save to a database
-    toast.success("Pattern shared successfully! Thank you for your contribution.", {
-      description: "The community will benefit from your knowledge."
+    toast.success("Pattern submitted for review!", {
+      description: "An admin will review your submission before it goes live."
     });
     
-    // Reset form
+    // Reset form and show pending state
     setPatternName("");
     setDescription("");
     setImplementation("");
+    setSubmitted(true);
   };
 
   return (
@@ -49,12 +55,43 @@ const CommunitySharing = () => {
         </TabsList>
         
         <TabsContent value="contribute">
+          {!isAuthenticated ? (
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center py-12 space-y-4">
+                <SignIn size={48} className="text-muted-foreground" weight="duotone" />
+                <h3 className="text-lg font-semibold">Sign in to Contribute</h3>
+                <p className="text-muted-foreground text-center max-w-md">
+                  You need to be logged in to share agent patterns with the community. 
+                  Sign in to start contributing!
+                </p>
+                <Button onClick={() => navigate('/login')}>
+                  <SignIn size={18} className="mr-2" />
+                  Sign In
+                </Button>
+              </CardContent>
+            </Card>
+          ) : submitted ? (
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center py-12 space-y-4">
+                <Clock size={48} className="text-amber-500" weight="duotone" />
+                <h3 className="text-lg font-semibold">Submission Under Review</h3>
+                <p className="text-muted-foreground text-center max-w-md">
+                  Your pattern has been submitted and is pending admin approval. 
+                  You'll see it in the community once it's been reviewed.
+                </p>
+                <Button variant="outline" onClick={() => setSubmitted(false)}>
+                  Submit Another Pattern
+                </Button>
+              </CardContent>
+            </Card>
+          ) : (
           <div className="grid gap-6">
             <Alert className="bg-muted [&>div:last-child]:col-start-2 [&>div:last-child]:w-full">
               <Info size={20} className="h-5 w-5" />
               <AlertTitle>Sharing Guidelines</AlertTitle>
               <AlertDescription className="whitespace-normal break-words text-wrap leading-relaxed w-full overflow-hidden">
-                Share your agent pattern implementations, experiences, and best practices to help others. Please provide clear descriptions and implementation details.
+                Share your agent pattern implementations, experiences, and best practices to help others. 
+                All submissions are reviewed by an admin before being published.
               </AlertDescription>
             </Alert>
             
@@ -104,6 +141,7 @@ const CommunitySharing = () => {
               </CardContent>
             </Card>
           </div>
+          )}
         </TabsContent>
         
         <TabsContent value="browse">

@@ -13,14 +13,20 @@ import {
   SortAscending, 
   SortDescending, 
   ClockCounterClockwise,
-  ThumbsUp
+  ThumbsUp,
+  SignIn,
+  Clock
 } from '@phosphor-icons/react';
 import { PatternType } from '@/lib/data/patterns/index';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { useKV } from '@/hooks/useLocalStorage';
 import { toast } from 'sonner';
+import { useAuth } from '@/lib/auth/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function CommunityHub() {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   // Get the patterns from the KV store, with initial data from communityPatterns
   const [storedPatterns, setStoredPatterns] = useKV<CommunityPattern[]>('community-patterns', communityPatterns);
   
@@ -74,8 +80,10 @@ export default function CommunityHub() {
     setStoredPatterns([...storedPatterns, newPattern]);
     setView('list');
     
-    // Show success message
-    toast.success('Your pattern has been shared with the community!');
+    // Show success message with pending notice
+    toast.success('Your pattern has been submitted for review!', {
+      description: 'An admin will review your submission before it goes live.',
+    });
   };
   
   return (
@@ -88,10 +96,17 @@ export default function CommunityHub() {
           </p>
         </div>
         {view === 'list' && (
-          <Button onClick={() => setView('form')}>
-            <Plus size={18} className="mr-2" />
-            Share Your Pattern
-          </Button>
+          isAuthenticated ? (
+            <Button onClick={() => setView('form')}>
+              <Plus size={18} className="mr-2" />
+              Share Your Pattern
+            </Button>
+          ) : (
+            <Button variant="outline" onClick={() => navigate('/login')}>
+              <SignIn size={18} className="mr-2" />
+              Sign in to Share
+            </Button>
+          )
         )}
       </div>
       

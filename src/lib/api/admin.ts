@@ -39,12 +39,26 @@ export interface PlatformStats {
   total_quiz_attempts: number;
   total_study_sessions: number;
   total_community_posts: number;
+  pending_community_posts: number;
 }
 
 export interface SystemHealth {
   status: 'healthy' | 'degraded';
   services: Record<string, string>;
   timestamp: string;
+}
+
+export interface PendingPost {
+  id: number;
+  title: string;
+  content: string;
+  author_id: number;
+  author_name: string | null;
+  category: string | null;
+  status: string;
+  admin_note: string | null;
+  created_at: string;
+  reviewed_at: string | null;
 }
 
 // ── API Calls ────────────────────────────────────────────────────────────
@@ -82,6 +96,30 @@ export const adminAPI = {
   /** Extended health check */
   async getHealth(): Promise<SystemHealth> {
     const { data } = await adminClient.get<SystemHealth>('/api/v1/admin/health');
+    return data;
+  },
+
+  /** List pending community posts */
+  async getPendingPosts(): Promise<PendingPost[]> {
+    const { data } = await adminClient.get<PendingPost[]>('/api/v1/admin/posts/pending');
+    return data;
+  },
+
+  /** Approve a community post */
+  async approvePost(postId: number, adminNote?: string): Promise<PendingPost> {
+    const { data } = await adminClient.patch<PendingPost>(
+      `/api/v1/admin/posts/${postId}/approve`,
+      { admin_note: adminNote },
+    );
+    return data;
+  },
+
+  /** Reject a community post */
+  async rejectPost(postId: number, adminNote?: string): Promise<PendingPost> {
+    const { data } = await adminClient.patch<PendingPost>(
+      `/api/v1/admin/posts/${postId}/reject`,
+      { admin_note: adminNote },
+    );
     return data;
   },
 };
