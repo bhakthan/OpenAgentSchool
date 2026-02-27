@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { Checkbox } from "@/components/ui/checkbox";
 import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutorialButton';
 import { useAuth } from '@/lib/auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -19,8 +20,13 @@ const CommunitySharing = () => {
   const [description, setDescription] = useState("");
   const [implementation, setImplementation] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleShare = () => {
+    if (!termsAccepted) {
+      toast.error("Please accept the terms before submitting.");
+      return;
+    }
     // In a real implementation, this would save to a database
     toast.success("Pattern submitted for review!", {
       description: "An admin will review your submission before it goes live."
@@ -30,6 +36,7 @@ const CommunitySharing = () => {
     setPatternName("");
     setDescription("");
     setImplementation("");
+    setTermsAccepted(false);
     setSubmitted(true);
   };
 
@@ -136,7 +143,32 @@ const CommunitySharing = () => {
                     />
                   </div>
                   
-                  <Button type="button" onClick={handleShare}>Share with Community</Button>
+                  <div className="rounded-md border border-border bg-muted/40 p-4 space-y-3">
+                    <div className="flex items-start space-x-3">
+                      <Checkbox
+                        id="terms-acceptance"
+                        checked={termsAccepted}
+                        onCheckedChange={(checked) => setTermsAccepted(checked === true)}
+                        className="mt-0.5"
+                      />
+                      <label htmlFor="terms-acceptance" className="text-sm leading-relaxed cursor-pointer select-none">
+                        I confirm that my submission does not contain proprietary, confidential, or trade-secret
+                        material belonging to any third party. I have the right to share this content and agree
+                        that it may be published under the platform's{' '}
+                        <a href="/terms" className="underline text-primary hover:text-primary/80" target="_blank" rel="noopener noreferrer">Terms of Use</a>.
+                        I understand that submissions are reviewed before publication and may be edited or removed
+                        at the discretion of the administrators.
+                      </label>
+                    </div>
+                    <p className="text-xs text-muted-foreground pl-7">
+                      By submitting, you also agree not to post content that is unlawful, defamatory, or infringes
+                      on intellectual property rights. You retain ownership of your original work.
+                    </p>
+                  </div>
+
+                  <Button type="button" onClick={handleShare} disabled={!termsAccepted}>
+                    Share with Community
+                  </Button>
                 </form>
               </CardContent>
             </Card>
