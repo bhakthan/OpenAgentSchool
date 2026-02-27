@@ -34,6 +34,7 @@ import { Lightning } from "@phosphor-icons/react/dist/ssr/Lightning";
 import { ArrowUp } from "@phosphor-icons/react/dist/ssr/ArrowUp";
 import { Atom } from "@phosphor-icons/react/dist/ssr/Atom";
 import { Funnel } from "@phosphor-icons/react/dist/ssr/Funnel";
+import { Eye } from "@phosphor-icons/react/dist/ssr/Eye";
 import { cn } from "@/lib/utils";
 import { useTheme } from '@/components/theme/ThemeProvider';
 
@@ -90,7 +91,7 @@ const learningPaths: LearningPath[] = [
   'agent-deployment', 'agent-learning', 'agent-integration', 'agentic-robotics-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management',
       'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'tri-system-paradigm',
       // Production Foundations (2026)
-      'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization',
+      'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization', 'proactive-agent-design',
       // Tier 5: Applied & Career
       'agent-troubleshooting', 'agent-economics', 'agent-career-paths', 'industry-agents', 'agent-templates-hub'
     ],
@@ -850,6 +851,20 @@ const learningPaths: LearningPath[] = [
         isUnlocked: false,
         path: '/concepts'
       },
+      {
+        id: 'proactive-agent-design',
+        title: 'Proactive Agent Design',
+        description: 'Design agents that anticipate needs and act before you ask—from reactive copilots to autonomous sentinels.',
+        icon: <Eye size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '45-55 min',
+        prerequisites: ['agent-architecture', 'multi-agent-systems', 'human-in-the-loop-patterns'],
+        skills: ['Proactive Triggers', 'Authority Delegation', 'Risk Governance', 'Intent Inference'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
       
       // Tier 5: Applied & Career
       {
@@ -1028,7 +1043,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     // Tier 3: Implementation - ACP, MCP Integration, Data Pipelines
     ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations', 'xyz-claw'],
     // Tier 4: Advanced - Operations, Learning, Integration, Commerce, Robotics, Reasoning, Memory, Security
-    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'tri-system-paradigm', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization'],
+    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'tri-system-paradigm', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization', 'proactive-agent-design'],
     // Tier 5: Applied - Career, Enterprise Adoption, Templates
     ['agent-troubleshooting', 'agent-economics', 'agent-career-paths', 'industry-agents', 'agent-templates-hub']
   ];

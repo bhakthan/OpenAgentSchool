@@ -62,6 +62,7 @@ export const CORE_CONCEPT_IDS = [
   'prompt-injection-defense',
   'human-in-the-loop-patterns',
   'agent-cost-optimization',
+  'proactive-agent-design',
   // Applied & Career Tier (Tier 5)
   'agent-troubleshooting',
   'agent-economics',

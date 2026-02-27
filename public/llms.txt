@@ -265,6 +265,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Prompt Injection Defense: https://www.openagentschool.org/concepts/prompt-injection-defense
 - Human-in-the-Loop Patterns: https://www.openagentschool.org/concepts/human-in-the-loop-patterns
 - Agent Cost Optimization: https://www.openagentschool.org/concepts/agent-cost-optimization
+- Proactive Agent Design: https://www.openagentschool.org/concepts/proactive-agent-design
 
 ## MCP Apps & Agent UI URLs (January 2026)
 

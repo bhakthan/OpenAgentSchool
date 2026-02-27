@@ -58,6 +58,8 @@ import { enterprisePlaybookConceptsQuestions, enterprisePlaybookConceptsTimeEsti
 import { contextEngineeringQuestions, contextEngineeringTime } from './context-engineering';
 // Tri-System Paradigm (Kahneman → Triadic Cognitive Ecology)
 import { triSystemParadigmQuestions, triSystemParadigmTime } from './tri-system-paradigm';
+// Proactive Agent Design (February 2026)
+import { proactiveAgentDesignQuestions, proactiveAgentDesignTimeEstimate } from './proactive-agent-design';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -121,7 +123,9 @@ const allQuestions = [
   // Context Engineering (February 2026)
   ...contextEngineeringQuestions,
   // Tri-System Paradigm
-  ...triSystemParadigmQuestions
+  ...triSystemParadigmQuestions,
+  // Proactive Agent Design
+  ...proactiveAgentDesignQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -1535,6 +1539,38 @@ export const quizCategories: QuizCategory[] = [
         description: 'Design patterns that re-engage System 2 — prediction-first, confidence calibration, structured disagreement, cognitive gyms.',
         prerequisites: ['cognitive-surrender'],
         questions: triSystemParadigmQuestions.filter(q => q.subCategory === 'beneficial-friction')
+      }
+    ]
+  },
+  // Proactive Agent Design — Reactive → Proactive Paradigm Shift
+  {
+    id: 'proactive-agent-design',
+    name: 'Proactive Agent Design',
+    description: 'From reactive copilots to autonomous sentinels — authority delegation, proactive triggers, intent inference, and risk governance.',
+    icon: 'Eye',
+    totalQuestions: proactiveAgentDesignQuestions.length,
+    estimatedTime: proactiveAgentDesignTimeEstimate,
+    subCategories: [
+      {
+        id: 'proactive-fundamentals',
+        name: 'Reactive vs Proactive Paradigm',
+        description: 'The maturity evolution from manual processing to autonomous sentinels.',
+        prerequisites: [],
+        questions: proactiveAgentDesignQuestions.filter(q => q.difficulty === 'beginner')
+      },
+      {
+        id: 'authority-governance',
+        name: 'Authority Delegation & Risk Governance',
+        description: 'Designing bounded autonomy with blast-radius governors, confidence thresholds, and escalation policies.',
+        prerequisites: ['proactive-fundamentals'],
+        questions: proactiveAgentDesignQuestions.filter(q => q.category === 'security' || q.difficulty === 'advanced')
+      },
+      {
+        id: 'enterprise-scenarios',
+        name: 'Enterprise Proactive Scenarios',
+        description: 'Security sentinel, supply chain optimization, DevOps proactive agents, and organizational transformation.',
+        prerequisites: ['proactive-fundamentals'],
+        questions: proactiveAgentDesignQuestions.filter(q => q.difficulty === 'intermediate' && q.category === 'architecture')
       }
     ]
   }

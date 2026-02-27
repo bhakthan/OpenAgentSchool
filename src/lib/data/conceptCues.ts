@@ -191,6 +191,11 @@ export const conceptCues: Record<string, ConceptCue> = {
     id: 'tri-system-paradigm',
     cue: 'You are the System 2 — AI amplifies your reasoning only when you stay in the verification seat.',
     criticalThinkingQuestion: 'How would you design an AI-assisted workflow so that System 2 engagement is structurally required — not merely hoped for — preventing cognitive surrender while still delivering the speed benefits of System 3?'
+  },
+  'proactive-agent-design': {
+    id: 'proactive-agent-design',
+    cue: 'Agents that wait to be asked are agents that arrive too late — proactive design shifts AI from passenger to sentinel.',
+    criticalThinkingQuestion: 'How would you design an authority delegation framework for proactive agents that prevents cascade failures and authority creep while still allowing autonomous action fast enough to deliver the proactive advantage?'
   }
 };
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb, MagnifyingGlass, CaretRight, Funnel } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb, MagnifyingGlass, CaretRight, Funnel, Eye } from "@phosphor-icons/react"
 import { ShareButton } from "@/components/ui/ShareButton"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
@@ -72,6 +72,7 @@ const AtomicLLMTrainingConcept = lazy(() => import("./AtomicLLMTrainingConcept")
 const XYZClawConcept = lazy(() => import("./XYZClawConcept"))
 const TriSystemParadigmConcept = lazy(() => import("./TriSystemParadigmConcept"))
 const ContextEngineeringConcept = lazy(() => import("./ContextEngineeringConcept"))
+const ProactiveAgentDesignConcept = lazy(() => import("./ProactiveAgentDesignConcept"))
 
 // Loading fallback for lazy concept components
 const ConceptLoader = () => (
@@ -716,6 +717,17 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '40-50 min',
     prerequisites: ['agent-deployment', 'agent-observability'],
     component: AgentCostOptimizationConcept
+  },
+  {
+    id: 'proactive-agent-design',
+    title: 'Proactive Agent Design',
+    description: 'From reactive copilots to autonomous sentinels—design agents that act before you ask.',
+    level: 'advanced',
+    icon: <Eye className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-violet-900/20 dark:text-violet-300',
+    estimatedTime: '45-60 min',
+    prerequisites: ['agent-architecture', 'multi-agent-systems', 'human-in-the-loop-patterns'],
+    component: ProactiveAgentDesignConcept
   },
   // Tier 5: Applied (Enterprise Adoption & Career Growth)
   {

@@ -6527,7 +6527,7 @@ export const socraticQuestionLibrary = {
         'Reflect on how sudo and UAC prompt design affects user behavior'
       ],
       explanation: 'HITL design balances safety against usability. Risk-based classification ensures human attention focuses on high-stakes decisions while routine actions proceed smoothly.',
-      relatedConcepts: ['guardrails-layer', 'responsible-ai-governance', 'agent-ops'],
+      relatedConcepts: ['guardrails-layer', 'responsible-ai-governance', 'agent-ops', 'proactive-agent-design'],
       timeEstimate: 12,
       successCriteria: [
         'Defines risk dimensions',
@@ -7170,6 +7170,155 @@ export const socraticQuestionLibrary = {
         'Designs longitudinal measurement of cognitive independence',
         'Calibrates friction to task criticality and user expertise',
         'Acknowledges system design determines trajectory'
+      ]
+    }
+  ],
+
+  // ── Proactive Agent Design ─────────────────────────────────────────
+  'proactive-agent-design': [
+    {
+      id: 'proactive-socratic-1',
+      conceptId: 'proactive-agent-design',
+      level: 'beginner',
+      question: 'When you use a spell-checker that underlines mistakes in real-time versus one that only checks when you press a button — which is proactive and which is reactive? Why does the proactive version feel more natural?',
+      followUpQuestions: [
+        'What assumptions does the proactive spell-checker make about your intent?',
+        'When would a proactive spell-checker be harmful — say, in a code editor vs. a poem?',
+        'How does the spell-checker "know" when to intervene without being asked?'
+      ],
+      expectedInsights: [
+        'Proactive systems monitor continuously and act on inferred need',
+        'Context determines whether proactive intervention helps or hinders',
+        'Even simple proactive systems embed assumptions about user intent'
+      ],
+      hints: [
+        'Think about what triggers the underline — you didn\'t press anything',
+        'Consider how coding and creative writing have different "error" definitions',
+        'Reflect on the signal the system monitors (keystrokes, dictionary mismatch)'
+      ],
+      explanation: 'This everyday example grounds the reactive-proactive distinction. Students realize proactive systems are already everywhere and that the key design challenge is contextual appropriateness — knowing when NOT to intervene.',
+      relatedConcepts: ['proactive-agent-design', 'agent-architecture', 'human-in-the-loop-patterns'],
+      timeEstimate: 8,
+      successCriteria: [
+        'Articulates the reactive vs. proactive distinction with a concrete example',
+        'Identifies context-sensitivity as a core design challenge',
+        'Recognizes that proactive systems assume intent'
+      ]
+    },
+    {
+      id: 'proactive-socratic-2',
+      conceptId: 'proactive-agent-design',
+      level: 'intermediate',
+      question: 'You\'re designing a proactive security agent that monitors network traffic. It detects an anomaly at 2 AM with 78% confidence. Should it block the IP immediately, alert the on-call engineer, or do nothing? How do you design the decision boundary?',
+      followUpQuestions: [
+        'What factors would push you toward automated blocking vs. human alerting?',
+        'How would the right answer change if the confidence were 95% vs. 60%?',
+        'What is the cost of a false positive (blocking legitimate traffic) vs. a false negative (missing an attack)?'
+      ],
+      expectedInsights: [
+        'Proactive authority must be calibrated to confidence and consequence',
+        'The cost asymmetry between false positives and negatives drives threshold design',
+        'Time-of-day and staffing affect the optimal autonomy level'
+      ],
+      hints: [
+        'Think about what happens if the blocked IP belongs to a major customer',
+        'Consider that at 2 AM, the human may take 30 minutes to respond',
+        'Reflect on how you can limit damage even if the agent acts incorrectly'
+      ],
+      explanation: 'This scenario forces students to design authority boundaries under uncertainty. The key insight is that proactive design is really decision-theoretic: the right action at a given confidence depends on the asymmetric costs of errors and the availability of human backup.',
+      relatedConcepts: ['proactive-agent-design', 'agent-security', 'agent-observability', 'human-in-the-loop-patterns'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Considers confidence threshold as a design parameter, not a fixed value',
+        'Accounts for asymmetric error costs in their decision boundary',
+        'Designs a tiered response (auto-act, alert, escalate) based on severity and confidence'
+      ]
+    },
+    {
+      id: 'proactive-socratic-3',
+      conceptId: 'proactive-agent-design',
+      level: 'intermediate',
+      question: 'A proactive DevOps agent notices that memory usage on a production server has grown 15% per day for 3 days. It predicts an OOM crash in 48 hours. Should it: (a) scale up automatically, (b) open a Jira ticket, (c) alert the team on Slack, or (d) all three? Design the authority delegation framework.',
+      followUpQuestions: [
+        'What if the agent\'s prediction is wrong and memory flattens tomorrow — what\'s the cost of the premature scale-up?',
+        'How would you prevent the agent from scaling up every time there\'s a temporary spike?',
+        'Who reviews and updates the authority levels over time?'
+      ],
+      expectedInsights: [
+        'Proactive agents need both detection accuracy and appropriate response calibration',
+        'Authority delegation is a spectrum, not binary (auto-act vs. do-nothing)',
+        'Long-term governance requires periodic authority audits'
+      ],
+      hints: [
+        'Consider the difference between a trend and a spike',
+        'Think about blast radius — what\'s the worst that happens if the scale-up was unnecessary?',
+        'Reflect on how trust builds: maybe the agent starts with (b) and graduates to (a) after track record'
+      ],
+      explanation: 'Students learn that authority delegation is progressive and measurable. The agent might start in advisory mode (Jira + Slack), graduate to supervised autonomy (auto-scale but notify), and eventually reach full autonomy for low-risk actions. The framework itself evolves.',
+      relatedConcepts: ['proactive-agent-design', 'agent-deployment', 'agent-ops', 'agent-cost-optimization'],
+      timeEstimate: 16,
+      successCriteria: [
+        'Designs a tiered authority framework with clear escalation criteria',
+        'Distinguishes trend-based prediction from point-in-time anomalies',
+        'Proposes a mechanism for authority graduation based on track record'
+      ]
+    },
+    {
+      id: 'proactive-socratic-4',
+      conceptId: 'proactive-agent-design',
+      level: 'advanced',
+      question: 'Three proactive agents monitor the same e-commerce platform: Agent A watches inventory, Agent B monitors pricing, and Agent C handles fraud detection. Agent A proactively reorders stock, which triggers Agent B to adjust prices, which triggers Agent C to flag the price change as suspicious. How do you prevent this cascade failure?',
+      followUpQuestions: [
+        'What architectural pattern would allow agents to distinguish "normal system event" from "anomaly"?',
+        'How would you design a circuit breaker for multi-agent proactive systems?',
+        'Should proactive agents be able to see and understand each other\'s actions?'
+      ],
+      expectedInsights: [
+        'Cascade failures are the #1 risk in multi-agent proactive systems',
+        'Agents need provenance awareness — the ability to trace whether a signal came from a human, an external event, or another agent',
+        'Circuit breakers with rate limits and coordination protocols prevent amplification loops'
+      ],
+      hints: [
+        'Think about how financial markets handle cascading algorithmic trades (circuit breakers)',
+        'Consider adding "source tags" to every action so agents know what triggered what',
+        'Reflect on whether agents should have a shared coordination layer'
+      ],
+      explanation: 'This is the hardest problem in proactive multi-agent design. Students must reason about emergent behavior — no individual agent is wrong, but their interaction creates a false positive cascade. The solution involves provenance tracking, coordination protocols, and rate limiting at the system level.',
+      relatedConcepts: ['proactive-agent-design', 'multi-agent-systems', 'agent-observability', 'agent-testing-benchmarks'],
+      timeEstimate: 20,
+      successCriteria: [
+        'Identifies cascade risk as emergent from agent interaction, not individual failure',
+        'Proposes provenance tracking or event-source tagging',
+        'Designs system-level circuit breakers, not just per-agent safeguards'
+      ]
+    },
+    {
+      id: 'proactive-socratic-5',
+      conceptId: 'proactive-agent-design',
+      level: 'advanced',
+      question: 'An organization wants to transition from reactive AI assistants to proactive agents across their entire IT operations. The CTO is excited but the CISO is concerned. Design a phased rollout plan that addresses both innovation goals and security constraints. What metrics prove the transition is working?',
+      followUpQuestions: [
+        'How do you measure "proactive value" — what would you track that reactive systems didn\'t need?',
+        'What organizational change management is needed beyond the technology?',
+        'How do you prevent "authority creep" where convenience gradually overrides governance?'
+      ],
+      expectedInsights: [
+        'Organizational transformation requires technology, process, and culture change in parallel',
+        'New metrics are needed: time-to-detect, autonomous action accuracy, human-override rate',
+        'Authority creep is a governance challenge requiring periodic audits and explicit approval workflows'
+      ],
+      hints: [
+        'Think about phases: shadow mode → advisory → supervised autonomy → full autonomy',
+        'Consider that different teams may be at different maturity levels',
+        'Reflect on how trust in proactive agents is earned, not declared'
+      ],
+      explanation: 'This capstone question integrates technical design with organizational change management. Students learn that deploying proactive agents is fundamentally a trust-building exercise — the technology is the easy part. Governance frameworks, measurement systems, and cultural readiness determine success.',
+      relatedConcepts: ['proactive-agent-design', 'organizational-enablement', 'agent-ops', 'responsible-ai-governance'],
+      timeEstimate: 22,
+      successCriteria: [
+        'Proposes a multi-phase rollout with explicit graduation criteria',
+        'Identifies metrics unique to proactive systems (not just reactive KPIs)',
+        'Addresses authority creep and governance as ongoing processes, not one-time setup'
       ]
     }
   ]

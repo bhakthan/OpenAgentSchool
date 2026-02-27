@@ -507,6 +507,18 @@
         </image:image>
     </url>
 
+    <url>
+        <loc>https://www.openagentschool.org/concepts/proactive-agent-design</loc>
+        <lastmod>2026-02-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://www.openagentschool.org/images/Proactive_Agent_Design.png</image:loc>
+            <image:title>Proactive Agent Design</image:title>
+            <image:caption>From reactive copilots to autonomous sentinels — design agents that act before you ask</image:caption>
+        </image:image>
+    </url>
+
     <!-- Study Mode -->
     <url>
         <loc>https://www.openagentschool.org/study-mode</loc>

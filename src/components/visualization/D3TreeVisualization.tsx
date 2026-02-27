@@ -128,7 +128,8 @@ export default function D3TreeVisualization({
             { id: 'architecture-platform-operations', name: 'Architecture & Platform Operations', type: 'concept' as const, novel: true },
             { id: 'experimentation-continuous-improvement', name: 'Experimentation & Continuous Improvement', type: 'concept' as const, novel: true },
             { id: 'ecosystem-partnerships', name: 'Ecosystem & Partnerships', type: 'concept' as const, novel: true },
-            { id: 'tri-system-paradigm', name: 'Tri-System Paradigm (Cognitive Ecology)', type: 'concept' as const, novel: true }
+            { id: 'tri-system-paradigm', name: 'Tri-System Paradigm (Cognitive Ecology)', type: 'concept' as const, novel: true },
+            { id: 'proactive-agent-design', name: 'Proactive Agent Design', type: 'concept' as const, novel: true }
           ]
         },
         {

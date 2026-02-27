@@ -8987,6 +8987,215 @@ class AICodeReview:
       timeEstimate: 22,
       successCriteria: ['Identifies Goodhart\'s Law as root cause', 'Proposes outcome-based measurement', 'Designs proportional friction model']
     }
+  ],
+
+  // ── Proactive Agent Design ─────────────────────────────────────────
+  'proactive-agent-design': [
+    {
+      id: 'proactive-debug-1',
+      conceptId: 'proactive-agent-design',
+      level: 'beginner',
+      question: 'This proactive security agent is supposed to block suspicious IPs automatically when confidence exceeds 80%. But it\'s blocking legitimate traffic and missing real attacks. Find the bugs in the authority delegation logic.',
+      followUpQuestions: [
+        'What happens when confidence is exactly 0.80?',
+        'Why would legitimate traffic have a suspicion score above 0.80?',
+        'What\'s missing from the logging that would help debug this in production?'
+      ],
+      expectedInsights: [
+        'Off-by-one errors in threshold comparisons cause boundary misbehavior',
+        'Single-signal confidence is fragile without corroborating evidence',
+        'Proactive actions without audit trails make debugging impossible'
+      ],
+      hints: [
+        'Check the comparison operator — is it > or >= ?',
+        'Look at what signals feed the confidence score — is one signal enough?',
+        'Think about what the log should capture for post-mortem analysis'
+      ],
+      explanation: 'Introduces the most common bug class in proactive agents: threshold misconfiguration. Without proper boundary handling, corroboration, and audit logging, proactive agents become either dangerously aggressive or uselessly passive.',
+      relatedConcepts: ['proactive-agent-design', 'agent-security', 'agent-observability'],
+      timeEstimate: 10,
+      successCriteria: [
+        'Fixes the comparison operator and threshold boundary',
+        'Adds multi-signal corroboration before autonomous action',
+        'Adds structured audit logging with action justification'
+      ],
+      debugChallenge: {
+        brokenCode: `class ProactiveSecurityAgent:
+    def __init__(self):
+        self.confidence_threshold = 0.80
+        self.blocked_ips = set()
+
+    def evaluate_traffic(self, ip, traffic_data):
+        suspicion_score = self.ml_model.predict(traffic_data)
+        
+        # BUG 1: Uses >= instead of > causing boundary false positives
+        if suspicion_score >= self.confidence_threshold:
+            self.block_ip(ip)
+            return {"action": "blocked", "confidence": suspicion_score}
+        
+        # BUG 2: No intermediate "alert" tier — binary block or ignore
+        return {"action": "allowed", "confidence": suspicion_score}
+
+    def block_ip(self, ip):
+        self.blocked_ips.add(ip)
+        # BUG 3: No logging of WHY the IP was blocked
+        # BUG 4: No time-bound — block is permanent
+        self.firewall.block(ip)`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'SecurityAgent', message: 'Blocked IP 203.0.113.42 — confidence: 0.80', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Ops', message: 'Customer support ticket: major client cannot access API from 203.0.113.42', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'SecurityAgent', message: 'Allowed IP 198.51.100.5 — confidence: 0.79', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'SIEM', message: 'ALERT: Data exfiltration detected from 198.51.100.5 — 2TB transferred overnight', type: 'error' }
+        ],
+        expectedBehavior: 'Agent should use strict > threshold, have a tiered response (monitor → alert → temporary block → permanent block), log justifications, and auto-expire blocks.',
+        commonIssues: [
+          { issue: 'Boundary threshold error', symptoms: ['Legitimate traffic blocked at exactly 0.80'], diagnosis: 'Using >= instead of > means borderline scores trigger autonomous action', fix: 'Use > and consider a hysteresis band (e.g., block at >0.85, alert at >0.75)' },
+          { issue: 'Binary action model', symptoms: ['Either fully blocked or fully allowed'], diagnosis: 'No intermediate tiers between block and allow', fix: 'Implement tiered response: monitor (0.60-0.75), alert human (0.75-0.85), auto-block temporary (0.85-0.95), auto-block permanent (>0.95)' },
+          { issue: 'Missing audit trail', symptoms: ['Cannot determine why an IP was blocked'], diagnosis: 'No structured logging of decision rationale', fix: 'Log: timestamp, IP, confidence, signals used, action taken, authority level, auto-expire time' },
+          { issue: 'Permanent block without TTL', symptoms: ['Blocked IPs stay blocked forever'], diagnosis: 'No time-to-live or review mechanism', fix: 'Add TTL to blocks (e.g., 1hr auto-block), require human confirmation for extension' }
+        ],
+        hints: ['Compare what happens at exactly 0.80 with the 0.79 case', 'What should happen for scores between 0.75 and 0.85?', 'How would you investigate this incident in production with the current logging?'],
+        solution: 'Fix: (1) Use strict > with hysteresis band. (2) Implement 4-tier response: monitor → alert → temp-block → permanent-block. (3) Add structured audit logging with signals, justification, and action. (4) Add TTL to all autonomous blocks with escalation for renewal.',
+        explanation: 'Proactive agents need nuanced authority delegation, not binary thresholds. The tiered response pattern mirrors how human security analysts actually work — they don\'t immediately block everything suspicious.'
+      }
+    },
+    {
+      id: 'proactive-debug-2',
+      conceptId: 'proactive-agent-design',
+      level: 'intermediate',
+      question: 'This proactive DevOps agent monitors server metrics and auto-scales resources. But it\'s causing cost explosions by scaling up on temporary spikes and never scaling down. Debug the trigger logic and add proper cooldown/de-escalation.',
+      followUpQuestions: [
+        'Why does the agent keep scaling up but never scale down?',
+        'What\'s the difference between a genuine trend and a transient spike?',
+        'How would you prevent the agent from reacting to the same event multiple times?'
+      ],
+      expectedInsights: [
+        'Proactive agents must distinguish trends from spikes using windowed analysis',
+        'Scale-up without scale-down creates unbounded cost growth',
+        'Cooldown periods prevent action-reaction loops'
+      ],
+      hints: [
+        'Look for the scale-down logic — is there any?',
+        'Check how the agent determines a spike vs. a trend — what window does it use?',
+        'Think about what happens when the agent scales up, the metric drops, then spikes again'
+      ],
+      explanation: 'Proactive agents with asymmetric action capabilities (can scale up but not down) create one-directional drift. Combined with no cooldown, they can trigger repeatedly on the same underlying event.',
+      relatedConcepts: ['proactive-agent-design', 'agent-cost-optimization', 'agent-ops', 'agent-deployment'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Adds trend-over-window analysis instead of point-in-time checks',
+        'Implements both scale-up AND scale-down logic',
+        'Adds cooldown period between consecutive scaling actions'
+      ],
+      debugChallenge: {
+        brokenCode: `class ProactiveScalingAgent:
+    def __init__(self):
+        self.cpu_threshold = 80  # percent
+        self.check_interval = 60  # seconds
+
+    def monitor(self, current_cpu):
+        # BUG 1: Point-in-time check — no windowed average
+        if current_cpu > self.cpu_threshold:
+            self.scale_up()
+        
+        # BUG 2: No scale-down logic AT ALL
+        # BUG 3: No cooldown — can scale up every 60 seconds
+
+    def scale_up(self):
+        # BUG 4: No max limit on scaling
+        new_instances = self.get_instance_count() + 2
+        self.set_instance_count(new_instances)
+        print(f"Scaled to {new_instances} instances")`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'ScalingAgent', message: 'CPU at 85% — scaling from 4 to 6 instances', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'ScalingAgent', message: 'CPU at 82% — scaling from 6 to 8 instances', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'ScalingAgent', message: 'CPU at 45% — (no action taken)', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'FinOps', message: 'Monthly compute cost: $48,000 (budget: $12,000). 32 instances running, only 6 needed.', type: 'error' }
+        ],
+        expectedBehavior: 'Agent should use 5-minute rolling average, implement scale-down when below threshold for sustained period, enforce cooldown between actions, and cap max instances.',
+        commonIssues: [
+          { issue: 'Point-in-time monitoring', symptoms: ['Reacts to temporary CPU spikes'], diagnosis: 'Single sample triggers action without confirming trend', fix: 'Use 5-minute rolling average; require 3+ consecutive high readings before scale-up' },
+          { issue: 'No scale-down path', symptoms: ['Instance count only grows, never shrinks'], diagnosis: 'Agent has asymmetric capability — can scale up but not down', fix: 'Add scale-down trigger: if 15-min average below 40% and current instances > baseline, reduce by 1' },
+          { issue: 'No cooldown period', symptoms: ['Multiple scale-up events in rapid succession'], diagnosis: 'Agent re-evaluates every check interval with no memory of recent actions', fix: 'Add 10-minute cooldown after any scaling action; ignore triggers during cooldown' },
+          { issue: 'Unbounded scaling', symptoms: ['Instance count grows without limit'], diagnosis: 'No maximum cap on instances', fix: 'Set hard ceiling (e.g., 3x baseline) and alert human if sustained high demand exceeds cap' }
+        ],
+        hints: ['What happens when CPU spikes for 2 minutes then drops?', 'Follow the instance count over 24 hours — does it ever decrease?', 'What prevents the agent from scaling up twice in 2 minutes?'],
+        solution: 'Fix: (1) Replace point check with 5-min rolling average. (2) Add scale-down: if 15-min avg < 40% and instances > baseline, remove 1 instance. (3) Add 10-min cooldown between any scaling actions. (4) Cap at 3x baseline instances, alert human beyond that.',
+        explanation: 'Proactive agents with one-directional action capabilities and no cooldown create runaway costs. This pattern applies beyond DevOps — any proactive agent that can allocate resources but not deallocate them will drift toward maximum resource consumption.'
+      }
+    },
+    {
+      id: 'proactive-debug-3',
+      conceptId: 'proactive-agent-design',
+      level: 'advanced',
+      question: 'Three proactive agents (Inventory, Pricing, Fraud) are causing a cascade failure in an e-commerce platform. Each agent\'s autonomous action triggers the others. Debug the coordination layer and prevent the amplification loop.',
+      followUpQuestions: [
+        'Why does Agent C flag Agent B\'s price change as suspicious?',
+        'How could provenance tracking break the loop?',
+        'What system-level circuit breaker would prevent this cascade from escalating?'
+      ],
+      expectedInsights: [
+        'Multi-agent cascade failures emerge from legitimate individual behaviors',
+        'Provenance tracking (source tagging) lets agents distinguish external events from internal actions',
+        'System-level rate limiters and circuit breakers are essential for multi-agent proactive systems'
+      ],
+      hints: [
+        'Look at what each agent sees — can it distinguish a human action from another agent\'s action?',
+        'Think about financial market circuit breakers when cascading trades occur',
+        'Consider a shared event bus where agents annotate the source of each action'
+      ],
+      explanation: 'The hardest bug class in proactive multi-agent systems: emergent cascade failures. No individual agent is wrong, but their interaction creates a positive feedback loop. The fix requires system-level coordination, not per-agent logic changes.',
+      relatedConcepts: ['proactive-agent-design', 'multi-agent-systems', 'agent-observability', 'agent-testing-benchmarks'],
+      timeEstimate: 20,
+      successCriteria: [
+        'Identifies the cascade as emergent from agent interaction, not individual agent failure',
+        'Implements provenance tracking on all agent actions',
+        'Designs a system-level circuit breaker with rate limiting'
+      ],
+      debugChallenge: {
+        brokenCode: `# Three independent proactive agents — no coordination
+class InventoryAgent:
+    def on_low_stock(self, product_id):
+        # Proactively reorders when stock drops below threshold
+        self.reorder(product_id, quantity=100)
+        # BUG: No source tag — other agents don't know this was agent-initiated
+        self.event_bus.emit("stock_updated", {"product": product_id, "delta": +100})
+
+class PricingAgent:
+    def on_stock_change(self, event):
+        # Proactively adjusts price based on supply
+        new_price = self.calculate_price(event["product"], event["delta"])
+        # BUG: Reacts to ALL stock changes including agent-initiated ones
+        self.update_price(event["product"], new_price)
+        self.event_bus.emit("price_updated", {"product": event["product"], "price": new_price})
+
+class FraudAgent:
+    def on_price_change(self, event):
+        price_delta = abs(event["price"] - self.last_known_price(event["product"]))
+        if price_delta > self.anomaly_threshold:
+            # BUG: Flags agent-initiated price changes as fraud
+            self.flag_fraud(event["product"])
+            self.event_bus.emit("fraud_alert", {"product": event["product"]})
+            # This triggers InventoryAgent to freeze stock → PricingAgent to adjust again → loop`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'InventoryAgent', message: 'Low stock detected for SKU-4492 — proactively reordering 100 units', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'PricingAgent', message: 'Stock change detected for SKU-4492 — adjusting price from $29.99 to $19.99', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'FraudAgent', message: 'ALERT: Anomalous price drop of $10.00 on SKU-4492 — flagging as potential fraud', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'InventoryAgent', message: 'Fraud alert on SKU-4492 — freezing stock. Stock now 0.', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'PricingAgent', message: 'Stock at 0 for SKU-4492 — marking as out-of-stock, price set to $0.00', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'System', message: 'CRITICAL: 847 products affected by cascading agent actions in last 5 minutes', type: 'error' }
+        ],
+        expectedBehavior: 'Agents should tag all actions with provenance (agent-initiated vs. external), ignore or dampen responses to agent-initiated events, and a system-level circuit breaker should halt all agents if action rate exceeds threshold.',
+        commonIssues: [
+          { issue: 'No provenance tracking', symptoms: ['Agents cannot distinguish external events from agent-initiated ones'], diagnosis: 'Events lack source metadata', fix: 'Add source_agent and trigger_chain fields to all events; agents check provenance before acting' },
+          { issue: 'No dampening for agent-initiated events', symptoms: ['Each agent reacts at full strength to other agents\' actions'], diagnosis: 'Agents treat all events equally regardless of source', fix: 'Apply dampening factor (0.1x) to agent-initiated events, or ignore them entirely for certain action types' },
+          { issue: 'No system-level circuit breaker', symptoms: ['Cascade continues until all products affected'], diagnosis: 'No global rate limiter across the agent fleet', fix: 'Circuit breaker: if >10 cross-agent events in 60 seconds, pause all proactive actions and alert human operator' }
+        ],
+        hints: ['Can Agent C tell that the price change came from Agent B rather than a human?', 'What if every event had a "chain ID" showing the originating trigger?', 'What does a stock exchange do when algorithmic trades cascade?'],
+        solution: 'Fix: (1) Add provenance: every event includes {source: "agent"|"human"|"system", agent_id, trigger_chain_id}. (2) Agents apply dampening rules: ignore or de-prioritize agent-sourced events. (3) Add global circuit breaker: if cross-agent event rate > 10/min, pause all proactive actions and escalate to human.',
+        explanation: 'Multi-agent cascade failures are emergent — no single agent is buggy, but the system of agents creates positive feedback. This mirrors real-world flash crashes in financial markets and requires the same solution: provenance tracking, dampening, and circuit breakers.'
+      }
+    }
   ]
 };
 

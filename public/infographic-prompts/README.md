@@ -96,6 +96,7 @@ These prompts are designed for AI image generation tools to create visually stun
 
 ### Advanced Patterns
 29. **IgnitionStack Agent** - End-to-end use-case → Azure production workload via Ralph Method (20 iterations, CLI coding agents, Bicep, AI Foundry, CI/CD)
+30. **Proactive Agent Design** - Reactive → proactive paradigm shift, authority delegation, enterprise scenarios, risk governance
 
 ## Usage
 
