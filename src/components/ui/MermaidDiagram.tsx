@@ -60,6 +60,31 @@ function darken(hex: string, amount: number): string {
 }
 
 /**
+ * Relative luminance (WCAG 2.x formula).
+ * Returns 0 (black) – 1 (white).
+ */
+function luminance(hex: string): number {
+  const n = parseInt(hex.replace("#", ""), 16)
+  const srgb = [((n >> 16) & 0xff) / 255, ((n >> 8) & 0xff) / 255, (n & 0xff) / 255]
+  const lin = srgb.map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4))
+  return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2]
+}
+
+/**
+ * Pick a high-contrast text colour for a given background.
+ * Uses WCAG contrast-ratio check (>=4.5 preferred).
+ * `light` / `dark` are the candidate text colors.
+ */
+function contrastText(bgHex: string, lightText: string, darkText: string): string {
+  const bgL = luminance(bgHex)
+  const lightL = luminance(lightText)
+  const darkL = luminance(darkText)
+  const crLight = (Math.max(bgL, lightL) + 0.05) / (Math.min(bgL, lightL) + 0.05)
+  const crDark = (Math.max(bgL, darkL) + 0.05) / (Math.min(bgL, darkL) + 0.05)
+  return crLight >= crDark ? lightText : darkText
+}
+
+/**
  * Lazy-renders a Mermaid diagram from a definition string.
  * Automatically adapts internal diagram colours to the active app theme.
  */
@@ -98,10 +123,25 @@ export default function MermaidDiagram({
         const card = getCssVar("--card", isDarkMode ? "#1f2937" : "#f9fafb")
 
         // Derived palette for a cohesive diagram look
-        const primaryLight = isDarkMode ? lighten(primary, 0.15) : lighten(primary, 0.8)
-        const primaryMid = isDarkMode ? lighten(primary, 0.08) : lighten(primary, 0.6)
-        const secondaryFill = isDarkMode ? lighten(muted, 0.05) : darken(muted, 0.03)
-        const tertiaryFill = isDarkMode ? lighten(card, 0.08) : darken(card, 0.05)
+        // Dark mode: darken the primary so light text stays legible
+        // Light mode: lighten the primary so dark text stays legible
+        const primaryFill = isDarkMode ? darken(primary, 0.55) : lighten(primary, 0.82)
+        const primaryMid = isDarkMode ? darken(primary, 0.45) : lighten(primary, 0.65)
+        const secondaryFill = isDarkMode ? lighten(muted, 0.04) : darken(muted, 0.03)
+        const tertiaryFill = isDarkMode ? lighten(card, 0.06) : darken(card, 0.05)
+
+        // Contrast-safe text colours per fill
+        const lightText = "#f1f5f9" // slate-100
+        const darkText = "#1e293b"  // slate-800
+        const primaryNodeText = contrastText(primaryFill, lightText, darkText)
+        const secondaryNodeText = contrastText(secondaryFill, lightText, darkText)
+        const tertiaryNodeText = contrastText(tertiaryFill, lightText, darkText)
+        const actorText = contrastText(primaryMid, lightText, darkText)
+        const noteText = contrastText(
+          isDarkMode ? lighten(muted, 0.06) : lighten(primary, 0.88),
+          lightText,
+          darkText,
+        )
 
         // Re-initialise mermaid with the current theme's colours.
         // Using "base" theme gives us full control via themeVariables.
@@ -114,23 +154,24 @@ export default function MermaidDiagram({
           themeVariables: {
             // Background & text
             background: bg,
-            mainBkg: primaryLight,
+            mainBkg: primaryFill,
             textColor: fg,
-            primaryTextColor: fg,
-            secondaryTextColor: fg,
-            tertiaryTextColor: fg,
+            primaryTextColor: primaryNodeText,
+            secondaryTextColor: secondaryNodeText,
+            tertiaryTextColor: tertiaryNodeText,
 
             // Node fills & borders
-            primaryColor: primaryLight,
+            primaryColor: primaryFill,
             primaryBorderColor: primary,
             secondaryColor: secondaryFill,
             secondaryBorderColor: border,
             tertiaryColor: tertiaryFill,
             tertiaryBorderColor: border,
             nodeBorder: primary,
+            nodeTextColor: primaryNodeText,
 
             // Lines & labels
-            lineColor: isDarkMode ? lighten(border, 0.2) : darken(border, 0.3),
+            lineColor: isDarkMode ? lighten(border, 0.25) : darken(border, 0.3),
             edgeLabelBackground: card,
 
             // Clusters / subgraphs
@@ -141,17 +182,17 @@ export default function MermaidDiagram({
             // Sequence diagrams
             actorBkg: primaryMid,
             actorBorder: primary,
-            actorTextColor: fg,
+            actorTextColor: actorText,
             actorLineColor: border,
             signalColor: fg,
             signalTextColor: fg,
             activationBorderColor: primary,
-            activationBkgColor: primaryLight,
-            sequenceNumberColor: isDarkMode ? "#ffffff" : "#ffffff",
+            activationBkgColor: primaryFill,
+            sequenceNumberColor: "#ffffff",
             loopTextColor: fg,
-            noteBkgColor: isDarkMode ? lighten(muted, 0.08) : lighten(primary, 0.85),
+            noteBkgColor: isDarkMode ? lighten(muted, 0.06) : lighten(primary, 0.88),
             noteBorderColor: primary,
-            noteTextColor: fg,
+            noteTextColor: noteText,
             labelBoxBkgColor: card,
             labelBoxBorderColor: border,
             labelTextColor: fg,
@@ -164,26 +205,30 @@ export default function MermaidDiagram({
             pieStrokeColor: border,
             pieOuterStrokeColor: border,
             pieTitleTextColor: fg,
-            pieSectionTextColor: fg,
+            pieSectionTextColor: contrastText(primary, lightText, darkText),
             pieLegendTextColor: fg,
 
             // Gantt
             gridColor: border,
             doneTaskBkgColor: primary,
-            activeTaskBkgColor: primaryLight,
+            activeTaskBkgColor: primaryFill,
             taskBkgColor: secondaryFill,
             taskBorderColor: border,
-            taskTextColor: fg,
+            taskTextColor: secondaryNodeText,
+            taskTextDarkColor: primaryNodeText,
             todayLineColor: primary,
 
             // Requirement
-            reqBkgColor: primaryLight,
+            reqBkgColor: primaryFill,
             reqBorderColor: primary,
-            reqTextColor: fg,
+            reqTextColor: primaryNodeText,
 
             // State diagrams
             labelColor: fg,
             altBackground: isDarkMode ? lighten(bg, 0.04) : darken(bg, 0.02),
+
+            // Font size baseline for legibility
+            fontSize: "14px",
           },
         })
 
@@ -218,6 +263,11 @@ export default function MermaidDiagram({
     <div
       ref={containerRef}
       className={`overflow-x-auto [&_svg]:max-w-full [&_svg]:h-auto ${className}`}
+      style={{
+        WebkitFontSmoothing: "antialiased",
+        MozOsxFontSmoothing: "grayscale",
+        textRendering: "optimizeLegibility",
+      }}
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   )
