@@ -29,6 +29,8 @@ export interface AdminUser {
   email: string;
   role: 'admin' | 'user';
   is_active: boolean;
+  login_count: number;
+  last_login_at: string | null;
   created_at: string;
 }
 

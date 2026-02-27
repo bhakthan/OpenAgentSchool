@@ -162,6 +162,8 @@ function UsersTab() {
                 <TableHead>Email</TableHead>
                 <TableHead>Role</TableHead>
                 <TableHead>Status</TableHead>
+                <TableHead>Logins</TableHead>
+                <TableHead>Last Login</TableHead>
                 <TableHead>Joined</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
@@ -204,6 +206,19 @@ function UsersTab() {
                           Inactive
                         </Badge>
                       )}
+                    </TableCell>
+                    <TableCell className="font-mono text-xs text-center">
+                      {u.login_count ?? 0}
+                    </TableCell>
+                    <TableCell className="text-muted-foreground text-xs">
+                      {u.last_login_at
+                        ? new Date(u.last_login_at).toLocaleString(undefined, {
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })
+                        : '—'}
                     </TableCell>
                     <TableCell className="text-muted-foreground text-xs">
                       {new Date(u.created_at).toLocaleDateString()}
