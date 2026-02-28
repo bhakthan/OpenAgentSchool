@@ -227,6 +227,13 @@ self.addEventListener('sync', (event) => {
 async function syncBookmarks() {
   try {
     const db = await openIndexedDB();
+    
+    // Guard: store may not exist if Dexie hasn't created it yet
+    if (!db.objectStoreNames.contains('bookmarks')) {
+      db.close();
+      return;
+    }
+    
     const pendingBookmarks = await getPendingBookmarks(db);
     
     for (const bookmark of pendingBookmarks) {
@@ -270,26 +277,22 @@ self.addEventListener('notificationclick', (event) => {
 // ========================================
 // Helper Functions
 // ========================================
-function openIndexedDB() {
+function openIndexedDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('OpenAgentSchoolDB', 1);
+    // Open without a version number to use the current DB version.
+    // The main app (Dexie) owns schema upgrades; the service worker
+    // only reads/writes to existing stores.
+    const request = indexedDB.open('OpenAgentSchoolDB');
     
     request.onerror = () => reject(request.error);
     request.onsuccess = () => resolve(request.result);
-    
-    request.onupgradeneeded = (event) => {
-      const db = event.target.result;
-      if (!db.objectStoreNames.contains('pendingBookmarks')) {
-        db.createObjectStore('pendingBookmarks', { keyPath: 'id', autoIncrement: true });
-      }
-    };
   });
 }
 
-function getPendingBookmarks(db) {
+function getPendingBookmarks(db: IDBDatabase) {
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(['pendingBookmarks'], 'readonly');
-    const store = transaction.objectStore('pendingBookmarks');
+    const transaction = db.transaction(['bookmarks'], 'readonly');
+    const store = transaction.objectStore('bookmarks');
     const request = store.getAll();
     
     request.onsuccess = () => resolve(request.result);
@@ -297,10 +300,10 @@ function getPendingBookmarks(db) {
   });
 }
 
-function clearPendingBookmarks(db) {
+function clearPendingBookmarks(db: IDBDatabase) {
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(['pendingBookmarks'], 'readwrite');
-    const store = transaction.objectStore('pendingBookmarks');
+    const transaction = db.transaction(['bookmarks'], 'readwrite');
+    const store = transaction.objectStore('bookmarks');
     const request = store.clear();
     
     request.onsuccess = () => resolve();
