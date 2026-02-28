@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+﻿import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 interface SEOProps {
@@ -12,9 +12,9 @@ interface SEOProps {
 
 const DEFAULT_SEO = {
   title: 'Open Agent School - Building the agentic future',
-  description: 'Learn, Build, Transform together — From concepts to production-ready agents. Open Agent School is the most comprehensive platform for mastering AI agents and AI-native organizational transformation. We serve individual builders learning core concepts and patterns, engineering teams building production-ready agentic systems, and business leaders orchestrating enterprise AI transformation. Our platform covers 49 core AI concepts, 49+ proven agent design patterns (ReAct, CodeAct, Orchestrator-Worker, Multi-Agent Systems, Deep Researcher, Autonomous Workflow, Swarm Intelligence), comprehensive Azure AI Services integration, Agent Velocity Engineering methodologies, Agentic Adoption Playbooks with interactive charter builders, portfolio heatmaps, and board-ready briefing packs. Transform from pilot chaos to production velocity with evaluation harnesses, governance guardrails, and velocity metrics embedded from day one.',
+  description: 'Learn, Build, Transform together â€” From concepts to production-ready agents. Open Agent School is the most comprehensive platform for mastering AI agents and AI-native organizational transformation. We serve individual builders learning core concepts and patterns, engineering teams building production-ready agentic systems, and business leaders orchestrating enterprise AI transformation. Our platform covers 49 core AI concepts, 49+ proven agent design patterns (ReAct, CodeAct, Orchestrator-Worker, Multi-Agent Systems, Deep Researcher, Autonomous Workflow, Swarm Intelligence), comprehensive Azure AI Services integration, Agent Velocity Engineering methodologies, Agentic Adoption Playbooks with interactive charter builders, portfolio heatmaps, and board-ready briefing packs. Transform from pilot chaos to production velocity with evaluation harnesses, governance guardrails, and velocity metrics embedded from day one.',
   keywords: 'AI agents, agentic AI, AI transformation, production-ready agents, AI-native organizations, agent design patterns, multi-agent systems, agent architecture, Agent Velocity Engineering, agentic adoption playbook, enterprise AI transformation, AI governance, evaluation harnesses, MCP, Model Context Protocol, A2A communication, agent orchestration, interactive learning, AI tutorials, agent security, OpenAI, Microsoft Azure AI, LLM agents, AI ROI, executive AI strategy, AI maturity models, organizational transformation, from concepts to production, AI-first organizations, UCP, Universal Commerce Protocol',
-  image: 'https://www.openagentschool.org/images/og-image.png',
+  image: 'https://www.openagentschool.org/images/og-image.webp',
   type: 'website' as const,
   author: 'Srikanth Bhakthan'
 };
@@ -242,7 +242,7 @@ function updateJsonLdScript(id: string, json: Record<string, any>) {
 export const pageSEOConfigs = {
   '/': {
     title: 'Open Agent School - Building the agentic future',
-    description: 'Learn, Build, Transform together — From concepts to production-ready agents. Master AI agents through interactive learning, proven design patterns, and executive adoption playbooks. For builders, engineers, and business leaders.',
+    description: 'Learn, Build, Transform together â€” From concepts to production-ready agents. Master AI agents through interactive learning, proven design patterns, and executive adoption playbooks. For builders, engineers, and business leaders.',
     keywords: 'AI agents, agentic AI, building agentic future, production-ready agents, AI transformation, agent design patterns, multi-agent systems, MCP, Model Context Protocol, interactive learning, executive AI adoption',
     image: DEFAULT_SEO.image
   },
@@ -283,7 +283,7 @@ export const pageSEOConfigs = {
     title: 'Agentic Robotics Integration - Digital-to-Physical Orchestration | Open Agent School',
     description: 'Learn how to blend LLM reasoning, robotics middleware, and compliance guardrails into production-grade agentic robotics systems. The module covers digital twin alignment, telemetry streaming, policy-gated actuator control, anomaly routing, human-in-the-loop escalation, and Azure-connected deployment patterns that power Adaptive Lab Technicians, Inventory Guardians, Emergency Response coordinators, and Mobile Manipulator Stewards.',
     keywords: 'agentic robotics, robotics integration, autonomous robots, digital twin, telemetry streaming, safety guardrails, robot orchestration, lab automation, warehouse automation, policy gated control, Azure robotics, mobile manipulation',
-    image: 'https://www.openagentschool.org/images/og-image.png'
+    image: 'https://www.openagentschool.org/images/og-image.webp'
   },
   '/concepts/edge-agent': {
     title: 'Edge Agent - Physical AI & Industrial Edge Deployment | Open Agent School',
@@ -484,25 +484,25 @@ export const pageSEOConfigs = {
     title: 'Adaptive Lab Technician Pattern - Instrumented Wet Lab Automation | Open Agent School',
     description: 'Deploy an instrument-aware agent that synchronizes LIMS queues, orchestrates robotics, and enforces ISO/CLIA guardrails across assay runs. Learn how telemetry-driven plan adjustments, scientist escalation consoles, and Azure OpenAI planners keep genomics and diagnostics labs running with compliance-grade traceability.',
     keywords: 'lab automation, adaptive lab technician, robotics orchestration, LIMS integration, assay automation, telemetry monitoring, compliance automation, biopharma robotics, Azure OpenAI, lab guardrails',
-    image: 'https://www.openagentschool.org/images/og-image.png'
+    image: 'https://www.openagentschool.org/images/og-image.webp'
   },
   '/patterns/inventory-guardian': {
     title: 'Inventory Guardian Pattern - Autonomous Warehouse Stewardship | Open Agent School',
     description: 'Build an agent that fuses digital inventory twins, AMR fleets, and safety protocols to keep distribution centers stocked and incident-free. Covers slotting intelligence, vision-powered cycle counts, human override loops, and Azure-based telemetry analytics for supply chain resilience.',
     keywords: 'inventory guardian, warehouse automation, robotics inventory, autonomous mobile robots, digital twin inventory, safety interlocks, supply chain robotics, cycle counting, telemetry analytics, Azure robotics',
-    image: 'https://www.openagentschool.org/images/og-image.png'
+    image: 'https://www.openagentschool.org/images/og-image.webp'
   },
   '/patterns/emergency-response-mate': {
     title: 'Emergency Response Mate Pattern - Robotics Assisted Safety Ops | Open Agent School',
     description: 'Design a robotics-aware incident response agent that coordinates mobile sensors, facility controls, and responder checklists during critical events. Learn escalation choreography, hazard zone mapping, policy-gated interventions, and Azure Event Grid integration for real-time situational awareness.',
     keywords: 'emergency response robotics, safety automation, incident response agent, hazard mapping, mobile sensors, robotics orchestration, emergency automation, Azure Event Grid, safety guardrails, facility controls',
-    image: 'https://www.openagentschool.org/images/og-image.png'
+    image: 'https://www.openagentschool.org/images/og-image.webp'
   },
   '/patterns/mobile-manipulator-steward': {
     title: 'Mobile Manipulator Steward Pattern - Service Robotics Concierge | Open Agent School',
     description: 'Equip mobile manipulators with agentic planning, guest experience skills, and safe actuation loops. This pattern covers mission planning, perception fusion, low-latency teleoperation fallbacks, and Azure IoT telemetry so hospitality and retail venues can deploy human-aware robotic stewards.',
     keywords: 'mobile manipulator, service robotics, hospitality robots, agentic planning, perception fusion, teleoperation fallback, Azure IoT, guest experience automation, robotics concierge, safe actuation loops',
-    image: 'https://www.openagentschool.org/images/og-image.png'
+    image: 'https://www.openagentschool.org/images/og-image.webp'
   },
   '/ai-native-practices': {
     title: 'AI-Native Practices - Advanced Organizational Patterns | Open Agent School',
@@ -566,7 +566,7 @@ export const pageSEOConfigs = {
   },
   '/cta-alt': {
     title: 'Compound Agent Capability - Strategic Variant | Open Agent School',
-    description: 'Variant hero: Reduce initiative drift and compound durable agent capability. Architecture clarity, evaluation harnesses, failure drills, and operational economics—sequenced for measurable uplift.',
+    description: 'Variant hero: Reduce initiative drift and compound durable agent capability. Architecture clarity, evaluation harnesses, failure drills, and operational economicsâ€”sequenced for measurable uplift.',
     keywords: 'agent capability compounding, AI architecture clarity, evaluation harness design, agent reliability drills, AI operational economics'
   },
   '/concepts/context-engineering': {

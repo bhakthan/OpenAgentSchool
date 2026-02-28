@@ -433,11 +433,11 @@ Crawl-delay: 2
 
 User-agent: Twitterbot
 Allow: /
-Allow: /images/og-image.png
+Allow: /images/og-image.webp
 
 User-agent: LinkedInBot
 Allow: /
-Allow: /images/og-image.png
+Allow: /images/og-image.webp
 
 User-agent: Slackbot
 Allow: /
