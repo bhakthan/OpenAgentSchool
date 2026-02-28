@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="16" fill="#1a1a2e"/>
+  <circle cx="256" cy="200" r="80" stroke="#e2e8f0" stroke-width="4" fill="none" opacity="0.3"/>
+  <line x1="200" y1="260" x2="312" y2="140" stroke="#e2e8f0" stroke-width="4" opacity="0.3"/>
+  <text x="256" y="340" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="24" opacity="0.5">Offline</text>
+  <text x="256" y="370" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="14" opacity="0.3">Image unavailable</text>
+</svg>

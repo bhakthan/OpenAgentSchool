@@ -115,7 +115,7 @@ export function PortfolioHeatmapCanvasForm() {
         title: "Sign in required",
         description: "Please sign in to download this business planning template. It's free!",
       });
-      navigate('/auth?return=/adoption/portfolio');
+      navigate('/auth?return=/adoption/canvas');
       return;
     }
 
@@ -357,7 +357,7 @@ export function PortfolioHeatmapCanvasForm() {
         title: "Sign in required",
         description: "Please sign in to download this business planning template. It's free!",
       });
-      navigate('/auth?return=/adoption/portfolio');
+      navigate('/auth?return=/adoption/canvas');
       return;
     }
 

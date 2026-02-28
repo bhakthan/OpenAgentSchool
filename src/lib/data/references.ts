@@ -419,7 +419,7 @@ export const references: ReferencesData = {
           },
           {
             title: "Ollama: Run LLMs Locally",
-            url: "https://ollama.ai/",
+            url: "https://ollama.com/",
             description: "Run Llama, Gemma, Qwen, and other models locally for edge agent development."
           },
           {
