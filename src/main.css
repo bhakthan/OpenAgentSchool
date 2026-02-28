@@ -7,6 +7,9 @@
   ---break---
 */
 @custom-variant dark (&:is(.dark *));
+@custom-variant pwa (@media (display-mode: standalone));
+@custom-variant coarse (@media (pointer: coarse));
+@custom-variant fine (@media (pointer: fine));
 
 @config '../tailwind.config.js';
 

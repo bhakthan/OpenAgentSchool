@@ -18,11 +18,6 @@ const defaultTheme = {
     padding: "2rem",
   },
   extend: {
-    screens: {
-      coarse: { raw: "(pointer: coarse)" },
-      fine: { raw: "(pointer: fine)" },
-      pwa: { raw: "(display-mode: standalone)" },
-    },
     colors: {
       neutral: {
         1: "var(--color-neutral-1)",
