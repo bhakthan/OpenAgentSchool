@@ -48,14 +48,17 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 /**
- * Menu item component that allows users to install the PWA
- * Shows different UI based on platform (iOS vs Android/Desktop)
+ * Menu item component that allows users to install the PWA.
+ * Shows platform-specific UI:
+ *   - Android / Desktop Chromium → native beforeinstallprompt
+ *   - iOS Safari → manual "Add to Home Screen" instructions
+ *   - macOS Safari 17+ → manual "Add to Dock" instructions
  */
 export function InstallAppMenuItem() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showDialog, setShowDialog] = useState(false);
   const [installSuccess, setInstallSuccess] = useState(false);
-  const { isIOS, isStandalone, canInstall } = useStandaloneMode();
+  const { isIOS, isMacSafari, isStandalone, canInstall } = useStandaloneMode();
 
   useEffect(() => {
     // Listen for beforeinstallprompt event (Android/Desktop)
@@ -88,8 +91,11 @@ export function InstallAppMenuItem() {
   const detectPlatform = useCallback((): PWAInstallRecord['platform'] => {
     if (isIOS) return 'ios';
     if (/android/i.test(navigator.userAgent)) return 'android';
-    return 'desktop';
+    return 'desktop'; // covers Windows, macOS (Chrome/Edge), Linux
   }, [isIOS]);
+
+  /** True when the platform needs manual install instructions (no beforeinstallprompt) */
+  const needsManualInstructions = isIOS || isMacSafari;
 
   const handleInstall = async () => {
     if (!deferredPrompt) return;
@@ -128,11 +134,13 @@ export function InstallAppMenuItem() {
     trackEvent({
       action: 'pwa_install_prompt_shown',
       category: 'pwa',
-      label: isIOS ? 'ios_instructions' : 'native_prompt_dialog',
+      label: needsManualInstructions
+        ? isIOS ? 'ios_instructions' : 'macos_safari_instructions'
+        : 'native_prompt_dialog',
       platform,
     });
-    if (isIOS) {
-      logInstallEvent({ platform: 'ios', method: 'manual' });
+    if (needsManualInstructions) {
+      logInstallEvent({ platform: isIOS ? 'ios' : 'desktop', method: 'manual' });
     }
     setShowDialog(true);
   };
@@ -142,8 +150,8 @@ export function InstallAppMenuItem() {
     return null;
   }
 
-  // Show menu item if can install OR on iOS (where manual instructions are needed)
-  const shouldShow = canInstall || isIOS || deferredPrompt;
+  // Show if: mobile/macSafari (manual install), OR Chromium desktop (deferred prompt)
+  const shouldShow = canInstall || isIOS || isMacSafari || deferredPrompt;
   
   if (!shouldShow) {
     return null;
@@ -200,6 +208,22 @@ export function InstallAppMenuItem() {
                   <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 mt-3">
                     <p className="text-xs text-blue-800 dark:text-blue-300">
                       💡 <span className="font-semibold">Tip:</span> Works offline and loads faster!
+                    </p>
+                  </div>
+                </div>
+              ) : isMacSafari ? (
+                <div className="space-y-3">
+                  <p className="text-sm text-muted-foreground">
+                    To install on your Mac (Safari 17+):
+                  </p>
+                  <ol className="text-sm space-y-2 list-decimal list-inside">
+                    <li>Click <span className="font-semibold">File</span> in the menu bar</li>
+                    <li>Select <span className="font-semibold">"Add to Dock"</span></li>
+                    <li>Click <span className="font-semibold">"Add"</span> to confirm</li>
+                  </ol>
+                  <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 mt-3">
+                    <p className="text-xs text-blue-800 dark:text-blue-300">
+                      💡 <span className="font-semibold">Tip:</span> The app runs in its own window with offline support!
                     </p>
                   </div>
                 </div>

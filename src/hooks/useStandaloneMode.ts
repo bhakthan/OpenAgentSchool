@@ -4,11 +4,14 @@ export interface StandaloneInfo {
   isStandalone: boolean;
   isIOS: boolean;
   isAndroid: boolean;
+  isMacOS: boolean;
+  isMacSafari: boolean;
   canInstall: boolean;
 }
 
 /**
  * Detect if app is running in standalone mode (installed PWA)
+ * Covers iOS, Android, macOS (Safari "Add to Dock"), Windows, Linux
  */
 export function useStandaloneMode(): StandaloneInfo {
   const [info, setInfo] = useState<StandaloneInfo>(() => {
@@ -17,12 +20,18 @@ export function useStandaloneMode(): StandaloneInfo {
         isStandalone: false,
         isIOS: false,
         isAndroid: false,
+        isMacOS: false,
+        isMacSafari: false,
         canInstall: false
       };
     }
 
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isAndroid = /Android/.test(navigator.userAgent);
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua);
+    const isAndroid = /Android/.test(ua);
+    const isMacOS = /Macintosh|MacIntel/.test(ua) && !isIOS;
+    // Safari on macOS: no Chrome/Edg/Firefox signature
+    const isMacSafari = isMacOS && /Safari/.test(ua) && !/Chrome|Chromium|Edg|Firefox|OPR/.test(ua);
     
     // Check various standalone indicators
     const isStandalone = 
@@ -34,7 +43,11 @@ export function useStandaloneMode(): StandaloneInfo {
       isStandalone,
       isIOS,
       isAndroid,
-      canInstall: !isStandalone && (isIOS || isAndroid)
+      isMacOS,
+      isMacSafari,
+      // Installable on: mobile (iOS/Android), macOS Safari ("Add to Dock"),
+      // or any desktop with Chromium (handled via beforeinstallprompt in component)
+      canInstall: !isStandalone && (isIOS || isAndroid || isMacSafari)
     };
   });
 
