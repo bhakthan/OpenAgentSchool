@@ -80,11 +80,27 @@ export function generateCertificatePDF(
   // Certificate ID
   doc.setFontSize(10);
   doc.setTextColor(150, 150, 150);
-  doc.text(`Certificate ID: ${certificateId}`, w / 2, 175, { align: 'center' });
+  doc.text(`Certificate ID: ${certificateId}`, w / 2, 165, { align: 'center' });
+
+  // Educational disclaimer
+  doc.setFontSize(8);
+  doc.setTextColor(180, 60, 60);
+  doc.text('FOR EDUCATIONAL PURPOSES ONLY — NOT AN ACCREDITED CREDENTIAL', w / 2, 174, { align: 'center' });
+  doc.setTextColor(140, 140, 140);
+  doc.setFontSize(7);
+  doc.text(
+    'This certificate is issued by Open Agent School for self-directed learning recognition only.',
+    w / 2, 180, { align: 'center' }
+  );
+  doc.text(
+    'It does not represent professional certification, academic credit, or accreditation by any institution.',
+    w / 2, 184, { align: 'center' }
+  );
 
   // Footer
   doc.setFontSize(9);
-  doc.text('openagentschool.org', w / 2, 185, { align: 'center' });
+  doc.setTextColor(150, 150, 150);
+  doc.text('openagentschool.org', w / 2, 192, { align: 'center' });
 
   doc.save(`OAS-Certificate-${skillName.replace(/\s+/g, '-')}.pdf`);
 }

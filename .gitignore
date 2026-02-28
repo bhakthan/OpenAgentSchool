@@ -70,6 +70,9 @@ WORKSPACE_EXPLORATION_*.md
 packages
 .file-manifest
 
+# Walkthroughs (agent-generated design docs, not for commit)
+walkthroughs/
+
 # Markdown documentation folder (project notes and drafts)
 markdown/
 setup-backends.sh

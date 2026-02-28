@@ -10,6 +10,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import AudioNarrationControls from '@/components/audio/AudioNarrationControls';
 import { addUnknown } from '@/lib/data/studyMode/unknownsTracker';
 import { useToast } from '@/components/ui/use-toast';
+import { useShareNudgeContext } from '@/components/sharing/ShareNudgeProvider';
+import { useScrollDepthNudge } from '@/hooks/useScrollDepthNudge';
 
 // NOTE: "Ask AI" is an alias for "EnlightenMe Button" - it provides AI-powered insights about concept content
 // The EnlightenMeButton component (displayed as "Ask AI") helps users understand complex concepts through AI assistance
@@ -77,6 +79,8 @@ export default function ConceptLayout({
   const [isConceptComplete, setIsConceptComplete] = useState(false)
   const [showPredictFirstNudge, setShowPredictFirstNudge] = useState(true)
   const { toast: showToast } = useToast()
+  const { requestNudge, visitConcept } = useShareNudgeContext()
+  const scrollSentinelRef = useScrollDepthNudge({ conceptId, conceptTitle: title })
 
   useEffect(() => {
     try {
@@ -92,6 +96,11 @@ export default function ConceptLayout({
     }
   }, [])
 
+  // Track concept visit for session-milestone nudge
+  useEffect(() => {
+    visitConcept(conceptId, title);
+  }, [conceptId, title, visitConcept]);
+
   const safeTabs = tabs || []
   const currentTabIndex = safeTabs.findIndex(tab => tab.id === activeTab)
   const currentTab = safeTabs[currentTabIndex]
@@ -105,6 +114,12 @@ export default function ConceptLayout({
     if (newCompletedTabs.size === safeTabs.length && !isConceptComplete) {
       setIsConceptComplete(true)
       onMarkComplete?.()
+      // Peak-End Rule: nudge to share at the moment of achievement
+      requestNudge({
+        trigger: 'concept-complete',
+        conceptId,
+        conceptTitle: title,
+      })
     }
   }
 
@@ -179,6 +194,8 @@ export default function ConceptLayout({
           </CardHeader>
           <CardContent>
             {children}
+            {/* Scroll-depth sentinel — fires share nudge at ~70%  */}
+            <div ref={scrollSentinelRef} aria-hidden="true" className="h-px" />
           </CardContent>
         </Card>
       </div>
@@ -286,6 +303,9 @@ export default function ConceptLayout({
             <div className="space-y-6">
               {tab.content}
             </div>
+
+            {/* Scroll-depth sentinel — fires share nudge when user reaches bottom area */}
+            <div ref={scrollSentinelRef} aria-hidden="true" className="h-px" />
 
             {/* Navigation */}
             <Card>

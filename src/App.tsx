@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react'
 import { Outlet, Route, Routes, Link, useLocation, Navigate, useNavigate } from 'react-router-dom'
+import ShareNudgeProvider from '@/components/sharing/ShareNudgeProvider'
 import { ThemeProvider } from './components/theme/ThemeProvider'
 import { ThemeToggle } from './components/theme/ThemeToggle'
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu"
@@ -376,6 +377,7 @@ function App() {
         <AudioNarrationProvider>
           <VoiceInputProvider>
           <EnlightenMeProvider>
+          <ShareNudgeProvider>
             {/* Skip Link for Keyboard Users */}
             <a 
               href="#main-content" 
@@ -932,6 +934,7 @@ function App() {
           {/* Quick navigation palette (Ctrl+K) */}
           <QuickNav open={quickNavOpen} onOpenChange={setQuickNavOpen} />
         </div>
+      </ShareNudgeProvider>
       </EnlightenMeProvider>
       </VoiceInputProvider>
       </AudioNarrationProvider>

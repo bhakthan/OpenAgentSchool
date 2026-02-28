@@ -63,10 +63,13 @@ function SkillStamp({ skill }: { skill: SkillEntry }) {
   );
 }
 
+const DISCLAIMER_TEXT = `These certificates are for educational and personal use only. They do not represent professional certification, academic credit, or accreditation by any recognized institution. Open Agent School certificates acknowledge self-directed learning milestones and carry no warranty of competency or employment qualification. By proceeding, you acknowledge and accept these terms.`;
+
 export default function SkillPassportPage() {
   const skills = useMemo(() => gatherSkills(), []);
   const earnedSkills = skills.filter(s => s.earned);
   const [certName, setCertName] = useState('');
+  const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
 
   const handleGenerateCert = (skillName: string) => {
     trackEvent({ action: 'generate_certificate', category: 'skill_passport', label: skillName });
@@ -114,14 +117,40 @@ export default function SkillPassportPage() {
         </CardContent>
       </Card>
 
+      {/* Legal disclaimer gate */}
+      {earnedSkills.length > 0 && (
+        <Card className={`mb-6 border-2 ${disclaimerAccepted ? 'border-green-500/40' : 'border-amber-500/60'}`}>
+          <CardContent className="pt-6">
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="cert-disclaimer"
+                checked={disclaimerAccepted}
+                onChange={e => setDisclaimerAccepted(e.target.checked)}
+                className="mt-1 h-4 w-4 rounded border-gray-300"
+              />
+              <label htmlFor="cert-disclaimer" className="text-sm leading-relaxed">
+                <span className="font-semibold text-amber-600 dark:text-amber-400">Educational Use Disclaimer</span>
+                <p className="mt-1 text-muted-foreground text-xs">{DISCLAIMER_TEXT}</p>
+              </label>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Certificate generation for earned skills */}
       {earnedSkills.length > 0 && (
-        <Card>
+        <Card className={!disclaimerAccepted ? 'opacity-50 pointer-events-none' : ''}>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Download size={22} weight="duotone" />
               Generate Certificates
             </CardTitle>
+            {!disclaimerAccepted && (
+              <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+                Accept the educational use disclaimer above to enable downloads.
+              </p>
+            )}
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
@@ -131,7 +160,11 @@ export default function SkillPassportPage() {
                     <span className="font-medium">{skill.name}</span>
                     <Badge variant="outline" className="ml-2 text-xs">{skill.source}</Badge>
                   </div>
-                  <Button size="sm" onClick={() => handleGenerateCert(skill.name)}>
+                  <Button
+                    size="sm"
+                    disabled={!disclaimerAccepted}
+                    onClick={() => handleGenerateCert(skill.name)}
+                  >
                     <Download size={14} className="mr-1" /> PDF
                   </Button>
                 </div>
