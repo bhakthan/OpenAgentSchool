@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { trackEvent } from '@/lib/analytics/ga';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { hashPasswordForTransport } from '@/lib/auth/passwordTransport';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -85,6 +86,7 @@ export default function ResetPasswordPage() {
     setIsLoading(true);
 
     try {
+      const hashedPassword = await hashPasswordForTransport(password);
       const response = await fetch(`${API_CONFIG.core}/api/v1/password-reset/confirm`, {
         method: 'POST',
         headers: {
@@ -92,7 +94,7 @@ export default function ResetPasswordPage() {
         },
         body: JSON.stringify({
           token,
-          new_password: password,
+          new_password: hashedPassword,
         }),
       });
 
