@@ -202,7 +202,7 @@ export const QuickNav: React.FC<QuickNavProps> = ({ open, onOpenChange }) => {
 
   const goTo = useCallback(
     (path: string) => {
-      trackEvent({ action: 'quick_nav_select', category: 'search', label: path });
+      trackEvent({ action: 'search', category: 'search', label: path, search_term: path });
       onOpenChange(false);
       navigate(path);
     },

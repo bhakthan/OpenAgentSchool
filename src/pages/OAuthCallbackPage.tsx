@@ -8,6 +8,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/lib/auth/AuthContext';
 import { API_CONFIG } from '@/lib/api/config';
 import { toast } from 'sonner';
+import { trackEvent, setUserProperties } from '@/lib/analytics/ga';
 
 export default function OAuthCallbackPage() {
   const { provider } = useParams<{ provider: string }>();
@@ -62,6 +63,13 @@ export default function OAuthCallbackPage() {
         // Store token and user data
         localStorage.setItem('access_token', data.access_token);
         localStorage.setItem('user', JSON.stringify(data.user));
+
+        // GA4: tag this session with auth context
+        trackEvent({ action: 'login', category: 'auth', label: provider, method: provider });
+        setUserProperties({
+          auth_method: provider as 'google' | 'microsoft' | 'github',
+          user_tier: data.user.role === 'admin' ? 'admin' : 'registered',
+        });
 
         toast.success(`Welcome, ${data.user.name || data.user.email}!`);
 

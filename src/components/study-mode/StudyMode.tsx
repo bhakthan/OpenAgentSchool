@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { trackEvent } from '@/lib/analytics/ga';
+import { trackEvent, trackTiming } from '@/lib/analytics/ga';
 
 // Ambient window flag typing
 declare global {
@@ -443,6 +443,12 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     setActiveTab('overview');
     
     trackEvent({ action: 'session_complete', category: 'study_mode', label: session.type, value: session.score, concept_id: session.conceptId, question_id: session.questionId });
+
+    // Track engagement timing for GA4 duration analysis
+    if (session.endTime && session.startTime) {
+      const durationMs = new Date(session.endTime).getTime() - new Date(session.startTime).getTime();
+      trackTiming(`study_${session.type}`, durationMs, 'study_mode');
+    }
     
     // Track session completion with authentication context
     try {

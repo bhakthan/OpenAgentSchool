@@ -29,7 +29,7 @@ export function SignupForm({ onSuccess, onSwitchToLogin }: SignupFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    trackEvent({ action: 'signup_submit', category: 'auth', label: 'email' });
+    trackEvent({ action: 'sign_up', category: 'auth', label: 'email', method: 'email' });
 
     // Validation
     if (!email || !password) {

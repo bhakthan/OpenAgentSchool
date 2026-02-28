@@ -43,7 +43,7 @@ export const SiteSearch: React.FC<SiteSearchProps> = ({ open, onOpenChange }) =>
   const openGoogleTab = useCallback(
     (q: string) => {
       if (!q.trim()) return;
-      trackEvent({ action: 'search_submit', category: 'search', label: q.trim() });
+      trackEvent({ action: 'search', category: 'search', label: q.trim(), search_term: q.trim() });
       const searchUrl = `https://www.google.com/search?q=site%3A${SEARCH_SITE}+${encodeURIComponent(q.trim())}`;
       window.open(searchUrl, '_blank', 'noopener,noreferrer');
     },

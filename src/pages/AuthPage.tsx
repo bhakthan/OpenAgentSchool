@@ -4,7 +4,7 @@
  */
 
 import { useState } from 'react';
-import { trackEvent } from '@/lib/analytics/ga';
+import { trackEvent, setUserProperties } from '@/lib/analytics/ga';
 import { useNavigate } from 'react-router-dom';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { SignupForm } from '@/components/auth/SignupForm';
@@ -17,7 +17,8 @@ export default function AuthPage() {
   const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
 
   const handleSuccess = () => {
-    trackEvent({ action: 'auth_success', category: 'auth', label: activeTab });
+    trackEvent({ action: 'login', category: 'auth', label: activeTab, method: 'email' });
+    setUserProperties({ auth_method: 'email', user_tier: 'registered' });
     navigate('/');
   };
 

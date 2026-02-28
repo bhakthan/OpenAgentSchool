@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { trackEvent } from '@/lib/analytics/ga';
+import { trackEvent, trackTiming } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -198,6 +198,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               setCurrentSession(completedSession);
               setQuizFeedback(feedback);
               trackEvent({ action: 'quiz_complete', category: 'quiz', value: completedSession.score || 0 });
+              if (completedSession.timeSpent) trackTiming('quiz_complete', completedSession.timeSpent * 1000, 'quiz');
               setShowResults(true);
               setTimeRemaining(0);
               
@@ -233,6 +234,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               setCurrentSession(completedSession);
               setQuizFeedback(feedback);
               trackEvent({ action: 'quiz_complete', category: 'quiz', value: completedSession.score || 0 });
+              if (completedSession.timeSpent) trackTiming('quiz_complete', completedSession.timeSpent * 1000, 'quiz');
               setShowResults(true);
               setTimeRemaining(0);
               
