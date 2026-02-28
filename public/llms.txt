@@ -28,6 +28,14 @@ AI agents through interactive learning, hands-on practice, and real-world patter
 - Agent Reasoning & Tool Use
 - Memory Systems & Context Management
 
+### Beginner Foundations (February 2026)
+Five prerequisite concepts for absolute beginners entering the AI agent space:
+- What Is an LLM? — Tokens, context windows, temperature, transformer architecture, scaling laws, autoregressive prediction
+- Tool Use & Function Calling — The bridge from chatbot to agent: JSON Schema tools, function calling cycle, MCP, parallel tool calls
+- Hallucination & Grounding — Why LLMs confabulate, grounding strategies (RAG, citations, chain-of-verification), semantic entropy
+- Memory & State — Short-term, long-term, episodic memory; stateless-to-stateful transition; vector stores for persistence
+- RAG Basics — Retrieval-Augmented Generation: embed, chunk, retrieve, generate; hybrid search, re-ranking, evaluation metrics
+
 ### Communication Protocols
 - Model Context Protocol (MCP) - Context and tool standardization
 - Agent-to-Agent (A2A) Communication - Inter-agent messaging
@@ -199,6 +207,14 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Tri-System Paradigm: https://www.openagentschool.org/concepts/tri-system-paradigm
 - Tri-System Infographic (Portrait): https://www.openagentschool.org/images/Tri_System_Paradigm_Portrait.webp
 - Tri-System Infographic (Landscape): https://www.openagentschool.org/images/Tri_System_Paradigm_Landscape.webp
+
+## Beginner Foundations URLs (February 2026)
+
+- What Is an LLM?: https://www.openagentschool.org/concepts/what-is-an-llm
+- Tool Use & Function Calling: https://www.openagentschool.org/concepts/tool-use-function-calling
+- Hallucination & Grounding: https://www.openagentschool.org/concepts/hallucination-grounding
+- Memory & State: https://www.openagentschool.org/concepts/memory-state
+- RAG Basics: https://www.openagentschool.org/concepts/rag-basics
 
 ## Meta-Learning URLs (February 2026)
 

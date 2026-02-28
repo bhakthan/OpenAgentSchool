@@ -29,6 +29,19 @@ Concept-Agent-Evaluation: https://www.openagentschool.org/concepts/agent-evaluat
 Concept-AI-Safety: https://www.openagentschool.org/concepts/ai-safety-governance
 Concept-Flow-Visualization: https://www.openagentschool.org/concepts/flow-visualization
 
+# Beginner Foundations (February 2026)
+# Five new prerequisite concepts for absolute beginners entering the AI agent space
+Concept-What-Is-An-LLM: https://www.openagentschool.org/concepts/what-is-an-llm
+# Tokens, context windows, temperature, transformer architecture, scaling laws
+Concept-Tool-Use-Function-Calling: https://www.openagentschool.org/concepts/tool-use-function-calling
+# The bridge from chatbot to agent: JSON Schema tools, function calling cycle, MCP
+Concept-Hallucination-Grounding: https://www.openagentschool.org/concepts/hallucination-grounding
+# Why LLMs confabulate, grounding strategies, RAG, citation enforcement, semantic entropy
+Concept-Memory-State: https://www.openagentschool.org/concepts/memory-state
+# Short-term, long-term, episodic memory; stateless→stateful transition for agents
+Concept-RAG-Basics: https://www.openagentschool.org/concepts/rag-basics
+# Retrieval-Augmented Generation: embed, chunk, retrieve, generate with evidence
+
 # Enterprise Playbook Concepts (January 2026 Update)
 Concept-Program-Setup: https://www.openagentschool.org/concepts/program-setup-north-star
 Concept-Responsible-AI: https://www.openagentschool.org/concepts/responsible-ai-governance

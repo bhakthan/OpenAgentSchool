@@ -35,6 +35,8 @@ import { ArrowUp } from "@phosphor-icons/react/dist/ssr/ArrowUp";
 import { Atom } from "@phosphor-icons/react/dist/ssr/Atom";
 import { Funnel } from "@phosphor-icons/react/dist/ssr/Funnel";
 import { Eye } from "@phosphor-icons/react/dist/ssr/Eye";
+import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
+import { Wrench } from "@phosphor-icons/react/dist/ssr/Wrench";
 import { cn } from "@/lib/utils";
 import { useTheme } from '@/components/theme/ThemeProvider';
 
@@ -77,6 +79,8 @@ const learningPaths: LearningPath[] = [
     recommendedOrder: [
       // Tier 0: Meta-Learning Foundation
       'learning-how-to-learn',
+      // Tier 0: LLM Foundations
+      'what-is-an-llm', 'hallucination-grounding', 'rag-basics', 'tool-use-function-calling', 'memory-state',
       // Tier 0: Core Concepts (Prompting & Optimization)
       'agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals', 'prompt-optimization-patterns', 'agent-instruction-design', 
       'agentic-workflow-control', 'agent-evaluation-methodologies',
@@ -110,6 +114,77 @@ const learningPaths: LearningPath[] = [
         completionRate: 0,
         isCompleted: false,
         isUnlocked: true,
+        path: '/concepts'
+      },
+      // Tier 0: LLM Foundations
+      {
+        id: 'what-is-an-llm',
+        title: 'What Is an LLM?',
+        description: 'Tokens, context windows, and costs — the three things to understand before using any AI model.',
+        icon: <Brain size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '15-20 min',
+        prerequisites: [],
+        skills: ['Tokens', 'Context Windows', 'Model Selection', 'API Pricing'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: true,
+        path: '/concepts'
+      },
+      {
+        id: 'hallucination-grounding',
+        title: 'Hallucination & Grounding',
+        description: 'LLMs sometimes make things up — learn why and how to keep answers anchored in reality.',
+        icon: <Eye size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '15-25 min',
+        prerequisites: ['what-is-an-llm'],
+        skills: ['Hallucination Detection', 'Grounding Strategies', 'Citation Prompting', 'Fact Verification'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'rag-basics',
+        title: 'RAG Basics',
+        description: 'Search your data first, then let the model answer — the most popular way to ground AI in facts.',
+        icon: <MagnifyingGlass size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '20-30 min',
+        prerequisites: ['what-is-an-llm', 'hallucination-grounding'],
+        skills: ['Retrieval-Augmented Generation', 'Embeddings', 'Vector Search', 'Chunking'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'tool-use-function-calling',
+        title: 'Tool Use & Function Calling',
+        description: 'Tools turn a chatbot into an agent — learn how function calling bridges text and real-world action.',
+        icon: <Wrench size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '20-25 min',
+        prerequisites: ['what-is-an-llm'],
+        skills: ['Function Calling', 'Tool Definitions', 'JSON Schemas', 'MCP Awareness'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'memory-state',
+        title: 'Memory & State',
+        description: 'Agents forget everything between requests — learn how to give them short-term, long-term, and task memory.',
+        icon: <Database size={20} />,
+        difficulty: 'beginner',
+        estimatedTime: '20-25 min',
+        prerequisites: ['what-is-an-llm'],
+        skills: ['Short-Term Memory', 'Long-Term Memory', 'Episodic Memory', 'State Management'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
         path: '/concepts'
       },
       // Tier 0: Foundation - Design Taxonomy
@@ -147,7 +222,7 @@ const learningPaths: LearningPath[] = [
         title: 'Prompt Optimization Patterns',
         description: 'Learn systematic approaches to eliminate contradictions and improve effectiveness',
         icon: <ChartBar size={20} />,
-        difficulty: 'beginner',
+        difficulty: 'intermediate',
         estimatedTime: '35-45 min',
         prerequisites: ['agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals'],
         skills: ['Contradiction Elimination', 'Specificity Improvements', 'Example Consistency'],
@@ -161,7 +236,7 @@ const learningPaths: LearningPath[] = [
         title: 'Agent Instruction Design',
         description: 'Design effective instruction hierarchies and steerability controls',
         icon: <Books size={20} />,
-        difficulty: 'beginner',
+        difficulty: 'intermediate',
         estimatedTime: '30-40 min',
         prerequisites: ['agentic-ai-design-taxonomy', 'agentic-prompting-fundamentals'],
         skills: ['Instruction Hierarchy', 'Steerability Control', 'Verbosity Management'],
@@ -316,7 +391,7 @@ const learningPaths: LearningPath[] = [
         title: 'Atomic LLM Training (microGPT)',
         description: 'Build and train a GPT from scratch in 200 lines of pure Python — see every gradient, every attention head',
         icon: <Atom size={20} />,
-        difficulty: 'beginner',
+        difficulty: 'advanced',
         estimatedTime: '50-70 min',
         prerequisites: [],
         skills: ['Autograd', 'Backpropagation', 'Transformer Architecture', 'Adam Optimizer', 'Cross-Entropy Loss'],

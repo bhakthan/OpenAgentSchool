@@ -69,6 +69,13 @@ Allow: /concepts/fine-tuning
 Allow: /concepts/data-visualization
 Allow: /concepts/context-engineering
 
+# Beginner Foundations (February 2026)
+Allow: /concepts/what-is-an-llm
+Allow: /concepts/tool-use-function-calling
+Allow: /concepts/hallucination-grounding
+Allow: /concepts/memory-state
+Allow: /concepts/rag-basics
+
 # MCP Apps & Agent UI (January 2026)
 # Interactive UI standard for AI agents (SEP-1865)
 Allow: /concepts/mcp
@@ -153,6 +160,11 @@ Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
 Allow: /concepts/tri-system-paradigm
 Allow: /concepts/context-engineering
+Allow: /concepts/what-is-an-llm
+Allow: /concepts/tool-use-function-calling
+Allow: /concepts/hallucination-grounding
+Allow: /concepts/memory-state
+Allow: /concepts/rag-basics
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
@@ -202,6 +214,11 @@ Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
 Allow: /concepts/tri-system-paradigm
 Allow: /concepts/context-engineering
+Allow: /concepts/what-is-an-llm
+Allow: /concepts/tool-use-function-calling
+Allow: /concepts/hallucination-grounding
+Allow: /concepts/memory-state
+Allow: /concepts/rag-basics
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
@@ -239,6 +256,11 @@ Allow: /concepts/prompt-injection-defense
 Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
 Allow: /concepts/context-engineering
+Allow: /concepts/what-is-an-llm
+Allow: /concepts/tool-use-function-calling
+Allow: /concepts/hallucination-grounding
+Allow: /concepts/memory-state
+Allow: /concepts/rag-basics
 Crawl-delay: 2
 
 User-agent: anthropic-ai
@@ -269,6 +291,11 @@ Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
 Allow: /concepts/tri-system-paradigm
 Allow: /concepts/context-engineering
+Allow: /concepts/what-is-an-llm
+Allow: /concepts/tool-use-function-calling
+Allow: /concepts/hallucination-grounding
+Allow: /concepts/memory-state
+Allow: /concepts/rag-basics
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing
@@ -315,6 +342,11 @@ Allow: /concepts/human-in-the-loop-patterns
 Allow: /concepts/agent-cost-optimization
 Allow: /concepts/tri-system-paradigm
 Allow: /concepts/context-engineering
+Allow: /concepts/what-is-an-llm
+Allow: /concepts/tool-use-function-calling
+Allow: /concepts/hallucination-grounding
+Allow: /concepts/memory-state
+Allow: /concepts/rag-basics
 Allow: /patterns/skill-augmented-agent
 Allow: /patterns/mcp-server-orchestration
 Allow: /patterns/multi-llm-routing

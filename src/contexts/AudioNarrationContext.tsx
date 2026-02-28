@@ -621,6 +621,18 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'proactive-agent-design': 'ProactiveAgentDesignConcept',
         'ProactiveAgentDesignConcept': 'ProactiveAgentDesignConcept',
         
+        // Beginner Foundations - 2026 fundamentals audit
+        'what-is-an-llm': 'WhatIsAnLLMConcept',
+        'WhatIsAnLLMConcept': 'WhatIsAnLLMConcept',
+        'tool-use-function-calling': 'ToolUseFunctionCallingConcept',
+        'ToolUseFunctionCallingConcept': 'ToolUseFunctionCallingConcept',
+        'hallucination-grounding': 'HallucinationGroundingConcept',
+        'HallucinationGroundingConcept': 'HallucinationGroundingConcept',
+        'memory-state': 'MemoryStateConcept',
+        'MemoryStateConcept': 'MemoryStateConcept',
+        'rag-basics': 'RAGBasicsConcept',
+        'RAGBasicsConcept': 'RAGBasicsConcept',
+        
         // Core Concepts - 2026 additions
         'agent-reasoning-patterns': 'AgentReasoningPatternsConcept',
         'agent-memory-systems': 'AgentMemorySystemsConcept',

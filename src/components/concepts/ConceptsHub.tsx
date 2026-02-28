@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, lazy, Suspense } from "react"
+﻿import { useState, useMemo, useEffect, lazy, Suspense } from "react"
 import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -73,6 +73,11 @@ const XYZClawConcept = lazy(() => import("./XYZClawConcept"))
 const TriSystemParadigmConcept = lazy(() => import("./TriSystemParadigmConcept"))
 const ContextEngineeringConcept = lazy(() => import("./ContextEngineeringConcept"))
 const ProactiveAgentDesignConcept = lazy(() => import("./ProactiveAgentDesignConcept"))
+const WhatIsAnLLMConcept = lazy(() => import("./WhatIsAnLLMConcept"))
+const ToolUseFunctionCallingConcept = lazy(() => import("./ToolUseFunctionCallingConcept"))
+const HallucinationGroundingConcept = lazy(() => import("./HallucinationGroundingConcept"))
+const MemoryStateConcept = lazy(() => import("./MemoryStateConcept"))
+const RAGBasicsConcept = lazy(() => import("./RAGBasicsConcept"))
 
 // Loading fallback for lazy concept components
 const ConceptLoader = () => (
@@ -107,6 +112,62 @@ const concepts: ConceptInfo[] = [
     prerequisites: [],
     component: LearningHowToLearnConcept
   },
+  // Tier 0: LLM Foundations — what every beginner needs before touching agents
+  {
+    id: 'what-is-an-llm',
+    title: 'What Is an LLM?',
+    description: 'Tokens, context windows, and costs — the three things to understand before using any AI model.',
+    level: 'fundamentals',
+    icon: <Brain className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-sky-900/20 dark:text-sky-300',
+    estimatedTime: '15-20 min',
+    prerequisites: [],
+    component: WhatIsAnLLMConcept
+  },
+  {
+    id: 'hallucination-grounding',
+    title: 'Hallucination & Grounding',
+    description: 'LLMs sometimes make things up — learn why and how to keep answers anchored in reality.',
+    level: 'fundamentals',
+    icon: <Eye className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-orange-900/20 dark:text-orange-300',
+    estimatedTime: '15-25 min',
+    prerequisites: ['what-is-an-llm'],
+    component: HallucinationGroundingConcept
+  },
+  {
+    id: 'rag-basics',
+    title: 'RAG Basics',
+    description: 'Search your data first, then let the model answer — the most popular way to ground AI in facts.',
+    level: 'fundamentals',
+    icon: <MagnifyingGlass className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-teal-900/20 dark:text-teal-300',
+    estimatedTime: '20-30 min',
+    prerequisites: ['what-is-an-llm', 'hallucination-grounding'],
+    component: RAGBasicsConcept
+  },
+  {
+    id: 'tool-use-function-calling',
+    title: 'Tool Use & Function Calling',
+    description: 'Tools turn a chatbot into an agent — learn how function calling bridges text and real-world action.',
+    level: 'fundamentals',
+    icon: <Database className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-violet-900/20 dark:text-violet-300',
+    estimatedTime: '20-25 min',
+    prerequisites: ['what-is-an-llm'],
+    component: ToolUseFunctionCallingConcept
+  },
+  {
+    id: 'memory-state',
+    title: 'Memory & State',
+    description: 'Agents forget everything between requests — learn how to give them short-term, long-term, and task memory.',
+    level: 'fundamentals',
+    icon: <Database className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-lime-900/20 dark:text-lime-300',
+    estimatedTime: '20-25 min',
+    prerequisites: ['what-is-an-llm'],
+    component: MemoryStateConcept
+  },
   // Tier 0: Foundation - Design Taxonomy
   {
     id: 'agentic-ai-design-taxonomy',
@@ -123,7 +184,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agentic-prompting-fundamentals',
     title: 'Agentic Prompting Fundamentals',
-  description: 'Learn the 20% prompting moves that unlock 80% of agent reliability and control.',
+  description: 'Learn the small set of prompting moves that make agents reliable and easy to steer.',
     level: 'fundamentals',
     icon: <Brain className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-blue-900/20 dark:text-blue-300',
@@ -135,7 +196,7 @@ const concepts: ConceptInfo[] = [
     id: 'prompt-optimization-patterns',
     title: 'Prompt Optimization Patterns',
   description: 'Turn brittle prompts into stable systems using repeatable refactor patterns—not guesswork.',
-    level: 'fundamentals',
+    level: 'architecture',
     icon: <ChartBar className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-green-900/20 dark:text-green-300',
     estimatedTime: '35-45 min',
@@ -145,8 +206,8 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-instruction-design',
     title: 'Agent Instruction Design',
-  description: 'Shape agent behavior with layered instruction scaffolds that stay steerable under real-world drift.',
-    level: 'fundamentals',
+  description: 'Write clear, structured instructions that keep agents on track as tasks get complex.',
+    level: 'architecture',
     icon: <BookOpen className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-purple-900/20 dark:text-purple-300',
     estimatedTime: '30-40 min',
@@ -156,8 +217,8 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agentic-workflow-control',
     title: 'Agentic Workflow Control',
-  description: 'Orchestrate multi-step, multi-tool flows without timing chaos or context bleed.',
-    level: 'fundamentals',
+  description: 'Connect multiple tools and steps into reliable agent workflows.',
+    level: 'architecture',
     icon: <ArrowsHorizontal className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-orange-900/20 dark:text-orange-300',
     estimatedTime: '40-50 min',
@@ -167,8 +228,8 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-evaluation-methodologies',
     title: 'Agent Evaluation Methodologies',
-  description: 'Know when your agent is actually improving—quant + LLM-as-judge + failure pattern surfacing.',
-    level: 'fundamentals',
+  description: 'Measure whether your agent is getting better with practical testing methods.',
+    level: 'architecture',
     icon: <ChartBar className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-cyan-900/20 dark:text-cyan-300',
     estimatedTime: '35-45 min',
@@ -179,7 +240,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-architecture',
     title: 'Agent Architecture & Lifecycle',
-  description: 'See how perception, reasoning, memory, and action really fit—and where failures usually emerge.',
+  description: 'See how the four core parts—perception, reasoning, memory, and action—work together inside an agent.',
     level: 'fundamentals',
     icon: <Brain className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-blue-900/20 dark:text-blue-300',
@@ -198,7 +259,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-security',
     title: 'Agent Security & Trust',
-  description: 'Build agents that can’t silently exfiltrate, escalate, or hallucinate authority.',
+  description: 'Protect your agents from being tricked, leaking data, or acting outside their boundaries.',
     level: 'fundamentals',
     icon: <Shield className="w-6 h-6" />,
     color: 'bg-background text-foreground/80 dark:bg-red-900/20 dark:text-red-300',
@@ -209,7 +270,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'multi-agent-systems',
     title: 'Multi-Agent Systems',
-  description: 'Design agent teams that collaborate intentionally—no emergent spaghetti.',
+  description: 'Learn how multiple agents can work together as a team to solve bigger problems.',
     level: 'fundamentals',
     icon: <Users className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-green-900/20 dark:text-green-300',
@@ -231,7 +292,7 @@ const concepts: ConceptInfo[] = [
   {
     id: 'agent-ethics',
     title: 'Agent Ethics & Governance',
-  description: 'Embed guardrails that adapt across contexts without freezing innovation.',
+  description: 'Set up safety guardrails so your agents behave responsibly in any situation.',
     level: 'fundamentals',
     icon: <Shield className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-yellow-900/20 dark:text-yellow-300',
@@ -242,18 +303,17 @@ const concepts: ConceptInfo[] = [
   {
     id: 'ai-agents',
     title: 'AI Agents',
-  description: 'What truly separates an “agent” from a chat wrapper—and how to cross that line.',
+  description: 'Understand what makes an AI agent different from a simple chatbot—and why it matters.',
     level: 'fundamentals',
     icon: <Brain className="w-6 h-6" />,
-  color: 'bg-background text-foreground/80 dark:bg-purple-900/20 dark:text-purple-300',
+    prerequisites: [],
     estimatedTime: '20-30 min',
-    prerequisites: ['agentic-ai-design-taxonomy'],
     component: AIAgentsConcept
   },
   {
     id: 'ai-safety-governance',
     title: 'AI Safety and Governance',
-  description: 'Shift from reactive patching to proactive tracing, containment, and escalation design.',
+  description: 'Learn the key safety principles that keep AI systems trustworthy and under control.',
     level: 'fundamentals',
     icon: <Shield className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-cyan-900/20 dark:text-cyan-300',
@@ -264,8 +324,8 @@ const concepts: ConceptInfo[] = [
   {
     id: 'atomic-llm-training',
     title: 'Atomic LLM Training (microGPT)',
-    description: 'See every line of a working GPT — 200 lines of pure Python, zero dependencies, full understanding.',
-    level: 'fundamentals',
+    description: 'Understand how language models learn by reading through a working GPT in 200 lines of Python.',
+    level: 'advanced',
     icon: <Atom className="w-6 h-6" />,
     color: 'bg-background text-foreground/80 dark:bg-amber-900/20 dark:text-amber-300',
     estimatedTime: '50-70 min',
@@ -276,7 +336,7 @@ const concepts: ConceptInfo[] = [
     id: 'program-setup-north-star',
     title: 'Program Setup & North Star',
     description: 'Align mission, metrics, and maturity before scaling agent initiatives across the organization.',
-    level: 'fundamentals',
+    level: 'applied',
     icon: <ArrowRight className="w-6 h-6" />,
     color: 'bg-background text-foreground/80 dark:bg-amber-900/20 dark:text-amber-300',
     estimatedTime: '30-40 min',
@@ -287,7 +347,7 @@ const concepts: ConceptInfo[] = [
     id: 'responsible-ai-governance',
     title: 'Responsible AI Governance Playbooks',
     description: 'Operationalize policies, risk reviews, and escalation paths that keep agents compliant day-to-day.',
-    level: 'fundamentals',
+    level: 'applied',
     icon: <Shield className="w-6 h-6" />,
     color: 'bg-background text-foreground/80 dark:bg-red-900/20 dark:text-red-300',
     estimatedTime: '35-45 min',

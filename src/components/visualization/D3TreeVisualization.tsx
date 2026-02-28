@@ -54,6 +54,18 @@ export default function D3TreeVisualization({
       type: 'root' as const,
       children: [
         {
+          id: 'beginner-foundations',
+          name: 'Beginner Foundations',
+          type: 'category' as const,
+          children: collapsedNodes.has('beginner-foundations') ? [] : [
+            { id: 'what-is-an-llm', name: 'What Is an LLM?', type: 'concept' as const, novel: true },
+            { id: 'hallucination-grounding', name: 'Hallucination & Grounding', type: 'concept' as const, novel: true },
+            { id: 'tool-use-function-calling', name: 'Tool Use & Function Calling', type: 'concept' as const, novel: true },
+            { id: 'memory-state', name: 'Memory & State', type: 'concept' as const, novel: true },
+            { id: 'rag-basics', name: 'RAG Basics', type: 'concept' as const, novel: true },
+          ]
+        },
+        {
           id: 'tier-0',
           name: 'Prompting Fundamentals (Tier 0)',
           type: 'category' as const,
