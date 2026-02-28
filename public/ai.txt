@@ -1,7 +1,11 @@
-# Open Agent School - ai.txt (experimental)
+# Open Agent School - ai.txt
 # AI crawler context file for AI training and LLM discovery
-# Last updated: February 27, 2026
-
+# Last updated: February 28, 2026
+#
+# POLICY: Fully inclusive — all AI crawlers, search engines, and bots are
+# welcome to index, train on, and serve our educational content.
+# Open Agent School is a global platform serving learners worldwide.
+#
 # Mission
 # Our mission: To benefit every Educational Institution, every Educator, and every Learner.
 

@@ -1,114 +1,19 @@
 # Open Agent School - Robots.txt
 # https://www.openagentschool.org/robots.txt
-# Last updated: February 27, 2026
+# Last updated: February 28, 2026
+#
+# POLICY: Fully inclusive — all bots welcome.
+# Open Agent School is a global educational platform.
+# We believe AI-powered discovery benefits every learner worldwide.
 
+# ═══════════════════════════════════════════════════════════════
+# DEFAULT: Allow everything for all agents
+# ═══════════════════════════════════════════════════════════════
 User-agent: *
 Allow: /
 Crawl-delay: 1
 
-# High-value content for crawlers
-Allow: /concepts/
-Allow: /patterns/
-Allow: /study-mode/
-Allow: /ai-skills/
-Allow: /playbook/
-Allow: /learning-journey
-Allow: /learning-atlas
-Allow: /agents-for-science
-Allow: /api-docs
-
-# Phase 1-3 Feature Pages (February 27, 2026) — Login Required
-Allow: /phase1-lab
-Allow: /analytics
-Allow: /project-tracks
-Allow: /pair-programming
-Allow: /skill-passport
-Allow: /cohorts
-Allow: /safety-lab
-Allow: /sandbox
-
-# BYOK & Provider Configuration (February 2026)
-# Settings page for Bring Your Own Key, local runners, and international providers
-Allow: /settings
-Allow: /concepts/program-setup-north-star
-Allow: /concepts/responsible-ai-governance
-Allow: /concepts/strategy-portfolio-management
-Allow: /concepts/organizational-enablement
-Allow: /concepts/data-knowledge-operations
-Allow: /concepts/experimentation-continuous-improvement
-Allow: /concepts/ecosystem-partnerships
-Allow: /concepts/architecture-platform-operations
-Allow: /concepts/agent-ops
-
-# Production Foundations Concepts
-Allow: /concepts/agent-skills
-Allow: /concepts/client-coding-agents
-Allow: /concepts/agent-red-teaming
-Allow: /concepts/agent-troubleshooting
-Allow: /concepts/agent-economics
-Allow: /concepts/agent-career-paths
-Allow: /concepts/industry-agents
-Allow: /concepts/agent-templates-hub
-Allow: /concepts/agent-reasoning-patterns
-Allow: /concepts/agent-memory-systems
-Allow: /concepts/agent-observability
-Allow: /concepts/agent-testing-benchmarks
-Allow: /concepts/prompt-injection-defense
-Allow: /concepts/human-in-the-loop-patterns
-Allow: /concepts/agent-cost-optimization
-
-# Advanced Cognitive Science Concepts (February 2026)
-Allow: /concepts/tri-system-paradigm
-
-# Core Concepts
-Allow: /concepts/quantum-ai-robotics
-Allow: /concepts/edge-agent
-Allow: /concepts/agentic-robotics
-Allow: /concepts/agent-learning
-Allow: /concepts/fine-tuning
-Allow: /concepts/data-visualization
-Allow: /concepts/context-engineering
-
-# Beginner Foundations (February 2026)
-Allow: /concepts/what-is-an-llm
-Allow: /concepts/tool-use-function-calling
-Allow: /concepts/hallucination-grounding
-Allow: /concepts/memory-state
-Allow: /concepts/rag-basics
-
-# MCP Apps & Agent UI (January 2026)
-# Interactive UI standard for AI agents (SEP-1865)
-Allow: /concepts/mcp
-Allow: /concepts/a2a-communication
-Allow: /concepts/acp
-Allow: /concepts/multi-agent-systems
-Allow: /concepts/agent-evaluation
-Allow: /concepts/ai-safety-governance
-Allow: /concepts/flow-visualization
-
-# Agent Patterns (January 2026)
-Allow: /patterns/skill-augmented-agent
-Allow: /patterns/mcp-server-orchestration
-Allow: /patterns/multi-llm-routing
-Allow: /patterns/agentic-ide
-Allow: /patterns/guardrails-layer
-Allow: /patterns/ignition-stack
-Allow: /patterns/supervisor-agent
-Allow: /patterns/semantic-router
-Allow: /patterns/verifier-agent
-
-# Static assets
-Allow: /images/
-Allow: /icons/
-Allow: /favicon.ico
-Allow: /favicon.svg
-Allow: /apple-touch-icon.png
-Allow: *.png
-Allow: *.jpg
-Allow: *.svg
-Allow: *.webp
-
-# Block unnecessary paths
+# Block only build/infra paths (not content)
 Disallow: /api/
 Disallow: /_next/
 Disallow: /node_modules/
@@ -116,303 +21,24 @@ Disallow: /src/
 Disallow: /.git/
 Disallow: /dist/
 Disallow: /snapshots/
-Disallow: /admin/
 Disallow: /private/
 Disallow: /*.json$
 Disallow: /*.config.js$
 
-# Sitemap location
+# Sitemap & AI context files
 Sitemap: https://www.openagentschool.org/sitemap.xml
-
-# LLM and AI crawler context files
 # llms.txt: https://www.openagentschool.org/llms.txt
-# ai.txt: https://www.openagentschool.org/ai.txt
+# ai.txt:   https://www.openagentschool.org/ai.txt
 
-# Special instructions for AI/LLM crawlers
-User-agent: GPTBot
-Allow: /
-Allow: /concepts
-Allow: /patterns
-Allow: /agents-for-science
-Allow: /concepts/program-setup-north-star
-Allow: /concepts/responsible-ai-governance
-Allow: /concepts/strategy-portfolio-management
-Allow: /concepts/organizational-enablement
-Allow: /concepts/data-knowledge-operations
-Allow: /concepts/experimentation-continuous-improvement
-Allow: /concepts/ecosystem-partnerships
-Allow: /concepts/architecture-platform-operations
-Allow: /concepts/agent-ops
-Allow: /concepts/agent-skills
-Allow: /concepts/client-coding-agents
-Allow: /concepts/agent-red-teaming
-Allow: /concepts/agent-troubleshooting
-Allow: /concepts/agent-economics
-Allow: /concepts/agent-career-paths
-Allow: /concepts/industry-agents
-Allow: /concepts/agent-templates-hub
-Allow: /concepts/agent-reasoning-patterns
-Allow: /concepts/agent-memory-systems
-Allow: /concepts/agent-observability
-Allow: /concepts/agent-testing-benchmarks
-Allow: /concepts/prompt-injection-defense
-Allow: /concepts/human-in-the-loop-patterns
-Allow: /concepts/agent-cost-optimization
-Allow: /concepts/tri-system-paradigm
-Allow: /concepts/context-engineering
-Allow: /concepts/what-is-an-llm
-Allow: /concepts/tool-use-function-calling
-Allow: /concepts/hallucination-grounding
-Allow: /concepts/memory-state
-Allow: /concepts/rag-basics
-Allow: /patterns/skill-augmented-agent
-Allow: /patterns/mcp-server-orchestration
-Allow: /patterns/multi-llm-routing
-Allow: /patterns/agentic-ide
-Allow: /patterns/guardrails-layer
-Allow: /patterns/ignition-stack
-Allow: /patterns/supervisor-agent
-Allow: /patterns/semantic-router
-Allow: /patterns/verifier-agent
-Allow: /api-docs
-# Phase 1-3 Feature Pages (February 27, 2026) — Login Required
-Allow: /phase1-lab
-Allow: /analytics
-Allow: /project-tracks
-Allow: /pair-programming
-Allow: /skill-passport
-Allow: /cohorts
-Allow: /safety-lab
-Allow: /sandbox
-Crawl-delay: 2
-
-User-agent: ChatGPT-User
-Allow: /
-Allow: /concepts
-Allow: /patterns
-Allow: /agents-for-science
-Allow: /concepts/program-setup-north-star
-Allow: /concepts/responsible-ai-governance
-Allow: /concepts/data-knowledge-operations
-Allow: /concepts/experimentation-continuous-improvement
-Allow: /concepts/ecosystem-partnerships
-Allow: /concepts/architecture-platform-operations
-Allow: /concepts/agent-skills
-Allow: /concepts/client-coding-agents
-Allow: /concepts/agent-red-teaming
-Allow: /concepts/agent-troubleshooting
-Allow: /concepts/agent-economics
-Allow: /concepts/agent-career-paths
-Allow: /concepts/industry-agents
-Allow: /concepts/agent-templates-hub
-Allow: /concepts/agent-reasoning-patterns
-Allow: /concepts/agent-memory-systems
-Allow: /concepts/agent-observability
-Allow: /concepts/agent-testing-benchmarks
-Allow: /concepts/prompt-injection-defense
-Allow: /concepts/human-in-the-loop-patterns
-Allow: /concepts/agent-cost-optimization
-Allow: /concepts/tri-system-paradigm
-Allow: /concepts/context-engineering
-Allow: /concepts/what-is-an-llm
-Allow: /concepts/tool-use-function-calling
-Allow: /concepts/hallucination-grounding
-Allow: /concepts/memory-state
-Allow: /concepts/rag-basics
-Allow: /patterns/skill-augmented-agent
-Allow: /patterns/mcp-server-orchestration
-Allow: /patterns/multi-llm-routing
-Allow: /patterns/agentic-ide
-Allow: /patterns/guardrails-layer
-Allow: /patterns/ignition-stack
-Allow: /api-docs
-# Phase 1-3 Feature Pages (February 27, 2026) — Login Required
-Allow: /phase1-lab
-Allow: /analytics
-Allow: /project-tracks
-Allow: /pair-programming
-Allow: /skill-passport
-Allow: /cohorts
-Allow: /safety-lab
-Allow: /sandbox
-
-User-agent: CCBot
-Allow: /
-Allow: /concepts
-Allow: /patterns
-Allow: /concepts/agent-skills
-Allow: /concepts/client-coding-agents
-Allow: /concepts/agent-red-teaming
-Allow: /concepts/agent-troubleshooting
-Allow: /concepts/agent-economics
-Allow: /concepts/agent-career-paths
-Allow: /concepts/industry-agents
-Allow: /concepts/agent-templates-hub
-Allow: /concepts/agent-reasoning-patterns
-Allow: /concepts/agent-memory-systems
-Allow: /concepts/agent-observability
-Allow: /concepts/agent-testing-benchmarks
-Allow: /concepts/prompt-injection-defense
-Allow: /concepts/human-in-the-loop-patterns
-Allow: /concepts/agent-cost-optimization
-Allow: /concepts/context-engineering
-Allow: /concepts/what-is-an-llm
-Allow: /concepts/tool-use-function-calling
-Allow: /concepts/hallucination-grounding
-Allow: /concepts/memory-state
-Allow: /concepts/rag-basics
-Crawl-delay: 2
-
-User-agent: anthropic-ai
-Allow: /
-Allow: /concepts
-Allow: /patterns
-Allow: /agents-for-science
-Allow: /concepts/program-setup-north-star
-Allow: /concepts/responsible-ai-governance
-Allow: /concepts/data-knowledge-operations
-Allow: /concepts/experimentation-continuous-improvement
-Allow: /concepts/ecosystem-partnerships
-Allow: /concepts/architecture-platform-operations
-Allow: /concepts/agent-skills
-Allow: /concepts/client-coding-agents
-Allow: /concepts/agent-red-teaming
-Allow: /concepts/agent-troubleshooting
-Allow: /concepts/agent-economics
-Allow: /concepts/agent-career-paths
-Allow: /concepts/industry-agents
-Allow: /concepts/agent-templates-hub
-Allow: /concepts/agent-reasoning-patterns
-Allow: /concepts/agent-memory-systems
-Allow: /concepts/agent-observability
-Allow: /concepts/agent-testing-benchmarks
-Allow: /concepts/prompt-injection-defense
-Allow: /concepts/human-in-the-loop-patterns
-Allow: /concepts/agent-cost-optimization
-Allow: /concepts/tri-system-paradigm
-Allow: /concepts/context-engineering
-Allow: /concepts/what-is-an-llm
-Allow: /concepts/tool-use-function-calling
-Allow: /concepts/hallucination-grounding
-Allow: /concepts/memory-state
-Allow: /concepts/rag-basics
-Allow: /patterns/skill-augmented-agent
-Allow: /patterns/mcp-server-orchestration
-Allow: /patterns/multi-llm-routing
-Allow: /patterns/agentic-ide
-Allow: /patterns/guardrails-layer
-Allow: /patterns/ignition-stack
-Allow: /api-docs
-# Phase 1-3 Feature Pages (February 27, 2026) — Login Required
-Allow: /phase1-lab
-Allow: /analytics
-Allow: /project-tracks
-Allow: /pair-programming
-Allow: /skill-passport
-Allow: /cohorts
-Allow: /safety-lab
-Allow: /sandbox
-Crawl-delay: 2
-
-User-agent: Claude-Web
-Allow: /
-Allow: /concepts
-Allow: /patterns
-Allow: /agents-for-science
-Allow: /concepts/program-setup-north-star
-Allow: /concepts/responsible-ai-governance
-Allow: /concepts/data-knowledge-operations
-Allow: /concepts/experimentation-continuous-improvement
-Allow: /concepts/ecosystem-partnerships
-Allow: /concepts/architecture-platform-operations
-Allow: /concepts/agent-skills
-Allow: /concepts/client-coding-agents
-Allow: /concepts/agent-red-teaming
-Allow: /concepts/agent-troubleshooting
-Allow: /concepts/agent-economics
-Allow: /concepts/agent-career-paths
-Allow: /concepts/industry-agents
-Allow: /concepts/agent-templates-hub
-Allow: /concepts/agent-reasoning-patterns
-Allow: /concepts/agent-memory-systems
-Allow: /concepts/agent-observability
-Allow: /concepts/agent-testing-benchmarks
-Allow: /concepts/prompt-injection-defense
-Allow: /concepts/human-in-the-loop-patterns
-Allow: /concepts/agent-cost-optimization
-Allow: /concepts/tri-system-paradigm
-Allow: /concepts/context-engineering
-Allow: /concepts/what-is-an-llm
-Allow: /concepts/tool-use-function-calling
-Allow: /concepts/hallucination-grounding
-Allow: /concepts/memory-state
-Allow: /concepts/rag-basics
-Allow: /patterns/skill-augmented-agent
-Allow: /patterns/mcp-server-orchestration
-Allow: /patterns/multi-llm-routing
-Allow: /patterns/agentic-ide
-Allow: /patterns/guardrails-layer
-Allow: /patterns/ignition-stack
-Allow: /api-docs
-# Phase 1-3 Feature Pages (February 27, 2026) — Login Required
-Allow: /phase1-lab
-Allow: /analytics
-Allow: /project-tracks
-Allow: /pair-programming
-Allow: /skill-passport
-Allow: /cohorts
-Allow: /safety-lab
-Allow: /sandbox
-
-User-agent: ClaudeBot
-Allow: /
-Allow: /concepts
-Allow: /patterns
-Crawl-delay: 2
-
-# Additional AI crawlers
-User-agent: cohere-ai
-Allow: /
-Allow: /concepts
-Allow: /patterns
-Crawl-delay: 2
-
-User-agent: Google-Extended
-Allow: /
-Allow: /concepts
-Allow: /patterns
-Allow: /api-docs
-Crawl-delay: 1
-
-User-agent: PerplexityBot
-Allow: /
-Allow: /concepts
-Allow: /patterns
-Allow: /api-docs
-Crawl-delay: 2
-
-User-agent: PPLBot
-Allow: /
-Allow: /concepts
-Allow: /patterns
-
-User-agent: GoogleOther
-Allow: /
-Allow: /concepts
-Allow: /patterns
-
-# Search engines
+# ═══════════════════════════════════════════════════════════════
+# SEARCH ENGINES
+# ═══════════════════════════════════════════════════════════════
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
 User-agent: Googlebot-Image
-Allow: /images/
-Allow: /icons/
-Allow: *.png
-Allow: *.jpg
-Allow: *.svg
-Allow: *.webp
+Allow: /
 
 User-agent: Bingbot
 Allow: /
@@ -426,18 +52,246 @@ User-agent: Slurp
 Allow: /
 Crawl-delay: 1
 
-# Social media bots
-User-agent: FacebookBot
+User-agent: Yeti
+# Naver (South Korea)
 Allow: /
 Crawl-delay: 2
 
+User-agent: seznam
+# Seznam (Czech Republic)
+Allow: /
+Crawl-delay: 2
+
+# ═══════════════════════════════════════════════════════════════
+# AI / LLM CRAWLERS — US ORIGIN
+# ═══════════════════════════════════════════════════════════════
+User-agent: GPTBot
+# OpenAI — GPT model training
+Allow: /
+Crawl-delay: 2
+
+User-agent: ChatGPT-User
+# OpenAI — ChatGPT live browsing
+Allow: /
+
+User-agent: OAI-SearchBot
+# OpenAI — SearchGPT
+Allow: /
+Crawl-delay: 2
+
+User-agent: anthropic-ai
+# Anthropic — Claude model training
+Allow: /
+Crawl-delay: 2
+
+User-agent: Claude-Web
+# Anthropic — Claude live browsing
+Allow: /
+
+User-agent: ClaudeBot
+# Anthropic — general crawler
+Allow: /
+Crawl-delay: 2
+
+User-agent: Google-Extended
+# Google — Gemini AI training
+Allow: /
+Crawl-delay: 1
+
+User-agent: GoogleOther
+# Google — experimental crawlers
+Allow: /
+
+User-agent: PerplexityBot
+# Perplexity AI — answer engine
+Allow: /
+Crawl-delay: 2
+
+User-agent: PPLBot
+# Perplexity AI — supplementary crawler
+Allow: /
+
+User-agent: cohere-ai
+# Cohere (Canada) — LLM training
+Allow: /
+Crawl-delay: 2
+
+User-agent: CCBot
+# Common Crawl — open training dataset
+Allow: /
+Crawl-delay: 2
+
+User-agent: Meta-ExternalAgent
+# Meta — Llama model training
+Allow: /
+Crawl-delay: 2
+
+User-agent: meta-externalfetcher
+# Meta — Llama supplementary fetcher
+Allow: /
+Crawl-delay: 2
+
+User-agent: FacebookBot
+# Meta — social preview + AI training
+Allow: /
+Crawl-delay: 2
+
+User-agent: AppleBot
+# Apple — Siri, Spotlight, Safari suggestions
+Allow: /
+Crawl-delay: 2
+
+User-agent: AppleBot-Extended
+# Apple — Apple Intelligence training
+Allow: /
+Crawl-delay: 2
+
+User-agent: Amazonbot
+# Amazon — Alexa, AI training
+Allow: /
+Crawl-delay: 2
+
+User-agent: YouBot
+# You.com — AI answer engine
+Allow: /
+Crawl-delay: 2
+
+User-agent: AI2Bot
+# Allen AI — open research LLMs
+Allow: /
+Crawl-delay: 2
+
+User-agent: Diffbot
+# Diffbot — knowledge graph extraction
+Allow: /
+Crawl-delay: 2
+
+User-agent: Timpibot
+# Timpi — decentralized search index
+Allow: /
+Crawl-delay: 2
+
+User-agent: Omgilibot
+# Webz.io — data-as-a-service
+Allow: /
+Crawl-delay: 2
+
+User-agent: Kangaroo Bot
+# Kangaroo LLM
+Allow: /
+Crawl-delay: 2
+
+User-agent: ICC-Crawler
+# NICT (Japan) — web archive for research
+Allow: /
+Crawl-delay: 2
+
+# ═══════════════════════════════════════════════════════════════
+# AI / LLM CRAWLERS — CHINA
+# ═══════════════════════════════════════════════════════════════
+User-agent: Bytespider
+# ByteDance — Doubao / TikTok AI training
+Allow: /
+Crawl-delay: 2
+
+User-agent: Baiduspider
+# Baidu — Ernie Bot training
+Allow: /
+Crawl-delay: 2
+
+User-agent: Sogou web spider
+# Tencent / Sogou — Chinese search + AI
+Allow: /
+Crawl-delay: 2
+
+User-agent: Sogou inst spider
+# Tencent / Sogou — instant search
+Allow: /
+Crawl-delay: 2
+
+User-agent: 360Spider
+# Qihoo 360 — Chinese search + security AI
+Allow: /
+Crawl-delay: 2
+
+User-agent: HaoSouSpider
+# Qihoo 360 — alternate name
+Allow: /
+Crawl-delay: 2
+
+User-agent: YisouSpider
+# Alibaba — Yisou search engine
+Allow: /
+Crawl-delay: 2
+
+# ═══════════════════════════════════════════════════════════════
+# AI / LLM CRAWLERS — RUSSIA & EURASIA
+# ═══════════════════════════════════════════════════════════════
+User-agent: YandexBot
+# Yandex — YandexGPT training
+Allow: /
+Crawl-delay: 2
+
+User-agent: YandexImages
+Allow: /
+
+# ═══════════════════════════════════════════════════════════════
+# AI / LLM CRAWLERS — INDIA & SOUTH ASIA
+# ═══════════════════════════════════════════════════════════════
+# Sarvam AI, BharatGen, Krutrim — no known named bots yet.
+# They are covered by User-agent: * above.
+
+# ═══════════════════════════════════════════════════════════════
+# AI / LLM CRAWLERS — EUROPE
+# ═══════════════════════════════════════════════════════════════
+User-agent: Inetdex
+# Inetdex (EU) — European search/AI
+Allow: /
+Crawl-delay: 2
+
+User-agent: PetalBot
+# Huawei / Petal Search (EU/China) — search + AI
+Allow: /
+Crawl-delay: 2
+
+User-agent: MistralBot
+# Mistral AI (France) — if they deploy a named bot
+Allow: /
+Crawl-delay: 2
+
+# ═══════════════════════════════════════════════════════════════
+# SEO & ANALYTICS CRAWLERS — All welcome
+# ═══════════════════════════════════════════════════════════════
+User-agent: AhrefsBot
+Allow: /
+Crawl-delay: 3
+
+User-agent: SemrushBot
+Allow: /
+Crawl-delay: 3
+
+User-agent: MJ12bot
+# Majestic — backlink analysis
+Allow: /
+Crawl-delay: 3
+
+User-agent: Screaming Frog SEO Spider
+Allow: /
+Crawl-delay: 3
+
+User-agent: DotBot
+# Moz — domain authority
+Allow: /
+Crawl-delay: 3
+
+# ═══════════════════════════════════════════════════════════════
+# SOCIAL MEDIA & MESSAGING PREVIEWS
+# ═══════════════════════════════════════════════════════════════
 User-agent: Twitterbot
 Allow: /
-Allow: /images/og-image.webp
 
 User-agent: LinkedInBot
 Allow: /
-Allow: /images/og-image.webp
 
 User-agent: Slackbot
 Allow: /
@@ -445,15 +299,24 @@ Allow: /
 User-agent: Discordbot
 Allow: /
 
-# Block aggressive crawlers
-User-agent: AhrefsBot
-Disallow: /
+User-agent: TelegramBot
+Allow: /
 
-User-agent: SemrushBot
-Disallow: /
+User-agent: WhatsApp
+Allow: /
 
-User-agent: MJ12bot
-Disallow: /
+User-agent: Embedly
+Allow: /
 
-User-agent: PetalBot
-Disallow: /
+User-agent: Iframely
+Allow: /
+
+# ═══════════════════════════════════════════════════════════════
+# ARCHIVE & RESEARCH
+# ═══════════════════════════════════════════════════════════════
+User-agent: ia_archiver
+# Internet Archive — Wayback Machine
+Allow: /
+
+User-agent: archive.org_bot
+Allow: /
