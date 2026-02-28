@@ -48,6 +48,7 @@ import { AdminGuard } from './components/admin/AdminGuard';
 import { AuthGuard } from './components/auth/AuthGuard';
 import { InstallPWA } from './components/pwa/InstallPWA';
 import { InstallAppMenuItem } from './components/pwa/InstallAppMenuItem';
+import { PWAUpdatePrompt } from './components/pwa/PWAUpdatePrompt';
 import { useIOSBehaviors } from './hooks/useStandaloneMode';
 import { usePullToRefresh, getPullToRefreshStyles } from './hooks/usePullToRefresh';
 import { useQueryClient } from '@tanstack/react-query';
@@ -921,6 +922,9 @@ function App() {
 
           {/* Toast notifications */}
           <Toaster />
+
+          {/* PWA service worker update prompt (registers SW + shows update/offline toasts) */}
+          <PWAUpdatePrompt />
 
           {/* BYOK Settings Sheet (side drawer) */}
           <SettingsSheet open={settingsOpen} onOpenChange={setSettingsOpen} />

@@ -4,7 +4,9 @@ import path from 'path'
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
+      '@': path.resolve(__dirname, './src'),
+      // Mock vite-plugin-pwa virtual module for test environment
+      'virtual:pwa-register/react': path.resolve(__dirname, './tests/__mocks__/virtual-pwa-register-react.ts'),
     }
   },
   test: {

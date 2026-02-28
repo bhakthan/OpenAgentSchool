@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Download, Smartphone, Check } from 'lucide-react';
 import { useStandaloneMode } from '@/hooks/useStandaloneMode';
+import { trackEvent } from '@/lib/analytics/ga';
 import {
   Dialog,
   DialogContent,
@@ -9,6 +10,37 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+
+// ── Lightweight local install-event ledger for admin dashboard ────────
+const PWA_INSTALL_LOG_KEY = 'oas_pwa_installs';
+
+interface PWAInstallRecord {
+  timestamp: string;
+  platform: 'android' | 'desktop' | 'ios' | 'unknown';
+  method: 'prompt' | 'manual' | 'appinstalled';
+}
+
+function logInstallEvent(record: Omit<PWAInstallRecord, 'timestamp'>) {
+  try {
+    const raw = localStorage.getItem(PWA_INSTALL_LOG_KEY);
+    const list: PWAInstallRecord[] = raw ? JSON.parse(raw) : [];
+    list.push({ ...record, timestamp: new Date().toISOString() });
+    // Keep last 200 entries max
+    if (list.length > 200) list.splice(0, list.length - 200);
+    localStorage.setItem(PWA_INSTALL_LOG_KEY, JSON.stringify(list));
+  } catch {
+    // localStorage quota / disabled – silent fail
+  }
+}
+
+export function getPWAInstallLog(): PWAInstallRecord[] {
+  try {
+    const raw = localStorage.getItem(PWA_INSTALL_LOG_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -32,30 +64,76 @@ export function InstallAppMenuItem() {
       setDeferredPrompt(installEvent);
     };
 
+    // Browser fires this once the user completes installation (all platforms)
+    const handleAppInstalled = () => {
+      trackEvent({
+        action: 'pwa_install',
+        category: 'pwa',
+        label: 'appinstalled_event',
+        method: 'browser',
+      });
+      logInstallEvent({ platform: detectPlatform(), method: 'appinstalled' });
+      setDeferredPrompt(null);
+    };
+
     window.addEventListener('beforeinstallprompt', handleBeforeInstall);
+    window.addEventListener('appinstalled', handleAppInstalled);
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+      window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
 
+  const detectPlatform = useCallback((): PWAInstallRecord['platform'] => {
+    if (isIOS) return 'ios';
+    if (/android/i.test(navigator.userAgent)) return 'android';
+    return 'desktop';
+  }, [isIOS]);
+
   const handleInstall = async () => {
     if (!deferredPrompt) return;
+
+    const platform = detectPlatform();
 
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     
     if (outcome === 'accepted') {
+      trackEvent({
+        action: 'pwa_install',
+        category: 'pwa',
+        label: 'prompt_accepted',
+        platform,
+      });
+      logInstallEvent({ platform, method: 'prompt' });
       setInstallSuccess(true);
       setDeferredPrompt(null);
       setTimeout(() => {
         setShowDialog(false);
         setInstallSuccess(false);
       }, 2000);
+    } else {
+      trackEvent({
+        action: 'pwa_install_dismissed',
+        category: 'pwa',
+        label: 'prompt_dismissed',
+        platform,
+      });
     }
   };
 
   const handleClick = () => {
+    const platform = detectPlatform();
+    trackEvent({
+      action: 'pwa_install_prompt_shown',
+      category: 'pwa',
+      label: isIOS ? 'ios_instructions' : 'native_prompt_dialog',
+      platform,
+    });
+    if (isIOS) {
+      logInstallEvent({ platform: 'ios', method: 'manual' });
+    }
     setShowDialog(true);
   };
 
