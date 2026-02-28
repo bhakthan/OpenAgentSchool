@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, ArrowRight, ArrowsClockwise, CaretRight } from '@phosphor-icons/react';
@@ -26,6 +27,7 @@ const AlgorithmVisualizer = ({ visualization }: AlgorithmVisualizerProps) => {
 
   // Toggle play/pause
   const togglePlay = () => {
+    trackEvent({ action: 'run_algorithm', category: 'code_playbook', label: 'toggle_play' });
     if (currentStepIndex >= totalSteps - 1) {
       // Reset to beginning if at the end
       setCurrentStepIndex(0);
@@ -35,6 +37,7 @@ const AlgorithmVisualizer = ({ visualization }: AlgorithmVisualizerProps) => {
 
   // Move to next step
   const nextStep = () => {
+    trackEvent({ action: 'step_through', category: 'code_playbook', label: `algorithm_step_${currentStepIndex + 1}` });
     if (currentStepIndex < totalSteps - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
     } else {

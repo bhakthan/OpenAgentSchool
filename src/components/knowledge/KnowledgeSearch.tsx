@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useConceptSearch } from '@/hooks/useKnowledge';
+import { trackEvent } from '@/lib/analytics/ga';
 import { MagnifyingGlass, Spinner, BookmarkSimple, ArrowRight } from '@phosphor-icons/react';
 import { debounce } from '@/lib/utils/debounce';
 import { Link } from 'react-router-dom';
@@ -32,6 +33,7 @@ export function KnowledgeSearch({
   const { data: results, isLoading, error } = useConceptSearch(debouncedQuery, limit);
 
   const handleResultClick = (conceptId: string) => {
+    trackEvent({ action: 'result_click', category: 'knowledge_search', label: conceptId });
     if (onResultClick) {
       onResultClick(conceptId);
     }

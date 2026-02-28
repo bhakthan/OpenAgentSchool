@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { PROJECT_TRACKS } from '@/lib/data/projectTracks';
 import { getTrackProgress } from '@/lib/trackProgress';
+import { trackEvent } from '@/lib/analytics/ga';
 import { buildLearnerSnapshot } from '@/lib/phase1/phase1Lab';
 import { generateCertificatePDF, generateCertificateId } from '@/lib/certificateGenerator';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -68,6 +69,7 @@ export default function SkillPassportPage() {
   const [certName, setCertName] = useState('');
 
   const handleGenerateCert = (skillName: string) => {
+    trackEvent({ action: 'generate_certificate', category: 'skill_passport', label: skillName });
     const name = certName.trim() || 'Learner';
     const id = generateCertificateId();
     const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });

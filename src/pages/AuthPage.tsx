@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { useNavigate } from 'react-router-dom';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { SignupForm } from '@/components/auth/SignupForm';
@@ -16,7 +17,7 @@ export default function AuthPage() {
   const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
 
   const handleSuccess = () => {
-    // Redirect to home page after successful auth
+    trackEvent({ action: 'auth_success', category: 'auth', label: activeTab });
     navigate('/');
   };
 
@@ -43,11 +44,11 @@ export default function AuthPage() {
             <CardDescription>
               {activeTab === 'login' 
                 ? 'Login to access your learning progress and agent features' 
-                : 'Create an account to start your AI agent journey'}
+                : 'Create an account to start your AI agent journey (OAuth providers are preferred)'}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs value={activeTab} onValueChange={(val) => setActiveTab(val as 'login' | 'signup')}>
+            <Tabs value={activeTab} onValueChange={(val) => { setActiveTab(val as 'login' | 'signup'); trackEvent({ action: 'tab_switch', category: 'auth', label: val }); }}>
               <TabsList className="grid w-full grid-cols-2 mb-6">
                 <TabsTrigger value="login">Login</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
@@ -73,7 +74,7 @@ export default function AuthPage() {
         {/* Skip for now option */}
         <div className="mt-6 text-center">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => { trackEvent({ action: 'skip_auth', category: 'auth', label: 'continue_without_account' }); navigate('/'); }}
             className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
           >
             Continue without account

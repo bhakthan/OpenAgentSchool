@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { User, SignOut, SignIn, ShieldCheck } from '@phosphor-icons/react';
+import { trackEvent } from '@/lib/analytics/ga';
 
 // Direct assignment so Vite can statically analyze and bundle the env vars
 const CORE_API_URL = import.meta.env.VITE_CORE_API_URL as string | undefined
@@ -36,7 +37,7 @@ export function UserMenu() {
       <Button
         variant="outline"
         size="sm"
-        onClick={() => navigate('/auth')}
+        onClick={() => { trackEvent({ action: 'nav_click', category: 'user_menu', label: 'login' }); navigate('/auth'); }}
         className="gap-2"
       >
         <SignIn className="w-4 h-4" weight="bold" />
@@ -46,6 +47,7 @@ export function UserMenu() {
   }
 
   const handleLogout = async () => {
+    trackEvent({ action: 'auth_action', category: 'user_menu', label: 'logout' });
     await logout();
     navigate('/');
   };
@@ -72,19 +74,19 @@ export function UserMenu() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => navigate('/bookmarks')}>
+        <DropdownMenuItem onClick={() => { trackEvent({ action: 'nav_click', category: 'user_menu', label: 'bookmarks' }); navigate('/bookmarks'); }}>
           Bookmarks
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => navigate('/achievements')}>
+        <DropdownMenuItem onClick={() => { trackEvent({ action: 'nav_click', category: 'user_menu', label: 'achievements' }); navigate('/achievements'); }}>
           Achievements
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => navigate('/agents')}>
+        <DropdownMenuItem onClick={() => { trackEvent({ action: 'nav_click', category: 'user_menu', label: 'agent_console' }); navigate('/agents'); }}>
           Agent Console
         </DropdownMenuItem>
         {user?.role === 'admin' && (
           <>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => navigate('/admin')} className="text-violet-600 dark:text-violet-400">
+            <DropdownMenuItem onClick={() => { trackEvent({ action: 'nav_click', category: 'user_menu', label: 'admin_dashboard' }); navigate('/admin'); }} className="text-violet-600 dark:text-violet-400">
               <ShieldCheck className="w-4 h-4 mr-2" weight="duotone" />
               Admin Dashboard
             </DropdownMenuItem>

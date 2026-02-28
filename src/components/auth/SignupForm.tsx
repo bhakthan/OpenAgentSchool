@@ -4,12 +4,14 @@
  */
 
 import { useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { useAuth } from '@/lib/auth/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { UserPlus, Eye, EyeSlash } from '@phosphor-icons/react';
 import { toast } from 'sonner';
+import { OAuthButtons } from './OAuthButtons';
 
 interface SignupFormProps {
   onSuccess?: () => void;
@@ -27,6 +29,7 @@ export function SignupForm({ onSuccess, onSwitchToLogin }: SignupFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    trackEvent({ action: 'signup_submit', category: 'auth', label: 'email' });
 
     // Validation
     if (!email || !password) {
@@ -57,6 +60,12 @@ export function SignupForm({ onSuccess, onSwitchToLogin }: SignupFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-sm text-blue-900 dark:border-blue-900/50 dark:bg-blue-950/30 dark:text-blue-200">
+        Preferred option: choose Microsoft, Google, or GitHub OAuth below for stronger account security and easier recovery.
+      </div>
+
+      <OAuthButtons onSuccess={onSuccess} />
+
       <div className="space-y-2">
         <Label htmlFor="signup-name">Name (optional)</Label>
         <Input

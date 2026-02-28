@@ -11,6 +11,7 @@ import AdaptiveLearningQuiz from './AdaptiveLearningQuiz';
 import { getQuizResults, submitQuiz } from '@/lib/api/core';
 import { QuizSession } from "@/lib/data/quizzes";
 import { toast } from '@/components/ui/use-toast';
+import { trackEvent } from '@/lib/analytics/ga';
 
 interface QuizSectionProps {}
 
@@ -20,6 +21,7 @@ const QuizSection: React.FC<QuizSectionProps> = () => {
   const [showQuiz, setShowQuiz] = useState(false);
 
   const handleQuizComplete = async (session: QuizSession) => {
+    trackEvent({ action: 'quiz_complete', category: 'quiz', label: session.category });
     setCompletedQuizzes(prev => [...prev, session]);
     
     // Store in localStorage for persistence

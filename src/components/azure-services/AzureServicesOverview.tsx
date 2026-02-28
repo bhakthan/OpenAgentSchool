@@ -1,6 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { azureAIServices } from '@/lib/data/azureAiServices';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
@@ -249,7 +250,7 @@ const AzureServicesOverview = () => {
                   variant="ghost" 
                   size="sm" 
                   className="flex items-center gap-1 text-primary"
-                  onClick={() => window.open(service.documentation, '_blank')}
+                  onClick={() => { trackEvent({ action: 'outbound_click', category: 'azure_services', label: service.name + '_resources' }); window.open(service.documentation, '_blank'); }}
                 >
                   <BookmarkSimple size={16} />
                   Resources
@@ -257,7 +258,7 @@ const AzureServicesOverview = () => {
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  onClick={() => window.open(service.documentation, '_blank')}
+                  onClick={() => { trackEvent({ action: 'outbound_click', category: 'azure_services', label: service.name + '_docs' }); window.open(service.documentation, '_blank'); }}
                 >
                   Documentation
                 </Button>
@@ -339,7 +340,7 @@ const AzureServicesOverview = () => {
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        onClick={() => window.open(service.documentation, '_blank')}
+                        onClick={() => { trackEvent({ action: 'outbound_click', category: 'azure_services', label: service.name + '_docs' }); window.open(service.documentation, '_blank'); }}
                       >
                         Documentation
                       </Button>

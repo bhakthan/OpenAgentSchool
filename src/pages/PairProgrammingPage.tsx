@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo } from 'react';
 import { PAIR_PROGRAMMING_EXERCISES, type PairProgrammingExercise, type CodeCheck } from '@/lib/data/pairProgrammingExercises';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -79,6 +80,7 @@ export default function PairProgrammingPage() {
   const [showHints, setShowHints] = useState(false);
 
   const handleSelectExercise = useCallback((id: string) => {
+    trackEvent({ action: 'select_exercise', category: 'pair_programming', label: id });
     setSelectedId(id);
     const ex = PAIR_PROGRAMMING_EXERCISES.find(e => e.id === id)!;
     setCode(ex.starterCode);
@@ -87,6 +89,7 @@ export default function PairProgrammingPage() {
   }, []);
 
   const runChecks = useCallback(() => {
+    trackEvent({ action: 'run_checks', category: 'pair_programming', label: exercise.id });
     const checkResults: CheckResult[] = exercise.checks.map((check: CodeCheck) => ({
       label: check.label,
       passed: check.pattern.test(code),

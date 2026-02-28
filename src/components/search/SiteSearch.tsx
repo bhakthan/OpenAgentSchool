@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { MagnifyingGlass, ArrowSquareOut, X } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
+import { trackEvent } from '@/lib/analytics/ga';
 
 // Google Programmable Search Engine ID (optional – reserved for future embedded CSE)
 const _GOOGLE_CSE_ID = import.meta.env.VITE_GOOGLE_CSE_ID as string | undefined; // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -42,6 +43,7 @@ export const SiteSearch: React.FC<SiteSearchProps> = ({ open, onOpenChange }) =>
   const openGoogleTab = useCallback(
     (q: string) => {
       if (!q.trim()) return;
+      trackEvent({ action: 'search_submit', category: 'search', label: q.trim() });
       const searchUrl = `https://www.google.com/search?q=site%3A${SEARCH_SITE}+${encodeURIComponent(q.trim())}`;
       window.open(searchUrl, '_blank', 'noopener,noreferrer');
     },

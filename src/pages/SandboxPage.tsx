@@ -3,6 +3,7 @@
  * Configure agents, run simulations, view message timelines.
  */
 import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import {
   runSimulation,
   type AgentConfig,
@@ -209,6 +210,7 @@ const SandboxPage: React.FC = () => {
 
   const handleRun = useCallback(() => {
     if (!task.trim() || agents.length === 0) return;
+    trackEvent({ action: 'run_simulation', category: 'sandbox', value: agents.length });
     const result = runSimulation(agents, task);
     setMessages(result);
     setVisibleCount(result.length);

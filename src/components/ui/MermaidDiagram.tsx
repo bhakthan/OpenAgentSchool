@@ -272,3 +272,6 @@ export default function MermaidDiagram({
     />
   )
 }
+
+// Named re-export for convenience
+export { MermaidDiagram };

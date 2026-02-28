@@ -26,6 +26,7 @@ import { adaptiveRules, type AdaptiveRule } from '@/lib/data/studyMode/adaptiveR
 import { transferChallenges, type TransferChallenge } from '@/lib/data/studyMode/transferChallenges';
 import { compositeScenarioQuestions } from '@/lib/data/studyMode/compositeScenarios';
 import { emitTelemetry } from '@/lib/data/studyMode/telemetry';
+import { trackEvent } from '@/lib/analytics/ga';
 import type { StudyModeQuestion } from '@/lib/data/studyMode/types';
 
 // Sample SCL effects for demonstration
@@ -189,21 +190,25 @@ export const SCLDemo: React.FC = () => {
 
   const handleLaunchPattern = (patternId: string) => {
     try { emitTelemetry({ kind: 'pattern_attempt', patternId }); } catch {}
+    trackEvent({ action: 'demo_launch_pattern', category: 'scl', label: patternId });
     navigate(`/study-mode?pattern=${patternId}&mode=scl`);
   };
 
   const handleLaunchTransfer = (challengeId: string, patternId?: string) => {
     try { emitTelemetry({ kind: 'transfer_challenge_start', patternId, transferId: challengeId }); } catch {}
+    trackEvent({ action: 'demo_launch_transfer', category: 'scl', label: challengeId });
     navigate(`/study-mode?mode=scenario&transfer=${challengeId}`);
   };
 
   const handleLaunchScenario = (questionId: string, patternId?: string) => {
     try { emitTelemetry({ kind: 'transfer_challenge_start', patternId, transferId: questionId }); } catch {}
+    trackEvent({ action: 'demo_launch_scenario', category: 'scl', label: questionId });
     navigate(`/study-mode?mode=scenario&question=${questionId}`);
   };
 
   // Simulate loading effects
   const refreshEffects = async () => {
+    trackEvent({ action: 'demo_refresh_effects', category: 'scl' });
     setIsLoading(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));

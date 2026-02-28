@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, SkipForward, ArrowsClockwise, Graph } from '@phosphor-icons/react';
+import { trackEvent } from '@/lib/analytics/ga';
 
 interface HypothesisNode {
   id: string;
@@ -171,6 +172,7 @@ export function HypothesisEvolutionDemo() {
   };
 
   const playAnimation = () => {
+    trackEvent({ action: 'run_hypothesis_evolution', category: 'science_demo' });
     if (currentGeneration >= 3) {
       setCurrentGeneration(0);
     }

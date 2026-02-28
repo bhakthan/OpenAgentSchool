@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Shield, Lock, Eye, UserCheck, Warning, CheckCircle, BookOpen, YoutubeLogo, ArrowUpRight } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
+import { trackEvent } from '@/lib/analytics/ga';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 import { SecurityVisualization } from "@/components/visualization/SecurityVisualization";
 
@@ -318,7 +319,7 @@ class TrustNetwork {
                       variant="link" 
                       size="sm" 
                       className="p-0 h-auto"
-                      onClick={() => window.open('https://youtu.be/0HPOeFJkecY', '_blank')}
+                      onClick={() => { trackEvent({ action: 'outbound_click', category: 'concepts', label: 'agent_security_youtube' }); window.open('https://youtu.be/0HPOeFJkecY', '_blank'); }}
                     >
                       Watch Video <ArrowUpRight size={14} className="ml-1" />
                     </Button>

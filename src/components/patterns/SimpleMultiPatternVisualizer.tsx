@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -220,6 +221,7 @@ const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> 
 
   // Toggle pattern selection
   const togglePatternSelection = useCallback((patternId: string) => {
+    trackEvent({ action: 'toggle_pattern_compare', category: 'agent_patterns', label: patternId });
     setSelectedPatternIds(current => {
       if (current.includes(patternId)) {
         return current.filter(id => id !== patternId);
@@ -285,6 +287,7 @@ const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> 
 
   // Start global animation
   const startGlobalAnimation = useCallback(() => {
+    trackEvent({ action: 'start_global_animation', category: 'agent_patterns', label: selectedPatternIds.join(',') });
     setGlobalAnimation(true);
     selectedPatternIds.forEach((patternId, index) => {
       setTimeout(() => startPatternAnimation(patternId), index * 500);
@@ -366,7 +369,7 @@ const SimpleMultiPatternVisualizer: React.FC<SimpleMultiPatternVisualizerProps> 
           )}
 
           {/* View Mode Toggle */}
-          <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as any)}>
+          <Tabs value={viewMode} onValueChange={(value) => { setViewMode(value as any); trackEvent({ action: 'switch_view_tab', category: 'agent_patterns', label: value }); }}>
             <TabsList>
               <TabsTrigger value="individual" className="flex items-center gap-1 text-sm">
                 <ChartLine size={14} /> Individual View

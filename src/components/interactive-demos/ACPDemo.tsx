@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -426,6 +427,7 @@ const ACPDemo = () => {
 
   // Run the simulation - moved to useEffect
   const runSimulation = () => {
+    trackEvent({ action: 'run_demo', category: 'interactive_demo', label: 'acp_demo' });
     setIsSimulationRunning(true);
     setCurrentStep(0);
     setMessages([]);

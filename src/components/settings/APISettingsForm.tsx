@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { useUserSettings } from '@/contexts/UserSettingsContext';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -148,6 +149,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
 
   // --- actions ---
   const handleSave = () => {
+    trackEvent({ action: 'save_settings', category: 'settings', label: 'api_settings' });
     updateSettings(draft);
     onSaved?.();
   };

@@ -5,6 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { X, ArrowRight, ArrowLeft, CheckCircle } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { TutorialStep } from "@/lib/hooks/useTutorial";
+import { trackEvent } from '@/lib/analytics/ga';
 
 interface TutorialOverlayProps {
   isActive: boolean;
@@ -16,6 +17,13 @@ interface TutorialOverlayProps {
   onPrev: () => void;
   onClose: () => void;
   onComplete: () => void;
+}
+
+function withTracking(fn: () => void, action: string, label?: string) {
+  return () => {
+    trackEvent({ action, category: 'tutorial', label });
+    fn();
+  };
 }
 
 export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({
@@ -190,12 +198,12 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({
                 </Button>
               )}
               {currentStepIndex < totalSteps - 1 ? (
-                <Button size="sm" onClick={onNext}>
+                <Button size="sm" onClick={withTracking(onNext, 'tutorial_next', currentStep.title)}>
                   Next
                   <ArrowRight size={14} className="ml-1" />
                 </Button>
               ) : (
-                <Button size="sm" onClick={onComplete}>
+                <Button size="sm" onClick={withTracking(onComplete, 'tutorial_complete')}>
                   <CheckCircle size={14} className="mr-1" />
                   Finish
                 </Button>

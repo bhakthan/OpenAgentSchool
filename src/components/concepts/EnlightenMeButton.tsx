@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Button } from '@/components/ui/button';
 import { ChatCircleDots, SpinnerGap, Copy, Check, CaretDown, CaretUp } from '@phosphor-icons/react';
 import { 
@@ -275,7 +276,7 @@ Please provide:
         variant="default"
         size={size === 'sm' ? 'sm' : 'default'}
         className={getButtonClasses()}
-        onClick={() => setIsOpen(true)}
+        onClick={() => { trackEvent({ action: 'dialog_open', category: 'enlighten_me', label: title }); setIsOpen(true); }}
         title="Ask AI about this topic"
       >
         <ChatCircleDots size={getIconSize()} className="mr-2" />

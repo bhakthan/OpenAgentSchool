@@ -10,6 +10,7 @@ import { Plus, X, Check, Upload } from '@phosphor-icons/react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CommunityPattern } from '@/lib/data/communitySharing';
 import { PatternType } from '@/lib/data/patterns/index';
+import { trackEvent } from '@/lib/analytics/ga';
 
 interface CommunityPatternFormProps {
   onSubmit: (pattern: Omit<CommunityPattern, 'id' | 'votes' | 'createdAt'>) => void;
@@ -138,6 +139,7 @@ export default function CommunityPatternForm({ onSubmit, onCancel }: CommunityPa
     };
     
     onSubmit(newPattern);
+    trackEvent({ action: 'pattern_submit', category: 'community', label: patternType });
     toast.success('Pattern submitted successfully!');
   };
 

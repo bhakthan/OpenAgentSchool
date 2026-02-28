@@ -39,6 +39,7 @@ import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass"
 import { Wrench } from "@phosphor-icons/react/dist/ssr/Wrench";
 import { cn } from "@/lib/utils";
 import { useTheme } from '@/components/theme/ThemeProvider';
+import { trackEvent } from '@/lib/analytics/ga';
 
 interface LearningNode {
   id: string;
@@ -1152,6 +1153,10 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
   onClose,
   onNavigate
 }) => {
+  const trackedNavigate = useCallback((path: string) => {
+    trackEvent({ action: 'journey_node_click', category: 'tutorial', label: path });
+    onNavigate(path);
+  }, [onNavigate]);
   const [selectedPath, setSelectedPath] = useState<LearningPath>(learningPaths[0]);
   const [activeTier, setActiveTier] = useState(0);
   const tierRefs = useRef<Record<number, HTMLDivElement | null>>({});
@@ -1597,7 +1602,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
                             </div>
                           </div>
                         </div>
-                        <Button onClick={() => onNavigate(nextNode.path)} className="shrink-0">Launch module</Button>
+                        <Button onClick={() => trackedNavigate(nextNode.path)} className="shrink-0">Launch module</Button>
                       </div>
                     </section>
                   )}
@@ -1712,7 +1717,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
                                           <span className="font-semibold text-foreground">Recommended order position #{globalOrder}</span>
                                         </div>
                                       )}
-                                      <Button size="sm" onClick={() => onNavigate(node.path)} disabled={!node.isUnlocked} variant={node.isUnlocked ? 'default' : 'outline'}>
+                                      <Button size="sm" onClick={() => trackedNavigate(node.path)} disabled={!node.isUnlocked} variant={node.isUnlocked ? 'default' : 'outline'}>
                                         {node.isCompleted ? 'Review module' : node.isUnlocked ? 'Open module' : 'Locked'}
                                       </Button>
                                     </div>
@@ -1764,7 +1769,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
                                 <Sparkle size={16} className="text-primary" />
                                 <span>Great for reinforcement</span>
                               </div>
-                              <Button size="sm" variant="ghost" onClick={() => onNavigate(resource.path)}>
+                              <Button size="sm" variant="ghost" onClick={() => trackedNavigate(resource.path)}>
                                 Open
                               </Button>
                             </div>

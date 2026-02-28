@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Example } from '@/lib/data/examples'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import CodeBlock from '@/components/ui/CodeBlock'
+import { trackEvent } from '@/lib/analytics/ga'
 
 interface CodeExampleProps {
   example: Example
@@ -51,7 +52,7 @@ const CodeExample: FC<CodeExampleProps> = ({ example }) => {
                   <Button 
                     variant="outline" 
                     size="icon" 
-                    onClick={() => window.open(`https://platform.openai.com/playground?mode=complete&code=${encodeURIComponent(example.code)}`, '_blank')}
+                    onClick={() => { trackEvent({ action: 'outbound_click', category: 'concepts', label: 'openai_playground' }); window.open(`https://platform.openai.com/playground?mode=complete&code=${encodeURIComponent(example.code)}`, '_blank'); }}
                   >
                     <Link className="h-4 w-4" />
                   </Button>

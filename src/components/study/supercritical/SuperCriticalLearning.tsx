@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { jsonrepair } from 'jsonrepair';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, Target, Lightning, Copy, Printer, Brain, Question, CaretDown, CaretUp, ShieldWarning, Timer, Stack, Scales, FilePdf } from '@phosphor-icons/react';
@@ -690,6 +691,7 @@ Return ONLY valid JSON with non-empty arrays. Provide 3-5 items for insights, re
   };
 
   const handleStartSession = async (seeds: any) => {
+    trackEvent({ action: 'session_start', category: 'scl' });
     setAnalysisSeeds(seeds);
     setAnalysisStarted(true);
     

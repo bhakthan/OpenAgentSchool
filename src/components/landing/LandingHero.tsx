@@ -5,12 +5,13 @@ import { Logo } from '@/components/ui/Logo';
 import { ArrowRight, ChatCircleDots, Brain, Target } from '@phosphor-icons/react';
 import { LandingRightPanel } from '@/components/landing/LandingRightPanel';
 import { useNavigate } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics/ga';
 
 export const LandingHero: React.FC = () => {
   const navigate = useNavigate();
 
   const handleStartJourney = () => {
-    // Navigate to the first core concept or study mode
+    trackEvent({ action: 'cta_click', category: 'landing', label: 'start_journey' });
     navigate('/study-mode');
     // Smooth scroll to top after navigation
     setTimeout(() => {
@@ -19,7 +20,7 @@ export const LandingHero: React.FC = () => {
   };
 
   const handleExplorePatterns = () => {
-    // Navigate to patterns section
+    trackEvent({ action: 'cta_click', category: 'landing', label: 'explore_patterns' });
     navigate('/patterns');
     // Smooth scroll to top after navigation
     setTimeout(() => {
@@ -28,7 +29,7 @@ export const LandingHero: React.FC = () => {
   };
 
   const handleLevelClick = (level: string) => {
-    // Navigate to core concepts with the appropriate difficulty level
+    trackEvent({ action: 'level_click', category: 'landing', label: level });
     switch (level) {
       case 'foundation':
         navigate('/concepts/agent-architecture');
@@ -67,7 +68,7 @@ export const LandingHero: React.FC = () => {
               <div className="flex-shrink-0">
                 <div 
                   className="group cursor-pointer bg-white p-2 rounded-xl shadow-lg border hover:border-blue-500 hover:shadow-xl transition-all duration-300"
-                  onClick={() => window.open('https://www.youtube.com/playlist?list=PL9pA6bW_V_aBCC77nHbPgPJVUXqnLkZ2C', '_blank')}
+                  onClick={() => { trackEvent({ action: 'outbound_click', category: 'landing', label: 'youtube_podcast_qr' }); window.open('https://www.youtube.com/playlist?list=PL9pA6bW_V_aBCC77nHbPgPJVUXqnLkZ2C', '_blank'); }}
                   title="Click to open YouTube Podcast playlist"
                 >
                   <img 
@@ -163,6 +164,7 @@ export const LandingHero: React.FC = () => {
                     size="sm" 
                     className="group"
                     onClick={() => {
+                      trackEvent({ action: 'cta_click', category: 'landing', label: 'adoption_playbook' });
                       navigate('/adoption-playbook');
                       setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
                     }}

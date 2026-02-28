@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { ShieldCheck, Key, Lock, Warning, CheckCircle } from "@phosphor-icons/react"
 import MiniFlowMap from './visuals/MiniFlowMap'
+import { trackEvent } from '@/lib/analytics/ga'
 
 interface Props {
   onNavigate: () => void
@@ -141,16 +142,16 @@ export default function SecurityDataBoundaries({ onNavigate }: Props) {
       <div className="mt-2">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <Button variant="secondary" className="w-full" size="lg"
-            onClick={() => window.location.assign('/study-mode?concept=security-data-boundaries&type=socratic')}
+            onClick={() => { trackEvent({ action: 'micro_assessment', category: 'ai_skills', label: 'security-data-boundaries' }); window.location.assign('/study-mode?concept=security-data-boundaries&type=socratic'); }}
             aria-label="Start micro-assessment for Security & Data Boundaries">
             Micro‑assessment
           </Button>
           <Button variant="outline" className="w-full" size="lg"
-            onClick={() => window.location.assign('/study-mode?concept=security-data-boundaries&type=scenario')}
+            onClick={() => { trackEvent({ action: 'try_scenario', category: 'ai_skills', label: 'security-data-boundaries' }); window.location.assign('/study-mode?concept=security-data-boundaries&type=scenario'); }}
             aria-label="Try a scenario for Security & Data Boundaries">
             Try Scenario
           </Button>
-          <Button className="w-full" size="lg" onClick={onNavigate}>
+          <Button className="w-full" size="lg" onClick={() => { trackEvent({ action: 'navigate_next', category: 'ai_skills', label: 'security-data-boundaries' }); onNavigate(); }}>
             Next: Retrieval‑Augmented Generation (RAG)
           </Button>
         </div>

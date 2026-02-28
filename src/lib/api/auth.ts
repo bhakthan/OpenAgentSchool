@@ -5,6 +5,7 @@
 
 import axios, { AxiosInstance } from 'axios';
 import { API_CONFIG } from './config';
+import { hashPasswordForTransport } from '@/lib/auth/passwordTransport';
 
 // Types
 export interface LoginCredentials {
@@ -98,11 +99,12 @@ class AuthAPIClient {
    * Login with email and password
    */
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
+    const transportPassword = await hashPasswordForTransport(credentials.password, credentials.email);
     const { data } = await this.client.post<{ access_token: string; token_type: string }>(
       '/api/v1/users/login',
       {
         username: credentials.email, // Backend uses username field
-        password: credentials.password,
+        password: transportPassword,
       }
     );
     
@@ -128,11 +130,13 @@ class AuthAPIClient {
    * Signup new user
    */
   async signup(signupData: SignupData): Promise<AuthResponse> {
+    const transportPassword = await hashPasswordForTransport(signupData.password, signupData.email);
+
     // First create the user
     await this.client.post('/api/v1/users/register', {
       username: signupData.email,
       email: signupData.email,
-      password: signupData.password,
+      password: transportPassword,
     });
     
     // Then login

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,6 +18,7 @@ export default function ForgotPasswordPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    trackEvent({ action: 'forgot_password_submit', category: 'auth', label: 'email' });
     
     if (!email.trim()) {
       toast.error('Please enter your email address');

@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Alert, AlertDescription } from '../ui/alert';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/lib/auth/AuthContext';
+import { trackEvent } from '@/lib/analytics/ga';
 import * as XLSX from 'xlsx';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, PageBreak, AlignmentType } from 'docx';
 // file-saver is dynamically imported at usage to reduce initial bundle
@@ -78,6 +79,7 @@ export function BoardReadyBriefingPackForm() {
   };
 
   const exportToExcel = () => {
+    trackEvent({ action: 'exportToExcel', category: 'adoption_playbook', label: 'Board-Ready Briefing Pack' });
     // Require authentication for business template downloads
     if (!isAuthenticated) {
       toast({
@@ -188,6 +190,7 @@ export function BoardReadyBriefingPackForm() {
   };
 
   const exportToWord = async () => {
+    trackEvent({ action: 'exportToWord', category: 'adoption_playbook', label: 'Board-Ready Briefing Pack' });
     // Require authentication for business template downloads
     if (!isAuthenticated) {
       toast({
@@ -334,6 +337,7 @@ export function BoardReadyBriefingPackForm() {
   };
 
   const getAIAssessment = async () => {
+    trackEvent({ action: 'getAIAssessment', category: 'adoption_playbook', label: 'Board-Ready Briefing Pack' });
     setIsAssessing(true);
     setAssessment(null);
     setAssessmentScore(null);

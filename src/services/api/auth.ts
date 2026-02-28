@@ -1,4 +1,5 @@
 import { apiClient } from './client';
+import { hashPasswordForTransport } from '@/lib/auth/passwordTransport';
 import {
   RegisterRequest,
   LoginRequest,
@@ -11,7 +12,11 @@ export const authAPI = {
    * Register a new user
    */
   async register(data: RegisterRequest): Promise<AuthResponse> {
-    const response = await apiClient.post<AuthResponse>('/users/register', data);
+    const transportPassword = await hashPasswordForTransport(data.password, data.email || data.username);
+    const response = await apiClient.post<AuthResponse>('/users/register', {
+      ...data,
+      password: transportPassword,
+    });
     apiClient.saveToken(response.access_token);
     return response;
   },
@@ -20,7 +25,11 @@ export const authAPI = {
    * Login with username and password
    */
   async login(data: LoginRequest): Promise<AuthResponse> {
-    const response = await apiClient.post<AuthResponse>('/users/login', data);
+    const transportPassword = await hashPasswordForTransport(data.password, data.username);
+    const response = await apiClient.post<AuthResponse>('/users/login', {
+      ...data,
+      password: transportPassword,
+    });
     apiClient.saveToken(response.access_token);
     return response;
   },

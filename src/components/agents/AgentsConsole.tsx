@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { trackEvent } from '@/lib/analytics/ga'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useAuth } from '@/lib/auth/AuthContext'
@@ -316,6 +317,7 @@ export default function AgentsConsole() {
 
   const onAct = async () => {
     if (!enabled || !selected) return
+    trackEvent({ action: 'agent_act', category: 'agents_console', label: selected })
     setResult('')
     setError(null)
     let body: any

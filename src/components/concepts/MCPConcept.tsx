@@ -12,6 +12,8 @@ import { Shield, Plug, Lock, Database, Code, Sparkle, Atom } from "@phosphor-ico
 import { ProtocolMessageDissector, CapabilityNegotiationViz, TransportLayerExplorer, ServerRegistrySimulator } from './MCPAtomicVisuals'
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
+import { MermaidDiagram } from "@/components/ui/MermaidDiagram";
+import { ReflectionPrompt } from "@/components/ui/ReflectionPrompt";
 
 interface MCPConceptProps {
   onMarkComplete?: () => void
@@ -145,6 +147,37 @@ export default function MCPConcept({ onMarkComplete, onNavigateToNext }: MCPConc
 
           {/* Interactive Demo */}
           <MCPDemo />
+
+          {/* MCP Protocol Handshake Sequence */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Plug className="w-5 h-5" />
+                MCP Protocol Handshake
+              </CardTitle>
+              <CardDescription>How a client discovers and connects to an MCP server</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <MermaidDiagram
+                chart={`sequenceDiagram
+  participant C as MCP Client
+  participant S as MCP Server
+  C->>S: Initialize (protocol version, capabilities)
+  S-->>C: Initialize Response (server capabilities)
+  C->>S: List Tools
+  S-->>C: Tool Definitions (name, schema, description)
+  C->>S: Call Tool (name, arguments)
+  S-->>C: Tool Result (content, isError)
+  Note over C,S: JSON-RPC 2.0 over stdio or HTTP+SSE`}
+                title="MCP Client-Server Handshake"
+              />
+            </CardContent>
+          </Card>
+
+          <ReflectionPrompt
+            question="Before moving to the Architecture tab: how is MCP different from just calling a REST API? What does the handshake buy you that a plain HTTP call doesn't?"
+            hint="Think about tool discovery, schema validation, and the ability to swap servers without changing client code."
+          />
 
           {/* References */}
           <ReferenceSection type="concept" itemId="mcp" />

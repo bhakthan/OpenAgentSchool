@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -126,6 +127,7 @@ const SimpleACPDemo = () => {
 
   // Start simulation
   const startSimulation = useCallback(() => {
+    trackEvent({ action: 'run_demo', category: 'interactive_demo', label: 'simple_acp_demo' });
     setIsSimulationRunning(true);
     setCurrentStep(0);
     setActiveNodes(new Set());

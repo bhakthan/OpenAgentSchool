@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/lib/auth/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -27,6 +28,7 @@ export function LoginForm({ onSuccess, onSwitchToSignup }: LoginFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    trackEvent({ action: 'login_submit', category: 'auth', label: 'email' });
 
     if (!email || !password) {
       toast.error('Please enter both email and password');

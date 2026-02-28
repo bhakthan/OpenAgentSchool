@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -118,6 +119,7 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
 
   // Skip elicitation and use default experience
   const handleSkipElicitation = () => {
+    trackEvent({ action: 'skip_elicitation', category: 'socratic_mode', label: question.conceptId });
     setUserContext({
       experience: 'beginner',
       background: '',
@@ -208,6 +210,7 @@ const SocraticQuestionMode: React.FC<SocraticQuestionModeProps> = ({
 
   // Reset function to allow retaking the same question
   const resetToStart = () => {
+    trackEvent({ action: 'reset_attempt', category: 'socratic_mode', label: question.conceptId });
     // Show confirmation if user has made progress
     if (responses.length > 0 || userResponse.trim()) {
       const confirmed = window.confirm(
@@ -429,6 +432,7 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
   // Handle response submission with real-time adaptation
   const handleResponseSubmit = async () => {
     if (!userResponse.trim()) return;
+    trackEvent({ action: 'response_submit', category: 'socratic_mode', label: question.conceptId, value: currentStep });
 
     // Enhanced insight extraction with user context
     const enhancedInsights = userContext 

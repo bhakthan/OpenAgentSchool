@@ -6,6 +6,7 @@ import { Play, Pause, RotateCcw, Users, Database, Shield, GitCompare } from 'luc
 import { YoutubeLogo, ArrowUpRight } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock } from './conceptStyles';
+import { trackEvent } from '@/lib/analytics/ga';
 
 interface AnimationStep {
   id: string;
@@ -1211,7 +1212,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                                 variant="link" 
                                 size="sm" 
                                 className="p-0 h-auto"
-                                onClick={() => window.open('https://youtu.be/XPOQ0dlxbnA', '_blank')}
+                                onClick={() => { trackEvent({ action: 'outbound_click', category: 'concepts', label: 'a2a_youtube_video' }); window.open('https://youtu.be/XPOQ0dlxbnA', '_blank'); }}
                               >
                                 Watch Video <ArrowUpRight size={14} className="ml-1" />
                               </Button>
@@ -1237,7 +1238,7 @@ const A2AMultiAgentSystem: React.FC = () => {
                                 variant="link" 
                                 size="sm" 
                                 className="p-0 h-auto"
-                                onClick={() => window.open('https://arxiv.org/abs/2510.04618', '_blank')}
+                                onClick={() => { trackEvent({ action: 'outbound_click', category: 'concepts', label: 'a2a_arxiv_paper' }); window.open('https://arxiv.org/abs/2510.04618', '_blank'); }}
                               >
                                 Read Paper <ArrowUpRight size={14} className="ml-1" />
                               </Button>

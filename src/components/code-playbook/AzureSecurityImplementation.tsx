@@ -1,4 +1,5 @@
 import React from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShieldCheck, Lock, Warning } from '@phosphor-icons/react';
@@ -612,7 +613,7 @@ const AzureSecurityImplementation: React.FC<AzureSecurityImplementationProps> = 
                     variant="outline" 
                     size="sm" 
                     className="text-xs"
-                    onClick={() => window.open('https://learn.microsoft.com/en-us/azure/security/', '_blank')}
+                    onClick={() => { trackEvent({ action: 'outbound_doc_link', category: 'code_playbook', label: 'azure_security_docs' }); window.open('https://learn.microsoft.com/en-us/azure/security/', '_blank'); }}
                   >
                     Azure Security Documentation
                   </Button>

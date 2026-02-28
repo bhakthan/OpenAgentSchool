@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -226,6 +227,7 @@ const ProtocolWalkthrough = () => {
   
   const handleNextStep = () => {
     if (currentStepIndex < steps.length - 1) {
+      trackEvent({ action: 'step_navigation', category: 'interactive_demo', label: `walkthrough_step_${currentStepIndex + 1}` });
       setIsPlaying(false);
       
       // Skip any remaining messages in current step

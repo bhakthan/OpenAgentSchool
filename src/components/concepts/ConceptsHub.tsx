@@ -11,6 +11,7 @@ import { registerConceptsForVoice } from "@/lib/voiceNavigation"
 import InlineMicButton from "@/components/voice/InlineMicButton"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
+import { trackEvent } from '@/lib/analytics/ga'
 
 // ── Lazy-loaded concept components (code-split per concept) ──────────────
 const LearningHowToLearnConcept = lazy(() => import("./LearningHowToLearnConcept"))
@@ -196,7 +197,7 @@ const concepts: ConceptInfo[] = [
     id: 'prompt-optimization-patterns',
     title: 'Prompt Optimization Patterns',
   description: 'Turn brittle prompts into stable systems using repeatable refactor patterns—not guesswork.',
-    level: 'architecture',
+    level: 'fundamentals',
     icon: <ChartBar className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-green-900/20 dark:text-green-300',
     estimatedTime: '35-45 min',
@@ -207,7 +208,7 @@ const concepts: ConceptInfo[] = [
     id: 'agent-instruction-design',
     title: 'Agent Instruction Design',
   description: 'Write clear, structured instructions that keep agents on track as tasks get complex.',
-    level: 'architecture',
+    level: 'fundamentals',
     icon: <BookOpen className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-purple-900/20 dark:text-purple-300',
     estimatedTime: '30-40 min',
@@ -218,7 +219,7 @@ const concepts: ConceptInfo[] = [
     id: 'agentic-workflow-control',
     title: 'Agentic Workflow Control',
   description: 'Connect multiple tools and steps into reliable agent workflows.',
-    level: 'architecture',
+    level: 'fundamentals',
     icon: <ArrowsHorizontal className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-orange-900/20 dark:text-orange-300',
     estimatedTime: '40-50 min',
@@ -229,7 +230,7 @@ const concepts: ConceptInfo[] = [
     id: 'agent-evaluation-methodologies',
     title: 'Agent Evaluation Methodologies',
   description: 'Measure whether your agent is getting better with practical testing methods.',
-    level: 'architecture',
+    level: 'fundamentals',
     icon: <ChartBar className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-cyan-900/20 dark:text-cyan-300',
     estimatedTime: '35-45 min',
@@ -306,7 +307,7 @@ const concepts: ConceptInfo[] = [
   description: 'Understand what makes an AI agent different from a simple chatbot—and why it matters.',
     level: 'fundamentals',
     icon: <Brain className="w-6 h-6" />,
-    prerequisites: [],
+    prerequisites: ['what-is-an-llm'],
     estimatedTime: '20-30 min',
     component: AIAgentsConcept
   },
@@ -318,18 +319,18 @@ const concepts: ConceptInfo[] = [
     icon: <Shield className="w-6 h-6" />,
   color: 'bg-background text-foreground/80 dark:bg-cyan-900/20 dark:text-cyan-300',
     estimatedTime: '40-60 min',
-    prerequisites: [],
+    prerequisites: ['what-is-an-llm'],
     component: AzureAISafetyAndGovernance
   },
   {
     id: 'atomic-llm-training',
     title: 'Atomic LLM Training (microGPT)',
     description: 'Understand how language models learn by reading through a working GPT in 200 lines of Python.',
-    level: 'advanced',
+    level: 'fundamentals',
     icon: <Atom className="w-6 h-6" />,
     color: 'bg-background text-foreground/80 dark:bg-amber-900/20 dark:text-amber-300',
     estimatedTime: '50-70 min',
-    prerequisites: [],
+    prerequisites: ['what-is-an-llm'],
     component: AtomicLLMTrainingConcept
   },
   {
@@ -990,10 +991,12 @@ export default function ConceptsHub({
     
     // If concept has an external path, navigate there instead
     if (concept?.externalPath) {
+      trackEvent({ action: 'concept_select', category: 'concepts', label: `external_${conceptId}` })
       navigate(concept.externalPath)
       return
     }
     
+    trackEvent({ action: 'concept_select', category: 'concepts', label: conceptId })
     setSelectedConcept(conceptId);
     onSelectConcept(conceptId);
     

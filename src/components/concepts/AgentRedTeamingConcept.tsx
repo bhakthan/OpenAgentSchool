@@ -6,6 +6,8 @@ import { Shield, ShieldWarning, Target, Bug, Code, BookOpen, Warning, CheckCircl
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 import { Link } from "react-router-dom";
+import { MermaidDiagram } from "@/components/ui/MermaidDiagram";
+import { ReflectionPrompt } from "@/components/ui/ReflectionPrompt";
 
 interface AgentRedTeamingConceptProps {
   onMarkComplete?: () => void
@@ -188,6 +190,71 @@ export default function AgentRedTeamingConcept({ onMarkComplete, onNavigateToNex
               </div>
             </CardContent>
           </Card>
+
+          {/* Red Teaming Process Flow */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Target className="w-5 h-5 text-red-500" />
+                Red Teaming Process Flow
+              </CardTitle>
+              <CardDescription>NIST AI RMF Map → Measure → Manage cycle for adversarial testing</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <MermaidDiagram
+                chart={`flowchart TD
+  A[Define Scope & Risk Categories] --> B[MAP: Identify Attack Surface]
+  B --> C[Select Attack Strategies]
+  C --> D[Deploy Converters & Scorers]
+  D --> E[MEASURE: Execute Red Team Scans]
+  E --> F{Vulnerability Found?}
+  F -->|Yes| G[Log & Classify Finding]
+  G --> H[MANAGE: Apply Mitigations]
+  H --> I[Re-test]
+  I --> E
+  F -->|No| J[Document Clean Results]
+  J --> K[Generate Compliance Report]
+  K --> L[Schedule Next Cycle]`}
+                title="Red Teaming Process Flow (NIST AI RMF)"
+              />
+            </CardContent>
+          </Card>
+
+          {/* Attack Types Overview Diagram */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Crosshair className="w-5 h-5" />
+                Five Core Attack Categories
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <MermaidDiagram
+                chart={`graph TB
+  RT[AI Red Teaming] --> PI[Prompt Injection]
+  RT --> JB[Jailbreaking]
+  RT --> DL[Data Leakage]
+  RT --> HC[Harmful Content]
+  RT --> HE[Hallucination Exploitation]
+  PI --> D1[Direct Injection]
+  PI --> I1[Indirect Injection]
+  JB --> R1[Role-play Attacks]
+  JB --> E1[Encoding Tricks]
+  DL --> T1[Training Data Extraction]
+  DL --> S1[System Prompt Theft]
+  HC --> B1[Bias Amplification]
+  HC --> V1[Violence/Hate Speech]
+  HE --> F1[Fake Citation]
+  HE --> C1[Confident Misinformation]`}
+                title="Five Core Attack Categories"
+              />
+            </CardContent>
+          </Card>
+
+          <ReflectionPrompt
+            question="If you were red-teaming your own AI application, which attack category would you test first and why? Consider what data your system has access to."
+            hint="Start with the highest-impact, most-likely vulnerability — usually prompt injection or data leakage."
+          />
 
           <ReferenceSection type="concept" itemId="agent-red-teaming" />
 
@@ -1680,6 +1747,39 @@ docker compose up
                     <span className="font-medium">Azure AI Red Teaming Agent</span>
                     <p className="text-sm text-muted-foreground">Production scanning on your own systems</p>
                   </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Challenge Ladder */}
+          <Card className="border-amber-500/20 bg-amber-500/5">
+            <CardContent className="pt-6 space-y-4">
+              <h3 className="font-semibold flex items-center gap-2">
+                <Target className="w-5 h-5 text-amber-400" /> Challenge Yourself
+              </h3>
+              <div className="grid gap-3">
+                <div className="p-3 rounded-lg border border-green-500/20 bg-green-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-green-500/30 rounded bg-green-500/10 mb-2">Beginner</span>
+                  <p className="text-sm text-muted-foreground">
+                    Craft 3 indirect prompt injection payloads that each target a different attack category from the taxonomy.
+                    Test them against a free chatbot and document which guardrails caught them.
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg border border-blue-500/20 bg-blue-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-blue-500/30 rounded bg-blue-500/10 mb-2">Intermediate</span>
+                  <p className="text-sm text-muted-foreground">
+                    Set up PyRIT with a local LLM target. Write an automated scan that tests all 5 risk categories
+                    from the NIST AI RMF taxonomy and generates a severity-ranked report.
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg border border-purple-500/20 bg-purple-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-purple-500/30 rounded bg-purple-500/10 mb-2">Advanced</span>
+                  <p className="text-sm text-muted-foreground">
+                    Design a multi-turn attack chain that combines jailbreaking with data exfiltration.
+                    Then write a guardrail that detects the pattern across turns (not just single messages)
+                    and evaluate its false-positive rate on 50 benign conversations.
+                  </p>
                 </div>
               </div>
             </CardContent>

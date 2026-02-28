@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Play, Atom, Flask, Graph, CheckCircle, Clock } from '@phosphor-icons/react';
+import { trackEvent } from '@/lib/analytics/ga';
 
 interface Agent {
   name: string;
@@ -77,6 +78,7 @@ export function LiteratureSynthesisDemo() {
   ];
 
   const runSimulation = async () => {
+    trackEvent({ action: 'run_literature_synthesis', category: 'science_demo' });
     setIsRunning(true);
     setStep(0);
     setPapers([]);

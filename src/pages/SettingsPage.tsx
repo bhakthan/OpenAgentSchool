@@ -1,6 +1,7 @@
 import React from 'react';
 import { APISettingsForm } from '@/components/settings/APISettingsForm';
 import { LearningProfileSettings } from '@/components/settings/LearningProfileSettings';
+import { trackEvent } from '@/lib/analytics/ga';
 import { EffectiveAccessPolicyPanel, PolicySimulationPanel } from '@/components/settings/PolicyControlPlaneSettings';
 import { FeatureFlagsSettings } from '@/components/settings/FeatureFlagsSettings';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';

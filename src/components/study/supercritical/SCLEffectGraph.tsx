@@ -18,6 +18,7 @@ import {
   Warning,
   Spinner,
 } from '@phosphor-icons/react';
+import { trackEvent } from '@/lib/analytics/ga';
 import type {
   SCLSession as SCLSessionType,
   SCLUIState,
@@ -102,6 +103,7 @@ export function SCLEffectGraph({
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else if (next.size < 5) next.add(id);
+      trackEvent({ action: 'node_toggle', category: 'scl', label: id });
       return next;
     });
   };
@@ -116,6 +118,7 @@ export function SCLEffectGraph({
 
   const fireDive = (level: DeepDiveLevel) => {
     if (!canDive) return;
+    trackEvent({ action: 'graph_deep_dive', category: 'scl', label: level, value: selectedIds.size });
     onDeepDive!(
       Array.from(selectedIds),
       level,

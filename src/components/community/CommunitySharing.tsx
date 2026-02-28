@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { EnhancedTutorialButton, pagesSynopsis } from '../tutorial/EnhancedTutorialButton';
 import { useAuth } from '@/lib/auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics/ga';
 
 const CommunitySharing = () => {
   const { isAuthenticated } = useAuth();
@@ -27,6 +28,7 @@ const CommunitySharing = () => {
       toast.error("Please accept the terms before submitting.");
       return;
     }
+    trackEvent({ action: 'share_pattern', category: 'community', label: patternName });
     // In a real implementation, this would save to a database
     toast.success("Pattern submitted for review!", {
       description: "An admin will review your submission before it goes live."

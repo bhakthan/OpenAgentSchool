@@ -4,6 +4,7 @@
  */
 
 import { Button } from '@/components/ui/button';
+import { trackEvent } from '@/lib/analytics/ga';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_CONFIG } from '@/lib/api/config';
@@ -19,6 +20,7 @@ export function OAuthButtons({ onSuccess }: OAuthButtonsProps) {
   const navigate = useNavigate();
 
   const handleOAuthLogin = async (provider: 'microsoft' | 'google' | 'github') => {
+    trackEvent({ action: 'oauth_click', category: 'auth', label: provider });
     setLoading(provider);
     
     try {

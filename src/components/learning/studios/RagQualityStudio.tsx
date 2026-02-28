@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { runRag, toSummary, type RagConfig, type RagDoc, type RagQuery } from '@/lib/rag/simpleRag';
 import { progressStore, type ModuleId, type SummaryMetrics, type StudioRunRecord } from '@/lib/learning/progressStore';
 import { Button } from '@/components/ui/button';
@@ -21,6 +22,7 @@ const RagQualityStudio: React.FC<Props> = ({ moduleId, studioId }) => {
   const [busy, setBusy] = useState(false);
 
   const runAll = () => {
+    trackEvent({ action: 'run_assessment', category: 'learning_studio', label: 'rag_quality' });
     setBusy(true);
     try {
       const out = PRESETS.map(cfg => {

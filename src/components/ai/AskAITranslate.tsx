@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import { trackEvent } from '@/lib/analytics/ga'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { sanitizeHtml } from '@/lib/sanitizeHtml'
@@ -55,6 +56,7 @@ export default function AskAITranslate({ open, onOpenChange, sourceHtml }: Props
   }
 
   async function translate() {
+    trackEvent({ action: 'translate_submit', category: 'ask_ai', label: lang });
     setLoading(true)
     setError(null)
     try {

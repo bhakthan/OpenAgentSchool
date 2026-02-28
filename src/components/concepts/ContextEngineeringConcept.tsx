@@ -6,6 +6,8 @@ import { Brain, Database, Funnel, Stack, ArrowsClockwise, Lightning, ShieldCheck
 import { markNodeComplete } from '@/lib/utils/markComplete'
 import CodeBlock from "@/components/ui/CodeBlock"
 import { Link } from "react-router-dom"
+import { MermaidDiagram } from "@/components/ui/MermaidDiagram"
+import { ReflectionPrompt } from "@/components/ui/ReflectionPrompt"
 
 interface ContextEngineeringConceptProps {
   onMarkComplete?: () => void
@@ -167,6 +169,70 @@ export default function ContextEngineeringConcept({ onMarkComplete, onNavigateTo
               </div>
             </CardContent>
           </Card>
+
+          {/* Prompt Engineering vs Context Engineering — visual juxtaposition */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Graph className="w-5 h-5" />
+                Prompt Engineering vs. Context Engineering
+              </CardTitle>
+              <CardDescription>Side-by-side: how the paradigm shifts from static strings to dynamic pipelines</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <MermaidDiagram
+                chart={`graph LR
+  subgraph PE["Prompt Engineering"]
+    U1[User Query] --> P1[Static Prompt Template]
+    P1 --> LLM1[LLM]
+    LLM1 --> R1[Response]
+  end
+  subgraph CE["Context Engineering"]
+    U2[User Query] --> C1[Collect]
+    C1 --> C2[Compress]
+    C2 --> C3[Organize]
+    C3 --> C4[Select]
+    C4 --> LLM2[LLM]
+    DB[(RAG / Tools / Memory)] --> C1
+    LLM2 --> R2[Response]
+    R2 --> FB[Feedback Loop]
+    FB --> C1
+  end`}
+                title="Prompt Engineering vs. Context Engineering"
+              />
+            </CardContent>
+          </Card>
+
+          {/* Context Pipeline Flowchart */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Funnel className="w-5 h-5" />
+                The Context Engineering Pipeline
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <MermaidDiagram
+                chart={`flowchart TD
+  A[Raw Sources] -->|Ingest| B[Collect]
+  B -->|Token budget| C[Compress]
+  C -->|Structure| D[Organize]
+  D -->|Relevance filter| E[Select]
+  E --> F[Context Window]
+  F --> G[LLM Inference]
+  G -->|Observe quality| H{Good enough?}
+  H -->|Yes| I[Return to User]
+  H -->|No| J[Feedback / Re-rank]
+  J --> B`}
+                title="Four-Stage Context Engineering Pipeline"
+              />
+            </CardContent>
+          </Card>
+
+          <ReflectionPrompt
+            question="Think about a recent AI interaction where the response was off-target. Was the problem the prompt itself, or was it missing context (e.g., your preferences, relevant documents, conversation history)?"
+            hint="This distinction is the core of why Context Engineering supersedes Prompt Engineering."
+          />
         </div>
       )
     },
@@ -679,6 +745,38 @@ def run_pipeline():
                   </h4>
                   <p className="text-xs text-muted-foreground mt-1">Where prompt engineering ends and context engineering begins.</p>
                 </Link>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Challenge Ladder */}
+          <Card className="border-amber-500/20 bg-amber-500/5">
+            <CardContent className="pt-6 space-y-4">
+              <h3 className="font-semibold flex items-center gap-2">
+                <Lightbulb className="w-5 h-5 text-amber-400" /> Challenge Yourself
+              </h3>
+              <div className="grid gap-3">
+                <div className="p-3 rounded-lg border border-green-500/20 bg-green-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-green-500/30 rounded bg-green-500/10 mb-2">Beginner</span>
+                  <p className="text-sm text-muted-foreground">
+                    Take the mini pipeline above, swap the random embedding with a real one (e.g., OpenAI or sentence-transformers), and
+                    observe how relevance ranking changes when you query "How does attention work?"
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg border border-blue-500/20 bg-blue-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-blue-500/30 rounded bg-blue-500/10 mb-2">Intermediate</span>
+                  <p className="text-sm text-muted-foreground">
+                    Add a self-baking summarization step that uses an LLM to generate a one-sentence summary for each chunk.
+                    Measure whether searching on summaries improves recall compared to searching on raw text.
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg border border-purple-500/20 bg-purple-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-purple-500/30 rounded bg-purple-500/10 mb-2">Advanced</span>
+                  <p className="text-sm text-muted-foreground">
+                    Design a token-budget optimizer that dynamically allocates context window space across system prompt, user history,
+                    RAG chunks, and tool results. Define a priority function and demonstrate how it adapts when the context window shrinks from 128K to 8K.
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>

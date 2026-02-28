@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -33,6 +34,7 @@ const MCPDemo = () => {
 
   const sendMessage = async () => {
     if (!userInput.trim() || isRunning) return;
+    trackEvent({ action: 'run_demo', category: 'interactive_demo', label: 'mcp_demo' });
     
     setIsRunning(true);
     

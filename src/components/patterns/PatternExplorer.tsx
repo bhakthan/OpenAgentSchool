@@ -1,5 +1,6 @@
 import { useState, useEffect, Suspense, lazy, useCallback } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
+import { trackEvent } from '@/lib/analytics/ga'
 import { agentPatterns, PatternData } from '@/lib/data/patterns/index'
 import PatternDetails from './PatternDetails'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -86,6 +87,7 @@ const PatternExplorer = () => {
 
   const handlePatternSelect = (pattern: PatternData) => {
     setSelectedPattern(pattern);
+    trackEvent({ action: 'select_pattern', category: 'agent_patterns', label: pattern.id });
   };
 
   // ── Voice input for pattern selection ──────────────────────────────────
@@ -118,7 +120,9 @@ const PatternExplorer = () => {
   }, [voice]);
   
   const toggleViewMode = () => {
-    setViewMode(current => current === 'single' ? 'compare' : 'single');
+    const next = viewMode === 'single' ? 'compare' : 'single';
+    setViewMode(next);
+    trackEvent({ action: 'toggle_view_mode', category: 'agent_patterns', label: next });
   };
 
   const previewStyleVariant: 'default' | 'flat-ui-2' =
@@ -283,7 +287,7 @@ const PatternExplorer = () => {
       {viewMode === 'single' ? (
         selectedPattern ? (
           <div className="w-full">
-            <Tabs value={activeTab} defaultValue="flow-diagram" className="w-full" onValueChange={setActiveTab}>
+            <Tabs value={activeTab} defaultValue="flow-diagram" className="w-full" onValueChange={(tab) => { setActiveTab(tab); trackEvent({ action: 'switch_tab', category: 'agent_patterns', label: tab }); }}>
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="flow-diagram" className="flex items-center gap-2" data-tab="flow-diagram">
                   <ChartLine size={16} /> Flow Diagram

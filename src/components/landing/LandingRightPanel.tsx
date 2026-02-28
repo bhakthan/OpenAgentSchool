@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Brain, Lightning, GraduationCap, Lightbulb, Target, Users, Play, X } from '@phosphor-icons/react';
+import { trackEvent } from '@/lib/analytics/ga';
 
 export interface LandingRightPanelProps {
   imageSrc?: string;
@@ -58,6 +59,7 @@ export const LandingRightPanel: React.FC<LandingRightPanelProps> = ({
   }, [isVideoOpen]);
 
   const handleImageClick = () => {
+    trackEvent({ action: 'cta_play_video', category: 'marketing', label: 'hero-video' });
     setIsVideoOpen(true);
   };
 

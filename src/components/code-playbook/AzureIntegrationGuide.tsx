@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -178,7 +179,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, integration, bestPra
             variant="outline" 
             size="sm" 
             className="text-xs" 
-            onClick={() => window.open(service.documentation, '_blank')}
+            onClick={() => { trackEvent({ action: 'outbound_doc_link', category: 'code_playbook', label: service.name }); window.open(service.documentation, '_blank'); }}
           >
             Documentation
           </Button>

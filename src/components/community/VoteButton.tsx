@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { castVote, getVotes, getUserVote, getRemainingVotes, type VoteDirection } from '@/lib/votingSystem';
 import { Button } from '@/components/ui/button';
 import { CaretUp, CaretDown } from '@phosphor-icons/react';
+import { trackEvent } from '@/lib/analytics/ga';
 
 interface VoteButtonProps {
   postId: string;
@@ -19,6 +20,7 @@ export default function VoteButton({ postId }: VoteButtonProps) {
   }, [postId]);
 
   const handleVote = (direction: VoteDirection) => {
+    trackEvent({ action: 'vote', category: 'community', label: direction });
     const result = castVote(postId, direction);
     if (result.success) {
       setVotes(getVotes(postId));

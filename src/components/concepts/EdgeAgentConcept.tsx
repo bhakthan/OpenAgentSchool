@@ -37,6 +37,8 @@ import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock, conceptPill } fro
 import ReferenceSection from "@/components/references/ReferenceSection"
 import CodeBlock from "@/components/ui/CodeBlock"
 import { motion, AnimatePresence } from "framer-motion"
+import { MermaidDiagram } from "@/components/ui/MermaidDiagram"
+import { ReflectionPrompt } from "@/components/ui/ReflectionPrompt"
 
 interface EdgeAgentConceptProps {
   onMarkComplete?: () => void
@@ -348,6 +350,70 @@ export default function EdgeAgentConcept({ onMarkComplete, onNavigateToNext }: E
               </div>
             </CardContent>
           </Card>
+
+          {/* Hybrid Architecture Decision Diagram */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TreeStructure className="w-5 h-5" />
+                Hybrid Architecture Decision Tree
+              </CardTitle>
+              <CardDescription>Choose the right edge/cloud split for your workload</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <MermaidDiagram
+                chart={`flowchart TD
+  A[New AI Workload] --> B{Latency < 100ms?}
+  B -->|Yes| C{Data leaves premises?}
+  B -->|No| D{Model > 7B params?}
+  C -->|No| E[Edge-Only Deployment]
+  C -->|Yes| F[Edge + Cloud Hybrid]
+  D -->|Yes| G[Cloud-Primary + Edge Cache]
+  D -->|No| H{Connectivity reliable?}
+  H -->|Yes| I[Cloud with Edge Fallback]
+  H -->|No| J[Edge-Primary + Cloud Sync]
+  E --> K[NVIDIA Jetson / Intel NUC]
+  F --> L[Azure Stack Edge / AWS Outpost]
+  G --> M[Cloud GPU + Edge Distilled Model]
+  I --> N[API Gateway + Local Queue]
+  J --> O[On-device + Batch Upload]`}
+                title="Edge vs. Cloud Architecture Decision Tree"
+              />
+            </CardContent>
+          </Card>
+
+          {/* Edge Agent Lifecycle */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ArrowsClockwise className="w-5 h-5" />
+                Edge Agent Lifecycle
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <MermaidDiagram
+                chart={`flowchart LR
+  A[Sense] -->|Sensor data| B[Preprocess]
+  B -->|Normalized| C[Edge Inference]
+  C -->|Decision| D{Act Locally?}
+  D -->|Yes| E[Actuate]
+  D -->|Defer| F[Send to Cloud]
+  E --> G[Log & Telemetry]
+  F --> H[Cloud Inference]
+  H --> I[Return Result]
+  I --> E
+  G --> J[Batch Sync to Cloud]
+  J --> K[Model Update]
+  K -->|OTA| C`}
+                title="Sense → Infer → Act → Sync Lifecycle"
+              />
+            </CardContent>
+          </Card>
+
+          <ReflectionPrompt
+            question="Which of your current or planned workloads could benefit from edge deployment? Consider latency requirements, data sensitivity, and connectivity constraints."
+            hint="Many teams over-rely on cloud. Even a small edge cache layer can cut latency by 10x for hot-path inference."
+          />
         </div>
       )
     },
@@ -1667,6 +1733,40 @@ class InstrumentedEdgeAgent:
                     <div className="text-2xl font-bold text-orange-600">0</div>
                     <div className="text-xs text-muted-foreground">Safety Alerts</div>
                   </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Challenge Ladder */}
+          <Card className="border-amber-500/20 bg-amber-500/5">
+            <CardContent className="pt-6 space-y-4">
+              <h3 className="font-semibold flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-amber-400" /> Challenge Yourself
+              </h3>
+              <div className="grid gap-3">
+                <div className="p-3 rounded-lg border border-green-500/20 bg-green-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-green-500/30 rounded bg-green-500/10 mb-2">Beginner</span>
+                  <p className="text-sm text-muted-foreground">
+                    Export a PyTorch model to ONNX format and measure the inference time on your CPU vs. GPU.
+                    Calculate the speedup ratio and determine whether it meets a 50ms latency budget.
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg border border-blue-500/20 bg-blue-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-blue-500/30 rounded bg-blue-500/10 mb-2">Intermediate</span>
+                  <p className="text-sm text-muted-foreground">
+                    Build an offline queue for an edge agent: buffer predictions when connectivity drops, then
+                    sync with the cloud using a reconciliation strategy. Handle conflict resolution when the cloud
+                    model was updated while offline.
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg border border-purple-500/20 bg-purple-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-purple-500/30 rounded bg-purple-500/10 mb-2">Advanced</span>
+                  <p className="text-sm text-muted-foreground">
+                    Design a canary-deployment pipeline for a fleet of 100 edge devices: define rollout percentages,
+                    health-check thresholds, automatic rollback triggers, and a monitoring dashboard that uses
+                    the observability stack from this page.
+                  </p>
                 </div>
               </div>
             </CardContent>

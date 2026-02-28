@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -132,8 +133,8 @@ const DebugChallengeMode: React.FC<DebugChallengeModeProps> = ({
     em: ({ children }: any) => <em className="italic text-foreground">{children}</em>,
   };
 
-  // Reset function to allow retaking the same challenge
   const resetToStart = () => {
+    trackEvent({ action: 'reset_attempt', category: 'debug_mode', label: challenge.conceptId });
     const confirmed = window.confirm(
       'Are you sure you want to retake this debug challenge?\n\n' +
       '• This will reset all your progress for this challenge\n' +
@@ -303,8 +304,8 @@ ${llmJudgeResponse.improvements.map(improvement => `• ${improvement}`).join('\
     }, 2000);
   };
 
-  // Handle phase completion
   const handlePhaseComplete = async () => {
+    trackEvent({ action: 'phase_complete', category: 'debug_mode', label: currentPhase, concept_id: challenge.conceptId });
     const currentResponse = getCurrentPhaseResponse();
     if (!currentResponse.trim() && currentPhase !== 'diagnosis') return;
     if (currentPhase === 'diagnosis' && selectedIssues.length === 0) return;

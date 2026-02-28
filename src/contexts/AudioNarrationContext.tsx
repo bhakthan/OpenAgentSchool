@@ -621,6 +621,19 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'proactive-agent-design': 'ProactiveAgentDesignConcept',
         'ProactiveAgentDesignConcept': 'ProactiveAgentDesignConcept',
         
+        // Tier 0 Prompting chain (broken wiring fix — 2026 audit)
+        'agentic-prompting-fundamentals': 'Agentic_Prompting_Fundamentals',
+        'prompt-optimization-patterns': 'PromptOptimizationPatterns',
+        'agent-instruction-design': 'AgentInstructionDesign',
+        'agentic-workflow-control': 'AgenticWorkflowControl',
+        'agent-evaluation-methodologies': 'AgentEvaluationMethodologies',
+        'ai-safety-governance': 'AzureAISafetyAndGovernance',
+        'fine-tuning': 'FineTuningConcept',
+        'agent-red-teaming': 'AgentRedTeamingConcept',
+        'AgentRedTeamingConcept': 'AgentRedTeamingConcept',
+        'agentic-commerce-ap2': 'AgenticCommerceAP2Concept',
+        'AgenticCommerceAP2Concept': 'AgenticCommerceAP2Concept',
+
         // Beginner Foundations - 2026 fundamentals audit
         'what-is-an-llm': 'WhatIsAnLLMConcept',
         'WhatIsAnLLMConcept': 'WhatIsAnLLMConcept',
@@ -774,7 +787,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
       const mappedName = audioFileMap[componentName] || componentName;
       
       // For patterns with 3x3 matrix files, try to use the new granular files first
-      const patternsWithGranularFiles = ['ReActPattern', 'ModernToolUse', 'PromptChaining', 'AgenticRAGPattern', 'AgenticCommerceAP2Concept', 'DataVisualizationConcept'];
+      const patternsWithGranularFiles = ['ReActPattern', 'ModernToolUse', 'PromptChaining', 'AgenticRAGPattern', 'AgenticCommerceAP2Concept', 'DataVisualizationConcept', 'FineTuningConcept'];
       const patternFileMap: { [key: string]: string } = {
         'ReActPattern': 'ReAct',
         'ModernToolUse': 'ModernToolUse',

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -196,6 +197,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               
               setCurrentSession(completedSession);
               setQuizFeedback(feedback);
+              trackEvent({ action: 'quiz_complete', category: 'quiz', value: completedSession.score || 0 });
               setShowResults(true);
               setTimeRemaining(0);
               
@@ -230,6 +232,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
               
               setCurrentSession(completedSession);
               setQuizFeedback(feedback);
+              trackEvent({ action: 'quiz_complete', category: 'quiz', value: completedSession.score || 0 });
               setShowResults(true);
               setTimeRemaining(0);
               
@@ -279,6 +282,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
   };
 
   const startQuiz = useCallback(async () => {
+    trackEvent({ action: 'quiz_start', category: 'quiz', label: selectedCategory?.id || selectedPersona?.id || 'unknown', difficulty: selectedDifficulty });
     console.log('startQuiz called', { 
       selectedPersona: selectedPersona?.id, 
       selectedCategory: selectedCategory?.id, 
@@ -377,6 +381,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
 
   const handleAnswerSubmit = useCallback(() => {
     if (!currentSession) return;
+    trackEvent({ action: 'answer_submit', category: 'quiz', value: currentSession.currentQuestionIndex });
     const currentQuestion = currentSession.questions[currentSession.currentQuestionIndex];
     const isMulti = !!(currentQuestion.correctAnswers && currentQuestion.correctAnswers.length > 0);
     if (!isMulti && !currentAnswer) return;
@@ -421,6 +426,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
       completedSession.score = calculateQuizScore(completedSession);
       const feedback = generateQuizFeedback(completedSession);              setCurrentSession(completedSession);
               setQuizFeedback(feedback);
+              trackEvent({ action: 'quiz_complete', category: 'quiz', value: completedSession.score || 0 });
               setShowResults(true);
               setTimeRemaining(0);
           setCurrentAnswer('');
@@ -467,6 +473,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
       
       setCurrentSession(completedSession);
       setQuizFeedback(feedback);
+      trackEvent({ action: 'quiz_complete', category: 'quiz', value: completedSession.score || 0 });
       setShowResults(true);
       setTimeRemaining(0);
       
@@ -489,6 +496,7 @@ const AdaptiveLearningQuiz: React.FC<AdaptiveLearningQuizProps> = ({ onQuizCompl
   }, [currentSession, onQuizComplete]);
 
   const resetQuiz = useCallback(() => {
+  trackEvent({ action: 'quiz_reset', category: 'quiz' });
   setCurrentSession(null);
   setCurrentAnswer('');
   setMultiSelectSelection(new Set());

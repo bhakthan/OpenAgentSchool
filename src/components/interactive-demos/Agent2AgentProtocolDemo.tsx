@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -261,6 +262,7 @@ app.post('/query/response', (req, res) => {
   };
 
   const goToStep = (stepIndex: number) => {
+    trackEvent({ action: 'step_interaction', category: 'interactive_demo', label: `a2a_step_${stepIndex}` });
     setIsPlaying(false);
     setCurrentStep(stepIndex);
     setCompletedSteps(prev => {

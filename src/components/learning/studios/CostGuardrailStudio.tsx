@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { runTestSuite, type TestCase, type CaseResult } from '@/lib/eval/harness';
 import { progressStore, type ModuleId, type SummaryMetrics, type StudioRunRecord } from '@/lib/learning/progressStore';
 import { Button } from '@/components/ui/button';
@@ -32,6 +33,7 @@ const CostGuardrailStudio: React.FC<Props> = ({ moduleId, studioId }) => {
   };
 
   const runGuardrailed = async () => {
+    trackEvent({ action: 'run_cost_check', category: 'learning_studio', label: 'cost_guardrail' });
     setBusy(true);
     try {
       const res = await runTestSuite(testset, { quality: 0.85, speed: 0.8 });

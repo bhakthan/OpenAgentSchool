@@ -21,6 +21,7 @@ import {
   Question,
   Link as LinkIcon,
 } from '@phosphor-icons/react';
+import { trackEvent } from '@/lib/analytics/ga';
 import type {
   SCLSession as SCLSessionType,
   SCLDeepDive,
@@ -58,7 +59,7 @@ export function SCLSynthesis({ session }: SCLSynthesisProps) {
                 Generate a professional print-ready report with graphs, KPIs, and visual narrative
               </p>
             </div>
-            <Button size="sm" onClick={() => openExecutiveReport(session)} className="gap-2">
+            <Button size="sm" onClick={() => { trackEvent({ action: 'open_executive_report', category: 'scl', label: session.id }); openExecutiveReport(session); }} className="gap-2">
               <FilePdf className="h-4 w-4" />
               Open Report
             </Button>
@@ -225,6 +226,7 @@ export function SCLSynthesis({ session }: SCLSynthesisProps) {
                   <ArrowRight className="h-4 w-4 text-primary mt-0.5" />
                   <button
                     onClick={() => {
+                      trackEvent({ action: 'launch_debug_challenge', category: 'scl', label: 'product-mgmt-debug-1' });
                       window.dispatchEvent(new CustomEvent('studyMode:launchQuestion', { detail: { qid: 'product-mgmt-debug-1', concept: 'product-management', type: 'debug' }}));
                       toast({ title: 'Opening Debug Challenge', description: 'Trust Calibration Dashboard Drift' });
                     }}
@@ -234,6 +236,7 @@ export function SCLSynthesis({ session }: SCLSynthesisProps) {
                   </button>
                   <button
                     onClick={() => {
+                      trackEvent({ action: 'start_debug_challenge', category: 'scl', label: 'product-mgmt-debug-1' });
                       window.dispatchEvent(new CustomEvent('studyMode:launchQuestion', { detail: { qid: 'product-mgmt-debug-1', concept: 'product-management', type: 'debug' }}));
                       toast({ title: 'Starting Challenge', description: 'Trust Calibration Dashboard Drift' });
                     }}
@@ -246,6 +249,7 @@ export function SCLSynthesis({ session }: SCLSynthesisProps) {
                   <ArrowRight className="h-4 w-4 text-primary mt-0.5" />
                   <button
                     onClick={() => {
+                      trackEvent({ action: 'launch_debug_challenge', category: 'scl', label: 'product-mgmt-debug-2' });
                       window.dispatchEvent(new CustomEvent('studyMode:launchQuestion', { detail: { qid: 'product-mgmt-debug-2', concept: 'product-management', type: 'debug' }}));
                       toast({ title: 'Opening Debug Challenge', description: 'Integration ROI Calculator Overstates Value' });
                     }}
@@ -255,6 +259,7 @@ export function SCLSynthesis({ session }: SCLSynthesisProps) {
                   </button>
                   <button
                     onClick={() => {
+                      trackEvent({ action: 'start_debug_challenge', category: 'scl', label: 'product-mgmt-debug-2' });
                       window.dispatchEvent(new CustomEvent('studyMode:launchQuestion', { detail: { qid: 'product-mgmt-debug-2', concept: 'product-management', type: 'debug' }}));
                       toast({ title: 'Starting Challenge', description: 'Integration ROI Calculator Overstates Value' });
                     }}

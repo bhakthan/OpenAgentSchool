@@ -21,6 +21,7 @@ import {
   Printer,
   FilePdf
 } from '@phosphor-icons/react';
+import { trackEvent } from '@/lib/analytics/ga';
 import type { SCLMode, SCLUIState, SCLObjective, DeepDiveLevel } from '@/types/supercritical';
 import { OBJECTIVE_LABELS } from '@/types/supercritical';
 import { perspectiveObjectiveMap } from '@/data/perspectivesRegistry';
@@ -166,7 +167,8 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
       });
 
       console.log('SCL Session starting with seeds:', seeds);
-      
+      trackEvent({ action: 'session_start', category: 'scl', label: mode });
+
   const newSession = createSession(mode, sessionObjectives, seeds);
 
       // Push mode-specific extras to constraints for orchestrator
@@ -202,6 +204,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
 
   const handleExportSession = useCallback(() => {
     if (!session) return;
+    trackEvent({ action: 'session_export', category: 'scl', label: session.id });
 
     const dataStr = JSON.stringify({
       session,
@@ -222,6 +225,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
 
   const handleCopySession = useCallback(async () => {
     if (!session) return;
+    trackEvent({ action: 'session_copy', category: 'scl', label: session.id });
 
     try {
       await navigator.clipboard.writeText(JSON.stringify(session, null, 2));
@@ -237,6 +241,7 @@ export function SCLSession({ initialSeeds, initialMode, onClose }: SCLSessionPro
     question?: string
   ) => {
     setIsDeepDiving(true);
+    trackEvent({ action: 'deep_dive', category: 'scl', label: level, value: selectedNodeIds.length });
     try {
       await deepDive(selectedNodeIds, level, question);
     } finally {

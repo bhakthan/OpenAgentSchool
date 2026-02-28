@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { trackEvent } from '@/lib/analytics/ga'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
@@ -35,6 +36,7 @@ const MultiPatternVisualizer = ({ initialPatterns, useAdvancedVisualizer = true 
   );
 
   const togglePatternSelection = useCallback((patternId: string) => {
+    trackEvent({ action: 'toggle_pattern_compare', category: 'agent_patterns', label: patternId });
     setSelectedPatternIds(current => {
       // If already selected, remove it
       if (current.includes(patternId)) {
@@ -58,6 +60,7 @@ const MultiPatternVisualizer = ({ initialPatterns, useAdvancedVisualizer = true 
 
   const simulateAll = () => {
     setIsSimulating(prev => !prev);
+    trackEvent({ action: 'simulate_all', category: 'agent_patterns', label: isSimulating ? 'stop' : 'start' });
     // Toggle simulation state - let ComparisonTimelineVisualizer handle its own timing
     toast.success(isSimulating ? 'Stopping simulation' : 'Starting simulation on all patterns');
   };
@@ -69,7 +72,9 @@ const MultiPatternVisualizer = ({ initialPatterns, useAdvancedVisualizer = true 
   };
 
   const toggleViewMode = () => {
-    setViewMode(current => current === 'individual' ? 'timeline' : 'individual');
+    const next = viewMode === 'individual' ? 'timeline' : 'individual';
+    setViewMode(next);
+    trackEvent({ action: 'toggle_view_mode', category: 'agent_patterns', label: next });
   };
 
   return (
@@ -85,7 +90,7 @@ const MultiPatternVisualizer = ({ initialPatterns, useAdvancedVisualizer = true 
         <div className="flex gap-2">
           <Tabs 
             value={viewMode} 
-            onValueChange={(value: string) => setViewMode(value as 'individual' | 'timeline')}
+            onValueChange={(value: string) => { setViewMode(value as 'individual' | 'timeline'); trackEvent({ action: 'switch_view_tab', category: 'agent_patterns', label: value }); }}
             className="mr-2"
           >
             <TabsList>

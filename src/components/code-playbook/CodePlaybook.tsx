@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription } from "@/components/ui/alert"
@@ -101,7 +102,7 @@ const CodePlaybook = ({ patternData, styleVariant = 'default' }: CodePlaybookPro
           </CardDescription>
         </CardHeader>
         <CardContent className="p-4 sm:p-6">
-          <Tabs defaultValue="general" className="w-full" data-section="code-playbook">
+          <Tabs defaultValue="general" className="w-full" data-section="code-playbook" onValueChange={(tab) => trackEvent({ action: 'tab_switch', category: 'code_playbook', label: tab })}>
             <div className="overflow-x-auto pb-2 w-full">
               <TabsList className="flex w-full flex-nowrap gap-0.5 transition-all duration-300" role="tablist">
                 <TabsTrigger value="general" className="flex items-center gap-1 h-10 px-3 py-2 text-base">

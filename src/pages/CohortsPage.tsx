@@ -3,6 +3,7 @@
  * List, create, join cohorts with chat and challenges.
  */
 import React, { useState, useEffect, useCallback } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import {
   getCohorts,
   getCohortById,
@@ -26,6 +27,7 @@ function CreateCohortForm({ onCreated }: { onCreated: () => void }) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
+    trackEvent({ action: 'create_cohort', category: 'cohorts', label: name.trim() });
     const mentorId = `user-${Date.now()}`;
     createCohort(name.trim(), description.trim(), mentorId, 'You');
     setName('');
@@ -272,6 +274,7 @@ const CohortsPage: React.FC = () => {
   }
 
   const handleJoin = (cohortId: string) => {
+    trackEvent({ action: 'join_cohort', category: 'cohorts', label: cohortId });
     joinCohort(cohortId, `user-${Date.now()}`, 'New Learner');
     refresh();
   };

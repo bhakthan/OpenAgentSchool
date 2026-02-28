@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import * as d3 from "d3"
 import { initSkillsAI, runSkillsDemo } from "./skills-ai"
+import { trackEvent } from '@/lib/analytics/ga'
 
 /**
  * SystemsThinkingTree (theme-aware)
@@ -300,6 +301,7 @@ export default function SystemsThinkingTree() {
       .attr("transform", (d: any) => `translate(${Number.isFinite(d?.y) ? d.y : 0},${Number.isFinite(d?.x) ? d.x : 0})`)
               .style("cursor", "pointer")
               .on("click", (_event: any, d: any) => {
+                trackEvent({ action: 'tree_node_click', category: 'ai_skills', label: d.data.name })
                 if (d.children) {
                   d._children = d.children
                   d.children = null
@@ -514,10 +516,10 @@ export default function SystemsThinkingTree() {
       </div>
       <div className="flex items-center gap-2 px-3 py-2 border-b sticky top-0 bg-background z-10">
         <span className="font-semibold">Controls:</span>
-        <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => (window as any).__ST_TREE__?.expandAll?.()}>
+        <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => { trackEvent({ action: 'tree_expand_all', category: 'ai_skills' }); (window as any).__ST_TREE__?.expandAll?.(); }}>
           Expand All
         </button>
-        <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => (window as any).__ST_TREE__?.collapseAll?.()}>
+        <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => { trackEvent({ action: 'tree_collapse_all', category: 'ai_skills' }); (window as any).__ST_TREE__?.collapseAll?.(); }}>
           Collapse All
         </button>
         <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => (window as any).__ST_TREE__?.fitToScreen?.()}>
@@ -530,10 +532,10 @@ export default function SystemsThinkingTree() {
           Run Demo
         </button>
         <span className="mx-2 text-gray-300">•</span>
-        <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => (window as any).__ST_TREE__?.exportSVG?.()}>
+        <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => { trackEvent({ action: 'tree_export_svg', category: 'ai_skills' }); (window as any).__ST_TREE__?.exportSVG?.(); }}>
           Export SVG
         </button>
-        <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => (window as any).__ST_TREE__?.exportPNG?.()}>
+        <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => { trackEvent({ action: 'tree_export_png', category: 'ai_skills' }); (window as any).__ST_TREE__?.exportPNG?.(); }}>
           Export PNG
         </button>
         <button className="px-3 py-1 rounded-2xl border shadow-sm hover:bg-accent" onClick={() => (window as any).__ST_TREE__?.print?.()}>

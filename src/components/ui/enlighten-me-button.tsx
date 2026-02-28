@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Button } from '@/components/ui/button';
 import { ChatCircleDots } from '@phosphor-icons/react';
 import { 
@@ -89,7 +90,7 @@ export function EnlightenMeButton({
   case 'default':
         return (
           <Button 
-            onClick={() => setIsOpen(true)}
+            onClick={() => { trackEvent({ action: 'dialog_open', category: 'enlighten_me', label: topic || title }); setIsOpen(true); }}
             size={size} 
             className={className}
           >
@@ -101,7 +102,7 @@ export function EnlightenMeButton({
         return (
           <Button 
             variant="ghost"
-            onClick={() => setIsOpen(true)}
+            onClick={() => { trackEvent({ action: 'dialog_open', category: 'enlighten_me', label: topic || title }); setIsOpen(true); }}
             size={size} 
     className={`${className}`}
           >
@@ -115,7 +116,7 @@ export function EnlightenMeButton({
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setIsOpen(true)}
+            onClick={() => { trackEvent({ action: 'dialog_open', category: 'enlighten_me', label: topic || title }); setIsOpen(true); }}
     className={`h-8 w-8 rounded-full ${className}`}
     title="Ask AI about this topic"
           >

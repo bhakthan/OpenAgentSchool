@@ -1,4 +1,5 @@
 import React from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 
 export const MicroCtaRibbon: React.FC = () => {
   const [visible, setVisible] = React.useState(true);
@@ -26,6 +27,7 @@ export const MicroCtaRibbon: React.FC = () => {
       <button
         className="cta-btn"
         onClick={() => {
+          trackEvent({ action: 'cta_click', category: 'marketing', label: 'micro-ribbon' });
           try { window.dispatchEvent(new CustomEvent('analytics:ctaClick',{ detail:{ tier:'ribbon', source:'micro-ribbon'} })); } catch {}
           window.location.href = '/cta';
         }}

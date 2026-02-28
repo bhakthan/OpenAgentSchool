@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -691,6 +692,7 @@ const AgenticAdoptionPlaybook: React.FC = () => {
   }, [isEfficiencyVideoOpen]);
 
   const handleViewJourney = React.useCallback(() => {
+    trackEvent({ action: 'view_journey', category: 'adoption_playbook' });
     setActiveSection('transformation-journey');
     window.requestAnimationFrame(() => {
       document.getElementById('transformation-journey')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1148,7 +1150,7 @@ const AgenticAdoptionPlaybook: React.FC = () => {
                       {/* Drive Verifiable Efficiency Video */}
                       <div className="mt-6 mb-4">
                         <button
-                          onClick={() => setIsEfficiencyVideoOpen(true)}
+                          onClick={() => { trackEvent({ action: 'video_open', category: 'adoption_playbook', label: 'efficiency_video' }); setIsEfficiencyVideoOpen(true); }}
                           className="group relative w-full max-w-lg mx-auto rounded-xl overflow-hidden border border-primary/30 hover:border-primary/60 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 block"
                         >
                           <div className="aspect-video bg-gradient-to-br from-emerald-500/20 via-primary/10 to-teal-500/20 flex items-center justify-center">

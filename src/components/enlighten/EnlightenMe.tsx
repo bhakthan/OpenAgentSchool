@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import {
   Dialog,
   DialogContent,
@@ -168,6 +169,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
   };
 
   const handleSubmit = async () => {
+    trackEvent({ action: 'prompt_submit', category: 'enlighten_me', label: safeTitle });
     try {
       setIsLoading(true);
       setSubmitted(true);
@@ -284,6 +286,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                   size="sm"
                   className="flex items-center gap-1"
                   onClick={async () => {
+                    trackEvent({ action: 'copy_response', category: 'enlighten_me', label: safeTitle });
                     try {
                       await navigator.clipboard.writeText(response);
                     } catch (err) {
@@ -300,6 +303,7 @@ export function EnlightenMe({ title, defaultPrompt, isOpen, onOpenChange }: Enli
                 size="sm"
                 className="flex items-center gap-1"
                 onClick={() => {
+                  trackEvent({ action: 'print_response', category: 'enlighten_me', label: safeTitle });
                   const printContent = `
                     <html>
                       <head>

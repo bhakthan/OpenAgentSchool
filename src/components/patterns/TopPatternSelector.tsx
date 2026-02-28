@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -79,12 +80,14 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
   };
 
   const handlePatternSelect = (pattern: PatternData) => {
+    trackEvent({ action: 'select_pattern_from_selector', category: 'agent_patterns', label: pattern.id });
     onPatternSelect(pattern);
     setIsOpen(false);
   };
 
   // Reset showAllPatterns when category changes or dialog opens
   const handleCategoryChange = (category: string) => {
+    trackEvent({ action: 'filter_category', category: 'agent_patterns', label: category });
     setSelectedCategory(category);
     setShowAllPatterns(false);
   };

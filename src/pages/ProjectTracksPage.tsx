@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { PROJECT_TRACKS, type ProjectTrack } from '@/lib/data/projectTracks';
 import { getTrackProgress, completeMilestone, uncompleteMilestone } from '@/lib/trackProgress';
+import { trackEvent } from '@/lib/analytics/ga';
 import { buildLearnerSnapshot } from '@/lib/phase1/phase1Lab';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -76,6 +77,7 @@ function TrackDetail({ track, onBack }: { track: ProjectTrack; onBack: () => voi
   const [completed, setCompleted] = useState<string[]>(getTrackProgress(track.id));
 
   const toggle = (milestoneId: string) => {
+    trackEvent({ action: completed.includes(milestoneId) ? 'uncomplete_milestone' : 'complete_milestone', category: 'project_tracks', label: track.id + '/' + milestoneId });
     if (completed.includes(milestoneId)) {
       setCompleted(uncompleteMilestone(track.id, milestoneId));
     } else {

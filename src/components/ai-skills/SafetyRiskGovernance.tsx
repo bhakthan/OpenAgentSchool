@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Shield, BugBeetle, FlagCheckered, Sword, ClipboardText, Warning, CheckCircle } from "@phosphor-icons/react"
 import MiniFlowMap from './visuals/MiniFlowMap'
+import { trackEvent } from '@/lib/analytics/ga'
 
 interface Props {
   onNavigate: () => void
@@ -163,16 +164,16 @@ export default function SafetyRiskGovernance({ onNavigate }: Props) {
       <div className="mt-2">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <Button variant="secondary" className="w-full" size="lg"
-            onClick={() => window.location.assign('/study-mode?concept=safety-risk-governance&type=socratic')}
+            onClick={() => { trackEvent({ action: 'micro_assessment', category: 'ai_skills', label: 'safety-risk-governance' }); window.location.assign('/study-mode?concept=safety-risk-governance&type=socratic'); }}
             aria-label="Start micro-assessment for Safety, Risk & Governance">
             Micro‑assessment
           </Button>
           <Button variant="outline" className="w-full" size="lg"
-            onClick={() => window.location.assign('/study-mode?concept=safety-risk-governance&type=scenario')}
+            onClick={() => { trackEvent({ action: 'try_scenario', category: 'ai_skills', label: 'safety-risk-governance' }); window.location.assign('/study-mode?concept=safety-risk-governance&type=scenario'); }}
             aria-label="Try a scenario for Safety, Risk & Governance">
             Try Scenario
           </Button>
-          <Button className="w-full" size="lg" onClick={onNavigate}>
+          <Button className="w-full" size="lg" onClick={() => { trackEvent({ action: 'navigate_next', category: 'ai_skills', label: 'safety-risk-governance' }); onNavigate(); }}>
             Next: Cross-Team Collaboration
           </Button>
         </div>

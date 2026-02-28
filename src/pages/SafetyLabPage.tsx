@@ -13,6 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ShieldCheck, ArrowLeft, Target, Trophy } from '@phosphor-icons/react';
+import { trackEvent } from '@/lib/analytics/ga';
 
 const PROGRESS_KEY = 'oas.safetyLab.progress.v1';
 
@@ -66,6 +67,7 @@ function ExerciseView({
   const [result, setResult] = useState<ScoringResult | null>(null);
 
   const handleTest = () => {
+    trackEvent({ action: 'defense_submit', category: 'safety_lab', label: scenario.id });
     const r = scoreDefense(defense, scenario.rubricChecks);
     setResult(r);
     saveProgress({
@@ -280,7 +282,7 @@ const SafetyLabPage: React.FC = () => {
                 <Card
                   key={s.id}
                   className="hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => setSelectedScenario(s)}
+                  onClick={() => { trackEvent({ action: 'scenario_select', category: 'safety_lab', label: s.id }); setSelectedScenario(s); }}
                 >
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">

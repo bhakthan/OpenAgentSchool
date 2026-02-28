@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics/ga';
 
 // Ambient window flag typing
 declare global {
@@ -337,6 +338,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     if (!isTypeUnlocked(question.type)) {
       toast({ title: 'Locked Mode', description: 'Complete prerequisite sessions to unlock this mode.' });
       try { window.dispatchEvent(new CustomEvent('analytics:gatingBlocked', { detail: { attempted: question.type } })); } catch {}
+      trackEvent({ action: 'gating_blocked', category: 'study_mode', label: question.type });
       return;
     }
     
@@ -440,6 +442,8 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
     setSelectedQuestion(null);
     setActiveTab('overview');
     
+    trackEvent({ action: 'session_complete', category: 'study_mode', label: session.type, value: session.score, concept_id: session.conceptId, question_id: session.questionId });
+    
     // Track session completion with authentication context
     try {
       window.dispatchEvent(new CustomEvent('analytics:studyModeSessionComplete', {
@@ -497,6 +501,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const handleRetakeSocratic = () => {
     setSelectedQuestion(null);
   setActiveTab('socratic');
+  trackEvent({ action: 'retake_mode', category: 'study_mode', label: 'socratic' });
   try { window.dispatchEvent(new CustomEvent('analytics:retakeMode', { detail: { type: 'socratic' } })); } catch {}
     
     // Clear all Socratic mode progress using utility function
@@ -509,6 +514,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const handleRetakeScenario = () => {
     setSelectedQuestion(null);
   setActiveTab('scenario');
+  trackEvent({ action: 'retake_mode', category: 'study_mode', label: 'scenario' });
   try { window.dispatchEvent(new CustomEvent('analytics:retakeMode', { detail: { type: 'scenario' } })); } catch {}
     
     // Clear all Scenario mode progress using utility function
@@ -522,6 +528,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ conceptId, onComplete }) => {
   const handleRetakeDebug = () => {
     setSelectedQuestion(null);
   setActiveTab('debug');
+  trackEvent({ action: 'retake_mode', category: 'study_mode', label: 'debug' });
   try { window.dispatchEvent(new CustomEvent('analytics:retakeMode', { detail: { type: 'debug' } })); } catch {}
     
     // Clear all Debug mode progress using utility function

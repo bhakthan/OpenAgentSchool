@@ -7,6 +7,8 @@ import { Brain, GitBranch, Network, RotateCcw, Lightbulb, Code, Target, Layers, 
 import ConceptLayout from "./ConceptLayout";
 import CodeBlock from "@/components/ui/CodeBlock";
 import ReasoningPatternsViz from "@/components/visualization/ReasoningPatternsViz";
+import MermaidDiagram from "@/components/ui/MermaidDiagram";
+import { ReflectionPrompt } from "@/components/ui/ReflectionPrompt";
 import {
   InteractiveCoTTrace,
   TreeOfThoughtExplorer,
@@ -660,6 +662,30 @@ export default function AgentReasoningPatternsConcept() {
           </TabsContent>
 
           <TabsContent value="comparison">
+            {/* ── Mermaid: Decision Flow ── */}
+            <MermaidDiagram
+              chart={`flowchart TD
+    Start(["New Reasoning Task"]) --> Q1{"Single correct\nanswer?"}
+    Q1 -->|Yes| CoT["✅ Chain-of-Thought\n(lowest cost)"]
+    Q1 -->|No| Q2{"Need to explore\nalternatives?"}
+    Q2 -->|Yes| ToT["🌳 Tree-of-Thought\n(parallel branches)"]
+    Q2 -->|No| Q3{"Synthesise multiple\nsources?"}
+    Q3 -->|Yes| GoT["🕸 Graph-of-Thought\n(merge & cycle)"]
+    Q3 -->|No| CoT
+    CoT --> Q4{"Accuracy\ncritical?"}
+    ToT --> Q4
+    GoT --> Q4
+    Q4 -->|Yes| Ref["🔄 + Reflexion layer"]
+    Q4 -->|No| Done(["Deploy"])
+    Ref --> Done
+    style CoT fill:#3b82f6,color:#fff
+    style ToT fill:#8b5cf6,color:#fff
+    style GoT fill:#ec4899,color:#fff
+    style Ref fill:#f59e0b,color:#fff`}
+              title="Reasoning Pattern Decision Flow"
+              description="Start here when choosing the right pattern—follow the questions to find the optimal strategy before reading the matrix below."
+            />
+
             <Card>
               <CardHeader>
                 <CardTitle>Pattern Comparison Matrix</CardTitle>
@@ -741,6 +767,11 @@ export default function AgentReasoningPatternsConcept() {
                     </ul>
                   </div>
                 </div>
+
+                <ReflectionPrompt
+                  question="Think about a recent prompt you wrote that produced a wrong answer. Which reasoning pattern above would have caught the error—and at what Step would you have noticed it?"
+                  hint="If the error was 'picked the wrong option,' ToT would have explored alternatives. If it was 'confident but wrong,' Reflexion's self-critique would help."
+                />
               </CardContent>
             </Card>
           </TabsContent>

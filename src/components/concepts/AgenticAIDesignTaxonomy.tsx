@@ -35,10 +35,14 @@ import {
   Books,
   Wrench,
   Plus,
-  Minus
+  Minus,
+  Lightbulb
 } from "@phosphor-icons/react"
 import { ArrowsOutSimple, ArrowsInSimple } from "@phosphor-icons/react"
 import { EnlightenMeButton as AskAIButton } from '@/components/enlighten/EnlightenMeButton'
+import { MermaidDiagram } from "@/components/ui/MermaidDiagram"
+import { ReflectionPrompt } from "@/components/ui/ReflectionPrompt"
+import { trackEvent } from '@/lib/analytics/ga'
 // Deep dive moved to a dedicated page to reduce memory and improve visibility
 
 interface AgenticAIDesignTaxonomyProps {
@@ -402,7 +406,7 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                   key={key}
                   className={`absolute cursor-pointer transition-all duration-300 hover:scale-110 hover:z-20 ${selectedTaxonomyNode === key ? 'scale-110 z-10' : ''}`}
                   style={{ left: x, top: y, transform: 'translate(-50%, -50%)' }}
-                  onClick={() => setSelectedTaxonomyNode(selectedTaxonomyNode === key ? null : key)}
+                  onClick={() => { if (selectedTaxonomyNode !== key) trackEvent({ action: 'taxonomy_node_select', category: 'concepts', label: key }); setSelectedTaxonomyNode(selectedTaxonomyNode === key ? null : key); }}
                 >
                   <div className={`w-20 h-20 rounded-lg shadow-lg border-2 border-border flex items-center justify-center ${data.color} hover:shadow-xl transition-shadow duration-300`}>
                     <div className={getIconColorClass(key)}>
@@ -1269,6 +1273,82 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
             </CardContent>
           </Card>
 
+          {/* Taxonomy Map Diagram — concrete overview before the abstract deep-dive */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TreeStructure className="w-5 h-5" />
+                Agentic AI Taxonomy Map
+              </CardTitle>
+              <CardDescription>Think of this taxonomy as a periodic table for agents — every agent you build combines elements from these categories</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <MermaidDiagram
+                chart={`graph TB
+  ROOT[Agentic AI Design] --> AP[Agent Patterns]
+  ROOT --> IP[Interaction Protocols]
+  ROOT --> FA[Framework Architectures]
+  ROOT --> MS[Models & Safety]
+  ROOT --> MK[Memory & Knowledge]
+  ROOT --> APP[Applications & Domains]
+  AP --> RB[Role-based]
+  AP --> BH[Behaviour]
+  AP --> PL[Planning]
+  AP --> LN[Learning]
+  IP --> CP[Communication Protocols]
+  IP --> TS[Task Sharing]
+  IP --> MP[Message Passing]
+  FA --> GB[Graph-based]
+  FA --> WO[Workflow Oriented]
+  FA --> MD[Modular]
+  MS --> LLM[Foundation Models]
+  MS --> SF[Safety Frameworks]
+  MS --> EV[Evaluation Methods]
+  MK --> VEC[Vector Stores]
+  MK --> KG[Knowledge Graphs]
+  MK --> CTX[Context Windows]
+  APP --> ENT[Enterprise]
+  APP --> SCI[Scientific]
+  APP --> EDU[Educational]`}
+                title="Agentic AI Design Taxonomy"
+              />
+            </CardContent>
+          </Card>
+
+          {/* Monolithic vs Modular Juxtaposition */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Monolithic Agent vs. Taxonomy-Driven Design</CardTitle>
+              <CardDescription>Why structuring your agent around the taxonomy produces more reliable, maintainable systems</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <MermaidDiagram
+                chart={`graph LR
+  subgraph MONO["Monolithic Agent"]
+    U1[User Request] --> BIG[Single Giant Prompt]
+    BIG --> LLM1[LLM]
+    LLM1 --> R1[Response]
+  end
+  subgraph MODULAR["Taxonomy-Driven Agent"]
+    U2[User Request] --> PLAN[Planner]
+    PLAN --> TOOL[Tool Selector]
+    PLAN --> MEM[Memory Retriever]
+    TOOL --> EXEC[Executor]
+    MEM --> EXEC
+    EXEC --> EVAL[Evaluator]
+    EVAL --> R2[Response]
+    EVAL -->|Retry| PLAN
+  end`}
+                title="Monolithic vs. Taxonomy-Driven Agent Architecture"
+              />
+            </CardContent>
+          </Card>
+
+          <ReflectionPrompt
+            question="Look at the taxonomy categories above. Which two would you combine first to build a useful agent for your domain? Why those two?"
+            hint="Most successful agents start with just Agent Patterns + one Interaction Protocol. Adding more categories incrementally prevents over-engineering."
+          />
+
           <Card>
             <CardContent className="pt-6">
               <Button 
@@ -1470,6 +1550,39 @@ const AgenticAIDesignTaxonomy: React.FC<AgenticAIDesignTaxonomyProps> = ({
                     </p>
                   </div>
                 ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Challenge Ladder */}
+          <Card className="border-amber-500/20 bg-amber-500/5">
+            <CardContent className="pt-6 space-y-4">
+              <h3 className="font-semibold flex items-center gap-2">
+                <Lightbulb className="w-5 h-5 text-amber-400" /> Challenge Yourself
+              </h3>
+              <div className="grid gap-3">
+                <div className="p-3 rounded-lg border border-green-500/20 bg-green-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-green-500/30 rounded bg-green-500/10 mb-2">Beginner</span>
+                  <p className="text-sm text-muted-foreground">
+                    Pick any two categories from the taxonomy map above. Describe a real product that combines both
+                    (e.g., an agent with Perception + Planning) and explain which sub-capabilities it needs.
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg border border-blue-500/20 bg-blue-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-blue-500/30 rounded bg-blue-500/10 mb-2">Intermediate</span>
+                  <p className="text-sm text-muted-foreground">
+                    Compare the monolithic vs. taxonomy-driven architecture from the Mermaid diagram.
+                    Redesign a single-prompt chatbot into a modular agent with at least 3 taxonomy categories,
+                    and sketch which APIs connect them.
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg border border-purple-500/20 bg-purple-500/5">
+                  <span className="inline-block px-2 py-0.5 text-xs border border-purple-500/30 rounded bg-purple-500/10 mb-2">Advanced</span>
+                  <p className="text-sm text-muted-foreground">
+                    Propose a new sub-category for the taxonomy that doesn't exist yet (e.g., "Adversarial Resilience" under Safety).
+                    Define its capabilities, evaluation metrics, and how it interfaces with at least two existing categories.
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>

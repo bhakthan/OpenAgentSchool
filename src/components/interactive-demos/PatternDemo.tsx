@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -625,6 +626,7 @@ const PatternDemo = React.memo(({ patternData }: PatternDemoProps) => {
   // Run the demo
   const runDemo = async () => {
     if (!userInput.trim() || isRunning || !patternData || !Array.isArray(patternData.nodes)) return;
+    trackEvent({ action: 'run_demo', category: 'interactive_demo', label: `pattern_demo_${patternData.id}` });
     
     resetDemo();
     setIsRunning(true);

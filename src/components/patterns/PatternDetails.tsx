@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PatternData, PatternEvaluationProfile } from '@/lib/data/patterns/types';
@@ -372,6 +373,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern, ignitionStyleV
       }
 
       setCopiedSnippet(type);
+      trackEvent({ action: 'copy_snippet', category: 'agent_patterns', label: `${pattern.id}_${type}` });
       copyTimeoutRef.current = setTimeout(() => setCopiedSnippet(null), 2000);
     } catch (error) {
       console.error('Failed to copy evaluation snippet', error);
@@ -385,6 +387,10 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern, ignitionStyleV
       }
     };
   }, []);
+
+  useEffect(() => {
+    trackEvent({ action: 'view_pattern_details', category: 'agent_patterns', label: pattern.id });
+  }, [pattern.id]);
 
   const hasBusinessUseCase = !!pattern.businessUseCase;
   const evaluationProfile = pattern.evaluationProfile;
@@ -442,6 +448,7 @@ const PatternDetails: React.FC<PatternDetailsProps> = ({ pattern, ignitionStyleV
         key={pattern.id}
         defaultValue={hasBusinessUseCase ? "business-use-case" : "details"}
         className="w-full"
+        onValueChange={(tab) => trackEvent({ action: 'switch_tab', category: 'agent_patterns', label: tab, pattern_id: pattern.id })}
       >
           <TabsList className="grid w-full grid-cols-7">
             {hasBusinessUseCase && (

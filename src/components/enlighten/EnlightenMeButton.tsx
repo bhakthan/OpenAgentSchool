@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Button } from '@/components/ui/button';
 import { ChatCircleDots } from '@phosphor-icons/react';
 import EnlightenMe from './EnlightenMe';
@@ -122,7 +123,7 @@ Use diagrams in Mermaid or ASCII where they clarify architecture. Include a conc
             // Keep inline positioning stable to avoid wrapping
             mode === 'inline' ? 'static' : ''
           )}
-          onClick={() => setIsDialogOpen(true)}
+          onClick={() => { trackEvent({ action: 'dialog_open', category: 'enlighten_me', label: title }); setIsDialogOpen(true); }}
           aria-label={`Ask AI about ${title}`}
           title={`Ask AI – ${hints[hintIndex]}`}
         >

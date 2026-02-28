@@ -29,6 +29,7 @@ import {
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics/ga';
 
 /* ────────────────────────────────────────────────────────
  * Navigable page index
@@ -201,6 +202,7 @@ export const QuickNav: React.FC<QuickNavProps> = ({ open, onOpenChange }) => {
 
   const goTo = useCallback(
     (path: string) => {
+      trackEvent({ action: 'quick_nav_select', category: 'search', label: path });
       onOpenChange(false);
       navigate(path);
     },

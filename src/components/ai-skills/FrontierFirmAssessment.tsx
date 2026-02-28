@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { ArrowRight, Target, TrendUp, Users, Brain, Sparkle, Crown } from "@phosphor-icons/react"
+import { trackEvent } from '@/lib/analytics/ga'
 
 interface Props {
   onNavigate: () => void
@@ -141,6 +142,7 @@ export default function FrontierFirmAssessment({ onNavigate }: Props) {
     if (currentQuestion < assessmentQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1)
     } else {
+      trackEvent({ action: 'assessment_complete', category: 'frontier_assessment' })
       setShowResults(true)
     }
   }

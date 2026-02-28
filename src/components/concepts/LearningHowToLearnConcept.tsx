@@ -9,6 +9,7 @@ import {
   Lightbulb, Warning, Target, TrendUp, Question,
   ArrowsCounterClockwise, Timer
 } from '@phosphor-icons/react';
+import { trackEvent } from '@/lib/analytics/ga';
 
 // ── Types ──────────────────────────────────────────────────────────────
 interface ConceptTab {
@@ -508,7 +509,7 @@ const ApplyItNowTab: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({
             <div className="flex flex-wrap gap-2 mt-4">
               <Button 
                 size="sm"
-                onClick={() => navigate('/study-mode')}
+                onClick={() => { trackEvent({ action: 'nav_click', category: 'concepts', label: 'study_mode' }); navigate('/study-mode'); }}
                 className="flex items-center gap-2"
               >
                 <Brain className="w-4 h-4" />
@@ -518,7 +519,7 @@ const ApplyItNowTab: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({
               <Button 
                 variant="outline" 
                 size="sm"
-                onClick={() => navigate('/concepts/agentic-ai-design-taxonomy')}
+                onClick={() => { trackEvent({ action: 'nav_click', category: 'concepts', label: 'design_taxonomy' }); navigate('/concepts/agentic-ai-design-taxonomy'); }}
                 className="flex items-center gap-2"
               >
                 Next: Design Taxonomy

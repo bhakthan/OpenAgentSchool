@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { runTestSuite, type TestCase } from '@/lib/eval/harness';
 import { progressStore, type ModuleId, type SummaryMetrics, type StudioRunRecord } from '@/lib/learning/progressStore';
 import { Button } from '@/components/ui/button';
@@ -26,6 +27,7 @@ const HitlStudio: React.FC<Props> = ({ moduleId, studioId }) => {
   };
 
   const runWithHitl = async () => {
+    trackEvent({ action: 'submit_decision', category: 'learning_studio', label: 'hitl' });
     setBusy(true);
     try {
       const res = await runTestSuite(testset, { quality: 0.82, speed: 0.85 });

@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Alert, AlertDescription } from '../ui/alert';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/lib/auth/AuthContext';
+import { trackEvent } from '@/lib/analytics/ga';
 import * as XLSX from 'xlsx';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
 // file-saver is dynamically imported at usage to reduce initial bundle
@@ -99,6 +100,7 @@ export function ExecutiveAlignmentCharterForm() {
   };
 
   const exportToExcel = () => {
+    trackEvent({ action: 'exportToExcel', category: 'adoption_playbook', label: 'Executive Alignment Charter' });
     // Require authentication for business template downloads
     if (!isAuthenticated) {
       toast({
@@ -345,6 +347,7 @@ export function ExecutiveAlignmentCharterForm() {
   };
 
   const exportToWord = async () => {
+    trackEvent({ action: 'exportToWord', category: 'adoption_playbook', label: 'Executive Alignment Charter' });
     // Require authentication for business template downloads
     if (!isAuthenticated) {
       toast({
@@ -559,6 +562,7 @@ export function ExecutiveAlignmentCharterForm() {
   };
 
   const getAIAssessment = async () => {
+    trackEvent({ action: 'getAIAssessment', category: 'adoption_playbook', label: 'Executive Alignment Charter' });
     setIsAssessing(true);
     setAssessment(null);
     setAssessmentScore(null);

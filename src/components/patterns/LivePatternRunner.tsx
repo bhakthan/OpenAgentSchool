@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -53,6 +54,7 @@ const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode,
 
   const advanceStep = () => {
     const step = steps[activeStepIndex];
+    trackEvent({ action: 'step_through', category: 'agent_patterns', label: `${patternId}_step_${activeStepIndex}` });
     setLog(l => [...l, `Executing: ${step.title}`]);
     if (activeStepIndex < steps.length - 1) {
       setActiveStepIndex(i => i + 1);
@@ -69,6 +71,7 @@ const LivePatternRunner: React.FC<LivePatternRunnerProps> = ({ code, pythonCode,
   };
 
   const handleRunAll = () => {
+    trackEvent({ action: 'run_all', category: 'agent_patterns', label: patternId });
     reset();
     setAutoPlay(true);
   };

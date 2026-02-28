@@ -12,6 +12,7 @@ import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 import CodeBlock from "@/components/ui/CodeBlock";
 import { useState } from "react";
 import { conceptSurface, conceptSurfaceSoft, conceptCodeBlock } from "./conceptStyles";
+import { trackEvent } from '@/lib/analytics/ga';
 
 interface A2ACommunicationConceptProps {
   onMarkComplete?: () => void
@@ -169,7 +170,7 @@ export default function A2ACommunicationConcept({ onMarkComplete, onNavigateToNe
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => window.open('https://bhakthan.substack.com/p/agent2agent-protocol-a2a', '_blank')}
+                  onClick={() => { trackEvent({ action: 'outbound_click', category: 'concepts', label: 'a2a_substack_article' }); window.open('https://bhakthan.substack.com/p/agent2agent-protocol-a2a', '_blank'); }}
                   className="flex items-center gap-2"
                 >
                   <ArrowSquareOut className="w-4 h-4" />

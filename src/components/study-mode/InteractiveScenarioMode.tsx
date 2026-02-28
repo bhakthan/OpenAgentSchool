@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import LlmConfigurationNotice from './LlmConfigurationNotice'
 import { Button } from "@/components/ui/button";
@@ -83,8 +84,8 @@ const InteractiveScenarioMode: React.FC<InteractiveScenarioModeProps> = ({
     }
   }, [location.search, isAuthenticated, llmJudgeResponse, finalLlmJudgment, navigate]);
 
-  // Reset function to allow retaking the same scenario
   const resetToStart = () => {
+    trackEvent({ action: 'reset_attempt', category: 'scenario_mode', label: scenario.conceptId });
     const confirmed = window.confirm(
       'Are you sure you want to retake this scenario?\n\n' +
       '• This will reset all your progress for this scenario\n' +
@@ -267,8 +268,8 @@ Generated: ${new Date().toLocaleString()}
     }, 2000);
   };
 
-  // Handle challenge submission
   const handleChallengeSubmit = async () => {
+    trackEvent({ action: 'challenge_submit', category: 'scenario_mode', label: scenario.conceptId, value: currentStep });
     // Validate input based on challenge type
     if (currentChallenge.type === 'multiple-choice') {
       if (typeof currentChallenge.correctAnswer === 'number' && !selectedChoice) return;
@@ -441,8 +442,8 @@ Generated: ${new Date().toLocaleString()}
     }
   };
 
-  // Handle final completion with comprehensive LLM assessment
   const handleFinalCompletion = async (finalResponses: StudyModeResponse[], results: ChallengeResult[]) => {
+    trackEvent({ action: 'scenario_complete', category: 'scenario_mode', label: scenario.conceptId });
     try {
       // Auth gate for final comprehensive AI assessment - premium feature
       if (!isAuthenticated) {

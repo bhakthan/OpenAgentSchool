@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { runTestSuite, type TestCase } from '@/lib/eval/harness';
 import { progressStore, type ModuleId, type SummaryMetrics, type StudioRunRecord } from '@/lib/learning/progressStore';
 import { Button } from '@/components/ui/button';
@@ -56,6 +57,7 @@ const EvalHarnessStudio: React.FC<Props> = ({ moduleId, studioId }) => {
   const [busy, setBusy] = useState(false);
 
   const run = async (which: 'baseline' | 'current') => {
+    trackEvent({ action: 'run_evaluation', category: 'learning_studio', label: `eval_harness_${which}` });
     setBusy(true);
     try {
       const quality = which === 'baseline' ? 0.6 : 0.86;

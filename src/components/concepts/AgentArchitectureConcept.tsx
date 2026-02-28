@@ -10,6 +10,8 @@ import CodeBlock from "@/components/ui/CodeBlock";
 import { conceptSurface, conceptSurfaceSoft } from "./conceptStyles";
 import { ReActLoopSimulator, ToolCallFlowViz, AgentStateExplorer, LatencyBudgetCalc } from './AgentArchitectureAtomicVisuals';
 import { Atom } from '@phosphor-icons/react';
+import { MermaidDiagram } from "@/components/ui/MermaidDiagram";
+import { ReflectionPrompt } from "@/components/ui/ReflectionPrompt";
 
 interface AgentArchitectureConceptProps {
   onMarkComplete?: () => void
@@ -158,6 +160,38 @@ class AzureAIAgent {
 }`}</CodeBlock>
             </CardContent>
           </Card>
+
+          {/* Agent Architecture Flowchart */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Brain className="w-5 h-5" />
+                Agent Processing Pipeline
+              </CardTitle>
+              <CardDescription>How the four core components interact during a single request</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <MermaidDiagram
+                chart={`flowchart TD
+  INPUT[User Input] --> RE[Reasoning Engine]
+  RE -->|Query context| MEM[Memory System]
+  MEM -->|Relevant history| RE
+  RE -->|Create plan| GM[Goal Manager]
+  GM -->|Action steps| TI[Tool Interface]
+  TI -->|API calls| EXT[External Systems]
+  EXT -->|Results| TI
+  TI -->|Outcomes| RE
+  RE -->|Store experience| MEM
+  RE --> OUTPUT[Response to User]`}
+                title="Agent Architecture: Single-Request Flow"
+              />
+            </CardContent>
+          </Card>
+
+          <ReflectionPrompt
+            question="If you were building a simple agent today, which component would you implement first: the Reasoning Engine, Memory, Tools, or Goal Manager? What would you mock out initially?"
+            hint="Most teams start with Reasoning + Tools and add Memory later. Goal Manager is often the last piece."
+          />
         </div>
       )
     },

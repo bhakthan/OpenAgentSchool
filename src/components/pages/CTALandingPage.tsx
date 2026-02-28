@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { trackEvent } from '@/lib/analytics/ga';
 import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { Lightning, GraduationCap, Users, RocketLaunch, ChartLineUp, HeadCircuit, Buildings, Handshake, ArrowRight, Play, X } from '@phosphor-icons/react';
@@ -21,11 +22,13 @@ const CTALandingPage: React.FC = () => {
 
   const track = (tier: string, source: string) => {
     try { window.dispatchEvent(new CustomEvent('analytics:ctaClick', { detail: { tier, source } })); } catch {}
+    trackEvent({ action: 'cta_click', category: 'cta', label: `${tier}_${source}` });
   };
 
   const openExternal = (url: string, tier: string, source: string) => {
     // Append tracking query param preserving existing ones
     try { window.dispatchEvent(new CustomEvent('analytics:ctaClick', { detail: { tier, source } })); } catch {}
+    trackEvent({ action: 'cta_open_external', category: 'cta', label: `${tier}_${source}` });
     const u = new URL(url);
     if (!u.searchParams.has('utm_source')) {
       u.searchParams.set('utm_source', 'oas');

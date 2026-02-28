@@ -58,6 +58,7 @@ export default function D3TreeVisualization({
           name: 'Beginner Foundations',
           type: 'category' as const,
           children: collapsedNodes.has('beginner-foundations') ? [] : [
+            { id: 'learning-how-to-learn', name: 'Learning How to Learn', type: 'concept' as const, novel: true },
             { id: 'what-is-an-llm', name: 'What Is an LLM?', type: 'concept' as const, novel: true },
             { id: 'hallucination-grounding', name: 'Hallucination & Grounding', type: 'concept' as const, novel: true },
             { id: 'tool-use-function-calling', name: 'Tool Use & Function Calling', type: 'concept' as const, novel: true },
@@ -109,7 +110,6 @@ export default function D3TreeVisualization({
             { id: 'context-engineering', name: 'Context Engineering', type: 'concept' as const, novel: true },
             { id: 'flow-visualization', name: 'Flow Visualization', type: 'concept' as const },
             { id: 'agent-evaluation', name: 'Agent Evaluation', type: 'concept' as const },
-            { id: 'a2a-communication-patterns', name: 'A2A Communication Patterns', type: 'concept' as const, novel: true },
             { id: 'strategy-portfolio-management', name: 'Strategy & Portfolio Management', type: 'concept' as const, novel: true }
           ]
         },
@@ -121,9 +121,6 @@ export default function D3TreeVisualization({
             { id: 'acp', name: 'Agent Communication Protocol', type: 'concept' as const },
             { id: 'mcp-a2a-integration', name: 'MCP × A2A Integration', type: 'concept' as const },
             { id: 'data-visualization', name: 'Data Visualization', type: 'concept' as const },
-            { id: 'agentic-robotics-integration', name: 'Agentic Robotics Integration', type: 'concept' as const, novel: true },
-            { id: 'fine-tuning', name: 'Fine-Tuning Methods (SFT, DPO, RFT)', type: 'concept' as const, novel: true },
-            { id: 'agent-red-teaming', name: 'Agent Red Teaming', type: 'concept' as const, novel: true },
             { id: 'data-knowledge-operations', name: 'Data & Knowledge Operations', type: 'concept' as const, novel: true },
             { id: 'xyz-claw', name: 'XYZ-Claw: Multi-Agent Orchestration', type: 'concept' as const, novel: true }
           ]
@@ -141,7 +138,14 @@ export default function D3TreeVisualization({
             { id: 'experimentation-continuous-improvement', name: 'Experimentation & Continuous Improvement', type: 'concept' as const, novel: true },
             { id: 'ecosystem-partnerships', name: 'Ecosystem & Partnerships', type: 'concept' as const, novel: true },
             { id: 'tri-system-paradigm', name: 'Tri-System Paradigm (Cognitive Ecology)', type: 'concept' as const, novel: true },
-            { id: 'proactive-agent-design', name: 'Proactive Agent Design', type: 'concept' as const, novel: true }
+            { id: 'proactive-agent-design', name: 'Proactive Agent Design', type: 'concept' as const, novel: true },
+            { id: 'fine-tuning', name: 'Fine-Tuning Methods (SFT, DPO, RFT)', type: 'concept' as const, novel: true },
+            { id: 'agent-red-teaming', name: 'Agent Red Teaming', type: 'concept' as const, novel: true },
+            { id: 'agentic-robotics-integration', name: 'Agentic Robotics Integration', type: 'concept' as const, novel: true },
+            { id: 'product-management', name: 'AI Product Management', type: 'concept' as const, novel: true },
+            { id: 'agent-ops', name: 'Agent Ops & Reliability', type: 'concept' as const, novel: true },
+            { id: 'quantum-ai-robotics', name: 'Quantum-Enhanced AI & Robotics', type: 'concept' as const, novel: true },
+            { id: 'edge-agent', name: 'Edge Agent', type: 'concept' as const, novel: true }
           ]
         },
         {

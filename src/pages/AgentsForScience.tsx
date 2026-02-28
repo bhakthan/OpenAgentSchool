@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +10,11 @@ import { HypothesisEvolutionDemo } from '@/components/science/HypothesisEvolutio
 import { LiteratureSynthesisDemo } from '@/components/science/LiteratureSynthesisDemo';
 
 export default function AgentsForScience() {
+  const openExternal = (url: string, label: string) => {
+    trackEvent({ action: 'outbound_click', category: 'agents_for_science', label });
+    window.open(url, '_blank');
+  };
+
   const renderSampleCta = (domainId: string) => (
     <Button asChild variant="outline" size="sm" className="w-full">
       <Link to={`/agents-for-science/sample/${domainId}`} className="flex items-center justify-center gap-2">
@@ -36,7 +42,7 @@ export default function AgentsForScience() {
           <Button 
             variant="default" 
             size="lg"
-            onClick={() => window.open('https://arxiv.org/pdf/2510.06056', '_blank')}
+            onClick={() => openExternal('https://arxiv.org/pdf/2510.06056', 'arxiv_paper')}
             className="flex items-center gap-2"
           >
             <Atom size={20} weight="duotone" />
@@ -46,7 +52,7 @@ export default function AgentsForScience() {
           <Button 
             variant="outline" 
             size="lg"
-            onClick={() => window.open('https://github.com/liugangcode/deepevolve', '_blank')}
+            onClick={() => openExternal('https://github.com/liugangcode/deepevolve', 'deepevolve_github')}
             className="flex items-center gap-2"
           >
             <GithubLogo size={20} />
@@ -1362,7 +1368,7 @@ export default function AgentsForScience() {
                   variant="link" 
                   size="sm" 
                   className="p-0 h-auto"
-                  onClick={() => window.open('https://arxiv.org/pdf/2510.06056', '_blank')}
+                  onClick={() => openExternal('https://arxiv.org/pdf/2510.06056', 'arxiv_paper')}
                 >
                   Read Paper <ArrowUpRight size={14} className="ml-1" />
                 </Button>
@@ -1380,7 +1386,7 @@ export default function AgentsForScience() {
                   variant="link" 
                   size="sm" 
                   className="p-0 h-auto"
-                  onClick={() => window.open('https://github.com/liugangcode/deepevolve', '_blank')}
+                  onClick={() => openExternal('https://github.com/liugangcode/deepevolve', 'deepevolve_github')}
                 >
                   View Repository <ArrowUpRight size={14} className="ml-1" />
                 </Button>
@@ -1398,7 +1404,7 @@ export default function AgentsForScience() {
                   variant="link" 
                   size="sm" 
                   className="p-0 h-auto"
-                  onClick={() => window.open('https://youtu.be/oFKLFfxWfmA', '_blank')}
+                  onClick={() => openExternal('https://youtu.be/oFKLFfxWfmA', 'youtube_video')}
                 >
                   Watch Video <ArrowUpRight size={14} className="ml-1" />
                 </Button>
@@ -1417,7 +1423,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://labs.ai.azure.com/projects/mattersim/', '_blank')}
+                    onClick={() => openExternal('https://labs.ai.azure.com/projects/mattersim/', 'azure_lab_mattersim')}
                   >
                     MatterSim
                   </Button>
@@ -1425,7 +1431,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://labs.ai.azure.com/projects/skala/', '_blank')}
+                    onClick={() => openExternal('https://labs.ai.azure.com/projects/skala/', 'azure_lab_skala')}
                   >
                     Skala
                   </Button>
@@ -1433,7 +1439,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://labs.ai.azure.com/projects/mattergen/', '_blank')}
+                    onClick={() => openExternal('https://labs.ai.azure.com/projects/mattergen/', 'azure_lab_mattergen')}
                   >
                     MatterGen
                   </Button>
@@ -1441,7 +1447,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://labs.ai.azure.com/projects/aurora/', '_blank')}
+                    onClick={() => openExternal('https://labs.ai.azure.com/projects/aurora/', 'azure_lab_aurora')}
                   >
                     Aurora
                   </Button>
@@ -1449,7 +1455,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://labs.ai.azure.com/projects/bioemu/', '_blank')}
+                    onClick={() => openExternal('https://labs.ai.azure.com/projects/bioemu/', 'azure_lab_bioemu')}
                   >
                     BioEmu-1
                   </Button>
@@ -1457,7 +1463,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://labs.ai.azure.com/projects/tamgen/', '_blank')}
+                    onClick={() => openExternal('https://labs.ai.azure.com/projects/tamgen/', 'azure_lab_tamgen')}
                   >
                     TamGen
                   </Button>
@@ -1465,7 +1471,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://labs.ai.azure.com/projects/magentic-one/', '_blank')}
+                    onClick={() => openExternal('https://labs.ai.azure.com/projects/magentic-one/', 'azure_lab_magentic-one')}
                   >
                     Magentic-One
                   </Button>
@@ -1474,7 +1480,7 @@ export default function AgentsForScience() {
                   variant="link" 
                   size="sm" 
                   className="p-0 h-auto"
-                  onClick={() => window.open('https://labs.ai.azure.com/', '_blank')}
+                  onClick={() => openExternal('https://labs.ai.azure.com/', 'azure_labs_home')}
                 >
                   Explore AI Labs <ArrowUpRight size={14} className="ml-1" />
                 </Button>
@@ -1500,7 +1506,7 @@ export default function AgentsForScience() {
                     variant="link" 
                     size="sm" 
                     className="p-0 h-auto"
-                    onClick={() => window.open('https://github.com/K-Dense-AI/claude-scientific-skills', '_blank')}
+                    onClick={() => openExternal('https://github.com/K-Dense-AI/claude-scientific-skills', 'claude_scientific_skills')}
                   >
                     View Repository <ArrowUpRight size={14} className="ml-1" />
                   </Button>
@@ -1524,7 +1530,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://deepmind.google/science/alphafold/', '_blank')}
+                    onClick={() => openExternal('https://deepmind.google/science/alphafold/', 'alphafold')}
                   >
                     AlphaFold
                   </Button>
@@ -1532,7 +1538,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://deepmind.google/discover/blog/alphagenome-ai-for-better-understanding-the-genome/', '_blank')}
+                    onClick={() => openExternal('https://deepmind.google/discover/blog/alphagenome-ai-for-better-understanding-the-genome/', 'alphagenome')}
                   >
                     AlphaGenome
                   </Button>
@@ -1540,7 +1546,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://deepmind.google/research/projects/alphamissense/', '_blank')}
+                    onClick={() => openExternal('https://deepmind.google/research/projects/alphamissense/', 'alphamissense')}
                   >
                     AlphaMissense
                   </Button>
@@ -1548,7 +1554,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://deepmind.google/discover/blog/alphaproteo-generates-novel-proteins-for-biology-and-health-research/', '_blank')}
+                    onClick={() => openExternal('https://deepmind.google/discover/blog/alphaproteo-generates-novel-proteins-for-biology-and-health-research/', 'alphaproteo')}
                   >
                     AlphaProteo
                   </Button>
@@ -1556,7 +1562,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/', '_blank')}
+                    onClick={() => openExternal('https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/', 'alphaevolve')}
                   >
                     AlphaEvolve
                   </Button>
@@ -1564,7 +1570,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/', '_blank')}
+                    onClick={() => openExternal('https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/', 'alphaproof')}
                   >
                     AlphaProof
                   </Button>
@@ -1572,7 +1578,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/', '_blank')}
+                    onClick={() => openExternal('https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/', 'alphageometry')}
                   >
                     AlphaGeometry
                   </Button>
@@ -1580,7 +1586,7 @@ export default function AgentsForScience() {
                     variant="secondary" 
                     size="sm" 
                     className="text-xs h-6 px-2"
-                    onClick={() => window.open('https://deepmind.google/science/weathernext/', '_blank')}
+                    onClick={() => openExternal('https://deepmind.google/science/weathernext/', 'weathernext')}
                   >
                     WeatherNext
                   </Button>
@@ -1589,7 +1595,7 @@ export default function AgentsForScience() {
                   variant="link" 
                   size="sm" 
                   className="p-0 h-auto"
-                  onClick={() => window.open('https://deepmind.google/science/', '_blank')}
+                  onClick={() => openExternal('https://deepmind.google/science/', 'deepmind_science')}
                 >
                   Explore DeepMind Science <ArrowUpRight size={14} className="ml-1" />
                 </Button>

@@ -391,7 +391,7 @@ function App() {
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <button 
-                  onClick={() => navigate('/')}
+                  onClick={() => { trackEvent({ action: 'nav_click', category: 'navigation', label: 'logo_home' }); navigate('/'); }}
                   className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity
                              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:rounded-md"
                   aria-label="Go to home page - Open Agent School"
@@ -404,7 +404,7 @@ function App() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setShowJourneyMap(true)}
+                  onClick={() => { trackEvent({ action: 'nav_click', category: 'navigation', label: 'journey_map' }); setShowJourneyMap(true); }}
                   className="flex items-center gap-2"
                   aria-label="Open Learning Journey Map"
                 >
@@ -430,7 +430,7 @@ function App() {
                   variant="ghost"
                   size="icon"
                   className="h-9 w-9 text-muted-foreground hover:text-foreground"
-                  onClick={() => setQuickNavOpen(true)}
+                  onClick={() => { trackEvent({ action: 'nav_click', category: 'navigation', label: 'quick_nav' }); setQuickNavOpen(true); }}
                   aria-label="Quick navigation (Ctrl+K)"
                   title="Go to page (Ctrl+K)"
                 >
@@ -440,7 +440,7 @@ function App() {
                   variant="ghost"
                   size="icon"
                   className="h-9 w-9 relative animate-pulse text-amber-500 dark:text-amber-400"
-                  onClick={() => setSettingsOpen(true)}
+                  onClick={() => { trackEvent({ action: 'nav_click', category: 'navigation', label: 'settings_open' }); setSettingsOpen(true); }}
                   aria-label="API Settings"
                   title="API Settings (BYOK)"
                 >
@@ -453,6 +453,7 @@ function App() {
                 <UserMenu />
                 <Link
                   to="/tree-view"
+                  onClick={() => trackEvent({ action: 'nav_click', category: 'navigation', label: 'learning_atlas' })}
                   className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-primary px-3 py-2 text-sm font-bold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:scale-105"
                   title="Explore the interactive Learning Atlas — visual taxonomy of all concepts"
                 >
@@ -466,6 +467,7 @@ function App() {
                         href="https://github.com/bhakthan/openagentschool"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackEvent({ action: 'outbound_click', category: 'navigation', label: 'github_repo' })}
                         className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                       >
                         <GithubLogo className="mr-1" size={16} /> GitHub
@@ -476,6 +478,7 @@ function App() {
                         href="https://deepwiki.com/bhakthan/OpenAgentSchool"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackEvent({ action: 'outbound_click', category: 'navigation', label: 'deepwiki' })}
                         className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                         title="Visit Open Agent School Wiki on DeepWiki"
                       >
@@ -489,7 +492,7 @@ function App() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => window.open('https://www.youtube.com/playlist?list=PL9pA6bW_V_aBCC77nHbPgPJVUXqnLkZ2C', '_blank')}
+                        onClick={() => { trackEvent({ action: 'outbound_click', category: 'navigation', label: 'youtube_podcast' }); window.open('https://www.youtube.com/playlist?list=PL9pA6bW_V_aBCC77nHbPgPJVUXqnLkZ2C', '_blank'); }}
                         className="inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                         title="Click to open YouTube Podcast playlist"
                       >
@@ -616,6 +619,7 @@ function App() {
                                       <NavigationMenuLink asChild>
                                         <Link
                                           to={item.to}
+                                          onClick={() => trackEvent({ action: 'nav_click', category: 'navigation', label: item.to.replace(/^\//, ''), menu_category: category.label })}
                                           className={cn(
                                             "group block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none focus:outline-none focus-visible:outline-none transition-all duration-200",
                                             "bg-background/40 dark:bg-background/40",
@@ -697,7 +701,8 @@ function App() {
                               {category.items.map(item => (
                                 <DropdownMenuItem key={item.to} asChild>
                                   <Link 
-                                    to={item.to} 
+                                    to={item.to}
+                                    onClick={() => trackEvent({ action: 'nav_click', category: 'navigation', label: item.to.replace(/^\//, ''), menu_category: category.label, menu_type: 'mobile' })}
                                     className={cn(
                                       "flex items-center gap-2 pl-4 py-2 rounded-md mx-1 outline-none focus:outline-none focus-visible:outline-none transition-all duration-150",
                                       "hover:translate-x-0.5",
