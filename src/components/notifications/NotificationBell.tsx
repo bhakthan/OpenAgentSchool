@@ -12,6 +12,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import * as Popover from '@radix-ui/react-popover';
 import { Bell } from 'lucide-react';
+import { useAuth } from '@/lib/auth/AuthContext';
 import {
   getNotifications,
   getUnreadCount,
@@ -53,22 +54,25 @@ function timeAgo(dateStr: string | null): string {
 export function NotificationBell() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { isAuthenticated } = useAuth();
 
-  // Poll unread count every 30s
+  // Poll unread count every 30s — only when logged in
   const { data: unreadData } = useQuery({
     queryKey: ['notifications', 'unread-count'],
     queryFn: getUnreadCount,
     refetchInterval: 30_000,
     staleTime: 10_000,
     retry: 1,
+    enabled: isAuthenticated,
   });
 
-  // Recent notifications (first 8) for dropdown
+  // Recent notifications (first 8) for dropdown — only when logged in
   const { data: recentData } = useQuery({
     queryKey: ['notifications', 'recent'],
     queryFn: () => getNotifications({ per_page: 8 }),
     staleTime: 15_000,
     retry: 1,
+    enabled: isAuthenticated,
   });
 
   const markReadMutation = useMutation({

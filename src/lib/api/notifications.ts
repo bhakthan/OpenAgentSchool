@@ -23,6 +23,12 @@ function authHeaders(): Record<string, string> {
 }
 
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
+  // Skip network request when not authenticated — avoids 401/403 console noise
+  const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+  if (!token) {
+    throw new Error('Not authenticated');
+  }
+
   const res = await fetch(`${baseUrl}${path}`, {
     headers: authHeaders(),
     ...init,
