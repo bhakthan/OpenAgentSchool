@@ -3,7 +3,7 @@
  * Manages user authentication state across the application
  */
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { authAPI, User, LoginCredentials, SignupData } from '@/lib/api/auth';
 import { toast } from 'sonner';
@@ -16,6 +16,16 @@ interface AuthContextType {
   login: (credentials: LoginCredentials) => Promise<void>;
   signup: (data: SignupData) => Promise<void>;
   logout: () => Promise<void>;
+  /** Role names the current user holds for the active tenant. */
+  roles: string[];
+  /** Permission codenames the current user holds for the active tenant. */
+  permissions: string[];
+  /** The tenant ID from the user's JWT (if present). */
+  currentTenantId: string | null;
+  /** Check a single permission codename. */
+  hasPermission: (codename: string) => boolean;
+  /** Check a single role name. */
+  hasRole: (roleName: string) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,9 +34,56 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+/* ------------------------------------------------------------------ */
+/*  Helpers                                                            */
+/* ------------------------------------------------------------------ */
+
+/** Decode the JWT payload (without verification — display only). */
+function decodeJwtPayload(token: string): Record<string, unknown> | null {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch {
+    return null;
+  }
+}
+
+/** Fetch the user's roles for the current tenant from the backend. */
+async function fetchUserRoles(): Promise<{ roles: string[]; permissions: string[] }> {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+  if (!token) return { roles: [], permissions: [] };
+
+  try {
+    const baseUrl = (await import('@/lib/api/config')).API_CONFIG.core;
+    const res = await fetch(`${baseUrl.replace(/\/$/, '')}/api/v1/roles/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) return { roles: [], permissions: [] };
+
+    const data: Array<{ name: string; permissions?: Array<{ codename: string }> }> = await res.json();
+    const roles = data.map((r) => r.name);
+    const permissions = Array.from(
+      new Set(data.flatMap((r) => (r.permissions ?? []).map((p) => p.codename))),
+    );
+    return { roles, permissions };
+  } catch {
+    return { roles: [], permissions: [] };
+  }
+}
+
 export function AuthProvider({ children }: AuthProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(authAPI.isAuthenticated());
+  const [roles, setRoles] = useState<string[]>([]);
+  const [permissions, setPermissions] = useState<string[]>([]);
   const queryClient = useQueryClient();
+
+  // Derive tenant_id from the stored JWT (if present)
+  const currentTenantId = (() => {
+    if (typeof window === 'undefined') return null;
+    const token = localStorage.getItem('access_token');
+    if (!token) return null;
+    const payload = decodeJwtPayload(token);
+    return (payload?.tenant_id as string) ?? null;
+  })();
 
   // Fetch current user if authenticated
   const { data: user, isLoading } = useQuery({
@@ -36,6 +93,29 @@ export function AuthProvider({ children }: AuthProviderProps) {
     retry: false,
     staleTime: Infinity, // User data doesn't change often
   });
+
+  // Fetch roles & permissions after user resolves
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setRoles([]);
+      setPermissions([]);
+      return;
+    }
+    fetchUserRoles().then(({ roles: r, permissions: p }) => {
+      setRoles(r);
+      setPermissions(p);
+    });
+  }, [isAuthenticated, user]);
+
+  // Stable permission / role checkers
+  const hasPermission = useCallback(
+    (codename: string) => permissions.includes(codename),
+    [permissions],
+  );
+  const hasRole = useCallback(
+    (roleName: string) => roles.includes(roleName),
+    [roles],
+  );
 
   // Login mutation
   const loginMutation = useMutation({
@@ -123,6 +203,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     login,
     signup,
     logout,
+    roles,
+    permissions,
+    currentTenantId,
+    hasPermission,
+    hasRole,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

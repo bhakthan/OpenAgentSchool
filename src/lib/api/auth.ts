@@ -5,6 +5,7 @@
 
 import axios, { AxiosInstance } from 'axios';
 import { API_CONFIG } from './config';
+import { getCurrentTenantId } from './core';
 import { hashPasswordForTransport } from '@/lib/auth/passwordTransport';
 
 // Types
@@ -53,12 +54,16 @@ class AuthAPIClient {
       },
     });
 
-    // Add request interceptor to include auth token
+    // Add request interceptor to include auth token and tenant ID
     this.client.interceptors.request.use(
       (config) => {
         const token = this.getAccessToken();
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
+        }
+        const tenantId = getCurrentTenantId();
+        if (tenantId) {
+          config.headers['X-Tenant-ID'] = tenantId;
         }
         return config;
       },

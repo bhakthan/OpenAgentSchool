@@ -61,7 +61,7 @@ export interface AssessmentHistory {
  * Get complete velocity profile for current user
  */
 export async function getVelocityProfile(signal?: AbortSignal): Promise<VelocityProfile> {
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem('access_token');
   
   const res = await fetch(`${baseV1}/velocity/profile`, {
     headers: {
@@ -90,7 +90,7 @@ export async function completePattern(
   },
   signal?: AbortSignal
 ) {
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem('access_token');
   
   const res = await fetch(`${baseV1}/velocity/patterns/${patternId}/complete`, {
     method: 'POST',
@@ -117,7 +117,7 @@ export async function uncompletePattern(
   patternId: string,
   signal?: AbortSignal
 ) {
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem('access_token');
   
   const res = await fetch(`${baseV1}/velocity/patterns/${patternId}/complete`, {
     method: 'DELETE',
@@ -148,7 +148,7 @@ export async function saveAssessment(
   },
   signal?: AbortSignal
 ) {
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem('access_token');
   
   const res = await fetch(`${baseV1}/velocity/assessment`, {
     method: 'POST',
@@ -175,7 +175,7 @@ export async function getAssessmentHistory(
   params?: { limit?: number; offset?: number },
   signal?: AbortSignal
 ): Promise<AssessmentHistory> {
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem('access_token');
   
   const queryParams = new URLSearchParams();
   if (params?.limit) queryParams.set('limit', params.limit.toString());
@@ -206,7 +206,7 @@ export async function updatePracticeExperience(
   experienceLevel: 'none' | 'learning' | 'proficient' | 'expert',
   signal?: AbortSignal
 ) {
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem('access_token');
   
   const res = await fetch(`${baseV1}/velocity/practices/${encodeURIComponent(practiceName)}`, {
     method: 'PUT',

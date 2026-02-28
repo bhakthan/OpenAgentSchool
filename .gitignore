@@ -164,3 +164,42 @@ OpenAgentSchool.code-workspace
 
 # Large PDF files (served as page images instead)
 public/pdf/*.pdf
+
+# ─── Public-repo hygiene ───────────────────────────────────────
+# Root-level utility/diagnostic scripts (internal tooling, not app code)
+check-backend-health.ps1
+start-backend.ps1
+stop-backend.ps1
+test-comprehensive.ps1
+test-phases-3-4.ps1
+test-quick.ps1
+test-quiz-api.ps1
+convert_og_image.py
+fix-duplicate-references.py
+debug-content.js
+debug-study-mode.js
+
+# Lint/build artifacts
+lint-output.json
+
+# Dev preview files
+og-image-preview.html
+
+# Internal implementation notes (not user-facing docs)
+CLAUDE_SKILLS_MCP_ANIMATION.md
+GEMINI.md
+MCP_ARCHITECTURE_SIMPLIFICATION.md
+FRONTIER_PATTERNS_INTEGRATION.md
+QUANTUM_AI_ROBOTICS_CHECKLIST.md
+QUANTUM_AI_ROBOTICS_IMPLEMENTATION.md
+PATTERN_CONSOLIDATION.md
+
+# Root-level backend shim (backend lives in openagent-backend repo)
+main.py
+
+# Mock/test data files
+mock-concepts-data.json
+app.package.json
+
+# Archived backend (moved to openagent-backend repo)
+backend.archived/

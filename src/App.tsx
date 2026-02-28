@@ -44,7 +44,10 @@ import { PageLoadingFallback } from './components/common/LoadingSpinner';
 import { OfflineBanner } from './components/common/OfflineBanner';
 import { QueryProvider } from './lib/query/QueryProvider';
 import { AuthProvider } from './lib/auth/AuthContext';
+import { TenantProvider } from './lib/tenant/TenantContext';
+import { TenantBranding } from './lib/tenant/TenantBranding';
 import { UserMenu } from './components/auth/UserMenu';
+import { NotificationBell } from './components/notifications/NotificationBell';
 import { AdminGuard } from './components/admin/AdminGuard';
 import { AuthGuard } from './components/auth/AuthGuard';
 import { InstallPWA } from './components/pwa/InstallPWA';
@@ -98,6 +101,7 @@ const AVEWorkshopCurriculum = lazy(() => import('./components/velocity/AVEWorksh
 const ValueMapPage = lazy(() => import('./pages/ValueMapPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
+const TenantPickerPage = lazy(() => import('./pages/TenantPickerPage'));
 const Phase1LabPage = lazy(() => import('./pages/Phase1LabPage'));
 const LearnerAnalyticsPage = lazy(() => import('./pages/LearnerAnalyticsPage'));
 const ProjectTracksPage = lazy(() => import('./pages/ProjectTracksPage'));
@@ -106,6 +110,9 @@ const SkillPassportPage = lazy(() => import('./pages/SkillPassportPage'));
 const CohortsPage = lazy(() => import('./pages/CohortsPage'));
 const SafetyLabPage = lazy(() => import('./pages/SafetyLabPage'));
 const SandboxPage = lazy(() => import('./pages/SandboxPage'));
+const PricingPage = lazy(() => import('./pages/PricingPage'));
+const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
+const NotificationsPage = lazy(() => import('./pages/NotificationsPage'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -366,6 +373,8 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="azure-ai-agent-theme">
+      <TenantProvider>
+      <TenantBranding />
       <AuthProvider>
         {/* Side effects that require AuthProvider context */}
         <AppContent />
@@ -453,6 +462,7 @@ function App() {
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
                   </span>
                 </Button>
+                <NotificationBell />
                 <UserMenu />
                 <Link
                   to="/tree-view"
@@ -804,11 +814,15 @@ function App() {
                   <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
                   <Route path="/api-docs" element={<ApiDocsPage />} />
                   <Route path="/settings" element={<SettingsPage />} />
+                  <Route path="/tenant-picker" element={<TenantPickerPage />} />
                   <Route path="/admin" element={<AdminGuard><AdminPage /></AdminGuard>} />
                   <Route path="/cta-alt" element={<CTALandingPageVariant />} />
                   <Route path="/cta" element={<CTALandingPage />} />
                   <Route path="/about" element={<AboutPage />} />
                   <Route path="/terms" element={<TermsOfUsePage />} />
+                  <Route path="/pricing" element={<PricingPage />} />
+                  <Route path="/onboarding" element={<AuthGuard><OnboardingPage /></AuthGuard>} />
+                  <Route path="/notifications" element={<AuthGuard><NotificationsPage /></AuthGuard>} />
                   {/* Fallback route to redirect to home page */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
@@ -943,6 +957,7 @@ function App() {
        </FeatureFlagProvider>
        </UserSettingsProvider>
       </AuthProvider>
+      </TenantProvider>
     </ThemeProvider>
   );
 }

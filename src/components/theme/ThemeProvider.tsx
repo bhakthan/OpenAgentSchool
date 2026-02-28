@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import { getTenantKey } from "@/lib/tenant/storage";
 
 export type Theme =
   | "light"
@@ -181,12 +182,15 @@ export function ThemeProvider({
   storageKey = "ui-theme",
   ...props
 }: ThemeProviderProps) {
+  // Tenant-namespaced key so each tenant's theme preference is isolated
+  const nsKey = getTenantKey(storageKey);
+
   const [theme, setTheme] = useState<Theme>(
     () => {
       if (typeof window === 'undefined') return defaultTheme;
       
-      // Check for saved theme preference
-      const savedTheme = localStorage.getItem(storageKey) as Theme;
+      // Check for saved theme preference (namespaced first, then legacy key)
+      const savedTheme = (localStorage.getItem(nsKey) ?? localStorage.getItem(storageKey)) as Theme;
       if (savedTheme && ALL_THEMES.includes(savedTheme)) {
         return savedTheme;
       }
@@ -206,12 +210,12 @@ export function ThemeProvider({
       syncTheme(theme);
     }
     skipSyncRef.current = false;
-    localStorage.setItem(storageKey, theme);
-  }, [theme, storageKey]);
+    localStorage.setItem(nsKey, theme);
+  }, [theme, nsKey]);
 
   // Initialize theme on mount
   useEffect(() => {
-    const saved = localStorage.getItem(storageKey) as Theme | null;
+    const saved = (localStorage.getItem(nsKey) ?? localStorage.getItem(storageKey)) as Theme | null;
     const initialTheme: Theme =
       (saved && ALL_THEMES.includes(saved)) ? saved :
       window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : defaultTheme;
@@ -226,7 +230,7 @@ export function ThemeProvider({
     
     const handleChange = (e: MediaQueryListEvent) => {
       // Only update if no manual preference was set
-      if (!localStorage.getItem(storageKey)) {
+      if (!localStorage.getItem(nsKey)) {
         const newTheme = e.matches ? "dark" : "light";
         setTheme(newTheme);
         syncTheme(newTheme);
@@ -235,7 +239,7 @@ export function ThemeProvider({
     
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [storageKey]);
+  }, [nsKey]);
 
   const toggleTheme = (x?: number, y?: number) => {
     const newTheme = theme === "light" ? "dark" : "light";
