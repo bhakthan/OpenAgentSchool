@@ -486,6 +486,26 @@ export default function AISkillsExplorer() {
     return () => cancelAnimationFrame(handle)
   }, [lastActivatedLens])
 
+  // ── Cover images & icons for category bento tiles + section banners ──
+  const categoryCover: Record<string, string> = {
+    'foundations': '/covers/ai-skills-foundations.webp',
+    'build': '/covers/ai-skills-build.webp',
+    'operate': '/covers/ai-skills-operate.webp',
+    'govern-optimize': '/covers/ai-skills-govern.webp',
+    'multi-agent': '/covers/ai-skills-multi-agent.webp',
+    'strategy-future': '/covers/ai-skills-strategy-future.webp',
+    'applied-tools': '/covers/ai-skills-applied-tools.webp',
+  };
+  const categoryIcons: Record<string, React.ReactNode> = {
+    'foundations': <Brain className="w-5 h-5" />,
+    'build': <Rocket className="w-5 h-5" />,
+    'operate': <Gauge className="w-5 h-5" />,
+    'govern-optimize': <Shield className="w-5 h-5" />,
+    'multi-agent': <Network className="w-5 h-5" />,
+    'strategy-future': <Lightbulb className="w-5 h-5" />,
+    'applied-tools': <Calculator className="w-5 h-5" />,
+  };
+
   return (
     <div className="flat-ui-2-theme ai-skills-flat-ui min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
@@ -708,29 +728,125 @@ export default function AISkillsExplorer() {
             />
           </div>
           <div className="order-1 lg:order-2">
-        {/* Overview Grid for quick scan */}
+        {/* Overview Bento Grid — category tiles */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-3">Applied AI Skills Overview</h2>
-          <div className="grid gap-2 sm:gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-            {skillCategories.flatMap(c => c.moduleIds).map(mid => {
-              const t = tabMap[mid]
-              if (!t) return null
-              return (
-                <button
-                  key={mid}
-                  onClick={() => scrollToModule(mid)}
-                  className="group text-left border rounded-md p-3 bg-card/30 hover:bg-primary/10 hover:border-primary/50 hover:shadow-md transition-all duration-200 flex flex-col gap-1.5 focus:outline-none focus:ring-2 focus:ring-primary/40 hover:scale-[1.02]"
-                >
-                  <span className="flex items-center gap-1.5 text-xs font-semibold group-hover:text-primary transition-colors">
-                    {t.icon}
-                    {t.title}
-                    {isCompleted(mid) && <CheckCircle className="w-3 h-3 text-green-600" />}
-                  </span>
-                  <span className="text-sm text-muted-foreground group-hover:text-foreground/80 line-clamp-2 leading-snug transition-colors">{t.description}</span>
-                </button>
-              )
-            })}
-          </div>
+          {(() => {
+            const categoryAccent: Record<string, string> = {
+              'foundations': 'from-blue-500/15 to-transparent',
+              'build': 'from-orange-500/15 to-transparent',
+              'operate': 'from-cyan-500/15 to-transparent',
+              'govern-optimize': 'from-rose-500/15 to-transparent',
+              'multi-agent': 'from-violet-500/15 to-transparent',
+              'strategy-future': 'from-amber-500/15 to-transparent',
+              'applied-tools': 'from-emerald-500/15 to-transparent',
+            };
+            /* Bento placement: 7 categories → 4-col grid
+               Large (2×2): foundations, strategy-future (most modules)
+               Standard (1×1): build, operate, govern-optimize, multi-agent, applied-tools */
+            const bentoSize: Record<string, string> = {
+              'foundations': 'lg:col-span-2 lg:row-span-2',
+              'build': '',
+              'operate': '',
+              'govern-optimize': 'lg:col-span-2',
+              'multi-agent': '',
+              'strategy-future': 'lg:col-span-2 lg:row-span-2',
+              'applied-tools': '',
+            };
+            return (
+              <div className="bento-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(140px,auto)] gap-4 lg:gap-5">
+                {skillCategories.map(cat => {
+                  const completedCount = cat.moduleIds.filter(mid => isCompleted(mid)).length;
+                  const pct = cat.moduleIds.length > 0 ? Math.round((completedCount / cat.moduleIds.length) * 100) : 0;
+                  return (
+                    <div
+                      key={cat.id}
+                      className={`bento-tile group relative rounded-2xl border border-border dark:border-white/[0.08] overflow-hidden cursor-pointer
+                        bg-card text-card-foreground
+                        transition-all duration-[400ms] ease-[cubic-bezier(0.165,0.84,0.44,1)]
+                        hover:-translate-y-1.5
+                        hover:shadow-[0_14px_28px_rgba(0,0,0,0.25),0_0_20px_rgba(79,172,254,0.1)]
+                        hover:border-primary/30
+                        ${bentoSize[cat.id] || ''}`}
+                      onClick={() => scrollToModule(cat.moduleIds[0])}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scrollToModule(cat.moduleIds[0]); } }}
+                    >
+                      {/* Cover image or accent gradient */}
+                      {categoryCover[cat.id] ? (
+                        <>
+                          <div
+                            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                            style={{ backgroundImage: `url(${categoryCover[cat.id]})` }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,12,0.92)] via-[rgba(10,10,12,0.55)] to-[rgba(10,10,12,0.15)]" />
+                        </>
+                      ) : (
+                        <div className={`absolute inset-0 bg-gradient-to-b ${categoryAccent[cat.id] || ''}`} />
+                      )}
+
+                      {/* Tile content */}
+                      <div className="relative h-full flex flex-col justify-end p-5 gap-3">
+                        {/* Header */}
+                        <div className="flex items-center gap-3">
+                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${categoryCover[cat.id] ? 'bg-white/10 text-white/90' : 'bg-muted/80 text-muted-foreground'}`}>
+                            {categoryIcons[cat.id] || <BookOpen className="w-5 h-5" />}
+                          </div>
+                          <div className="min-w-0">
+                            <h3 className={`font-semibold text-lg leading-tight tracking-tight ${categoryCover[cat.id] ? 'text-white' : ''}`}>{cat.title}</h3>
+                            <span className={`text-xs ${categoryCover[cat.id] ? 'text-white/60' : 'text-muted-foreground'}`}>{cat.moduleIds.length} modules</span>
+                          </div>
+                          <CaretRight className={`w-5 h-5 ml-auto shrink-0 group-hover:translate-x-1 transition-transform duration-300 ${categoryCover[cat.id] ? 'text-white/60' : 'text-muted-foreground'}`} />
+                        </div>
+
+                        {/* Description */}
+                        {cat.description && (
+                          <p className={`text-sm leading-relaxed ${categoryCover[cat.id] ? 'text-white/70' : 'text-muted-foreground'}`}>{cat.description}</p>
+                        )}
+
+                        {/* Progress */}
+                        <div>
+                          <div className={`flex justify-between text-xs mb-1 ${categoryCover[cat.id] ? 'text-white/60' : 'text-muted-foreground'}`}>
+                            <span>{completedCount} / {cat.moduleIds.length} completed</span>
+                            <span>{pct}%</span>
+                          </div>
+                          <div className={`w-full h-1.5 rounded-full overflow-hidden ${categoryCover[cat.id] ? 'bg-white/15' : 'bg-muted'}`}>
+                            <div
+                              className={`h-full rounded-full transition-all duration-500 ${categoryCover[cat.id] ? 'bg-white/40' : 'bg-foreground/25'}`}
+                              style={{ width: `${pct}%` }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Module chips */}
+                        <div className="flex flex-wrap gap-1 pt-1">
+                          {cat.moduleIds.map(mid => {
+                            const t = tabMap[mid];
+                            if (!t) return null;
+                            return (
+                              <button
+                                key={mid}
+                                onClick={(e) => { e.stopPropagation(); scrollToModule(mid); }}
+                                className={`inline-flex items-center gap-1 text-[10px] leading-tight px-1.5 py-0.5 rounded-sm
+                                  backdrop-blur-sm transition-colors
+                                  ${categoryCover[cat.id]
+                                    ? 'bg-white/10 text-white/80 border border-white/20 hover:bg-white/20 hover:border-white/40'
+                                    : 'bg-background/80 text-foreground/85 border border-border/60 hover:bg-primary/10 hover:border-primary/40 hover:text-primary'}`}
+                              >
+                                {isCompleted(mid) && <CheckCircle className="w-3 h-3 shrink-0 text-green-600" />}
+                                <span className="truncate max-w-[150px]">{t.title}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
         </div>
         {/* Perspective Lenses */}
         <div className="mb-8">
@@ -783,15 +899,45 @@ export default function AISkillsExplorer() {
           {skillCategories.map(category => {
             return (
               <section id={category.id} key={category.id} className="scroll-mt-24">
-                <div className="mb-6">
-                  <h2 className="text-2xl font-bold flex items-center gap-3">
-                    {category.title}
-                    <span className="text-sm font-normal text-muted-foreground">({category.moduleIds.length} modules)</span>
-                  </h2>
-                  {category.description && (
-                    <p className="text-muted-foreground mt-1 max-w-3xl">{category.description}</p>
-                  )}
-                </div>
+                {/* Section banner — cover image or plain card */}
+                {categoryCover[category.id] ? (
+                  <div className="bento-tile mb-6 relative rounded-xl overflow-hidden">
+                    <div
+                      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                      style={{ backgroundImage: `url(${categoryCover[category.id]})` }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[rgba(10,10,12,0.88)] via-[rgba(10,10,12,0.65)] to-[rgba(10,10,12,0.30)]" />
+                    <div className="relative flex items-start gap-3 px-5 py-5">
+                      <div className="w-10 h-10 rounded-md flex items-center justify-center shrink-0 bg-white/10 text-white/90 backdrop-blur-sm">
+                        {categoryIcons[category.id] || <BookOpen className="w-5 h-5" />}
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                          {category.title}
+                          <span className="text-sm font-normal text-white/60">({category.moduleIds.length} modules)</span>
+                        </h2>
+                        {category.description && (
+                          <p className="text-white/70 mt-1 max-w-3xl">{category.description}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mb-6 flex items-start gap-3 rounded-lg border border-border bg-card px-3.5 py-3">
+                    <div className="w-10 h-10 rounded-md flex items-center justify-center shrink-0 bg-muted text-muted-foreground">
+                      {categoryIcons[category.id] || <BookOpen className="w-5 h-5" />}
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold flex items-center gap-3">
+                        {category.title}
+                        <span className="text-sm font-normal text-muted-foreground">({category.moduleIds.length} modules)</span>
+                      </h2>
+                      {category.description && (
+                        <p className="text-muted-foreground mt-1 max-w-3xl">{category.description}</p>
+                      )}
+                    </div>
+                  </div>
+                )}
                 <div className="space-y-10">
                   {category.moduleIds.map(moduleId => {
                     const t = tabMap[moduleId]
