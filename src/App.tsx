@@ -53,6 +53,7 @@ import { AuthGuard } from './components/auth/AuthGuard';
 import { InstallPWA } from './components/pwa/InstallPWA';
 import { InstallAppMenuItem } from './components/pwa/InstallAppMenuItem';
 import { PWAUpdatePrompt } from './components/pwa/PWAUpdatePrompt';
+import { FeedbackWidget } from './components/feedback/FeedbackWidget';
 import { useIOSBehaviors } from './hooks/useStandaloneMode';
 import { usePullToRefresh, getPullToRefreshStyles } from './hooks/usePullToRefresh';
 import { useQueryClient } from '@tanstack/react-query';
@@ -935,6 +936,9 @@ function App() {
 
           {/* Global Voice Input FAB */}
           <Suspense fallback={null}><VoiceFAB /></Suspense>
+
+          {/* Feedback FAB (authenticated users only) */}
+          <FeedbackWidget />
 
           {/* Toast notifications */}
           <Toaster />

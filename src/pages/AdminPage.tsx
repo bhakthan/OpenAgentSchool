@@ -48,9 +48,11 @@ import {
   XCircle,
   Buildings,
   DeviceMobile,
+  ChatDots,
 } from '@phosphor-icons/react';
 import { Textarea } from '@/components/ui/textarea';
 import { PWAAnalyticsTab } from '@/components/admin/PWAAnalyticsTab';
+import { FeedbackTab } from '@/components/admin/FeedbackTab';
 
 // ── Stats card component ─────────────────────────────────────────────────
 
@@ -686,6 +688,9 @@ const AdminPage: React.FC = () => {
           <TabsTrigger value="pwa" className="gap-2">
             <DeviceMobile className="w-4 h-4" /> PWA
           </TabsTrigger>
+          <TabsTrigger value="feedback" className="gap-2">
+            <ChatDots className="w-4 h-4" /> Feedback
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="users">
@@ -710,6 +715,10 @@ const AdminPage: React.FC = () => {
 
         <TabsContent value="pwa">
           <PWAAnalyticsTab />
+        </TabsContent>
+
+        <TabsContent value="feedback">
+          <FeedbackTab />
         </TabsContent>
       </Tabs>
     </div>
