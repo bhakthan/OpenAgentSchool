@@ -148,6 +148,8 @@ export default defineConfig({
     port: 5000,
     hmr: {
       overlay: false,
+      host: 'localhost',
+      clientPort: 5000,
     },
     cors: {
       origin: /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\]|(?:.*\.)?github\.com)(?::\d+)?$/

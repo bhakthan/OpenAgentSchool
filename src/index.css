@@ -1974,7 +1974,7 @@ code, pre {
   [class*="text-stone-200"],
   [class*="text-stone-300"],
   [class*="text-white"]
-) {
+):not(.bento-tile *) {
   color: oklch(0.23 0.02 240) !important;
 }
 
@@ -1996,4 +1996,49 @@ code, pre {
 .light [data-slot="dropdown-menu-item"]:is(:focus, :focus-visible, :active) {
   outline: none !important;
   box-shadow: none !important;
+}
+
+/* ── Bento Grid – Responsive Overrides ───────────────────────────────── */
+/* Tablet: collapse to 2 columns, reset tile spans */
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    padding: 24px;
+  }
+
+  .bento-tile {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    min-height: 250px;
+  }
+
+  /* Let the 'Advanced' tile (massive) still span 2 columns on tablet */
+  .bento-tile[data-tier="advanced"] {
+    grid-column: span 2 !important;
+    min-height: 350px;
+  }
+}
+
+/* Mobile: collapse to single column */
+@media (max-width: 600px) {
+  .bento-grid {
+    grid-template-columns: 1fr !important;
+    padding: 16px;
+    gap: 16px !important;
+  }
+
+  .bento-tile {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    min-height: 280px;
+  }
+
+  /* Tighten typography for mobile readability */
+  .bento-tile h3 {
+    font-size: 1.25rem;
+  }
+
+  .bento-tile p {
+    font-size: 0.85rem;
+  }
 }

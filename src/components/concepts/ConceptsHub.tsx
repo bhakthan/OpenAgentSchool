@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb, MagnifyingGlass, CaretRight, Funnel, Eye } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, ArrowLeft, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb, MagnifyingGlass, CaretRight, Funnel, Eye } from "@phosphor-icons/react"
 import { ShareButton } from "@/components/ui/ShareButton"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
@@ -916,6 +916,10 @@ const bentoAccent: Record<string, string> = {
 // Cover images — add entries here as images are generated & converted.
 const bentoCover: Partial<Record<string, string>> = {
   fundamentals: '/covers/fundamentals.webp',
+  architecture: '/covers/architecture.webp',
+  advanced: '/covers/advanced.webp',
+  applied: '/covers/applied.webp',
+  implementation: '/covers/implementation.webp',
 };
 
 function getTierIcon(level: string) {
@@ -1283,54 +1287,103 @@ export default function ConceptsHub({
       ) : activeTier ? (
         <div>
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 mb-3">
-            <button onClick={() => setActiveTier(null)} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <div className="flex items-center gap-3 mb-4">
+            <button
+              onClick={() => setActiveTier(null)}
+              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/60 px-3 py-1.5 text-sm font-medium text-foreground shadow-sm hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
               All Tiers
             </button>
             <CaretRight className="w-3.5 h-3.5 text-muted-foreground" />
-            <span className="text-sm font-medium">{tierMeta[activeTier]?.title}</span>
+            <span className="text-sm font-semibold">{tierMeta[activeTier]?.title}</span>
           </div>
 
-          {/* Tier description banner */}
-          <div className="mb-4 flex items-start gap-3 rounded-lg border border-border bg-card px-3.5 py-3">
-            <div className="w-10 h-10 rounded-md flex items-center justify-center shrink-0 bg-muted text-muted-foreground">
-              <span>{getTierIcon(activeTier)}</span>
+          {/* Tier description banner — with cover image when available */}
+          {bentoCover[activeTier] ? (
+            <div className="bento-tile mb-4 relative rounded-xl overflow-hidden">
+              {/* Cover background */}
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${bentoCover[activeTier]})` }}
+              />
+              {/* Dark gradient overlay for legibility */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[rgba(10,10,12,0.88)] via-[rgba(10,10,12,0.65)] to-[rgba(10,10,12,0.30)]" />
+              {/* Content */}
+              <div className="relative flex items-start gap-3 px-5 py-5">
+                <div className="w-10 h-10 rounded-md flex items-center justify-center shrink-0 bg-white/10 text-white/90 backdrop-blur-sm">
+                  <span>{getTierIcon(activeTier)}</span>
+                </div>
+                <div>
+                  <h2 className="text-xl font-semibold tracking-tight text-white">{tierMeta[activeTier]?.title}</h2>
+                  <p className="text-base text-white/70 mt-0.5">
+                    {tierMeta[activeTier]?.description}
+                    <span className="ml-2 font-medium text-white/90">{(conceptsByTier[activeTier] || []).length} concepts</span>
+                  </p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h2 className="text-xl font-semibold tracking-tight">{tierMeta[activeTier]?.title}</h2>
-              <p className="text-base text-muted-foreground mt-0.5">
-                {tierMeta[activeTier]?.description}
-                <span className="ml-2 font-medium">{(conceptsByTier[activeTier] || []).length} concepts</span>
-              </p>
+          ) : (
+            <div className="mb-4 flex items-start gap-3 rounded-lg border border-border bg-card px-3.5 py-3">
+              <div className="w-10 h-10 rounded-md flex items-center justify-center shrink-0 bg-muted text-muted-foreground">
+                <span>{getTierIcon(activeTier)}</span>
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight">{tierMeta[activeTier]?.title}</h2>
+                <p className="text-base text-muted-foreground mt-0.5">
+                  {tierMeta[activeTier]?.description}
+                  <span className="ml-2 font-medium">{(conceptsByTier[activeTier] || []).length} concepts</span>
+                </p>
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Concept cards — masonry */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {(conceptsByTier[activeTier] || []).map(concept => {
+          {/* Concept cards — bento masonry */}
+          <div className="bento-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(120px,auto)] gap-3 lg:gap-4">
+            {(conceptsByTier[activeTier] || []).map((concept, idx) => {
               const isCompleted = completedConcepts.has(concept.id)
+              // 8-item repeating cycle for visual rhythm
+              const pos = idx % 8
+              const isLarge = pos === 0          // 2 col × 2 row
+              const isTall  = pos === 3          // 1 col × 2 row
+              const isWide  = pos === 6          // 2 col × 1 row
+              const isFeature = isLarge || isTall || isWide
+
+              const spanClass = isLarge
+                ? 'md:col-span-2 md:row-span-2'
+                : isTall
+                  ? 'md:row-span-2'
+                  : isWide
+                    ? 'md:col-span-2'
+                    : ''
+
               return (
-                <div key={concept.id}>
-                  <Card className="group border border-border bg-card shadow-none hover:bg-muted/10 transition-colors cursor-pointer" onClick={() => handleConceptSelect(concept.id)}>
-                    <CardHeader className="pb-1.5 pt-3.5 px-3.5">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center justify-center w-9 h-9 rounded-md bg-muted border border-border/60 [&_svg]:w-5 [&_svg]:h-5 [&_svg]:text-foreground/70">
-                            <span>{concept.icon}</span>
-                          </div>
-                          <div>
-                            <CardTitle className="text-lg leading-tight flex items-center gap-2">
-                              {concept.title}
-                              {isCompleted && <CheckCircle className="w-4 h-4 text-foreground/70" />}
-                            </CardTitle>
-                            <div className="flex items-center gap-2 mt-1.5">
-                              <span className="text-sm text-muted-foreground flex items-center gap-1">
-                                <Clock className="w-3 h-3" />{concept.estimatedTime}
-                              </span>
-                            </div>
-                          </div>
+                <div
+                  key={concept.id}
+                  className={`bento-tile group relative rounded-2xl border border-border overflow-hidden cursor-pointer
+                    bg-card text-card-foreground
+                    transition-all duration-[350ms] ease-[cubic-bezier(0.165,0.84,0.44,1)]
+                    hover:-translate-y-1 hover:shadow-lg hover:border-primary/25
+                    ${spanClass}`}
+                  onClick={() => handleConceptSelect(concept.id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleConceptSelect(concept.id); } }}
+                >
+                  {/* Subtle accent background for feature tiles */}
+                  {isFeature && (
+                    <div className="absolute inset-0 bg-muted/30 dark:bg-muted/20" />
+                  )}
+
+                  <div className={`relative h-full flex flex-col justify-between ${isFeature ? 'p-5' : 'p-4'}`}>
+                    {/* Top: icon + title */}
+                    <div>
+                      <div className="flex items-start justify-between mb-3">
+                        <div className={`flex items-center justify-center rounded-lg border border-border/60 bg-muted/60 shrink-0 ${isFeature ? 'w-11 h-11 [&_svg]:w-6 [&_svg]:h-6' : 'w-9 h-9 [&_svg]:w-5 [&_svg]:h-5'} [&_svg]:text-foreground/70`}>
+                          <span>{concept.icon}</span>
                         </div>
                         <div className="flex items-center gap-1 shrink-0">
+                          {isCompleted && <CheckCircle className="w-4 h-4 text-foreground/60" />}
                           <div onClick={e => e.stopPropagation()}>
                             <ShareButton
                               url={`${window.location.origin}/concepts/${concept.id}`}
@@ -1343,14 +1396,30 @@ export default function ConceptsHub({
                               className="opacity-0 group-hover:opacity-100 transition-opacity"
                             />
                           </div>
-                          <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                          <ArrowRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                       </div>
-                    </CardHeader>
-                    <CardContent className="pt-0 pb-3.5 px-3.5">
-                      <p className="text-base leading-relaxed text-muted-foreground">{concept.description}</p>
-                    </CardContent>
-                  </Card>
+                      <h3 className={`font-semibold leading-snug tracking-tight ${isFeature ? 'text-lg' : 'text-base'}`}>
+                        {concept.title}
+                      </h3>
+                      {/* Description — always show on feature tiles, show on small tiles too */}
+                      <p className={`text-muted-foreground leading-relaxed mt-1.5 ${isFeature ? 'text-sm' : 'text-xs line-clamp-2'}`}>
+                        {concept.description}
+                      </p>
+                    </div>
+
+                    {/* Bottom: meta */}
+                    <div className="flex items-center gap-3 mt-3 pt-2 border-t border-border/40">
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Clock className="w-3 h-3" />{concept.estimatedTime}
+                      </span>
+                      {concept.prerequisites.length > 0 && (
+                        <span className="text-xs text-muted-foreground flex items-center gap-1">
+                          <LinkSimple className="w-3 h-3" />{concept.prerequisites.length} prereq{concept.prerequisites.length > 1 ? 's' : ''}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )
             })}
@@ -1359,7 +1428,7 @@ export default function ConceptsHub({
 
       /* ── Tier Overview — Bento Masonry Grid ─────────────────── */
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(160px,auto)] gap-4 lg:gap-5">
+        <div className="bento-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(160px,auto)] gap-4 lg:gap-5">
           {tierOrder.map(tier => {
             const meta = tierMeta[tier];
             if (!meta) return null;
@@ -1371,7 +1440,7 @@ export default function ConceptsHub({
             return (
               <div
                 key={tier}
-                className={`group relative rounded-2xl border border-border dark:border-white/[0.08] overflow-hidden cursor-pointer
+                className={`bento-tile group relative rounded-2xl border border-border dark:border-white/[0.08] overflow-hidden cursor-pointer
                   bg-card text-card-foreground
                   transition-all duration-[400ms] ease-[cubic-bezier(0.165,0.84,0.44,1)]
                   hover:-translate-y-1.5
