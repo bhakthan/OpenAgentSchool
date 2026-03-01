@@ -17,6 +17,20 @@ import { getPublicTenantConfig, type TenantConfig } from '@/lib/api/tenants';
 import { setCurrentTenantSlug } from './storage';
 import { setCurrentTenantId } from '@/lib/api/core';
 
+/** Built-in config for the default "platform" tenant — no API call needed. */
+const DEFAULT_PLATFORM_CONFIG: TenantConfig = {
+  id: 'platform',
+  slug: 'platform',
+  name: 'Open Agent School',
+  displayName: 'Open Agent School',
+  logoUrl: null,
+  faviconUrl: null,
+  primaryColor: null,
+  accentColor: null,
+  themeOverrides: {},
+  isActive: true,
+};
+
 /* ------------------------------------------------------------------ */
 /*  Context type                                                       */
 /* ------------------------------------------------------------------ */
@@ -96,6 +110,11 @@ export function TenantProvider({ children }: TenantProviderProps) {
     setCurrentTenantSlug(tenantSlug);
   }, [tenantSlug]);
 
+  // For the default "platform" tenant, use the built-in config and skip
+  // the network call entirely.  This avoids CORS / connectivity errors when
+  // running locally against a remote API or when the backend is offline.
+  const isPlatform = tenantSlug === 'platform';
+
   const {
     data: tenant,
     isLoading,
@@ -103,11 +122,11 @@ export function TenantProvider({ children }: TenantProviderProps) {
     refetch,
   } = useQuery<TenantConfig>({
     queryKey: ['tenant', 'config', tenantSlug],
-    queryFn: ({ signal }) => getPublicTenantConfig(tenantSlug, signal),
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    retry: 2,
-    // If the backend isn't available yet, treat the fetch like a soft failure
-    // so the app still renders with no tenant overrides.
+    queryFn: isPlatform
+      ? () => Promise.resolve(DEFAULT_PLATFORM_CONFIG)
+      : ({ signal }) => getPublicTenantConfig(tenantSlug, signal),
+    staleTime: isPlatform ? Infinity : 1000 * 60 * 5,
+    retry: isPlatform ? 0 : 2,
   });
 
   // Push the tenant ID into the core API module (used by the request interceptor)
