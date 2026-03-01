@@ -894,6 +894,25 @@ const tierMeta: Record<string, {
   },
 };
 
+// ── Bento box grid placement per tier (mobile: stack, md: 2-col, lg: 4-col masonry) ──
+const bentoPlacement: Record<string, string> = {
+  fundamentals:   'md:col-span-2 lg:col-start-1 lg:col-end-3 lg:row-start-1 lg:row-end-3',
+  architecture:   'lg:col-start-3 lg:col-end-5 lg:row-start-1 lg:row-end-2',
+  implementation: 'lg:col-start-3 lg:col-end-4 lg:row-start-2 lg:row-end-3',
+  applied:        'md:col-span-2 lg:col-start-4 lg:col-end-5 lg:row-start-2 lg:row-end-5',
+  advanced:       'md:col-span-2 lg:col-start-1 lg:col-end-4 lg:row-start-3 lg:row-end-5',
+};
+
+// Phase 2: Replace these gradient placeholders with WebP cover images.
+// Each tile exposes data-tier="{tier}" for CSS background-image targeting.
+const bentoAccent: Record<string, string> = {
+  fundamentals:   'from-blue-500/15 via-blue-500/5 to-transparent',
+  architecture:   'from-emerald-500/15 via-emerald-500/5 to-transparent',
+  implementation: 'from-amber-500/15 via-amber-500/5 to-transparent',
+  advanced:       'from-purple-500/15 via-purple-500/5 to-transparent',
+  applied:        'from-rose-500/15 via-rose-500/5 to-transparent',
+};
+
 function getTierIcon(level: string) {
   switch (level) {
     case 'fundamentals': return <BookOpen className="w-5 h-5" />;
@@ -1333,9 +1352,9 @@ export default function ConceptsHub({
           </div>
         </div>
 
-      /* ── Tier Overview — Masonry ────────────────────────────── */
+      /* ── Tier Overview — Bento Masonry Grid ─────────────────── */
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(160px,auto)] gap-4 lg:gap-5">
           {tierOrder.map(tier => {
             const meta = tierMeta[tier];
             if (!meta) return null;
@@ -1344,53 +1363,66 @@ export default function ConceptsHub({
             const pct = tierConcepts.length > 0 ? Math.round((completed / tierConcepts.length) * 100) : 0;
 
             return (
-              <div key={tier}>
-                <div
-                  className="rounded-lg border border-border bg-card text-card-foreground shadow-none overflow-hidden hover:bg-muted/10 transition-colors cursor-pointer group"
-                  onClick={() => setActiveTier(tier)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveTier(tier); } }}
-                >
-                  <div className="p-3.5">
-                    {/* Header row */}
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-md flex items-center justify-center bg-muted text-muted-foreground">
-                          <span>{getTierIcon(tier)}</span>
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-base leading-tight tracking-tight">{meta.title}</h3>
-                          <span className="text-xs text-muted-foreground">{tierConcepts.length} concepts</span>
-                        </div>
-                      </div>
-                      <CaretRight className="w-5 h-5 text-muted-foreground" />
-                    </div>
+              <div
+                key={tier}
+                className={`group relative rounded-2xl border border-border dark:border-white/[0.08] overflow-hidden cursor-pointer
+                  bg-card text-card-foreground
+                  transition-all duration-[400ms] ease-[cubic-bezier(0.165,0.84,0.44,1)]
+                  hover:-translate-y-1.5
+                  hover:shadow-[0_14px_28px_rgba(0,0,0,0.25),0_0_20px_rgba(79,172,254,0.1)]
+                  hover:border-primary/30
+                  ${bentoPlacement[tier] || ''}`}
+                onClick={() => setActiveTier(tier)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveTier(tier); } }}
+                data-tier={tier}
+              >
+                {/* Accent gradient — Phase 2: swap for cover image via bg-[url(/covers/{tier}.webp)] */}
+                <div className={`absolute inset-0 bg-gradient-to-b ${bentoAccent[tier] || ''}`} />
 
-                    {/* Description */}
-                    <p className="text-sm leading-relaxed text-muted-foreground mb-3">{meta.description}</p>
-
-                    {/* Progress */}
-                    <div className="mb-3">
-                      <div className="flex justify-between text-xs text-muted-foreground mb-1">
-                        <span>{completed} / {tierConcepts.length} completed</span>
-                        <span>{pct}%</span>
-                      </div>
-                      <Progress value={pct} className="h-1.5 bg-muted [&>div]:bg-foreground/25" />
+                {/* Tile content — anchored to the bottom */}
+                <div className="relative h-full flex flex-col justify-end p-5 gap-3">
+                  {/* Header row */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-muted/80 backdrop-blur-sm text-muted-foreground shrink-0">
+                      {getTierIcon(tier)}
                     </div>
-
-                    {/* Concept chips — creates natural height variation = masonry */}
-                    <div className="flex flex-wrap gap-1">
-                      {tierConcepts.map(c => (
-                        <span
-                          key={c.id}
-                          className="inline-flex items-center gap-1 text-[10px] leading-tight px-1.5 py-0.5 rounded-sm transition-colors bg-background text-foreground/85 border border-border/60"
-                        >
-                          {completedConcepts.has(c.id) && <CheckCircle className="w-3 h-3 text-foreground/70 shrink-0" />}
-                          <span className="truncate max-w-[150px]">{c.title}</span>
-                        </span>
-                      ))}
+                    <div className="min-w-0">
+                      <h3 className="font-semibold text-lg leading-tight tracking-tight">{meta.title}</h3>
+                      <span className="text-xs text-muted-foreground">{tierConcepts.length} concepts</span>
                     </div>
+                    <CaretRight className="w-5 h-5 text-muted-foreground ml-auto shrink-0 group-hover:translate-x-1 transition-transform duration-300" />
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm leading-relaxed text-muted-foreground">{meta.description}</p>
+
+                  {/* Progress */}
+                  <div>
+                    <div className="flex justify-between text-xs text-muted-foreground mb-1">
+                      <span>{completed} / {tierConcepts.length} completed</span>
+                      <span>{pct}%</span>
+                    </div>
+                    <Progress
+                      value={pct}
+                      className="h-1.5 bg-muted [&>div]:bg-foreground/25 opacity-80 group-hover:opacity-100 transition-all duration-300"
+                    />
+                  </div>
+
+                  {/* Concept chips */}
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {tierConcepts.map(c => (
+                      <span
+                        key={c.id}
+                        className="inline-flex items-center gap-1 text-[10px] leading-tight px-1.5 py-0.5 rounded-sm
+                          bg-background/80 text-foreground/85 border border-border/60 backdrop-blur-sm
+                          transition-colors"
+                      >
+                        {completedConcepts.has(c.id) && <CheckCircle className="w-3 h-3 text-foreground/70 shrink-0" />}
+                        <span className="truncate max-w-[150px]">{c.title}</span>
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
