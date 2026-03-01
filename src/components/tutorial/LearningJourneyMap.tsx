@@ -1655,7 +1655,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
                                   <div className={cn('absolute left-0 top-2 h-10 w-10 rounded-full border-2 flex items-center justify-center text-sm font-semibold transition-all duration-200', indicatorClass)}>
                                     {status === 'completed' ? <CheckCircle size={18} weight="fill" /> : status === 'unlocked' ? (isSupplement ? 'R' : globalOrder) : <Lock size={16} />}
                                   </div>
-                                  <div className="rounded-2xl border border-border/60 bg-background/95 dark:bg-background/70 p-5 shadow-sm hover:shadow-md transition">
+                                  <div className="interactive-card rounded-2xl border border-border/60 bg-background/95 dark:bg-background/70 p-5 shadow-sm hover:shadow-md">
                                     <div className="flex flex-wrap items-start justify-between gap-4">
                                       <div className="space-y-2 max-w-2xl">
                                         <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
@@ -1749,7 +1749,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
                       </header>
                       <div className="grid gap-4 sm:grid-cols-2">
                         {supplementalResources.map(resource => (
-                          <div key={resource.id} className="group rounded-2xl border border-border/60 bg-background/95 dark:bg-background/70 p-5 shadow-sm transition hover:shadow-md">
+                          <div key={resource.id} className="group interactive-card rounded-2xl border border-border/60 bg-background/95 dark:bg-background/70 p-5 shadow-sm hover:shadow-md">
                             <div className="flex items-start gap-3">
                               <div className="p-2 rounded-xl bg-muted/60 text-foreground/70 group-hover:text-primary group-hover:bg-primary/10 transition">
                                 {resource.icon}

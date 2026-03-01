@@ -240,7 +240,7 @@ export default function VelocityScoreDashboard() {
       {/* Metric Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {metrics.map((metric, index) => (
-          <div key={index} className="bg-white rounded-xl border border-gray-200 p-6">
+          <div key={index} className="interactive-card bg-card rounded-xl border border-border p-6">
             <div className={`w-10 h-10 ${metric.bgColor} rounded-lg flex items-center justify-center mb-4`}>
               <div className={metric.color}>{metric.icon}</div>
             </div>

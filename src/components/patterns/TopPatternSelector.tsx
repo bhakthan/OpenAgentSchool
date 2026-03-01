@@ -221,7 +221,7 @@ export function TopPatternSelector({ selectedPattern, onPatternSelect }: TopPatt
                     <Card
                     key={pattern.id}
                     className={cn(
-                      "cursor-pointer transition-all duration-200 hover:shadow-md hover:border-border hover:-translate-y-[1px]",
+                      "cursor-pointer interactive-card hover:shadow-md hover:-translate-y-[3px] hover:border-primary/25",
                       selectedPattern?.id === pattern.id && "ring-2 ring-primary"
                     )}
                     onClick={() => handlePatternSelect(pattern)}

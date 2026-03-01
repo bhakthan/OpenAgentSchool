@@ -492,25 +492,25 @@ export default function AISkillsExplorer() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <Card>
+          <Card className="interactive-card">
             <CardContent className="p-6 text-center">
               <div className="text-2xl font-bold text-primary">71%</div>
               <div className="text-sm text-muted-foreground">of employees are bringing their own AI to work</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="interactive-card">
             <CardContent className="p-6 text-center">
               <div className="text-2xl font-bold text-primary">2.9x</div>
               <div className="text-sm text-muted-foreground">productivity increase for Frontier Firms</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="interactive-card">
             <CardContent className="p-6 text-center">
               <div className="text-2xl font-bold text-primary">74%</div>
               <div className="text-sm text-muted-foreground">believe AI will make them more creative</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="interactive-card">
             <CardContent className="p-6 text-center">
               <div className="text-2xl font-bold text-primary">132%</div>
               <div className="text-sm text-muted-foreground">increase in strategic thinking time</div>

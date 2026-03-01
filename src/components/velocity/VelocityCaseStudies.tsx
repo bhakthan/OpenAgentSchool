@@ -139,7 +139,7 @@ export default function VelocityCaseStudies() {
       {caseStudies.map((study, index) => (
         <div
           key={study.id}
-          className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow"
+          className="interactive-card bg-card rounded-2xl border border-border overflow-hidden hover:shadow-xl"
         >
           {/* Header */}
           <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-6 border-b border-gray-200">

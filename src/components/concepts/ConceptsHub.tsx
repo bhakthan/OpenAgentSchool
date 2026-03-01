@@ -1247,7 +1247,7 @@ export default function ConceptsHub({
                 const isCompleted = completedConcepts.has(concept.id)
                 return (
                   <div key={concept.id} className="break-inside-avoid mb-5">
-                    <Card className="group hover:shadow-md transition-all cursor-pointer" onClick={() => handleConceptSelect(concept.id)}>
+                    <Card className="group interactive-card hover:shadow-md cursor-pointer" onClick={() => handleConceptSelect(concept.id)}>
                       <CardHeader className="pb-2">
                         <div className="flex items-start justify-between">
                           <div className="flex items-center gap-3">
