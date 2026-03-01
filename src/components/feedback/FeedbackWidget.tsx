@@ -1,7 +1,7 @@
 /**
  * FeedbackWidget — unobtrusive floating feedback button + popover.
  *
- * Renders a small FAB in the bottom-right corner (only when authenticated).
+ * Renders a small FAB in the bottom-left corner (only when authenticated).
  * On click, opens a Radix Popover with category pills, a 500-char textarea,
  * and a submit button. Sanitises content client-side before POSTing.
  */
@@ -97,7 +97,7 @@ export function FeedbackWidget() {
     <Popover.Root open={open} onOpenChange={handleOpenChange}>
       <Popover.Trigger asChild>
         <button
-          className="fixed bottom-20 right-4 z-50 flex h-11 w-11 items-center justify-center
+          className="fixed bottom-6 left-[4.5rem] z-50 flex h-11 w-11 items-center justify-center
                      rounded-full bg-primary text-primary-foreground shadow-lg
                      hover:bg-primary/90 hover:scale-105
                      transition-all duration-200 focus-visible:outline-none
@@ -114,7 +114,7 @@ export function FeedbackWidget() {
           className="z-50 w-80 rounded-lg border border-border bg-popover text-popover-foreground
                      shadow-xl animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2"
           sideOffset={12}
-          align="end"
+          align="start"
           side="top"
         >
           {submitted ? (
