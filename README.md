@@ -22,12 +22,12 @@
 | | Question | Answer |
 |---|----------|--------|
 | **Why** | Why does this exist? | Most AI agent resources are scattered blog posts or vendor docs. Open Agent School brings concepts, patterns, and production practices into one interactive platform — so you learn the *why* behind each pattern, not just the API call. |
-| **What** | What does it cover? | 65+ agent patterns, 200+ quiz questions, interactive D3 visualizations, Socratic study mode, critical thinking challenges, exportable diagrams (SVG/PNG/PDF), and downloadable strategy toolkits — from fundamentals to production ops. |
+| **What** | What does it cover? | 65+ agent patterns, 200+ quiz questions, **Duolingo-style micro-learning capsules**, an AI-powered **ConceptSphere** for just-in-time knowledge, interactive D3 visualizations, Socratic study mode, critical thinking challenges, exportable diagrams (SVG/PNG/PDF), and downloadable strategy toolkits — from fundamentals to production ops. |
 | **Where** | Where does it run? | **Web** — live at [openagentschool.org](https://openagentschool.org). **PWA** — install on mobile or desktop for offline access. **Local dev** — clone the repo and `npm run dev` on localhost:5000. |
-| **When** | When should I use it? | When you're learning AI agents for the first time, evaluating patterns for a production system, preparing for a technical interview, or onboarding a team to agentic architecture — from first concept to org-wide adoption. |
+| **When** | When should I use it? | When you're learning AI agents for the first time, need a quick 10-minute daily learning habit, want just-in-time answers grounded in live web search, evaluating patterns for a production system, preparing for a technical interview, or onboarding a team to agentic architecture — from first concept to org-wide adoption. |
 | **Who** | Who is it for? | Developers building AI agents, architects designing multi-agent systems, product managers evaluating agentic capabilities, and teams adopting AI — from individual learners to enterprise adoption programs. |
 | **How** | How is it built? | React 18 + TypeScript + Vite frontend with TailwindCSS and Radix UI. Optional Python FastAPI backend for study sessions and AI-powered assessments. Deployed on Azure Static Web Apps with GitHub Actions CI/CD. |
-| **Best For** | What's the sweet spot? | Engineers who learn by doing — interactive visualizations, hands-on scenarios, and Socratic questioning beat passive reading. Also ideal for teams using the [Adoption Playbook](https://openagentschool.org) to drive org-wide AI transformation. |
+| **Best For** | What's the sweet spot? | Engineers who learn by doing — micro-learning capsules for daily momentum, ConceptSphere for instant deep-dives, interactive visualizations, hands-on scenarios, and Socratic questioning beat passive reading. Also ideal for teams using the [Adoption Playbook](https://openagentschool.org) to drive org-wide AI transformation. |
 | **Keys?** | Do I need API keys? | **No keys required to learn.** The entire platform works without any API keys. When you're ready for AI-powered features (study assessments, voice narration, cloud speech), bring your own keys — they stay in your browser's localStorage and never leave your device. |
 
 ---
@@ -82,6 +82,34 @@ Open Agent School is a **comprehensive educational platform** designed to help d
 
 Access settings from **Tools → API Settings** in the navigation menu or through the ⚙ gear icon in the top bar.
 
+### 🧠 Micro-Learning — Master AI Agents in 10 Minutes a Day
+
+> **The fastest way to build lasting AI agent expertise.** No hour-long lectures. No endless documentation. Just focused, adaptive capsules designed around how your brain actually learns.
+
+Open Agent School's micro-learning system breaks the entire AI agent curriculum into **bite-sized daily capsules** — each one a focused learning moment you can complete in a coffee break.
+
+- **Six Learning Tracks** — Foundations → Architecture → Protocols → Production → Advanced → Applied. Pick where you are; the system meets you there.
+- **5-Stage Capsules** — Every topic follows **Learn → Quiz → Apply → Reflect → Expand** — the same progression elite bootcamps use, compressed into minutes.
+- **Adaptive Difficulty** — Questions get harder as you improve, easier when you struggle. No wasted time on what you already know.
+- **Spaced Repetition** — Scientifically-proven scheduling resurfaces concepts right before you'd forget them. Knowledge that sticks for months, not hours.
+- **Daily Streaks & XP** — Gamification that actually works. Build a learning habit with streaks, levels, and mastery badges.
+
+### 🌐 ConceptSphere — Your AI-Powered Just-In-Time Knowledge Engine
+
+> **Ask anything about AI agents and get an expert answer in seconds** — grounded in live web search, tailored to your learning level.
+
+ConceptSphere is the on-demand knowledge layer that fills the gap between structured courses and real-world questions.
+
+- **8 Ways to Explore Any Topic** — Explain it simply, quiz yourself, expand into adjacent ideas, spark a debate, get the latest research, learn through analogies, see working code, or ask anything custom.
+- **Live Web Search Grounding** — Answers aren't just generated — they're anchored in real-time search results from the open web. No stale training data; always current.
+- **13 Search Providers** — Tavily, Exa, You.com, Brave, Google, Bing, SerpAPI, Kagi, Mojeek, Yandex, Baidu, Naver, and self-hosted SearXNG. Pick the engine you trust.
+- **Works With Your LLM** — Bring any provider (OpenAI, Anthropic, Gemini, Ollama, DeepSeek, Mistral…). Your keys, your model, your data stays local.
+- **Instant & Cached** — First answers in seconds; smart caching keeps follow-ups instant.
+
+Micro-Learning and ConceptSphere work together: structured daily capsules build your foundation, and ConceptSphere fills in the gaps the moment a question strikes — **just-in-time learning at its best.**
+
+**Try it:** [openagentschool.org/micro-learning](https://openagentschool.org/micro-learning)
+
 ###  Interactive Learning Experience
 
 - **59 Core Concepts** across fundamentals, architecture, production, and advanced topics
@@ -128,9 +156,11 @@ Access settings from **Tools → API Settings** in the navigation menu or throug
 ### For Learners
 
 1. **Visit**: [openagentschool.org](https://openagentschool.org)
-2. **Explore**: Browse Core Concepts or Agent Patterns
-3. **Learn**: Use Study Mode for guided discovery
-4. **Practice**: Try interactive scenarios and quizzes
+2. **Start Micro-Learning**: Head to [/micro-learning](https://openagentschool.org/micro-learning) for daily 10-minute capsules
+3. **Ask ConceptSphere**: Use the AI-powered knowledge engine for instant just-in-time answers
+4. **Explore**: Browse Core Concepts or Agent Patterns
+5. **Learn**: Use Study Mode for guided discovery
+6. **Practice**: Try interactive scenarios and quizzes
 
 ### For Developers
 
@@ -190,6 +220,26 @@ Then in the app: **Tools → API Settings → Custom / International / Local** �
 - **[Backend Quick Reference](./BACKEND_QUICK_REF.md)** - Microservices setup and API reference
 - **[Agent Guide](./AGENTS.md)** - Guide for AI coding agents contributing to the project
 - **[Architecture Overview](./docs/backend/ARCHITECTURE_OVERVIEW.md)** - System design and service dependencies
+
+---
+
+## 🚀 Recent Updates (March 2, 2026)
+
+### 🧠 Micro-Learning & ConceptSphere — Just-In-Time AI Agent Education
+
+A complete **Duolingo-style micro-learning system** for mastering AI agents in daily 10-minute sessions, plus **ConceptSphere** — an AI-powered just-in-time knowledge engine that answers any question about AI agents with live web-grounded responses.
+
+| Feature | What It Does |
+|---------|-------------|
+| **6 Learning Tracks** | Foundations, Architecture, Protocols, Production, Advanced, Applied — 30+ capsules across the full curriculum |
+| **5-Stage Capsules** | Learn → Quiz → Apply → Reflect → Expand for each topic |
+| **Adaptive Engine** | Difficulty adjusts per learner — harder when you're ready, supportive when you're not |
+| **Spaced Repetition** | SM-2 algorithm schedules reviews for long-term retention |
+| **ConceptSphere** | 8 exploration modes (Explain, Quiz, Expand, Debate, Latest, Analogy, Code, Custom) |
+| **Search-Augmented Generation** | Live web search from 13 providers grounds every answer in current information |
+| **Gamification** | XP, daily streaks, level-ups, and mastery badges |
+
+**Try it:** [openagentschool.org/micro-learning](https://openagentschool.org/micro-learning)
 
 ---
 
@@ -429,6 +479,14 @@ The top navigation uses a **four-category mega-menu** that mirrors the learning 
 4. Activation Plan (first 90 days)
 5. Study Mode: Adoption Strategy challenges
 
+### 🧠 **Micro-Learning Path** (New — 10 min/day)
+1. Pick a track: Foundations, Architecture, Protocols, Production, Advanced, or Applied
+2. Complete daily capsules: Learn → Quiz → Apply → Reflect → Expand
+3. Let spaced repetition schedule your reviews automatically
+4. Use ConceptSphere for instant deep-dives on any question that comes up
+5. Build streaks, earn XP, and level up across all tracks
+6. Graduate to Study Mode or Project Tracks when you're ready for longer sessions
+
 ### 🔬 **Hands-On Builder Path** (New)
 1. Phase 1 Lab → Learning Copilot (get personalized weekly plan)
 2. Project Tracks → Pick a capstone (Support Bot, RAG Tutor, or Commerce Agent)
@@ -464,7 +522,9 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 - **11 Cloud Speech Services** (5 STT + 6 TTS) alongside free browser-native options
 - **29 Languages** for audio narration with auto-translation
 - **17 Visual Themes** — 12 dark + 5 light with View Transitions API sweep animation
-- **5 Learning Modes** (Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)
+- **6 Micro-Learning Tracks** with 30+ bite-sized capsules, adaptive difficulty, and spaced repetition
+- **ConceptSphere JIT Engine** — 8 exploration modes with search-augmented generation across 13 web search providers
+- **6 Learning Modes** (Micro-Learning, Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)
 - **10 New Feature Pages** behind auth + feature flags (Phase 1 Lab, Analytics, Project Tracks, Pair Programming, Skill Passport, Cohorts, Safety Lab, Sandbox)
 
 ---
