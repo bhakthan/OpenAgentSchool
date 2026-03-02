@@ -102,7 +102,25 @@ Concept-Context-Engineering: https://www.openagentschool.org/concepts/context-en
 # Self-baking patterns, proactive inference, KV caching, context isolation
 # Based on "Context Engineering 2.0" (arxiv:2510.26493)
 Infographic-Context-Engineering: https://www.openagentschool.org/images/Context_Engineering_2.webp
-
+# Micro-Learning & Just-In-Time (JIT) Learning (February 2026)
+Micro-Learning: https://www.openagentschool.org/micro-learning
+# Duolingo-style bite-sized AI agent education — master any concept in 10 minutes/day
+# Six learning tracks: Foundations, Architecture, Protocols, Production, Advanced, Applied
+# Each track contains 5-stage capsules: Learn → Quiz → Apply → Reflect → Expand
+# Adaptive difficulty engine adjusts question complexity per learner performance
+# Spaced repetition (SM-2 algorithm) for long-term knowledge retention
+# XP/streak/level gamification drives daily engagement
+#
+# ConceptSphere — AI-Powered Just-In-Time Knowledge Engine
+# On-demand LLM-generated micro-lessons via 8 exploration modes:
+#   Explain, Quiz, Expand, Debate, Latest, Analogy, Code, Custom
+# Search-Augmented Generation (SAG) pipeline for real-time web grounding:
+#   Modes 'Latest', 'Expand', 'Custom' inject live web search context before LLM generation
+#   13 BYOK search providers: Tavily, Exa, You.com, Brave, Google CSE, Bing, SerpAPI,
+#     Kagi, Mojeek, Yandex, Baidu, Naver, SearXNG (self-hosted)
+#   All keys stored in browser localStorage — never transmitted to any server
+# Intelligent caching: 1h search-augmented, 4h non-search latest, 24h other modes
+# Works with any BYOK LLM provider (OpenAI, Anthropic, Gemini, Ollama, DeepSeek, etc.)
 # Tri-System Paradigm & Cognitive Ecology (February 2026)
 Concept-Tri-System-Paradigm: https://www.openagentschool.org/concepts/tri-system-paradigm
 # Beyond Kahneman's Dual-Process: the Triadic Cognitive Ecology (System 1 / System 2 / System 3)
@@ -133,6 +151,7 @@ Pattern-Verifier-Agent: https://www.openagentschool.org/patterns/verifier-agent
 # Learning Resources
 Agents-For-Science: https://www.openagentschool.org/agents-for-science
 Study-Mode: https://www.openagentschool.org/study-mode
+Micro-Learning: https://www.openagentschool.org/micro-learning
 Patterns: https://www.openagentschool.org/patterns
 AI-Skills: https://www.openagentschool.org/ai-skills
 Playbook: https://www.openagentschool.org/playbook

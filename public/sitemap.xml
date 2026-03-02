@@ -21,6 +21,14 @@
         <priority>0.7</priority>
     </url>
 
+    <!-- Micro-Learning / Just-In-Time Learning / ConceptSphere (February 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/micro-learning</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
     <!-- Core Concepts Section -->
     <url>
         <loc>https://www.openagentschool.org/concepts/</loc>

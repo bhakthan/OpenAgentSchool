@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { trackEvent } from '@/lib/analytics/ga';
 import { useUserSettings } from '@/contexts/UserSettingsContext';
+import { useAuth } from '@/lib/auth/AuthContext';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -109,6 +110,7 @@ interface APISettingsFormProps {
 
 export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = false, onSaved }) => {
   const { settings, updateSettings, clearSettings, exportJSON, importJSON, isCustom } = useUserSettings();
+  const { isAuthenticated } = useAuth();
 
   // Local draft so we can edit without saving on every keystroke
   const [draft, setDraft] = useState<UserSettings>(() => structuredClone(settings));
@@ -540,6 +542,20 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
         </Accordion>
       )}
 
+      {/* ─── Advanced features (auth-gated: STT, TTS, Web Search) ─── */}
+      {!isAuthenticated ? (
+        <div className="rounded-lg border border-dashed border-muted-foreground/30 bg-muted/30 p-4 text-center space-y-2">
+          <div className="flex items-center justify-center gap-2 text-muted-foreground">
+            <Lock size={16} weight="duotone" />
+            <p className="text-xs font-medium">Sign in to configure Speech &amp; Web Search</p>
+          </div>
+          <p className="text-[11px] text-muted-foreground leading-relaxed max-w-md mx-auto">
+            Speech-to-text, text-to-speech, and web search provider settings are available after you sign in.
+            LLM provider keys above work without an account.
+          </p>
+        </div>
+      ) : (
+      <>
       {/* ─── STT Preference ─── */}
       <div className="space-y-3">
         <div className="flex items-center gap-2">
@@ -1114,6 +1130,8 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
           );
         })}
       </div>
+      </>
+      )}
 
       {/* ─── Legal Disclaimer ─── */}
       <div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-950/30 p-3 space-y-2">

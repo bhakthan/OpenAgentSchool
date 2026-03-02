@@ -25,6 +25,10 @@ Disallow: /private/
 Disallow: /*.json$
 Disallow: /*.config.js$
 
+# Micro-Learning & ConceptSphere (JIT Learning) — fully crawlable
+# /micro-learning serves bite-sized AI capsules with search-augmented generation
+Allow: /micro-learning
+
 # Sitemap & AI context files
 Sitemap: https://www.openagentschool.org/sitemap.xml
 # llms.txt: https://www.openagentschool.org/llms.txt
