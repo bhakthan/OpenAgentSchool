@@ -37,6 +37,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   'educational-patterns': '#eab308', // Yellow - Educational
   'operating-model': '#64748b',  // Slate - Operating
   'hands-on-practice': '#f43f5e', // Rose - Hands-On Practice
+  'micro-learning': '#06d6a0',    // Mint - Micro-Learning
 };
 
 // Build the complete taxonomy data
@@ -250,6 +251,20 @@ function buildAtlasData(): AtlasNode {
           { id: 'agent-fundamentals-quiz', name: 'Agent Fundamentals', type: 'quiz', path: '/quiz?category=fundamentals' },
           { id: 'security-quiz', name: 'Security & Ethics', type: 'quiz', path: '/quiz?category=security' },
           { id: 'multi-agent-quiz', name: 'Multi-Agent Systems', type: 'quiz', path: '/quiz?category=multi-agent' },
+        ]
+      },
+      {
+        id: 'micro-learning',
+        name: 'Micro-Learning Tracks',
+        type: 'category',
+        children: [
+          { id: 'ml-zero-to-agent', name: 'Zero to Agent', type: 'concept', novel: true, path: '/micro-learning/zero-to-agent' },
+          { id: 'ml-prompt-engineering', name: 'Prompt Engineering', type: 'concept', novel: true, path: '/micro-learning/prompt-engineering-mastery' },
+          { id: 'ml-secure-govern', name: 'Secure & Govern', type: 'concept', novel: true, path: '/micro-learning/secure-and-govern' },
+          { id: 'ml-multi-agent', name: 'Multi-Agent Architect', type: 'concept', novel: true, path: '/micro-learning/multi-agent-architect' },
+          { id: 'ml-deploy-operate', name: 'Deploy & Operate', type: 'concept', novel: true, path: '/micro-learning/deploy-and-operate' },
+          { id: 'ml-product-leader', name: 'AI Product Leader', type: 'concept', novel: true, path: '/micro-learning/ai-product-leader' },
+          { id: 'ml-edge-frontier', name: 'Edge & Frontier', type: 'concept', novel: true, path: '/micro-learning/edge-and-frontier' },
         ]
       },
       {

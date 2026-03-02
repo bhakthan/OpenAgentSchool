@@ -9,8 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Lock, Eye, EyeSlash, Download, Upload, Trash, FloppyDisk, ShieldCheck, Lightbulb, Rocket, Key, NumberCircleOne, NumberCircleTwo, NumberCircleThree, NumberCircleFour, Microphone, SpeakerHigh, Scales, Warning } from '@phosphor-icons/react';
-import type { ProviderConfig, UserSettings, SttPreference, TtsPreference, SpeechServiceConfig } from '@/lib/userSettings';
-import { GlobeHemisphereWest } from '@phosphor-icons/react';
+import type { ProviderConfig, UserSettings, SttPreference, TtsPreference, SpeechServiceConfig, SearchServiceConfig } from '@/lib/userSettings';
+import { GlobeHemisphereWest, MagnifyingGlass } from '@phosphor-icons/react';
 
 // Well-known OpenAI-compatible providers (presets)
 const CUSTOM_PRESETS = [
@@ -95,6 +95,11 @@ const PROVIDERS = [
 
 type ProviderId = (typeof PROVIDERS)[number]['id'];
 
+// ─── Search Provider metadata ────────────────────────────────────────────────
+import { SEARCH_PROVIDERS, type SearchProviderId as _SPId } from '@/lib/search/searchProviders';
+
+type SearchProviderId = _SPId;
+
 interface APISettingsFormProps {
   /** Compact mode hides some sections for the Sheet view */
   compact?: boolean;
@@ -147,6 +152,19 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
     }));
   }, []);
 
+  const setSearchServiceField = useCallback((provider: SearchProviderId, field: keyof SearchServiceConfig, value: string) => {
+    setDraft(prev => ({
+      ...prev,
+      searchServices: {
+        ...prev.searchServices,
+        [provider]: {
+          ...(prev.searchServices?.[provider] ?? {}),
+          [field]: value || undefined,
+        },
+      },
+    }));
+  }, []);
+
   // --- actions ---
   const handleSave = () => {
     trackEvent({ action: 'save_settings', category: 'settings', label: 'api_settings' });
@@ -162,6 +180,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
       sttPreference: 'auto',
       ttsPreference: 'browser',
       speechServices: {},
+      searchServices: {},
       learningProfile: { role: 'learner', level: 'intermediate', lenses: [] },
     };
     setDraft(fresh);
@@ -985,6 +1004,117 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
         )}
       </div>
 
+      {/* ─── Web Search (Search-Augmented Generation) ─── */}
+      <div className="space-y-3 rounded-lg border border-border p-4 bg-muted/20">
+        <div className="flex items-center gap-2">
+          <MagnifyingGlass size={18} className="text-blue-600 dark:text-blue-400" weight="bold" />
+          <h3 className="text-sm font-semibold">Web Search (Search-Augmented Generation)</h3>
+        </div>
+        <p className="text-[11px] text-muted-foreground leading-relaxed">
+          Enable real-time web search for <strong>ConceptSphere</strong>'s "What's new?", "Expand my
+          understanding", and custom modes. Search results are injected as grounding context into the
+          LLM prompt for factual, up-to-date answers.
+        </p>
+
+        {/* Preferred search provider */}
+        <div className="space-y-1">
+          <Label className="text-xs font-medium">Preferred Search Provider</Label>
+          <Select
+            value={draft.preferredSearchProvider ?? '__auto__'}
+            onValueChange={v => setDraft(prev => ({ ...prev, preferredSearchProvider: v === '__auto__' ? undefined : v }))}
+          >
+            <SelectTrigger className="text-xs h-8 w-64">
+              <SelectValue placeholder="Auto-detect (first configured)" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="__auto__" className="text-xs">Auto-detect</SelectItem>
+              {SEARCH_PROVIDERS.map(sp => (
+                <SelectItem key={sp.id} value={sp.id} className="text-xs">
+                  {sp.region} {sp.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <p className="text-[10px] text-muted-foreground">If not set, the first configured provider is used.</p>
+        </div>
+
+        {/* Grouped provider accordions */}
+        {(['AI-Native', 'Global', 'Premium', 'Regional', 'Self-Hosted'] as const).map(section => {
+          const providers = SEARCH_PROVIDERS.filter(p => p.section === section);
+          if (providers.length === 0) return null;
+          return (
+            <div key={section} className="space-y-1">
+              <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider pt-2">
+                {section === 'AI-Native' ? '🤖 AI-Native' : section === 'Global' ? '🌐 Global' : section === 'Premium' ? '🔒 Premium / Privacy' : section === 'Regional' ? '🌏 Regional' : '💻 Self-Hosted'}
+              </p>
+              <Accordion type="multiple" className="space-y-1">
+                {providers.map(sp => {
+                  const cfg = draft.searchServices?.[sp.id];
+                  const hasKey = !!(cfg?.apiKey);
+                  const hasExtra = sp.extraFields?.every(f => !!(cfg as Record<string, unknown>)?.[f.id]);
+                  const isReady = sp.keyRequired === false ? !!cfg?.searchEngineId : (hasKey && (sp.extraFields ? hasExtra : true));
+                  return (
+                    <AccordionItem key={sp.id} value={sp.id} className="border rounded-md px-3">
+                      <AccordionTrigger className="py-2 text-xs hover:no-underline">
+                        <span className="flex items-center gap-2">
+                          {sp.region} {sp.label}
+                          {isReady && <span className="h-1.5 w-1.5 rounded-full bg-green-500 inline-block" />}
+                          <span className="text-[10px] text-muted-foreground font-normal ml-1">{sp.freeTier}</span>
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-3 space-y-2">
+                        <p className="text-[11px] text-muted-foreground">{sp.hint}</p>
+                        <a href={sp.signupUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] text-blue-600 dark:text-blue-400 underline">
+                          Get a key →
+                        </a>
+
+                        {/* API Key (skip if keyRequired=false) */}
+                        {sp.keyRequired !== false && (
+                          <div className="space-y-1">
+                            <Label className="text-xs">API Key</Label>
+                            <div className="flex gap-1">
+                              <Input
+                                type={showKeys[`search-${sp.id}`] ? 'text' : 'password'}
+                                placeholder={sp.keyPlaceholder}
+                                value={cfg?.apiKey ?? ''}
+                                onChange={e => setSearchServiceField(sp.id as SearchProviderId, 'apiKey', e.target.value)}
+                                className="text-xs font-mono flex-1"
+                              />
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className="px-2"
+                                onClick={() => toggleKeyVisibility(`search-${sp.id}`)}
+                              >
+                                {showKeys[`search-${sp.id}`] ? <EyeSlash size={14} /> : <Eye size={14} />}
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Extra fields (searchEngineId / instance URL / client secret) */}
+                        {sp.extraFields?.map(ef => (
+                          <div key={ef.id} className="space-y-1">
+                            <Label className="text-xs">{ef.label}</Label>
+                            <Input
+                              placeholder={ef.placeholder}
+                              value={(cfg as Record<string, string | undefined>)?.[ef.id] ?? ''}
+                              onChange={e => setSearchServiceField(sp.id as SearchProviderId, ef.id as keyof SearchServiceConfig, e.target.value)}
+                              className="text-xs font-mono"
+                            />
+                          </div>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+            </div>
+          );
+        })}
+      </div>
+
       {/* ─── Legal Disclaimer ─── */}
       <div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-950/30 p-3 space-y-2">
         <div className="flex items-center gap-2">
@@ -997,7 +1127,8 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
             incurred through the third-party APIs you configure here (OpenAI, Azure, Google, Anthropic,
             HuggingFace, OpenRouter, DeepSeek, Mistral, Zhipu AI, Moonshot, Sarvam AI, ElevenLabs, Deepgram,
             AWS (Transcribe, Polly), Google Cloud (Speech-to-Text, Text-to-Speech),
-            and any custom/international provider).
+            Tavily, Brave Search, Exa, You.com, Kagi, Mojeek, Bing, SerpAPI,
+            Yandex, Baidu, Naver, SearXNG, and any custom/international provider).
           </li>
           <li>
             <strong>No warranty.</strong> Open Agent School provides no warranty regarding the availability,

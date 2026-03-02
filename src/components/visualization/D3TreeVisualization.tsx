@@ -297,6 +297,20 @@ export default function D3TreeVisualization({
           ]
         },
         {
+          id: 'micro-learning',
+          name: 'Micro-Learning Tracks',
+          type: 'category' as const,
+          children: collapsedNodes.has('micro-learning') ? [] : [
+            { id: 'ml-zero-to-agent', name: 'Zero to Agent', type: 'concept' as const, novel: true },
+            { id: 'ml-prompt-engineering-mastery', name: 'Prompt Engineering Mastery', type: 'concept' as const, novel: true },
+            { id: 'ml-secure-and-govern', name: 'Secure & Govern', type: 'concept' as const, novel: true },
+            { id: 'ml-multi-agent-architect', name: 'Multi-Agent Architect', type: 'concept' as const, novel: true },
+            { id: 'ml-deploy-and-operate', name: 'Deploy & Operate', type: 'concept' as const, novel: true },
+            { id: 'ml-ai-product-leader', name: 'AI Product Leader', type: 'concept' as const, novel: true },
+            { id: 'ml-edge-and-frontier', name: 'Edge & Frontier', type: 'concept' as const, novel: true },
+          ]
+        },
+        {
           id: 'hands-on-practice',
           name: 'Hands-On Practice (Login Required)',
           type: 'category' as const,

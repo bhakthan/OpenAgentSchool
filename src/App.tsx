@@ -114,6 +114,7 @@ const SandboxPage = lazy(() => import('./pages/SandboxPage'));
 const PricingPage = lazy(() => import('./pages/PricingPage'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const NotificationsPage = lazy(() => import('./pages/NotificationsPage'));
+const MicroLearningPage = lazy(() => import('./pages/MicroLearningPage'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -127,6 +128,7 @@ import { EffectivePolicyProvider } from './contexts/EffectivePolicyContext';
 import { SettingsSheet } from './components/settings/SettingsSheet';
 import { Gear } from '@phosphor-icons/react/dist/ssr/Gear';
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr/MagnifyingGlass';
+import { BookOpenText } from '@phosphor-icons/react/dist/ssr/BookOpenText';
 import { QuickNav, useQuickNav } from './components/search/QuickNav';
 
 // Lazy-load voice FAB so the Whisper WASM path never enters the main bundle
@@ -233,6 +235,11 @@ function App() {
       registerBackgroundSync().catch(error => {
         console.warn('Background sync registration failed:', error);
       });
+    });
+
+    // Register micro-learning background sync
+    import('@/lib/sync/microLearningSync').then(({ registerMicroLearningSync }) => {
+      registerMicroLearningSync();
     });
     
     // Apply global ReactFlow optimizations
@@ -535,6 +542,7 @@ function App() {
                     color: 'from-blue-500 to-cyan-500',
                     hoverBg: 'hover:bg-blue-500/10 dark:hover:bg-blue-400/10',
                     items: [
+                      { to: '/micro-learning', label: 'Micro-Learning', icon: <BookOpenText size={16} weight="duotone" />, description: 'Bite-sized AI agent mastery — 10 min/day', isNew: true },
                       { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} />, description: 'Foundational AI agent concepts', isNew: false },
                       { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" />, description: 'Reusable design patterns', isNew: false },
                       { to: '/value-map', label: 'Skills Universe', icon: <SparklesIcon className="w-4 h-4" />, description: 'Discover what you\'ll master', isNew: false },
@@ -821,6 +829,7 @@ function App() {
                   <Route path="/cta" element={<CTALandingPage />} />
                   <Route path="/about" element={<AboutPage />} />
                   <Route path="/terms" element={<TermsOfUsePage />} />
+                  <Route path="/micro-learning/:trackId?" element={<AuthGuard><MicroLearningPage /></AuthGuard>} />
                   <Route path="/pricing" element={<PricingPage />} />
                   <Route path="/onboarding" element={<AuthGuard><OnboardingPage /></AuthGuard>} />
                   <Route path="/notifications" element={<AuthGuard><NotificationsPage /></AuthGuard>} />

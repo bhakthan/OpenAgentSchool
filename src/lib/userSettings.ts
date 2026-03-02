@@ -38,6 +38,12 @@ export interface SpeechServiceConfig {
   voiceId?: string;  // TTS voice identifier
 }
 
+export interface SearchServiceConfig {
+  apiKey?: string;
+  /** Extra identifier (e.g. Google Custom Search Engine ID, Naver Client Secret, SearXNG instance URL) */
+  searchEngineId?: string;
+}
+
 export interface LearningProfile {
   role: LearningRole;
   level: LearningLevel;
@@ -86,6 +92,29 @@ export interface UserSettings {
     /** AWS Speech (Transcribe STT + Polly TTS) */
     awsSpeech?: SpeechServiceConfig;
   };
+  /** Web search provider credentials for Search-Augmented Generation (ConceptSphere) */
+  searchServices: {
+    // AI-native
+    tavily?: SearchServiceConfig;
+    exa?: SearchServiceConfig;
+    you?: SearchServiceConfig;
+    // Global
+    brave?: SearchServiceConfig;
+    google?: SearchServiceConfig;
+    bing?: SearchServiceConfig;
+    serpapi?: SearchServiceConfig;
+    // Premium / privacy
+    kagi?: SearchServiceConfig;
+    mojeek?: SearchServiceConfig;
+    // Regional
+    yandex?: SearchServiceConfig;
+    baidu?: SearchServiceConfig;
+    naver?: SearchServiceConfig;
+    // Self-hosted
+    searxng?: SearchServiceConfig;
+  };
+  /** Which search provider the learner prefers (auto-detect if not set) */
+  preferredSearchProvider?: string;
   /** Personalization dial for learning depth + audience lens composition */
   learningProfile: LearningProfile;
 }
@@ -99,6 +128,8 @@ const DEFAULT_SETTINGS: UserSettings = {
   sttPreference: 'auto',
   ttsPreference: 'browser',
   speechServices: {},
+  searchServices: {},
+  preferredSearchProvider: undefined,
   learningProfile: { role: 'learner', level: 'intermediate', lenses: [] },
 };
 
@@ -145,6 +176,7 @@ export function loadSettings(): UserSettings {
       providers: { ...DEFAULT_SETTINGS.providers, ...parsed.providers },
       backends: { ...DEFAULT_SETTINGS.backends, ...parsed.backends },
       speechServices: { ...DEFAULT_SETTINGS.speechServices, ...parsed.speechServices },
+      searchServices: { ...DEFAULT_SETTINGS.searchServices, ...parsed.searchServices },
       learningProfile: { ...DEFAULT_SETTINGS.learningProfile, ...parsed.learningProfile },
     };
   } catch {
@@ -212,6 +244,7 @@ export function importSettingsJSON(json: string): UserSettings {
     providers: { ...current.providers, ...imported.providers },
     backends: { ...current.backends, ...imported.backends },
     speechServices: { ...current.speechServices, ...imported.speechServices },
+    searchServices: { ...current.searchServices, ...imported.searchServices },
     sttPreference: imported.sttPreference ?? current.sttPreference,
     ttsPreference: imported.ttsPreference ?? current.ttsPreference,
     learningProfile: { ...current.learningProfile, ...imported.learningProfile },

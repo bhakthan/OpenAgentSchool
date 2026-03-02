@@ -106,6 +106,20 @@
     color: #fff;
   }
 
+  /* Reset forced white text for opacity-variant primary backgrounds
+     (e.g. bg-primary/5, bg-primary/10, bg-primary/20) which have light tinted
+     backgrounds that need dark foreground text in light mode. The "/" in the
+     class name indicates a Tailwind opacity modifier. */
+  button[class*="bg-primary/"],
+  [data-slot="button"][class*="bg-primary/"],
+  a[class*="bg-primary/"],
+  button[class*="bg-emerald-500/"],
+  button[class*="bg-violet-500/"],
+  button[class*="bg-amber-500/"],
+  button[class*="bg-rose-500/"] {
+    color: var(--foreground);
+  }
+
   .site-typography-flat-ui [class*="bg-primary"],
   .site-typography-flat-ui [class*="bg-blue-6"],
   .site-typography-flat-ui [class*="bg-indigo-6"],
