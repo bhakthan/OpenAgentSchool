@@ -74,6 +74,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseTr
           </Button>
         </div>
 
+        {/* Blog link */}
+        <p className="mt-6 text-sm text-muted-foreground">
+          Curious why this works?{' '}
+          <a href="/blog/the-10-minute-edge" className="text-primary font-medium hover:underline">Read the science behind micro-learning →</a>
+        </p>
+
         {/* Micro proof signals */}
         <div className="flex flex-wrap justify-center gap-6 mt-10 text-sm text-muted-foreground">
           {[

@@ -115,6 +115,8 @@ const PricingPage = lazy(() => import('./pages/PricingPage'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const NotificationsPage = lazy(() => import('./pages/NotificationsPage'));
 const MicroLearningPage = lazy(() => import('./pages/MicroLearningPage'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -830,6 +832,8 @@ function App() {
                   <Route path="/about" element={<AboutPage />} />
                   <Route path="/terms" element={<TermsOfUsePage />} />
                   <Route path="/micro-learning/:trackId?" element={<AuthGuard><MicroLearningPage /></AuthGuard>} />
+                  <Route path="/blog" element={<BlogPage />} />
+                  <Route path="/blog/:slug" element={<BlogPostPage />} />
                   <Route path="/pricing" element={<PricingPage />} />
                   <Route path="/onboarding" element={<AuthGuard><OnboardingPage /></AuthGuard>} />
                   <Route path="/notifications" element={<AuthGuard><NotificationsPage /></AuthGuard>} />

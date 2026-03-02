@@ -53,6 +53,8 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { PWAAnalyticsTab } from '@/components/admin/PWAAnalyticsTab';
 import { FeedbackTab } from '@/components/admin/FeedbackTab';
+import { BlogManagementTab } from '@/components/admin/BlogManagementTab';
+import { PencilSimple } from '@phosphor-icons/react';
 
 // ── Stats card component ─────────────────────────────────────────────────
 
@@ -691,6 +693,9 @@ const AdminPage: React.FC = () => {
           <TabsTrigger value="feedback" className="gap-2">
             <ChatDots className="w-4 h-4" /> Feedback
           </TabsTrigger>
+          <TabsTrigger value="blog" className="gap-2">
+            <PencilSimple className="w-4 h-4" /> Blog
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="users">
@@ -719,6 +724,10 @@ const AdminPage: React.FC = () => {
 
         <TabsContent value="feedback">
           <FeedbackTab />
+        </TabsContent>
+
+        <TabsContent value="blog">
+          <BlogManagementTab />
         </TabsContent>
       </Tabs>
     </div>
