@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -10,6 +10,7 @@ import {
   CAPSULES_BY_TRACK,
 } from '@/lib/data/microLearning';
 import type { CapsuleType } from '@/lib/data/microLearning';
+import { saveMicroLearningReturnSession } from '@/lib/hooks/useMicroLearningReturn';
 import { ConceptSphere } from './ConceptSphere';
 
 interface CapsuleViewProps {
@@ -44,6 +45,27 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
   const capsule = getCapsuleById(capsuleId);
   const [completed, setCompleted] = useState(() => isCapsuleCompleted(capsuleId));
   const [showSphere, setShowSphere] = useState(false);
+
+  /** Build an outbound link path with micro-learning return context params. */
+  const withReturnContext = useCallback(
+    (basePath: string) => {
+      const separator = basePath.includes('?') ? '&' : '?';
+      return `${basePath}${separator}from=micro&track=${encodeURIComponent(trackId)}&capsule=${encodeURIComponent(capsuleId)}`;
+    },
+    [trackId, capsuleId],
+  );
+
+  /** Save return session to sessionStorage before navigating away. */
+  const saveReturnSession = useCallback(() => {
+    if (!capsule) return;
+    saveMicroLearningReturnSession({
+      trackId,
+      capsuleId,
+      capsuleType: capsule.type,
+      capsuleTitle: capsule.title,
+      timestamp: Date.now(),
+    });
+  }, [trackId, capsuleId, capsule]);
 
   const handleMarkComplete = useCallback(() => {
     if (completed) return;
@@ -108,7 +130,8 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
                 </p>
               </div>
               <Link
-                to={`/concepts/${capsule.conceptId}`}
+                to={withReturnContext(`/concepts/${capsule.conceptId}`)}
+                onClick={saveReturnSession}
                 className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
               >
                 📖 Open Concept Page →
@@ -126,14 +149,16 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
               </div>
               {capsule.patternId ? (
                 <Link
-                  to={`/patterns/${capsule.patternId}`}
+                  to={withReturnContext(`/patterns/${capsule.patternId}`)}
+                  onClick={saveReturnSession}
                   className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
                 >
                   👁️ View Pattern Diagram →
                 </Link>
               ) : (
                 <Link
-                  to={`/concepts/${capsule.conceptId}`}
+                  to={withReturnContext(`/concepts/${capsule.conceptId}`)}
+                  onClick={saveReturnSession}
                   className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
                 >
                   👁️ View Concept Diagram →
@@ -151,7 +176,8 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
                 </p>
               </div>
               <Link
-                to={`/quiz/${capsule.quizCategoryId ?? capsule.conceptId}`}
+                to={withReturnContext(`/quiz/${capsule.quizCategoryId ?? capsule.conceptId}`)}
+                onClick={saveReturnSession}
                 className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
               >
                 ✅ Take the Quiz →
@@ -168,7 +194,8 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
                 </p>
               </div>
               <Link
-                to={`/study-mode?concept=${capsule.conceptId}`}
+                to={withReturnContext(`/study-mode?concept=${capsule.conceptId}`)}
+                onClick={saveReturnSession}
                 className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
               >
                 🧠 Enter Study Mode →
@@ -186,7 +213,8 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
               </div>
               {capsule.patternId && (
                 <Link
-                  to={`/patterns/${capsule.patternId}`}
+                  to={withReturnContext(`/patterns/${capsule.patternId}`)}
+                  onClick={saveReturnSession}
                   className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
                 >
                   🔗 Explore {capsule.patternId.replace(/-/g, ' ')} Pattern →

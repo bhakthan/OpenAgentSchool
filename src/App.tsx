@@ -115,6 +115,7 @@ const PricingPage = lazy(() => import('./pages/PricingPage'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const NotificationsPage = lazy(() => import('./pages/NotificationsPage'));
 const MicroLearningPage = lazy(() => import('./pages/MicroLearningPage'));
+const MicroLearningReturnBanner = lazy(() => import('./components/micro-learning/MicroLearningReturnBanner'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
@@ -776,6 +777,10 @@ function App() {
           )}
           
           <main id="main-content" className="flex-1 container mx-auto px-4 py-6" role="main">
+            {/* Micro-learning return banner — shows when user navigated from a capsule */}
+            <Suspense fallback={null}>
+              <MicroLearningReturnBanner />
+            </Suspense>
             <Suspense fallback={<PageLoadingFallback />}>
               <SEORouteWrapper>
                 <Routes>

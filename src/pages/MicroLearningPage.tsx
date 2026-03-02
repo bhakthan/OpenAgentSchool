@@ -14,6 +14,7 @@ import {
 } from '@/lib/data/microLearning';
 import type { RoleProfile } from '@/lib/data/microLearning';
 import { useMicroLearningProgress } from '@/lib/hooks/useMicroLearningProgress';
+import { clearMicroLearningReturnSession } from '@/lib/hooks/useMicroLearningReturn';
 import type { MicroAchievement } from '@/lib/hooks/microLearningAchievements';
 
 /**
@@ -44,6 +45,9 @@ const MicroLearningPage: React.FC = () => {
 
   // GA: track which view the learner is on
   useEffect(() => {
+    // Clear any pending return session — user is back on micro-learning
+    clearMicroLearningReturnSession();
+
     if (trackId && capsuleId) {
       trackEvent({ action: 'micro_capsule_view', category: 'micro_learning', label: `${trackId}/${capsuleId}` });
     } else if (trackId) {
