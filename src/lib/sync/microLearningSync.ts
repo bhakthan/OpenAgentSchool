@@ -9,17 +9,26 @@
 //   // On login:
 //   await mergeOnLogin();
 
-import {
-  syncMicroLearningProgress,
-  fetchMicroLearningProgress,
-  fromPayload,
-  isAuthenticated,
-  type SyncResponse,
-  type RemoteProgress,
-} from '@/lib/api/microLearningSync';
+// Lazy-load the API module to avoid top-level fetch during vitest module evaluation.
+// The module uses axios + import.meta.env which triggers pending RPC in vitest workers.
+async function loadSyncApi() {
+  return import('@/lib/api/microLearningSync');
+}
+
 import { loadProgress, saveProgress } from '@/lib/data/microLearning/progress';
 import { getUnlockedAchievementIds } from '@/lib/hooks/microLearningAchievements';
 import type { MicroLearningProgress, CapsuleCompletion } from '@/lib/data/microLearning/types';
+import type { SyncResponse, RemoteProgress } from '@/lib/api/microLearningSync';
+
+/** Inline converter — avoids static import of the API module. */
+function fromPayload(p: { capsule_id: string; completed_at: string; xp_earned: number; quiz_score?: number | null }): CapsuleCompletion {
+  return {
+    capsuleId: p.capsule_id,
+    completedAt: p.completed_at,
+    xpEarned: p.xp_earned,
+    quizScore: p.quiz_score ?? undefined,
+  };
+}
 
 // ─── Sync status (in-memory, not persisted) ─────────────────────────────────
 
@@ -47,7 +56,8 @@ export function scheduleMicroLearningSync(): void {
 
 async function flushSync(): Promise<void> {
   if (!dirty || syncing) return;
-  if (!navigator.onLine || !isAuthenticated()) return;
+  const api = await loadSyncApi();
+  if (!navigator.onLine || !api.isAuthenticated()) return;
   if (Date.now() - lastSyncAt < MIN_INTERVAL_MS) {
     // Too soon — reschedule
     debounceTimer = setTimeout(flushSync, MIN_INTERVAL_MS);
@@ -58,7 +68,7 @@ async function flushSync(): Promise<void> {
   try {
     const local = loadProgress();
     const achievementIds = [...getUnlockedAchievementIds()];
-    const response = await syncMicroLearningProgress(local, achievementIds);
+    const response = await api.syncMicroLearningProgress(local, achievementIds);
     applyServerMerge(response);
     dirty = false;
     lastSyncAt = Date.now();
@@ -81,10 +91,11 @@ async function flushSync(): Promise<void> {
  * the local state, and pushes the union back up.
  */
 export async function mergeOnLogin(): Promise<void> {
-  if (!navigator.onLine || !isAuthenticated()) return;
+  const api = await loadSyncApi();
+  if (!navigator.onLine || !api.isAuthenticated()) return;
 
   try {
-    const remote = await fetchMicroLearningProgress();
+    const remote = await api.fetchMicroLearningProgress();
     if (remote.completions.length === 0 && loadProgress().completions.length === 0) {
       // Nothing to merge on either side
       return;
@@ -96,7 +107,7 @@ export async function mergeOnLogin(): Promise<void> {
 
     // Push merged result back (ensures server has local-only entries)
     const achievementIds = [...getUnlockedAchievementIds()];
-    const response = await syncMicroLearningProgress(merged, achievementIds);
+    const response = await api.syncMicroLearningProgress(merged, achievementIds);
     applyServerMerge(response);
 
     dirty = false;
@@ -202,7 +213,7 @@ export function registerMicroLearningSync(): void {
 
   // Flush before unload (best-effort)
   window.addEventListener('beforeunload', () => {
-    if (dirty && navigator.onLine && isAuthenticated()) {
+    if (dirty && navigator.onLine && !!localStorage.getItem('access_token')) {
       // Use sendBeacon for reliability
       try {
         const local = loadProgress();

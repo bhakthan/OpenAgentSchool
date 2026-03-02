@@ -2,10 +2,12 @@
 // Communicates with POST /api/v1/micro-learning/sync and GET /api/v1/micro-learning/progress
 // Used by the sync queue, NOT called directly by components.
 
-import axios from 'axios';
 import type { MicroLearningProgress, CapsuleCompletion } from '@/lib/data/microLearning/types';
 
-const API_BASE_URL = import.meta.env.VITE_CORE_API_URL || 'http://localhost:8000';
+// Lazy-load axios to avoid top-level fetch during module evaluation (breaks vitest workers).
+function getApiBaseUrl(): string {
+  return import.meta.env.VITE_CORE_API_URL || 'http://localhost:8000';
+}
 
 // ─── Auth helper ─────────────────────────────────────────────────────────────
 
@@ -13,10 +15,11 @@ function getAuthToken(): string | null {
   return localStorage.getItem('access_token');
 }
 
-function createAuthClient() {
+async function createAuthClient() {
+  const { default: axios } = await import('axios');
   const token = getAuthToken();
   return axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: getApiBaseUrl(),
     headers: token ? { Authorization: `Bearer ${token}` } : {},
     timeout: 15_000,
   });
@@ -76,7 +79,7 @@ export async function syncMicroLearningProgress(
   localProgress: MicroLearningProgress,
   achievementIds: string[],
 ): Promise<SyncResponse> {
-  const client = createAuthClient();
+  const client = await createAuthClient();
 
   const payload: SyncRequest = {
     completions: localProgress.completions.map(toPayload),
@@ -99,7 +102,7 @@ export async function syncMicroLearningProgress(
  * Fetch server-side progress (used on login to merge).
  */
 export async function fetchMicroLearningProgress(): Promise<RemoteProgress> {
-  const client = createAuthClient();
+  const client = await createAuthClient();
   const { data } = await client.get<RemoteProgress>(
     '/api/v1/micro-learning/progress',
   );
