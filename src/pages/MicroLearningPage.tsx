@@ -158,7 +158,7 @@ const MicroLearningPage: React.FC = () => {
 
       {/* Role sorter modal */}
       {showSorter && (
-        <RoleSorter onComplete={handleSorterComplete} onClose={handleCloseSorter} />
+        <RoleSorter open={showSorter} onComplete={handleSorterComplete} onClose={handleCloseSorter} />
       )}
 
       {/* ─── VIEW: Capsule ───────────────────────── */}

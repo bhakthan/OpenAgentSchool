@@ -7,13 +7,13 @@ import {
   saveRoleProfile,
   getTrackById,
 } from '@/lib/data/microLearning';
-import type { LearnerRole, ExperienceLevel, LearnerGoal } from '@/lib/data/microLearning';
+import type { LearnerRole, ExperienceLevel, LearnerGoal, RoleProfile } from '@/lib/data/microLearning';
 import { trackEvent } from '@/lib/analytics/ga';
 
 interface RoleSorterProps {
   open: boolean;
   onClose: () => void;
-  onComplete: (recommendedTrackIds: string[]) => void;
+  onComplete: (profile: RoleProfile) => void;
 }
 
 export const RoleSorter: React.FC<RoleSorterProps> = ({ open, onClose, onComplete }) => {
@@ -72,7 +72,7 @@ export const RoleSorter: React.FC<RoleSorterProps> = ({ open, onClose, onComplet
       );
     } catch {}
 
-    onComplete(profile.recommendedTrackIds);
+    onComplete(profile);
   }, [answers, onComplete]);
 
   if (!open) return null;

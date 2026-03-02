@@ -1,5 +1,4 @@
 import React from 'react';
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Sparkle } from "@phosphor-icons/react";
 import { isLlmProviderConfigured } from '@/lib/config';
 import { Link } from 'react-router-dom';
@@ -36,25 +35,28 @@ const LlmConfigurationNotice: React.FC<LlmConfigurationNoticeProps> = ({
   const message = modeMessages[mode];
 
   return (
-    <Alert className={`border-amber-200 dark:border-amber-800 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900 dark:to-yellow-900 ${className}`}>
+    <div
+      role="alert"
+      className={`relative w-full rounded-lg border border-amber-200 dark:border-amber-800 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900 dark:to-yellow-900 px-4 py-3 text-sm ${className}`}
+    >
       <div className="flex items-start gap-3">
-        <Sparkle size={16} className="text-amber-600 dark:text-amber-400 flex-shrink-0" />
-        <div className="flex-1 space-y-1">
+        <Sparkle size={16} className="text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+        <div className="flex-1 min-w-0 space-y-1">
           <h4 className="font-semibold text-amber-800 dark:text-amber-200">{message.title}</h4>
-          <AlertDescription className="text-amber-700 dark:text-amber-300">
+          <p className="text-sm text-amber-700 dark:text-amber-300 leading-relaxed">
             {message.description}
-          </AlertDescription>
-          <div className="text-xs text-amber-600 dark:text-amber-400">
+          </p>
+          <p className="text-xs text-amber-600 dark:text-amber-400">
             <strong>Tip:</strong> Open{' '}
             <Link to="/settings" className="underline hover:text-amber-800 dark:hover:text-amber-200">
               Settings
             </Link>{' '}
             (⚙ gear icon in the header) to add your own API key and unlock "LLM as Judge" features!
             Your keys stay in your browser — never sent to our servers.
-          </div>
+          </p>
         </div>
       </div>
-    </Alert>
+    </div>
   );
 };
 

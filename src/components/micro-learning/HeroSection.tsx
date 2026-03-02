@@ -7,11 +7,10 @@ import { trackEvent } from '@/lib/analytics/ga';
 
 interface HeroSectionProps {
   onFindPath: () => void;
-  onBrowseTracks: () => void;
-  onBrowseAll?: () => void;
+  onBrowseAll: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseTracks }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseAll }) => {
   const totalConcepts = new Set(ALL_CAPSULES.map((c) => c.conceptId)).size;
   const totalCapsules = ALL_CAPSULES.length;
   const totalTracks = TRACKS.length;
@@ -67,7 +66,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseTr
           <Button
             size="lg"
             variant="outline"
-            onClick={() => { trackEvent({ action: 'micro_hero_browse_all', category: 'micro_learning' }); onBrowseTracks(); }}
+            onClick={() => { trackEvent({ action: 'micro_hero_browse_all', category: 'micro_learning' }); onBrowseAll(); }}
             className="px-8"
           >
             Browse All Tracks

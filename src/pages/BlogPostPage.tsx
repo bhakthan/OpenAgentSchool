@@ -78,7 +78,7 @@ const BlogPostPage: React.FC = () => {
 
       {/* Body */}
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto py-10 md:py-16">
+        <div className="max-w-3xl mx-auto py-10 md:py-16 text-foreground">
           {Content ? (
             <Content />
           ) : post.body ? (
@@ -128,15 +128,15 @@ function MarkdownBody({ body }: { body: string }) {
 
     // headings
     if (line.startsWith('### ')) {
-      elements.push(<h3 key={key++} className="text-lg font-bold mt-8 mb-3 tracking-tight">{inline(line.slice(4))}</h3>);
+      elements.push(<h3 key={key++} className="text-lg font-bold mt-8 mb-3 tracking-tight text-foreground">{inline(line.slice(4))}</h3>);
       i++; continue;
     }
     if (line.startsWith('## ')) {
-      elements.push(<h2 key={key++} className="text-2xl font-bold mt-12 mb-4 tracking-tight">{inline(line.slice(3))}</h2>);
+      elements.push(<h2 key={key++} className="text-2xl font-bold mt-12 mb-4 tracking-tight text-foreground">{inline(line.slice(3))}</h2>);
       i++; continue;
     }
     if (line.startsWith('# ')) {
-      elements.push(<h1 key={key++} className="text-3xl font-extrabold mt-12 mb-4 tracking-tight">{inline(line.slice(2))}</h1>);
+      elements.push(<h1 key={key++} className="text-3xl font-extrabold mt-12 mb-4 tracking-tight text-foreground">{inline(line.slice(2))}</h1>);
       i++; continue;
     }
 
@@ -180,7 +180,7 @@ function MarkdownBody({ body }: { body: string }) {
   }
 
   return (
-    <div className="prose prose-neutral dark:prose-invert max-w-none">
+    <div className="prose max-w-none">
       {elements}
     </div>
   );
@@ -191,13 +191,7 @@ function MarkdownBody({ body }: { body: string }) {
    ────────────────────────────────────────────────────*/
 function TheTenMinuteEdge() {
   return (
-    <div className="prose prose-neutral dark:prose-invert max-w-none
-      prose-headings:tracking-tight prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
-      prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
-      prose-p:leading-[1.8] prose-p:text-muted-foreground
-      prose-blockquote:border-l-primary prose-blockquote:bg-primary/5 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-lg
-      prose-strong:text-foreground prose-a:text-primary prose-a:font-medium
-      prose-li:text-muted-foreground">
+    <div className="prose max-w-none">
 
       {/* ── Section 1 ──────────────────────────── */}
       <h2>The Problem Nobody Talks About</h2>
