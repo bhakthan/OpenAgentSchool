@@ -240,10 +240,13 @@ function App() {
       });
     });
 
-    // Register micro-learning background sync
-    import('@/lib/sync/microLearningSync').then(({ registerMicroLearningSync }) => {
-      registerMicroLearningSync();
-    });
+    // Register micro-learning background sync (skip in vitest to prevent
+    // "Closing rpc while fetch was pending" from dangling module resolution)
+    if (!(globalThis as any).__VITEST_ENV__) {
+      import('@/lib/sync/microLearningSync').then(({ registerMicroLearningSync }) => {
+        registerMicroLearningSync();
+      });
+    }
     
     // Apply global ReactFlow optimizations
     import('./lib/utils/preventResizeObserverErrors').then(module => {

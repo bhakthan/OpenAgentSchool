@@ -148,8 +148,6 @@ export default defineConfig({
     port: 5000,
     hmr: {
       overlay: false,
-      host: 'localhost',
-      clientPort: 5000,
     },
     cors: {
       origin: /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\]|(?:.*\.)?github\.com)(?::\d+)?$/
@@ -189,6 +187,7 @@ export default defineConfig({
     },
   },
   resolve: {
+    dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
     alias: {
       // Path alias for TypeScript imports
       '@': path.resolve(projectRoot, './src'),
@@ -196,5 +195,8 @@ export default defineConfig({
       'react': path.resolve(projectRoot, './node_modules/react'),
       'react-dom': path.resolve(projectRoot, './node_modules/react-dom')
     }
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
   },
 });
