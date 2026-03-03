@@ -105,7 +105,7 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
         <span className="text-xs text-muted-foreground">Capsule {capsule.order}</span>
       </div>
 
-      <div className="rounded-2xl border bg-card overflow-hidden">
+      <div className="rounded-2xl border bg-card text-card-foreground overflow-hidden">
         {/* Type banner */}
         <div className={`bg-gradient-to-r ${config.color} px-6 py-4 text-white`}>
           <div className="flex items-center gap-3">

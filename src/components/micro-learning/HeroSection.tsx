@@ -16,7 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseAl
   const totalTracks = TRACKS.length;
 
   return (
-    <section className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/5 via-violet-500/5 to-fuchsia-500/5 dark:from-primary/10 dark:via-violet-500/10 dark:to-fuchsia-500/10">
+    <section className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/5 via-violet-500/5 to-fuchsia-500/5 dark:from-primary/10 dark:via-violet-500/10 dark:to-fuchsia-500/10 text-foreground">
       {/* Subtle animated background dots */}
       <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" aria-hidden="true">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '24px 24px' }} />

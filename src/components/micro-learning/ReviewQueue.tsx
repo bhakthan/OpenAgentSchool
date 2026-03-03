@@ -64,9 +64,9 @@ export const ReviewQueue: React.FC<ReviewQueueProps> = ({
 
   if (isEmpty) {
     return (
-      <div className="rounded-2xl border bg-card p-6 text-center">
+      <div className="rounded-2xl border bg-card text-card-foreground p-6 text-center">
         <p className="text-3xl mb-2">🎯</p>
-        <p className="font-semibold">All caught up!</p>
+        <p className="font-semibold text-foreground">All caught up!</p>
         <p className="text-sm text-muted-foreground mt-1">
           Complete more capsules to unlock spaced-repetition reviews and adaptive recommendations.
         </p>
@@ -173,9 +173,9 @@ const ReviewCardItem: React.FC<ReviewCardItemProps> = ({
   const trackId = findTrackForCapsule(capsule);
 
   return (
-    <div className="rounded-xl border bg-card p-4 space-y-3">
+    <div className="rounded-xl border bg-card text-card-foreground p-4 space-y-3">
       <div>
-        <p className="font-medium text-sm truncate">{capsule?.title ?? card.capsuleId}</p>
+        <p className="font-medium text-sm truncate text-foreground">{capsule?.title ?? card.capsuleId}</p>
         <p className="text-xs text-muted-foreground">
           {card.repetition === 0 ? 'First review' : `Review #${card.repetition + 1}`}
           {' · '}
@@ -235,11 +235,11 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ rec, onNavigate
   const reasonInfo = REASON_LABELS[rec.reason];
 
   return (
-    <div className="rounded-xl border bg-card p-4 space-y-2 hover:shadow-sm transition-shadow">
+    <div className="rounded-xl border bg-card text-card-foreground p-4 space-y-2 hover:shadow-sm transition-shadow">
       <div className="flex items-start gap-2">
         <span className="text-lg">{reasonInfo.icon}</span>
         <div className="flex-1 min-w-0">
-          <p className="font-medium text-sm truncate">{capsule?.title ?? rec.capsuleId}</p>
+          <p className="font-medium text-sm truncate text-foreground">{capsule?.title ?? rec.capsuleId}</p>
           <p className="text-xs text-muted-foreground">{reasonInfo.text}</p>
         </div>
         <Badge variant="secondary" className="text-[10px] shrink-0">

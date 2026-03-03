@@ -120,7 +120,7 @@ const TrackCard: React.FC<TrackCardProps> = ({ track, isRecommended, onSelect })
           onSelect(track.id);
         }
       }}
-      className="group relative rounded-xl border bg-card hover:shadow-lg transition-all duration-200 overflow-hidden"
+      className="group relative rounded-xl border bg-card text-card-foreground hover:shadow-lg transition-all duration-200 overflow-hidden"
     >
       {/* Gradient left accent */}
       <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${track.gradient}`} />
@@ -141,7 +141,7 @@ const TrackCard: React.FC<TrackCardProps> = ({ track, isRecommended, onSelect })
             <span className="text-lg font-bold">{track.title.charAt(0)}</span>
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">
+            <h3 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">
               {track.title}
             </h3>
             <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{track.tagline}</p>

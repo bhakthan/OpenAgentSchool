@@ -73,7 +73,7 @@ export const TrackDetailView: React.FC<TrackDetailViewProps> = ({ trackId, onCap
               {track.title.charAt(0)}
             </div>
             <div>
-              <h1 className="text-2xl font-bold">{track.title}</h1>
+              <h1 className="text-2xl font-bold text-foreground">{track.title}</h1>
               <p className="text-sm text-muted-foreground">{track.tagline}</p>
             </div>
           </div>
@@ -104,9 +104,9 @@ export const TrackDetailView: React.FC<TrackDetailViewProps> = ({ trackId, onCap
       )}
 
       {completed === total && total > 0 && (
-        <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-6 text-center">
+        <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-6 text-center text-foreground">
           <div className="text-3xl mb-2">🎉</div>
-          <h3 className="font-bold text-lg">Track Complete!</h3>
+          <h3 className="font-bold text-lg text-foreground">Track Complete!</h3>
           <p className="text-sm text-muted-foreground mt-1">
             You've mastered all {total} capsules. Your skills are ready for real-world application.
           </p>

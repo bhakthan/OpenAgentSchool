@@ -78,7 +78,7 @@ const PROVIDERS = [
   },
   {
     id: 'huggingface', label: 'HuggingFace',
-    hint: 'Inference API. URL only needed for dedicated endpoints.',
+    hint: 'Inference API or dedicated Inference Endpoints. Get a free token at huggingface.co/settings/tokens. For dedicated endpoints, replace the URL with your endpoint URL.',
     defaultUrl: 'https://api-inference.huggingface.co/models',
     modelPlaceholder: 'meta-llama/Llama-3.1-8B-Instruct',
     keyPlaceholder: 'hf_…',
@@ -86,7 +86,7 @@ const PROVIDERS = [
   },
   {
     id: 'custom' as const, label: 'Custom / International / Local',
-    hint: 'Any OpenAI-compatible provider — Ollama, LM Studio, DeepSeek, Mistral, Zhipu AI, Moonshot, Sarvam AI, and more.',
+    hint: 'Any OpenAI-compatible provider — Ollama, LM Studio, DeepSeek, Mistral, HuggingFace TGI/TEI, Zhipu AI, Moonshot, Sarvam AI, and more.',
     defaultUrl: '',
     modelPlaceholder: 'llama3.1',
     keyPlaceholder: 'API key (not needed for local)',

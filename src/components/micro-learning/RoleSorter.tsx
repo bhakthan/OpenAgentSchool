@@ -85,7 +85,7 @@ export const RoleSorter: React.FC<RoleSorterProps> = ({ open, onClose, onComplet
       aria-modal="true"
       aria-label="Find your learning path"
     >
-      <div className="relative w-full max-w-lg mx-4 rounded-2xl border bg-card shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-lg mx-4 rounded-2xl border bg-card text-card-foreground shadow-2xl overflow-hidden">
         {/* Progress bar */}
         <div className="h-1 bg-muted">
           <div
@@ -114,7 +114,7 @@ export const RoleSorter: React.FC<RoleSorterProps> = ({ open, onClose, onComplet
             <div className="space-y-6">
               <div className="text-center">
                 <div className="text-4xl mb-2">🎯</div>
-                <h2 className="text-xl font-bold">Your Recommended Path</h2>
+                <h2 className="text-xl font-bold text-foreground">Your Recommended Path</h2>
                 <p className="text-sm text-muted-foreground mt-1">
                   Based on your profile, here are the best tracks for you
                 </p>
@@ -131,7 +131,7 @@ export const RoleSorter: React.FC<RoleSorterProps> = ({ open, onClose, onComplet
                   return (
                     <div
                       key={trackId}
-                      className={`relative rounded-xl border p-4 transition-all ${
+                      className={`relative rounded-xl border p-4 transition-all text-foreground ${
                         i === 0
                           ? 'border-primary/50 bg-primary/5 shadow-md'
                           : 'hover:border-border/80'
@@ -177,14 +177,14 @@ export const RoleSorter: React.FC<RoleSorterProps> = ({ open, onClose, onComplet
           ) : (
             /* ─── Question Screen ───────────────────────────────────── */
             <div className="space-y-6">
-              <h2 className="text-lg font-bold">{currentQuestion.question}</h2>
+              <h2 className="text-lg font-bold text-foreground">{currentQuestion.question}</h2>
 
               <div className="grid gap-2">
                 {currentQuestion.options.map((opt) => (
                   <button
                     key={opt.value}
                     onClick={() => handleSelect(opt.value)}
-                    className={`w-full text-left rounded-xl border p-4 transition-all hover:border-primary/50 hover:bg-primary/5 hover:shadow-sm ${
+                    className={`w-full text-left rounded-xl border p-4 transition-all text-foreground hover:border-primary/50 hover:bg-primary/5 hover:shadow-sm ${
                       answers[currentQuestion.id] === opt.value
                         ? 'border-primary/50 bg-primary/5'
                         : ''

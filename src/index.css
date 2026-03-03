@@ -133,6 +133,14 @@
     color: var(--primary-foreground);
   }
 
+  /* Reset: opacity-modified primary backgrounds (bg-primary/5, bg-primary/10,
+     hover:bg-primary/5 etc.) are near-transparent tints that need dark foreground
+     text in light mode — not --primary-foreground (white). Same specificity as
+     the rule above, later in cascade → wins. */
+  .site-typography-flat-ui [class*="bg-primary/"] {
+    color: var(--foreground);
+  }
+
   .light .site-typography-flat-ui .text-muted-foreground {
     color: oklch(0.43 0.018 245);
   }

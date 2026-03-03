@@ -89,7 +89,7 @@ export const StreakXPOverlay: React.FC<StreakXPOverlayProps> = ({
 
       {/* Central toast card */}
       <div
-        className={`relative rounded-2xl bg-card border shadow-2xl px-8 py-6 text-center transition-all duration-500 ${
+        className={`relative rounded-2xl bg-card text-card-foreground border shadow-2xl px-8 py-6 text-center transition-all duration-500 ${
           phase === 'enter' ? 'scale-50 opacity-0' :
           phase === 'hold' ? 'scale-100 opacity-100' :
           'scale-90 opacity-0 translate-y-4'

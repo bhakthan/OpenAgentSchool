@@ -82,7 +82,7 @@ export const ConceptSphere: React.FC<ConceptSphereProps> = ({
   );
 
   return (
-    <div className="rounded-2xl border bg-card shadow-lg overflow-hidden">
+    <div className="rounded-2xl border bg-card text-card-foreground shadow-lg overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 px-5 py-4 text-white">
         <div className="flex items-center justify-between">
@@ -135,7 +135,7 @@ export const ConceptSphere: React.FC<ConceptSphereProps> = ({
                 key={preset.mode}
                 onClick={() => handleQuery(preset.mode)}
                 disabled={!hasLLM || loading}
-                className={`rounded-xl border p-3 text-left transition-all hover:shadow-sm disabled:opacity-50 disabled:cursor-not-allowed ${
+                className={`rounded-xl border p-3 text-left transition-all text-foreground hover:shadow-sm disabled:opacity-50 disabled:cursor-not-allowed ${
                   activeMode === preset.mode
                     ? 'border-primary bg-primary/5 ring-1 ring-primary/30'
                     : 'hover:border-primary/30'
@@ -145,7 +145,7 @@ export const ConceptSphere: React.FC<ConceptSphereProps> = ({
                   <span className="text-lg">{preset.icon}</span>
                   <div>
                     <div className="flex items-center gap-1">
-                      <p className="text-sm font-medium">{preset.label}</p>
+                      <p className="text-sm font-medium text-foreground">{preset.label}</p>
                       {preset.searchEligible && hasSearch && (
                         <span className="text-[10px] text-emerald-600 dark:text-emerald-400" title="Live web search enabled">🌐</span>
                       )}
