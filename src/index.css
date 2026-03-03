@@ -88,28 +88,30 @@
     transition: all 0.2s ease !important;
   }
 
-  button[class*="bg-primary"],
-  [data-slot="button"][class*="bg-primary"],
-  a[class*="bg-primary"],
-  button[class*="bg-blue-6"], button[class*="bg-blue-7"], button[class*="bg-blue-8"], button[class*="bg-blue-9"],
-  button[class*="bg-indigo-6"], button[class*="bg-indigo-7"], button[class*="bg-indigo-8"], button[class*="bg-indigo-9"],
-  button[class*="bg-violet-6"], button[class*="bg-violet-7"], button[class*="bg-violet-8"], button[class*="bg-violet-9"],
-  button[class*="bg-purple-6"], button[class*="bg-purple-7"], button[class*="bg-purple-8"], button[class*="bg-purple-9"],
-  button[class*="bg-emerald-6"], button[class*="bg-emerald-7"], button[class*="bg-emerald-8"], button[class*="bg-emerald-9"],
-  button[class*="bg-green-6"], button[class*="bg-green-7"], button[class*="bg-green-8"], button[class*="bg-green-9"],
-  button[class*="bg-cyan-6"], button[class*="bg-cyan-7"], button[class*="bg-cyan-8"], button[class*="bg-cyan-9"],
-  button[class*="bg-teal-6"], button[class*="bg-teal-7"], button[class*="bg-teal-8"], button[class*="bg-teal-9"],
-  button[class*="bg-red-6"], button[class*="bg-red-7"], button[class*="bg-red-8"], button[class*="bg-red-9"],
-  button[class*="bg-rose-6"], button[class*="bg-rose-7"], button[class*="bg-rose-8"], button[class*="bg-rose-9"],
-  button[class*="bg-orange-6"], button[class*="bg-orange-7"], button[class*="bg-orange-8"], button[class*="bg-orange-9"],
-  button[class*="bg-amber-6"], button[class*="bg-amber-7"], button[class*="bg-amber-8"], button[class*="bg-amber-9"] {
+  /* Use ~= (word match) instead of *= (substring match) to avoid matching
+     Tailwind variant-prefixed classes like hover:bg-primary, selection:bg-primary,
+     dark:bg-primary etc., which would force white text on elements that don't
+     actually have a primary/dark background applied. */
+  button[class~="bg-primary"],
+  [data-slot="button"][class~="bg-primary"],
+  a[class~="bg-primary"],
+  button[class~="bg-blue-600"], button[class~="bg-blue-700"], button[class~="bg-blue-800"], button[class~="bg-blue-900"], button[class~="bg-blue-950"],
+  button[class~="bg-indigo-600"], button[class~="bg-indigo-700"], button[class~="bg-indigo-800"], button[class~="bg-indigo-900"], button[class~="bg-indigo-950"],
+  button[class~="bg-violet-600"], button[class~="bg-violet-700"], button[class~="bg-violet-800"], button[class~="bg-violet-900"], button[class~="bg-violet-950"],
+  button[class~="bg-purple-600"], button[class~="bg-purple-700"], button[class~="bg-purple-800"], button[class~="bg-purple-900"], button[class~="bg-purple-950"],
+  button[class~="bg-emerald-600"], button[class~="bg-emerald-700"], button[class~="bg-emerald-800"], button[class~="bg-emerald-900"], button[class~="bg-emerald-950"],
+  button[class~="bg-green-600"], button[class~="bg-green-700"], button[class~="bg-green-800"], button[class~="bg-green-900"], button[class~="bg-green-950"],
+  button[class~="bg-cyan-600"], button[class~="bg-cyan-700"], button[class~="bg-cyan-800"], button[class~="bg-cyan-900"], button[class~="bg-cyan-950"],
+  button[class~="bg-teal-600"], button[class~="bg-teal-700"], button[class~="bg-teal-800"], button[class~="bg-teal-900"], button[class~="bg-teal-950"],
+  button[class~="bg-red-600"], button[class~="bg-red-700"], button[class~="bg-red-800"], button[class~="bg-red-900"], button[class~="bg-red-950"],
+  button[class~="bg-rose-600"], button[class~="bg-rose-700"], button[class~="bg-rose-800"], button[class~="bg-rose-900"], button[class~="bg-rose-950"],
+  button[class~="bg-orange-600"], button[class~="bg-orange-700"], button[class~="bg-orange-800"], button[class~="bg-orange-900"], button[class~="bg-orange-950"],
+  button[class~="bg-amber-600"], button[class~="bg-amber-700"], button[class~="bg-amber-800"], button[class~="bg-amber-900"], button[class~="bg-amber-950"] {
     color: #fff;
   }
 
-  /* Reset forced white text for opacity-variant primary backgrounds
-     (e.g. bg-primary/5, bg-primary/10, bg-primary/20) which have light tinted
-     backgrounds that need dark foreground text in light mode. The "/" in the
-     class name indicates a Tailwind opacity modifier. */
+  /* Keep *= for opacity-variant classes (bg-primary/5, bg-primary/10, etc.)
+     since the "/" is part of the actual class name and not a variant prefix. */
   button[class*="bg-primary/"],
   [data-slot="button"][class*="bg-primary/"],
   a[class*="bg-primary/"],
@@ -120,16 +122,16 @@
     color: var(--foreground);
   }
 
-  .site-typography-flat-ui [class*="bg-primary"],
-  .site-typography-flat-ui [class*="bg-blue-6"],
-  .site-typography-flat-ui [class*="bg-indigo-6"],
-  .site-typography-flat-ui [class*="bg-violet-6"],
-  .site-typography-flat-ui [class*="bg-purple-6"],
-  .site-typography-flat-ui [class*="bg-emerald-6"],
-  .site-typography-flat-ui [class*="bg-green-6"],
-  .site-typography-flat-ui [class*="bg-red-6"],
-  .site-typography-flat-ui [class*="bg-orange-6"],
-  .site-typography-flat-ui [class*="bg-amber-6"] {
+  .site-typography-flat-ui [class~="bg-primary"],
+  .site-typography-flat-ui [class~="bg-blue-600"],
+  .site-typography-flat-ui [class~="bg-indigo-600"],
+  .site-typography-flat-ui [class~="bg-violet-600"],
+  .site-typography-flat-ui [class~="bg-purple-600"],
+  .site-typography-flat-ui [class~="bg-emerald-600"],
+  .site-typography-flat-ui [class~="bg-green-600"],
+  .site-typography-flat-ui [class~="bg-red-600"],
+  .site-typography-flat-ui [class~="bg-orange-600"],
+  .site-typography-flat-ui [class~="bg-amber-600"] {
     color: var(--primary-foreground);
   }
 
@@ -138,6 +140,14 @@
      text in light mode — not --primary-foreground (white). Same specificity as
      the rule above, later in cascade → wins. */
   .site-typography-flat-ui [class*="bg-primary/"] {
+    color: var(--foreground);
+  }
+
+  /* Safety net: form elements must always use readable foreground text.
+     Prevents false matches from variant-prefixed classes on inputs
+     (e.g. selection:bg-primary, dark:bg-input/30) from inheriting
+     forced white text. Excluded for actual bg-primary inputs (rare). */
+  .site-typography-flat-ui :is(input, textarea, select):not([class~="bg-primary"]) {
     color: var(--foreground);
   }
 
