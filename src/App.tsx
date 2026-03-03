@@ -831,7 +831,7 @@ function App() {
                   <Route path="/auth/callback/:provider" element={<OAuthCallbackPage />} />
                   <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
                   <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
-                  <Route path="/api-docs" element={<ApiDocsPage />} />
+                  <Route path="/api-docs" element={<AuthGuard><ApiDocsPage /></AuthGuard>} />
                   <Route path="/settings" element={<SettingsPage />} />
                   <Route path="/tenant-picker" element={<TenantPickerPage />} />
                   <Route path="/admin" element={<AdminGuard><AdminPage /></AdminGuard>} />
