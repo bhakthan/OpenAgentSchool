@@ -24,11 +24,11 @@ export const AISkillsSideNav: React.FC<AISkillsSideNavProps> = ({ categories, pr
   const observerRef = useRef<IntersectionObserver | null>(null)
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({})
 
-  // Initialize collapsed state (default expanded)
+  // Initialize collapsed state (default collapsed)
   useEffect(() => {
     setCollapsed(prev => {
       const next = { ...prev }
-      categories.forEach(c => { if (next[c.id] === undefined) next[c.id] = false })
+      categories.forEach(c => { if (next[c.id] === undefined) next[c.id] = true })
       return next
     })
   }, [categories])

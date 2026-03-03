@@ -2178,3 +2178,118 @@ code, pre {
               0 4px 10px -5px rgba(0, 0, 0, 0.04);
   border-color: hsl(var(--primary) / 0.25);
 }
+
+/* ================================================================
+   AI Skills Explorer – 3-Level Navigation System
+   Modern CSS: color-mix(), container queries, animation stagger
+   ================================================================ */
+
+/* View enter animation — blur + slide + fade */
+@keyframes skills-view-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.skills-view-enter {
+  animation: skills-view-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Staggered card entrance using CSS custom property */
+.skills-card-stagger {
+  opacity: 0;
+  animation: skills-view-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--stagger, 0) * 60ms);
+}
+
+/* Glass breadcrumb bar — backdrop-filter + color-mix */
+.skills-breadcrumb {
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background: color-mix(in oklch, var(--background) 82%, transparent);
+  border: 1px solid color-mix(in oklch, var(--border) 50%, transparent);
+  box-shadow: 0 1px 3px color-mix(in oklch, var(--foreground) 4%, transparent);
+}
+
+/* Glass panel (perspective lenses hub card) */
+.skills-glass-panel {
+  background: color-mix(in oklch, var(--card) 85%, transparent);
+  border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Bento tile hover — spring cubic-bezier + color-mix shadow */
+.skills-bento-tile {
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+  will-change: transform;
+}
+
+.skills-bento-tile:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 20px 40px -12px color-mix(in oklch, var(--foreground) 12%, transparent),
+    0 0 0 1px color-mix(in oklch, var(--primary) 20%, transparent);
+  border-color: color-mix(in oklch, var(--primary) 30%, transparent);
+}
+
+.skills-bento-tile:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Module card hover (category view) */
+.skills-module-card {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+  will-change: transform;
+}
+
+.skills-module-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 32px -8px color-mix(in oklch, var(--foreground) 10%, transparent),
+    0 0 0 1px color-mix(in oklch, var(--primary) 18%, transparent);
+  border-color: color-mix(in oklch, var(--primary) 25%, transparent);
+}
+
+.skills-module-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Module content container — container query ready */
+.skills-module-content {
+  container-type: inline-size;
+}
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .skills-view-enter,
+  .skills-card-stagger {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .skills-bento-tile,
+  .skills-module-card {
+    transition: none !important;
+  }
+  .skills-bento-tile:hover,
+  .skills-module-card:hover {
+    transform: none !important;
+  }
+}
