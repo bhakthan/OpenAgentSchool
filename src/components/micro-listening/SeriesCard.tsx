@@ -1,4 +1,31 @@
+import type { ReactNode } from 'react';
+import {
+  Brain, Cpu, ShieldCheck, Rocket, TreeStructure, Sparkle, Flask, Factory,
+  GraduationCap, Lightning, ChartLineUp, Scales, UsersThree, Binoculars,
+  Headphones, Blueprint, Strategy,
+} from '@phosphor-icons/react';
 import type { ListeningSeries, SeriesCategory } from '@/lib/data/microListening/types';
+
+/** Maps Phosphor icon name strings from series data to React elements. */
+const ICON_MAP: Record<string, ReactNode> = {
+  Brain: <Brain size={20} weight="duotone" />,
+  Cpu: <Cpu size={20} weight="duotone" />,
+  ShieldCheck: <ShieldCheck size={20} weight="duotone" />,
+  Rocket: <Rocket size={20} weight="duotone" />,
+  Blueprint: <Blueprint size={20} weight="duotone" />,
+  TreeStructure: <TreeStructure size={20} weight="duotone" />,
+  Sparkle: <Sparkle size={20} weight="duotone" />,
+  Flask: <Flask size={20} weight="duotone" />,
+  Factory: <Factory size={20} weight="duotone" />,
+  Strategy: <Strategy size={20} weight="duotone" />,
+  GraduationCap: <GraduationCap size={20} weight="duotone" />,
+  Lightning: <Lightning size={20} weight="duotone" />,
+  ChartLine: <ChartLineUp size={20} weight="duotone" />,
+  Scales: <Scales size={20} weight="duotone" />,
+  UsersThree: <UsersThree size={20} weight="duotone" />,
+  Binoculars: <Binoculars size={20} weight="duotone" />,
+  Headphones: <Headphones size={20} weight="duotone" />,
+};
 
 interface SeriesCardProps {
   series: ListeningSeries;
@@ -39,12 +66,12 @@ export function SeriesCard({ series, completionPercent, onSelect }: SeriesCardPr
           background: series.gradient || `linear-gradient(135deg, ${series.color}33, ${series.color}11)`,
         }}
       >
-        {/* Icon placeholder — first letter circle */}
+        {/* Series icon */}
         <div
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-lg font-bold text-white"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white"
           style={{ backgroundColor: series.color || '#6366f1' }}
         >
-          {series.icon?.charAt(0)?.toUpperCase() ?? '🎧'}
+          {ICON_MAP[series.icon] ?? <Headphones size={20} weight="duotone" />}
         </div>
 
         <div className="min-w-0 flex-1">

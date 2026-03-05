@@ -1,4 +1,10 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
+import {
+  Brain, Cpu, ShieldCheck, Rocket, TreeStructure, Sparkle, Flask, Factory,
+  GraduationCap, Lightning, ChartLineUp, Scales, UsersThree, Binoculars,
+  Headphones, Blueprint, Strategy,
+} from '@phosphor-icons/react';
 import { ListeningHero } from '@/components/micro-listening/ListeningHero';
 import { DailyMixCard } from '@/components/micro-listening/DailyMixCard';
 import { StreakFlame } from '@/components/micro-listening/StreakFlame';
@@ -16,6 +22,27 @@ import {
   getSeries,
   getEpisode,
 } from '@/lib/data/microListening/series';
+
+/** Maps Phosphor icon name strings from series data to React elements. */
+const ICON_MAP: Record<string, ReactNode> = {
+  Brain: <Brain size={28} weight="duotone" />,
+  Cpu: <Cpu size={28} weight="duotone" />,
+  ShieldCheck: <ShieldCheck size={28} weight="duotone" />,
+  Rocket: <Rocket size={28} weight="duotone" />,
+  Blueprint: <Blueprint size={28} weight="duotone" />,
+  TreeStructure: <TreeStructure size={28} weight="duotone" />,
+  Sparkle: <Sparkle size={28} weight="duotone" />,
+  Flask: <Flask size={28} weight="duotone" />,
+  Factory: <Factory size={28} weight="duotone" />,
+  Strategy: <Strategy size={28} weight="duotone" />,
+  GraduationCap: <GraduationCap size={28} weight="duotone" />,
+  Lightning: <Lightning size={28} weight="duotone" />,
+  ChartLine: <ChartLineUp size={28} weight="duotone" />,
+  Scales: <Scales size={28} weight="duotone" />,
+  UsersThree: <UsersThree size={28} weight="duotone" />,
+  Binoculars: <Binoculars size={28} weight="duotone" />,
+  Headphones: <Headphones size={28} weight="duotone" />,
+};
 import {
   generateDailyMix,
   getSmartRecommendations,
@@ -644,8 +671,8 @@ export default function MicroListeningPage() {
           <div className="rounded-2xl border border-border bg-card p-6 backdrop-blur-lg sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
               {/* Icon */}
-              <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-600 text-3xl shadow-lg shadow-violet-600/20">
-                {selectedSeries.icon || '🎧'}
+              <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-600 text-3xl text-white shadow-lg shadow-violet-600/20">
+                {ICON_MAP[selectedSeries.icon] ?? <Headphones size={28} weight="duotone" />}
               </div>
               <div className="flex-1">
                 <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
