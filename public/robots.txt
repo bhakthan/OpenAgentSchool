@@ -29,6 +29,10 @@ Disallow: /*.config.js$
 # /micro-learning serves bite-sized AI capsules with search-augmented generation
 Allow: /micro-learning
 
+# Micro-Listening — Daily Audio Learning (March 2026)
+# /micro-listening serves podcast-style audio episodes for hands-free AI learning
+Allow: /micro-listening
+
 # Sitemap & AI context files
 Sitemap: https://www.openagentschool.org/sitemap.xml
 # llms.txt: https://www.openagentschool.org/llms.txt

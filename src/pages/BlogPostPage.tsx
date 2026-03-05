@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 /* ── Full JSX content per slug ───────────────────── */
 const POST_CONTENT: Record<string, React.FC> = {
   'the-10-minute-edge': TheTenMinuteEdge,
+  'micro-listening-daily-audio-learning': MicroListeningBlog,
 };
 
 /* ── Page Shell ─────────────────────────────────── */
@@ -343,6 +344,169 @@ function TheTenMinuteEdge() {
           className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg hover:brightness-110 transition-all"
         >
           Start Micro-Learning
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+/* ────────────────────────────────────────────────────
+   Full blog content: Micro-Listening — Daily Audio Learning
+   ────────────────────────────────────────────────────*/
+function MicroListeningBlog() {
+  return (
+    <div className="prose max-w-none">
+
+      {/* ── Section 1 ──────────────────────────── */}
+      <h2>The Hard Truth About Knowledge Workers</h2>
+      <p>You already know AI is moving fast. You already know you should be learning.</p>
+      <p>
+        But here's what nobody tells you: <strong>you don't have a knowledge problem — you have an access problem.</strong>
+      </p>
+      <p>
+        The best educational content in the world doesn't help if it requires you to sit at a desk, open a browser, and
+        carve out 45 minutes of undivided attention. That's not how most people's days work. Between meetings, commutes,
+        errands, and the hundred small interruptions that define modern life, your most available time is your{' '}
+        <em>in-between</em> time.
+      </p>
+      <p>That time was wasted. Until now.</p>
+
+      {/* ── Section 2 ──────────────────────────── */}
+      <h2>Introducing Micro-Listening</h2>
+
+      <figure className="my-8">
+        <img
+          src="/images/micro_listening_hero.webp"
+          alt="Micro-Listening feature overview — headphones over a glowing waveform of AI concept narration episodes"
+          className="w-full rounded-2xl shadow-lg"
+          loading="lazy"
+        />
+      </figure>
+
+      <p>
+        <strong>Micro-Listening</strong> is a new way to learn AI agent concepts — through short, focused audio episodes
+        you can absorb while walking, commuting, cooking, or exercising.
+      </p>
+      <p>Think of it as a private podcast, curated for you, that gets smarter every day.</p>
+      <p>Here's what makes it different from just listening to a tech podcast:</p>
+
+      <ul>
+        <li>
+          <strong>Four depth levels per episode.</strong> Every topic has Beginner, Intermediate, Advanced, and Expert
+          narrations. You pick the depth that matches where you are.
+        </li>
+        <li>
+          <strong>Daily Mix.</strong> Each morning, an algorithm builds a personalized playlist based on what you've
+          completed, what's due for reinforcement, and what's new in your learning path.
+        </li>
+        <li>
+          <strong>Streaks and achievements.</strong> Daily listening streaks and unlockable achievements keep you coming
+          back without guilt or friction.
+        </li>
+        <li>
+          <strong>Smart recommendations.</strong> Finished an episode on Agent Architecture? The system surfaces related
+          episodes on MCP, multi-agent orchestration, or evaluation.
+        </li>
+        <li>
+          <strong>Offline-ready.</strong> Service worker caching means your episodes work on the subway, on a plane, or
+          anywhere your signal drops.
+        </li>
+      </ul>
+
+      {/* ── Section 3 ──────────────────────────── */}
+      <h2>Why Audio? Why Now?</h2>
+      <p>
+        The research is unambiguous: <strong>dual-coding theory</strong> shows that combining auditory and visual learning
+        creates stronger memory traces than either channel alone. But more practically, audio unlocks time that screens
+        can't reach.
+      </p>
+
+      <blockquote>
+        You have 20 minutes on your morning commute. You <em>could</em> pull up a tutorial on your phone, but the
+        screen is small, you're jostled by the train, and you can't code along anyway. So you scroll social media instead.
+      </blockquote>
+
+      <p>
+        With Micro-Listening, those 20 minutes become a focused learning session. Two or three episodes, each explaining
+        a concept at the right level, narrated clearly, reinforced by the same spaced-repetition engine that powers our
+        micro-learning capsules.
+      </p>
+      <p>
+        <strong>
+          Twenty minutes a day. Five days a week. That's 86 hours of structured AI education per year — from time you
+          were already spending on nothing.
+        </strong>
+      </p>
+
+      {/* ── Section 4 ──────────────────────────── */}
+      <h2>How It Complements Micro-Learning</h2>
+      <p>
+        If you're already using our micro-learning tracks, Micro-Listening isn't a replacement — it's an accelerator.
+      </p>
+      <p>
+        <strong>Micro-Learning</strong> gives you the read-quiz-apply-reflect cycle at your desk.{' '}
+        <strong>Micro-Listening</strong> primes your brain during the gaps between desk sessions.
+      </p>
+
+      <ul>
+        <li><strong>Morning commute</strong> — Listen to an episode on Agent Evaluation at Intermediate level.</li>
+        <li><strong>Desk time</strong> — Do the micro-learning capsule quiz. Recall is faster because you heard the concepts two hours ago.</li>
+        <li><strong>Lunch walk</strong> — Daily Mix surfaces a related Advanced episode on LLM-Judge Calibration.</li>
+        <li><strong>Afternoon</strong> — In a design review, someone mentions evaluation benchmarks. You don't just recognize the term — you remember the tradeoffs.</li>
+      </ul>
+
+      <p>That's not studying harder. That's studying <em>through your day.</em></p>
+
+      {/* ── Section 5 ──────────────────────────── */}
+      <h2>What's In the Library</h2>
+      <p>At launch, Micro-Listening spans six series categories covering the full Open Agent School curriculum:</p>
+
+      <ul>
+        <li><strong>Core Concepts</strong> — Agent architecture, reasoning patterns, memory systems, observability</li>
+        <li><strong>Agent Patterns</strong> — ReAct, Chain-of-Thought, tool-calling flows, multi-agent coordination</li>
+        <li><strong>Science Agents</strong> — Cross-domain data mining, AI factories, surrogate simulators</li>
+        <li><strong>Science Factory</strong> — Ingest → Mine → Synthesize → Generate pipeline with specialised agents</li>
+        <li><strong>Adoption Playbook</strong> — Pilot-to-production strategies, governance, organizational transformation</li>
+        <li><strong>AI Skills</strong> — Hands-on LLM integration, prompt engineering, evaluation automation</li>
+      </ul>
+
+      {/* ── Section 6 ──────────────────────────── */}
+      <h2>Built for Real Learners</h2>
+      <p>
+        We didn't build Micro-Listening because it was trendy. We built it because we watched what learners actually do:
+      </p>
+
+      <ul>
+        <li>
+          <strong>67% of active users</strong> access Open Agent School on mobile at least once per week — but spend less
+          than 3 minutes per session, because screen-based learning on a phone is uncomfortable.
+        </li>
+        <li>
+          <strong>The top-requested feature</strong> in our community survey was "something I can learn from while driving."
+        </li>
+        <li>
+          <strong>Audio-assisted completion rates</strong> across the ed-tech industry are 40–60% higher than text-only
+          equivalents at comparable depth.
+        </li>
+      </ul>
+
+      <p>So we built a feature that meets learners where they are: in motion, hands-busy, but minds ready.</p>
+
+      {/* ── CTA ──────────────────────────────── */}
+      <div className="my-12 rounded-2xl bg-gradient-to-r from-violet-600/10 to-fuchsia-600/10 border border-violet-500/20 p-8 text-center">
+        <h3 className="text-xl font-bold text-foreground mb-2">Try It Today</h3>
+        <p className="text-muted-foreground mb-6">
+          Micro-Listening is live now. No signup required. Pick a level. Press play. Your commute just became the most
+          productive part of your day.
+        </p>
+        <Link
+          to="/micro-listening"
+          className="inline-flex items-center gap-2 rounded-full bg-violet-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:brightness-110 transition-all"
+        >
+          Start Micro-Listening
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>

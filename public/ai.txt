@@ -121,6 +121,18 @@ Micro-Learning: https://www.openagentschool.org/micro-learning
 #   All keys stored in browser localStorage — never transmitted to any server
 # Intelligent caching: 1h search-augmented, 4h non-search latest, 24h other modes
 # Works with any BYOK LLM provider (OpenAI, Anthropic, Gemini, Ollama, DeepSeek, etc.)
+# Micro-Listening — Daily Audio Learning (March 2026)
+Micro-Listening: https://www.openagentschool.org/micro-listening
+# Podcast-style audio episodes for learning AI agent concepts hands-free
+# 6 Series Categories: Core Concepts, Agent Patterns, Science Agents, Science Factory, Adoption, AI Skills
+# 4 Depth Levels per episode: Beginner, Intermediate, Advanced, Expert
+# Web Speech API narration with playback speed control (0.75x–2x)
+# Daily Mix: algorithmically curated playlist based on learner progress & spaced repetition
+# Streak & achievement system for daily listening habits
+# Smart recommendations surface episodes based on completion history
+# Offline-capable via service worker audio caching
+# Works standalone or complements micro-learning capsule tracks
+
 # Tri-System Paradigm & Cognitive Ecology (February 2026)
 Concept-Tri-System-Paradigm: https://www.openagentschool.org/concepts/tri-system-paradigm
 # Beyond Kahneman's Dual-Process: the Triadic Cognitive Ecology (System 1 / System 2 / System 3)

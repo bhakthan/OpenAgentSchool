@@ -33,6 +33,9 @@ function deriveContentGroup(path: string): {
   // Study mode
   if (seg[0] === 'study-mode' || seg[0] === 'study') return { content_group: 'Study Mode' };
 
+  // Micro-Listening
+  if (seg[0] === 'micro-listening') return { content_group: 'Micro-Listening' };
+
   // Quiz
   if (seg[0] === 'quiz') return { content_group: 'Quiz' };
 

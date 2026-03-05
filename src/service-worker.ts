@@ -21,6 +21,7 @@ const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const API_CACHE = `api-${CACHE_VERSION}`;
 const IMAGE_CACHE = `images-${CACHE_VERSION}`;
 const FONT_CACHE = `fonts-${CACHE_VERSION}`;
+const AUDIO_CACHE = `audio-narration-${CACHE_VERSION}`;
 
 // ========================================
 // 1. App Shell - Cache First
@@ -97,6 +98,28 @@ registerRoute(
       new ExpirationPlugin({
         maxAgeSeconds: 365 * 24 * 60 * 60, // 1 year
         maxEntries: 30,
+      }),
+    ],
+  })
+);
+
+// ========================================
+// 4b. Audio Narration Scripts - Cache First
+// ========================================
+registerRoute(
+  ({ url }) =>
+    url.origin === self.location.origin &&
+    url.pathname.startsWith('/audio/') &&
+    url.pathname.endsWith('.txt'),
+  new CacheFirst({
+    cacheName: AUDIO_CACHE,
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxAgeSeconds: 90 * 24 * 60 * 60, // 90 days
+        maxEntries: 250,
       }),
     ],
   })

@@ -34,6 +34,22 @@ export interface BlogPost {
 
 export const SEED_POSTS: BlogPost[] = [
   {
+    slug: 'micro-listening-daily-audio-learning',
+    title: 'Why We Built Micro-Listening',
+    subtitle: 'And Why Your Commute Is Now a Classroom',
+    excerpt:
+      'You don\'t have a knowledge problem — you have an access problem. Micro-Listening turns your in-between time into structured AI education through short, focused audio episodes.',
+    heroImage: '/images/micro_listening_hero.webp',
+    heroImageAlt: 'Micro-Listening — headphones over a glowing waveform of AI concept narration episodes',
+    author: 'Open Agent School',
+    date: '2026-03-04',
+    dateDisplay: 'March 4, 2026',
+    readTime: '5 min read',
+    tags: ['Micro-Listening', 'Audio Learning', 'Learning Science', 'Accessibility'],
+    featured: true,
+    cardSize: 'tall',
+  },
+  {
     slug: 'the-10-minute-edge',
     title: 'The 10-Minute Edge',
     subtitle: 'How Micro-Learning and Just-In-Time Knowledge Are Rewriting the Rules of AI Education',

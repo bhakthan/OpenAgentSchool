@@ -133,6 +133,18 @@ Duolingo-style bite-sized AI agent education — master any concept in 10 minute
 - Gamification: XP, daily streaks, level-ups, and mastery badges drive engagement
 - Micro-Learning URL: https://www.openagentschool.org/micro-learning
 
+### Micro-Listening — Daily Audio Learning (March 2026)
+Podcast-style audio episodes for learning AI agent concepts hands-free.
+
+- 6 Series Categories: Core Concepts, Agent Patterns, Science Agents, Science Factory, Adoption, AI Skills
+- 4 Depth Levels: Each episode adapts narration for Beginner, Intermediate, Advanced, or Expert
+- Web Speech API: Browser-native text-to-speech narration with adjustable speed (0.75x–2x)
+- Daily Mix: Algorithmically curated playlist based on learner progress and spaced repetition
+- Streak & Achievements: Listening habit tracking with unlockable badges
+- Smart Recommendations: Episode suggestions surface based on completion history
+- Offline-capable: Service worker caches narration scripts for commute / offline listening
+- Micro-Listening URL: https://www.openagentschool.org/micro-listening
+
 ### ConceptSphere — AI-Powered Just-In-Time Knowledge Engine (February 2026)
 On-demand, LLM-generated micro-lessons grounded in live web search for real-time learning.
 
@@ -253,6 +265,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Agents for Science: https://www.openagentschool.org/agents-for-science
 - Study Mode: https://www.openagentschool.org/study-mode/
 - Micro-Learning: https://www.openagentschool.org/micro-learning
+- Micro-Listening: https://www.openagentschool.org/micro-listening
 - AI Skills Explorer: https://www.openagentschool.org/ai-skills/
 - Learning Atlas: https://www.openagentschool.org/learning-atlas/
 - Enterprise Playbook: https://www.openagentschool.org/playbook/

@@ -28,6 +28,7 @@ import { Stamp } from '@phosphor-icons/react/dist/ssr/Stamp';
 import { ShieldCheck as ShieldCheckNav } from '@phosphor-icons/react/dist/ssr/ShieldCheck';
 import { Robot } from '@phosphor-icons/react/dist/ssr/Robot';
 import { UsersThree } from '@phosphor-icons/react/dist/ssr/UsersThree';
+import { Headphones } from '@phosphor-icons/react/dist/ssr/Headphones';
 import { Sparkles as SparklesIcon } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { setupResizeObserverErrorHandling } from './lib/utils/resizeObserverUtils';
@@ -115,6 +116,7 @@ const PricingPage = lazy(() => import('./pages/PricingPage'));
 const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const NotificationsPage = lazy(() => import('./pages/NotificationsPage'));
 const MicroLearningPage = lazy(() => import('./pages/MicroLearningPage'));
+const MicroListeningPage = lazy(() => import('./pages/MicroListeningPage'));
 const MicroLearningReturnBanner = lazy(() => import('./components/micro-learning/MicroLearningReturnBanner'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
@@ -549,6 +551,7 @@ function App() {
                     hoverBg: 'hover:bg-blue-500/10 dark:hover:bg-blue-400/10',
                     items: [
                       { to: '/micro-learning', label: 'Micro-Learning', icon: <BookOpenText size={16} weight="duotone" />, description: 'Bite-sized AI agent mastery — 10 min/day', isNew: true },
+                      { to: '/micro-listening', label: 'Micro-Listening', icon: <Headphones size={16} weight="duotone" />, description: 'Daily audio learning — 5 min/day', isNew: true },
                       { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} />, description: 'Foundational AI agent concepts', isNew: false },
                       { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" />, description: 'Reusable design patterns', isNew: false },
                       { to: '/value-map', label: 'Skills Universe', icon: <SparklesIcon className="w-4 h-4" />, description: 'Discover what you\'ll master', isNew: false },
@@ -840,6 +843,7 @@ function App() {
                   <Route path="/about" element={<AboutPage />} />
                   <Route path="/terms" element={<TermsOfUsePage />} />
                   <Route path="/micro-learning/:trackId?" element={<AuthGuard><MicroLearningPage /></AuthGuard>} />
+                  <Route path="/micro-listening" element={<MicroListeningPage />} />
                   <Route path="/blog" element={<BlogPage />} />
                   <Route path="/blog/:slug" element={<BlogPostPage />} />
                   <Route path="/pricing" element={<PricingPage />} />

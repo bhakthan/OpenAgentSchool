@@ -908,7 +908,7 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
   };
 
   const extractLevelContent = (content: string, level: string): string => {
-    const sections = content.split('--------------------------------------------------------------------------------');
+    const sections = content.split(/[-─]{10,}/);
     
     switch (level) {
       case 'beginner':
@@ -917,6 +917,8 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         return sections[4]?.trim() || 'Intermediate explanation not found.';
       case 'advanced':
         return sections[6]?.trim() || 'Advanced explanation not found.';
+      case 'expert':
+        return sections[8]?.trim() || 'Expert explanation not found.';
       default:
         return 'Content not found.';
     }
