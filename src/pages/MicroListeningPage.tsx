@@ -16,6 +16,10 @@ import { ListeningPlayer } from '@/components/micro-listening/ListeningPlayer';
 import { AchievementToast } from '@/components/micro-listening/AchievementToast';
 import { useMicroListeningProgress } from '@/lib/hooks/useMicroListeningProgress';
 import { trackEvent } from '@/lib/analytics/ga';
+import { ContentLanguageSelector } from '@/components/ui/ContentLanguageSelector';
+import { useContentLanguage } from '@/lib/hooks/useContentLanguage';
+import { translateContent } from '@/lib/translateContent';
+import { getLocaleFor } from '@/lib/languages';
 import {
   getAllSeries,
   getSeriesByCategory,
@@ -98,6 +102,9 @@ export default function MicroListeningPage() {
   const [previousView, setPreviousView] = useState<PageView>('home');
   const [selectedSeriesId, setSelectedSeriesId] = useState<string | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<ListeningLevel>('beginner');
+
+  // ---- content language for translation ------------------------------------
+  const { language: contentLanguage, setLanguage: setContentLanguage, isLlmAvailable } = useContentLanguage();
   const [currentEpisodeId, setCurrentEpisodeId] = useState<string | null>(null);
 
   // ---- playback state ------------------------------------------------------
@@ -246,10 +253,20 @@ export default function MicroListeningPage() {
       }
     }
 
+    // Translate text if a non-English language is selected
+    if (contentLanguage !== 'en') {
+      text = await translateContent(text, contentLanguage);
+    }
+
     // Use Web Speech API
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = playbackSpeed;
+
+    // Set speech language for correct pronunciation
+    const locale = getLocaleFor(contentLanguage);
+    if (locale) utterance.lang = locale;
+
     utterance.onend = () => {
       setIsPlaying(false);
       markComplete(currentEpisodeId, selectedLevel);
@@ -266,7 +283,7 @@ export default function MicroListeningPage() {
     window.speechSynthesis.speak(utterance);
     setIsPlaying(true);
     setCurrentTime(0);
-  }, [currentEpisodeId, selectedLevel, playbackSpeed, markComplete, profile]);
+  }, [currentEpisodeId, selectedLevel, playbackSpeed, markComplete, profile, contentLanguage]);
 
   const handlePause = useCallback(() => {
     window.speechSynthesis.pause();
@@ -398,6 +415,15 @@ export default function MicroListeningPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-violet-500/30">
+      {/* Content language selector */}
+      <div className="flex justify-end px-6 pt-3">
+        <ContentLanguageSelector
+          language={contentLanguage}
+          onChange={setContentLanguage}
+          isLlmAvailable={isLlmAvailable}
+        />
+      </div>
+
       {/* Achievement toast – global */}
       <AchievementToast
         achievement={activeAchievement}

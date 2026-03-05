@@ -8,12 +8,17 @@ import {
 import { ByteSizedHero } from '@/components/byte-sized/ByteSizedHero';
 import { CategoryBrowser } from '@/components/byte-sized/CategoryBrowser';
 import { ByteCardStack } from '@/components/byte-sized/ByteCardStack';
+import { ContentLanguageSelector } from '@/components/ui/ContentLanguageSelector';
+import { useContentLanguage } from '@/lib/hooks/useContentLanguage';
 
 type View = 'landing' | 'browse' | 'stack';
 
 export default function ByteSizedPage() {
   const { categoryId, conceptId } = useParams<{ categoryId?: string; conceptId?: string }>();
   const navigate = useNavigate();
+
+  // Content language preference for translation
+  const { language, setLanguage, isLlmAvailable } = useContentLanguage();
 
   // Derive initial view from URL params
   const initialView: View = conceptId ? 'stack' : categoryId ? 'browse' : 'landing';
@@ -93,6 +98,15 @@ export default function ByteSizedPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8 space-y-8">
+      {/* Content language selector */}
+      <div className="flex justify-end">
+        <ContentLanguageSelector
+          language={language}
+          onChange={setLanguage}
+          isLlmAvailable={isLlmAvailable}
+        />
+      </div>
+
       {/* Landing */}
       {view === 'landing' && (
         <ByteSizedHero onBrowse={goBrowse} onRandom={handleRandom} />
@@ -118,6 +132,7 @@ export default function ByteSizedPage() {
           cards={conceptCards}
           conceptTitle={conceptTitle}
           onBack={handleBackFromStack}
+          contentLanguage={language}
         />
       )}
 

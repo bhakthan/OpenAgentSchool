@@ -8,6 +8,8 @@ import { TrackDetailView } from '@/components/micro-learning/TrackDetailView';
 import { CapsuleView } from '@/components/micro-learning/CapsuleView';
 import { Dashboard } from '@/components/micro-learning/Dashboard';
 import { StreakXPOverlay } from '@/components/micro-learning/StreakXPOverlay';
+import { ContentLanguageSelector } from '@/components/ui/ContentLanguageSelector';
+import { useContentLanguage } from '@/lib/hooks/useContentLanguage';
 import {
   CAPSULES_BY_TRACK,
   getTrackById,
@@ -33,6 +35,9 @@ const MicroLearningPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [showSorter, setShowSorter] = useState(false);
+
+  // Content language preference for translation
+  const { language, setLanguage, isLlmAvailable } = useContentLanguage();
 
   // Centralized progress hook (replaces inline loadProgress/getStats)
   const {
@@ -145,6 +150,15 @@ const MicroLearningPage: React.FC = () => {
 
   return (
     <div className="min-h-[80vh] pb-16">
+      {/* Content language selector */}
+      <div className="container mx-auto px-4 pt-4 flex justify-end">
+        <ContentLanguageSelector
+          language={language}
+          onChange={setLanguage}
+          isLlmAvailable={isLlmAvailable}
+        />
+      </div>
+
       {/* XP overlay */}
       {xpOverlay && (
         <StreakXPOverlay
@@ -173,6 +187,7 @@ const MicroLearningPage: React.FC = () => {
             onBack={handleCapsuleBack}
             hasNext={capsuleNavigation.hasNext}
             hasPrevious={capsuleNavigation.hasPrevious}
+            contentLanguage={language}
           />
         </div>
       )}

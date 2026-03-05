@@ -5,12 +5,14 @@ import type { ByteCard as ByteCardType } from '@/lib/data/byteSized/types';
 import { CARD_TYPE_META } from '@/lib/data/byteSized/types';
 import { isByteCardCompleted } from '@/lib/data/microLearning/progress';
 import { ByteCard } from './ByteCard';
+import type { LanguageCode } from '@/lib/languages';
 
 interface ByteCardStackProps {
   cards: ByteCardType[];
   conceptTitle: string;
   onBack: () => void;
   onConceptComplete?: () => void;
+  contentLanguage?: LanguageCode;
 }
 
 export const ByteCardStack: React.FC<ByteCardStackProps> = ({
@@ -18,6 +20,7 @@ export const ByteCardStack: React.FC<ByteCardStackProps> = ({
   conceptTitle,
   onBack,
   onConceptComplete,
+  contentLanguage = 'en',
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [xpSession, setXpSession] = useState(0);
@@ -116,6 +119,7 @@ export const ByteCardStack: React.FC<ByteCardStackProps> = ({
         card={card}
         onComplete={handleCardComplete}
         onReviewLater={currentIndex < total - 1 ? goNext : undefined}
+        contentLanguage={contentLanguage}
       />
 
       {/* ─── Navigation ───────────────────────────────────────── */}

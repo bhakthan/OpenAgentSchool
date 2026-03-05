@@ -5,17 +5,25 @@ import { trackEvent } from '@/lib/analytics/ga';
 import type { ByteCard as ByteCardType } from '@/lib/data/byteSized/types';
 import { CARD_TYPE_META } from '@/lib/data/byteSized/types';
 import { completeByteCard, isByteCardCompleted } from '@/lib/data/microLearning/progress';
+import { useTranslatedText } from '@/lib/hooks/useTranslatedText';
+import type { LanguageCode } from '@/lib/languages';
 
 interface ByteCardProps {
   card: ByteCardType;
   onComplete: (xpEarned: number) => void;
   onReviewLater?: () => void;
+  contentLanguage?: LanguageCode;
 }
 
-export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLater }) => {
+export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLater, contentLanguage = 'en' }) => {
   const [completed, setCompleted] = useState(() => isByteCardCompleted(card.id));
   const [showHighlight, setShowHighlight] = useState(false);
   const meta = CARD_TYPE_META[card.cardType];
+
+  // Translate content fields
+  const { translated: translatedTitle } = useTranslatedText(card.title, contentLanguage);
+  const { translated: translatedContent, isTranslating } = useTranslatedText(card.content, contentLanguage);
+  const { translated: translatedHighlight } = useTranslatedText(card.highlight || '', contentLanguage);
 
   const handleGotIt = () => {
     if (completed) return;
@@ -50,7 +58,7 @@ export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLa
           >
             {meta.emoji} {meta.label}
           </Badge>
-          <h3 className="text-base font-bold text-foreground">{card.title}</h3>
+          <h3 className="text-base font-bold text-foreground">{translatedTitle}</h3>
         </div>
         <span className="text-xs text-muted-foreground">
           {card.order}/5
@@ -60,7 +68,11 @@ export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLa
       {/* ─── Core Content ─────────────────────────────────────── */}
       <div className="flex flex-1 flex-col gap-4 px-5 py-5">
         <p className="text-sm leading-relaxed text-foreground/90">
-          {card.content}
+          {isTranslating ? (
+            <span className="inline-flex items-center gap-2">
+              <span className="animate-pulse">⏳</span> Translating…
+            </span>
+          ) : translatedContent}
         </p>
 
         {/* Highlight — toggleable insight */}
@@ -82,7 +94,7 @@ export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLa
               </span>
               {showHighlight && (
                 <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                  {card.highlight}
+                  {translatedHighlight}
                 </p>
               )}
             </div>

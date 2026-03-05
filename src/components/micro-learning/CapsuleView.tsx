@@ -12,6 +12,8 @@ import {
 import type { CapsuleType } from '@/lib/data/microLearning';
 import { saveMicroLearningReturnSession } from '@/lib/hooks/useMicroLearningReturn';
 import { ConceptSphere } from './ConceptSphere';
+import { useTranslatedText } from '@/lib/hooks/useTranslatedText';
+import type { LanguageCode } from '@/lib/languages';
 
 interface CapsuleViewProps {
   capsuleId: string;
@@ -22,6 +24,7 @@ interface CapsuleViewProps {
   onBack: () => void;
   hasNext: boolean;
   hasPrevious: boolean;
+  contentLanguage?: LanguageCode;
 }
 
 const TYPE_CONFIG: Record<CapsuleType, { icon: string; label: string; color: string; action: string }> = {
@@ -41,6 +44,7 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
   onBack,
   hasNext,
   hasPrevious,
+  contentLanguage = 'en',
 }) => {
   const capsule = getCapsuleById(capsuleId);
   const [completed, setCompleted] = useState(() => isCapsuleCompleted(capsuleId));
@@ -97,6 +101,29 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
 
   const config = TYPE_CONFIG[capsule.type];
 
+  // Build the English description for this capsule type, then translate
+  const conceptName = capsule.conceptId.replace(/-/g, ' ');
+  const englishDescription = useMemo(() => {
+    switch (capsule.type) {
+      case 'read':
+        return `Dive into the core mental model behind ${conceptName}. Read the concept page, absorb the key takeaways, then mark this capsule complete.`;
+      case 'visualize':
+        return `Explore the interactive visualization for ${conceptName}.${capsule.patternId ? ' See how this concept maps to a real agent pattern.' : ''}`;
+      case 'quiz-checkpoint':
+        return `Test your understanding of ${conceptName} with a quick quiz. 3–5 targeted questions with instant feedback.`;
+      case 'apply':
+        return `Go deeper with guided Socratic questioning on ${conceptName}. Reflect, explain, and connect ideas to build lasting understanding.`;
+      case 'pattern-connect':
+        return `See how ${conceptName} connects to a real-world agent pattern. Explore the pattern's flow diagram, use cases, and implementation notes.`;
+      default:
+        return '';
+    }
+  }, [capsule.type, conceptName, capsule.patternId]);
+
+  const { translated: translatedDescription, isTranslating } = useTranslatedText(englishDescription, contentLanguage);
+  const { translated: translatedTitle } = useTranslatedText(capsule.title, contentLanguage);
+  const { translated: translatedSubtitle } = useTranslatedText(capsule.subtitle, contentLanguage);
+
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       {/* ─── Capsule Header ─────────────────────────────────────── */}
@@ -112,23 +139,28 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
             <span className="text-2xl">{config.icon}</span>
             <div>
               <Badge className="bg-white/20 text-white text-[10px] mb-1">{config.label}</Badge>
-              <h2 className="text-lg font-bold">{capsule.title}</h2>
+              <h2 className="text-lg font-bold">{translatedTitle}</h2>
             </div>
           </div>
-          <p className="text-sm text-white/80 mt-1">{capsule.subtitle}</p>
+          <p className="text-sm text-white/80 mt-1">{translatedSubtitle}</p>
         </div>
 
         {/* ─── Content Area ─────────────────────────────────────── */}
         <div className="p-6 space-y-6">
-          {/* Content varies by capsule type */}
-          {capsule.type === 'read' && (
-            <div className="space-y-4">
-              <div className="rounded-xl bg-muted/50 p-6 border">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Dive into the core mental model behind <strong>{capsule.conceptId.replace(/-/g, ' ')}</strong>.
-                  Read the concept page, absorb the key takeaways, then mark this capsule complete.
-                </p>
-              </div>
+          {/* Translated description for capsule type */}
+          <div className="space-y-4">
+            <div className="rounded-xl bg-muted/50 p-6 border">
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {isTranslating ? (
+                  <span className="inline-flex items-center gap-2">
+                    <span className="animate-pulse">⏳</span> Translating…
+                  </span>
+                ) : translatedDescription}
+              </p>
+            </div>
+
+            {/* Action links per type (not translated — they're navigation) */}
+            {capsule.type === 'read' && (
               <Link
                 to={withReturnContext(`/concepts/${capsule.conceptId}`)}
                 onClick={saveReturnSession}
@@ -136,45 +168,28 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
               >
                 📖 Open Concept Page →
               </Link>
-            </div>
-          )}
+            )}
 
-          {capsule.type === 'visualize' && (
-            <div className="space-y-4">
-              <div className="rounded-xl bg-muted/50 p-6 border">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Explore the interactive visualization for <strong>{capsule.conceptId.replace(/-/g, ' ')}</strong>.
-                  {capsule.patternId && ' See how this concept maps to a real agent pattern.'}
-                </p>
-              </div>
-              {capsule.patternId ? (
-                <Link
-                  to={withReturnContext(`/patterns/${capsule.patternId}`)}
-                  onClick={saveReturnSession}
-                  className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
-                >
-                  👁️ View Pattern Diagram →
-                </Link>
-              ) : (
-                <Link
-                  to={withReturnContext(`/concepts/${capsule.conceptId}`)}
-                  onClick={saveReturnSession}
-                  className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
-                >
-                  👁️ View Concept Diagram →
-                </Link>
-              )}
-            </div>
-          )}
+            {capsule.type === 'visualize' && capsule.patternId && (
+              <Link
+                to={withReturnContext(`/patterns/${capsule.patternId}`)}
+                onClick={saveReturnSession}
+                className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
+              >
+                👁️ View Pattern Diagram →
+              </Link>
+            )}
+            {capsule.type === 'visualize' && !capsule.patternId && (
+              <Link
+                to={withReturnContext(`/concepts/${capsule.conceptId}`)}
+                onClick={saveReturnSession}
+                className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
+              >
+                👁️ View Concept Diagram →
+              </Link>
+            )}
 
-          {capsule.type === 'quiz-checkpoint' && (
-            <div className="space-y-4">
-              <div className="rounded-xl bg-muted/50 p-6 border">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Test your understanding of <strong>{capsule.conceptId.replace(/-/g, ' ')}</strong> with a quick quiz.
-                  3–5 targeted questions with instant feedback.
-                </p>
-              </div>
+            {capsule.type === 'quiz-checkpoint' && (
               <Link
                 to={withReturnContext(`/quiz/${capsule.quizCategoryId ?? capsule.conceptId}`)}
                 onClick={saveReturnSession}
@@ -182,17 +197,9 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
               >
                 ✅ Take the Quiz →
               </Link>
-            </div>
-          )}
+            )}
 
-          {capsule.type === 'apply' && (
-            <div className="space-y-4">
-              <div className="rounded-xl bg-muted/50 p-6 border">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Go deeper with guided Socratic questioning on <strong>{capsule.conceptId.replace(/-/g, ' ')}</strong>.
-                  Reflect, explain, and connect ideas to build lasting understanding.
-                </p>
-              </div>
+            {capsule.type === 'apply' && (
               <Link
                 to={withReturnContext(`/study-mode?concept=${capsule.conceptId}`)}
                 onClick={saveReturnSession}
@@ -200,28 +207,18 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
               >
                 🧠 Enter Study Mode →
               </Link>
-            </div>
-          )}
+            )}
 
-          {capsule.type === 'pattern-connect' && (
-            <div className="space-y-4">
-              <div className="rounded-xl bg-muted/50 p-6 border">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  See how <strong>{capsule.conceptId.replace(/-/g, ' ')}</strong> connects to a real-world agent pattern.
-                  Explore the pattern's flow diagram, use cases, and implementation notes.
-                </p>
-              </div>
-              {capsule.patternId && (
-                <Link
-                  to={withReturnContext(`/patterns/${capsule.patternId}`)}
-                  onClick={saveReturnSession}
-                  className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
-                >
-                  🔗 Explore {capsule.patternId.replace(/-/g, ' ')} Pattern →
-                </Link>
-              )}
-            </div>
-          )}
+            {capsule.type === 'pattern-connect' && capsule.patternId && (
+              <Link
+                to={withReturnContext(`/patterns/${capsule.patternId}`)}
+                onClick={saveReturnSession}
+                className="inline-flex items-center gap-2 text-primary text-sm font-medium hover:underline"
+              >
+                🔗 Explore {capsule.patternId.replace(/-/g, ' ')} Pattern →
+              </Link>
+            )}
+          </div>
 
           {/* Estimated time */}
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
