@@ -650,26 +650,6 @@ export default function AISkillsExplorer() {
               </div>
             </div>
 
-            {/* Video preview */}
-            <button
-              onClick={() => setIsVideoOpen(true)}
-              className="group relative w-full max-w-lg rounded-2xl overflow-hidden border border-border/60 hover:border-primary/40 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10"
-            >
-              <div className="aspect-video bg-gradient-to-br from-primary/20 via-background to-accent/20 flex items-center justify-center">
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
-                <div className="relative z-10 flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary/25">
-                    <svg className="w-7 h-7 text-primary-foreground ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                  <span className="text-sm font-medium text-foreground/90 bg-background/80 px-3 py-1 rounded-full backdrop-blur-sm">
-                    See Agents in Action
-                  </span>
-                </div>
-              </div>
-            </button>
-
             {/* Perspective lenses */}
             <div className="skills-glass-panel rounded-2xl p-5">
               <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Perspective Lenses</h2>
@@ -1002,33 +982,50 @@ export default function AISkillsExplorer() {
           </div>
         )}
 
+        {/* ── See Agents in Action (video) ── */}
+        <div className="mt-10 flex flex-col items-center gap-3">
+          <button
+            onClick={() => setIsVideoOpen(true)}
+            className="group inline-flex items-center gap-3 rounded-xl border border-border/60 bg-card px-5 py-3 hover:border-primary/40 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+          >
+            <div className="w-10 h-10 rounded-full bg-primary/90 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md shadow-primary/20">
+              <svg className="w-5 h-5 text-primary-foreground ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <span className="text-sm font-medium text-foreground/80">See Agents in Action</span>
+          </button>
+          <p className="text-xs text-muted-foreground">Watch a short demo of agentic processes</p>
+        </div>
       </div>
 
       {/* Video Modal */}
       {isVideoOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm"
           onClick={closeVideo}
         >
-          <div className="relative w-full max-w-4xl mx-4" onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={closeVideo}
-              className="absolute -top-12 right-0 text-white hover:text-primary transition-colors"
-              aria-label="Close video"
-            >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            <video
-              ref={videoRef}
-              className="w-full rounded-xl shadow-2xl"
-              controls
-              autoPlay
-              src="/video/Agentic_Processes_in_Action_version_1.mp4"
-            >
-              Your browser does not support the video tag.
-            </video>
+          <div className="flex min-h-full items-center justify-center p-4">
+            <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+              <button
+                onClick={closeVideo}
+                className="absolute -top-10 right-0 text-white hover:text-primary transition-colors z-10"
+                aria-label="Close video"
+              >
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <video
+                ref={videoRef}
+                className="w-full rounded-xl shadow-2xl"
+                controls
+                autoPlay
+                src="/video/Agentic_Processes_in_Action_version_1.mp4"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
           </div>
         </div>
       )}
