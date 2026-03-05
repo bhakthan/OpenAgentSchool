@@ -32,11 +32,13 @@ export const CategoryBrowser: React.FC<CategoryBrowserProps> = ({
 }) => {
   const [search, setSearch] = useState('');
 
-  // Category-level progress
+  // Category-level progress (each concept has 5 cards)
+  const CARDS_PER_CONCEPT = 5;
   const categoryStats = useMemo(() => {
     const stats: Record<string, { completed: number; total: number }> = {};
     for (const cat of BYTE_CATEGORIES) {
-      stats[cat.id] = getByteCategoryProgress(cat.id);
+      const conceptIds = getConceptsForCategory(cat.id);
+      stats[cat.id] = getByteCategoryProgress(conceptIds, CARDS_PER_CONCEPT);
     }
     return stats;
   }, []);
@@ -94,7 +96,7 @@ export const CategoryBrowser: React.FC<CategoryBrowserProps> = ({
 
           <div className="grid gap-3 sm:grid-cols-2">
             {activeConcepts.map((conceptId) => {
-              const progress = getByteConceptProgress(conceptId);
+              const progress = getByteConceptProgress(conceptId, CARDS_PER_CONCEPT);
               const pct = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
               return (
                 <button
