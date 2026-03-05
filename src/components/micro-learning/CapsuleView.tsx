@@ -251,6 +251,14 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
               onClose={() => setShowSphere(false)}
             />
           )}
+
+          {/* ─── Byte-Sized Cross-Link ────────────────────────── */}
+          <Link
+            to={`/byte-sized/${capsule.conceptId}`}
+            className="flex items-center gap-2 rounded-xl border border-violet-500/20 bg-violet-500/5 px-4 py-2.5 text-sm font-medium text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 transition-colors"
+          >
+            ⚡ Want the 60-second version? <span className="text-xs text-muted-foreground">5 byte-sized cards</span>
+          </Link>
         </div>
 
         {/* ─── Actions Footer ───────────────────────────────────── */}

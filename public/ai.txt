@@ -1,6 +1,6 @@
 # Open Agent School - ai.txt
 # AI crawler context file for AI training and LLM discovery
-# Last updated: February 28, 2026
+# Last updated: March 5, 2026
 #
 # POLICY: Fully inclusive — all AI crawlers, search engines, and bots are
 # welcome to index, train on, and serve our educational content.
@@ -132,6 +132,18 @@ Micro-Listening: https://www.openagentschool.org/micro-listening
 # Smart recommendations surface episodes based on completion history
 # Offline-capable via service worker audio caching
 # Works standalone or complements micro-learning capsule tracks
+#
+# Byte-Sized Learning — AI Concepts in 60 Seconds (March 2026)
+Byte-Sized-Learning: https://www.openagentschool.org/byte-sized
+# 325 ultra-compact learning cards across 65 concepts and 12 categories
+# 5 Card Types per concept: Definition, Logic, Mini-Pattern, Learning Loop, Real-World
+# Categories: Foundations, Architecture, Protocols, Production, Advanced, Applied,
+#   Enterprise, Beginner, Security, Evaluation, Cognitive, Specialized
+# 2 XP per card, shared streak system with micro-learning and micro-listening
+# Hybrid progression: daily streaks, category mastery, concept completion badges
+# Swipeable card interface with progress tracking and bookmarking
+# Designed for 60-second learning moments — commute, queue, coffee break
+# Works standalone or as a gateway to deeper micro-learning capsules
 
 # Tri-System Paradigm & Cognitive Ecology (February 2026)
 Concept-Tri-System-Paradigm: https://www.openagentschool.org/concepts/tri-system-paradigm
@@ -164,6 +176,7 @@ Pattern-Verifier-Agent: https://www.openagentschool.org/patterns/verifier-agent
 Agents-For-Science: https://www.openagentschool.org/agents-for-science
 Study-Mode: https://www.openagentschool.org/study-mode
 Micro-Learning: https://www.openagentschool.org/micro-learning
+Byte-Sized-Learning: https://www.openagentschool.org/byte-sized
 Patterns: https://www.openagentschool.org/patterns
 AI-Skills: https://www.openagentschool.org/ai-skills
 Playbook: https://www.openagentschool.org/playbook

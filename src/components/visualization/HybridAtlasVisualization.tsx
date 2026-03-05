@@ -268,6 +268,25 @@ function buildAtlasData(): AtlasNode {
         ]
       },
       {
+        id: 'byte-sized-cards',
+        name: 'Byte-Sized Cards',
+        type: 'category',
+        children: [
+          { id: 'bs-fundamentals', name: 'Fundamentals', type: 'concept', novel: true, path: '/byte-sized/fundamentals' },
+          { id: 'bs-prompting', name: 'Prompting', type: 'concept', novel: true, path: '/byte-sized/prompting' },
+          { id: 'bs-architecture', name: 'Architecture', type: 'concept', novel: true, path: '/byte-sized/architecture' },
+          { id: 'bs-patterns', name: 'Patterns', type: 'concept', novel: true, path: '/byte-sized/patterns' },
+          { id: 'bs-protocols', name: 'Protocols', type: 'concept', novel: true, path: '/byte-sized/protocols' },
+          { id: 'bs-multi-agent', name: 'Multi-Agent', type: 'concept', novel: true, path: '/byte-sized/multi-agent' },
+          { id: 'bs-security', name: 'Security', type: 'concept', novel: true, path: '/byte-sized/security' },
+          { id: 'bs-evaluation', name: 'Evaluation', type: 'concept', novel: true, path: '/byte-sized/evaluation' },
+          { id: 'bs-operations', name: 'Operations', type: 'concept', novel: true, path: '/byte-sized/operations' },
+          { id: 'bs-strategy', name: 'Strategy', type: 'concept', novel: true, path: '/byte-sized/strategy' },
+          { id: 'bs-advanced', name: 'Advanced', type: 'concept', novel: true, path: '/byte-sized/advanced' },
+          { id: 'bs-applied', name: 'Applied', type: 'concept', novel: true, path: '/byte-sized/applied' },
+        ]
+      },
+      {
         id: 'hands-on-practice',
         name: 'Hands-On Practice',
         type: 'category',

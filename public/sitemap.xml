@@ -37,6 +37,14 @@
         <priority>0.95</priority>
     </url>
 
+    <!-- Byte-Sized Learning — AI Concepts in 60 Seconds (March 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/byte-sized</loc>
+        <lastmod>2026-03-05</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
     <!-- Core Concepts Section -->
     <url>
         <loc>https://www.openagentschool.org/concepts/</loc>

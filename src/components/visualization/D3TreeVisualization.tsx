@@ -311,6 +311,25 @@ export default function D3TreeVisualization({
           ]
         },
         {
+          id: 'byte-sized-cards',
+          name: 'Byte-Sized Cards',
+          type: 'category' as const,
+          children: collapsedNodes.has('byte-sized-cards') ? [] : [
+            { id: 'bs-fundamentals', name: 'Fundamentals', type: 'concept' as const, novel: true },
+            { id: 'bs-prompting', name: 'Prompting', type: 'concept' as const, novel: true },
+            { id: 'bs-architecture', name: 'Architecture', type: 'concept' as const, novel: true },
+            { id: 'bs-patterns', name: 'Patterns', type: 'concept' as const, novel: true },
+            { id: 'bs-protocols', name: 'Protocols', type: 'concept' as const, novel: true },
+            { id: 'bs-multi-agent', name: 'Multi-Agent', type: 'concept' as const, novel: true },
+            { id: 'bs-security', name: 'Security', type: 'concept' as const, novel: true },
+            { id: 'bs-evaluation', name: 'Evaluation', type: 'concept' as const, novel: true },
+            { id: 'bs-operations', name: 'Operations', type: 'concept' as const, novel: true },
+            { id: 'bs-strategy', name: 'Strategy', type: 'concept' as const, novel: true },
+            { id: 'bs-advanced', name: 'Advanced', type: 'concept' as const, novel: true },
+            { id: 'bs-applied', name: 'Applied', type: 'concept' as const, novel: true },
+          ]
+        },
+        {
           id: 'hands-on-practice',
           name: 'Hands-On Practice (Login Required)',
           type: 'category' as const,

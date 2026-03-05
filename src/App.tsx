@@ -117,6 +117,7 @@ const OnboardingPage = lazy(() => import('./pages/OnboardingPage'));
 const NotificationsPage = lazy(() => import('./pages/NotificationsPage'));
 const MicroLearningPage = lazy(() => import('./pages/MicroLearningPage'));
 const MicroListeningPage = lazy(() => import('./pages/MicroListeningPage'));
+const ByteSizedPage = lazy(() => import('./pages/ByteSizedPage'));
 const MicroLearningReturnBanner = lazy(() => import('./components/micro-learning/MicroLearningReturnBanner'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
@@ -552,6 +553,7 @@ function App() {
                     items: [
                       { to: '/micro-learning', label: 'Micro-Learning', icon: <BookOpenText size={16} weight="duotone" />, description: 'Bite-sized AI agent mastery — 10 min/day', isNew: true },
                       { to: '/micro-listening', label: 'Micro-Listening', icon: <Headphones size={16} weight="duotone" />, description: 'Daily audio learning — 5 min/day', isNew: true },
+                      { to: '/byte-sized', label: 'Byte-Sized', icon: <Lightning size={16} weight="duotone" />, description: 'AI concepts in 60 seconds — 5 cards per topic', isNew: true },
                       { to: '/concepts', label: 'Core Concepts', icon: <LadderIcon size={16} />, description: 'Foundational AI agent concepts', isNew: false },
                       { to: '/patterns', label: 'Agent Patterns', icon: <PuzzlePiece size={16} weight="duotone" />, description: 'Reusable design patterns', isNew: false },
                       { to: '/value-map', label: 'Skills Universe', icon: <SparklesIcon className="w-4 h-4" />, description: 'Discover what you\'ll master', isNew: false },
@@ -844,6 +846,7 @@ function App() {
                   <Route path="/terms" element={<TermsOfUsePage />} />
                   <Route path="/micro-learning/:trackId?" element={<AuthGuard><MicroLearningPage /></AuthGuard>} />
                   <Route path="/micro-listening" element={<MicroListeningPage />} />
+                  <Route path="/byte-sized/:categoryId?/:conceptId?" element={<ByteSizedPage />} />
                   <Route path="/blog" element={<BlogPage />} />
                   <Route path="/blog/:slug" element={<BlogPostPage />} />
                   <Route path="/pricing" element={<PricingPage />} />

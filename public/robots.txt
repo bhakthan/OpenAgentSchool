@@ -1,6 +1,6 @@
 # Open Agent School - Robots.txt
 # https://www.openagentschool.org/robots.txt
-# Last updated: February 28, 2026
+# Last updated: March 5, 2026
 #
 # POLICY: Fully inclusive — all bots welcome.
 # Open Agent School is a global educational platform.
@@ -32,6 +32,10 @@ Allow: /micro-learning
 # Micro-Listening — Daily Audio Learning (March 2026)
 # /micro-listening serves podcast-style audio episodes for hands-free AI learning
 Allow: /micro-listening
+
+# Byte-Sized Learning — AI Concepts in 60 Seconds (March 2026)
+# /byte-sized serves 325 ultra-compact learning cards across 65 concepts and 12 categories
+Allow: /byte-sized
 
 # Sitemap & AI context files
 Sitemap: https://www.openagentschool.org/sitemap.xml

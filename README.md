@@ -22,12 +22,12 @@
 | | Question | Answer |
 |---|----------|--------|
 | **Why** | Why does this exist? | Most AI agent resources are scattered blog posts or vendor docs. Open Agent School brings concepts, patterns, and production practices into one interactive platform — so you learn the *why* behind each pattern, not just the API call. |
-| **What** | What does it cover? | 65+ agent patterns, 200+ quiz questions, **Duolingo-style micro-learning capsules**, an AI-powered **ConceptSphere** for just-in-time knowledge, interactive D3 visualizations, Socratic study mode, critical thinking challenges, exportable diagrams (SVG/PNG/PDF), and downloadable strategy toolkits — from fundamentals to production ops. |
+| **What** | What does it cover? | 65+ agent patterns, 200+ quiz questions, **Duolingo-style micro-learning capsules**, **byte-sized learning cards**, an AI-powered **ConceptSphere** for just-in-time knowledge, interactive D3 visualizations, Socratic study mode, critical thinking challenges, exportable diagrams (SVG/PNG/PDF), and downloadable strategy toolkits — from fundamentals to production ops. |
 | **Where** | Where does it run? | **Web** — live at [openagentschool.org](https://openagentschool.org). **PWA** — install on mobile or desktop for offline access. **Local dev** — clone the repo and `npm run dev` on localhost:5000. |
-| **When** | When should I use it? | When you're learning AI agents for the first time, need a quick 10-minute daily learning habit, want just-in-time answers grounded in live web search, evaluating patterns for a production system, preparing for a technical interview, or onboarding a team to agentic architecture — from first concept to org-wide adoption. |
+| **When** | When should I use it? | When you're learning AI agents for the first time, need a quick 10-minute daily learning habit, want 60-second byte-sized concept cards for on-the-go learning, want just-in-time answers grounded in live web search, evaluating patterns for a production system, preparing for a technical interview, or onboarding a team to agentic architecture — from first concept to org-wide adoption. |
 | **Who** | Who is it for? | Developers building AI agents, architects designing multi-agent systems, product managers evaluating agentic capabilities, and teams adopting AI — from individual learners to enterprise adoption programs. |
 | **How** | How is it built? | React 18 + TypeScript + Vite frontend with TailwindCSS and Radix UI. Optional Python FastAPI backend for study sessions and AI-powered assessments. Deployed on Azure Static Web Apps with GitHub Actions CI/CD. |
-| **Best For** | What's the sweet spot? | Engineers who learn by doing — micro-learning capsules for daily momentum, ConceptSphere for instant deep-dives, interactive visualizations, hands-on scenarios, and Socratic questioning beat passive reading. Also ideal for teams using the [Adoption Playbook](https://openagentschool.org) to drive org-wide AI transformation. |
+| **Best For** | What's the sweet spot? | Engineers who learn by doing — byte-sized cards for 60-second concept mastery, micro-learning capsules for daily momentum, ConceptSphere for instant deep-dives, interactive visualizations, hands-on scenarios, and Socratic questioning beat passive reading. Also ideal for teams using the [Adoption Playbook](https://openagentschool.org) to drive org-wide AI transformation. |
 | **Keys?** | Do I need API keys? | **No keys required to learn.** The entire platform works without any API keys. When you're ready for AI-powered features (study assessments, voice narration, cloud speech), bring your own keys — they stay in your browser's localStorage and never leave your device. |
 
 ---
@@ -110,6 +110,20 @@ Micro-Learning and ConceptSphere work together: structured daily capsules build 
 
 **Try it:** [openagentschool.org/micro-learning](https://openagentschool.org/micro-learning)
 
+### ⚡ Byte-Sized Learning — AI Concepts in 60 Seconds
+
+> **The fastest way to grasp any AI concept.** 325 ultra-compact learning cards designed for 60-second learning moments — commute, queue, coffee break.
+
+Open Agent School's byte-sized system distills 65 AI agent concepts into **5 card types** each — a multi-angle micro-curriculum you can consume anywhere.
+
+- **5 Card Types Per Concept** — Definition, Logic, Mini-Pattern, Learning Loop, Real-World — each card attacks the concept from a different angle.
+- **12 Categories** — Foundations, Architecture, Protocols, Production, Advanced, Applied, Enterprise, Beginner, Security, Evaluation, Cognitive, Specialized.
+- **Shared XP & Streaks** — 2 XP per card. Streaks count alongside micro-learning and micro-listening for unified daily engagement.
+- **Hybrid Progression** — Category mastery, concept completion badges, and daily streak tracking.
+- **Gateway to Depth** — Every card links to full micro-learning capsules and concept pages for deeper exploration.
+
+**Try it:** [openagentschool.org/byte-sized](https://openagentschool.org/byte-sized)
+
 ###  Interactive Learning Experience
 
 - **59 Core Concepts** across fundamentals, architecture, production, and advanced topics
@@ -157,7 +171,8 @@ Micro-Learning and ConceptSphere work together: structured daily capsules build 
 
 1. **Visit**: [openagentschool.org](https://openagentschool.org)
 2. **Start Micro-Learning**: Head to [/micro-learning](https://openagentschool.org/micro-learning) for daily 10-minute capsules
-3. **Ask ConceptSphere**: Use the AI-powered knowledge engine for instant just-in-time answers
+3. **Try Byte-Sized Cards**: Visit [/byte-sized](https://openagentschool.org/byte-sized) for 60-second concept cards
+4. **Ask ConceptSphere**: Use the AI-powered knowledge engine for instant just-in-time answers
 4. **Explore**: Browse Core Concepts or Agent Patterns
 5. **Learn**: Use Study Mode for guided discovery
 6. **Practice**: Try interactive scenarios and quizzes
@@ -220,6 +235,24 @@ Then in the app: **Tools → API Settings → Custom / International / Local** �
 - **[Backend Quick Reference](./BACKEND_QUICK_REF.md)** - Microservices setup and API reference
 - **[Agent Guide](./AGENTS.md)** - Guide for AI coding agents contributing to the project
 - **[Architecture Overview](./docs/backend/ARCHITECTURE_OVERVIEW.md)** - System design and service dependencies
+
+---
+
+## 🚀 Recent Updates (March 5, 2026)
+
+### ⚡ Byte-Sized Learning — AI Concepts in 60 Seconds
+
+**325 ultra-compact learning cards** across 65 concepts and 12 categories. Each concept gets 5 card types (Definition, Logic, Mini-Pattern, Learning Loop, Real-World) for multi-angle mastery in 60-second moments.
+
+| Feature | What It Does |
+|---------|-------------|
+| **5 Card Types** | Definition, Logic, Mini-Pattern, Learning Loop, Real-World — each concept from 5 angles |
+| **12 Categories** | Foundations, Architecture, Protocols, Production, Advanced, Applied, Enterprise, Beginner, Security, Evaluation, Cognitive, Specialized |
+| **Shared XP & Streaks** | 2 XP per card, unified streak system with micro-learning and micro-listening |
+| **Hybrid Progression** | Category mastery, concept completion badges, daily streak tracking |
+| **Gateway to Depth** | Cards link to full micro-learning capsules and concept deep-dives |
+
+**Try it:** [openagentschool.org/byte-sized](https://openagentschool.org/byte-sized)
 
 ---
 
@@ -480,8 +513,9 @@ The top navigation uses a **four-category mega-menu** that mirrors the learning 
 5. Study Mode: Adoption Strategy challenges
 
 ### 🧠 **Micro-Learning Path** (New — 10 min/day)
-1. Pick a track: Foundations, Architecture, Protocols, Production, Advanced, or Applied
-2. Complete daily capsules: Learn → Quiz → Apply → Reflect → Expand
+1. Start with **Byte-Sized Cards** at [/byte-sized](https://openagentschool.org/byte-sized) for 60-second concept previews
+2. Pick a track: Foundations, Architecture, Protocols, Production, Advanced, or Applied
+3. Complete daily capsules: Learn → Quiz → Apply → Reflect → Expand
 3. Let spaced repetition schedule your reviews automatically
 4. Use ConceptSphere for instant deep-dives on any question that comes up
 5. Build streaks, earn XP, and level up across all tracks
@@ -523,8 +557,9 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 - **29 Languages** for audio narration with auto-translation
 - **17 Visual Themes** — 12 dark + 5 light with View Transitions API sweep animation
 - **6 Micro-Learning Tracks** with 30+ bite-sized capsules, adaptive difficulty, and spaced repetition
+- **325 Byte-Sized Learning Cards** across 65 concepts, 12 categories, and 5 card types (60-second learning moments)
 - **ConceptSphere JIT Engine** — 8 exploration modes with search-augmented generation across 13 web search providers
-- **6 Learning Modes** (Micro-Learning, Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)
+- **6 Learning Modes** (Micro-Learning, Byte-Sized, Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)
 - **10 New Feature Pages** behind auth + feature flags (Phase 1 Lab, Analytics, Project Tracks, Pair Programming, Skill Passport, Cohorts, Safety Lab, Sandbox)
 
 ---

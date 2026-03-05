@@ -1,6 +1,6 @@
 # Open Agent School - llms.txt
 # https://llmstxt.org/ - A standard for providing context to LLMs
-# Last updated: February 27, 2026
+# Last updated: March 5, 2026
 
 > Open Agent School is a comprehensive educational platform for mastering AI agents,
 > from foundational concepts to production-ready agentic systems.
@@ -145,6 +145,18 @@ Podcast-style audio episodes for learning AI agent concepts hands-free.
 - Offline-capable: Service worker caches narration scripts for commute / offline listening
 - Micro-Listening URL: https://www.openagentschool.org/micro-listening
 
+### Byte-Sized Learning — AI Concepts in 60 Seconds (March 2026)
+325 ultra-compact learning cards for mastering AI agent concepts in 60-second moments.
+
+- 65 Concepts × 5 Card Types: Definition, Logic, Mini-Pattern, Learning Loop, Real-World
+- 12 Categories: Foundations, Architecture, Protocols, Production, Advanced, Applied, Enterprise, Beginner, Security, Evaluation, Cognitive, Specialized
+- Gamification: 2 XP per card, shared streak system with micro-learning and micro-listening
+- Hybrid Progression: Daily streaks, category mastery tracking, concept completion badges
+- Swipeable Card Interface: Progress tracking, bookmarking, category filtering
+- Designed for ultra-short learning moments — commute, queue, coffee break
+- Gateway to Deeper Learning: Cards link to full micro-learning capsules and concept pages
+- Byte-Sized Learning URL: https://www.openagentschool.org/byte-sized
+
 ### ConceptSphere — AI-Powered Just-In-Time Knowledge Engine (February 2026)
 On-demand, LLM-generated micro-lessons grounded in live web search for real-time learning.
 
@@ -266,6 +278,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Study Mode: https://www.openagentschool.org/study-mode/
 - Micro-Learning: https://www.openagentschool.org/micro-learning
 - Micro-Listening: https://www.openagentschool.org/micro-listening
+- Byte-Sized Learning: https://www.openagentschool.org/byte-sized
 - AI Skills Explorer: https://www.openagentschool.org/ai-skills/
 - Learning Atlas: https://www.openagentschool.org/learning-atlas/
 - Enterprise Playbook: https://www.openagentschool.org/playbook/

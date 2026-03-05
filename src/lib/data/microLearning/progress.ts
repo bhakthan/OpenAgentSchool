@@ -10,6 +10,7 @@ import type {
 } from './types';
 import { XP_VALUES, QUIZ_PERFECT_BONUS, DEFAULT_DAILY_GOAL } from './types';
 import { CAPSULES_BY_TRACK } from './capsules';
+import { BYTE_XP } from '../byteSized/types';
 
 const STORAGE_KEY = 'micro-learning-progress';
 
@@ -198,4 +199,90 @@ function dateOffset(days: number, from?: string): string {
   const d = from ? new Date(from + 'T00:00:00') : new Date();
   d.setDate(d.getDate() + days);
   return d.toISOString().slice(0, 10);
+}
+
+// ─── Byte-Sized Card Progress ────────────────────────────────────────────────
+// Shares the same XP/streak system; byte completions stored separately.
+
+const BYTE_STORAGE_KEY = 'byte-sized-progress';
+
+export interface ByteSizedProgress {
+  completedCards: Record<string, string>; // cardId → ISO date
+  totalCards: number;
+}
+
+function defaultByteProgress(): ByteSizedProgress {
+  return { completedCards: {}, totalCards: 0 };
+}
+
+export function loadByteProgress(): ByteSizedProgress {
+  try {
+    const raw = localStorage.getItem(BYTE_STORAGE_KEY);
+    if (!raw) return defaultByteProgress();
+    return JSON.parse(raw) as ByteSizedProgress;
+  } catch {
+    return defaultByteProgress();
+  }
+}
+
+function saveByteProgress(bp: ByteSizedProgress): void {
+  try {
+    localStorage.setItem(BYTE_STORAGE_KEY, JSON.stringify(bp));
+  } catch { /* degrade silently */ }
+}
+
+export function completeByteCard(cardId: string): { xpEarned: number } {
+  const bp = loadByteProgress();
+  if (bp.completedCards[cardId]) return { xpEarned: 0 }; // already completed
+
+  bp.completedCards[cardId] = new Date().toISOString();
+  bp.totalCards = Object.keys(bp.completedCards).length;
+  saveByteProgress(bp);
+
+  // Award XP + contribute to streak via the shared progress store
+  const progress = loadProgress();
+  progress.totalXP += BYTE_XP;
+  progress.lastActivityDate = todayISO();
+  const updated = recalculateStreak(progress);
+  saveProgress(updated);
+
+  return { xpEarned: BYTE_XP };
+}
+
+export function isByteCardCompleted(cardId: string): boolean {
+  return !!loadByteProgress().completedCards[cardId];
+}
+
+export function getByteConceptProgress(conceptId: string, totalCards: number): {
+  completed: number;
+  total: number;
+  percent: number;
+} {
+  const bp = loadByteProgress();
+  const prefix = `${conceptId}--`;
+  const completed = Object.keys(bp.completedCards).filter(k => k.startsWith(prefix)).length;
+  return {
+    completed,
+    total: totalCards,
+    percent: totalCards > 0 ? Math.round((completed / totalCards) * 100) : 0,
+  };
+}
+
+export function getByteCategoryProgress(conceptIds: string[], cardsPerConcept: number): {
+  completed: number;
+  total: number;
+  percent: number;
+} {
+  const bp = loadByteProgress();
+  let completed = 0;
+  for (const cid of conceptIds) {
+    const prefix = `${cid}--`;
+    completed += Object.keys(bp.completedCards).filter(k => k.startsWith(prefix)).length;
+  }
+  const total = conceptIds.length * cardsPerConcept;
+  return {
+    completed,
+    total,
+    percent: total > 0 ? Math.round((completed / total) * 100) : 0,
+  };
 }
