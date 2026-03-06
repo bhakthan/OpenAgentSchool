@@ -27,6 +27,7 @@ import { CodeBlock } from '@phosphor-icons/react/dist/ssr/CodeBlock';
 import { Stamp } from '@phosphor-icons/react/dist/ssr/Stamp';
 import { ShieldCheck as ShieldCheckNav } from '@phosphor-icons/react/dist/ssr/ShieldCheck';
 import { Robot } from '@phosphor-icons/react/dist/ssr/Robot';
+import { Fire } from '@phosphor-icons/react/dist/ssr/Fire';
 import { UsersThree } from '@phosphor-icons/react/dist/ssr/UsersThree';
 import { Headphones } from '@phosphor-icons/react/dist/ssr/Headphones';
 import { Sparkles as SparklesIcon } from 'lucide-react';
@@ -121,6 +122,7 @@ const ByteSizedPage = lazy(() => import('./pages/ByteSizedPage'));
 const MicroLearningReturnBanner = lazy(() => import('./components/micro-learning/MicroLearningReturnBanner'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+const TheForgePage = lazy(() => import('./pages/TheForgePage'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -589,6 +591,7 @@ function App() {
                        { to: '/community', label: 'Community', icon: <Users size={16} weight="duotone" />, description: 'Share and collaborate', isNew: false },
                        { to: '/cohorts', label: 'Team Cohorts', icon: <UsersThree size={16} weight="duotone" />, description: 'Mentor rooms and group challenges', isNew: true },
                        { to: '/sandbox', label: 'Agent Sandbox', icon: <Robot size={16} weight="duotone" />, description: 'Multi-agent simulation lab', isNew: true },
+                       { to: '/the-forge', label: 'The Forge', icon: <Fire size={16} weight="duotone" />, description: 'Cognitive friction lab — train judgment, not output', isNew: true },
                       ]
                     },
                   {
@@ -850,6 +853,7 @@ function App() {
                   <Route path="/blog" element={<BlogPage />} />
                   <Route path="/blog/:slug" element={<BlogPostPage />} />
                   <Route path="/pricing" element={<PricingPage />} />
+                  <Route path="/the-forge" element={<AuthGuard><TheForgePage /></AuthGuard>} />
                   <Route path="/onboarding" element={<AuthGuard><OnboardingPage /></AuthGuard>} />
                   <Route path="/notifications" element={<AuthGuard><NotificationsPage /></AuthGuard>} />
                   {/* Fallback route to redirect to home page */}

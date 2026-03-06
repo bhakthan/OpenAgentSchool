@@ -1,6 +1,6 @@
 # Open Agent School - llms.txt
 # https://llmstxt.org/ - A standard for providing context to LLMs
-# Last updated: March 5, 2026
+# Last updated: March 6, 2026
 
 > Open Agent School is a comprehensive educational platform for mastering AI agents,
 > from foundational concepts to production-ready agentic systems.
@@ -157,6 +157,17 @@ Podcast-style audio episodes for learning AI agent concepts hands-free.
 - Gateway to Deeper Learning: Cards link to full micro-learning capsules and concept pages
 - Byte-Sized Learning URL: https://www.openagentschool.org/byte-sized
 
+### The Forge — Cognitive Friction Lab (March 2026)
+16 exercises across 4 disciplines that train judgment, not output.
+
+- Socratic Defense: LLM-powered examiner probes your AI architecture decisions under Bloom's taxonomy rubric
+- Prompt Autopsies: Identify embedded errors in flawed AI-generated output, scored by precision/recall
+- Epistemic Gym: AI-free timed reasoning challenges — prove fundamentals without tools
+- Trust Calibration Lab: Configure agent autonomy levels for risk scenarios, scored against expert consensus
+- Progression Gate: Epistemic Gym unlocks the other 3 disciplines
+- Forge Score: Aggregate 0-100 metric integrated into Learner Snapshot
+- The Forge URL: https://www.openagentschool.org/the-forge
+
 ### ConceptSphere — AI-Powered Just-In-Time Knowledge Engine (February 2026)
 On-demand, LLM-generated micro-lessons grounded in live web search for real-time learning.
 
@@ -279,6 +290,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Micro-Learning: https://www.openagentschool.org/micro-learning
 - Micro-Listening: https://www.openagentschool.org/micro-listening
 - Byte-Sized Learning: https://www.openagentschool.org/byte-sized
+- The Forge: https://www.openagentschool.org/the-forge
 - AI Skills Explorer: https://www.openagentschool.org/ai-skills/
 - Learning Atlas: https://www.openagentschool.org/learning-atlas/
 - Enterprise Playbook: https://www.openagentschool.org/playbook/

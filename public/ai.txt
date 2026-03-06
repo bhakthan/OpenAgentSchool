@@ -1,6 +1,6 @@
 # Open Agent School - ai.txt
 # AI crawler context file for AI training and LLM discovery
-# Last updated: March 5, 2026
+# Last updated: March 6, 2026
 #
 # POLICY: Fully inclusive — all AI crawlers, search engines, and bots are
 # welcome to index, train on, and serve our educational content.
@@ -144,6 +144,16 @@ Byte-Sized-Learning: https://www.openagentschool.org/byte-sized
 # Swipeable card interface with progress tracking and bookmarking
 # Designed for 60-second learning moments — commute, queue, coffee break
 # Works standalone or as a gateway to deeper micro-learning capsules
+#
+# The Forge — Cognitive Friction Lab (March 2026)
+The-Forge: https://www.openagentschool.org/the-forge
+# 4 disciplines × 4 exercises = 16 exercises that train judgment, not output
+# Socratic Defense: LLM-powered examiner probes your AI architecture decisions
+# Prompt Autopsies: Find embedded errors in flawed AI-generated output
+# Epistemic Gym: AI-free timed reasoning — prove fundamentals without tools
+# Trust Calibration Lab: Configure agent autonomy levels for risk scenarios
+# Unlock progression: Epistemic Gym gates other 3 disciplines
+# Forge Score: Aggregate 0-100 metric integrated into Learner Snapshot
 
 # Tri-System Paradigm & Cognitive Ecology (February 2026)
 Concept-Tri-System-Paradigm: https://www.openagentschool.org/concepts/tri-system-paradigm
@@ -177,6 +187,7 @@ Agents-For-Science: https://www.openagentschool.org/agents-for-science
 Study-Mode: https://www.openagentschool.org/study-mode
 Micro-Learning: https://www.openagentschool.org/micro-learning
 Byte-Sized-Learning: https://www.openagentschool.org/byte-sized
+The-Forge: https://www.openagentschool.org/the-forge
 Patterns: https://www.openagentschool.org/patterns
 AI-Skills: https://www.openagentschool.org/ai-skills
 Playbook: https://www.openagentschool.org/playbook
@@ -197,6 +208,8 @@ Skill-Passport: https://www.openagentschool.org/skill-passport
 # Visual skill stamps and PDF certificate generation
 Team-Cohorts: https://www.openagentschool.org/cohorts
 # Mentor rooms, group challenges, study groups
+The-Forge: https://www.openagentschool.org/the-forge
+# Cognitive Friction Lab: 4 disciplines (Socratic Defense, Prompt Autopsies, Epistemic Gym, Trust Calibration)
 Safety-Lab: https://www.openagentschool.org/safety-lab
 # 12 red-teaming scenarios with interactive defense exercises and scoring
 Agent-Sandbox: https://www.openagentschool.org/sandbox

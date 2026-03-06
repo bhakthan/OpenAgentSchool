@@ -45,6 +45,14 @@
         <priority>0.95</priority>
     </url>
 
+    <!-- The Forge — Cognitive Friction Lab (March 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/the-forge</loc>
+        <lastmod>2026-03-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
     <!-- Core Concepts Section -->
     <url>
         <loc>https://www.openagentschool.org/concepts/</loc>

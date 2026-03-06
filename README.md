@@ -22,7 +22,7 @@
 | | Question | Answer |
 |---|----------|--------|
 | **Why** | Why does this exist? | Most AI agent resources are scattered blog posts or vendor docs. Open Agent School brings concepts, patterns, and production practices into one interactive platform — so you learn the *why* behind each pattern, not just the API call. |
-| **What** | What does it cover? | 65+ agent patterns, 200+ quiz questions, **Duolingo-style micro-learning capsules**, **byte-sized learning cards**, an AI-powered **ConceptSphere** for just-in-time knowledge, interactive D3 visualizations, Socratic study mode, critical thinking challenges, exportable diagrams (SVG/PNG/PDF), and downloadable strategy toolkits — from fundamentals to production ops. |
+| **What** | What does it cover? | 65+ agent patterns, 200+ quiz questions, **Duolingo-style micro-learning capsules**, **byte-sized learning cards**, **The Forge cognitive friction lab**, an AI-powered **ConceptSphere** for just-in-time knowledge, interactive D3 visualizations, Socratic study mode, critical thinking challenges, exportable diagrams (SVG/PNG/PDF), and downloadable strategy toolkits — from fundamentals to production ops. |
 | **Where** | Where does it run? | **Web** — live at [openagentschool.org](https://openagentschool.org). **PWA** — install on mobile or desktop for offline access. **Local dev** — clone the repo and `npm run dev` on localhost:5000. |
 | **When** | When should I use it? | When you're learning AI agents for the first time, need a quick 10-minute daily learning habit, want 60-second byte-sized concept cards for on-the-go learning, want just-in-time answers grounded in live web search, evaluating patterns for a production system, preparing for a technical interview, or onboarding a team to agentic architecture — from first concept to org-wide adoption. |
 | **Who** | Who is it for? | Developers building AI agents, architects designing multi-agent systems, product managers evaluating agentic capabilities, and teams adopting AI — from individual learners to enterprise adoption programs. |
@@ -124,6 +124,20 @@ Open Agent School's byte-sized system distills 65 AI agent concepts into **5 car
 
 **Try it:** [openagentschool.org/byte-sized](https://openagentschool.org/byte-sized)
 
+### 🔥 The Forge — Cognitive Friction Lab
+
+> **Train judgment, not output.** 16 exercises across 4 disciplines designed to build the critical thinking skills that separate AI-literate practitioners from prompt copy-pasters.
+
+The Forge is where learners prove they can think — not just prompt. Each discipline targets a different cognitive skill essential for working with AI agents.
+
+- **Socratic Defense** — An LLM-powered examiner probes your AI architecture decisions under Bloom's taxonomy rubric. Defend your reasoning or get exposed.
+- **Prompt Autopsies** — Flawed AI-generated output with embedded errors. Find the bugs by precision and recall before the timer runs out.
+- **Epistemic Gym** — AI-free timed reasoning challenges. Prove you understand fundamentals without any tools — the gate to the other 3 disciplines.
+- **Trust Calibration Lab** — Configure agent autonomy levels for risk scenarios. Scored against expert consensus on the human-AI delegation spectrum.
+- **Forge Score** — Aggregate 0-100 metric across all disciplines, integrated into Learner Snapshot.
+
+**Try it:** [openagentschool.org/the-forge](https://openagentschool.org/the-forge)
+
 ###  Interactive Learning Experience
 
 - **59 Core Concepts** across fundamentals, architecture, production, and advanced topics
@@ -172,7 +186,8 @@ Open Agent School's byte-sized system distills 65 AI agent concepts into **5 car
 1. **Visit**: [openagentschool.org](https://openagentschool.org)
 2. **Start Micro-Learning**: Head to [/micro-learning](https://openagentschool.org/micro-learning) for daily 10-minute capsules
 3. **Try Byte-Sized Cards**: Visit [/byte-sized](https://openagentschool.org/byte-sized) for 60-second concept cards
-4. **Ask ConceptSphere**: Use the AI-powered knowledge engine for instant just-in-time answers
+4. **Train in The Forge**: Visit [/the-forge](https://openagentschool.org/the-forge) for judgment-building exercises
+5. **Ask ConceptSphere**: Use the AI-powered knowledge engine for instant just-in-time answers
 4. **Explore**: Browse Core Concepts or Agent Patterns
 5. **Learn**: Use Study Mode for guided discovery
 6. **Practice**: Try interactive scenarios and quizzes

@@ -1,6 +1,7 @@
 import { PatternData } from '@/lib/data/patterns';
 import type { LearningProfile } from '@/lib/userSettings';
 import { getStudyModeProgress } from '@/lib/data/studyMode/progress';
+import { getForgeScore } from '@/lib/data/forge/progress';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -57,6 +58,7 @@ export interface LearnerSnapshot {
   studyCompleted: number;
   level: 'beginner' | 'intermediate' | 'advanced';
   streak: number;
+  forgeScore?: number;
 }
 
 // ── Quiz progress ────────────────────────────────────────────────────────────
@@ -111,7 +113,7 @@ export function buildLearnerSnapshot(): LearnerSnapshot {
     } else if (i > 0) break; // allow today to be missing
   }
 
-  return { quiz, studySessions: studySessions.length, studyCompleted: completed, level, streak };
+  return { quiz, studySessions: studySessions.length, studyCompleted: completed, level, streak, forgeScore: getForgeScore() };
 }
 
 // ── Copilot weekly plan (now profile-aware) ──────────────────────────────────
