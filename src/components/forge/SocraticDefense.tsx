@@ -197,7 +197,7 @@ export default function SocraticDefense({ exercise, onComplete }: Props) {
                     : 'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 ml-4'
                 }`}
               >
-                <span className="text-xs font-semibold uppercase tracking-wide block mb-1 text-muted-foreground">
+                <span className="text-xs font-semibold uppercase tracking-wide block mb-1 text-gray-600 dark:text-gray-400">
                   {msg.role === 'examiner' ? '🔍 Examiner' : '💡 You'}
                 </span>
                 <span className="text-foreground">{msg.content}</span>
@@ -240,7 +240,7 @@ export default function SocraticDefense({ exercise, onComplete }: Props) {
             <div className="text-4xl font-bold text-emerald-600 dark:text-emerald-400">
               {score} / {content.rubric.maxScore}
             </div>
-            <div className="text-sm text-muted-foreground mt-1">Defense Score</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Defense Score</div>
           </div>
 
           <div className="rounded-lg border border-border bg-muted/30 p-4">

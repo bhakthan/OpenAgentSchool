@@ -212,7 +212,7 @@ export default function PromptAutopsy({ exercise, onComplete }: Props) {
             <div className="text-4xl font-bold text-emerald-600 dark:text-emerald-400">
               {score} / {maxScore}
             </div>
-            <div className="text-sm text-muted-foreground mt-1">
+            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
               Found {findings.filter(f => f.found).length} of {content.embeddedErrors.length} errors
             </div>
           </div>
@@ -241,11 +241,11 @@ export default function PromptAutopsy({ exercise, onComplete }: Props) {
                     </span>
                     <span className="text-sm font-medium text-foreground">{found ? '✅ Found' : '❌ Missed'}</span>
                     {error.location && (
-                      <span className="text-xs text-muted-foreground">— {error.location}</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400">— {error.location}</span>
                     )}
                   </div>
                   <p className="text-sm font-medium text-foreground">{error.description}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{error.explanation}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{error.explanation}</p>
                 </div>
               );
             })}

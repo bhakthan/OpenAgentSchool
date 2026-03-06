@@ -346,7 +346,7 @@ function DisciplineView({
       </header>
 
       {/* Philosophy */}
-      <blockquote className={`rounded-lg border ${colors.border} ${colors.bg} p-4 text-sm italic text-muted-foreground`}>
+      <blockquote className={`rounded-lg border ${colors.border} ${colors.bg} p-4 text-sm italic text-gray-700 dark:text-gray-300`}>
         {discipline.philosophy}
       </blockquote>
 

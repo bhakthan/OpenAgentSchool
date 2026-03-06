@@ -202,7 +202,7 @@ export default function EpistemicGym({ exercise, onComplete }: Props) {
 
           <div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/20 p-4">
             <h4 className="font-semibold text-sm text-foreground mb-2">Self-Assessment</h4>
-            <p className="text-xs text-muted-foreground mb-3">
+            <p className="text-xs text-gray-700 dark:text-gray-300 mb-3">
               Before seeing the answer, honestly rate your confidence. The Forge values intellectual honesty.
             </p>
             <div className="flex gap-2">
@@ -228,8 +228,8 @@ export default function EpistemicGym({ exercise, onComplete }: Props) {
             <h4 className="font-semibold text-sm text-foreground mb-2">Key Reasoning Steps</h4>
             <ul className="space-y-1">
               {content.reasoningSteps.map((step, i) => (
-                <li key={i} className="text-xs text-muted-foreground flex items-start gap-2">
-                  <span className="mt-0.5 text-purple-500 font-bold">{i + 1}.</span>
+                <li key={i} className="text-xs text-gray-700 dark:text-gray-300 flex items-start gap-2">
+                  <span className="mt-0.5 text-purple-700 dark:text-purple-400 font-bold">{i + 1}.</span>
                   {step}
                 </li>
               ))}
@@ -245,7 +245,7 @@ export default function EpistemicGym({ exercise, onComplete }: Props) {
             <div className="text-4xl font-bold text-purple-600 dark:text-purple-400">
               {score} / 25
             </div>
-            <div className="text-sm text-muted-foreground mt-1">
+            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
               Self-rated: {selfRating}/5 • Time: {formatTime(elapsed)} • Hints: {hintsUsed}
             </div>
           </div>
@@ -259,7 +259,7 @@ export default function EpistemicGym({ exercise, onComplete }: Props) {
           {/* Reference answer */}
           <div className="rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/20 p-4">
             <h4 className="font-semibold text-sm text-emerald-700 dark:text-emerald-300 mb-2">Reference Answer</h4>
-            <p className="text-sm text-muted-foreground whitespace-pre-wrap">{content.correctAnswer}</p>
+            <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{content.correctAnswer}</p>
           </div>
 
           {/* Explanation */}

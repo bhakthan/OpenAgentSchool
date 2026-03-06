@@ -186,7 +186,7 @@ export default function TrustCalibrationLab({ exercise, onComplete }: Props) {
             <div className="text-4xl font-bold text-cyan-600 dark:text-cyan-400">
               {score} / {content.scoringCriteria.maxScore}
             </div>
-            <div className="text-sm text-muted-foreground mt-1">Trust Calibration Score</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Trust Calibration Score</div>
           </div>
 
           {/* Scoring bands */}
@@ -224,7 +224,7 @@ export default function TrustCalibrationLab({ exercise, onComplete }: Props) {
                   <p className="text-sm font-medium text-foreground mb-1">
                     Your choice: {choice.option.label}
                   </p>
-                  <p className="text-xs text-muted-foreground">{choice.option.feedback}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{choice.option.feedback}</p>
                   {!isOptimal && (
                     <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1">
                       Better choice: {bestOption.label} (+{bestOption.score} pts)
