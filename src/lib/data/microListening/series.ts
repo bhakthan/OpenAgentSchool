@@ -1238,6 +1238,61 @@ const ALL_SERIES: ListeningSeries[] = [
       },
     ],
   },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  // 17. APPLIED AI SKILLS — Skill Creation Mastery
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    id: 'skill-creation-mastery',
+    title: 'Skill Creation Mastery',
+    description: 'The meta-skill of creating, testing, and iterating on agent skills — based on Anthropic\'s skill-creator workflow.',
+    icon: 'Flask',
+    color: 'purple-600',
+    gradient: 'from-purple-600 to-fuchsia-400',
+    category: 'applied-ai-skills',
+    difficulty: 'advanced',
+    episodes: [
+      {
+        id: 'ep-skill-creation-workflow',
+        title: 'The 5-Phase Skill Workflow',
+        description: 'Capture intent, interview, write SKILL.md, test & eval, iterate — the complete meta-learning loop.',
+        seriesId: 'skill-creation-mastery',
+        seriesOrder: 1,
+        durationEstimate: 240,
+        levels: ['intermediate', 'advanced'],
+        audioSource: 'audio/SkillCreationWorkflow_explanation.txt',
+        conceptId: 'agent-skills',
+        fallbackText: {
+          intermediate: 'Creating a skill starts with four intent-capture questions: What should the agent do? When should it trigger? What\'s the output format? Should we add test cases? These questions frame the entire design. After capturing intent, you interview for edge cases and dependencies, then draft the SKILL.md with clear sections and progressive disclosure. Testing uses parallel with-skill vs. baseline runs, and iteration generalizes from feedback rather than overfitting to examples.',
+          advanced: 'The meta-skill workflow mirrors Anthropic\'s skill-creator: a SKILL.md that teaches how to build SKILL.md files. Advanced practitioners optimize the description field as a trigger mechanism — running 20-query trigger evals with near-miss negatives. They apply three-level progressive disclosure (metadata always visible, body loaded on trigger, references on-demand) to keep context lean. The iteration phase uses quantitative benchmarks (pass rate, token count, timing) alongside qualitative human review via the eval viewer\'s Outputs and Benchmark tabs.',
+        },
+        tags: ['meta-learning', 'skill-creation', 'workflow', 'anthropic'],
+        relatedLinks: [
+          { label: 'Agent Skills', path: '/concepts/agent-skills' },
+          { label: 'The Forge', path: '/the-forge' },
+        ],
+      },
+      {
+        id: 'ep-skill-progressive-disclosure',
+        title: 'Progressive Disclosure & Writing Patterns',
+        description: 'Keep skills lean with 3-level disclosure, and write instructions LLMs actually follow.',
+        seriesId: 'skill-creation-mastery',
+        seriesOrder: 2,
+        durationEstimate: 200,
+        levels: ['intermediate', 'advanced'],
+        audioSource: 'audio/SkillProgressiveDisclosure_explanation.txt',
+        conceptId: 'agent-skills',
+        fallbackText: {
+          intermediate: 'Progressive disclosure has three levels: L1 is metadata (name + description, always in context at ~100 words), L2 is the SKILL.md body (loaded when triggered, ideally under 500 lines), and L3 is bundled resources (references, scripts, loaded on-demand). Writing patterns matter too: explain the why behind each rule instead of using heavy-handed MUSTs, include input/output examples, and define explicit output formats. A single good example teaches more than 20 rigid rules.',
+          advanced: 'Advanced practitioners treat the SKILL.md body as a context budget problem. Every line competes for the LLM\'s attention window. Techniques include: extracting repeated instructions into scripts (which run without loading into context), using references/ for domain-specific knowledge that only loads for matching inputs, and keeping the core body focused on the decision-making workflow. Description optimization uses trigger-eval queries with near-miss negatives — queries sharing keywords but requiring different skills — to refine activation precision.',
+        },
+        tags: ['progressive-disclosure', 'writing-patterns', 'context-management'],
+        relatedLinks: [
+          { label: 'Agent Skills', path: '/concepts/agent-skills' },
+        ],
+      },
+    ],
+  },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════

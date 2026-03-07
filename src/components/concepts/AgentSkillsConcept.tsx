@@ -891,6 +891,25 @@ curl -X POST \\
             title="Creating Agent Skills"
             contextDescription="Hands-on skill creation walkthrough"
           />
+
+          {/* Cross-link to advanced tab */}
+          <Card className="border-purple-300 dark:border-purple-700 bg-gradient-to-r from-purple-50/50 to-indigo-50/50 dark:from-purple-950/20 dark:to-indigo-950/20">
+            <CardContent className="py-5">
+              <div className="flex items-start gap-3">
+                <Flask className="w-6 h-6 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Ready for Advanced Skill Craft?</h4>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+                    Explore the full skill-creator meta-skill workflow used by Anthropic — including iterative eval loops, 
+                    description optimization, and novel domain examples.
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    Jump to the <strong>Skill Creation Mastery</strong> tab for the deep dive.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       )
     },
@@ -1459,6 +1478,540 @@ Extract text with pdfplumber: [code example]
           <EnlightenMeButton
             title="Agent Skills Specification"
             contextDescription="The open standard for portable agent skills"
+          />
+        </div>
+      )
+    },
+    {
+      id: 'skill-creation-mastery',
+      title: 'Skill Creation Mastery',
+      description: 'Advanced: the meta-skill workflow for building novel skills',
+      icon: <Flask className="w-4 h-4" />,
+      level: 'implementation' as const,
+      content: (
+        <div className="space-y-6">
+          {/* Section 1: The Meta-Skill Concept */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Flask className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                The Meta-Skill: A Skill That Creates Skills
+              </CardTitle>
+              <CardDescription>
+                Anthropic's skill-creator is itself a SKILL.md — meta-learning in action
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg leading-relaxed text-gray-900 dark:text-gray-100">
+                The most powerful skill you can learn isn't any single domain skill — it's the ability 
+                to <strong>create skills themselves</strong>. Anthropic's <code className="bg-muted px-1 rounded">skill-creator</code> is 
+                a meta-skill: a SKILL.md file that teaches Claude how to build, test, and iterate on new skills.
+              </p>
+
+              {/* 5-Phase Flow */}
+              <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950/20 dark:to-indigo-950/20 p-5 rounded-lg border border-purple-200 dark:border-purple-800">
+                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">The 5-Phase Skill Creation Workflow</h4>
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-0">
+                  {[
+                    { num: 1, label: 'Capture Intent', desc: 'What & when?' },
+                    { num: 2, label: 'Interview & Research', desc: 'Edge cases, deps' },
+                    { num: 3, label: 'Write SKILL.md', desc: 'Draft the skill' },
+                    { num: 4, label: 'Test & Eval', desc: 'Run + benchmark' },
+                    { num: 5, label: 'Iterate', desc: 'Feedback loop' },
+                  ].map((phase, i) => (
+                    <div key={phase.num} className="flex items-center gap-2 md:gap-0">
+                      <div className="flex flex-col items-center text-center min-w-[100px]">
+                        <span className="w-8 h-8 rounded-full bg-purple-600 text-white text-sm font-bold flex items-center justify-center">
+                          {phase.num}
+                        </span>
+                        <span className="text-xs font-semibold text-gray-800 dark:text-gray-200 mt-1">{phase.label}</span>
+                        <span className="text-[10px] text-gray-600 dark:text-gray-400">{phase.desc}</span>
+                      </div>
+                      {i < 4 && <ArrowRight className="w-4 h-4 text-purple-400 hidden md:block mx-1" />}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-amber-50/70 dark:bg-amber-950/20 p-4 rounded-lg border border-amber-200 dark:border-amber-700">
+                <p className="text-sm text-gray-800 dark:text-gray-200">
+                  <strong>Why meta-learning matters:</strong> Once you can create skills, you can extend any 
+                  agent for any domain — healthcare, DevOps, education, science. The skill format is the 
+                  universal building block.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Section 2: Deep-Dive Workflow */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Phase 1: Capture Intent</CardTitle>
+              <CardDescription>
+                Four questions that define every skill
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {[
+                  { q: '1. What should this skill enable the agent to do?', hint: 'Be specific: "generate HIPAA-compliant clinical summaries" not "work with medical data"' },
+                  { q: '2. When should this skill trigger?', hint: 'List actual user phrases and contexts, not abstract categories' },
+                  { q: '3. What\'s the expected output format?', hint: 'Markdown report? JSON? Code file? Structured diagnosis?' },
+                  { q: '4. Should we set up test cases?', hint: 'Yes for deterministic outputs (transforms, extractions). Optional for subjective outputs (writing style).' },
+                ].map((item, i) => (
+                  <div key={i} className="border border-purple-200 dark:border-purple-700 rounded-lg p-3 bg-purple-50/30 dark:bg-purple-950/10">
+                    <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">{item.q}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">{item.hint}</p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Phase 2: Interview & Research</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed">
+                Before writing the skill, proactively investigate edge cases, input/output formats, 
+                example files, success criteria, and dependencies. Check available MCPs for useful 
+                research tools (searching docs, finding similar skills, looking up best practices).
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="border border-border rounded-lg p-3 bg-muted/30">
+                  <h5 className="font-semibold text-sm text-gray-900 dark:text-gray-100 mb-1">Edge Cases</h5>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">What inputs could break it? Malformed data? Empty fields? Multi-language?</p>
+                </div>
+                <div className="border border-border rounded-lg p-3 bg-muted/30">
+                  <h5 className="font-semibold text-sm text-gray-900 dark:text-gray-100 mb-1">Dependencies</h5>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Does it need specific packages? MCPs? File system access? API keys?</p>
+                </div>
+                <div className="border border-border rounded-lg p-3 bg-muted/30">
+                  <h5 className="font-semibold text-sm text-gray-900 dark:text-gray-100 mb-1">Success Criteria</h5>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">How will you know it works? Specific assertions? Human judgment?</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Phase 3: Writing the SKILL.md</CardTitle>
+              <CardDescription>Anatomy, progressive disclosure, and writing patterns</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Anatomy */}
+              <div className="bg-muted/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100 mb-3">Skill Anatomy</h4>
+                <pre className="bg-muted text-foreground p-3 rounded text-sm overflow-x-auto">
+                  <code>{`skill-name/
+├── SKILL.md          # Required — metadata + instructions
+│   ├── YAML frontmatter (name, description)
+│   └── Markdown body  (< 500 lines ideal)
+├── scripts/          # Deterministic/repetitive tasks
+├── references/       # Docs loaded into context as needed
+└── assets/           # Templates, icons, fonts`}</code>
+                </pre>
+              </div>
+
+              {/* Progressive Disclosure */}
+              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
+                <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100 mb-3">Three-Level Progressive Disclosure</h4>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-3">
+                    <Badge variant="outline" className="mt-0.5 shrink-0">L1</Badge>
+                    <div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Metadata</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400 ml-2">Always in context (~100 words). Name + description only.</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Badge variant="outline" className="mt-0.5 shrink-0">L2</Badge>
+                    <div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">SKILL.md body</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400 ml-2">Read when triggered (&lt;500 lines). Full instructions.</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Badge variant="outline" className="mt-0.5 shrink-0">L3</Badge>
+                    <div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Bundled resources</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400 ml-2">On-demand (unlimited). Scripts run without loading.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Writing Patterns */}
+              <div className="space-y-3">
+                <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100">Key Writing Patterns</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="border border-green-200 dark:border-green-700 rounded-lg p-3 bg-green-50/30 dark:bg-green-950/10">
+                    <h5 className="font-medium text-sm text-gray-900 dark:text-gray-100 mb-1">✅ Explain the Why</h5>
+                    <p className="text-xs text-gray-700 dark:text-gray-300">
+                      "Use imperative mood because git convention expects it" — not "ALWAYS use imperative mood."
+                    </p>
+                  </div>
+                  <div className="border border-red-200 dark:border-red-700 rounded-lg p-3 bg-red-50/30 dark:bg-red-950/10">
+                    <h5 className="font-medium text-sm text-gray-900 dark:text-gray-100 mb-1">❌ Avoid Heavy-Handed MUSTs</h5>
+                    <p className="text-xs text-gray-700 dark:text-gray-300">
+                      If you find yourself writing ALWAYS or NEVER in all caps, reframe and explain the reasoning instead.
+                    </p>
+                  </div>
+                  <div className="border border-green-200 dark:border-green-700 rounded-lg p-3 bg-green-50/30 dark:bg-green-950/10">
+                    <h5 className="font-medium text-sm text-gray-900 dark:text-gray-100 mb-1">✅ Include Examples</h5>
+                    <pre className="bg-white/50 dark:bg-gray-800/50 p-2 rounded text-[10px] text-gray-800 dark:text-gray-200 mt-1 overflow-x-auto">
+                      <code>{`Input: Added user auth with JWT
+Output: feat(auth): implement JWT auth`}</code>
+                    </pre>
+                  </div>
+                  <div className="border border-green-200 dark:border-green-700 rounded-lg p-3 bg-green-50/30 dark:bg-green-950/10">
+                    <h5 className="font-medium text-sm text-gray-900 dark:text-gray-100 mb-1">✅ Define Output Format</h5>
+                    <pre className="bg-white/50 dark:bg-gray-800/50 p-2 rounded text-[10px] text-gray-800 dark:text-gray-200 mt-1 overflow-x-auto">
+                      <code>{`## Report structure
+ALWAYS use this template:
+# [Title]
+## Executive summary
+## Key findings`}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Section 3: Novel Skill Examples */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Lightning className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                Novel Skill Examples
+              </CardTitle>
+              <CardDescription>
+                2 domain-specific + 2 cross-domain skills to inspire your own
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              {/* Domain #1: Medical */}
+              <div className="border border-emerald-200 dark:border-emerald-700 rounded-lg overflow-hidden">
+                <div className="bg-emerald-50 dark:bg-emerald-950/20 px-4 py-2 border-b border-emerald-200 dark:border-emerald-700">
+                  <h5 className="font-semibold text-sm text-emerald-800 dark:text-emerald-200">
+                    🏥 Domain: <code className="bg-emerald-100 dark:bg-emerald-800/50 px-1 rounded">medical-note-summary</code>
+                  </h5>
+                  <p className="text-xs text-emerald-700 dark:text-emerald-300">Healthcare — Extract structured summaries from clinical notes</p>
+                </div>
+                <div className="p-4 space-y-3">
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto">
+                    <code>{`medical-note-summary/
+├── SKILL.md             # SOAP format, abbreviation guide
+├── references/
+│   ├── FHIR_FIELDS.md   # Required FHIR resource fields
+│   └── TERMINOLOGY.md   # Medical abbreviation dictionary
+└── scripts/
+    └── validate_fhir.py # Validate output against FHIR R4`}</code>
+                  </pre>
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto">
+                    <code>{`---
+name: medical-note-summary
+description: >
+  Extract structured SOAP summaries from clinical notes.
+  Use when the user has medical notes, clinical records,
+  or discharge summaries. Outputs FHIR-compatible JSON.
+---
+
+# Medical Note Summary
+
+## Process
+1. Parse note into SOAP sections (Subjective, Objective,
+   Assessment, Plan)
+2. Extract diagnoses (ICD-10 codes if identifiable)
+3. Normalize medication names to generic equivalents
+4. Validate output against FHIR R4 using scripts/validate_fhir.py`}</code>
+                  </pre>
+                </div>
+              </div>
+
+              {/* Domain #2: DevOps */}
+              <div className="border border-blue-200 dark:border-blue-700 rounded-lg overflow-hidden">
+                <div className="bg-blue-50 dark:bg-blue-950/20 px-4 py-2 border-b border-blue-200 dark:border-blue-700">
+                  <h5 className="font-semibold text-sm text-blue-800 dark:text-blue-200">
+                    ⚙️ Domain: <code className="bg-blue-100 dark:bg-blue-800/50 px-1 rounded">ci-pipeline-optimizer</code>
+                  </h5>
+                  <p className="text-xs text-blue-700 dark:text-blue-300">DevOps — Analyze CI configs and suggest speed improvements</p>
+                </div>
+                <div className="p-4 space-y-3">
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto">
+                    <code>{`ci-pipeline-optimizer/
+├── SKILL.md              # Analysis workflow + optimization rules
+├── references/
+│   ├── GITHUB_ACTIONS.md # GH Actions patterns & caching
+│   ├── AZURE_PIPELINES.md# ADO-specific optimizations
+│   └── COMMON_PITFALLS.md# Slow patterns across CI systems
+└── scripts/
+    └── parse_timings.py  # Extract step durations from logs`}</code>
+                  </pre>
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto">
+                    <code>{`---
+name: ci-pipeline-optimizer
+description: >
+  Analyze CI/CD pipeline configs and suggest optimizations for
+  speed, cost, and reliability. Use when the user mentions
+  slow builds, CI costs, pipeline failures, or wants to
+  optimize GitHub Actions, Azure Pipelines, or GitLab CI.
+---
+
+# CI Pipeline Optimizer
+
+## Analysis Steps
+1. Identify CI system from config files
+2. Read references/<system>.md for system-specific patterns
+3. Run scripts/parse_timings.py on recent build logs
+4. Apply optimization rules: parallelization, caching,
+   conditional execution, artifact reuse`}</code>
+                  </pre>
+                </div>
+              </div>
+
+              {/* Cross-domain #1: Research to Blog */}
+              <div className="border border-amber-200 dark:border-amber-700 rounded-lg overflow-hidden">
+                <div className="bg-amber-50 dark:bg-amber-950/20 px-4 py-2 border-b border-amber-200 dark:border-amber-700">
+                  <h5 className="font-semibold text-sm text-amber-800 dark:text-amber-200">
+                    📝 Cross-Domain: <code className="bg-amber-100 dark:bg-amber-800/50 px-1 rounded">research-to-blog</code>
+                  </h5>
+                  <p className="text-xs text-amber-700 dark:text-amber-300">Research → Content — Convert academic papers into accessible blog posts</p>
+                </div>
+                <div className="p-4 space-y-3">
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto">
+                    <code>{`research-to-blog/
+├── SKILL.md              # Conversion workflow + style guide
+├── references/
+│   ├── TECHNICAL.md      # Style for ML/AI audience
+│   ├── GENERAL.md        # Style for non-technical audience
+│   └── ACADEMIC.md       # Style for peer-level audience
+└── assets/
+    └── blog_template.md  # Reusable blog post template`}</code>
+                  </pre>
+                  <div className="bg-amber-50/60 dark:bg-amber-950/10 p-3 rounded border border-amber-100 dark:border-amber-800/50">
+                    <p className="text-xs text-gray-700 dark:text-gray-300">
+                      <strong>Progressive disclosure in action:</strong> The SKILL.md asks the user which audience 
+                      they're targeting, then loads only the matching style guide from <code>references/</code>. 
+                      This keeps context lean — a technical blog post doesn't need the general-audience rules.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cross-domain #2: Data to Dashboard */}
+              <div className="border border-cyan-200 dark:border-cyan-700 rounded-lg overflow-hidden">
+                <div className="bg-cyan-50 dark:bg-cyan-950/20 px-4 py-2 border-b border-cyan-200 dark:border-cyan-700">
+                  <h5 className="font-semibold text-sm text-cyan-800 dark:text-cyan-200">
+                    📊 Cross-Domain: <code className="bg-cyan-100 dark:bg-cyan-800/50 px-1 rounded">data-to-dashboard</code>
+                  </h5>
+                  <p className="text-xs text-cyan-700 dark:text-cyan-300">Data → Visualization — Transform raw data files into interactive dashboards</p>
+                </div>
+                <div className="p-4 space-y-3">
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto">
+                    <code>{`data-to-dashboard/
+├── SKILL.md              # Data analysis + viz workflow
+├── scripts/
+│   ├── infer_schema.py   # Auto-detect column types
+│   └── create_charts.py  # Generate chart configs from data
+└── assets/
+    ├── dashboard.html    # Template with Chart.js CDN
+    └── theme.json        # Color palette + typography`}</code>
+                  </pre>
+                  <pre className="bg-muted text-foreground p-3 rounded text-xs overflow-x-auto">
+                    <code>{`---
+name: data-to-dashboard
+description: >
+  Transform CSV, JSON, or Excel files into interactive HTML
+  dashboards. Use when the user wants to visualize data, create
+  a dashboard, build charts, or explore a dataset visually.
+  Even if they just say "show me this data" — use this skill.
+---
+
+# Data to Dashboard
+
+## Process
+1. Run scripts/infer_schema.py to detect column types
+2. Suggest chart types based on data shape
+3. Run scripts/create_charts.py to generate Chart.js configs
+4. Assemble into assets/dashboard.html template`}</code>
+                  </pre>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Section 4: Test & Eval Loop */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ArrowsClockwise className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                Phase 4: Test & Eval Loop
+              </CardTitle>
+              <CardDescription>
+                The iterative cycle that turns a draft skill into a reliable one
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="bg-muted/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <div className="space-y-3">
+                  {[
+                    { step: '1', title: 'Spawn With-Skill + Baseline Runs', desc: 'For each test case, launch two parallel runs: one using the skill, one without. This gives you a clear comparison.' },
+                    { step: '2', title: 'Draft Assertions While Runs Execute', desc: 'Don\'t wait idle — draft quantitative assertions (file format checks, keyword presence, output structure) while test cases run.' },
+                    { step: '3', title: 'Grade & Aggregate Results', desc: 'Use the grader to evaluate assertions against outputs. Aggregate into benchmark.json with pass rates, timing, and token counts.' },
+                    { step: '4', title: 'User Reviews via Benchmark Viewer', desc: 'Open the eval viewer: "Outputs" tab shows qualitative results per test case; "Benchmark" tab shows quantitative stats.' },
+                    { step: '5', title: 'Iterate Based on Feedback', desc: 'Focus improvements on test cases where the user had specific complaints. Generalize fixes — don\'t overfit to examples.' },
+                  ].map(item => (
+                    <div key={item.step} className="flex items-start gap-3">
+                      <span className="w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                        {item.step}
+                      </span>
+                      <div>
+                        <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">{item.title}</span>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-emerald-50/60 dark:bg-emerald-950/20 p-4 rounded-lg border border-emerald-200 dark:border-emerald-700">
+                <h4 className="font-semibold text-sm text-emerald-800 dark:text-emerald-200 mb-2">Improvement Principles</h4>
+                <ul className="space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-600 dark:text-emerald-400 mt-0.5">•</span>
+                    <span><strong>Generalize from feedback</strong> — skills run millions of times; don't create fiddly, overfitted changes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-600 dark:text-emerald-400 mt-0.5">•</span>
+                    <span><strong>Keep the prompt lean</strong> — remove instructions that aren't pulling their weight</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-600 dark:text-emerald-400 mt-0.5">•</span>
+                    <span><strong>Extract repeated work into scripts</strong> — if every test run writes the same helper, bundle it</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-600 dark:text-emerald-400 mt-0.5">•</span>
+                    <span><strong>Explain the why</strong> — LLMs respond better to reasoning than rigid rules</span>
+                  </li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Section 5: Description Optimization */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Phase 5: Description Optimization</CardTitle>
+              <CardDescription>
+                The description field is the primary triggering mechanism — optimize it rigorously
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed">
+                Skills appear in Claude's available skills list with their <strong>name + description</strong> only. 
+                Claude decides whether to consult a skill based on that description. The key insight: 
+                Claude only consults skills for tasks it can't easily handle on its own — complex, 
+                multi-step, or specialized queries reliably trigger skills.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="border border-red-200 dark:border-red-700 rounded-lg p-3 bg-red-50/30 dark:bg-red-950/10">
+                  <h5 className="font-medium text-sm text-gray-900 dark:text-gray-100 mb-2">❌ Before Optimization</h5>
+                  <pre className="bg-white/50 dark:bg-gray-800/50 p-2 rounded text-[10px] text-gray-800 dark:text-gray-200 overflow-x-auto">
+                    <code>{`description: >
+  How to build a dashboard to
+  display internal data.`}</code>
+                  </pre>
+                  <p className="text-[10px] text-red-700 dark:text-red-300 mt-1">Too narrow. Misses many trigger phrases.</p>
+                </div>
+                <div className="border border-green-200 dark:border-green-700 rounded-lg p-3 bg-green-50/30 dark:bg-green-950/10">
+                  <h5 className="font-medium text-sm text-gray-900 dark:text-gray-100 mb-2">✅ After Optimization</h5>
+                  <pre className="bg-white/50 dark:bg-gray-800/50 p-2 rounded text-[10px] text-gray-800 dark:text-gray-200 overflow-x-auto">
+                    <code>{`description: >
+  Build dashboards for internal data.
+  Use for dashboards, data visualization,
+  metrics, or displaying company data,
+  even without explicit 'dashboard' request.`}</code>
+                  </pre>
+                  <p className="text-[10px] text-green-700 dark:text-green-300 mt-1">"Pushy" description catches more triggers.</p>
+                </div>
+              </div>
+
+              <div className="bg-muted/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100 mb-2">Trigger Eval Queries</h4>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+                  Create 20 test queries — a mix of should-trigger and should-not-trigger. 
+                  Focus on <strong>near-miss negatives</strong> (queries that share keywords but need a different skill).
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div>
+                    <p className="text-xs font-semibold text-green-700 dark:text-green-300 mb-1">Should Trigger (8–10)</p>
+                    <ul className="text-[10px] text-gray-700 dark:text-gray-300 space-y-1">
+                      <li>• Different phrasings of the same intent</li>
+                      <li>• Cases where user doesn't name the skill explicitly</li>
+                      <li>• Uncommon use cases and edge scenarios</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-red-700 dark:text-red-300 mb-1">Should NOT Trigger (8–10)</p>
+                    <ul className="text-[10px] text-gray-700 dark:text-gray-300 space-y-1">
+                      <li>• Near-misses sharing keywords but different intent</li>
+                      <li>• Ambiguous phrasing where another tool fits better</li>
+                      <li>• NOT obviously irrelevant queries (too easy)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Section 6: Cross-Links */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Practice & Deepen</CardTitle>
+              <CardDescription>
+                Apply your skill-creation knowledge across Open Agent School
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <Link to="/the-forge" className="block border border-purple-200 dark:border-purple-700 rounded-lg p-4 hover:shadow-sm hover:scale-[1.005] transition-all bg-purple-50/30 dark:bg-purple-950/10">
+                  <h5 className="font-semibold text-sm text-gray-900 dark:text-gray-100 mb-1">🔥 The Forge: Design a Domain Skill</h5>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    Epistemic Gym — design a complete SKILL.md under time pressure, without AI help.
+                  </p>
+                </Link>
+                <Link to="/the-forge" className="block border border-red-200 dark:border-red-700 rounded-lg p-4 hover:shadow-sm hover:scale-[1.005] transition-all bg-red-50/30 dark:bg-red-950/10">
+                  <h5 className="font-semibold text-sm text-gray-900 dark:text-gray-100 mb-1">🔬 The Forge: Skill Autopsy</h5>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    Prompt Autopsies — find embedded flaws in a badly-written SKILL.md.
+                  </p>
+                </Link>
+                <Link to="/study-mode" className="block border border-amber-200 dark:border-amber-700 rounded-lg p-4 hover:shadow-sm hover:scale-[1.005] transition-all bg-amber-50/30 dark:bg-amber-950/10">
+                  <h5 className="font-semibold text-sm text-gray-900 dark:text-gray-100 mb-1">📖 Study Mode: Agent Skills</h5>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    Socratic questioning, interactive scenarios, and debug challenges for skills.
+                  </p>
+                </Link>
+                <Link to="/micro-listening" className="block border border-cyan-200 dark:border-cyan-700 rounded-lg p-4 hover:shadow-sm hover:scale-[1.005] transition-all bg-cyan-50/30 dark:bg-cyan-950/10">
+                  <h5 className="font-semibold text-sm text-gray-900 dark:text-gray-100 mb-1">🎧 Micro-Listening: Skill Creation</h5>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    Audio episode on meta-learning the skill creation workflow.
+                  </p>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+
+          <ReferenceSection type="concept" itemId="agent-skills" />
+
+          <EnlightenMeButton
+            title="Skill Creation Mastery"
+            contextDescription="Advanced meta-learning: the skill-creator workflow for building novel agent skills"
           />
         </div>
       )

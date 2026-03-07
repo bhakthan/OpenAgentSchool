@@ -344,6 +344,32 @@ We're migrating our monolith to microservices to improve team autonomy and reduc
       ],
     },
   },
+  {
+    id: 'pa-skill-autopsy',
+    title: 'Skill Autopsy: Find the Flaws in This SKILL.md',
+    description: 'A plausible-looking SKILL.md for an API documentation generator — but it\'s riddled with skill-design anti-patterns.',
+    discipline: 'prompt-autopsies',
+    difficulty: 'intermediate',
+    estimatedMinutes: 15,
+    aiRequired: false,
+    conceptId: 'agent-skills',
+    content: {
+      flawedOutput: `---\nname: api-doc-generator\ndescription: Generates API documentation.\n---\n\n# API Documentation Generator\n\nYou MUST ALWAYS follow these rules:\n- NEVER skip any endpoint\n- ALWAYS include every parameter\n- NEVER produce incomplete documentation\n- ALWAYS use OpenAPI 3.0 format\n\n## Process\n1. Read the source code from C:\\Users\\dev\\projects\\api\\src\\\n2. Find all route handlers\n3. Extract parameters, request bodies, and response types\n4. Generate OpenAPI 3.0 YAML documentation\n5. Write output to C:\\Users\\dev\\projects\\api\\docs\\openapi.yaml\n\n## Rules\n- Every endpoint MUST have a description of at least 50 words\n- ALWAYS capitalize the first letter of every parameter description\n- NEVER use passive voice in descriptions\n- Response examples MUST always use realistic data\n\n## Error Handling\n- If a route has no types, infer them from usage patterns\n- If you can't determine the response type, use \'any\'\n\n## Quality Standards\n- Documentation MUST be perfect\n- Zero tolerance for missing fields\n- Every schema MUST be fully expanded (no $ref)\n\n(The rest of the SKILL.md continues for 600+ more lines with\nsimilar prescriptive rules, no examples of input/output pairs,\nand no references/ directory for framework-specific patterns.)`,
+      domain: 'Skill design & meta-learning',
+      embeddedErrors: [
+        { id: 'err-narrow-description', description: 'Description is too narrow — "Generates API documentation" won\'t trigger for varied phrasings like "document my endpoints" or "create a Swagger spec"', severity: 'critical', explanation: 'The description is the L1 trigger mechanism. A narrow description means the skill won\'t activate for many valid use cases. It should list varied trigger phrases: "API docs, Swagger, OpenAPI, endpoint documentation, REST spec."' },
+        { id: 'err-must-always-never', description: 'Overuse of MUST/ALWAYS/NEVER — 10+ occurrences of heavy-handed imperative language without explaining why', severity: 'major', explanation: 'LLMs respond better to reasoning than rigid commands. Instead of "NEVER use passive voice" explain: "Use active voice because OpenAPI consumers scan quickly and active phrasing is clearer." Explain the why.' },
+        { id: 'err-hardcoded-paths', description: 'Hardcoded file paths (C:\\Users\\dev\\...) make the skill non-portable', severity: 'critical', explanation: 'Skills run across environments. Hardcoded absolute paths will fail on any other machine. Use relative paths or instruct the agent to discover the project root dynamically.' },
+        { id: 'err-no-examples', description: 'No input/output examples anywhere — the skill is all rules, no demonstration', severity: 'major', explanation: 'Examples are the most effective teaching pattern for LLMs. A single before/after pair (raw route handler → generated OpenAPI YAML) is worth more than 20 rules. The skill should show concrete input → output transformations.' },
+        { id: 'err-no-references', description: '600+ line monolithic body with no references/ directory for framework-specific patterns', severity: 'major', explanation: 'Progressive disclosure principle: the SKILL.md body should be <500 lines. Framework-specific patterns (Express routes vs. FastAPI decorators vs. Spring annotations) belong in references/ loaded on-demand based on the detected framework.' },
+      ],
+      hints: [
+        'Read the description field carefully. Would Claude activate this skill if a user said "generate a Swagger spec for my Express app"?',
+        'Count the MUST/ALWAYS/NEVER statements. What proportion explain their reasoning vs. just commanding?',
+        'Check the file paths. Would this skill work on a Mac or Linux machine? What about a different project?',
+      ],
+    },
+  },
 ];
 
 // ── Epistemic Gym ────────────────────────────────────────────────────────────
@@ -449,6 +475,34 @@ const epistemicExercises: EpistemicGymExercise[] = [
         'Scale to 1,000 interactions and convert to cost',
         'Calculate latency impact from token count',
         'Compare marginal context cost against one-time fine-tuning cost',
+      ],
+    },
+  },
+  {
+    id: 'eg-domain-skill-design',
+    title: 'Design a Domain Skill: Database Migration Reviewer',
+    description: 'Design a complete SKILL.md folder structure for a database-migration-review skill — without AI help.',
+    discipline: 'epistemic-gym',
+    difficulty: 'intermediate',
+    estimatedMinutes: 12,
+    aiRequired: false,
+    conceptId: 'agent-skills',
+    content: {
+      question: 'You need a skill that reviews database migration scripts (SQL ALTER TABLE, CREATE INDEX, etc.) and flags risks like data loss, locking issues, and backwards-incompatibility.\n\nDesign the full SKILL.md skill from scratch:\n1. Write the YAML frontmatter (name + optimized description with trigger phrases).\n2. Outline the SKILL.md body — what sections and instructions would it contain?\n3. List what goes in references/ and scripts/ — what reusable assets does this skill need?\n4. Apply progressive disclosure: what\'s always in context (L1) vs. loaded on-demand (L2/L3)?\n5. Write 3 trigger-eval queries: 2 that SHOULD activate this skill, 1 near-miss that should NOT.',
+      timeLimit: 720,
+      hints: [
+        'Think about what makes database migrations risky — locking, data loss, index bloat, backwards compatibility.',
+        'Progressive disclosure: the description is always visible (L1), the SKILL.md body loads when triggered (L2), reference docs load on-demand (L3).',
+        'For trigger evals, a near-miss negative might be: "optimize this SQL query" — similar domain but a different skill.',
+      ],
+      correctAnswer: '1. Frontmatter: name: database-migration-reviewer, description: "Review SQL migration scripts for risks including data loss, table locking, index bloat, and backwards incompatibility. Use when a user shares ALTER TABLE, CREATE INDEX, migration files, or asks about database schema changes — even if they don\'t mention \'migration\'."\n2. SKILL.md body sections: ## Risk Categories (data loss, locking, backwards compat, performance), ## Analysis Process (parse DDL → classify operations → check against risk rules → generate report), ## Output Format (risk report with severity levels).\n3. references/: POSTGRES_RISKS.md, MYSQL_RISKS.md, COMMON_ANTIPATTERNS.md. scripts/: parse_ddl.py (extract operations from SQL), estimate_lock_time.py (estimate lock duration based on table size hints).\n4. L1: name + description (always in context). L2: SKILL.md body with analysis process (~200 lines). L3: DB-specific risk references loaded only for that database type.\n5. Should trigger: "Can you check this migration for issues?" and "I\'m adding a column to the users table, anything risky?". Should NOT trigger: "Help me optimize this slow SELECT query" — that\'s query optimization, not migration review.',
+      explanation: 'Designing a skill from scratch requires you to think about trigger semantics, progressive disclosure budgets, and the boundary between the skill\'s knowledge and what the LLM already knows. This is the core meta-skill of skill creation.',
+      reasoningSteps: [
+        'Identify the domain-specific risks that justify a dedicated skill',
+        'Write a description broad enough to catch varied trigger phrases',
+        'Structure the SKILL.md body around a clear analysis workflow',
+        'Decide what belongs in references (domain knowledge) vs. scripts (automation)',
+        'Apply 3-level progressive disclosure to minimize context usage',
       ],
     },
   },
