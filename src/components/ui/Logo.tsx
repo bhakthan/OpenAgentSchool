@@ -12,7 +12,7 @@ export const Logo: React.FC<LogoProps> = ({
   className = '' 
 }) => {
   const sizeConfig = {
-    small: { width: 32, height: 38, textSize: 'text-lg', logoGap: 'gap-2' },
+    small: { width: 28, height: 34, textSize: 'text-base', logoGap: 'gap-1.5' },
     medium: { width: 48, height: 58, textSize: 'text-2xl', logoGap: 'gap-3' },
     large: { width: 64, height: 77, textSize: 'text-3xl', logoGap: 'gap-4' },
     hero: { width: 120, height: 144, textSize: 'text-5xl', logoGap: 'gap-6' }
@@ -80,8 +80,8 @@ export const Logo: React.FC<LogoProps> = ({
       
       {/* Text */}
       {showText && (
-        <div className="flex flex-col">
-          <h1 className={`${config.textSize} font-bold text-foreground leading-tight`}>
+        <div className="flex flex-col min-w-0">
+          <h1 className={`${config.textSize} font-bold text-foreground leading-tight whitespace-nowrap`}>
             Open Agent School
           </h1>
           {size === 'hero' ? (
@@ -89,7 +89,7 @@ export const Logo: React.FC<LogoProps> = ({
               Building the agentic future
             </p>
           ) : (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs text-muted-foreground whitespace-nowrap hidden lg:block">
               Building the agentic future
             </p>
           )}

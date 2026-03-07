@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 const POST_CONTENT: Record<string, React.FC> = {
   'the-10-minute-edge': TheTenMinuteEdge,
   'micro-listening-daily-audio-learning': MicroListeningBlog,
+  'byte-sized-learning-agentic-era': ByteSizedAgenticEra,
 };
 
 /* ── Page Shell ─────────────────────────────────── */
@@ -507,6 +508,240 @@ function MicroListeningBlog() {
           className="inline-flex items-center gap-2 rounded-full bg-violet-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:brightness-110 transition-all"
         >
           Start Micro-Listening
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+/* ────────────────────────────────────────────────────
+   Full blog content: Byte-Sized Learning in the Agentic Era
+   ────────────────────────────────────────────────────*/
+function ByteSizedAgenticEra() {
+  return (
+    <div className="prose max-w-none">
+
+      {/* ── Lede ────────────────────────────────── */}
+      <h2>The Problem No One Talks About</h2>
+      <p>
+        AI agents are being deployed faster than humans can learn to build them. New frameworks arrive weekly. Paradigms
+        shift quarterly. The distance between <em>"I should learn this"</em> and <em>"I actually understand it"</em>
+        keeps growing — not because the content doesn't exist, but because the <strong>format</strong> is broken.
+      </p>
+      <p>
+        Hour-long video courses. 40-page whitepapers. Weekend bootcamps. They were designed for a world that moved
+        slowly enough for you to sit down and catch up. That world is gone.
+      </p>
+
+      <blockquote>
+        In the agentic era, the bottleneck isn't access to information — it's the gap between what you need to learn
+        and the time you actually have.
+      </blockquote>
+
+      <p>
+        Byte-sized learning closes that gap. Not by dumbing things down, but by <strong>restructuring knowledge into
+        the smallest unit that still produces understanding.</strong>
+      </p>
+
+      {/* ── Section 1 ──────────────────────────── */}
+      <h2>What "Byte-Sized" Actually Means</h2>
+      <p>
+        A byte-sized learning capsule isn't a shortened tutorial. It's a self-contained micro-module engineered around
+        one insight, one skill, or one mental model — delivered in 3 to 7 minutes. Each capsule follows a four-beat
+        rhythm:
+      </p>
+
+      <ol>
+        <li>
+          <strong>Read</strong> — A concise explanation of a single concept, stripped of filler. No "let me tell you
+          about my journey" preamble. Just the idea, clearly.
+        </li>
+        <li>
+          <strong>Quiz</strong> — An immediate knowledge check that forces active recall. Not multiple-choice busywork —
+          questions designed to surface the edges of your understanding.
+        </li>
+        <li>
+          <strong>Apply</strong> — A micro-exercise that connects the concept to a real scenario. "Given this agent
+          architecture, where would you add a safety guardrail?" Not hypothetical — practical.
+        </li>
+        <li>
+          <strong>Reflect</strong> — A Socratic prompt that pushes you past surface comprehension. "Why would this
+          pattern fail at scale? What assumption does it depend on?"
+        </li>
+      </ol>
+
+      <p>
+        This isn't pedagogy by accident. It's built on decades of learning science — <strong>spaced repetition</strong>,{' '}
+        <strong>retrieval practice</strong>, <strong>interleaving</strong>, and <strong>desirable difficulty</strong> — compressed
+        into a format that fits between meetings.
+      </p>
+
+      {/* ── Section 2 ──────────────────────────── */}
+      <h2>Why the Agentic Era Demands This</h2>
+      <p>
+        Agentic AI isn't a single technology — it's a stack of capabilities you need to understand simultaneously:
+        reasoning architectures, tool orchestration, memory patterns, safety guardrails, evaluation frameworks,
+        multi-agent coordination. Miss one layer and the whole picture is blurry.
+      </p>
+      <p>
+        Traditional learning treats these as separate courses. You complete "Introduction to Agent Architecture" in
+        week one, "Prompt Engineering" in week three, and by the time you reach "Multi-Agent Systems" in week eight,
+        you've already forgotten the architecture primitives that make multi-agent work intelligible.
+      </p>
+
+      <p>
+        Byte-sized learning solves this with <strong>interleaved progression</strong>. Instead of exhausting one topic
+        before starting the next, capsules alternate across domains. Monday you learn a prompting pattern. Tuesday, an
+        evaluation technique. Wednesday, an architecture primitive that connects the first two. Your brain builds
+        cross-links naturally, the way expert practitioners actually think.
+      </p>
+
+      <blockquote>
+        Experts don't store knowledge in silos. They store it in webs. Byte-sized learning builds the web from day one.
+      </blockquote>
+
+      {/* ── Section 3 ──────────────────────────── */}
+      <h2>The Science Behind the Format</h2>
+      <p>
+        The effectiveness of micro-learning isn't anecdotal — it's one of the most robustly replicated findings in
+        cognitive science. Here's what the research actually says:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Spacing effect</strong> (Ebbinghaus, 1885; Cepeda et al., 2006) — Distributing study across multiple
+          short sessions produces significantly stronger long-term retention than massed practice. A single 5-minute
+          capsule revisited three times across a week outperforms a single 30-minute session.
+        </li>
+        <li>
+          <strong>Testing effect</strong> (Roediger & Karpicke, 2006) — Retrieving information from memory strengthens
+          the memory trace far more than re-reading the same material. That's why every capsule includes a quiz, not
+          as assessment, but as a learning mechanism.
+        </li>
+        <li>
+          <strong>Interleaving</strong> (Rohrer & Taylor, 2007) — Mixing different problem types during practice
+          improves transfer and discrimination. Alternating between architecture, prompting, and evaluation capsules
+          produces deeper understanding than bingeing one topic.
+        </li>
+        <li>
+          <strong>Desirable difficulty</strong> (Bjork, 1994) — Learning that feels slightly challenging during encoding
+          leads to better long-term retention. The reflection prompts at the end of each capsule are calibrated to
+          create productive struggle without frustration.
+        </li>
+      </ul>
+
+      <p>
+        Most learning platforms know this research exists. Few actually structure their content around it. We did.
+      </p>
+
+      {/* ── Section 4 ──────────────────────────── */}
+      <h2>What a Week of Byte-Sized Learning Looks Like</h2>
+      <p>
+        Here's a realistic weekly flow for someone learning agentic AI through Open Agent School's byte-sized system:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Monday (6 min)</strong> — Capsule on <em>ReAct pattern</em>: read the architecture, quiz on when to
+          use it vs. chain-of-thought, apply it to a customer-support scenario, reflect on failure modes.
+        </li>
+        <li>
+          <strong>Tuesday (5 min)</strong> — Capsule on <em>LLM-as-Judge evaluation</em>: read the technique, quiz on
+          calibration tradeoffs, apply by writing a rubric for a real output, reflect on where human eval still wins.
+        </li>
+        <li>
+          <strong>Wednesday (7 min)</strong> — Capsule on <em>Tool-calling flows</em>: read how function-calling works,
+          quiz on schema design, apply by mapping tools for a research agent, reflect on security implications.
+        </li>
+        <li>
+          <strong>Thursday (5 min)</strong> — Capsule on <em>Agent memory patterns</em>: read about short-term vs.
+          long-term, quiz on retrieval strategies, apply by choosing a memory architecture for a coding assistant.
+        </li>
+        <li>
+          <strong>Friday (4 min)</strong> — Weekly synthesis: a cross-cutting micro-challenge that requires you to
+          combine insights from the week. "Design a two-agent system with shared memory, tool access, and an
+          evaluation harness." No new content — just integration.
+        </li>
+      </ul>
+
+      <p>
+        <strong>Total time: 27 minutes across 5 days.</strong> That's less than half the length of a single YouTube
+        tutorial — and produces dramatically better retention because the learning is distributed, active, and
+        interleaved.
+      </p>
+
+      {/* ── Section 5 ──────────────────────────── */}
+      <h2>The Compound Advantage</h2>
+      <p>
+        Byte-sized learning doesn't feel dramatic day to day. Five minutes here. Seven minutes there. But the compound
+        effect is striking:
+      </p>
+
+      <ul>
+        <li>
+          <strong>After 1 week</strong> — You've covered 4–5 concepts across multiple domains with active recall on
+          each. Traditional courses would still be in the Introduction module.
+        </li>
+        <li>
+          <strong>After 1 month</strong> — You've completed 20+ capsules, revisited earlier concepts through spaced
+          repetition, and built cross-domain mental models that connect architecture to evaluation to safety.
+        </li>
+        <li>
+          <strong>After 3 months</strong> — You have a working mental map of the entire agentic AI stack. You can
+          reason about tradeoffs in agent design, identify failure modes before they happen, and evaluate systems
+          with the vocabulary of a practitioner — not a spectator.
+        </li>
+      </ul>
+
+      <blockquote>
+        27 minutes a week × 12 weeks = under 6 hours total. That's the difference between "I keep meaning to learn
+        about agents" and "I understand how agent systems work."
+      </blockquote>
+
+      {/* ── Section 6 ──────────────────────────── */}
+      <h2>Built for How You Actually Learn</h2>
+      <p>
+        We designed byte-sized learning for the people who <em>want</em> to learn but can't find the time — the
+        practitioner with back-to-back meetings, the engineer who spends their "learning budget" on production fires,
+        the curious professional who keeps bookmarking tutorials they'll never finish.
+      </p>
+      <p>
+        Every capsule is designed to deliver value in isolation. You don't need to "complete the course" to benefit.
+        Capsule 14 is still useful if you skipped capsules 8 through 13. That's intentional. Real learning isn't
+        linear — it's a web of connections that strengthens every time you add a node.
+      </p>
+      <p>
+        And because capsules follow the <strong>Read → Quiz → Apply → Reflect</strong> rhythm, you don't just
+        <em>consume</em> information — you <em>do</em> something with it every single time. There's no passive watching.
+        No "I'll try this later." The doing is built into the format.
+      </p>
+
+      {/* ── Section 7 ──────────────────────────── */}
+      <h2>Start Now | Not Later</h2>
+      <p>
+        The agentic era won't wait for you to find a free weekend. The people who'll thrive aren't the ones who read
+        the most — they're the ones who learn <em>consistently</em>, in small doses, with real practice baked in.
+      </p>
+      <p>
+        Byte-sized learning is that consistency, packaged into a format that respects your time and trusts your
+        intelligence. No fluff. No filler. Just the knowledge you need, structured the way your brain actually retains it.
+      </p>
+
+      {/* ── CTA ──────────────────────────────── */}
+      <div className="my-12 rounded-2xl bg-gradient-to-r from-violet-600/10 to-fuchsia-600/10 border border-violet-500/20 p-8 text-center">
+        <h3 className="text-xl font-bold text-foreground mb-2">Your First Capsule Is Waiting</h3>
+        <p className="text-muted-foreground mb-6">
+          Pick a track. Complete one capsule. It takes less than 7 minutes — and it's the most productive learning
+          you'll do all week. No signup required.
+        </p>
+        <Link
+          to="/byte-sized"
+          className="inline-flex items-center gap-2 rounded-full bg-violet-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:brightness-110 transition-all"
+        >
+          Start Byte-Sized Learning
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>

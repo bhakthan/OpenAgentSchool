@@ -419,7 +419,7 @@ function App() {
             <OfflineBanner />
               <div className="site-typography-flat-ui min-h-screen bg-background text-foreground flex flex-col">
           <header className="topnav-flat-ui border-b border-border sticky top-0 z-50 bg-background" role="banner">
-            <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div className="container mx-auto px-4 py-2 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <button 
                   onClick={() => { trackEvent({ action: 'nav_click', category: 'navigation', label: 'logo_home' }); navigate('/'); }}
@@ -431,7 +431,7 @@ function App() {
                 </button>
               </div>
               
-              <div className="flex items-center space-x-2 flex-wrap justify-end">
+              <div className="flex items-center space-x-1 justify-end flex-shrink-0">
                 <Button
                   variant="outline"
                   size="sm"
@@ -440,7 +440,7 @@ function App() {
                   aria-label="Open Learning Journey Map"
                 >
                   <Path size={16} aria-hidden="true" />
-                  <span className="hidden sm:inline">Journey Map</span>
+                  <span className="hidden xl:inline">Journey</span>
                 </Button>
                 <Button
                   variant="default"
@@ -450,13 +450,10 @@ function App() {
                   aria-label="Get Started with Open Agent School"
                 >
                   <Lightning size={16} aria-hidden="true" />
-                  <span className="hidden sm:inline">Get Started</span>
+                  <span className="hidden xl:inline">Start</span>
                 </Button>
                 <AppTutorialButton />
-                <div className="flex items-center gap-2">
-                  <ThemeToggle />
-                  <span className="text-xs text-muted-foreground hidden md:inline-block">Theme</span>
-                </div>
+                <ThemeToggle />
                 <Button
                   variant="ghost"
                   size="icon"
@@ -490,7 +487,7 @@ function App() {
                   title="Explore the interactive Learning Atlas — visual taxonomy of all concepts"
                 >
                   <Tree size={16} weight="duotone" className="mr-1" />
-                  <span className="hidden md:inline">Learning Atlas</span>
+                  <span className="hidden xl:inline">Atlas</span>
                 </Link>
                 <NavigationMenu>
                   <NavigationMenuList>
@@ -502,7 +499,7 @@ function App() {
                         onClick={() => trackEvent({ action: 'outbound_click', category: 'navigation', label: 'github_repo' })}
                         className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                       >
-                        <GithubLogo className="mr-1" size={16} /> GitHub
+                        <GithubLogo size={16} /><span className="hidden xl:inline ml-1">GitHub</span>
                       </a>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
@@ -514,7 +511,7 @@ function App() {
                         className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                         title="Visit Open Agent School Wiki on DeepWiki"
                       >
-                        <Article className="mr-1" size={16} /> Wiki
+                        <Article size={16} /><span className="hidden xl:inline ml-1">Wiki</span>
                       </a>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
@@ -531,9 +528,8 @@ function App() {
                         <img 
                           src="/images/youtube-podcast-qr.svg" 
                           alt="YouTube Podcast QR Code" 
-                          className="w-6 h-6 mr-2 rounded-sm"
+                          className="w-5 h-5 rounded-sm"
                         />
-                        <span className="hidden lg:inline">Podcast</span>
                       </Button>
                     </NavigationMenuItem>
                   </NavigationMenuList>

@@ -34,6 +34,22 @@ export interface BlogPost {
 
 export const SEED_POSTS: BlogPost[] = [
   {
+    slug: 'byte-sized-learning-agentic-era',
+    title: 'Byte-Sized Learning in the Agentic Era',
+    subtitle: 'Why 5-Minute Capsules Beat 5-Hour Courses — and the Science That Proves It',
+    excerpt:
+      'The agentic era moves faster than traditional courses can teach. Byte-sized learning — structured micro-capsules built on spaced repetition and active recall — closes the gap in minutes a day.',
+    heroImage: '/images/byte_sized_agentic_era.webp',
+    heroImageAlt: 'Constellation of glowing knowledge nodes connected by light paths — byte-sized learning in the agentic era',
+    author: 'Open Agent School',
+    date: '2026-03-07',
+    dateDisplay: 'March 7, 2026',
+    readTime: '7 min read',
+    tags: ['Byte-Sized Learning', 'Agentic AI', 'Learning Science', 'Micro-Learning', 'Spaced Repetition'],
+    featured: true,
+    cardSize: 'tall',
+  },
+  {
     slug: 'micro-listening-daily-audio-learning',
     title: 'Why We Built Micro-Listening',
     subtitle: 'And Why Your Commute Is Now a Classroom',
