@@ -6,7 +6,7 @@ import A2ACommunicationPatterns from "./A2ACommunicationPatterns"
 import A2AMultiAgentSystem from "./A2AMultiAgentSystem"
 import Agent2AgentProtocolExplainer from "./Agent2AgentProtocolExplainer"
 import ReferenceSection from "../references/ReferenceSection"
-import { ArrowsHorizontal, Network, GitBranch, Sparkle, CloudArrowUp, MagnifyingGlassPlus, MagnifyingGlassMinus, ArrowSquareOut } from "@phosphor-icons/react"
+import { ArrowsHorizontal, Network, GitBranch, Sparkle, CloudArrowUp, MagnifyingGlassPlus, MagnifyingGlassMinus, ArrowSquareOut, Scales } from "@phosphor-icons/react"
 import { markNodeComplete } from '@/lib/utils/markComplete';
 import { EnlightenMeButton } from "@/components/enlighten/EnlightenMeButton";
 import CodeBlock from "@/components/ui/CodeBlock";
@@ -684,6 +684,225 @@ spec:
               </div>
             </CardContent>
           </Card>
+        </div>
+      )
+    },
+    {
+      id: 'mcp-vs-a2a',
+      title: 'MCP vs A2A',
+      description: 'When MCP breaks down and A2A takes over — the real architectural tradeoffs',
+      icon: <Scales className="w-4 h-4" />,
+      level: 'advanced' as const,
+      content: (
+        <div className="space-y-6">
+          {/* Headline */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Scales className="w-5 h-5" />
+                MCP vs A2A — The Honest Architectural Comparison
+              </CardTitle>
+              <CardDescription>
+                MCP and A2A solve fundamentally different problems. Treating them as interchangeable is
+                the most common mistake teams make when scaling agent systems.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+                <p className="text-sm font-medium text-amber-800 dark:text-amber-200 mb-1">⚠ Key Insight</p>
+                <p className="text-sm text-amber-700 dark:text-amber-300">
+                  Presenting MCP as a permanent replacement for A2A is architecturally shortsighted.
+                  As agents move from handling simple 5-minute tasks to complex, multi-day enterprise workflows,
+                  the rigid "Agent-as-a-Tool" abstraction breaks down under context window limits,
+                  timeout issues, and the lack of true asynchronous task lifecycles.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Visual */}
+          <figure className="my-6">
+            <img
+              src="/images/MCP_is_not_equal_to_A2A.webp"
+              alt="MCP is not equal to A2A — architectural comparison diagram showing the fundamental differences between tool-calling and agent-to-agent delegation"
+              className="w-full rounded-2xl shadow-lg border border-border"
+              loading="lazy"
+            />
+          </figure>
+
+          {/* Challenges */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Challenges with the "Agent-as-MCP-Tool" Approach</CardTitle>
+              <CardDescription>
+                Adopting MCP for everything works at prototype scale. Here's what breaks when your multi-agent system grows.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="border border-red-200 dark:border-red-800 rounded-lg p-4 space-y-2">
+                <h4 className="font-semibold text-red-700 dark:text-red-300">1. The "Context Window" Flood</h4>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  MCP's <code className="bg-muted px-1 rounded text-xs">call_tool</code> returns strings (or base64 data) directly
+                  into the calling agent's LLM context window. If your Technical Architect agent generates a 5,000-line
+                  codebase, that massive text block floods the Orchestrator's prompt.
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                  A2A solution → Pass references (URIs to shared workspaces or artifact stores) to avoid token exhaustion.
+                </p>
+              </div>
+
+              <div className="border border-red-200 dark:border-red-800 rounded-lg p-4 space-y-2">
+                <h4 className="font-semibold text-red-700 dark:text-red-300">2. Long-Running Tasks &amp; Timeouts</h4>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  MCP is essentially a Remote Procedure Call (RPC). If the "Agent-as-Tool" takes 20 minutes to
+                  research, compile a report, and respond, standard HTTP/MCP clients will likely time out.
+                  Managing async multi-hour agents behind a synchronous <code className="bg-muted px-1 rounded text-xs">call_tool</code> abstraction
+                  requires messy polling loops.
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                  A2A solution → Async-first lifecycle with webhooks, SSE, or event buses.
+                </p>
+              </div>
+
+              <div className="border border-red-200 dark:border-red-800 rounded-lg p-4 space-y-2">
+                <h4 className="font-semibold text-red-700 dark:text-red-300">3. The "Strict Schema" Mismatch</h4>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  MCP requires the client to know the exact JSON schema of the tool. But autonomous agents work
+                  best with <strong>goals</strong>, not strict parameters. Forcing a complex agent behind a rigid
+                  function signature reduces the semantic richness of agent-to-agent delegation.
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                  A2A solution → Goal/intent passing with natural language task delegation + context payloads.
+                </p>
+              </div>
+
+              <div className="border border-red-200 dark:border-red-800 rounded-lg p-4 space-y-2">
+                <h4 className="font-semibold text-red-700 dark:text-red-300">4. Opaque Error Handling</h4>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  If the remote agent fails internally, the MCP orchestrator just receives a tool error string. The
+                  LLM must read the string and figure out what to do.
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                  A2A solution → Structured protocol errors: <code className="bg-muted px-1 rounded text-xs">TaskFailed</code>,{' '}
+                  <code className="bg-muted px-1 rounded text-xs">RetryRequested</code>,{' '}
+                  <code className="bg-muted px-1 rounded text-xs">NeedsClarification</code>
+                  — errors an Orchestrator can systematically manage.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Comparison Table */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Architectural Comparison — MCP vs A2A</CardTitle>
+              <CardDescription>The real differences between the two paradigms, dimension by dimension.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-3 px-3 font-semibold text-gray-900 dark:text-gray-100 bg-muted/50 w-1/4">Dimension</th>
+                      <th className="text-left py-3 px-3 font-semibold text-blue-700 dark:text-blue-300 bg-blue-50/50 dark:bg-blue-950/30 w-[37.5%]">MCP</th>
+                      <th className="text-left py-3 px-3 font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50/50 dark:bg-emerald-950/30 w-[37.5%]">A2A</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    <tr>
+                      <td className="py-3 px-3 font-medium text-gray-900 dark:text-gray-100">Primary Abstraction</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Client-Server Tooling — exposes specific functions and static resources to a single LLM</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Peer-to-Peer Delegation — connects autonomous entities to collaborate on goals</td>
+                    </tr>
+                    <tr className="bg-muted/20">
+                      <td className="py-3 px-3 font-medium text-gray-900 dark:text-gray-100">Invocation Method</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">JSON-RPC via <code className="bg-muted px-1 rounded text-xs">call_tool</code> — requires exact JSON Schema adherence</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Goal/intent passing — natural language task delegation + context payloads</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-3 font-medium text-gray-900 dark:text-gray-100">State &amp; Memory</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Stateless by default — requires framework workarounds (e.g., session IDs) or passing context back and forth</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Stateful by default — agents maintain independent memory; protocols track shared task state</td>
+                    </tr>
+                    <tr className="bg-muted/20">
+                      <td className="py-3 px-3 font-medium text-gray-900 dark:text-gray-100">Execution Lifecycle</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Synchronous / short-lived — designed for fast tool execution; long tasks require polling</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Async-first — natively supports multi-hour/day lifecycles via webhooks, SSE, or event buses</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-3 font-medium text-gray-900 dark:text-gray-100">Artifact Handover</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Context-heavy — returns raw text/data directly into the calling LLM's context window</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Reference-based — agents pass pointers/URIs to shared workspaces, saving token limits</td>
+                    </tr>
+                    <tr className="bg-muted/20">
+                      <td className="py-3 px-3 font-medium text-gray-900 dark:text-gray-100">Discovery</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Static list — server exposes available tools upon connection</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Dynamic / semantic — Agent Cards; agents discover each other by skills and SLAs</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-3 font-medium text-gray-900 dark:text-gray-100">Topology</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Hierarchical / star — the LLM Client is the centre; Tools are spokes</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Mesh / graph — any agent can delegate to any other agent organically</td>
+                    </tr>
+                    <tr className="bg-muted/20">
+                      <td className="py-3 px-3 font-medium text-gray-900 dark:text-gray-100">Human-in-the-Loop</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Handled purely on the Client side before the tool is executed</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Built into the protocol — <code className="bg-muted px-1 rounded text-xs">INPUT_REQUIRED</code> state halts execution across the network</td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-3 font-medium text-gray-900 dark:text-gray-100">Error Handling</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Simple string returns (<code className="bg-muted px-1 rounded text-xs">isError: true</code>) — LLM reads the string and decides</td>
+                      <td className="py-3 px-3 text-gray-700 dark:text-gray-300">Structured protocol errors: <code className="bg-muted px-1 rounded text-xs">RateLimited</code>, <code className="bg-muted px-1 rounded text-xs">DependencyFailed</code>, <code className="bg-muted px-1 rounded text-xs">NeedsClarification</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Decision Framework */}
+          <Card>
+            <CardHeader>
+              <CardTitle>When to Use Which</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                  <h4 className="font-semibold text-blue-700 dark:text-blue-300 mb-2">✅ Use MCP When</h4>
+                  <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+                    <li>• Tool calls complete in seconds, not minutes</li>
+                    <li>• Responses fit comfortably in a context window</li>
+                    <li>• You need one LLM to access structured external resources</li>
+                    <li>• The interaction is request → response (no multi-step negotiation)</li>
+                    <li>• You want a standardised tool interface across multiple AI clients</li>
+                  </ul>
+                </div>
+                <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
+                  <h4 className="font-semibold text-emerald-700 dark:text-emerald-300 mb-2">✅ Use A2A When</h4>
+                  <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+                    <li>• Tasks take minutes to days to complete</li>
+                    <li>• Agents produce large artifacts that shouldn't flood context</li>
+                    <li>• You need peer-to-peer delegation, not hierarchical tool calls</li>
+                    <li>• Human-in-the-loop checkpoints are required mid-workflow</li>
+                    <li>• Dynamic agent discovery based on skills and availability matters</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 rounded-lg p-4">
+                <h4 className="font-semibold text-violet-700 dark:text-violet-300 mb-2">🔗 Best Practice: Use Both</h4>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  Production agent systems typically use <strong>MCP at the edges</strong> (connecting agents to databases,
+                  APIs, file systems) and <strong>A2A in the middle</strong> (orchestrating multi-agent workflows).
+                  They complement each other — MCP gives agents hands; A2A gives agents colleagues.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <EnlightenMeButton
+            title="MCP vs A2A"
+            contextDescription="Architectural comparison between MCP and A2A protocols — when each paradigm shines and where it breaks down"
+          />
         </div>
       )
     }
