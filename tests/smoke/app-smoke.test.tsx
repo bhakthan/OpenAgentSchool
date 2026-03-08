@@ -35,7 +35,7 @@ describe('App Smoke Test', () => {
     expect(learnElements.length).toBeGreaterThan(0);
     
     // Check for unique navigation elements
-    expect(screen.getByText(/Journey Map/i)).toBeDefined();
-    expect(screen.getByText(/Get Started/i)).toBeDefined();
+    expect(screen.getByLabelText(/Journey Map/i)).toBeDefined();
+    expect(screen.getByLabelText(/Get Started/i)).toBeDefined();
   });
 });
