@@ -28,21 +28,21 @@ export default function BioSyncStub({ exercise, onComplete }: Props) {
 
       <div className="text-center space-y-3">
         <h2 className="text-2xl font-bold text-foreground">Bio-Sync</h2>
-        <p className="text-sm text-muted-foreground max-w-md">
+        <p className="text-sm feature-secondary max-w-md text-pretty">
           Biometric-paced learning syncs content delivery to your cardiac rhythm.
           Information presented during specific phases of your heartbeat encodes more deeply.
         </p>
       </div>
 
-      <div className="rounded-xl border-2 border-dashed border-emerald-300 dark:border-emerald-700 bg-emerald-50/30 dark:bg-emerald-950/10 p-6 max-w-md text-center space-y-3">
+      <div className="rounded-xl border-2 border-dashed border-emerald-300 dark:border-emerald-700 bg-emerald-50/45 dark:bg-emerald-950/10 p-6 max-w-md text-center space-y-3 shadow-sm">
         <div className="text-emerald-600 dark:text-emerald-400 font-bold text-sm">
           🔬 Phase 2 — Coming Soon
         </div>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs feature-secondary text-pretty">
           This paradigm requires webcam access for heart-rate detection via rPPG (remote photoplethysmography).
           Exercise: <strong>{exercise.title}</strong> — target {exercise.content.targetBPM} BPM.
         </p>
-        <p className="text-xs text-muted-foreground italic">
+        <p className="text-xs feature-secondary italic">
           Until then, the other 6 paradigms are fully operational.
         </p>
       </div>

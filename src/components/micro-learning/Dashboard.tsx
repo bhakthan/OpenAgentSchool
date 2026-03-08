@@ -48,11 +48,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
         // Most-recently-worked-on first
         const aLast = progress.completions
           .filter((c) => c.capsuleId.startsWith(a.track.id) || a.track.conceptIds.some((cid) => c.capsuleId.includes(cid)))
-          .at(-1)?.timestamp ?? 0;
+          .at(-1)?.completedAt;
         const bLast = progress.completions
           .filter((c) => c.capsuleId.startsWith(b.track.id) || b.track.conceptIds.some((cid) => c.capsuleId.includes(cid)))
-          .at(-1)?.timestamp ?? 0;
-        return bLast - aLast;
+          .at(-1)?.completedAt;
+        return (bLast ? Date.parse(bLast) : 0) - (aLast ? Date.parse(aLast) : 0);
       });
   }, [progress]);
 
@@ -62,13 +62,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
   return (
     <div className="space-y-8">
       {/* ─── Welcome / Streak Banner ──────────────────────────── */}
-      <div className="rounded-2xl border bg-gradient-to-br from-violet-500/5 via-transparent to-fuchsia-500/5 p-6 text-foreground">
+      <div className="feature-panel-strong rounded-2xl p-6 text-foreground bg-gradient-to-br from-violet-500/10 via-transparent to-fuchsia-500/10 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h2 className="text-2xl font-bold tracking-tight text-foreground">
-              {stats.streak > 0 ? `🔥 ${stats.streak}-day streak!` : '👋 Welcome back!'}
+              {stats.currentStreak > 0 ? `🔥 ${stats.currentStreak}-day streak!` : '👋 Welcome back!'}
             </h2>
-            <p className="text-foreground/70 dark:text-muted-foreground text-sm mt-1">
+            <p className="feature-secondary text-sm mt-1 text-pretty">
               {stats.totalCapsules === 0
                 ? 'Ready to start your AI agent mastery journey?'
                 : `${stats.totalCapsules} capsules completed · ${stats.totalXP} XP earned`}
@@ -86,18 +86,18 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
           <h3 className="text-lg font-semibold">Continue Learning</h3>
           <Link
             to={`/micro-learning/${continueTrack.track.id}`}
-            className="block rounded-2xl border bg-card text-card-foreground hover:shadow-md transition-shadow p-5"
+            className="feature-panel block rounded-2xl hover:shadow-md transition-shadow p-5"
             onClick={() => trackEvent({ action: 'micro_dashboard_continue', category: 'micro_learning', label: continueTrack.track.id })}
           >
             <div className="flex items-center gap-4">
               <div className="text-3xl">{continueTrack.track.icon}</div>
               <div className="flex-1 min-w-0">
                 <h4 className="font-semibold truncate text-foreground">{continueTrack.track.title}</h4>
-                <p className="text-xs text-foreground/60 dark:text-muted-foreground">{continueTrack.progress.completed}/{continueTrack.progress.total} capsules</p>
+                <p className="text-xs feature-secondary">{continueTrack.progress.completed}/{continueTrack.progress.total} capsules</p>
                 <div className="mt-2 h-2 rounded-full bg-muted overflow-hidden">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-primary to-violet-500 transition-all"
-                    style={{ width: `${continueTrack.progress.percentage}%` }}
+                    style={{ width: `${continueTrack.progress.percent}%` }}
                   />
                 </div>
               </div>
@@ -116,13 +116,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
               <Link
                 key={track.id}
                 to={`/micro-learning/${track.id}`}
-                className="rounded-xl border bg-card text-card-foreground p-4 hover:shadow-sm transition-shadow"
+                className="feature-panel rounded-xl p-4 hover:shadow-sm transition-shadow"
               >
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">{track.icon}</span>
                   <div className="flex-1 min-w-0">
                     <h4 className="text-sm font-semibold truncate text-foreground">{track.title}</h4>
-                    <p className="text-xs text-foreground/60 dark:text-muted-foreground">{tp.percentage}% complete</p>
+                    <p className="text-xs feature-secondary">{tp.percent}% complete</p>
                   </div>
                 </div>
               </Link>
@@ -135,21 +135,21 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
       <div className="grid gap-3 sm:grid-cols-3">
         <Link
           to="/micro-learning"
-          className="rounded-xl border bg-card text-card-foreground p-4 hover:shadow-sm text-center transition-shadow"
+          className="feature-panel rounded-xl p-4 hover:shadow-sm text-center transition-shadow"
         >
           <div className="text-2xl mb-1">🗺️</div>
           <p className="text-sm font-medium">Browse All Tracks</p>
         </Link>
         <button
           onClick={onOpenRoleSorter}
-          className="rounded-xl border bg-card text-card-foreground p-4 hover:shadow-sm text-center transition-shadow"
+          className="feature-panel rounded-xl p-4 hover:shadow-sm text-center transition-shadow"
         >
           <div className="text-2xl mb-1">🧭</div>
           <p className="text-sm font-medium">{role ? 'Retake Sorter' : 'Find Your Path'}</p>
         </button>
         <Link
           to="/study-mode"
-          className="rounded-xl border bg-card text-card-foreground p-4 hover:shadow-sm text-center transition-shadow"
+          className="feature-panel rounded-xl p-4 hover:shadow-sm text-center transition-shadow"
         >
           <div className="text-2xl mb-1">🧠</div>
           <p className="text-sm font-medium">Quick Review</p>
@@ -157,11 +157,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
       </div>
 
       {/* ─── Stats Row ────────────────────────────────────────── */}
-      <div className="rounded-xl border bg-card text-card-foreground p-5">
+      <div className="feature-panel rounded-xl p-5">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
           <StatCell label="Total XP" value={stats.totalXP.toLocaleString()} />
           <StatCell label="Capsules" value={String(stats.totalCapsules)} />
-          <StatCell label="Best Streak" value={`${stats.streak}d`} />
+          <StatCell label="Best Streak" value={`${stats.longestStreak}d`} />
           <StatCell label="Tracks Active" value={String(activeTracks.length)} />
         </div>
       </div>
@@ -176,7 +176,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Achievements</h3>
-          <span className="text-xs text-foreground/60 dark:text-muted-foreground">
+          <span className="text-xs feature-secondary">
             {unlocked.length}/{achievements.length} unlocked
           </span>
         </div>
@@ -191,20 +191,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
                   a.rarity === 'legendary' ? 'bg-amber-500/5 border-amber-500/20' :
                   a.rarity === 'epic' ? 'bg-violet-500/5 border-violet-500/20' :
                   a.rarity === 'rare' ? 'bg-blue-500/5 border-blue-500/20' :
-                  'bg-card'
+                  'bg-[color:var(--surface-panel)] border-[color:var(--surface-panel-border)]'
                 }`}
               >
                 <span className="text-2xl">{a.icon}</span>
                 <div className="min-w-0">
                   <p className="text-sm font-semibold truncate text-foreground">{a.title}</p>
-                  <p className="text-[10px] text-foreground/60 dark:text-muted-foreground truncate">{a.description}</p>
+                  <p className="text-[10px] feature-secondary truncate">{a.description}</p>
                 </div>
                 <Badge
                   className={`ml-auto text-[9px] flex-shrink-0 ${
                     a.rarity === 'legendary' ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400' :
                     a.rarity === 'epic' ? 'bg-violet-500/10 text-violet-700 dark:text-violet-400' :
                     a.rarity === 'rare' ? 'bg-blue-500/10 text-blue-700 dark:text-blue-400' :
-                    'bg-muted text-foreground/70 dark:text-muted-foreground'
+                    'feature-chip text-[color:var(--text-secondary-strong)]'
                   }`}
                 >
                   {a.rarity}
@@ -213,21 +213,21 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
             ))}
           </div>
         ) : (
-          <div className="rounded-xl border border-dashed bg-muted/50 p-6 text-center">
+          <div className="feature-panel rounded-xl border-dashed p-6 text-center">
             <p className="text-2xl mb-2">🏆</p>
-            <p className="text-sm text-foreground/70 dark:text-muted-foreground">Complete capsules to unlock achievements!</p>
+            <p className="text-sm feature-secondary">Complete capsules to unlock achievements!</p>
           </div>
         )}
 
         {/* Next achievements to unlock */}
         {nextUp.length > 0 && (
           <div className="space-y-2">
-            <p className="text-xs font-medium text-foreground/60 dark:text-muted-foreground">Next to unlock</p>
+            <p className="text-xs font-medium feature-secondary">Next to unlock</p>
             <div className="flex flex-wrap gap-2">
               {nextUp.map((a) => (
                 <div
                   key={a.id}
-                  className="inline-flex items-center gap-2 rounded-lg border border-dashed bg-muted/40 px-3 py-1.5 text-xs text-foreground/60 dark:text-muted-foreground"
+                  className="feature-chip inline-flex items-center gap-2 rounded-lg border-dashed px-3 py-1.5 text-xs"
                 >
                   <span className="opacity-40">{a.icon}</span>
                   <span>{a.title}</span>
@@ -239,11 +239,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
       </div>
 
       {/* ─── Daily Goal Adjustment ────────────────────────────── */}
-      <div className="rounded-xl border bg-card text-card-foreground p-4">
+      <div className="feature-panel rounded-xl p-4">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-foreground">Daily Goal</p>
-            <p className="text-xs text-foreground/60 dark:text-muted-foreground">
+            <p className="text-xs feature-secondary">
               {daily.completed >= daily.goal
                 ? "✅ You've hit today's goal!"
                 : `${daily.goal - daily.completed} more capsule${daily.goal - daily.completed !== 1 ? 's' : ''} to go`}
@@ -263,7 +263,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
                   className={`w-8 h-8 rounded-full text-xs font-bold border transition-colors ${
                     g === goalDraft
                       ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted hover:bg-muted/80'
+                      : 'feature-chip hover:bg-[color:var(--surface-panel-strong)]'
                   }`}
                 >
                   {g}
@@ -323,7 +323,7 @@ const DailyGoalRing: React.FC<{ completed: number; goal: number }> = ({ complete
 const StatCell: React.FC<{ label: string; value: string }> = ({ label, value }) => (
   <div>
     <p className="text-lg font-bold">{value}</p>
-    <p className="text-xs text-foreground/60 dark:text-muted-foreground">{label}</p>
+    <p className="text-xs feature-secondary">{label}</p>
   </div>
 );
 

@@ -23,7 +23,7 @@ export default function EphemeralSparks({ exercise, onComplete }: Props) {
   const [answer, setAnswer] = useState('');
   const [score, setScore] = useState(0);
   const [decayPercent, setDecayPercent] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval>>();
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startRef = useRef(0);
 
   const duration = exercise.content.decayDurationMs || 4000;
@@ -83,7 +83,7 @@ export default function EphemeralSparks({ exercise, onComplete }: Props) {
       <div className="flex flex-col items-center justify-center py-16 space-y-6">
         <div className="text-6xl">🔥</div>
         <h2 className="text-2xl font-bold text-foreground">Already Burned</h2>
-        <p className="text-sm text-muted-foreground max-w-md text-center">
+        <p className="text-sm feature-secondary max-w-md text-center text-pretty">
           This ephemeral spark has already been consumed. It existed once and is now gone forever.
           That's the paradigm — one chance, maximum attention.
         </p>
@@ -101,7 +101,7 @@ export default function EphemeralSparks({ exercise, onComplete }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-16 space-y-6">
         <h2 className="text-2xl font-bold text-foreground">{exercise.title}</h2>
-        <p className="text-sm text-muted-foreground max-w-md text-center">{exercise.description}</p>
+        <p className="text-sm feature-secondary max-w-md text-center text-pretty">{exercise.description}</p>
         <div className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-950/20 p-4 text-sm text-red-700 dark:text-red-300 max-w-md text-center">
           ⚠️ <strong>One chance only.</strong> This knowledge will flash for {duration / 1000}s and then be destroyed forever.
           Focus completely.
@@ -141,7 +141,7 @@ export default function EphemeralSparks({ exercise, onComplete }: Props) {
           </p>
         </div>
 
-        <div className="text-xs text-muted-foreground">
+        <div className="text-xs feature-secondary">
           {((duration - (decayPercent / 100 * duration)) / 1000).toFixed(1)}s remaining
         </div>
       </div>
@@ -153,7 +153,7 @@ export default function EphemeralSparks({ exercise, onComplete }: Props) {
       <div className="flex flex-col items-center justify-center py-16 space-y-4">
         <div className="text-6xl animate-pulse">🔥</div>
         <div className="text-sm font-bold text-red-600 dark:text-red-500">Knowledge destroyed.</div>
-        <div className="text-xs text-muted-foreground">Preparing recall test...</div>
+        <div className="text-xs feature-secondary">Preparing recall test...</div>
       </div>
     );
   }
@@ -176,7 +176,7 @@ export default function EphemeralSparks({ exercise, onComplete }: Props) {
           onKeyDown={e => e.key === 'Enter' && answer.trim() && submitRecall()}
           placeholder="Type what you remember..."
           autoFocus
-          className="w-full max-w-md px-4 py-3 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+          className="feature-panel w-full max-w-md px-4 py-3 rounded-lg border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
         />
 
         <button
@@ -197,18 +197,18 @@ export default function EphemeralSparks({ exercise, onComplete }: Props) {
         {score}/10
       </div>
 
-      <div className="rounded-lg border border-border bg-muted/20 p-4 max-w-md space-y-3">
+      <div className="feature-panel rounded-lg p-4 max-w-md space-y-3">
         <div>
-          <span className="text-xs text-muted-foreground font-semibold">Your recall:</span>
+          <span className="text-xs feature-secondary font-semibold">Your recall:</span>
           <p className="text-sm text-foreground">{answer}</p>
         </div>
         <div>
-          <span className="text-xs text-muted-foreground font-semibold">Correct answer:</span>
+          <span className="text-xs feature-secondary font-semibold">Correct answer:</span>
           <p className="text-sm text-foreground">{exercise.content.correctAnswer}</p>
         </div>
       </div>
 
-      <div className="text-xs text-muted-foreground max-w-sm text-center">
+      <div className="text-xs feature-secondary max-w-sm text-center text-pretty">
         This spark is permanently burned — your score is locked. Maximum attention yields maximum retention.
       </div>
 

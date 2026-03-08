@@ -548,12 +548,12 @@ export default function MicroListeningPage() {
               <h2 className="mb-4 text-lg font-semibold text-foreground">
                 Recommended for You
               </h2>
-              <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted">
+              <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted">
                 {recommendations.map((ep) => (
                   <button
                     key={ep.id}
                     onClick={() => startEpisode(ep.id)}
-                    className="group min-w-[200px] flex-shrink-0 rounded-xl border border-border bg-card p-4 text-left backdrop-blur transition-all hover:border-violet-500/20 hover:bg-muted"
+                    className="group min-w-[200px] snap-start flex-shrink-0 rounded-xl border border-border bg-card p-4 text-left backdrop-blur transition-all hover:border-violet-500/20 hover:bg-muted"
                   >
                     <p className="line-clamp-1 text-sm font-medium text-foreground group-hover:text-violet-500 dark:group-hover:text-violet-300">
                       {ep.title}

@@ -22,7 +22,7 @@ export default function HemisphericWeaving({ exercise, onComplete }: Props) {
   const [activeChannel, setActiveChannel] = useState<'left' | 'right' | 'both'>('left');
   const [userSynthesis, setUserSynthesis] = useState('');
   const [score, setScore] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const [audioFailed, setAudioFailed] = useState(false);
 
@@ -112,7 +112,7 @@ export default function HemisphericWeaving({ exercise, onComplete }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-16 space-y-6">
         <h2 className="text-2xl font-bold text-foreground">{exercise.title}</h2>
-        <p className="text-sm text-muted-foreground max-w-md text-center">{exercise.description}</p>
+        <p className="text-sm feature-secondary max-w-md text-center text-pretty">{exercise.description}</p>
         <div className="rounded-lg border border-cyan-200 dark:border-cyan-800 bg-cyan-50/50 dark:bg-cyan-950/20 p-4 text-sm text-cyan-700 dark:text-cyan-300 max-w-md text-center">
           🎧 For best results, use headphones. Left = metaphor. Right = technical. Then you weave them together.
         </div>
@@ -145,7 +145,7 @@ export default function HemisphericWeaving({ exercise, onComplete }: Props) {
           <div className={`p-5 rounded-xl border-2 transition-all duration-500 ${
             activeChannel === 'left' || activeChannel === 'both'
               ? 'border-violet-400 dark:border-violet-600 bg-violet-50/50 dark:bg-violet-950/20 opacity-100 scale-100'
-              : 'border-border bg-muted/20 opacity-30 scale-95'
+              : 'border-[color:var(--surface-panel-border)] bg-[color:var(--surface-panel)] opacity-45 scale-95'
           }`}>
             <div className="text-violet-600 dark:text-violet-400 font-bold text-xs mb-2">◀ LEFT — Metaphor</div>
             <p className="text-sm text-foreground italic leading-relaxed">{exercise.content.leftChannel}</p>
@@ -155,7 +155,7 @@ export default function HemisphericWeaving({ exercise, onComplete }: Props) {
           <div className={`p-5 rounded-xl border-2 transition-all duration-500 ${
             activeChannel === 'right' || activeChannel === 'both'
               ? 'border-blue-400 dark:border-blue-600 bg-blue-50/50 dark:bg-blue-950/20 opacity-100 scale-100'
-              : 'border-border bg-muted/20 opacity-30 scale-95'
+              : 'border-[color:var(--surface-panel-border)] bg-[color:var(--surface-panel)] opacity-45 scale-95'
           }`}>
             <div className="text-blue-600 dark:text-blue-400 font-bold text-xs mb-2">RIGHT — Technical ▶</div>
             <p className="text-sm text-foreground leading-relaxed">{exercise.content.rightChannel}</p>
@@ -163,7 +163,7 @@ export default function HemisphericWeaving({ exercise, onComplete }: Props) {
         </div>
 
         {activeChannel === 'both' && (
-          <div className="text-xs text-muted-foreground animate-pulse">Weaving hemispheres...</div>
+          <div className="text-xs feature-secondary animate-pulse">Weaving hemispheres...</div>
         )}
       </div>
     );
@@ -173,7 +173,7 @@ export default function HemisphericWeaving({ exercise, onComplete }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-12 space-y-6">
         <h3 className="text-xl font-bold text-foreground">Synthesize</h3>
-        <p className="text-sm text-muted-foreground max-w-md text-center">
+        <p className="text-sm feature-secondary max-w-md text-center text-pretty">
           You heard the metaphor and the technical definition. Now weave them into one unified understanding of <strong>{exercise.content.concept}</strong>.
         </p>
         <textarea
@@ -182,7 +182,7 @@ export default function HemisphericWeaving({ exercise, onComplete }: Props) {
           placeholder="Combine the metaphor and the technical definition..."
           rows={4}
           autoFocus
-          className="w-full max-w-lg px-4 py-3 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none"
+          className="feature-panel w-full max-w-lg px-4 py-3 rounded-lg border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none"
         />
         <button
           onClick={submitSynthesis}
@@ -202,14 +202,14 @@ export default function HemisphericWeaving({ exercise, onComplete }: Props) {
         {score}/10
       </div>
 
-      <div className="rounded-lg border border-border bg-muted/20 p-6 max-w-lg space-y-4">
+      <div className="feature-panel rounded-lg p-6 max-w-lg space-y-4">
         <div>
           <h4 className="text-sm font-bold text-foreground mb-1">Your Synthesis:</h4>
-          <p className="text-xs text-muted-foreground">{userSynthesis}</p>
+          <p className="text-xs feature-secondary">{userSynthesis}</p>
         </div>
         <div>
           <h4 className="text-sm font-bold text-foreground mb-1">Model Synthesis:</h4>
-          <p className="text-xs text-muted-foreground">{exercise.content.synthesis}</p>
+          <p className="text-xs feature-secondary">{exercise.content.synthesis}</p>
         </div>
       </div>
 

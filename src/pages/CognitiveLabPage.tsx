@@ -27,13 +27,13 @@ import type {
 } from '@/lib/data/cognitiveLab/types';
 import CognitiveLabHero from '@/components/cognitive-lab/CognitiveLabHero';
 
-const BurstGrafting = lazy(() => import('@/components/cognitive-lab/BurstGrafting'));
-const VoidMapping = lazy(() => import('@/components/cognitive-lab/VoidMapping'));
-const BioSyncStub = lazy(() => import('@/components/cognitive-lab/BioSyncStub'));
-const GlitchResolution = lazy(() => import('@/components/cognitive-lab/GlitchResolution'));
-const HemisphericWeaving = lazy(() => import('@/components/cognitive-lab/HemisphericWeaving'));
-const GlyphCognition = lazy(() => import('@/components/cognitive-lab/GlyphCognition'));
-const EphemeralSparks = lazy(() => import('@/components/cognitive-lab/EphemeralSparks'));
+const BurstGrafting = lazy(() => import('../components/cognitive-lab/BurstGrafting'));
+const VoidMapping = lazy(() => import('../components/cognitive-lab/VoidMapping'));
+const BioSyncStub = lazy(() => import('../components/cognitive-lab/BioSyncStub'));
+const GlitchResolution = lazy(() => import('../components/cognitive-lab/GlitchResolution'));
+const HemisphericWeaving = lazy(() => import('../components/cognitive-lab/HemisphericWeaving'));
+const GlyphCognition = lazy(() => import('../components/cognitive-lab/GlyphCognition'));
+const EphemeralSparks = lazy(() => import('../components/cognitive-lab/EphemeralSparks'));
 
 type View = 'landing' | 'paradigm' | 'session';
 
@@ -97,14 +97,14 @@ export default function CognitiveLabPage() {
     setActiveParadigmId(id);
     setActiveExerciseId(null);
     setView('paradigm');
-    trackEvent('cognitive_lab_paradigm_start', { paradigm: id });
+    trackEvent({ action: 'cognitive_lab_paradigm_start', category: 'cognitive_lab', paradigm: id });
   }, []);
 
   const navigateToSession = useCallback((paradigmId: CognitiveParadigmId, exerciseId: string) => {
     setActiveParadigmId(paradigmId);
     setActiveExerciseId(exerciseId);
     setView('session');
-    trackEvent('cognitive_lab_session_start', { paradigm: paradigmId, exercise: exerciseId });
+    trackEvent({ action: 'cognitive_lab_session_start', category: 'cognitive_lab', paradigm: paradigmId, exercise: exerciseId });
   }, []);
 
   const backToLanding = useCallback(() => {
@@ -129,7 +129,7 @@ export default function CognitiveLabPage() {
     : null;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
+    <div className="container mx-auto max-w-5xl px-4 py-8">
       {/* ─── Landing View ─── */}
       {view === 'landing' && (
         <div className="space-y-8">
@@ -137,9 +137,9 @@ export default function CognitiveLabPage() {
 
           {/* Lab Score */}
           {completedCount > 0 && (
-            <div className="rounded-xl border border-purple-200 dark:border-purple-800 bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-950/30 dark:to-violet-950/20 p-6 text-center">
+            <div className="feature-card-enter feature-panel-strong rounded-xl border border-purple-200 dark:border-purple-800 bg-gradient-to-br from-purple-50 to-violet-50 p-6 text-center dark:from-purple-950/30 dark:to-violet-950/20">
               <div className="text-5xl font-bold text-purple-600 dark:text-purple-400">{labScore}</div>
-              <div className="text-sm text-foreground/70 dark:text-muted-foreground mt-1">
+              <div className="feature-secondary mt-1 text-sm dark:text-muted-foreground">
                 Lab Score • {completedCount} / {totalCount} sessions completed
               </div>
               <div className="mt-3 mx-auto max-w-xs h-2 rounded-full bg-purple-200/50 dark:bg-purple-800/30 overflow-hidden">
@@ -162,10 +162,10 @@ export default function CognitiveLabPage() {
                   key={paradigm.id}
                   onClick={() => !paradigm.isComingSoon && navigateToParadigm(paradigm.id)}
                   disabled={paradigm.isComingSoon}
-                  className={`text-left rounded-xl border-2 p-5 transition-all duration-200 ${
+                  className={`feature-card-enter text-left rounded-xl border-2 p-5 transition-all duration-200 ${
                     paradigm.isComingSoon
-                      ? 'border-border opacity-60 cursor-not-allowed'
-                      : `${colors.border} hover:shadow-md hover:scale-[1.01] cursor-pointer`
+                      ? 'feature-panel border-border opacity-60 cursor-not-allowed'
+                      : `${colors.border} ${colors.bg} shadow-sm hover:shadow-md hover:scale-[1.01] cursor-pointer`
                   }`}
                 >
                   <div className="flex items-start gap-3">
@@ -174,13 +174,13 @@ export default function CognitiveLabPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-0.5">
-                        <h3 className="font-bold text-foreground text-sm">{paradigm.title}</h3>
+                        <h3 className="text-balance font-bold text-foreground text-sm">{paradigm.title}</h3>
                         {paradigm.isComingSoon && (
-                          <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-foreground/70 dark:text-muted-foreground">Coming Soon</span>
+                          <span className="feature-chip rounded px-1.5 py-0.5 text-xs dark:text-muted-foreground">Coming Soon</span>
                         )}
                       </div>
                       <p className={`text-xs font-semibold ${colors.text} mb-1`}>{paradigm.subtitle}</p>
-                      <p className="text-xs text-foreground/60 dark:text-muted-foreground line-clamp-2">{paradigm.description}</p>
+                      <p className="text-pretty line-clamp-2 text-xs feature-secondary dark:text-muted-foreground">{paradigm.description}</p>
 
                       {/* Accessibility badges */}
                       <div className="flex flex-wrap gap-1.5 mt-2">
@@ -205,10 +205,10 @@ export default function CognitiveLabPage() {
                                 style={{ width: `${completion}%` }}
                               />
                             </div>
-                            <span className="text-xs text-foreground/60 dark:text-muted-foreground whitespace-nowrap">{completion}%</span>
+                            <span className="feature-secondary whitespace-nowrap text-xs dark:text-muted-foreground">{completion}%</span>
                           </div>
                           <div className="mt-2">
-                            <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-foreground/70 dark:text-muted-foreground">
+                            <span className="feature-chip rounded px-1.5 py-0.5 text-xs dark:text-muted-foreground">
                               {paradigm.exercises.length} sessions
                             </span>
                           </div>
@@ -222,8 +222,8 @@ export default function CognitiveLabPage() {
           </div>
 
           {/* Science basis */}
-          <div className="rounded-lg border border-border bg-muted/20 p-6 text-center">
-            <blockquote className="text-sm italic text-muted-foreground max-w-lg mx-auto">
+          <div className="feature-card-enter feature-panel rounded-lg border p-6 text-center">
+            <blockquote className="text-pretty feature-secondary mx-auto max-w-lg text-sm italic dark:text-muted-foreground">
               "Traditional learning is linear. Your brain is not. These paradigms exploit how neurons
               actually encode — through multi-sensory bursts, contrast, dissonance, and scarcity."
             </blockquote>
@@ -299,14 +299,14 @@ function ParadigmView({
             {icon}
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-foreground">{paradigm.title}</h2>
+            <h2 className="text-balance text-2xl font-bold text-foreground">{paradigm.title}</h2>
             <p className={`text-sm font-semibold ${colors.text}`}>{paradigm.subtitle}</p>
           </div>
         </div>
-        <p className="text-sm text-muted-foreground max-w-2xl">{paradigm.description}</p>
+        <p className="text-pretty feature-secondary max-w-2xl text-sm dark:text-muted-foreground">{paradigm.description}</p>
       </header>
 
-      <blockquote className={`rounded-lg border ${colors.border} ${colors.bg} p-4 text-sm italic text-gray-700 dark:text-gray-300`}>
+      <blockquote className={`feature-card-enter rounded-lg border ${colors.border} ${colors.bg} p-4 text-sm italic text-gray-700 dark:text-gray-300`}>
         <strong>Science basis:</strong> {paradigm.scienceBasis}
       </blockquote>
 
@@ -329,10 +329,10 @@ function ParadigmView({
             <button
               key={exercise.id}
               onClick={() => onSelectExercise(exercise.id)}
-              className={`w-full text-left rounded-lg border p-4 transition-all hover:shadow-sm hover:scale-[1.005] ${
+              className={`feature-card-enter w-full text-left rounded-lg border p-4 transition-all hover:shadow-sm hover:scale-[1.005] ${
                 isCompleted
-                  ? 'border-emerald-200 dark:border-emerald-800 bg-emerald-50/30 dark:bg-emerald-950/10'
-                  : 'border-border bg-background hover:border-foreground/20'
+                  ? 'border-emerald-200 dark:border-emerald-800 bg-[color-mix(in_oklch,var(--background)_86%,theme(colors.emerald.300))] dark:bg-emerald-950/10'
+                  : `${colors.border} ${colors.bg} hover:border-foreground/20`
               }`}
             >
               <div className="flex items-start gap-3">
@@ -345,9 +345,9 @@ function ParadigmView({
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-foreground text-sm">{exercise.title}</h3>
-                  <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{exercise.description}</p>
+                  <p className="text-pretty mt-0.5 line-clamp-2 text-xs feature-secondary dark:text-muted-foreground">{exercise.description}</p>
                   <div className="flex items-center gap-2 mt-2">
-                    <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                    <span className="feature-chip rounded px-1.5 py-0.5 text-xs dark:text-muted-foreground">
                       ~{exercise.estimatedSeconds}s
                     </span>
                     {isCompleted && result && (

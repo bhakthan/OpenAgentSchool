@@ -28,7 +28,7 @@ export default function VoidMapping({ exercise, onComplete }: Props) {
   const [score, setScore] = useState(0);
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
   const [correctIndex, setCorrectIndex] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reducedMotion = useReducedMotion();
   const { consented, accept: acceptConsent } = useSeizureConsent();
 
@@ -88,7 +88,7 @@ export default function VoidMapping({ exercise, onComplete }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-16 space-y-6">
         <h2 className="text-2xl font-bold text-foreground">{exercise.title}</h2>
-        <p className="text-sm text-muted-foreground max-w-md text-center">{exercise.description}</p>
+        <p className="text-sm feature-secondary max-w-md text-center text-pretty">{exercise.description}</p>
         <div className="rounded-lg border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-950/20 p-4 text-sm text-indigo-700 dark:text-indigo-300 max-w-md text-center">
           Five rapid flashes of what <strong>{exercise.content.concept}</strong> is NOT.
           Then silence. Then you pick the real definition from the void.
@@ -107,7 +107,7 @@ export default function VoidMapping({ exercise, onComplete }: Props) {
   if (phase === 'anti-flash') {
     return (
       <div className="flex flex-col items-center justify-center py-16 space-y-6">
-        <div className="text-xs text-muted-foreground">
+        <div className="text-xs feature-secondary">
           Anti-flash {flashIndex + 1} of {exercise.content.antiFlashes.length}
         </div>
         <div className="relative">
@@ -157,9 +157,9 @@ export default function VoidMapping({ exercise, onComplete }: Props) {
             <button
               key={i}
               onClick={() => submitChoice(i)}
-              className="w-full text-left p-4 rounded-lg border border-border bg-background hover:border-indigo-400 hover:bg-indigo-50/30 dark:hover:bg-indigo-950/20 transition-all text-sm"
+              className="feature-panel w-full text-left p-4 rounded-lg hover:border-indigo-400 hover:bg-indigo-50/70 dark:hover:bg-indigo-950/20 transition-all text-sm"
             >
-              <span className="font-medium text-muted-foreground mr-2">{String.fromCharCode(65 + i)}.</span>
+              <span className="font-medium feature-secondary mr-2">{String.fromCharCode(65 + i)}.</span>
               {option}
             </button>
           ))}
@@ -178,8 +178,8 @@ export default function VoidMapping({ exercise, onComplete }: Props) {
       <p className={`text-lg font-semibold ${isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
         {isCorrect ? 'The void revealed the truth.' : 'The void deceived you.'}
       </p>
-      <div className="rounded-lg border border-border bg-muted/30 p-4 max-w-lg">
-        <p className="text-xs text-muted-foreground mb-1 font-semibold">Correct definition:</p>
+      <div className="feature-panel rounded-lg p-4 max-w-lg">
+        <p className="text-xs feature-secondary mb-1 font-semibold">Correct definition:</p>
         <p className="text-sm text-foreground">{exercise.content.definition}</p>
       </div>
       <button

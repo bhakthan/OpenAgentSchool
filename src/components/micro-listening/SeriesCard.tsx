@@ -43,10 +43,10 @@ const categoryDisplay: Record<SeriesCategory, string> = {
 };
 
 const difficultyColor: Record<string, string> = {
-  beginner: 'bg-emerald-500/20 text-emerald-400',
-  intermediate: 'bg-blue-500/20 text-blue-400',
-  advanced: 'bg-purple-500/20 text-purple-400',
-  expert: 'bg-amber-500/20 text-amber-400',
+  beginner: 'border border-emerald-500/20 bg-emerald-500/12 text-emerald-700 dark:text-emerald-300',
+  intermediate: 'border border-blue-500/20 bg-blue-500/12 text-blue-700 dark:text-blue-300',
+  advanced: 'border border-violet-500/20 bg-violet-500/12 text-violet-700 dark:text-violet-300',
+  expert: 'border border-amber-500/20 bg-amber-500/12 text-amber-700 dark:text-amber-300',
 };
 
 export function SeriesCard({ series, completionPercent, onSelect }: SeriesCardProps) {
@@ -57,11 +57,11 @@ export function SeriesCard({ series, completionPercent, onSelect }: SeriesCardPr
     <button
       type="button"
       onClick={() => onSelect(series.id)}
-      className="group flex w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-card text-left transition-all duration-200 hover:scale-[1.02] hover:border-violet-300 hover:shadow-xl hover:shadow-black/10 dark:hover:border-white/20 dark:hover:shadow-black/20"
+      className="listening-series-card feature-card-enter group flex w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-card text-left transition-all duration-200 hover:scale-[1.02] hover:border-violet-300 hover:shadow-xl hover:shadow-black/10 dark:hover:border-white/20 dark:hover:shadow-black/20"
     >
       {/* Gradient top section */}
       <div
-        className="flex items-center gap-3 px-5 py-5"
+        className="listening-series-card__hero flex items-center gap-3 px-5 py-5"
         style={{
           background: series.gradient || `linear-gradient(135deg, ${series.color}33, ${series.color}11)`,
         }}
@@ -75,30 +75,30 @@ export function SeriesCard({ series, completionPercent, onSelect }: SeriesCardPr
         </div>
 
         <div className="min-w-0 flex-1">
-          <h3 className="truncate text-base font-bold text-foreground">{series.title}</h3>
-          <p className="line-clamp-2 text-xs text-foreground/60 dark:text-muted-foreground">{series.description}</p>
+          <h3 className="text-balance truncate text-base font-bold text-foreground">{series.title}</h3>
+          <p className="text-pretty line-clamp-2 text-xs feature-secondary dark:text-muted-foreground">{series.description}</p>
         </div>
       </div>
 
       {/* Meta section */}
       <div className="flex flex-1 flex-col gap-3 px-5 py-4">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-foreground/70 dark:text-muted-foreground">
+        <div className="listening-series-card__meta flex flex-wrap items-center gap-2">
+          <span className="feature-chip rounded-full px-2.5 py-0.5 text-[10px] font-semibold dark:text-muted-foreground">
             {series.episodes.length} episodes
           </span>
-          <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-foreground/70 dark:text-muted-foreground">
+          <span className="feature-chip rounded-full px-2.5 py-0.5 text-[10px] font-semibold dark:text-muted-foreground">
             {categoryDisplay[series.category] ?? series.category}
           </span>
           <span
             className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold capitalize ${
-              difficultyColor[series.difficulty] ?? 'bg-slate-500/20 text-slate-400'
+              difficultyColor[series.difficulty] ?? 'border border-slate-500/20 bg-slate-500/12 text-slate-700 dark:text-slate-300'
             }`}
           >
             {series.difficulty}
           </span>
         </div>
 
-        <span className="text-xs text-foreground/60 dark:text-muted-foreground">{completionLabel}</span>
+        <span className="feature-secondary text-xs dark:text-muted-foreground">{completionLabel}</span>
       </div>
 
       {/* Completion progress bar */}

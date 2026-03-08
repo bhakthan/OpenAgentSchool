@@ -71,17 +71,17 @@ export const ByteCardStack: React.FC<ByteCardStackProps> = ({
   );
 
   return (
-    <div className="mx-auto max-w-lg space-y-4">
+    <div className="mx-auto max-w-lg space-y-[clamp(1rem,2vw,1.25rem)]">
       {/* ─── Header ───────────────────────────────────────────── */}
       <div className="flex items-center gap-2">
         <Button variant="ghost" size="sm" onClick={onBack}>
           ← Back
         </Button>
         <div className="min-w-0 flex-1">
-          <h2 className="truncate text-sm font-semibold text-foreground">
+          <h2 className="text-balance truncate text-sm font-semibold text-foreground">
             {conceptTitle}
           </h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="feature-secondary text-xs dark:text-muted-foreground">
             {completedSet.size}/{total} cards · +{xpSession} XP this session
           </p>
         </div>
@@ -132,7 +132,7 @@ export const ByteCardStack: React.FC<ByteCardStackProps> = ({
         >
           ← Prev
         </Button>
-        <span className="text-xs text-muted-foreground">
+        <span className="feature-secondary text-xs dark:text-muted-foreground">
           {currentIndex + 1} / {total}
         </span>
         <Button
@@ -147,10 +147,10 @@ export const ByteCardStack: React.FC<ByteCardStackProps> = ({
 
       {/* ─── Celebration ──────────────────────────────────────── */}
       {allDone && (
-        <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5 text-center">
+        <div className="rounded-2xl border border-emerald-500/30 bg-[color-mix(in_oklch,var(--background)_82%,theme(colors.emerald.300))] p-5 text-center dark:bg-emerald-500/5">
           <span className="text-3xl">🎉</span>
           <h3 className="mt-2 text-lg font-bold text-foreground">Concept Mastered!</h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="feature-secondary text-sm dark:text-muted-foreground">
             You earned <strong>{xpSession} XP</strong> from {total} byte-sized cards.
           </p>
           <Button variant="outline" size="sm" onClick={onBack} className="mt-3">

@@ -93,7 +93,7 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
   if (!capsule) {
     return (
       <div className="text-center py-12">
-        <p className="text-foreground/60 dark:text-muted-foreground">Capsule not found.</p>
+        <p className="feature-secondary">Capsule not found.</p>
         <Button variant="ghost" onClick={onBack} className="mt-4">← Back to track</Button>
       </div>
     );
@@ -129,28 +129,28 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
       {/* ─── Capsule Header ─────────────────────────────────────── */}
       <div className="flex items-center gap-2">
         <Button variant="ghost" size="sm" onClick={onBack}>← Track</Button>
-        <span className="text-xs text-foreground/60 dark:text-muted-foreground">Capsule {capsule.order}</span>
+        <span className="feature-chip text-xs px-2 py-1 rounded-full">Capsule {capsule.order}</span>
       </div>
 
-      <div className="rounded-2xl border bg-card text-card-foreground overflow-hidden">
+      <div className="feature-panel rounded-2xl overflow-hidden">
         {/* Type banner */}
         <div className={`bg-gradient-to-r ${config.color} px-6 py-4 text-white`}>
           <div className="flex items-center gap-3">
             <span className="text-2xl">{config.icon}</span>
             <div>
               <Badge className="bg-white/20 text-white text-[10px] mb-1">{config.label}</Badge>
-              <h2 className="text-lg font-bold">{translatedTitle}</h2>
+              <h2 className="text-balance text-lg font-bold">{translatedTitle}</h2>
             </div>
           </div>
-          <p className="text-sm text-white/80 mt-1">{translatedSubtitle}</p>
+          <p className="text-sm text-white/85 mt-1 text-pretty">{translatedSubtitle}</p>
         </div>
 
         {/* ─── Content Area ─────────────────────────────────────── */}
         <div className="p-6 space-y-6">
           {/* Translated description for capsule type */}
           <div className="space-y-4">
-            <div className="rounded-xl bg-muted/70 dark:bg-muted/50 p-6 border">
-              <p className="text-sm text-foreground/70 dark:text-muted-foreground leading-relaxed">
+            <div className="feature-panel-strong rounded-xl p-6">
+              <p className="text-sm feature-secondary leading-relaxed text-pretty">
                 {isTranslating ? (
                   <span className="inline-flex items-center gap-2">
                     <span className="animate-pulse">⏳</span> Translating…
@@ -221,7 +221,7 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
           </div>
 
           {/* Estimated time */}
-          <div className="flex items-center gap-2 text-xs text-foreground/60 dark:text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs feature-secondary">
             <span>⏱️ ~{capsule.estimatedMinutes} min</span>
           </div>
 
@@ -233,10 +233,10 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
                 trackEvent({ action: next ? 'concept_sphere_open' : 'concept_sphere_close', category: 'micro_learning', label: capsule.conceptId });
                 setShowSphere(next);
               }}
-              className="inline-flex items-center gap-2 rounded-xl border border-violet-500/30 bg-violet-500/5 px-4 py-2 text-sm font-medium text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl border border-violet-500/30 bg-violet-500/8 px-4 py-2 text-sm font-medium text-violet-700 dark:text-violet-300 hover:bg-violet-500/12 transition-colors shadow-sm"
             >
               🔮 {showSphere ? 'Close Sphere' : 'Explore Deeper'}
-              <span className="text-[10px] text-foreground/60 dark:text-muted-foreground">(AI-powered)</span>
+              <span className="text-[10px] feature-secondary">(AI-powered)</span>
             </button>
           </div>
 
@@ -252,14 +252,14 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
           {/* ─── Byte-Sized Cross-Link ────────────────────────── */}
           <Link
             to={`/byte-sized/${capsule.conceptId}`}
-            className="flex items-center gap-2 rounded-xl border border-violet-500/20 bg-violet-500/5 px-4 py-2.5 text-sm font-medium text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 transition-colors"
+            className="flex items-center gap-2 rounded-xl border border-violet-500/20 bg-violet-500/8 px-4 py-2.5 text-sm font-medium text-violet-700 dark:text-violet-300 hover:bg-violet-500/12 transition-colors shadow-sm"
           >
-            ⚡ Want the 60-second version? <span className="text-xs text-foreground/60 dark:text-muted-foreground">5 byte-sized cards</span>
+              ⚡ Want the 60-second version? <span className="text-xs feature-secondary">5 byte-sized cards</span>
           </Link>
         </div>
 
         {/* ─── Actions Footer ───────────────────────────────────── */}
-        <div className="border-t px-6 py-4 flex items-center justify-between">
+        <div className="border-t border-[color:var(--surface-panel-border)] px-6 py-4 flex items-center justify-between">
           <div className="flex gap-2">
             {hasPrevious && (
               <Button variant="ghost" size="sm" onClick={onPrevious}>← Previous</Button>

@@ -136,7 +136,7 @@ export default function BurstGrafting({ exercise, onComplete }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-16 space-y-6">
         <h2 className="text-2xl font-bold text-foreground">{exercise.title}</h2>
-        <p className="text-sm text-muted-foreground max-w-md text-center">{exercise.description}</p>
+        <p className="text-pretty text-sm feature-secondary max-w-md text-center dark:text-muted-foreground">{exercise.description}</p>
         {audioFailed && (
           <div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/20 p-3 text-xs text-amber-700 dark:text-amber-300 max-w-md text-center">
             🔇 Audio unavailable — running in visual-only mode.
@@ -175,7 +175,7 @@ export default function BurstGrafting({ exercise, onComplete }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-16 space-y-6">
         <h3 className="text-xl font-bold text-foreground">Recall the 2-word nano-definition</h3>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm feature-secondary dark:text-muted-foreground">
           What was the nano-definition for <strong>{exercise.content.conceptLabel}</strong>?
         </p>
         <input
@@ -185,7 +185,7 @@ export default function BurstGrafting({ exercise, onComplete }: Props) {
           onKeyDown={e => e.key === 'Enter' && submitRecall()}
           placeholder="Type the 2-word definition…"
           autoFocus
-          className="w-64 px-4 py-2 rounded-lg border border-border bg-background text-foreground text-center focus:outline-none focus:ring-2 focus:ring-rose-500"
+          className="feature-panel w-64 px-4 py-2 rounded-lg border text-foreground text-center focus:outline-none focus:ring-2 focus:ring-rose-500"
         />
         <button
           onClick={submitRecall}
@@ -203,10 +203,10 @@ export default function BurstGrafting({ exercise, onComplete }: Props) {
       <div className={`text-6xl font-bold ${score >= 8 ? 'text-emerald-500' : score >= 5 ? 'text-amber-500' : 'text-red-500'}`}>
         {score}/10
       </div>
-      <p className="text-sm text-foreground/70 dark:text-muted-foreground">
+      <p className="text-sm feature-secondary text-pretty dark:text-muted-foreground">
         Correct answer: <strong className="text-foreground">{exercise.content.nanoDef}</strong>
       </p>
-      <p className="text-xs text-foreground/60 dark:text-muted-foreground max-w-sm text-center">
+      <p className="text-xs feature-secondary max-w-sm text-center text-pretty dark:text-muted-foreground">
         {score === 10
           ? 'Perfect burst encoding! The multi-sensory imprint locked in.'
           : score >= 5

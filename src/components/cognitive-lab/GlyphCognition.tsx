@@ -61,7 +61,7 @@ export default function GlyphCognition({ exercise, onComplete }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-16 space-y-6">
         <h2 className="text-2xl font-bold text-foreground">{exercise.title}</h2>
-        <p className="text-sm text-muted-foreground max-w-md text-center">{exercise.description}</p>
+        <p className="text-pretty text-sm feature-secondary max-w-md text-center dark:text-muted-foreground">{exercise.description}</p>
         <div className="text-xs text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/20 rounded-lg px-3 py-2">
           Study the glyph and its seed syllable. Then recall the concept from memory.
         </div>
@@ -99,7 +99,7 @@ export default function GlyphCognition({ exercise, onComplete }: Props) {
               {exercise.content.seedSyllable}
             </div>
             {glyph && (
-              <div className="text-xs text-muted-foreground italic">{glyph.meaning}</div>
+              <div className="text-xs feature-secondary italic dark:text-muted-foreground">{glyph.meaning}</div>
             )}
           </div>
         </div>
@@ -122,9 +122,9 @@ export default function GlyphCognition({ exercise, onComplete }: Props) {
         </div>
 
         {/* Show glyph without context */}
-        <div className="w-24 h-24 rounded-xl border border-border bg-muted/20 flex items-center justify-center p-3">
+        <div className="feature-panel flex h-24 w-24 items-center justify-center rounded-xl border border-border p-3">
           {glyph ? (
-            <svg viewBox="0 0 100 100" className="w-full h-full text-muted-foreground">
+            <svg viewBox="0 0 100 100" className="h-full w-full text-slate-600 dark:text-muted-foreground">
               <path d={glyph.svgPath} fill="currentColor" />
             </svg>
           ) : (
@@ -143,7 +143,7 @@ export default function GlyphCognition({ exercise, onComplete }: Props) {
           onKeyDown={e => e.key === 'Enter' && answer.trim() && submitAnswer()}
           placeholder="Type the concept this glyph represents..."
           autoFocus
-          className="w-full max-w-md px-4 py-3 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="feature-panel w-full max-w-md px-4 py-3 rounded-lg border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
 
         <button
@@ -175,17 +175,17 @@ export default function GlyphCognition({ exercise, onComplete }: Props) {
         </div>
         <div className="text-left">
           <div className="text-sm font-bold text-foreground">{exercise.content.seedSyllable}</div>
-          <div className="text-xs text-muted-foreground">= {exercise.content.correctAnswer}</div>
+          <div className="text-xs feature-secondary dark:text-muted-foreground">= {exercise.content.correctAnswer}</div>
         </div>
       </div>
 
-      <div className="rounded-lg border border-border bg-muted/20 p-4 max-w-md space-y-2">
+      <div className="feature-panel rounded-lg border border-border p-4 max-w-md space-y-2">
         <div>
-          <span className="text-xs text-muted-foreground font-semibold">Your answer:</span>
+          <span className="text-xs feature-secondary font-semibold dark:text-muted-foreground">Your answer:</span>
           <p className="text-sm text-foreground">{answer}</p>
         </div>
         <div>
-          <span className="text-xs text-muted-foreground font-semibold">Correct:</span>
+          <span className="text-xs feature-secondary font-semibold dark:text-muted-foreground">Correct:</span>
           <p className="text-sm text-foreground">{exercise.content.correctAnswer}</p>
         </div>
       </div>

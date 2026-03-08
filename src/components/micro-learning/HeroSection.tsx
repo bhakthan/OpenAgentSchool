@@ -16,7 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseAl
   const totalTracks = TRACKS.length;
 
   return (
-    <section className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/5 via-violet-500/5 to-fuchsia-500/5 dark:from-primary/10 dark:via-violet-500/10 dark:to-fuchsia-500/10 text-foreground">
+    <section className="feature-panel-strong relative overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/10 via-violet-500/10 to-fuchsia-500/10 dark:from-primary/10 dark:via-violet-500/10 dark:to-fuchsia-500/10 text-foreground shadow-sm">
       {/* Subtle animated background dots */}
       <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" aria-hidden="true">
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
@@ -24,12 +24,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseAl
 
       <div className="relative px-6 py-12 md:px-12 md:py-16 lg:py-20 text-center">
         {/* Eyebrow badge */}
-        <Badge variant="secondary" className="mb-4 text-xs font-medium px-3 py-1">
+        <Badge variant="secondary" className="feature-chip mb-4 text-xs font-medium px-3 py-1 border-0 bg-[color:var(--surface-chip)] text-foreground shadow-none">
           NEW — Bite-Sized Learning
         </Badge>
 
         {/* Headline */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-violet-500 to-fuchsia-500 bg-clip-text text-transparent">
+        <h1 className="text-balance text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-violet-500 to-fuchsia-500 bg-clip-text text-transparent">
           Master AI Agents in 10 Minutes a Day
         </h1>
 
@@ -41,15 +41,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseAl
             { value: `${totalTracks}`, label: 'Tracks' },
             { value: `${totalCapsules}+`, label: 'Capsules' },
           ].map((stat) => (
-            <div key={stat.label} className="text-center">
+            <div key={stat.label} className="feature-chip rounded-2xl px-4 py-3 text-center min-w-24">
               <div className="text-2xl md:text-3xl font-bold text-foreground">{stat.value}</div>
-              <div className="text-xs text-foreground/60 dark:text-muted-foreground mt-0.5">{stat.label}</div>
+              <div className="text-xs feature-secondary mt-0.5">{stat.label}</div>
             </div>
           ))}
         </div>
 
         {/* Subheadline */}
-        <p className="mt-6 max-w-2xl mx-auto text-base md:text-lg text-foreground/70 dark:text-muted-foreground leading-relaxed">
+        <p className="text-pretty mt-6 max-w-2xl mx-auto text-base md:text-lg feature-secondary leading-relaxed">
           Bite-sized learning backed by Socratic questioning, adaptive quizzes, and hands-on pattern practice.
           No fluff. No hour-long lectures. Just compound capability.
         </p>
@@ -67,27 +67,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseAl
             size="lg"
             variant="outline"
             onClick={() => { trackEvent({ action: 'micro_hero_browse_all', category: 'micro_learning' }); onBrowseAll(); }}
-            className="px-8"
+            className="px-8 border-[color:var(--surface-panel-border)] bg-background/70 hover:bg-[color:var(--surface-panel)]"
           >
             Browse All Tracks
           </Button>
         </div>
 
         {/* Blog link */}
-        <p className="mt-6 text-sm text-foreground/60 dark:text-muted-foreground">
+        <p className="mt-6 text-sm feature-secondary">
           Curious why this works?{' '}
           <a href="/blog/the-10-minute-edge" className="text-primary font-medium hover:underline">Read the science behind micro-learning →</a>
         </p>
 
         {/* Micro proof signals */}
-        <div className="flex flex-wrap justify-center gap-6 mt-10 text-sm text-foreground/60 dark:text-muted-foreground">
+        <div className="flex flex-wrap justify-center gap-3 mt-10 text-sm">
           {[
             { icon: '⏱️', label: '5–10 min capsules' },
             { icon: '🔄', label: '4 learning modes' },
             { icon: '🎯', label: 'Role-personalized' },
             { icon: '🔥', label: 'Daily streak tracking' },
           ].map((signal) => (
-            <div key={signal.label} className="flex items-center gap-1.5">
+            <div key={signal.label} className="feature-chip flex items-center gap-1.5 rounded-full px-3 py-1.5 feature-secondary">
               <span aria-hidden="true">{signal.icon}</span>
               <span>{signal.label}</span>
             </div>

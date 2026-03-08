@@ -104,7 +104,7 @@ export function SeizureConsentGate({ onAccept, onDecline, reducedMotion }: Seizu
         </button>
         <button
           onClick={onDecline}
-          className="px-5 py-2.5 rounded-lg border border-border text-muted-foreground font-semibold text-sm hover:bg-muted/50 transition-colors"
+          className="feature-chip px-5 py-2.5 rounded-lg border font-semibold text-sm hover:bg-[color:var(--surface-panel-strong)] transition-colors"
         >
           Go back
         </button>

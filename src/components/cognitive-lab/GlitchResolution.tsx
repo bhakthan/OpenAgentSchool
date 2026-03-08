@@ -73,7 +73,7 @@ export default function GlitchResolution({ exercise, onComplete }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-16 space-y-6">
         <h2 className="text-2xl font-bold text-foreground">{exercise.title}</h2>
-        <p className="text-sm text-muted-foreground max-w-md text-center">{exercise.description}</p>
+        <p className="text-pretty text-sm feature-secondary max-w-md text-center dark:text-muted-foreground">{exercise.description}</p>
         <div className="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/20 p-4 text-sm text-amber-700 dark:text-amber-300 max-w-md text-center">
           Two statements that both seem true will appear. Your brain will glitch.
           Then you resolve the contradiction.
@@ -111,7 +111,7 @@ export default function GlitchResolution({ exercise, onComplete }: Props) {
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-500 to-transparent animate-pulse" />
         </div>
 
-        <p className="text-xs text-muted-foreground animate-pulse">Processing dissonance...</p>
+        <p className="text-xs feature-secondary animate-pulse">Processing dissonance...</p>
       </div>
     );
   }
@@ -128,14 +128,14 @@ export default function GlitchResolution({ exercise, onComplete }: Props) {
             <span className="font-bold text-red-600 dark:text-red-400">B:</span> {exercise.content.statementB}
           </div>
         </div>
-        <p className="text-sm text-muted-foreground">How can both statements be true? Write your resolution:</p>
+        <p className="text-sm feature-secondary dark:text-muted-foreground">How can both statements be true? Write your resolution:</p>
         <textarea
           value={userResolution}
           onChange={e => setUserResolution(e.target.value)}
           placeholder="Both can be true because..."
           rows={4}
           autoFocus
-          className="w-full max-w-lg px-4 py-3 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
+          className="feature-panel w-full max-w-lg px-4 py-3 rounded-lg border text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
         />
         <button
           onClick={submitResolution}
@@ -155,14 +155,14 @@ export default function GlitchResolution({ exercise, onComplete }: Props) {
           {score}/10
         </div>
 
-        <div className="rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50/30 dark:bg-emerald-950/10 p-4 max-w-lg space-y-2">
+        <div className="feature-panel rounded-lg border border-emerald-200 dark:border-emerald-800 bg-[color-mix(in_oklch,var(--background)_84%,theme(colors.emerald.300))] p-4 max-w-lg space-y-2 dark:bg-emerald-950/10">
           <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Model Resolution:</p>
           <p className="text-sm text-foreground">{exercise.content.resolution}</p>
         </div>
 
         <button
           onClick={showResult}
-          className="text-sm text-muted-foreground hover:text-foreground transition-colors underline"
+          className="feature-secondary text-sm hover:text-foreground transition-colors underline dark:text-muted-foreground"
         >
           See deeper explanation →
         </button>
@@ -173,18 +173,18 @@ export default function GlitchResolution({ exercise, onComplete }: Props) {
   // result — shows full explanation
   return (
     <div className="flex flex-col items-center justify-center py-12 space-y-6">
-      <div className="rounded-lg border border-border bg-muted/20 p-6 max-w-lg space-y-4">
+      <div className="feature-panel rounded-lg border border-border p-6 max-w-lg space-y-4">
         <div>
           <h4 className="text-sm font-bold text-foreground mb-1">Your Resolution:</h4>
-          <p className="text-xs text-muted-foreground">{userResolution}</p>
+          <p className="text-xs feature-secondary dark:text-muted-foreground">{userResolution}</p>
         </div>
         <div>
           <h4 className="text-sm font-bold text-foreground mb-1">Model Resolution:</h4>
-          <p className="text-xs text-muted-foreground">{exercise.content.resolution}</p>
+          <p className="text-xs feature-secondary dark:text-muted-foreground">{exercise.content.resolution}</p>
         </div>
         <div>
           <h4 className="text-sm font-bold text-foreground mb-1">Deep Explanation:</h4>
-          <p className="text-xs text-muted-foreground">{exercise.content.explanation}</p>
+          <p className="text-xs feature-secondary dark:text-muted-foreground">{exercise.content.explanation}</p>
         </div>
       </div>
       <button

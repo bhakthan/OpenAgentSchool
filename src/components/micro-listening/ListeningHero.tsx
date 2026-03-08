@@ -11,7 +11,7 @@ export function ListeningHero({ onStartListening, profile }: ListeningHeroProps)
 
   return (
     <section
-      className="relative flex flex-col items-center justify-center gap-8 overflow-hidden rounded-3xl border border-indigo-200/70 bg-gradient-to-br from-indigo-100 via-violet-50 to-sky-100 px-6 py-20 text-center shadow-[0_18px_48px_-24px_rgba(79,70,229,0.35)] dark:border-indigo-900/60 dark:from-slate-950 dark:via-indigo-950 dark:to-violet-950 dark:shadow-none"
+      className="feature-card-enter relative flex flex-col items-center justify-center gap-8 overflow-hidden rounded-3xl border border-indigo-200/70 bg-gradient-to-br from-indigo-100 via-violet-50 to-sky-100 px-6 py-[clamp(3.5rem,8vw,5rem)] text-center shadow-[0_18px_48px_-24px_rgba(79,70,229,0.35)] dark:border-indigo-900/60 dark:from-slate-950 dark:via-indigo-950 dark:to-violet-950 dark:shadow-none"
       style={{ animation: 'macroListenBounce 4.8s ease-in-out infinite' }}
     >
       {/* Animated soundwave */}
@@ -42,10 +42,10 @@ export function ListeningHero({ onStartListening, profile }: ListeningHeroProps)
 
       {/* Heading */}
       <div className="flex flex-col items-center gap-3">
-        <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+        <h1 className="text-balance text-[clamp(2.4rem,4vw+1rem,3.75rem)] font-extrabold tracking-tight text-foreground">
           Micro-Listen. <span className="text-indigo-600 dark:text-indigo-400">Macro-Learn.</span>
         </h1>
-        <p className="max-w-lg text-lg text-slate-700 dark:text-muted-foreground">
+        <p className="text-pretty max-w-lg text-lg text-slate-700 dark:text-muted-foreground">
           Turn any 5 minutes into an AI breakthrough. Adaptive audio that meets you where you are.
         </p>
       </div>

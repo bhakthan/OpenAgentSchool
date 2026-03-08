@@ -66,10 +66,10 @@ export const ReviewQueue: React.FC<ReviewQueueProps> = ({
 
   if (isEmpty) {
     return (
-      <div className="rounded-2xl border bg-card text-card-foreground p-6 text-center">
+      <div className="feature-panel rounded-2xl p-6 text-center">
         <p className="text-3xl mb-2">🎯</p>
         <p className="font-semibold text-foreground">All caught up!</p>
-        <p className="text-sm text-foreground/70 dark:text-muted-foreground mt-1">
+        <p className="text-sm feature-secondary mt-1 text-pretty">
           Complete more capsules to unlock spaced-repetition reviews and adaptive recommendations.
         </p>
       </div>
@@ -139,14 +139,14 @@ export const ReviewQueue: React.FC<ReviewQueueProps> = ({
       {/* ── Upcoming Reviews ─────────────────────────────── */}
       {onlyUpcoming.length > 0 && (
         <section>
-          <h3 className="text-base font-medium text-foreground/70 dark:text-muted-foreground mb-2">
+          <h3 className="text-base font-medium feature-secondary mb-2">
             📅 Coming Up (next 3 days)
           </h3>
           <div className="flex flex-wrap gap-2">
             {onlyUpcoming.map((card) => {
               const capsule = getCapsuleById(card.capsuleId);
               return (
-                <Badge key={card.capsuleId} variant="outline" className="text-xs py-1">
+                <Badge key={card.capsuleId} variant="outline" className="feature-chip text-xs py-1 border-[color:var(--surface-chip-border)]">
                   {capsule?.title ?? card.capsuleId} — {formatRelativeDate(card.nextReviewDate)}
                 </Badge>
               );
@@ -175,10 +175,10 @@ const ReviewCardItem: React.FC<ReviewCardItemProps> = ({
   const trackId = findTrackForCapsule(capsule);
 
   return (
-    <div className="rounded-xl border bg-card text-card-foreground p-4 space-y-3">
+    <div className="feature-panel rounded-xl p-4 space-y-3">
       <div>
         <p className="font-medium text-sm truncate text-foreground">{capsule?.title ?? card.capsuleId}</p>
-        <p className="text-xs text-foreground/60 dark:text-muted-foreground">
+        <p className="text-xs feature-secondary">
           {card.repetition === 0 ? 'First review' : `Review #${card.repetition + 1}`}
           {' · '}
           Due {formatRelativeDate(card.nextReviewDate)}
@@ -203,7 +203,7 @@ const ReviewCardItem: React.FC<ReviewCardItemProps> = ({
             <button
               key={q}
               onClick={() => onQuickReview(card.capsuleId, q)}
-              className="rounded-lg border px-2.5 py-1 text-sm hover:bg-muted transition-colors"
+              className="feature-chip rounded-lg border px-2.5 py-1 text-sm hover:bg-[color:var(--surface-panel-strong)] transition-colors"
               title={title}
             >
               {label}
@@ -237,12 +237,12 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ rec, onNavigate
   const reasonInfo = REASON_LABELS[rec.reason];
 
   return (
-    <div className="rounded-xl border bg-card text-card-foreground p-4 space-y-2 hover:shadow-sm transition-shadow">
+    <div className="feature-panel rounded-xl p-4 space-y-2 hover:shadow-sm transition-shadow">
       <div className="flex items-start gap-2">
         <span className="text-lg">{reasonInfo.icon}</span>
         <div className="flex-1 min-w-0">
           <p className="font-medium text-sm truncate text-foreground">{capsule?.title ?? rec.capsuleId}</p>
-          <p className="text-xs text-foreground/60 dark:text-muted-foreground">{reasonInfo.text}</p>
+          <p className="text-xs feature-secondary">{reasonInfo.text}</p>
         </div>
         <Badge variant="secondary" className="text-[10px] shrink-0">
           {capsule?.type ?? 'read'}

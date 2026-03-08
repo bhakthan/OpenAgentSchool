@@ -83,7 +83,7 @@ export default function CognitiveLabHero() {
   }, []);
 
   return (
-    <header className="relative text-center space-y-4 py-8 overflow-hidden">
+    <header className="feature-card-enter feature-panel-strong relative overflow-hidden rounded-3xl border px-6 py-8 text-center space-y-4">
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
@@ -93,13 +93,13 @@ export default function CognitiveLabHero() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs font-semibold">
           🧠 Brain-Native Learning
         </div>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">
+        <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground">
           Cognitive Lab
         </h1>
-        <p className="text-lg text-foreground/70 dark:text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        <p className="text-pretty feature-secondary text-lg max-w-2xl mx-auto leading-relaxed dark:text-muted-foreground">
           We don't teach you — we sync with your brain and zip-file knowledge directly into your neural pathways.
         </p>
-        <p className="text-sm text-foreground/60 dark:text-muted-foreground max-w-xl mx-auto">
+        <p className="text-pretty feature-secondary text-sm max-w-xl mx-auto dark:text-muted-foreground">
           Seven paradigms that bypass linear learning: multi-sensory bursts, negative-space definitions,
           cognitive dissonance, hemispheric audio, compressed symbols, and ephemeral scarcity.
         </p>

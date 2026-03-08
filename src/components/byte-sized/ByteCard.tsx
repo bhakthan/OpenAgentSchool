@@ -42,7 +42,7 @@ export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLa
   };
 
   return (
-    <div className="flex h-full flex-col rounded-2xl border border-border bg-card text-card-foreground shadow-sm transition-all duration-200">
+    <div className="feature-card-enter flex h-full flex-col rounded-2xl border border-border bg-card text-card-foreground shadow-sm transition-all duration-200">
       {/* ─── Card Type Banner ─────────────────────────────────── */}
       <div
         className="flex items-center gap-3 rounded-t-2xl px-5 py-4"
@@ -60,16 +60,16 @@ export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLa
           >
             {meta.emoji} {meta.label}
           </Badge>
-          <h3 className="text-base font-bold text-foreground">{translatedTitle}</h3>
+          <h3 className="text-balance text-base font-bold text-foreground">{translatedTitle}</h3>
         </div>
-        <span className="text-xs text-foreground/60 dark:text-muted-foreground">
+        <span className="feature-secondary text-xs dark:text-muted-foreground">
           {card.order}/5
         </span>
       </div>
 
       {/* ─── Core Content ─────────────────────────────────────── */}
       <div className="flex flex-1 flex-col gap-4 px-5 py-5">
-        <p className="text-sm leading-relaxed text-foreground/90">
+        <p className="text-pretty text-sm leading-relaxed text-foreground/90">
           {isTranslating ? (
             <span className="inline-flex items-center gap-2">
               <span className="animate-pulse">⏳</span> Translating…
@@ -87,15 +87,15 @@ export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLa
             <div
               className="rounded-xl border px-4 py-3 transition-colors"
               style={{
-                borderColor: `${meta.color}30`,
-                backgroundColor: showHighlight ? `${meta.color}08` : 'transparent',
+                borderColor: `${meta.color}35`,
+                backgroundColor: showHighlight ? `${meta.color}16` : `${meta.color}08`,
               }}
             >
               <span className="text-xs font-semibold" style={{ color: meta.color }}>
                 💡 {showHighlight ? 'Key Insight' : 'Tap for key insight'}
               </span>
               {showHighlight && (
-                <p className="mt-1 text-xs leading-relaxed text-foreground/60 dark:text-muted-foreground">
+                <p className="text-pretty mt-1 text-xs leading-relaxed text-foreground/70 dark:text-muted-foreground">
                   {translatedHighlight}
                 </p>
               )}
@@ -109,7 +109,7 @@ export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLa
             {card.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground"
+                className="feature-chip rounded-full px-2 py-0.5 text-[10px] dark:text-muted-foreground"
               >
                 {tag}
               </span>
