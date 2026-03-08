@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { trackEvent } from '@/lib/analytics/ga';
 import {
@@ -10,6 +10,7 @@ import { CategoryBrowser } from '@/components/byte-sized/CategoryBrowser';
 import { ByteCardStack } from '@/components/byte-sized/ByteCardStack';
 import { ContentLanguageSelector } from '@/components/ui/ContentLanguageSelector';
 import { useContentLanguage } from '@/lib/hooks/useContentLanguage';
+import { mergeOnLogin } from '@/lib/sync/microLearningSync';
 
 type View = 'landing' | 'browse' | 'stack';
 
@@ -25,6 +26,10 @@ export default function ByteSizedPage() {
   const [view, setView] = useState<View>(initialView);
   const [activeCategoryId, setActiveCategoryId] = useState(categoryId || '');
   const [activeConceptId, setActiveConceptId] = useState(conceptId || '');
+
+  useEffect(() => {
+    mergeOnLogin().catch(() => {});
+  }, []);
 
   // Cards for the active concept
   const conceptCards = useMemo(

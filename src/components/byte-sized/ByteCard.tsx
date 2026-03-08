@@ -5,6 +5,7 @@ import { trackEvent } from '@/lib/analytics/ga';
 import type { ByteCard as ByteCardType } from '@/lib/data/byteSized/types';
 import { CARD_TYPE_META } from '@/lib/data/byteSized/types';
 import { completeByteCard, isByteCardCompleted } from '@/lib/data/microLearning/progress';
+import { scheduleMicroLearningSync } from '@/lib/sync/microLearningSync';
 import { useTranslatedText } from '@/lib/hooks/useTranslatedText';
 import type { LanguageCode } from '@/lib/languages';
 
@@ -28,6 +29,7 @@ export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLa
   const handleGotIt = () => {
     if (completed) return;
     const { xpEarned } = completeByteCard(card.id);
+    scheduleMicroLearningSync();
     setCompleted(true);
     onComplete(xpEarned);
 

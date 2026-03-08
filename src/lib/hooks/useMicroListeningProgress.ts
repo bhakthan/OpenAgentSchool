@@ -2,7 +2,7 @@
 // React hook providing reactive micro-listening progress state.
 // Follows the same mutation-bump pattern used by useMicroLearningProgress.
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import {
   getListeningProfile,
   saveListeningProfile,
@@ -12,6 +12,8 @@ import {
   getSeriesCompletionPercent as rawGetSeriesCompletion,
   resetProgress as rawResetProgress,
 } from '@/lib/data/microListening/progress';
+import { checkNewAchievements } from '@/lib/data/microListening/achievements';
+import { mergeListeningOnLogin, scheduleMicroListeningSync } from '@/lib/sync/microListeningSync';
 import type {
   ListeningProfile,
   ListeningLevel,
@@ -25,12 +27,15 @@ import type {
  * Every mutation bumps a revision counter to trigger re-renders.
  */
 export function useMicroListeningProgress() {
-  const [, setTick] = useState(0);
-  const refresh = useCallback(() => setTick((t) => t + 1), []);
+  const [revision, setRevision] = useState(0);
+  const refresh = useCallback(() => setRevision((t) => t + 1), []);
 
   // ── Derived state (recalculated on every tick) ─────────────────────────
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const profile: ListeningProfile = useMemo(() => getListeningProfile(), [setTick]);
+  const profile: ListeningProfile = useMemo(() => getListeningProfile(), [revision]);
+
+  useEffect(() => {
+    mergeListeningOnLogin().then(() => refresh()).catch(() => {});
+  }, [refresh]);
 
   // ── Mutations ─────────────────────────────────────────────────────────
 
@@ -38,6 +43,7 @@ export function useMicroListeningProgress() {
   const markProgress = useCallback(
     (episodeId: string, level: ListeningLevel, position: number, duration: number) => {
       rawMarkProgress(episodeId, level, position, duration);
+      scheduleMicroListeningSync();
       refresh();
     },
     [refresh],
@@ -47,7 +53,15 @@ export function useMicroListeningProgress() {
   const markComplete = useCallback(
     (episodeId: string, level: ListeningLevel) => {
       rawMarkComplete(episodeId, level);
+      const current = getListeningProfile();
+      const newAchievements = checkNewAchievements(current);
+      if (newAchievements.length > 0) {
+        current.unlockedAchievements = [...new Set([...current.unlockedAchievements, ...newAchievements.map((a) => a.id)])];
+        saveListeningProfile(current);
+      }
+      scheduleMicroListeningSync();
       refresh();
+      return newAchievements;
     },
     [refresh],
   );
@@ -56,6 +70,7 @@ export function useMicroListeningProgress() {
   const updateGoal = useCallback(
     (minutes: number) => {
       rawUpdateDailyGoal(minutes);
+      scheduleMicroListeningSync();
       refresh();
     },
     [refresh],
@@ -67,6 +82,7 @@ export function useMicroListeningProgress() {
       const current = getListeningProfile();
       current.preferredLevel = level;
       saveListeningProfile(current);
+      scheduleMicroListeningSync();
       refresh();
     },
     [refresh],
@@ -78,6 +94,7 @@ export function useMicroListeningProgress() {
       const current = getListeningProfile();
       current.dailyGoalMinutes = Math.max(1, Math.min(60, minutes));
       saveListeningProfile(current);
+      scheduleMicroListeningSync();
       refresh();
     },
     [refresh],
@@ -89,6 +106,7 @@ export function useMicroListeningProgress() {
       const current = getListeningProfile();
       current.queueMode = mode;
       saveListeningProfile(current);
+      scheduleMicroListeningSync();
       refresh();
     },
     [refresh],

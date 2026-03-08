@@ -53,6 +53,14 @@
         <priority>0.95</priority>
     </url>
 
+    <!-- Cognitive Lab — Brain-Native Learning Paradigms (March 2026) -->
+    <url>
+        <loc>https://www.openagentschool.org/cognitive-lab</loc>
+        <lastmod>2026-03-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
     <!-- Core Concepts Section -->
     <url>
         <loc>https://www.openagentschool.org/concepts/</loc>

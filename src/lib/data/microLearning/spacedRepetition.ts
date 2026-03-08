@@ -61,6 +61,10 @@ function saveDeck(deck: ReviewDeck): void {
   }
 }
 
+export function persistDeck(deck: ReviewDeck): void {
+  saveDeck(deck);
+}
+
 // ─── Card Initialisation ─────────────────────────────────────────────────────
 
 /**

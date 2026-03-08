@@ -51,7 +51,6 @@ import {
   generateDailyMix,
   getSmartRecommendations,
 } from '@/lib/data/microListening/queue';
-import { checkNewAchievements } from '@/lib/data/microListening/achievements';
 import type {
   ListeningLevel,
   ListeningEpisode,
@@ -126,6 +125,7 @@ export default function MicroListeningPage() {
     profile,
     markProgress,
     markComplete,
+    updateGoal,
     getSeriesCompletion,
   } = useMicroListeningProgress();
 
@@ -269,14 +269,13 @@ export default function MicroListeningPage() {
 
     utterance.onend = () => {
       setIsPlaying(false);
-      markComplete(currentEpisodeId, selectedLevel);
+      const newAchievements = markComplete(currentEpisodeId, selectedLevel);
+      updateGoal(Math.max(1, Math.round(episode.durationEstimate / 60)));
       trackEvent({
         action: 'listening_episode_complete',
         category: 'micro_listening',
         label: `${episode.title} [${selectedLevel}]`,
       });
-      // Check achievements
-      const newAchievements = checkNewAchievements(profile);
       if (newAchievements.length > 0) setActiveAchievement(newAchievements[0]);
     };
 
@@ -324,16 +323,16 @@ export default function MicroListeningPage() {
 
   const handleComplete = useCallback(() => {
     if (currentEpisodeId) {
-      markComplete(currentEpisodeId, selectedLevel);
+      const newAchievements = markComplete(currentEpisodeId, selectedLevel);
+      updateGoal(Math.max(1, Math.round(currentTime / 60) || 1));
       trackEvent({
         action: 'listening_episode_complete',
         category: 'micro_listening',
         label: `manual [${selectedLevel}]`,
       });
-      const newAchievements = checkNewAchievements(profile);
       if (newAchievements.length > 0) setActiveAchievement(newAchievements[0]);
     }
-  }, [currentEpisodeId, selectedLevel, markComplete, profile]);
+  }, [currentEpisodeId, currentTime, selectedLevel, markComplete, updateGoal]);
 
   const handleNextEpisode = useCallback(() => {
     // Play next in queue or do nothing

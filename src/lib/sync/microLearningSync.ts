@@ -15,7 +15,9 @@ async function loadSyncApi() {
   return import('@/lib/api/microLearningSync');
 }
 
-import { loadProgress, saveProgress } from '@/lib/data/microLearning/progress';
+import { BYTE_XP } from '@/lib/data/byteSized/types';
+import { loadByteProgress, loadProgress, saveByteProgress, saveProgress } from '@/lib/data/microLearning/progress';
+import { loadDeck, persistDeck, type ReviewDeck } from '@/lib/data/microLearning/spacedRepetition';
 import { getUnlockedAchievementIds } from '@/lib/hooks/microLearningAchievements';
 import type { MicroLearningProgress, CapsuleCompletion } from '@/lib/data/microLearning/types';
 import type { SyncResponse, RemoteProgress } from '@/lib/api/microLearningSync';
@@ -28,6 +30,44 @@ function fromPayload(p: { capsule_id: string; completed_at: string; xp_earned: n
     xpEarned: p.xp_earned,
     quizScore: p.quiz_score ?? undefined,
   };
+}
+
+function mergeByteCards(remote: RemoteProgress): { completedCards: Record<string, string>; totalCards: number } {
+  const local = loadByteProgress();
+  const completedCards: Record<string, string> = { ...local.completedCards };
+
+  for (const byteCard of remote.byte_cards ?? []) {
+    const existing = completedCards[byteCard.card_id];
+    if (!existing || byteCard.completed_at < existing) {
+      completedCards[byteCard.card_id] = byteCard.completed_at;
+    }
+  }
+
+  return {
+    completedCards,
+    totalCards: Object.keys(completedCards).length,
+  };
+}
+
+function mergeReviewDeck(remote: RemoteProgress): ReviewDeck {
+  const local = loadDeck();
+  const merged: ReviewDeck = {
+    cards: { ...local.cards },
+    updatedAt: local.updatedAt,
+  };
+
+  for (const [capsuleId, card] of Object.entries(remote.review_deck?.cards ?? {})) {
+    const existing = merged.cards[capsuleId];
+    if (!existing || card.lastReviewDate > existing.lastReviewDate) {
+      merged.cards[capsuleId] = card;
+    }
+  }
+
+  if ((remote.review_deck?.updatedAt ?? '') > merged.updatedAt) {
+    merged.updatedAt = remote.review_deck.updatedAt;
+  }
+
+  return merged;
 }
 
 // ─── Sync status (in-memory, not persisted) ─────────────────────────────────
@@ -126,6 +166,8 @@ export async function mergeOnLogin(): Promise<void> {
  */
 function mergeRemoteIntoLocal(remote: RemoteProgress): MicroLearningProgress {
   const local = loadProgress();
+  const mergedByteProgress = mergeByteCards(remote);
+  const mergedReviewDeck = mergeReviewDeck(remote);
 
   // Union completions (deduplicate by capsuleId, keep earliest completedAt)
   const map = new Map<string, CapsuleCompletion>();
@@ -146,11 +188,16 @@ function mergeRemoteIntoLocal(remote: RemoteProgress): MicroLearningProgress {
   );
 
   // Re-derive XP from completions
-  const totalXP = mergedCompletions.reduce((sum, c) => sum + c.xpEarned, 0);
+  const totalXP = mergedCompletions.reduce((sum, c) => sum + c.xpEarned, 0)
+    + mergedByteProgress.totalCards * BYTE_XP;
+
+  saveByteProgress(mergedByteProgress);
+  persistDeck(mergedReviewDeck);
 
   return {
     ...local,
     completions: mergedCompletions,
+    roleProfile: remote.role_profile ?? local.roleProfile,
     totalXP,
     currentStreak: Math.max(local.currentStreak, remote.current_streak),
     longestStreak: Math.max(local.longestStreak, remote.longest_streak),
@@ -169,11 +216,20 @@ function applyServerMerge(response: SyncResponse): void {
   const local = loadProgress();
 
   const serverCompletions = response.merged_completions.map(fromPayload);
+  const serverByteCards = response.merged_byte_cards ?? [];
+  const byteProgress = {
+    completedCards: Object.fromEntries(
+      serverByteCards.map((card) => [card.card_id, card.completed_at]),
+    ) as Record<string, string>,
+    totalCards: serverByteCards.length,
+  };
+  const reviewDeck = response.review_deck ?? loadDeck();
 
   // Rebuild from server canonical (keeps locally derived fields like roleProfile)
   const merged: MicroLearningProgress = {
     ...local,
     completions: serverCompletions,
+    roleProfile: response.role_profile ?? local.roleProfile,
     totalXP: response.total_xp,
     currentStreak: response.current_streak,
     longestStreak: response.longest_streak,
@@ -181,6 +237,8 @@ function applyServerMerge(response: SyncResponse): void {
     dailyGoal: response.daily_goal,
   };
 
+  saveByteProgress(byteProgress);
+  persistDeck(reviewDeck);
   saveProgress(merged);
 }
 
@@ -217,6 +275,8 @@ export function registerMicroLearningSync(): void {
       // Use sendBeacon for reliability
       try {
         const local = loadProgress();
+        const byteProgress = loadByteProgress();
+        const reviewDeck = loadDeck();
         const achievementIds = [...getUnlockedAchievementIds()];
         const payload = JSON.stringify({
           completions: local.completions.map((c) => ({
@@ -225,6 +285,13 @@ export function registerMicroLearningSync(): void {
             xp_earned: c.xpEarned,
             quiz_score: c.quizScore ?? null,
           })),
+          byte_cards: Object.entries(byteProgress.completedCards).map(([cardId, completedAt]) => ({
+            card_id: cardId,
+            completed_at: completedAt,
+            xp_earned: BYTE_XP,
+          })),
+          role_profile: local.roleProfile ?? null,
+          review_deck: reviewDeck,
           total_xp: local.totalXP,
           current_streak: local.currentStreak,
           longest_streak: local.longestStreak,

@@ -1,6 +1,6 @@
 # Open Agent School - llms.txt
 # https://llmstxt.org/ - A standard for providing context to LLMs
-# Last updated: March 6, 2026
+# Last updated: March 7, 2026
 
 > Open Agent School is a comprehensive educational platform for mastering AI agents,
 > from foundational concepts to production-ready agentic systems.
@@ -168,6 +168,20 @@ Podcast-style audio episodes for learning AI agent concepts hands-free.
 - Forge Score: Aggregate 0-100 metric integrated into Learner Snapshot
 - The Forge URL: https://www.openagentschool.org/the-forge
 
+### Cognitive Lab — Brain-Native Learning Paradigms (March 2026)
+7 paradigms that exploit how neurons actually encode — through multi-sensory bursts, contrast, dissonance, and scarcity.
+
+- Burst Grafting: 400ms multi-sensory encoding — geometric shape + harmonic chord + 2-word nano-definition flash simultaneously
+- Void Mapping: Negative-space definitions — 5 rapid anti-flashes of what a concept is NOT, then pick the real definition from the void
+- Bio-Sync: Biometric-paced learning synced to cardiac rhythm via rPPG webcam detection (Phase 2 — coming soon)
+- Glitch Resolution: Cognitive dissonance engine — two contradictory statements that both seem true, then resolve the contradiction
+- Hemispheric Weaving: Stereo-split dual processing — left ear receives poetic metaphor, right ear gets technical definition, brain weaves them together
+- Glyph Cognition: Symbol-to-meaning recall — study abstract SVG glyphs with seed syllables, then recall the AI concept from memory
+- Ephemeral Sparks: One-shot decay learning — knowledge flashes for N seconds then is destroyed forever, maximum attention yields maximum retention
+- Seizure Safety: Photosensitivity warnings with opt-in consent gates, prefers-reduced-motion support extends flash timings to 3–5 seconds
+- Lab Score: Aggregate metric across all completed paradigm sessions with per-paradigm progress tracking
+- Cognitive Lab URL: https://www.openagentschool.org/cognitive-lab
+
 ### ConceptSphere — AI-Powered Just-In-Time Knowledge Engine (February 2026)
 On-demand, LLM-generated micro-lessons grounded in live web search for real-time learning.
 
@@ -291,6 +305,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Micro-Listening: https://www.openagentschool.org/micro-listening
 - Byte-Sized Learning: https://www.openagentschool.org/byte-sized
 - The Forge: https://www.openagentschool.org/the-forge
+- Cognitive Lab: https://www.openagentschool.org/cognitive-lab
 - AI Skills Explorer: https://www.openagentschool.org/ai-skills/
 - Learning Atlas: https://www.openagentschool.org/learning-atlas/
 - Enterprise Playbook: https://www.openagentschool.org/playbook/

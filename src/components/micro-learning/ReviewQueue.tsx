@@ -23,6 +23,7 @@ import {
 import { getCapsuleById } from '@/lib/data/microLearning/capsules';
 import { getTrackById, TRACKS } from '@/lib/data/microLearning/tracks';
 import type { MicroLearningProgress, Capsule } from '@/lib/data/microLearning/types';
+import { scheduleMicroLearningSync } from '@/lib/sync/microLearningSync';
 
 // ─── Props ───────────────────────────────────────────────────────────────────
 
@@ -52,6 +53,7 @@ export const ReviewQueue: React.FC<ReviewQueueProps> = ({
   const handleQuickReview = useCallback(
     (capsuleId: string, quality: QualityRating) => {
       processReview(capsuleId, quality);
+      scheduleMicroLearningSync();
       setRevision((r) => r + 1);
     },
     [],

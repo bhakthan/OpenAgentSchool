@@ -1,6 +1,6 @@
 # Open Agent School - Robots.txt
 # https://www.openagentschool.org/robots.txt
-# Last updated: March 6, 2026
+# Last updated: March 7, 2026
 #
 # POLICY: Fully inclusive — all bots welcome.
 # Open Agent School is a global educational platform.
@@ -40,6 +40,11 @@ Allow: /byte-sized
 # The Forge — Cognitive Friction Lab (March 2026)
 # /the-forge trains judgment through Socratic defense, prompt autopsies, epistemic reasoning, trust calibration
 Allow: /the-forge
+
+# Cognitive Lab — Brain-Native Learning Paradigms (March 2026)
+# /cognitive-lab offers 7 paradigms: burst grafting, void mapping, bio-sync, glitch resolution,
+# hemispheric weaving, glyph cognition, ephemeral sparks — multi-sensory neural encoding exercises
+Allow: /cognitive-lab
 
 # Sitemap & AI context files
 Sitemap: https://www.openagentschool.org/sitemap.xml

@@ -225,7 +225,7 @@ export function loadByteProgress(): ByteSizedProgress {
   }
 }
 
-function saveByteProgress(bp: ByteSizedProgress): void {
+export function saveByteProgress(bp: ByteSizedProgress): void {
   try {
     localStorage.setItem(BYTE_STORAGE_KEY, JSON.stringify(bp));
   } catch { /* degrade silently */ }

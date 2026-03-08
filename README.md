@@ -22,12 +22,12 @@
 | | Question | Answer |
 |---|----------|--------|
 | **Why** | Why does this exist? | Most AI agent resources are scattered blog posts or vendor docs. Open Agent School brings concepts, patterns, and production practices into one interactive platform — so you learn the *why* behind each pattern, not just the API call. |
-| **What** | What does it cover? | 65+ agent patterns, 200+ quiz questions, **Duolingo-style micro-learning capsules**, **byte-sized learning cards**, **The Forge cognitive friction lab**, an AI-powered **ConceptSphere** for just-in-time knowledge, interactive D3 visualizations, Socratic study mode, critical thinking challenges, exportable diagrams (SVG/PNG/PDF), and downloadable strategy toolkits — from fundamentals to production ops. |
+| **What** | What does it cover? | 65+ agent patterns, 200+ quiz questions, **Duolingo-style micro-learning capsules**, **byte-sized learning cards**, **The Forge cognitive friction lab**, **Cognitive Lab brain-native learning paradigms**, an AI-powered **ConceptSphere** for just-in-time knowledge, interactive D3 visualizations, Socratic study mode, critical thinking challenges, exportable diagrams (SVG/PNG/PDF), and downloadable strategy toolkits — from fundamentals to production ops. |
 | **Where** | Where does it run? | **Web** — live at [openagentschool.org](https://openagentschool.org). **PWA** — install on mobile or desktop for offline access. **Local dev** — clone the repo and `npm run dev` on localhost:5000. |
-| **When** | When should I use it? | When you're learning AI agents for the first time, need a quick 10-minute daily learning habit, want 60-second byte-sized concept cards for on-the-go learning, want just-in-time answers grounded in live web search, evaluating patterns for a production system, preparing for a technical interview, or onboarding a team to agentic architecture — from first concept to org-wide adoption. |
+| **When** | When should I use it? | When you're learning AI agents for the first time, need a quick 10-minute daily learning habit, want 60-second byte-sized concept cards for on-the-go learning, want brain-native multi-sensory encoding exercises, want just-in-time answers grounded in live web search, evaluating patterns for a production system, preparing for a technical interview, or onboarding a team to agentic architecture — from first concept to org-wide adoption. |
 | **Who** | Who is it for? | Developers building AI agents, architects designing multi-agent systems, product managers evaluating agentic capabilities, and teams adopting AI — from individual learners to enterprise adoption programs. |
 | **How** | How is it built? | React 18 + TypeScript + Vite frontend with TailwindCSS and Radix UI. Optional Python FastAPI backend for study sessions and AI-powered assessments. Deployed on Azure Static Web Apps with GitHub Actions CI/CD. |
-| **Best For** | What's the sweet spot? | Engineers who learn by doing — byte-sized cards for 60-second concept mastery, micro-learning capsules for daily momentum, ConceptSphere for instant deep-dives, interactive visualizations, hands-on scenarios, and Socratic questioning beat passive reading. Also ideal for teams using the [Adoption Playbook](https://openagentschool.org) to drive org-wide AI transformation. |
+| **Best For** | What's the sweet spot? | Engineers who learn by doing — byte-sized cards for 60-second concept mastery, micro-learning capsules for daily momentum, Cognitive Lab for multi-sensory neural encoding, ConceptSphere for instant deep-dives, interactive visualizations, hands-on scenarios, and Socratic questioning beat passive reading. Also ideal for teams using the [Adoption Playbook](https://openagentschool.org) to drive org-wide AI transformation. |
 | **Keys?** | Do I need API keys? | **No keys required to learn.** The entire platform works without any API keys. When you're ready for AI-powered features (study assessments, voice narration, cloud speech), bring your own keys — they stay in your browser's localStorage and never leave your device. |
 
 ---
@@ -138,6 +138,24 @@ The Forge is where learners prove they can think — not just prompt. Each disci
 
 **Try it:** [openagentschool.org/the-forge](https://openagentschool.org/the-forge)
 
+### 🧠 Cognitive Lab — Brain-Native Learning Paradigms
+
+> **We don't teach you — we sync with your brain.** 7 paradigms that exploit how neurons actually encode — through multi-sensory bursts, contrast, dissonance, and scarcity.
+
+Cognitive Lab goes beyond traditional instruction. Each paradigm targets a different neural encoding pathway, creating deeper and more durable knowledge imprints.
+
+- **Burst Grafting** — 400ms multi-sensory encoding: geometric shape + harmonic chord + 2-word nano-definition flash simultaneously across visual, auditory, and linguistic channels.
+- **Void Mapping** — Negative-space definitions: 5 rapid anti-flashes of what a concept is NOT, then pick the real definition from the void. Understanding sharpened by absence.
+- **Glitch Resolution** — Cognitive dissonance engine: two contradictory statements that both seem true. Your brain glitches. Then you resolve the contradiction, cementing nuanced understanding.
+- **Hemispheric Weaving** — Stereo-split dual processing: left ear receives a poetic metaphor, right ear gets the technical definition. Your brain weaves them into unified understanding.
+- **Glyph Cognition** — Symbol-to-meaning recall: study abstract SVG glyphs with seed syllables, then recall the AI concept from memory.
+- **Ephemeral Sparks** — One-shot decay learning: knowledge flashes for N seconds then is destroyed forever. Maximum attention yields maximum retention.
+- **Bio-Sync** — Biometric-paced learning synced to cardiac rhythm (Phase 2 — coming soon).
+- **Seizure Safety** — Photosensitivity warnings with opt-in consent gates, `prefers-reduced-motion` support extends flash timings to 3–5 seconds automatically.
+- **Lab Score** — Aggregate metric across all completed paradigm sessions with per-paradigm progress tracking.
+
+**Try it:** [openagentschool.org/cognitive-lab](https://openagentschool.org/cognitive-lab)
+
 ###  Interactive Learning Experience
 
 - **59 Core Concepts** across fundamentals, architecture, production, and advanced topics
@@ -187,7 +205,8 @@ The Forge is where learners prove they can think — not just prompt. Each disci
 2. **Start Micro-Learning**: Head to [/micro-learning](https://openagentschool.org/micro-learning) for daily 10-minute capsules
 3. **Try Byte-Sized Cards**: Visit [/byte-sized](https://openagentschool.org/byte-sized) for 60-second concept cards
 4. **Train in The Forge**: Visit [/the-forge](https://openagentschool.org/the-forge) for judgment-building exercises
-5. **Ask ConceptSphere**: Use the AI-powered knowledge engine for instant just-in-time answers
+5. **Try Cognitive Lab**: Visit [/cognitive-lab](https://openagentschool.org/cognitive-lab) for brain-native multi-sensory learning
+6. **Ask ConceptSphere**: Use the AI-powered knowledge engine for instant just-in-time answers
 4. **Explore**: Browse Core Concepts or Agent Patterns
 5. **Learn**: Use Study Mode for guided discovery
 6. **Practice**: Try interactive scenarios and quizzes
@@ -250,6 +269,28 @@ Then in the app: **Tools → API Settings → Custom / International / Local** �
 - **[Backend Quick Reference](./BACKEND_QUICK_REF.md)** - Microservices setup and API reference
 - **[Agent Guide](./AGENTS.md)** - Guide for AI coding agents contributing to the project
 - **[Architecture Overview](./docs/backend/ARCHITECTURE_OVERVIEW.md)** - System design and service dependencies
+
+---
+
+## 🚀 Recent Updates (March 7, 2026)
+
+### 🧠 Cognitive Lab — Brain-Native Learning Paradigms
+
+**7 paradigms** that exploit how neurons actually encode — through multi-sensory bursts, contrast, dissonance, and scarcity. Each paradigm targets a different neural encoding pathway for deeper knowledge imprints.
+
+| Paradigm | Mechanism | What Happens |
+|----------|-----------|-------------|
+| **Burst Grafting** | Multi-sensory encoding | Shape + chord + nano-definition flash in 400ms across 3 channels |
+| **Void Mapping** | Negative-space definition | 5 anti-flashes of what it's NOT → pick the real definition from the void |
+| **Glitch Resolution** | Cognitive dissonance | Two contradictory true statements → resolve the contradiction |
+| **Hemispheric Weaving** | Stereo-split processing | Left = metaphor, Right = technical → weave into unified understanding |
+| **Glyph Cognition** | Symbol-meaning recall | Study abstract SVG glyphs + seed syllables → recall the concept |
+| **Ephemeral Sparks** | One-shot decay | Knowledge flashes for N seconds, then destroyed forever |
+| **Bio-Sync** | Cardiac-paced learning | Content synced to heartbeat rhythm (Phase 2 — coming soon) |
+
+**Accessibility:** Photosensitivity consent gates, `prefers-reduced-motion` support (flash timings extended to 3–5s), AudioContext Safari fallback with visual-only mode, headphones and flash warning badges on paradigm cards.
+
+**Try it:** [openagentschool.org/cognitive-lab](https://openagentschool.org/cognitive-lab)
 
 ---
 
@@ -490,7 +531,7 @@ The top navigation uses a **four-category mega-menu** that mirrors the learning 
 |----------|--------|
 | **Learn** | Foundation — Core Concepts, Agent Patterns, Learning Atlas, References |
 | **Apply** | Real-world — Agents for Science, Adoption Playbook, Applied AI Skills, Azure Services |
-| **Practice** | Hands-on — Study Mode, Knowledge Quiz, Knowledge Search, Community, Phase 1 Lab, Learning Analytics, Project Tracks, Pair Programming, Cohorts, Sandbox |
+| **Practice** | Hands-on — Study Mode, Knowledge Quiz, Knowledge Search, Community, Cognitive Lab, Phase 1 Lab, Learning Analytics, Project Tracks, Pair Programming, Cohorts, Sandbox |
 | **Tools** | Config — API Docs, Agents Console, **API Settings (BYOK)**, Skill Passport |
 
 **Rationale**: Learners progress from **Learn** (concepts) → **Apply** (real-world use) → **Practice** (exercises) → **Tools** (configure your own environment). The BYOK settings are in Tools so learners can get started immediately without keys and configure providers when they're ready for AI-powered features.
@@ -536,6 +577,15 @@ The top navigation uses a **four-category mega-menu** that mirrors the learning 
 5. Build streaks, earn XP, and level up across all tracks
 6. Graduate to Study Mode or Project Tracks when you're ready for longer sessions
 
+### 🧠 **Cognitive Lab Path** (New — Brain-Native Encoding)
+1. Start at [/cognitive-lab](https://openagentschool.org/cognitive-lab) and pick a paradigm
+2. Try **Burst Grafting** first — multi-sensory flash encoding is the fastest on-ramp
+3. Progress to **Void Mapping** and **Glitch Resolution** for deeper cognitive engagement
+4. Use **Hemispheric Weaving** with headphones for stereo-split dual processing
+5. Test recall with **Glyph Cognition** — map abstract symbols to AI concepts
+6. Challenge yourself with **Ephemeral Sparks** — one-shot learning, no second chances
+7. Track your Lab Score across all paradigms
+
 ### 🔬 **Hands-On Builder Path** (New)
 1. Phase 1 Lab → Learning Copilot (get personalized weekly plan)
 2. Project Tracks → Pick a capstone (Support Bot, RAG Tutor, or Commerce Agent)
@@ -574,7 +624,8 @@ See **[AGENTS.md](./AGENTS.md)** for guidance on contributing code.
 - **6 Micro-Learning Tracks** with 30+ bite-sized capsules, adaptive difficulty, and spaced repetition
 - **325 Byte-Sized Learning Cards** across 65 concepts, 12 categories, and 5 card types (60-second learning moments)
 - **ConceptSphere JIT Engine** — 8 exploration modes with search-augmented generation across 13 web search providers
-- **6 Learning Modes** (Micro-Learning, Byte-Sized, Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)
+- **7 Cognitive Lab Paradigms** — Brain-native multi-sensory encoding (burst grafting, void mapping, glitch resolution, hemispheric weaving, glyph cognition, ephemeral sparks, bio-sync)
+- **7 Learning Modes** (Micro-Learning, Byte-Sized, Cognitive Lab, Concepts, Study, Critical Thinking, Interactive Scenarios, Debug Challenges)
 - **10 New Feature Pages** behind auth + feature flags (Phase 1 Lab, Analytics, Project Tracks, Pair Programming, Skill Passport, Cohorts, Safety Lab, Sandbox)
 
 ---

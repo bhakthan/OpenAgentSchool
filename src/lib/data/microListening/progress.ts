@@ -9,6 +9,7 @@ import type {
   EpisodeProgress,
   QueueMode,
 } from './types';
+import { getEpisode } from './series';
 
 const STORAGE_KEY = 'oas-micro-listening-progress';
 
@@ -131,9 +132,13 @@ export function markEpisodeComplete(episodeId: string, level: ListeningLevel): v
   profile.totalEpisodesCompleted += 1;
   profile.lastListenedDate = todayISO();
 
-  // Update series progress — we need the series ID from the episode key
-  // The calling code should also update seriesProgress; we'll do a best-effort
-  // by storing into a generic bucket. Callers can augment with series-aware logic.
+  const episode = getEpisode(episodeId);
+  if (episode) {
+    const seriesLevels = profile.seriesProgress[episode.seriesId] ?? {};
+    seriesLevels[level] = (seriesLevels[level] ?? 0) + 1;
+    profile.seriesProgress[episode.seriesId] = seriesLevels;
+  }
+
   updateStreakInternal(profile);
   saveListeningProfile(profile);
 }

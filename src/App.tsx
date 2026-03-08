@@ -28,6 +28,7 @@ import { Stamp } from '@phosphor-icons/react/dist/ssr/Stamp';
 import { ShieldCheck as ShieldCheckNav } from '@phosphor-icons/react/dist/ssr/ShieldCheck';
 import { Robot } from '@phosphor-icons/react/dist/ssr/Robot';
 import { Fire } from '@phosphor-icons/react/dist/ssr/Fire';
+import { Brain } from '@phosphor-icons/react/dist/ssr/Brain';
 import { UsersThree } from '@phosphor-icons/react/dist/ssr/UsersThree';
 import { Headphones } from '@phosphor-icons/react/dist/ssr/Headphones';
 import { Sparkles as SparklesIcon } from 'lucide-react';
@@ -123,6 +124,7 @@ const MicroLearningReturnBanner = lazy(() => import('./components/micro-learning
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const TheForgePage = lazy(() => import('./pages/TheForgePage'));
+const CognitiveLabPage = lazy(() => import('./pages/CognitiveLabPage'));
 import { setupSimulationButtonHandlers } from './lib/utils/flows/visualizationFix';
 import LearningJourneyMap from './components/tutorial/LearningJourneyMap';
 import { EnlightenMeProvider } from './components/enlighten/EnlightenMeProvider';
@@ -250,6 +252,9 @@ function App() {
     if (!(globalThis as any).__VITEST_ENV__) {
       import('@/lib/sync/microLearningSync').then(({ registerMicroLearningSync }) => {
         registerMicroLearningSync();
+      });
+      import('@/lib/sync/microListeningSync').then(({ registerMicroListeningSync }) => {
+        registerMicroListeningSync();
       });
     }
     
@@ -557,6 +562,7 @@ function App() {
                       { to: '/value-map', label: 'Skills Universe', icon: <SparklesIcon className="w-4 h-4" />, description: 'Discover what you\'ll master', isNew: false },
                       { to: '/references', label: 'References', icon: <Books size={16} weight="duotone" />, description: 'Papers, videos, and resources', isNew: false },
                       { to: '/safety-lab', label: 'Safety Lab', icon: <ShieldCheckNav size={16} weight="duotone" />, description: 'Practice defending AI agents', isNew: true },
+                      { to: '/cognitive-lab', label: 'Cognitive Lab', icon: <Brain size={16} weight="duotone" />, description: 'Brain-native learning — 7 paradigms beyond linear study', isNew: true },
                     ]
                   },
                   {
@@ -850,6 +856,7 @@ function App() {
                   <Route path="/blog/:slug" element={<BlogPostPage />} />
                   <Route path="/pricing" element={<PricingPage />} />
                   <Route path="/the-forge" element={<AuthGuard><TheForgePage /></AuthGuard>} />
+                  <Route path="/cognitive-lab" element={<AuthGuard><CognitiveLabPage /></AuthGuard>} />
                   <Route path="/onboarding" element={<AuthGuard><OnboardingPage /></AuthGuard>} />
                   <Route path="/notifications" element={<AuthGuard><NotificationsPage /></AuthGuard>} />
                   {/* Fallback route to redirect to home page */}

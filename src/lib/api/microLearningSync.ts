@@ -3,6 +3,8 @@
 // Used by the sync queue, NOT called directly by components.
 
 import type { MicroLearningProgress, CapsuleCompletion } from '@/lib/data/microLearning/types';
+import { loadByteProgress } from '@/lib/data/microLearning/progress';
+import { loadDeck, type ReviewDeck } from '@/lib/data/microLearning/spacedRepetition';
 
 // Lazy-load axios to avoid top-level fetch during module evaluation (breaks vitest workers).
 function getApiBaseUrl(): string {
@@ -38,8 +40,17 @@ interface CompletionPayload {
   quiz_score?: number | null;
 }
 
+interface ByteCardPayload {
+  card_id: string;
+  completed_at: string;
+  xp_earned: number;
+}
+
 interface SyncRequest {
   completions: CompletionPayload[];
+  byte_cards: ByteCardPayload[];
+  role_profile: MicroLearningProgress['roleProfile'] | null;
+  review_deck: ReviewDeck;
   total_xp: number;
   current_streak: number;
   longest_streak: number;
@@ -50,6 +61,9 @@ interface SyncRequest {
 
 export interface SyncResponse {
   merged_completions: CompletionPayload[];
+  merged_byte_cards: ByteCardPayload[];
+  role_profile: MicroLearningProgress['roleProfile'] | null;
+  review_deck: ReviewDeck;
   total_xp: number;
   current_streak: number;
   longest_streak: number;
@@ -62,6 +76,9 @@ export interface SyncResponse {
 
 export interface RemoteProgress {
   completions: CompletionPayload[];
+  byte_cards: ByteCardPayload[];
+  role_profile: MicroLearningProgress['roleProfile'] | null;
+  review_deck: ReviewDeck;
   total_xp: number;
   current_streak: number;
   longest_streak: number;
@@ -80,9 +97,18 @@ export async function syncMicroLearningProgress(
   achievementIds: string[],
 ): Promise<SyncResponse> {
   const client = await createAuthClient();
+  const byteProgress = loadByteProgress();
+  const reviewDeck = loadDeck();
 
   const payload: SyncRequest = {
     completions: localProgress.completions.map(toPayload),
+    byte_cards: Object.entries(byteProgress.completedCards).map(([cardId, completedAt]) => ({
+      card_id: cardId,
+      completed_at: completedAt,
+      xp_earned: 2,
+    })),
+    role_profile: localProgress.roleProfile ?? null,
+    review_deck: reviewDeck,
     total_xp: localProgress.totalXP,
     current_streak: localProgress.currentStreak,
     longest_streak: localProgress.longestStreak,
@@ -127,5 +153,12 @@ export function fromPayload(p: CompletionPayload): CapsuleCompletion {
     completedAt: p.completed_at,
     xpEarned: p.xp_earned,
     quizScore: p.quiz_score ?? undefined,
+  };
+}
+
+export function fromBytePayload(p: ByteCardPayload): { cardId: string; completedAt: string } {
+  return {
+    cardId: p.card_id,
+    completedAt: p.completed_at,
   };
 }

@@ -84,6 +84,7 @@ export function useMicroLearningProgress() {
   const saveRoleProfile = useCallback(
     (profile: RoleProfile) => {
       rawSaveRoleProfile(profile);
+      scheduleMicroLearningSync();
       bump();
     },
     [bump],

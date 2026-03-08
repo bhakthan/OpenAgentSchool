@@ -1,6 +1,6 @@
 # Open Agent School - ai.txt
 # AI crawler context file for AI training and LLM discovery
-# Last updated: March 6, 2026
+# Last updated: March 7, 2026
 #
 # POLICY: Fully inclusive — all AI crawlers, search engines, and bots are
 # welcome to index, train on, and serve our educational content.
@@ -155,6 +155,19 @@ The-Forge: https://www.openagentschool.org/the-forge
 # Unlock progression: Epistemic Gym gates other 3 disciplines
 # Forge Score: Aggregate 0-100 metric integrated into Learner Snapshot
 
+# Cognitive Lab — Brain-Native Learning Paradigms (March 2026)
+Cognitive-Lab: https://www.openagentschool.org/cognitive-lab
+# 7 paradigms × multi-sensory neural encoding exercises for brain-native learning
+# Burst Grafting: 400ms multi-sensory encoding — shape + chord + nano-definition
+# Void Mapping: Negative-space definitions — 5 anti-flashes define by absence
+# Bio-Sync: Biometric-paced learning synced to cardiac rhythm (Phase 2)
+# Glitch Resolution: Cognitive dissonance engine — resolve contradictory statements
+# Hemispheric Weaving: Stereo-split dual processing — metaphor (left) + technical (right)
+# Glyph Cognition: Symbol-to-meaning recall using abstract SVG glyphs and seed syllables
+# Ephemeral Sparks: One-shot decay learning — flash then destroyed forever, maximum attention
+# Seizure safety: Photosensitivity warnings, reduced-motion support, opt-in consent gates
+# Lab Score: Aggregate metric across all completed paradigm sessions
+
 # Tri-System Paradigm & Cognitive Ecology (February 2026)
 Concept-Tri-System-Paradigm: https://www.openagentschool.org/concepts/tri-system-paradigm
 # Beyond Kahneman's Dual-Process: the Triadic Cognitive Ecology (System 1 / System 2 / System 3)
@@ -188,6 +201,7 @@ Study-Mode: https://www.openagentschool.org/study-mode
 Micro-Learning: https://www.openagentschool.org/micro-learning
 Byte-Sized-Learning: https://www.openagentschool.org/byte-sized
 The-Forge: https://www.openagentschool.org/the-forge
+Cognitive-Lab: https://www.openagentschool.org/cognitive-lab
 Patterns: https://www.openagentschool.org/patterns
 AI-Skills: https://www.openagentschool.org/ai-skills
 Playbook: https://www.openagentschool.org/playbook
