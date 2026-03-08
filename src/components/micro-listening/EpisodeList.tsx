@@ -54,14 +54,14 @@ export function EpisodeList({
             style={isPlaying ? { animation: 'subtlePulse 2s ease-in-out infinite' } : undefined}
           >
             {/* Episode number */}
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-bold text-muted-foreground dark:bg-white/10">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-bold text-foreground/70 dark:text-muted-foreground dark:bg-white/10">
               {episode.seriesOrder}
             </span>
 
             {/* Title + duration + progress bar */}
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-foreground">{episode.title}</p>
-              <span className="text-xs text-muted-foreground">
+              <span className="text-xs text-foreground/60 dark:text-muted-foreground">
                 {formatDuration(episode.durationEstimate)}
               </span>
 

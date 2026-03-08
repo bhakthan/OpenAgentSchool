@@ -96,10 +96,10 @@ export default function CognitiveLabHero() {
         <h1 className="text-4xl font-bold tracking-tight text-foreground">
           Cognitive Lab
         </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg text-foreground/70 dark:text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           We don't teach you — we sync with your brain and zip-file knowledge directly into your neural pathways.
         </p>
-        <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+        <p className="text-sm text-foreground/60 dark:text-muted-foreground max-w-xl mx-auto">
           Seven paradigms that bypass linear learning: multi-sensory bursts, negative-space definitions,
           cognitive dissonance, hemispheric audio, compressed symbols, and ephemeral scarcity.
         </p>

@@ -26,6 +26,7 @@ import {
   Notebook,
   Star,
   Lightning,
+  Headphones,
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
@@ -76,6 +77,12 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'adopt-charter',   title: 'Executive Alignment Charter',    path: '/adoption/charter',    keywords: 'charter executive alignment form',            section: 'Adoption',  icon: <Notebook size={ICON_SIZE} /> },
   { id: 'adopt-canvas',    title: 'Portfolio Heatmap Canvas',       path: '/adoption/canvas',     keywords: 'canvas portfolio heatmap',                    section: 'Adoption',  icon: <ChartBar size={ICON_SIZE} /> },
   { id: 'adopt-briefing',  title: 'Board Ready Briefing',           path: '/adoption/briefing',   keywords: 'briefing board ready pack',                   section: 'Adoption',  icon: <Notebook size={ICON_SIZE} /> },
+
+  // ── Practice ──
+  { id: 'micro-learning',  title: 'Micro-Learning',                 path: '/micro-learning',      keywords: 'micro learning capsules bite-sized daily',    section: 'Practice',  icon: <BookOpen size={ICON_SIZE} /> },
+  { id: 'micro-listening', title: 'Micro-Listening',                path: '/micro-listening',     keywords: 'micro listening audio podcast daily',         section: 'Practice',  icon: <Headphones size={ICON_SIZE} /> },
+  { id: 'byte-sized',      title: 'Byte-Sized Learning',            path: '/byte-sized',          keywords: 'byte sized cards quick 60 seconds flash',    section: 'Practice',  icon: <Lightning size={ICON_SIZE} /> },
+  { id: 'cognitive-lab',   title: 'Cognitive Lab',                  path: '/cognitive-lab',       keywords: 'cognitive lab brain paradigms neural glyph',  section: 'Practice',  icon: <Brain size={ICON_SIZE} /> },
 
   // ── Science ──
   { id: 'agents-science',  title: 'Agents for Science',             path: '/agents-for-science',  keywords: 'science research domain agents',              section: 'Pages',     icon: <Robot size={ICON_SIZE} /> },

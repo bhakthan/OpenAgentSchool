@@ -61,7 +61,7 @@ export const TrackBrowser: React.FC<TrackBrowserProps> = ({ recommendedTrackIds,
     <section id="track-browser" className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold">Learning Tracks</h2>
-        <span className="text-sm text-muted-foreground">{filteredTracks.length} tracks</span>
+        <span className="text-sm text-foreground/60 dark:text-muted-foreground">{filteredTracks.length} tracks</span>
       </div>
 
       {/* Filter pills */}
@@ -75,7 +75,7 @@ export const TrackBrowser: React.FC<TrackBrowserProps> = ({ recommendedTrackIds,
             className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
               filter === tab.value
                 ? 'bg-primary text-primary-foreground border-primary'
-                : 'bg-background text-muted-foreground border-border hover:border-foreground/20'
+                : 'bg-background text-foreground/60 dark:text-muted-foreground border-border hover:border-foreground/20'
             }`}
           >
             {tab.label}
@@ -144,14 +144,14 @@ const TrackCard: React.FC<TrackCardProps> = ({ track, isRecommended, onSelect })
             <h3 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">
               {track.title}
             </h3>
-            <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{track.tagline}</p>
+            <p className="text-xs text-foreground/60 dark:text-muted-foreground mt-0.5 line-clamp-2">{track.tagline}</p>
           </div>
         </div>
 
         {/* Metadata */}
         <div className="flex flex-wrap items-center gap-2 mt-3">
-          <span className="text-xs text-muted-foreground">{track.capsuleCount} capsules</span>
-          <span className="text-xs text-muted-foreground">~{track.estimatedHours}h</span>
+          <span className="text-xs text-foreground/60 dark:text-muted-foreground">{track.capsuleCount} capsules</span>
+          <span className="text-xs text-foreground/60 dark:text-muted-foreground">~{track.estimatedHours}h</span>
           <Badge variant="outline" className={`text-[10px] capitalize ${DIFFICULTY_COLORS[track.difficulty]}`}>
             {track.difficulty}
           </Badge>
@@ -160,7 +160,7 @@ const TrackCard: React.FC<TrackCardProps> = ({ track, isRecommended, onSelect })
         {/* Role tags */}
         <div className="flex flex-wrap gap-1 mt-2">
           {track.roles.map((role) => (
-            <span key={role} className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+            <span key={role} className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-foreground/70 dark:text-muted-foreground">
               {ROLE_LABELS[role]}
             </span>
           ))}
@@ -169,7 +169,7 @@ const TrackCard: React.FC<TrackCardProps> = ({ track, isRecommended, onSelect })
         {/* Progress bar */}
         {isStarted && (
           <div className="mt-3 space-y-1">
-            <div className="flex justify-between text-[10px] text-muted-foreground">
+            <div className="flex justify-between text-[10px] text-foreground/60 dark:text-muted-foreground">
               <span>{completed}/{total} capsules</span>
               <span>{percent}%</span>
             </div>
@@ -178,7 +178,7 @@ const TrackCard: React.FC<TrackCardProps> = ({ track, isRecommended, onSelect })
         )}
 
         {/* Outcome statement on hover */}
-        <p className="mt-3 text-xs text-muted-foreground/70 line-clamp-2 group-hover:text-muted-foreground transition-colors">
+        <p className="mt-3 text-xs text-foreground/50 dark:text-muted-foreground/70 line-clamp-2 group-hover:text-foreground/70 dark:group-hover:text-muted-foreground transition-colors">
           {track.outcomeStatement}
         </p>
       </div>

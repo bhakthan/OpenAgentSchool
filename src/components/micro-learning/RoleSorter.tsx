@@ -97,7 +97,7 @@ export const RoleSorter: React.FC<RoleSorterProps> = ({ open, onClose, onComplet
         <div className="p-6 md:p-8">
           {/* Close / Skip */}
           <div className="flex justify-between items-center mb-6">
-            <span className="text-xs text-muted-foreground">
+            <span className="text-xs text-foreground/60 dark:text-muted-foreground">
               {isResultStep ? 'Your Results' : `Step ${step + 1} of ${SORTER_QUESTIONS.length}`}
             </span>
             <button
@@ -115,7 +115,7 @@ export const RoleSorter: React.FC<RoleSorterProps> = ({ open, onClose, onComplet
               <div className="text-center">
                 <div className="text-4xl mb-2">🎯</div>
                 <h2 className="text-xl font-bold text-foreground">Your Recommended Path</h2>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className="text-sm text-foreground/70 dark:text-muted-foreground mt-1">
                   Based on your profile, here are the best tracks for you
                 </p>
               </div>
@@ -148,8 +148,8 @@ export const RoleSorter: React.FC<RoleSorterProps> = ({ open, onClose, onComplet
                         </div>
                         <div className="min-w-0 flex-1">
                           <h3 className="font-semibold text-sm">{track.title}</h3>
-                          <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{track.tagline}</p>
-                          <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
+                          <p className="text-xs text-foreground/60 dark:text-muted-foreground mt-0.5 line-clamp-2">{track.tagline}</p>
+                          <div className="flex items-center gap-3 mt-2 text-xs text-foreground/60 dark:text-muted-foreground">
                             <span>{track.capsuleCount} capsules</span>
                             <span>~{track.estimatedHours}h</span>
                             <Badge variant="outline" className="text-[10px] capitalize">{track.difficulty}</Badge>
@@ -192,7 +192,7 @@ export const RoleSorter: React.FC<RoleSorterProps> = ({ open, onClose, onComplet
                   >
                     <div className="font-medium text-sm">{opt.label}</div>
                     {opt.description && (
-                      <div className="text-xs text-muted-foreground mt-0.5">{opt.description}</div>
+                      <div className="text-xs text-foreground/60 dark:text-muted-foreground mt-0.5">{opt.description}</div>
                     )}
                   </button>
                 ))}

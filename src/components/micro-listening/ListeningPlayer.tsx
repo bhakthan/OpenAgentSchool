@@ -70,7 +70,7 @@ export function ListeningPlayer({
 
   if (!episode) {
     return (
-      <div className="flex items-center justify-center rounded-3xl bg-gradient-to-b from-slate-50/95 to-white/95 p-12 text-muted-foreground backdrop-blur-2xl dark:from-slate-900/95 dark:to-slate-950/95">
+        <div className="flex items-center justify-center rounded-3xl bg-gradient-to-b from-slate-50/95 to-white/95 p-12 text-foreground/60 dark:text-muted-foreground backdrop-blur-2xl dark:from-slate-900/95 dark:to-slate-950/95">
         Select an episode to start listening
       </div>
     );
@@ -85,7 +85,7 @@ export function ListeningPlayer({
     <div className="flex flex-col gap-6 rounded-3xl border border-border bg-gradient-to-b from-slate-50/95 to-white/95 p-6 shadow-2xl backdrop-blur-2xl dark:from-slate-900/95 dark:to-slate-950/95 sm:p-8">
       {/* Series + category */}
       <div className="flex items-center gap-2">
-        <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground dark:bg-white/10">
+        <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-foreground/70 dark:text-muted-foreground dark:bg-white/10">
           {episode.seriesId}
         </span>
         <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold capitalize ${levelBadge[level]}`}>
@@ -96,7 +96,7 @@ export function ListeningPlayer({
       {/* Title + description */}
       <div>
         <h2 className="text-xl font-bold text-foreground sm:text-2xl">{episode.title}</h2>
-        <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{episode.description}</p>
+        <p className="mt-1 line-clamp-2 text-sm text-foreground/70 dark:text-muted-foreground">{episode.description}</p>
       </div>
 
       {/* Progress bar */}
@@ -113,7 +113,7 @@ export function ListeningPlayer({
           }}
           aria-label="Seek"
         />
-        <div className="flex justify-between text-[10px] text-muted-foreground">
+        <div className="flex justify-between text-[10px] text-foreground/60 dark:text-muted-foreground">
           <span>{fmt(currentTime)}</span>
           <span>{fmt(duration)}</span>
         </div>
@@ -196,7 +196,7 @@ export function ListeningPlayer({
           className={`ml-auto rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-200 ${
             nearComplete
               ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20'
-              : 'bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground dark:bg-white/10 dark:hover:bg-white/20'
+              : 'bg-muted text-foreground/60 dark:text-muted-foreground hover:bg-muted/80 hover:text-foreground dark:bg-white/10 dark:hover:bg-white/20'
           }`}
         >
           Mark Complete

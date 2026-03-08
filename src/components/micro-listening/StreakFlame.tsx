@@ -84,7 +84,7 @@ export function StreakFlame({ streak, dailyGoal, todayMinutes }: StreakFlameProp
         >
           {streak}
         </span>
-        <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        <span className="text-xs font-medium uppercase tracking-wide text-foreground/60 dark:text-muted-foreground">
           {streak > 0 ? 'day streak' : 'Start your streak!'}
         </span>
       </div>
@@ -96,7 +96,7 @@ export function StreakFlame({ streak, dailyGoal, todayMinutes }: StreakFlameProp
           Daily goal reached!
         </span>
       ) : (
-        <span className="text-xs text-muted-foreground">
+        <span className="text-xs text-foreground/60 dark:text-muted-foreground">
           {todayMinutes}/{dailyGoal} min today
         </span>
       )}

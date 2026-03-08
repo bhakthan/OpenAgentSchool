@@ -46,7 +46,7 @@ export function MiniPlayer({
         {/* Left: episode info */}
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium text-foreground">{episode.title}</p>
-          <p className="truncate text-xs text-muted-foreground">{episode.seriesId}</p>
+          <p className="truncate text-xs text-foreground/60 dark:text-muted-foreground">{episode.seriesId}</p>
         </div>
 
         {/* Center: play/pause */}

@@ -125,7 +125,7 @@ export const StreakXPOverlay: React.FC<StreakXPOverlayProps> = ({
                 <span className="text-lg">{a.icon}</span>
                 <div className="text-left">
                   <p className="text-xs font-bold text-violet-700 dark:text-violet-300">{a.title}</p>
-                  <p className="text-[10px] text-muted-foreground">+{a.bonusXP} bonus XP</p>
+                  <p className="text-[10px] text-foreground/60 dark:text-muted-foreground">+{a.bonusXP} bonus XP</p>
                 </div>
               </div>
             ))}

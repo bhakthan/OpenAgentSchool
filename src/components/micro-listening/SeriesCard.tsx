@@ -76,17 +76,17 @@ export function SeriesCard({ series, completionPercent, onSelect }: SeriesCardPr
 
         <div className="min-w-0 flex-1">
           <h3 className="truncate text-base font-bold text-foreground">{series.title}</h3>
-          <p className="line-clamp-2 text-xs text-muted-foreground">{series.description}</p>
+          <p className="line-clamp-2 text-xs text-foreground/60 dark:text-muted-foreground">{series.description}</p>
         </div>
       </div>
 
       {/* Meta section */}
       <div className="flex flex-1 flex-col gap-3 px-5 py-4">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground">
+          <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-foreground/70 dark:text-muted-foreground">
             {series.episodes.length} episodes
           </span>
-          <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground">
+          <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-foreground/70 dark:text-muted-foreground">
             {categoryDisplay[series.category] ?? series.category}
           </span>
           <span
@@ -98,7 +98,7 @@ export function SeriesCard({ series, completionPercent, onSelect }: SeriesCardPr
           </span>
         </div>
 
-        <span className="text-xs text-muted-foreground">{completionLabel}</span>
+        <span className="text-xs text-foreground/60 dark:text-muted-foreground">{completionLabel}</span>
       </div>
 
       {/* Completion progress bar */}

@@ -151,7 +151,7 @@ export const ConceptSphere: React.FC<ConceptSphereProps> = ({
 
         {/* ── Preset Selection Grid ─────────────────────────────── */}
         <div className="space-y-3">
-          <p className="text-[11px] text-muted-foreground font-semibold uppercase tracking-[0.12em]">
+          <p className="text-[11px] text-foreground/60 dark:text-muted-foreground font-semibold uppercase tracking-[0.12em]">
             What do you want to know?
           </p>
           <div className="grid grid-cols-2 gap-2.5">
@@ -183,7 +183,7 @@ export const ConceptSphere: React.FC<ConceptSphereProps> = ({
                           <span className="text-[9px] text-emerald-600 dark:text-emerald-400" title="Live web search enabled">🌐</span>
                         )}
                       </div>
-                      <p className="text-[11px] text-muted-foreground mt-0.5 leading-snug">{preset.description}</p>
+                      <p className="text-[11px] text-foreground/60 dark:text-muted-foreground mt-0.5 leading-snug">{preset.description}</p>
                     </div>
                   </div>
                   {/* Active pulse dot */}
@@ -202,7 +202,7 @@ export const ConceptSphere: React.FC<ConceptSphereProps> = ({
         {/* ── Compare input ─────────────────────────────────────── */}
         {activeMode === 'compare' && !result && !loading && (
           <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
-            <label className="text-xs font-semibold text-muted-foreground">Compare with:</label>
+            <label className="text-xs font-semibold text-foreground/60 dark:text-muted-foreground">Compare with:</label>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -264,7 +264,7 @@ export const ConceptSphere: React.FC<ConceptSphereProps> = ({
                 <span className="text-sm">🔮</span>
               </div>
             </div>
-            <p className="text-sm font-medium text-muted-foreground">
+            <p className="text-sm font-medium text-foreground/70 dark:text-muted-foreground">
               {hasSearch && activeMode && ['latest', 'expand', 'custom'].includes(activeMode)
                 ? 'Searching the web & thinking…'
                 : 'Thinking…'}
@@ -293,9 +293,9 @@ export const ConceptSphere: React.FC<ConceptSphereProps> = ({
         {result && (
           <div ref={resultRef} className="space-y-4 animate-in fade-in slide-in-from-bottom-3 duration-300">
             {/* Meta badge row */}
-            <div className="flex items-center gap-2 text-[11px] text-muted-foreground flex-wrap">
+            <div className="flex items-center gap-2 text-[11px] text-foreground/60 dark:text-muted-foreground flex-wrap">
               {result.cached && (
-                <Badge variant="outline" className="text-[10px] bg-muted/50">⚡ Cached</Badge>
+                <Badge variant="outline" className="text-[10px] bg-muted/70 dark:bg-muted/50">⚡ Cached</Badge>
               )}
               {result.searchAugmented && (
                 <Badge variant="outline" className="text-[10px] border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:text-emerald-400">

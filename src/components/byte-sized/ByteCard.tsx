@@ -62,7 +62,7 @@ export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLa
           </Badge>
           <h3 className="text-base font-bold text-foreground">{translatedTitle}</h3>
         </div>
-        <span className="text-xs text-muted-foreground">
+        <span className="text-xs text-foreground/60 dark:text-muted-foreground">
           {card.order}/5
         </span>
       </div>
@@ -95,7 +95,7 @@ export const ByteCard: React.FC<ByteCardProps> = ({ card, onComplete, onReviewLa
                 💡 {showHighlight ? 'Key Insight' : 'Tap for key insight'}
               </span>
               {showHighlight && (
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                <p className="mt-1 text-xs leading-relaxed text-foreground/60 dark:text-muted-foreground">
                   {translatedHighlight}
                 </p>
               )}

@@ -43,13 +43,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseAl
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-foreground">{stat.value}</div>
-              <div className="text-xs text-muted-foreground mt-0.5">{stat.label}</div>
+              <div className="text-xs text-foreground/60 dark:text-muted-foreground mt-0.5">{stat.label}</div>
             </div>
           ))}
         </div>
 
         {/* Subheadline */}
-        <p className="mt-6 max-w-2xl mx-auto text-base md:text-lg text-muted-foreground leading-relaxed">
+        <p className="mt-6 max-w-2xl mx-auto text-base md:text-lg text-foreground/70 dark:text-muted-foreground leading-relaxed">
           Bite-sized learning backed by Socratic questioning, adaptive quizzes, and hands-on pattern practice.
           No fluff. No hour-long lectures. Just compound capability.
         </p>
@@ -74,13 +74,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onFindPath, onBrowseAl
         </div>
 
         {/* Blog link */}
-        <p className="mt-6 text-sm text-muted-foreground">
+        <p className="mt-6 text-sm text-foreground/60 dark:text-muted-foreground">
           Curious why this works?{' '}
           <a href="/blog/the-10-minute-edge" className="text-primary font-medium hover:underline">Read the science behind micro-learning →</a>
         </p>
 
         {/* Micro proof signals */}
-        <div className="flex flex-wrap justify-center gap-6 mt-10 text-sm text-muted-foreground">
+        <div className="flex flex-wrap justify-center gap-6 mt-10 text-sm text-foreground/60 dark:text-muted-foreground">
           {[
             { icon: '⏱️', label: '5–10 min capsules' },
             { icon: '🔄', label: '4 learning modes' },

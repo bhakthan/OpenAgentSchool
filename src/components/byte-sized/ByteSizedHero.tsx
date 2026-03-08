@@ -25,7 +25,7 @@ export const ByteSizedHero: React.FC<ByteSizedHeroProps> = ({ onBrowse, onRandom
   return (
     <div className="relative overflow-hidden rounded-3xl border border-border bg-card">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-fuchsia-500/5 to-amber-500/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-fuchsia-500/10 to-amber-500/10 dark:from-violet-500/5 dark:via-fuchsia-500/5 dark:to-amber-500/5" />
 
       <div className="relative px-6 py-10 sm:px-10 sm:py-14 text-center space-y-6">
         {/* Headline */}
@@ -36,7 +36,7 @@ export const ByteSizedHero: React.FC<ByteSizedHeroProps> = ({ onBrowse, onRandom
           <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
             AI Concepts in <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500">60 Seconds</span>
           </h1>
-          <p className="mx-auto max-w-xl text-sm text-muted-foreground">
+          <p className="mx-auto max-w-xl text-sm text-foreground/70 dark:text-muted-foreground">
             Each concept distilled into 5 bite-sized cards — definition, logic, pattern, learning loop, and real-world example. 
             Learn at your pace, earn XP along the way.
           </p>
@@ -53,7 +53,7 @@ export const ByteSizedHero: React.FC<ByteSizedHeroProps> = ({ onBrowse, onRandom
         {/* Global progress */}
         {stats.completed > 0 && (
           <div className="mx-auto max-w-xs space-y-1">
-            <div className="flex justify-between text-xs text-muted-foreground">
+            <div className="flex justify-between text-xs text-foreground/60 dark:text-muted-foreground">
               <span>{pct}% mastered</span>
               <span>+{stats.xpEarned} XP</span>
             </div>
@@ -88,7 +88,7 @@ function StatPill({ label, value, highlight }: { label: string; value: number; h
     <div className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm ${
       highlight
         ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
-        : 'bg-muted text-muted-foreground'
+        : 'bg-muted text-foreground/70 dark:text-muted-foreground'
     }`}>
       <span className="font-bold">{value}</span>
       <span className="text-xs">{label}</span>

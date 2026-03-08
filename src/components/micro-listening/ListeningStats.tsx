@@ -38,7 +38,7 @@ export function ListeningStats({ profile }: ListeningStatsProps) {
         >
           {icon}
           <span className="text-2xl font-extrabold text-foreground">{value}</span>
-          <span className="text-xs font-medium text-muted-foreground">{label}</span>
+          <span className="text-xs font-medium text-foreground/60 dark:text-muted-foreground">{label}</span>
         </div>
       ))}
     </div>

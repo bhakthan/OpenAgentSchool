@@ -68,7 +68,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
             <h2 className="text-2xl font-bold tracking-tight text-foreground">
               {stats.streak > 0 ? `🔥 ${stats.streak}-day streak!` : '👋 Welcome back!'}
             </h2>
-            <p className="text-muted-foreground text-sm mt-1">
+            <p className="text-foreground/70 dark:text-muted-foreground text-sm mt-1">
               {stats.totalCapsules === 0
                 ? 'Ready to start your AI agent mastery journey?'
                 : `${stats.totalCapsules} capsules completed · ${stats.totalXP} XP earned`}
@@ -93,7 +93,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
               <div className="text-3xl">{continueTrack.track.icon}</div>
               <div className="flex-1 min-w-0">
                 <h4 className="font-semibold truncate text-foreground">{continueTrack.track.title}</h4>
-                <p className="text-xs text-muted-foreground">{continueTrack.progress.completed}/{continueTrack.progress.total} capsules</p>
+                <p className="text-xs text-foreground/60 dark:text-muted-foreground">{continueTrack.progress.completed}/{continueTrack.progress.total} capsules</p>
                 <div className="mt-2 h-2 rounded-full bg-muted overflow-hidden">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-primary to-violet-500 transition-all"
@@ -122,7 +122,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
                   <span className="text-2xl">{track.icon}</span>
                   <div className="flex-1 min-w-0">
                     <h4 className="text-sm font-semibold truncate text-foreground">{track.title}</h4>
-                    <p className="text-xs text-muted-foreground">{tp.percentage}% complete</p>
+                    <p className="text-xs text-foreground/60 dark:text-muted-foreground">{tp.percentage}% complete</p>
                   </div>
                 </div>
               </Link>
@@ -176,7 +176,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Achievements</h3>
-          <span className="text-xs text-muted-foreground">
+          <span className="text-xs text-foreground/60 dark:text-muted-foreground">
             {unlocked.length}/{achievements.length} unlocked
           </span>
         </div>
@@ -197,14 +197,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
                 <span className="text-2xl">{a.icon}</span>
                 <div className="min-w-0">
                   <p className="text-sm font-semibold truncate text-foreground">{a.title}</p>
-                  <p className="text-[10px] text-muted-foreground truncate">{a.description}</p>
+                  <p className="text-[10px] text-foreground/60 dark:text-muted-foreground truncate">{a.description}</p>
                 </div>
                 <Badge
                   className={`ml-auto text-[9px] flex-shrink-0 ${
                     a.rarity === 'legendary' ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400' :
                     a.rarity === 'epic' ? 'bg-violet-500/10 text-violet-700 dark:text-violet-400' :
                     a.rarity === 'rare' ? 'bg-blue-500/10 text-blue-700 dark:text-blue-400' :
-                    'bg-muted text-muted-foreground'
+                    'bg-muted text-foreground/70 dark:text-muted-foreground'
                   }`}
                 >
                   {a.rarity}
@@ -213,21 +213,21 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
             ))}
           </div>
         ) : (
-          <div className="rounded-xl border border-dashed bg-muted/30 p-6 text-center">
+          <div className="rounded-xl border border-dashed bg-muted/50 p-6 text-center">
             <p className="text-2xl mb-2">🏆</p>
-            <p className="text-sm text-muted-foreground">Complete capsules to unlock achievements!</p>
+            <p className="text-sm text-foreground/70 dark:text-muted-foreground">Complete capsules to unlock achievements!</p>
           </div>
         )}
 
         {/* Next achievements to unlock */}
         {nextUp.length > 0 && (
           <div className="space-y-2">
-            <p className="text-xs font-medium text-muted-foreground">Next to unlock</p>
+            <p className="text-xs font-medium text-foreground/60 dark:text-muted-foreground">Next to unlock</p>
             <div className="flex flex-wrap gap-2">
               {nextUp.map((a) => (
                 <div
                   key={a.id}
-                  className="inline-flex items-center gap-2 rounded-lg border border-dashed bg-muted/20 px-3 py-1.5 text-xs text-muted-foreground"
+                  className="inline-flex items-center gap-2 rounded-lg border border-dashed bg-muted/40 px-3 py-1.5 text-xs text-foreground/60 dark:text-muted-foreground"
                 >
                   <span className="opacity-40">{a.icon}</span>
                   <span>{a.title}</span>
@@ -243,7 +243,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onOpenRoleSorter }) => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-foreground">Daily Goal</p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-foreground/60 dark:text-muted-foreground">
               {daily.completed >= daily.goal
                 ? "✅ You've hit today's goal!"
                 : `${daily.goal - daily.completed} more capsule${daily.goal - daily.completed !== 1 ? 's' : ''} to go`}
@@ -323,7 +323,7 @@ const DailyGoalRing: React.FC<{ completed: number; goal: number }> = ({ complete
 const StatCell: React.FC<{ label: string; value: string }> = ({ label, value }) => (
   <div>
     <p className="text-lg font-bold">{value}</p>
-    <p className="text-xs text-muted-foreground">{label}</p>
+    <p className="text-xs text-foreground/60 dark:text-muted-foreground">{label}</p>
   </div>
 );
 

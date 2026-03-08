@@ -51,7 +51,7 @@ export const TrackDetailView: React.FC<TrackDetailViewProps> = ({ trackId, onCap
   if (!track) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground">Track not found.</p>
+        <p className="text-foreground/60 dark:text-muted-foreground">Track not found.</p>
         <Button variant="ghost" onClick={onBack} className="mt-4">← Back to tracks</Button>
       </div>
     );
@@ -74,14 +74,14 @@ export const TrackDetailView: React.FC<TrackDetailViewProps> = ({ trackId, onCap
             </div>
             <div>
               <h1 className="text-2xl font-bold text-foreground">{track.title}</h1>
-              <p className="text-sm text-muted-foreground">{track.tagline}</p>
+              <p className="text-sm text-foreground/70 dark:text-muted-foreground">{track.tagline}</p>
             </div>
           </div>
         </div>
         <div className="flex items-center gap-4">
           <div className="text-center">
             <div className="text-2xl font-bold">{percent}%</div>
-            <div className="text-xs text-muted-foreground">{completed}/{total} capsules</div>
+            <div className="text-xs text-foreground/60 dark:text-muted-foreground">{completed}/{total} capsules</div>
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@ export const TrackDetailView: React.FC<TrackDetailViewProps> = ({ trackId, onCap
         <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-6 text-center text-foreground">
           <div className="text-3xl mb-2">🎉</div>
           <h3 className="font-bold text-lg text-foreground">Track Complete!</h3>
-          <p className="text-sm text-muted-foreground mt-1">
+          <p className="text-sm text-foreground/70 dark:text-muted-foreground mt-1">
             You've mastered all {total} capsules. Your skills are ready for real-world application.
           </p>
         </div>
@@ -129,7 +129,7 @@ export const TrackDetailView: React.FC<TrackDetailViewProps> = ({ trackId, onCap
                       ? 'bg-emerald-500 border-emerald-500 text-white'
                       : chapterStarted
                       ? 'border-primary text-primary'
-                      : 'border-muted-foreground/30 text-muted-foreground'
+                      : 'border-foreground/20 text-foreground/50 dark:border-muted-foreground/30 dark:text-muted-foreground'
                   }`}
                 >
                   {chapterCompleted ? '✓' : chapterIdx + 1}
@@ -138,7 +138,7 @@ export const TrackDetailView: React.FC<TrackDetailViewProps> = ({ trackId, onCap
                   <h3 className="font-semibold text-sm capitalize">
                     {conceptId.replace(/-/g, ' ')}
                   </h3>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs text-foreground/60 dark:text-muted-foreground">
                     {capsules.length} capsules · ~{capsules.reduce((s, c) => s + c.estimatedMinutes, 0)} min
                   </span>
                 </div>
@@ -173,7 +173,7 @@ export const TrackDetailView: React.FC<TrackDetailViewProps> = ({ trackId, onCap
                             ? 'bg-emerald-500 text-white'
                             : isCurrent
                             ? 'bg-primary/20 text-primary animate-pulse'
-                            : 'bg-muted text-muted-foreground'
+                            : 'bg-muted text-foreground/60 dark:text-muted-foreground'
                         }`}
                       >
                         {done ? '✓' : TYPE_ICONS[capsule.type]}
@@ -188,10 +188,10 @@ export const TrackDetailView: React.FC<TrackDetailViewProps> = ({ trackId, onCap
                             {TYPE_LABELS[capsule.type]}
                           </Badge>
                         </div>
-                        <p className="text-xs text-muted-foreground mt-0.5 truncate">{capsule.subtitle}</p>
+                        <p className="text-xs text-foreground/60 dark:text-muted-foreground mt-0.5 truncate">{capsule.subtitle}</p>
                       </div>
 
-                      <span className="text-xs text-muted-foreground shrink-0">{capsule.estimatedMinutes}m</span>
+                      <span className="text-xs text-foreground/60 dark:text-muted-foreground shrink-0">{capsule.estimatedMinutes}m</span>
                     </button>
                   );
                 })}

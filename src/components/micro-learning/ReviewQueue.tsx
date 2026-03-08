@@ -69,7 +69,7 @@ export const ReviewQueue: React.FC<ReviewQueueProps> = ({
       <div className="rounded-2xl border bg-card text-card-foreground p-6 text-center">
         <p className="text-3xl mb-2">🎯</p>
         <p className="font-semibold text-foreground">All caught up!</p>
-        <p className="text-sm text-muted-foreground mt-1">
+        <p className="text-sm text-foreground/70 dark:text-muted-foreground mt-1">
           Complete more capsules to unlock spaced-repetition reviews and adaptive recommendations.
         </p>
       </div>
@@ -139,7 +139,7 @@ export const ReviewQueue: React.FC<ReviewQueueProps> = ({
       {/* ── Upcoming Reviews ─────────────────────────────── */}
       {onlyUpcoming.length > 0 && (
         <section>
-          <h3 className="text-base font-medium text-muted-foreground mb-2">
+          <h3 className="text-base font-medium text-foreground/70 dark:text-muted-foreground mb-2">
             📅 Coming Up (next 3 days)
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -178,7 +178,7 @@ const ReviewCardItem: React.FC<ReviewCardItemProps> = ({
     <div className="rounded-xl border bg-card text-card-foreground p-4 space-y-3">
       <div>
         <p className="font-medium text-sm truncate text-foreground">{capsule?.title ?? card.capsuleId}</p>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-foreground/60 dark:text-muted-foreground">
           {card.repetition === 0 ? 'First review' : `Review #${card.repetition + 1}`}
           {' · '}
           Due {formatRelativeDate(card.nextReviewDate)}
@@ -242,7 +242,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({ rec, onNavigate
         <span className="text-lg">{reasonInfo.icon}</span>
         <div className="flex-1 min-w-0">
           <p className="font-medium text-sm truncate text-foreground">{capsule?.title ?? rec.capsuleId}</p>
-          <p className="text-xs text-muted-foreground">{reasonInfo.text}</p>
+          <p className="text-xs text-foreground/60 dark:text-muted-foreground">{reasonInfo.text}</p>
         </div>
         <Badge variant="secondary" className="text-[10px] shrink-0">
           {capsule?.type ?? 'read'}
@@ -272,7 +272,7 @@ const StatChip: React.FC<{
   <div
     className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium bg-${color}-500/10 text-${color}-700 dark:text-${color}-400 border-${color}-200 dark:border-${color}-800`}
   >
-    <span className="text-muted-foreground">{label}</span>
+    <span className="text-foreground/60 dark:text-muted-foreground">{label}</span>
     <span className="font-semibold">{value}</span>
   </div>
 );

@@ -139,7 +139,7 @@ export default function CognitiveLabPage() {
           {completedCount > 0 && (
             <div className="rounded-xl border border-purple-200 dark:border-purple-800 bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-950/30 dark:to-violet-950/20 p-6 text-center">
               <div className="text-5xl font-bold text-purple-600 dark:text-purple-400">{labScore}</div>
-              <div className="text-sm text-muted-foreground mt-1">
+              <div className="text-sm text-foreground/70 dark:text-muted-foreground mt-1">
                 Lab Score • {completedCount} / {totalCount} sessions completed
               </div>
               <div className="mt-3 mx-auto max-w-xs h-2 rounded-full bg-purple-200/50 dark:bg-purple-800/30 overflow-hidden">
@@ -176,11 +176,11 @@ export default function CognitiveLabPage() {
                       <div className="flex items-center gap-2 mb-0.5">
                         <h3 className="font-bold text-foreground text-sm">{paradigm.title}</h3>
                         {paradigm.isComingSoon && (
-                          <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">Coming Soon</span>
+                          <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-foreground/70 dark:text-muted-foreground">Coming Soon</span>
                         )}
                       </div>
                       <p className={`text-xs font-semibold ${colors.text} mb-1`}>{paradigm.subtitle}</p>
-                      <p className="text-xs text-muted-foreground line-clamp-2">{paradigm.description}</p>
+                      <p className="text-xs text-foreground/60 dark:text-muted-foreground line-clamp-2">{paradigm.description}</p>
 
                       {/* Accessibility badges */}
                       <div className="flex flex-wrap gap-1.5 mt-2">
@@ -205,10 +205,10 @@ export default function CognitiveLabPage() {
                                 style={{ width: `${completion}%` }}
                               />
                             </div>
-                            <span className="text-xs text-muted-foreground whitespace-nowrap">{completion}%</span>
+                            <span className="text-xs text-foreground/60 dark:text-muted-foreground whitespace-nowrap">{completion}%</span>
                           </div>
                           <div className="mt-2">
-                            <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                            <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-foreground/70 dark:text-muted-foreground">
                               {paradigm.exercises.length} sessions
                             </span>
                           </div>

@@ -37,7 +37,7 @@ export function ListeningHero({ onStartListening, profile }: ListeningHeroProps)
         <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
           Micro-Listen. <span className="text-indigo-600 dark:text-indigo-400">Macro-Learn.</span>
         </h1>
-        <p className="max-w-lg text-lg text-muted-foreground">
+        <p className="max-w-lg text-lg text-foreground/70 dark:text-muted-foreground">
           Turn any 5 minutes into an AI breakthrough. Adaptive audio that meets you where you are.
         </p>
       </div>
@@ -61,7 +61,7 @@ export function ListeningHero({ onStartListening, profile }: ListeningHeroProps)
       </button>
 
       {/* Stats row */}
-      <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
+      <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-foreground/60 dark:text-muted-foreground">
         <span className="inline-flex items-center gap-1.5">
           <Headphones size={16} weight="bold" className="text-indigo-600 dark:text-indigo-400" />
           <strong className="text-foreground">{profile.totalEpisodesCompleted}</strong> Episodes

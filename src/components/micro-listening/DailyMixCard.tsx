@@ -38,7 +38,7 @@ export function DailyMixCard({ playlist, onPlay, getEpisodeById }: DailyMixCardP
       </div>
 
       {/* Theme */}
-      <p className="mb-5 text-sm text-muted-foreground">{playlist.theme}</p>
+      <p className="mb-5 text-sm text-foreground/70 dark:text-muted-foreground">{playlist.theme}</p>
 
       {/* Concept of the Day */}
       {playlist.conceptOfTheDay && (
@@ -72,7 +72,7 @@ export function DailyMixCard({ playlist, onPlay, getEpisodeById }: DailyMixCardP
 
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium text-foreground">{episode.title}</p>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-foreground/60 dark:text-muted-foreground">
                   {formatDuration(episode.durationEstimate)}
                 </span>
               </div>

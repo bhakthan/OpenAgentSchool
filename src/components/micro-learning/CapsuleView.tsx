@@ -93,7 +93,7 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
   if (!capsule) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground">Capsule not found.</p>
+        <p className="text-foreground/60 dark:text-muted-foreground">Capsule not found.</p>
         <Button variant="ghost" onClick={onBack} className="mt-4">← Back to track</Button>
       </div>
     );
@@ -129,7 +129,7 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
       {/* ─── Capsule Header ─────────────────────────────────────── */}
       <div className="flex items-center gap-2">
         <Button variant="ghost" size="sm" onClick={onBack}>← Track</Button>
-        <span className="text-xs text-muted-foreground">Capsule {capsule.order}</span>
+        <span className="text-xs text-foreground/60 dark:text-muted-foreground">Capsule {capsule.order}</span>
       </div>
 
       <div className="rounded-2xl border bg-card text-card-foreground overflow-hidden">
@@ -149,8 +149,8 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
         <div className="p-6 space-y-6">
           {/* Translated description for capsule type */}
           <div className="space-y-4">
-            <div className="rounded-xl bg-muted/50 p-6 border">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+            <div className="rounded-xl bg-muted/70 dark:bg-muted/50 p-6 border">
+              <p className="text-sm text-foreground/70 dark:text-muted-foreground leading-relaxed">
                 {isTranslating ? (
                   <span className="inline-flex items-center gap-2">
                     <span className="animate-pulse">⏳</span> Translating…
@@ -221,7 +221,7 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
           </div>
 
           {/* Estimated time */}
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs text-foreground/60 dark:text-muted-foreground">
             <span>⏱️ ~{capsule.estimatedMinutes} min</span>
           </div>
 
@@ -236,7 +236,7 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
               className="inline-flex items-center gap-2 rounded-xl border border-violet-500/30 bg-violet-500/5 px-4 py-2 text-sm font-medium text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 transition-colors"
             >
               🔮 {showSphere ? 'Close Sphere' : 'Explore Deeper'}
-              <span className="text-[10px] text-muted-foreground">(AI-powered)</span>
+              <span className="text-[10px] text-foreground/60 dark:text-muted-foreground">(AI-powered)</span>
             </button>
           </div>
 
@@ -254,7 +254,7 @@ export const CapsuleView: React.FC<CapsuleViewProps> = ({
             to={`/byte-sized/${capsule.conceptId}`}
             className="flex items-center gap-2 rounded-xl border border-violet-500/20 bg-violet-500/5 px-4 py-2.5 text-sm font-medium text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 transition-colors"
           >
-            ⚡ Want the 60-second version? <span className="text-xs text-muted-foreground">5 byte-sized cards</span>
+            ⚡ Want the 60-second version? <span className="text-xs text-foreground/60 dark:text-muted-foreground">5 byte-sized cards</span>
           </Link>
         </div>
 

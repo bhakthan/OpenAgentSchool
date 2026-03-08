@@ -203,10 +203,10 @@ export default function BurstGrafting({ exercise, onComplete }: Props) {
       <div className={`text-6xl font-bold ${score >= 8 ? 'text-emerald-500' : score >= 5 ? 'text-amber-500' : 'text-red-500'}`}>
         {score}/10
       </div>
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-foreground/70 dark:text-muted-foreground">
         Correct answer: <strong className="text-foreground">{exercise.content.nanoDef}</strong>
       </p>
-      <p className="text-xs text-muted-foreground max-w-sm text-center">
+      <p className="text-xs text-foreground/60 dark:text-muted-foreground max-w-sm text-center">
         {score === 10
           ? 'Perfect burst encoding! The multi-sensory imprint locked in.'
           : score >= 5
