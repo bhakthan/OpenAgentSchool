@@ -37,10 +37,10 @@ const levelColors: Record<ListeningLevel, string> = {
 };
 
 const levelBadge: Record<ListeningLevel, string> = {
-  beginner: 'bg-emerald-500/20 text-emerald-400',
-  intermediate: 'bg-blue-500/20 text-blue-400',
-  advanced: 'bg-purple-500/20 text-purple-400',
-  expert: 'bg-amber-500/20 text-amber-400',
+  beginner: 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-400',
+  intermediate: 'bg-blue-500/20 text-blue-700 dark:text-blue-400',
+  advanced: 'bg-purple-500/20 text-purple-700 dark:text-purple-400',
+  expert: 'bg-amber-500/20 text-amber-700 dark:text-amber-400',
 };
 
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
@@ -70,7 +70,7 @@ export function ListeningPlayer({
 
   if (!episode) {
     return (
-        <div className="flex items-center justify-center rounded-3xl bg-gradient-to-b from-slate-50/95 to-white/95 p-12 text-foreground/60 dark:text-muted-foreground backdrop-blur-2xl dark:from-slate-900/95 dark:to-slate-950/95">
+        <div className="flex items-center justify-center rounded-3xl bg-card p-12 text-foreground/60 dark:text-muted-foreground">
         Select an episode to start listening
       </div>
     );
@@ -82,7 +82,7 @@ export function ListeningPlayer({
   const nearComplete = currentTime > 0.9 * duration;
 
   return (
-    <div className="flex flex-col gap-6 rounded-3xl border border-border bg-gradient-to-b from-slate-50/95 to-white/95 p-6 shadow-2xl backdrop-blur-2xl dark:from-slate-900/95 dark:to-slate-950/95 sm:p-8">
+    <div className="flex flex-col gap-6 rounded-3xl border border-border bg-card p-6 shadow-2xl sm:p-8">
       {/* Series + category */}
       <div className="flex items-center gap-2">
         <span className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-foreground/70 dark:text-muted-foreground dark:bg-white/10">
@@ -184,7 +184,7 @@ export function ListeningPlayer({
         {episode.relatedLinks && episode.relatedLinks.length > 0 && (
           <a
             href={episode.relatedLinks[0].path}
-            className="inline-flex items-center gap-1 text-xs font-medium text-indigo-400 transition-colors duration-200 hover:text-indigo-300"
+            className="inline-flex items-center gap-1 text-xs font-medium text-indigo-600 transition-colors duration-200 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
           >
             See it <ArrowRight size={12} />
           </a>
