@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowRight, GithubLogo, ArrowUpRight, Flask, Atom, Graph, Lightbulb, CheckCircle, Dna, Planet, Cpu, Brain, SolarPanel, YoutubeLogo, Sparkle, GoogleLogo, Factory, Robot, MagnifyingGlass, Database, TreeStructure, Eye, ShieldCheck, Plugs, Lightning, Gauge } from '@phosphor-icons/react';
 import { HypothesisEvolutionDemo } from '@/components/science/HypothesisEvolutionDemo';
 import { LiteratureSynthesisDemo } from '@/components/science/LiteratureSynthesisDemo';
+import CodeBlock from '@/components/ui/CodeBlock';
 
 export default function AgentsForScience() {
   const openExternal = (url: string, label: string) => {
@@ -124,10 +125,11 @@ export default function AgentsForScience() {
         </p>
 
         <Tabs defaultValue="alphaevolve" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6">
+          <TabsList className="grid w-full grid-cols-4 mb-6">
             <TabsTrigger value="alphaevolve">AlphaEvolve</TabsTrigger>
             <TabsTrigger value="deepresearch">Deep Research</TabsTrigger>
             <TabsTrigger value="workflow">Combined Workflow</TabsTrigger>
+            <TabsTrigger value="autoresearch" className="flex items-center gap-1"><Robot size={14} /> AutoResearch</TabsTrigger>
           </TabsList>
 
           {/* AlphaEvolve Tab */}
@@ -389,6 +391,546 @@ export default function AgentsForScience() {
                       <span><strong>Parameter Optimization:</strong> Suggests novel experimental configurations</span>
                     </div>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* AutoResearch Tab */}
+          <TabsContent value="autoresearch" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Robot size={24} weight="duotone" className="text-amber-600 dark:text-amber-400" />
+                  AutoResearch: Autonomous Overnight Discovery
+                </CardTitle>
+                <CardDescription>
+                  Based on Andrej Karpathy's <strong>autoresearch</strong> project — turn empirical trial-and-error 
+                  into a fully automated software loop orchestrated by an AI agent.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Hero image */}
+                <div className="rounded-lg overflow-hidden border border-border">
+                  <img
+                    src="/images/auto-research.webp"
+                    alt="AutoResearch concept — an AI agent autonomously iterating on code experiments overnight"
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Core Idea */}
+                <div>
+                  <h4 className="font-semibold mb-3 text-lg">The Core Idea</h4>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Traditionally, machine learning research involves a human scientist tweaking code, running an 
+                    experiment, evaluating the result, and repeating. <strong className="text-foreground">AutoResearch 
+                    automates this entire loop.</strong>
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    The human no longer writes the training code. Instead, the human acts as a 
+                    <strong className="text-foreground">"director"</strong> by writing a high-level instruction file 
+                    (<code className="text-sm bg-muted px-1.5 py-0.5 rounded">program.md</code>). An AI Agent reads 
+                    these instructions, modifies the actual Python training script, runs the training loop for a fixed 
+                    time constraint (e.g. 5 minutes), evaluates the output against a strict metric (like validation 
+                    loss), and decides whether to <em>git commit</em> the change or discard it.
+                  </p>
+                </div>
+
+                {/* Visual Flow */}
+                <div>
+                  <h4 className="font-semibold mb-3 text-lg">The Autonomous Loop</h4>
+                  <div className="space-y-3">
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-amber-600 dark:bg-amber-500 text-white flex items-center justify-center font-bold text-sm">1</div>
+                      <div>
+                        <h5 className="font-semibold mb-1">Human Writes Instructions</h5>
+                        <p className="text-sm text-muted-foreground">
+                          The "director" writes plain-text instructions in <code className="text-xs bg-muted px-1 py-0.5 rounded">program.md</code> — 
+                          defining the research question, constraints, and evaluation metric.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 dark:bg-blue-500 text-white flex items-center justify-center font-bold text-sm">2</div>
+                      <div>
+                        <h5 className="font-semibold mb-1">AI Agent Edits Logic &amp; Code</h5>
+                        <p className="text-sm text-muted-foreground">
+                          The agent reads current code and instructions, then proposes modifications — 
+                          new architectures, hyperparameters, data processing logic, or algorithmic strategies.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 dark:bg-green-500 text-white flex items-center justify-center font-bold text-sm">3</div>
+                      <div>
+                        <h5 className="font-semibold mb-1">Run Simulation / Training</h5>
+                        <p className="text-sm text-muted-foreground">
+                          Each experiment runs under a fixed time constraint (e.g. 5 minutes). This budget 
+                          forces the agent to find efficient strategies rather than brute-force scaling.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-600 dark:bg-purple-500 text-white flex items-center justify-center font-bold text-sm">4</div>
+                      <div>
+                        <h5 className="font-semibold mb-1">Evaluate &amp; Commit or Revert</h5>
+                        <p className="text-sm text-muted-foreground">
+                          The objective metric (e.g. validation loss) is checked. If it improved, the change 
+                          is committed to the baseline. If not, it's discarded. Then the loop repeats.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Overnight Shift */}
+                <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 p-6 rounded-lg border border-amber-200 dark:border-amber-800">
+                  <h4 className="font-semibold mb-3 text-lg flex items-center gap-2">
+                    <Lightning size={20} className="text-amber-600 dark:text-amber-400" weight="fill" />
+                    The "Overnight" Shift
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Karpathy noted that he now "sleeps with his laptop next to his bed" as the terminal logs 
+                    hundreds of experiments while he rests. Running 5-minute experiments over 8 hours yields 
+                    <strong className="text-foreground">~100 iterations on a single GPU</strong> by morning.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    The code organically evolves into something highly complex and optimized — often discovering 
+                    tweaks a human wouldn't have the patience to try. The human's job shifts from 
+                    <em>doing the research</em> to <strong className="text-foreground">designing the arena</strong>.
+                  </p>
+                </div>
+
+                {/* Three Requirements */}
+                <div>
+                  <h4 className="font-semibold mb-3 text-lg">Why This Works Across Domains</h4>
+                  <p className="text-muted-foreground text-sm mb-4">
+                    This framework proves that empirical iteration can be decoupled from human effort 
+                    as long as three things exist:
+                  </p>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
+                      <h5 className="font-semibold mb-2 flex items-center gap-2">
+                        <Cpu size={18} className="text-blue-600 dark:text-blue-400" />
+                        Programmable Environment
+                      </h5>
+                      <p className="text-xs text-muted-foreground">A simulator or script that can run experiments automatically.</p>
+                    </div>
+                    <div className="p-4 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800">
+                      <h5 className="font-semibold mb-2 flex items-center gap-2">
+                        <Robot size={18} className="text-purple-600 dark:text-purple-400" />
+                        AI That Modifies Inputs
+                      </h5>
+                      <p className="text-xs text-muted-foreground">An AI capable of modifying parameters, code, or logical inputs.</p>
+                    </div>
+                    <div className="p-4 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-800">
+                      <h5 className="font-semibold mb-2 flex items-center gap-2">
+                        <Gauge size={18} className="text-green-600 dark:text-green-400" />
+                        Objective Metric
+                      </h5>
+                      <p className="text-xs text-muted-foreground">A mathematically objective evaluation metric to judge success.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── End-to-End Energy Domain Example ── */}
+                <div className="border-t border-border pt-6">
+                  <h4 className="font-semibold mb-2 text-xl flex items-center gap-2">
+                    <SolarPanel size={24} className="text-green-600 dark:text-green-400" weight="duotone" />
+                    End-to-End Example: Algorithmic Energy Dispatch
+                  </h4>
+                  <p className="text-muted-foreground text-sm mb-4">
+                    Utility-scale battery operators need algorithms to decide exactly when to charge batteries 
+                    (when power is cheap or renewable) and when to discharge (when demand and prices are high), 
+                    all while minimizing battery degradation. Here is the complete setup to bring the AutoResearch 
+                    paradigm to this domain.
+                  </p>
+                  <p className="text-muted-foreground text-sm mb-6">
+                    Place three files in a single directory. The AI agent reads{' '}
+                    <code className="text-xs bg-muted px-1 py-0.5 rounded">program.md</code>, modifies{' '}
+                    <code className="text-xs bg-muted px-1 py-0.5 rounded">dispatch_logic.py</code>, and runs{' '}
+                    <code className="text-xs bg-muted px-1 py-0.5 rounded">simulate_grid.py</code> to evaluate
+                    whether its code changes should be kept or discarded.
+                  </p>
+                </div>
+
+                {/* FILE 1 — simulate_grid.py */}
+                <div>
+                  <h4 className="font-semibold mb-2 text-lg flex items-center gap-2">
+                    <Badge variant="outline" className="text-xs">File 1</Badge>
+                    simulate_grid.py — The Immutable Arena
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    This is the simulator. The AI is <strong className="text-foreground">not allowed to edit this file</strong>.
+                    It mocks one year of grid operation — fetching prices, calling the dispatch logic, and 
+                    calculating the final financial score.
+                  </p>
+                  <CodeBlock language="python" showLineNumbers>{`import math
+from dispatch_logic import decide_action
+
+# --- SYSTEM CONSTANTS ---
+BATTERY_CAPACITY_MWH = 100.0
+MAX_RATE_MW = 25.0
+CHARGE_EFFICIENCY = 0.90        # 10% energy loss when charging
+DEGRADATION_COST_PER_MWH = 15.0 # Battery wear-and-tear cost per MWh discharged
+HOURS_IN_YEAR = 8760
+
+def get_mock_environment(hour_of_year):
+    """Diurnal cycle: prices lowest at 3 AM (~$20), highest at 3 PM (~$100).
+    Solar forecast peaks at noon."""
+    hour_of_day = hour_of_year % 24
+    price = 60 - 40 * math.cos((hour_of_day - 3) * math.pi / 12)
+    solar_forecast = max(0, 100 * math.cos((hour_of_day - 12) * math.pi / 12))
+    return price, solar_forecast
+
+def run_simulation():
+    state_of_charge = 0.0
+    total_revenue = 0.0
+    total_cost = 0.0
+    total_degradation = 0.0
+
+    for hour in range(HOURS_IN_YEAR):
+        hour_of_day = hour % 24
+        price, forecast = get_mock_environment(hour)
+
+        # --- THE AI'S LOGIC IS CALLED HERE ---
+        action_mw = decide_action(
+            hour_of_day, price, forecast,
+            state_of_charge, BATTERY_CAPACITY_MWH, MAX_RATE_MW
+        )
+
+        # Enforce physical battery constraints
+        if action_mw > 0:   # Charging
+            actual_charge = min(action_mw, MAX_RATE_MW)
+            actual_charge = min(actual_charge, BATTERY_CAPACITY_MWH - state_of_charge)
+            state_of_charge += actual_charge * CHARGE_EFFICIENCY
+            total_cost += actual_charge * price
+        elif action_mw < 0:  # Discharging
+            actual_discharge = min(abs(action_mw), MAX_RATE_MW)
+            actual_discharge = min(actual_discharge, state_of_charge)
+            state_of_charge -= actual_discharge
+            total_revenue += actual_discharge * price
+            total_degradation += actual_discharge * DEGRADATION_COST_PER_MWH
+
+    net_profit = (total_revenue - total_cost) - total_degradation
+    return net_profit
+
+if __name__ == "__main__":
+    net_profit = run_simulation()
+    # AutoResearch agent uses regex to find this string to log the score
+    print(f"EVAL_SCORE: {net_profit:.2f}")`}</CodeBlock>
+                </div>
+
+                {/* FILE 2 — dispatch_logic.py */}
+                <div>
+                  <h4 className="font-semibold mb-2 text-lg flex items-center gap-2">
+                    <Badge variant="outline" className="text-xs">File 2</Badge>
+                    dispatch_logic.py — The Baseline (Experiment 1)
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    This is the file the AI rewrites over and over. The baseline is a "dumb" strategy: 
+                    blindly buy energy between midnight and 4 AM, blindly sell between noon and 4 PM.
+                  </p>
+                  <CodeBlock language="python" showLineNumbers>{`def decide_action(hour, price, solar_forecast,
+                  state_of_charge, max_capacity, max_rate):
+    """Returns MW to charge (+), discharge (-), or idle (0)."""
+
+    # BASELINE LOGIC:
+    # Charge at night (hours 0-4) when prices are generally low.
+    if 0 <= hour <= 4:
+        available_space = max_capacity - state_of_charge
+        return min(max_rate, available_space)
+
+    # Discharge in the afternoon (hours 12-16) when prices are generally high.
+    elif 12 <= hour <= 16:
+        return -min(max_rate, state_of_charge)
+
+    # Do nothing otherwise
+    else:
+        return 0`}</CodeBlock>
+                </div>
+
+                {/* FILE 3 — program.md */}
+                <div>
+                  <h4 className="font-semibold mb-2 text-lg flex items-center gap-2">
+                    <Badge variant="outline" className="text-xs">File 3</Badge>
+                    program.md — The Prompt / Instructions
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    This file is passed into the AutoResearch system to give the agent its bounds and goals.
+                  </p>
+                  <CodeBlock language="markdown">{`# Role
+You are an expert quantitative researcher in energy markets and battery storage.
+
+# Goal
+Maximize the \`EVAL_SCORE\` output by the simulator. The score represents
+Net Annual Profit (Total Revenue - Grid Cost - Battery Degradation Costs).
+We want this number to be as high as possible.
+
+# Instructions
+1. You may ONLY modify the \`dispatch_logic.py\` file.
+2. You can use advanced mathematical heuristics, moving averages, or complex
+   conditional thresholds based on the \`price\` and \`solar_forecast\` parameters.
+3. Keep in mind the physical constraints: the battery degrades at $15 per MWh
+   discharged, and charging only has a 90% efficiency rate. Do not trade if
+   the price spread doesn't cover the degradation and efficiency losses!
+4. Do not attempt to read or write to local files; all logic must be contained
+   within the \`decide_action\` function.
+5. To run the test, execute \`python simulate_grid.py\`. If the EVAL_SCORE
+   improves, commit your changes.`}</CodeBlock>
+                </div>
+
+                {/* Baseline Evaluation */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 p-6 rounded-lg border border-green-200 dark:border-green-800">
+                  <h4 className="font-semibold mb-3 text-lg flex items-center gap-2">
+                    <Gauge size={20} className="text-green-600 dark:text-green-400" />
+                    Baseline Evaluation: The Starting Number
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Running the baseline <code className="text-xs bg-muted px-1 py-0.5 rounded">dispatch_logic.py</code> produces:
+                  </p>
+                  <div className="bg-background/80 rounded-lg p-4 mb-4 font-mono text-center text-lg font-bold">
+                    EVAL_SCORE: 1,926,798.50
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-3 text-sm">
+                    <div className="p-3 bg-background/60 rounded-lg">
+                      <p className="font-semibold text-red-600 dark:text-red-400 mb-1">Grid Costs</p>
+                      <p className="text-xs text-muted-foreground">
+                        ~100 MWh bought nightly at avg ~$26.74/MWh
+                      </p>
+                      <p className="font-semibold mt-1">−$2,674/day</p>
+                    </div>
+                    <div className="p-3 bg-background/60 rounded-lg">
+                      <p className="font-semibold text-green-600 dark:text-green-400 mb-1">Revenue</p>
+                      <p className="text-xs text-muted-foreground">
+                        ~99 MWh sold (90% efficiency) at avg ~$95.33/MWh
+                      </p>
+                      <p className="font-semibold mt-1">+$9,438/day</p>
+                    </div>
+                    <div className="p-3 bg-background/60 rounded-lg">
+                      <p className="font-semibold text-amber-600 dark:text-amber-400 mb-1">Degradation</p>
+                      <p className="text-xs text-muted-foreground">
+                        99 MWh discharged × $15 wear penalty
+                      </p>
+                      <p className="font-semibold mt-1">−$1,485/day</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-3 text-center">
+                    Daily net = $9,438 − $2,674 − $1,485 = <strong className="text-foreground">$5,279/day</strong>{' '}
+                    × 365 = <strong className="text-foreground">$1,926,798/year</strong>
+                  </p>
+                </div>
+
+                {/* Overnight Evolution */}
+                <div>
+                  <h4 className="font-semibold mb-3 text-lg flex items-center gap-2">
+                    <Lightning size={20} className="text-amber-600 dark:text-amber-400" weight="fill" />
+                    What Happens Overnight
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    When the AutoResearch loop takes over and runs for 8 hours, the dispatch code 
+                    evolves through dozens of iterations:
+                  </p>
+                  <div className="space-y-3">
+                    <div className="border-l-4 border-amber-500 pl-4 py-2">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Badge variant="outline" className="text-xs">Attempt 1</Badge>
+                        <span className="text-sm font-semibold text-green-600 dark:text-green-400">$1.93M → $2.10M</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        The AI realizes buying at exactly 3:00 AM (cosine wave minimum at $20/MWh) beats 
+                        buying at midnight ($31/MWh). It writes logic to only charge if price &lt; $22. Score jumps.
+                      </p>
+                    </div>
+                    <div className="border-l-4 border-blue-500 pl-4 py-2">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Badge variant="outline" className="text-xs">Attempt 15</Badge>
+                        <span className="text-sm font-semibold text-green-600 dark:text-green-400">$2.10M → $2.45M</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        The AI discovers that selling at noon is a mistake — the price doesn't actually peak 
+                        until 3:00 PM (hour 15). It refines the discharge window.
+                      </p>
+                    </div>
+                    <div className="border-l-4 border-purple-500 pl-4 py-2">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Badge variant="outline" className="text-xs">Attempt 80</Badge>
+                        <span className="text-sm font-semibold text-green-600 dark:text-green-400">$2.45M → $2.85M</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        By morning, the AI has written a precise algorithmic formula that calculates the exact 
+                        margin spread required between price and degradation cost before acting — yielding a 
+                        theoretically optimal profit of <strong>$2,850,000</strong>.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="bg-muted p-4 rounded-lg mt-4">
+                    <p className="text-sm text-muted-foreground">
+                      You wake up, and without having written a single line of algorithmic trading code 
+                      yourself, you have a highly optimized energy dispatch script ready for production.
+                    </p>
+                  </div>
+                </div>
+
+                {/* ── Real Data Upgrade ── */}
+                <div className="border-t border-border pt-6">
+                  <h4 className="font-semibold mb-2 text-xl flex items-center gap-2">
+                    <Database size={24} className="text-blue-600 dark:text-blue-400" />
+                    Level Up: From Mock Data to Real-World Chaos
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    The cosine-wave simulator above is perfect for a tutorial, but if you leave AutoResearch 
+                    running on it overnight the AI will fall into the <strong className="text-foreground">"Overfitting Trap"</strong> — 
+                    it will just memorize the mathematical formula rather than learn a genuine trading strategy.
+                    To build something that rivals real platforms like <strong className="text-foreground">Stem's Athena AI</strong>, 
+                    you must feed the simulator real-world, chaotic historical data.
+                  </p>
+                </div>
+
+                {/* Why Real Data */}
+                <div>
+                  <h5 className="font-semibold mb-3 text-base">Why Real Data Is Mandatory</h5>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Companies like Stem deal with reality, which is messy. Real wholesale LMPs (ERCOT, CAISO) feature:
+                  </p>
+                  <div className="grid md:grid-cols-3 gap-3">
+                    <div className="p-3 bg-orange-50 dark:bg-orange-950/30 rounded-lg border border-orange-200 dark:border-orange-800">
+                      <h6 className="font-semibold text-sm mb-1 flex items-center gap-1">
+                        <SolarPanel size={16} className="text-orange-600 dark:text-orange-400" />
+                        The Duck Curve
+                      </h6>
+                      <p className="text-xs text-muted-foreground">
+                        Solar drops off at 6 PM, causing massive, sudden price spikes that a cosine can't model.
+                      </p>
+                    </div>
+                    <div className="p-3 bg-cyan-50 dark:bg-cyan-950/30 rounded-lg border border-cyan-200 dark:border-cyan-800">
+                      <h6 className="font-semibold text-sm mb-1 flex items-center gap-1">
+                        <Lightning size={16} className="text-cyan-600 dark:text-cyan-400" weight="fill" />
+                        Negative Pricing
+                      </h6>
+                      <p className="text-xs text-muted-foreground">
+                        Excess wind can push prices below zero — the grid will <em>pay</em> your battery to charge.
+                      </p>
+                    </div>
+                    <div className="p-3 bg-violet-50 dark:bg-violet-950/30 rounded-lg border border-violet-200 dark:border-violet-800">
+                      <h6 className="font-semibold text-sm mb-1 flex items-center gap-1">
+                        <Sparkle size={16} className="text-violet-600 dark:text-violet-400" />
+                        Weather Anomalies
+                      </h6>
+                      <p className="text-xs text-muted-foreground">
+                        A random Tuesday with heavy cloud cover can destroy solar and spike midday prices.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Train/Test Split */}
+                <div className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30 p-5 rounded-lg border border-red-200 dark:border-red-800">
+                  <h5 className="font-semibold mb-2 text-base flex items-center gap-2">
+                    <ShieldCheck size={18} className="text-red-600 dark:text-red-400" />
+                    The Golden Rule: Train / Holdout Split
+                  </h5>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    If you give the AI 2023 data to test itself on, it might cheat:{' '}
+                    <em className="text-muted-foreground">"If date == Aug 12 2023, buy exactly 100 MW."</em>{' '}
+                    It memorizes the past instead of learning a strategy.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-3 mt-3">
+                    <div className="p-3 bg-background/60 rounded-lg">
+                      <p className="font-semibold text-sm mb-1">Training Set (2021–2023)</p>
+                      <p className="text-xs text-muted-foreground">
+                        The AI evaluates its runs against this data during the overnight loop.
+                      </p>
+                    </div>
+                    <div className="p-3 bg-background/60 rounded-lg">
+                      <p className="font-semibold text-sm mb-1">Holdout Validation (2024)</p>
+                      <p className="text-xs text-muted-foreground">
+                        The AI never sees this. You run it the next morning to prove the strategy generalizes.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Real-data simulator */}
+                <div>
+                  <h5 className="font-semibold mb-2 text-base">How the Simulator Changes for Real Data</h5>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Instead of generating math, the simulator loads a massive CSV and streams real rows 
+                    to the AI. Here is how the top of your real-data simulator looks:
+                  </p>
+                  <CodeBlock language="python" showLineNumbers>{`import pandas as pd
+from dispatch_logic import decide_action
+
+# Load real ERCOT or CAISO wholesale node data + local weather forecasts
+# Columns: ['timestamp','lmp_price','solar_forecast_mw','wind_forecast_mw','temp']
+historical_data = pd.read_csv("caiso_node_2023_actuals.csv")
+historical_data['timestamp'] = pd.to_datetime(historical_data['timestamp'])
+
+def run_simulation():
+    state_of_charge = 0.0
+    total_revenue = 0.0
+    total_cost = 0.0
+    total_degradation = 0.0
+
+    # Iterate through real historical hours instead of a math loop
+    for _, row in historical_data.iterrows():
+        hour_of_day = row['timestamp'].hour
+        real_price  = row['lmp_price']
+        real_solar  = row['solar_forecast_mw']
+
+        # --- The AI decides based on REAL chaos ---
+        action_mw = decide_action(
+            hour_of_day, real_price, real_solar,
+            state_of_charge, BATTERY_CAPACITY_MWH, MAX_RATE_MW
+        )
+
+        # ... (Battery physics constraints remain exactly the same) ...`}</CodeBlock>
+                </div>
+
+                {/* Updated program.md */}
+                <div>
+                  <h5 className="font-semibold mb-2 text-base">How the Instructions Change</h5>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Because you're using real data, update <code className="text-xs bg-muted px-1 py-0.5 rounded">program.md</code> to 
+                    handle real-world volatility:
+                  </p>
+                  <CodeBlock language="markdown">{`You are an expert quantitative energy researcher designing a battery
+dispatch algorithm for the CAISO grid. The simulator will feed you
+historical LMP prices and day-ahead solar forecasts.
+
+Beware of negative pricing events and the evening "duck curve" ramp.
+Implement logic that calculates a rolling average of the past 24 hours
+of prices to determine if the current price is a "spike" worth
+discharging for, or just normal volatility.
+
+Maximize the EVAL_SCORE (Net Annual Profit).`}</CodeBlock>
+                </div>
+
+                {/* Key Insight */}
+                <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 p-6 rounded-lg border border-amber-200 dark:border-amber-800">
+                  <h4 className="font-semibold mb-2">Key Insight</h4>
+                  <p className="text-sm text-muted-foreground">
+                    By downloading a few years of wholesale pricing data from a grid operator (usually public 
+                    and free via their API), formatting it into a CSV, and hooking it into the AutoResearch 
+                    loop, you are essentially mimicking the core R&amp;D pipeline of a multi-million dollar 
+                    energy storage company — on your laptop, overnight.
+                  </p>
+                </div>
+
+                {/* GitHub Link */}
+                <div className="flex flex-wrap gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={() => openExternal('https://github.com/karpathy/autoresearch', 'autoresearch_github')}
+                    className="flex items-center gap-2"
+                  >
+                    <GithubLogo size={18} />
+                    karpathy/autoresearch
+                    <ArrowUpRight size={14} />
+                  </Button>
                 </div>
               </CardContent>
             </Card>
