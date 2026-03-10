@@ -39,6 +39,36 @@ export default function AgentsForScience() {
           Accelerate scientific discovery through multi-agent AI systems that combine iterative hypothesis exploration, 
           automated literature synthesis, and combinatorial reasoning.
         </p>
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4 mb-6">
+          <div className="agents-for-science-stat rounded-xl border border-blue-200/70 bg-blue-50/80 dark:border-blue-800 dark:bg-blue-950/30 p-4">
+            <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">4</div>
+            <div className="text-sm font-semibold">Research loops</div>
+            <div className="text-xs text-muted-foreground">AlphaEvolve, Deep Research, Workflow, AutoResearch</div>
+          </div>
+          <div className="agents-for-science-stat rounded-xl border border-purple-200/70 bg-purple-50/80 dark:border-purple-800 dark:bg-purple-950/30 p-4">
+            <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">9</div>
+            <div className="text-sm font-semibold">Science domains</div>
+            <div className="text-xs text-muted-foreground">From materials and medicine to robotics and energy</div>
+          </div>
+          <div className="agents-for-science-stat rounded-xl border border-emerald-200/70 bg-emerald-50/80 dark:border-emerald-800 dark:bg-emerald-950/30 p-4">
+            <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-300">2</div>
+            <div className="text-sm font-semibold">Interactive demos</div>
+            <div className="text-xs text-muted-foreground">See hypothesis evolution and literature synthesis in motion</div>
+          </div>
+          <div className="agents-for-science-stat rounded-xl border border-amber-200/70 bg-amber-50/80 dark:border-amber-800 dark:bg-amber-950/30 p-4">
+            <div className="text-2xl font-bold text-amber-700 dark:text-amber-300">24/7</div>
+            <div className="text-sm font-semibold">Autonomous iteration</div>
+            <div className="text-xs text-muted-foreground">Compound progress through always-on research loops</div>
+          </div>
+        </div>
+        <div className="agents-for-science-quicknav mb-6 flex flex-wrap gap-2">
+          <a href="#science-overview" className="agents-for-science-quicklink">Overview</a>
+          <a href="#science-framework" className="agents-for-science-quicklink">Framework</a>
+          <a href="#science-applications" className="agents-for-science-quicklink">Applications</a>
+          <a href="#science-demos" className="agents-for-science-quicklink">Demos</a>
+          <a href="#science-impact" className="agents-for-science-quicklink">Impact</a>
+          <a href="#science-factory" className="agents-for-science-quicklink">AI Factory</a>
+        </div>
         <div className="flex flex-wrap gap-4">
           <Button 
             variant="default" 
@@ -64,7 +94,7 @@ export default function AgentsForScience() {
       </div>
 
       {/* Overview Section */}
-      <Card className="mb-8">
+      <Card id="science-overview" className="agents-for-science-section mb-8">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Lightbulb size={24} weight="duotone" className="text-yellow-500" />
@@ -115,7 +145,7 @@ export default function AgentsForScience() {
       </Card>
 
       {/* DeepEvolve Framework */}
-      <div className="mb-8">
+      <div id="science-framework" className="agents-for-science-section mb-8">
         <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
           <Graph size={32} weight="duotone" className="text-primary" />
           The DeepEvolve Framework
@@ -124,8 +154,8 @@ export default function AgentsForScience() {
           DeepEvolve combines two powerful agentic paradigms to create a self-improving scientific discovery engine:
         </p>
 
-        <Tabs defaultValue="alphaevolve" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-6">
+        <Tabs defaultValue="alphaevolve" className="agents-for-science-framework-tabs w-full">
+          <TabsList className="grid h-auto w-full grid-cols-2 gap-2 rounded-xl border border-border/70 bg-background/80 p-2 md:grid-cols-4 mb-6">
             <TabsTrigger value="alphaevolve">AlphaEvolve</TabsTrigger>
             <TabsTrigger value="deepresearch">Deep Research</TabsTrigger>
             <TabsTrigger value="workflow">Combined Workflow</TabsTrigger>
@@ -406,7 +436,8 @@ export default function AgentsForScience() {
                 </CardTitle>
                 <CardDescription>
                   Based on Andrej Karpathy's <strong>autoresearch</strong> project — turn empirical trial-and-error 
-                  into a fully automated software loop orchestrated by an AI agent.
+                  into a fully automated software loop orchestrated by an AI agent. AutoResearch increases 
+                  research velocity and makes compound research progress a reality.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -939,7 +970,7 @@ Maximize the EVAL_SCORE (Net Annual Profit).`}</CodeBlock>
       </div>
 
       {/* Use Cases */}
-      <div className="mb-8">
+      <div id="science-applications" className="agents-for-science-section mb-8">
         <h2 className="text-3xl font-bold mb-6">Real-World Applications Across Scientific Domains</h2>
         <p className="text-muted-foreground mb-6">
           From materials science to neuroscience, AI agents are accelerating discovery by synthesizing 
@@ -1160,7 +1191,7 @@ Maximize the EVAL_SCORE (Net Annual Profit).`}</CodeBlock>
       </div>
 
       {/* Interactive Demos */}
-      <div className="space-y-8 mb-8">
+      <div id="science-demos" className="agents-for-science-section space-y-8 mb-8">
         {/* Hypothesis Evolution Demo */}
         <div>
           <div className="mb-4">
@@ -1193,7 +1224,7 @@ Maximize the EVAL_SCORE (Net Annual Profit).`}</CodeBlock>
       </div>
 
       {/* Impact Metrics */}
-      <div className="mb-8">
+      <div id="science-impact" className="agents-for-science-section mb-8">
         <h2 className="text-3xl font-bold mb-6">Measurable Impact on Scientific Discovery</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
           <Card className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30 border-blue-200 dark:border-blue-800">
@@ -1241,7 +1272,7 @@ Maximize the EVAL_SCORE (Net Annual Profit).`}</CodeBlock>
       {/* ═══════════════════════════════════════════════════════════
           2026: THE RISE OF SCIENCE AI FACTORIES
           ═══════════════════════════════════════════════════════════ */}
-      <div className="mb-12 mt-16">
+      <div id="science-factory" className="agents-for-science-section mb-12 mt-16">
         <div className="flex items-center gap-3 mb-2">
           <Factory size={40} weight="duotone" className="text-amber-600 dark:text-amber-400" />
           <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-amber-600 to-red-600 dark:from-amber-400 dark:to-red-400 bg-clip-text text-transparent">
