@@ -413,7 +413,7 @@ export default function AgentsForScience() {
                 {/* Hero image */}
                 <div className="rounded-lg overflow-hidden border border-border">
                   <img
-                    src="/images/auto-research.webp"
+                    src="/images/autonomous_overnight_lab.webp"
                     alt="AutoResearch concept — an AI agent autonomously iterating on code experiments overnight"
                     className="w-full h-auto"
                     loading="lazy"
@@ -785,8 +785,8 @@ We want this number to be as high as possible.
                     The cosine-wave simulator above is perfect for a tutorial, but if you leave AutoResearch 
                     running on it overnight the AI will fall into the <strong className="text-foreground">"Overfitting Trap"</strong> — 
                     it will just memorize the mathematical formula rather than learn a genuine trading strategy.
-                    To build something that rivals real platforms like <strong className="text-foreground">Stem's Athena AI</strong>, 
-                    you must feed the simulator real-world, chaotic historical data.
+                    To stem this problem and build something production-ready, you must feed the simulator 
+                    real-world, chaotic historical data instead of mock data.
                   </p>
                 </div>
 
@@ -794,7 +794,7 @@ We want this number to be as high as possible.
                 <div>
                   <h5 className="font-semibold mb-3 text-base">Why Real Data Is Mandatory</h5>
                   <p className="text-sm text-muted-foreground mb-3">
-                    Companies like Stem deal with reality, which is messy. Real wholesale LMPs (ERCOT, CAISO) feature:
+                    Real energy markets are messy. Wholesale LMPs (ERCOT, CAISO) feature:
                   </p>
                   <div className="grid md:grid-cols-3 gap-3">
                     <div className="p-3 bg-orange-50 dark:bg-orange-950/30 rounded-lg border border-orange-200 dark:border-orange-800">
