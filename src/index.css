@@ -2051,6 +2051,36 @@ code, pre {
   scroll-margin-top: 96px;
 }
 
+.agents-for-science-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: agents-for-science-fade-up 560ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.agents-for-science-reveal-1 {
+  animation-delay: 40ms;
+}
+
+.agents-for-science-reveal-2 {
+  animation-delay: 120ms;
+}
+
+.agents-for-science-reveal-3 {
+  animation-delay: 200ms;
+}
+
+@keyframes agents-for-science-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .agents-for-science-stat {
   position: relative;
   overflow: hidden;
@@ -2077,6 +2107,7 @@ code, pre {
 .agents-for-science-quicklink {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   border-radius: 9999px;
   border: 1px solid color-mix(in oklch, var(--border) 78%, transparent);
   background: color-mix(in oklch, var(--background) 88%, white);
@@ -2084,6 +2115,8 @@ code, pre {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--foreground);
+  cursor: pointer;
+  appearance: none;
   text-decoration: none;
   transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
@@ -2095,9 +2128,24 @@ code, pre {
   box-shadow: 0 10px 24px color-mix(in oklch, var(--primary) 10%, transparent);
 }
 
+.agents-for-science-quicklink.is-active {
+  border-color: color-mix(in oklch, var(--primary) 55%, var(--border));
+  background: color-mix(in oklch, var(--primary) 14%, var(--background));
+  color: color-mix(in oklch, var(--primary) 72%, var(--foreground));
+  box-shadow: 0 10px 24px color-mix(in oklch, var(--primary) 14%, transparent);
+}
+
 .agents-for-science-quicklink:focus-visible {
   outline: 2px solid color-mix(in oklch, var(--primary) 60%, white);
   outline-offset: 2px;
+}
+
+.agents-for-science-quicknav {
+  scrollbar-width: none;
+}
+
+.agents-for-science-quicknav::-webkit-scrollbar {
+  display: none;
 }
 
 .agents-for-science-card {
@@ -2126,6 +2174,58 @@ code, pre {
 
 .agents-for-science-framework-tabs [role="tab"][data-state="active"] {
   box-shadow: 0 10px 24px color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.agents-for-science-backtotop {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 30;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.agents-for-science-backtotop.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.agents-for-science-backtotop .button,
+.agents-for-science-backtotop button {
+  background: color-mix(in oklch, var(--background) 82%, white);
+  color: var(--foreground);
+  border: 1px solid color-mix(in oklch, var(--border) 78%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.agents-for-science-backtotop .button:hover,
+.agents-for-science-backtotop button:hover {
+  border-color: color-mix(in oklch, var(--primary) 48%, var(--border));
+  background: color-mix(in oklch, var(--primary) 10%, var(--background));
+}
+
+@media (min-width: 768px) {
+  .agents-for-science-backtotop {
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agents-for-science-reveal,
+  .agents-for-science-stat,
+  .agents-for-science-quicklink,
+  .agents-for-science-card,
+  .agents-for-science-framework-tabs [role="tab"],
+  .agents-for-science-backtotop {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
 
 .adoption-playbook-flat-ui .text-transparent {

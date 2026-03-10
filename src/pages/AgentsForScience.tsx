@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { trackEvent } from '@/lib/analytics/ga';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,9 +11,74 @@ import { LiteratureSynthesisDemo } from '@/components/science/LiteratureSynthesi
 import CodeBlock from '@/components/ui/CodeBlock';
 
 export default function AgentsForScience() {
+  const scienceSections = [
+    { id: 'science-overview', label: 'Overview' },
+    { id: 'science-framework', label: 'Framework' },
+    { id: 'science-applications', label: 'Applications' },
+    { id: 'science-demos', label: 'Demos' },
+    { id: 'science-impact', label: 'Impact' },
+    { id: 'science-factory', label: 'AI Factory' },
+  ] as const;
+  const [activeSection, setActiveSection] = useState<(typeof scienceSections)[number]['id']>('science-overview');
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [mobileEnergyExpanded, setMobileEnergyExpanded] = useState(false);
+  const [mobileRealDataExpanded, setMobileRealDataExpanded] = useState(false);
+
+  useEffect(() => {
+    const elements = scienceSections
+      .map(section => document.getElementById(section.id))
+      .filter((element): element is HTMLElement => Boolean(element));
+
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        const visible = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target.id) {
+          setActiveSection(visible.target.id as (typeof scienceSections)[number]['id']);
+        }
+      },
+      {
+        rootMargin: '-20% 0px -55% 0px',
+        threshold: [0.2, 0.35, 0.5],
+      }
+    );
+
+    elements.forEach(element => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowBackToTop(window.scrollY > 900);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const openExternal = (url: string, label: string) => {
     trackEvent({ action: 'outbound_click', category: 'agents_for_science', label });
     window.open(url, '_blank');
+  };
+
+  const scrollToSection = (sectionId: (typeof scienceSections)[number]['id']) => {
+    const target = document.getElementById(sectionId);
+    if (!target) return;
+
+    setActiveSection(sectionId);
+    trackEvent({ action: 'section_jump_click', category: 'agents_for_science', label: sectionId });
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.history.replaceState(null, '', `#${sectionId}`);
+  };
+
+  const scrollToTop = () => {
+    trackEvent({ action: 'back_to_top_click', category: 'agents_for_science', label: activeSection });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const renderSampleCta = (domainId: string) => (
@@ -61,13 +126,21 @@ export default function AgentsForScience() {
             <div className="text-xs text-muted-foreground">Compound progress through always-on research loops</div>
           </div>
         </div>
-        <div className="agents-for-science-quicknav mb-6 flex flex-wrap gap-2">
-          <a href="#science-overview" className="agents-for-science-quicklink">Overview</a>
-          <a href="#science-framework" className="agents-for-science-quicklink">Framework</a>
-          <a href="#science-applications" className="agents-for-science-quicklink">Applications</a>
-          <a href="#science-demos" className="agents-for-science-quicklink">Demos</a>
-          <a href="#science-impact" className="agents-for-science-quicklink">Impact</a>
-          <a href="#science-factory" className="agents-for-science-quicklink">AI Factory</a>
+        <div className="agents-for-science-quicknav sticky top-3 z-20 mb-6 -mx-1 overflow-x-auto px-1 pb-2 pt-1">
+          <div className="flex min-w-max gap-2 rounded-2xl border border-border/60 bg-background/80 p-2 shadow-sm backdrop-blur">
+            {scienceSections.map(section => (
+              <button
+                type="button"
+                key={section.id}
+                aria-current={activeSection === section.id ? 'true' : undefined}
+                aria-label={`Jump to ${section.label}`}
+                onClick={() => scrollToSection(section.id)}
+                className={`agents-for-science-quicklink ${activeSection === section.id ? 'is-active' : ''}`}
+              >
+                {section.label}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="flex flex-wrap gap-4">
           <Button 
@@ -94,7 +167,7 @@ export default function AgentsForScience() {
       </div>
 
       {/* Overview Section */}
-      <Card id="science-overview" className="agents-for-science-section mb-8">
+      <Card id="science-overview" className="agents-for-science-section agents-for-science-reveal agents-for-science-reveal-1 mb-8">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Lightbulb size={24} weight="duotone" className="text-yellow-500" />
@@ -145,7 +218,7 @@ export default function AgentsForScience() {
       </Card>
 
       {/* DeepEvolve Framework */}
-      <div id="science-framework" className="agents-for-science-section mb-8">
+      <div id="science-framework" className="agents-for-science-section agents-for-science-reveal agents-for-science-reveal-2 mb-8">
         <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
           <Graph size={32} weight="duotone" className="text-primary" />
           The DeepEvolve Framework
@@ -585,7 +658,21 @@ export default function AgentsForScience() {
                     <code className="text-xs bg-muted px-1 py-0.5 rounded">simulate_grid.py</code> to evaluate
                     whether its code changes should be kept or discarded.
                   </p>
+                  <div className="mb-4 md:hidden">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setMobileEnergyExpanded(prev => !prev)}
+                      className="w-full justify-between"
+                    >
+                      {mobileEnergyExpanded ? 'Hide full setup' : 'Show full setup'}
+                      <ArrowRight size={14} className={`${mobileEnergyExpanded ? '-rotate-90' : 'rotate-90'} transition-transform`} />
+                    </Button>
+                  </div>
                 </div>
+
+                <div className={`${mobileEnergyExpanded ? 'block' : 'hidden'} md:block space-y-6`}>
 
                 {/* FILE 1 — simulate_grid.py */}
                 <div>
@@ -805,6 +892,7 @@ We want this number to be as high as possible.
                     </p>
                   </div>
                 </div>
+                </div>
 
                 {/* ── Real Data Upgrade ── */}
                 <div className="border-t border-border pt-6">
@@ -819,7 +907,21 @@ We want this number to be as high as possible.
                     To stem this problem and build something production-ready, you must feed the simulator 
                     real-world, chaotic historical data instead of mock data.
                   </p>
+                  <div className="md:hidden">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setMobileRealDataExpanded(prev => !prev)}
+                      className="w-full justify-between"
+                    >
+                      {mobileRealDataExpanded ? 'Hide real-data details' : 'Show real-data details'}
+                      <ArrowRight size={14} className={`${mobileRealDataExpanded ? '-rotate-90' : 'rotate-90'} transition-transform`} />
+                    </Button>
+                  </div>
                 </div>
+
+                <div className={`${mobileRealDataExpanded ? 'block' : 'hidden'} md:block space-y-6`}>
 
                 {/* Why Real Data */}
                 <div>
@@ -950,6 +1052,7 @@ Maximize the EVAL_SCORE (Net Annual Profit).`}</CodeBlock>
                     energy storage company — on your laptop, overnight.
                   </p>
                 </div>
+                </div>
 
                 {/* GitHub Link */}
                 <div className="flex flex-wrap gap-3">
@@ -970,7 +1073,7 @@ Maximize the EVAL_SCORE (Net Annual Profit).`}</CodeBlock>
       </div>
 
       {/* Use Cases */}
-      <div id="science-applications" className="agents-for-science-section mb-8">
+      <div id="science-applications" className="agents-for-science-section agents-for-science-reveal agents-for-science-reveal-3 mb-8">
         <h2 className="text-3xl font-bold mb-6">Real-World Applications Across Scientific Domains</h2>
         <p className="text-muted-foreground mb-6">
           From materials science to neuroscience, AI agents are accelerating discovery by synthesizing 
@@ -2231,6 +2334,18 @@ Maximize the EVAL_SCORE (Net Annual Profit).`}</CodeBlock>
             <ArrowRight size={18} />
           </Button>
         </div>
+      </div>
+
+      <div className={`agents-for-science-backtotop ${showBackToTop ? 'is-visible' : ''}`}>
+        <Button
+          type="button"
+          size="sm"
+          onClick={scrollToTop}
+          className="rounded-full px-4 shadow-lg"
+        >
+          <ArrowRight size={14} className="-rotate-90" />
+          Top
+        </Button>
       </div>
     </div>
   );
