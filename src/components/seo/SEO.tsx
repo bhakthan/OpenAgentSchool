@@ -574,6 +574,11 @@ export const pageSEOConfigs = {
     description: 'Master context engineering: design context pipelines that collect, compress, organize, and select the right information at the right time. Self-baking patterns, proactive inference, KV caching, and context isolation.',
     keywords: 'context engineering, context pipeline, context window optimization, self-baking, proactive inference, KV caching, context isolation, information entropy, retrieval augmented generation, context selection, token budgets, AI agent context management'
   },
+  '/concepts/agent-harness-engineering': {
+    title: 'Agent Harness Engineering - Beyond Model + Wrapper | Open Agent School',
+    description: 'Learn why real-world agents need more than model + wrapper. Agent Harness Engineering reframes agents around situatedness, stakes, sovereignty, and the five real lifelines: State, Affect, Ground, Govern, and Situate.',
+    keywords: 'agent harness engineering, situatedness, sovereignty, stakes, agent state, governance, stopping theory, domain grounding, cyber-physical agents, metamorphic harnesses, real-world agent architecture'
+  },
   '/value-map': {
     title: 'Skills Universe - What You\'ll Master at Open Agent School',
     description: 'Discover the complete value proposition of Open Agent School through an interactive sunburst visualization showing AI agent concepts, patterns, skills, tools, and practices you\'ll gain. Click segments to explore: Core Concepts (foundational knowledge), Agent Patterns (proven designs), Applied Skills (practical implementation), Study & Practice (interactive exercises), Tools & Platform (Azure, MCP), Adoption Playbooks (enterprise strategies), Research & Papers (curated resources), Community (collaboration), and Knowledge Search (semantic documentation). Join 100M+ learners mastering AI agents from concepts to production.',

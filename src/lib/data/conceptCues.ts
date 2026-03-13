@@ -61,6 +61,11 @@ export const conceptCues: Record<string, ConceptCue> = {
     cue: "Standardized communication unlocks infinite tool possibilities - consistency enables creativity",
     criticalThinkingQuestion: "How would you extend the Model Context Protocol to handle real-time, multi-modal tool interactions while maintaining security, reliability, and backward compatibility?"
   },
+  'agent-harness-engineering': {
+    id: 'agent-harness-engineering',
+    cue: 'A harness is not a wrapper — it is the domain-specific system that turns intelligence into safe, situated, sovereign action.',
+    criticalThinkingQuestion: 'If you were building an agent for a high-stakes domain like medicine, negotiation, or robotics, how would you redesign state, action, grounding, governance, and situational awareness so the system reflects real-world consequences rather than coding-agent assumptions?'
+  },
   'flow-visualization': {
     id: 'flow-visualization',
     cue: "Seeing is understanding - visualized flows reveal hidden patterns and optimization opportunities",

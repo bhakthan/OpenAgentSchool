@@ -323,6 +323,16 @@ const protocolCards: ByteCard[] = [
     difficulty: 'intermediate',
     tags: ['skills', 'plugins', 'modularity'],
   }),
+  ...conceptBytes('agent-harness-engineering', 'Agent Harness Engineering', {
+    definition: 'Agent Harness Engineering reframes the harness from a generic wrapper into the domain-specific system that operationalizes situatedness, stakes, and sovereignty.',
+    logic: 'Model intelligence × domain harness. The harness shapes state, action, grounding, governance, and situational awareness so the agent can operate safely in the real world.',
+    miniPattern: 'The Five Lifelines: State, Affect, Ground, Govern, Situate. If one is underspecified, the agent can sound smart while acting dangerously.',
+    learningLoop: 'Take one domain like medicine or negotiation. Ask: what must the agent remember, what counts as evidence, what actions are reversible, and when must it stop?',
+    realWorld: 'A coding agent can recover from a failed test. A surgical or therapeutic agent may face delayed, irreversible, or socially diffuse consequences, so the harness has to carry much more of the safety burden.',
+    highlight: 'The harness is not scaffolding around intelligence. In real domains, it is most of the operating system.',
+    difficulty: 'advanced',
+    tags: ['harness', 'governance', 'situatedness', 'architecture'],
+  }),
   ...conceptBytes('client-coding-agents', 'Client Coding Agents', {
     definition: 'Client coding agents live in your IDE — they read code, understand context, generate edits, run tests, and fix bugs with direct access to your workspace.',
     logic: 'Read file context → understand intent → generate code changes → apply edits → run tests → fix failures → iterate. All within the developer\'s environment.',
@@ -807,7 +817,7 @@ export const BYTE_CATEGORIES: ByteCategory[] = [
     description: 'How agents connect to tools and each other.',
     icon: 'PlugsConnected',
     gradient: 'from-teal-500 to-emerald-500',
-    conceptIds: ['mcp', 'a2a-communication', 'acp', 'mcp-a2a-integration', 'agent-skills', 'client-coding-agents'],
+    conceptIds: ['mcp', 'a2a-communication', 'acp', 'mcp-a2a-integration', 'agent-skills', 'agent-harness-engineering', 'client-coding-agents'],
   },
   {
     id: 'multi-agent',

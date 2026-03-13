@@ -89,7 +89,7 @@ const learningPaths: LearningPath[] = [
       'agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance',
       'atomic-llm-training', 'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework',
       // Tier 2: Architecture Concepts  
-      'a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management', 'ai-ready-data', 'context-engineering',
+      'a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'agent-harness-engineering', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management', 'ai-ready-data', 'context-engineering',
       // Tier 3: Implementation Concepts
       'acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations', 'xyz-claw',
       // Tier 4: Advanced Concepts
@@ -468,6 +468,20 @@ const learningPaths: LearningPath[] = [
         estimatedTime: '40-50 min',
         prerequisites: ['client-coding-agents', 'mcp'],
         skills: ['SKILL.md Format', 'Progressive Disclosure', 'Skills Authoring', 'Claude Skills'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
+      {
+        id: 'agent-harness-engineering',
+        title: 'Agent Harness Engineering',
+        description: 'Redefine the harness from a coding wrapper into the domain-specific operationalization of situatedness, stakes, and sovereignty.',
+        icon: <Wrench size={20} />,
+        difficulty: 'intermediate',
+        estimatedTime: '35-45 min',
+        prerequisites: ['client-coding-agents', 'agent-skills'],
+        skills: ['Situatedness Modeling', 'Stopping Theory', 'Governance Design', 'Domain Grounding'],
         completionRate: 0,
         isCompleted: false,
         isUnlocked: false,
@@ -1178,7 +1192,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     // Tier 1: Fundamentals - Architecture, Security, Governance
     ['agent-architecture', 'agent-security', 'multi-agent-systems', 'agent-ethics', 'ai-agents', 'ai-safety-governance', 'program-setup-north-star', 'responsible-ai-governance', 'ai-product-framework'],
     // Tier 2: Architecture - Protocols, Visualization, Evaluation
-    ['a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management', 'context-engineering'],
+    ['a2a-communication', 'mcp', 'client-coding-agents', 'agent-skills', 'agent-harness-engineering', 'flow-visualization', 'agent-evaluation', 'strategy-portfolio-management', 'context-engineering'],
     // Tier 3: Implementation - ACP, MCP Integration, Data Pipelines
     ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations', 'xyz-claw'],
     // Tier 4: Advanced - Operations, Learning, Integration, Commerce, Robotics, Reasoning, Memory, Security

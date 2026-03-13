@@ -6917,6 +6917,62 @@ https://external-service.com/analyze for pre-processing...`,
       successCriteria: ['Identifies exfiltration risk', 'Proposes audit process', 'Recommends restrictions']
     }
   ],
+  'agent-harness-engineering': [
+    {
+      id: 'agent-harness-engineering-debug-1',
+      type: 'debug',
+      conceptId: 'agent-harness-engineering',
+      title: 'Unsafe Retry Loop in a High-Stakes Agent',
+      level: 'advanced',
+      debugChallenge: {
+        id: 'ahe-unsafe-retry-loop',
+        title: 'Persistence Without Stopping Theory',
+        description: 'A high-stakes triage agent keeps re-planning under uncertainty instead of escalating, delaying intervention.',
+        problemDescription: 'The team reused a coding-agent control loop for an emergency triage assistant. When confidence is low, the agent retries until it gets a "better" answer. In production drills, this causes delay when the correct action should be escalation to a clinician.',
+        brokenCode: `async function decide(caseData) {
+  let attempts = 0;
+  while (attempts < 5) {
+    const result = await model.assess(caseData);
+    if (result.confidence > 0.72) {
+      return { action: 'dispatch', result };
+    }
+    attempts += 1;
+  }
+  return { action: 'retry-later' };
+}`,
+        expectedBehavior: 'When confidence is low in a high-stakes setting, the harness should trigger escalation, capture uncertainty, and stop autonomous retries rather than delay action.',
+        commonIssues: [
+          {
+            issue: 'Retry logic assumes persistence is always beneficial',
+            symptoms: ['Delayed escalation', 'Repeated low-confidence outputs', 'No handoff despite uncertainty'],
+            diagnosis: 'The loop encodes coding-agent assumptions where retries are cheap and often useful, but the domain requires stopping theory.',
+            fix: 'Replace blind retries with escalation thresholds, uncertainty logging, and explicit defer/handoff actions.'
+          },
+          {
+            issue: 'No governance boundary for autonomous action',
+            symptoms: ['Agent acts or stalls without authority check'],
+            diagnosis: 'The control flow lacks a Govern lifeline that separates autonomous execution from mandatory human review.',
+            fix: 'Introduce authority gates tied to severity, confidence bands, and consequence class.'
+          },
+          {
+            issue: 'State omits unresolved uncertainty',
+            symptoms: ['Later reviewers cannot tell why delay happened'],
+            diagnosis: 'The harness records outcomes but not the unresolved ambiguities that should have triggered handoff.',
+            fix: 'Persist uncertainty state and escalation rationale as part of the domain state model.'
+          }
+        ],
+        hints: ['What would a safe failure mode look like?', 'Should low confidence trigger another loop or a handoff?', 'What evidence should be preserved for review?'],
+        solution: 'Model the decision loop around governance: if confidence is below the autonomous threshold or case severity is high, stop retries, emit an escalation event, preserve uncertainty and rationale in state, and hand off to a clinician immediately.',
+        explanation: 'This challenge teaches that stopping is a first-class architectural behavior in high-stakes harnesses. A loop that is healthy in code can be dangerous in medicine, triage, or negotiation.'
+      },
+      expectedInsights: ['Retries are not universally safe', 'Governance includes stop and escalation rules', 'Uncertainty must be preserved in state'],
+      hints: ['What is the safe default?', 'When is delay itself a failure?', 'What should the audit trail show?'],
+      explanation: 'Focuses on the Govern and State lifelines by debugging a control loop that imported the wrong assumptions from software agents.',
+      relatedConcepts: ['human-in-the-loop-patterns', 'agent-evaluation', 'agent-memory-systems'],
+      timeEstimate: 12,
+      successCriteria: ['Removes blind retry behavior', 'Adds escalation path', 'Captures uncertainty in state']
+    }
+  ],
   // Agent Red Teaming
   'agent-red-teaming': [
     {

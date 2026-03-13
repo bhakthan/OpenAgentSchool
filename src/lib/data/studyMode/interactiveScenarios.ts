@@ -6831,6 +6831,93 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// Agent Harness Engineering Scenarios
+(scenarioLibrary as any)['agent-harness-engineering'] = [
+  {
+    id: 'agent-harness-engineering-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-harness-engineering',
+    title: 'Designing a Safe Surgical Co-Pilot Harness',
+    level: 'intermediate',
+    scenario: {
+      id: 'ahe-surgical-copilot-harness',
+      title: 'From Coding Agent to Surgical Co-Pilot',
+      description: 'Your team wants to adapt a successful coding-agent architecture into a surgical co-pilot that assists during minimally invasive procedures.',
+      context: 'The current prototype has a planner, a retrieval layer, a tool interface, and a retry loop. It performs well in simulation but clinicians are concerned about delayed feedback, irreversible action, and unclear escalation rules.',
+      stakeholders: ['Surgeons', 'Operating room nurses', 'Hospital safety board', 'AI engineering team'],
+      challenges: [
+        {
+          id: 'lifeline-priority',
+          title: 'Choose the first harness redesign',
+          description: 'You need to decide which lifeline to redesign before any pilot deployment.',
+          question: 'Which change is the strongest first move?',
+          type: 'multiple-choice',
+          options: [
+            'Increase model size so the co-pilot can reason more accurately',
+            'Add a stronger retrieval layer with more surgical manuals',
+            'Design explicit governance and stopping rules for when the system must defer to the surgeon or halt suggestions',
+            'Add more retries when the model is uncertain'
+          ],
+          correctAnswer: 2,
+          feedback: 'Correct. In a high-stakes surgical setting, stronger reasoning alone is not enough. Governance and stopping theory must be explicit before additional autonomy is acceptable.',
+          hints: [
+            'What part of the harness prevents unsafe persistence?',
+            'Which change addresses irreversibility most directly?',
+            'Would more retries reduce or increase risk here?'
+          ]
+        },
+        {
+          id: 'state-design',
+          title: 'Redefine state for the domain',
+          description: 'The team currently stores only chat history and tool results.',
+          question: 'What should state include in this domain that a coding agent usually does not need?',
+          type: 'multiple-choice',
+          options: [
+            'Only the last five tool calls to reduce token usage',
+            'Anatomical landmarks, procedure phase, surgeon preferences, and unresolved anomalies observed during the operation',
+            'A larger copy of the system prompt for better steerability',
+            'The entire hospital document repository in the context window'
+          ],
+          correctAnswer: 1,
+          feedback: 'Correct. Real state must capture domain continuity: anatomy, procedure phase, local anomalies, and operator-specific working assumptions.',
+          hints: [
+            'What would the next correct action depend on?',
+            'Which facts change during a live procedure?',
+            'What continuity matters beyond conversation memory?'
+          ]
+        }
+      ],
+      outcomes: [
+        {
+          id: 'safe-harness-redesign',
+          condition: 'Governance and state are redesigned for the surgical domain',
+          result: 'Your team shifts from a generic agent wrapper to a domain-specific harness design.',
+          explanation: 'The redesign recognizes that high-stakes embodied systems require explicit stop conditions, richer continuity state, and stronger authority boundaries before deployment.',
+          nextSteps: [
+            'Define escalation triggers and surgeon override semantics',
+            'Add telemetry-grounded evidence handling for the Ground lifeline',
+            'Simulate delayed-feedback failure modes before live pilot review'
+          ]
+        }
+      ],
+      conceptId: 'agent-harness-engineering',
+      difficulty: 'intermediate',
+      estimatedTime: '10 minutes',
+      learningOutcomes: ['Prioritize harness redesign by domain risk', 'Model domain-specific state', 'Recognize governance as core architecture']
+    },
+    expectedInsights: [
+      'High-stakes domains require governance before additional autonomy',
+      'State must reflect procedural and situational continuity, not generic memory alone',
+      'Harness design changes when feedback is delayed and actions are irreversible'
+    ],
+    hints: ['What fails safely here?', 'What must be remembered between moments?', 'What should trigger human takeover?'],
+    explanation: 'This scenario teaches the core shift from coding-agent assumptions to domain-specific harness design under real-world consequence.',
+    relatedConcepts: ['human-in-the-loop-patterns', 'agent-memory-systems', 'agentic-robotics-integration'],
+    timeEstimate: 10,
+    successCriteria: ['Prioritizes governance correctly', 'Designs richer domain state', 'Explains why generic retries are unsafe']
+  }
+];
+
 // ===== APPLIED & CAREER TIER (Tier 5) =====
 (scenarioLibrary as any)['agent-troubleshooting'] = [
   {
@@ -8844,6 +8931,160 @@ class QuantumAugmentedNavigation:
       'Designs multi-level policy intervention',
       'Addresses both pipeline and acute dependency',
       'Plans longitudinal impact measurement'
+    ]
+  }
+];
+
+// ─── Agent Harness Engineering scenarios ───
+(scenarioLibrary as any)['agent-harness-engineering'] = [
+  {
+    id: 'harness-scenario-1',
+    type: 'scenario',
+    conceptId: 'agent-harness-engineering',
+    title: 'Diagnosing the Filesystem Fallacy in a DevOps Agent',
+    level: 'beginner',
+    scenario: {
+      id: 'filesystem-fallacy-devops',
+      title: 'Your Agent Thinks Files Are Ground Truth',
+      description: 'A DevOps team releases a coding agent that generates Terraform plans by reading existing .tf files and producing diffs. After two weeks, the agent overwrites a production state file with a stale local copy, triggering a cascading resource-deletion plan. Investigation reveals the harness gave the agent raw filesystem access with no state-versioning or conflict-detection layer.',
+      context: 'The agent was scaffolded with the common "model + filesystem + bash" harness. It treats the local checkout as authoritative, unaware that a colleague pushed state changes minutes earlier.',
+      stakeholders: ['Platform Lead', 'SRE On-Call', 'Agent Developer', 'Security Team'],
+      systemState: { harnessType: 'model + filesystem + bash', stateConflicts: '3 in 2 weeks', rollbackCapability: 'manual only', groundTruthSource: 'local checkout' },
+      challenges: ['Agent cannot distinguish stale from current state', 'No transactional write layer around filesystem', 'Bash shell gives unchecked mutation power'],
+      decisionPoints: [
+        'What is the root cause: the model, the harness, or the operator?',
+        'Which of the Five Actual Lifelines is most violated here?',
+        'How would you redesign the harness to prevent this class of failure?'
+      ],
+      options: [
+        'Retrain the model with more Terraform examples so it learns to check state freshness before writing.',
+        'Replace raw filesystem access with a Ground lifeline: a state-aware adapter that performs optimistic-lock checks against the remote backend before any write, and routes all mutations through a plan-review gate.',
+        'Add a post-hoc linter that checks diffs after the agent writes them, reverting bad changes.'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Retraining addresses symptoms, not the structural gap: the harness still hands the agent a stale view of reality. The model cannot solve a data-freshness problem it cannot observe.',
+      'A Ground lifeline ensures the agent\'s perception is anchored to authoritative state. Optimistic locking prevents stale-write conflicts structurally, and a plan-review gate adds Govern control. This addresses the Filesystem Fallacy directly.',
+      'Post-hoc linting catches some errors but runs after mutation has occurred; it cannot prevent partial writes or race conditions, and adds fragile heuristics instead of structural safety.'
+    ],
+    followUpQuestions: [
+      'How would you implement the optimistic-lock check for Terraform remote state?',
+      'What other common agent harnesses suffer from the Filesystem Fallacy?',
+      'How does the Ground lifeline differ from simply adding a "read-before-write" prompt instruction?'
+    ],
+    expectedInsights: [
+      'Implement a state adapter that fetches remote state (e.g., terraform state pull) and compares hashes before allowing any plan generation; reject stale inputs before the model even sees them',
+      'Any agent that equates "local file" with "current truth" suffers this fallacy: code review agents, config management agents, document-editing agents all need a Ground layer',
+      'A prompt instruction is advisory and can be ignored or hallucinated around; the Ground lifeline is a structural interposition that prevents the model from ever receiving stale data'
+    ],
+    businessContext: 'The Filesystem Fallacy is the most common harness failure in enterprise coding agents. Fixing it requires moving from "model + raw filesystem" to a harness with explicit Ground and Govern lifelines.',
+    relatedConcepts: ['agent-harness-engineering', 'agent-testing-benchmarks', 'agent-observability'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Identifies Filesystem Fallacy as root cause',
+      'Selects Ground lifeline as structural fix',
+      'Distinguishes harness-level from model-level solutions'
+    ]
+  },
+  {
+    id: 'harness-scenario-2',
+    type: 'scenario',
+    conceptId: 'agent-harness-engineering',
+    title: 'Designing Affect and Govern for a Medical Triage Agent',
+    level: 'intermediate',
+    scenario: {
+      id: 'medical-triage-harness',
+      title: 'When Stakes Demand More Than Intelligence',
+      description: 'A hospital system is deploying an AI triage agent in the emergency department. The model achieves 91% accuracy on triage severity classification, but the medical director refuses to approve deployment. She argues: "Accuracy is necessary but not sufficient. What happens when it\'s wrong on the 9%? Who stops it? How does it know its own confidence is declining?"',
+      context: 'The agent was built with a standard inference harness: model receives patient symptoms, outputs triage category. No uncertainty quantification, no escalation pathway, no audit trail of reasoning. The 9% error rate includes 2% critical misclassifications (undertriage of life-threatening conditions).',
+      stakeholders: ['Medical Director', 'Chief Medical Informatics Officer', 'Emergency Physicians', 'Patient Safety Board', 'AI Engineering Team'],
+      systemState: { accuracy: '91%', criticalErrors: '2% undertriage', uncertaintyQuantification: 'none', escalationPath: 'none', auditTrail: 'none' },
+      challenges: ['9% error rate includes life-threatening misclassifications', 'No mechanism for agent to express uncertainty', 'No structured escalation to human clinicians', 'Regulatory requirement for explainable decisions'],
+      decisionPoints: [
+        'Which lifelines from the Agent Harness Engineering framework are missing?',
+        'How do you implement an Affect lifeline for a medical agent?',
+        'What Govern constraints are non-negotiable for this domain?'
+      ],
+      options: [
+        'Improve model accuracy to 98%+ through more training data, then deploy with the current harness since errors become rare enough.',
+        'Add an Affect lifeline (confidence calibration with automatic escalation below threshold) and a Govern lifeline (hard ceiling on autonomous triage for high-acuity categories, mandatory physician confirmation, full decision audit trail).',
+        'Deploy as an advisory tool only (physician always makes final call) to avoid the harness complexity.'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Even at 98% accuracy, the remaining 2% in a high-stakes domain can be fatal. This approach treats accuracy as a substitute for structural safety — the exact error the medical director identified.',
+      'Affect gives the agent self-awareness of its confidence envelope; Govern enforces domain-appropriate stopping rules. Together they transform a bare model into a harness that structurally prevents the worst failure modes. This is the core harness engineering insight: Agent = Intelligence × (Situatedness + Stakes + Sovereignty).',
+      'Advisory-only avoids risk but wastes the agent\'s capability. It also doesn\'t scale: if every decision requires a physician, the agent adds latency without reducing workload. The harness should enable autonomy within safe bounds, not eliminate it.'
+    ],
+    followUpQuestions: [
+      'How would you calibrate the confidence threshold for escalation in a triage context?',
+      'What does the Govern lifeline look like at 2 AM when the ED is short-staffed?',
+      'How do Affect and Govern interact when the agent is confident but wrong?'
+    ],
+    expectedInsights: [
+      'Use Platt scaling or temperature calibration on validation data with clinical review; set escalation threshold conservatively (e.g., below 85% confidence) and tune based on physician override rates',
+      'Govern must account for operational context: if human escalation targets are unavailable, the agent should default to the safest triage category (overtriage > undertriage); this is a domain-specific stopping rule',
+      'Affect provides the signal, Govern acts on it — but Govern also needs independent checks (e.g., pattern-based rules that flag rare presentations regardless of model confidence)'
+    ],
+    businessContext: 'Medical AI is the canonical high-stakes domain where the Agent Harness Engineering equation becomes literal: intelligence alone is dangerous without Situatedness (clinical context), Stakes awareness (life-or-death consequences), and Sovereignty constraints (regulatory compliance).',
+    relatedConcepts: ['agent-harness-engineering', 'human-in-the-loop-patterns', 'guardrails-layer', 'agent-ethics'],
+    timeEstimate: 20,
+    successCriteria: [
+      'Identifies missing Affect and Govern lifelines',
+      'Designs domain-appropriate confidence escalation',
+      'Balances autonomy with structural safety'
+    ]
+  },
+  {
+    id: 'harness-scenario-3',
+    type: 'scenario',
+    conceptId: 'agent-harness-engineering',
+    title: 'Architecting a Metamorphic Harness for Multi-Domain Deployment',
+    level: 'advanced',
+    scenario: {
+      id: 'metamorphic-harness-design',
+      title: 'One Agent, Five Domains, Five Harnesses',
+      description: 'Your organization wants to deploy a single foundation model across five domains: code review, legal contract analysis, financial compliance, customer support, and internal knowledge management. Each domain has radically different stakes, regulatory requirements, and situatedness needs. The CTO proposes building one universal harness. The VP of Engineering argues for five separate agents.',
+      context: 'The foundation model is capable across all five domains. The real variance is in the harness: code review needs Ground (repo state) + Govern (merge gates); legal needs Affect (uncertainty on novel clauses) + Govern (jurisdictional constraints); financial needs all five lifelines at maximum strictness. Building five separate agents means five maintenance surfaces. A universal harness means lowest-common-denominator safety.',
+      stakeholders: ['CTO', 'VP Engineering', 'Legal Counsel', 'Compliance Officer', 'Domain Leads (x5)'],
+      systemState: { domains: 5, foundationModel: 'single capable model', regulatoryRegimes: '3 different', lifelines: 'none implemented', maintenanceBudget: 'constrained' },
+      challenges: ['Each domain needs different lifeline configurations', 'Universal harness risks under-protecting high-stakes domains', 'Five separate agents creates unsustainable maintenance burden', 'Metamorphic harness is novel architecture with limited precedent'],
+      decisionPoints: [
+        'How do you architect a harness that adapts its lifeline configuration per domain?',
+        'What is the minimum set of lifelines that must be active in ALL domains?',
+        'How do you prevent a misconfigured domain profile from silently degrading safety?'
+      ],
+      options: [
+        'Build five separate agents, each with a domain-specific harness. Accept the maintenance cost for maximum safety isolation.',
+        'Build a universal harness with the strictest lifeline settings (financial compliance level) applied to all domains. Accept reduced performance in low-stakes domains.',
+        'Build a metamorphic harness: a single harness framework with domain profiles that activate, configure, and constrain each lifeline per deployment context. Include a mandatory safety floor (minimum lifeline levels) that no profile can disable, with profile validation at deployment time.'
+      ]
+    },
+    correctOption: 2,
+    rationales: [
+      'Five separate agents provides maximum isolation but creates an maintenance explosion: five sets of lifeline implementations, five upgrade paths, five security surfaces. Inconsistencies between harnesses become their own risk vector.',
+      'Universal strictness (ratchet to max) is safe but wasteful: customer support queries processed with financial-compliance-level friction creates unusable latency and unnecessary escalations. This treats all stakes as equal, violating the core harness equation.',
+      'A metamorphic harness separates the invariant (lifeline framework, safety floor) from the variant (domain-specific configuration). Domain profiles are validated schemas, not arbitrary code — preventing silent misconfiguration. The safety floor ensures no profile can disable critical lifelines. This is the frontier architecture described in Agent Harness Engineering.'
+    ],
+    followUpQuestions: [
+      'What should the mandatory safety floor include across all domains?',
+      'How do you test that a domain profile correctly activates the right lifelines?',
+      'What happens when a new domain is added — how does the metamorphic harness onboard it?'
+    ],
+    expectedInsights: [
+      'Safety floor: State lifeline (always persist reasoning trace), Govern lifeline (always enforce rate limits and human escalation path), Affect lifeline (always quantify uncertainty). Ground and Situate can vary by domain.',
+      'Profile testing requires domain-specific red-team scenarios: inject known failure modes for each domain and verify the correct lifeline responds. Automate as part of CI/CD for profile changes.',
+      'Onboarding a new domain means defining a profile schema (which lifelines at what strictness), validating it against the safety floor, and running the red-team test suite. The framework makes this additive, not multiplicative.'
+    ],
+    businessContext: 'Metamorphic harnesses represent the frontier of Agent Harness Engineering: moving from per-agent craft to systematic, configurable, auditable harness architecture. This is how enterprises will scale from one agent to hundreds without proportional risk growth.',
+    relatedConcepts: ['agent-harness-engineering', 'multi-agent-systems', 'agent-ops', 'architecture-platform-operations'],
+    timeEstimate: 25,
+    successCriteria: [
+      'Designs metamorphic harness with domain profiles',
+      'Defines non-negotiable safety floor',
+      'Plans profile validation and red-team testing'
     ]
   }
 ];

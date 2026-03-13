@@ -745,6 +745,13 @@ def run_pipeline():
                   </h4>
                   <p className="text-xs text-muted-foreground mt-1">Where prompt engineering ends and context engineering begins.</p>
                 </Link>
+                <Link to="/concepts/agent-harness-engineering" className="p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors block">
+                  <h4 className="font-semibold text-sm flex items-center gap-1.5">
+                    <Funnel className="w-4 h-4 text-amber-500" />
+                    Agent Harness Engineering
+                  </h4>
+                  <p className="text-xs text-muted-foreground mt-1">Context selection is only one lifeline. Harness engineering expands the frame to governance, situatedness, and real-world action.</p>
+                </Link>
               </div>
             </CardContent>
           </Card>

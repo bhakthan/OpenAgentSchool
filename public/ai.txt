@@ -102,6 +102,14 @@ Concept-Context-Engineering: https://www.openagentschool.org/concepts/context-en
 # Self-baking patterns, proactive inference, KV caching, context isolation
 # Based on "Context Engineering 2.0" (arxiv:2510.26493)
 Infographic-Context-Engineering: https://www.openagentschool.org/images/Context_Engineering_2.webp
+
+# Agent Harness Engineering (March 2026)
+Concept-Agent-Harness-Engineering: https://www.openagentschool.org/concepts/agent-harness-engineering
+# Beyond model+wrapper: Agent = Intelligence × (Situatedness + Stakes + Sovereignty)
+# Five Actual Lifelines: State, Affect, Ground, Govern, Situate
+# Critique of coding-agent defaults: Filesystem Fallacy, Bash Shell Delusion, Unit-Test Assumption
+# Frontier: Agent hypervisors, swarm-native shared memory, metamorphic harnesses
+
 # Micro-Learning & Just-In-Time (JIT) Learning (February 2026)
 Micro-Learning: https://www.openagentschool.org/micro-learning
 # Duolingo-style bite-sized AI agent education — master any concept in 10 minutes/day

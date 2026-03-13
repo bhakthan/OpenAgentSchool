@@ -12,6 +12,7 @@ import { ReActLoopSimulator, ToolCallFlowViz, AgentStateExplorer, LatencyBudgetC
 import { Atom } from '@phosphor-icons/react';
 import { MermaidDiagram } from "@/components/ui/MermaidDiagram";
 import { ReflectionPrompt } from "@/components/ui/ReflectionPrompt";
+import { Link } from "react-router-dom";
 
 interface AgentArchitectureConceptProps {
   onMarkComplete?: () => void
@@ -185,6 +186,38 @@ class AzureAIAgent {
   RE --> OUTPUT[Response to User]`}
                 title="Agent Architecture: Single-Request Flow"
               />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Where Architecture Stops Being Enough</CardTitle>
+              <CardDescription>Classic agent architecture explains the components. Harness engineering explains what those components must become in high-stakes domains.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                <Link to="/concepts/agent-harness-engineering" className="rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted block">
+                  <h4 className="font-semibold text-sm flex items-center gap-1.5">
+                    <Gear className="w-4 h-4 text-amber-500" />
+                    Agent Harness Engineering
+                  </h4>
+                  <p className="text-xs text-muted-foreground mt-1">Go beyond model + wrapper and redesign state, grounding, governance, and situational awareness for real-world consequence.</p>
+                </Link>
+                <Link to="/concepts/context-engineering" className="rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted block">
+                  <h4 className="font-semibold text-sm flex items-center gap-1.5">
+                    <Brain className="w-4 h-4 text-cyan-500" />
+                    Context Engineering
+                  </h4>
+                  <p className="text-xs text-muted-foreground mt-1">See how the information supply chain feeds the architecture with the right context at the right moment.</p>
+                </Link>
+                <Link to="/concepts/human-in-the-loop-patterns" className="rounded-lg bg-muted/50 p-3 transition-colors hover:bg-muted block">
+                  <h4 className="font-semibold text-sm flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-rose-500" />
+                    Human-in-the-Loop Patterns
+                  </h4>
+                  <p className="text-xs text-muted-foreground mt-1">When authority, escalation, and stop conditions matter, HITL becomes part of the architecture, not an add-on.</p>
+                </Link>
+              </div>
             </CardContent>
           </Card>
 

@@ -184,6 +184,11 @@ const secureGovernCapsules: Capsule[] = [
     quizCategory: 'enterprise-playbook-concepts',
     readSubtitle: 'Turn principles into enforceable policies and audit trails.',
   }),
+  ...conceptCapsules('agent-harness-engineering', 'Agent Harness Engineering', {
+    quizCategory: 'agent-harness-engineering',
+    readSubtitle: 'Move beyond model + wrapper and design harnesses around state, grounding, governance, and real-world consequence.',
+    applySubtitle: 'Work through when an agent should continue, escalate, or stop under real-world stakes.',
+  }),
   ...conceptCapsules('agent-red-teaming', 'Agent Red Teaming', {
     quizCategory: 'agent-red-teaming',
     readSubtitle: 'Break your own agents before attackers do.',

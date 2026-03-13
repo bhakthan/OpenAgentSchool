@@ -51,6 +51,7 @@ export const CORE_CONCEPT_IDS = [
   // Client Coding Agents & Skills
   'client-coding-agents',
   'agent-skills',
+  'agent-harness-engineering',
   // Quantum & Frontier
   'quantum-ai-robotics',
   'edge-agent',

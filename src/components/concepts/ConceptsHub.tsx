@@ -55,6 +55,7 @@ const OrganizationalEnablementConcept = lazy(() => import("./OrganizationalEnabl
 const AIProductFrameworkConcept = lazy(() => import("./AIProductFrameworkConcept"))
 const ClientCodingAgentsConcept = lazy(() => import("./ClientCodingAgentsConcept"))
 const AgentSkillsConcept = lazy(() => import("./AgentSkillsConcept"))
+const AgentHarnessEngineeringConcept = lazy(() => import("./AgentHarnessEngineeringConcept"))
 const AgentRedTeamingConcept = lazy(() => import("./AgentRedTeamingConcept"))
 const AgentTroubleshootingPlaybook = lazy(() => import("./AgentTroubleshootingPlaybook"))
 const AgentEconomicsConcept = lazy(() => import("./AgentEconomicsConcept"))
@@ -410,6 +411,17 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '40-50 min',
     prerequisites: ['client-coding-agents', 'mcp'],
     component: AgentSkillsConcept
+  },
+  {
+    id: 'agent-harness-engineering',
+    title: 'Agent Harness Engineering',
+    description: 'Redefine the harness from a coding wrapper into the domain-specific operationalization of situatedness, stakes, and sovereignty.',
+    level: 'architecture',
+    icon: <Stack className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-amber-900/20 dark:text-amber-300',
+    estimatedTime: '35-45 min',
+    prerequisites: ['client-coding-agents', 'agent-skills'],
+    component: AgentHarnessEngineeringConcept
   },
   {
     id: 'flow-visualization',

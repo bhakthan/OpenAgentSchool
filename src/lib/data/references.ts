@@ -3373,6 +3373,57 @@ export const references: ReferencesData = {
       }
     ],
 
+    // Agent Harness Engineering Concept
+    "agent-harness-engineering": [
+      {
+        id: "core-essays",
+        name: "Core Essays & Framing",
+        references: [
+          {
+            title: "The Anatomy of an Agent Harness",
+            url: "https://blog.langchain.com/the-anatomy-of-an-agent-harness/",
+            description: "A useful baseline framing of the harness around model, tools, memory, and control loops. Good starting point before pushing into the stronger real-world critique."
+          },
+          {
+            title: "Context Engineering 2.0: The Context of Context Engineering",
+            url: "https://arxiv.org/abs/2510.26493",
+            description: "Helpful companion paper for understanding why retrieval and prompt composition alone are insufficient once agents need situated, dynamically selected context."
+          },
+          {
+            title: "ReAct: Synergizing Reasoning and Acting in Language Models",
+            url: "https://arxiv.org/abs/2210.03629",
+            description: "Canonical coding-agent loop paper. Useful here as the pattern Agent Harness Engineering is explicitly trying to generalize beyond software-only environments."
+          }
+        ]
+      },
+      {
+        id: "governance-and-embodiment",
+        name: "Governance, Embodiment, and Human Oversight",
+        references: [
+          {
+            title: "Constitutional AI: Harmlessness from AI Feedback",
+            url: "https://arxiv.org/abs/2212.08073",
+            description: "Shows one path for encoding governance and behavioral constraints into agent behavior, which connects directly to the Govern lifeline."
+          },
+          {
+            title: "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+            url: "https://arxiv.org/abs/2305.16291",
+            description: "Demonstrates how environment-specific skill libraries, execution feedback, and iterative reflection reshape the harness once the agent is situated inside a world."
+          },
+          {
+            title: "OpenAI Cookbook: Building Guardrails for Agents",
+            url: "https://cookbook.openai.com/examples/agents_sdk/guardrails",
+            description: "Practical guardrail patterns for authority boundaries, intervention, and safer execution paths. Useful for the Govern and Affect lifelines."
+          },
+          {
+            title: "NIST AI Risk Management Framework (AI RMF 1.0)",
+            url: "https://www.nist.gov/itl/ai-risk-management-framework",
+            description: "Operational governance guidance for identifying, governing, mapping, measuring, and managing AI risk. Useful grounding for the sovereignty and stakes parts of harness design."
+          }
+        ]
+      }
+    ],
+
     // Production Foundations Concepts (January 2026)
     "agent-reasoning-patterns": [
       {

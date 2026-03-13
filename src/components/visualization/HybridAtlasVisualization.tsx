@@ -85,6 +85,7 @@ function buildAtlasData(): AtlasNode {
           { id: 'mcp', name: 'Model Context Protocol', type: 'concept', path: '/concepts/mcp' },
           { id: 'client-coding-agents', name: 'Coding Agents', type: 'concept', novel: true, path: '/concepts/client-coding-agents' },
           { id: 'agent-skills', name: 'Agent Skills', type: 'concept', novel: true, path: '/concepts/agent-skills' },
+          { id: 'agent-harness-engineering', name: 'Harness Engineering', type: 'concept', novel: true, path: '/concepts/agent-harness-engineering' },
           { id: 'flow-visualization', name: 'Flow Visualization', type: 'concept', path: '/concepts/flow-visualization' },
           { id: 'agent-evaluation', name: 'Agent Evaluation', type: 'concept', path: '/concepts/agent-evaluation' },
           { id: 'strategy-portfolio-management', name: 'Strategy & Portfolio', type: 'concept', novel: true, path: '/concepts/strategy-portfolio-management' },

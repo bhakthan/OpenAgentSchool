@@ -26,6 +26,7 @@ import { dataAutonomyPatternsQuestions } from './data-autonomy-patterns.ts';
 import { agenticRoboticsIntegrationQuestions } from './agentic-robotics';
 import { adoptionPlaybookQuestions } from './adoption-playbook';
 import { clientCodingAgentsQuestions, agentSkillsQuestions, clientCodingAgentsTime, agentSkillsTime } from './client-coding-agents';
+import { agentHarnessEngineeringQuestions, agentHarnessEngineeringTime } from './agent-harness-engineering';
 import { agentRedTeamingQuestions, agentRedTeamingTime } from './agent-red-teaming';
 // Applied & Career Tier quizzes
 import { agentTroubleshootingQuestions, agentTroubleshootingTime } from './agent-troubleshooting';
@@ -97,6 +98,7 @@ const allQuestions = [
   ...agenticRoboticsIntegrationQuestions,
   ...clientCodingAgentsQuestions,
   ...agentSkillsQuestions,
+  ...agentHarnessEngineeringQuestions,
   ...agentRedTeamingQuestions,
   // Applied & Career Tier
   ...agentTroubleshootingQuestions,
@@ -235,6 +237,37 @@ export const quizCategories: QuizCategory[] = [
         description: 'Best practices for writing effective agent skills',
         prerequisites: ['skill-structure'],
         questions: agentSkillsQuestions.filter(q => q.subCategory === 'skill-authoring' || q.subCategory === 'best-practices')
+      }
+    ]
+  },
+  {
+    id: 'agent-harness-engineering',
+    name: 'Agent Harness Engineering',
+    description: 'Move beyond model + wrapper and design harnesses around situatedness, stakes, sovereignty, state, grounding, and governance.',
+    icon: 'Gear',
+    totalQuestions: agentHarnessEngineeringQuestions.length,
+    estimatedTime: agentHarnessEngineeringTime,
+    subCategories: [
+      {
+        id: 'harness-fundamentals',
+        name: 'Harness Fundamentals',
+        description: 'The core reframe from generic wrappers to situated, high-stakes operating systems.',
+        prerequisites: ['client-coding-agents'],
+        questions: agentHarnessEngineeringQuestions.filter(q => q.subCategory === 'harness-fundamentals')
+      },
+      {
+        id: 'redefined-lifelines',
+        name: 'Redefined Lifelines',
+        description: 'State, Affect, Ground, Govern, and Situate as the real harness primitives.',
+        prerequisites: ['harness-fundamentals', 'agent-skills'],
+        questions: agentHarnessEngineeringQuestions.filter(q => q.subCategory === 'redefined-lifelines' || q.subCategory === 'critique-of-defaults')
+      },
+      {
+        id: 'governance-and-frontier',
+        name: 'Governance & Frontier',
+        description: 'Stopping theory, sovereignty boundaries, and future harness directions.',
+        prerequisites: ['redefined-lifelines'],
+        questions: agentHarnessEngineeringQuestions.filter(q => q.subCategory === 'governance-and-frontier')
       }
     ]
   },

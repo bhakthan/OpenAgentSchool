@@ -4251,12 +4251,110 @@ export const contextEngineeringSocraticQuestions: StudyModeQuestion[] = [
   }
 ];
 
+// Agent Harness Engineering Socratic Questions
+export const agentHarnessEngineeringSocraticQuestions: StudyModeQuestion[] = [
+  {
+    id: 'agent-harness-engineering-socratic-1',
+    type: 'socratic',
+    conceptId: 'agent-harness-engineering',
+    title: 'Why Model + Wrapper Stops Being Enough',
+    level: 'beginner',
+    socratiQuestion: 'A coding agent can succeed with a strong model, a shell, and a test loop. Why does that same recipe become unreliable when the agent operates in medicine, negotiation, robotics, or any high-stakes human environment?',
+    followUpQuestions: [
+      'What changes when actions are delayed, partially observable, or irreversible?',
+      'How is "ground truth" different in code versus social or physical domains?',
+      'What does the simple wrapper framing fail to represent about real-world consequence?'
+    ],
+    expectedInsights: [
+      'Coding environments are unusually legible, reversible, and feedback-rich compared with most real domains',
+      'High-stakes domains require situatedness, governance, and consequence modeling beyond tool invocation',
+      'A generic wrapper can hide the most important parts of safe real-world agency'
+    ],
+    hints: [
+      'Compare a failed unit test to a failed surgical action',
+      'Think about how long it can take to know whether an action was correct',
+      'Ask what the agent must understand beyond instructions and APIs'
+    ],
+    explanation: 'Agent Harness Engineering argues that real-world agency depends on more than reasoning plus tools. It requires a domain-specific system for state, action, grounding, governance, and situational modeling.',
+    relatedConcepts: ['agent-architecture', 'context-engineering', 'human-in-the-loop-patterns'],
+    timeEstimate: 12,
+    successCriteria: [
+      'Explains why coding environments are a special case',
+      'Identifies at least two real-world constraints missing from model + wrapper',
+      'Connects the critique to consequence and reversibility'
+    ]
+  },
+  {
+    id: 'agent-harness-engineering-socratic-2',
+    type: 'socratic',
+    conceptId: 'agent-harness-engineering',
+    title: 'Redesigning the Lifelines',
+    level: 'intermediate',
+    socratiQuestion: 'The framework replaces software-centric assumptions with five lifelines: State, Affect, Ground, Govern, and Situate. If you were building a therapeutic or surgical agent, which of these lifelines would you redesign first, and why?',
+    followUpQuestions: [
+      'How would state differ from simple file persistence?',
+      'What counts as grounding in your chosen domain?',
+      'Where should authority end and escalation begin?'
+    ],
+    expectedInsights: [
+      'State must capture domain continuity such as trust, anatomy, or world conditions rather than generic storage',
+      'Grounding depends on domain epistemology such as biomarkers, telemetry, legal evidence, or social signals',
+      'Govern defines authority boundaries, stopping criteria, and deferral rules rather than just permissions'
+    ],
+    hints: [
+      'Think about what the agent must remember for the next correct move',
+      'Ask what evidence is actually trusted in that world',
+      'Consider whether continuing autonomously could itself be a failure mode'
+    ],
+    explanation: 'The five lifelines are a redesign of the harness around real domains. They force the builder to model continuity, action, reality, oversight, and context in domain-appropriate terms.',
+    relatedConcepts: ['agent-memory-systems', 'human-in-the-loop-patterns', 'agentic-robotics-integration'],
+    timeEstimate: 15,
+    successCriteria: [
+      'Applies at least two lifelines to a concrete domain',
+      'Distinguishes domain continuity from generic persistence',
+      'Explains why governance is more than access control'
+    ]
+  },
+  {
+    id: 'agent-harness-engineering-socratic-3',
+    type: 'socratic',
+    conceptId: 'agent-harness-engineering',
+    title: 'Stopping Theory as a Feature',
+    level: 'advanced',
+    socratiQuestion: 'Many teams reward agents for persistence: retry, loop, recover, continue. In a high-stakes environment, when does stopping become the intelligent action, and how would you encode that into the harness?',
+    followUpQuestions: [
+      'What signals should trigger escalation instead of another autonomous attempt?',
+      'How would you distinguish productive persistence from harmful delay?',
+      'What would a good audit trail of stop, defer, and escalate decisions look like?'
+    ],
+    expectedInsights: [
+      'In high-stakes systems, continuing can increase harm through delay, overreach, or compounding error',
+      'Stopping theory requires explicit thresholds, uncertainty handling, and escalation paths',
+      'Auditability matters because governance decisions are part of the harness, not an afterthought'
+    ],
+    hints: [
+      'Imagine an agent that is uncertain but still keeps acting because the loop rewards completion',
+      'Think about the difference between resilience and overreach',
+      'Ask what evidence a reviewer would need to trust the stop decision later'
+    ],
+    explanation: 'Agent Harness Engineering treats stopping as an architectural concern. A mature harness must know when to continue, when to defer, and when to hand control back to a human or another system.',
+    relatedConcepts: ['human-in-the-loop-patterns', 'agent-evaluation', 'agent-red-teaming'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Defines conditions where stopping is success rather than failure',
+      'Proposes explicit escalation or deferral signals',
+      'Includes auditability in the governance design'
+    ]
+  }
+];
+
 // Export all socratic questions organized by concept
 export const socraticQuestionLibrary = {
   'a2a-communication': a2aSocraticQuestions,
   'mcp': mcpSocraticQuestions,
   'ai-ready-data': aiReadyDataSocraticQuestions,
   'context-engineering': contextEngineeringSocraticQuestions,
+  'agent-harness-engineering': agentHarnessEngineeringSocraticQuestions,
   'multi-agent-systems': multiAgentSocraticQuestions,
   'agentic-rag': agenticRAGSocraticQuestions,
   'modern-tool-use': modernToolUseSocraticQuestions,

@@ -252,6 +252,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Data Autonomy Patterns
 - AI-Ready Data - Decision-grade data foundations for AI trust: data constraints, trust erosion, decision capture, maturity ladder
 - Context Engineering - Context pipeline design (collect, compress, organize, select), self-baking patterns, proactive inference, KV caching, context isolation
+- Agent Harness Engineering - Beyond model+wrapper: Agent = Intelligence × (Situatedness + Stakes + Sovereignty), Five Actual Lifelines (State, Affect, Ground, Govern, Situate), critique of coding-agent defaults, stopping theory, domain-specific harness design
 - Fine-Tuning Methods (SFT, DPO, RFT)
 - XYZ-Claw: Multi-Agent Orchestration - End-to-end swarm architecture (supervisor-worker topology, async message passing, back-pressure, dead-letter queues) built in TypeScript / Go / Rust
 - Quantum-Enhanced AI & Robotics
@@ -322,6 +323,7 @@ Each concept has an ⚛ Atomic tab with a Challenge Ladder (Observe → Predict 
 - Strategy & Portfolio Management: https://www.openagentschool.org/concepts/strategy-portfolio-management
 - AI-Ready Data: https://www.openagentschool.org/concepts/ai-ready-data
 - Context Engineering: https://www.openagentschool.org/concepts/context-engineering
+- Agent Harness Engineering: https://www.openagentschool.org/concepts/agent-harness-engineering
 - Organizational Enablement: https://www.openagentschool.org/concepts/organizational-enablement
 - Data & Knowledge Operations: https://www.openagentschool.org/concepts/data-knowledge-operations
 - Experimentation & Continuous Improvement: https://www.openagentschool.org/concepts/experimentation-continuous-improvement
