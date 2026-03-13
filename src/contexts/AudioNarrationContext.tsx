@@ -617,6 +617,10 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'tri-system-paradigm': 'TriSystemParadigmConcept',
         'TriSystemParadigmConcept': 'TriSystemParadigmConcept',
         
+        // Agent Harness Engineering
+        'agent-harness-engineering': 'AgentHarnessEngineeringConcept',
+        'AgentHarnessEngineeringConcept': 'AgentHarnessEngineeringConcept',
+        
         // Proactive Agent Design
         'proactive-agent-design': 'ProactiveAgentDesignConcept',
         'ProactiveAgentDesignConcept': 'ProactiveAgentDesignConcept',

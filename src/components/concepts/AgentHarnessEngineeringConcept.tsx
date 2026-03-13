@@ -476,7 +476,7 @@ Harness = {
       }}
       onMarkComplete={handleMarkComplete}
       onNavigateToNext={onNavigateToNext}
-      enableAudioNarration={false}
+      enableAudioNarration={true}
     />
   );
 }

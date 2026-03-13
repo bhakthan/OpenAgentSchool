@@ -1,0 +1,59 @@
+--------------------------------------------------------------------------------
+BEGINNER SECTION
+--------------------------------------------------------------------------------
+
+Welcome to Agent Harness Engineering, where we challenge a fundamental misconception about how AI agents are built.
+
+Most people think of an AI agent as a powerful language model wrapped in some code that gives it access to files, a terminal, and maybe a search tool. This is the "model plus wrapper" assumption, and it is dangerously incomplete.
+
+Here is a better way to think about it. An agent's true capability is not just its intelligence. It is intelligence multiplied by three additional factors: situatedness, stakes, and sovereignty. Let's unpack each one.
+
+Situatedness means: does the agent understand where it is operating? A coding agent working on a solo hobby project is in a completely different situation than one modifying a payment processing system used by millions. The harness, the infrastructure surrounding the model, must encode this awareness.
+
+Stakes means: what happens when the agent is wrong? If a coding agent writes a bad unit test, the cost is a few minutes of debugging. If a medical triage agent misclassifies a patient, someone could die. The harness must be calibrated to the consequences of failure.
+
+Sovereignty means: who has the authority to act, and within what boundaries? Can the agent deploy code to production on its own? Can it approve a financial transaction? The harness defines these boundaries.
+
+This brings us to the core equation of Agent Harness Engineering: Agent equals Intelligence times the sum of Situatedness, Stakes, and Sovereignty. Intelligence alone is necessary but not sufficient. A brilliant model in a poor harness is a liability, not an asset.
+
+The five axioms that guide harness design are: first, outputs must be observable; second, any autonomous mutation must be reversible; third, the blast radius of any single action must be bounded; fourth, privilege must be the minimum needed for the task; and fifth, the entire loop, not just the prompt, must be auditable.
+
+--------------------------------------------------------------------------------
+INTERMEDIATE SECTION
+--------------------------------------------------------------------------------
+
+Now let's examine why the standard coding agent harness, the one built from a model plus a filesystem plus a bash shell, is fundamentally broken.
+
+There are five common defaults that most agent frameworks provide, and each one hides a critical flaw. We call these the Five Lifelines Under a Microscope.
+
+The first is the Filesystem Fallacy. Most coding agents treat the local filesystem as ground truth. But a file on disk can be stale, conflicting with changes pushed by teammates minutes ago. The filesystem is a cache, not a source of truth. Without a state-aware adapter that checks remote state before writing, your agent will eventually overwrite someone else's work.
+
+The second is the Bash Shell Delusion. Giving an agent a raw bash shell feels powerful, but it's uncontrolled mutation. There's no undo, no transaction boundary, no blast-radius limit. One malformed command can delete a production database or expose credentials. The shell needs a governance layer.
+
+The third is the Unit-Test Assumption. Agents that run their own tests and declare success based on passing results are engaging in circular validation. They wrote the code and the test. A green checkmark means the agent is consistent with itself, not that the code is correct. You need external validation.
+
+The fourth is the Ralph Loop Trap. When an agent encounters an error, many frameworks have it retry the same approach repeatedly: edit, test, fail, edit, test, fail. This infinite retry loop wastes tokens and time without converging on a solution. A well-designed harness implements a stopping policy: after N attempts, escalate to a human or try a fundamentally different strategy.
+
+The fifth is the Retrieval Illusion. Retrieval-augmented generation, or RAG, gives agents access to documentation. But retrieval is not understanding. An agent can retrieve a perfect code example and still misapply it because it lacks the context of why that example exists. Retrieval must be paired with grounding.
+
+The fix for all five problems is the Five Actual Lifelines. State preserves and versions every agent action. Affect gives the agent awareness of its own confidence and uncertainty. Ground anchors the agent's perception to authoritative data sources. Govern enforces constraints, rate limits, and escalation rules. Situate injects domain-specific context so the agent understands its operating environment.
+
+These five lifelines transform a bare model with tools into a properly engineered harness. The key insight is that none of these are model capabilities. They are infrastructure capabilities that the harness provides around the model.
+
+--------------------------------------------------------------------------------
+ADVANCED SECTION
+--------------------------------------------------------------------------------
+
+Let's look at the frontier of harness engineering and where this field is heading.
+
+The first frontier is agent hypervisors. Today, each agent runs in its own isolated harness. But imagine a hypervisor layer that manages multiple agents the way an operating system manages processes. It would enforce resource quotas, memory isolation, and inter-agent communication policies. Just as virtual machine hypervisors transformed data centres, agent hypervisors will transform multi-agent deployments.
+
+The second frontier is swarm-native shared memory. Current multi-agent systems communicate by passing messages. But for high-performance swarms, you need shared memory with atomic operations, conflict resolution, and garbage collection. Think of it as a distributed database purpose-built for agent state, where every read and write is auditable and every conflict has a resolution policy.
+
+The third frontier is metamorphic harnesses. Today, you build one harness per agent per domain. A metamorphic harness adapts its lifeline configuration based on the deployment context. The same foundation model gets a strict harness with maximum governance in healthcare and a lighter harness with faster iteration cycles in creative writing. The harness shape-shifts to match the stakes.
+
+Consider two concrete examples of domain-specific harness design. In healthcare, a diagnostic agent needs all five lifelines at maximum strictness: State for complete audit trails, Affect for calibrated uncertainty with automatic escalation, Ground for evidence anchored to clinical databases and guidelines, Govern for hard ceilings on autonomous decisions and mandatory physician confirmation, and Situate for patient history and institutional protocols.
+
+Compare this with a code review agent where the harness can be lighter. State preserves diffs for rollback. Ground connects to the repository and CI pipeline. Govern gates merge permissions. But Affect and Situate can operate at lower strictness because the stakes are lower and the domain is more forgiving.
+
+The practical takeaway is this: stop thinking about agent capabilities as a model problem. Start thinking about them as a harness engineering problem. The model provides intelligence. The harness provides everything else: situational awareness, consequence management, authority boundaries, and operational safety. The best model in the worst harness will fail. A good model in a well-engineered harness will succeed reliably, safely, and at scale.
