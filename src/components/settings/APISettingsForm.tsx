@@ -18,6 +18,8 @@ const CUSTOM_PRESETS = [
   // Local runners — no API key required
   { name: 'Ollama',           url: 'http://localhost:11434/v1',                  model: 'llama3.1',              region: '💻', section: 'Local' },
   { name: 'LM Studio',        url: 'http://localhost:1234/v1',                   model: 'loaded-model',          region: '💻', section: 'Local' },
+  // US cloud providers
+  { name: 'NVIDIA NIM',       url: 'https://integrate.api.nvidia.com/v1',        model: 'meta/llama-3.1-70b-instruct', region: '🇺🇸', section: 'US' },
   // Chinese providers
   { name: 'DeepSeek',         url: 'https://api.deepseek.com/v1',                model: 'deepseek-chat',         region: '🇨🇳', section: 'China' },
   { name: 'Zhipu AI',         url: 'https://open.bigmodel.cn/api/paas/v4',       model: 'glm-4',                 region: '🇨🇳', section: 'China' },
@@ -26,9 +28,27 @@ const CUSTOM_PRESETS = [
   { name: 'Volcano Engine',   url: 'https://ark.cn-beijing.volces.com/api/v3',   model: 'doubao-seed-code',      region: '🇨🇳', section: 'China' },
   // French providers
   { name: 'Mistral',          url: 'https://api.mistral.ai/v1',                  model: 'mistral-large-latest',  region: '🇫🇷', section: 'France' },
+  { name: 'Linagora',         url: 'https://api.linagora.com/v1',                model: 'openllm-latest',        region: '🇫🇷', section: 'France' },
   // Indian providers
   { name: 'Sarvam AI',        url: 'https://api.sarvam.ai/v1',                   model: 'sarvam-2b',            region: '🇮🇳', section: 'India' },
   { name: 'BharatGen',        url: 'https://api.bharatgen.ai/v1',                model: 'bharatgen-1',           region: '🇮🇳', section: 'India' },
+  { name: 'Gnani.ai',         url: 'https://api.gnani.ai/v1',                    model: 'gnani-llm',             region: '🇮🇳', section: 'India' },
+  // European providers
+  { name: 'EuroLLM',          url: 'https://api.eurollm.eu/v1',                  model: 'eurollm-9b',            region: '🇪🇺', section: 'Europe' },
+  { name: 'Soofi',            url: 'https://api.soofi.ai/v1',                    model: 'soofi-1',              region: '🇪🇺', section: 'Europe' },
+  { name: 'Bielik.ai',        url: 'https://api.bielik.ai/v1',                   model: 'bielik-11b',            region: '🇸🇰', section: 'Europe' },
+  // Middle East / Africa providers
+  { name: 'Humain',           url: 'https://api.humain.com/v1',                  model: 'alf-1',                 region: '🇸🇦', section: 'Middle East & Africa' },
+  { name: 'WideLabs',         url: 'https://api.widelabs.ai/v1',                 model: 'atlas-chat',            region: '🇲🇦', section: 'Middle East & Africa' },
+  // Southeast Asia providers
+  { name: 'AI Singapore',     url: 'https://api.aisingapore.org/v1',             model: 'sea-lion-v3',           region: '🇸🇬', section: 'Southeast Asia' },
+  { name: 'Indosat',          url: 'https://api.indosat.ai/v1',                  model: 'indosat-llm',           region: '🇮🇩', section: 'Southeast Asia' },
+  { name: 'Viettel',          url: 'https://api.viettel.ai/v1',                  model: 'viettel-llm',           region: '🇻🇳', section: 'Southeast Asia' },
+  // South Korea providers
+  { name: 'NAVER Trillion',   url: 'https://clovastudio.stream.ntrillion.com/v1', model: 'hyperclova-x',         region: '🇰🇷', section: 'South Korea' },
+  // Japan providers
+  { name: 'IST (Tokyo)',      url: 'https://api.isct.ac.jp/v1',                  model: 'swallow-70b',           region: '🇯🇵', section: 'Japan' },
+  { name: 'Stockmark',        url: 'https://api.stockmark.co.jp/v1',             model: 'stockmark-100b',        region: '🇯🇵', section: 'Japan' },
 ] as const;
 
 /** Presets that run locally and don't require an API key */
@@ -370,7 +390,7 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
                             <GlobeHemisphereWest size={13} className="text-primary" weight="fill" />
                             Quick Presets
                           </Label>
-                          {(['Local', 'China', 'France', 'India'] as const).map(section => {
+                          {(['Local', 'US', 'China', 'France', 'India', 'Europe', 'Middle East & Africa', 'Southeast Asia', 'South Korea', 'Japan'] as const).map(section => {
                             const sectionPresets = CUSTOM_PRESETS.filter(p => p.section === section);
                             if (sectionPresets.length === 0) return null;
                             return (
