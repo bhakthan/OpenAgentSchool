@@ -11,6 +11,7 @@
 // Re-use the canonical AppConfig key names so the mapping is explicit
 type AppConfigKey =
   | 'VITE_OPENAI_API_KEY' | 'VITE_OPENAI_API_URL' | 'VITE_OPENAI_MODEL'
+  | 'VITE_XAI_API_KEY' | 'VITE_XAI_API_URL' | 'VITE_XAI_MODEL'
   | 'VITE_AZURE_OPENAI_API_KEY' | 'VITE_AZURE_OPENAI_API_URL' | 'VITE_AZURE_OPENAI_MODEL'
   | 'VITE_GEMINI_API_KEY' | 'VITE_GEMINI_API_URL' | 'VITE_GEMINI_MODEL'
   | 'VITE_HUGGINGFACE_API_KEY' | 'VITE_HUGGINGFACE_API_URL' | 'VITE_HUGGINGFACE_MODEL'
@@ -57,6 +58,7 @@ export interface UserSettings {
   /** Per-provider configuration */
   providers: {
     openai?: ProviderConfig;
+    xai?: ProviderConfig;
     azure?: ProviderConfig;
     gemini?: ProviderConfig;
     huggingface?: ProviderConfig;
@@ -140,6 +142,9 @@ const KEY_MAP: Record<AppConfigKey, (s: UserSettings) => string | undefined> = {
   VITE_OPENAI_API_KEY:        s => s.providers.openai?.apiKey,
   VITE_OPENAI_API_URL:        s => s.providers.openai?.apiUrl,
   VITE_OPENAI_MODEL:          s => s.providers.openai?.model,
+  VITE_XAI_API_KEY:           s => s.providers.xai?.apiKey,
+  VITE_XAI_API_URL:           s => s.providers.xai?.apiUrl,
+  VITE_XAI_MODEL:             s => s.providers.xai?.model,
   VITE_AZURE_OPENAI_API_KEY:  s => s.providers.azure?.apiKey,
   VITE_AZURE_OPENAI_API_URL:  s => s.providers.azure?.apiUrl,
   VITE_AZURE_OPENAI_MODEL:    s => s.providers.azure?.model,

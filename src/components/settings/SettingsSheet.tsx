@@ -17,7 +17,7 @@ export const SettingsSheet: React.FC<SettingsSheetProps> = ({ open, onOpenChange
         <SheetHeader className="api-settings-flat-header px-6 pt-6 pb-2">
           <SheetTitle>API Settings</SheetTitle>
           <SheetDescription>
-            Bring Your Own Keys — configure LLM providers and services.
+            Bring Your Own LLM — configure providers, keys, and related AI services.
           </SheetDescription>
         </SheetHeader>
         <ScrollArea className="api-settings-flat-body h-[calc(100vh-8rem)] px-6 pb-6">

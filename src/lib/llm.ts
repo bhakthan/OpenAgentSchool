@@ -1,7 +1,7 @@
 // src/lib/llm.ts
 import { getEnvVar } from './config';
 
-export type LlmProvider = 'openai' | 'azure' | 'gemini' | 'huggingface' | 'openrouter' | 'claude' | 'custom';
+export type LlmProvider = 'openai' | 'xai' | 'azure' | 'gemini' | 'huggingface' | 'openrouter' | 'claude' | 'custom';
 
 export interface LlmMessage {
     role: 'system' | 'user' | 'assistant';
@@ -34,6 +34,8 @@ export async function callLlmWithMessages(
     switch (provider) {
         case 'openai':
             return callOpenAIWithMessages(messages, temperature, maxTokens, responseFormat);
+        case 'xai':
+            return callXAIWithMessages(messages, temperature, maxTokens, responseFormat);
         case 'azure':
             return callAzureOpenAIWithMessages(messages, temperature, maxTokens, responseFormat);
         case 'gemini':
@@ -58,6 +60,8 @@ export async function callLlm(prompt: string, provider: LlmProvider = 'openai'):
     switch (provider) {
         case 'openai':
             return callOpenAIDirectly(prompt);
+        case 'xai':
+            return callXAI(prompt);
         case 'azure':
             return callAzureOpenAI(prompt);
         case 'gemini':
@@ -149,6 +153,15 @@ async function callAzureOpenAI(prompt: string): Promise<LlmResponse> {
     }
     const data = await response.json();
     return { content: data.choices[0].message.content };
+}
+
+async function callXAI(prompt: string): Promise<LlmResponse> {
+    return callXAIWithMessages(
+        [{ role: 'user', content: prompt }],
+        0.7,
+        2000,
+        'text'
+    );
 }
 
 async function callGemini(prompt: string): Promise<LlmResponse> {
@@ -363,6 +376,28 @@ async function callOpenAIWithMessages(
     if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`OpenAI API error: ${response.status} - ${errorText}`);
+    }
+    const data = await response.json();
+    return { content: data.choices?.[0]?.message?.content || '' };
+}
+
+async function callXAIWithMessages(
+    messages: LlmMessage[], temperature: number, maxTokens: number, responseFormat: string
+): Promise<LlmResponse> {
+    const apiKey = getEnvVar('VITE_XAI_API_KEY');
+    if (!apiKey) throw new Error('xAI API key not found. Set VITE_XAI_API_KEY.');
+    const model = getEnvVar('VITE_XAI_MODEL') || 'grok-3-mini';
+    const apiUrl = getEnvVar('VITE_XAI_API_URL') || 'https://api.x.ai/v1';
+    const body: any = { model, messages, temperature, max_tokens: maxTokens };
+    if (responseFormat === 'json') body.response_format = { type: 'json_object' };
+    const response = await fetch(`${apiUrl.replace(/\/$/, '')}/chat/completions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+        body: JSON.stringify(body),
+    });
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`xAI API error: ${response.status} - ${errorText}`);
     }
     const data = await response.json();
     return { content: data.choices?.[0]?.message?.content || '' };

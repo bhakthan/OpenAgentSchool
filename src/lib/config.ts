@@ -5,6 +5,9 @@ interface AppConfig {
   VITE_OPENAI_API_KEY: string;
   VITE_OPENAI_API_URL: string;
   VITE_OPENAI_MODEL: string;
+  VITE_XAI_API_KEY: string;
+  VITE_XAI_API_URL: string;
+  VITE_XAI_MODEL: string;
   VITE_AZURE_OPENAI_API_KEY: string;
   VITE_AZURE_OPENAI_API_URL: string;
   VITE_AZURE_OPENAI_MODEL: string;
@@ -68,6 +71,9 @@ export function getAppConfig(): Partial<AppConfig> {
     'VITE_OPENAI_API_KEY',
     'VITE_OPENAI_API_URL',
     'VITE_OPENAI_MODEL',
+    'VITE_XAI_API_KEY',
+    'VITE_XAI_API_URL',
+    'VITE_XAI_MODEL',
     'VITE_AZURE_OPENAI_API_KEY',
     'VITE_AZURE_OPENAI_API_URL',
     'VITE_AZURE_OPENAI_MODEL',
@@ -123,6 +129,7 @@ export function getConfigSource(): string {
 export function isLlmProviderConfigured(): boolean {
   const providers = [
     'VITE_OPENAI_API_KEY',
+    'VITE_XAI_API_KEY',
     'VITE_AZURE_OPENAI_API_KEY', 
     'VITE_GEMINI_API_KEY',
     'VITE_HUGGINGFACE_API_KEY',
@@ -148,6 +155,7 @@ export function isLlmProviderConfigured(): boolean {
 export function getConfiguredProviders(): string[] {
   const providerChecks = [
     { name: 'OpenAI', key: 'VITE_OPENAI_API_KEY' as const },
+    { name: 'xAI', key: 'VITE_XAI_API_KEY' as const },
     { name: 'Azure OpenAI', key: 'VITE_AZURE_OPENAI_API_KEY' as const },
     { name: 'Gemini', key: 'VITE_GEMINI_API_KEY' as const },
     { name: 'HuggingFace', key: 'VITE_HUGGINGFACE_API_KEY' as const },
@@ -213,6 +221,7 @@ export function getFirstAvailableProvider(): string {
   // 2. Auto-detect: first provider with a configured key (or URL+model for custom)
   const providerMappings = [
     { name: 'openai', key: 'VITE_OPENAI_API_KEY' as const },
+    { name: 'xai', key: 'VITE_XAI_API_KEY' as const },
     { name: 'azure', key: 'VITE_AZURE_OPENAI_API_KEY' as const },
     { name: 'gemini', key: 'VITE_GEMINI_API_KEY' as const },
     { name: 'openrouter', key: 'VITE_OPENROUTER_API_KEY' as const },

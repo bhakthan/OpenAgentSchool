@@ -73,6 +73,14 @@ const PROVIDERS = [
     urlRequired: true, modelRequired: true,
   },
   {
+    id: 'xai', label: 'xAI (Grok)',
+    hint: 'Grok models via x.ai. OpenAI-compatible endpoint, so the default URL works as-is.',
+    defaultUrl: 'https://api.x.ai/v1',
+    modelPlaceholder: 'grok-3-mini',
+    keyPlaceholder: 'Your xAI API key',
+    urlRequired: true, modelRequired: true,
+  },
+  {
     id: 'azure', label: 'Azure OpenAI',
     hint: 'Requires your deployment endpoint URL and model (deployment name).',
     defaultUrl: '',
@@ -281,6 +289,10 @@ export const APISettingsForm: React.FC<APISettingsFormProps> = ({ compact = fals
                     Sign up at your provider's site and generate a key.{' '}
                     <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                       OpenRouter keys →
+                    </a>
+                    {' '}or{' '}
+                    <a href="https://console.x.ai" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                      xAI console →
                     </a>
                   </p>
                 </div>

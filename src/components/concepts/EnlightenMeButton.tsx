@@ -338,6 +338,7 @@ Please provide:
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="openai">OpenAI</SelectItem>
+                        <SelectItem value="xai">xAI (Grok)</SelectItem>
                         <SelectItem value="azure">Azure OpenAI</SelectItem>
                         <SelectItem value="gemini">Google Gemini</SelectItem>
                       </SelectContent>
