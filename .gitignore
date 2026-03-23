@@ -19,7 +19,7 @@ backend/**/__pycache__/
 # Node
 node_modules/
 dist/
-
+tmp/
 # OS/editor
 .DS_Store
 Thumbs.db
