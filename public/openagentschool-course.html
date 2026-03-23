@@ -1,0 +1,2664 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inside Open Agent School — How the Frontend Works</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+/* ===== CSS RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-snap-type: y proximity; scroll-behavior: smooth; }
+body { font-family: var(--font-body); color: var(--color-text); line-height: var(--leading-normal); }
+
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --color-bg: #FAF7F2;
+  --color-bg-warm: #F5F0E8;
+  --color-bg-code: #1E1E2E;
+  --color-text: #2C2A28;
+  --color-text-secondary: #6B6560;
+  --color-text-muted: #9E9790;
+  --color-border: #E5DFD6;
+  --color-border-light: #EEEBE5;
+  --color-surface: #FFFFFF;
+  --color-surface-warm: #FDF9F3;
+  --color-accent: #D94F30;
+  --color-accent-hover: #C4432A;
+  --color-accent-light: #FDEEE9;
+  --color-accent-muted: #E8836C;
+  --color-success: #2D8B55;
+  --color-success-light: #E8F5EE;
+  --color-error: #C93B3B;
+  --color-error-light: #FDE8E8;
+  --color-info: #2A7B9B;
+  --color-info-light: #E4F2F7;
+  --color-actor-1: #D94F30;
+  --color-actor-2: #2A7B9B;
+  --color-actor-3: #7B6DAA;
+  --color-actor-4: #D4A843;
+  --color-actor-5: #2D8B55;
+  --font-display: 'Bricolage Grotesque', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.6;
+  --leading-loose: 1.8;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --content-width: 800px;
+  --content-width-wide: 1000px;
+  --nav-height: 50px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px rgba(44,42,40,0.05);
+  --shadow-md: 0 4px 12px rgba(44,42,40,0.08);
+  --shadow-lg: 0 8px 24px rgba(44,42,40,0.1);
+  --shadow-xl: 0 16px 48px rgba(44,42,40,0.12);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+  --ease-in-out: cubic-bezier(0.65,0,0.35,1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --stagger-delay: 120ms;
+}
+
+/* ===== BODY & SCROLLBAR ===== */
+body {
+  background: var(--color-bg);
+  background-image: radial-gradient(ellipse at 20% 50%, rgba(217,79,48,0.03) 0%, transparent 50%);
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: var(--radius-full); }
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250,247,242,0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  height: var(--nav-height);
+}
+.progress-bar {
+  position: absolute; top: 0; left: 0; height: 3px;
+  background: var(--color-accent); width: 0%;
+  transition: width 100ms linear;
+}
+.nav-inner {
+  max-width: var(--content-width-wide); margin: 0 auto;
+  padding: 0 var(--space-6); height: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--text-base); color: var(--color-text);
+}
+.nav-dots { display: flex; gap: var(--space-3); align-items: center; }
+.nav-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 2px solid var(--color-text-muted); background: transparent;
+  cursor: pointer; transition: all var(--duration-fast);
+  padding: 0;
+}
+.nav-dot:hover { border-color: var(--color-accent); }
+.nav-dot.current {
+  border-color: var(--color-accent); background: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+.nav-dot.visited { background: var(--color-accent); border-color: var(--color-accent); }
+
+/* ===== MODULES ===== */
+.module {
+  min-height: 100dvh; min-height: 100vh;
+  scroll-snap-align: start;
+  padding: var(--space-16) var(--space-6);
+  padding-top: calc(var(--nav-height) + var(--space-12));
+}
+.module-content { max-width: var(--content-width); margin: 0 auto; }
+.module-header { text-align: center; margin-bottom: var(--space-12); }
+.module-number {
+  font-family: var(--font-display); font-size: var(--text-6xl);
+  font-weight: 800; color: var(--color-accent); opacity: 0.15;
+  display: block; line-height: var(--leading-tight);
+}
+.module-title {
+  font-family: var(--font-display); font-size: var(--text-4xl);
+  font-weight: 700; color: var(--color-text);
+  line-height: var(--leading-tight); margin-top: var(--space-2);
+}
+.module-subtitle {
+  font-size: var(--text-lg); color: var(--color-text-secondary);
+  margin-top: var(--space-3); max-width: 600px; margin-left: auto; margin-right: auto;
+}
+.module-body { display: flex; flex-direction: column; gap: var(--space-16); }
+.screen { display: flex; flex-direction: column; gap: var(--space-6); }
+.screen-heading {
+  font-family: var(--font-display); font-size: var(--text-2xl);
+  font-weight: 600; color: var(--color-text);
+}
+
+/* ===== ANIMATIONS ===== */
+.animate-in {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out);
+}
+.animate-in.visible { opacity: 1; transform: translateY(0); }
+.stagger-children > .animate-in {
+  transition-delay: calc(var(--stagger-index, 0) * var(--stagger-delay));
+}
+
+/* ===== CODE TRANSLATION BLOCKS ===== */
+.translation-block {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border-radius: var(--radius-md); overflow: hidden;
+  box-shadow: var(--shadow-md); margin: var(--space-8) 0;
+}
+.translation-code {
+  background: var(--color-bg-code); color: #CDD6F4;
+  padding: var(--space-6); font-family: var(--font-mono);
+  font-size: var(--text-sm); line-height: 1.7; position: relative;
+  overflow-x: hidden;
+}
+.translation-code pre, .translation-code code {
+  white-space: pre-wrap; word-break: break-word; overflow-x: hidden;
+}
+.translation-english {
+  background: var(--color-surface-warm); padding: var(--space-6);
+  font-size: var(--text-sm); line-height: 1.7;
+  border-left: 3px solid var(--color-accent);
+}
+.translation-label {
+  position: absolute; top: var(--space-2); right: var(--space-3);
+  font-size: var(--text-xs); text-transform: uppercase;
+  letter-spacing: 0.1em; opacity: 0.5;
+}
+.translation-english .translation-label {
+  position: relative; top: auto; right: auto;
+  color: var(--color-text-muted); display: block; margin-bottom: var(--space-3);
+}
+.translation-lines { display: flex; flex-direction: column; gap: var(--space-2); }
+.tl { margin: 0; color: var(--color-text-secondary); }
+
+/* ===== SYNTAX HIGHLIGHTING ===== */
+.code-keyword { color: #CBA6F7; }
+.code-string { color: #A6E3A1; }
+.code-function { color: #89B4FA; }
+.code-comment { color: #6C7086; }
+.code-number { color: #FAB387; }
+.code-property { color: #F9E2AF; }
+.code-operator { color: #94E2D5; }
+.code-tag { color: #F38BA8; }
+.code-attr { color: #F9E2AF; }
+.code-value { color: #A6E3A1; }
+
+/* ===== QUIZ ===== */
+.quiz-container { margin: var(--space-8) 0; }
+.quiz-question-block { margin-bottom: var(--space-6); }
+.quiz-question {
+  font-family: var(--font-display); font-size: var(--text-xl);
+  font-weight: 600; margin-bottom: var(--space-4);
+}
+.quiz-options { display: flex; flex-direction: column; gap: var(--space-2); }
+.quiz-option {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border); border-radius: var(--radius-sm);
+  background: var(--color-surface); cursor: pointer; width: 100%;
+  font-family: var(--font-body); font-size: var(--text-base);
+  transition: border-color var(--duration-fast), background var(--duration-fast);
+  text-align: left;
+}
+.quiz-option:hover { border-color: var(--color-accent-muted); }
+.quiz-option.selected { border-color: var(--color-accent); background: var(--color-accent-light); }
+.quiz-option.correct { border-color: var(--color-success); background: var(--color-success-light); }
+.quiz-option.incorrect { border-color: var(--color-error); background: var(--color-error-light); }
+.quiz-option-radio {
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid var(--color-border);
+  transition: all var(--duration-fast);
+}
+.quiz-option.selected .quiz-option-radio {
+  border-color: var(--color-accent); background: var(--color-accent);
+  box-shadow: inset 0 0 0 3px white;
+}
+.quiz-option.correct .quiz-option-radio {
+  border-color: var(--color-success); background: var(--color-success);
+  box-shadow: inset 0 0 0 3px white;
+}
+.quiz-option.incorrect .quiz-option-radio {
+  border-color: var(--color-error); background: var(--color-error);
+  box-shadow: inset 0 0 0 3px white;
+}
+.quiz-feedback {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height var(--duration-normal), opacity var(--duration-normal), padding var(--duration-normal);
+  border-radius: var(--radius-sm); font-size: var(--text-sm);
+}
+.quiz-feedback.show { max-height: 200px; opacity: 1; padding: var(--space-3); margin-top: var(--space-2); }
+.quiz-feedback.success { background: var(--color-success-light); color: var(--color-success); }
+.quiz-feedback.error { background: var(--color-error-light); color: var(--color-error); }
+.quiz-feedback.warning { background: var(--color-accent-light); color: var(--color-accent); }
+.quiz-check-btn, .quiz-reset-btn {
+  padding: var(--space-2) var(--space-5); border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-weight: 600; cursor: pointer;
+  font-size: var(--text-sm); border: none; margin-top: var(--space-4);
+  margin-right: var(--space-2); transition: all var(--duration-fast);
+}
+.quiz-check-btn { background: var(--color-accent); color: white; }
+.quiz-check-btn:hover { background: var(--color-accent-hover); }
+.quiz-reset-btn { background: var(--color-border); color: var(--color-text); }
+
+/* ===== CALLOUT BOXES ===== */
+.callout {
+  display: flex; gap: var(--space-4); padding: var(--space-5);
+  border-radius: var(--radius-md); margin: var(--space-6) 0;
+}
+.callout-accent { background: var(--color-accent-light); border-left: 4px solid var(--color-accent); }
+.callout-info { background: var(--color-info-light); border-left: 4px solid var(--color-info); }
+.callout-warning { background: var(--color-error-light); border-left: 4px solid var(--color-error); }
+.callout-icon { font-size: 1.5rem; flex-shrink: 0; }
+.callout-content { flex: 1; }
+.callout-title { font-weight: 700; display: block; margin-bottom: var(--space-1); }
+
+/* ===== PATTERN/FEATURE CARDS ===== */
+.pattern-cards {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+.pattern-card {
+  background: var(--color-surface); border-radius: var(--radius-md);
+  padding: var(--space-6); box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal);
+}
+.pattern-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.pattern-icon {
+  width: 48px; height: 48px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin-bottom: var(--space-3);
+}
+.pattern-title { font-family: var(--font-display); font-weight: 600; margin-bottom: var(--space-2); }
+.pattern-desc { font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0; }
+
+/* ===== FLOW DIAGRAMS ===== */
+.flow-steps {
+  display: flex; align-items: center; gap: var(--space-3);
+  flex-wrap: wrap; justify-content: center;
+}
+.flow-step {
+  background: var(--color-surface); padding: var(--space-4);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+  text-align: center; min-width: 120px; flex: 0 0 auto;
+}
+.flow-step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--color-accent); color: white; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto var(--space-2); font-family: var(--font-display);
+  font-size: var(--text-sm);
+}
+.flow-step p { font-size: var(--text-sm); margin: 0; color: var(--color-text-secondary); }
+.flow-arrow {
+  font-size: var(--text-2xl); color: var(--color-accent); font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ===== FILE TREE ===== */
+.file-tree { font-family: var(--font-mono); font-size: var(--text-sm); }
+.ft-folder, .ft-file {
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid var(--color-border-light);
+  margin-left: var(--space-4);
+}
+.ft-folder > .ft-name { color: var(--color-accent); font-weight: 600; }
+.ft-folder > .ft-name::before { content: '📁 '; }
+.ft-file > .ft-name::before { content: '📄 '; }
+.ft-desc {
+  color: var(--color-text-secondary); font-family: var(--font-body);
+  margin-left: var(--space-2); font-size: var(--text-xs);
+}
+.ft-children { margin-left: var(--space-4); }
+
+/* ===== STEP CARDS ===== */
+.step-cards { display: flex; flex-direction: column; gap: var(--space-3); }
+.step-card {
+  display: flex; align-items: flex-start; gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface); border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-accent); box-shadow: var(--shadow-sm);
+}
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--color-accent); color: white; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); flex-shrink: 0;
+}
+.step-body p { margin: var(--space-1) 0 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+
+/* ===== ICON ROWS ===== */
+.icon-rows { display: flex; flex-direction: column; gap: var(--space-4); }
+.icon-row {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-4); background: var(--color-surface);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+}
+.icon-row p { margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+.icon-circle {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; flex-shrink: 0;
+}
+
+/* ===== BADGES ===== */
+.badge-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.badge-item {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-light); border-radius: var(--radius-sm);
+  transition: border-color var(--duration-fast);
+}
+.badge-item:hover { border-color: var(--color-accent-muted); }
+.badge-code {
+  font-family: var(--font-mono); font-size: var(--text-sm);
+  background: var(--color-bg-code); color: #CBA6F7;
+  padding: var(--space-1) var(--space-3); border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+.badge-desc { font-size: var(--text-sm); color: var(--color-text-secondary); }
+
+/* ===== GLOSSARY TOOLTIPS ===== */
+.term {
+  border-bottom: 1.5px dashed var(--color-accent-muted);
+  cursor: pointer; position: relative;
+}
+.term:hover, .term.active { border-bottom-color: var(--color-accent); color: var(--color-accent); }
+.term-tooltip {
+  position: fixed; background: var(--color-bg-code); color: #CDD6F4;
+  padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm);
+  font-size: var(--text-sm); font-family: var(--font-body);
+  line-height: var(--leading-normal);
+  width: max(200px, min(320px, 80vw));
+  box-shadow: var(--shadow-lg); pointer-events: none;
+  opacity: 0; transition: opacity var(--duration-fast); z-index: 10000;
+}
+.term-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%); border: 6px solid transparent;
+  border-top-color: var(--color-bg-code);
+}
+.term-tooltip.visible { opacity: 1; }
+.term-tooltip.flip::after {
+  top: auto; bottom: 100%;
+  border-top-color: transparent; border-bottom-color: var(--color-bg-code);
+}
+
+/* ===== CHAT ANIMATION ===== */
+.chat-window {
+  background: var(--color-surface); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md); overflow: hidden; margin: var(--space-8) 0;
+}
+.chat-messages { padding: var(--space-4); min-height: 200px; max-height: 400px; overflow-y: auto; }
+.chat-message {
+  display: flex; gap: var(--space-3); margin-bottom: var(--space-3);
+  animation: fadeSlideUp 0.3s var(--ease-out);
+}
+.chat-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 700; font-size: var(--text-sm);
+  flex-shrink: 0; font-family: var(--font-display);
+}
+.chat-bubble {
+  background: var(--color-bg); padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md); max-width: 80%;
+}
+.chat-bubble p { margin: var(--space-1) 0 0; font-size: var(--text-sm); }
+.chat-sender { font-weight: 600; font-size: var(--text-xs); }
+.chat-typing {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+.chat-typing-dots { display: flex; gap: 4px; }
+.typing-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--color-text-muted);
+  animation: typingBounce 1.4s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+.chat-controls {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border-light);
+  display: flex; gap: var(--space-2); align-items: center;
+}
+.chat-controls button {
+  padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border); background: var(--color-surface);
+  cursor: pointer; font-family: var(--font-body); font-size: var(--text-sm);
+  transition: all var(--duration-fast);
+}
+.chat-controls button:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.chat-progress { font-size: var(--text-xs); color: var(--color-text-muted); margin-left: auto; }
+
+/* ===== FLOW ANIMATION ===== */
+.flow-animation {
+  background: var(--color-surface); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md); padding: var(--space-6); margin: var(--space-8) 0;
+}
+.flow-actors {
+  display: flex; justify-content: space-around; align-items: center;
+  gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-6);
+}
+.flow-actor {
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+  padding: var(--space-4); border-radius: var(--radius-md);
+  border: 2px solid var(--color-border); transition: all var(--duration-normal) var(--ease-out);
+  min-width: 100px;
+}
+.flow-actor span { font-size: var(--text-xs); font-weight: 600; text-align: center; }
+.flow-actor-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 700; font-size: 1.25rem;
+  font-family: var(--font-display);
+}
+.flow-actor.active {
+  box-shadow: 0 0 0 3px var(--color-accent), 0 0 20px rgba(217,79,48,0.2);
+  transform: scale(1.05);
+}
+.flow-step-label {
+  text-align: center; font-size: var(--text-base); color: var(--color-text);
+  padding: var(--space-4); background: var(--color-bg);
+  border-radius: var(--radius-sm); margin: var(--space-4) 0;
+  min-height: 60px; display: flex; align-items: center; justify-content: center;
+}
+.flow-controls {
+  display: flex; gap: var(--space-2); align-items: center; justify-content: center;
+}
+.flow-controls button {
+  padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border); background: var(--color-surface);
+  cursor: pointer; font-family: var(--font-body); font-size: var(--text-sm);
+  transition: all var(--duration-fast);
+}
+.flow-controls button:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.flow-progress { font-size: var(--text-xs); color: var(--color-text-muted); margin-left: var(--space-2); }
+
+/* ===== ARCHITECTURE DIAGRAM ===== */
+.arch-diagram {
+  background: var(--color-surface); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md); padding: var(--space-6); margin: var(--space-8) 0;
+}
+.arch-zone {
+  margin-bottom: var(--space-4); padding: var(--space-4);
+  border: 2px dashed var(--color-border); border-radius: var(--radius-md);
+}
+.arch-zone-label {
+  font-family: var(--font-display); font-weight: 600;
+  color: var(--color-text-muted); font-size: var(--text-xs);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-3);
+}
+.arch-components { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.arch-component {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+  cursor: pointer; transition: all var(--duration-fast);
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+.arch-component:hover {
+  border-color: var(--color-accent); background: var(--color-accent-light);
+}
+.arch-component.active {
+  border-color: var(--color-accent); background: var(--color-accent-light);
+}
+.arch-icon { font-size: 1.25rem; }
+.arch-description {
+  margin-top: var(--space-4); padding: var(--space-4);
+  background: var(--color-bg); border-radius: var(--radius-sm);
+  font-size: var(--text-sm); color: var(--color-text-secondary);
+  min-height: 60px;
+}
+
+/* ===== SCENARIO QUIZ ===== */
+.scenario-block { margin-bottom: var(--space-6); }
+.scenario-context {
+  background: var(--color-info-light); border-left: 4px solid var(--color-info);
+  padding: var(--space-4); border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
+}
+.scenario-label {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--color-info); font-weight: 600;
+  display: block; margin-bottom: var(--space-2);
+}
+
+/* ===== KEYFRAME ANIMATIONS ===== */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  :root { --text-4xl: 1.875rem; --text-5xl: 2.25rem; --text-6xl: 3rem; }
+  .translation-block { grid-template-columns: 1fr; }
+  .translation-english { border-left: none; border-top: 3px solid var(--color-accent); }
+  .pattern-cards { grid-template-columns: 1fr 1fr; }
+  .flow-actors { flex-direction: column; }
+}
+@media (max-width: 480px) {
+  :root { --text-4xl: 1.5rem; --text-5xl: 1.875rem; --text-6xl: 2.25rem; }
+  .module { padding: var(--space-8) var(--space-4); }
+  .pattern-cards { grid-template-columns: 1fr; }
+  .flow-steps { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); }
+}
+
+/* ===== UTILITY ===== */
+pre, code {
+  white-space: pre-wrap; word-break: break-word; overflow-x: hidden;
+}
+.translation-code::-webkit-scrollbar, pre::-webkit-scrollbar { display: none; }
+
+/* ===== COMPATIBILITY PATCH — module variant classes ===== */
+
+/* Code↔English translation blocks (module variant) */
+.code-english-block, .code-english {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border-radius: var(--radius-md); overflow: visible;
+  box-shadow: var(--shadow-md); margin: var(--space-8) 0;
+}
+.code-side {
+  background: var(--color-bg-code); color: #CDD6F4;
+  padding: var(--space-6); font-family: var(--font-mono);
+  font-size: var(--text-sm); line-height: 1.7; position: relative;
+  overflow-x: hidden; border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+.code-side pre, .code-side code { white-space: pre-wrap; word-break: break-word; overflow-x: hidden; margin: 0; }
+.english-side {
+  background: var(--color-surface-warm); padding: var(--space-6);
+  font-size: var(--text-sm); line-height: 1.7;
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+.line-explanation, .english-line, .line-annotations p {
+  margin: 0 0 var(--space-2); color: var(--color-text-secondary);
+}
+.line-label {
+  font-size: var(--text-xs); text-transform: uppercase;
+  letter-spacing: 0.1em; opacity: 0.5; display: block; margin-bottom: var(--space-3);
+}
+@media (max-width: 768px) {
+  .code-english-block, .code-english { grid-template-columns: 1fr; }
+  .english-side { border-left: none; border-top: 3px solid var(--color-accent); border-radius: 0 0 var(--radius-md) var(--radius-md); }
+  .code-side { border-radius: var(--radius-md) var(--radius-md) 0 0; }
+}
+
+/* Syntax highlighting variants */
+.kw { color: #CBA6F7; }
+.str { color: #A6E3A1; }
+.prop { color: #F9E2AF; }
+.type { color: #89B4FA; }
+.fn { color: #89B4FA; }
+.cmt { color: #6C7086; }
+.num { color: #FAB387; }
+.op { color: #94E2D5; }
+.tag { color: #F38BA8; }
+
+/* Icon row variants */
+.icon-row.actor-1 { border-left: 3px solid var(--color-actor-1); }
+.icon-row.actor-2 { border-left: 3px solid var(--color-actor-2); }
+.icon-row.actor-3 { border-left: 3px solid var(--color-actor-3); }
+.icon-row.actor-4 { border-left: 3px solid var(--color-actor-4); }
+.icon-row.actor-5 { border-left: 3px solid var(--color-actor-5); }
+.icon-row-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+  background: var(--color-accent-light);
+}
+.icon-row-content { flex: 1; }
+.icon-row-content p { margin: var(--space-1) 0 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+.icon-row-text { flex: 1; }
+.icon-row-text p { margin: var(--space-1) 0 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+.row-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+  background: var(--color-accent-light);
+}
+.row-content { flex: 1; }
+.row-label { font-weight: 600; }
+.row-desc { margin: var(--space-1) 0 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+
+/* Pattern card variants */
+.pattern-card-icon {
+  width: 48px; height: 48px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin-bottom: var(--space-3);
+}
+.pattern-name { font-family: var(--font-display); font-weight: 600; margin-bottom: var(--space-2); }
+
+/* Step card variants */
+.step-number {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--color-accent); color: white; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); flex-shrink: 0;
+}
+.step-card-content { flex: 1; }
+.step-card-content p { margin: var(--space-1) 0 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+.step-title { font-weight: 600; }
+.step-desc { margin: var(--space-1) 0 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+
+/* Flow step variants */
+.flow-step-number {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--color-accent); color: white; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto var(--space-2); font-family: var(--font-display);
+  font-size: var(--text-sm);
+}
+
+/* Quiz variants */
+.quiz-prompt {
+  font-family: var(--font-display); font-size: var(--text-xl);
+  font-weight: 600; margin-bottom: var(--space-4);
+}
+.quiz-question[data-question] {
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+}
+.quiz-actions { display: flex; gap: var(--space-2); margin-top: var(--space-4); }
+.quiz-btn, .quiz-btn-check, .quiz-btn-reset {
+  padding: var(--space-2) var(--space-5); border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-weight: 600; cursor: pointer;
+  font-size: var(--text-sm); border: none; transition: all var(--duration-fast);
+}
+.quiz-btn-check { background: var(--color-accent); color: white; }
+.quiz-btn-check:hover { background: var(--color-accent-hover); }
+.quiz-btn-reset { background: var(--color-border); color: var(--color-text); }
+.option-letter {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--color-border); display: flex;
+  align-items: center; justify-content: center; font-weight: 600;
+  font-size: var(--text-sm); flex-shrink: 0;
+  transition: all var(--duration-fast);
+}
+.quiz-option.selected .option-letter {
+  border-color: var(--color-accent); background: var(--color-accent); color: white;
+}
+.quiz-option.correct .option-letter {
+  border-color: var(--color-success); background: var(--color-success); color: white;
+}
+.quiz-option.incorrect .option-letter {
+  border-color: var(--color-error); background: var(--color-error); color: white;
+}
+
+/* Callout variants */
+.callout-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
+.callout-label { font-weight: 700; }
+.callout-body, .callout-text { font-size: var(--text-sm); }
+.callout-text p { margin: 0; }
+
+/* Metaphor block */
+.metaphor-block {
+  background: var(--color-accent-light); padding: var(--space-6);
+  border-radius: var(--radius-md); border-left: 4px solid var(--color-accent);
+  margin: var(--space-6) 0;
+}
+.metaphor-icon { font-size: 2rem; margin-bottom: var(--space-2); }
+
+/* File tree variants */
+.tree-root, .tree-item { font-family: var(--font-mono); font-size: var(--text-sm); }
+.tree-root { padding: var(--space-4); background: var(--color-surface); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.tree-item, .tree-child {
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid var(--color-border-light);
+  margin-left: var(--space-4);
+}
+.tree-icon { margin-right: var(--space-2); }
+.tree-name { color: var(--color-accent); font-weight: 600; }
+.tree-desc {
+  color: var(--color-text-secondary); font-family: var(--font-body);
+  margin-left: var(--space-2); font-size: var(--text-xs);
+}
+
+/* Architecture variants */
+.arch-zone-title, .arch-label {
+  font-family: var(--font-display); font-weight: 600;
+  color: var(--color-text-muted); font-size: var(--text-xs);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-3);
+}
+
+/* Glossary term variant */
+.glossary-term {
+  border-bottom: 1.5px dashed var(--color-accent-muted);
+  cursor: pointer; position: relative;
+}
+.glossary-term:hover { border-bottom-color: var(--color-accent); color: var(--color-accent); }
+
+/* Prose & screen text */
+.prose, .screen-text {
+  font-size: var(--text-base); line-height: var(--leading-normal);
+  color: var(--color-text); max-width: var(--content-width);
+}
+.prose p, .screen-text p { margin-bottom: var(--space-4); }
+.screen-title {
+  font-family: var(--font-display); font-size: var(--text-2xl);
+  font-weight: 600; color: var(--color-text); margin-bottom: var(--space-4);
+}
+
+/* Spacer */
+.spacer { height: var(--space-8); }
+
+/* Tooltip bank (hidden definitions container) */
+.tooltip-bank { display: none; }
+
+/* Empty state placeholder */
+.empty { min-height: var(--space-4); }
+
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="progress-bar"></div>
+    <div class="nav-inner">
+      <span class="nav-title">Inside Open Agent School</span>
+      <div class="nav-dots">
+        <button class="nav-dot current" data-target="module-1" title="What Does This App Do?"></button>
+        <button class="nav-dot" data-target="module-2" title="Meet the Cast"></button>
+        <button class="nav-dot" data-target="module-3" title="The Journey of a Page Load"></button>
+        <button class="nav-dot" data-target="module-4" title="Where the Knowledge Lives"></button>
+        <button class="nav-dot" data-target="module-5" title="How the Pieces Talk"></button>
+        <button class="nav-dot" data-target="module-6" title="The Clever Tricks"></button>
+        <button class="nav-dot" data-target="module-7" title="Putting It All Together"></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MODULES GO HERE -->
+
+
+<section class="module" id="module-1" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">What Does This App Do?</h1>
+      <p class="module-subtitle">Before we read a single line of code, let's understand what this product is and what happens when a learner uses it.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- Screen 1: A School for the AI Agent Era -->
+      <div class="screen animate-in" id="screen-1-1">
+        <h2 class="screen-title">A School for the AI Agent Era</h2>
+        <p>Open Agent School is where people learn to build, understand, and work with AI agents. It's a <span class="term" data-definition="A single-page application built with React that runs entirely in the browser, fetching data from backend APIs as needed.">React web app</span> with 85+ interactive concept pages, 70+ agent design patterns, Socratic study mode, quizzes, and D3-powered visualizations.</p>
+
+        <div class="icon-rows animate-in">
+          <div class="icon-row">
+            <span class="icon-row-icon">🧠</span>
+            <div class="icon-row-text">
+              <strong>85+ Concept Pages</strong>
+              <span>From "What is an LLM?" to multi-agent orchestration</span>
+            </div>
+          </div>
+          <div class="icon-row">
+            <span class="icon-row-icon">🧩</span>
+            <div class="icon-row-text">
+              <strong>70+ Agent Patterns</strong>
+              <span>Reusable blueprints like ReAct, RAG, Code Act</span>
+            </div>
+          </div>
+          <div class="icon-row">
+            <span class="icon-row-icon">📊</span>
+            <div class="icon-row-text">
+              <strong>Interactive Visualizations</strong>
+              <span>D3 trees, ReactFlow diagrams, animated data flows</span>
+            </div>
+          </div>
+          <div class="icon-row">
+            <span class="icon-row-icon">🎓</span>
+            <div class="icon-row-text">
+              <strong>Socratic Study Mode</strong>
+              <span>AI asks YOU questions to deepen understanding</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 2: The Tech Stack at a Glance -->
+      <div class="screen animate-in" id="screen-1-2">
+        <h2 class="screen-title">The Tech Stack at a Glance</h2>
+        <p>Six core technologies power everything you see. Each one plays a distinct role.</p>
+
+        <div class="pattern-cards animate-in">
+          <div class="pattern-card" style="border-color: var(--color-actor-1)">
+            <span class="pattern-card-icon">⚛️</span>
+            <h3><span class="term" data-definition="A JavaScript library for building user interfaces out of composable, reusable components. Created by Meta, it's the most popular UI framework in web development.">React</span> 18</h3>
+            <p>The UI framework — components, state, rendering</p>
+          </div>
+          <div class="pattern-card" style="border-color: var(--color-actor-2)">
+            <span class="pattern-card-icon">📘</span>
+            <h3><span class="term" data-definition="A superset of JavaScript that adds static type annotations. It catches type errors at compile time rather than at runtime, making large codebases safer to refactor.">TypeScript</span></h3>
+            <p>JavaScript with type safety — catches bugs before runtime</p>
+          </div>
+          <div class="pattern-card" style="border-color: var(--color-actor-3)">
+            <span class="pattern-card-icon">⚡</span>
+            <h3><span class="term" data-definition="A modern build tool that uses native ES modules during development for near-instant hot module replacement, and Rollup under the hood for optimized production builds.">Vite</span></h3>
+            <p>Lightning-fast build tool — hot reload in milliseconds</p>
+          </div>
+          <div class="pattern-card" style="border-color: var(--color-actor-4)">
+            <span class="pattern-card-icon">🎨</span>
+            <h3><span class="term" data-definition="A CSS framework that provides low-level utility classes like 'flex', 'p-4', and 'text-blue-500' so you style elements directly in HTML without writing custom CSS files.">Tailwind CSS</span></h3>
+            <p>Utility-first styling — no CSS files needed</p>
+          </div>
+          <div class="pattern-card" style="border-color: var(--color-actor-5)">
+            <span class="pattern-card-icon">🧱</span>
+            <h3><span class="term" data-definition="A library of unstyled, accessible UI components like dialogs, dropdowns, and tabs. It handles keyboard navigation and ARIA attributes so you can focus on visual design.">Radix UI</span></h3>
+            <p>Accessible, unstyled component primitives</p>
+          </div>
+          <div class="pattern-card" style="border-color: var(--color-actor-1)">
+            <span class="pattern-card-icon">📈</span>
+            <h3><span class="term" data-definition="Data-Driven Documents — a JavaScript library for producing dynamic, interactive data visualizations in the browser using SVG, Canvas, and HTML.">D3.js</span></h3>
+            <p>Data-driven visualizations — the Learning Atlas tree</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 3: Trace a User Journey -->
+      <div class="screen animate-in" id="screen-1-3">
+        <h2 class="screen-title">Trace a User Journey</h2>
+        <p>Imagine you open the app. Here's what happens under the hood — six steps from URL to rendered page.</p>
+
+        <div class="step-cards animate-in">
+          <div class="step-card">
+            <span class="step-number">1</span>
+            <div class="step-card-content">
+              <h3>You visit openagentschool.org</h3>
+              <p>Your browser loads <code>index.html</code> and the <span class="term" data-definition="Vite combines and optimizes all the app's JavaScript, TypeScript, and CSS into a small number of files (bundles) for fast delivery to the browser.">Vite-bundled</span> JavaScript</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <span class="step-number">2</span>
+            <div class="step-card-content">
+              <h3>React boots up</h3>
+              <p><code>main.tsx</code> creates the React root and wraps everything in providers</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <span class="step-number">3</span>
+            <div class="step-card-content">
+              <h3>The router picks a page</h3>
+              <p><span class="term" data-definition="A library that maps URL paths to React components. When the URL changes, React Router renders the matching component without a full page reload.">React Router</span> matches the URL to a component like <code>ConceptsExplorer</code></p>
+            </div>
+          </div>
+          <div class="step-card">
+            <span class="step-number">4</span>
+            <div class="step-card-content">
+              <h3><span class="term" data-definition="Loading code only when needed, not all at once upfront — like a library that only brings books to your desk when you ask for them.">Lazy loading</span> kicks in</h3>
+              <p>The component's code is fetched on demand — not upfront</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <span class="step-number">5</span>
+            <div class="step-card-content">
+              <h3>You see the concepts grid</h3>
+              <p>85 concept cards render with icons, levels, and estimated times</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <span class="step-number">6</span>
+            <div class="step-card-content">
+              <h3>You click "Agent Architecture"</h3>
+              <p>React navigates to <code>/concepts/agent-architecture</code> and lazy-loads that page</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 4: What Makes It Special -->
+      <div class="screen animate-in" id="screen-1-4">
+        <h2 class="screen-title">What Makes It Special</h2>
+
+        <div class="callout callout-accent animate-in">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <strong>Key Insight</strong>
+            <p>This isn't just a documentation site. It's a full learning platform — with interactive simulations, AI-powered Socratic questioning, voice input, offline support (<span class="term" data-definition="Progressive Web App — a web app that can be installed on your device, work offline, and send push notifications, blurring the line between websites and native apps.">PWA</span>), and real backend integration for quizzes, progress tracking, and community sharing.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-info animate-in">
+          <span class="callout-icon">🧭</span>
+          <div class="callout-content">
+            <strong>Why This Matters for You</strong>
+            <p>Understanding how this app works teaches you real patterns used in production React apps: lazy loading, provider hierarchies, <span class="term" data-definition="Boolean flags that enable or disable features without deploying new code. They let teams test features with a subset of users or roll back instantly if something breaks.">feature flags</span>, API clients with auth, and progressive web app techniques.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="module" id="module-2" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">Meet the Cast</h1>
+      <p class="module-subtitle">Every app is a team of specialists. Here's who does what.</p>
+    </header>
+    <div class="module-body">
+
+      <!-- Screen 1: The Metaphor — A University Campus -->
+      <div class="screen animate-in" id="screen-2-1">
+        <h2 class="screen-title">The Metaphor — A University Campus</h2>
+        <p>Think of this codebase like a university campus. There are departments (component folders), each with professors (<span class="term" data-definition="A reusable, self-contained piece of UI that manages its own rendering and behavior — like a building block for your interface.">components</span>) who specialize in different subjects.</p>
+        <p>The <code>src/</code> folder is the campus, and <code>src/components/</code> is where 47 departments live.</p>
+
+        <div class="file-tree animate-in">
+          <div class="tree-item tree-root">
+            <span class="tree-icon">📁</span>
+            <span class="tree-name">src/</span>
+            <span class="tree-desc">— The entire campus</span>
+          </div>
+          <div class="tree-item tree-child">
+            <span class="tree-icon">📁</span>
+            <span class="tree-name">components/</span>
+            <span class="tree-desc">— 47 departments (concepts, patterns, viz, study-mode…)</span>
+          </div>
+          <div class="tree-item tree-child">
+            <span class="tree-icon">📁</span>
+            <span class="tree-name">pages/</span>
+            <span class="tree-desc">— 35+ full-page views (Auth, Admin, Bookmarks…)</span>
+          </div>
+          <div class="tree-item tree-child">
+            <span class="tree-icon">📁</span>
+            <span class="tree-name">lib/</span>
+            <span class="tree-desc">— Shared utilities, business logic, hooks</span>
+          </div>
+          <div class="tree-item tree-child">
+            <span class="tree-icon">📁</span>
+            <span class="tree-name">services/</span>
+            <span class="tree-desc">— API client for talking to the backend</span>
+          </div>
+          <div class="tree-item tree-child">
+            <span class="tree-icon">📁</span>
+            <span class="tree-name">contexts/</span>
+            <span class="tree-desc">— 5 global state providers</span>
+          </div>
+          <div class="tree-item tree-child">
+            <span class="tree-icon">📁</span>
+            <span class="tree-name">hooks/</span>
+            <span class="tree-desc">— 18+ reusable <span class="term" data-definition="A JavaScript library for building user interfaces with reusable components and a virtual DOM for efficient updates.">React</span> hooks</span>
+          </div>
+          <div class="tree-item tree-child">
+            <span class="tree-icon">📁</span>
+            <span class="tree-name">data/</span>
+            <span class="tree-desc">— Static concept and pattern definitions</span>
+          </div>
+          <div class="tree-item tree-child">
+            <span class="tree-icon">📄</span>
+            <span class="tree-name">App.tsx</span>
+            <span class="tree-desc">— The main orchestrator — 1,050+ lines</span>
+          </div>
+          <div class="tree-item tree-child">
+            <span class="tree-icon">📄</span>
+            <span class="tree-name">main.tsx</span>
+            <span class="tree-desc">— The entry point — boots up <span class="term" data-definition="A JavaScript library for building user interfaces with reusable components and a virtual DOM for efficient updates.">React</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 2: The Five Main Actors -->
+      <div class="screen animate-in" id="screen-2-2">
+        <h2 class="screen-title">The Five Main Actors</h2>
+        <div class="icon-rows animate-in">
+          <div class="icon-row actor-1">
+            <span class="icon-row-icon">🧠</span>
+            <div class="icon-row-content">
+              <strong>Concepts</strong>
+              <p>85+ educational pages — from "What is an LLM?" to "Quantum AI Robotics". Each is a <span class="term" data-definition="A technique where a component's code isn't downloaded until the user actually navigates to it — keeping the initial page load fast.">lazy-loaded</span> <span class="term" data-definition="A JavaScript library for building user interfaces with reusable components and a virtual DOM for efficient updates.">React</span> <span class="term" data-definition="A reusable, self-contained piece of UI that manages its own rendering and behavior — like a building block for your interface.">component</span>.</p>
+            </div>
+          </div>
+          <div class="icon-row actor-2">
+            <span class="icon-row-icon">🧩</span>
+            <div class="icon-row-content">
+              <strong>Patterns</strong>
+              <p>70+ agent design patterns with interactive <span class="term" data-definition="A React library for building interactive node-based diagrams — used here to visualize how agents connect and communicate.">ReactFlow</span> diagrams, code examples, and velocity profiles.</p>
+            </div>
+          </div>
+          <div class="icon-row actor-3">
+            <span class="icon-row-icon">📊</span>
+            <div class="icon-row-content">
+              <strong>Visualization</strong>
+              <p>50+ <span class="term" data-definition="A reusable, self-contained piece of UI that manages its own rendering and behavior — like a building block for your interface.">components</span> — <span class="term" data-definition="A JavaScript library for creating data-driven visualizations using SVG, Canvas, and HTML — powers the Learning Atlas tree.">D3</span> trees, <span class="term" data-definition="A React library for building interactive node-based diagrams — used here to visualize how agents connect and communicate.">ReactFlow</span> diagrams, Mermaid charts, animated data flows.</p>
+            </div>
+          </div>
+          <div class="icon-row actor-4">
+            <span class="icon-row-icon">🎓</span>
+            <div class="icon-row-content">
+              <strong>Study Mode</strong>
+              <p>Socratic learning system — AI asks questions, tracks mastery, handles confusion checkpoints.</p>
+            </div>
+          </div>
+          <div class="icon-row actor-5">
+            <span class="icon-row-icon">🔧</span>
+            <div class="icon-row-content">
+              <strong>UI Library</strong>
+              <p>50+ pre-styled <span class="term" data-definition="A collection of unstyled, accessible UI primitives for React — provides the behavior, you provide the look.">Radix UI</span> <span class="term" data-definition="A reusable, self-contained piece of UI that manages its own rendering and behavior — like a building block for your interface.">components</span> — buttons, dialogs, dropdowns, toasts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 3: The Supporting Cast -->
+      <div class="screen animate-in" id="screen-2-3">
+        <h2 class="screen-title">The Supporting Cast</h2>
+        <p>Beyond the headliners, these specialists handle critical behind-the-scenes work.</p>
+        <div class="pattern-cards animate-in">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <span class="pattern-card-icon">🔐</span>
+            <strong>Auth</strong>
+            <p>Login, OAuth, JWT tokens, user menu</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <span class="pattern-card-icon">🔍</span>
+            <strong>Search</strong>
+            <p>Quick nav (Ctrl+K), knowledge search</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <span class="pattern-card-icon">🗣️</span>
+            <strong>Voice</strong>
+            <p>Voice input via Whisper WASM — speak to navigate</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+            <span class="pattern-card-icon">📱</span>
+            <strong>PWA</strong>
+            <p>Works offline, installable, background sync</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-5)">
+            <span class="pattern-card-icon">🏪</span>
+            <strong>Marketing</strong>
+            <p>Landing pages, CTA ribbons, A/B testing</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <span class="pattern-card-icon">⚙️</span>
+            <strong>Settings</strong>
+            <p>User preferences, API keys (BYOK), feature flags</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 4: A Closer Look — How a Concept Page Works -->
+      <div class="screen animate-in" id="screen-2-4">
+        <h2 class="screen-title">A Closer Look — How a Concept Page Works</h2>
+        <p>Each of the 85+ concepts follows the same pattern. Here's how <code>ConceptsHub.tsx</code> defines a concept.</p>
+
+        <div class="code-english-block animate-in">
+          <div class="code-side">
+            <pre><code><span class="kw">interface</span> <span class="type">ConceptInfo</span> {
+  <span class="prop">id</span>: <span class="type">string</span>
+  <span class="prop">title</span>: <span class="type">string</span>
+  <span class="prop">description</span>: <span class="type">string</span>
+  <span class="prop">level</span>: <span class="str">'fundamentals'</span> | <span class="str">'architecture'</span> | <span class="str">'implementation'</span> | <span class="str">'advanced'</span> | <span class="str">'applied'</span>
+  <span class="prop">icon</span>: <span class="type">React.ReactNode</span>
+  <span class="prop">color</span>: <span class="type">string</span>
+  <span class="prop">estimatedTime</span>: <span class="type">string</span>
+  <span class="prop">prerequisites</span>: <span class="type">string[]</span>
+  <span class="prop">component</span>?: <span class="type">React.ComponentType</span>
+}</code></pre>
+          </div>
+          <div class="english-side">
+            <div class="english-line"><span class="line-label"><span class="term" data-definition="A TypeScript structure that defines the shape of an object — what properties it must have and what types those properties are.">TypeScript interface</span></span> "This is the blueprint for every concept in the app."</div>
+            <div class="english-line"><span class="line-label">id</span> "A unique <span class="term" data-definition="A naming convention that uses lowercase words separated by hyphens — like 'agent-architecture' or 'fine-tuning'.">kebab-case</span> name like 'agent-architecture'"</div>
+            <div class="english-line"><span class="line-label">title</span> "The display name shown on the card"</div>
+            <div class="english-line"><span class="line-label">description</span> "A short description (under 140 characters)"</div>
+            <div class="english-line"><span class="line-label">level</span> "Which learning tier it belongs to — from basics to applied"</div>
+            <div class="english-line"><span class="line-label">icon</span> "The icon <span class="term" data-definition="A reusable, self-contained piece of UI that manages its own rendering and behavior — like a building block for your interface.">component</span> shown on the concept card"</div>
+            <div class="english-line"><span class="line-label">color</span> "<span class="term" data-definition="A utility-first CSS framework where you style elements by composing small, single-purpose classes directly in your HTML.">Tailwind CSS</span> classes for the card's color scheme"</div>
+            <div class="english-line"><span class="line-label">estimatedTime</span> "How long the learner should expect to spend"</div>
+            <div class="english-line"><span class="line-label">prerequisites</span> "Which other concepts should be completed first"</div>
+            <div class="english-line"><span class="line-label"><span class="term" data-definition="A TypeScript type representing any valid React component — either a class component or a function component.">React.ComponentType</span></span> "The <span class="term" data-definition="A JavaScript library for building user interfaces with reusable components and a virtual DOM for efficient updates.">React</span> <span class="term" data-definition="A reusable, self-contained piece of UI that manages its own rendering and behavior — like a building block for your interface.">component</span> that renders the full concept page"</div>
+          </div>
+        </div>
+
+        <p>Every concept card you see on the hub is generated from an object matching this shape — data in, UI out.</p>
+      </div>
+
+      <!-- Screen 5: Callout — Separation of Concerns -->
+      <div class="screen animate-in" id="screen-2-5">
+        <h2 class="screen-title">The Big Takeaway</h2>
+        <div class="callout callout-accent animate-in">
+          <div class="callout-header">
+            <span class="callout-icon">💡</span>
+            <strong>Key Insight</strong>
+          </div>
+          <div class="callout-body">
+            <p>Notice how each concept page is its own file — <code>AgentArchitectureConcept.tsx</code>, <code>MCPConcept.tsx</code>, etc. This pattern is called <span class="term" data-definition="A design principle where each part of the code handles one specific responsibility — like how a hospital has different departments for different specialties.">separation of concerns</span>.</p>
+            <p>Each file has one job. If something breaks in the MCP page, you know exactly where to look. When talking to an AI coding agent, you'd say "edit the MCPConcept <span class="term" data-definition="A reusable, self-contained piece of UI that manages its own rendering and behavior — like a building block for your interface.">component</span>" and it knows precisely which file to change.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="module" id="module-3" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">The Journey of a Page Load</h1>
+      <p class="module-subtitle">From URL to pixels — how every page reaches your screen.</p>
+    </header>
+    <div class="module-body">
+
+      <!-- Screen 1: The Metaphor — An Airport Control Tower -->
+      <div class="screen animate-in" id="screen-3-1">
+        <h2 class="screen-title">The Metaphor — An Airport Control Tower</h2>
+        <p class="screen-text">
+          A URL hitting this app is like a plane landing at an airport.
+          The <span class="term" data-definition="The part of a web app that decides which page to show based on the URL — like a switchboard operator directing calls.">router</span>
+          is the control tower — it reads the flight number (URL path), finds the right gate (component), and directs the plane there.
+        </p>
+        <div class="flow-steps animate-in">
+          <div class="flow-step">
+            <span class="flow-step-number">1</span>
+            <span class="flow-step-label">URL arrives</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <span class="flow-step-number">2</span>
+            <span class="flow-step-label">Router matches path</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <span class="flow-step-number">3</span>
+            <span class="flow-step-label">Lazy-load component</span>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <span class="flow-step-number">4</span>
+            <span class="flow-step-label">Render on screen</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 2: The Entry Point — main.tsx -->
+      <div class="screen animate-in" id="screen-3-2">
+        <h2 class="screen-title">The Entry Point — main.tsx</h2>
+        <p class="screen-text">
+          Everything starts in <code>main.tsx</code> — just 30 lines that boot up the entire application.
+        </p>
+        <div class="code-english-block animate-in">
+          <div class="code-side">
+            <pre><code>const Router = useHash ? HashRouter : BrowserRouter;
+
+createRoot(document.getElementById('root')!).render(
+  &lt;React.StrictMode&gt;
+    &lt;QueryProvider&gt;
+      &lt;Router&gt;
+        &lt;App /&gt;
+      &lt;/Router&gt;
+    &lt;/QueryProvider&gt;
+  &lt;/React.StrictMode&gt;
+)</code></pre>
+          </div>
+          <div class="english-side">
+            <p class="line-explanation">Pick the right type of URL handling — hash (#) for GitHub Pages, normal for everything else</p>
+            <p class="line-explanation empty"></p>
+            <p class="line-explanation">Find the HTML element with id 'root' and start rendering React inside it</p>
+            <p class="line-explanation">Turn on extra checks that help catch bugs during development</p>
+            <p class="line-explanation">Wrap everything in React Query — so API data is cached and shared</p>
+            <p class="line-explanation">Wrap everything in the router — so URLs map to pages</p>
+            <p class="line-explanation">Render the main App component — the orchestrator of everything</p>
+            <p class="line-explanation">Close the router wrapper</p>
+            <p class="line-explanation">Close React Query wrapper</p>
+            <p class="line-explanation">Close strict mode</p>
+            <p class="line-explanation">Send this whole tree to the browser to display</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 3: 45+ Routes in One File -->
+      <div class="screen animate-in" id="screen-3-3">
+        <h2 class="screen-title">45+ Routes in One File</h2>
+        <p class="screen-text">
+          <code>App.tsx</code> defines 45+ <span class="term" data-definition="A mapping between a URL path and the component that should render. Like an address book: '/quiz' → show QuizSection.">routes</span>
+          — every URL the app responds to. Here's a taste.
+        </p>
+        <div class="code-english-block animate-in">
+          <div class="code-side">
+            <pre><code>&lt;Route path="/" element={&lt;ConceptsExplorer /&gt;} /&gt;
+&lt;Route path="/concepts/:conceptId?" element={&lt;ConceptsExplorer /&gt;} /&gt;
+&lt;Route path="/patterns/:patternId?" element={&lt;PatternExplorer /&gt;} /&gt;
+&lt;Route path="/study-mode" element={&lt;StudyMode /&gt;} /&gt;
+&lt;Route path="/quiz/:quizId?" element={&lt;QuizSection /&gt;} /&gt;
+&lt;Route path="/phase1-lab" element={
+  &lt;AuthGuard&gt;
+    &lt;FeatureFlagGate flag="phase1-lab"&gt;
+      &lt;Phase1LabPage /&gt;
+    &lt;/FeatureFlagGate&gt;
+  &lt;/AuthGuard&gt;
+} /&gt;</code></pre>
+          </div>
+          <div class="english-side">
+            <p class="line-explanation">Home page shows the concept explorer grid</p>
+            <p class="line-explanation">Visiting /concepts/agent-architecture loads that specific concept. The ? means the ID is optional.</p>
+            <p class="line-explanation">Same pattern for agent patterns — /patterns/react-agent</p>
+            <p class="line-explanation">Study mode gets its own simple route</p>
+            <p class="line-explanation">Quiz page, optionally filtered by quiz ID</p>
+            <p class="line-explanation">Phase 1 Lab is triple-wrapped: first check if user is logged in (<span class="term" data-definition="A wrapper component that checks if you're logged in. If not, it redirects you to the login page.">AuthGuard</span>), then check if the <span class="term" data-definition="An on/off switch for features. Lets you deploy code without exposing it to users until it's ready — like a backstage curtain.">feature flag</span> is enabled (FeatureFlagGate), THEN show the page. This is access control in action.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 4: Lazy Loading — Load Only What You Need -->
+      <div class="screen animate-in" id="screen-3-4">
+        <h2 class="screen-title">Lazy Loading — Load Only What You Need</h2>
+        <p class="screen-text">
+          With 85+ concept pages, loading them all upfront would be brutal. Lazy loading fixes this.
+        </p>
+        <div class="code-english-block animate-in">
+          <div class="code-side">
+            <pre><code>const ConceptsExplorer = lazy(() =&gt; import('./components/concepts/ConceptsExplorer'));
+const PatternExplorer = lazy(() =&gt; import('./components/patterns/PatternExplorer'));
+const StudyMode = lazy(() =&gt; import('./components/study-mode/StudyMode'));
+const TreeVisualizationPage = lazy(() =&gt; import('./components/pages/TreeVisualizationPage'));</code></pre>
+          </div>
+          <div class="english-side">
+            <p class="line-explanation">Don't load ConceptsExplorer code until someone actually visits that page</p>
+            <p class="line-explanation">Same for patterns — only fetch the code when needed</p>
+            <p class="line-explanation">Study mode is heavy (AI integration) — definitely lazy-load it</p>
+            <p class="line-explanation">The D3 tree visualization is huge — lazy loading keeps initial load fast</p>
+          </div>
+        </div>
+        <div class="callout callout-accent animate-in">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <strong>Key Insight</strong>
+            <p>Lazy loading is one of the most impactful performance patterns in modern web apps. Instead of shipping ALL 85 concept pages to every visitor, only the one they click on gets downloaded. It's like a streaming service that buffers only the scene you're watching, not the entire movie.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 5: The Four-Tier Navigation -->
+      <div class="screen animate-in" id="screen-3-5">
+        <h2 class="screen-title">The Four-Tier Navigation</h2>
+        <p class="screen-text">
+          The nav bar organizes 30+ pages into four color-coded <span class="term" data-definition="A large dropdown menu that shows multiple categories and links at once — common on sites with lots of content, like Amazon or news sites.">mega-menu</span> categories.
+        </p>
+        <div class="pattern-cards animate-in">
+          <div class="pattern-card" style="border-top: 3px solid #3b82f6">
+            <span class="pattern-icon">🎓</span>
+            <h3 class="pattern-name">Learn</h3>
+            <p class="pattern-desc">Core concepts, micro-learning, byte-sized cards, safety lab, cognitive lab</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid #f59e0b">
+            <span class="pattern-icon">⚡</span>
+            <h3 class="pattern-name">Apply</h3>
+            <p class="pattern-desc">Agents for science, adoption playbook, AI skills, Azure services</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid #10b981">
+            <span class="pattern-icon">💻</span>
+            <h3 class="pattern-name">Practice</h3>
+            <p class="pattern-desc">Study mode, quizzes, project tracks, pair programming, community, sandbox</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid #8b5cf6">
+            <span class="pattern-icon">🔧</span>
+            <h3 class="pattern-name">Tools</h3>
+            <p class="pattern-desc">API docs, agents console, skill passport, settings</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="module" id="module-4" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">Where the Knowledge Lives</h1>
+      <p class="module-subtitle">Every concept, pattern, and quiz question has a home. Let's find them.</p>
+    </header>
+    <div class="module-body">
+
+      <!-- ════════════════════════════════════════════
+           Screen 1: The Metaphor — A Library Card Catalog
+           ════════════════════════════════════════════ -->
+      <div class="screen animate-in" id="screen-4-1">
+        <h2 class="screen-title">The Metaphor — A Library Card Catalog</h2>
+        <div class="prose">
+          <p>
+            Before digital databases, libraries had card catalogs — wooden drawers
+            with index cards describing every book. This codebase works the same way.
+            Each concept has a "card" (a JavaScript
+            <span class="term" data-definition="A collection of related data grouped together — like a contact card that has name, phone, and email fields.">object</span>)
+            with its title, description, difficulty level, and which shelf
+            (<span class="term" data-definition="A self-contained piece of UI that receives data and renders HTML — like a LEGO brick that knows how to draw itself.">component</span>
+            file) to find the full content on.
+          </p>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════
+           Screen 2: The Concept Data Model
+           ════════════════════════════════════════════ -->
+      <div class="screen animate-in" id="screen-4-2">
+        <h2 class="screen-title">The Concept Data Model</h2>
+        <p class="prose">
+          Every concept is defined as a data
+          <span class="term" data-definition="A collection of related data grouped together — like a contact card that has name, phone, and email fields.">object</span>
+          in <code>ConceptsHub.tsx</code>. Here's a real example.
+        </p>
+
+        <div class="code-english-block animate-in">
+          <div class="code-side">
+            <pre><code>{
+  id: 'agent-architecture',
+  title: 'Agent Architecture &amp; Lifecycle',
+  description: 'See how the four core parts work together inside an agent.',
+  level: 'fundamentals',
+  icon: &lt;Brain className="w-6 h-6" /&gt;,
+  color: 'bg-background text-foreground/80 dark:bg-blue-900/20',
+  estimatedTime: '25-35 min',
+  prerequisites: [],
+  component: AgentArchitectureConcept
+}</code></pre>
+          </div>
+          <div class="english-side">
+            <ol class="line-annotations">
+              <li>Opening brace — start of one concept's "card"</li>
+              <li>Unique ID used in URLs: <code>/concepts/agent-architecture</code></li>
+              <li>Display name shown on the concept card</li>
+              <li>Short description — kept under 140 characters for card layout</li>
+              <li>Learning tier — fundamentals, architecture, implementation, advanced, or applied</li>
+              <li>A brain icon rendered at 24×24 pixels</li>
+              <li><span class="term" data-definition="A utility-first CSS framework where you style elements by combining small class names like 'bg-blue-500' and 'text-white' instead of writing custom CSS.">Tailwind</span> classes that give the card its color (blue tint in dark mode)</li>
+              <li>How long a learner should expect to spend</li>
+              <li>Empty <span class="term" data-definition="An ordered list of items in code, written with square brackets — like a numbered shopping list that can hold zero or more entries.">array</span> — no prerequisites needed (this is a starting concept)</li>
+              <li>Which React <span class="term" data-definition="A self-contained piece of UI that receives data and renders HTML — like a LEGO brick that knows how to draw itself.">component</span> renders the full page when you click this card</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════
+           Screen 3: The Five Learning Tiers
+           ════════════════════════════════════════════ -->
+      <div class="screen animate-in" id="screen-4-3">
+        <h2 class="screen-title">The Five Learning Tiers</h2>
+        <p class="prose">
+          Concepts are organized into five tiers, from beginner to expert. Each tier builds on the
+          <span class="term" data-definition="A concept you should understand BEFORE tackling this one — like how you need addition before multiplication.">prerequisite</span>
+          knowledge of the ones below it.
+        </p>
+
+        <div class="step-cards animate-in">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>🌱 Fundamentals</h3>
+            <p>Start here — LLMs, prompting, tool use, RAG basics. No prerequisites.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>🏗️ Architecture</h3>
+            <p>How agents are built — perception, reasoning, memory, action loops.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>⚙️ Implementation</h3>
+            <p>Hands-on patterns — deployment, integration, testing, observability.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h3>🚀 Advanced</h3>
+            <p>Deep dives — multi-agent orchestration, cost optimization, red teaming.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">5</div>
+            <h3>🏭 Applied</h3>
+            <p>Real-world domains — robotics, science, industry agents, commerce.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════
+           Screen 4: The Pattern Data Model
+           ════════════════════════════════════════════ -->
+      <div class="screen animate-in" id="screen-4-4">
+        <h2 class="screen-title">The Pattern Data Model</h2>
+        <p class="prose">
+          Agent patterns have an even richer data structure — they include interactive flow diagrams powered by
+          <span class="term" data-definition="A React library for building interactive node-and-edge diagrams — the boxes-and-arrows you see in the pattern visualizer.">ReactFlow</span>.
+        </p>
+
+        <div class="code-english-block animate-in">
+          <div class="code-side">
+            <pre><code><span class="term" data-definition="In TypeScript, an interface defines the shape of data — like a form template that says 'every pattern MUST have a name, description, and nodes.'">interface</span> PatternData {
+  id: string
+  name: string
+  description: string
+  nodes: PatternNode[]
+  edges: PatternEdge[]
+  useCases: string[]
+  codeExample: string
+  pythonCodeExample?: string
+  velocityProfile?: VelocityProfile
+  evaluationProfile?: PatternEvaluationProfile
+}</code></pre>
+          </div>
+          <div class="english-side">
+            <ol class="line-annotations">
+              <li>Blueprint for every agent pattern</li>
+              <li>Unique ID like <code>'react-agent'</code> or <code>'agentic-rag'</code></li>
+              <li>Display name: <code>'ReAct Agent'</code></li>
+              <li>What this pattern does and when to use it</li>
+              <li>The boxes in the flow diagram — LLM, tools, routers, etc.</li>
+              <li>The arrows connecting the boxes — showing data flow</li>
+              <li>Real-world scenarios where this pattern shines</li>
+              <li><span class="term" data-definition="A statically typed superset of JavaScript that adds type annotations — letting you catch errors before running the code.">TypeScript</span> code showing how to implement it</li>
+              <li>Optional Python version of the same pattern</li>
+              <li>Optional scoring: impact, complexity, learning curve (1–10)</li>
+              <li>Optional test criteria for evaluating this pattern</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════
+           Screen 5: The Data Landscape
+           ════════════════════════════════════════════ -->
+      <div class="screen animate-in" id="screen-4-5">
+        <h2 class="screen-title">The Data Landscape</h2>
+        <p class="prose">
+          Beyond concepts and patterns, there's a rich ecosystem of data spread across the codebase.
+        </p>
+
+        <div class="pattern-cards animate-in">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon">📚</div>
+            <h3>85+ Concepts</h3>
+            <p>Defined inline in ConceptsHub.tsx — each with level, time, prerequisites</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon">🧩</div>
+            <h3>70+ Patterns</h3>
+            <p>In src/lib/data/patterns/ — nodes, edges, code examples, velocity scores</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon">❓</div>
+            <h3>Quiz Questions</h3>
+            <p>Category-based quizzes fetched from the backend API</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon">📖</div>
+            <h3>References</h3>
+            <p>Curated papers, videos, and resources in src/data/</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-5)">
+            <div class="pattern-icon">🔑</div>
+            <h3>72 Concept IDs</h3>
+            <p>Canonical <span class="term" data-definition="A naming convention where words are joined by hyphens and all lowercase — like 'agent-architecture' or 'fine-tuning'. Makes IDs URL-safe and human-readable.">kebab-case</span> IDs with legacy alias resolution in constants/concepts.ts</p>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <div class="callout-header">
+            <span class="callout-icon">💡</span>
+            <span class="callout-label">Key Insight</span>
+          </div>
+          <div class="callout-body">
+            <p>
+              The concept data is defined inline in the
+              <span class="term" data-definition="A self-contained piece of UI that receives data and renders HTML — like a LEGO brick that knows how to draw itself.">component</span>
+              file, not in a database. This means adding a new concept is just adding a new
+              <span class="term" data-definition="A collection of related data grouped together — like a contact card that has name, phone, and email fields.">object</span>
+              to an
+              <span class="term" data-definition="An ordered list of items in code, written with square brackets — like a numbered shopping list that can hold zero or more entries.">array</span>
+              — no database migration needed. This is a common pattern for content-heavy apps:
+              store structured data right next to the code that renders it.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="module" id="module-5" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">How the Pieces Talk</h1>
+      <p class="module-subtitle">Components don't work alone. Here's how they share data and coordinate.</p>
+    </header>
+    <div class="module-body">
+
+      <!-- Screen 1: The Metaphor -->
+      <div class="screen animate-in" id="screen-5-1">
+        <h2 class="screen-title">The Metaphor — A Building's Infrastructure</h2>
+        <div class="metaphor-block animate-in">
+          <p>
+            Think of the app like a skyscraper. The
+            <span class="tooltip" data-tooltip="A React component that makes data available to all components nested inside it — like a Wi-Fi router that gives internet to every device in the house.">Provider</span>
+            tree is the building's infrastructure — plumbing (data), electrical (auth), HVAC (theme).
+            Every floor (component) gets access to these services without running its own pipes.
+            In React, we call this the
+            <span class="tooltip" data-tooltip="React's built-in way to pass data through the component tree without manually passing props at every level.">Context API</span>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Screen 2: The Provider Tower -->
+      <div class="screen animate-in" id="screen-5-2">
+        <h2 class="screen-title">The Provider Tower</h2>
+        <p class="animate-in">App.tsx wraps the entire app in 10+ nested providers. Here's the real nesting order.</p>
+        <div class="code-english-block animate-in">
+          <div class="code-side">
+            <pre><code>&lt;ThemeProvider defaultTheme="dark"&gt;
+  &lt;TenantProvider&gt;
+    &lt;AuthProvider&gt;
+      &lt;UserSettingsProvider&gt;
+        &lt;FeatureFlagProvider&gt;
+          &lt;EffectivePolicyProvider&gt;
+            &lt;AudioNarrationProvider&gt;
+              &lt;VoiceInputProvider&gt;
+                &lt;EnlightenMeProvider&gt;
+                  &lt;ShareNudgeProvider&gt;
+                    {/* All page content */}
+                  &lt;/ShareNudgeProvider&gt;
+                &lt;/EnlightenMeProvider&gt;
+              &lt;/VoiceInputProvider&gt;
+            &lt;/AudioNarrationProvider&gt;
+          &lt;/EffectivePolicyProvider&gt;
+        &lt;/FeatureFlagProvider&gt;
+      &lt;/UserSettingsProvider&gt;
+    &lt;/AuthProvider&gt;
+  &lt;/TenantProvider&gt;
+&lt;/ThemeProvider&gt;</code></pre>
+          </div>
+          <div class="english-side">
+            <div class="english-line">Dark/light mode — every component can read the current theme</div>
+            <div class="english-line">Multi-tenancy — supports white-label versions of the app</div>
+            <div class="english-line">Login state — knows who's logged in, handles JWT tokens</div>
+            <div class="english-line">User preferences — learning level, accessibility, API keys</div>
+            <div class="english-line">Feature flags — controls which features are visible</div>
+            <div class="english-line">Access policies — enforces what each user tier can access</div>
+            <div class="english-line">Text-to-speech — any page can request audio narration</div>
+            <div class="english-line">Voice input — Whisper-powered speech recognition</div>
+            <div class="english-line">Ask AI — context-aware help system using LLMs</div>
+            <div class="english-line">Social sharing — gentle nudges to share what you're learning</div>
+            <div class="english-line">All the actual pages, navigation, and content live here</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 3: Talking to the Backend -->
+      <div class="screen animate-in" id="screen-5-3">
+        <h2 class="screen-title">Talking to the Backend — The API Client</h2>
+        <p class="animate-in">
+          When the app needs data from the server, it uses an
+          <span class="tooltip" data-tooltip="A popular JavaScript library for making HTTP requests to servers — like fetch(), but with more built-in features like interceptors and automatic JSON parsing.">Axios</span>-based
+          API client with automatic auth.
+        </p>
+        <div class="code-english-block animate-in">
+          <div class="code-side">
+            <pre><code>class APIClient {
+  constructor() {
+    this.client = axios.create({
+      baseURL: `${API_BASE_URL}/api/v1`,
+      headers: { 'Content-Type': 'application/json' },
+      timeout: 30000,
+    });
+
+    this.client.interceptors.request.use((config) =&gt; {
+      const token = this.getToken();
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
+  }
+}</code></pre>
+          </div>
+          <div class="english-side">
+            <div class="english-line">The APIClient class — a single object that handles all backend communication</div>
+            <div class="english-line">When the class is created, set up the HTTP client</div>
+            <div class="english-line">Create an <span class="tooltip" data-tooltip="A popular JavaScript library for making HTTP requests to servers — like fetch(), but with more built-in features like interceptors and automatic JSON parsing.">Axios</span> instance pointed at the backend server</div>
+            <div class="english-line">Base URL: all requests go to the backend's /api/v1/ path</div>
+            <div class="english-line">Tell the server we're sending JSON data</div>
+            <div class="english-line">Give up after 30 seconds if the server doesn't respond</div>
+            <div class="english-line spacer"></div>
+            <div class="english-line">Before EVERY request is sent out, run this check first</div>
+            <div class="english-line">Look for a saved login token in the browser</div>
+            <div class="english-line">If we found a token...</div>
+            <div class="english-line">Attach it as a <span class="tooltip" data-tooltip="A type of authentication where you include a token in the request header. 'Bearer' just means 'the person carrying this token is authorized.'">Bearer token</span> in the request header</div>
+            <div class="english-line spacer"></div>
+            <div class="english-line">Send the request on its way</div>
+          </div>
+        </div>
+        <div class="tooltip-bank animate-in">
+          <p>
+            An
+            <span class="tooltip" data-tooltip="Code that runs automatically before every request or after every response — like a security checkpoint that stamps every outgoing letter with your return address.">interceptor</span>
+            attaches the
+            <span class="tooltip" data-tooltip="JSON Web Token — a secure, encoded string that proves you're logged in. Like a wristband at a concert: show it and you get access.">JWT</span>
+            as a
+            <span class="tooltip" data-tooltip="A type of authentication where you include a token in the request header. 'Bearer' just means 'the person carrying this token is authorized.'">Bearer token</span>
+            to every outgoing request automatically.
+          </p>
+        </div>
+      </div>
+
+      <!-- Screen 4: React Query -->
+      <div class="screen animate-in" id="screen-5-4">
+        <h2 class="screen-title">React Query — Smart Data Fetching</h2>
+        <p class="animate-in">
+          The app doesn't just fetch data — it caches it, deduplicates requests, and retries on failure.
+          This is all handled by
+          <span class="tooltip" data-tooltip="A data-fetching library that handles caching, synchronization, and server state — so you don't have to build all that plumbing yourself.">React Query</span>
+          (TanStack Query), wrapped in <code>QueryProvider</code> at the root.
+        </p>
+        <div class="icon-rows animate-in">
+          <div class="icon-row animate-in">
+            <span class="icon-row-icon">🔄</span>
+            <div class="icon-row-text">
+              <strong>Automatic
+                <span class="tooltip" data-tooltip="Storing data temporarily so you don't have to fetch it again — like keeping a photocopy of a library book on your desk.">Caching</span>
+              </strong>
+              <p>Fetch data once, reuse it everywhere — no redundant API calls</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <span class="icon-row-icon">🔁</span>
+            <div class="icon-row-text">
+              <strong>Background Refetch</strong>
+              <p>Stale data gets refreshed automatically when the user returns to a tab</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <span class="icon-row-icon">⚡</span>
+            <div class="icon-row-text">
+              <strong>Deduplication</strong>
+              <p>If 3 components request the same data, only 1 API call is made</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <span class="icon-row-icon">🔧</span>
+            <div class="icon-row-text">
+              <strong>Error &amp; Retry</strong>
+              <p>Failed requests are retried automatically with exponential backoff</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 5: Key Insight -->
+      <div class="screen animate-in" id="screen-5-5">
+        <h2 class="screen-title">Callout + Key Insight</h2>
+        <div class="callout callout-accent animate-in">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <strong>Key Insight</strong>
+            <p>
+              The Provider pattern is one of the most important architectural decisions in this codebase.
+              By nesting providers, each component can access theme, auth, settings, and feature flags without
+              <span class="tooltip" data-tooltip="The anti-pattern of passing data through many levels of components that don't use it, just to get it to a deeply nested child. Like passing a note through 10 people to reach someone at the end of a row.">prop drilling</span>
+              — passing data through 10 levels of components manually.
+              If you're building your own React app and an AI agent suggests "just pass it as a prop," ask yourself: would a Provider be cleaner?
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="module" id="module-6" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">06</span>
+      <h1 class="module-title">The Clever Tricks</h1>
+      <p class="module-subtitle">Production-grade patterns that separate a weekend project from a real product.</p>
+    </header>
+    <div class="module-body">
+
+      <!-- ════════════════════════════════════════════════════════════════
+           Screen 1 — The Metaphor: A Swiss Army Knife
+           ════════════════════════════════════════════════════════════════ -->
+      <div class="screen animate-in" id="screen-6-1">
+        <h2 class="screen-title">The Metaphor — A Swiss Army Knife</h2>
+        <div class="metaphor-block animate-in">
+          <span class="metaphor-icon">🔧</span>
+          <p>A Swiss Army knife doesn't expose all its tools at once. You pull out the blade when you need it, the screwdriver when you need that. This codebase works the same way — <span class="tooltip" data-tooltip="Breaking a large JavaScript bundle into smaller pieces that load independently — like a book printed as chapters that you only pick up when ready to read.">code splitting</span>, feature flags, and <span class="tooltip" data-tooltip="Rules that determine who can see or do what — like VIP sections at a venue that require a special pass.">access control</span> ensure users only load and see what they need.</p>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════════════════
+           Screen 2 — Pattern 1: Code Splitting & Lazy Loading
+           ════════════════════════════════════════════════════════════════ -->
+      <div class="screen animate-in" id="screen-6-2">
+        <h2 class="screen-title">Pattern 1 — Code Splitting &amp; Lazy Loading</h2>
+        <p class="animate-in">With 85+ concept pages and 50+ visualization components, the initial JavaScript <span class="tooltip" data-tooltip="All your JavaScript files combined into one (or a few) files for the browser — like packing a suitcase with everything you need.">bundle</span> could be massive. <span class="tooltip" data-tooltip="Breaking a large JavaScript bundle into smaller pieces that load independently — like a book printed as chapters that you only pick up when ready to read.">Code splitting</span> breaks it into chunks that load on demand.</p>
+
+        <div class="pattern-cards animate-in">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <span class="pattern-card-icon">📦</span>
+            <h3>React.lazy()</h3>
+            <p>Each concept page is wrapped in <code>lazy()</code> — code downloads only when visited.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <span class="pattern-card-icon">⏳</span>
+            <h3>Suspense Fallback</h3>
+            <p>While a chunk loads, a spinning loader appears — no blank screens.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <span class="pattern-card-icon">🗂️</span>
+            <h3>Dynamic Imports</h3>
+            <p><code>import('./MCPConcept')</code> tells Vite to create a separate <code>.js</code> file for that component.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-info animate-in">
+          <span class="callout-icon">🧮</span>
+          <div class="callout-content">
+            <strong>By the Numbers</strong>
+            <p>Without code splitting, every visitor would download code for 85 concepts + 70 patterns + 50 visualizations. With lazy loading, the initial bundle is just the shell — each page adds only 10-50KB on demand.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════════════════
+           Screen 3 — Pattern 2: Feature Flags & Access Control
+           ════════════════════════════════════════════════════════════════ -->
+      <div class="screen animate-in" id="screen-6-3">
+        <h2 class="screen-title">Pattern 2 — Feature Flags &amp; Access Control</h2>
+        <p class="animate-in">Not every feature is available to every user. The app uses two gatekeeping patterns.</p>
+
+        <div class="code-english animate-in">
+          <div class="code-side">
+            <pre><code>&lt;Route path="/phase1-lab" element={
+  &lt;AuthGuard&gt;
+    &lt;FeatureFlagGate flag="phase1-lab" title="Phase 1 Lab"&gt;
+      &lt;Phase1LabPage /&gt;
+    &lt;/FeatureFlagGate&gt;
+  &lt;/AuthGuard&gt;
+} /&gt;
+
+&lt;Route path="/adoption-playbook" element={
+  &lt;ModuleAccessGate module="adoption-playbook" title="Adoption Playbook"&gt;
+    &lt;AgenticAdoptionPlaybook /&gt;
+  &lt;/ModuleAccessGate&gt;
+} /&gt;</code></pre>
+          </div>
+          <div class="english-side">
+            <p>Route for <code>/phase1-lab</code> — but with guards:</p>
+            <p>First gate: Are you logged in? If not, redirect to login.</p>
+            <p>Second gate: Is the <code>'phase1-lab'</code> feature flag turned on? If not, show a "coming soon" message.</p>
+            <p>Only if BOTH gates pass, render the actual page.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>Different gatekeeping pattern for the Adoption Playbook:</p>
+            <p><code>ModuleAccessGate</code> checks your learning profile tier — is this content unlocked for your level?</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+          </div>
+        </div>
+
+        <p class="animate-in"><span class="tooltip" data-tooltip="Rules that determine who can see or do what — like VIP sections at a venue that require a special pass.">Access control</span> ensures users see only what they're authorized to see — whether by login status, feature flag, or learning tier.</p>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════════════════
+           Screen 4 — Pattern 3: PWA & Offline Support
+           ════════════════════════════════════════════════════════════════ -->
+      <div class="screen animate-in" id="screen-6-4">
+        <h2 class="screen-title">Pattern 3 — <span class="tooltip" data-tooltip="Progressive Web App — a website that can be installed on your device and work offline, blurring the line between web and native apps.">PWA</span> &amp; Offline Support</h2>
+        <p class="animate-in">Open Agent School works offline and can be installed as a native-like app on phones and desktops.</p>
+
+        <div class="icon-rows animate-in">
+          <div class="icon-row animate-in">
+            <span class="icon-row-icon">📱</span>
+            <div class="icon-row-content">
+              <strong>Installable</strong>
+              <p>Add to Home Screen — launches like a native app, no browser chrome.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <span class="icon-row-icon">📡</span>
+            <div class="icon-row-content">
+              <strong><span class="tooltip" data-tooltip="A script that runs in the background, separate from the web page. It can intercept network requests, cache resources, and enable offline functionality — like a personal assistant who saves copies of everything.">Service Worker</span></strong>
+              <p>Caches pages and API responses for offline access.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <span class="icon-row-icon">🔄</span>
+            <div class="icon-row-content">
+              <strong>Background Sync</strong>
+              <p>Bookmarks and progress sync when connectivity returns.</p>
+            </div>
+          </div>
+          <div class="icon-row animate-in">
+            <span class="icon-row-icon">🔔</span>
+            <div class="icon-row-content">
+              <strong>Update Prompt</strong>
+              <p>When a new version deploys, users see a gentle "Update available" toast.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════════════════
+           Screen 5 — Pattern 4: Graceful Error Handling
+           ════════════════════════════════════════════════════════════════ -->
+      <div class="screen animate-in" id="screen-6-5">
+        <h2 class="screen-title">Pattern 4 — Graceful Error Handling</h2>
+        <p class="animate-in">The app uses defensive coding to prevent crashes from propagating.</p>
+
+        <div class="pattern-cards animate-in">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <span class="pattern-card-icon">🛡️</span>
+            <h3>ResizeObserver Suppression</h3>
+            <p>ReactFlow diagrams can trigger harmless but noisy errors — the app catches and silences them.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <span class="pattern-card-icon">🔄</span>
+            <h3>Layout Shift Recovery</h3>
+            <p>If a component causes a layout shift, the app detects it via <code>PerformanceObserver</code> and self-heals.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <span class="pattern-card-icon">🌐</span>
+            <h3>Offline Banner</h3>
+            <p>When connectivity drops, a banner appears and features degrade gracefully.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-accent animate-in">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <strong>Key Insight</strong>
+            <p>Error handling isn't glamorous, but it's what separates production apps from demos. <code>App.tsx</code> has 100+ lines dedicated purely to catching, suppressing, and recovering from errors. When you're building with AI tools, always ask: "What happens when this fails?" The answer should never be "it crashes."</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="module" id="module-7" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">07</span>
+      <h1 class="module-title">Putting It All Together</h1>
+      <p class="module-subtitle">The complete picture — from browser to backend and back.</p>
+    </header>
+    <div class="module-body">
+
+      <!-- ───────────── Screen 1: The Full Architecture ───────────── -->
+      <div class="screen animate-in" id="screen-7-1">
+        <h2 class="screen-title">The Full Architecture</h2>
+        <p class="screen-text">Here's how every piece fits together — the frontend talks to three backend <span class="glossary-term" data-definition="An independently deployable service that owns a single domain of functionality and communicates with other services over the network.">microservice</span>s.</p>
+
+        <div class="arch-diagram animate-in">
+          <div class="arch-zone">
+            <h3 class="arch-zone-title">Browser (Frontend)</h3>
+            <div class="arch-components">
+              <div class="arch-component" data-desc="The single-page app with 85+ concepts, patterns, study mode, and visualizations. Built with React 18, TypeScript, Vite.">
+                <span class="arch-icon">📱</span>
+                <span class="arch-label">React App</span>
+              </div>
+              <div class="arch-component" data-desc="Radix UI primitives + Tailwind CSS. 50+ pre-styled components: buttons, dialogs, dropdowns, cards.">
+                <span class="arch-icon">🎨</span>
+                <span class="arch-label">UI Layer</span>
+              </div>
+              <div class="arch-component" data-desc="10+ React Context providers for theme, auth, settings, feature flags. React Query for API data caching.">
+                <span class="arch-icon">🧠</span>
+                <span class="arch-label">State Layer</span>
+              </div>
+              <div class="arch-component" data-desc="D3.js for taxonomy trees, ReactFlow for agent pattern diagrams, Mermaid for flowcharts.">
+                <span class="arch-icon">📊</span>
+                <span class="arch-label">Viz Layer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-zone">
+            <h3 class="arch-zone-title">Backend Services</h3>
+            <div class="arch-components">
+              <div class="arch-component" data-desc="User auth (JWT + OAuth), quizzes, progress tracking, community, bookmarks. DuckDB in dev, Cosmos DB in prod.">
+                <span class="arch-icon">🔐</span>
+                <span class="arch-label">Core API :8000</span>
+              </div>
+              <div class="arch-component" data-desc="Multi-agent AI, critical thinking assessment, Bloom's taxonomy evaluation. Uses Redis for caching.">
+                <span class="arch-icon">🤖</span>
+                <span class="arch-label">Agent Orchestrator :8002</span>
+              </div>
+              <div class="arch-component" data-desc="Document processing, semantic search, RAG pipeline. PostgreSQL + ChromaDB/Qdrant vector store.">
+                <span class="arch-icon">📚</span>
+                <span class="arch-label">Knowledge Service :8003</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="arch-description">Click any component to learn what it does</p>
+        </div>
+      </div>
+
+      <!-- ───────────── Screen 2: The Three Backend Services ───────────── -->
+      <div class="screen animate-in" id="screen-7-2">
+        <h2 class="screen-title">The Three Backend Services</h2>
+
+        <div class="icon-rows animate-in">
+          <div class="icon-row actor-1">
+            <span class="row-icon">🔐</span>
+            <div class="row-content">
+              <strong class="row-label">Core API (port 8000)</strong>
+              <p class="row-desc">User registration, login, <span class="glossary-term" data-definition="An open standard for delegated authorization that lets users grant third-party apps limited access without sharing passwords.">OAuth</span>, quiz questions, progress tracking, community posts, bookmarks, study sessions</p>
+            </div>
+          </div>
+          <div class="icon-row actor-2">
+            <span class="row-icon">🤖</span>
+            <div class="row-content">
+              <strong class="row-label">Agent Orchestrator (port 8002)</strong>
+              <p class="row-desc">Multi-agent AI playground, critical thinking analysis, educational frameworks (Bloom's, Paul-Elder)</p>
+            </div>
+          </div>
+          <div class="icon-row actor-3">
+            <span class="row-icon">📚</span>
+            <div class="row-content">
+              <strong class="row-label">Knowledge Service (port 8003)</strong>
+              <p class="row-desc">Document upload, <span class="glossary-term" data-definition="A search technique that finds results based on meaning rather than exact keyword matches, using vector embeddings to measure conceptual similarity.">semantic search</span>, knowledge base management, <span class="glossary-term" data-definition="Retrieval-Augmented Generation — a technique that retrieves relevant documents and feeds them to an LLM to produce grounded, accurate answers.">RAG</span> pipeline powered by a <span class="glossary-term" data-definition="A database optimized for storing and querying high-dimensional vectors (embeddings), enabling fast similarity search over unstructured data like text and images.">vector store</span></p>
+            </div>
+          </div>
+        </div>
+
+        <p class="screen-text">The frontend connects via environment variables — <code>VITE_CORE_API_URL</code>, <code>VITE_ORCHESTRATOR_SERVICE_URL</code>, <code>VITE_KNOWLEDGE_SERVICE_URL</code>. Some features only appear when the corresponding backend URL is configured. All services expose <span class="glossary-term" data-definition="Representational State Transfer API — an architectural style for web services where clients interact with resources using standard HTTP methods (GET, POST, PUT, DELETE).">REST API</span> endpoints.</p>
+      </div>
+
+      <!-- ───────────── Screen 3: How It All Flows — End to End ───────────── -->
+      <div class="screen animate-in" id="screen-7-3">
+        <h2 class="screen-title">How It All Flows — End to End</h2>
+        <p class="screen-text">Let's trace what happens when a logged-in user takes a quiz.</p>
+
+        <div class="step-cards animate-in">
+          <div class="step-card">
+            <span class="step-number">1</span>
+            <strong class="step-title">User clicks 'Knowledge Quiz'</strong>
+            <p class="step-desc">React Router matches <code>/quiz</code> → lazy-loads <code>QuizSection</code> component</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">2</span>
+            <strong class="step-title">QuizSection mounts</strong>
+            <p class="step-desc">React Query fires a GET to <code>/api/v1/quiz/questions/{category}</code> via the APIClient</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">3</span>
+            <strong class="step-title">APIClient adds auth</strong>
+            <p class="step-desc">The request interceptor attaches the <span class="glossary-term" data-definition="JSON Web Token — a compact, URL-safe token format used to securely transmit authentication claims between a client and server.">JWT</span> Bearer token automatically</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">4</span>
+            <strong class="step-title">Core API responds</strong>
+            <p class="step-desc">The backend fetches questions from <span class="glossary-term" data-definition="An in-process analytical database designed for fast queries on structured data. Used by the Core API in development mode.">DuckDB</span>, returns <span class="glossary-term" data-definition="JavaScript Object Notation — a lightweight data format used for transmitting structured data between a server and a web application.">JSON</span> with questions and options</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">5</span>
+            <strong class="step-title">React Query caches it</strong>
+            <p class="step-desc">The response is cached — revisiting the quiz page won't trigger another API call</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">6</span>
+            <strong class="step-title">User submits answers</strong>
+            <p class="step-desc">A POST to <code>/api/v1/quiz/submit</code> sends answers. Backend scores them and returns results.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ───────────── Screen 4: Congratulations! ───────────── -->
+      <div class="screen animate-in" id="screen-7-4">
+        <h2 class="screen-title">Congratulations!</h2>
+
+        <div class="callout callout-accent animate-in">
+          <span class="callout-icon">🎉</span>
+          <div class="callout-content">
+            <strong class="callout-title">You Made It!</strong>
+            <p class="callout-text">You now understand how Open Agent School works under the hood — from React boot-up to provider trees, from lazy loading to backend API calls. You know the cast of characters, where data lives, and how the engineering patterns keep it all running smoothly.</p>
+          </div>
+        </div>
+
+        <p class="screen-text">Let's see how much stuck. Try the final quiz below.</p>
+      </div>
+
+      <!-- ───────────── Screen 5: Final Quiz ───────────── -->
+      <div class="screen animate-in" id="screen-7-5">
+        <h2 class="screen-title">Final Quiz — Test Your Understanding</h2>
+
+        <div class="quiz-container" id="quiz-module-7">
+
+          <!-- Question 1 -->
+          <div class="quiz-question animate-in" data-question="q7-1" data-correct="option-b"
+               data-correct-text="Exactly! Add the ConceptInfo object with id, title, level, and component reference. Then create the component file. The router already handles /concepts/:conceptId dynamically."
+               data-incorrect-text="">
+            <p class="quiz-prompt">You want to add a new AI concept called 'Agentic Memory.' What's the minimum you need to do?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"
+                      data-incorrect-text="Not quite — you don't need to touch the router. ConceptsExplorer handles all concepts via /concepts/:conceptId.">
+                <span class="option-letter">A</span> Create a new file and update the router in App.tsx
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"
+                      data-incorrect-text="">
+                <span class="option-letter">B</span> Add a concept object to the array in ConceptsHub.tsx and create a new component file
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"
+                      data-incorrect-text="Concepts are defined in the frontend code, not in a database. No backend changes needed.">
+                <span class="option-letter">C</span> Update the database and restart the backend
+              </button>
+            </div>
+            <div class="quiz-feedback" id="q7-1-feedback"></div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="quiz-question animate-in" data-question="q7-2" data-correct="option-b"
+               data-correct-text="Right! Since StudyMode is lazy-loaded, a network error could prevent the chunk from loading. Check the browser's Network tab for failed requests. The Suspense fallback should show a spinner, but if the chunk fails entirely, you might see a blank page."
+               data-incorrect-text="">
+            <p class="quiz-prompt">A user reports that the Study Mode page is blank. Where would you look first?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"
+                      data-incorrect-text="Study Mode doesn't use a feature flag — it's always available at /study-mode.">
+                <span class="option-letter">A</span> Check if the feature flag for study-mode is enabled
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"
+                      data-incorrect-text="">
+                <span class="option-letter">B</span> Check the lazy loading — the StudyMode chunk might have failed to download
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"
+                      data-incorrect-text="Study Mode can work without the backend — it uses local state and optional LLM integration. The issue is more likely frontend-side.">
+                <span class="option-letter">C</span> Check the backend Core API health <span class="glossary-term" data-definition="A specific URL path on a server that accepts requests and returns responses — like a doorway into a particular piece of functionality.">endpoint</span>
+              </button>
+            </div>
+            <div class="quiz-feedback" id="q7-2-feedback"></div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="quiz-question animate-in" data-question="q7-3" data-correct="option-a"
+               data-correct-text="Exactly! React Query deduplicates requests and caches responses. If it's making 3 calls, the cache key might be wrong, or the staleTime is set to 0. Check the QueryProvider configuration."
+               data-incorrect-text="">
+            <p class="quiz-prompt">You notice the app makes the same API call 3 times when switching between tabs. What's likely broken?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"
+                      data-incorrect-text="">
+                <span class="option-letter">A</span> The React Query cache configuration
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"
+                      data-incorrect-text="AuthGuard handles login redirects — it wouldn't cause duplicate API calls.">
+                <span class="option-letter">B</span> The AuthGuard is re-rendering
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"
+                      data-incorrect-text="The service worker caches responses, which would reduce calls, not increase them.">
+                <span class="option-letter">C</span> The service worker is intercepting requests
+              </button>
+            </div>
+            <div class="quiz-feedback" id="q7-3-feedback"></div>
+          </div>
+
+          <!-- Question 4 -->
+          <div class="quiz-question animate-in" data-question="q7-4" data-correct="option-b"
+               data-correct-text="Perfect! AuthGuard ensures they're logged in, and ModuleAccessGate checks their learning profile tier to see if this module is unlocked for them. This is the same pattern used for the Adoption Playbook."
+               data-incorrect-text="">
+            <p class="quiz-prompt">You want to add a new page that's only available to premium users. Which wrapper components would you use?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"
+                      data-incorrect-text="AuthGuard only checks if the user is logged in, not their tier. You need tier-based access control.">
+                <span class="option-letter">A</span> Just AuthGuard
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"
+                      data-incorrect-text="">
+                <span class="option-letter">B</span> AuthGuard + ModuleAccessGate
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"
+                      data-incorrect-text="FeatureFlagGate controls feature rollout, not user tier access. And it doesn't check if the user is logged in.">
+                <span class="option-letter">C</span> FeatureFlagGate only
+              </button>
+            </div>
+            <div class="quiz-feedback" id="q7-4-feedback"></div>
+          </div>
+
+          <!-- Question 5 -->
+          <div class="quiz-question animate-in" data-question="q7-5" data-correct="option-b"
+               data-correct-text="Exactly! The app uses ResizeObserver suppression for ReactFlow, PerformanceObserver for layout shifts, and offline banners for connectivity drops. Each error type gets its own targeted handler because generic try/catch doesn't work for async rendering errors."
+               data-incorrect-text="">
+            <p class="quiz-prompt">Why does App.tsx have 100+ lines just for error handling?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"
+                      data-incorrect-text="Actually, it's intentional! ReactFlow diagrams trigger ResizeObserver errors, layout shifts can cascade, and offline scenarios need graceful degradation. Production apps need this level of defensive coding.">
+                <span class="option-letter">A</span> It's over-engineered — most of that code is unnecessary
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"
+                      data-incorrect-text="">
+                <span class="option-letter">B</span> ReactFlow visualizations, layout shifts, and offline scenarios all need specific error suppression and recovery
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"
+                      data-incorrect-text="These error handlers are actively needed — ReactFlow diagrams would crash the page without them. This is intentional production-hardening.">
+                <span class="option-letter">C</span> It's legacy code that should be refactored
+              </button>
+            </div>
+            <div class="quiz-feedback" id="q7-5-feedback"></div>
+          </div>
+
+          <div class="quiz-actions animate-in">
+            <button class="quiz-btn quiz-btn-check" onclick="checkQuiz('module-7')">Check Answers</button>
+            <button class="quiz-btn quiz-btn-reset" onclick="resetQuiz('module-7')">Reset Quiz</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <!-- END MODULES -->
+
+  <script>
+(function() {
+  'use strict';
+
+  // ===== 1. SCROLL-TRIGGERED ANIMATIONS =====
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+  document.querySelectorAll('.animate-in').forEach(function(el) { observer.observe(el); });
+
+  // ===== 2. STAGGER CHILDREN INDEX ASSIGNMENT =====
+  document.querySelectorAll('.stagger-children').forEach(function(parent) {
+    var children = parent.querySelectorAll('.animate-in');
+    children.forEach(function(child, i) {
+      child.style.setProperty('--stagger-index', i);
+    });
+  });
+
+  // ===== 3. PROGRESS BAR =====
+  var progressBar = document.querySelector('.progress-bar');
+  function updateProgressBar() {
+    var scrollTop = window.scrollY;
+    var scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+  window.addEventListener('scroll', function() { requestAnimationFrame(updateProgressBar); }, { passive: true });
+
+  // ===== 4. NAV DOT UPDATES =====
+  var modules = document.querySelectorAll('.module');
+  var navDots = document.querySelectorAll('.nav-dot');
+  var visitedModules = new Set();
+
+  function updateNavDots() {
+    var scrollTop = window.scrollY + window.innerHeight * 0.4;
+    var currentIndex = 0;
+
+    modules.forEach(function(mod, i) {
+      if (mod.offsetTop <= scrollTop) {
+        currentIndex = i;
+      }
+    });
+
+    visitedModules.add(currentIndex);
+
+    navDots.forEach(function(dot, i) {
+      dot.classList.remove('current');
+      if (i === currentIndex) {
+        dot.classList.add('current');
+      } else if (visitedModules.has(i)) {
+        dot.classList.add('visited');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', function() { requestAnimationFrame(updateNavDots); }, { passive: true });
+
+  // ===== 5. NAV DOT CLICK-TO-SCROLL =====
+  navDots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var targetId = dot.getAttribute('data-target');
+      var target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ===== 6. KEYBOARD NAVIGATION =====
+  document.addEventListener('keydown', function(e) {
+    var tag = document.activeElement.tagName.toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || document.activeElement.isContentEditable) {
+      return;
+    }
+
+    var currentModule = -1;
+    var scrollCenter = window.scrollY + window.innerHeight * 0.5;
+    modules.forEach(function(mod, i) {
+      if (mod.offsetTop <= scrollCenter) {
+        currentModule = i;
+      }
+    });
+
+    var nextIndex = -1;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      nextIndex = Math.min(currentModule + 1, modules.length - 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      nextIndex = Math.max(currentModule - 1, 0);
+    }
+
+    if (nextIndex >= 0 && nextIndex !== currentModule) {
+      e.preventDefault();
+      modules[nextIndex].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  // ===== 7. QUIZ LOGIC =====
+  function selectOption(btn) {
+    var block = btn.closest('.quiz-question-block') || btn.closest('.quiz-question') || btn.closest('[data-question]');
+    if (!block || block.classList.contains('answered')) return;
+
+    block.querySelectorAll('.quiz-option').forEach(function(opt) {
+      opt.classList.remove('selected');
+    });
+    btn.classList.add('selected');
+  }
+
+  function checkQuiz(sectionId) {
+    var container = document.getElementById(sectionId) || document.getElementById('quiz-' + sectionId);
+    if (!container) {
+      // Try finding quiz container inside the module section
+      var moduleEl = document.getElementById(sectionId);
+      if (moduleEl) container = moduleEl.querySelector('.quiz-container');
+      if (!container) return;
+    }
+
+    var blocks = container.querySelectorAll('.quiz-question-block, .quiz-question[data-question], [data-question]');
+    blocks.forEach(function(block) {
+      if (block.classList.contains('answered')) return;
+
+      var selected = block.querySelector('.quiz-option.selected');
+      var feedback = block.querySelector('.quiz-feedback');
+      var correctValue = block.getAttribute('data-correct');
+
+      if (!selected) {
+        if (feedback) {
+          feedback.className = 'quiz-feedback show warning';
+          feedback.textContent = 'Please select an answer first.';
+        }
+        return;
+      }
+
+      var selectedValue = selected.getAttribute('data-value');
+      var isCorrect = selectedValue === correctValue;
+
+      block.classList.add('answered');
+      selected.classList.remove('selected');
+
+      if (isCorrect) {
+        selected.classList.add('correct');
+        if (feedback) {
+          feedback.className = 'quiz-feedback show success';
+          var txt = block.getAttribute('data-correct-text') || selected.getAttribute('data-correct-text') || 'Correct!';
+          feedback.textContent = txt;
+        }
+      } else {
+        selected.classList.add('incorrect');
+        block.querySelectorAll('.quiz-option').forEach(function(opt) {
+          if (opt.getAttribute('data-value') === correctValue) {
+            opt.classList.add('correct');
+          }
+        });
+        if (feedback) {
+          feedback.className = 'quiz-feedback show error';
+          // Check for per-option incorrect text first, then block-level
+          var txt = selected.getAttribute('data-incorrect-text') || block.getAttribute('data-incorrect-text') || 'Not quite. See the correct answer highlighted above.';
+          feedback.textContent = txt;
+        }
+      }
+
+      block.querySelectorAll('.quiz-option').forEach(function(opt) {
+        opt.style.pointerEvents = 'none';
+      });
+    });
+  }
+
+  function resetQuiz(sectionId) {
+    var container = document.getElementById(sectionId) || document.getElementById('quiz-' + sectionId);
+    if (!container) {
+      var moduleEl = document.getElementById(sectionId);
+      if (moduleEl) container = moduleEl.querySelector('.quiz-container');
+      if (!container) return;
+    }
+
+    var blocks = container.querySelectorAll('.quiz-question-block, .quiz-question[data-question], [data-question]');
+    blocks.forEach(function(block) {
+      block.classList.remove('answered');
+      block.querySelectorAll('.quiz-option').forEach(function(opt) {
+        opt.classList.remove('selected', 'correct', 'incorrect');
+        opt.style.pointerEvents = '';
+      });
+      var feedback = block.querySelector('.quiz-feedback');
+      if (feedback) {
+        feedback.className = 'quiz-feedback';
+        feedback.textContent = '';
+      }
+    });
+  }
+
+  // Expose quiz functions globally
+  window.selectOption = selectOption;
+  window.checkQuiz = checkQuiz;
+  window.resetQuiz = resetQuiz;
+
+  // ===== 8. GLOSSARY TOOLTIP =====
+  var activeTooltip = null;
+  var activeTerm = null;
+
+  function showTooltip(termEl) {
+    hideTooltip();
+
+    var text = termEl.getAttribute('data-definition');
+    if (!text) return;
+
+    activeTerm = termEl;
+    termEl.classList.add('active');
+
+    var tooltip = document.createElement('div');
+    tooltip.className = 'term-tooltip';
+    tooltip.textContent = text;
+    document.body.appendChild(tooltip);
+    activeTooltip = tooltip;
+
+    var rect = termEl.getBoundingClientRect();
+    var tipRect = tooltip.getBoundingClientRect();
+    var left = rect.left + rect.width / 2 - tipRect.width / 2;
+    var top = rect.top - tipRect.height - 10;
+
+    if (left < 8) left = 8;
+    if (left + tipRect.width > window.innerWidth - 8) {
+      left = window.innerWidth - tipRect.width - 8;
+    }
+
+    if (top < 8) {
+      top = rect.bottom + 10;
+      tooltip.classList.add('flip');
+    }
+
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+
+    requestAnimationFrame(function() {
+      tooltip.classList.add('visible');
+    });
+  }
+
+  function hideTooltip() {
+    if (activeTooltip) {
+      activeTooltip.remove();
+      activeTooltip = null;
+    }
+    if (activeTerm) {
+      activeTerm.classList.remove('active');
+      activeTerm = null;
+    }
+  }
+
+  // Desktop: hover
+  document.addEventListener('mouseover', function(e) {
+    var term = e.target.closest('.term') || e.target.closest('.glossary-term');
+    if (term) showTooltip(term);
+  });
+  document.addEventListener('mouseout', function(e) {
+    var term = e.target.closest('.term') || e.target.closest('.glossary-term');
+    if (term) hideTooltip();
+  });
+
+  // Mobile: tap to toggle, click-away to dismiss
+  var isTouchDevice = false;
+  document.addEventListener('touchstart', function() { isTouchDevice = true; }, { once: true });
+
+  document.addEventListener('click', function(e) {
+    if (!isTouchDevice) return;
+
+    var term = e.target.closest('.term');
+    if (term) {
+      e.preventDefault();
+      if (activeTerm === term) {
+        hideTooltip();
+      } else {
+        showTooltip(term);
+      }
+    } else {
+      hideTooltip();
+    }
+  });
+
+  // ===== 9. CHAT ANIMATION =====
+  function getChatState(chatWindow) {
+    if (!chatWindow._chatState) {
+      var messages = [];
+      chatWindow.querySelectorAll('template.chat-step').forEach(function(tpl) {
+        messages.push(tpl.innerHTML.trim());
+      });
+      chatWindow._chatState = { messages: messages, index: 0 };
+    }
+    return chatWindow._chatState;
+  }
+
+  function playChatNext(btn) {
+    var chatWindow = btn.closest('.chat-window');
+    if (!chatWindow) return;
+    var state = getChatState(chatWindow);
+    var messagesContainer = chatWindow.querySelector('.chat-messages');
+    var progressEl = chatWindow.querySelector('.chat-progress');
+
+    if (state.index >= state.messages.length) return;
+
+    var msgHtml = state.messages[state.index];
+    var wrapper = document.createElement('div');
+    wrapper.innerHTML = msgHtml;
+    while (wrapper.firstChild) {
+      messagesContainer.appendChild(wrapper.firstChild);
+    }
+    state.index++;
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    if (progressEl) {
+      progressEl.textContent = state.index + ' / ' + state.messages.length;
+    }
+  }
+
+  function playChatAll(btn) {
+    var chatWindow = btn.closest('.chat-window');
+    if (!chatWindow) return;
+    var state = getChatState(chatWindow);
+    var messagesContainer = chatWindow.querySelector('.chat-messages');
+    var progressEl = chatWindow.querySelector('.chat-progress');
+
+    while (state.index < state.messages.length) {
+      var msgHtml = state.messages[state.index];
+      var wrapper = document.createElement('div');
+      wrapper.innerHTML = msgHtml;
+      while (wrapper.firstChild) {
+        messagesContainer.appendChild(wrapper.firstChild);
+      }
+      state.index++;
+    }
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    if (progressEl) {
+      progressEl.textContent = state.index + ' / ' + state.messages.length;
+    }
+  }
+
+  function resetChat(btn) {
+    var chatWindow = btn.closest('.chat-window');
+    if (!chatWindow) return;
+    var state = getChatState(chatWindow);
+    state.index = 0;
+    var messagesContainer = chatWindow.querySelector('.chat-messages');
+    messagesContainer.innerHTML = '';
+    var progressEl = chatWindow.querySelector('.chat-progress');
+    if (progressEl) {
+      progressEl.textContent = '0 / ' + state.messages.length;
+    }
+  }
+
+  window.playChatNext = playChatNext;
+  window.playChatAll = playChatAll;
+  window.resetChat = resetChat;
+
+  // ===== 10. FLOW / DATA FLOW ANIMATION =====
+  function getFlowState(flowContainer) {
+    if (!flowContainer._flowState) {
+      var steps = [];
+      flowContainer.querySelectorAll('template.flow-step-data').forEach(function(tpl) {
+        steps.push({
+          actorIndex: parseInt(tpl.getAttribute('data-actor'), 10),
+          label: tpl.getAttribute('data-label') || ''
+        });
+      });
+      flowContainer._flowState = { steps: steps, index: -1 };
+    }
+    return flowContainer._flowState;
+  }
+
+  function flowNext(btn) {
+    var flowContainer = btn.closest('.flow-animation');
+    if (!flowContainer) return;
+    var state = getFlowState(flowContainer);
+    var actors = flowContainer.querySelectorAll('.flow-actor');
+    var labelEl = flowContainer.querySelector('.flow-step-label');
+    var progressEl = flowContainer.querySelector('.flow-progress');
+
+    state.index++;
+    if (state.index >= state.steps.length) {
+      state.index = state.steps.length - 1;
+      return;
+    }
+
+    var step = state.steps[state.index];
+
+    actors.forEach(function(actor) { actor.classList.remove('active'); });
+    if (actors[step.actorIndex]) {
+      actors[step.actorIndex].classList.add('active');
+    }
+
+    if (labelEl) {
+      labelEl.textContent = step.label;
+    }
+
+    if (progressEl) {
+      progressEl.textContent = (state.index + 1) + ' / ' + state.steps.length;
+    }
+  }
+
+  function flowReset(btn) {
+    var flowContainer = btn.closest('.flow-animation');
+    if (!flowContainer) return;
+    var state = getFlowState(flowContainer);
+    state.index = -1;
+
+    var actors = flowContainer.querySelectorAll('.flow-actor');
+    actors.forEach(function(actor) { actor.classList.remove('active'); });
+
+    var labelEl = flowContainer.querySelector('.flow-step-label');
+    if (labelEl) {
+      labelEl.textContent = 'Press "Next Step" to begin.';
+    }
+
+    var progressEl = flowContainer.querySelector('.flow-progress');
+    if (progressEl) {
+      progressEl.textContent = '0 / ' + state.steps.length;
+    }
+  }
+
+  window.flowNext = flowNext;
+  window.flowReset = flowReset;
+
+  // ===== 11. ARCHITECTURE DIAGRAM =====
+  function showArchDesc(el) {
+    var diagram = el.closest('.arch-diagram');
+    if (!diagram) return;
+
+    var wasActive = el.classList.contains('active');
+
+    diagram.querySelectorAll('.arch-component').forEach(function(comp) {
+      comp.classList.remove('active');
+    });
+
+    var descEl = diagram.querySelector('.arch-description');
+
+    if (wasActive) {
+      if (descEl) descEl.textContent = 'Click a component to learn more.';
+      return;
+    }
+
+    el.classList.add('active');
+    var desc = el.getAttribute('data-desc') || '';
+    if (descEl) descEl.textContent = desc;
+  }
+
+  window.showArchDesc = showArchDesc;
+
+  // ===== INITIAL STATE =====
+  updateProgressBar();
+  updateNavDots();
+})();
+  </script>
+</body>
+</html>

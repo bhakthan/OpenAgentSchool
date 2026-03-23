@@ -520,6 +520,18 @@ function App() {
                       </a>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
+                      <a
+                        href="/openagentschool-course.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackEvent({ action: 'nav_click', category: 'navigation', label: 'codebase_course' })}
+                        className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                        title="Interactive course — how this codebase works"
+                      >
+                        <BookOpenText size={16} /><span className="hidden xl:inline ml-1">Course</span>
+                      </a>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
                       <InstallAppMenuItem />
                     </NavigationMenuItem>
                     <NavigationMenuItem>
