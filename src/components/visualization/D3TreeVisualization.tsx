@@ -140,6 +140,7 @@ export default function D3TreeVisualization({
             { id: 'ecosystem-partnerships', name: 'Ecosystem & Partnerships', type: 'concept' as const, novel: true },
             { id: 'tri-system-paradigm', name: 'Tri-System Paradigm (Cognitive Ecology)', type: 'concept' as const, novel: true },
             { id: 'proactive-agent-design', name: 'Proactive Agent Design', type: 'concept' as const, novel: true },
+            { id: 'agentic-automation-thresholds', name: 'Agentic Automation Thresholds', type: 'concept' as const, novel: true },
             { id: 'fine-tuning', name: 'Fine-Tuning Methods (SFT, DPO, RFT)', type: 'concept' as const, novel: true },
             { id: 'agent-red-teaming', name: 'Agent Red Teaming', type: 'concept' as const, novel: true },
             { id: 'agentic-robotics-integration', name: 'Agentic Robotics Integration', type: 'concept' as const, novel: true },

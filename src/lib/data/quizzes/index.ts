@@ -61,6 +61,7 @@ import { contextEngineeringQuestions, contextEngineeringTime } from './context-e
 import { triSystemParadigmQuestions, triSystemParadigmTime } from './tri-system-paradigm';
 // Proactive Agent Design (February 2026)
 import { proactiveAgentDesignQuestions, proactiveAgentDesignTimeEstimate } from './proactive-agent-design';
+import { agenticAutomationThresholdsQuestions, agenticAutomationThresholdsTimeEstimate } from './agentic-automation-thresholds';
 
 // Export types and personas
 export type { QuizCategory, QuizQuestion, UserPersona, QuizSession, QuizFeedback };
@@ -127,7 +128,9 @@ const allQuestions = [
   // Tri-System Paradigm
   ...triSystemParadigmQuestions,
   // Proactive Agent Design
-  ...proactiveAgentDesignQuestions
+  ...proactiveAgentDesignQuestions,
+  // Agentic Automation Thresholds
+  ...agenticAutomationThresholdsQuestions
 ];
 
 // --- Dynamically calculate estimated time for each category ---
@@ -1604,6 +1607,38 @@ export const quizCategories: QuizCategory[] = [
         description: 'Security sentinel, supply chain optimization, DevOps proactive agents, and organizational transformation.',
         prerequisites: ['proactive-fundamentals'],
         questions: proactiveAgentDesignQuestions.filter(q => q.difficulty === 'intermediate' && q.category === 'architecture')
+      }
+    ]
+  },
+  // Agentic Automation Thresholds — What's Worth Automating
+  {
+    id: 'agentic-automation-thresholds',
+    name: 'Agentic Automation Thresholds',
+    description: 'The four structural shifts that collapse the old ROI gate — cost collapse, the boring middle, hidden overhead, and diagnostic loops.',
+    icon: 'Lightning',
+    totalQuestions: agenticAutomationThresholdsQuestions.length,
+    estimatedTime: agenticAutomationThresholdsTimeEstimate,
+    subCategories: [
+      {
+        id: 'threshold-foundations',
+        name: 'Cost Collapse & The New Gate',
+        description: 'Why setup cost ≈ 0 means any describable task is now in-scope regardless of frequency.',
+        prerequisites: [],
+        questions: agenticAutomationThresholdsQuestions.filter(q => q.difficulty === 'beginner')
+      },
+      {
+        id: 'hidden-costs',
+        name: 'Hidden Overhead & Chain Multiplier',
+        description: 'The 15-minute task iceberg, coordination overhead, and why chains give 13× not 5× speedup.',
+        prerequisites: ['threshold-foundations'],
+        questions: agenticAutomationThresholdsQuestions.filter(q => q.difficulty === 'intermediate')
+      },
+      {
+        id: 'diagnostic-loops',
+        name: 'Diagnostic Loops & Meta-Level Insight',
+        description: 'Using agent failure points as a map of where human judgment genuinely lives.',
+        prerequisites: ['hidden-costs'],
+        questions: agenticAutomationThresholdsQuestions.filter(q => q.difficulty === 'advanced')
       }
     ]
   }

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, ArrowLeft, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb, MagnifyingGlass, CaretRight, Funnel, Eye } from "@phosphor-icons/react"
+import { Brain, ArrowsHorizontal, Shield, Stack, ArrowRight, ArrowLeft, CheckCircle, BookOpen, LinkSimple, Graph, ChartBar, Clock, Lock, Users, Question, Robot, Target, Atom, Database, Lightbulb, MagnifyingGlass, CaretRight, Funnel, Eye, Lightning } from "@phosphor-icons/react"
 import { ShareButton } from "@/components/ui/ShareButton"
 import { CriticalThinkingModal } from "../common/CriticalThinkingModal"
 import { getConceptCue } from "@/lib/data/conceptCues"
@@ -75,6 +75,7 @@ const XYZClawConcept = lazy(() => import("./XYZClawConcept"))
 const TriSystemParadigmConcept = lazy(() => import("./TriSystemParadigmConcept"))
 const ContextEngineeringConcept = lazy(() => import("./ContextEngineeringConcept"))
 const ProactiveAgentDesignConcept = lazy(() => import("./ProactiveAgentDesignConcept"))
+const AgenticAutomationThresholdsConcept = lazy(() => import("./AgenticAutomationThresholdsConcept"))
 const WhatIsAnLLMConcept = lazy(() => import("./WhatIsAnLLMConcept"))
 const ToolUseFunctionCallingConcept = lazy(() => import("./ToolUseFunctionCallingConcept"))
 const HallucinationGroundingConcept = lazy(() => import("./HallucinationGroundingConcept"))
@@ -801,6 +802,17 @@ const concepts: ConceptInfo[] = [
     estimatedTime: '45-60 min',
     prerequisites: ['agent-architecture', 'multi-agent-systems', 'human-in-the-loop-patterns'],
     component: ProactiveAgentDesignConcept
+  },
+  {
+    id: 'agentic-automation-thresholds',
+    title: 'Agentic Automation Thresholds',
+    description: 'The old ROI calculator is broken—learn the four structural shifts that change what\'s worth automating.',
+    level: 'advanced',
+    icon: <Lightning className="w-6 h-6" />,
+    color: 'bg-background text-foreground/80 dark:bg-amber-900/20 dark:text-amber-300',
+    estimatedTime: '40-50 min',
+    prerequisites: ['agent-cost-optimization', 'agent-deployment'],
+    component: AgenticAutomationThresholdsConcept
   },
   // Tier 5: Applied (Enterprise Adoption & Career Growth)
   {

@@ -201,6 +201,11 @@ export const conceptCues: Record<string, ConceptCue> = {
     id: 'proactive-agent-design',
     cue: 'Agents that wait to be asked are agents that arrive too late — proactive design shifts AI from passenger to sentinel.',
     criticalThinkingQuestion: 'How would you design an authority delegation framework for proactive agents that prevents cascade failures and authority creep while still allowing autonomous action fast enough to deliver the proactive advantage?'
+  },
+  'agentic-automation-thresholds': {
+    id: 'agentic-automation-thresholds',
+    cue: 'The old calculator is broken — when setup cost collapses to zero, the question isn\'t "is it worth automating?" but "can I describe the intent?"',
+    criticalThinkingQuestion: 'If 55% of your work sits in the "boring middle" — describable but never scripted — what systematic approach would you use to identify, prioritize, and delegate those tasks to agents while using their failure points to map where your judgment genuinely lives?'
   }
 };
 

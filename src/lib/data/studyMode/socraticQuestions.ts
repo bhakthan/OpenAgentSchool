@@ -7419,6 +7419,155 @@ export const socraticQuestionLibrary = {
         'Addresses authority creep and governance as ongoing processes, not one-time setup'
       ]
     }
+  ],
+
+  // ── Agentic Automation Thresholds ──────────────────────────────────
+  'agentic-automation-thresholds': [
+    {
+      id: 'automation-thresholds-socratic-1',
+      conceptId: 'agentic-automation-thresholds',
+      level: 'beginner',
+      question: 'Think about the last time you decided NOT to automate something — maybe renaming files, cleaning up a spreadsheet, or reformatting a document. What was your reasoning? Now imagine the setup cost was literally $0.02 and took 30 seconds. Would your decision change?',
+      followUpQuestions: [
+        'What was the implicit "ROI gate" in your original decision? Was it frequency, effort, or something else?',
+        'How many one-off tasks do you skip per week because "it\'s faster to just do it"?',
+        'If you totaled the time spent on "not worth automating" tasks over a month, how many hours would it be?'
+      ],
+      expectedInsights: [
+        'Most automation decisions are gated by setup cost, not task complexity',
+        'When setup cost collapses to near-zero, frequency becomes irrelevant',
+        'The "I\'ll just do it myself" reflex is an unexamined economic assumption'
+      ],
+      hints: [
+        'Think about how long it takes to write a script vs. typing a prompt',
+        'Consider that the agent doesn\'t need a specification — just a description of what you want',
+        'Reflect on whether you\'re calculating ROI or just following habit'
+      ],
+      explanation: 'This grounds the Tier 1 insight in personal experience. Students realize that their "not worth automating" filter is calibrated to a world where setup cost was hours of scripting — not seconds of prompting.',
+      relatedConcepts: ['agentic-automation-thresholds', 'agent-cost-optimization', 'agent-economics'],
+      timeEstimate: 8,
+      successCriteria: [
+        'Identifies a specific task they skipped automating and explains the implicit ROI gate',
+        'Recognizes that near-zero setup cost changes the calculation fundamentally',
+        'Articulates at least one task they would now delegate to an agent'
+      ]
+    },
+    {
+      id: 'automation-thresholds-socratic-2',
+      conceptId: 'agentic-automation-thresholds',
+      level: 'intermediate',
+      question: 'You tell a colleague a task takes 15 minutes. But if you time every second from "I should do this" to "I\'m back to my previous work," it\'s actually 50 minutes. Where did the other 35 minutes go? Map the iceberg for a task you do regularly.',
+      followUpQuestions: [
+        'How much time is context-switching (loading the mental model of the task)?',
+        'How much time goes to coordination — Slack messages, finding docs, copying credentials?',
+        'What happens to your flow state on your original work — how long to recover it?'
+      ],
+      expectedInsights: [
+        'Hidden overhead is typically 2-3× the visible task time',
+        'Coordination and context-switching are the largest hidden costs',
+        'Agents eliminate the overhead, not just the task — that\'s where the real speedup lives'
+      ],
+      hints: [
+        'Track: context load time, tool lookup, actual task, coordination, context unload',
+        'Include the "interrupt recovery" cost on your previous work',
+        'Compare: the agent does only the task portion with zero overhead'
+      ],
+      explanation: 'Students discover that they\'ve been measuring task cost wrong their entire careers. The "15-minute task" is really a 50-minute commitment when you count everything below the waterline.',
+      relatedConcepts: ['agentic-automation-thresholds', 'agent-ops', 'agent-cost-optimization'],
+      timeEstimate: 14,
+      successCriteria: [
+        'Creates a concrete overhead breakdown for a real task',
+        'Identifies coordination and context-switching as dominant costs',
+        'Calculates the true speedup (total human time / agent time, not just task time ratio)'
+      ]
+    },
+    {
+      id: 'automation-thresholds-socratic-3',
+      conceptId: 'agentic-automation-thresholds',
+      level: 'intermediate',
+      question: 'Consider a 5-step workflow you do: maybe it\'s "create feature branch → write migration → update config → run tests → open PR." Each step takes 10 minutes. Why does an agent chain give 13× speedup instead of just 5×? Where does the extra acceleration come from?',
+      followUpQuestions: [
+        'How much coordination overhead exists between each step for a human?',
+        'What happens when you\'re interrupted between step 3 and step 4?',
+        'How does the math change if the chain has 10 steps instead of 5?'
+      ],
+      expectedInsights: [
+        'Overhead compounds at every handoff — 5 steps × 25 min overhead = 125 min of invisible cost',
+        'The chain multiplier grows with chain length because overhead is per-transition, not per-task',
+        'Agents eliminate inter-step coordination entirely — they hold context across the entire chain'
+      ],
+      hints: [
+        'Calculate: (task_time + overhead) × steps for human vs. task_time × 0.3 × steps for agent',
+        'Think about what happens to your mental model between steps',
+        'Consider that each "step" requires reloading context about the previous step'
+      ],
+      explanation: 'The chain multiplier is the most counterintuitive insight in automation economics. Students learn to think about workflows, not tasks — and realize that coordination cost, not task complexity, is the bottleneck.',
+      relatedConcepts: ['agentic-automation-thresholds', 'agent-architecture', 'agent-ops'],
+      timeEstimate: 16,
+      successCriteria: [
+        'Correctly identifies overhead compounding as the source of extra acceleration',
+        'Calculates the chain multiplier for their own workflow',
+        'Explains why longer chains have proportionally greater agent advantage'
+      ]
+    },
+    {
+      id: 'automation-thresholds-socratic-4',
+      conceptId: 'agentic-automation-thresholds',
+      level: 'advanced',
+      question: 'You delegate an incident response workflow to an agent for 50 incidents. It handles log collection, known-fix application, and postmortem drafting autonomously — but consistently fails at root-cause classification. What does this pattern tell you about where your expertise genuinely lives versus where it was just habit?',
+      followUpQuestions: [
+        'Were you surprised by which steps the agent handled easily? Which did you expect to be harder?',
+        'What does the agent\'s failure boundary tell you about the nature of "root-cause classification" — what makes it genuinely hard?',
+        'How would you redesign your team\'s role allocation based on this diagnostic map?'
+      ],
+      expectedInsights: [
+        'Agent failure points are a diagnostic for human judgment — they map where expertise genuinely lives',
+        'Many tasks humans assumed required judgment were actually pattern-matching the agent handles fine',
+        'The meta-level insight: use automation as a mirror to see your own workflow clearly for the first time'
+      ],
+      hints: [
+        'Think about which steps felt "too context-dependent" before you tried delegating them',
+        'Consider that the agent might handle steps you assumed were hard and fail on steps you assumed were easy',
+        'Reflect on whether "root-cause classification" requires novel reasoning or accumulated context'
+      ],
+      explanation: 'This is the Tier 4 capstone insight: automation as a diagnostic for judgment. Students learn to read the agent\'s failure map as a mirror — what it can\'t do IS the map of where human expertise genuinely lives. Everything else was habit wearing the costume of judgment.',
+      relatedConcepts: ['agentic-automation-thresholds', 'agent-ops', 'human-in-the-loop-patterns', 'agent-observability'],
+      timeEstimate: 20,
+      successCriteria: [
+        'Distinguishes genuine judgment from habit-as-judgment using the agent\'s failure map',
+        'Proposes a team role redesign based on the diagnostic insight',
+        'Articulates how the meta-level insight applies beyond incident response to any workflow'
+      ]
+    },
+    {
+      id: 'automation-thresholds-socratic-5',
+      conceptId: 'agentic-automation-thresholds',
+      level: 'advanced',
+      question: 'Your organization still uses the old "is it worth automating?" gate for all projects. You want to introduce the four-tier threshold framework. Design a rollout strategy that addresses skeptics who say "agents are unreliable" and executives who say "prove the ROI before we invest." How do you sequence the tiers to build evidence?',
+      followUpQuestions: [
+        'Which tier provides the quickest, most undeniable proof? How would you present it?',
+        'How do you handle the objection "but we need a business case before we try"?',
+        'What metrics would you track at each tier to demonstrate cumulative value?'
+      ],
+      expectedInsights: [
+        'Tier 1 (cost collapse) provides instant proof — delegate one-off tasks and show time/cost savings',
+        'The "prove ROI before trying" objection is itself the Tier 1 misreading — trying IS the proof when cost ≈ 0',
+        'Organizational adoption requires building evidence tier by tier, not presenting the full framework at once'
+      ],
+      hints: [
+        'Start with undeniable wins: one-off tasks that everyone agrees "aren\'t worth scripting"',
+        'Use the iceberg mapping exercise on a real team workflow to make hidden overhead visible',
+        'Frame Tier 4 (diagnostic loop) as a management tool, not a technical one'
+      ],
+      explanation: 'Students learn that adopting a new mental model requires evidence at each level. You can\'t skip tiers — skeptics need to experience cost collapse before they\'ll accept "describe, don\'t decompose," and they need to see hidden overhead before they trust the diagnostic loop.',
+      relatedConcepts: ['agentic-automation-thresholds', 'organizational-enablement', 'agent-economics', 'strategy-portfolio-management'],
+      timeEstimate: 22,
+      successCriteria: [
+        'Designs a tier-by-tier rollout with specific evidence-building activities',
+        'Addresses the circular "prove ROI to invest / invest to prove ROI" objection',
+        'Identifies metrics for each tier (cost saved, tasks unlocked, overhead mapped, judgment mapped)'
+      ]
+    }
   ]
 };
 

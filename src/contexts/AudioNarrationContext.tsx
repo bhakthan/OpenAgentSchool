@@ -625,6 +625,10 @@ export function AudioNarrationProvider({ children }: { children: ReactNode }) {
         'proactive-agent-design': 'ProactiveAgentDesignConcept',
         'ProactiveAgentDesignConcept': 'ProactiveAgentDesignConcept',
         
+        // Agentic Automation Thresholds
+        'agentic-automation-thresholds': 'AgenticAutomationThresholdsConcept',
+        'AgenticAutomationThresholdsConcept': 'AgenticAutomationThresholdsConcept',
+        
         // Tier 0 Prompting chain (broken wiring fix — 2026 audit)
         'agentic-prompting-fundamentals': 'Agentic_Prompting_Fundamentals',
         'prompt-optimization-patterns': 'PromptOptimizationPatterns',

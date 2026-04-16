@@ -300,6 +300,10 @@ export function getComponentAudioFile(componentName: string): string {
     'proactive-agent-design': 'ProactiveAgentDesignConcept_explanation',
     'ProactiveAgentDesignConcept': 'ProactiveAgentDesignConcept_explanation',
     
+    // Agentic Automation Thresholds
+    'agentic-automation-thresholds': 'AgenticAutomationThresholdsConcept_explanation',
+    'AgenticAutomationThresholdsConcept': 'AgenticAutomationThresholdsConcept_explanation',
+    
     // Add more mappings as needed
   };
 

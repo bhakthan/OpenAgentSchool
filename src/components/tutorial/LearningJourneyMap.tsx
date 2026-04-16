@@ -96,7 +96,7 @@ const learningPaths: LearningPath[] = [
   'agent-deployment', 'agent-learning', 'agent-integration', 'agentic-robotics-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management',
       'agent-ops', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'tri-system-paradigm',
       // Production Foundations (2026)
-      'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization', 'proactive-agent-design',
+      'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization', 'proactive-agent-design', 'agentic-automation-thresholds',
       // Tier 5: Applied & Career
       'agent-troubleshooting', 'agent-economics', 'agent-career-paths', 'industry-agents', 'agent-templates-hub'
     ],
@@ -955,6 +955,20 @@ const learningPaths: LearningPath[] = [
         isUnlocked: false,
         path: '/concepts'
       },
+      {
+        id: 'agentic-automation-thresholds',
+        title: 'Agentic Automation Thresholds',
+        description: 'The old ROI calculator is broken—learn the four structural shifts that change what\'s worth automating.',
+        icon: <Lightning size={20} />,
+        difficulty: 'advanced',
+        estimatedTime: '40-50 min',
+        prerequisites: ['agent-cost-optimization', 'agent-deployment'],
+        skills: ['Cost Collapse Analysis', 'Overhead Mapping', 'Chain Multiplier', 'Diagnostic Loops'],
+        completionRate: 0,
+        isCompleted: false,
+        isUnlocked: false,
+        path: '/concepts'
+      },
       
       // Tier 5: Applied & Career
       {
@@ -1196,7 +1210,7 @@ export const LearningJourneyMap: React.FC<LearningJourneyMapProps> = ({
     // Tier 3: Implementation - ACP, MCP Integration, Data Pipelines
     ['acp', 'mcp-a2a-integration', 'data-visualization', 'data-knowledge-operations', 'xyz-claw'],
     // Tier 4: Advanced - Operations, Learning, Integration, Commerce, Robotics, Reasoning, Memory, Security
-    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'tri-system-paradigm', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization', 'proactive-agent-design'],
+    ['agent-deployment', 'agent-learning', 'agent-integration', 'fine-tuning', 'quantum-ai-robotics', 'edge-agent', 'agentic-commerce-ap2', 'product-management', 'agent-red-teaming', 'agent-ops', 'agentic-robotics-integration', 'architecture-platform-operations', 'experimentation-continuous-improvement', 'ecosystem-partnerships', 'organizational-enablement', 'tri-system-paradigm', 'agent-reasoning-patterns', 'agent-memory-systems', 'agent-observability', 'agent-testing-benchmarks', 'prompt-injection-defense', 'human-in-the-loop-patterns', 'agent-cost-optimization', 'proactive-agent-design', 'agentic-automation-thresholds'],
     // Tier 5: Applied - Career, Enterprise Adoption, Templates
     ['agent-troubleshooting', 'agent-economics', 'agent-career-paths', 'industry-agents', 'agent-templates-hub'],
     // Tier 6: Hands-On Practice - Phase 1-3 features (login required)

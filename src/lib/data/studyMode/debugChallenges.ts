@@ -9252,6 +9252,239 @@ class FraudAgent:
         explanation: 'Multi-agent cascade failures are emergent — no single agent is buggy, but the system of agents creates positive feedback. This mirrors real-world flash crashes in financial markets and requires the same solution: provenance tracking, dampening, and circuit breakers.'
       }
     }
+  ],
+
+  // ── Agentic Automation Thresholds ──────────────────────────────────
+  'agentic-automation-thresholds': [
+    {
+      id: 'automation-thresholds-debug-1',
+      conceptId: 'agentic-automation-thresholds',
+      level: 'beginner',
+      question: 'A team built an ROI calculator to decide which tasks to automate with agents. But after using it for 3 months, they\'ve only automated 4 tasks — all high-frequency ones — while hundreds of one-off and low-frequency tasks remain manual. Review their automation decision function and find the bug in their economic reasoning.',
+      followUpQuestions: [
+        'Why does their calculator reject one-off tasks even when the agent setup cost is near-zero?',
+        'What assumption about "setup cost" is baked into the formula?',
+        'How would you fix the calculator to reflect the agent-era economics?'
+      ],
+      expectedInsights: [
+        'The formula uses legacy automation economics where setup cost was measured in hours/days, not seconds',
+        'When setup cost ≈ 0, the frequency threshold collapses — any describable task is worth automating',
+        'The "minimum frequency" gate is the bug: it filters out the entire boring middle'
+      ],
+      hints: [
+        'Look at the SETUP_COST_HOURS constant — is this realistic for an LLM agent?',
+        'What happens to min_frequency_per_month when setup_cost approaches 0?',
+        'The "boring middle" (55% of work) is specifically low-frequency, low-glamour tasks'
+      ],
+      explanation: 'This is the most common real-world bug: organizations apply traditional automation economics to agent-era tools. The formula is mathematically correct for RPA/scripting (where setup = hours) but completely wrong when setup = describing the task in natural language.',
+      relatedConcepts: ['agentic-automation-thresholds', 'agent-cost-optimization', 'agent-economics'],
+      timeEstimate: 12,
+      successCriteria: [
+        'Identifies SETUP_COST_HOURS as the root cause of over-filtering',
+        'Explains why frequency thresholds collapse when setup ≈ 0',
+        'Rewrites the calculator to use agent-era economics'
+      ],
+      debugChallenge: {
+        brokenCode: `# Automation ROI Calculator — "Why aren't we automating more?"
+SETUP_COST_HOURS = 8  # BUG: Legacy scripting estimate, not agent-era
+HOURLY_RATE = 75
+
+def should_automate(task_name, task_minutes, frequency_per_month):
+    """Decide if a task is worth automating."""
+    setup_cost = SETUP_COST_HOURS * HOURLY_RATE  # $600 setup
+    monthly_savings = (task_minutes / 60) * HOURLY_RATE * frequency_per_month
+    payback_months = setup_cost / monthly_savings if monthly_savings > 0 else float('inf')
+    
+    # Reject if payback > 6 months
+    if payback_months > 6:
+        return False, f"ROI too low: {payback_months:.1f} month payback"
+    
+    # Reject if frequency too low
+    min_frequency = setup_cost / (HOURLY_RATE * 2)  # Need 4x/month minimum
+    if frequency_per_month < min_frequency:
+        return False, f"Too infrequent: need {min_frequency:.0f}x/month"
+    
+    return True, f"Automate! Payback in {payback_months:.1f} months"
+
+# Results:
+# should_automate("deploy config change", 15, 1)
+#   → (False, "ROI too low: 32.0 month payback")  ← WRONG!
+# should_automate("format report", 20, 2)
+#   → (False, "Too infrequent: need 4x/month")     ← WRONG!
+# should_automate("process invoices", 10, 200)
+#   → (True, "Automate! Payback in 0.2 months")    ← Only high-freq passes`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'ROI Calculator', message: 'Task "deploy config change" (15min, 1x/month): REJECTED — 32.0 month payback', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'ROI Calculator', message: 'Task "format report" (20min, 2x/month): REJECTED — too infrequent', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'ROI Calculator', message: 'Task "rename files batch" (5min, 1x/quarter): REJECTED — ROI too low', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Engineer', message: 'We\'ve run 400 tasks through the calculator. Only 12 passed. Are we really only supposed to automate 3% of our work?', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Manager', message: 'The math doesn\'t lie. Most tasks just aren\'t frequent enough.', type: 'error' }
+        ],
+        expectedBehavior: 'With agent-era economics (setup ≈ 0.01 hours), virtually every describable task should pass the automation gate. The "deploy config change" at 15min/1x month should be an obvious yes.',
+        commonIssues: [
+          { issue: 'SETUP_COST_HOURS is calibrated for scripting, not agents', symptoms: ['Only high-frequency tasks pass', '97% of tasks rejected'], diagnosis: 'Using 8 hours setup when agent setup is ~30 seconds', fix: 'Change SETUP_COST_HOURS to 0.01 (36 seconds) for agent-era tasks' },
+          { issue: 'Minimum frequency gate is too high', symptoms: ['Low-frequency tasks always rejected regardless of value'], diagnosis: 'min_frequency is derived from the inflated setup cost', fix: 'Remove min_frequency gate entirely, or set it to 0.1 (once every 10 months)' },
+          { issue: 'Missing overhead multiplier', symptoms: ['15-min task measured as 15 min, not actual 50 min'], diagnosis: 'task_minutes only counts execution, not context-switch + coordination overhead', fix: 'Add OVERHEAD_MULTIPLIER = 3.3; true_cost = task_minutes * OVERHEAD_MULTIPLIER' }
+        ],
+        hints: ['What would SETUP_COST_HOURS be if setup = "type a prompt"?', 'What happens to payback_months when setup_cost is $0.75 instead of $600?', 'Are you counting the full cost of the task, or just the execution portion?'],
+        solution: 'Fix: (1) SETUP_COST_HOURS = 0.01 (agent setup ≈ 30 seconds, not 8 hours). (2) Add OVERHEAD_MULTIPLIER = 3.3 to capture true task cost. (3) Remove the min_frequency gate — when setup ≈ 0, even one-off tasks are worth automating. With these fixes, "deploy config change" shows $0.75 setup vs. $62/month savings → instant payback.',
+        explanation: 'The ROI calculator was built for a world where automation meant scripting. The formula is mathematically sound — the constants are wrong. This is the most common organizational bug: applying pre-agent economics to post-agent tools. Fix the constants, not the formula.'
+      }
+    },
+    {
+      id: 'automation-thresholds-debug-2',
+      conceptId: 'agentic-automation-thresholds',
+      level: 'intermediate',
+      question: 'A DevOps team automated a 5-step deployment pipeline with agents. Each step takes 10 minutes for a human, so they estimated total savings of 50 minutes per deployment. But actual measurements show they\'re saving 166 minutes per deployment. Their manager thinks the measurements are wrong. Find the bug in their estimation model.',
+      followUpQuestions: [
+        'Where does the extra 116 minutes of savings come from?',
+        'Why does a 5-step chain give 13× speedup instead of 5×?',
+        'What would happen to the calculation if it were an 8-step chain instead?'
+      ],
+      expectedInsights: [
+        'The team only counted task execution time, not inter-step overhead',
+        'Each human step actually costs ~33 min (10 task + 23 overhead), totaling 166 min',
+        'The agent chain eliminates all overhead — coordination cost compounds at every handoff'
+      ],
+      hints: [
+        'Time one human doing the full pipeline end-to-end, including context switches between steps',
+        'Look at what happens between steps: Slack messages, doc lookups, credential hunting',
+        'The agent holds context across all 5 steps — it never switches context'
+      ],
+      explanation: 'The chain multiplier is the most underestimated value in agent automation. Teams consistently estimate savings based on task time only, missing the 2-3× overhead at each step that compounds across the chain.',
+      relatedConcepts: ['agentic-automation-thresholds', 'agent-ops', 'agent-architecture'],
+      timeEstimate: 16,
+      successCriteria: [
+        'Identifies inter-step overhead as the source of extra savings',
+        'Creates a correct breakdown showing overhead per step',
+        'Calculates the chain multiplier formula correctly'
+      ],
+      debugChallenge: {
+        brokenCode: `# Deployment Pipeline Savings Estimator — "The numbers can't be right"
+STEPS = [
+    {"name": "create_branch", "task_minutes": 10},
+    {"name": "write_migration", "task_minutes": 10},
+    {"name": "update_config", "task_minutes": 10},
+    {"name": "run_tests", "task_minutes": 10},
+    {"name": "open_pr", "task_minutes": 10},
+]
+
+def estimate_savings():
+    """How much time does the agent save?"""
+    human_total = sum(s["task_minutes"] for s in STEPS)  # 50 min
+    agent_total = sum(s["task_minutes"] * 0.3 for s in STEPS)  # 15 min (agent is faster)
+    
+    savings = human_total - agent_total  # 35 min estimated savings
+    return savings
+
+# BUG: estimate_savings() returns 35, but measured savings is 166!
+# Manager: "Your measurements are wrong. 5 steps × 10 min = 50 min. 
+#           Agent does it in 15 min. That's 35 min savings. Period."
+
+# What the team ACTUALLY measured per human deployment:
+# Step 1: 10 min task + 8 min context load + 5 min tool lookup = 23 min
+# Step 2: 10 min task + 7 min recall prev step + 6 min find docs = 23 min  
+# Step 3: 10 min task + 5 min coordination + 3 min credentials = 18 min
+# Step 4: 10 min task + 12 min waiting/monitoring + 5 min context = 27 min
+# Step 5: 10 min task + 8 min summarize changes + 7 min review = 25 min
+# PLUS: 50 min total flow-state recovery across all interruptions
+# Real total: 166 min. Agent total: 12 min. Savings: 154 min.`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Estimator', message: 'Pipeline automation savings estimate: 35 minutes per deployment', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Measurement', message: 'Actual measured savings: 154-166 minutes per deployment', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Manager', message: 'Your measurement methodology must be wrong. The math says 35 min.', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'Engineer', message: 'We timed everything — context switches, Slack messages, doc lookups, credential hunting. It all adds up.', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Agent', message: 'Pipeline completed: 5 steps in 12 minutes. Zero context switches. Zero coordination overhead.', type: 'info' }
+        ],
+        expectedBehavior: 'The estimator should account for overhead per step (context loading, coordination, tool lookup) and flow-state recovery. Correct estimate: human = 166 min, agent = 12 min, savings = 154 min.',
+        commonIssues: [
+          { issue: 'Only counting task execution time', symptoms: ['Estimated savings far below actual'], diagnosis: 'Missing 2-3× overhead per step', fix: 'Add OVERHEAD_PER_STEP = task_time * 1.3 for context switch, coordination, tool lookup' },
+          { issue: 'Missing flow-state recovery cost', symptoms: ['Total overhead underestimated even with per-step additions'], diagnosis: 'Each context switch costs 10-15 min of recovery on the engineer\'s original work', fix: 'Add FLOW_STATE_RECOVERY = 10 * num_steps minutes' },
+          { issue: 'Ignoring chain compounding', symptoms: ['Linear estimate when overhead is per-transition'], diagnosis: 'Overhead grows with chain length, not just chain count', fix: 'Model: human_time = Σ(task_time + overhead) + flow_recovery; agent_time = Σ(task_time × 0.3)' }
+        ],
+        hints: ['Time everything from "I should start step 1" to "I\'m back on my original work after step 5"', 'Count the Slack messages, doc lookups, and context switches between steps', 'What does the agent NOT do that a human must? It never context-switches.'],
+        solution: 'Fix: Add overhead tracking. Each step: task_minutes + overhead (context load + coordination + tool lookup). Add flow_state_recovery = 10 × num_steps. Formula: human_total = Σ(task + overhead) + flow_recovery = 116 + 50 = 166 min. Agent_total = Σ(task × 0.3) = 15 min. Real savings = 151 min, not 35 min.',
+        explanation: 'The estimation bug is universal: teams measure task time because it\'s visible, and ignore overhead because it\'s invisible. The chain multiplier compounds this error at every step. The "measurement" was correct all along — the model was wrong.'
+      }
+    },
+    {
+      id: 'automation-thresholds-debug-3',
+      conceptId: 'agentic-automation-thresholds',
+      level: 'advanced',
+      question: 'An engineering team deployed agents across their workflow and built a dashboard showing which tasks the agent succeeds and fails at. But they\'re only using the dashboard to "fix the agent" — they tweak prompts when it fails and move on. They\'re missing the meta-level insight entirely. What should they actually be doing with the failure data?',
+      followUpQuestions: [
+        'What does the agent\'s failure boundary tell you about the nature of the failed tasks?',
+        'How would you use the failure map to redesign team role allocation?',
+        'What\'s the difference between "fixing the agent" and "reading the diagnostic map"?'
+      ],
+      expectedInsights: [
+        'Agent failure points are a diagnostic for human judgment — they map where expertise genuinely lives',
+        'The team should be redesigning their roles based on what the agent can and cannot do',
+        'Failures that persist after prompt tuning indicate genuine judgment, not fixable gaps'
+      ],
+      hints: [
+        'Think of the agent as a mirror: what it fails at IS the map of your real expertise',
+        'Compare: a doctor uses an MRI to learn about the patient, not to "fix the MRI"',
+        'Persistent failure patterns are the most valuable data in the dashboard'
+      ],
+      explanation: 'The Tier 4 diagnostic loop: most teams use agent failure data to improve the agent. The deeper insight is using failure data to understand where human judgment genuinely lives versus where it was just habit. The agent is a mirror — its blind spots are your strengths.',
+      relatedConcepts: ['agentic-automation-thresholds', 'agent-observability', 'human-in-the-loop-patterns', 'agent-testing-benchmarks'],
+      timeEstimate: 20,
+      successCriteria: [
+        'Distinguishes "fixing the agent" from "reading the diagnostic map"',
+        'Proposes using failure data for team role redesign',
+        'Identifies which failures indicate genuine judgment vs. prompt gaps'
+      ],
+      debugChallenge: {
+        brokenCode: `# Agent Success/Failure Dashboard — Missing the forest for the trees
+class AgentDashboard:
+    def __init__(self):
+        self.results = []  # {task, status, failure_reason}
+    
+    def on_task_complete(self, task, status, failure_reason=None):
+        self.results.append({"task": task, "status": status, "reason": failure_reason})
+        
+        # BUG: Only action on failure is "fix the agent"
+        if status == "failed":
+            self.create_prompt_fix_ticket(task, failure_reason)
+    
+    def weekly_report(self):
+        """Generate report — but it only shows fix-the-agent metrics"""
+        failures = [r for r in self.results if r["status"] == "failed"]
+        return {
+            "total_tasks": len(self.results),
+            "success_rate": len([r for r in self.results if r["status"] == "success"]) / len(self.results),
+            "failures_to_fix": len(failures),  # ← Framing: failures are bugs to fix
+            "prompt_tickets_created": len(failures),
+            # MISSING: What categories of tasks consistently fail?
+            # MISSING: What do failures tell us about where human judgment lives?
+            # MISSING: How should team roles change based on this data?
+        }
+    
+    def create_prompt_fix_ticket(self, task, reason):
+        """Create ticket to improve agent prompt — but is this always the right response?"""
+        # Some failures ARE prompt fixable (formatting, wrong tool selection)
+        # Some failures are diagnostic (novel reasoning, ambiguous requirements, ethical judgment)
+        # The dashboard doesn't distinguish between these two categories
+        pass`,
+        conversationLogs: [
+          { timestamp: new Date().toISOString(), agent: 'Dashboard', message: 'Weekly report: 89% success rate. 47 failures → 47 prompt fix tickets created.', type: 'info' },
+          { timestamp: new Date().toISOString(), agent: 'Engineer', message: 'We fixed 30 prompts last week. 12 of the same tasks failed again this week.', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Engineer', message: 'Root cause classification, ambiguous requirements, and cross-team negotiation keep failing no matter how we tune the prompts.', type: 'warning' },
+          { timestamp: new Date().toISOString(), agent: 'Manager', message: 'Keep fixing the prompts. Target 95% success rate.', type: 'error' },
+          { timestamp: new Date().toISOString(), agent: 'Insight', message: 'The persistent failures ARE the insight. They map where human judgment genuinely lives.', type: 'info' }
+        ],
+        expectedBehavior: 'Dashboard should categorize failures into "prompt-fixable" (tool selection, formatting) vs. "diagnostic" (novel reasoning, ambiguous requirements, ethical judgment). Diagnostic failures should trigger role-redesign discussions, not prompt-fix tickets.',
+        commonIssues: [
+          { issue: 'All failures treated as agent bugs to fix', symptoms: ['Same tasks fail repeatedly despite prompt tuning'], diagnosis: 'Some failures indicate genuine human judgment needs, not agent bugs', fix: 'Classify failures as "prompt-fixable" vs. "diagnostic" based on persistence after 2+ prompt iterations' },
+          { issue: 'Dashboard lacks failure pattern analysis', symptoms: ['No visibility into what categories of tasks consistently fail'], diagnosis: 'Missing clustering/categorization of failure patterns', fix: 'Add failure_category field; cluster persistent failures; generate "judgment map" report' },
+          { issue: 'No connection from failure data to team role design', symptoms: ['Team roles unchanged despite 6 months of automation data'], diagnosis: 'Failure insights stay in the engineering team, never reach management', fix: 'Add "Role Impact Analysis" to weekly report: which human roles should expand/contract based on the diagnostic map' }
+        ],
+        hints: ['If a task fails after 3+ prompt iterations, is the prompt really the problem?', 'What would a doctor do with an MRI — fix the MRI or read the image?', 'Persistent failures cluster around specific task types — what do those types have in common?'],
+        solution: 'Fix: (1) Add failure classification: prompt-fixable (< 2 iterations to fix) vs. diagnostic (persists after tuning). (2) Cluster diagnostic failures by category. (3) Generate "Judgment Map" report showing where human expertise genuinely lives. (4) Feed into quarterly role-redesign: humans focus on judgment tasks, agents handle everything else. The dashboard becomes a mirror, not a bug tracker.',
+        explanation: 'The Tier 4 insight: automation as a diagnostic tool. Most organizations will use agent failure data the obvious way — to improve the agent. The deeper insight is that persistent failure patterns are a map of where human judgment genuinely lives. Everything the agent handles successfully was habit wearing the costume of judgment. The dashboard should be a mirror, not a bug tracker.'
+      }
+    }
   ]
 };
 

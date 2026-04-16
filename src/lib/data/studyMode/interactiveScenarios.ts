@@ -9089,6 +9089,100 @@ class QuantumAugmentedNavigation:
   }
 ];
 
+// Agentic Automation Thresholds — What's Worth Automating
+(scenarioLibrary as any)['agentic-automation-thresholds'] = [
+  {
+    id: 'automation-thresholds-scenario-1',
+    type: 'scenario',
+    conceptId: 'agentic-automation-thresholds',
+    title: 'The Boring-Middle Audit',
+    level: 'intermediate',
+    scenario: {
+      title: 'Unlocking the 55% Nobody Automates',
+      description: 'Your engineering team has automated their high-frequency CI/CD tasks (10% of work) and executives have flashy AI demos (35% of budget). But 55% of actual engineering time goes to "boring middle" tasks — config changes, doc updates, test data generation, log cleanup — that nobody prioritizes for automation because they\'re individually small and infrequent.',
+      context: 'Mid-size SaaS company. 40 engineers. Average engineer spends 22 hours/week on "boring middle" tasks. Management wants to improve velocity but keeps investing in high-profile automation.',
+      stakeholders: ['Engineering Leads', 'VP Engineering', 'Individual Contributors'],
+      systemState: { engineers: 40, weeklyBoringMiddleHours: 880, automatedTasks: 12, pendingTasks: 340 },
+      challenges: ['No single task justifies a project', 'Tasks are diverse and ad-hoc', 'ROI calculator rejects them all'],
+      decisionPoints: ['How to identify boring-middle tasks?', 'How to justify automation when each task is small?', 'How to measure success?'],
+      options: [
+        'Build a comprehensive automation platform with a task catalog, approval workflow, and ROI tracking — estimated 3-month project',
+        'Run a 1-week "describe it, don\'t decompose it" sprint: engineers spend 15 minutes each describing 5 boring-middle tasks as natural language prompts, delegate to agents immediately, measure time recaptured vs. time invested',
+        'Hire 2 more engineers to handle the manual work — it\'s not worth automating because each task is different'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Building a platform is the old thinking — it treats agent automation like traditional automation (high setup cost). You\'d spend 3 months building infrastructure for a problem that can be solved in a week.',
+      'The "describe, don\'t decompose" sprint proves the new economics immediately. Setup cost per task = 15 minutes of prompt writing. If even half the delegations succeed, you\'ve recaptured 400+ hours/week.',
+      'Hiring more humans to do what agents can do is the Tier 1 misreading: you\'re using the old "is it worth automating?" gate and concluding "no" because each task is individually small.'
+    ],
+    followUpQuestions: [
+      'Which categories of boring-middle tasks had the highest agent success rate?',
+      'For tasks that agents failed — is the failure a prompt issue or a genuine judgment requirement?',
+      'How would you report the results to convince the VP to expand the approach?'
+    ],
+    expectedInsights: [
+      'High success rate on: config changes, doc updates, test data, log cleanup, formatting, migrations',
+      'Use failure patterns as Tier 4 diagnostic: persistent failures map where human judgment genuinely lives',
+      'Report: "In 1 week with $200 in agent costs, we recaptured X hours/week. Old ROI calculator would have rejected all 340 tasks."'
+    ],
+    businessContext: 'The "boring middle" is where most organizations waste the most human time. It persists because each task is too small to justify traditional automation. Agent-era economics eliminate the threshold entirely.',
+    relatedConcepts: ['agentic-automation-thresholds', 'agent-cost-optimization', 'agent-economics', 'organizational-enablement'],
+    timeEstimate: 18,
+    successCriteria: [
+      'Chooses immediate experimentation over platform-building',
+      'Understands that "describe, don\'t decompose" is the new default',
+      'Plans to use failure data diagnostically, not just as bugs to fix'
+    ]
+  },
+  {
+    id: 'automation-thresholds-scenario-2',
+    type: 'scenario',
+    conceptId: 'agentic-automation-thresholds',
+    title: 'The Chain Multiplier Discovery',
+    level: 'advanced',
+    scenario: {
+      title: 'Why Did the Agent Save 10× More Time Than Expected?',
+      description: 'Your team automated a 7-step incident response workflow with an agent chain. Engineering estimated it would save 70 minutes per incident (7 steps × 10 minutes each). After 100 incidents, measured savings are 650 minutes per incident. The CFO thinks the measurement is wrong. You need to explain the discrepancy and decide how to leverage this insight across the organization.',
+      context: 'Enterprise with 200 incidents/month. Agent chain handles: log collection, known-fix lookup, fix application, config rollback verification, stakeholder notification, postmortem draft, and Jira ticket creation.',
+      stakeholders: ['CFO', 'SRE Lead', 'VP Engineering', 'CTO'],
+      systemState: { monthlyIncidents: 200, estimatedSavingsPerIncident: 70, actualSavingsPerIncident: 650, agentCostPerIncident: 2.50 },
+      challenges: ['Explaining the 9× discrepancy to skeptical executives', 'Scaling the insight to other workflows', 'Changing the estimation model org-wide'],
+      decisionPoints: ['How to explain the discrepancy?', 'How to change estimation methodology?', 'Which workflows to target next?'],
+      options: [
+        'Acknowledge the measurement might be inflated and conservatively report 70 min savings — "under-promise and over-deliver"',
+        'Present the chain multiplier analysis: map the full overhead per step (context load + coordination + flow recovery) showing the 70→650 min gap is real, then use this as the new estimation model for identifying high-value automation targets across the org',
+        'Report 650 min but attribute it to "agent efficiency" without explaining the mechanism — executives don\'t need the details'
+      ]
+    },
+    correctOption: 1,
+    rationales: [
+      'Under-reporting actual savings undermines the case for automation and lets the old ROI model persist. You\'d be perpetuating the very thinking that blocked 55% of automation opportunities.',
+      'The chain multiplier analysis is both truthful and transformative. It gives executives a new mental model: chains compound overhead savings. This unlocks budget and priority for automating every multi-step workflow in the org.',
+      'Claiming savings without explaining the mechanism makes it look like magic. When the next workflow doesn\'t hit 10×, executives will lose trust. The mechanism needs to be understood to be applied systematically.'
+    ],
+    followUpQuestions: [
+      'Which other workflows in the org have the most steps (and therefore the highest chain multiplier)?',
+      'How do you build an "overhead audit" into the standard planning process?',
+      'What happens to team roles when 650 min/incident is recaptured?'
+    ],
+    expectedInsights: [
+      'Target workflows by step count, not task complexity — the chain multiplier grows with chain length',
+      'Build overhead mapping into sprint planning: every multi-step workflow gets a "true cost" analysis',
+      'Recaptured time should shift SREs from firefighting to prevention and system design — the Tier 4 diagnostic insight'
+    ],
+    businessContext: 'The chain multiplier is the most counterintuitive insight in automation economics. Organizations that understand it will target multi-step workflows first. Those that don\'t will keep automating only high-frequency tasks and miss the biggest opportunities.',
+    relatedConcepts: ['agentic-automation-thresholds', 'agent-ops', 'agent-architecture', 'agent-economics'],
+    timeEstimate: 22,
+    successCriteria: [
+      'Explains the chain multiplier mechanism clearly',
+      'Proposes changing the org-wide estimation methodology',
+      'Identifies next-highest-value workflows by step count'
+    ]
+  }
+];
+
 // Helper function to get scenarios by concept and level
 export function getScenarios(
   conceptId: string, 
